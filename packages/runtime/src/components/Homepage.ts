@@ -16,7 +16,7 @@ export default defineComponent({
     const { renderer, loading, dsl } = usePage(pageId);
     const { Mask, maskable, maskProps } = useMask(pageId);
     const route = useRoute();
-    const title = computed(() => dsl.value?.title || '');
+    const title = computed(() => dsl.value?.title || 'Hello VTJ.');
     useTitle(title);
     return {
       route,

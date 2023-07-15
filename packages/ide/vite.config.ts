@@ -21,11 +21,13 @@ const alias =
       }
     : undefined;
 
+const ide = process.env.ENV_TYPE === 'live' ? false : true;
+const outDir = process.env.ENV_TYPE === 'live' ? 'dist/ide' : 'dist/demo';
 export default createViteConfig({
   base: './',
   host: '0.0.0.0',
-  ide: process.env.ENV_TYPE === 'local' ? true : false,
-  outDir: 'dist/ide',
+  ide: ide,
+  outDir: outDir,
   port: 9527,
   https: false,
   elementPlus: false,

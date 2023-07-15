@@ -10,6 +10,7 @@ import '@/style/index.scss';
 import { ideConfig } from '@/api';
 
 const isDev = process.env.ENV_TYPE === 'local';
+const idDemo = process.env.ENV_TYPE === 'uat';
 const app = createApp(App);
 
 const modules = isDev
@@ -17,21 +18,22 @@ const modules = isDev
   : undefined;
 
 (async () => {
-  const options = isDev ? undefined : await ideConfig();
+  const options = isDev || idDemo ? undefined : await ideConfig();
   const provider = await createProvider({
-    project: isDev ? ({ home: '/startup' } as any) : undefined,
+    service: idDemo ? 'storage' : 'file',
+    project: isDev || idDemo ? ({ home: '/startup' } as any) : undefined,
     ...options,
     app,
     modules,
     router,
-    ide: isDev ? { path: '/' } : null,
-    startup: isDev ? true : false
+    ide: isDev || idDemo ? { path: '/' } : null,
+    startup: isDev || idDemo ? true : false
   });
   app.use(provider);
   app.use(router);
   app.mount('#app');
 
-  if (isDev && !sessionStorage.getItem('startup')) {
+  if ((isDev || idDemo) && !sessionStorage.getItem('startup')) {
     sessionStorage.setItem('startup', '1');
     router.push('/startup');
   }
