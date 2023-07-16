@@ -1,7 +1,7 @@
 {
   "name": "@vtj/assets",
   "private": false,
-  "version": "0.4.4",
+  "version": "0.4.5",
   "scripts": {
     "setup": "pnpm install --registry=https://registry.npmmirror.com",
     "dev": "cross-env ENV_TYPE=dev vite",
