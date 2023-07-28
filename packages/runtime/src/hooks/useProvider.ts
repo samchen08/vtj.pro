@@ -1,6 +1,10 @@
-import { getCurrentInstance } from 'vue';
-import { Provider } from '../Provider';
-export function useProvider(): Provider | undefined {
-  const instance = getCurrentInstance();
-  return instance?.appContext.app.config.globalProperties.$provider;
+import { inject } from 'vue';
+import { Provider, providerInjectKey } from '../Provider';
+
+export function useProvider(): Provider {
+  const provider = inject(providerInjectKey, null);
+  if (!provider) {
+    throw new Error(`useProvider Provider 未定义`);
+  }
+  return provider as Provider;
 }

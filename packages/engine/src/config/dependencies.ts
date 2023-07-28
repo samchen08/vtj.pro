@@ -79,30 +79,30 @@ export const dependencies: Dependencie[] = [
     required: false,
     official: true,
     enabled: false
-  },
-  {
-    package: 'xe-utils',
-    version: 'latest',
-    library: 'XEUtils',
-    urls: ['./libs/xe-utils.min.js'],
-    required: false,
-    official: true,
-    enabled: false
-  },
-  {
-    package: 'vxe-table',
-    version: 'latest',
-    library: 'VXETable',
-    urls: [
-      './libs/vxe-table.css',
-      // '/libs/vxe-table-pro.css',
-      './libs/vxe-table.min.js'
-      // '/libs/vxe-table-pro.min.js'
-    ],
-    required: false,
-    official: true,
-    enabled: false
   }
+  // {
+  //   package: 'xe-utils',
+  //   version: 'latest',
+  //   library: 'XEUtils',
+  //   urls: ['./libs/xe-utils.min.js'],
+  //   required: false,
+  //   official: true,
+  //   enabled: false
+  // },
+  // {
+  //   package: 'vxe-table',
+  //   version: 'latest',
+  //   library: 'VXETable',
+  //   urls: [
+  //     './libs/vxe-table.css',
+  //     // '/libs/vxe-table-pro.css',
+  //     './libs/vxe-table.min.js'
+  //     // '/libs/vxe-table-pro.min.js'
+  //   ],
+  //   required: false,
+  //   official: true,
+  //   enabled: false
+  // }
   // {
   //   package: 'echarts',
   //   version: 'latest',

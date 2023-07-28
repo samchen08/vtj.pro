@@ -23,12 +23,10 @@ import ElementPlus from 'unplugin-element-plus/vite';
 import dts from 'vite-plugin-dts';
 import fs from 'fs-extra';
 import babelPlugin from '../babel';
-import { IDEPlugin } from '../IDEPlugin';
 
 import { IOptions, EnvConfig, ProxyConfig, EnvType } from './types';
 
 const defaults: IOptions = {
-  ide: false,
   base: '/',
   debug: false,
   emptyOutDir: true,
@@ -36,6 +34,7 @@ const defaults: IOptions = {
   previewPort: 3010,
   targets: ['chrome > 40'],
   dtsOutputDir: 'types',
+  dtsCleanVueFileName: true,
   envType: 'local',
   lib: false,
   entry: 'src/index.ts',
@@ -138,7 +137,7 @@ const mergePlugins = (options: IOptions) => {
         // outputDir: options.dtsOutputDir,
         outDir: options.dtsOutputDir,
         staticImport: true,
-        cleanVueFileName: true
+        cleanVueFileName: options.dtsCleanVueFileName
         // skipDiagnostics: false
       }) as PluginOption
     );
@@ -167,10 +166,6 @@ const mergePlugins = (options: IOptions) => {
         brotliSize: true
       }) as any
     );
-  }
-
-  if (options.ide) {
-    plugins.push(IDEPlugin());
   }
 
   if (options.plugins) {

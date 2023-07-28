@@ -1,4 +1,5 @@
 import { StorageService, ProjectSchema, BlockSchema } from './shared';
+import { DefineComponent, markRaw } from 'vue';
 export type ServiceType = 'storage' | 'file';
 export class Service {
   public storage?: StorageService;
@@ -25,7 +26,7 @@ export class Service {
     return null;
   }
 
-  async getFile(id: string): Promise<BlockSchema | null> {
+  async getDsl(id: string): Promise<BlockSchema | null> {
     const { type, storage, modules } = this;
     if (type === 'storage' && storage) {
       return await storage.getFile(id);
@@ -34,6 +35,23 @@ export class Service {
       const loader = modules[`.vtj/file/${id}.json`];
       const json = loader ? await loader() : null;
       return json?.default || null;
+    }
+    return null;
+  }
+
+  async getComponent(
+    id: string
+  ): Promise<DefineComponent<any, any, any, any> | null> {
+    const { type, storage, modules } = this;
+    if (type === 'storage' && storage) {
+      return null;
+    }
+    if (type === 'file' && modules) {
+      const loader =
+        modules[`/src/views/pages/${id}.vue`] ||
+        modules[`/src/components/blocks/${id}.vue`];
+      const vue = loader ? await loader() : null;
+      return vue?.default ? markRaw(vue?.default) : null;
     }
     return null;
   }

@@ -1,7 +1,7 @@
 {
   "name": "@vtj/boot",
   "private": true,
-  "version": "0.4.5",
+  "version": "0.5.0",
   "scripts": {
     "setup": "npm install --registry=https://registry.npmmirror.com",
     "outdate": "npm outdate --registry=https://registry.npmmirror.com",
@@ -25,7 +25,8 @@
   },
   "devDependencies": {
     "@vtj/cli": "workspace:*",
-    "@vtj/ide": "workspace:*"
+    "@vtj/ide": "workspace:*",
+    "@vtj/serve": "workspace:*"
   },
   "description": "> TODO: description",
   "author": "陈华春 <samchen08@163.com>",
@@ -42,6 +43,7 @@
     "project": {
       "id": "demo",
       "name": "示例项目"
-    }
+    },
+    "raw": true
   }
 }

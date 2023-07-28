@@ -6,7 +6,8 @@ import type {
   NodeDirectiveSchema,
   BlockSchema,
   ProjectSchema,
-  ApiSchema
+  ApiSchema,
+  PageSchema
 } from '../core';
 
 import type { Block, Node } from '../models';
@@ -170,4 +171,21 @@ export function createApiHandler(api: ApiSchema) {
     method,
     settings: opts
   });
+}
+
+export function getPages(pages: PageSchema[] = []) {
+  const finder = (_pages: PageSchema[] = []) => {
+    let result: PageSchema[] = [];
+    for (const page of _pages) {
+      if (page.isDir) {
+        if (page.children && page.children.length) {
+          result = result.concat(finder(page.children));
+        }
+      } else {
+        result.push(page);
+      }
+    }
+    return result;
+  };
+  return finder(pages);
 }

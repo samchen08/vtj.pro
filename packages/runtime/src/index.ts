@@ -10,5 +10,6 @@ declare global {
   interface Window {
     Vue: any;
     __VTJ_PROVIDER_OPTIONS__: ProviderOptions;
+    __VTJ_MODULES__: Record<string, () => Promise<any>>;
   }
 }

@@ -37,7 +37,7 @@ export function useBinder(block: Ref<Block | null>, keyword: Ref<string>) {
 
     // 组件props
     const props = block.value.props.map((n) =>
-      typeof n === 'string' ? `this.props.${n}` : `this.props.${n.name}`
+      typeof n === 'string' ? `this.$props.${n}` : `this.$props.${n.name}`
     );
     if (props.length) {
       opts.push({ title: '属性', items: props });

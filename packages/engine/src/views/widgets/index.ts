@@ -21,6 +21,7 @@ import Apis from './Apis.vue';
 import DataSources from './DataSources.vue';
 import History from './History.vue';
 import NodePath from './NodePath.vue';
+import About from './About.vue';
 
 export const buildInWidgets = {
   Empty,
@@ -45,5 +46,6 @@ export const buildInWidgets = {
   Apis,
   DataSources,
   History,
-  NodePath
+  NodePath,
+  About
 };

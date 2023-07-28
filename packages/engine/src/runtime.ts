@@ -1,5 +1,10 @@
 export { isJSUrl, isCSSUrl, createApiHandler } from './utils';
-export { createBlockRenderer, createLoader } from './renderer';
+export {
+  createBlockRenderer,
+  createLoader,
+  Context,
+  ContextMode
+} from './renderer';
 export { VUE } from './constants';
 export type {
   Dependencie,

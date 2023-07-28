@@ -4,58 +4,48 @@ import {
   getCurrentInstance,
   markRaw,
   computed,
-  watch
+  watchEffect
 } from 'vue';
-import { useProvider } from './useProvider';
+import { Provider } from '../Provider';
 import { createBlockRenderer, createLoader } from '../shared';
+import { useRoute } from 'vue-router';
 
-export function useBlock(id: ComputedRef<string | undefined>) {
-  const provider = useProvider();
-  const instance = getCurrentInstance();
-  const dsl = ref();
-  const deps = ref();
-  const loading = ref(false);
-  if (!provider) {
-    throw new Error('VTJ Provider is not found');
-  }
-
-  watch(
-    id,
-    async (v, o) => {
-      loading.value = !!v;
-      deps.value = v ? await provider.setup(instance?.appContext.app) : null;
-      dsl.value = v ? await provider.service.getFile(v) : null;
-      loading.value = false;
-    },
-    { immediate: true }
-  );
-
-  const renderer = computed(() => {
-    if (dsl.value && deps.value) {
-      const { apis, components, libs } = deps.value;
-      const Vue = window.Vue;
-      const loader = createLoader({
-        getFile: provider.service.getFile.bind(provider.service),
-        options: { libs, components, apis, Vue }
-      });
-      return markRaw(
-        createBlockRenderer({
-          dsl: dsl.value,
-          libs,
-          components,
-          apis,
-          Vue,
-          loader
-        })
-      );
+export async function useBlock(provider: Provider) {
+  const { options, project, service } = provider;
+  const { page } = project;
+  const route = useRoute();
+  const fileId = computed(() => route.params.id as string);
+  const file = provider.getFile(fileId.value);
+  const isRaw = options.raw && route.path.startsWith(page);
+  const { libs, apis, components } = provider;
+  const Vue = window.Vue;
+  let renderer = ref();
+  const loader = createLoader({
+    getFile: service.getDsl.bind(service),
+    options: { libs, components, apis, Vue }
+  });
+  watchEffect(async () => {
+    if (isRaw) {
+      renderer.value = await service.getComponent(fileId.value);
+    } else {
+      const dsl = await service.getDsl(fileId.value);
+      renderer.value = dsl
+        ? markRaw(
+            createBlockRenderer({
+              dsl,
+              Vue,
+              libs,
+              apis,
+              components,
+              loader
+            })
+          )
+        : null;
     }
-    return null;
   });
 
   return {
     renderer,
-    dsl,
-    deps,
-    loading
+    file
   };
 }

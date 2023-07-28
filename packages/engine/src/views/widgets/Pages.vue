@@ -88,151 +88,152 @@
   </Panel>
 </template>
 <script lang="ts" setup>
-import { ref, computed } from 'vue';
-import { Panel, DataItem, Dialog } from '../shared';
-import IconSetter from '../setters/IconSetter.vue';
-import { components } from '@vtj/icons';
-import { XIcon } from '@vtj/ui';
-import { PageSchema } from '../../core';
-import { useCore } from '../../hooks';
-import { ElMessage, ElMessageBox, ElEmpty } from 'element-plus';
-import { HomeFilled } from '@element-plus/icons-vue';
-import {
-  ElTree,
-  ElForm,
-  ElFormItem,
-  ElInput,
-  ElSwitch,
-  ElRadioGroup,
-  ElRadioButton
-} from 'element-plus';
-const { project, engine } = useCore();
-const tools = [{ name: 'add', icon: 'vtj-icon-plus' }];
-const rules = {
-  name: [{ required: true, message: '名称为必填项' }],
-  title: [{ required: true, message: '标题为必填项' }]
-};
+  import { ref, computed } from 'vue';
+  import { Panel, DataItem, Dialog } from '../shared';
+  import IconSetter from '../setters/IconSetter.vue';
+  import { components } from '@vtj/icons';
+  import { XIcon } from '@vtj/ui';
+  import { PageSchema } from '../../core';
+  import { useCore } from '../../hooks';
+  import { ElMessage, ElMessageBox, ElEmpty } from 'element-plus';
+  import { HomeFilled } from '@element-plus/icons-vue';
+  import {
+    ElTree,
+    ElForm,
+    ElFormItem,
+    ElInput,
+    ElSwitch,
+    ElRadioGroup,
+    ElRadioButton
+  } from 'element-plus';
+  const { project, engine } = useCore();
+  const tools = [{ name: 'add', icon: 'vtj-icon-plus' }];
+  const rules = {
+    name: [{ required: true, message: '名称为必填项' }],
+    title: [{ required: true, message: '标题为必填项' }]
+  };
 
-const pages = computed(() => project.pages.value);
+  const pages = computed(() => project.pages.value);
 
-const isActive = (id: string) => {
-  return id === project.current.value?.id;
-};
+  const isActive = (id: string) => {
+    return id === project.current.value?.id;
+  };
 
-const emptyData: PageSchema = {
-  id: '',
-  name: '',
-  title: '',
-  isDir: false,
-  icon: '',
-  mask: true,
-  home: false,
-  hidden: false
-};
-const model = ref();
-const dialogVisible = ref(false);
-const formRef = ref();
-const parentId = ref();
+  const emptyData: PageSchema = {
+    id: '',
+    name: '',
+    title: '',
+    isDir: false,
+    icon: '',
+    mask: true,
+    home: false,
+    hidden: false
+  };
+  const model = ref();
+  const dialogVisible = ref(false);
+  const formRef = ref();
+  const parentId = ref();
 
-const onSelectPage = async (page: PageSchema) => {
-  if (page.isDir) return;
-  const id = page.id as string;
-  const schema = await engine.service.getFile(id);
-  project.activeFile(schema);
-};
+  const onSelectPage = async (page: PageSchema) => {
+    if (page.isDir) return;
+    const id = page.id as string;
+    const schema = await engine.service.getFile(id);
+    project.activeFile(schema);
+  };
 
-const onAddClick = () => {
-  parentId.value = undefined;
-  model.value = { ...emptyData };
-  dialogVisible.value = true;
-};
-const onAddChildClick = (page: PageSchema) => {
-  parentId.value = page.id;
-  model.value = { ...emptyData };
-  dialogVisible.value = true;
-};
+  const onAddClick = () => {
+    parentId.value = undefined;
+    model.value = { ...emptyData };
+    dialogVisible.value = true;
+  };
+  const onAddChildClick = (page: PageSchema) => {
+    parentId.value = page.id;
+    model.value = { ...emptyData };
+    dialogVisible.value = true;
+  };
 
-const onEidt = (page: PageSchema) => {
-  model.value = { ...page };
-  dialogVisible.value = true;
-};
+  const onEidt = (page: PageSchema) => {
+    model.value = { ...page };
+    dialogVisible.value = true;
+  };
 
-const copyPage = async (page: PageSchema, node: any) => {
-  const id = page.id as string;
-  const parentId = node.parent?.data.id;
-  const schema = await engine.service.getFile(id);
-  project.copyPage(page, schema, parentId);
-};
+  const copyPage = async (page: PageSchema, node: any) => {
+    const id = page.id as string;
+    const parentId = node.parent?.data.id;
+    const schema = await engine.service.getFile(id);
+    project.copyPage(page, schema, parentId);
+  };
 
-const onRemove = async (page: PageSchema) => {
-  if (!page.id) return;
-  if (page.children && page.children.length > 0) {
-    ElMessage.warning({
-      message: '该目录有子页面文件，不能删除。'
-    });
-    return;
-  }
-  const ret = await ElMessageBox.confirm('确定删除？', '提示', {
-    type: 'warning'
-  }).catch((e) => false);
-  if (ret) {
-    project.removePage(page.id);
-  }
-};
-
-const onSubmit = async () => {
-  const valid = await formRef.value.validate().catch((e: any) => false);
-  if (valid) {
-    //  更新
-    if (model.value.id) {
-      const schema = model.value.isDir
-        ? undefined
-        : await engine.service.getFile(model.value.id);
-      project.updatePage(model.value, schema);
-    } else {
-      // 新增
-      const page = project.addPage(model.value, parentId.value);
-      if (!project.current.value && !model.value.isDir) {
-        project.activeFile(page.toDsl());
-      }
+  const onRemove = async (page: PageSchema) => {
+    if (!page.id) return;
+    if (page.children && page.children.length > 0) {
+      ElMessage.warning({
+        message: '该目录有子页面文件，不能删除。'
+      });
+      return;
     }
-    dialogVisible.value = false;
-  }
-};
+    const ret = await ElMessageBox.confirm('确定删除？', '提示', {
+      type: 'warning'
+    }).catch((e) => false);
+    if (ret) {
+      project.removePage(page.id);
+    }
+  };
 
-const allowDrop = (draggingNode: any, dropNode: any, type: string) => {
-  if (type === 'inner') {
-    return !!dropNode.data.isDir;
-  }
-  return true;
-};
+  const onSubmit = async () => {
+    const valid = await formRef.value.validate().catch((e: any) => false);
+    if (valid) {
+      //  更新
+      if (model.value.id) {
+        const schema = model.value.isDir
+          ? undefined
+          : await engine.service.getFile(model.value.id);
+        project.updatePage(model.value, schema);
+      } else {
+        // 新增
+        const page = project.addPage(model.value, parentId.value);
+        if (!project.current.value && !model.value.isDir) {
+          project.activeFile(page.toDsl());
+        }
+      }
+      dialogVisible.value = false;
+    }
+  };
 
-const onNodeDrop = () => {
-  project.update({
-    pages: pages.value
-  });
-};
+  const allowDrop = (draggingNode: any, dropNode: any, type: string) => {
+    if (type === 'inner') {
+      return !!dropNode.data.isDir;
+    }
+    return true;
+  };
+
+  const onNodeDrop = () => {
+    project.update({
+      pages: pages.value
+    });
+  };
 </script>
 
 <style lang="scss">
-@use '../../style/vars' as *;
-.vtj-pages-items {
-  --el-tree-node-hover-bg-color: transparent;
-  .el-tree-node__content {
-    height: 30px;
+  @use '../../style/vars' as *;
+  .vtj-pages-items {
+    --el-tree-node-hover-bg-color: transparent;
+    .el-tree-node__content {
+      height: 30px;
+      --el-tree-node-hover-bg-color: transparent;
+    }
+    .vtj-pages__name {
+      opacity: 0.6;
+    }
+    .vtj-pages__home {
+      color: $vtj-warning-color-light;
+      zoom: 0.8;
+      background-color: $vtj-warning-color;
+      border-radius: 4px;
+      padding: 2px 5px;
+      display: inline-block;
+      margin-left: 20px;
+      font-size: 12px;
+    }
   }
-  .vtj-pages__name {
-    opacity: 0.6;
-  }
-  .vtj-pages__home {
-    color: $vtj-warning-color-light;
-    zoom: 0.8;
-    background-color: $vtj-warning-color;
-    border-radius: 4px;
-    padding: 2px 5px;
-    display: inline-block;
-    margin-left: 20px;
-    font-size: 12px;
-  }
-}
 </style>

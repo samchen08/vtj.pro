@@ -81,19 +81,20 @@ export const apps: Array<Widget> = [
       label: '依赖管理',
       type: 'panel'
     }
+  },
+  {
+    name: 'about',
+    type: 'About',
+    region: 'apps',
+    props: {
+      title: '关于',
+      width: '500px',
+      height: '300px'
+    },
+    trigger: {
+      icon: 'vtj-icon-info',
+      label: '关于',
+      type: 'dialog'
+    }
   }
-
-  // {
-  //   name: 'link1',
-  //   type: 'Link',
-  //   region: 'apps',
-  //   props: {
-  //     url: 'https://www.baidu.com'
-  //   },
-  //   trigger: {
-  //     icon: 'vtj-icon-user',
-  //     label: '链接1',
-  //     type: 'link'
-  //   }
-  // }
 ];

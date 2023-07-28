@@ -10,6 +10,7 @@ export interface MaskProject {
 }
 
 export interface BaseMaskProps {
+  preview?: boolean;
   project?: MaskProject;
   menu?: MenuProps;
 }

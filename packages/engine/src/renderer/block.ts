@@ -257,7 +257,7 @@ export function createBlockRenderer(
         ...methods,
         ...dataSources
       };
-      context.setup(Vue, attrs);
+      context.setup(attrs, Vue);
       setWatches(Vue, dsl.value.watch ?? [], context);
 
       if (block && block.id === context.__id) {

@@ -1,4 +1,5 @@
 import { createViteConfig } from '@vtj/cli';
+import { IDEPlugin } from '@vtj/serve';
 import * as EnvConfig from './env.config';
 import { resolve, join } from 'path';
 import proxy from './proxy.config';
@@ -7,27 +8,26 @@ const packagesPath = resolve('../../packages');
 const alias =
   ENV_TYPE === 'local'
     ? {
-        '@vtj/utils': join(packagesPath, 'utils/src/index.ts'),
-        '@vtj/ui/lib/style.css': join(packagesPath, 'ui/src/style/index.scss'),
-        '@vtj/engine/lib/style.css': join(
-          packagesPath,
-          'engine/src/style/index.scss'
-        ),
-        '@vtj/icons/lib/style.css': join(packagesPath, 'icons/src/style.scss'),
-        '@vtj/ui': join(packagesPath, 'ui/src'),
-        '@vtj/icons': join(packagesPath, 'icons/src'),
-        '@vtj/engine': join(packagesPath, 'engine/src'),
-        '@vtj/runtime': join(packagesPath, 'runtime/src')
+        // '@vtj/utils': join(packagesPath, 'utils/src/index.ts'),
+        // '@vtj/ui/lib/style.css': join(packagesPath, 'ui/src/style/index.scss'),
+        // '@vtj/engine/lib/style.css': join(
+        //   packagesPath,
+        //   'engine/src/style/index.scss'
+        // ),
+        // '@vtj/icons/lib/style.css': join(packagesPath, 'icons/src/style.scss'),
+        // '@vtj/ui': join(packagesPath, 'ui/src'),
+        // '@vtj/icons': join(packagesPath, 'icons/src'),
+        // '@vtj/engine': join(packagesPath, 'engine/src'),
+        '@vtj/runtime': join(packagesPath, 'runtime/src/main')
       }
     : undefined;
 
-const ide = process.env.ENV_TYPE === 'live' ? false : true;
-const outDir = process.env.ENV_TYPE === 'live' ? 'dist/ide' : 'dist/demo';
+const isExample = ENV_TYPE === 'uat';
+
 export default createViteConfig({
   base: './',
   host: '0.0.0.0',
-  ide: ide,
-  outDir: outDir,
+  outDir: isExample ? 'example' : 'dist/ide',
   port: 9527,
   https: false,
   elementPlus: false,
@@ -36,9 +36,10 @@ export default createViteConfig({
   envConfig: EnvConfig,
   envType: ENV_TYPE,
   alias,
+  plugins: [IDEPlugin()],
   defineConfig: (config) => {
     config.server.watch = {
-      ignored: ['**/.vtj/**']
+      // ignored: ['**/.vtj/**']
     };
     return config;
   }

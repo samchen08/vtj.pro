@@ -1,4 +1,4 @@
-import { createViteConfig } from '@vtj/cli';
+import { createViteConfig, writeVersion } from '@vtj/cli';
 
 const index = createViteConfig({
   debug: false,
@@ -107,5 +107,7 @@ const map = {
   runtime,
   shared
 };
+
+writeVersion();
 
 export default map[process.env.FILE] || index;

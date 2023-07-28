@@ -45,7 +45,7 @@ import {
   ElFooter,
   ElConfigProvider
 } from 'element-plus';
-import zhCn from 'element-plus/lib/locale/lang/zh-CN';
+import zhCn from 'element-plus/es/locale/lang/zh-cn';
 import { useResizable } from '@vtj/ui';
 import {
   Action,

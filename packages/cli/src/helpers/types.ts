@@ -31,10 +31,6 @@ export interface IOptions {
    */
   base?: string;
 
-  /**
-   *  启动IDE
-   */
-  ide?: boolean;
 
   /**
    * 自定义配置 vite 配置
@@ -83,6 +79,8 @@ export interface IOptions {
    * 定义文件输出文件夹
    */
   dtsOutputDir?: string;
+
+  dtsCleanVueFileName?: boolean;
 
   /**
    * 环境变量配置

@@ -1,31 +1,22 @@
-import { defineComponent, h, computed } from 'vue';
-import { useRoute } from 'vue-router';
-import { usePage } from '../hooks';
+import { defineComponent, h } from 'vue';
+import { useProvider, useBlock } from '../hooks';
 import { useTitle } from '@vueuse/core';
-import Loading from './Loading';
-import Empty from './Empty';
-export default defineComponent({
+
+export const PageContainer = defineComponent({
   name: 'VtjPageContainer',
-  setup(props) {
-    const route = useRoute();
-    const fileId = computed(() => route.params.id as string);
-    const { renderer, dsl, loading } = usePage(fileId);
-    const title = computed(() => dsl.value?.title || '');
-    useTitle(title);
+  async setup() {
+    const provider = useProvider();
+    const { renderer, file } = await useBlock(provider);
+    if (file) {
+      useTitle(file.title);
+    }
     return {
-      fileId,
+      provider,
       renderer,
-      dsl,
-      loading
+      file
     };
   },
   render() {
-    if (this.renderer) {
-      return h(this.renderer, this.$attrs);
-    } else if (this.loading) {
-      return h(Loading);
-    } else {
-      return h(Empty);
-    }
+    return this.renderer ? h(this.renderer) : null;
   }
 });

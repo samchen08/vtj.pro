@@ -58,7 +58,8 @@ const goHome = () => {
 const onMenuSelect = (item: MenuDataItem) => {
   const id = item?.id;
   if (id) {
-    const path = `${props.project.page}/${id}`;
+    const basePath = props.preview ? '/preview' : props.project.page;
+    const path = `${basePath}/${id}`;
     router.push(path);
   }
 };

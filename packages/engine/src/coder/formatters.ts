@@ -25,7 +25,7 @@ const prettierOptions: prettier.Options = {
   tabWidth: 2,
   trailingComma: 'none',
   useTabs: false,
-  vueIndentScriptAndStyle: false
+  vueIndentScriptAndStyle: true
 };
 
 /**

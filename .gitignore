@@ -42,4 +42,8 @@ lib
 /packages/icons/src/components
 /packages/boot/public/libs
 /packages/boot/.vtj
+/packages/boot/src/views/pages
+/packages/boot/src/components/blocks
 /packages/ide/.vtj
+/packages/ide/src/views/pages
+/packages/ide/src/components/blocks

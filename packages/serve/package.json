@@ -1,0 +1,46 @@
+{
+  "name": "@vtj/serve",
+  "version": "0.5.0",
+  "private": false,
+  "type": "module",
+  "license": "MIT",
+  "author": "Chen Huachun",
+  "scripts": {
+    "dev": "unbuild --stub",
+    "build": "unbuild",
+    "typecheck": "tsc --noEmit"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "dependencies": {
+    "body-parser": "~1.20.2",
+    "fs-extra": "~11.1.1",
+    "serve-static": "~1.15.0"
+  },
+  "devDependencies": {
+    "@types/body-parser": "~1.19.2",
+    "@types/serve-static": "~1.15.2",
+    "@vtj/engine": "0.5.0",
+    "@vtj/utils": "0.5.0",
+    "typescript": "~5.1.6",
+    "unbuild": "~1.2.1",
+    "vite": "~4.4.6"
+  },
+  "exports": {
+    ".": {
+      "import": "./lib/index.mjs",
+      "require": "./lib/index.cjs"
+    }
+  },
+  "main": "./lib/index.cjs",
+  "types": "./lib/index.d.ts",
+  "files": [
+    "lib",
+    "index.js"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "gitHead": "53b27ae2dc4309e33627a1d9354bfa12cde4263b"
+}

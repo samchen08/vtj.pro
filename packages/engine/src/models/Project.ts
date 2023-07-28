@@ -1,4 +1,4 @@
-import { uid } from '../utils';
+import { uid, getPages } from '../utils';
 import {
   ProjectSchema,
   Dependencie,
@@ -145,20 +145,12 @@ export class Project {
   }
 
   getPages() {
-    const finder = (pages: PageSchema[] = []) => {
-      let result: PageSchema[] = [];
-      for (const page of pages) {
-        if (page.isDir) {
-          if (page.children && page.children.length) {
-            result = result.concat(finder(page.children));
-          }
-        } else {
-          result.push(page);
-        }
-      }
-      return result;
-    };
-    return finder(this.pages.value);
+    return getPages(this.pages.value);
+  }
+
+  getHomePage() {
+    const pages = this.getPages();
+    return pages.find((n) => !!n.home);
   }
 
   clearHomePage() {

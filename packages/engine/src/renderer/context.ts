@@ -1,6 +1,6 @@
-import type { DefineComponent } from 'vue';
 import type { BlockRendererInstance } from './block';
 import type { BlockSchema, JSExpression, JSFunction, NodeFrom } from '../core';
+import * as globalVue from 'vue';
 import { parseExpression, parseFunction } from '../utils';
 import { CONTEXT_HOST } from '../constants';
 import { defaultLoader, type ComponentLoader } from './loader';
@@ -80,7 +80,7 @@ export class Context {
     }
   }
 
-  setup(Vue: any, attrs: IContextOptionsAttrs = {}) {
+  setup(attrs: IContextOptionsAttrs = {}, Vue: any = globalVue) {
     const instance = Vue.getCurrentInstance();
     if (!instance) return;
     this.__instance = instance.proxy as BlockRendererInstance;

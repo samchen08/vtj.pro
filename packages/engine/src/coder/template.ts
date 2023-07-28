@@ -1,50 +1,43 @@
 import { template } from '@vtj/utils';
-const content = `
-import { <%= vueImports %> } from 'vue';
-import { Context, ContextMode } from '@vtj/engine';
+
+const blockTsContent = `
 <%= imports %>
-export interface Props {
-  <%= Props %>
-}
-
-const props = withDefaults(defineProps<Props>(), { <%= propsDefault %> });
-
-const vtj = new Context({
-  mode: ContextMode.RAW, 
-  dsl: { id: '<%= id %>', name: '<%= name %>' },
-  attrs: { <%= importItems %> }
+import { useProvider } from '@vtj/runtime';
+export default defineComponent({
+  name: '<%= name %>',
+  inject: {
+    <%= inject %>
+  },
+  components: {
+    <%= components %>
+  },
+  props: {
+    <%= props %>
+  },
+  emits: [<%= emits %>],
+  expose: [<%= expose %>],
+  setup(props) {
+    const instance = getCurrentInstance();
+    const provider = useProvider();
+    const state = reactive({ <%= state %> });
+    return {
+      state,
+      props,
+      provider,
+      vtj: instance?.proxy as ComponentPublicInstance
+    };
+  },
+  computed: {
+    <%= computed %>
+  },
+  watch: {
+    <%= watch %>
+  },
+  methods: {
+    <%= methods %>
+  }
+  <%= lifeCycles %>
 });
-
-const state = reactive({
-  <%= state %>
-});
-
-<%= computedValues %>
-
-<%= methodsValues %> 
-
-<%= injectValues %>
-
-
-
-
-vtj.setup({props, state <%= injectNames %> <%= computedNames %> <%= methodsNames %>})
-
-
-<%= watch %>
-
-<%= lifeCycles %>
-
-defineOptions({
-  name: '<%= name %>'
-});
-
-defineEmits([<%= emits %>]);
-
-defineExpose({
-  vtj
-});
-
 `;
 
-export const compiled = template(content);
+export const compiled = template(blockTsContent);

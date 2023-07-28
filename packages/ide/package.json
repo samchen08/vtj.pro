@@ -1,31 +1,33 @@
 {
   "name": "@vtj/ide",
   "private": false,
-  "version": "0.4.5",
+  "version": "0.5.0",
   "scripts": {
     "setup": "npm install --registry=https://registry.npmmirror.com",
     "outdate": "npm outdate --registry=https://registry.npmmirror.com",
     "dev": "cross-env ENV_TYPE=local vite",
+    "dev:example": "cross-env ENV_TYPE=uat vite",
     "build": "npm run build:prod",
     "build:prod": "vue-tsc && cross-env ENV_TYPE=live vite build",
-    "build:uat": "vue-tsc && cross-env ENV_TYPE=uat vite build",
+    "build:example": "vue-tsc && cross-env ENV_TYPE=uat vite build",
     "preview": "cross-env ENV_TYPE=live vite preview",
-    "preview:demo": "cross-env ENV_TYPE=uat vite preview"
+    "preview:example": "cross-env ENV_TYPE=uat vite preview"
   },
   "engines": {
     "node": ">=16.0.0"
   },
   "dependencies": {
-    "@vtj/assets": "workspace:*",
-    "@vtj/deps": "workspace:*",
-    "@vtj/engine": "workspace:*",
-    "@vtj/icons": "workspace:*",
-    "@vtj/runtime": "workspace:*",
-    "@vtj/ui": "workspace:*",
-    "@vtj/utils": "workspace:*"
+    "@vtj/assets": "0.5.0",
+    "@vtj/deps": "0.5.0",
+    "@vtj/engine": "0.5.0",
+    "@vtj/icons": "0.5.0",
+    "@vtj/runtime": "0.5.0",
+    "@vtj/ui": "0.5.0",
+    "@vtj/utils": "0.5.0"
   },
   "devDependencies": {
-    "@vtj/cli": "workspace:*"
+    "@vtj/cli": "0.5.0",
+    "@vtj/serve": "0.5.0"
   },
   "description": "> TODO: description",
   "author": "陈华春 <samchen08@163.com>",
@@ -38,9 +40,12 @@
     "access": "public"
   },
   "vtj": {
+    "service": "file",
     "project": {
       "id": "ide",
       "name": "IDE"
-    }
-  }
+    },
+    "raw": true
+  },
+  "gitHead": "53b27ae2dc4309e33627a1d9354bfa12cde4263b"
 }

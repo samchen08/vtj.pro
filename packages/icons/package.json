@@ -1,7 +1,7 @@
 {
   "name": "@vtj/icons",
   "private": false,
-  "version": "0.4.5",
+  "version": "0.5.0",
   "type": "module",
   "scripts": {
     "setup": "pnpm install --registry=https://registry.npmmirror.com",
@@ -19,7 +19,7 @@
     "@element-plus/icons-vue": "2.1.0"
   },
   "devDependencies": {
-    "@vtj/cli": "workspace:*",
+    "@vtj/cli": "0.5.0",
     "xml2js": "0.6.0"
   },
   "files": [
@@ -41,5 +41,5 @@
   "publishConfig": {
     "access": "public"
   },
-  "gitHead": "1f54d735e45fbbff75a090788d3f074b7babfc81"
+  "gitHead": "53b27ae2dc4309e33627a1d9354bfa12cde4263b"
 }

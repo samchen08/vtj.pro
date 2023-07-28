@@ -50,6 +50,7 @@ export const builtInComponents: ComponentDescription[] = [
     name: 'Transition',
     title: '过渡效果',
     categoryId: 'components',
+    package: 'vue',
     doc: 'https://cn.vuejs.org/api/built-in-components.html#transition',
     props: [
       {
@@ -172,6 +173,7 @@ export const builtInComponents: ComponentDescription[] = [
   {
     name: 'TransitionGroup',
     title: '过渡效果组',
+    package: 'vue',
     categoryId: 'components',
     doc: 'https://cn.vuejs.org/api/built-in-components.html#transitiongroup',
     props: [
@@ -301,6 +303,7 @@ export const builtInComponents: ComponentDescription[] = [
   {
     name: 'KeepAlive',
     title: '缓存切换组件',
+    package: 'vue',
     categoryId: 'components',
     doc: 'https://cn.vuejs.org/api/built-in-components.html#keepalive',
     props: [
@@ -327,6 +330,7 @@ export const builtInComponents: ComponentDescription[] = [
   {
     name: 'Teleport',
     title: '传送组件',
+    package: 'vue',
     categoryId: 'components',
     doc: 'https://cn.vuejs.org/api/built-in-components.html#teleport',
     props: [
@@ -348,6 +352,7 @@ export const builtInComponents: ComponentDescription[] = [
   {
     name: 'Suspense',
     title: '异步依赖',
+    package: 'vue',
     categoryId: 'components',
     doc: 'https://cn.vuejs.org/api/built-in-components.html#suspense',
     props: [

@@ -74,7 +74,7 @@ const Carousel: ComponentDescription[] = [
     events: ['change'],
     snippet: {
       props: {
-        height: 300,
+        height: '300px',
         style: {
           width: '100%'
         }

@@ -1,4 +1,5 @@
 import { createApi } from '@vtj/utils';
+import { ElNotification } from 'element-plus';
 
 export const ideConfig = createApi({
   url: '/vtj.json',
@@ -15,6 +16,14 @@ export const ideBase = createApi({
   settings: {
     type: 'json',
     validSuccess: true,
-    originResponse: false
+    originResponse: false,
+    validate: (res: any) => {
+      return res.data?.code === 0;
+    },
+    showError: (msg: string) => {
+      ElNotification.error({
+        message: msg || '未知错误'
+      });
+    }
   }
 });

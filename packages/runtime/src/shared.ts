@@ -10,20 +10,34 @@ import {
   VUE,
   createLoader,
   ProjectSchema,
-  BlockSchema
+  BlockSchema,
+  Context,
+  ContextMode,
+  SummarySchema
 } from '@vtj/engine/runtime';
 
-import { markRaw, App } from 'vue';
+import { markRaw, App, createApp } from 'vue';
+import { Router } from 'vue-router';
 
 export {
   createBlockRenderer,
   StorageService,
   VUE,
   createLoader,
+  Context,
+  ContextMode,
   type ProjectSchema,
   type BlockSchema,
-  type PageSchema
+  type PageSchema,
+  type SummarySchema
 };
+
+export function createIdeLink(IDELink: any, props: Record<string, any>) {
+  const app = createApp(IDELink, props);
+  const el = document.createElement('div');
+  document.body.appendChild(el);
+  app.mount(el);
+}
 
 export function isPage(schema: unknown): schema is PageSchema {
   return typeof (schema as PageSchema)?.isDir === 'boolean';
@@ -161,4 +175,40 @@ export function getPages(pages: PageSchema[] = []) {
     }
   }
   return result;
+}
+
+export function addRoute(
+  router: Router,
+  name: string,
+  path: string,
+  component: any
+) {
+  router.addRoute({
+    path: `${path}/:id`,
+    name,
+    props: (route: any) => route.query,
+    component
+  });
+}
+
+export function addRouteWithMask(
+  router: Router,
+  name: string,
+  path: string,
+  mask: any,
+  component: any
+) {
+  router.addRoute({
+    path,
+    name: `${name}Mask`,
+    component: mask,
+    children: [
+      {
+        path: ':id',
+        name,
+        props: (route: any) => route.query,
+        component: component
+      }
+    ]
+  });
 }

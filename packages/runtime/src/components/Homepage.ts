@@ -1,50 +1,54 @@
-import { defineComponent, h, computed } from 'vue';
-import { XStartup } from '@vtj/ui';
-import { useProvider, usePage, useMask } from '../hooks';
-import { useRoute } from 'vue-router';
+import { defineComponent, h, markRaw, Suspense } from 'vue';
+import { useProvider } from '../hooks';
+import { createBlockRenderer, createLoader, isMask } from '../shared';
 import { useTitle } from '@vueuse/core';
 
-export default defineComponent({
+export const Homepage = defineComponent({
   name: 'VtjHomepage',
-  setup() {
+  async setup() {
     const provider = useProvider();
-    const page = computed(() => {
-      const pages = provider?.pages?.value || [];
-      return pages.find((n) => !!n.home);
+    const { options, service, libs, apis, components } = provider;
+    const homepage = provider.getHomepage();
+    const { Startup, Mask } = options.components || {};
+    useTitle(homepage?.title || 'Hello VTJ.');
+    if (!homepage) return { renderer: markRaw(Startup), file: homepage, Mask };
+
+    const isRaw = !!options.raw;
+    let renderer = null;
+    const Vue = window.Vue;
+    const loader = createLoader({
+      getFile: service.getDsl.bind(service),
+      options: { libs, components, apis, Vue }
     });
-    const pageId = computed(() => page.value?.id);
-    const { renderer, loading, dsl } = usePage(pageId);
-    const { Mask, maskable, maskProps } = useMask(pageId);
-    const route = useRoute();
-    const title = computed(() => dsl.value?.title || 'Hello VTJ.');
-    useTitle(title);
+    if (isRaw) {
+      renderer = await service.getComponent(homepage.id as string);
+    } else {
+      const dsl = await service.getDsl(homepage.id as string);
+      renderer = dsl
+        ? markRaw(
+            createBlockRenderer({
+              dsl,
+              Vue,
+              libs,
+              apis,
+              components,
+              loader
+            })
+          )
+        : null;
+    }
     return {
-      route,
-      provider,
-      page,
       renderer,
-      loading,
-      Mask,
-      maskable,
-      maskProps
+      file: homepage,
+      Mask
     };
   },
   render() {
-    // 找不到首页
-    if (!this.page) {
-      return h(XStartup);
+    const { file, renderer, Mask } = this;
+
+    if (isMask(file) && Mask) {
+      return h(Suspense, [h(Mask, () => h(renderer))]);
     }
-    // 首页带母版
-    if (this.Mask && this.maskable && this.renderer) {
-      return h(this.Mask, this.maskProps, () =>
-        h(this.renderer as any, this.route.query)
-      );
-    } else if (this.renderer) {
-      // 首页无母版
-      return h(this.renderer, this.route.query);
-    } else {
-      // 未加载完成数据时，不渲染
-      return null;
-    }
+    return h(Suspense, [h(renderer)]);
   }
 });

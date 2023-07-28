@@ -1,32 +1,34 @@
-import { defineComponent, h, computed } from 'vue';
-import { useProvider, useMask } from '../hooks';
+import { defineComponent, h, computed, Suspense, watchEffect, ref } from 'vue';
 import { RouterView, useRoute } from 'vue-router';
-import DefaultEmpty from './Empty';
-export default defineComponent({
+import { useProvider } from '../hooks';
+import { isMask } from '../shared';
+
+export const MaskContainer = defineComponent({
   name: 'VtjMaskContainer',
   setup(props) {
     const provider = useProvider();
-    const { Empty = DefaultEmpty } = provider?.options.components ?? {};
     const route = useRoute();
     const fileId = computed(() => route.params.id as string);
-    const { maskable, page, Mask, maskProps } = useMask(fileId);
+    const file = ref();
+    watchEffect(() => {
+      file.value = provider.getFile(fileId.value);
+    });
+
     return {
-      Empty,
-      Mask,
-      maskable,
-      page,
-      maskProps
+      provider,
+      file
     };
   },
   render() {
-    const { page, Mask, Empty, maskable, maskProps } = this;
-    if (!page) {
-      return h(Empty);
+    const { provider, file } = this;
+    const { Mask, Empty } = provider.options.components || {};
+    if (!file) {
+      return h(Suspense, [h(Empty)]);
     }
-    if (Mask && maskable) {
-      return h(Mask, maskProps, this.$slots);
-    } else {
-      return h(RouterView, this.$slots);
+
+    if (isMask(file) && Mask) {
+      return h(Suspense, [h(Mask)]);
     }
+    return h(Suspense, [h(RouterView)]);
   }
 });

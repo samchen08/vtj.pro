@@ -4,7 +4,7 @@ VTJ 一款基于 Vue3 + Typescript 的低代码开发工具，内置了设计器
 
 ## 演示
 
-[vtj.design](http://8.134.154.175/)
+[http://newgateway.gitee.io/vtj](http://newgateway.gitee.io/vtj)
 
 ## VTJ 的特点
 
@@ -29,10 +29,10 @@ npm create vtj -- -t web
 
 ## 安装到现有项目
 
-1. 安装依赖 `@vtj/cli` `@vtj/ide` `@vtj/runtime`
+1. 安装依赖 `@vtj/cli` `@vtj/serve` `@vtj/ide` `@vtj/runtime`
 
 ```sh
-npm i @vtj/cli @vtj/ide -D
+npm i @vtj/cli @vtj/serve @vtj/ide -D
 ```
 
 ```sh
@@ -46,23 +46,19 @@ npm i @vtj/runtime -S
 ```ts
 import { createApp } from 'vue';
 import App from './App.vue';
-// 引用创建函数
 import { createProvider } from '@vtj/runtime';
 import router from './router';
-// 动态引入低代码设计产物，由设计器生成
-const modules = import.meta.glob(['/.vtj/project/*.json', '/.vtj/file/*.json']);
 const app = createApp(App);
 
 (async () => {
-  // 创建Provider实例
-  const provider = await createProvider({
+  await createProvider({
     app,
-    modules,
-    router
+    router,
+    components: {
+      Mask
+    }
   });
   app.use(router);
-  // 注册插件
-  app.use(provider);
   app.mount('#app');
 })();
 ```
@@ -71,7 +67,8 @@ const app = createApp(App);
 
 ```ts
 import { defineConfig } from 'vite';
-import { IDEPlugin } from '@vtj/cli';
+import { IDEPlugin } from '@vtj/serve';
+
 export default defineConfig({
   plugins: [IDEPlugin()]
 });
@@ -112,6 +109,12 @@ export interface ProviderBuiltinComponents {
 
   // 404页面组件
   Empty?: any;
+
+  // 启动页组件
+  Startup?: any;
+
+  // Ide入口组件
+  IDELink?: any;
 }
 
 export interface ProviderOptions {
@@ -119,25 +122,28 @@ export interface ProviderOptions {
   service: ServiceType;
 
   // 项目配置
-  project: ProjectProvider;
+  project: Partial<ProjectProvider>;
 
-  // 文件模块 service = file 是，需要传
+  // Vue应用
+  app: App;
+
+  // 路由实例
+  router: Router;
+
+  // 文件模块
   modules?: Record<string, () => Promise<any>>;
 
   // IDE 配置
   ide?: null | IDEProvider;
-
-  // Vue应用
-  app?: App;
-
-  // 路由实例
-  router?: Router;
 
   // 显示启动页
   startup?: boolean;
 
   // 内置组件
   components?: ProviderBuiltinComponents;
+
+  // 生成源码模式
+  raw?: boolean;
 }
 ```
 

@@ -1,7 +1,7 @@
 {
   "name": "@vtj/cli",
   "private": false,
-  "version": "0.4.5",
+  "version": "0.5.0",
   "type": "module",
   "bin": {
     "vtj": "./bin/vtj.js"
@@ -15,39 +15,39 @@
     "node": ">=16.0.0"
   },
   "dependencies": {
-    "@babel/core": "7.22.8",
-    "@babel/preset-env": "7.22.7",
-    "@babel/types": "7.22.5",
-    "@rollup/plugin-babel": "6.0.3",
-    "@types/fs-extra": "11.0.1",
-    "@types/jsdom": "21.1.1",
-    "@types/node": "20.4.1",
-    "@types/serve-static": "1.15.2",
-    "@vitejs/plugin-basic-ssl": "1.0.1",
-    "@vitejs/plugin-legacy": "4.1.0",
-    "@vitejs/plugin-vue": "4.2.3",
-    "@vitejs/plugin-vue-jsx": "3.0.1",
-    "@vitest/coverage-c8": "0.33.0",
-    "@vue/test-utils": "2.4.0",
-    "body-parser": "1.20.2",
-    "cross-env": "7.0.3",
-    "fs-extra": "11.1.1",
-    "jsdom": "22.1.0",
-    "rollup-plugin-external-globals": "0.8.0",
-    "rollup-plugin-visualizer": "5.9.2",
-    "sass": "1.63.6",
-    "serve-static": "1.15.0",
-    "terser": "5.19.0",
-    "typescript": "5.1.6",
-    "unplugin-element-plus": "0.7.2",
-    "vite": "4.4.3",
-    "vite-plugin-dts": "3.2.0",
-    "vitest": "0.33.0",
-    "vue-tsc": "1.8.4"
+    "@babel/core": "~7.22.9",
+    "@babel/preset-env": "~7.22.9",
+    "@babel/types": "~7.22.5",
+    "@rollup/plugin-babel": "~6.0.3",
+    "@types/fs-extra": "~11.0.1",
+    "@types/jsdom": "~21.1.1",
+    "@types/node": "~20.4.2",
+    "@types/serve-static": "~1.15.2",
+    "@vitejs/plugin-basic-ssl": "~1.0.1",
+    "@vitejs/plugin-legacy": "~4.1.1",
+    "@vitejs/plugin-vue": "~4.2.3",
+    "@vitejs/plugin-vue-jsx": "~3.0.1",
+    "@vitest/coverage-c8": "~0.33.0",
+    "@vue/test-utils": "~2.4.1",
+    "body-parser": "~1.20.2",
+    "cross-env": "~7.0.3",
+    "fs-extra": "~11.1.1",
+    "jsdom": "~22.1.0",
+    "rollup-plugin-external-globals": "~0.8.0",
+    "rollup-plugin-visualizer": "~5.9.2",
+    "sass": "~1.64.0",
+    "serve-static": "~1.15.0",
+    "terser": "~5.19.2",
+    "typescript": "~5.1.6",
+    "unplugin-element-plus": "~0.7.2",
+    "vite": "~4.4.6",
+    "vite-plugin-dts": "~3.3.1",
+    "vitest": "~0.33.0",
+    "vue-tsc": "~1.8.5"
   },
   "devDependencies": {
-    "@types/babel__core": "7.20.1",
-    "unbuild": "1.2.1"
+    "@types/babel__core": "~7.20.1",
+    "unbuild": "~1.2.1"
   },
   "exports": {
     ".": {
@@ -62,7 +62,7 @@
     "lib",
     "bin"
   ],
-  "gitHead": "1f54d735e45fbbff75a090788d3f074b7babfc81",
+  "gitHead": "53b27ae2dc4309e33627a1d9354bfa12cde4263b",
   "publishConfig": {
     "access": "public"
   }
