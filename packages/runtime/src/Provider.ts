@@ -4,6 +4,7 @@ import { Router } from 'vue-router';
 import { merge } from '@vtj/utils';
 import { XStartup } from '@vtj/ui';
 import { ServiceType, Service } from './Service';
+import __VTJ_PROVIDER_OPTIONS__ from '.vtj';
 import {
   Empty,
   IDELink,
@@ -132,7 +133,7 @@ export class Provider {
   constructor(options: Partial<ProviderOptions> = {}) {
     const app = options.app as App;
     delete options.app;
-    this.options = merge(defaults, window.__VTJ_PROVIDER_OPTIONS__, options);
+    this.options = merge(defaults, __VTJ_PROVIDER_OPTIONS__, options);
     this.options.app = app;
     const { service, project, modules } = this.options;
     this.project = project as ProjectProvider;

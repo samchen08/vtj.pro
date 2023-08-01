@@ -21,7 +21,7 @@
       "@/*": [
         "src/*"
       ],
-      "@vtj/*": [
+      ".vtj/*": [
         ".vjt/*"
       ]
     }
@@ -30,8 +30,7 @@
     "src/**/*.ts",
     "src/**/*.d.ts",
     "src/**/*.tsx",
-    "src/**/*.vue",
-    "./components.d.ts"
+    "src/**/*.vue"
   ],
   "references": [
     {

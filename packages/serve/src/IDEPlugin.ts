@@ -4,10 +4,18 @@ import serveStatic from 'serve-static';
 import bodyParser from 'body-parser';
 import { controllers, ApiRequest } from './server';
 import fs from 'fs-extra';
+import { upperFirstCamelCase } from '@vtj/utils';
 let __config: UserConfig | null = null;
 const API_PATH = '/vtj/base';
 const IDE_CONFIG_PATH = '/vtj.json';
-const { readJSONSync, copySync, existsSync, emptyDirSync } = fs;
+const {
+  readJSONSync,
+  copySync,
+  existsSync,
+  emptyDirSync,
+  ensureDirSync,
+  writeFileSync
+} = fs;
 
 const router = async (req: any) => {
   const body: ApiRequest = req.body || {};
@@ -35,7 +43,7 @@ const getProviderOptions = (config: UserConfig, build?: boolean) => {
     raw: !!vtj.raw,
     project: {
       id: name,
-      name: name,
+      name: upperFirstCamelCase(name),
       base,
       mode: 'hash',
       page: '/page',
@@ -50,6 +58,52 @@ const getProviderOptions = (config: UserConfig, build?: boolean) => {
           ...(vtj.ide || {})
         }
   };
+};
+
+const writeVtjOptionsContent = (options: any, build?: boolean) => {
+  const modules = ['/.vtj/project/*.json'];
+  if (options.raw) {
+    if (!build) {
+      modules.push(
+        '/.vtj/file/*.json',
+        '/src/views/pages/*.vue',
+        '/src/components/blocks/*.vue'
+      );
+    } else {
+      modules.push('/src/views/pages/*.vue', '/src/components/blocks/*.vue');
+    }
+  } else {
+    modules.push('/.vtj/file/*.json');
+  }
+  const ide = options.ide ? JSON.stringify(options.ide) : 'null';
+  const content = `
+  /// <reference types="vite/client" />
+
+  const modules = import.meta.glob(${JSON.stringify(modules)});
+  
+  export default {
+    modules,
+    service: '${options.service}',
+    raw: ${options.raw},
+    project: {
+      id: '${options.project.id}',
+      name: '${options.project.name}',
+      base: '${options.project.base}',
+      mode: '${options.project.mode}',
+      page: '${options.project.page}',
+      preview: '${options.project.preview}',
+      home: '${options.project.home}',
+    },
+    ide: ${ide}
+  };
+  `;
+
+  const DIR_PATH = join(process.cwd(), '.vtj');
+  if (!existsSync(DIR_PATH)) {
+    ensureDirSync(DIR_PATH);
+  }
+  const filePath = join(DIR_PATH, 'index.ts');
+  writeFileSync(filePath, content, 'utf-8');
 };
 
 export function IDEPlugin(): Plugin[] {
@@ -92,25 +146,30 @@ export function IDEPlugin(): Plugin[] {
         console.log('-----------------');
         console.log('| IDE服务已启动 |');
         console.log('-----------------');
-      },
-      transformIndexHtml(html) {
-        const options = getProviderOptions(__config || {});
-        const content = `<script>
-        window.__VTJ_PROVIDER_OPTIONS__ = ${JSON.stringify(options)};
-        </script>`;
-        return html.replace(/<\/head>/, `${content}</head>`);
       }
     },
     {
-      name: 'vtj-ide-build',
-      apply: 'build',
-      transformIndexHtml(html) {
-        // 编译打包排除IDE
-        const options = getProviderOptions(__config || {}, true);
-        const content = `<script>
-        window.__VTJ_PROVIDER_OPTIONS__ = ${JSON.stringify(options)};
-        </script>`;
-        return html.replace(/<\/head>/, `${content}</head>`);
+      name: 'vtj-ide-config',
+      configResolved(resolvedConfig) {
+        const isBuild = resolvedConfig.command === 'build';
+        const options = getProviderOptions(__config || {}, isBuild);
+        writeVtjOptionsContent(options, isBuild);
+      },
+      config(config) {
+        const { root = process.cwd() } = config || {};
+        const vtjDir = join(root, '.vtj');
+        if (config.resolve) {
+          config.resolve.alias = Object.assign(config.resolve?.alias || {}, {
+            '.vtj': vtjDir
+          });
+        } else {
+          config.resolve = {
+            alias: {
+              '.vtj': vtjDir
+            }
+          };
+        }
+        return config;
       }
     }
   ];

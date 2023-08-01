@@ -49,8 +49,8 @@
     StorageService,
     Dialog
   } from '@vtj/engine';
-  import { useProvider, isPage } from '@vtj/runtime';
-  import { ElMessage, ElAlert, ElSkeleton } from 'element-plus';
+  import { isPage } from '@vtj/runtime';
+  import { ElAlert, ElSkeleton } from 'element-plus';
   import { ideBase, ideConfig } from '@/api';
 
   const isExample = process.env.ENV_TYPE === 'uat';
@@ -144,22 +144,7 @@
           componentMap
         }
       }
-    })
-      .then((res) => {
-        ElMessage.success({
-          message: '出码完成'
-        });
-        return res;
-      })
-      .catch((e) => {
-        ElMessage.error({
-          message: '出码失败'
-        });
-        return [];
-      })
-      .finally(() => {
-        loading.value = false;
-      });
+    });
     coderLoading.value = false;
   });
 

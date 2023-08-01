@@ -22,10 +22,10 @@ export const success = (data: any): ApiResponse => {
   };
 };
 
-export const fail = (msg: string): ApiResponse => {
+export const fail = (msg: string, data: any = null): ApiResponse => {
   return {
     code: Result.Fail,
     msg,
-    data: null
+    data
   };
 };

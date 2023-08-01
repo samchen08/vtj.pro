@@ -4,39 +4,23 @@ const blockTsContent = `
 <%= imports %>
 import { useProvider } from '@vtj/runtime';
 export default defineComponent({
-  name: '<%= name %>',
-  inject: {
-    <%= inject %>
-  },
-  components: {
-    <%= components %>
-  },
-  props: {
-    <%= props %>
-  },
-  emits: [<%= emits %>],
-  expose: [<%= expose %>],
+  name: '<%= name %>', 
+  <% if(inject) { %> inject: { <%= inject %>}, <% } %>
+  <% if(components) { %> components: { <%= components %> }, <% } %>
+  <% if(props) { %> props: { <%= props %> }, <% } %>
+  <% if(emits) {%> emits: [<%= emits %>], <% } %> 
   setup(props) {
-    const instance = getCurrentInstance();
     const provider = useProvider();
     const state = reactive({ <%= state %> });
     return {
       state,
       props,
-      provider,
-      vtj: instance?.proxy as ComponentPublicInstance
+      provider
     };
   },
-  computed: {
-    <%= computed %>
-  },
-  watch: {
-    <%= watch %>
-  },
-  methods: {
-    <%= methods %>
-  }
-  <%= lifeCycles %>
+  <% if(computed) { %> computed: { <%= computed %> }, <% } %>
+  <% if(methods) { %> methods: { <%= methods %> }, <% } %>
+  <% if(watch) { %> watch: { <%= watch %> }, <% } %> <%= lifeCycles %>
 });
 `;
 

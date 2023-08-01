@@ -1,7 +1,7 @@
 {
   "name": "@vtj/engine",
   "private": false,
-  "version": "0.5.1",
+  "version": "0.5.2",
   "type": "module",
   "scripts": {
     "setup": "npm install --registry=https://registry.npmmirror.com",
@@ -17,9 +17,9 @@
     "node": ">=16.0.0"
   },
   "dependencies": {
-    "@vtj/icons": "^0.5.1",
-    "@vtj/ui": "^0.5.1",
-    "@vtj/utils": "^0.5.1",
+    "@vtj/icons": "^0.5.2",
+    "@vtj/ui": "^0.5.2",
+    "@vtj/utils": "^0.5.2",
     "@vueuse/core": "~10.2.1",
     "mitt": "~3.0.1",
     "monaco-editor": "~0.40.0",
@@ -28,7 +28,7 @@
   },
   "devDependencies": {
     "@types/prettier": "2.7.3",
-    "@vtj/cli": "^0.5.1"
+    "@vtj/cli": "^0.5.2"
   },
   "files": [
     "lib",

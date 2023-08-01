@@ -14,6 +14,7 @@ const DIR_PATH = join(process.cwd(), '.vtj');
 const PROJECT_PATH = join(DIR_PATH, 'project');
 const FILE_PATH = join(DIR_PATH, 'file');
 const HISTORY_PATH = join(DIR_PATH, 'histroy');
+const LOG_PATH = join(DIR_PATH, 'log');
 const SRC_PATH = join(process.cwd(), 'src');
 
 function getFilePath(dir: string, id: string) {
@@ -167,12 +168,28 @@ export async function projectCoder(req: ApiRequest) {
     .filter((n: any) => !!n);
 
   try {
-    const { pages, blocks } = coder({
+    const { pages, blocks, errors } = coder({
       pages: jsonPages,
       blocks: jsonBlocks,
       apis: project.apis || [],
       componentMap: assets.componentMap || {}
     });
+
+    if (errors.length) {
+      if (!existsSync(LOG_PATH)) {
+        ensureDirSync(LOG_PATH);
+      }
+      for (const err of errors) {
+        const { dsl } = err;
+        if (dsl?.id) {
+          const logPath = join(LOG_PATH, `${dsl.id}.json`);
+          writeJSONSync(logPath, err, 'utf-8');
+        }
+      }
+      const ids = errors.map((n) => n.dsl.id);
+      return fail(`出码失败，错误日志目录: ${LOG_PATH}`, ids);
+    }
+
     if (!existsSync(pagesDir)) {
       ensureDirSync(pagesDir);
     }

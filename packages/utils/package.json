@@ -1,7 +1,7 @@
 {
   "name": "@vtj/utils",
   "private": false,
-  "version": "0.5.1",
+  "version": "0.5.2",
   "type": "module",
   "scripts": {
     "setup": "pnpm install --registry=https://registry.npmmirror.com",
@@ -12,8 +12,8 @@
     "coverage": "vitest run --coverage --environment jsdom"
   },
   "devDependencies": {
-    "@vtj/cli": "^0.5.1",
-    "@vtj/deps": "^0.5.1"
+    "@vtj/cli": "^0.5.2",
+    "@vtj/deps": "^0.5.2"
   },
   "files": [
     "lib",

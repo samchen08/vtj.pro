@@ -1,4 +1,5 @@
 import { createViteConfig } from '@vtj/cli';
+import { resolve } from 'path';
 export default createViteConfig({
   debug: false,
   lib: true,
@@ -6,6 +7,7 @@ export default createViteConfig({
   elementPlus: false,
   libraryName: 'VtjRuntime',
   external: [
+    '.vtj',
     'vue',
     'vue-router',
     'prettier',
@@ -28,5 +30,8 @@ export default createViteConfig({
     'monaco-editor/esm/vs/language/html/html.worker?worker',
     'monaco-editor/esm/vs/language/typescript/ts.worker?worker',
     'jsoneditor'
-  ]
+  ],
+  alias: {
+    '.vtj': resolve('src/.vtj.ts')
+  }
 });

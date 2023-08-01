@@ -147,14 +147,28 @@ function parseTemplate(
   const nodes: string[] = [];
   let methods: Record<string, JSFunction> = {};
   let components: string[] = [];
+  let importBlocks: { id: string; name: string }[] = [];
   for (let child of children) {
-    const { id, name, invisible, slot } = child;
+    const { id, name, invisible, slot, from } = child;
     if (invisible) {
       continue;
     }
     if (componentMap[name]) {
       components.push(name);
     }
+
+    if (from) {
+      if (typeof from === 'string') {
+        components.push(name);
+      } else {
+        if (from.type === 'Schema') {
+          components.push(name);
+          importBlocks.push({ id: from.id, name });
+        }
+        // todo: UrlSchema Remote
+      }
+    }
+
     const props = bindNodeProps(child.props).join(' ');
     const { binders, handlers } = bindNodeEvents(id || name, child.events);
     const events = binders.join(' ');
@@ -185,7 +199,10 @@ function parseTemplate(
   return {
     nodes,
     methods,
-    components: dedupArray(components) as string[]
+    components: dedupArray(components) as string[],
+    importBlocks: importBlocks.map((n) => {
+      return `import ${n.name} from '@/components/blocks/${n.id}.vue';`;
+    })
   };
 }
 
@@ -302,15 +319,10 @@ function wrapSlot(slot: string | NodeSlotSchema | undefined, content: string) {
 function parseImports(
   componentMap: Record<string, ComponentDescription>,
   components: string[] = [],
-  dataSources: Record<string, DataSourceSchema> = {}
+  importBlocks: string[] = []
 ) {
   const imports: Record<string, string[]> = {
-    vue: [
-      'defineComponent',
-      'reactive',
-      'getCurrentInstance',
-      'ComponentPublicInstance'
-    ]
+    vue: ['defineComponent', 'reactive']
   };
 
   for (const name of components) {
@@ -321,19 +333,14 @@ function parseImports(
     }
   }
 
-
-  // for (const item of Object.values(dataSources)) {
-  //   const apis = imports['@/api'] ?? (imports['@/api'] = []);
-  //   apis.push(item.detail);
-  // }
-
   return Object.entries(imports)
     .filter(([name, values]) => !!values.length)
     .map(([name, values]) => {
       return `import { ${(dedupArray(values) as string[]).join(
         ','
       )}} from '${name}'`;
-    });
+    })
+    .concat(importBlocks);
 }
 
 function parseDataSources(dataSources: Record<string, DataSourceSchema> = {}) {
@@ -376,7 +383,7 @@ export function parser(
   const watch = parseWatch(dsl.watch, computedKeys);
   const dataSources = parseDataSources(dsl.dataSources);
 
-  const { methods, nodes, components } = parseTemplate(
+  const { methods, nodes, components, importBlocks } = parseTemplate(
     dsl.children,
     computedKeys,
     componentMap
@@ -391,7 +398,7 @@ export function parser(
     computedKeys
   );
 
-  const imports = parseImports(componentMap, components, dsl.dataSources || {});
+  const imports = parseImports(componentMap, components, importBlocks);
 
   tokens.name = dsl.name;
   tokens.state = parseState(dsl.state).join(',');
@@ -402,7 +409,7 @@ export function parser(
   tokens.computed = mergeComputed.join(',');
   tokens.watch = watch.watches.join(',');
   tokens.methods = [...dataSources, ...mergeMethods].join(',');
-  tokens.lifeCycles = lifeCycles.length ? ',' + lifeCycles.join(',') : '';
+  tokens.lifeCycles = lifeCycles.join(',');
   tokens.template = nodes.join('\n');
   tokens.css = dsl.css || '';
   tokens.imports = imports.join('\n');

@@ -104,7 +104,6 @@
   };
 
   const onCoder = () => {
-    loading.value = true;
     emitter.emit(EVENT_ACTION_CODER, loading);
   };
 
