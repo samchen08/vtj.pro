@@ -13,13 +13,15 @@ import {
   BlockSchema,
   Context,
   ContextMode,
-  SummarySchema
+  SummarySchema,
+  version
 } from '@vtj/engine/runtime';
 
 import { markRaw, App, createApp } from 'vue';
 import { Router } from 'vue-router';
 
 export {
+  version,
   createBlockRenderer,
   StorageService,
   VUE,
@@ -43,31 +45,31 @@ export function isPage(schema: unknown): schema is PageSchema {
   return typeof (schema as PageSchema)?.isDir === 'boolean';
 }
 
-export function loadCss(css: string[]) {
+export function loadCss(css: string[], timestamp?: string) {
   const head = document.head;
   for (let href of css) {
     const link = document.createElement('link');
     link.type = 'text/css';
     link.rel = 'stylesheet';
-    link.href = href + '?t=' + Date.now();
+    link.href = href + '?t=' + (timestamp || Date.now());
     head.appendChild(link);
   }
 }
 
-export function loadScript(src: string) {
+export function loadScript(src: string, timestamp?: string) {
   return new Promise((resolve, reject) => {
     const body = document.body;
     const script = document.createElement('script');
-    script.src = src + '?t=' + Date.now();
+    script.src = src + '?t=' + (timestamp || Date.now());
     script.onload = resolve;
     script.onerror = reject;
     body.appendChild(script);
   });
 }
 
-export async function loadScripts(scripts: string[]) {
+export async function loadScripts(scripts: string[], timestamp?: string) {
   for (let src of scripts) {
-    await loadScript(src);
+    await loadScript(src, timestamp);
   }
 }
 
@@ -136,6 +138,7 @@ export function install(app: App, libs: Record<string, any> = {}) {
       app.use(value);
     }
   });
+  app.config.globalProperties.$libs = libs;
 }
 
 export function isMask(schema: unknown): boolean {

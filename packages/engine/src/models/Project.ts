@@ -15,6 +15,7 @@ import {
   ApiSchema
 } from '../core';
 import { Block } from '../models';
+import { version } from '../constants';
 
 import { toRaw, ref, Ref, unref } from 'vue';
 
@@ -112,6 +113,8 @@ export class Project {
     } = this;
     return {
       __VTJ_PROJECT__,
+      __VTJ_VERSION__: version,
+      __VTJ_DATE__: Date.now().toString(),
       id,
       description,
       name,

@@ -3,6 +3,7 @@ import { join } from 'path';
 import serveStatic from 'serve-static';
 import bodyParser from 'body-parser';
 import { controllers, ApiRequest } from './server';
+import { tsFormatter } from '@vtj/engine/shared';
 import fs from 'fs-extra';
 import { upperFirstCamelCase } from '@vtj/utils';
 let __config: UserConfig | null = null;
@@ -78,13 +79,12 @@ const writeVtjOptionsContent = (options: any, build?: boolean) => {
   const ide = options.ide ? JSON.stringify(options.ide) : 'null';
   const content = `
   /// <reference types="vite/client" />
-
   const modules = import.meta.glob(${JSON.stringify(modules)});
-  
   export default {
     modules,
     service: '${options.service}',
     raw: ${options.raw},
+    isProd: process.env.NODE_ENV === 'production',
     project: {
       id: '${options.project.id}',
       name: '${options.project.name}',
@@ -103,7 +103,7 @@ const writeVtjOptionsContent = (options: any, build?: boolean) => {
     ensureDirSync(DIR_PATH);
   }
   const filePath = join(DIR_PATH, 'index.ts');
-  writeFileSync(filePath, content, 'utf-8');
+  writeFileSync(filePath, tsFormatter(content), 'utf-8');
 };
 
 export function IDEPlugin(): Plugin[] {

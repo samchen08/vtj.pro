@@ -1,7 +1,7 @@
 {
   "name": "@vtj/runtime",
   "private": false,
-  "version": "0.5.2",
+  "version": "0.5.3",
   "type": "module",
   "scripts": {
     "setup": "npm install --registry=https://registry.npmmirror.com",
@@ -15,13 +15,13 @@
     "node": ">=16.0.0"
   },
   "dependencies": {
-    "@vtj/deps": "^0.5.2",
-    "@vtj/engine": "^0.5.2",
-    "@vtj/ui": "^0.5.2",
-    "@vtj/utils": "^0.5.2"
+    "@vtj/deps": "^0.5.3",
+    "@vtj/engine": "^0.5.3",
+    "@vtj/ui": "^0.5.3",
+    "@vtj/utils": "^0.5.3"
   },
   "devDependencies": {
-    "@vtj/cli": "^0.5.2"
+    "@vtj/cli": "^0.5.3"
   },
   "files": [
     "lib",

@@ -16,6 +16,7 @@ export default defineComponent({
       state,
       props,
       provider
+      <% if(returns) { %>, <%= returns %> <% } %>
     };
   },
   <% if(computed) { %> computed: { <%= computed %> }, <% } %>

@@ -1,10 +1,16 @@
 import { App, InjectionKey } from 'vue';
-import { ElLoading } from 'element-plus';
+import {
+  ElLoading,
+  ElMessage,
+  ElMessageBox,
+  ElNotification
+} from 'element-plus';
 import { Router } from 'vue-router';
 import { merge } from '@vtj/utils';
 import { XStartup } from '@vtj/ui';
 import { ServiceType, Service } from './Service';
 import __VTJ_PROVIDER_OPTIONS__ from '.vtj';
+
 import {
   Empty,
   IDELink,
@@ -95,6 +101,7 @@ export interface ProviderOptions {
 
   // 生成源码模式
   raw?: boolean;
+  isProd?: boolean;
 }
 
 const defaults: Partial<ProviderOptions> = {
@@ -157,12 +164,15 @@ export class Provider {
 
   private async setup() {
     const { options, dsl } = this;
-    const { dependencies = [] } = dsl || {};
+    const { raw, isProd } = options;
+    // 源码模式在生产环境不需要加依赖
+    if (raw && isProd) return;
+    const { dependencies = [], __VTJ_DATE__ } = dsl || {};
     const deps = dependencies.filter((n) => !!n.enabled && n.library !== VUE);
     const { scripts, css, assets, libraries } = parseDependencies(deps);
-    loadCss(css);
-    await loadScripts(scripts);
-    await loadScripts(assets);
+    loadCss(css, __VTJ_DATE__);
+    await loadScripts(scripts, __VTJ_DATE__);
+    await loadScripts(assets, __VTJ_DATE__);
     const { libs, components } = getLibs(libraries);
     install(options.app, libs);
     this.libs = libs;
@@ -228,6 +238,13 @@ export class Provider {
 }
 
 export async function createProvider(options: Partial<ProviderOptions> = {}) {
+  const { app } = options;
+  if (app) {
+    app.use(ElLoading);
+    app.use(ElMessage);
+    app.use(ElMessageBox);
+    app.use(ElNotification);
+  }
   const loading = ElLoading.service({
     body: true,
     fullscreen: true

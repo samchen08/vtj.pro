@@ -14,6 +14,7 @@ import Mask from '@/components/Mask.vue';
 const isExample = process.env.ENV_TYPE === 'uat';
 const isDev = process.env.ENV_TYPE === 'local';
 
+
 const app = createApp(App);
 
 (async () => {

@@ -1,7 +1,7 @@
 {
   "name": "@vtj/assets",
   "private": false,
-  "version": "0.5.2",
+  "version": "0.5.3",
   "scripts": {
     "setup": "pnpm install --registry=https://registry.npmmirror.com",
     "dev": "cross-env ENV_TYPE=dev vite",
@@ -16,11 +16,11 @@
     "node": ">=16.0.0"
   },
   "dependencies": {
-    "@vtj/deps": "^0.5.2",
-    "@vtj/engine": "^0.5.2"
+    "@vtj/deps": "^0.5.3",
+    "@vtj/engine": "^0.5.3"
   },
   "devDependencies": {
-    "@vtj/cli": "^0.5.2"
+    "@vtj/cli": "^0.5.3"
   },
   "files": [
     "lib",

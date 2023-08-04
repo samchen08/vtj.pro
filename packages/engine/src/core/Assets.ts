@@ -1,10 +1,4 @@
-import {
-  watch,
-  WatchStopHandle,
-  ShallowReactive,
-  computed,
-  ComputedRef
-} from 'vue';
+import { watch, WatchStopHandle, ShallowReactive } from 'vue';
 import { jsonp } from '@vtj/utils';
 import {
   Dependencie,
@@ -14,10 +8,14 @@ import {
   NodeFrom
 } from './types';
 
-import { Project, Block } from '../models';
+import { Project } from '../models';
 
 import { EVENT_ASSETS_LOADED, emitter } from './emitter';
-import { builtInComponents, builtInCategories } from './built-in';
+import {
+  builtInComponents,
+  builtInCategories,
+  builtInElements
+} from './built-in';
 import { SetterValueTypes } from '../views/setters';
 import { Service } from './services';
 
@@ -33,6 +31,9 @@ export interface IComponentGroup {
 
 export class Assets {
   private unwatch?: WatchStopHandle;
+  packages: Dependencie[] = [];
+  elements: ComponentDescription[] = [...builtInElements];
+  elementsMap: Record<string, ComponentDescription> = {};
   components: ComponentDescription[] = [...builtInComponents];
   componentMap: Record<string, ComponentDescription> = {};
   componentGroups: IComponentGroup[] = [];
@@ -46,6 +47,10 @@ export class Assets {
         deep: true
       });
     }
+    this.elementsMap = this.parseMap<ComponentDescription>(
+      this.elements,
+      false
+    );
   }
 
   private clear() {
@@ -96,10 +101,19 @@ export class Assets {
     return result;
   }
 
-  private parseMap<T extends ComponentDescription>(list: T[]) {
+  private parseMap<T extends ComponentDescription>(
+    list: T[],
+    isPackage: boolean = true
+  ) {
     const map: Record<string, T> = {};
-    for (const c of list) {
-      if (c.package) {
+    if (isPackage) {
+      for (const c of list) {
+        if (c.package) {
+          map[c.name] = c;
+        }
+      }
+    } else {
+      for (const c of list) {
         map[c.name] = c;
       }
     }
@@ -107,12 +121,13 @@ export class Assets {
   }
 
   async load(dependencies: Dependencie[]) {
+    this.packages = dependencies;
     this.isReady = false;
     const deps = dependencies.filter((n) => !!n.assetsUrl && n.enabled);
     this.clear();
     const packages: AssetsContent[] = [
       {
-        name: 'built-in',
+        name: 'vue',
         label: '内置',
         names: builtInComponents.map((n) => n.name),
         library: 'Vue',

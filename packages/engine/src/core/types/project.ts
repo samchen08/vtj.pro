@@ -63,4 +63,12 @@ export interface ProjectSchema {
    * 标记
    */
   __VTJ_PROJECT__?: boolean;
+  /**
+   * 引擎版本
+   */
+  __VTJ_VERSION__?: string;
+  /**
+   * 文件更新时间戳
+   */
+  __VTJ_DATE__?: string;
 }

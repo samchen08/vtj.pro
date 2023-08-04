@@ -1,4 +1,7 @@
 // Vue library name
+
+export * from './version';
+
 export const VUE = 'Vue';
 export const VUE_ROUTER = 'VueRouter';
 

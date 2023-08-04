@@ -172,7 +172,8 @@ export async function projectCoder(req: ApiRequest) {
       pages: jsonPages,
       blocks: jsonBlocks,
       apis: project.apis || [],
-      componentMap: assets.componentMap || {}
+      componentMap: assets.componentMap || {},
+      packages: assets.packages || []
     });
 
     if (errors.length) {

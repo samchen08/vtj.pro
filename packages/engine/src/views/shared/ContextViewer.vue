@@ -38,7 +38,7 @@
   const isLeaf = (data: any) => {
     const value = data.value;
     const type = toRawType(value);
-    if (type === 'Object') {
+    if (type === 'Object' || type === 'Module') {
       return Object.keys(value || {}).length === 0;
     }
     if (type === 'Array') {

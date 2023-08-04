@@ -3,7 +3,7 @@
   "private": true,
   "devDependencies": {
     "pnpm": "~8.6.10",
-    "lerna": "~7.1.1",
+    "lerna": "~7.1.4",
     "axios": "~1.4.0",
     "fs-extra": "~11.1.1"
   },

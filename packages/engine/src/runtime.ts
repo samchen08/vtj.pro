@@ -5,7 +5,7 @@ export {
   Context,
   ContextMode
 } from './renderer';
-export { VUE } from './constants';
+export { VUE, version } from './constants';
 export type {
   Dependencie,
   PageSchema,

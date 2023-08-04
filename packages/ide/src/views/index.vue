@@ -24,11 +24,23 @@
       height="400px">
       <ElSkeleton :rows="3" animated :loading="coderLoading">
         <ElAlert
+          v-if="!coderError"
           :closable="false"
           type="success"
           :title="`输出文件数: ${coderResults.length}`" />
         <div class="file-list">
           <div v-for="n in coderResults">{{ n }}</div>
+        </div>
+
+        <div v-if="coderError">
+          <ElAlert
+            :closable="false"
+            type="error"
+            title="出码失败"
+            :description="coderError.msg" />
+          <div class="error-tip">
+            错误日志已保存. 这可能是系统的bug。您可以把日志提交给作者协助解决。
+          </div>
         </div>
       </ElSkeleton>
     </Dialog>
@@ -59,6 +71,7 @@
   const tipDialogVisible = ref(false);
   const coderDialogVisible = ref(false);
   const coderResults = ref<string[]>([]);
+  const coderError = ref<any>(null);
   const coderLoading = ref(false);
   const container = ref<HTMLElement | undefined>();
   const options = inject('VTJ_PROVIDER_OPTIONS', null);
@@ -134,16 +147,23 @@
     coderDialogVisible.value = true;
     coderLoading.value = true;
     coderResults.value = [];
+    coderError.value = null;
     const dsl = engine.project.toDsl();
     const componentMap = engine.assets.componentMap;
+    const packages = engine.assets.packages;
     coderResults.value = await ideBase({
       type: 'projectCoder',
       data: {
         project: dsl,
         assets: {
-          componentMap
+          componentMap,
+          packages
         }
       }
+    }).catch((e) => {
+      coderError.value = e.data;
+      console.log(e);
+      return [];
     });
     coderLoading.value = false;
   });
@@ -164,5 +184,8 @@
     padding: 10px 20px;
     line-height: 1.8em;
     font-size: 14px;
+  }
+  .error-tip {
+    padding: 20px;
   }
 </style>

@@ -15,7 +15,7 @@ const defaultOptions: JSONPOptions = {
 };
 
 export interface JSONPOptions {
-  cache?: boolean;
+  cache?: boolean | string;
   timeout?: number;
   prefix?: string;
   param?: string;
@@ -61,7 +61,7 @@ export function jsonp<T>(
       [opts.param as string]: id
     };
     if (!opts.cache) {
-      query.__t__ = Date.now();
+      query.__t__ = typeof opts.cache === 'string' ? opts.cache : Date.now();
     }
 
     if (url.includes('${')) {

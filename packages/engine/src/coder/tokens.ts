@@ -14,20 +14,19 @@ import {
   NodeChildrenSchema,
   NodeDirectiveSchema,
   NodeSlotSchema,
-  Assets,
   DataSourceSchema,
-  ComponentDescription
+  ComponentDescription,
+  Dependencie
 } from '../core';
 import {
   isJSFunction,
   isJSExpression,
-  upperFirstCamelCase,
   isPlainObject,
   getModifiers,
-  toTsType,
   getDiretives,
   dedupArray
 } from '../utils';
+import { Collecter } from './Collecter';
 
 function replaceComputedValue(content: string, keys: string[] = []) {
   let result = content;
@@ -66,7 +65,7 @@ function parseFunctionMap(
   computedKeys: string[] = []
 ) {
   return Object.entries(map).map(([name, val]) => {
-    let handler = replaceFunctionTag(parseValue(val) as string);
+    let handler = replaceFunctionTag(parseValue(val, false) as string);
     handler = replaceComputedValue(handler, computedKeys);
     return `${name}${handler}`;
   });
@@ -74,7 +73,7 @@ function parseFunctionMap(
 
 function parseState(state: StateSchema = {}) {
   return Object.entries(state).map(([name, val]) => {
-    const value = parseValue(val);
+    const value = parseValue(val, false);
     return `${name}:${value}`;
   });
 }
@@ -264,8 +263,9 @@ function parseNodeChildren(
   if (typeof children === 'string') {
     return children;
   }
+
   if (isJSExpression(children)) {
-    let content = parseValue(children) as string;
+    let content = parseValue(children, false) as string;
     content = replaceComputedValue(content, computedKeys);
     content = replaceThis(content);
     return `{{ ${content} }}`;
@@ -319,7 +319,8 @@ function wrapSlot(slot: string | NodeSlotSchema | undefined, content: string) {
 function parseImports(
   componentMap: Record<string, ComponentDescription>,
   components: string[] = [],
-  importBlocks: string[] = []
+  importBlocks: string[] = [],
+  collectImports: Record<string, Set<string>> = {}
 ) {
   const imports: Record<string, string[]> = {
     vue: ['defineComponent', 'reactive']
@@ -331,6 +332,11 @@ function parseImports(
       const items = imports[desc.package] ?? (imports[desc.package] = []);
       items.push(name);
     }
+  }
+
+  for (const [name, value] of Object.entries(collectImports)) {
+    const items = imports[name] ?? (imports[name] = []);
+    items.push(...Array.from(value));
   }
 
   return Object.entries(imports)
@@ -370,12 +376,15 @@ export interface Tokens {
   imports: string;
   components: string;
   provider: string;
+  returns: string;
 }
 
 export function parser(
   dsl: BlockSchema,
-  componentMap: Record<string, ComponentDescription>
+  componentMap: Record<string, ComponentDescription>,
+  packages: Dependencie[] = []
 ) {
+  const collecter = new Collecter(dsl, packages);
   const tokens = {} as Tokens;
   const computedKeys = Object.keys(dsl.computed || {});
   const lifeCycles = parseFunctionMap(dsl.lifeCycles, computedKeys);
@@ -398,7 +407,12 @@ export function parser(
     computedKeys
   );
 
-  const imports = parseImports(componentMap, components, importBlocks);
+  const imports = parseImports(
+    componentMap,
+    components,
+    importBlocks,
+    collecter.imports
+  );
 
   tokens.name = dsl.name;
   tokens.state = parseState(dsl.state).join(',');
@@ -414,5 +428,6 @@ export function parser(
   tokens.css = dsl.css || '';
   tokens.imports = imports.join('\n');
   tokens.components = components.join(',');
+  tokens.returns = collecter.getRefs().join(',');
   return tokens;
 }

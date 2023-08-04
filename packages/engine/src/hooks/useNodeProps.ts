@@ -81,7 +81,10 @@ export function useNodeProps(node: ComputedRef<Node>, assets: Assets) {
 
   const componentProps = computed<ComponentProp[]>(() => {
     if (!node.value || !isNode(node.value)) return [];
-    const desc = blockDescription.value || assets.componentMap[node.value.name];
+    const desc =
+      blockDescription.value ||
+      assets.componentMap[node.value.name] ||
+      assets.elementsMap[node.value.name];
     if (!desc) return [];
     const props = desc.props || [];
     return props.map((n) => {

@@ -11,7 +11,7 @@ export const builtInCategories: AssetsCategory[] = [
   }
 ];
 
-export const builtInComponents: ComponentDescription[] = [
+export const builtInElements: ComponentDescription[] = [
   {
     name: 'component',
     title: '动态组件',
@@ -45,7 +45,11 @@ export const builtInComponents: ComponentDescription[] = [
     snippet: {
       children: '插槽默认内容'
     }
-  },
+  }
+];
+
+export const builtInComponents: ComponentDescription[] = [
+  ...builtInElements,
   {
     name: 'Transition',
     title: '过渡效果',

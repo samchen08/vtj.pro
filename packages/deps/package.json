@@ -1,6 +1,6 @@
 {
   "name": "@vtj/deps",
-  "version": "0.5.2",
+  "version": "0.5.3",
   "private": false,
   "publishConfig": {
     "access": "public"
@@ -11,7 +11,7 @@
     "@types/lodash-es": "~4.17.8",
     "@types/numeral": "~2.0.2",
     "@types/sortablejs": "~1.15.1",
-    "@vueuse/core": "~10.2.1",
+    "@vueuse/core": "~10.3.0",
     "axios": "~1.4.0",
     "crypto-js": "~4.1.1",
     "dayjs": "~1.11.9",
