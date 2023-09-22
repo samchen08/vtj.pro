@@ -15,4 +15,5 @@ export default createViteConfig({
   envConfig: EnvConfig,
   envType: ENV_TYPE,
   plugins: [IDEPlugin()]
+
 });

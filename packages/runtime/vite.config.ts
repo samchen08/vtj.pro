@@ -7,6 +7,7 @@ export default createViteConfig({
   elementPlus: false,
   libraryName: 'VtjRuntime',
   external: [
+    '/.vtj',
     '.vtj',
     'vue',
     'vue-router',
@@ -32,6 +33,7 @@ export default createViteConfig({
     'jsoneditor'
   ],
   alias: {
-    '.vtj': resolve('src/.vtj.ts')
+    '.vtj': resolve('src/.vtj.ts'),
+    '/.vtj': resolve('src/.vtj.ts')
   }
 });

@@ -11,7 +11,8 @@ import { Router } from 'vue-router';
 import { merge } from '@vtj/utils';
 import { XStartup } from '@vtj/ui';
 import { ServiceType, Service } from './Service';
-import __VTJ_PROVIDER_OPTIONS__ from '.vtj';
+// @ts-ignore
+import __VTJ_PROVIDER_OPTIONS__ from '/.vtj';
 
 import { Empty, IDELink, PageContainer, PreviewContainer } from './components';
 import {

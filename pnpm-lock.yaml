@@ -116,7 +116,7 @@ importers:
         version: 10.4.1(vue@3.3.4)
       element-plus:
         specifier: ~2.3.9
-        version: 2.3.12(vue@3.3.4)
+        version: 2.3.14(vue@3.3.4)
       vue:
         specifier: ~3.3.4
         version: 3.3.4
@@ -228,20 +228,20 @@ importers:
         specifier: ~2.1.0
         version: 2.1.0(vue@3.3.4)
       '@vtj/icons':
-        specifier: ^0.5.3
+        specifier: ^0.6.0
         version: link:../icons
       '@vtj/ui':
-        specifier: ^0.5.3
+        specifier: ^0.6.0
         version: link:../ui
       '@vtj/utils':
-        specifier: ^0.5.3
+        specifier: ^0.6.0
         version: link:../utils
       '@vueuse/core':
         specifier: ~10.4.1
         version: 10.4.1(vue@3.3.4)
       element-plus:
         specifier: ~2.3.12
-        version: 2.3.12(vue@3.3.4)
+        version: 2.3.14(vue@3.3.4)
       mitt:
         specifier: ~3.0.1
         version: 3.0.1
@@ -259,7 +259,7 @@ importers:
         specifier: 2.7.3
         version: 2.7.3
       '@vtj/cli':
-        specifier: ^0.5.3
+        specifier: ^0.6.0
         version: link:../cli
       vue:
         specifier: ~3.3.4
@@ -274,7 +274,7 @@ importers:
         specifier: ~2.1.0
         version: 2.1.0(vue@3.3.4)
       '@vtj/cli':
-        specifier: ^0.5.3
+        specifier: ^0.6.0
         version: link:../cli
       cross-env:
         specifier: ~7.0.3
@@ -292,22 +292,22 @@ importers:
         specifier: ~2.1.0
         version: 2.1.0(vue@3.3.4)
       '@vtj/assets':
-        specifier: ^0.5.3
+        specifier: ^0.6.0
         version: link:../assets
       '@vtj/engine':
-        specifier: ^0.5.3
+        specifier: ^0.6.0
         version: link:../engine
       '@vtj/icons':
-        specifier: ^0.5.3
+        specifier: ^0.6.0
         version: link:../icons
       '@vtj/runtime':
-        specifier: ^0.5.3
+        specifier: ^0.6.0
         version: link:../runtime
       '@vtj/ui':
-        specifier: ^0.5.3
+        specifier: ^0.6.0
         version: link:../ui
       '@vtj/utils':
-        specifier: ^0.5.3
+        specifier: ^0.6.0
         version: link:../utils
       '@vueuse/core':
         specifier: ~10.4.1
@@ -323,22 +323,22 @@ importers:
         version: 4.2.4(vue@3.3.4)
     devDependencies:
       '@vtj/cli':
-        specifier: ^0.5.3
+        specifier: ^0.6.0
         version: link:../cli
       '@vtj/serve':
-        specifier: ^0.5.3
+        specifier: ^0.6.0
         version: link:../serve
 
   packages/runtime:
     dependencies:
       '@vtj/engine':
-        specifier: ^0.5.3
+        specifier: ^0.6.0
         version: link:../engine
       '@vtj/ui':
-        specifier: ^0.5.3
+        specifier: ^0.6.0
         version: link:../ui
       '@vtj/utils':
-        specifier: ^0.5.3
+        specifier: ^0.6.0
         version: link:../utils
       '@vueuse/core':
         specifier: ~10.4.1
@@ -348,7 +348,7 @@ importers:
         version: 2.3.14(vue@3.3.4)
     devDependencies:
       '@vtj/cli':
-        specifier: ^0.5.3
+        specifier: ^0.6.0
         version: link:../cli
       vue:
         specifier: ~3.3.4
@@ -360,7 +360,7 @@ importers:
   packages/serve:
     dependencies:
       '@vtj/utils':
-        specifier: ^0.5.3
+        specifier: ^0.6.0
         version: link:../utils
       body-parser:
         specifier: ~1.20.2
@@ -382,7 +382,7 @@ importers:
         specifier: ~1.15.2
         version: 1.15.2
       '@vtj/engine':
-        specifier: ^0.5.3
+        specifier: ^0.6.0
         version: link:../engine
       typescript:
         specifier: ~5.2.2
@@ -400,10 +400,10 @@ importers:
         specifier: ~2.1.0
         version: 2.1.0(vue@3.3.4)
       '@vtj/icons':
-        specifier: ^0.5.3
+        specifier: ^0.6.0
         version: link:../icons
       '@vtj/utils':
-        specifier: ^0.5.3
+        specifier: ^0.6.0
         version: link:../utils
       '@vueuse/core':
         specifier: ~10.4.1
@@ -413,7 +413,7 @@ importers:
         version: 2.3.14(vue@3.3.4)
     devDependencies:
       '@vtj/cli':
-        specifier: ^0.5.3
+        specifier: ^0.6.0
         version: link:../cli
       vue:
         specifier: ~3.3.4
@@ -437,7 +437,7 @@ importers:
         specifier: ~2.0.2
         version: 2.0.2
       '@vtj/cli':
-        specifier: ^0.5.3
+        specifier: ^0.6.0
         version: link:../cli
       '@vueuse/core':
         specifier: ~10.4.1
@@ -4216,31 +4216,6 @@ packages:
 
   /electron-to-chromium@1.4.527:
     resolution: {integrity: sha512-EafxEiEDzk2aLrdbtVczylHflHdHkNrpGNHIgDyA63sUQLQVS2ayj2hPw3RsVB42qkwURH+T2OxV7kGPUuYszA==}
-
-  /element-plus@2.3.12(vue@3.3.4):
-    resolution: {integrity: sha512-fAWpbKCyt+l1dsqSNPOs/F/dBN4Wp5CGAyxbiS5zqDwI4q3QPM+LxLU2h3GUHMIBtMGCvmsG98j5HPMkTKkvcA==}
-    peerDependencies:
-      vue: ^3.2.0
-    dependencies:
-      '@ctrl/tinycolor': 3.6.1
-      '@element-plus/icons-vue': 2.1.0(vue@3.3.4)
-      '@floating-ui/dom': 1.5.3
-      '@popperjs/core': /@sxzz/popperjs-es@2.11.7
-      '@types/lodash': 4.14.198
-      '@types/lodash-es': 4.17.8
-      '@vueuse/core': 9.13.0(vue@3.3.4)
-      async-validator: 4.2.5
-      dayjs: 1.11.9
-      escape-html: 1.0.3
-      lodash: 4.17.21
-      lodash-es: 4.17.21
-      lodash-unified: 1.0.3(@types/lodash-es@4.17.8)(lodash-es@4.17.21)(lodash@4.17.21)
-      memoize-one: 6.0.0
-      normalize-wheel-es: 1.2.0
-      vue: 3.3.4
-    transitivePeerDependencies:
-      - '@vue/composition-api'
-    dev: false
 
   /element-plus@2.3.14(vue@3.3.4):
     resolution: {integrity: sha512-9yvxUaU4jXf2ZNPdmIxoj/f8BG8CDcGM6oHa9JIqxLjQlfY4bpzR1E5CjNimnOX3rxO93w1TQ0jTVt0RSxh9kA==}

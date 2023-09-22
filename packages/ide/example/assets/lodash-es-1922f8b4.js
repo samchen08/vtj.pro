@@ -15,4 +15,4 @@ __p += '`),x&&(s+=`' +
 function print() { __p += __j.call(arguments, '') }
 `:`;
 `)+s+`return __p
-}`;var $=Li(function(){return Function(i,_+"return "+s).apply(void 0,o)});if($.source=s,Ye($))throw $;return $}var vc="Expected a function";function Pc(r,e,n){var t=!0,a=!0;if(typeof r!="function")throw new TypeError(vc);return T(n)&&(t="leading"in n?!!n.leading:t,a="trailing"in n?!!n.trailing:a),Ds(r,e,{leading:t,maxWait:e,trailing:a})}export{Oc as a,$c as b,_c as c,mc as d,Ds as e,Tc as f,xi as g,xc as h,Ac as i,bc as j,Cc as k,yc as l,Ec as m,Sc as p,wc as s,Pc as t,fu as u};
+}`;var $=Li(function(){return Function(i,_+"return "+s).apply(void 0,o)});if($.source=s,Ye($))throw $;return $}var vc="Expected a function";function Pc(r,e,n){var t=!0,a=!0;if(typeof r!="function")throw new TypeError(vc);return T(n)&&(t="leading"in n?!!n.leading:t,a="trailing"in n?!!n.trailing:a),Ds(r,e,{leading:t,maxWait:e,trailing:a})}export{$c as a,Oc as b,_c as c,mc as d,Ds as e,Tc as f,xi as g,xc as h,Ac as i,bc as j,Cc as k,yc as l,Ec as m,Sc as p,wc as s,Pc as t,fu as u};
