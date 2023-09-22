@@ -1,4 +1,4 @@
-import { isClient } from '@vueuse/core';
+import { isClient } from './util';
 
 export const rAF = (fn: () => void) =>
   isClient

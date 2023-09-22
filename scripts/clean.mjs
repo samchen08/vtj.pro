@@ -23,6 +23,9 @@ async function cleanDir(list) {
     }
   }
   await rm('node_modules', { recursive: true, force: true });
+  for (let file of FILES) {
+    await rm(file, { recursive: true, force: true });
+  }
   console.log('done:', '清除编译产物完成！');
 }
 

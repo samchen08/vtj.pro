@@ -1,5 +1,6 @@
 import { defineComponent, h, ref } from 'vue';
 import { useDraggable } from '@vueuse/core';
+import { EditPen } from '@element-plus/icons-vue';
 const CSS_TEXT = `
 .vtj-ide-link {
     position: absolute;
@@ -8,7 +9,7 @@ const CSS_TEXT = `
     height: 50px;
     border-radius: 100%;
     background-color: rgba(0, 0, 0, 0.1);
-    color: #337ecc;
+    color: #409eff;
     font-size: 18px;
     font-weight: bold;
     border: 1px solid #eeeff1;
@@ -20,6 +21,14 @@ const CSS_TEXT = `
     text-align: center;
     cursor: pointer;
     user-select: none;
+  }
+  .vtj-ide-link span {
+    width:30px;
+    height:50px;
+    display:block;
+    text-align: center;
+    margin:auto;
+    padding-top:7px;
   }
 `;
 
@@ -72,14 +81,15 @@ export const IDELink = defineComponent({
         style: this.style,
         onClick: this.onClick
       },
-      this.$props.text
+      [h('span', h(EditPen))]
     );
   },
   methods: {
     onClick(e: MouseEvent) {
       e.stopPropagation();
       if (this.dragging) return;
-      window.open(this.path);
+      const url = this.path + '#/?startup';
+      location.href = url;
     }
   },
   created() {

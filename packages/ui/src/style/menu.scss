@@ -2,8 +2,36 @@
 
 @include b(menu) {
   border-right: none !important;
+
   .x-icon {
     font-size: inherit;
     width: 14px;
+  }
+
+  @include e(wrapper) {
+    display: inline-flex;
+    justify-content: flex-start;
+    align-items: center;
+  }
+
+  @include e(title) {
+    // margin-left: 5px;
+  }
+
+  @include e(badge) {
+    font-size: 12px;
+    zoom: 0.9;
+    margin-left: 14px;
+  }
+
+  &.el-menu--collapse {
+    @include e(wrapper) {
+      position: relative;
+    }
+    @include e(badge) {
+      position: absolute;
+      right: 20px;
+      top: 5px;
+    }
   }
 }

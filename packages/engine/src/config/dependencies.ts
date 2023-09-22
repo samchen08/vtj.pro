@@ -11,6 +11,18 @@ export const dependencies: Dependencie[] = [
     enabled: true
   },
   {
+    package: '@vueuse/core',
+    version: 'latest',
+    library: 'VueUse',
+    urls: [
+      './libs/vueuse.shared.iife.min.js',
+      './libs/vueuse.core.iife.min.js'
+    ],
+    required: false,
+    official: true,
+    enabled: false
+  },
+  {
     package: 'element-plus',
     version: 'latest',
     library: 'ElementPlus',
@@ -47,7 +59,7 @@ export const dependencies: Dependencie[] = [
     required: false,
     official: true,
     enabled: true
-  },
+  }
   // {
   //   package: '@vtj/ui',
   //   version: 'latest',
@@ -59,27 +71,7 @@ export const dependencies: Dependencie[] = [
   //   official: true,
   //   enabled: true
   // },
-  {
-    package: 'lodash-es',
-    version: 'latest',
-    library: '_',
-    urls: ['./libs/lodash.min.js'],
-    required: false,
-    official: true,
-    enabled: false
-  },
-  {
-    package: '@vueuse/core',
-    version: 'latest',
-    library: 'VueUse',
-    urls: [
-      './libs/vueuse.shared.iife.min.js',
-      './libs/vueuse.core.iife.min.js'
-    ],
-    required: false,
-    official: true,
-    enabled: false
-  }
+
   // {
   //   package: 'xe-utils',
   //   version: 'latest',

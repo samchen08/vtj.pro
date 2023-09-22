@@ -66,7 +66,7 @@
   import { ideBase, ideConfig } from '@/api';
 
   const isExample = process.env.ENV_TYPE === 'uat';
-  const isDev = process.env.ENV_TYPE === 'local';
+  // const isDev = process.env.ENV_TYPE === 'local';
 
   const tipDialogVisible = ref(false);
   const coderDialogVisible = ref(false);
@@ -75,8 +75,16 @@
   const coderLoading = ref(false);
   const container = ref<HTMLElement | undefined>();
   const options = inject('VTJ_PROVIDER_OPTIONS', null);
-  const config = isExample ? ({} as any) : options || (await ideConfig());
-  const { project, raw = true, service = 'storage' } = config || {};
+  const pathname = location.pathname;
+  const config = isExample
+    ? ({
+        project: {
+          base: pathname,
+          home: '/startup'
+        }
+      } as any)
+    : options || (await ideConfig());
+  const { project, raw = false, service = 'storage', debug } = config || {};
   const {
     id = 'ide',
     name = 'IDE',
@@ -87,6 +95,10 @@
     home = '/'
   } = project || {};
 
+  const getPorjectHomePath = () => {
+    const split = mode === 'hash' ? '#' : '';
+    return `${base}${split}${home}`;
+  };
   const engine = new Engine(container, {
     service: service === 'file' ? new FileService() : new StorageService(),
     config: {
@@ -94,13 +106,13 @@
         {
           name: 'switcher',
           props: {
-            link: `/#${home}`
+            link: getPorjectHomePath()
           }
         },
         {
           name: 'actions',
           props: {
-            coder: raw
+            coder: true
           }
         }
       ]
@@ -154,6 +166,7 @@
     coderResults.value = await ideBase({
       type: 'projectCoder',
       data: {
+        debug,
         project: dsl,
         assets: {
           componentMap,

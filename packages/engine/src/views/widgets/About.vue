@@ -9,11 +9,8 @@
       <h3>VTJEngine</h3>
     </div>
     <div class="vtj-about__footer">
-      <ElLink
-        href="https://gitee.com/newgateway/vtj"
-        type="primary"
-        target="_blank">
-        https://gitee.com/newgateway/vtj
+      <ElLink href="http://vtj.pro" type="primary" target="_blank">
+        http://vtj.pro
       </ElLink>
     </div>
   </div>
@@ -39,7 +36,7 @@
     }
   }
   .vtj-about__name {
-    margin-top: 20px;
+    margin-top: 10px;
     h3 {
       padding: 0 10px;
       margin: 0;
@@ -47,7 +44,7 @@
     }
   }
   .vtj-about__footer {
-    text-align: left;
+    text-align: center;
     border-top: 1px solid #eee;
     padding-top: 10px;
     margin-top: 20px;

@@ -1,0 +1,8 @@
+@use 'core' as *;
+
+@include b(action-bar) {
+  white-space: nowrap;
+  @include e(divider) {
+    margin: 0 1em !important;
+  }
+}

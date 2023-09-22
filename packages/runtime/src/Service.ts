@@ -6,6 +6,7 @@ export class Service {
   constructor(
     public type: ServiceType,
     public projectId: string,
+    public projectName: string,
     public modules?: Record<string, () => Promise<any>>
   ) {
     if (type === 'storage') {
@@ -14,9 +15,12 @@ export class Service {
   }
 
   async getProject(): Promise<ProjectSchema | null> {
-    const { type, storage, projectId, modules } = this;
+    const { type, storage, projectId, modules, projectName } = this;
     if (type === 'storage' && storage) {
-      return await storage.getProject({ id: projectId } as any);
+      return await storage.getProject({
+        id: projectId,
+        name: projectName
+      } as any);
     }
     if (type === 'file' && modules) {
       const loader = modules[`.vtj/project/${projectId}.json`];

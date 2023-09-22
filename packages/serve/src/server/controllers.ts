@@ -15,7 +15,10 @@ const PROJECT_PATH = join(DIR_PATH, 'project');
 const FILE_PATH = join(DIR_PATH, 'file');
 const HISTORY_PATH = join(DIR_PATH, 'histroy');
 const LOG_PATH = join(DIR_PATH, 'log');
+const DEBUG_PATH = join(DIR_PATH, 'debug');
 const SRC_PATH = join(process.cwd(), 'src');
+const pagesDir = join(SRC_PATH, 'views/pages');
+const blocksDir = join(SRC_PATH, 'components/blocks');
 
 function getFilePath(dir: string, id: string) {
   return join(dir, id + '.json');
@@ -87,9 +90,20 @@ export async function removeFile(req: ApiRequest) {
   if (!id) {
     return fail('文件id不存在');
   }
+
   const file = getFilePath(FILE_PATH, id);
   if (existsSync(file)) {
     removeSync(file);
+
+    const page = join(pagesDir, `${id}.vue`);
+    const block = join(blocksDir, `${id}.vue`);
+    if (existsSync(page)) {
+      removeSync(page);
+    }
+    if (existsSync(block)) {
+      removeSync(block);
+    }
+
     return success(true);
   } else {
     return fail(`文件Id: ${id} 不存在`);
@@ -106,7 +120,7 @@ export async function removeHistory(req: ApiRequest) {
     removeSync(file);
     return success(true);
   } else {
-    return fail(`文件Id: ${id} 不存在`);
+    return success(false);
   }
 }
 
@@ -138,13 +152,10 @@ export async function getHistory(req: ApiRequest) {
 }
 
 export async function projectCoder(req: ApiRequest) {
-  const { assets, project } = req.data;
+  const { assets, project, debug } = req.data;
   if (!assets || !project) {
     return fail('缺少 assets 或 project');
   }
-  const pagesDir = join(SRC_PATH, 'views/pages');
-  const blocksDir = join(SRC_PATH, 'components/blocks');
-
   const results: string[] = [];
 
   const jsonPages = getPages(project.pages || [])
@@ -191,6 +202,9 @@ export async function projectCoder(req: ApiRequest) {
       return fail(`出码失败，错误日志目录: ${LOG_PATH}`, ids);
     }
 
+    removeSync(pagesDir);
+    removeSync(blocksDir);
+
     if (!existsSync(pagesDir)) {
       ensureDirSync(pagesDir);
     }
@@ -202,12 +216,44 @@ export async function projectCoder(req: ApiRequest) {
       const filePath = join(pagesDir, `${file.id}.vue`);
       writeFileSync(filePath, file.content, 'utf-8');
       results.push(filePath);
+
+      if (debug) {
+        if (!existsSync(DEBUG_PATH)) {
+          ensureDirSync(DEBUG_PATH);
+        }
+        const debugPath = join(DEBUG_PATH, `${file.id}.json`);
+        writeJSONSync(
+          debugPath,
+          {
+            dsl: jsonPages.find((n: any) => n.id === file.id),
+            componentMap: assets.componentMap || {},
+            packages: assets.packages || []
+          },
+          'utf-8'
+        );
+      }
     }
 
     for (const file of blocks) {
       const filePath = join(blocksDir, `${file.id}.vue`);
       writeFileSync(filePath, file.content, 'utf-8');
       results.push(filePath);
+
+      if (debug) {
+        if (!existsSync(DEBUG_PATH)) {
+          ensureDirSync(DEBUG_PATH);
+        }
+        const debugPath = join(DEBUG_PATH, `${file.id}.json`);
+        writeJSONSync(
+          debugPath,
+          {
+            dsl: jsonBlocks.find((n: any) => n.id === file.id),
+            componentMap: assets.componentMap || {},
+            packages: assets.packages || []
+          },
+          'utf-8'
+        );
+      }
     }
   } catch (e: any) {
     // console.log(e);

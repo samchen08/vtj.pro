@@ -1,11 +1,9 @@
 <template>
-  <el-config-provider>
-    <Suspense>
-      <router-view></router-view>
-    </Suspense>
-  </el-config-provider>
+  <Suspense>
+    <router-view></router-view>
+  </Suspense>
 </template>
 
 <script lang="ts" setup>
-import { ElConfigProvider } from 'element-plus';
+  import { Suspense } from 'vue';
 </script>

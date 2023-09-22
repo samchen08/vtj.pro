@@ -1,33 +1,42 @@
 {
   "name": "@vtj/utils",
   "private": false,
-  "version": "0.5.3",
+  "version": "0.6.0",
   "type": "module",
+  "sideEffects": false,
   "scripts": {
     "setup": "pnpm install --registry=https://registry.npmmirror.com",
-    "dev": "cross-env ENV_TYPE=dev vite",
     "build": "vue-tsc && vite build && pnpm run build:cdn",
-    "build:cdn": "vue-tsc && cross-env CDN=true vite build",
-    "test:unit": "vitest --environment jsdom",
-    "coverage": "vitest run --coverage --environment jsdom"
+    "build:cdn": "vue-tsc && cross-env CDN=true vite build"
   },
   "devDependencies": {
-    "@vtj/cli": "^0.5.3",
-    "@vtj/deps": "^0.5.3"
+    "@types/crypto-js": "~4.1.1",
+    "@types/js-cookie": "~3.0.3",
+    "@types/lodash-es": "~4.17.8",
+    "@types/numeral": "~2.0.2",
+    "@vtj/cli": "^0.6.0",
+    "@vueuse/core": "~10.4.1",
+    "axios": "~1.4.0",
+    "crypto-js": "~4.1.1",
+    "dayjs": "~1.11.9",
+    "js-cookie": "~3.0.5",
+    "jsencrypt": "~3.3.2",
+    "lodash-es": "~4.17.21",
+    "numeral": "~2.0.6"
   },
   "files": [
     "lib",
     "types",
     "cdn"
   ],
-  "main": "lib/index.js",
-  "module": "lib/index.js",
-  "types": "types/index.d.ts",
+  "main": "./lib/index.cjs",
+  "module": "./lib/index.mjs",
+  "types": "./types/index.d.ts",
   "exports": {
     ".": {
       "types": "./types/index.d.ts",
-      "import": "./lib/index.js",
-      "require": "./lib/index.js"
+      "import": "./lib/index.mjs",
+      "require": "./lib/index.cjs"
     }
   },
   "gitHead": "53b27ae2dc4309e33627a1d9354bfa12cde4263b",

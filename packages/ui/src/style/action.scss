@@ -1,0 +1,141 @@
+@use 'core' as *;
+
+@include b(action) {
+  display: inline-flex;
+  vertical-align: middle;
+  & + .x-action {
+    margin-left: 10px;
+  }
+  .el-dropdown,
+  .el-tooltip__trigger,
+  .el-badge {
+    outline: none;
+  }
+
+  .el-badge__content {
+    zoom: 0.9;
+  }
+
+  @include m(icon) {
+    & + .x-action--icon {
+      margin-left: 5px;
+    }
+  }
+
+  @include e(inner) {
+    cursor: pointer;
+    color: getCssVar('text-color-regular');
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    line-height: 1;
+    white-space: nowrap;
+    font-size: 14px;
+    > .x-icon + span {
+      margin-left: 0.2em;
+    }
+
+    > span {
+      display: inline-flex;
+      align-items: center;
+    }
+
+    &:hover {
+      opacity: 0.7;
+    }
+
+    @include when(disabled) {
+      cursor: not-allowed;
+      opacity: 0.6;
+    }
+
+    @include when(primary) {
+      color: getCssVar('color-primary');
+    }
+    @include when(warning) {
+      color: getCssVar('color-warning');
+    }
+    @include when(success) {
+      color: getCssVar('color-success');
+    }
+    @include when(danger) {
+      color: getCssVar('color-danger');
+    }
+    @include when(info) {
+      color: getCssVar('text-color-regular');
+    }
+
+    @include when(icon) {
+      padding: 5px;
+      border-radius: 3px;
+
+      @include when(background-hover) {
+        color: getCssVar('text-color-regular');
+        &:hover {
+          @include when(primary) {
+            background-color: getCssVar('color-primary-light-8');
+            color: getCssVar('color-primary');
+          }
+          @include when(success) {
+            background-color: getCssVar('color-success-light-8');
+            color: getCssVar('color-success');
+          }
+          @include when(warning) {
+            background-color: getCssVar('color-warning-light-8');
+            color: getCssVar('color-warning');
+          }
+          @include when(danger) {
+            background-color: getCssVar('color-danger-light-8');
+            color: getCssVar('color-danger');
+          }
+          @include when(info) {
+            background-color: getCssVar('color-info-light-8');
+            color: getCssVar('text-color-regular');
+          }
+        }
+      }
+
+      @include when(background-always) {
+        @include when(primary) {
+          background-color: getCssVar('color-primary-light-9');
+        }
+        @include when(success) {
+          background-color: getCssVar('color-success-light-9');
+        }
+        @include when(warning) {
+          background-color: getCssVar('color-warning-light-9');
+        }
+        @include when(danger) {
+          background-color: getCssVar('color-danger-light-9');
+        }
+        @include when(info) {
+          background-color: getCssVar('color-info-light-9');
+        }
+      }
+
+      @include when(circle) {
+        border-radius: 50%;
+      }
+
+      @include when(large) {
+        font-size: 16px;
+        padding: 6px;
+      }
+
+      @include when(small) {
+        font-size: 12px;
+        padding: 4px;
+      }
+    }
+
+    @include when(text) {
+      @include when(large) {
+        font-size: 16px;
+      }
+
+      @include when(small) {
+        font-size: 12px;
+      }
+    }
+  }
+}

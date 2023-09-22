@@ -1,24 +1,19 @@
-import { App, InjectionKey } from 'vue';
+import { App, InjectionKey, Plugin, DefineComponent } from 'vue';
 import {
   ElLoading,
   ElMessage,
   ElMessageBox,
-  ElNotification
+  ElNotification,
+  provideGlobalConfig
 } from 'element-plus';
+import zhCn from 'element-plus/es/locale/lang/zh-cn';
 import { Router } from 'vue-router';
 import { merge } from '@vtj/utils';
 import { XStartup } from '@vtj/ui';
 import { ServiceType, Service } from './Service';
 import __VTJ_PROVIDER_OPTIONS__ from '.vtj';
 
-import {
-  Empty,
-  IDELink,
-  MaskContainer,
-  PageContainer,
-  PreviewContainer,
-  Homepage
-} from './components';
+import { Empty, IDELink, PageContainer, PreviewContainer } from './components';
 import {
   createIdeLink,
   VUE,
@@ -51,6 +46,9 @@ export interface ProjectProvider {
   preview: string;
   // 首页路由
   home: string;
+
+  // 项目启动页
+  startup: string;
 }
 
 export interface IDEProvider extends Record<string, any> {
@@ -102,6 +100,8 @@ export interface ProviderOptions {
   // 生成源码模式
   raw?: boolean;
   isProd?: boolean;
+  // 开启debug
+  debug?: boolean;
 }
 
 const defaults: Partial<ProviderOptions> = {
@@ -113,7 +113,8 @@ const defaults: Partial<ProviderOptions> = {
     mode: 'hash',
     page: '/page',
     preview: '/preview',
-    home: '/'
+    home: '/',
+    startup: '/startup'
   },
   components: {
     Empty,
@@ -122,7 +123,8 @@ const defaults: Partial<ProviderOptions> = {
   },
   ide: undefined,
   raw: true,
-  startup: true
+  startup: true,
+  debug: false
 };
 
 export const providerInjectKey: InjectionKey<Provider> = Symbol('$provider');
@@ -144,7 +146,12 @@ export class Provider {
     this.options.app = app;
     const { service, project, modules } = this.options;
     this.project = project as ProjectProvider;
-    this.service = new Service(service, this.project.id, modules);
+    this.service = new Service(
+      service,
+      this.project.id,
+      this.project.name,
+      modules
+    );
   }
   async init() {
     const { ide, app, components = {} } = this.options;
@@ -158,7 +165,6 @@ export class Provider {
     if (ide && IDELink) {
       createIdeLink(IDELink, ide);
     }
-
     app.use(this.install.bind(this));
   }
 
@@ -167,6 +173,7 @@ export class Provider {
     const { raw, isProd } = options;
     // 源码模式在生产环境不需要加依赖
     if (raw && isProd) return;
+
     const { dependencies = [], __VTJ_DATE__ } = dsl || {};
     const deps = dependencies.filter((n) => !!n.enabled && n.library !== VUE);
     const { scripts, css, assets, libraries } = parseDependencies(deps);
@@ -181,18 +188,21 @@ export class Provider {
 
   private createRoutes() {
     const { options, project } = this;
-    const { router, components = {}, raw = true, startup } = options;
+    const { router, components = {}, raw = true, startup, ide } = options;
 
-    const Mask = components.Mask;
-
-    if (startup) {
+    const { Mask, Startup } = components;
+    const homepage = this.getHomepage();
+    if (startup && !homepage) {
       router.addRoute({
-        path: project.home,
-        name: 'Home',
-        props: (route: any) => route.query,
-        component: Homepage
+        path: project.startup,
+        name: 'Startup',
+        props: {
+          link: ide?.path
+        },
+        component: Startup
       });
     }
+
     if (!Mask) {
       addRoute(router, 'VtjPage', project.page, PageContainer);
       addRoute(router, 'VtjPpreview', project.preview, PreviewContainer);
@@ -202,7 +212,7 @@ export class Provider {
       router,
       'VtjPage',
       project.page,
-      MaskContainer,
+      project.home,
       PageContainer
     );
 
@@ -211,7 +221,7 @@ export class Provider {
         router,
         'VtjPreview',
         project.preview,
-        MaskContainer,
+        project.home,
         PreviewContainer
       );
     }
@@ -237,10 +247,23 @@ export class Provider {
   }
 }
 
+function setStartup(provider: Provider) {
+  const url = location.hash;
+  if (url.includes('startup')) return;
+  const { pages, blocks, project, options } = provider;
+  const { Startup } = options.components || {};
+  const { startup, router } = options;
+  if (startup && Startup && pages.length === 0 && blocks.length === 0) {
+    setTimeout(() => {
+      router.push(project.startup);
+    }, 100);
+  }
+}
+
 export async function createProvider(options: Partial<ProviderOptions> = {}) {
   const { app } = options;
   if (app) {
-    app.use(ElLoading);
+    provideGlobalConfig({ locale: zhCn }, app);
     app.use(ElMessage);
     app.use(ElMessageBox);
     app.use(ElNotification);
@@ -252,5 +275,7 @@ export async function createProvider(options: Partial<ProviderOptions> = {}) {
   const instance = new Provider(options);
   await instance.init();
   loading.close();
+  setStartup(instance);
+
   return instance;
 }

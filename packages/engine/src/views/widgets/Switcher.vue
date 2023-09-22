@@ -9,33 +9,33 @@
   </div>
 </template>
 <script lang="ts" setup>
-import { computed } from 'vue';
-import { ElButton, ElDivider } from 'element-plus';
-import { useCore } from '../../hooks';
+  import { computed } from 'vue';
+  import { ElButton, ElDivider } from 'element-plus';
+  import { useCore } from '../../hooks';
 
-const props = defineProps<{
-  link?: string;
-}>();
+  const props = defineProps<{
+    link?: string;
+  }>();
 
-const { project } = useCore();
-const currentTitle = computed(() => project.current.value?.title);
+  const { project } = useCore();
+  const currentTitle = computed(() => project.current.value?.title);
 
-const onClick = () => {
-  if (props.link) {
-    location.href = props.link;
-  }
-};
+  const onClick = () => {
+    if (props.link) {
+      location.href = props.link;
+    }
+  };
 </script>
 <style lang="scss">
-@use '../../style/vars' as *;
+  @use '../../style/vars' as *;
 
-.vtj-switcher {
-  padding-left: 10px;
-  color: $vtj-secondary-color;
-  font-size: 14px;
-  width: 340px;
-  &__back {
-    margin-right: 5px;
+  .vtj-switcher {
+    padding-left: 10px;
+    color: $vtj-secondary-color;
+    font-size: 14px;
+    width: 340px;
+    &__back {
+      margin-right: 5px;
+    }
   }
-}
 </style>

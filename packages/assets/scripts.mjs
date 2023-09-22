@@ -47,6 +47,14 @@ const copyFiles = [
   {
     input: '../../node_modules/@element-plus/icons-vue/dist/index.iife.min.js',
     output: 'lib/element-plus-icons-vue.js'
+  },
+  {
+    input: '../../node_modules/element-plus/dist/index.full.min.js.map',
+    output: 'lib/index.full.min.js.map'
+  },
+  {
+    input: '../../node_modules/element-plus/dist/index.css',
+    output: 'lib/element-plus.index.css'
   }
 ];
 

@@ -22,15 +22,23 @@ export {
   set,
   isPlainObject,
   lowerFirst,
-  delay
+  delay,
+  dedupArray,
+  isObject,
+  isString,
+  isUndefined
 } from '@vtj/utils';
-
-export { toTypeString, toRawType } from '@vue/shared';
 
 import { createApi, jsonp, camelCase } from '@vtj/utils';
 
 import { BUILDIN_DIRECTIVES } from '../constants';
 import { parseExpression } from './parser';
+
+const objectToString = Object.prototype.toString;
+export const toTypeString = (value: unknown) => objectToString.call(value);
+export const toRawType = (value: unknown) => {
+  return toTypeString(value).slice(8, -1);
+};
 
 export function isFunction(fn: any): boolean {
   return typeof fn === 'function';
@@ -42,18 +50,6 @@ export function isJSExpression(data: any): data is JSExpression {
 
 export function isJSFunction(x: any): x is JSFunction {
   return typeof x === 'object' && x && x.type === 'JSFunction';
-}
-
-export function isObject(value: any): value is Record<string, unknown> {
-  return value !== null && typeof value === 'object';
-}
-
-export function isString(value: any): value is string {
-  return typeof value === 'string';
-}
-
-export function isUndefined(value: any): boolean {
-  return typeof value === 'undefined' || value === null;
 }
 
 export function omit<
@@ -154,10 +150,6 @@ export function createAssetScripts(scripts: string[]): string {
 
 export function createAssetsCss(css: string[] = []) {
   return css.map((url) => `<link rel="stylesheet" href="${url}" />`).join('');
-}
-
-export function dedupArray(array: any[]) {
-  return Array.from(new Set(array));
 }
 
 export function createApiHandler(api: ApiSchema) {

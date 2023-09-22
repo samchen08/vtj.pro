@@ -1,7 +1,7 @@
 {
   "name": "dev-web",
   "private": true,
-  "version": "0.1.3",
+  "version": "0.2.0",
   "scripts": {
     "setup": "pnpm install --registry=https://registry.npmmirror.com",
     "dev": "cross-env ENV_TYPE=local vite",
@@ -17,12 +17,16 @@
     "node": ">=16.0.0"
   },
   "dependencies": {
+    "@element-plus/icons-vue": "~2.1.0",
     "@vtj/assets": "workspace:*",
     "@vtj/engine": "workspace:*",
     "@vtj/icons": "workspace:*",
     "@vtj/runtime": "workspace:*",
     "@vtj/ui": "workspace:*",
-    "@vtj/utils": "workspace:*"
+    "@vtj/utils": "workspace:*",
+    "element-plus": "~2.3.14",
+    "vue": "~3.3.4",
+    "vue-router": "~4.2.4"
   },
   "devDependencies": {
     "@vtj/cli": "workspace:*",

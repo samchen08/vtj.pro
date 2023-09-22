@@ -41,8 +41,8 @@
   "vtj": {
     "service": "file",
     "project": {
-      "id": "demo",
-      "name": "示例项目"
+      "id": "boot",
+      "name": "VTJ.PRO"
     },
     "raw": true
   }

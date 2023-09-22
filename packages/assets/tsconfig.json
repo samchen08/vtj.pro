@@ -14,9 +14,6 @@
       "ESNext",
       "DOM"
     ],
-    "types": [
-      "node"
-    ],
     "skipLibCheck": true,
     "baseUrl": "./",
     "noEmit": true,

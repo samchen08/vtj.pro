@@ -1,425 +1,471 @@
-import { pick, trim, merge, template, uuid } from './util';
-import type { AxiosRequestConfig, AxiosResponse } from './axios';
-import { AxiosError } from './axios';
-import instance from './axios';
+import axios, {
+  AxiosInstance,
+  CreateAxiosDefaults,
+  AxiosResponse,
+  AxiosRequestConfig,
+  RawAxiosRequestHeaders,
+  InternalAxiosRequestConfig,
+  CancelTokenSource
+} from 'axios';
+import { merge, omit, uid, template, debounce, throttle } from './util';
 
 const TYPES = {
   form: 'application/x-www-form-urlencoded',
   json: 'application/json',
   data: 'multipart/form-data'
 };
-
-const LOCAL_REQUEST_ID = 'Local-Request-Id';
 const DATA_METHODS = ['put', 'post', 'patch'];
-const RequestCache: Record<string, any> = {};
-const loadingArray: any[] = [];
-let loadingTimer: any = null;
-let isLoading: boolean = false;
-let requestId: any = null;
-let responseId: any = null;
+const LOCAL_REQUEST_ID = 'Local-Request-Id';
+const LOADING_DELAY = 200;
+const ERROR_DELAY = 500;
 
-export interface ApiResponse<T = any> {
+export interface IRequestSkipWarn {
+  // 处理程序
+  executor: (
+    resolve: (value: unknown) => void,
+    reject: (reason?: any) => void
+  ) => void;
+  // 响应编码
+  code: string | number;
+  // 参数名称
+  name?: string;
+  // 响应数据成功回调
+  callback?: (res: AxiosResponse) => void;
+  // 请求完成回调
+  complete?: () => void;
+}
+
+export interface IRequestSkipWarnResponse extends AxiosResponse {
+  promise: any;
+}
+
+export interface IResultWrapper<T = any> {
   code: number;
-  data: T | null;
+  data: T;
   msg: string;
   success: boolean;
-  promise?: Promise<any>;
 }
 
-export interface ApiSettings<OriginResponse, ValidSuccess> {
-  loading?: boolean;
-  showLoading?: () => void;
-  hideLoading?: () => void;
-  loadingTime?: number;
+export type RequestOriginResponse<R = any, D = any> = AxiosResponse<
+  IResultWrapper<R>,
+  D
+>;
+
+export interface IRequestSettings {
+  /**
+   * 发送数据类型
+   */
   type?: 'form' | 'json' | 'data';
-  originResponse?: OriginResponse;
-  validSuccess?: ValidSuccess;
-  validate?: (res: AxiosResponse) => boolean;
-  failMessage?: boolean;
-  showError?: (msg: string, e: AxiosError | AxiosResponse<ApiResponse>) => void;
+
+  /**
+   * 请求头
+   */
   headers?:
-    | Record<string, string>
-    | ((config: ApiRequestConfig) => Record<string, string>);
-  defaults?: Record<string, any>;
-  trim?: boolean;
-  picked?: boolean;
-  pickFilter?: (v: any) => boolean;
-  skipWarnResponseCode?: number;
-  skipWarnExecutor?: () => void;
-  skipWarnCallback?: () => void;
-  skipWarnFinally?: () => void;
-  skipWarn?: boolean;
+    | RawAxiosRequestHeaders
+    | ((config: AxiosRequestConfig) => RawAxiosRequestHeaders);
+  /**
+   * 是否显示 loading
+   */
+  loading?: boolean;
+
+  /**
+   * 显示 loading
+   */
+  showLoading?: () => void;
+  /**
+   * 关闭 loading
+   */
+  hideLoading?: () => void;
+
+  /**
+   * 显示失败提示
+   */
+  failMessage?: boolean;
+
+  /**
+   * 自定义失败提示
+   */
+  showError?: (msg: string, e: any) => void;
+
+  /**
+   *  返回原始 axios 响应对象
+   */
+  originResponse?: boolean;
+
+  /**
+   * 校验响应成功
+   */
+  validSuccess?: boolean;
+
+  /**
+   * 自定义校验方法
+   */
+  validate?: (res: AxiosResponse) => boolean;
+
+  /**
+   * 请求响应警告执行程序插件
+   */
+  skipWarn?: IRequestSkipWarn;
 }
 
-export type ApiRequestConfig<
-  RequestData = any,
-  OriginResponse = boolean,
-  ValidSuccess = boolean
-> = AxiosRequestConfig<RequestData> & {
-  settings?: ApiSettings<OriginResponse, ValidSuccess>;
-};
-
-const __settings__: ApiSettings<boolean, boolean> = {
-  loading: true,
-  // 在此时间内，请求还没回来的话，就显示加载中动画，单位ms
-  loadingTime: 50,
-  // 发送数据类型，支持：form、json、data
-  type: 'form',
-  // 响应原始 Response 对象
-  originResponse: false,
-  // 校验成功
-  validSuccess: true,
-  // 校验成功函数
-  validate: (res) => !!res.data?.success,
-  // 显示失败信息
-  failMessage: true,
-  // 覆盖 axios 实例的 defaults 属性
-  defaults: Object.create(null),
-  // 清除字段值两旁的空格
-  trim: true,
-  // 剔除null、undefined 空字符串的参数
-  picked: true,
-  // 自定义剔除函数
-  pickFilter: (v: any) => v !== null && v !== undefined && v !== '',
-  // 警告响应code编码值
-  skipWarnResponseCode: 7,
-  skipWarn: false
-};
-
-export function setRequestSettings(settings: ApiSettings<boolean, boolean>) {
-  merge(__settings__, settings);
-  const defaults = __settings__.defaults || {};
-  Object.entries(defaults).forEach(([name, value]) => {
-    (instance.defaults as any)[name] = value;
-  });
+export interface IRequestOptions extends CreateAxiosDefaults {
+  settings?: IRequestSettings;
 }
 
-function createHeaders(
-  options: AxiosRequestConfig,
-  settings: ApiSettings<boolean, boolean>
-): Record<string, any> {
-  const headers = options.headers || Object.create(null);
-  const requestHeaders = Object.create(null);
-  const contentType = TYPES[settings.type || 'form'];
-  if (contentType) {
-    requestHeaders['Content-Type'] = contentType;
-  }
-  const { headers: injectHeaders, skipWarnExecutor } = settings;
-  if (injectHeaders) {
-    Object.assign(
-      requestHeaders,
-      typeof injectHeaders === 'function'
-        ? injectHeaders(options)
-        : injectHeaders
+export interface IRequestConfig<D = any> extends AxiosRequestConfig<D> {
+  settings?: IRequestSettings;
+  // url path 参数对象
+  query?: Record<string, any>;
+}
+
+export interface IRequestRecord {
+  settings: IRequestSettings;
+  config: AxiosRequestConfig;
+  source: CancelTokenSource;
+}
+
+export class Request {
+  axios: AxiosInstance;
+  settings: IRequestSettings;
+  records: Record<string, IRequestRecord> = {};
+  private isLoading: boolean = false;
+  private stopSkipWarn?: () => void;
+  private showLoading: (settings: IRequestSettings) => void;
+  private showError: (settings: IRequestSettings, e: any) => void;
+  constructor(options: IRequestOptions = {}) {
+    this.settings = options.settings || {};
+    const defaults = omit<IRequestOptions, CreateAxiosDefaults>(options, [
+      'settings'
+    ]);
+    this.axios = axios.create(
+      merge(
+        {
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+          },
+          timeout: 2 * 60 * 1000
+        },
+        defaults
+      )
     );
-  }
-  if (skipWarnExecutor) {
-    const id = uuid(false);
-    requestHeaders[LOCAL_REQUEST_ID] = id;
-    RequestCache[id] = {
-      options,
-      settings
-    };
+    this.setupSkipWarn(this.settings);
+    this.showLoading = debounce(this.openLoading.bind(this), LOADING_DELAY);
+    this.showError = throttle(this._showError.bind(this), ERROR_DELAY, {
+      leading: true,
+      trailing: false
+    });
   }
 
-  return Object.assign(requestHeaders, headers);
-}
-
-function pickData(data: any, pickFilter?: (v: any) => boolean) {
-  // 只对对象进行过滤
-  if (!data || Array.isArray(data)) return data;
-  return pick(data, pickFilter);
-}
-
-function toFormData<T extends object>(
-  data: T,
-  type: string = 'data'
-): FormData | URLSearchParams {
-  if (data instanceof FormData || data instanceof URLSearchParams) return data;
-  const params = type === 'data' ? new FormData() : new URLSearchParams();
-  Object.entries(data).forEach(([key, value]) => {
-    params.append(key, value);
-  });
-  return params;
-}
-
-function openLoading(settings: ApiSettings<boolean, boolean>) {
-  const { loading, loadingTime, showLoading } = settings;
-  if (!loading || !showLoading) return;
-  loadingArray.push(true);
-  clearTimeout(loadingTimer);
-  loadingTimer = setTimeout(() => {
-    if (isLoading) return;
-    isLoading = true;
-    showLoading();
-  }, loadingTime);
-}
-
-function closeLoading(settings: ApiSettings<boolean, boolean>) {
-  const { loading, hideLoading } = settings;
-  if (!loading || !hideLoading) return;
-  clearTimeout(loadingTimer);
-  loadingArray.pop();
-  if (loadingArray.length === 0 && isLoading) {
-    hideLoading();
-    isLoading = false;
+  setConfig(options: IRequestOptions = {}) {
+    this.settings = merge(this.settings, options.settings || {});
+    const defaults = omit<IRequestOptions, CreateAxiosDefaults>(options, [
+      'settings'
+    ]);
+    this.axios.defaults = merge(this.axios.defaults, defaults);
+    this.setupSkipWarn(this.settings);
   }
-}
 
-function showErrorMessage(
-  settings: ApiSettings<boolean, boolean>,
-  content: string,
-  e: AxiosError | AxiosResponse
-) {
-  const { showError, failMessage } = settings;
-  if (!failMessage || !showError) return;
-  showError(content, e);
-}
-
-function processSuccess(
-  settings: ApiSettings<boolean, boolean>,
-  res: AxiosResponse
-) {
-  const { originResponse, validSuccess, validate } = settings;
-
-  const data = res.data;
-  if (data && data.promise) {
-    return data.promise;
-  }
-  if (validSuccess && validate) {
-    const success = !!validate(res);
-    if (success) {
-      return originResponse ? res : data.data;
+  cancel(id?: string, message: string = '请求已取消') {
+    if (id) {
+      const record = this.records[id];
+      if (!record) return;
+      record.source.cancel(message);
     } else {
-      return processCustomError(settings, res);
+      for (const record of Object.values(this.records)) {
+        record.source.cancel(message);
+      }
     }
-  } else {
-    return originResponse ? res : data;
   }
-}
 
-function processAxiosError(
-  settings: ApiSettings<boolean, boolean>,
-  e: AxiosError
-) {
-  if (e && e.message) {
-    showErrorMessage(settings, e.message, e);
-  }
-}
-
-function processCustomError(
-  settings: ApiSettings<boolean, boolean>,
-  res: AxiosResponse<ApiResponse>
-) {
-  const data: any = res.data;
-  if (data) {
-    let message = (data.message || data.msg || '').replace(
-      /^\[4:ReqFailure]/,
-      ''
-    );
-    if (data && data.code === 500) {
-      message = '系统繁忙，请稍后重试！';
+  private createHeaders(
+    id: string,
+    settings: IRequestSettings,
+    config: AxiosRequestConfig
+  ) {
+    const injectHeaders =
+      typeof settings.headers === 'function'
+        ? settings.headers(config)
+        : settings.headers || {};
+    const headers: RawAxiosRequestHeaders = {
+      'Content-Type': TYPES[settings.type || 'form'],
+      ...config.headers,
+      ...injectHeaders
+    };
+    if (settings.skipWarn) {
+      headers[LOCAL_REQUEST_ID] = id;
     }
-    showErrorMessage(settings, message, res);
+    return headers;
   }
-  return Promise.reject(res);
-}
 
-// 重载1：返回验证成功后的业务data
-async function request<Req = any, Res = any>(
-  options: ApiRequestConfig<Req, false, true>,
-  currentSettings?: ApiSettings<boolean, boolean>
-): Promise<Res>;
-
-// 重载2： 返回 AxiosResponse 的 data
-async function request<Req = any, Res = any>(
-  options: ApiRequestConfig<Req, false, false>,
-  currentSettings?: ApiSettings<boolean, boolean>
-): Promise<ApiResponse<Res>>;
-
-// 重载3： 返回AxiosResponse原始响应对象
-async function request<Req = any, Res = any>(
-  options: ApiRequestConfig<Req, true, boolean>,
-  currentSettings?: ApiSettings<boolean, boolean>
-): Promise<AxiosResponse<ApiResponse<Res>>>;
-
-// 重载4：无指定设置，返回未知对象
-async function request<Req = any, Res = any>(
-  options: ApiRequestConfig<Req, boolean, boolean>,
-  currentSettings?: ApiSettings<boolean, boolean>
-): Promise<Res> {
-  const { url, method = 'get' } = options;
-  const settings = {
-    ...__settings__,
-    ...(options.settings || {}),
-    ...currentSettings
-  };
-  const headers = createHeaders(options, settings);
-  delete options.settings;
-  let { data, params } = options;
-  if (settings.picked) {
-    const { pickFilter } = settings;
-    data = data ? pickData(data, pickFilter) : data;
-    params = params ? pickData(params, pickFilter) : params;
+  private isJsonType(headers: RawAxiosRequestHeaders) {
+    return Object.entries(headers).some(([k, v]) => {
+      return (
+        k.toLowerCase() === 'content-type' &&
+        String(v).includes('application/json')
+      );
+    });
   }
-  if (settings.trim) {
-    data = data ? trim(data) : data;
-    params = params ? trim(params) : params;
+
+  private toFormData<T extends object>(
+    data: T,
+    type: string = 'data'
+  ): FormData | URLSearchParams {
+    if (data instanceof FormData || data instanceof URLSearchParams)
+      return data;
+    const params = type === 'data' ? new FormData() : new URLSearchParams();
+    Object.entries(data).forEach(([key, value]) => {
+      params.append(key, value);
+    });
+    return params;
   }
-  const { skipWarnExecutor, skipWarn } = settings;
-  if (DATA_METHODS.includes(method.toLowerCase())) {
-    data = skipWarnExecutor
-      ? (Object.assign(data || {}, { skipWarn }) as any)
-      : data;
-    data =
-      settings.type !== 'json'
-        ? (toFormData(data || {}, settings.type) as any)
-        : data;
-  } else {
-    params = skipWarnExecutor
-      ? Object.assign(params || {}, { skipWarn })
-      : params;
-    params = {
-      ...params,
-      ...data
+
+  private createSendData(
+    settings: IRequestSettings,
+    config: AxiosRequestConfig,
+    headers: RawAxiosRequestHeaders,
+    isSkipWarn: boolean
+  ) {
+    const { type, skipWarn } = settings;
+    const { name = 'skipWarn' } = skipWarn || {};
+    let { data, params, method = 'get' } = config;
+    const skip = isSkipWarn ? { [name]: true } : {};
+    if (DATA_METHODS.includes(method.toLowerCase())) {
+      data = Object.assign(data || {}, skip);
+      data =
+        type !== 'json' || !this.isJsonType(headers)
+          ? this.toFormData(data, type)
+          : data;
+    } else {
+      params = {
+        ...data,
+        ...params,
+        ...skip
+      };
+    }
+
+    return {
+      data,
+      params
     };
   }
-  const config: AxiosRequestConfig = {
-    ...options,
-    url,
-    method,
-    params,
-    data,
-    headers
-  };
-  openLoading(settings);
-  const result = await instance<Req, Res>(config)
-    .catch((e) => e)
-    .finally(() => {
-      closeLoading(settings);
-    });
-  if (result instanceof AxiosError) {
-    processAxiosError(settings, result);
+
+  private createUrl(config: IRequestConfig) {
+    const { url, query } = config;
+    if (query) {
+      const compiled = template(url);
+      return compiled(query);
+    }
+    return url;
   }
-  return processSuccess(settings, result);
-}
-function isSuccess(data: ApiResponse) {
-  return !!data.success === true;
+
+  private openLoading(settings: IRequestSettings) {
+    const { loading, showLoading } = settings;
+    if (!loading) return;
+    if (showLoading) {
+      const records = Object.keys(this.records);
+      if (records.length > 0) {
+        this.isLoading = true;
+        showLoading();
+      }
+    }
+  }
+
+  private closeLoading(settings: IRequestSettings) {
+    const { loading, hideLoading } = settings;
+    if (!loading) return;
+    this.isLoading = false;
+    const records = Object.keys(this.records);
+    if (hideLoading && records.length === 0) {
+      this.isLoading = false;
+      hideLoading();
+    }
+  }
+
+  private _showError(settings: IRequestSettings, e: any) {
+    const { failMessage, showError } = settings;
+    if (failMessage && showError) {
+      const msg = e?.message || e?.msg || '未知错误';
+      showError(msg, e);
+    }
+  }
+
+  private validResponse(settings: IRequestSettings, res: AxiosResponse) {
+    const { validSuccess, validate } = settings;
+    if (validSuccess && validate) {
+      return !!validate(res);
+    }
+    return true;
+  }
+
+  private isSkipWarnResponse(res: any): res is IRequestSkipWarnResponse {
+    return !!res.promise;
+  }
+
+  send<R = any, D = any>(
+    options: IRequestConfig<D> = {},
+    isSkipWarn: boolean = false
+  ) {
+    const settings = merge({}, this.settings, options.settings || {});
+    const config = omit<IRequestConfig<D>, IRequestConfig<D>>(options, [
+      'settings'
+    ]);
+    const id = uid();
+    const source = axios.CancelToken.source();
+    this.records[id] = { settings, config, source };
+    const url = this.createUrl(config);
+    const headers = this.createHeaders(id, settings, config);
+    const { data, params } = this.createSendData(
+      settings,
+      config,
+      headers,
+      isSkipWarn
+    );
+    this.showLoading(settings);
+
+    return new Promise<R>((resolve, reject) => {
+      this.axios({
+        cancelToken: source.token,
+        ...config,
+        url,
+        headers,
+        data,
+        params
+      })
+        .then((res) => {
+          if (this.isSkipWarnResponse(res)) {
+            return resolve(res.promise);
+          }
+          if (this.validResponse(settings, res)) {
+            return resolve(settings.originResponse ? res : res.data?.data);
+          } else {
+            this.showError(settings, res.data);
+            return reject(res.data);
+          }
+        })
+        .catch((e) => {
+          this.showError(settings, e);
+          return reject(e);
+        })
+        .finally(() => {
+          delete this.records[id];
+          this.closeLoading(settings);
+        });
+    });
+  }
+
+  useResponse(
+    onFulfilled?:
+      | ((value: AxiosResponse) => AxiosResponse | Promise<AxiosResponse>)
+      | null,
+    onRejected?: ((error: any) => any) | null
+  ) {
+    const { response } = this.axios.interceptors;
+    const id = response.use(onFulfilled, onRejected);
+    return () => response.eject(id);
+  }
+
+  useRequest(
+    onFulfilled?:
+      | ((
+          value: InternalAxiosRequestConfig
+        ) => InternalAxiosRequestConfig | Promise<InternalAxiosRequestConfig>)
+      | null,
+    onRejected?: ((error: any) => any) | null
+  ) {
+    const { request } = this.axios.interceptors;
+    const id = request.use(onFulfilled, onRejected);
+    return () => request.eject(id);
+  }
+
+  private setupSkipWarn(settings: IRequestSettings) {
+    if (this.stopSkipWarn) {
+      this.stopSkipWarn();
+    }
+    if (!settings.skipWarn) return;
+    const { code, executor, callback, complete } = settings.skipWarn;
+    this.stopSkipWarn = this.useResponse((res) => {
+      const headers: Record<string, any> = res.config.headers || {};
+      const id = headers[LOCAL_REQUEST_ID] as string;
+      const requestCache = this.records[id];
+      if (!requestCache) return res;
+
+      const { data } = res;
+      if (!data || typeof data !== 'object') return res;
+      if (data?.code === code) {
+        callback && callback(res);
+        const promise = new Promise(executor).then(() => {
+          return this.send(
+            {
+              ...requestCache.config,
+              settings: requestCache.settings
+            },
+            true
+          );
+        });
+        promise
+          .catch((e) => e)
+          .finally(() => {
+            complete && complete();
+          });
+
+        (res as IRequestSkipWarnResponse).promise = promise;
+      }
+      return res;
+    });
+  }
 }
 
-instance.interceptors.response.use((res: AxiosResponse) => {
-  const headers: Record<string, any> = res.config?.headers || {};
-  const requestId = headers[LOCAL_REQUEST_ID] as string;
-  const requestCache = RequestCache[requestId];
-  delete RequestCache[requestId];
-  const { data } = res;
-  if (data && typeof data === 'object') {
-    data.isSuccess = () => isSuccess(data);
-    data.isFail = () => !isSuccess(data);
+export interface IStaticRequest extends Request {
+  (options: IRequestConfig): Promise<AxiosResponse>;
+  instance: Request;
+}
+
+export function createRequest(options: IRequestOptions = {}): IStaticRequest {
+  const request = new Request(options);
+  const send = request.send.bind(request);
+  const cancel = request.cancel.bind(request);
+  const setConfig = request.setConfig.bind(request);
+  const useRequest = request.useRequest.bind(request);
+  const useResponse = request.useResponse.bind(request);
+  return Object.assign(send, {
+    ...request,
+    instance: request,
+    send,
+    cancel,
+    setConfig,
+    useRequest,
+    useResponse
+  }) as IStaticRequest;
+}
+
+export const request: IStaticRequest = createRequest({
+  settings: {
+    loading: true,
+    originResponse: true
   }
-  if (!requestCache) return res;
-  const { settings = {}, options } = requestCache;
-  const {
-    skipWarnExecutor,
-    skipWarnResponseCode,
-    skipWarnCallback,
-    skipWarnFinally
-  } = settings;
-  if (!skipWarnExecutor || (data && typeof data !== 'object')) return res;
-  if (Number.parseInt(data?.code, 10) === skipWarnResponseCode) {
-    skipWarnCallback && skipWarnCallback(data);
-    const promise = new Promise(skipWarnExecutor).then(() => {
-      settings.skipWarn = true;
-      const currentSettings = Object.assign({}, options.settings, settings);
-      return request({
-        ...options,
-        settings: currentSettings
-      });
-    });
-    promise
-      .catch((e) => e)
-      .finally(() => {
-        skipWarnFinally && skipWarnFinally();
-      });
-    data.promise = promise;
-  }
-  return res;
 });
 
-export function setRequest(success: any, fail?: any) {
-  const request = instance.interceptors.request;
-  if (requestId) {
-    request.eject(requestId);
-  }
-  requestId = request.use(success, fail);
-  return requestId;
-}
-
-export function setResponse(success: any, fail?: any) {
-  const response = instance.interceptors.response;
-  if (responseId) {
-    response.eject(responseId);
-  }
-  responseId = response.use(success, fail);
-  return responseId;
-}
-
-function createApi<Req = any, Res = any>(
-  options: string | ApiRequestConfig<Req, false, true>
-): (
-  data?: Req,
-  currentSettings?: ApiSettings<boolean, boolean>
-) => Promise<Res>;
-
-function createApi<Req = any, Res = any>(
-  options: string | ApiRequestConfig<Req, false, false>
-): (
-  data?: Req,
-  currentSettings?: ApiSettings<boolean, boolean>
-) => Promise<ApiResponse<Res>>;
-
-function createApi<Req = any, Res = any>(
-  options: string | ApiRequestConfig<Req, true, boolean>
-): (
-  data?: Req,
-  currentSettings?: ApiSettings<boolean, boolean>
-) => Promise<AxiosResponse<ApiResponse<Res>>>;
-
-function createApi<Req = any, Res = any>(
-  options: string | ApiRequestConfig
-): (
-  data?: Req,
-  currentSettings?: ApiSettings<boolean, boolean>
-) => Promise<Res> {
-  const dataType = typeof options;
-  const opts: ApiRequestConfig =
-    dataType === 'string'
-      ? ({ url: options as string } as ApiRequestConfig)
-      : (options as ApiRequestConfig);
-  if (!opts.url) throw new Error('missing request url');
-  return (data?: Req, currentSettings?: ApiSettings<boolean, boolean>) => {
-    let url = opts.url;
-    if (!url) {
-      throw new Error('url is empty');
-    }
-    if (url.includes('${')) {
-      const compiled = template(url);
-      url = compiled(data || {});
-    }
-    const settings = Object.assign({}, opts.settings, currentSettings);
-    return request<Req, Res>({
+export function createApi<R = any, D = any>(config: string | IRequestConfig) {
+  const _conifg: IRequestConfig =
+    typeof config === 'string' ? { url: config } : config;
+  return (data?: D, opts?: IRequestConfig) =>
+    request.send<R, D>({
+      ..._conifg,
       ...opts,
-      url,
-      data,
-      settings
-    } as any);
-  };
+      data
+    });
 }
 
-export {
-  request,
-  createApi,
-  instance as axiosInstance,
-  __settings__ as requestSettings,
-  LOCAL_REQUEST_ID
-};
+export interface IApiMap {
+  [name: string]: string | IRequestConfig;
+}
+
+export function createApis(map: IApiMap) {
+  const apis: Record<string, ReturnType<typeof createApi>> = {};
+  for (const [name, opts] of Object.entries(map)) {
+    apis[name] = createApi(opts);
+  }
+  return apis;
+}
+
+export { LOCAL_REQUEST_ID };

@@ -4,12 +4,20 @@ import {
   computed,
   ComputedRef,
   DefineComponent,
-  isVNode
+  isVNode,
+  MaybeRef,
+  unref,
+  markRaw,
+  getCurrentInstance
 } from 'vue';
 import { IconParam, XIcon, IconProps } from '../components';
 
-export function useIconProps(icon?: IconParam): ComputedRef<IconProps | null> {
+export function useIconProps(
+  iconRef: MaybeRef<IconParam | undefined>
+): ComputedRef<IconProps | null> {
+  const instance = getCurrentInstance();
   return computed(() => {
+    const icon = unref(iconRef);
     if (icon) {
       if (
         typeof icon === 'string' ||
@@ -17,8 +25,9 @@ export function useIconProps(icon?: IconParam): ComputedRef<IconProps | null> {
         (icon as DefineComponent).render ||
         isVNode(icon)
       ) {
+        const app = instance?.appContext.app;
         return {
-          icon
+          icon: typeof icon === 'string' ? app?.component(icon) || icon : icon
         } as IconProps;
       } else {
         return icon as IconProps;
@@ -28,9 +37,9 @@ export function useIconProps(icon?: IconParam): ComputedRef<IconProps | null> {
   });
 }
 
-export function useIcon(icon?: IconParam) {
+export function useIcon(icon: MaybeRef<IconParam | undefined>) {
   const props = useIconProps(icon);
   return props.value
-    ? defineComponent({ render: () => h(XIcon, props.value) })
+    ? markRaw(defineComponent({ render: () => h(XIcon, props.value) }))
     : null;
 }

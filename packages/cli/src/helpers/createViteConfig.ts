@@ -52,7 +52,8 @@ const createEnv = (type: string, envConfig: EnvConfig) => {
   return {
     'process.env': {
       ENV_TYPE: type,
-      ...process.env,
+      NODE_ENV: process.env.NODE_ENV,
+      // ...process.env,
       ...envConfig
     }
   };
@@ -60,7 +61,8 @@ const createEnv = (type: string, envConfig: EnvConfig) => {
 
 const defaultManualChunks = (id: string) => {
   if (id.includes('node_modules')) {
-    return id.split('node_modules/')[1].split('/')[0].toString();
+    const arr = id.split('node_modules/');
+    return arr[arr.length - 1].split('/')[0].toString();
   }
 };
 

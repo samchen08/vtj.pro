@@ -14,7 +14,6 @@ import Mask from '@/components/Mask.vue';
 const isExample = process.env.ENV_TYPE === 'uat';
 const isDev = process.env.ENV_TYPE === 'local';
 
-
 const app = createApp(App);
 
 (async () => {
@@ -27,31 +26,40 @@ const app = createApp(App);
     ]);
     const options: any = isExample
       ? {
-          raw: true,
+          raw: false,
           service: 'storage'
         }
       : await ideConfig();
 
-    app.provide('VTJ_PROVIDER_OPTIONS', options);
+    const devOptions = isDev
+      ? {
+          ide: {
+            path: '/'
+          }
+        }
+      : {};
+    console.log('options', options);
     await createProvider(
       merge(
         {
           service: 'file',
-          project: { home: '/startup', name: '项目样例' },
+          project: { home: '/', name: '项目样例' },
           app,
           router,
           modules,
-          ide: { path: '/' },
+          ide: { path: location.pathname },
           startup: true,
-          raw: true,
+          raw: isExample ? false : true,
           components: {
             Mask
           }
         },
-        options
+        options,
+        devOptions
       )
     );
   }
+
   app.use(router);
   app.mount('#app');
 })();

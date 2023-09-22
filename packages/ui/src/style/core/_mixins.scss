@@ -63,8 +63,8 @@
 
 // Scrollbar
 @mixin scroll-bar {
-  $scrollbar-thumb-background: getCssVar('text-color', 'disabled');
-  $scrollbar-track-background: getCssVar('fill-color', 'blank');
+  $scrollbar-thumb-background: rgba(0, 0, 0, 0.1);
+  $scrollbar-track-background: transparent;
 
   &::-webkit-scrollbar {
     z-index: 11;

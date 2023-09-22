@@ -1,0 +1,129 @@
+@use 'core' as *;
+
+@include b(container) {
+  flex-shrink: 0;
+  box-sizing: border-box;
+  @include when(fit) {
+    width: 100%;
+    height: 100%;
+  }
+
+  @include when(flex) {
+    display: flex;
+  }
+
+  @include when(inline-flex) {
+    display: inline-flex;
+  }
+
+  @include when(direction-column) {
+    flex-direction: column;
+  }
+
+  @include when(direction-row-reverse) {
+    flex-direction: row-reverse;
+  }
+
+  @include when(direction-column-reverse) {
+    flex-direction: column-reverse;
+  }
+
+  @include when(justify-flex-end) {
+    justify-content: flex-end;
+  }
+
+  @include when(justify-center) {
+    justify-content: center;
+  }
+
+  @include when(justify-space-between) {
+    justify-content: space-between;
+  }
+
+  @include when(justify-space-around) {
+    justify-content: space-around;
+  }
+
+  @include when(align-center) {
+    align-items: center;
+  }
+
+  @include when(flex-end) {
+    align-items: flex-end;
+  }
+
+  @include when(baseline) {
+    align-items: baseline;
+  }
+
+  @include when(stretch) {
+    align-items: stretch;
+  }
+
+  @include when(align-content-flex-start) {
+    align-content: flex-start;
+  }
+  @include when(align-content-flex-end) {
+    align-content: flex-end;
+  }
+  @include when(align-content-enter) {
+    align-content: center;
+  }
+  @include when(align-content-space-between) {
+    align-content: space-between;
+  }
+  @include when(align-content-space-around) {
+    align-content: space-around;
+  }
+  @include when(align-content-stretch) {
+    align-content: stretch;
+  }
+
+  @include when(wrap-wrap) {
+    flex-wrap: wrap;
+  }
+
+  @include when(wrap-wrap-reverse) {
+    flex-wrap: wrap-reverse;
+  }
+
+  @include when(grow) {
+    flex-grow: 1;
+  }
+
+  @include when(shrink) {
+    flex-shrink: 1;
+  }
+
+  @include when(align-self-flex-start) {
+    align-self: flex-start;
+  }
+  @include when(align-self-flex-end) {
+    align-self: flex-end;
+  }
+  @include when(align-self-center) {
+    align-self: center;
+  }
+  @include when(align-self-baseline) {
+    align-self: baseline;
+  }
+  @include when(align-self-stretch) {
+    align-self: stretch;
+  }
+
+  @include when(overflow-hidden) {
+    overflow: hidden;
+  }
+
+  @include when(overflow-visible) {
+    overflow: visible;
+  }
+
+  @include when(overflow-auto) {
+    overflow: auto;
+  }
+
+  @include when(padding) {
+    padding: 10px;
+  }
+}

@@ -167,7 +167,6 @@ function parseTemplate(
         // todo: UrlSchema Remote
       }
     }
-
     const props = bindNodeProps(child.props).join(' ');
     const { binders, handlers } = bindNodeEvents(id || name, child.events);
     const events = binders.join(' ');
@@ -185,6 +184,7 @@ function parseTemplate(
       childContent = (nodeChildren?.nodes || []).join('\n');
       Object.assign(methods, nodeChildren?.methods || {});
       components = components.concat(nodeChildren?.components || []);
+      importBlocks = importBlocks.concat(nodeChildren?.importBlocks || []);
     }
 
     const node = wrapSlot(
@@ -199,15 +199,13 @@ function parseTemplate(
     nodes,
     methods,
     components: dedupArray(components) as string[],
-    importBlocks: importBlocks.map((n) => {
-      return `import ${n.name} from '@/components/blocks/${n.id}.vue';`;
-    })
+    importBlocks
   };
 }
 
 function parsePlainObjectValue(obj: Record<string, any> = {}) {
   return Object.entries(obj).map(([name, value]) => {
-    return `${name}: ${parseValue(value)}`;
+    return `"${name}": ${parseValue(value)}`;
   });
 }
 
@@ -407,10 +405,14 @@ export function parser(
     computedKeys
   );
 
+  const blocksImport = dedupArray(importBlocks, 'id').map((n) => {
+    return `import ${n.name} from '@/components/blocks/${n.id}.vue';`;
+  });
+
   const imports = parseImports(
     componentMap,
     components,
-    importBlocks,
+    blocksImport,
     collecter.imports
   );
 

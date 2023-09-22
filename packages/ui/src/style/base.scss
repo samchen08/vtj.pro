@@ -1,5 +1,18 @@
 @use 'core' as *;
+body {
+  padding: 0;
+  margin: 0;
+  font-family: getCssVar('font-family');
+  background-color: getCssVar('bg-color');
+  &.user-select-none {
+    user-select: none;
+    overflow: hidden !important;
 
+    iframe {
+      pointer-events: none;
+    }
+  }
+}
 body,
 div {
   @include scroll-bar;

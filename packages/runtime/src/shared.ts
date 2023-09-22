@@ -19,6 +19,7 @@ import {
 
 import { markRaw, App, createApp } from 'vue';
 import { Router } from 'vue-router';
+import { HomeContainer, Empty, MaskContainer } from './components';
 
 export {
   version,
@@ -198,19 +199,30 @@ export function addRouteWithMask(
   router: Router,
   name: string,
   path: string,
-  mask: any,
-  component: any
+  homePath: string,
+  Container: any
 ) {
   router.addRoute({
     path,
     name: `${name}Mask`,
-    component: mask,
+    component: MaskContainer,
     children: [
+      {
+        path: homePath,
+        name: `${name}Root`,
+        props: (route: any) => route.query,
+        component: HomeContainer
+      },
       {
         path: ':id',
         name,
         props: (route: any) => route.query,
-        component: component
+        component: Container
+      },
+      {
+        path: ':pathMatch(.*)*',
+        name: `${name}NotFound`,
+        component: Empty
       }
     ]
   });

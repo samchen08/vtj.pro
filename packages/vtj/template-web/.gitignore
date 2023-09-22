@@ -25,3 +25,4 @@ components.d.ts
 *.sw?
 
 public/libs/*
+.vtj/debug

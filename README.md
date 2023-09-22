@@ -17,7 +17,7 @@ VTJ 一款基于 Vue3 + Typescript 的低代码开发工具，内置了设计器
 
 ## 开发环境要求
 
-VTJ 使用了最新的 Vue3 生态技术栈，要求 Node 版本必须是 v16+， 建议使用 nvm 切换 Node 版本。
+VTJ 使用了最新的 Vue3 生态技术栈，要求 Node 版本必须是 v18+， 建议使用 nvm 切换 Node 版本。
 
 ## 快速体验
 
@@ -46,15 +46,15 @@ npm i @vtj/runtime -S
 ```ts
 import { createApp } from 'vue';
 import App from './App.vue';
-import { createProvider } from '@vtj/runtime';
 import router from './router';
+import { createProvider } from '@vtj/runtime';
+import Mask from '@/components/Mask.vue';
+import '@vtj/icons/lib/style.css';
+import '@vtj/ui/lib/style.css';
+import '@/style/index.scss';
+
 const app = createApp(App);
-const modules = import.meta.glob([
-  '/.vtj/project/*.json',
-  '/.vtj/file/*.json',
-  '/src/views/pages/*.vue',
-  '/src/components/blocks/*.vue'
-]);
+
 (async () => {
   await createProvider({
     app,

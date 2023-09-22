@@ -2,7 +2,25 @@ import { createViteConfig } from '@vtj/cli';
 import { IDEPlugin } from '@vtj/serve';
 import * as EnvConfig from './env.config';
 import proxy from './proxy.config';
+
+import { resolve, join } from 'path';
 const ENV_TYPE = process.env.ENV_TYPE || 'local';
+
+const packagesPath = resolve('../../packages');
+
+const alias = {
+  // '@vtj/utils': join(packagesPath, 'utils/src/index.ts'),
+  // '@vtj/ui/lib/style.css': join(packagesPath, 'ui/src/style/index.scss'),
+  // '@vtj/engine/lib/style.css': join(
+  //   packagesPath,
+  //   'engine/src/style/index.scss'
+  // ),
+  // '@vtj/icons/lib/style.css': join(packagesPath, 'icons/src/style.scss'),
+  // '@vtj/ui': join(packagesPath, 'ui/src'),
+  // '@vtj/icons': join(packagesPath, 'icons/src'),
+  // '@vtj/engine': join(packagesPath, 'engine/src'),
+  // '@vtj/runtime': join(packagesPath, 'runtime/src')
+};
 
 export default createViteConfig({
   debug: false,
@@ -13,5 +31,7 @@ export default createViteConfig({
   proxy,
   envConfig: EnvConfig,
   envType: ENV_TYPE,
-  plugins: [IDEPlugin()]
+  plugins: [IDEPlugin()],
+  visualizer: false,
+  alias
 });

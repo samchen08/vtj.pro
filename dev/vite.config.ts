@@ -25,7 +25,7 @@ const alias =
 export default createViteConfig({
   host: '0.0.0.0',
   https: false,
-  elementPlus: false,
+  elementPlus: true,
   legacy: false,
   proxy,
   envConfig: EnvConfig,

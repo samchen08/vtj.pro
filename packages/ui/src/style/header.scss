@@ -1,0 +1,80 @@
+@use 'core' as *;
+
+@include b(header) {
+  height: 32px;
+
+  @include when(size-large) {
+    height: 40px;
+  }
+
+  @include when(size-small) {
+    height: 28px;
+  }
+
+  @include when(border) {
+    border-bottom: 1px solid getCssVar('border-color-light');
+  }
+
+  @include e(wrapper) {
+    line-height: 1;
+    font-size: 14px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    width: 1px;
+
+    @include when(size-large) {
+      font-size: 16px;
+      @include e(subtitle) {
+        font-size: 14px;
+      }
+      @include e(more) {
+        font-size: 14px;
+      }
+    }
+
+    @include when(size-small) {
+      font-size: 12px;
+      @include e(subtitle) {
+        font-size: 12px;
+      }
+      @include e(more) {
+        font-size: 12px;
+      }
+    }
+
+    @include when(pointer) {
+      @include e(content) {
+        cursor: pointer;
+        &:hover {
+          opacity: 0.7;
+        }
+      }
+    }
+  }
+
+  @include e(icon) {
+    margin-right: 5px;
+    flex-shrink: 0;
+  }
+
+  @include e(content) {
+    color: getCssVar('text-color-primary');
+    font-weight: bold;
+  }
+
+  @include e(more) {
+    color: getCssVar('text-color-secondary') !important;
+    margin-left: 3px;
+  }
+
+  @include e(subtitle) {
+    margin-left: 0.5em;
+    font-size: 12px;
+    color: getCssVar('text-color-secondary');
+  }
+
+  @include e(actions) {
+    white-space: nowrap;
+  }
+}

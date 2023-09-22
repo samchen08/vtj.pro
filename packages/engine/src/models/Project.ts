@@ -249,6 +249,9 @@ export class Project {
       }
     };
     remover(id, this.pages.value);
+    if (this.current.value?.id === id) {
+      this.current.value = null;
+    }
     emitter.emit(EVENT_FILE_REMOVE, id);
     emitter.emit(EVENT_PROJECT_UPDATE, this.toDsl());
   }

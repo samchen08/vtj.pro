@@ -17,10 +17,6 @@
       "ESNext",
       "DOM"
     ],
-    "types": [
-      "node",
-      "jsdom"
-    ],
     "skipLibCheck": true,
     "baseUrl": "./",
     "paths": {

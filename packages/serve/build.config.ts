@@ -7,7 +7,8 @@ export default defineBuildConfig({
     'prettier',
     'prettier/parser-html',
     'prettier/parser-babel',
-    'prettier/parser-postcss'
+    'prettier/parser-postcss',
+    '@vtj/utils'
   ],
   clean: true,
   declaration: true,

@@ -1,25 +1,23 @@
 {
   "name": "@vtj/icons",
   "private": false,
-  "version": "0.5.3",
+  "version": "0.6.0",
   "type": "module",
   "scripts": {
     "setup": "pnpm install --registry=https://registry.npmmirror.com",
-    "dev": "cross-env ENV_TYPE=dev vite",
     "svg2vue": "node scripts/svg.mjs",
-    "build": "npm run svg2vue && vue-tsc && vite build && pnpm run build:cdn",
-    "build:cdn": "vue-tsc && cross-env CDN=true vite build",
-    "test:unit": "vitest --environment jsdom",
-    "coverage": "vitest run --coverage --environment jsdom"
+    "icons": "node scripts/icons.mjs",
+    "build": "npm run svg2vue && npm run icons && vue-tsc && vite build && pnpm run build:cdn",
+    "build:cdn": "vue-tsc && cross-env CDN=true vite build"
   },
   "engines": {
     "node": ">=16.0.0"
   },
-  "dependencies": {
-    "@element-plus/icons-vue": "2.1.0"
-  },
   "devDependencies": {
-    "@vtj/cli": "^0.5.3",
+    "@element-plus/icons-vue": "~2.1.0",
+    "@vtj/cli": "^0.6.0",
+    "cross-env": "~7.0.3",
+    "vue": "~3.3.4",
     "xml2js": "~0.6.2"
   },
   "files": [

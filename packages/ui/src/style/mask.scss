@@ -1,0 +1,476 @@
+@use 'core' as *;
+
+@include b(mask) {
+  @include set-css-var-value('mask-brand-color', '#0157fe');
+  @include set-css-var-value('mask-content-bg-color', getCssVar('bg-color'));
+  @include set-css-var-value(
+    'mask-topbar-bg-color',
+    getCssVar('fill-color-lighter')
+  );
+  @include set-css-var-value(
+    'mask-sidebar-bg-color',
+    getCssVar('fill-color-lighter')
+  );
+
+  @include set-css-var-value(
+    'mask-sidebar-border-color',
+    getCssVar('border-color-lighter')
+  );
+
+  width: 100%;
+  height: 100%;
+  background-color: getCssVar('mask-content-bg-color');
+  overflow: hidden;
+}
+
+@include b(mask-brand) {
+  height: 40px;
+  overflow: hidden;
+  @include e(logo) {
+    height: 26px;
+    width: 60px;
+    text-align: center;
+    cursor: pointer;
+    &:hover {
+      opacity: 0.7;
+    }
+    > img {
+      height: 100%;
+    }
+  }
+  @include e(title) {
+    font-size: 16px;
+    font-weight: bold;
+    color: getCssVar('mask-brand-color');
+    font-family: 'Microsoft YaHei', '微软雅黑', Arial, sans-serif;
+    > span {
+      position: relative;
+      transform: translateX(-10px);
+    }
+  }
+  @include when(collapsed) {
+    @include e(title) {
+      display: none;
+    }
+  }
+}
+
+@include b(mask-topbar) {
+  height: 40px;
+  background-color: getCssVar('mask-topbar-bg-color');
+  border-bottom: 1px solid getCssVar('mask-sidebar-border-color');
+}
+
+@include b(mask-menu) {
+  --el-menu-bg-color: transparent;
+  --el-menu-item-height: 36px;
+  --el-menu-sub-item-height: 34px;
+  --el-font-size-base: 14px;
+  --el-menu-item-font-size: 14px;
+  --el-menu-icon-width: 20px;
+  --el-menu-base-level-padding: 10px;
+  --el-menu-level-padding: 25px;
+  width: 100%;
+  height: 1px;
+  overflow-x: hidden !important;
+  &::-webkit-scrollbar {
+    width: 2px !important;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: transparent !important;
+  }
+  &:hover {
+    &::-webkit-scrollbar-thumb {
+      background: rgba(0, 0, 0, 0.1) !important;
+    }
+  }
+  .el-menu {
+    .el-menu-item [class^='el-icon'],
+    .el-sub-menu .el-icon {
+      font-size: 16px;
+    }
+    .el-sub-menu .el-sub-menu__icon-arrow {
+      font-size: 12px;
+      color: getCssVar('text-color-secondary');
+    }
+    .el-menu-item.is-active {
+      background-color: getCssVar('menu-hover-bg-color');
+    }
+    .el-sub-menu.is-active {
+      > .el-sub-menu__title {
+        color: getCssVar('color-primary');
+      }
+    }
+  }
+  .el-menu--collapse {
+    --el-menu-item-height: 50px;
+    width: 100%;
+    > .el-menu-item {
+      flex-wrap: wrap;
+      justify-content: center;
+      position: relative;
+      margin: 5px;
+      border-radius: getCssVar('border-radius-base');
+      align-items: center;
+      text-align: center;
+      .x-menu__title {
+        height: auto;
+        width: auto;
+        visibility: visible;
+        font-size: 12px;
+        line-height: 1;
+        zoom: 0.9;
+        position: absolute;
+        left: 0;
+        bottom: 10px;
+        width: 100%;
+        text-align: center;
+        color: getCssVar('text-color-secondary');
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .el-menu-tooltip__trigger {
+        width: 100%;
+        height: 100%;
+        display: block;
+      }
+      &.is-active {
+        background-color: getCssVar('menu-hover-bg-color');
+        .x-menu__title {
+          color: getCssVar('color-primary');
+        }
+      }
+    }
+    > .el-sub-menu {
+      margin: 5px;
+      > .el-sub-menu__title {
+        width: 100%;
+        display: flex;
+        border-radius: getCssVar('border-radius-base');
+        line-height: 1;
+        padding-left: 0;
+        padding-right: 0;
+        > .x-menu__wrapper {
+          display: flex;
+          flex-direction: row;
+          flex-wrap: wrap;
+          justify-content: center;
+          align-items: center;
+          height: 100%;
+          width: 100%;
+          .x-menu__title {
+            font-size: 12px;
+            zoom: 0.9;
+            left: 0;
+            bottom: 10px;
+            width: 100%;
+            text-align: center;
+            display: block;
+            position: relative;
+            top: -5px;
+            color: getCssVar('text-color-secondary');
+            overflow: hidden;
+          }
+        }
+      }
+      &.is-active {
+        background-color: getCssVar('menu-hover-bg-color');
+
+        .x-menu__wrapper {
+          color: getCssVar('color-primary');
+          .x-menu__title {
+            color: getCssVar('color-primary');
+          }
+        }
+      }
+      &.is-opened {
+        background-color: getCssVar('menu-hover-bg-color');
+      }
+    }
+
+    .el-menu-item [class^='el-icon'],
+    .el-sub-menu .el-icon {
+      font-size: 20px;
+      margin-right: 0;
+    }
+  }
+
+  @include e(favorites) {
+    .el-sub-menu__title .x-icon {
+      color: getCssVar('color-warning');
+    }
+  }
+
+  @include e(search) {
+    .el-sub-menu__title .x-icon {
+      color: getCssVar('color-success');
+    }
+  }
+}
+
+@include b(mask-menu-popper) {
+  --el-menu-item-height: 36px;
+  --el-menu-sub-item-height: 34px;
+  --el-font-size-base: 12px;
+  --el-menu-item-font-size: 12px;
+  --el-menu-icon-width: 20px;
+  --el-menu-base-level-padding: 14px;
+  max-height: calc(100% - 10px);
+  overflow: auto;
+  .el-menu-item [class^='el-icon'],
+  .el-sub-menu .el-icon {
+    font-size: 14px;
+    margin-right: 0;
+  }
+  .el-sub-menu .el-sub-menu__icon-arrow {
+    font-size: 12px;
+    color: getCssVar('text-color-secondary');
+  }
+  .el-menu-item.is-active {
+    background-color: getCssVar('menu-hover-bg-color');
+  }
+  .el-sub-menu.is-active {
+    > .el-sub-menu__title {
+      color: getCssVar('color-primary');
+    }
+  }
+
+  &::-webkit-scrollbar {
+    width: 2px !important;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.1) !important;
+  }
+}
+
+@include b(mask-sidebar) {
+  width: 200px;
+  background-color: getCssVar('mask-sidebar-bg-color');
+
+  &:not(.is-resizing) {
+    transition: width 0.2s;
+  }
+
+  @include e(wrapper) {
+    position: relative;
+    border-right: 1px solid getCssVar('mask-sidebar-border-color');
+    > .el-divider {
+      margin: 0;
+    }
+  }
+  @include e(expander) {
+    padding: 5px 0;
+    width: 100%;
+    background-color: getCssVar('mask-sidebar-border-color');
+    text-align: center;
+    cursor: pointer;
+    &:hover {
+      opacity: 0.7;
+    }
+  }
+
+  @include e(helper) {
+    position: absolute;
+    width: 8px;
+    font-size: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    border-right: 2px solid transparent;
+  }
+
+  @include when(resizing) {
+    @include e(helper) {
+      border-right: 2px solid getCssVar('color-primary');
+    }
+  }
+
+  @include when(collapsed) {
+    width: 60px;
+    .x-mask-avatar__wrapper {
+      overflow: hidden;
+      height: 0;
+      width: 0;
+      visibility: hidden;
+    }
+  }
+}
+
+@include b(mask-topbar) {
+  height: 40px;
+}
+
+@include b(mask-tabs) {
+  width: 1px;
+  .el-tabs {
+    --el-tabs-header-height: 30px;
+    --el-font-size-base: 12px;
+    position: relative;
+    left: -1px;
+  }
+
+  .el-tabs__header {
+    margin: 0;
+    border-bottom: none !important;
+    .el-tabs__item.is-active {
+      background-color: getCssVar('bg-color');
+    }
+    .x-icon {
+      pointer-events: none;
+    }
+  }
+  .el-tabs__content {
+    display: none;
+  }
+
+  @include e(trigger) {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    > .x-icon + span {
+      margin-left: 5px;
+    }
+    @include when(dagging) {
+      // background-color: red;
+    }
+  }
+}
+
+@include b(mask-toolbar) {
+  padding-right: 10px;
+  > .x-action {
+    margin: 0 5px;
+  }
+
+  @include e(menu-item) {
+    position: relative;
+    display: inline-block;
+    padding-right: 20px;
+    width: 100%;
+    .x-icon {
+      position: absolute;
+      right: -10px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+  }
+}
+
+@include b(mask-switch-bar) {
+  width: 100%;
+  height: 40px;
+  padding: 10px 5px 10px 10px;
+  border-top: 1px solid var(--el-mask-sidebar-border-color);
+  position: relative;
+  top: -1px;
+  box-sizing: border-box;
+
+  @include e(left) {
+    width: 1px;
+    padding-right: 5px;
+  }
+
+  @include e(right) {
+    @include when(collasped) {
+      width: 100%;
+      padding-right: 5px;
+    }
+  }
+
+  @include e(switch) {
+    height: 28px !important;
+    line-height: 1 !important;
+    width: 60px !important;
+    position: relative;
+    display: block !important;
+    .el-switch__core {
+      @include set-css-var-value(
+        'switch-off-color',
+        getCssVar('mask-content-bg-color')
+      );
+      @include set-css-var-value(
+        'switch-on-color',
+        getCssVar('mask-content-bg-color')
+      );
+      border: 1px solid getCssVar('mask-sidebar-border-color') !important;
+      height: 28px;
+      width: 60px;
+      border-radius: 14px;
+      .el-switch__action {
+        width: 28px;
+        height: 24px;
+        border-radius: 14px;
+        background-color: getCssVar('color-primary-light-8');
+      }
+    }
+    .el-switch__label--left {
+      position: absolute;
+      top: 6px;
+      left: 9px;
+      z-index: 1;
+      margin-right: 0;
+      height: 14px;
+      color: getCssVar('text-color-regular');
+    }
+    .el-switch__label--right {
+      position: absolute;
+      top: 6px;
+      right: 9px;
+      z-index: 1;
+      margin-right: 0;
+      height: 14px;
+      color: getCssVar('text-color-regular');
+    }
+
+    .el-switch__label.is-active {
+      color: getCssVar('color-primary');
+    }
+    &.is-checked .el-switch__core .el-switch__action {
+      left: calc(100% - 29px) !important;
+    }
+  }
+
+  @include e(input) {
+    .el-input__wrapper {
+      padding: 0 !important;
+      border-radius: 12px;
+    }
+    .el-input__prefix-inner > :last-child {
+      margin-right: 0;
+      width: 20px;
+    }
+    .el-input__suffix {
+      cursor: pointer;
+      transition: color 0.1s;
+      &:hover {
+        color: getCssVar('color-warning');
+      }
+      .x-icon {
+        width: 20px;
+        margin-left: 0 !important;
+      }
+    }
+    .el-input__inner {
+      height: 28px !important;
+    }
+  }
+}
+
+@include b(mask-avatar) {
+  margin-left: 5px;
+}
+
+@include b(mask-theme-switch) {
+  &.el-switch {
+    @include set-css-var-value('switch-on-color', getCssVar('fill-color-dark'));
+    @include set-css-var-value(
+      'switch-off-color',
+      getCssVar('fill-color-dark')
+    );
+  }
+  .el-switch__core .el-switch__action {
+    color: getCssVar('text-color-regular') !important;
+    background-color: getCssVar('bg-color') !important;
+  }
+}

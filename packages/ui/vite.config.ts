@@ -1,5 +1,7 @@
-import { createViteConfig } from '@vtj/cli';
-import { resolve } from 'path';
+import { createViteConfig, writeVersion } from '@vtj/cli';
+
+writeVersion();
+
 export default createViteConfig({
   debug: false,
   lib: true,

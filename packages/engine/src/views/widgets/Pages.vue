@@ -96,7 +96,6 @@
   import { PageSchema } from '../../core';
   import { useCore } from '../../hooks';
   import { ElMessage, ElMessageBox, ElEmpty } from 'element-plus';
-  import { HomeFilled } from '@element-plus/icons-vue';
   import {
     ElTree,
     ElForm,

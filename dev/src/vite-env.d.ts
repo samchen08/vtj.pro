@@ -7,3 +7,7 @@ declare module '*.vue' {
 }
 
 declare module '@vtj/engine/coder';
+
+declare module '@vtj/engine/shared' {
+  export * from '@vtj/engine/types/shared';
+}

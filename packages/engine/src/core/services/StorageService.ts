@@ -5,16 +5,16 @@ import {
   HistoryScheam,
   HistoryItemSchema
 } from '../types';
-import { storage, uid, delay } from '@vtj/utils';
-
-const STORAGE_OPTIONS = {
-  prefix: '__VTJ__',
-  type: 'local'
-};
+import { Storage, uid, delay } from '@vtj/utils';
 
 const PROJECT_KEY = 'Project';
 const FILE_KEY = 'File';
 const HISTORY_KEY = 'History';
+
+const storage = new Storage({
+  prefix: '__VTJ__',
+  type: 'local'
+});
 
 export class StorageService extends Service {
   private createKey(...args: string[]) {
@@ -24,9 +24,7 @@ export class StorageService extends Service {
   public async getProject(project: ProjectSchema): Promise<ProjectSchema> {
     const id = project.id || uid();
     const key = this.createKey(PROJECT_KEY, id);
-    return (
-      storage.get(key, STORAGE_OPTIONS) || (await this.createProject(project))
-    );
+    return storage.get(key) || (await this.createProject(project));
   }
 
   public async createProject(project: ProjectSchema): Promise<ProjectSchema> {
@@ -38,7 +36,7 @@ export class StorageService extends Service {
       id,
       name
     };
-    storage.save(key, schema, STORAGE_OPTIONS);
+    storage.save(key, schema);
     return schema;
   }
 
@@ -56,7 +54,7 @@ export class StorageService extends Service {
       ...file,
       id
     };
-    storage.save(key, schema, STORAGE_OPTIONS);
+    storage.save(key, schema);
     return schema;
   }
 
@@ -67,28 +65,27 @@ export class StorageService extends Service {
 
   public async getFile(id: string): Promise<BlockSchema> {
     const key = this.createKey(FILE_KEY, id);
-    return storage.get(key, STORAGE_OPTIONS) as BlockSchema;
+    return storage.get(key) as BlockSchema;
   }
 
   public async removeFile(id: string): Promise<boolean> {
     const key = this.createKey(FILE_KEY, id);
     const historyKey = this.createKey(HISTORY_KEY, id);
-    storage.remove(key, STORAGE_OPTIONS);
-    storage.remove(historyKey, STORAGE_OPTIONS);
+    storage.remove(key);
+    storage.remove(historyKey);
     return true;
   }
 
   public async saveHistory(history: HistoryScheam): Promise<boolean> {
     const { blockId, items } = history;
     const key = this.createKey(HISTORY_KEY, blockId);
-    storage.save(key, items, STORAGE_OPTIONS);
+    storage.save(key, items);
     return true;
   }
 
   public async getHistory(blockId: string): Promise<HistoryItemSchema[]> {
     const key = this.createKey(HISTORY_KEY, blockId);
-    const items = (storage.get(key, STORAGE_OPTIONS) ||
-      []) as HistoryItemSchema[];
+    const items = (storage.get(key) || []) as HistoryItemSchema[];
     return items;
   }
 }

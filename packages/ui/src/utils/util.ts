@@ -1,7 +1,3 @@
-export type UnReadOnly<T> = {
-  -readonly [P in keyof T]: T[P];
-};
-
 export function getSizeValue(value: string | number) {
   return typeof value === 'string' ? value : `${value}px`;
 }
@@ -13,7 +9,7 @@ export function parseSize(size: string | number = 0, max: number) {
   const regex = /(%|vh|vw)$/i;
   if (regex.test(size)) {
     const value = Number.parseInt(size);
-    return (max * value) / 100;
+    return Math.floor((max * value) / 100);
   }
   return Number.parseInt(size);
 }

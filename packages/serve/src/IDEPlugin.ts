@@ -2,7 +2,7 @@ import { Plugin, UserConfig } from 'vite';
 import { join } from 'path';
 import serveStatic from 'serve-static';
 import bodyParser from 'body-parser';
-import { controllers, ApiRequest } from './server';
+import { controllers, ApiRequest, success } from './server';
 import { tsFormatter } from '@vtj/engine/shared';
 import fs from 'fs-extra';
 import { upperFirstCamelCase } from '@vtj/utils';
@@ -52,6 +52,7 @@ const getProviderOptions = (config: UserConfig, build?: boolean) => {
       home: '/',
       ...(vtj.project || {})
     },
+    debug: !!vtj.debug,
     ide: build
       ? null
       : {
@@ -138,7 +139,7 @@ export function IDEPlugin(): Plugin[] {
           } else if (reqUrl.endsWith(IDE_CONFIG_PATH)) {
             const options = getProviderOptions(__config || {});
             res.writeHead(200, { 'Content-Type': 'application/json' });
-            res.end(JSON.stringify(options));
+            res.end(JSON.stringify(success(options)));
           } else {
             next();
           }

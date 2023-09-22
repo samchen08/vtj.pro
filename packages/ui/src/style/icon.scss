@@ -2,6 +2,16 @@
 
 @include b(icon) {
   line-height: 1;
+  display: inline-block;
+  vertical-align: middle;
+  font-size: inherit;
+  width: 1em;
+  height: 1em;
+  overflow: hidden;
+  > svg {
+    width: 1em;
+    height: 1em;
+  }
   @include when(pointer) {
     cursor: pointer;
     &:hover {

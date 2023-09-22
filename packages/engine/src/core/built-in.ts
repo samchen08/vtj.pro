@@ -21,12 +21,14 @@ export const builtInElements: ComponentDescription[] = [
       {
         name: 'is',
         label: '组件名',
-        defaultValue: 'div',
         setters: 'InputSetter'
       }
     ],
     snippet: {
-      children: '组件文本内容示例'
+      children: '组件文本内容示例',
+      props: {
+        is: 'div'
+      }
     }
   },
   {

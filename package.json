@@ -2,7 +2,6 @@
   "name": "vtj-core",
   "private": true,
   "devDependencies": {
-    "pnpm": "~8.6.10",
     "lerna": "~7.1.4",
     "axios": "~1.4.0",
     "fs-extra": "~11.1.1"
@@ -20,7 +19,7 @@
     "dev:boot": "pnpm --filter @vtj/boot dev",
     "dev:lib": "pnpm run copy && cd dev && pnpm run dev:lib",
     "dev:mui": "pnpm run copy:uni && cd packages/mui && pnpm run dev",
-    "dev:docs": "cd packages/docs && npm run docs:dev",
+    "dev:docs": "pnpm --filter @vtj/docs docs:dev",
     "dev:ide": "pnpm run copy && pnpm --filter @vtj/ide dev",
     "dev:example": "pnpm run copy && pnpm --filter @vtj/ide dev:example",
     "preview": "cd dev && pnpm run preview",
@@ -28,12 +27,14 @@
     "preview:ide": "pnpm --filter @vtj/ide preview",
     "preview:boot": "pnpm --filter @vtj/boot preview",
     "preview:example": "pnpm --filter @vtj/ide preview:example",
+    "preview:docs": "pnpm --filter @vtj/docs docs:preview",
     "clean": "lerna clean -y && node scripts/clean.mjs",
-    "build": "pnpm run copy:uni && lerna run --no-private build && npm run build:example && node scripts/mui.mjs",
+    "build": "pnpm run copy && pnpm run copy:uni && lerna run --no-private build && node scripts/mui.mjs",
     "build:dev": "pnpm run copy && cd dev && pnpm run build",
     "build:boot": "pnpm --filter @vtj/boot build",
-    "build:ide": "pnpm run copy && pnpm run copy && pnpm --filter @vtj/ide build",
+    "build:ide": "pnpm run copy && pnpm --filter @vtj/ide build",
     "build:example": "pnpm run copy && pnpm run copy && pnpm --filter @vtj/ide build:example",
+    "build:docs": "pnpm --filter @vtj/docs docs:build",
     "build:ui": "pnpm --filter @vtj/ui build",
     "build:utils": "pnpm --filter @vtj/utils build",
     "build:cli": "pnpm --filter @vtj/cli build",
@@ -59,7 +60,8 @@
     "ci:update": "git add . && git commit -m \"ci update files\" && git push"
   },
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=18.0.0",
+    "lerna": ">=7.1.4"
   },
   "packageManager": "^pnpm@7.27.0",
   "publishConfig": {

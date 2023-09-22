@@ -7,7 +7,7 @@
 </template>
 <script lang="ts" setup>
   import { ref, watch } from 'vue';
-  import { vueCoder } from '@vtj/engine/coder';
+  import { vueCoder } from '@vtj/engine/shared';
 
   const textareaCacheKey = '__vtj_dev_code__';
 
