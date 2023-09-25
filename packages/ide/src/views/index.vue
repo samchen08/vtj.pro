@@ -66,7 +66,7 @@
   import { ideBase, ideConfig } from '@/api';
 
   const isExample = process.env.ENV_TYPE === 'uat';
-  // const isDev = process.env.ENV_TYPE === 'local';
+  const isDev = process.env.ENV_TYPE === 'local';
 
   const tipDialogVisible = ref(false);
   const coderDialogVisible = ref(false);
@@ -80,7 +80,7 @@
     ? ({
         project: {
           base: pathname,
-          home: '/startup'
+          home: '/'
         }
       } as any)
     : options || (await ideConfig());
@@ -112,7 +112,7 @@
         {
           name: 'actions',
           props: {
-            coder: true
+            coder: isExample || isDev ? true : raw
           }
         }
       ]

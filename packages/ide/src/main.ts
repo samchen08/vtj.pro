@@ -38,7 +38,6 @@ const app = createApp(App);
           }
         }
       : {};
-    console.log('options', options);
     await createProvider(
       merge(
         {
