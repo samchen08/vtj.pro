@@ -10,4 +10,4 @@ declare module '@vtj/engine/runtime' {
 
 declare module '@vtj/engine/runtime';
 
-declare module '.vtj';
+declare module '$vtj';

@@ -42,7 +42,7 @@ const defaults: IOptions = {
   cdnDir: 'cdn',
   legacy: false,
   visualizer: false,
-  elementPlus: true,
+  elementPlus: false,
   polyfills: true,
   modernPolyfills: true,
   uniapp: false

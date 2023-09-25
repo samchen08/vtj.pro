@@ -9,11 +9,9 @@ export default createViteConfig({
   debug: false,
   host: '0.0.0.0',
   https: false,
-  elementPlus: true,
   legacy: false,
   proxy,
   envConfig: EnvConfig,
   envType: ENV_TYPE,
   plugins: [IDEPlugin()]
-
 });

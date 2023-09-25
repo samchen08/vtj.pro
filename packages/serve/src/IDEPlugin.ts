@@ -161,17 +161,34 @@ export function IDEPlugin(): Plugin[] {
         const vtjDir = join(root, '.vtj');
         if (config.resolve) {
           config.resolve.alias = Object.assign(config.resolve?.alias || {}, {
-            '.vtj': vtjDir,
-            '/.vtj': vtjDir
+            $vtj: vtjDir
           });
         } else {
           config.resolve = {
             alias: {
-              '.vtj': vtjDir,
-              '/.vtj': vtjDir
+              $vtj: vtjDir
             }
           };
         }
+        if (!config.optimizeDeps) {
+          config.optimizeDeps = {};
+        }
+        if (!config.optimizeDeps.esbuildOptions) {
+          config.optimizeDeps.esbuildOptions = {};
+        }
+
+        config.optimizeDeps.esbuildOptions.alias = {
+          $vtj: vtjDir
+        };
+
+        config.optimizeDeps.exclude = [
+          '$vtj',
+          '@vtj/runtime',
+          '@vtj/ui',
+          '@vtj/utils',
+          '@vtj/icons'
+        ].concat(config.optimizeDeps.exclude || []);
+
         return config;
       }
     }
