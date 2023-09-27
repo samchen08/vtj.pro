@@ -12,7 +12,7 @@ const components: ComponentDescription[] = [
         name: 'direction',
         defaultValue: '',
         setters: 'SelectSetter',
-        options: ['horizontal ', 'vertical']
+        options: ['horizontal', 'vertical']
       }
     ],
     snippet: {

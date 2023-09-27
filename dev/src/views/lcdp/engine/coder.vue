@@ -3,6 +3,7 @@
     <textarea v-model="value" rows="20"> </textarea>
     <hr />
     <button @click="onVueCoder">错误日志出码</button>
+    <button @click="onDSLCoder">DSL出码</button>
   </div>
 </template>
 <script lang="ts" setup>
@@ -24,6 +25,15 @@
     const componentMap = json.componentMap;
     const packages = json.packages;
     const result = vueCoder(dsl, componentMap, packages, (e) => {
+      console.log('error:--------------');
+      console.log(e);
+    });
+    console.log(result);
+  };
+
+  const onDSLCoder = () => {
+    const dsl = JSON.parse(value.value || '{}');
+    const result = vueCoder(dsl, {}, [], (e) => {
       console.log('error:--------------');
       console.log(e);
     });

@@ -2,6 +2,7 @@
   <div>
     <hr />
     <div class="my-block" direction="row" :grow="false" border>
+      <XIcon icon="Star" @click="handleClick"></XIcon>
       <XIcon :icon="Menu" @click="handleClick"></XIcon>
       <XIcon :icon="Setting" @click="handleClick"></XIcon>
       <XIcon icon="vtj-icon-user"></XIcon>

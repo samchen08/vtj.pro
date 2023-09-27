@@ -18,6 +18,15 @@
             :icon="VideoPlay">
             立即开始体验
           </ElButton>
+          <ElButton
+            v-if="props.example"
+            @click="onClickExample"
+            type="default"
+            round
+            size="large"
+            :icon="Document">
+            加载示例项目
+          </ElButton>
         </div>
       </div>
     </slot>
@@ -28,12 +37,13 @@
 </template>
 <script lang="ts" setup>
   import { ElButton, ElDivider } from 'element-plus';
-  import { VideoPlay } from '@element-plus/icons-vue';
+  import { VideoPlay, Document } from '@element-plus/icons-vue';
   import Logo from '../mask/assets/logo.png';
 
   export interface StartupProps {
     text?: string;
     link?: string;
+    example?: (link?: string) => void;
   }
 
   const props = withDefaults(defineProps<StartupProps>(), {
@@ -43,6 +53,10 @@
 
   const onClick = () => {
     location.href = props.link + '#/?startup';
+  };
+
+  const onClickExample = () => {
+    props.example && props.example(props.link);
   };
 
   defineOptions({
@@ -71,7 +85,7 @@
     }
 
     h1 {
-      font-size: 110px;
+      font-size: 100px;
       font-weight: bold;
       color: rgb(1, 87, 254);
       text-shadow: 0 0 6px rgba(0, 0, 0, 0.3);

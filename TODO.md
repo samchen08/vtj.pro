@@ -36,7 +36,7 @@
 - XMask 母版
 - XLogin 登录
 - XForm 表单
-- XFormItem 表单项
+- XField 表单项
 - XTable 表格
 - XList 列表
 

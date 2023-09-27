@@ -103,6 +103,9 @@ export interface ProviderOptions {
   isProd?: boolean;
   // 开启debug
   debug?: boolean;
+
+  // 示例按钮回调函数
+  example?: () => void;
 }
 
 const defaults: Partial<ProviderOptions> = {
@@ -189,7 +192,14 @@ export class Provider {
 
   private createRoutes() {
     const { options, project } = this;
-    const { router, components = {}, raw = true, startup, ide } = options;
+    const {
+      router,
+      components = {},
+      raw = true,
+      startup,
+      ide,
+      example
+    } = options;
 
     const { Mask, Startup } = components;
     const homepage = this.getHomepage();
@@ -198,7 +208,8 @@ export class Provider {
         path: project.startup,
         name: 'Startup',
         props: {
-          link: ide?.path
+          link: ide?.path,
+          example
         },
         component: Startup
       });
@@ -263,6 +274,7 @@ function setStartup(provider: Provider) {
 
 export async function createProvider(options: Partial<ProviderOptions> = {}) {
   const { app } = options;
+
   if (app) {
     provideGlobalConfig({ locale: zhCn }, app);
     app.use(ElMessage);
@@ -277,6 +289,5 @@ export async function createProvider(options: Partial<ProviderOptions> = {}) {
   await instance.init();
   loading.close();
   setStartup(instance);
-
   return instance;
 }

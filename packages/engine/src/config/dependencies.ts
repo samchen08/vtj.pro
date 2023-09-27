@@ -59,18 +59,18 @@ export const dependencies: Dependencie[] = [
     required: false,
     official: true,
     enabled: true
+  },
+  {
+    package: '@vtj/ui',
+    version: 'latest',
+    library: 'VtjUI',
+    urls: ['/libs/vtj-ui.css', '/libs/vtj-ui.js'],
+    assetsUrl: '/libs/vtj-ui-assets.js',
+    assetsLibrary: 'VtjUIAssets',
+    required: false,
+    official: true,
+    enabled: true
   }
-  // {
-  //   package: '@vtj/ui',
-  //   version: 'latest',
-  //   library: 'VtjUI',
-  //   urls: ['/libs/vtj-ui.css', '/libs/vtj-ui.js'],
-  //   assetsUrl: '/libs/vtj-ui-assets.js',
-  //   assetsLibrary: 'VtjUIAssets',
-  //   required: false,
-  //   official: true,
-  //   enabled: true
-  // },
 
   // {
   //   package: 'xe-utils',

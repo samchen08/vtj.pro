@@ -138,6 +138,26 @@ function parseWatch(watch: WatchSchema[] = [], computedKeys: string[] = []) {
   };
 }
 
+function groupBySlot(children: NodeSchema[] = []) {
+  const slots: Map<
+    string | undefined,
+    {
+      slot: string | NodeSlotSchema | undefined;
+      children: NodeSchema[];
+    }
+  > = new Map();
+  for (const child of children) {
+    const key = typeof child.slot === 'string' ? child.slot : child.slot?.name;
+    const value = slots.get(key);
+    if (value) {
+      value.children.push(child);
+    } else {
+      slots.set(key, { slot: child.slot, children: [child] });
+    }
+  }
+  return slots;
+}
+
 function parseTemplate(
   children: NodeSchema[] = [],
   computedKeys: string[] = [],
@@ -147,54 +167,61 @@ function parseTemplate(
   let methods: Record<string, JSFunction> = {};
   let components: string[] = [];
   let importBlocks: { id: string; name: string }[] = [];
-  for (let child of children) {
-    const { id, name, invisible, slot, from } = child;
-    if (invisible) {
-      continue;
-    }
-    if (componentMap[name]) {
-      components.push(name);
-    }
 
-    if (from) {
-      if (typeof from === 'string') {
-        components.push(name);
-      } else {
-        if (from.type === 'Schema') {
-          components.push(name);
-          importBlocks.push({ id: from.id, name });
-        }
-        // todo: UrlSchema Remote
+  const slots = groupBySlot(children);
+
+  slots.forEach((item) => {
+    const contents: string[] = [];
+    for (let child of item.children) {
+      const { id, name, invisible, from } = child;
+      if (invisible) {
+        continue;
       }
-    }
-    const props = bindNodeProps(child.props).join(' ');
-    const { binders, handlers } = bindNodeEvents(id || name, child.events);
-    const events = binders.join(' ');
-    Object.assign(methods, handlers);
-    const directives = parseDirectives(child.directives).join(' ');
-    const nodeChildren = parseNodeChildren(
-      child.children,
-      computedKeys,
-      componentMap
-    );
-    let childContent = '';
-    if (typeof nodeChildren === 'string') {
-      childContent = nodeChildren;
-    } else {
-      childContent = (nodeChildren?.nodes || []).join('\n');
-      Object.assign(methods, nodeChildren?.methods || {});
-      components = components.concat(nodeChildren?.components || []);
-      importBlocks = importBlocks.concat(nodeChildren?.importBlocks || []);
-    }
+      if (componentMap[name]) {
+        components.push(name);
+      }
 
-    const node = wrapSlot(
-      slot,
-      `<${name} ${directives} ${props} ${events}>
-      ${childContent}
-    </${name}>`
-    );
+      if (from) {
+        if (typeof from === 'string') {
+          components.push(name);
+        } else {
+          if (from.type === 'Schema') {
+            components.push(name);
+            importBlocks.push({ id: from.id, name });
+          }
+          // todo: UrlSchema Remote
+        }
+      }
+      const props = bindNodeProps(child.props).join(' ');
+      const { binders, handlers } = bindNodeEvents(id || name, child.events);
+      const events = binders.join(' ');
+      Object.assign(methods, handlers);
+      const directives = parseDirectives(child.directives).join(' ');
+      const nodeChildren = parseNodeChildren(
+        child.children,
+        computedKeys,
+        componentMap
+      );
+      let childContent = '';
+      if (typeof nodeChildren === 'string') {
+        childContent = nodeChildren;
+      } else {
+        childContent = (nodeChildren?.nodes || []).join('\n');
+        Object.assign(methods, nodeChildren?.methods || {});
+        components = components.concat(nodeChildren?.components || []);
+        importBlocks = importBlocks.concat(nodeChildren?.importBlocks || []);
+      }
+
+      contents.push(
+        `<${name} ${directives} ${props} ${events}>
+        ${childContent}
+      </${name}>`
+      );
+    }
+    const node = wrapSlot(item.slot, contents.join('\n'));
     nodes.push(node);
-  }
+  });
+
   return {
     nodes,
     methods,
@@ -311,7 +338,9 @@ function wrapSlot(slot: string | NodeSlotSchema | undefined, content: string) {
   const slotString = `#${realSlot.name}="${
     realSlot.params?.length > 0 ? `{${realSlot.params?.join(',')}}` : 'scope'
   }"`;
-  return `<template ${slotString}>${content}</template>`;
+  return `<template ${slotString}>
+  ${content}
+  </template>`;
 }
 
 function parseImports(

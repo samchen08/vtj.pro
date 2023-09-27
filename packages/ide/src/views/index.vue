@@ -7,7 +7,7 @@
       width="500px"
       height="180px">
       <ElAlert
-        title="当前设计器是Storage模式，不支持出码功能"
+        title="当前设计器是非源码模式，不支持出码功能"
         type="warning"
         :closable="false"
         description="可以使用以下命令下载完整版本体验" />
@@ -55,18 +55,22 @@
     EVENT_ACTION_PREVIEW,
     EVENT_ACTION_HOME,
     EVENT_ACTION_CODER,
+    EVENT_ACTION_COPY,
     PageSchema,
     SummarySchema,
     FileService,
     StorageService,
     Dialog
   } from '@vtj/engine';
-  import { isPage } from '@vtj/runtime';
-  import { ElAlert, ElSkeleton } from 'element-plus';
-  import { ideBase, ideConfig } from '@/api';
+  import { isPage, useProvider } from '@vtj/runtime';
+  import { ElAlert, ElSkeleton, ElMessage } from 'element-plus';
+  import { ideBase } from '@/api';
+  import { delay } from '@vtj/utils';
+  import { useReloadStorage } from '../hooks';
 
   const isExample = process.env.ENV_TYPE === 'uat';
-  const isDev = process.env.ENV_TYPE === 'local';
+  const isIde = process.env.ENV_TYPE === 'live';
+  const isDev = process.env.NODE_ENV === 'development';
 
   const tipDialogVisible = ref(false);
   const coderDialogVisible = ref(false);
@@ -74,17 +78,15 @@
   const coderError = ref<any>(null);
   const coderLoading = ref(false);
   const container = ref<HTMLElement | undefined>();
-  const options = inject('VTJ_PROVIDER_OPTIONS', null);
-  const pathname = location.pathname;
-  const config = isExample
-    ? ({
-        project: {
-          base: pathname,
-          home: '/'
-        }
-      } as any)
-    : options || (await ideConfig());
-  const { project, raw = false, service = 'storage', debug } = config || {};
+  const provider = useProvider();
+
+  const {
+    project,
+    raw = false,
+    service = 'storage',
+    debug
+  } = provider?.options || {};
+
   const {
     id = 'ide',
     name = 'IDE',
@@ -112,7 +114,8 @@
         {
           name: 'actions',
           props: {
-            coder: isExample || isDev ? true : raw
+            coder: isExample ? true : raw,
+            copy: isIde && isDev
           }
         }
       ]
@@ -151,7 +154,7 @@
   });
 
   engine.emitter.on(EVENT_ACTION_CODER, async (loading: Ref<boolean>) => {
-    if (service === 'storage') {
+    if (service === 'storage' || !raw) {
       loading.value = false;
       tipDialogVisible.value = true;
       return;
@@ -179,6 +182,20 @@
       return [];
     });
     coderLoading.value = false;
+  });
+
+  engine.emitter.on(EVENT_ACTION_COPY, async (loading: Ref<boolean>) => {
+    loading.value = true;
+    await ideBase({
+      type: 'copyProject'
+    });
+    loading.value = false;
+    await useReloadStorage(id);
+    ElMessage.success({
+      message: '复制项目样例完成, 正在重置设置器'
+    });
+    await delay(2000);
+    location.reload();
   });
 
   // console.log('[engine]', engine);

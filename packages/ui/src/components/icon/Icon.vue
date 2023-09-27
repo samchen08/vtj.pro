@@ -7,13 +7,19 @@
   </ElIcon>
 </template>
 <script lang="ts" setup>
-  import { computed, markRaw, useAttrs } from 'vue';
+  import { computed, markRaw, useAttrs, getCurrentInstance } from 'vue';
   import { ElIcon } from 'element-plus';
   import { iconProps, iconSizeMap, IconSizeKey } from './types';
   const props = defineProps(iconProps);
   const attrs = useAttrs();
+  const instance = getCurrentInstance();
+
   const svgComponent = computed(() => {
-    return typeof props.icon === 'object' ? markRaw(props.icon) : null;
+    if (!props.icon) return null;
+    const app = instance?.appContext.app;
+    return typeof props.icon === 'object'
+      ? markRaw(props.icon)
+      : app?.component(props.icon) || props.icon;
   });
 
   const iconClass = computed(() => {

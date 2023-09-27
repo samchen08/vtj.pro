@@ -1,5 +1,6 @@
 <template>
   <XMask
+    :title="project.name"
     :menus="menus"
     :menuAdapter="menuAdapter"
     :home="project.home"
@@ -12,7 +13,7 @@
   import { computed, reactive } from 'vue';
   import { XMask, MenuDataItem, ActionBarItems, ActionProps } from '@vtj/ui';
   import { useProvider } from '@vtj/runtime';
-  import { ElMessage, ElMessageBox } from 'element-plus';
+  import { ElMessage } from 'element-plus';
   const { dsl, project } = useProvider();
   const menus = computed(() => dsl?.pages || []);
   const menuAdapter = (item: MenuDataItem) => {

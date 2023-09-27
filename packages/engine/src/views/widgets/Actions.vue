@@ -30,6 +30,14 @@
       :loading="loading">
       出码
     </ElButton>
+    <ElButton
+      v-if="props.copy"
+      type="danger"
+      size="small"
+      @click="onCopy"
+      :loading="copyLoading">
+      复制
+    </ElButton>
   </div>
 </template>
 <script lang="ts" setup>
@@ -40,19 +48,23 @@
   import {
     EVENT_ACTION_PREVIEW,
     EVENT_ACTION_HOME,
-    EVENT_ACTION_CODER
+    EVENT_ACTION_CODER,
+    EVENT_ACTION_COPY
   } from '../../core';
 
   export interface Props {
     coder?: boolean;
+    copy?: boolean;
   }
 
   const props = withDefaults(defineProps<Props>(), {
-    coder: false
+    coder: false,
+    copy: false
   });
 
   const { project, engine, emitter } = useCore();
   const loading = ref(false);
+  const copyLoading = ref(false);
   const refresh = () => {
     if (project.current.value) {
       const { designer } = useDesigner();
@@ -105,6 +117,10 @@
 
   const onCoder = () => {
     emitter.emit(EVENT_ACTION_CODER, loading);
+  };
+
+  const onCopy = () => {
+    emitter.emit(EVENT_ACTION_COPY, copyLoading);
   };
 
   const onView = () => {

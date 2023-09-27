@@ -24,9 +24,6 @@ export const iconProps = {
   },
   src: {
     type: String
-  },
-  disabled: {
-    type: Boolean
   }
 };
 

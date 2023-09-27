@@ -24,7 +24,7 @@
           @select="select">
         </Menu>
       </Sidebar>
-      <XContainer class="x-mask__main" grow flex direction="column">
+      <XContainer class="x-mask__main" grow shrink flex direction="column">
         <XContainer
           class="x-mask-topbar"
           justify="space-between"

@@ -7,12 +7,6 @@ import * as ElementPlusIconsVue from '@element-plus/icons-vue';
 export * from './components';
 export * from './icons';
 
-declare global {
-  interface Window {
-    __VTJ_ICONS_INSTALLED__?: boolean;
-  }
-}
-
 export interface Icon {
   label: string;
   value: string;
@@ -34,12 +28,12 @@ const components: Record<string, any> = {
 };
 
 const install = (app: App) => {
-  const installed = window.__VTJ_ICONS_INSTALLED__;
+  const installed = (app as any).__VTJ_ICONS_INSTALLED__;
   if (installed) return;
   for (const [key, component] of Object.entries(components)) {
     app.component(key, component as any);
   }
-  window.__VTJ_ICONS_INSTALLED__ = true;
+  (app as any).__VTJ_ICONS_INSTALLED__ = true;
 };
 
 export { icons, components, install };

@@ -8,8 +8,7 @@
 
 body {
   background-color: var(--vtj-base-color);
-  min-width: 800px;
-  min-height: 600px;
+  overflow: hidden;
   &.is-resizing {
     user-select: none;
 

@@ -8,8 +8,10 @@ const {
   existsSync,
   ensureDirSync,
   removeSync,
-  writeFileSync
+  writeFileSync,
+  copySync
 } = fs;
+
 const DIR_PATH = join(process.cwd(), '.vtj');
 const PROJECT_PATH = join(DIR_PATH, 'project');
 const FILE_PATH = join(DIR_PATH, 'file');
@@ -261,4 +263,15 @@ export async function projectCoder(req: ApiRequest) {
   }
 
   return success(results);
+}
+
+export async function copyProject(req: ApiRequest) {
+  try {
+    const dest = join(process.cwd(), 'public/storage');
+    removeSync(dest);
+    copySync(DIR_PATH, dest);
+    return success(true);
+  } catch (e: any) {
+    return fail(e.message);
+  }
 }
