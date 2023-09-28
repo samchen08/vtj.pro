@@ -1,7 +1,7 @@
 {
     "__VTJ_PROJECT__": true,
-    "__VTJ_VERSION__": "0.6.3",
-    "__VTJ_DATE__": "1695800480367",
+    "__VTJ_VERSION__": "0.6.4",
+    "__VTJ_DATE__": "1695864190298",
     "id": "ide",
     "description": "",
     "name": "示例项目",
@@ -83,10 +83,10 @@
             "version": "latest",
             "library": "VtjUI",
             "urls": [
-                "/libs/vtj-ui.css",
-                "/libs/vtj-ui.js"
+                "./libs/vtj-ui.css",
+                "./libs/vtj-ui.js"
             ],
-            "assetsUrl": "/libs/vtj-ui-assets.js",
+            "assetsUrl": "./libs/vtj-ui-assets.js",
             "assetsLibrary": "VtjUIAssets",
             "required": false,
             "official": true,
@@ -165,9 +165,26 @@
             "mask": true,
             "home": false,
             "hidden": false,
-            "children": []
+            "children": [
+                {
+                    "id": "1ne22trrlnd",
+                    "name": "TestBlock",
+                    "title": "引用区块",
+                    "isDir": false,
+                    "icon": "",
+                    "mask": true,
+                    "home": false,
+                    "hidden": false
+                }
+            ]
         }
     ],
-    "blocks": [],
+    "blocks": [
+        {
+            "id": "1bh5ci0vpnp",
+            "name": "MyBlock",
+            "title": "测试区块"
+        }
+    ],
     "apis": []
 }

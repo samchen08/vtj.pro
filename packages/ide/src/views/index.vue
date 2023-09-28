@@ -90,7 +90,7 @@
   const {
     id = 'ide',
     name = 'IDE',
-    base = '/',
+    base = location.pathname,
     mode = 'hash',
     page = '/page',
     preview = '/preview',

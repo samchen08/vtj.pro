@@ -1,7 +1,7 @@
 {
   "name": "@vtj/utils",
   "private": false,
-  "version": "0.6.4",
+  "version": "0.6.5",
   "type": "module",
   "sideEffects": false,
   "scripts": {
@@ -14,7 +14,7 @@
     "@types/js-cookie": "~3.0.3",
     "@types/lodash-es": "~4.17.8",
     "@types/numeral": "~2.0.2",
-    "@vtj/cli": "^0.6.4",
+    "@vtj/cli": "^0.6.5",
     "@vueuse/core": "~10.4.1",
     "axios": "~1.4.0",
     "crypto-js": "~4.1.1",

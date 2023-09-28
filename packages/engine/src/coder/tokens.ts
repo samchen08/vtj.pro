@@ -50,14 +50,19 @@ function replaceThis(content: string) {
   return content.replaceAll('this.', '');
 }
 
-function parseValue(val: unknown, stringify: boolean = true) {
-  return isJSExpression(val)
+function parseValue(
+  val: unknown,
+  stringify: boolean = true,
+  noThis: boolean = false
+) {
+  const value = isJSExpression(val)
     ? `${(val as JSExpression).value}`
     : isJSFunction(val)
     ? (val as JSFunction).value
     : stringify
     ? JSON.stringify(val)
     : val;
+  return noThis ? replaceThis(value as string) : value;
 }
 
 function parseFunctionMap(
@@ -240,7 +245,7 @@ function bindProp(name: string, value: unknown) {
   if (typeof value === 'string') {
     return `${name}="${value}"`;
   } else if (isJSExpression(value) || isJSFunction(value)) {
-    return `:${name}="${parseValue(value)}"`;
+    return `:${name}="${parseValue(value, true, true)}"`;
   } else if (isPlainObject(value)) {
     return `:${name}='{${parsePlainObjectValue(
       value as Record<string, any>

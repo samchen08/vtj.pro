@@ -202,6 +202,7 @@ export function addRouteWithMask(
   homePath: string,
   Container: any
 ) {
+  console.log(path);
   router.addRoute({
     path,
     name: `${name}Mask`,

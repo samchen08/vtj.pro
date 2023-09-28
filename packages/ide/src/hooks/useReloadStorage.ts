@@ -13,7 +13,7 @@ function createKey(...args: string[]) {
 }
 
 async function fetchJson(type: 'file' | 'project', id: string) {
-  const base = '/storage';
+  const base = location.pathname + 'storage';
   return fetch(`${base}/${type}/${id}.json?t=${Date.now()}`)
     .then((res) => res.json())
     .catch((e) => null);

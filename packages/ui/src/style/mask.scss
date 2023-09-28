@@ -150,6 +150,7 @@
     }
     > .el-sub-menu {
       margin: 5px;
+      border-radius: getCssVar('border-radius-base');
       > .el-sub-menu__title {
         width: 100%;
         display: flex;

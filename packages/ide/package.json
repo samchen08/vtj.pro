@@ -1,7 +1,7 @@
 {
   "name": "@vtj/ide",
   "private": false,
-  "version": "0.6.4",
+  "version": "0.6.5",
   "scripts": {
     "setup": "npm install --registry=https://registry.npmmirror.com",
     "outdate": "npm outdate --registry=https://registry.npmmirror.com",
@@ -18,20 +18,20 @@
   },
   "dependencies": {
     "@element-plus/icons-vue": "~2.1.0",
-    "@vtj/assets": "^0.6.4",
-    "@vtj/engine": "^0.6.4",
-    "@vtj/icons": "^0.6.4",
-    "@vtj/runtime": "^0.6.4",
-    "@vtj/ui": "^0.6.4",
-    "@vtj/utils": "^0.6.4",
+    "@vtj/assets": "^0.6.5",
+    "@vtj/engine": "^0.6.5",
+    "@vtj/icons": "^0.6.5",
+    "@vtj/runtime": "^0.6.5",
+    "@vtj/ui": "^0.6.5",
+    "@vtj/utils": "^0.6.5",
     "@vueuse/core": "~10.4.1",
     "element-plus": "~2.3.14",
     "vue": "~3.3.4",
     "vue-router": "~4.2.4"
   },
   "devDependencies": {
-    "@vtj/cli": "^0.6.4",
-    "@vtj/serve": "^0.6.4"
+    "@vtj/cli": "^0.6.5",
+    "@vtj/serve": "^0.6.5"
   },
   "description": "> TODO: description",
   "author": "陈华春 <samchen08@163.com>",

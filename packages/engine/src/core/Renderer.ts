@@ -54,7 +54,7 @@ export class Renderer {
     const { Vue, container, components, libs, apis, window, globals } =
       this.env;
     const loader = createLoader({
-      getFile: this.service.getFile,
+      getFile: this.service.getFile.bind(this.service),
       options: {
         Vue,
         block,
