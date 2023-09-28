@@ -53,7 +53,7 @@ function replaceThis(content: string) {
 function parseValue(
   val: unknown,
   stringify: boolean = true,
-  noThis: boolean = false
+  noThis: boolean = true
 ) {
   const value = isJSExpression(val)
     ? `${(val as JSExpression).value}`
@@ -70,7 +70,7 @@ function parseFunctionMap(
   computedKeys: string[] = []
 ) {
   return Object.entries(map).map(([name, val]) => {
-    let handler = replaceFunctionTag(parseValue(val, false) as string);
+    let handler = replaceFunctionTag(parseValue(val, false, false) as string);
     handler = replaceComputedValue(handler, computedKeys);
     return `${name}${handler}`;
   });
@@ -100,7 +100,7 @@ function parseProps(props: DefineProps = []) {
       return `${prop.name}: {
         type:${toTypes(prop.type)},
         required: ${prop.required},
-        default: ${parseValue(prop.default)}
+        default: ${parseValue(prop.default, true, false)}
         }`;
     }
   });
@@ -110,7 +110,7 @@ function parseInject(inject: InjectSchema[] = []) {
   return inject.map((n) => {
     return `${n.name}: {
         from: '${n.from}',
-        default: ${parseValue(n.default)}
+        default: ${parseValue(n.default, true, false)}
     }`;
   });
 }
@@ -245,7 +245,7 @@ function bindProp(name: string, value: unknown) {
   if (typeof value === 'string') {
     return `${name}="${value}"`;
   } else if (isJSExpression(value) || isJSFunction(value)) {
-    return `:${name}="${parseValue(value, true, true)}"`;
+    return `:${name}="${parseValue(value)}"`;
   } else if (isPlainObject(value)) {
     return `:${name}='{${parsePlainObjectValue(
       value as Record<string, any>

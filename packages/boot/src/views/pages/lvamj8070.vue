@@ -12,17 +12,15 @@
     <component is="h3"> 快速体验 </component>
     <component is="div"> npm create vtj@latest -- -t web </component>
   </XPanel>
-  <MyBlock> </MyBlock>
 </template>
 <script lang="ts">
   import { defineComponent, reactive } from 'vue';
   import { XPanel } from '@vtj/ui';
-  import MyBlock from '@/components/blocks/1bh5ci0vpnp.vue';
   import { useProvider } from '@vtj/runtime';
   export default defineComponent({
     name: 'Dashboard',
 
-    components: { XPanel, MyBlock },
+    components: { XPanel },
 
     setup(props) {
       const provider = useProvider();
