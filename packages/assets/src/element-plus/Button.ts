@@ -59,7 +59,7 @@ const components: ComponentDescription[] = [
         name: 'nativeType',
         defaultValue: 'button',
         setters: 'SelectSetter',
-        options: ['button ', 'submit', 'reset']
+        options: ['button', 'submit', 'reset']
       }
     ],
     events: ['click'],
