@@ -8,16 +8,22 @@
       </ElTabs>
     </template>
   </MyBlock>
+  <ElTable
+    :data='[{"date":"2016-05-03","name":"Tom","address":"No. 189, Grove St, Los Angeles"},{"date":"2016-05-02","name":"Tom","address":"No. 189, Grove St, Los Angeles"},{"date":"2016-05-04","name":"Tom","address":"No. 189, Grove St, Los Angeles"},{"date":"2016-05-01","name":"Tom","address":"No. 189, Grove St, Los Angeles"}]'>
+    <ElTableColumn prop="date" label="Date"> </ElTableColumn>
+    <ElTableColumn prop="name" label="Name"> </ElTableColumn>
+    <ElTableColumn prop="address" label="Address"> </ElTableColumn>
+  </ElTable>
 </template>
 <script lang="ts">
   import { defineComponent, reactive } from 'vue';
-  import { ElTabs, ElTabPane } from 'element-plus';
+  import { ElTabs, ElTabPane, ElTable, ElTableColumn } from 'element-plus';
   import MyBlock from '@/components/blocks/1bh5ci0vpnp.vue';
   import { useProvider } from '@vtj/runtime';
   export default defineComponent({
     name: 'TestBlock',
 
-    components: { MyBlock, ElTabs, ElTabPane },
+    components: { MyBlock, ElTabs, ElTabPane, ElTable, ElTableColumn },
 
     setup(props) {
       const provider = useProvider();

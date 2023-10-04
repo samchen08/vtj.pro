@@ -60,5 +60,9 @@ export const ui = [
         component: () => import('@/views/ui/pages/subpage.vue')
       }
     ]
+  },
+  {
+    path: '/ui/field',
+    component: () => import('@/views/ui/field.vue')
   }
 ];

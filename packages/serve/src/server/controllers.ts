@@ -181,7 +181,7 @@ export async function projectCoder(req: ApiRequest) {
     .filter((n: any) => !!n);
 
   try {
-    const { pages, blocks, errors } = coder({
+    const { pages, blocks, errors } = await coder({
       pages: jsonPages,
       blocks: jsonBlocks,
       apis: project.apis || [],

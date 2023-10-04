@@ -122,12 +122,15 @@ function parseEmits(emits: string[] = []) {
 }
 
 function parseWatch(watch: WatchSchema[] = [], computedKeys: string[] = []) {
-  const watchers = watch.reduce((prev, current) => {
-    if (current.id && isJSFunction(current.source)) {
-      prev[`watcher_${current.id}`] = current.source;
-    }
-    return prev;
-  }, {} as Record<string, JSFunction>);
+  const watchers = watch.reduce(
+    (prev, current) => {
+      if (current.id && isJSFunction(current.source)) {
+        prev[`watcher_${current.id}`] = current.source;
+      }
+      return prev;
+    },
+    {} as Record<string, JSFunction>
+  );
   const computed = parseFunctionMap(watchers, computedKeys);
 
   const watches = watch.map((n) => {
@@ -251,7 +254,7 @@ function bindProp(name: string, value: unknown) {
       value as Record<string, any>
     ).join(', ')}}'`;
   } else {
-    return `:${name}="${JSON.stringify(value)}"`;
+    return `:${name}='${JSON.stringify(value)}'`;
   }
 }
 

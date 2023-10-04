@@ -29,5 +29,6 @@ export default createViteConfig({
   proxy,
   envConfig: EnvConfig,
   envType: ENV_TYPE,
-  alias
+  alias,
+  elementPlus: true
 });

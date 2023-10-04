@@ -18,22 +18,22 @@
     localStorage.setItem(textareaCacheKey, v);
   });
 
-  const onVueCoder = () => {
+  const onVueCoder = async () => {
     const json = JSON.parse(value.value || '{}');
 
     const dsl = json.dsl;
     const componentMap = json.componentMap;
     const packages = json.packages;
-    const result = vueCoder(dsl, componentMap, packages, (e) => {
+    const result = await vueCoder(dsl, componentMap, packages, (e) => {
       console.log('error:--------------');
       console.log(e);
     });
     console.log(result);
   };
 
-  const onDSLCoder = () => {
+  const onDSLCoder = async () => {
     const dsl = JSON.parse(value.value || '{}');
-    const result = vueCoder(dsl, {}, [], (e) => {
+    const result = await vueCoder(dsl, {}, [], (e) => {
       console.log('error:--------------');
       console.log(e);
     });

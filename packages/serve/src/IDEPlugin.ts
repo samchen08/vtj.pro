@@ -62,7 +62,7 @@ const getProviderOptions = (config: UserConfig, build?: boolean) => {
   };
 };
 
-const writeVtjOptionsContent = (options: any, build?: boolean) => {
+const writeVtjOptionsContent = async (options: any, build?: boolean) => {
   const modules = ['/.vtj/project/*.json'];
   if (options.raw) {
     if (!build) {
@@ -104,7 +104,7 @@ const writeVtjOptionsContent = (options: any, build?: boolean) => {
     ensureDirSync(DIR_PATH);
   }
   const filePath = join(DIR_PATH, 'index.ts');
-  writeFileSync(filePath, tsFormatter(content), 'utf-8');
+  writeFileSync(filePath, await tsFormatter(content), 'utf-8');
 };
 
 export function IDEPlugin(): Plugin[] {

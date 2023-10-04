@@ -27,23 +27,22 @@ export interface ICoderError {
   e?: any;
 }
 
-export function vueCoder(
+export async function vueCoder(
   dsl: BlockSchema,
   componentMap: Record<string, ComponentDescription>,
   packages: Dependencie[] = [],
   onError?: (e: ICoderError) => void
 ) {
   let tokens, source;
-
   try {
     tokens = parser(cloneDeep(dsl), componentMap, packages);
     source = compiled(tokens);
-    return htmlFormatter(`
+    return await htmlFormatter(`
   <template>
   ${tokens.template}
   </template>
-  <script lang="ts">${tsFormatter(source)}</script>
-  <style lang="scss" scoped>${cssFormatter(tokens.css)}</style>
+  <script lang="ts">${await tsFormatter(source)}</script>
+  <style lang="scss" scoped>${await cssFormatter(tokens.css)}</style>
  `);
   } catch (e) {
     if (onError) {
@@ -60,7 +59,7 @@ export function vueCoder(
   }
 }
 
-export function coder(
+export async function coder(
   options: ICoderOptions,
   onError?: (e: ICoderError[]) => void
 ) {
@@ -73,24 +72,27 @@ export function coder(
     packages = []
   } = options;
   const errors: ICoderError[] = [];
-  const vuePages = pages.map((file) => {
-    return {
+  const vuePages: any[] = [];
+  const vueBlocks: any[] = [];
+  for (const file of pages) {
+    vuePages.push({
       id: file.id as string,
       name: file.name,
-      content: vueCoder(file, componentMap, packages, (err) => {
+      content: await vueCoder(file, componentMap, packages, (err) => {
         errors.push(err);
       })
-    };
-  });
-  const vueBlocks = blocks.map((file) => {
-    return {
+    });
+  }
+
+  for (const file of blocks) {
+    vueBlocks.push({
       id: file.id as string,
       name: file.name,
-      content: vueCoder(file, componentMap, packages, (err) => {
+      content: await vueCoder(file, componentMap, packages, (err) => {
         errors.push(err);
       })
-    };
-  });
+    });
+  }
 
   if (onError && errors.length) {
     onError(errors);

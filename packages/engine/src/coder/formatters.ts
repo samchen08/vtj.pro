@@ -2,12 +2,14 @@
  * 代码格式化工具
  */
 
-import prettier from 'prettier';
-import htmlParser from 'prettier/parser-html';
-import babelParser from 'prettier/parser-babel';
-import cssParser from 'prettier/parser-postcss';
+import { format } from 'prettier/standalone';
+import type { Options } from 'prettier';
+import * as htmlParser from 'prettier/plugins/html';
+import * as babelParser from 'prettier/plugins/babel';
+import * as cssParser from 'prettier/plugins/postcss';
+import * as estree from 'prettier/plugins/estree';
 
-const prettierOptions: prettier.Options = {
+const prettierOptions: Options = {
   arrowParens: 'always',
   bracketSpacing: true,
   bracketSameLine: true,
@@ -30,11 +32,9 @@ const prettierOptions: prettier.Options = {
 
 /**
  * 格式化HTMl代码
- * @param {string} content 代码内容
- * @returns {string} 格式化后的内容
  */
-export function htmlFormatter(content: string): string {
-  return prettier.format(content, {
+export async function htmlFormatter(content: string) {
+  return await format(content, {
     parser: 'html',
     ...prettierOptions,
     plugins: [htmlParser]
@@ -43,37 +43,31 @@ export function htmlFormatter(content: string): string {
 
 /**
  * 格式化ts代码
- * @param {string} content 代码内容
- * @returns {string} 格式化后的内容
  */
-export function tsFormatter(content: string): string {
-  return prettier.format(content, {
+export async function tsFormatter(content: string) {
+  return await format(content, {
     parser: 'babel-ts',
     ...prettierOptions,
-    plugins: [babelParser]
+    plugins: [babelParser, estree]
   });
 }
 
 /**
- * 格式化js代码
- * @param {string} content 代码内容
- * @returns {string} 格式化后的内容
+ * 格式化js代码s
  */
-export function jsFormatter(content: string): string {
-  return prettier.format(content, {
+export async function jsFormatter(content: string) {
+  return await format(content, {
     parser: 'babel',
     ...prettierOptions,
-    plugins: [babelParser]
+    plugins: [babelParser, estree]
   });
 }
 
 /**
  * 格式化css代码
- * @param {string} content 代码内容
- * @returns {string} 格式化后的内容
  */
-export function cssFormatter(content: string): string {
-  return prettier.format(content, {
+export async function cssFormatter(content: string) {
+  return format(content, {
     parser: 'scss',
     ...prettierOptions,
     plugins: [cssParser]

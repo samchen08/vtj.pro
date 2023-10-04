@@ -124,10 +124,13 @@ export function parseDependencies(packages: Dependencie[]) {
 }
 
 export function parseApis(apis: ApiSchema[]) {
-  return apis.reduce((res, current) => {
-    res[current.name] = createApiHandler(current);
-    return res;
-  }, {} as Record<string, any>);
+  return apis.reduce(
+    (res, current) => {
+      res[current.name] = createApiHandler(current);
+      return res;
+    },
+    {} as Record<string, any>
+  );
 }
 
 export function install(app: App, libs: Record<string, any> = {}) {
@@ -202,7 +205,6 @@ export function addRouteWithMask(
   homePath: string,
   Container: any
 ) {
-  console.log(path);
   router.addRoute({
     path,
     name: `${name}Mask`,
