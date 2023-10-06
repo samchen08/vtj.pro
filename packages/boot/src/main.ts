@@ -9,6 +9,7 @@ import 'element-plus/dist/index.css';
 import '@vtj/icons/lib/style.css';
 import '@vtj/ui/lib/style.css';
 import '@/style/index.scss';
+import '@/api';
 const app = createApp(App);
 
 (async () => {

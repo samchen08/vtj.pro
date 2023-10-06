@@ -6,7 +6,7 @@
     :border="true"
     :more="true"
     size="large">
-    <template #actions="scope">
+    <template #actions="scope_2n8bvpjkit0">
       <XAction label="操作" size="default" icon="EditPen" mode="icon">
       </XAction>
       <XAction label="操作" size="default" icon="EditPen" mode="icon">

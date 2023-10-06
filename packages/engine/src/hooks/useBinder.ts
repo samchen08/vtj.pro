@@ -21,10 +21,14 @@ export function useBinder(block: Ref<Block | null>, keyword: Ref<string>) {
     // 运行时上下文
     const nodeContext = rootContext?.__context_refs[node.value?.id];
 
+    // console.log({ rootContext, nodeContext, nodeId: node.value?.id });
+
     const isEqualRoot = block.value.runtimeContext === nodeContext;
     const context = isEqualRoot
       ? []
-      : Object.keys(nodeContext || {}).map((n) => `this.${n}`);
+      : Object.keys(nodeContext?.context || {})
+          .filter((n) => !['context', 'ref'].includes(n))
+          .map((n) => `this.context.${n}`);
     if (context.length) {
       opts.push({ title: '上下文', items: context });
     }

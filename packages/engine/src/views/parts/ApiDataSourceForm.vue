@@ -74,156 +74,158 @@
   </Dialog>
 </template>
 <script lang="ts" setup>
-import { computed, ref } from 'vue';
-import { Dialog } from '../shared';
-import {
-  ElForm,
-  ElFormItem,
-  ElInput,
-  ElSelect,
-  ElOption,
-  ElButton,
-  ElDrawer,
-  ElNotification
-} from 'element-plus';
-import Editor from '../../editor';
-import { useCore } from '../../hooks';
-import { DataSourceSchema, JSFunction } from '../../core';
-import { Block } from '../../models';
-import { expressionValidate, cloneDeep, parseFunction } from '../../utils';
-const { project } = useCore();
+  import { computed, ref } from 'vue';
+  import { Dialog } from '../shared';
+  import {
+    ElForm,
+    ElFormItem,
+    ElInput,
+    ElSelect,
+    ElOption,
+    ElButton,
+    ElDrawer,
+    ElNotification
+  } from 'element-plus';
+  import Editor from '../../editor';
+  import { useCore } from '../../hooks';
+  import { DataSourceSchema, JSFunction } from '../../core';
+  import { Block } from '../../models';
+  import { expressionValidate, cloneDeep, parseFunction } from '../../utils';
+  const { project } = useCore();
 
-export interface Props {
-  model?: DataSourceSchema;
-  block: Block;
-}
-
-const props = defineProps<Props>();
-
-const defaultValue: DataSourceSchema = {
-  type: 'api',
-  detail: '',
-  name: '',
-  title: '',
-  transform: {
-    type: 'JSFunction',
-    value: ''
-  },
-  test: {
-    type: 'JSFunction',
-    value: ''
+  export interface Props {
+    model?: DataSourceSchema;
+    block: Block;
   }
-};
 
-const model = ref<DataSourceSchema>(
-  cloneDeep(props.model || { ...defaultValue })
-);
-const apis = computed(() => project.apis.value);
-const rules = {
-  name: [{ required: true, message: '调用名称为必填项' }],
-  title: [{ required: true, message: '备注描述为必填项' }],
-  detail: [{ required: true, message: '选择引用api' }]
-};
-const title = computed(() => (props.model ? '编辑数据源' : '新增数据源'));
-const formRef = ref();
-const transformRef = ref();
-const testRef = ref();
-const dialogRef = ref();
-const testResultVisible = ref(false);
-const loading = ref(false);
-const testResult = ref('');
+  const props = defineProps<Props>();
 
-const onApiChange = (val: string) => {
-  const item = apis.value.find((n) => n.name === val);
-  if (item) {
-    model.value.name = item.name;
-    model.value.title = item.title;
-    (model.value.test as JSFunction).value = `() => this.${item.name}()`;
-  }
-};
-
-const createApiDataSource = (source: DataSourceSchema, block: Block) => {
-  const handler = async (...args: any[]) => {
-    const api = block.runtimeContext?.$apis[source.detail];
-    const res = await api.apply(this, args);
-    const transform = parseFunction(source.transform as JSFunction, {});
-    return transform ? transform(res) : res;
-  };
-  return {
-    [source.name]: handler
-  };
-};
-
-const save = async () => {
-  const valid = await formRef.value.validate().catch((e: any) => false);
-  if (valid) {
-    const transform = transformRef.value.getEditor().getValue();
-    (model.value.transform as JSFunction).value = transform;
-    const test = testRef.value.getEditor().getValue();
-    (model.value.test as JSFunction).value = test;
-
-    return (
-      (!transform ||
-        expressionValidate(
-          model.value.transform as any,
-          props.block.runtimeContext
-        )) &&
-      expressionValidate(model.value.test as any, {
-        ...props.block.runtimeContext,
-        ...createApiDataSource(model.value, props.block)
-      })
-    );
-  }
-  return false;
-};
-
-const onSubmit = async () => {
-  if (await save()) {
-    props.block.setDataSource(model.value);
-    dialogRef.value.close();
-  }
-};
-
-const runTest = async () => {
-  if (await save()) {
-    if (!(model.value.test as JSFunction).value) {
-      ElNotification.warning({
-        message: '无测试用例',
-        title: '提示'
-      });
-      return;
+  const defaultValue: DataSourceSchema = {
+    type: 'api',
+    detail: '',
+    name: '',
+    title: '',
+    transform: {
+      type: 'JSFunction',
+      value: ''
+    },
+    test: {
+      type: 'JSFunction',
+      value: ''
     }
-    const content = createApiDataSource(model.value, props.block);
-    loading.value = true;
-    testResult.value = '';
-    try {
-      const func = parseFunction(model.value.test as JSFunction, content);
-      const res = await func().catch((e: any) => e);
-      testResult.value =
-        typeof res === 'object' ? JSON.stringify(res, null, 2) : '';
-      testResultVisible.value = true;
-    } catch (e: any) {
-      ElNotification.warning({
-        message: e.message,
-        title: '运行错误'
-      });
+  };
+
+  const model = ref<DataSourceSchema>(
+    cloneDeep(props.model || { ...defaultValue })
+  );
+  const apis = computed(() => project.apis.value);
+  const rules = {
+    name: [{ required: true, message: '调用名称为必填项' }],
+    title: [{ required: true, message: '备注描述为必填项' }],
+    detail: [{ required: true, message: '选择引用api' }]
+  };
+  const title = computed(() => (props.model ? '编辑数据源' : '新增数据源'));
+  const formRef = ref();
+  const transformRef = ref();
+  const testRef = ref();
+  const dialogRef = ref();
+  const testResultVisible = ref(false);
+  const loading = ref(false);
+  const testResult = ref('');
+
+  const onApiChange = (val: string) => {
+    const item = apis.value.find((n) => n.name === val);
+    if (item) {
+      model.value.name = item.name;
+      model.value.title = item.title;
+      (model.value.test as JSFunction).value = `() => this.${item.name}()`;
     }
-    loading.value = false;
-  }
-};
+  };
+
+  const createApiDataSource = (source: DataSourceSchema, block: Block) => {
+    const handler = async (...args: any[]) => {
+      const api = block.runtimeContext?.$apis[source.detail];
+      const res = await api.apply(this, args);
+      const transform = (source.transform as JSFunction)?.value
+        ? parseFunction(source.transform as JSFunction, {})
+        : (source.transform as () => any);
+      return transform ? transform(res) : res;
+    };
+    return {
+      [source.name]: handler
+    };
+  };
+
+  const save = async () => {
+    const valid = await formRef.value.validate().catch((e: any) => false);
+    if (valid) {
+      const transform = transformRef.value.getEditor().getValue();
+      (model.value.transform as JSFunction).value = transform;
+      const test = testRef.value.getEditor().getValue();
+      (model.value.test as JSFunction).value = test;
+
+      return (
+        (!transform ||
+          expressionValidate(
+            model.value.transform as any,
+            props.block.runtimeContext
+          )) &&
+        expressionValidate(model.value.test as any, {
+          ...props.block.runtimeContext,
+          ...createApiDataSource(model.value, props.block)
+        })
+      );
+    }
+    return false;
+  };
+
+  const onSubmit = async () => {
+    if (await save()) {
+      props.block.setDataSource(model.value);
+      dialogRef.value.close();
+    }
+  };
+
+  const runTest = async () => {
+    if (await save()) {
+      if (!(model.value.test as JSFunction).value) {
+        ElNotification.warning({
+          message: '无测试用例',
+          title: '提示'
+        });
+        return;
+      }
+      const content = createApiDataSource(model.value, props.block);
+      loading.value = true;
+      testResult.value = '';
+      try {
+        const func = parseFunction(model.value.test as JSFunction, content);
+        const res = await func().catch((e: any) => e);
+        testResult.value =
+          typeof res === 'object' ? JSON.stringify(res, null, 2) : '';
+        testResultVisible.value = true;
+      } catch (e: any) {
+        ElNotification.warning({
+          message: e.message,
+          title: '运行错误'
+        });
+      }
+      loading.value = false;
+    }
+  };
 </script>
 
 <style lang="scss">
-.vtj-data-source-from {
-  .el-select {
-    width: 100%;
+  .vtj-data-source-from {
+    .el-select {
+      width: 100%;
+    }
+    &__label-name {
+      font-size: 12px;
+      opacity: 0.6;
+    }
   }
-  &__label-name {
-    font-size: 12px;
-    opacity: 0.6;
+  .el-drawer__header {
+    margin-bottom: 0;
   }
-}
-.el-drawer__header {
-  margin-bottom: 0;
-}
 </style>

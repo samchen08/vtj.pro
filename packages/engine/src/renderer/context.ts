@@ -100,10 +100,10 @@ export class Context {
   __clone(context: Record<string, any> = {}) {
     const _context = { ...this.context, ...context };
     const copy: Record<string, any> = {
-      ..._context
-      // context: _context
+      ..._context,
+      context: _context
     };
-    // copy.context.__proto__ = this.context;
+    copy.context.__proto__ = this.context;
     copy.__proto__ = this;
     return copy as Context;
   }
@@ -144,6 +144,10 @@ export class Context {
       return undefined;
     }
 
+    if (id && id !== this.__id) {
+      this.__context_refs[id] = this;
+    }
+
     return (el: any) => {
       let dom = el?.$el || el;
       // 销毁时，无dom
@@ -163,11 +167,12 @@ export class Context {
 
       dom.__vtj__ = id;
       // 设计模式记录上下文
+
       if (ContextMode.DESIGN === this.__mode) {
         dom.__context__ = this;
-        if (id && id !== this.__id) {
-          this.__context_refs[id] = this;
-        }
+        // if (id && id !== this.__id) {
+        //   this.__context_refs[id] = this;
+        // }
       }
       if (id) {
         this.refs[id] = el;

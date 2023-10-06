@@ -13,7 +13,7 @@
     <XContainer :fit="true" :auto="true">
       <slot> 插槽默认内容 </slot>
     </XContainer>
-    <template #footer="scope">
+    <template #footer="scope_1e4ussdvwj4">
       <ElInput
         v-model:modelValue="state.value"
         placeholder="请输入事件参数文本">

@@ -1,22 +1,36 @@
-import { BlockSchema, Dependencie, JSExpression, JSFunction } from '../core';
+import {
+  BlockSchema,
+  Dependencie,
+  JSExpression,
+  JSFunction,
+  NodeSchema
+} from '../core';
 import { isJSFunction, isJSExpression, dedupArray } from '../utils';
 export class Collecter {
   libraryMap: Record<string, boolean> = {};
   libraryKeys: string[];
   libraryRegex: RegExp[] = [];
   imports: Record<string, Set<string>> = {};
-  constructor(public dsl: BlockSchema, public packages: Dependencie[]) {
-    this.libraryMap = packages.reduce((prev, current) => {
-      if (current.library) {
-        prev[current.library] = true;
-      }
-      return prev;
-    }, {} as Record<string, boolean>);
+  context: Record<string, Set<string>> = {};
+  constructor(
+    public dsl: BlockSchema,
+    public packages: Dependencie[]
+  ) {
+    this.libraryMap = packages.reduce(
+      (prev, current) => {
+        if (current.library) {
+          prev[current.library] = true;
+        }
+        return prev;
+      },
+      {} as Record<string, boolean>
+    );
     this.libraryKeys = Object.keys(this.libraryMap);
     this.libraryRegex = this.libraryKeys.map((key) => {
       return new RegExp(`this.\\$libs.${key}.([\\\w]+)`, 'g');
     });
     this.walk(dsl);
+    this.walkNodes(dsl);
   }
 
   getPackageName(library: string) {
@@ -98,5 +112,28 @@ export class Collecter {
       array = array.concat(Array.from(set));
     }
     return dedupArray(array);
+  }
+
+  walkNodes(dsl: BlockSchema) {
+    const walking = (node: NodeSchema, parent?: NodeSchema) => {
+      this.collectContext(node, parent);
+      if (Array.isArray(node.children)) {
+        node.children.forEach((n) => walking(n, node));
+      }
+    };
+
+    if (Array.isArray(dsl.children)) {
+      dsl.children.forEach((n) => walking(n));
+    }
+  }
+
+  collectContext(node: NodeSchema, parent?: NodeSchema) {
+    const parentContext = new Set(parent?.id ? this.context[parent.id] : []);
+    const vFor = (node.directives || []).find((n) => n.name === 'vFor');
+    if (vFor) {
+      const { item = 'item', index = 'index' } = vFor.iterator || {};
+      const nodeContext = new Set([item, index, ...Array.from(parentContext)]);
+      this.context[node.id as string] = nodeContext;
+    }
   }
 }

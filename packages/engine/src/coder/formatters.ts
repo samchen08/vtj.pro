@@ -33,7 +33,8 @@ const prettierOptions: Options = {
 /**
  * 格式化HTMl代码
  */
-export async function htmlFormatter(content: string) {
+export async function htmlFormatter(content: string, disabled?: boolean) {
+  if (disabled) return content;
   return await format(content, {
     parser: 'html',
     ...prettierOptions,
@@ -44,7 +45,8 @@ export async function htmlFormatter(content: string) {
 /**
  * 格式化ts代码
  */
-export async function tsFormatter(content: string) {
+export async function tsFormatter(content: string, disabled?: boolean) {
+  if (disabled) return content;
   return await format(content, {
     parser: 'babel-ts',
     ...prettierOptions,
@@ -55,7 +57,8 @@ export async function tsFormatter(content: string) {
 /**
  * 格式化js代码s
  */
-export async function jsFormatter(content: string) {
+export async function jsFormatter(content: string, disabled?: boolean) {
+  if (disabled) return content;
   return await format(content, {
     parser: 'babel',
     ...prettierOptions,
@@ -66,7 +69,8 @@ export async function jsFormatter(content: string) {
 /**
  * 格式化css代码
  */
-export async function cssFormatter(content: string) {
+export async function cssFormatter(content: string, disabled?: boolean) {
+  if (disabled) return content;
   return format(content, {
     parser: 'scss',
     ...prettierOptions,

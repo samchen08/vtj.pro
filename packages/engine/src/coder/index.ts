@@ -8,8 +8,12 @@ import { compiled } from './template';
 import { parser, Tokens } from './tokens';
 import { tsFormatter, htmlFormatter, cssFormatter } from './formatters';
 import { cloneDeep } from '../utils';
+export * from './Collecter';
+
+const __disabled__ = false;
 
 export { tsFormatter, htmlFormatter, cssFormatter };
+
 export interface ICoderOptions {
   pages: BlockSchema[];
   blocks: BlockSchema[];
@@ -37,13 +41,19 @@ export async function vueCoder(
   try {
     tokens = parser(cloneDeep(dsl), componentMap, packages);
     source = compiled(tokens);
-    return await htmlFormatter(`
+    return await htmlFormatter(
+      `
   <template>
   ${tokens.template}
   </template>
-  <script lang="ts">${await tsFormatter(source)}</script>
-  <style lang="scss" scoped>${await cssFormatter(tokens.css)}</style>
- `);
+  <script lang="ts">${await tsFormatter(source, __disabled__)}</script>
+  <style lang="scss" scoped>${await cssFormatter(
+    tokens.css,
+    __disabled__
+  )}</style>
+ `,
+      __disabled__
+    );
   } catch (e) {
     if (onError) {
       onError({

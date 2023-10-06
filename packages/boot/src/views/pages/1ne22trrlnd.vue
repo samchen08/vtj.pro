@@ -1,6 +1,6 @@
 <template>
   <MyBlock title="我是传递过去的标题文本" @submit="submit_handler_2dohrw6rl55">
-    <template #default="scope">
+    <template #default="scope_2dohrw6rl55">
       <ElTabs modelValue="1" :style='{"width": "100%"}'>
         <ElTabPane label="面板一" name="1"> 面板一内容 </ElTabPane>
         <ElTabPane label="面板二" name="2"> 面板二内容 </ElTabPane>

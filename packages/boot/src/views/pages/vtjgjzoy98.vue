@@ -7,12 +7,12 @@
     shadow="hover"
     :footer='{"flex": true, "justify": "flex-end"}'>
     <component is="div"> 组件文本内容示例 </component>
-    <template #actions="scope">
+    <template #actions="scope_298zcpv5d8i">
       <XAction label="" mode="icon" icon="EditPen" :disabled="false"> </XAction>
       <XAction label="" mode="icon" icon="EditPen" :disabled="false"> </XAction>
       <XAction label="" mode="icon" icon="EditPen" :disabled="false"> </XAction>
     </template>
-    <template #footer="scope">
+    <template #footer="scope_298zcpv5d8i">
       <ElButton type="primary"> 按钮 </ElButton>
       <ElButton type="default"> 按钮 </ElButton>
     </template>
@@ -25,12 +25,12 @@
     shadow="hover"
     :footer='{"flex": true, "justify": "flex-end"}'>
     <component is="div"> 组件文本内容示例 </component>
-    <template #actions="scope">
+    <template #actions="scope_2k9zlm5xws8">
       <XAction label="" mode="icon" icon="EditPen" :disabled="false"> </XAction>
       <XAction label="" mode="icon" icon="EditPen" :disabled="false"> </XAction>
       <XAction label="" mode="icon" icon="EditPen" :disabled="false"> </XAction>
     </template>
-    <template #footer="scope">
+    <template #footer="scope_2k9zlm5xws8">
       <ElButton type="primary"> 按钮 </ElButton>
       <ElButton type="default"> 按钮 </ElButton>
     </template>

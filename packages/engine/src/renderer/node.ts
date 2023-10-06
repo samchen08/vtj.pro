@@ -124,7 +124,8 @@ function createSlotsConfig(nodes: NodeSchema[]) {
 function childrenToSlots(
   Vue: any,
   children: NodeChildrenSchema,
-  context: Context
+  context: Context,
+  parent?: NodeSchema
 ) {
   if (!children) return null;
   if (isString(children)) {
@@ -138,10 +139,22 @@ function childrenToSlots(
   }
   if (Array.isArray(children)) {
     const slots = createSlotsConfig(children);
+    const getScope = (scope: any) => {
+      if (!scope || !parent) return {};
+      if (parent?.id) {
+        return {
+          [`scope_${parent.id}`]: scope
+        };
+      }
+      return {};
+    };
     return Object.entries(slots).reduce((result, [name, { nodes, params }]) => {
       result[name] = (scope: any) => {
         // 记录插槽上下文
-        const props = params.length ? pick(scope ?? {}, params) : scope ?? {};
+        const props = params.length
+          ? pick(scope ?? {}, params)
+          : getScope(scope);
+
         return nodes.map((node) =>
           nodeRenderer(Vue, node, context.__clone(props))
         );
@@ -156,16 +169,19 @@ function parseNodeProps(
   props: PropsSchema,
   context: Context
 ) {
-  const _props = Object.keys(props || {}).reduce((result, key: string) => {
-    let val = (props as any)[key];
-    if (isJSExpression(val)) {
-      val = context.__parseExpression(val);
-    } else if (isJSFunction(val)) {
-      val = context.__parseFunction(val);
-    }
-    result[key] = val;
-    return result;
-  }, {} as Record<string, any>);
+  const _props = Object.keys(props || {}).reduce(
+    (result, key: string) => {
+      let val = (props as any)[key];
+      if (isJSExpression(val)) {
+        val = context.__parseExpression(val);
+      } else if (isJSFunction(val)) {
+        val = context.__parseFunction(val);
+      }
+      result[key] = val;
+      return result;
+    },
+    {} as Record<string, any>
+  );
   _props.ref = context.__ref(id, _props.ref);
 
   return _props;
@@ -178,19 +194,22 @@ function parseNodeEvents(Vue: any, events: NodeEventsSchema, context: Context) {
     once: 'Once',
     passive: 'OnceCapture'
   };
-  return Object.keys(events || {}).reduce((result, key: string) => {
-    const event = events[key];
-    const modifiers = getModifiers(event.modifiers);
-    const suffix = modifiers.find((n) => suffixModifiers.includes(n));
-    const name =
-      'on' + upperFirst(key) + (suffix ? suffixMap[suffix] || '' : '');
+  return Object.keys(events || {}).reduce(
+    (result, key: string) => {
+      const event = events[key];
+      const modifiers = getModifiers(event.modifiers);
+      const suffix = modifiers.find((n) => suffixModifiers.includes(n));
+      const name =
+        'on' + upperFirst(key) + (suffix ? suffixMap[suffix] || '' : '');
 
-    const handler = context.__parseFunction(event.handler);
-    if (handler) {
-      result[name] = Vue.withModifiers(handler, modifiers);
-    }
-    return result;
-  }, {} as Record<string, any>);
+      const handler = context.__parseFunction(event.handler);
+      if (handler) {
+        result[name] = Vue.withModifiers(handler, modifiers);
+      }
+      return result;
+    },
+    {} as Record<string, any>
+  );
 }
 
 function renderSlot(
@@ -287,7 +306,7 @@ export function nodeRenderer(
 
     // todo: v-others 绑定其他指令
 
-    const slots = childrenToSlots(Vue, node.children ?? [], context);
+    const slots = childrenToSlots(Vue, node.children ?? [], context, node);
 
     return Vue.createVNode(component, { ...props, ...events }, slots);
   };

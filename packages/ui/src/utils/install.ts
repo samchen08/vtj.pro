@@ -7,7 +7,11 @@ export const makeInstaller = (components: any[] = []) => {
     if ((app as any)[INSTALLED_KEY]) return;
 
     (app as any)[INSTALLED_KEY] = true;
-    components.forEach((c) => app.component(c.name, c));
+    components.forEach((c) => {
+      if (c.name) {
+        app.component(c.name, c);
+      }
+    });
   };
   return {
     install

@@ -4,6 +4,7 @@ import * as VtjIcons from '@vtj/icons';
 import App from './App.vue';
 import router from './router';
 import Mask from '@/components/Mask.vue';
+import '@/api';
 import 'element-plus/theme-chalk/dark/css-vars.css';
 import 'element-plus/dist/index.css';
 import '@vtj/icons/lib/style.css';

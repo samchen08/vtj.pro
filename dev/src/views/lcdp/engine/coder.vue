@@ -4,11 +4,12 @@
     <hr />
     <button @click="onVueCoder">错误日志出码</button>
     <button @click="onDSLCoder">DSL出码</button>
+    <button @click="onCollectContext">Test Collect Context</button>
   </div>
 </template>
 <script lang="ts" setup>
   import { ref, watch } from 'vue';
-  import { vueCoder } from '@vtj/engine/shared';
+  import { vueCoder, Collecter } from '@vtj/engine/shared';
 
   const textareaCacheKey = '__vtj_dev_code__';
 
@@ -38,6 +39,14 @@
       console.log(e);
     });
     console.log(result);
+  };
+
+  const onCollectContext = async () => {
+    const dsl = JSON.parse(value.value || '{}');
+    const collecter = new Collecter(dsl, []);
+    collecter.walkNodes(dsl);
+    console.log(collecter.context);
+    // console.log(result);
   };
 </script>
 <style lang="scss" scoped>
