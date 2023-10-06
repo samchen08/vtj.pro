@@ -18,7 +18,9 @@
         v-model:modelValue="state.value"
         placeholder="请输入事件参数文本">
       </ElInput>
-      <ElButton type="primary" @click="click_handler_ix6mw4vvx6">
+      <ElButton
+        type="primary"
+        @click="click_handler_ix6mw4vvx6($event, {scope_1e4ussdvwj4})">
         测试触发事件
       </ElButton>
     </template>
@@ -66,8 +68,10 @@
     },
 
     methods: {
-      click_handler_ix6mw4vvx6() {
-        this.$emit('submit', this.state.value);
+      click_handler_ix6mw4vvx6($event, { scope_1e4ussdvwj4 }) {
+        return (() => {
+          this.$emit('submit', this.state.value);
+        })();
       }
     }
   });

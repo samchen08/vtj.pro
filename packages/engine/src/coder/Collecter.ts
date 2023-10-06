@@ -130,10 +130,20 @@ export class Collecter {
   collectContext(node: NodeSchema, parent?: NodeSchema) {
     const parentContext = new Set(parent?.id ? this.context[parent.id] : []);
     const vFor = (node.directives || []).find((n) => n.name === 'vFor');
+    let nodeContext = new Set<string>(Array.from(parentContext));
+    // 循环上下文
     if (vFor) {
       const { item = 'item', index = 'index' } = vFor.iterator || {};
-      const nodeContext = new Set([item, index, ...Array.from(parentContext)]);
-      this.context[node.id as string] = nodeContext;
+      nodeContext = new Set([item, index, ...Array.from(nodeContext)]);
     }
+
+    // 插槽上下文s
+    const slot = node.slot;
+    if (slot) {
+      const params = typeof slot === 'string' ? [] : slot.params || [];
+      const items = params.length ? params : [`scope_${parent?.id}`];
+      nodeContext = new Set([...items, ...Array.from(nodeContext)]);
+    }
+    this.context[node.id as string] = nodeContext;
   }
 }
