@@ -24,7 +24,8 @@ import {
   isPlainObject,
   getModifiers,
   getDiretives,
-  dedupArray
+  dedupArray,
+  camelCase
 } from '../utils';
 import { Collecter } from './Collecter';
 
@@ -288,9 +289,13 @@ function bindEvent(
   id: string,
   name: string,
   value: NodeEventSchema,
-  binder: string
+  binder: string,
+  nodeContext: string[]
 ) {
   const modifiers = getModifiers(value.modifiers, true);
+  if (nodeContext && nodeContext.length > 0) {
+    return `@${name}${modifiers.join('')}="(...args:any[]) => ${binder}"`;
+  }
   return `@${name}${modifiers.join('')}="${binder}"`;
 }
 
@@ -302,19 +307,19 @@ function bindNodeEvents(
   const handlers: Record<string, JSFunction> = {};
   const nodeContext = Array.from(context[id] || new Set([]));
   const eventParams = nodeContext.length
-    ? `($event, {${nodeContext.join(', ')}})`
+    ? `({${nodeContext.join(', ')}}, args)`
     : '';
   const binders = Object.entries(events).map(([name, value]) => {
-    const binder = `${name}_handler_${id}${eventParams}`;
+    const binder = `${camelCase(name)}_handler_${id}${eventParams}`;
     handlers[binder] = nodeContext.length
       ? {
           type: 'JSFunction',
           value: `{
-        return (${value.handler.value})();
+        return (${value.handler.value}).apply(this, args);
       }`
         }
       : value.handler;
-    return bindEvent(id, name, value, binder);
+    return bindEvent(id, name, value, binder, nodeContext);
   });
   return {
     binders,
@@ -486,7 +491,7 @@ export function parser(
     computedKeys
   );
 
-  const blocksImport = dedupArray(importBlocks, 'id').map((n) => {
+  const blocksImport = dedupArray(importBlocks, 'id').map((n: any) => {
     return `import ${n.name} from '@/components/blocks/${n.id}.vue';`;
   });
 

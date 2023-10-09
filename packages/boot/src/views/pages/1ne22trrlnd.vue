@@ -14,7 +14,7 @@
     <ElTableColumn prop="name" label="Name">
       <template #default="{row,column,$index}">
         <ElTag
-          @click="click_handler_1wg65bkklv9($event, {row, column, $index})">
+          @click="(...args:any[]) => click_handler_1wg65bkklv9({row, column, $index}, args)">
           {{ row?.name }}
         </ElTag>
       </template>
@@ -48,12 +48,12 @@
           message: `收到事件消息：${val}`
         });
       },
-      click_handler_1wg65bkklv9($event, { row, column, $index }) {
+      click_handler_1wg65bkklv9({ row, column, $index }, args) {
         return (() => {
           this.$message.info({
             message: row?.date
           });
-        })();
+        }).apply(this, args);
       }
     }
   });

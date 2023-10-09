@@ -73,10 +73,7 @@
     return [];
   });
 
-  const codeContent = ref(
-    props.event?.handler?.value ||
-      `(${eventParams.value.join(', ')}) => {\r\n\r\n}`
-  );
+  const codeContent = ref(props.event?.handler?.value || `() => {\r\n\r\n}`);
 
   const validate = (value: string) => {
     const context = project.current.value?.runtimeContext;

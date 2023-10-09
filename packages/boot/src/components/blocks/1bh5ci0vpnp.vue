@@ -20,7 +20,7 @@
       </ElInput>
       <ElButton
         type="primary"
-        @click="click_handler_ix6mw4vvx6($event, {scope_1e4ussdvwj4})">
+        @click="(...args:any[]) => click_handler_ix6mw4vvx6({scope_1e4ussdvwj4}, args)">
         测试触发事件
       </ElButton>
     </template>
@@ -68,10 +68,10 @@
     },
 
     methods: {
-      click_handler_ix6mw4vvx6($event, { scope_1e4ussdvwj4 }) {
+      click_handler_ix6mw4vvx6({ scope_1e4ussdvwj4 }, args) {
         return (() => {
           this.$emit('submit', this.state.value);
-        })();
+        }).apply(this, args);
       }
     }
   });

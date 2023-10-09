@@ -141,7 +141,7 @@ function childrenToSlots(
     const slots = createSlotsConfig(children);
     const getScope = (scope: any) => {
       if (!scope || !parent) return {};
-      if (parent?.id) {
+      if (parent?.id && Object.keys(scope).length) {
         return {
           [`scope_${parent.id}`]: scope
         };

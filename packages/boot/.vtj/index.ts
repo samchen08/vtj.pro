@@ -1,7 +1,6 @@
 /// <reference types="vite/client" />
 const modules = import.meta.glob([
   '/.vtj/project/*.json',
-  '/.vtj/file/*.json',
   '/src/views/pages/*.vue',
   '/src/components/blocks/*.vue'
 ]);
@@ -19,5 +18,5 @@ export default {
     preview: '/preview',
     home: '/'
   },
-  ide: { path: '/ide/' }
+  ide: null
 };

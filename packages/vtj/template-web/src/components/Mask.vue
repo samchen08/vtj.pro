@@ -1,5 +1,6 @@
 <template>
   <XMask
+    :title="project.name"
     :menus="menus"
     :menuAdapter="menuAdapter"
     :home="project.home"

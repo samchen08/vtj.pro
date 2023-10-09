@@ -63,7 +63,9 @@ const app = createApp(App);
         ? {
             ide: { path: location.pathname }
           }
-        : {}
+        : {
+            ide: null
+          }
     )
   );
 
