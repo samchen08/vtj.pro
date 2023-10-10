@@ -1,1 +1,51 @@
 @use 'core' as *;
+
+@include b(field) {
+  @include e(info) {
+    position: absolute !important;
+    right: 0;
+    cursor: pointer;
+  }
+  @include e(trigger) {
+    --color: getCssVar('color-error') !important;
+    color: getCssVar('color-error') !important;
+  }
+
+  @include when('tooltip-outer') {
+    &.el-form-item--small {
+      .el-form-item__content {
+        padding-right: 16px;
+      }
+    }
+
+    &.el-form-item--default {
+      .el-form-item__content {
+        padding-right: 20px;
+      }
+    }
+
+    &.el-form-item--large {
+      .el-form-item__content {
+        padding-right: 24px;
+      }
+    }
+  }
+
+  @include when('tooltip-inner') {
+    &.el-form-item--small {
+      .x-field__info {
+        right: 5px;
+      }
+    }
+    &.el-form-item--default {
+      .x-field__info {
+        right: 8px;
+      }
+    }
+    &.el-form-item--large {
+      .x-field__info {
+        right: 10px;
+      }
+    }
+  }
+}
