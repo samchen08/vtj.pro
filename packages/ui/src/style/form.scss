@@ -1,1 +1,9 @@
 @use 'core' as *;
+
+@include b(form) {
+  &.el-form--inline {
+    > .x-field {
+      margin-right: 0;
+    }
+  }
+}

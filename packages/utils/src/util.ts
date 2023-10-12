@@ -32,13 +32,13 @@ export const isDef = (val: unknown) => typeof val !== 'undefined';
  * 当前时间
  * @returns
  */
- export const now = () => Date.now();
+export const now = () => Date.now();
 
 /**
  * 时间戳
  * @returns
  */
- export const timestamp = () => +Date.now();
+export const timestamp = () => +Date.now();
 
 /**
  * 随机数
@@ -46,7 +46,7 @@ export const isDef = (val: unknown) => typeof val !== 'undefined';
  * @param max
  * @returns
  */
- export const rand = (min: number, max: number) => {
+export const rand = (min: number, max: number) => {
   min = Math.ceil(min);
   max = Math.floor(max);
   return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -204,4 +204,21 @@ export function dedupArray<T>(array: any[], prop?: keyof T) {
   } else {
     return Array.from(new Set(array));
   }
+}
+
+export function toArray<T = any>(maybeArray?: T | T[]): T[] {
+  return maybeArray ? [].concat(maybeArray as any) : [];
+}
+
+export function cleanObject(obj: Record<string, any>) {
+  return Object.keys(obj).reduce(
+    (prev, current) => {
+      const value = obj[current];
+      if (value !== undefined && value !== null) {
+        prev[current] = value;
+      }
+      return prev;
+    },
+    {} as Record<string, any>
+  );
 }

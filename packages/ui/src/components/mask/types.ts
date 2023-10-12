@@ -1,13 +1,8 @@
 import {
   PropType,
-  ShallowRef,
   InjectionKey,
-  ShallowReactive,
-  ComputedRef,
-  ComponentInternalInstance,
   DefineComponent
 } from 'vue';
-import { RouteLocationNormalizedLoaded } from 'vue-router';
 
 import {
   MenuDataItem,

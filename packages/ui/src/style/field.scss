@@ -11,6 +11,10 @@
     color: getCssVar('color-error') !important;
   }
 
+  @include e(editor) {
+    width: 100% !important;
+  }
+
   @include when('tooltip-outer') {
     &.el-form-item--small {
       .el-form-item__content {

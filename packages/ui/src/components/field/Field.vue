@@ -1,12 +1,14 @@
 <template>
   <ElFormItem
+    v-if="fieldVisible"
     class="x-field"
     ref="itemRef"
+    :prop="props.name"
     :label="label"
     :size="computedSize"
     :class="computedClass"
+    :style="computedStyle"
     v-bind="$attrs">
-    <slot></slot>
     <template v-if="$slots.label" #label>
       <slot name="label"></slot>
     </template>
@@ -27,20 +29,34 @@
       </slot>
     </template>
 
-    <component
-      v-if="editor.name"
-      ref="editorRef"
-      :is="editor.name"
-      v-model="fieldValue"
-      v-bind="editor.props"></component>
+    <slot name="editor" :editor="slotProps">
+      <component
+        v-if="editor.component"
+        class="x-field__editor"
+        ref="editorRef"
+        :is="editor.component"
+        v-model="fieldValue"
+        v-bind="editor.props">
+        <template v-if="$slots.option" #option="{ option }">
+          <slot name="option" :option="option"></slot>
+        </template>
+      </component>
+    </slot>
   </ElFormItem>
 </template>
 <script lang="ts" setup>
-  import { toRef, computed, ref, watch, inject } from 'vue';
+  import { computed, ref, watch, inject } from 'vue';
   import { ElFormItem, ElTooltip, formContextKey } from 'element-plus';
   import { WarningFilled } from '@element-plus/icons-vue';
+  import { isEqual, isObject } from '@vtj/utils';
   import { XIcon } from '../icon';
-  import { fieldProps, FieldEmits } from './types';
+  import { fieldProps, FieldEmits, FieldEditorProps } from './types';
+  import {
+    formInstanceKey,
+    FormInstance,
+    formModelKey,
+    getSizeValue
+  } from '../../';
   import { useEditor } from './hooks';
 
   defineOptions({
@@ -49,18 +65,63 @@
 
   const props = defineProps(fieldProps);
   const emit = defineEmits<FieldEmits>();
-  const fromContext = inject(formContextKey, null);
-  const editor = useEditor(props);
-  const fieldValue = ref<any>(props.modelValue);
+  const formInstance = inject(formInstanceKey, null);
+  const formContext = inject(formContextKey, null);
+  const formModel = inject(formModelKey, null);
+  const fieldVisible = computed<boolean>(() => {
+    const proxy = formInstance?.proxy as FormInstance;
+    if (!proxy || !formModel) return props.visible;
+    if (typeof props.visible === 'function') {
+      return props.visible(formModel);
+    } else if (isObject(props.visible)) {
+      return Object.entries(props.visible).every(([k, v]) => {
+        return formModel[k] === v;
+      });
+    } else {
+      return props.visible;
+    }
+  });
+
+  const initFieldValue = () => {
+    const proxy = formInstance?.proxy as FormInstance;
+    if (proxy && formModel && props.name) {
+      return formModel[props.name] ?? props.modelValue;
+    } else {
+      return props.modelValue;
+    }
+  };
+
+  const fieldValue = ref<any>(initFieldValue());
+  const { editor } = useEditor(
+    props,
+    emit,
+    fieldVisible,
+    formInstance,
+    formModel
+  );
   const itemRef = ref();
   const editorRef = ref();
   const computedSize = computed(
-    () => props.size || fromContext?.size || 'default'
+    () => props.size || formContext?.size || 'default'
   );
 
   const computedClass = computed(() => {
     return {
       [`is-tooltip-${props.tooltipPosition}`]: !!props.tooltipPosition
+    };
+  });
+
+  const computedStyle = computed(() => {
+    const proxy = formInstance?.proxy as FormInstance;
+    const width = props.width
+      ? getSizeValue(props.width)
+      : proxy
+      ? proxy.inline && proxy.inlineColumns
+        ? `${100 / proxy.inlineColumns}%`
+        : null
+      : null;
+    return {
+      width
     };
   });
 
@@ -73,14 +134,78 @@
     };
   });
 
-  watch(fieldValue, (val: any) => {
-    emit('update:modelValue', val);
-    emit('change', val);
+  const slotProps = computed<FieldEditorProps>(() => {
+    return {
+      ...editor.value.props,
+      modelValue: fieldValue.value,
+      'onUpdate:modelValue': (v: any) => {
+        fieldValue.value = v;
+      }
+    };
   });
+
+  watch(fieldValue, (val: any, old: any) => {
+    if (fieldVisible.value && !isEqual(val, old)) {
+      emit('update:modelValue', val);
+      const proxy = formInstance?.proxy as FormInstance;
+      if (proxy && formModel && props.name) {
+        formModel[props.name] = val;
+      }
+    }
+  });
+
+  watch(
+    () => {
+      const proxy = formInstance?.proxy as FormInstance;
+      if (!proxy || !props.name || !formModel) return props.modelValue;
+      return formModel[props.name] ?? props.modelValue;
+    },
+    (v) => {
+      if (fieldVisible.value) {
+        fieldValue.value = v;
+      }
+    },
+    {
+      immediate: true
+    }
+  );
+
+  watch(
+    fieldVisible,
+    (v: boolean) => {
+      const proxy = formInstance?.proxy as FormInstance;
+      if (proxy && formModel && props.name) {
+        if (v) {
+          fieldValue.value = initFieldValue();
+          formModel[props.name] = fieldValue.value;
+        } else {
+          fieldValue.value = undefined;
+          delete formModel[props.name];
+        }
+      }
+    },
+    {
+      immediate: true
+    }
+  );
+
+  const focus = () => {
+    if (editorRef.value?.focus) {
+      editorRef.value.focus();
+    }
+  };
+
+  const blur = () => {
+    if (editorRef.value?.foucs) {
+      editorRef.value.blur();
+    }
+  };
 
   defineExpose({
     fieldValue,
     itemRef,
-    editorRef
+    editorRef,
+    focus,
+    blur
   });
 </script>

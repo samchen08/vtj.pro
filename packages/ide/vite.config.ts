@@ -39,7 +39,7 @@ export default createViteConfig({
   plugins: [IDEPlugin()],
   defineConfig: (config) => {
     config.server.watch = {
-      // ignored: ['**/.vtj/**']
+      ignored: ['**/.vtj/**']
     };
     return config;
   }

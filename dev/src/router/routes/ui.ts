@@ -64,5 +64,9 @@ export const ui = [
   {
     path: '/ui/field',
     component: () => import('@/views/ui/field.vue')
+  },
+  {
+    path: '/ui/form',
+    component: () => import('@/views/ui/form.vue')
   }
 ];
