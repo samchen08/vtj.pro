@@ -3,8 +3,8 @@ import { createBlockRenderer, createLoader } from '../renderer';
 import { Block, Node, History } from '../models';
 import { Service } from './services';
 import { BlockSchema, NodeSchema, emitter, EVENT_NODE_CHANGE } from '../core';
-import { App, Plugin, Ref } from 'vue';
-import { isBlock } from '../utils';
+import { App, Plugin, Ref, nextTick } from 'vue';
+import { isBlock, delay } from '../utils';
 import { ElNotification } from 'element-plus';
 
 export class Renderer {
@@ -53,6 +53,11 @@ export class Renderer {
 
     const { Vue, container, components, libs, apis, window, globals } =
       this.env;
+
+    const warpper = document.createElement('div');
+    warpper.id = 'app';
+    container.appendChild(warpper);
+
     const loader = createLoader({
       getFile: this.service.getFile.bind(this.service),
       options: {
@@ -77,7 +82,7 @@ export class Renderer {
     });
     this.app = Vue.createApp(Component) as App;
     this.install(libs, globals);
-    this.app.mount(container);
+    this.app.mount(warpper);
     emitter.on(EVENT_NODE_CHANGE, this.onNodeChangeProxy);
   }
 
@@ -114,6 +119,11 @@ export class Renderer {
   dispose() {
     if (this.app) {
       this.app.unmount();
+      const container = this.app._container;
+      if (container && container.parentNode) {
+        container.parentNode.removeChild(container);
+        this.app._container = null;
+      }
       this.app = null;
     }
     this.dsl = null;

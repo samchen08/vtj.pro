@@ -44,6 +44,12 @@ export const formProps = {
   resetText: {
     type: String,
     default: '重置'
+  },
+  /**
+   * 表单提交处理方法
+   */
+  submitMethod: {
+    type: Function as PropType<(model: FormModel) => Promise<any>>
   }
 };
 

@@ -148,7 +148,15 @@ const SelectV2: ComponentDescription = {
       setters: 'BooleanSetter'
     }
   ],
-  events: ['change', 'visible-change', 'remove-tag', 'clear', 'blur', 'focus'],
+  events: [
+    'change',
+    'visible-change',
+    'remove-tag',
+    'clear',
+    'blur',
+    'focus',
+    'update:modelValue'
+  ],
   slots: [
     {
       name: 'default'

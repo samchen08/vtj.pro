@@ -123,6 +123,9 @@ const components: ComponentDescription = {
     },
     {
       name: 'close-auto-focus'
+    },
+    {
+      name: 'update:modelValue'
     }
   ],
   slots: [

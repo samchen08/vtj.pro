@@ -97,7 +97,7 @@ const TimeSelect: ComponentDescription = {
       setters: 'InputSetter'
     }
   ],
-  events: ['change', 'blur', 'focus']
+  events: ['change', 'blur', 'focus', 'update:modelValue']
 };
 
 export default TimeSelect;

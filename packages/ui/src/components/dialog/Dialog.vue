@@ -105,7 +105,8 @@
     ref,
     watchEffect,
     nextTick,
-    getCurrentInstance
+    getCurrentInstance,
+    computed
   } from 'vue';
   import { RawClose, Popup, Maximize, Minimize } from '@vtj/icons';
   import { ElButton } from 'element-plus';
@@ -150,7 +151,10 @@
     }
   });
 
+  const $vtjEl = computed(() => panelRef.value?.$el);
+
   defineExpose({
+    $vtjEl,
     panelRef,
     state,
     maximized,

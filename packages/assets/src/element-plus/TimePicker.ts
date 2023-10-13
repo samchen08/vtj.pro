@@ -125,7 +125,7 @@ const TimePicker: ComponentDescription = {
       setters: 'BooleanSetter'
     }
   ],
-  events: ['change', 'blur', 'focus', 'visible-change']
+  events: ['change', 'blur', 'focus', 'visible-change', 'update:modelValue']
 };
 
 export default TimePicker;

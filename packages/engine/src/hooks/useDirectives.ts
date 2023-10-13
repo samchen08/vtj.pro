@@ -28,7 +28,7 @@ function findModelProps(desc: ComponentDescription) {
     const updated = events
       .filter((n) => {
         const name = typeof n === 'string' ? n : n.name;
-        return name.startsWith('onUpdate:');
+        return name.startsWith('update:');
       })
       .map((n) => (n = typeof n === 'string' ? n : n.name));
 

@@ -181,6 +181,9 @@ const DatePicker: ComponentDescription = {
     },
     {
       name: 'visible-change'
+    },
+    {
+      name: 'update:modelValue'
     }
   ],
   slots: [

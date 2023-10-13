@@ -38,6 +38,11 @@ const component: ComponentDescription = {
       defaultValue: '重置'
     },
     {
+      name: 'submitMethod',
+      label: '提交回调函数',
+      setters: 'FunctionSetter'
+    },
+    {
       name: 'rules',
       defaultValue: '',
       setters: 'JSONSetter'

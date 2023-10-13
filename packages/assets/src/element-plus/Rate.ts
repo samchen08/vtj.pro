@@ -112,7 +112,7 @@ const Rate: ComponentDescription = {
       setters: 'InputSetter'
     }
   ],
-  events: ['change']
+  events: ['change', 'update:modelValue']
 };
 
 export default Rate;

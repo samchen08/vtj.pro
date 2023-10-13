@@ -100,7 +100,7 @@ const Switch: ComponentDescription = {
       setters: 'FunctionSetter'
     }
   ],
-  events: ['change']
+  events: ['change', 'update:modelValue']
 };
 
 export default Switch;

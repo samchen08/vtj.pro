@@ -72,6 +72,9 @@ const Checkbox: ComponentDescription[] = [
     events: [
       {
         name: 'change'
+      },
+      {
+        name: 'update:modelValue'
       }
     ],
     snippet: {
@@ -138,7 +141,7 @@ const Checkbox: ComponentDescription[] = [
         setters: 'BooleanSetter'
       }
     ],
-    events: ['change'],
+    events: ['change', 'update:modelValue'],
     snippet: {
       children: [
         {

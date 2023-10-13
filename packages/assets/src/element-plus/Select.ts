@@ -191,7 +191,8 @@ const Select: ComponentDescription[] = [
       'remove-tag',
       'clear',
       'blur',
-      'focus'
+      'focus',
+      'update:modelValue'
     ],
     slots: [
       {
@@ -211,7 +212,7 @@ const Select: ComponentDescription[] = [
           props: {
             label: {
               type: 'JSExpression',
-              value: "`选项${this.context['#id'].item}`"
+              value: "`选项${this.context.item}`"
             }
           },
           directives: [

@@ -11,7 +11,6 @@ const Cascader: ComponentDescription[] = [
     props: [
       {
         name: 'modelValue',
-        defaultValue: '',
         setters: 'JSONSetter'
       },
       {
@@ -139,6 +138,9 @@ const Cascader: ComponentDescription[] = [
       },
       {
         name: 'remove-tag'
+      },
+      {
+        name: 'update:modelValue'
       }
     ],
     slots: [

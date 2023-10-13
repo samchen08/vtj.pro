@@ -43,6 +43,9 @@ const Radio: ComponentDescription[] = [
     events: [
       {
         name: 'change'
+      },
+      {
+        name: 'update:modelValue'
       }
     ],
     snippet: {
@@ -95,6 +98,9 @@ const Radio: ComponentDescription[] = [
     events: [
       {
         name: 'change'
+      },
+      {
+        name: 'update:modelValue'
       }
     ],
     snippet: {

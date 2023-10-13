@@ -144,6 +144,9 @@ const Autodcomplete: ComponentDescription = {
   ],
   events: [
     {
+      name: 'update:modelValue'
+    },
+    {
       name: 'select'
     },
     {

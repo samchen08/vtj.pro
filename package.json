@@ -29,7 +29,7 @@
     "preview:example": "pnpm --filter @vtj/ide preview:example",
     "preview:docs": "pnpm --filter @vtj/docs docs:preview",
     "clean": "lerna clean -y && node scripts/clean.mjs",
-    "build": "pnpm run copy && pnpm run copy:uni && lerna run --no-private build && node scripts/mui.mjs",
+    "build": "pnpm run copy && lerna run --no-private build",
     "build:dev": "pnpm run copy && cd dev && pnpm run build",
     "build:boot": "pnpm --filter @vtj/boot build",
     "build:ide": "pnpm run copy && pnpm --filter @vtj/ide build",

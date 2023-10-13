@@ -121,7 +121,7 @@ export class Simulator {
        <meta name="viewport"
              content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0,viewport-fit=cover"/>
          <style>
-            html, body {
+            html, body, #app {
               background: #fff;
               padding: 0;
               margin: 0;
@@ -166,10 +166,13 @@ export class Simulator {
 
   private parseApis() {
     const apis = this.project.apis.value;
-    return apis.reduce((res, current) => {
-      res[current.name] = createApiHandler(current);
-      return res;
-    }, {} as Record<string, DataSourceHandler>);
+    return apis.reduce(
+      (res, current) => {
+        res[current.name] = createApiHandler(current);
+        return res;
+      },
+      {} as Record<string, DataSourceHandler>
+    );
   }
 
   private createEnv() {

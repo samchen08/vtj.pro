@@ -124,7 +124,16 @@ const component: ComponentDescription = {
   snippet: {
     props: {
       title: '弹窗标题'
-    }
+    },
+    children: [
+      {
+        props: {
+          fit: true,
+          auto: true
+        },
+        name: 'XContainer'
+      }
+    ]
   }
 };
 

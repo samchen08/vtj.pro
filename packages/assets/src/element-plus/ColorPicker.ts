@@ -57,6 +57,9 @@ const ColorPicker: ComponentDescription = {
     },
     {
       name: 'active-change'
+    },
+    {
+      name: 'update:modelValue'
     }
   ]
 };

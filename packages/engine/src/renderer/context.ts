@@ -149,7 +149,7 @@ export class Context {
     }
 
     return (el: any) => {
-      let dom = el?.$el || el;
+      let dom = el?.$vtjEl || el?.$el || el;
       // 销毁时，无dom
       if (!dom) {
         if (typeof ref === 'string') {
@@ -160,6 +160,7 @@ export class Context {
         }
         return;
       }
+
       // 如果是text节点，取兄弟节点
       if (dom.nodeType === 3 && dom.nextSibling) {
         dom = dom.nextSibling;

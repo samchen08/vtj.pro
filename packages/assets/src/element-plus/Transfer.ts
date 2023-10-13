@@ -103,6 +103,9 @@ const Transfer: ComponentDescription = {
     },
     {
       name: 'right-check-change'
+    },
+    {
+      name: 'update:modelValue'
     }
   ]
 };

@@ -180,7 +180,7 @@ const Input: ComponentDescription = {
       name: 'clear'
     },
     {
-      name: 'onUpdate:modelValue'
+      name: 'update:modelValue'
     }
   ],
   slots: ['prefix', 'suffix', 'prepend', 'append']

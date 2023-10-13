@@ -103,6 +103,9 @@ const InputNumber: ComponentDescription = {
     },
     {
       name: 'focus'
+    },
+    {
+      name: 'update:modelValue'
     }
   ]
 };

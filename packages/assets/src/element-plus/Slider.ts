@@ -159,7 +159,7 @@ const Slider: ComponentDescription = {
       setters: 'BooleanSetter'
     }
   ],
-  events: ['change', 'input']
+  events: ['change', 'input', 'update:modelValue']
 };
 
 export default Slider;
