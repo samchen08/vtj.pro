@@ -12,7 +12,7 @@ export default {
   isProd: process.env.NODE_ENV === 'production',
   project: {
     id: 'boot',
-    name: '示例项目',
+    name: 'VTJ.PRO',
     base: '/',
     mode: 'hash',
     page: '/page',

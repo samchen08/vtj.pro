@@ -149,6 +149,9 @@ export class Assets {
         this.components = this.components.concat(content.components || []);
       }
     }
+    packages.sort((a, b) => {
+      return (a.order || 0) - (b.order || 0);
+    });
     this.componentGroups = this.parseGroups(packages);
     this.componentMap = this.parseMap<ComponentDescription>(this.components);
     this.isReady = true;

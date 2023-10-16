@@ -9,6 +9,9 @@ export interface AssetsContent {
   label?: string;
   categories?: AssetsCategory[];
   components?: ComponentDescription[];
+
+  // 排序号，资产在组件库的排序，数字小的在前
+  order?: number;
 }
 
 // 资产分类
@@ -25,6 +28,23 @@ export interface ComponentDescription {
    * 组件名称
    */
   name: string;
+
+  /**
+   * 组件别名，即组件库导出的原始名称 如 import { Button } from 'ant-design-vue'
+   */
+  alias?: string;
+
+  /**
+   * 组件库导出的名称 如 import { Button } from 'ant-design-vue'
+   * parent: Button
+   * alias: Group
+   * name: AButtonGroup
+   * const AButtonGroup = Button.Group;
+   * 当 parent 有值时 alias 可以设置多级，如 Group.Item
+   *
+   */
+  parent?: string;
+
   /**
    * 图标
    */

@@ -196,25 +196,23 @@ function parseTemplate(
   slots.forEach((item) => {
     const contents: string[] = [];
     for (let child of item.children) {
-      const { id, name, invisible, from } = child;
+      let { id, name, invisible, from } = child;
       if (invisible) {
         continue;
       }
-      if (componentMap[name]) {
-        components.push(name);
+      const desc = componentMap[name];
+      if (desc && desc.alias) {
+        const aliasName = desc.parent
+          ? `${desc.parent}.${desc.alias}`
+          : desc.alias;
+        components.push(`${name}: ${aliasName}`);
       }
 
-      if (from) {
-        if (typeof from === 'string') {
-          components.push(name);
-        } else {
-          if (from.type === 'Schema') {
-            components.push(name);
-            importBlocks.push({ id: from.id, name });
-          }
-          // todo: UrlSchema Remote
-        }
+      if (from && typeof from === 'object' && from.type === 'Schema') {
+        components.push(name);
+        importBlocks.push({ id: from.id, name });
       }
+
       const props = bindNodeProps(child.props).join(' ');
       const { binders, handlers } = bindNodeEvents(
         id || name,
@@ -410,10 +408,10 @@ function parseImports(
   };
 
   for (const name of components) {
-    const desc = componentMap[name];
+    const desc = componentMap[name.split(':')[0]];
     if (desc && desc.package) {
       const items = imports[desc.package] ?? (imports[desc.package] = []);
-      items.push(name);
+      items.push(desc.parent || (desc.alias || '').split('.')[0] || desc.name);
     }
   }
 
@@ -464,7 +462,7 @@ export interface Tokens {
 
 export function parser(
   dsl: BlockSchema,
-  componentMap: Record<string, ComponentDescription>,
+  componentMap: Record<string, ComponentDescription> = {},
   packages: Dependencie[] = []
 ) {
   const collecter = new Collecter(dsl, packages);
@@ -474,6 +472,13 @@ export function parser(
   const computed = parseFunctionMap(dsl.computed, computedKeys);
   const watch = parseWatch(dsl.watch, computedKeys);
   const dataSources = parseDataSources(dsl.dataSources);
+
+  // 处理别名
+  // Object.values(componentMap).forEach((n) => {
+  //   if (n.alias) {
+  //     componentMap[n.alias] = n.parent ? componentMap[n.parent] : n;
+  //   }
+  // });
 
   const { methods, nodes, components, importBlocks } = parseTemplate(
     dsl.children,

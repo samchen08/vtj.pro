@@ -28,5 +28,6 @@ export default {
   name: 'vtj-ui',
   label: 'UI',
   categories,
-  components
+  components,
+  order: 0
 };

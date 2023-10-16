@@ -75,6 +75,45 @@ const Image: ComponentDescription = {
       name: 'previewTeleported',
       defaultValue: false,
       setters: 'BooleanSetter'
+    },
+    {
+      name: 'infinite',
+      defaultValue: true,
+      setters: 'BooleanSetter',
+      title: '是否可以无限循环预览'
+    },
+    {
+      name: 'zoomRate',
+      defaultValue: 1.2,
+      setters: {
+        name: 'NumberSetter',
+        props: {
+          precision: 1
+        }
+      },
+      title: '图像查看器缩放事件的缩放速率'
+    },
+    {
+      name: 'minScale',
+      defaultValue: 0.2,
+      setters: {
+        name: 'NumberSetter',
+        props: {
+          precision: 1
+        }
+      },
+      title: '图像查看器缩放事件的最小缩放比例'
+    },
+    {
+      name: 'maxScale',
+      defaultValue: 7,
+      setters: {
+        name: 'NumberSetter',
+        props: {
+          precision: 1
+        }
+      },
+      title: '图像查看器缩放事件的最大缩放比例'
     }
   ],
   events: ['load', 'error', 'switch', 'close'],

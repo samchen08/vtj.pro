@@ -62,12 +62,13 @@ const component: ComponentDescription = {
       name: 'tooltipMessage',
       label: 'tooltipMessage',
       setters: 'BooleanSetter',
-      title: '是否在tooltip显示校验信息'
+      title: '是否在tooltip显示校验信息',
+      defaultValue: true
     },
     {
       name: 'tooltipPosition',
       defaultValue: 'outer',
-      options: ['inner', 'outer', 'small'],
+      options: ['inner', 'outer'],
       setters: ['SelectSetter', 'NumberSetter'],
       title: 'tooltip信息显示相对输入框的位置'
     },
@@ -118,7 +119,7 @@ const component: ComponentDescription = {
       name: 'inlineMessage',
       defaultValue: false,
       title: '是否在行内显示校验信息',
-      label: '校验信息',
+      label: '行内校验信息',
       setters: 'BooleanSetter'
     }
   ],

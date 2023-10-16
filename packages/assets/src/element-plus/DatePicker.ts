@@ -107,6 +107,18 @@ const DatePicker: ComponentDescription = {
       setters: 'InputSetter'
     },
     {
+      name: 'dateFormat',
+      defaultValue: '',
+      setters: 'InputSetter',
+      title: '时间选择器下拉列表中显示的日期格式'
+    },
+    {
+      name: 'timeFormat',
+      defaultValue: '',
+      setters: 'InputSetter',
+      title: '时间选择器下拉列表中显示的时间格式'
+    },
+    {
       name: 'id',
       defaultValue: '',
       setters: ['InputSetter']

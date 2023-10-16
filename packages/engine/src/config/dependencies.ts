@@ -3,7 +3,7 @@ import { Dependencie } from '../core';
 export const dependencies: Dependencie[] = [
   {
     package: 'vue',
-    version: '3.3.4',
+    version: 'latest',
     library: 'Vue',
     urls: ['./libs/vue.global.js'],
     required: true,
@@ -20,7 +20,7 @@ export const dependencies: Dependencie[] = [
     ],
     required: false,
     official: true,
-    enabled: false
+    enabled: true
   },
   {
     package: 'element-plus',
@@ -70,6 +70,28 @@ export const dependencies: Dependencie[] = [
     required: false,
     official: true,
     enabled: true
+  },
+  {
+    package: 'ant-design-vue',
+    version: 'latest',
+    library: 'antd',
+    urls: [
+      './libs/antd.css',
+      './libs/dayjs/dayjs.min.js',
+      './libs/dayjs/plugin/customParseFormat.js',
+      './libs/dayjs/plugin/weekday.js',
+      './libs/dayjs/plugin/localeData.js',
+      './libs/dayjs/plugin/weekOfYear.js',
+      './libs/dayjs/plugin/weekYear.js',
+      './libs/dayjs/plugin/advancedFormat.js',
+      './libs/dayjs/plugin/quarterOfYear.js',
+      './libs/antd.min.js'
+    ],
+    assetsUrl: './libs/ant-design-vue-assets.js',
+    assetsLibrary: 'AntDesignVueAssets',
+    required: false,
+    official: true,
+    enabled: false
   }
 
   // {

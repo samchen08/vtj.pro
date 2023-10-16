@@ -60,6 +60,12 @@ const ColorPicker: ComponentDescription = {
     },
     {
       name: 'update:modelValue'
+    },
+    {
+      name: 'focus'
+    },
+    {
+      name: 'blur'
     }
   ]
 };

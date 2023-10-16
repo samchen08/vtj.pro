@@ -14,7 +14,8 @@ import {
   Context,
   ContextMode,
   SummarySchema,
-  version
+  version,
+  ComponentDescription
 } from '@vtj/engine/runtime';
 
 import { markRaw, App, createApp } from 'vue';
@@ -82,9 +83,21 @@ export function getLibs(libraries: Record<string, any>) {
     if (!lib) continue;
     const assetsLibrary = libraries[key];
     if (assetsLibrary) {
-      const items = (window as any)[assetsLibrary]?.components || [];
+      const items: ComponentDescription[] =
+        (window as any)[assetsLibrary]?.components || [];
       for (const item of items) {
-        components[item.name] = markRaw(lib[item.name]);
+        const module = item.parent
+          ? lib[item.parent]?.[item.alias || item.name]
+          : lib[item.alias || item.name];
+        if (module) {
+          components[item.name] = markRaw(module);
+        } else {
+          console.warn(`${key} 库不存在 ${item.name} 组件`, {
+            key,
+            lib,
+            item
+          });
+        }
       }
     }
   }

@@ -12,14 +12,12 @@ const Tabs: ComponentDescription[] = [
     props: [
       {
         name: 'modelValue',
-        defaultValue: '',
         setters: ['InputSetter', 'NumberSetter']
       },
       {
         name: 'type',
-        defaultValue: '',
         setters: 'SelectSetter',
-        options: ['', 'card', 'border-card']
+        options: ['card', 'border-card']
       },
       {
         name: 'closable',
@@ -68,8 +66,12 @@ const Tabs: ComponentDescription[] = [
       },
       {
         name: 'edit'
+      },
+      {
+        name: 'update:modelValue'
       }
     ],
+    slots: ['default', 'addIcon'],
     snippet: {
       props: {
         modelValue: '1'

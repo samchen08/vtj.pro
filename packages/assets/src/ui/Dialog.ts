@@ -59,7 +59,7 @@ const component: ComponentDescription = {
     },
     {
       name: 'resizable',
-      label: '拖动',
+      label: 'resizable',
       setters: 'BooleanSetter',
       defaultValue: true
     },
@@ -100,6 +100,12 @@ const component: ComponentDescription = {
       name: 'cancel',
       label: '取消按钮',
       setters: ['BooleanSetter', 'InputSetter']
+    },
+    {
+      name: 'bodyPadding',
+      label: '取消按钮',
+      setters: 'BooleanSetter',
+      defaultValue: true
     }
   ],
   events: [
@@ -124,16 +130,7 @@ const component: ComponentDescription = {
   snippet: {
     props: {
       title: '弹窗标题'
-    },
-    children: [
-      {
-        props: {
-          fit: true,
-          auto: true
-        },
-        name: 'XContainer'
-      }
-    ]
+    }
   }
 };
 

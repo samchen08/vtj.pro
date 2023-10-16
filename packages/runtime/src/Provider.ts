@@ -228,15 +228,13 @@ export class Provider {
       PageContainer
     );
 
-    if (raw) {
-      addRouteWithMask(
-        router,
-        'VtjPreview',
-        project.preview,
-        project.home,
-        PreviewContainer
-      );
-    }
+    addRouteWithMask(
+      router,
+      'VtjPreview',
+      project.preview,
+      project.home,
+      PreviewContainer
+    );
   }
 
   private install(app: App) {

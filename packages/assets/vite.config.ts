@@ -3,15 +3,20 @@ import { createViteConfig } from '@vtj/cli';
 const BUILD_TYPE = process.env.BUILD_TYPE || '';
 
 const dirs = {
+  ui: {
+    entry: 'src/vtj-ui-entry.ts',
+    libName: 'VtjUIAssets',
+    output: 'vtj-ui-assets.js'
+  },
   el: {
     entry: 'src/element-plus-entry.ts',
     libName: 'ElementPlusAssets',
     output: 'element-plus-assets.js'
   },
-  ui: {
-    entry: 'src/vtj-ui-entry.ts',
-    libName: 'VtjUIAssets',
-    output: 'vtj-ui-assets.js'
+  antd: {
+    entry: 'src/ant-design-vue-entry.ts',
+    libName: 'AntDesignVueAssets',
+    output: 'ant-design-vue-assets.js'
   }
 };
 

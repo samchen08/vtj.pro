@@ -142,5 +142,6 @@ export default {
   name: 'element-plus',
   label: 'Element+',
   categories,
-  components
+  components,
+  order: 1
 };
