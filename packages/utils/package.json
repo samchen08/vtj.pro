@@ -1,7 +1,7 @@
 {
   "name": "@vtj/utils",
   "private": false,
-  "version": "0.6.15",
+  "version": "0.6.16",
   "type": "module",
   "sideEffects": false,
   "scripts": {
@@ -9,13 +9,12 @@
     "build": "vue-tsc && vite build && pnpm run build:cdn",
     "build:cdn": "vue-tsc && cross-env CDN=true vite build"
   },
-  "devDependencies": {
+  "dependencies": {
     "@types/crypto-js": "~4.1.2",
     "@types/js-cookie": "~3.0.4",
     "@types/lodash-es": "~4.17.8",
     "@types/numeral": "~2.0.3",
-    "@vtj/cli": "^0.6.15",
-    "@vueuse/core": "~10.4.1",
+    "@vueuse/core": "~10.5.0",
     "axios": "~1.5.1",
     "crypto-js": "~4.1.1",
     "dayjs": "~1.11.10",
@@ -24,21 +23,17 @@
     "lodash-es": "~4.17.21",
     "numeral": "~2.0.6"
   },
+  "devDependencies": {
+    "@vtj/cli": "^0.6.16"
+  },
   "files": [
     "lib",
     "types",
     "cdn"
   ],
-  "main": "./lib/index.cjs",
-  "module": "./lib/index.mjs",
+  "main": "./lib/index.js",
+  "module": "./lib/index.js",
   "types": "./types/index.d.ts",
-  "exports": {
-    ".": {
-      "types": "./types/index.d.ts",
-      "import": "./lib/index.mjs",
-      "require": "./lib/index.cjs"
-    }
-  },
   "gitHead": "53b27ae2dc4309e33627a1d9354bfa12cde4263b",
   "publishConfig": {
     "access": "public"

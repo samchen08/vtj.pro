@@ -62,7 +62,10 @@ export interface IRequestSettings {
    */
   headers?:
     | RawAxiosRequestHeaders
-    | ((config: AxiosRequestConfig) => RawAxiosRequestHeaders);
+    | ((
+        config: AxiosRequestConfig,
+        settings: IRequestSettings
+      ) => RawAxiosRequestHeaders);
   /**
    * 是否显示 loading
    */
@@ -106,6 +109,11 @@ export interface IRequestSettings {
    * 请求响应警告执行程序插件
    */
   skipWarn?: IRequestSkipWarn;
+
+  /**
+   * 扩展参数
+   */
+  [index: string]: any;
 }
 
 export interface IRequestOptions extends CreateAxiosDefaults {
@@ -184,7 +192,7 @@ export class Request {
   ) {
     const injectHeaders =
       typeof settings.headers === 'function'
-        ? settings.headers(config)
+        ? settings.headers(config, settings)
         : settings.headers || {};
     const headers: RawAxiosRequestHeaders = {
       'Content-Type': TYPES[settings.type || 'form'],

@@ -1,7 +1,7 @@
 {
   "name": "@vtj/boot",
   "private": true,
-  "version": "0.6.15",
+  "version": "0.6.16",
   "scripts": {
     "setup": "npm install --registry=https://registry.npmmirror.com",
     "outdate": "npm outdate --registry=https://registry.npmmirror.com",
@@ -23,9 +23,9 @@
     "@vtj/runtime": "workspace:*",
     "@vtj/ui": "workspace:*",
     "@vtj/utils": "workspace:*",
-    "@vueuse/core": "~10.4.1",
-    "ant-design-vue": "~4.0.3",
-    "element-plus": "~2.3.9",
+    "@vueuse/core": "~10.5.0",
+    "ant-design-vue": "~4.0.4",
+    "element-plus": "~2.4.0",
     "vue": "~3.3.4",
     "vue-router": "~4.2.5"
   },
