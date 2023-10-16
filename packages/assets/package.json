@@ -1,7 +1,7 @@
 {
   "name": "@vtj/assets",
   "private": false,
-  "version": "0.6.14",
+  "version": "0.6.15",
   "scripts": {
     "setup": "pnpm install --registry=https://registry.npmmirror.com",
     "build:el": "vue-tsc && cross-env BUILD_TYPE=el vite build",

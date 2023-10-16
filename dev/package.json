@@ -1,7 +1,7 @@
 {
   "name": "dev-web",
   "private": true,
-  "version": "0.6.14",
+  "version": "0.6.15",
   "scripts": {
     "setup": "pnpm install --registry=https://registry.npmmirror.com",
     "dev": "cross-env ENV_TYPE=local vite",
