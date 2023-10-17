@@ -1,7 +1,7 @@
 {
   "name": "@vtj/boot",
   "private": true,
-  "version": "0.6.16",
+  "version": "0.6.17",
   "scripts": {
     "setup": "npm install --registry=https://registry.npmmirror.com",
     "outdate": "npm outdate --registry=https://registry.npmmirror.com",
