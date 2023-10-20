@@ -30,5 +30,6 @@ export default createViteConfig({
   envConfig: EnvConfig,
   envType: ENV_TYPE,
   alias,
-  elementPlus: true
+  elementPlus: true,
+  babel: false
 });

@@ -32,6 +32,7 @@ export default createViteConfig({
   https: false,
   elementPlus: false,
   legacy: false,
+  babel: false,
   proxy,
   envConfig: EnvConfig,
   envType: ENV_TYPE,

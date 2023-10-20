@@ -1,4 +1,4 @@
-import { Plugin } from 'vue';
+import { DefineComponent } from 'vue';
 import {
   XStartup,
   XIcon,
@@ -11,7 +11,9 @@ import {
   XPanel,
   XDialog,
   XMask,
-  XField
+  XField,
+  XForm,
+  XDialogForm
 } from './components';
 
 export default [
@@ -26,5 +28,7 @@ export default [
   XPanel,
   XDialog,
   XMask,
-  XField
-] as unknown as Plugin[];
+  XField,
+  XForm,
+  XDialogForm
+] as DefineComponent<any, any, any, any>[];

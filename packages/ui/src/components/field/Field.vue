@@ -29,26 +29,29 @@
       </slot>
     </template>
 
-    <slot name="editor" :editor="slotProps">
-      <component
-        v-if="editor.component"
-        class="x-field__editor"
-        ref="editorRef"
-        :is="editor.component"
-        v-model="fieldValue"
-        v-bind="editor.props">
-        <template v-if="$slots.option" #option="{ option }">
-          <slot name="option" :option="option"></slot>
-        </template>
-      </component>
-    </slot>
+    <div class="x-field__editor_wrap">
+      <slot name="editor" :editor="slotProps">
+        <component
+          v-if="editor.component"
+          class="x-field__editor"
+          ref="editorRef"
+          :is="editor.component"
+          v-model="fieldValue"
+          v-bind="editor.props">
+          <template v-if="$slots.option" #option="{ option }">
+            <slot name="option" :option="option"></slot>
+          </template>
+        </component>
+      </slot>
+    </div>
+    <slot></slot>
   </ElFormItem>
 </template>
 <script lang="ts" setup>
   import { computed, ref, watch, inject } from 'vue';
   import { ElFormItem, ElTooltip, formContextKey } from 'element-plus';
   import { WarningFilled } from '@element-plus/icons-vue';
-  import { isEqual, isObject } from '@vtj/utils';
+  import { isEqual, isObject, set } from '@vtj/utils';
   import { XIcon } from '../icon';
   import { fieldProps, FieldEmits, FieldEditorProps } from './types';
   import {
@@ -149,7 +152,7 @@
       emit('update:modelValue', val);
       const proxy = formInstance?.proxy as FormInstance;
       if (proxy && formModel && props.name) {
-        formModel[props.name] = val;
+        set(formModel, props.name, val);
       }
     }
   });
@@ -177,7 +180,7 @@
       if (proxy && formModel && props.name) {
         if (v) {
           fieldValue.value = initFieldValue();
-          formModel[props.name] = fieldValue.value;
+          set(formModel, props.name, fieldValue.value);
         } else {
           fieldValue.value = undefined;
           delete formModel[props.name];

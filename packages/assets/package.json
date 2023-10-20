@@ -1,7 +1,7 @@
 {
   "name": "@vtj/assets",
   "private": false,
-  "version": "0.6.17",
+  "version": "0.6.22",
   "scripts": {
     "setup": "pnpm install --registry=https://registry.npmmirror.com",
     "build:el": "vue-tsc && cross-env BUILD_TYPE=el vite build",
@@ -19,7 +19,7 @@
     "@vtj/engine": "workspace:*",
     "@vueuse/core": "~10.5.0",
     "@vueuse/shared": "~10.5.0",
-    "ant-design-vue": "~4.0.4",
+    "ant-design-vue": "~4.0.6",
     "element-plus": "~2.4.0",
     "lodash": "~4.17.21",
     "vue": "~3.3.4",

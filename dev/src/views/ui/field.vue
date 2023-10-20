@@ -89,6 +89,7 @@
       <XField label="投票" editor="rate"> </XField>
       <XField label="开关" editor="switch"> </XField>
       <XField label="滑块" editor="slider"> </XField>
+      <XField label="级联" editor="cascader" :options="TreeData"> </XField>
     </ElForm>
   </div>
 </template>
@@ -96,6 +97,7 @@
   import { ref, watch } from 'vue';
   import { XField } from '@vtj/ui';
   import { ElInput, ElForm } from 'element-plus';
+  import TreeData from '../../data/tree';
 
   const fieldValue = ref('');
   const fieldRef = ref();
