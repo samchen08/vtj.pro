@@ -1,7 +1,7 @@
 {
   "name": "@vtj/cli",
   "private": false,
-  "version": "0.6.17",
+  "version": "0.6.22",
   "type": "module",
   "bin": {
     "vtj": "./bin/vtj.js"
@@ -33,7 +33,7 @@
     "jsdom": "~22.1.0",
     "rollup-plugin-external-globals": "~0.8.0",
     "rollup-plugin-visualizer": "~5.9.2",
-    "sass": "~1.69.3",
+    "sass": "~1.69.4",
     "terser": "~5.22.0",
     "typescript": "~5.2.2",
     "unplugin-element-plus": "~0.8.0",
@@ -43,7 +43,7 @@
     "vue-tsc": "~1.8.19"
   },
   "devDependencies": {
-    "@types/babel__core": "~7.20.2",
+    "@types/babel__core": "~7.20.3",
     "unbuild": "~2.0.0"
   },
   "exports": {

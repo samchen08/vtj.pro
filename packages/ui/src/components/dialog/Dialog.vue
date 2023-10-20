@@ -73,10 +73,10 @@
           "
           #footer>
           <slot name="footer">
-            <XContainer>
+            <XContainer align="center">
               <slot name="extra"></slot>
             </XContainer>
-            <XContainer>
+            <XContainer align="center">
               <slot name="handle"></slot>
               <ElButton
                 v-if="props.cancel"
@@ -90,7 +90,7 @@
                 type="primary"
                 :size="props.size"
                 @click="submit">
-                {{ typeof props.submit === 'string' ? props.cancel : '确定' }}
+                {{ typeof props.submit === 'string' ? props.submit : '确定' }}
               </ElButton>
             </XContainer>
           </slot>

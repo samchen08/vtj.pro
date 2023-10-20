@@ -15,6 +15,10 @@
     width: 100% !important;
   }
 
+  @include e(editor_wrap) {
+    flex-grow: 1;
+  }
+
   @include when('tooltip-outer') {
     &.el-form-item--small {
       .el-form-item__content {

@@ -25,49 +25,24 @@
       :cascader="['type']"
       :options="optionsLoader"></XField>
 
-    <XField name="file" label="上传" editor="none">
-      <template #editor>
-        <ElUpload
-          class="avatar-uploader"
-          action="https://run.mocky.io/v3/9d059bf9-4660-45f2-925d-ce80ad6c4d15"
-          :show-file-list="false"
-          :on-success="handleAvatarSuccess"
-          :before-upload="beforeAvatarUpload">
-          <img v-if="imageUrl" :src="imageUrl" class="avatar" />
-          <ElIcon v-else class="avatar-uploader-icon"><Plus /></ElIcon>
-        </ElUpload>
-      </template>
+    <XField
+      v-for="(item, index) of model.items"
+      :name="`items.${index}.title`"
+      :label="`项目${index + 1}`">
+      <ElButton style="margin-left: 10px" @click="onDelItem(index)">
+        删除
+      </ElButton>
     </XField>
+
+    <template #action>
+      <ElButton @click="onAddItem">增加</ElButton>
+    </template>
   </XForm>
 </template>
 <script lang="ts" setup>
   import { ElUpload, ElButton, ElMessage, ElIcon } from 'element-plus';
   import { reactive, ref } from 'vue';
   import { XField, XForm } from '@vtj/ui';
-
-  import { Plus } from '@element-plus/icons-vue';
-
-  import type { UploadProps } from 'element-plus';
-
-  const imageUrl = ref('');
-
-  const handleAvatarSuccess: UploadProps['onSuccess'] = (
-    response,
-    uploadFile
-  ) => {
-    imageUrl.value = URL.createObjectURL(uploadFile.raw!);
-  };
-
-  const beforeAvatarUpload: UploadProps['beforeUpload'] = (rawFile) => {
-    if (rawFile.type !== 'image/jpeg') {
-      ElMessage.error('Avatar picture must be JPG format!');
-      return false;
-    } else if (rawFile.size / 1024 / 1024 > 2) {
-      ElMessage.error('Avatar picture size can not exceed 2MB!');
-      return false;
-    }
-    return true;
-  };
 
   const form = ref();
   const inline = ref(false);
@@ -89,7 +64,12 @@
 
   const model = reactive({
     type: 1,
-    common: 'ABC'
+    common: 'ABC',
+    items: [
+      {
+        title: 'ABC'
+      }
+    ]
   });
 
   const onSubmit = (m: any) => {
@@ -119,6 +99,16 @@
 
   const onModelChange = (m: any) => {
     console.log('onModelChange', m);
+  };
+
+  const onAddItem = () => {
+    model.items.push({
+      title: ''
+    });
+  };
+
+  const onDelItem = (index: number) => {
+    model.items.splice(index, 1);
   };
 </script>
 

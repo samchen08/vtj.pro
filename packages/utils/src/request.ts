@@ -7,7 +7,7 @@ import axios, {
   InternalAxiosRequestConfig,
   CancelTokenSource
 } from 'axios';
-import { merge, omit, uid, template, debounce, throttle } from './util';
+import { merge, omit, template, debounce, throttle, uuid } from './util';
 
 const TYPES = {
   form: 'application/x-www-form-urlencoded',
@@ -58,11 +58,17 @@ export interface IRequestSettings {
   type?: 'form' | 'json' | 'data';
 
   /**
-   * 请求头
+   *  是否注入自定义的请求头
+   */
+  injectHeaders?: boolean;
+
+  /**
+   * 自定义请求头
    */
   headers?:
     | RawAxiosRequestHeaders
     | ((
+        id: string,
         config: AxiosRequestConfig,
         settings: IRequestSettings
       ) => RawAxiosRequestHeaders);
@@ -111,7 +117,7 @@ export interface IRequestSettings {
   skipWarn?: IRequestSkipWarn;
 
   /**
-   * 扩展参数
+   * 其他自定义扩展参数
    */
   [index: string]: any;
 }
@@ -174,11 +180,13 @@ export class Request {
   }
 
   cancel(id?: string, message: string = '请求已取消') {
+    // 取消对应id单独请求
     if (id) {
       const record = this.records[id];
       if (!record) return;
       record.source.cancel(message);
     } else {
+      // 不指定id，取消全部未完成的请求
       for (const record of Object.values(this.records)) {
         record.source.cancel(message);
       }
@@ -190,15 +198,18 @@ export class Request {
     settings: IRequestSettings,
     config: AxiosRequestConfig
   ) {
-    const injectHeaders =
-      typeof settings.headers === 'function'
-        ? settings.headers(config, settings)
-        : settings.headers || {};
+    const injectHeaders = settings.injectHeaders
+      ? typeof settings.headers === 'function'
+        ? settings.headers(id, config, settings)
+        : settings.headers || {}
+      : {};
+
     const headers: RawAxiosRequestHeaders = {
       'Content-Type': TYPES[settings.type || 'form'],
       ...config.headers,
       ...injectHeaders
     };
+
     if (settings.skipWarn) {
       headers[LOCAL_REQUEST_ID] = id;
     }
@@ -317,7 +328,7 @@ export class Request {
     const config = omit<IRequestConfig<D>, IRequestConfig<D>>(options, [
       'settings'
     ]);
-    const id = uid();
+    const id = uuid(false);
     const source = axios.CancelToken.source();
     this.records[id] = { settings, config, source };
     const url = this.createUrl(config);
@@ -388,6 +399,7 @@ export class Request {
   private setupSkipWarn(settings: IRequestSettings) {
     if (this.stopSkipWarn) {
       this.stopSkipWarn();
+      this.stopSkipWarn = undefined;
     }
     if (!settings.skipWarn) return;
     const { code, executor, callback, complete } = settings.skipWarn;
@@ -448,6 +460,7 @@ export function createRequest(options: IRequestOptions = {}): IStaticRequest {
 
 export const request: IStaticRequest = createRequest({
   settings: {
+    injectHeaders: true,
     loading: true,
     originResponse: true
   }
@@ -457,11 +470,7 @@ export function createApi<R = any, D = any>(config: string | IRequestConfig) {
   const _conifg: IRequestConfig =
     typeof config === 'string' ? { url: config } : config;
   return (data?: D, opts?: IRequestConfig) =>
-    request.send<R, D>({
-      ..._conifg,
-      ...opts,
-      data
-    });
+    request.send<R, D>(merge(_conifg, opts || {}, { data }));
 }
 
 export interface IApiMap {
@@ -476,4 +485,9 @@ export function createApis(map: IApiMap) {
   return apis;
 }
 
-export { LOCAL_REQUEST_ID };
+export {
+  LOCAL_REQUEST_ID,
+  type AxiosRequestConfig,
+  type AxiosResponse,
+  type RawAxiosRequestHeaders
+};

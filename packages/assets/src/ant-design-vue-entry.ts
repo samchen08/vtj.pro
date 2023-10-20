@@ -1,5 +1,6 @@
 import { AssetsCategory, ComponentDescription } from '@vtj/engine';
 import Button from './ant-design-vue/Button';
+import Mentions from './ant-design-vue/Mentions';
 
 const categories: AssetsCategory[] = [
   {
@@ -32,7 +33,7 @@ const categories: AssetsCategory[] = [
   }
 ];
 
-const components: ComponentDescription[] = [...Button];
+const components: ComponentDescription[] = [...Button, Mentions];
 
 export default {
   name: 'ant-design-vue',

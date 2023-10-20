@@ -8,18 +8,23 @@
     <slot></slot>
     <XField v-if="props.footer" editor="none" class="x-form__footer" label=" ">
       <template #editor>
-        <ElButton
-          v-if="props.submitText"
-          :loading="loading"
-          type="primary"
-          @click="submit">
-          {{ props.submitText }}
-        </ElButton>
-        <ElButton v-if="props.resetText" type="default" @click="() => reset()">
-          {{ props.resetText }}
-        </ElButton>
+        <slot name="footer">
+          <ElButton
+            v-if="props.submitText"
+            :loading="loading"
+            type="primary"
+            @click="submit">
+            {{ props.submitText }}
+          </ElButton>
+          <ElButton
+            v-if="props.resetText"
+            type="default"
+            @click="() => reset()">
+            {{ props.resetText }}
+          </ElButton>
+          <slot name="action"></slot>
+        </slot>
       </template>
-      <slot name="footer"></slot>
     </XField>
   </ElForm>
 </template>
@@ -32,7 +37,7 @@
     reactive,
     toRaw
   } from 'vue';
-  import { ElForm, ElFormItem, ElButton } from 'element-plus';
+  import { ElForm, ElButton } from 'element-plus';
   import {
     formProps,
     formInstanceKey,

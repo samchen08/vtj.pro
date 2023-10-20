@@ -27,6 +27,7 @@ export default createViteConfig({
   host: '0.0.0.0',
   https: false,
   legacy: false,
+  babel: false,
   proxy,
   envConfig: EnvConfig,
   envType: ENV_TYPE,

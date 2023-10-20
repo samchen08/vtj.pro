@@ -22,7 +22,7 @@ request.setConfig({
       });
     },
     // 定义请求头
-    headers: (config: IRequestConfig) => {
+    headers: (id: string, config: IRequestConfig) => {
       return {
         token: 'ABC'
       };
