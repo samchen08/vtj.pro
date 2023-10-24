@@ -103,6 +103,10 @@ const copyFiles = [
   {
     input: '../../node_modules/dayjs/plugin/quarterOfYear.js',
     output: 'lib/dayjs/plugin/quarterOfYear.js'
+  },
+  {
+    input: '../../node_modules/echarts/dist/echarts.min.js',
+    output: 'lib/echarts.min.js'
   }
 ];
 

@@ -1,0 +1,34 @@
+@use 'core' as *;
+
+@include b(tabs) {
+  --el-tabs-header-height: 30px !important;
+  margin-bottom: 10px;
+  @include when(no-border) {
+    .el-tabs__nav-wrap::after {
+      background-color: transparent;
+    }
+  }
+  .el-tabs__header {
+    margin-bottom: 0;
+  }
+
+  .el-tabs__item {
+    padding: 0 10px;
+  }
+  &.el-tabs--card > .el-tabs__header .el-tabs__item.is-active {
+    background: var(--el-bg-color);
+  }
+
+  &.el-tabs--top.el-tabs--card > .el-tabs__header .el-tabs__item:nth-child(2) {
+    padding-left: 10px;
+  }
+
+  @include e(icon) {
+    margin-right: 5px;
+  }
+}
+
+.x-panel__body > .x-tabs {
+  position: relative;
+  top: -5px;
+}

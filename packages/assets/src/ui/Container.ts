@@ -126,6 +126,12 @@ const component: ComponentDescription = {
       label: '开启内边距',
       setters: 'BooleanSetter',
       defaultValue: false
+    },
+    {
+      name: 'gap',
+      label: '子元素间隔',
+      setters: 'BooleanSetter',
+      defaultValue: false
     }
   ],
   snippet: {

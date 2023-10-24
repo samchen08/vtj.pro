@@ -19,7 +19,7 @@
           v-if="props.tooltipMessage"
           class="x-field__info"
           :style="infoStyle">
-          <ElTooltip :content="error" v-bind="props.tooltipMessage">
+          <ElTooltip :content="error" v-bind="tooltipMessageComputed">
             <XIcon
               class="x-field__trigger"
               :icon="WarningFilled"
@@ -107,6 +107,13 @@
   const computedSize = computed(
     () => props.size || formContext?.size || 'default'
   );
+
+  const tooltipMessageComputed = computed(() => {
+    return Object.assign(
+      {},
+      typeof props.tooltipMessage === 'boolean' ? {} : props.tooltipMessage
+    );
+  });
 
   const computedClass = computed(() => {
     return {

@@ -27,6 +27,10 @@ body.is-resizing {
   }
 }
 
+.el-tag + .el-tag {
+  margin-left: 5px;
+}
+
 // for common
 
 // // for tiny components

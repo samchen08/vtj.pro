@@ -9,7 +9,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { computed, getCurrentInstance } from 'vue';
+  import { computed, getCurrentInstance, useAttrs } from 'vue';
   import { containerProps, ContainerInstance } from './types';
   import { getSizeValue } from '../../utils';
 
@@ -18,6 +18,7 @@
   });
 
   const props = defineProps(containerProps);
+  const attrs = useAttrs();
   const instance = getCurrentInstance();
 
   const parentFlex = computed(() => {
@@ -45,7 +46,9 @@
       [`is-align-self-${props.alignSelf}`]:
         parentFlex.value && props.alignSelf !== 'auto',
       [`is-overflow-${props.overflow}`]: !!props.overflow,
-      'is-padding': !!props.padding
+      'is-padding': !!props.padding,
+      'is-pointer': !!attrs.onClick,
+      'is-gap': !!props.gap
     };
   });
 

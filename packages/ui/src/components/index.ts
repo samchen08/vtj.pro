@@ -13,3 +13,6 @@ export * from './mask';
 export * from './field';
 export * from './form';
 export * from './dialog-form';
+export * from './tabs';
+export * from './data-item';
+export * from './chart';

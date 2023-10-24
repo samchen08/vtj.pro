@@ -24,6 +24,15 @@ export const iconProps = {
   },
   src: {
     type: String
+  },
+  background: {
+    type: String
+  },
+  padding: {
+    type: Number
+  },
+  radius: {
+    type: Number
   }
 };
 

@@ -1,7 +1,11 @@
 <template>
   <Panel class="vtj-list-panel" ref="panel">
     <div v-if="props.search" class="vtj-list-panel__search">
-      <ElInput size="small" v-bind="search" v-model="searchKeyword" clearable>
+      <ElInput
+        size="small"
+        v-bind="searchComputed"
+        v-model="searchKeyword"
+        clearable>
         <template v-slot:prefix><i class="vtj-icon-search"></i></template>
       </ElInput>
     </div>
@@ -40,56 +44,61 @@
   </Panel>
 </template>
 <script lang="ts" setup>
-import Panel from './Panel.vue';
-import { ElInput, ElTabs, ElTabPane } from 'element-plus';
-import { ref, watch } from 'vue';
-import { useResizeObserver } from '@vueuse/core';
+  import Panel from './Panel.vue';
+  import { ElInput, ElTabs, ElTabPane } from 'element-plus';
+  import { ref, watch, computed } from 'vue';
+  import { useResizeObserver } from '@vueuse/core';
 
-export interface ITabItem {
-  label: string;
-  name: string;
-  component?: any;
-  props?: Record<string, any>;
-}
+  export interface ITabItem {
+    label: string;
+    name: string;
+    component?: any;
+    props?: Record<string, any>;
+  }
 
-export interface Props {
-  search?: boolean | Record<string, any>;
-  tabs?: ITabItem[];
-  columnWidth?: number;
-}
+  export interface Props {
+    search?: boolean | Record<string, any>;
+    tabs?: ITabItem[];
+    columnWidth?: number;
+  }
 
-const props = withDefaults(defineProps<Props>(), {
-  search: false,
-  tabs: undefined,
-  columnWidth: 100
-});
+  const props = withDefaults(defineProps<Props>(), {
+    search: false,
+    tabs: undefined,
+    columnWidth: 100
+  });
 
-const panel = ref(null);
-const span = ref(6);
+  const panel = ref(null);
+  const span = ref(6);
 
-const emit = defineEmits(['search-change']);
+  const emit = defineEmits(['search-change']);
 
-const searchKeyword = ref('');
-watch(searchKeyword, () => {
-  emit('search-change', searchKeyword.value);
-});
+  const searchKeyword = ref('');
 
-const currentTabName = ref((props.tabs as ITabItem[])?.[0]?.name);
+  const searchComputed = computed(() =>
+    typeof props.search === 'boolean' ? {} : props.search
+  );
 
-useResizeObserver(panel as any, (entries) => {
-  const entry = entries[0];
-  const { width } = entry.contentRect;
-  const count = Math.min(Math.floor(width / 120), 24);
-  span.value = Math.floor(24 / count);
-});
+  watch(searchKeyword, () => {
+    emit('search-change', searchKeyword.value);
+  });
+
+  const currentTabName = ref((props.tabs as ITabItem[])?.[0]?.name);
+
+  useResizeObserver(panel as any, (entries) => {
+    const entry = entries[0];
+    const { width } = entry.contentRect;
+    const count = Math.min(Math.floor(width / 120), 24);
+    span.value = Math.floor(24 / count);
+  });
 </script>
 
 <style lang="scss">
-.vtj-list-panel {
-  &__tabs {
-    .el-tabs__item {
-      padding: 0 10px;
+  .vtj-list-panel {
+    &__tabs {
+      .el-tabs__item {
+        padding: 0 10px;
+      }
     }
   }
-}
 </style>

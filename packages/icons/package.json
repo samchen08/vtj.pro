@@ -1,7 +1,7 @@
 {
   "name": "@vtj/icons",
   "private": false,
-  "version": "0.6.22",
+  "version": "0.6.23",
   "type": "module",
   "scripts": {
     "setup": "pnpm install --registry=https://registry.npmmirror.com",
@@ -17,9 +17,9 @@
     "@element-plus/icons-vue": "~2.1.0"
   },
   "devDependencies": {
-    "@vtj/cli": "^0.6.22",
+    "@vtj/cli": "^0.6.23",
     "cross-env": "~7.0.3",
-    "vue": "~3.3.4",
+    "vue": "~3.3.6",
     "xml2js": "~0.6.2"
   },
   "files": [

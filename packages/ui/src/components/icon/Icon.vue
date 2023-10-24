@@ -1,5 +1,10 @@
 <template>
-  <ElIcon class="x-icon" :class="iconClass" :color="props.color" :size="size">
+  <ElIcon
+    class="x-icon"
+    :class="iconClass"
+    :color="props.color"
+    :size="size"
+    :style="iconStyle">
     <slot>
       <component v-if="svgComponent" :is="svgComponent"></component>
       <img v-if="props.src" :src="props.src" />
@@ -10,6 +15,7 @@
   import { computed, markRaw, useAttrs, getCurrentInstance } from 'vue';
   import { ElIcon } from 'element-plus';
   import { iconProps, iconSizeMap, IconSizeKey } from './types';
+  import { getSizeValue } from '../../utils';
   const props = defineProps(iconProps);
   const attrs = useAttrs();
   const instance = getCurrentInstance();
@@ -30,6 +36,14 @@
       cls[props.icon as string] = true;
     }
     return cls;
+  });
+
+  const iconStyle = computed(() => {
+    return {
+      'background-color': props.background,
+      'border-radius': props.radius ? getSizeValue(props.radius) : undefined,
+      padding: props.padding ? getSizeValue(props.padding) : undefined
+    };
   });
 
   const size = computed(() => {

@@ -33,7 +33,7 @@
   </XDialog>
 </template>
 <script lang="ts" setup>
-  import { ref } from 'vue';
+  import { ref, computed } from 'vue';
   import { XDialog, XForm } from '../';
   import { dialogFormProps, DialogFormEmits } from './types';
 
@@ -45,6 +45,7 @@
   const emit = defineEmits<DialogFormEmits>();
   const formRef = ref();
   const dialogRef = ref();
+  const $vtjEl = computed(() => dialogRef.value?.$vtjEl);
 
   const onSubmit = () => {
     formRef.value?.submit();
@@ -68,6 +69,7 @@
   };
 
   defineExpose({
+    $vtjEl,
     formRef,
     dialogRef
   });

@@ -5,7 +5,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { computed, markRaw, h, VNode, useSlots, toRef } from 'vue';
+  import { computed, markRaw, h, VNode, useSlots, toRef, toRaw } from 'vue';
   import {
     ElBadge,
     ElTooltip,
@@ -37,13 +37,13 @@
   });
 
   const onClick = () => {
-    emit('click', props);
+    emit('click', toRaw(props));
   };
 
   const onCommand = (command: any) => {
     const item = props.menus?.find((n) => n.command === command);
     if (item) {
-      emit('command', item);
+      emit('command', toRaw(item));
     }
   };
 

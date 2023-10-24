@@ -22,9 +22,24 @@ const component: ComponentDescription = {
       setters: 'ColorSetter'
     },
     {
+      name: 'background',
+      label: '背景色',
+      setters: 'ColorSetter'
+    },
+    {
       name: 'src',
       label: '图片Url',
       setters: 'InputSetter'
+    },
+    {
+      name: 'radius',
+      label: '圆角值',
+      setters: 'NumberSetter'
+    },
+    {
+      name: 'padding',
+      label: '内边距',
+      setters: 'NumberSetter'
     }
   ],
   snippet: {

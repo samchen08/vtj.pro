@@ -43,6 +43,15 @@ export const dependencies: Dependencie[] = [
     enabled: true
   },
   {
+    package: 'echarts',
+    version: 'latest',
+    library: 'echarts',
+    urls: ['/libs/echarts.min.js'],
+    required: false,
+    official: true,
+    enabled: true
+  },
+  {
     package: '@vtj/utils',
     version: 'latest',
     library: 'VtjUtils',

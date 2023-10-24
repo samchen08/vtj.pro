@@ -1,7 +1,7 @@
 {
   "name": "@vtj/engine",
   "private": false,
-  "version": "0.6.22",
+  "version": "0.6.23",
   "type": "module",
   "scripts": {
     "setup": "npm install --registry=https://registry.npmmirror.com",
@@ -15,9 +15,9 @@
   },
   "dependencies": {
     "@element-plus/icons-vue": "~2.1.0",
-    "@vtj/icons": "^0.6.22",
-    "@vtj/ui": "^0.6.22",
-    "@vtj/utils": "^0.6.22",
+    "@vtj/icons": "^0.6.23",
+    "@vtj/ui": "^0.6.23",
+    "@vtj/utils": "^0.6.23",
     "@vueuse/core": "~10.5.0",
     "element-plus": "~2.4.0",
     "mitt": "~3.0.1",
@@ -26,8 +26,8 @@
     "zen-logger": "~1.1.4"
   },
   "devDependencies": {
-    "@vtj/cli": "^0.6.22",
-    "vue": "~3.3.4",
+    "@vtj/cli": "^0.6.23",
+    "vue": "~3.3.6",
     "vue-router": "~4.2.5"
   },
   "files": [

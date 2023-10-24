@@ -15,7 +15,8 @@ export default createViteConfig({
     '@element-plus/icons-vue',
     '@vueuse/core',
     '@vtj/utils',
-    '@vtj/icons'
+    '@vtj/icons',
+    'echarts'
   ],
   externalGlobals: {
     vue: 'Vue',
@@ -24,6 +25,7 @@ export default createViteConfig({
     '@element-plus/icons-vue': 'ElementPlusIconsVue',
     '@vueuse/core': 'VueUse',
     '@vtj/utils': 'VtjUtils',
-    '@vtj/icons': 'VtjIcons'
+    '@vtj/icons': 'VtjIcons',
+    echarts: 'echarts'
   }
 });

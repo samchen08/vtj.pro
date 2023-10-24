@@ -1,4 +1,4 @@
-import { PropType, VNode } from 'vue';
+import { PropType } from 'vue';
 import { ComponentPropsType, BaseSize } from '../shared';
 import { FormRules } from 'element-plus';
 

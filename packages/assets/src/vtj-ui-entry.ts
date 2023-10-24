@@ -6,12 +6,20 @@ import Panel from './ui/Panel';
 import Dialog from './ui/Dialog';
 import Form from './ui/Form';
 import Field from './ui/Field';
+import DialogForm from './ui/DialogForm';
+import Tabs from './ui/Tabs';
+import DataItem from './ui/DataItem';
+import Chart from './ui/Chart';
 
 import { AssetsCategory } from '@vtj/engine';
 const categories: AssetsCategory[] = [
   {
     id: 'base',
     category: '元件'
+  },
+  {
+    id: 'form',
+    category: '表单'
   }
 ];
 const components = [
@@ -22,7 +30,11 @@ const components = [
   Panel,
   Dialog,
   Form,
-  Field
+  Field,
+  DialogForm,
+  Tabs,
+  DataItem,
+  Chart
 ];
 export default {
   name: 'vtj-ui',

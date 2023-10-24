@@ -2,7 +2,7 @@ import { ComponentDescription } from '@vtj/engine';
 const component: ComponentDescription = {
   name: 'XForm',
   title: '表单',
-  categoryId: 'base',
+  categoryId: 'form',
   package: '@vtj/ui',
   props: [
     {

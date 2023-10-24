@@ -1,6 +1,6 @@
 export * from './version';
 export * from './util';
-export * from './Request';
+export * from './request';
 export * from './raf';
 export * from './dayjs';
 export * from './numeral';

@@ -16,7 +16,14 @@ const Tabs: ComponentDescription[] = [
       },
       {
         name: 'type',
-        setters: 'SelectSetter',
+        setters: [
+          {
+            name: 'SelectSetter',
+            props: {
+              clerable: true
+            }
+          }
+        ],
         options: ['card', 'border-card']
       },
       {
