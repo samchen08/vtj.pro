@@ -6,6 +6,7 @@
     <XContainer
       v-if="props.imageSrc || $slots.image"
       class="x-data-item__img"
+      :autoPointer="true"
       :onClick="props.onImageClick ? onImageClick : undefined">
       <slot name="image">
         <ElImage
@@ -19,6 +20,7 @@
         class="x-data-item__section x-data-item__wrapper"
         align="center"
         v-if="props.title || $slots.title"
+        :autoPointer="true"
         :onClick="props.onTitleClick ? onTitleClick : undefined">
         <component
           class="x-data-item__icon"

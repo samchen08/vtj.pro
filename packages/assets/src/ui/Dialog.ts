@@ -103,7 +103,7 @@ const component: ComponentDescription = {
     },
     {
       name: 'bodyPadding',
-      label: '取消按钮',
+      label: 'bodyPadding',
       setters: 'BooleanSetter',
       defaultValue: true
     }

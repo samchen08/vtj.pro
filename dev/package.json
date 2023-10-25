@@ -1,7 +1,7 @@
 {
   "name": "dev-web",
   "private": true,
-  "version": "0.6.23",
+  "version": "0.6.25",
   "scripts": {
     "setup": "pnpm install --registry=https://registry.npmmirror.com",
     "dev": "cross-env ENV_TYPE=local vite",
@@ -23,7 +23,7 @@
     "@vtj/runtime": "workspace:*",
     "@vtj/ui": "workspace:*",
     "@vtj/utils": "workspace:*",
-    "vue": "~3.3.6",
+    "vue": "~3.3.7",
     "vue-router": "~4.2.5"
   },
   "devDependencies": {

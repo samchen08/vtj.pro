@@ -47,7 +47,7 @@
         parentFlex.value && props.alignSelf !== 'auto',
       [`is-overflow-${props.overflow}`]: !!props.overflow,
       'is-padding': !!props.padding,
-      'is-pointer': !!attrs.onClick,
+      'is-pointer': props.autoPointer && !!attrs.onClick,
       'is-gap': !!props.gap
     };
   });

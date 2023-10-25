@@ -1,7 +1,7 @@
 {
   "name": "@vtj/boot",
   "private": true,
-  "version": "0.6.23",
+  "version": "0.6.25",
   "scripts": {
     "setup": "npm install --registry=https://registry.npmmirror.com",
     "outdate": "npm outdate --registry=https://registry.npmmirror.com",
@@ -26,7 +26,7 @@
     "@vueuse/core": "~10.5.0",
     "ant-design-vue": "~4.0.6",
     "element-plus": "~2.4.1",
-    "vue": "~3.3.6",
+    "vue": "~3.3.7",
     "vue-router": "~4.2.5"
   },
   "devDependencies": {

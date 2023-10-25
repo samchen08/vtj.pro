@@ -22,7 +22,7 @@
     "@vtj/runtime": "latest",
     "@vtj/ui": "latest",
     "@vtj/utils": "latest",
-    "vue": "~3.3.4",
+    "vue": "~3.3.7",
     "vue-router": "~4.2.5",
     "ant-design-vue": "~4.0.3"
   },

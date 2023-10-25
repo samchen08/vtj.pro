@@ -1,6 +1,6 @@
 {
   "name": "@vtj/serve",
-  "version": "0.6.23",
+  "version": "0.6.25",
   "private": false,
   "type": "module",
   "license": "MIT",
@@ -21,12 +21,12 @@
   "devDependencies": {
     "@types/body-parser": "~1.19.4",
     "@types/fs-extra": "~11.0.2",
-    "@types/serve-static": "~1.15.3",
-    "@vtj/engine": "^0.6.23",
-    "@vtj/utils": "^0.6.23",
+    "@types/serve-static": "~1.15.4",
+    "@vtj/engine": "^0.6.25",
+    "@vtj/utils": "^0.6.25",
     "typescript": "~5.2.2",
     "unbuild": "~2.0.0",
-    "vite": "~4.4.11"
+    "vite": "~4.5.0"
   },
   "exports": {
     ".": {
