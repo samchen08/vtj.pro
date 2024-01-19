@@ -8,10 +8,10 @@
     "setup": "npm install --unsafe-perm --registry=https://registry.npmmirror.com",
     "dev": "cross-env ENV_TYPE=local vite",
     "build": "vue-tsc && vite build && npm run copy",
-    "build:gitee": "vue-tsc && cross-env BUILD_TYPE=gitee vite build && npm run copy:giteey",
+    "build:gitee": "vue-tsc && cross-env BUILD_TYPE=gitee vite build && npm run copy:gitee",
     "preview": "vite preview",
     "copy": "vtj copy dist ../docs/dist/lcdp && vtj copy dist/@vtj ../docs/dist/@vtj",
-    "copy:gitee": "vtj copy dist ../docs/dist/vtj/lcdp"
+    "copy:gitee": "vtj copy dist ../docs/dist/vtj/lcdp && vtj copy dist/@vtj ../docs/dist/vtj/@vtj"
   },
   "dependencies": {
     "@vtj/web": "workspace:*",
