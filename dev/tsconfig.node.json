@@ -7,7 +7,6 @@
   },
   "include": [
     "vite.config.ts",
-    "proxy.config.ts",
-    "env.config.ts"
+    "proxy.config.ts"
   ]
 }

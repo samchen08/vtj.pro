@@ -1,0 +1,10 @@
+@use 'core' as *;
+
+@include b(test) {
+  @include e(slot) {
+    word-break: break-all;
+  }
+  .el-descriptions__label {
+    width: 100px;
+  }
+}

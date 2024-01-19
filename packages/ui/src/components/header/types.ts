@@ -1,6 +1,6 @@
-import { PropType } from 'vue';
-import { IconParam } from '../icon';
-import { ComponentPropsType, BaseSize } from '../shared';
+import type { PropType } from 'vue';
+import type { IconParam } from '../icon';
+import type { ComponentPropsType, BaseSize } from '../shared';
 
 export const headerProps = {
   size: {
@@ -29,4 +29,5 @@ export type HeaderProps = ComponentPropsType<typeof headerProps>;
 
 export type HeaderEmits = {
   click: [];
+  clickIcon: [];
 };

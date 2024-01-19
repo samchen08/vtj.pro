@@ -1,6 +1,6 @@
-import { PropType } from 'vue';
-import { ComponentPropsType } from '../shared';
-import { IconParam } from '../';
+import type { PropType } from 'vue';
+import type { ComponentPropsType } from '../shared';
+import type { IconParam } from '../';
 
 export interface TabsItem {
   label: string;

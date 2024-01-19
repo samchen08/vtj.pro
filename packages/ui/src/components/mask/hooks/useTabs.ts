@@ -1,21 +1,29 @@
-import { computed, watch, ref, ComputedRef, Ref, nextTick, provide } from 'vue';
+import {
+  computed,
+  watch,
+  ref,
+  type ComputedRef,
+  type Ref,
+  nextTick,
+  provide
+} from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import { ElMessageBox } from 'element-plus';
 import { upperFirstCamelCase, uid } from '@vtj/utils';
 import { useElementSize } from '@vueuse/core';
 import {
-  MaskProps,
-  MaskEmitsFn,
+  type MaskProps,
+  type MaskEmitsFn,
   TAB_ITEM_WIDTH,
-  MaskTab,
-  TabCreator,
+  type MaskTab,
+  type TabCreator,
   TAB_CREATORS_KEY
 } from '../types';
-import { MenuDataItem } from '../../';
+import type { MenuDataItem } from '../../';
 
 export function useTabs(
-  props: MaskProps,
-  emit: MaskEmitsFn,
+  _props: MaskProps,
+  _emit: MaskEmitsFn,
   menus: ComputedRef<MenuDataItem[]>,
   active: Ref<MenuDataItem | null>,
   home: ComputedRef<MaskTab>
@@ -93,7 +101,7 @@ export function useTabs(
   const removeTab = async (tab: MaskTab) => {
     const ret = await ElMessageBox.confirm('是否关闭页签', '提示', {
       type: 'warning'
-    }).catch((e) => false);
+    }).catch(() => false);
 
     if (!ret) return;
 
@@ -117,7 +125,7 @@ export function useTabs(
   const removeAllTabs = async () => {
     const ret = await ElMessageBox.confirm('是否关闭全部页签', '提示', {
       type: 'warning'
-    }).catch((e) => false);
+    }).catch(() => false);
     if (!ret) return;
     const items = tabs.value;
     tabs.value = [];
@@ -128,7 +136,7 @@ export function useTabs(
   const removeOtherTabs = async () => {
     const ret = await ElMessageBox.confirm('是否关闭其他页签', '提示', {
       type: 'warning'
-    }).catch((e) => false);
+    }).catch(() => false);
     if (!ret) return;
     const match = tabs.value.filter((n) => n.id !== tabValue.value);
     tabs.value = tabs.value.filter((n) => n.id === tabValue.value);

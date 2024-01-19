@@ -1,0 +1,7 @@
+@use 'core' as *;
+
+@include b(dialog-form) {
+  @include e(form) {
+    height: 100%;
+  }
+}

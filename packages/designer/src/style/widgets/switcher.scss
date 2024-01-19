@@ -1,0 +1,10 @@
+@use '../core' as *;
+
+@include b(switcher-widget) {
+  padding-left: 10px;
+  color: getCssVar('text-color-secondary');
+  font-size: 14px;
+  @include e(back) {
+    margin-right: 5px;
+  }
+}

@@ -38,14 +38,9 @@
   </div>
 </template>
 <script lang="ts" setup>
-  import { ref, createVNode } from 'vue';
-  import { XDialog, createDialog, XPanel } from '@vtj/ui';
-  import {
-    VtjIconBug,
-    VtjIconApi,
-    VtjIconPlus,
-    VtjIconSetting
-  } from '@vtj/icons';
+  import { ref } from 'vue';
+  import { XDialog, XPanel } from '@vtj/web';
+  import { VtjIconBug } from '@vtj/web';
 
   const panelRef = ref();
   const dialog = ref();

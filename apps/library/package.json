@@ -1,0 +1,37 @@
+{
+  "name": "vtj-project-library",
+  "private": true,
+  "version": "0.7.3",
+  "type": "module",
+  "scripts": {
+    "build": "vue-tsc && vite build",
+    "test": "vitest",
+    "coverage": "vitest run --coverage"
+  },
+  "dependencies": {
+    "@vtj/base": "workspace:*"
+  },
+  "devDependencies": {
+    "@vtj/cli": "workspace:*"
+  },
+  "exports": {
+    ".": {
+      "types": "./types/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "main": "./dist/index.umd.js",
+  "module": "./dist/index.mjs",
+  "types": "./types/index.d.ts",
+  "files": [
+    "dist",
+    "types"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  }
+}

@@ -94,8 +94,8 @@
   </div>
 </template>
 <script lang="ts" setup>
-  import { ref, watch } from 'vue';
-  import { XField } from '@vtj/ui';
+  import { ref } from 'vue';
+  import { XField } from '@vtj/web';
   import { ElInput, ElForm } from 'element-plus';
   import TreeData from '../../data/tree';
 

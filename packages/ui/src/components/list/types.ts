@@ -1,6 +1,6 @@
-import { PropType } from 'vue';
-import { ComponentPropsType, DataLoader } from '../shared';
-import { PaginationProps } from 'element-plus';
+import type { PropType } from 'vue';
+import type { ComponentPropsType, DataLoader } from '../shared';
+import type { PaginationProps } from 'element-plus';
 
 export interface ListData {
   list: any[];
@@ -21,9 +21,7 @@ export interface ListInfiniteScroll {
 
 export const listProps = {
   data: {
-    type: [Object, Function] as PropType<
-      DataLoader<ListData, ListState>
-    >,
+    type: [Object, Function] as PropType<DataLoader<ListData, ListState>>,
     default() {
       return [];
     }

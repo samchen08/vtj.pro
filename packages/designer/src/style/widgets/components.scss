@@ -1,0 +1,27 @@
+@use '../core' as *;
+
+@include b(components-widget) {
+  @include e(search) {
+    margin-bottom: 10px;
+  }
+
+  @include e(list) {
+    .el-collapse {
+      --el-collapse-header-height: 36px !important;
+    }
+  }
+
+  .x-tabs {
+    flex-grow: 1;
+    flex-direction: column;
+    display: flex;
+    overflow: hidden;
+    margin-bottom: 0 !important;
+  }
+
+  .el-tabs__content {
+    overflow: auto;
+    overflow-x: hidden;
+    padding-top: 15px;
+  }
+}

@@ -16,20 +16,25 @@
     <template #error="{ error }">
       <slot name="error" :error="error">
         <div
-          v-if="props.tooltipMessage"
+          v-if="formInstance?.props.tooltipMessage ?? props.tooltipMessage"
           class="x-field__info"
           :style="infoStyle">
-          <ElTooltip :content="error" v-bind="tooltipMessageComputed">
+          <ElTooltip
+            :content="getErrorMessage(error)"
+            v-bind="tooltipMessageComputed">
             <XIcon
               class="x-field__trigger"
               :icon="WarningFilled"
               :size="computedSize"></XIcon>
           </ElTooltip>
         </div>
+        <div v-else class="el-form-item__error">
+          {{ getErrorMessage(error) }}
+        </div>
       </slot>
     </template>
 
-    <div class="x-field__editor_wrap">
+    <div class="x-field__editor_wrap" :class="{ 'is-inline': props.inline }">
       <slot name="editor" :editor="slotProps">
         <component
           v-if="editor.component"
@@ -43,6 +48,11 @@
           </template>
         </component>
       </slot>
+      <div v-if="props.tip || $slots.tip" class="x-field__tip">
+        <slot name="tip">
+          {{ props.tip }}
+        </slot>
+      </div>
     </div>
     <slot></slot>
   </ElFormItem>
@@ -50,13 +60,13 @@
 <script lang="ts" setup>
   import { computed, ref, watch, inject } from 'vue';
   import { ElFormItem, ElTooltip, formContextKey } from 'element-plus';
-  import { WarningFilled } from '@element-plus/icons-vue';
-  import { isEqual, isObject, set } from '@vtj/utils';
+  import { WarningFilled } from '@vtj/icons';
+  import { isEqual, isObject, set, get } from '@vtj/utils';
   import { XIcon } from '../icon';
-  import { fieldProps, FieldEmits, FieldEditorProps } from './types';
+  import { fieldProps, type FieldEmits, type FieldEditorProps } from './types';
   import {
     formInstanceKey,
-    FormInstance,
+    type FormInstance,
     formModelKey,
     getSizeValue
   } from '../../';
@@ -78,7 +88,7 @@
       return props.visible(formModel);
     } else if (isObject(props.visible)) {
       return Object.entries(props.visible).every(([k, v]) => {
-        return formModel[k] === v;
+        return get(formModel, k) === v;
       });
     } else {
       return props.visible;
@@ -88,7 +98,7 @@
   const initFieldValue = () => {
     const proxy = formInstance?.proxy as FormInstance;
     if (proxy && formModel && props.name) {
-      return formModel[props.name] ?? props.modelValue;
+      return get(formModel, props.name) ?? props.modelValue;
     } else {
       return props.modelValue;
     }
@@ -111,13 +121,25 @@
   const tooltipMessageComputed = computed(() => {
     return Object.assign(
       {},
+      formInstance?.props.tooltipMessage || {},
       typeof props.tooltipMessage === 'boolean' ? {} : props.tooltipMessage
     );
   });
 
+  const getErrorMessage = (error: string = '') => {
+    if (props.error) {
+      return props.error;
+    }
+    if (error.includes('is required')) {
+      return `${props.label || props.name}是必填项！`;
+    }
+    return error;
+  };
+
   const computedClass = computed(() => {
+    const tm = formInstance?.props.tooltipMessage ?? props.tooltipMessage;
     return {
-      [`is-tooltip-${props.tooltipPosition}`]: !!props.tooltipPosition
+      [`is-tooltip-${props.tooltipPosition}`]: !!tm && !!props.tooltipPosition
     };
   });
 
@@ -126,10 +148,10 @@
     const width = props.width
       ? getSizeValue(props.width)
       : proxy
-      ? proxy.inline && proxy.inlineColumns
-        ? `${100 / proxy.inlineColumns}%`
-        : null
-      : null;
+        ? proxy.inline && proxy.inlineColumns
+          ? `${100 / proxy.inlineColumns}%`
+          : null
+        : null;
     return {
       width
     };
@@ -168,7 +190,7 @@
     () => {
       const proxy = formInstance?.proxy as FormInstance;
       if (!proxy || !props.name || !formModel) return props.modelValue;
-      return formModel[props.name] ?? props.modelValue;
+      return get(formModel, props.name) ?? props.modelValue;
     },
     (v) => {
       if (fieldVisible.value) {
@@ -190,7 +212,7 @@
           set(formModel, props.name, fieldValue.value);
         } else {
           fieldValue.value = undefined;
-          delete formModel[props.name];
+          set(formModel, props.name, undefined);
         }
       }
     },

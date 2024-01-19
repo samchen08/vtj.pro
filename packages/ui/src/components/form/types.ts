@@ -1,5 +1,6 @@
-import { PropType, InjectionKey, ComponentInternalInstance } from 'vue';
-import { ComponentPropsType } from '../shared';
+import type { PropType, InjectionKey, ComponentInternalInstance } from 'vue';
+import type { ElTooltipProps } from 'element-plus';
+import type { ComponentPropsType } from '../shared';
 import type Form from './Form.vue';
 export const formProps = {
   /**
@@ -50,6 +51,14 @@ export const formProps = {
    */
   submitMethod: {
     type: Function as PropType<(model: FormModel) => Promise<any>>
+  },
+
+  /**
+   * 是否在tooltip显示校验信息
+   */
+  tooltipMessage: {
+    type: [Object, Boolean] as PropType<boolean | Partial<ElTooltipProps>>,
+    default: undefined
   }
 };
 

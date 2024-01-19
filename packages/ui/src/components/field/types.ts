@@ -1,13 +1,13 @@
-import { PropType, VNode } from 'vue';
-import { ComponentPropsType, BaseSize } from '../shared';
-import { ElTooltipProps } from 'element-plus';
+import type { PropType, VNode } from 'vue';
+import type { ComponentPropsType, BaseSize } from '../shared';
+import type { ElTooltipProps } from 'element-plus';
 import {
-  BuiltinFieldEditor,
-  BuiltinFieldEditorType,
+  type BuiltinFieldEditor,
+  type BuiltinFieldEditorType,
   builtinFieldEditors
 } from './builtin';
 
-import { FormModel } from '../../';
+import type { FormModel } from '../../';
 
 export {
   type BuiltinFieldEditor,
@@ -144,6 +144,27 @@ export const fieldProps = {
    */
   cascader: {
     type: [String, Array] as PropType<string | string[]>
+  },
+
+  /**
+   * 校验错误信息
+   */
+  error: {
+    type: String
+  },
+
+  /**
+   * 提示文本
+   */
+  tip: {
+    type: String
+  },
+
+  /**
+   * 表单项内容采用inline布局
+   */
+  inline: {
+    type: Boolean
   }
 };
 

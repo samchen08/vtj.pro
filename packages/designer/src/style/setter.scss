@@ -1,0 +1,126 @@
+@use 'core' as *;
+
+@include b(setter) {
+  .el-form-item__label {
+    .el-tooltip__trigger {
+      border-bottom: 1px dashed var(--el-color-primary);
+      cursor: help;
+    }
+  }
+  .el-select {
+    display: block;
+  }
+
+  @include e(content) {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+  }
+  @include e(input) {
+    flex-grow: 1;
+  }
+
+  @include e(action) {
+    font-size: 14px;
+    white-space: nowrap;
+    .el-dropdown.is-disabled {
+      opacity: 0.6;
+      i {
+        cursor: not-allowed;
+      }
+    }
+    i {
+      cursor: pointer;
+      color: var(--el-text-color-secondary);
+      background-color: var(--el-color-primary-light-9);
+      margin-left: 3px;
+      padding: 4px;
+      border-radius: 4px;
+      &:hover {
+        color: var(--el-color-primary);
+        background-color: var(--el-color-primary-light-9);
+      }
+      &.is-active {
+        color: var(--el-color-primary);
+        background-color: var(--el-color-primary-light-9);
+      }
+    }
+  }
+}
+
+@include b(setter-switch) {
+  .is-placeholder {
+    opacity: 0;
+  }
+}
+
+@include b(expression-setter) {
+  .el-input__inner {
+    text-align: center;
+  }
+}
+
+@include b(icon-setter) {
+  .el-input-group__prepend {
+    background-color: var(--el-fill-color-blank);
+  }
+  @include e(list) {
+    display: inline-block;
+    flex-grow: 1;
+    height: 1px;
+    overflow: auto;
+    position: relative;
+    margin: 10px 0;
+
+    .x-icon {
+      width: 50px;
+      height: 50px;
+      margin: 5px;
+      font-size: 20px;
+      border: 1px dashed var(--el-border-color);
+      border-radius: 4px;
+      text-align: center;
+      line-height: 48px;
+      &:hover {
+        border: 1px solid #409eff;
+        cursor: pointer;
+      }
+      &.is-active {
+        background-color: #409eff;
+        color: #fff;
+        border: none;
+      }
+      & + .x-icon {
+        margin-left: 0;
+      }
+    }
+  }
+
+  @include e(content) {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+@include b(json-setter) {
+  &.is-active {
+    .el-input__suffix {
+      color: var(--el-color-primary);
+    }
+  }
+}
+
+@include b(number-setter) {
+  width: 100% !important;
+}
+
+@include b(function-setter) {
+  @include when(active) {
+    .el-input__suffix {
+      color: var(--el-color-primary);
+    }
+  }
+}

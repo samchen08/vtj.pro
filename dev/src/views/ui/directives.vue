@@ -14,7 +14,7 @@
   </div>
 </template>
 <script lang="ts" setup>
-  import { vDraggable, vResizable, XPanel } from '@vtj/ui';
+  import { vDraggable, vResizable, XPanel } from '@vtj/web';
 </script>
 
 <style lang="scss" scoped>

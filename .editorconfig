@@ -1,4 +1,4 @@
-[*.{js, jsx, ts, tsx, vue, mjs}]
+[*.{js, jsx, ts, tsx, vue, mjs, json}]
 indent_style = space
 indent_size = 2
 trim_trailing_whitespace = true

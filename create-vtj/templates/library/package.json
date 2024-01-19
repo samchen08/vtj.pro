@@ -1,0 +1,35 @@
+{
+  "name": "vtj-library-template",
+  "private": false,
+  "version": "0.0.1",
+  "type": "module",
+  "scripts": {
+    "setup": "npm install --registry=https://registry.npmmirror.com",
+    "dev": "vitest",
+    "build": "unbuild",
+    "test": "vitest run",
+    "coverage": "vitest run --coverage"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "unbuild": "^2.0.0",
+    "vitest": "^1.2.0"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "gitHead": "53b27ae2dc4309e33627a1d9354bfa12cde4263b"
+}

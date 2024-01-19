@@ -1,10 +1,6 @@
-import {
-  PropType,
-  InjectionKey,
-  DefineComponent
-} from 'vue';
+import type { PropType, InjectionKey, DefineComponent } from 'vue';
 
-import {
+import type {
   MenuDataItem,
   ActionBarItems,
   ActionProps,
@@ -12,7 +8,7 @@ import {
   ComponentPropsType,
   DialogProps
 } from '../';
-import { Emits } from '../shared';
+import type { Emits } from '../shared';
 import logo from './assets/logo.png';
 import type Mask from './Mask.vue';
 

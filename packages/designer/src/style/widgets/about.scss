@@ -1,0 +1,20 @@
+@use '../core' as *;
+
+@include b(about-widget) {
+  text-align: center;
+  padding: 20px;
+
+  @include e(logo) {
+    margin-bottom: 20px;
+  }
+
+  @include e(name) {
+    font-size: 30px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+
+  @include e(version) {
+    font-size: 16px;
+  }
+}

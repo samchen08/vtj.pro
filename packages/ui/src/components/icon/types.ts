@@ -1,4 +1,4 @@
-import { ExtractPropTypes, PropType, VNode } from 'vue';
+import type { ExtractPropTypes, PropType, VNode } from 'vue';
 
 export type IconParam = string | VNode | object | IconProps;
 export type IconSize = number | 'inherit' | 'large' | 'default' | 'small';

@@ -1,8 +1,6 @@
 export * from './shared';
-export * from './startup';
 export * from './icon';
 export * from './menu';
-export * from './simple-mask';
 export * from './action';
 export * from './action-bar';
 export * from './container';
@@ -17,3 +15,4 @@ export * from './tabs';
 export * from './data-item';
 export * from './chart';
 export * from './list';
+export * from './test';

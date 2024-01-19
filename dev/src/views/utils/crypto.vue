@@ -2,8 +2,8 @@
   <div>crypto</div>
 </template>
 <script lang="ts" setup>
-import { crypto } from '@vtj/utils';
+  import { MD5 } from '@vtj/web';
 
-const t1 = crypto.md5('111');
-console.log(t1);
+  const t1 = MD5('111');
+  console.log(t1);
 </script>

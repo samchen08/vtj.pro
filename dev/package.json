@@ -1,9 +1,9 @@
 {
   "name": "dev-web",
   "private": true,
-  "version": "0.6.25",
+  "version": "0.7.3",
+  "type": "module",
   "scripts": {
-    "setup": "pnpm install --registry=https://registry.npmmirror.com",
     "dev": "cross-env ENV_TYPE=local vite",
     "build": "pnpm run build:prod",
     "build:dev": "vue-tsc && cross-env ENV_TYPE=dev vite build",
@@ -14,21 +14,18 @@
     "preview": "vite preview"
   },
   "engines": {
-    "node": ">=16.0.0"
+    "node": ">=20.0.0"
   },
   "dependencies": {
-    "@vtj/assets": "workspace:*",
-    "@vtj/engine": "workspace:*",
-    "@vtj/icons": "workspace:*",
-    "@vtj/runtime": "workspace:*",
-    "@vtj/ui": "workspace:*",
-    "@vtj/utils": "workspace:*",
-    "vue": "~3.3.8",
+    "@vtj/materials": "workspace:*",
+    "@vtj/pro": "workspace:*",
+    "@vtj/web": "workspace:*",
+    "vue": "~3.4.15",
     "vue-router": "~4.2.5"
   },
   "devDependencies": {
     "@vtj/cli": "workspace:*",
-    "@vtj/serve": "workspace:*"
+    "@vtj/local": "workspace:*"
   },
   "description": "> TODO: description",
   "author": "陈华春 <samchen08@163.com>",

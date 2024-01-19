@@ -23,7 +23,7 @@
 <script lang="ts" setup>
   import { ref } from 'vue';
   import { ElButton } from 'element-plus';
-  import { XDialogForm, XField } from '@vtj/ui';
+  import { XDialogForm, XField } from '@vtj/web';
 
   const visible = ref(false);
 

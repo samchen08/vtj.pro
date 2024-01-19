@@ -1,0 +1,25 @@
+{
+  "name": "lcdp",
+  "description": "在线演示",
+  "private": true,
+  "version": "0.7.3",
+  "type": "module",
+  "scripts": {
+    "setup": "npm install --unsafe-perm --registry=https://registry.npmmirror.com",
+    "dev": "cross-env ENV_TYPE=local vite",
+    "build": "vue-tsc && vite build && npm run copy",
+    "build:gitee": "vue-tsc && cross-env BUILD_TYPE=gitee vite build && npm run copy:giteey",
+    "preview": "vite preview",
+    "copy": "vtj copy dist ../docs/dist/lcdp && vtj copy dist/@vtj ../docs/dist/@vtj",
+    "copy:gitee": "vtj copy dist ../docs/dist/vtj/lcdp"
+  },
+  "dependencies": {
+    "@vtj/web": "workspace:*",
+    "vue": "^3.4.15",
+    "vue-router": "^4.2.5"
+  },
+  "devDependencies": {
+    "@vtj/cli": "workspace:*",
+    "@vtj/pro": "workspace:*"
+  }
+}

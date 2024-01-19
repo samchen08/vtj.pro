@@ -14,34 +14,6 @@ export function parseSize(size: string | number = 0, max: number) {
   return Number.parseInt(size);
 }
 
-export function omit<
-  T extends Record<string, any>,
-  K extends Record<string, any>
->(target: T, keys: string[]): K {
-  const result: Record<string, any> = {};
-  Object.keys(target).forEach((k) => {
-    if (!keys.includes(k)) {
-      result[k] = target[k];
-    }
-  });
-  return result as K;
-}
-
-export function pick<
-  T extends Record<string, any>,
-  K extends Record<string, any>
->(target: T, keys: string[]): K {
-  const result: Record<string, any> = {};
-  Object.keys(target).forEach((k) => {
-    if (keys.includes(k)) {
-      result[k] = target[k];
-    }
-  });
-  return result as K;
-}
-
-export const NOOP = () => {};
-
 export function toObjectProps<T extends Record<string, any>>(
   value?: boolean | T,
   defaultValue = {} as T

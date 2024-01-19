@@ -5,15 +5,22 @@
     align="center"
     :class="classes">
     <XContainer align="center" class="x-header__wrapper" grow :class="classes">
-      <component v-if="icon" :is="icon" class="x-header__icon"></component>
-      <span class="x-header__content" v-bind="$attrs">
+      <component
+        v-if="icon"
+        :is="icon"
+        class="x-header__icon"
+        :onClick="attrs.onClickIcon || attrs.onClick"></component>
+      <span class="x-header__content" @click="attrs.onClick">
         <slot>{{ props.content }}</slot>
       </span>
       <XIcon
         v-if="props.more"
         class="x-header__more"
         :icon="ArrowRight"></XIcon>
-      <span v-if="props.subtitle || $slots.subtitle" class="x-header__subtitle">
+      <span
+        v-if="props.subtitle || $slots.subtitle"
+        class="x-header__subtitle"
+        @click="attrs.onClick">
         <slot name="subtitle"> {{ props.subtitle }} </slot>
       </span>
     </XContainer>
@@ -23,8 +30,8 @@
   </XContainer>
 </template>
 <script lang="ts" setup>
-  import { toRef, useAttrs, computed } from 'vue';
-  import { ArrowRight } from '@element-plus/icons-vue';
+  import { toRef, computed, useAttrs } from 'vue';
+  import { ArrowRight } from '@vtj/icons';
   import { XContainer, XIcon } from '../';
   import { useIcon } from '../../hooks';
   import { headerProps } from './types';
@@ -35,8 +42,8 @@
   });
 
   const props = defineProps(headerProps);
-  const attrs = useAttrs();
   const icon = useIcon(toRef(props, 'icon'));
+  const attrs = useAttrs();
 
   const classes = computed(() => {
     return {

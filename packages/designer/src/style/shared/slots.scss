@@ -1,0 +1,31 @@
+@use '../core' as *;
+@include b(slots-picker) {
+  @include e(content) {
+    padding: 20px 0;
+  }
+  @include e(item) {
+    border: 1px solid var(--el-border-color);
+    padding: 10px;
+    border-radius: 4px;
+    text-align: center;
+    cursor: pointer;
+    position: relative;
+    font-size: 14px;
+    min-width: 120px;
+    &:hover {
+      background-color: var(--el-color-primary-light-9);
+    }
+    @include when(active) {
+      background-color: var(--el-color-primary-light-9);
+      color: var(--el-color-primary);
+      border: 1px solid var(--el-color-primary);
+    }
+  }
+  @include e(sn) {
+    position: absolute;
+    left: 0;
+    top: 0;
+    padding: 10px;
+    color: var(--el-text-color-placeholder);
+  }
+}

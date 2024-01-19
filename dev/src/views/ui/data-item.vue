@@ -2,7 +2,7 @@
   <div>
     <XContainer style="margin-bottom: 10px" wrap="wrap" gap>
       <XPanel
-        v-for="n in 10"
+        v-for="_n in 10"
         @click="onClick"
         :header="null"
         width="calc(20% - 10px)"
@@ -19,7 +19,7 @@
           label="示意效果，需另行开发"></XAction>
       </template>
       <XDataItem
-        v-for="n in 3"
+        v-for="_n in 3"
         @imageClick="onClick"
         direction="column"
         :icon="Setting"
@@ -52,7 +52,7 @@
       </template>
       <XTabs :items="items"> </XTabs>
       <XDataItem
-        v-for="n in 3"
+        v-for="_n in 3"
         direction="row"
         :icon="Setting"
         image-src="https://fuss10.elemecdn.com/a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg"
@@ -69,11 +69,10 @@
   </div>
 </template>
 <script lang="ts" setup>
-  import { ref } from 'vue';
-  import { ElButton, ElTag } from 'element-plus';
+  import { ElTag } from 'element-plus';
   import { Setting } from '@element-plus/icons-vue';
-  import { XTabs, XDataItem, XPanel, XContainer, XAction } from '@vtj/ui';
-  import { VtjIconBug, VtjIconApi, VtjIconPlus } from '@vtj/icons';
+  import { XTabs, XDataItem, XPanel, XContainer, XAction } from '@vtj/web';
+  import { VtjIconPlus } from '@vtj/web';
 
   const actions = [
     {

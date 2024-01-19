@@ -14,7 +14,7 @@
 </template>
 <script lang="ts" setup>
   import { KeepAlive } from 'vue';
-  import { RouterView, RouteLocationNormalizedLoaded } from 'vue-router';
+  import { RouterView, type RouteLocationNormalizedLoaded } from 'vue-router';
   import { XContainer } from '../../';
 
   export interface Props {

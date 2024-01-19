@@ -2,7 +2,7 @@
   <ElMenu class="x-menu" v-bind="$attrs" @select="onSelect">
     <XMenuItem
       v-for="item in items"
-      :item="{ ...item, icon: item.icon || Menu }"
+      :item="{ ...item, icon: item.icon }"
       :defaultIcon="props.defaultIcon"
       :subMenu="props.subMenu"></XMenuItem>
   </ElMenu>
@@ -10,8 +10,7 @@
 <script lang="ts" setup>
   import { computed } from 'vue';
   import { ElMenu } from 'element-plus';
-  import { Menu } from '@element-plus/icons-vue';
-  import { MenuProps, MenuDataItem, MenuEmits } from './types';
+  import type { MenuProps, MenuDataItem, MenuEmits } from './types';
   import { XMenuItem } from './components';
 
   defineOptions({

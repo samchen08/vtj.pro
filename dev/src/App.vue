@@ -20,6 +20,8 @@
   import zhCn from 'element-plus/es/locale/lang/zh-cn';
   import { useRoute } from 'vue-router';
   const route = useRoute();
+
+
 </script>
 <style lang="scss" scoped>
   .app {

@@ -1,5 +1,6 @@
 import { createRouter, createWebHashHistory } from 'vue-router';
-import { utils, ui, lcdp, icons } from './routes';
+import { pageRoutes } from '../modules';
+// import { utils, ui, icons } from './routes';
 
 const routes: any = [
   {
@@ -8,14 +9,16 @@ const routes: any = [
     component: () => import('@/views/index.vue')
   },
   {
+    path: '/',
+    name: 'coverage',
+    component: () => import('@/views/coverage.vue')
+  },
+  {
     path: '/:pathMatch(.*)*',
     name: 'NotFound',
     component: () => import('@/views/not-found.vue')
   },
-  ...utils,
-  ...ui,
-  ...lcdp,
-  ...icons
+  ...pageRoutes.value
 ];
 
 const router = createRouter({

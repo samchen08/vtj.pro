@@ -1,5 +1,5 @@
-import { SubMenuProps as ElSubMenuProps, BadgeProps } from 'element-plus';
-import { DefineComponent } from 'vue';
+import type { SubMenuProps as ElSubMenuProps, BadgeProps } from 'element-plus';
+import type { DefineComponent } from 'vue';
 export interface MenuDataItem {
   id: string | number;
   title?: string;

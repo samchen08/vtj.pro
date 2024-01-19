@@ -5,20 +5,16 @@ const modules = [
   '@vtj/utils',
   '@vtj/icons',
   '@vtj/ui',
-  '@vtj/engine',
-  '@vtj/runtime',
-  '@vtj/ide',
-  '@vtj/assets',
-  '@vtj/deps'
-  // '@newpearl/lcdp-adapter',
-  // '@newpearl/lcdp-assets',
-  // '@newpearl/lcdp-charts',
-  // '@newpearl/lcdp-engine',
-  // '@newpearl/lcdp-ui',
-  // '@newpearl/lcdp-mui',
-  // '@newpearl/lcdp-utils',
-  // '@newpearl/lcdp-icons',
-  // '@newpearl/lcdp-deps'
+  '@vtj/designer',
+  '@vtj/matrials',
+  '@vtj/renderer',
+  '@vtj/local',
+  '@vtj/coder',
+  '@vtj/node',
+  '@vtj/base',
+  '@vtj/core',
+  '@vtj/web',
+  '@vtj/pro'
 ];
 
 const maxTimes = 60;

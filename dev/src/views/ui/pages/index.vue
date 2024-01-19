@@ -13,7 +13,7 @@
   import { ref, onActivated, onDeactivated } from 'vue';
   import { ElInput, ElButton } from 'element-plus';
   import { useRoute, useRouter } from 'vue-router';
-  import { MaskTab, defineTab } from '@vtj/ui';
+  import { defineTab } from '@vtj/web';
   const route = useRoute();
   const router = useRouter();
   const inputValue = ref('');

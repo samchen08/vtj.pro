@@ -1,4 +1,4 @@
-import { MaybeRef, shallowRef, unref, watch, ref } from 'vue';
+import { type MaybeRef, shallowRef, unref, watch, ref } from 'vue';
 
 export function useLoader<T = any, P = any>(
   loaderRef: MaybeRef<T | ((params?: P) => T | Promise<T>)>,

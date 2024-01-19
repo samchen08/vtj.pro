@@ -1,0 +1,43 @@
+@use '../core' as *;
+
+@include b(binder) {
+  @include e(tabs) {
+    .x-panel__header {
+      background-color: var(--el-bg-color) !important;
+      padding: 0 !important;
+    }
+    .el-tabs__item {
+      border-top: 1px solid var(--el-border-color-light) !important;
+    }
+  }
+
+  @include e(tab-content) {
+    background-color: var(--el-bg-color);
+    border-radius: 4px;
+    overflow: auto;
+
+    .el-divider__text {
+      font-size: 12px;
+      color: var(--el-text-color-regular);
+    }
+    .el-divider--horizontal {
+      margin: 14px 0;
+    }
+  }
+
+  @include e(form) {
+    width: 100%;
+  }
+}
+
+@include b(context-viewer) {
+  .el-tree {
+    --el-tree-node-hover-bg-color: transparent;
+    .v-item {
+      margin: 0;
+    }
+  }
+  .el-tree-node__content {
+    height: 28px;
+  }
+}

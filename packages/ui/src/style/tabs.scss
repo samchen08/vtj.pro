@@ -13,14 +13,18 @@
   }
 
   .el-tabs__item {
-    padding: 0 10px;
+    padding: 0 15px;
   }
   &.el-tabs--card > .el-tabs__header .el-tabs__item.is-active {
     background: var(--el-bg-color);
   }
 
   &.el-tabs--top.el-tabs--card > .el-tabs__header .el-tabs__item:nth-child(2) {
-    padding-left: 10px;
+    padding-left: 15px;
+  }
+
+  &.el-tabs--top.el-tabs--card > .el-tabs__header .el-tabs__item:last-child {
+    padding-right: 15px;
   }
 
   @include e(icon) {

@@ -4,6 +4,8 @@
     class="x-form"
     :inline="props.inline"
     :model="model"
+    @keyup.enter="submit"
+    @submit.stop.prevent
     v-bind="$attrs">
     <slot></slot>
     <XField v-if="props.footer" editor="none" class="x-form__footer" label=" ">
@@ -41,8 +43,8 @@
   import {
     formProps,
     formInstanceKey,
-    FormEmits,
-    FormModel,
+    type FormEmits,
+    type FormModel,
     formModelKey
   } from './types';
   import { XField } from '../../';
@@ -74,8 +76,8 @@
   );
 
   const submit = async () => {
-    const ret = await formRef.value.validate().catch((e: any) => e);
-    if (ret && props.model) {
+    const ret = await formRef.value.validate().catch(() => false);
+    if (ret) {
       emit('submit', toRaw(model));
       if (props.submitMethod) {
         loading.value = true;

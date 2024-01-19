@@ -1,4 +1,4 @@
-import { MaybeRef, computed, unref } from 'vue';
+import { type MaybeRef, computed, unref } from 'vue';
 export type IUseDisabled = MaybeRef<
   undefined | boolean | ((...args: any[]) => boolean)
 >;

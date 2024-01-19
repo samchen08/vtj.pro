@@ -16,7 +16,7 @@
 </template>
 <script lang="ts" setup>
   import { ElAvatar, ElPopover } from 'element-plus';
-  import { UserFilled } from '@element-plus/icons-vue';
+  import { UserFilled } from '@vtj/icons';
 
   export interface Props {
     avatar?: string;

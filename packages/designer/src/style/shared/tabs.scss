@@ -1,0 +1,46 @@
+@use '../core' as *;
+
+@include b(tabs) {
+  @include e(header) {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 30px !important;
+  }
+  @include e(tabs) {
+    flex-grow: 1;
+    flex-shrink: 1;
+    overflow: hidden;
+    margin-bottom: 0 !important;
+    .el-tabs__header .el-tabs__nav {
+      border-radius: 0 !important;
+      border-top: none !important;
+      border-left: none !important;
+    }
+    .el-tabs__item.is-active {
+      background-color: var(--el-fill-color-lighter) !important;
+      border-bottom-color: var(--el-fill-color-lighter) !important;
+    }
+  }
+
+  @include e(actions) {
+    padding-right: 5px;
+    padding-left: 5px;
+    border-bottom: 1px solid var(--el-border-color-light);
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  @include e(checked) {
+    opacity: 0;
+    @include when(checked) {
+      opacity: 1;
+    }
+  }
+
+  > .x-panel__body {
+    background-color: var(--el-fill-color-lighter);
+  }
+}

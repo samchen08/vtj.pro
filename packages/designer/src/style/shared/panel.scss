@@ -1,0 +1,35 @@
+@use '../core' as *;
+
+@include b(panel) {
+  > .x-panel__header {
+    padding: 0 5px 0 10px !important;
+  }
+  .el-empty {
+    --el-empty-padding: 10px 0;
+    --el-empty-description-margin-top: 10px;
+  }
+}
+
+@include b(sub-panel) {
+  > .x-panel__body {
+    background-color: var(--el-bg-color);
+  }
+  .x-header__content {
+    color: var(--el-text-color-regular);
+    // font-weight: normal;
+  }
+  .el-form-item {
+    margin-bottom: 10px;
+    &:last-child {
+      margin-bottom: 0 !important;
+    }
+  }
+  & .v-sub-panel {
+    & + .v-sub-panel {
+      margin-top: 10px;
+    }
+    .x-header__content {
+      font-weight: normal;
+    }
+  }
+}

@@ -1,45 +1,43 @@
 {
   "name": "@vtj/icons",
   "private": false,
-  "version": "0.6.25",
+  "version": "0.7.3",
   "type": "module",
   "scripts": {
-    "setup": "pnpm install --registry=https://registry.npmmirror.com",
     "svg2vue": "node scripts/svg.mjs",
     "icons": "node scripts/icons.mjs",
-    "build": "npm run svg2vue && npm run icons && vue-tsc && vite build && pnpm run build:cdn",
-    "build:cdn": "vue-tsc && cross-env CDN=true vite build"
-  },
-  "engines": {
-    "node": ">=16.0.0"
+    "gen": "npm run svg2vue && npm run icons",
+    "build": "npm run gen && vue-tsc && vite build && npm run build:umd",
+    "build:umd": "cross-env UMD=true vite build",
+    "test": "npm run gen && vitest run",
+    "vitest": "npm run gen && vitest",
+    "coverage": "vitest run --coverage"
   },
   "dependencies": {
-    "@element-plus/icons-vue": "~2.1.0"
+    "@element-plus/icons-vue": "~2.3.1"
   },
   "devDependencies": {
-    "@vtj/cli": "workspace:^",
-    "cross-env": "~7.0.3",
-    "vue": "~3.3.8",
+    "@vtj/cli": "^0.7.3",
+    "vue": "~3.4.15",
     "xml2js": "~0.6.2"
   },
-  "files": [
-    "lib",
-    "types",
-    "cdn"
-  ],
-  "main": "lib/index.js",
-  "module": "lib/index.js",
-  "types": "types/index.d.ts",
   "exports": {
-    "./lib/style.css": "./lib/style.css",
+    "./dist/style.css": "./dist/style.css",
     ".": {
       "types": "./types/index.d.ts",
-      "import": "./lib/index.js",
-      "require": "./lib/index.js"
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
     }
   },
+  "main": "./dist/index.umd.js",
+  "module": "./dist/index.mjs",
+  "types": "./types/index.d.ts",
+  "files": [
+    "dist",
+    "types"
+  ],
+  "gitHead": "b65d1b19322cbd0721173d094db1b5ece018d980",
   "publishConfig": {
     "access": "public"
-  },
-  "gitHead": "53b27ae2dc4309e33627a1d9354bfa12cde4263b"
+  }
 }

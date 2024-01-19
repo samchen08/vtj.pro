@@ -1,5 +1,5 @@
-import { createVNode, render, AppContext } from 'vue';
-import { DialogProps } from './types';
+import { createVNode, render, type AppContext } from 'vue';
+import { type DialogProps } from './types';
 import XDialog from './Dialog.vue';
 
 export type CreateDialogProps = DialogProps & { [index: string]: any };

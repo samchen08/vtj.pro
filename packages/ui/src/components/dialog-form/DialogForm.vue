@@ -1,9 +1,10 @@
 <template>
   <XDialog
     ref="dialogRef"
+    class="x-dialog-form"
     :model-value="props.modelValue"
-    :submit="props.submit"
-    :cancel="props.cancel"
+    :submit="submitText"
+    :cancel="cancelText"
     :size="props.size"
     @submit="onSubmit"
     @close="onClose"
@@ -12,6 +13,7 @@
     v-bind="$attrs">
     <XForm
       ref="formRef"
+      class="x-dialog-form__form"
       :footer="false"
       label-width="80px"
       :size="props.size"
@@ -35,7 +37,7 @@
 <script lang="ts" setup>
   import { ref, computed } from 'vue';
   import { XDialog, XForm } from '../';
-  import { dialogFormProps, DialogFormEmits } from './types';
+  import { dialogFormProps, type DialogFormEmits } from './types';
 
   defineOptions({
     name: 'XDialogForm'
@@ -67,6 +69,14 @@
       onClose();
     }
   };
+
+  const submitText = computed(() =>
+    props.formProps?.disabled ? false : props.submit
+  );
+
+  const cancelText = computed(() =>
+    props.formProps?.disabled ? false : props.cancel
+  );
 
   defineExpose({
     $vtjEl,

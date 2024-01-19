@@ -12,7 +12,7 @@
 <script lang="ts" setup>
   import { computed, markRaw } from 'vue';
   import { ElCheckboxGroup, ElCheckbox, ElCheckboxButton } from 'element-plus';
-  import { FieldOption } from '../types';
+  import type { FieldOption } from '../types';
   export interface Props {
     options?: FieldOption[];
     button?: boolean;

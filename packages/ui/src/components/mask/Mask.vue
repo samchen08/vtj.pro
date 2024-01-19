@@ -1,5 +1,5 @@
 <template>
-  <XContainer class="x-mask">
+  <XContainer class="x-mask" :class="{ 'is-disabled': props.disabled }" fit>
     <template v-if="!props.disabled">
       <Sidebar :collapsed="collapsed">
         <template #brand>
@@ -74,7 +74,7 @@
 </template>
 <script lang="ts" setup>
   import { provide } from 'vue';
-  import { XContainer, ActionProps, ActionMenuItem } from '../';
+  import { XContainer, type ActionProps, type ActionMenuItem } from '../';
   import Sidebar from './components/Sidebar.vue';
   import SwitchBar from './components/SwitchBar.vue';
   import Brand from './components/Brand.vue';
@@ -84,7 +84,7 @@
   import Avatar from './components/Avatar.vue';
   import Content from './components/Content.vue';
 
-  import { maskProps, MaskEmits, MASK_KEY, MaskTab } from './types';
+  import { maskProps, type MaskEmits, MASK_KEY, type MaskTab } from './types';
   import { useSidebar, useHome, useMenus, useTabs, useContent } from './hooks';
   defineOptions({
     name: 'XMask'
@@ -93,7 +93,7 @@
   const props = defineProps(maskProps);
   const emit = defineEmits<MaskEmits>();
   const home = useHome(props);
-  const { collapsed, keyword, favorite } = useSidebar(props);
+  const { collapsed, keyword, favorite } = useSidebar();
   const { menus, favorites, flatMenus, active, select, toggleFavorite } =
     useMenus(props, emit);
   const {

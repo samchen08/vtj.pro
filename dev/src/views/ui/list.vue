@@ -16,7 +16,7 @@
   </div>
 </template>
 <script lang="ts" setup>
-  import { XList, XPanel, XDataItem } from '@vtj/ui';
+  import { XList, XDataItem, type ListData } from '@vtj/web';
 
   // const list: any = [];
 
@@ -35,7 +35,7 @@
       });
     }
 
-    return new Promise((resolve) => {
+    return new Promise<ListData>((resolve) => {
       setTimeout(() => {
         resolve({
           list,

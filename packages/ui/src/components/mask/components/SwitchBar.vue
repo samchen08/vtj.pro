@@ -57,14 +57,7 @@
 <script lang="ts" setup>
   import { ref } from 'vue';
   import { ElSwitch, ElInput } from 'element-plus';
-  import {
-    Search,
-    Expand,
-    Fold,
-    Menu,
-    StarFilled,
-    Close
-  } from '@element-plus/icons-vue';
+  import { Search, Expand, Fold, Menu, StarFilled, Close } from '@vtj/icons';
   import { XContainer, XAction, XIcon } from '../../';
 
   export interface Props {

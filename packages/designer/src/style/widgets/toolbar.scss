@@ -1,0 +1,32 @@
+@use '../core' as *;
+
+@include b(toolbar-widget) {
+  width: 200px;
+  text-align: center;
+  white-space: nowrap;
+  .el-radio-group {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 5px;
+    position: relative;
+    .el-radio-button__inner {
+      padding: 5px 10px 4px 10px;
+    }
+  }
+  .el-input-group {
+    width: 100px;
+    line-height: 24px;
+    margin-right: 20px;
+    .el-button {
+      height: 24px;
+      padding: 6px;
+    }
+    .el-input__inner {
+      text-align: center;
+    }
+  }
+  .el-input-group__append,
+  .el-input-group__prepend {
+    padding: 0 15px;
+  }
+}

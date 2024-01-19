@@ -14,6 +14,7 @@ dist
 dist-ssr
 lib
 *.local
+.nx
 
 
 # Editor directories and files
@@ -29,21 +30,24 @@ lib
 *.sw?
 .history
 .hbuildx
+.vtj
 
-# project
+# packages
+/packages/*/temp/
 /packages/*/types/
-/packages/*/lib/
-/packages/*/cdn/
+/packages/*/dist/
 /packages/*/coverage/
 /packages/*/node_modules/
 /packages/*/tsconfig.tsbuildinfo
-/dev/public/libs
-/example/public/libs
-/packages/ide/public/libs
 /packages/icons/src/components
-/packages/boot/public/libs
-/packages/ide/.vtj
-/packages/ide/src/views/pages
-/packages/ide/src/components/blocks
 
-/packages/boot/.vtj/debug
+# dev
+/dev/public/@vtj
+
+# docs
+/docs/typedoc
+/docs/.vitepress/cache
+/docs/cache
+
+# pro
+/platforms/pro/public/@vtj

@@ -1,11 +1,19 @@
 <template>
   <div class="x-action" :class="classes">
-    <component :is="action"> </component>
+    <component :is="action"></component>
   </div>
 </template>
 
 <script lang="ts" setup>
-  import { computed, markRaw, h, VNode, useSlots, toRef, toRaw } from 'vue';
+  import {
+    computed,
+    markRaw,
+    h,
+    type VNode,
+    useSlots,
+    toRef,
+    toRaw
+  } from 'vue';
   import {
     ElBadge,
     ElTooltip,
@@ -13,7 +21,7 @@
     ElDropdownMenu,
     ElDropdownItem
   } from 'element-plus';
-  import { actionProps, ActionEmits } from './types';
+  import { actionProps, type ActionEmits } from './types';
   import { useTooltip, useBadge, useDropdown } from './hooks';
   import Trigger from './Trigger.vue';
   import { useDisabled } from '../../hooks';
@@ -30,6 +38,7 @@
   const badge = useBadge(props);
   const dropdown = useDropdown(props);
   const disabled = useDisabled(toRef(props, 'disabled'));
+
   const classes = computed(() => {
     return {
       [`x-action--${props.mode}`]: !!props.mode
@@ -37,10 +46,12 @@
   });
 
   const onClick = () => {
+    if (disabled.value) return;
     emit('click', toRaw(props));
   };
 
   const onCommand = (command: any) => {
+    if (disabled.value) return;
     const item = props.menus?.find((n) => n.command === command);
     if (item) {
       emit('command', toRaw(item));
@@ -50,6 +61,10 @@
   const wrapBadge = (node: VNode | VNode[]) => {
     return h(ElBadge, badge.value, () => ([] as VNode[]).concat(node));
   };
+
+  // todo: waring
+  // invoked outside of the render function: this will not track dependencies used in the slot.
+  // Invoke the slot function inside the render function
   const wrapDropdown = (node: VNode) => {
     return h(
       ElDropdown,
@@ -79,6 +94,7 @@
     let vnode: VNode = slots.default
       ? slots.default()[0]
       : h(markRaw(Trigger), { ...props, onClick });
+
     if (badge.value) {
       vnode = wrapBadge(vnode);
     }

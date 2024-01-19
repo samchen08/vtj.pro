@@ -1,9 +1,7 @@
-import { DefineComponent } from 'vue';
+import type { DefineComponent } from 'vue';
 import {
-  XStartup,
   XIcon,
   XMenu,
-  XSimpleMask,
   XAction,
   XActionBar,
   XContainer,
@@ -17,14 +15,13 @@ import {
   XTabs,
   XDataItem,
   XChart,
-  XList
+  XList,
+  XTest
 } from './components';
 
 export default [
-  XStartup,
   XIcon,
   XMenu,
-  XSimpleMask,
   XAction,
   XActionBar,
   XContainer,
@@ -38,5 +35,6 @@ export default [
   XTabs,
   XDataItem,
   XChart,
-  XList
+  XList,
+  XTest
 ] as DefineComponent<any, any, any, any>[];

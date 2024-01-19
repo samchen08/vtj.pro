@@ -7,30 +7,38 @@
     }
 
     @include e(header) {
-      margin-bottom: 4px;
+      padding: 0;
     }
     @include when(border) {
-      @include e(body) {
-        border: 1px solid getCssVar('border-color-light');
+      & > {
+        @include e(body) {
+          border: 1px solid getCssVar('border-color-light');
+        }
       }
     }
 
     @include when(radius) {
-      @include e(body) {
-        border-radius: getCssVar('border-radius-base');
+      & > {
+        @include e(body) {
+          border-radius: getCssVar('border-radius-base');
+        }
       }
     }
 
     @include when(shadow-always) {
-      @include e(body) {
-        box-shadow: getCssVar('box-shadow-lighter');
+      & > {
+        @include e(body) {
+          box-shadow: getCssVar('box-shadow-lighter');
+        }
       }
     }
 
     @include when(shadow-hover) {
-      @include e(body) {
-        &:hover {
-          box-shadow: getCssVar('box-shadow-lighter');
+      & > {
+        @include e(body) {
+          &:hover {
+            box-shadow: getCssVar('box-shadow-lighter');
+          }
         }
       }
     }
@@ -43,15 +51,6 @@
 
     @include when(radius) {
       border-radius: getCssVar('border-radius-base');
-      // @include e(header) {
-      //   border-radius: getCssVar('border-radius-base')
-      //     getCssVar('border-radius-base') 0 0;
-      // }
-    }
-
-    @include e(header) {
-      padding: 0 5px 0 10px;
-      background-color: getCssVar('fill-color-lighter');
     }
 
     @include when(shadow-always) {
@@ -61,6 +60,12 @@
     @include when(shadow-hover) {
       &:hover {
         box-shadow: getCssVar('box-shadow-lighter');
+      }
+    }
+    & > {
+      @include e(header) {
+        padding: 0 5px 0 10px;
+        background-color: getCssVar('fill-color-lighter');
       }
     }
   }

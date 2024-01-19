@@ -1,5 +1,5 @@
 import './style/index.scss';
-import { makeInstaller } from './utils';
+export { version as VTJ_UI_VERSION } from './version';
 import components from './list';
 export { components };
 export * from './components';
@@ -7,7 +7,3 @@ export * from './directives';
 export * from './hooks';
 export * from './utils';
 export * from './constants';
-export * from './version';
-const installer = makeInstaller(components);
-export const install = installer.install;
-export default install;

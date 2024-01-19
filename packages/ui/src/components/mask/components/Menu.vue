@@ -118,9 +118,9 @@
   </XContainer>
 </template>
 <script lang="ts" setup>
-  import { computed, ref } from 'vue';
-  import { XContainer, XMenu, MenuDataItem } from '../../';
-  import { Document, Star, Search } from '@element-plus/icons-vue';
+  import { computed } from 'vue';
+  import { XContainer, XMenu, type MenuDataItem } from '../../';
+  import { Document, Star, Search } from '@vtj/icons';
   import { ElEmpty } from 'element-plus';
 
   export interface Props {

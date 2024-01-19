@@ -4,31 +4,17 @@
       "runner": "nx/tasks-runners/default",
       "options": {
         "parallel": 8,
-        "cacheableOperations": [
-          "dev",
-          "build",
-          "build:cdn",
-          "test:unit",
-          "coverage"
-        ]
+        "cacheableOperations": ["build", "test", "coverage"]
       }
     }
   },
   "targetDefaults": {
-    "dev": {
-      "dependsOn": ["^dev"]
+    "test": {
+      "dependsOn": ["^test"]
     },
     "build": {
       "dependsOn": ["^build"],
-      "outputs": [
-        "{projectRoot}/lib",
-        "{projectRoot}/dist",
-        "{projectRoot}/types"
-      ]
-    },
-    "build:cdn": {
-      "dependsOn": ["^build:cdn"],
-      "outputs": ["{projectRoot}/cdn"]
+      "outputs": ["{projectRoot}/dist", "{projectRoot}/types"]
     },
     "coverage": {
       "dependsOn": ["^coverage"],

@@ -60,15 +60,15 @@
 <script lang="ts" setup>
   import { computed } from 'vue';
   import { ElImage } from 'element-plus';
-  import { dataItemProps, DataItemEmits } from './types';
+  import { dataItemProps, type DataItemEmits } from './types';
   import { getSizeValue } from '../../utils';
   import { useIcon } from '../../hooks';
   import {
     XContainer,
     XActionBar,
-    ActionBarProps,
-    ActionProps,
-    ActionMenuItem
+    type ActionBarProps,
+    type ActionProps,
+    type ActionMenuItem
   } from '../';
 
   const props = defineProps(dataItemProps);

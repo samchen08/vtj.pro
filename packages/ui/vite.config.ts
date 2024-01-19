@@ -1,31 +1,43 @@
-import { createViteConfig, writeVersion } from '@vtj/cli';
-
-writeVersion();
+import { createViteConfig } from '@vtj/cli';
+const isUmd = !!process.env.UMD;
 
 export default createViteConfig({
-  debug: false,
   lib: true,
-  elementPlus: false,
-  cdn: !!process.env.CDN,
-  libraryName: 'VtjUI',
-  external: [
-    'vue',
-    'vue-router',
-    'element-plus',
-    '@element-plus/icons-vue',
-    '@vueuse/core',
-    '@vtj/utils',
-    '@vtj/icons',
-    'echarts'
-  ],
-  externalGlobals: {
-    vue: 'Vue',
-    'vue-router': 'VueRouter',
-    'element-plus': 'ElementPlus',
-    '@element-plus/icons-vue': 'ElementPlusIconsVue',
-    '@vueuse/core': 'VueUse',
-    '@vtj/utils': 'VtjUtils',
-    '@vtj/icons': 'VtjIcons',
-    echarts: 'echarts'
-  }
+  dts: isUmd ? false : true,
+  entry: isUmd ? 'src/install.ts' : 'src/index.ts',
+  version: true,
+  library: 'VtjUI',
+  emptyOutDir: isUmd ? false : true,
+  external: isUmd
+    ? [
+        'vue',
+        'vue-router',
+        'element-plus',
+        '@element-plus/icons-vue', 
+        '@vtj/utils',
+        '@vtj/icons',
+        'echarts'
+      ]
+    : [
+        'vue',
+        'vue-router',
+        'element-plus',
+        '@element-plus/icons-vue',
+        '@vueuse/core',
+        '@vtj/utils',
+        '@vtj/icons',
+        'echarts'
+      ],
+  externalGlobals: isUmd
+    ? {
+        vue: 'Vue',
+        'vue-router': 'VueRouter',
+        'element-plus': 'ElementPlus',
+        '@element-plus/icons-vue': 'VtjIcons',
+        '@vtj/utils': 'VtjUtils',
+        '@vtj/icons': 'VtjIcons',
+        echarts: 'echarts'
+      }
+    : undefined,
+  formats: isUmd ? ['umd', 'iife'] : ['es', 'cjs']
 });

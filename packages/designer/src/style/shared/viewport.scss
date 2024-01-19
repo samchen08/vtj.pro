@@ -1,0 +1,11 @@
+@use '../core' as *;
+
+@include b(viewport) {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  background-color: var(--el-fill-color-dark);
+  overflow: hidden;
+}

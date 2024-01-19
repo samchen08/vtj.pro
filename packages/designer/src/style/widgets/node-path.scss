@@ -1,0 +1,10 @@
+@use '../core' as *;
+
+@include b(nodepath-widget) {
+  font-size: 12px;
+  padding: 0 20px;
+  .el-breadcrumb__item {
+    cursor: pointer;
+    font-size: 12px;
+  }
+}

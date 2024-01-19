@@ -41,16 +41,16 @@
   import {
     XContainer,
     XAction,
-    ActionMenuItem,
+    type ActionMenuItem,
     XIcon,
     XActionBar,
-    ActionBarItems,
-    ActionProps
+    type ActionBarItems,
+    type ActionProps
   } from '../../';
-  import { MoreFilled, Close } from '@element-plus/icons-vue';
+  import { MoreFilled, Close } from '@vtj/icons';
   import { ElDivider } from 'element-plus';
   import ThemeSwitch from './ThemeSwitch.vue';
-  import { MaskTab } from '../types';
+  import type { MaskTab } from '../types';
 
   export interface Props {
     tabs: MaskTab[];

@@ -12,19 +12,14 @@
 </template>
 <script lang="ts" setup>
   import { reactive, markRaw } from 'vue';
-  import { useRouter, RouteLocationNormalizedLoaded } from 'vue-router';
-  import { XMask, MenuDataItem, ActionBarItems } from '@vtj/ui';
-  import { request } from '@vtj/utils';
+  import { XMask, type MenuDataItem, type ActionBarItems } from '@vtj/web';
+  import { request } from '@vtj/web';
   import {
-    MoreFilled,
     Lock,
     SwitchButton,
     Bell,
-    QuestionFilled,
-    Close
+    QuestionFilled
   } from '@element-plus/icons-vue';
-
-  const router = useRouter();
 
   const menus = async () => {
     return await request({
@@ -46,13 +41,6 @@
           ? `/ui/mask/page?id=${menu.id}`
           : menu.url
     };
-  };
-
-  const defaultActiveMenu = (
-    to: RouteLocationNormalizedLoaded,
-    menus: MenuDataItem[] = []
-  ) => {
-    return menus.find((n) => n.id.toString() === to.query.id);
   };
 
   const actions: ActionBarItems = reactive([

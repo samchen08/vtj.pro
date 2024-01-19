@@ -1,6 +1,6 @@
 import { computed } from 'vue';
-import { MaskProps, MaskTab } from '../types';
-import { HomeFilled } from '@element-plus/icons-vue';
+import type { MaskProps, MaskTab } from '../types';
+import { HomeFilled } from '@vtj/icons';
 import { uid } from '@vtj/utils';
 
 export function useHome(props: MaskProps) {

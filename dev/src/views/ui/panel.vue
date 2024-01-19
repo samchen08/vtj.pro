@@ -51,13 +51,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { XPanel, XAction } from '@vtj/ui';
-  import {
-    VtjIconBug,
-    VtjIconApi,
-    VtjIconPlus,
-    VtjIconSetting
-  } from '@vtj/icons';
+  import { VtjIconPlus, VtjIconSetting, XPanel, XAction } from '@vtj/web';
 
   import { ElTabs, ElTabPane } from 'element-plus';
 

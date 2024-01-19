@@ -1,0 +1,9 @@
+{
+  "extends": "./packages/cli/config/tsconfig.json",
+  "compilerOptions": {},
+  "include": [
+    "docs/refs",
+    "packages/base/src/**/*.ts",
+    "packages/node/src/**/*.ts"
+  ]
+}
