@@ -25,7 +25,7 @@
 <script lang="ts" setup>
   import { computed } from 'vue';
   import { ElTabs, ElTabPane } from 'element-plus';
-  import { tabsProps, TabsItem } from './types';
+  import { tabsProps, type TabsItem } from './types';
   import { useIcon } from '../../hooks';
 
   defineOptions({

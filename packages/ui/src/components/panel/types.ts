@@ -1,6 +1,6 @@
-import { PropType } from 'vue';
-import { ComponentPropsType, BaseSize } from '../shared';
-import { HeaderProps, ContainerProps } from '../';
+import type { PropType } from 'vue';
+import type { ComponentPropsType, BaseSize } from '../shared';
+import type { HeaderProps, ContainerProps } from '../';
 
 export const panelProps = {
   /**
@@ -65,17 +65,6 @@ export const panelProps = {
   header: {
     type: [String, Object] as PropType<string | HeaderProps | null>
   },
-
-  bodyPadding: {
-    type: Boolean,
-    default: true
-  },
-
-  footerPadding: {
-    type: Boolean,
-    default: true
-  },
-
   body: {
     type: Object as PropType<ContainerProps>
   },

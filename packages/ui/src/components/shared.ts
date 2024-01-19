@@ -1,4 +1,4 @@
-import { ExtractPropTypes } from 'vue';
+import type { ExtractPropTypes } from 'vue';
 
 import type { MenuProps } from './menu';
 
@@ -40,3 +40,5 @@ export type Emits<T extends Record<string, any>> = UnionToIntersection<
     [K in keyof T]: (evt: K, ...args: T[K]) => void;
   }>
 >;
+
+export type DataLoader<T = any, P = any> = T | ((params?: P) => T | Promise<T>);

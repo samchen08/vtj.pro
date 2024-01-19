@@ -29,6 +29,7 @@
   @include when(split) {
     & + .x-data-item.is-split {
       padding-top: 10px;
+      margin-top: 10px;
       border-top: 1px solid var(--el-border-color-light);
     }
   }

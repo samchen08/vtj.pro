@@ -1,0 +1,17 @@
+@use '../core' as *;
+
+@include b(logo-widget) {
+  font-size: 18px;
+  font-weight: bold;
+  color: getCssVar('color-primary');
+  width: 50px;
+  text-align: center;
+  text-shadow: 0 0 1px getCssVar('border-color');
+
+  @include e(icon) {
+    width: 24px;
+    height: 24px;
+    display: inline-block;
+    vertical-align: bottom;
+  }
+}

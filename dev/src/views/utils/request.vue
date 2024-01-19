@@ -6,7 +6,7 @@
   </div>
 </template>
 <script lang="ts" setup>
-  import { request } from '@vtj/utils';
+  import { request } from '@vtj/web';
   import {
     ElNotification,
     ElLoading,
@@ -27,7 +27,7 @@
           loading.close();
         }
       },
-      showError(msg, e) {
+      showError(msg) {
         ElNotification.warning({
           message: msg
         });
@@ -42,8 +42,8 @@
         code: 7,
         async executor(reslove, reject) {
           const ret = await ElMessageBox.confirm('跳过警告测试')
-            .then((r) => true)
-            .catch((e) => false);
+            .then(() => true)
+            .catch(() => false);
           if (ret) {
             reslove(true);
           } else {
@@ -68,7 +68,7 @@
   // const url = '/api/test/user/${id}';
   // const url = '/api/scm/auth/scm/scmPurchaseApplyH/waitList.do';
   const url = '/mock/api.json?q=${id}';
-  let isCancel = false;
+
   const execApi1 = () => {
     // console.log(request);
     request({

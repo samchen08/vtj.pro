@@ -1,6 +1,6 @@
-import { PropType } from 'vue';
-import { ComponentPropsType } from '../shared';
-import { EChartsOption } from 'echarts';
+import type { PropType } from 'vue';
+import type { ComponentPropsType } from '../shared';
+import type { EChartsOption } from 'echarts';
 
 export const chartProps = {
   option: {

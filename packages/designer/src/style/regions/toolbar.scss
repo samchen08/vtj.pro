@@ -1,0 +1,9 @@
+@use '../core' as *;
+
+@include b(toolbar-region) {
+  text-align: center;
+  white-space: nowrap;
+  flex-grow: 0;
+  display: flex;
+  justify-content: center;
+}

@@ -1,0 +1,9 @@
+@use 'core' as *;
+
+@include b(code-editor) {
+  overflow: hidden;
+  width: 100%;
+  @include when(border) {
+    border: 1px solid var(--el-border-color);
+  }
+}

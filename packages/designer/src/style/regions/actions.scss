@@ -1,0 +1,15 @@
+@use '../core' as *;
+
+@include b(actions-region) {
+  flex-grow: 1;
+  flex-shrink: 1;
+  display: flex;
+  justify-content: flex-end;
+  width: 30%;
+  white-space: nowrap;
+  .el-badge__content {
+    zoom: 0.9;
+    top: 3px !important;
+    margin-right: 2px;
+  }
+}

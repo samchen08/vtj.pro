@@ -1,13 +1,12 @@
 import {
-  Directive,
+  type Directive,
   watch,
   effectScope,
   EffectScope,
-  MaybeRef,
-  unref,
-  toValue
+  type MaybeRef,
+  unref
 } from 'vue';
-import { useDraggable, UseDraggableOptions } from '@vueuse/core';
+import { useDraggable, type UseDraggableOptions } from '@vueuse/core';
 import { isEqual } from '@vtj/utils';
 
 declare global {
@@ -48,7 +47,10 @@ export interface DraggableOptions extends UseDraggableOptions {
 export class Draggable {
   private scope: EffectScope;
   public dragging: boolean = false;
-  constructor(public el: HTMLElement, public options: DraggableOptions = {}) {
+  constructor(
+    public el: HTMLElement,
+    public options: DraggableOptions = {}
+  ) {
     this.scope = effectScope();
     this.scope.run(() => {
       this.init();

@@ -1,6 +1,13 @@
-import { Directive, watch, effectScope, EffectScope, ref, Ref } from 'vue';
+import {
+  type Directive,
+  watch,
+  effectScope,
+  EffectScope,
+  ref,
+  type Ref
+} from 'vue';
 import { isEqual } from '@vtj/utils';
-import { useEventListener, useMouseInElement, Fn } from '@vueuse/core';
+import { useEventListener, useMouseInElement, type Fn } from '@vueuse/core';
 
 declare global {
   interface HTMLElement {
@@ -33,7 +40,10 @@ export class Resizable {
   public MIE: UseMouseInElementReturn | null = null;
   public cleanMousedown?: Fn;
   public cleanMouseup?: Fn;
-  constructor(public el: HTMLElement, public options: ResizableOptions = {}) {
+  constructor(
+    public el: HTMLElement,
+    public options: ResizableOptions = {}
+  ) {
     this.scope = effectScope();
     this.scope.run(() => {
       this.init();

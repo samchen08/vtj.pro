@@ -1,0 +1,63 @@
+@use '../core' as *;
+
+@include b(outline-widget) {
+  .el-tree {
+    --el-tree-node-hover-bg-color: transparent;
+    .v-item {
+      margin: 0;
+    }
+  }
+  .el-tree-node__content {
+    height: 28px;
+  }
+  .el-tree--highlight-current
+    .el-tree-node.is-current
+    > .el-tree-node__content {
+    background-color: transparent;
+  }
+  .v-item__subtitle {
+    font-size: 12px;
+  }
+  .v-item__title {
+    > .x-icon {
+      color: var(--el-color-warning);
+    }
+  }
+  .is-drop-inner .is-drop-inner {
+    background: var(--el-color-warning-light-8);
+    .v-item {
+      opacity: 0.6;
+    }
+  }
+
+  @include e(item) {
+    @include when(dragging) {
+      background: var(--el-color-danger-light-8);
+      opacity: 0.5;
+    }
+    @include when(locked) {
+      color: var(--el-color-warning) !important;
+    }
+    @include when(locked) {
+      color: var(--el-color-warning) !important;
+      .v-item__title {
+        > .x-icon {
+          color: var(--el-color-warning);
+        }
+      }
+    }
+
+    @include when(invisible) {
+      color: var(--el-color-danger);
+      cursor: not-allowed !important;
+      &:hover {
+        background-color: var(--el-fill-color-lighter) !important;
+      }
+      .v-item__title {
+        > .x-icon {
+          color: var(--el-color-danger);
+        }
+      }
+    }
+  }
+}

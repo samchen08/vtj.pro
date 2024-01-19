@@ -1,0 +1,50 @@
+{
+  "name": "@vtj/pro",
+  "description": "VTJ.PRO",
+  "private": false,
+  "version": "0.7.3",
+  "type": "module",
+  "scripts": {
+    "dev": "cross-env ENV_TYPE=local vite",
+    "build": "vue-tsc && cross-env ENV_TYPE=live vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@vtj/core": "^0.7.3",
+    "@vtj/designer": "^0.7.3",
+    "@vtj/local": "^0.7.3",
+    "@vtj/materials": "^0.7.3",
+    "@vtj/renderer": "^0.7.3"
+  },
+  "devDependencies": {
+    "@vtj/cli": "^0.7.3",
+    "@vtj/icons": "^0.7.3",
+    "@vtj/ui": "^0.7.3",
+    "@vtj/utils": "^0.7.3",
+    "vue": "~3.4.15",
+    "vue-router": "~4.2.5"
+  },
+  "exports": {
+    ".": {
+      "types": "./src/index.ts",
+      "import": "./src/index.ts",
+      "require": "./src/index.ts"
+    },
+    "./vite": {
+      "types": "./src/vite.d.ts",
+      "import": "./src/vite.mjs",
+      "require": "./src/vite.mjs"
+    }
+  },
+  "main": "./src/index.ts",
+  "module": "./src/index.ts",
+  "types": "./src/index.ts",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "gitHead": "b65d1b19322cbd0721173d094db1b5ece018d980",
+  "publishConfig": {
+    "access": "public"
+  }
+}

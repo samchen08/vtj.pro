@@ -1,0 +1,34 @@
+{
+  "name": "create-vtj",
+  "private": false,
+  "version": "0.7.3",
+  "type": "module",
+  "scripts": {
+    "build": "unbuild"
+  },
+  "dependencies": {
+    "@vtj/node": "^0.7.2",
+    "cross-spawn": "~7.0.3",
+    "kolorist": "~1.8.0",
+    "minimist": "~1.2.8",
+    "prompts": "~2.4.2"
+  },
+  "devDependencies": {
+    "@types/minimist": "~1.2.5",
+    "@types/prompts": "~2.4.8",
+    "unbuild": "~2.0.0"
+  },
+  "main": "index.js",
+  "bin": {
+    "create-vtj": "index.js"
+  },
+  "files": [
+    "dist",
+    "templates",
+    "index.js"
+  ],
+  "gitHead": "b65d1b19322cbd0721173d094db1b5ece018d980",
+  "publishConfig": {
+    "access": "public"
+  }
+}

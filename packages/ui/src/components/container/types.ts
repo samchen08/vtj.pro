@@ -1,5 +1,5 @@
-import { PropType } from 'vue';
-import { ComponentPropsType } from '../shared';
+import type { PropType } from 'vue';
+import type { ComponentPropsType } from '../shared';
 import type Container from './Container.vue';
 export type ContainerDirection =
   | 'row'

@@ -1,0 +1,27 @@
+@use 'core' as *;
+
+@include b(list) {
+  display: flex;
+  flex-direction: column;
+  @include e(content) {
+    flex-grow: 1;
+  }
+
+  @include e(pager) {
+    display: flex;
+    justify-content: flex-end;
+    padding-top: 10px;
+  }
+
+  @include e(nomore) {
+    padding: 20px;
+    text-align: center;
+    color: var(--el-color-info);
+  }
+
+  @include e(loading) {
+    padding: 20px;
+    text-align: center;
+    color: var(--el-color-info);
+  }
+}

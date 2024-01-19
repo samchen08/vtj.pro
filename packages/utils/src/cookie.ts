@@ -1,4 +1,6 @@
-import Cookies, { CookieAttributes } from 'js-cookie';
+import Cookies from 'js-cookie';
+
+type CookieAttributes = Cookies.CookieAttributes;
 
 // @link https://github.com/js-cookie/js-cookie
 export interface ICookieOptions {

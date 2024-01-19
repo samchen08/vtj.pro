@@ -10,7 +10,7 @@
 
 <script lang="ts" setup>
   import { computed, getCurrentInstance, useAttrs } from 'vue';
-  import { containerProps, ContainerInstance } from './types';
+  import { containerProps, type ContainerInstance } from './types';
   import { getSizeValue } from '../../utils';
 
   defineOptions({

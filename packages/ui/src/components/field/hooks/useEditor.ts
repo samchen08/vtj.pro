@@ -1,21 +1,20 @@
 import {
   computed,
   ref,
-  Ref,
   watch,
-  ComponentInternalInstance,
-  ComputedRef
+  type ComponentInternalInstance,
+  type ComputedRef
 } from 'vue';
 import {
-  BuiltinFieldEditor,
+  type BuiltinFieldEditor,
   builtinFieldEditors,
-  FieldProps,
-  FieldOption,
-  FieldEmits,
-  FieldEditorProps
+  type FieldProps,
+  type FieldOption,
+  type FieldEmits,
+  type FieldEditorProps
 } from '../types';
-import { Emits, FormModel } from '../../';
-import { merge, toArray } from '@vtj/utils';
+import type { Emits, FormModel } from '../../';
+import { merge, toArray, get } from '@vtj/utils';
 
 export async function useOptions(
   props: FieldProps,
@@ -42,7 +41,7 @@ export function useEditor(
     if (!instance || !model) return {};
     const cascader = toArray<string>(props.cascader);
     return cascader.reduce((prev, current) => {
-      prev[current] = model[current];
+      prev[current] = get(model, current);
       return prev;
     }, {} as FormModel);
   });

@@ -1,0 +1,12 @@
+{
+  "recommendations": [
+    "vue.volar",
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode",
+    "lokalise.i18n-ally",
+    "syler.sass-indented",
+    "mhutchie.git-graph",
+    "donjayamanne.githistory",
+    "eamodio.gitlens"
+  ]
+}

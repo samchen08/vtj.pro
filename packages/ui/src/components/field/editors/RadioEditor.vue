@@ -12,7 +12,7 @@
 <script lang="ts" setup>
   import { computed, markRaw } from 'vue';
   import { ElRadioGroup, ElRadio, ElRadioButton } from 'element-plus';
-  import { FieldOption } from '../types';
+  import type { FieldOption } from '../types';
   export interface Props {
     options?: FieldOption[];
     button?: boolean;

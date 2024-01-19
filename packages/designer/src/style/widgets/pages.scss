@@ -1,0 +1,28 @@
+@use '../core' as *;
+
+@include b(pages-widget) {
+  .el-tree {
+    --el-tree-node-hover-bg-color: transparent;
+    .v-item {
+      margin: 0;
+    }
+  }
+  .el-tree-node__content {
+    height: 28px;
+  }
+  .el-tree--highlight-current
+    .el-tree-node.is-current
+    > .el-tree-node__content {
+    background-color: transparent;
+  }
+  .v-item__subtitle {
+    font-size: 12px;
+  }
+
+  .is-drop-inner .is-drop-inner {
+    background: var(--el-color-warning-light-8);
+    .v-item {
+      opacity: 0.6;
+    }
+  }
+}

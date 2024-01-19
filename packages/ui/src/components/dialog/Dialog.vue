@@ -17,7 +17,8 @@
         :body="{ padding: props.bodyPadding }"
         v-draggable="draggable"
         v-resizable="resizable"
-        @click="active">
+        @click="active"
+        v-bind="$attrs">
         <template #title>{{ props.title }}</template>
         <template #actions>
           <slot name="actions"></slot>
@@ -112,7 +113,7 @@
   import { ElButton } from 'element-plus';
   import { XPanel, XAction, XContainer } from '../';
   import { vDraggable, vResizable } from '../../directives';
-  import { dialogProps, DialogEmits } from './types';
+  import { dialogProps, type DialogEmits } from './types';
   import {
     useState,
     useStyle,

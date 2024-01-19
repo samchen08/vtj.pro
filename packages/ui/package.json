@@ -1,47 +1,49 @@
 {
   "name": "@vtj/ui",
   "private": false,
-  "version": "0.6.25",
+  "version": "0.7.3",
   "type": "module",
   "scripts": {
-    "setup": "pnpm install --registry=https://registry.npmmirror.com",
-    "build": "vue-tsc --noEmit && vite build && pnpm run build:cdn",
-    "build:cdn": "vue-tsc --noEmit && cross-env CDN=true vite build"
+    "build": "vue-tsc && vite build && npm run build:umd",
+    "build:umd": "cross-env UMD=true vite build",
+    "test": "vitest run",
+    "vitest": "vitest",
+    "coverage": "vitest run --coverage"
   },
   "engines": {
     "node": ">=16.0.0"
   },
   "dependencies": {
-    "@element-plus/icons-vue": "~2.1.0",
-    "@vtj/icons": "^0.6.25",
-    "@vtj/utils": "^0.6.25",
-    "@vueuse/core": "~10.5.0",
+    "@ckeditor/ckeditor5-build-classic": "~41.0.0",
+    "@ckeditor/ckeditor5-vue": "~5.1.0",
+    "@vtj/icons": "^0.7.3",
+    "@vtj/utils": "^0.7.3",
+    "@vueuse/core": "~10.7.0",
     "echarts": "~5.4.3",
-    "element-plus": "~2.4.1"
+    "element-plus": "~2.5.1"
   },
   "devDependencies": {
-    "@vtj/cli": "^0.6.25",
-    "vue": "~3.3.7",
-    "vue-router": "~4.2.4"
+    "@vtj/cli": "^0.7.3",
+    "vue": "~3.4.15",
+    "vue-router": "~4.2.5"
   },
   "files": [
-    "lib",
-    "types",
-    "cdn"
+    "dist",
+    "types"
   ],
-  "main": "lib/index.js",
-  "module": "lib/index.js",
+  "main": "dist/index.umd.js",
+  "module": "dist/index.mjs",
   "types": "types/index.d.ts",
   "exports": {
-    "./lib/style.css": "./lib/style.css",
+    "./dist/style.css": "./dist/style.css",
     ".": {
       "types": "./types/index.d.ts",
-      "import": "./lib/index.js",
-      "require": "./lib/index.js"
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
     }
   },
   "publishConfig": {
     "access": "public"
   },
-  "gitHead": "53b27ae2dc4309e33627a1d9354bfa12cde4263b"
+  "gitHead": "b65d1b19322cbd0721173d094db1b5ece018d980"
 }

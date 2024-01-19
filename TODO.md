@@ -13,11 +13,10 @@
 - XTabs 选项卡
 - XToolbar 工具条
 - XTable 表格组件
-- XCard 卡片组件
 - XList 数据列表
 - XDataItem 数据项
-- XDataCard 数据卡片
 - XDataPicker 数据选择器
+- XOrgPicker 组织架构/人员选择器
 - XLogin 登录组件（支持账号密码、短信验证码、扫码）登录
 
 # Docs
@@ -35,22 +34,57 @@
 
 # 分包重构规划
 
-- create-vtj 独立
-- @vtj/types 基础类型定义
-- @vtj/base 基础工具库，支持 node 和 浏览器环境
-- @vtj/utils 仅支持浏览器环境公共工具库。依赖：@vtj/base
-- @vtj/cli 项目脚手架。依赖：@vtj/base
-- @vtj/assets 资产。依赖：@vtj/cli、@vtj/types
-- @vtj/icons 图标库，依赖：@vtj/cli
-- @vtj/ui 组件库，依赖：@vtj/cli、 @vtj/utils、@vtj/icons
-- @vtj/core 低代码核心库，依赖：@vtj/base、@vtj/types
-- @vtj/editor 代码编辑器组件。依赖：@vtj/cli
-- @vtj/formatter 代码格式化工具库。依赖：@vtj/cli
-- @vtj/coder 代码生成器。依赖：@vtj/types、@vtj/core、@vtj/formatter
-- @vtj/serve 本地开发服务：依赖：@vtj/base、@vtj/coder
-- @vtj/designer 低代码设计器。依赖：@vtj/cli、@vtj/core、@vtj/utils、@vtj/icons、@vtj/editor
-- @vtj/runtime 项目运行时。依赖：@vtj/cli、@vtj/core
-- @vtj/ide 项目ide载体。依赖：：@vtj/cli、@vtj/assets、@vtj/designer、@vtj/serve、@vtj/runtime
-- @vtj/boot 项目测试工程。依赖 @vtj/cli、@vtj/serve、@vtj/runtime、@vtj/ide、@vtj/utils、@vtj/icons、@vtj/ui
+## 脚手架
 
-- @vtj/deps 依赖包汇总引用，依赖：@vtj/cli、 @vtj/serve、@vtj/runtime、@vtj/ide、@vtj/utils、@vtj/icons、@vtj/ui
+- create-vtj 独立
+
+## 基础工具库
+
+- @vtj/base 基础工具库，支持 node 和 浏览器环境
+- @vtj/node 仅支持Node环境公共工具库。依赖：@vtj/base
+- @vtj/electron 仅支持electron环境公共工具库。依赖：@vtj/node
+- @vtj/utils 仅支持浏览器环境公共工具库。依赖：@vtj/base
+- @vtj/icons 图标库，依赖：@vtj/cli
+
+## 脚手架配置工具
+
+- @vtj/cli 项目脚手架。依赖：@vtj/node
+
+## web项目组件库
+
+- @vtj/ui 组件库，依赖：@vtj/cli、 @vtj/utils、@vtj/icons
+
+## 移动端组件库
+
+- @vtj/mui， 依赖：@vtj/cli、 @vtj/utils、@vtj/icons
+
+## 协议定义
+
+- @vtj/types 基础类型定义
+
+## 低代码
+
+- @vtj/assets 资产。依赖：@vtj/cli、@vtj/types
+- @vtj/core 低代码核心库，依赖：@vtj/base、@vtj/types
+- @vtj/coder 代码生成器。依赖：@vtj/types、@vtj/core
+- @vtj/serve 本地开发服务：依赖：@vtj/coder
+- @vtj/designer 低代码设计器。依赖：@vtj/cli、@vtj/core、@vtj/utils、@vtj/icons、@vtj/ui、 @vtj/renderer
+- @vtj/renderer 低代码渲染器。依赖： @vtj/types
+- @vtj/runtime 项目运行时。依赖：@vtj/cli、@vtj/renderer
+- @vtj/ide 项目ide载体。依赖：：@vtj/cli、@vtj/assets、@vtj/designer、@vtj/serve、@vtj/runtime
+- @vtj/lcdp 低代码平台，依赖：@vtj/ui、@vtj/serve、@vtj/runtime、@vtj/ide
+
+## 项目工程模板
+
+- projects/node 依赖：@vtj/cli、@vtj/node
+- projects/web 依赖：@vtj/cli、@vtj/utils、@vtj/icons、@vtj/ui
+- projects/uniapp 依赖：@vtj/cli、@vtj/utils、@vtj/icons、@vtj/mui
+- projects/electron 依赖：@vtj/cli、@vtj/electron
+
+## 开发调试
+
+- dev
+
+## 业务库
+
+- @newpearl/vtj 依赖 @vtj/utils、@vtj/icons、@vtj/ui

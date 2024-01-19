@@ -5,7 +5,7 @@
 </template>
 
 <script lang="ts" setup>
-  // import { defineTab } from '@vtj/ui';
+  // import { defineTab } from '@vtj/web';
   // const { tab, route } = defineTab({
   //   title: '二级页面'
   // });

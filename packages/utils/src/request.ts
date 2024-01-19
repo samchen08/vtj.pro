@@ -1,4 +1,5 @@
-import axios, {
+import axios from 'axios';
+import type {
   AxiosInstance,
   CreateAxiosDefaults,
   AxiosResponse,
@@ -7,7 +8,7 @@ import axios, {
   InternalAxiosRequestConfig,
   CancelTokenSource
 } from 'axios';
-import { merge, omit, template, debounce, throttle, uuid } from './util';
+import { merge, omit, template, debounce, throttle, uuid } from '@vtj/base';
 
 const TYPES = {
   form: 'application/x-www-form-urlencoded',
@@ -142,7 +143,7 @@ export class Request {
   axios: AxiosInstance;
   settings: IRequestSettings;
   records: Record<string, IRequestRecord> = {};
-  private isLoading: boolean = false;
+  isLoading: boolean = false;
   private stopSkipWarn?: () => void;
   private showLoading: (settings: IRequestSettings) => void;
   private showError: (settings: IRequestSettings, e: any) => void;
@@ -466,6 +467,7 @@ export const request: IStaticRequest = createRequest({
   }
 });
 
+
 export function createApi<R = any, D = any>(config: string | IRequestConfig) {
   const _conifg: IRequestConfig =
     typeof config === 'string' ? { url: config } : config;
@@ -486,6 +488,7 @@ export function createApis(map: IApiMap) {
 }
 
 export {
+  axios,
   LOCAL_REQUEST_ID,
   type AxiosRequestConfig,
   type AxiosResponse,

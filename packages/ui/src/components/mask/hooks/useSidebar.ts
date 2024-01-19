@@ -1,7 +1,5 @@
 import { ref } from 'vue';
-import { MaskProps } from '../types';
-
-export function useSidebar(props: MaskProps) {
+export function useSidebar() {
   // 侧边栏折叠
   const collapsed = ref<boolean>(false);
   // 菜单搜索关键字

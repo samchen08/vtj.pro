@@ -23,9 +23,18 @@
 </template>
 <script lang="ts" setup>
   import { computed } from 'vue';
-  import { XContainer, XAction, ActionProps, ActionMenuItem } from '../';
+  import {
+    XContainer,
+    XAction,
+    type ActionProps,
+    type ActionMenuItem
+  } from '../';
   import { useDisabled } from '../../hooks';
-  import { actionBarProps, ActionBarEmits, ActionBarItems } from './types';
+  import {
+    actionBarProps,
+    type ActionBarEmits,
+    type ActionBarItems
+  } from './types';
   import { ElDivider } from 'element-plus';
   defineOptions({
     name: 'XActionBar'

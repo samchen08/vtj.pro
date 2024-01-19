@@ -1,8 +1,8 @@
 import { shallowRef, computed, watchEffect, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { arrayToMap, isUrl } from '@vtj/utils';
-import { MaskProps, MaskEmitsFn } from '../types';
-import { MenuDataItem, createDialog } from '../../';
+import type { MaskProps, MaskEmitsFn } from '../types';
+import { type MenuDataItem, createDialog } from '../../';
 
 function toFlat(
   array: MenuDataItem[],

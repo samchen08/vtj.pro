@@ -1,9 +1,5 @@
 import { isClient } from './util';
-export const UrlRegex = /^(http|https):\/\/[\w.:\-@]*/;
-
-export function isUrl(txt: string) {
-  return UrlRegex.test(txt);
-}
+import { rURL } from '@vtj/base';
 
 /**
  * 获取当前页面的 host
@@ -21,7 +17,7 @@ export function getCurrentHost(includePath: boolean) {
  * 获取指定url的host
  */
 export function getHost(url: string = '') {
-  const matches = url.match(UrlRegex);
+  const matches = url.match(rURL);
   if (matches) {
     return matches[0];
   }

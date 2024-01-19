@@ -11,7 +11,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { XContainer } from '@vtj/ui';
+  import { XContainer } from '@vtj/web';
 </script>
 
 <style lang="scss" scoped>

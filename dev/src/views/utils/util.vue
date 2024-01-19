@@ -2,7 +2,7 @@
   <div>util</div>
 </template>
 <script lang="ts" setup>
-  import { dedupArray } from '@vtj/utils';
+  import { dedupArray } from '@vtj/web';
 
   const array = [
     {

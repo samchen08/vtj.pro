@@ -1,6 +1,11 @@
 import { computed, inject } from 'vue';
 import { useRoute } from 'vue-router';
-import { MaskTab, TabCreator, TAB_CREATORS_KEY, MASK_KEY } from './types';
+import {
+  type MaskTab,
+  type TabCreator,
+  TAB_CREATORS_KEY,
+  MASK_KEY
+} from './types';
 
 export function defineTab(options: Partial<MaskTab> | TabCreator = {}) {
   const route = useRoute();

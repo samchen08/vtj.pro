@@ -2,6 +2,7 @@
   <div>
     <XTabs :items="items" v-model="currentValue"></XTabs>
     <XTabs :items="items" type="card"></XTabs>
+
     <XPanel header="业务核心数据">
       <XTabs :items="items"> </XTabs>
     </XPanel>
@@ -9,9 +10,7 @@
 </template>
 <script lang="ts" setup>
   import { ref } from 'vue';
-  import { ElButton } from 'element-plus';
-  import { Setting } from '@element-plus/icons-vue';
-  import { XTabs, XPanel, TabsItem } from '@vtj/ui';
+  import { XTabs, XPanel, type TabsItem } from '@vtj/web';
 
   const currentValue = ref(2);
 

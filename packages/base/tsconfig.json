@@ -1,0 +1,12 @@
+{
+  "extends": "../cli/config/tsconfig.json",
+  "compilerOptions": {},
+  "include": [
+    "src"
+  ],
+  "references": [
+    {
+      "path": "./tsconfig.node.json"
+    }
+  ]
+}

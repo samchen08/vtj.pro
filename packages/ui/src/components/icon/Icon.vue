@@ -14,7 +14,7 @@
 <script lang="ts" setup>
   import { computed, markRaw, useAttrs, getCurrentInstance } from 'vue';
   import { ElIcon } from 'element-plus';
-  import { iconProps, iconSizeMap, IconSizeKey } from './types';
+  import { iconProps, iconSizeMap, type IconSizeKey } from './types';
   import { getSizeValue } from '../../utils';
   const props = defineProps(iconProps);
   const attrs = useAttrs();

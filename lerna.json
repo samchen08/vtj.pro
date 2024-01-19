@@ -5,6 +5,11 @@
   "npmClient": "pnpm",
   "packages": [
     "packages/*",
-    "dev"
+    "platforms/*",
+    "apps/*",
+    "create-vtj",
+    "dev",
+    "docs",
+    "lcdp"
   ]
 }

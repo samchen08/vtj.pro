@@ -1,0 +1,24 @@
+@use '../core' as *;
+
+@include b(settings-region) {
+  overflow: hidden;
+  > .el-empty {
+    height: 100%;
+  }
+  @include e(header) {
+    height: 30px;
+    padding: 0 10px;
+    border-bottom: 1px solid var(--el-border-color);
+  }
+  @include e(title) {
+    span {
+      font-size: 12px;
+      padding-left: 5px;
+      color: var(--el-text-color-regular);
+      i {
+        padding-left: 5px;
+        color: var(--el-text-color-secondary);
+      }
+    }
+  }
+}

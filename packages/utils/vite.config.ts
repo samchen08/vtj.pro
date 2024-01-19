@@ -1,10 +1,7 @@
-import { createViteConfig, writeVersion } from '@vtj/cli';
-writeVersion();
-
+import { createViteConfig } from '@vtj/cli';
 export default createViteConfig({
-  debug: false,
   lib: true,
-  libraryName: 'VtjUtils',
-  elementPlus: false,
-  cdn: !!process.env.CDN
+  dts: true,
+  version: true,
+  library: 'VtjUtils'
 });

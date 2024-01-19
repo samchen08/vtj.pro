@@ -1,13 +1,10 @@
-export * from './version';
-export * from './util';
+export { version as VTJ_UTILS_VERSION } from './version';
+export * from './base';
 export * from './request';
 export * from './raf';
-export * from './dayjs';
-export * from './numeral';
-export * from './Storage';
-export * from './regex';
+export * from './storage';
+export * from './jsonp';
+export * from './loadScript';
+export * from './util';
 export * as cookie from './cookie';
-export * as crypto from './crypto';
 export * as url from './url';
-
-export { jsonp } from './jsonp';

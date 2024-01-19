@@ -26,7 +26,7 @@
       :options="optionsLoader"></XField>
 
     <XField
-      v-for="(item, index) of model.items"
+      v-for="(_item, index) of model.items"
       :name="`items.${index}.title`"
       :label="`项目${index + 1}`">
       <ElButton style="margin-left: 10px" @click="onDelItem(index)">
@@ -40,9 +40,9 @@
   </XForm>
 </template>
 <script lang="ts" setup>
-  import { ElUpload, ElButton, ElMessage, ElIcon } from 'element-plus';
+  import { ElButton } from 'element-plus';
   import { reactive, ref } from 'vue';
-  import { XField, XForm } from '@vtj/ui';
+  import { XField, XForm } from '@vtj/web';
 
   const form = ref();
   const inline = ref(false);

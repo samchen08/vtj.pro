@@ -1,6 +1,6 @@
 import { computed } from 'vue';
-import { ElTooltipProps, BadgeProps } from 'element-plus';
-import { ActionDropdown, ActionProps } from './types';
+import type { ElTooltipProps, BadgeProps } from 'element-plus';
+import type { ActionDropdown, ActionProps } from './types';
 
 export function useTooltip(props: ActionProps) {
   return computed<Partial<ElTooltipProps> | undefined>(() => {
@@ -32,4 +32,3 @@ export function useDropdown(props: ActionProps) {
     return undefined;
   });
 }
-

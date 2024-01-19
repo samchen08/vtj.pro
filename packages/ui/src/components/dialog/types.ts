@@ -1,13 +1,13 @@
-import {
+import type {
   PropType,
   VNode,
   DefineComponent,
   ComponentInternalInstance
 } from 'vue';
-import { Position } from '@vueuse/core';
-import { ComponentPropsType, BaseSize } from '../shared';
-import { IconParam } from '../';
-import {
+import type { Position } from '@vueuse/core';
+import type { ComponentPropsType, BaseSize } from '../shared';
+import type { IconParam } from '../';
+import type {
   DraggableOptions,
   ResizableOptions,
   UseMouseInElementReturn
@@ -64,18 +64,20 @@ export const dialogProps = {
   },
   maximizable: {
     type: Boolean,
-    default: true
+    default: false
   },
   minimizable: {
     type: Boolean,
-    default: true
+    default: false
   },
   mode: {
     type: String as PropType<DialogMode>,
     default: 'normal'
   },
   content: {
-    type: Object as PropType<VNode | DefineComponent<any, any, any, any>>
+    type: Object as PropType<
+      VNode | DefineComponent<any, any, any, any> | Record<string, any>
+    >
   },
   src: {
     type: String

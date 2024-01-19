@@ -1,0 +1,25 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "jsxImportSource": "vue",
+    "noEmit": true,
+    // Required in Vue projects
+    "jsx": "preserve",
+    "moduleResolution": "bundler",
+    "lib": [
+      // Should target at least ES2016 in Vue 3
+      // Support for newer versions of language built-ins are
+      // left for the users to include, because that would require:
+      //   - either the project doesn't need to support older versions of browsers;
+      //   - or the project has properly included the necessary polyfills.
+      "ES2020",
+      "DOM",
+      "DOM.Iterable"
+      // No `ScriptHost` because Vue 3 dropped support for IE
+    ],
+    "types": [
+      "vite/client",
+      "vitest/globals"
+    ]
+  }
+}

@@ -12,7 +12,7 @@
 </template>
 <script lang="ts" setup>
   import { ElSelect, ElOption } from 'element-plus';
-  import { FieldOption } from '../types';
+  import type { FieldOption } from '../types';
   export interface Props {
     options?: FieldOption[];
   }

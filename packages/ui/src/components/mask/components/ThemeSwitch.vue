@@ -8,7 +8,7 @@
 </template>
 <script lang="ts" setup>
   import { ElSwitch } from 'element-plus';
-  import { Sunny, Moon } from '@element-plus/icons-vue';
+  import { Sunny, Moon } from '@vtj/icons';
   import { useDark } from '@vueuse/core';
   const isDark = useDark();
 </script>

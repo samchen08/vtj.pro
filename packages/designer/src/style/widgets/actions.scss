@@ -1,0 +1,20 @@
+@use '../core' as *;
+
+@include b(actions-widget) {
+  padding: 0 10px;
+  .el-button + .el-button,
+  .el-dropdown + .el-dropdown {
+    margin-left: 5px;
+  }
+  .el-button:focus-visible {
+    outline: none;
+  }
+  .el-dropdown .el-dropdown__caret-button {
+    width: 20px;
+  }
+  .el-button-group {
+    .el-button {
+      margin-left: 0 !important;
+    }
+  }
+}

@@ -46,9 +46,9 @@
 <script lang="ts" setup>
   import { ElSubMenu, ElMenuItem, ElBadge } from 'element-plus';
   import { XIcon } from '../';
-  import { MenuDataItem, SubMenuProps, MenuBadge } from './types';
+  import type { MenuDataItem, SubMenuProps, MenuBadge } from './types';
   import { XMenuItem as ChildMenuItem } from './components';
-  import { getCurrentInstance, DefineComponent } from 'vue';
+  import { getCurrentInstance, type DefineComponent } from 'vue';
 
   export interface Props {
     item: MenuDataItem;

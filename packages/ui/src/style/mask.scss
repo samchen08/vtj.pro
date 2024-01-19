@@ -27,6 +27,12 @@
     overflow: auto;
     padding: 10px;
   }
+
+  @include when(disabled) {
+    @include e(content) {
+      height: 100%;
+    }
+  }
 }
 
 @include b(mask-brand) {
@@ -322,6 +328,7 @@
     border-bottom: none !important;
     .el-tabs__item.is-active {
       background-color: getCssVar('bg-color');
+      border-radius: 2px;
     }
     .x-icon {
       pointer-events: none;

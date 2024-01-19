@@ -1,6 +1,6 @@
-import { PropType } from 'vue';
-import { ComponentPropsType, BaseSize } from '../shared';
-import { FormRules } from 'element-plus';
+import type { PropType } from 'vue';
+import type { ComponentPropsType, BaseSize } from '../shared';
+import type { FormRules } from 'element-plus';
 
 export const dialogFormProps = {
   modelValue: {
