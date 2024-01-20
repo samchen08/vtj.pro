@@ -3,6 +3,9 @@
   "include": [
     "src"
   ],
+  "exclude": [
+    "temlates"
+  ],
   "references": [
     {
       "path": "./tsconfig.node.json"

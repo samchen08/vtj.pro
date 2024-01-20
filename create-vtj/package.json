@@ -1,7 +1,7 @@
 {
   "name": "create-vtj",
   "private": false,
-  "version": "0.7.3",
+  "version": "0.7.5",
   "type": "module",
   "scripts": {
     "build": "unbuild"
@@ -25,7 +25,9 @@
   "files": [
     "dist",
     "templates",
-    "index.js"
+    "index.js",
+    ".gitignore",
+    "**/.gitignore"
   ],
   "gitHead": "b65d1b19322cbd0721173d094db1b5ece018d980",
   "publishConfig": {
