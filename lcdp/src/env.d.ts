@@ -6,12 +6,6 @@ declare module '*.vue' {
   export default component;
 }
 
-declare module 'vue-router' {
-  interface RouteMeta {
-    mask?: boolean;
-  }
-}
-
 declare namespace NodeJS {
   interface ProcessEnv {
     [key: string]: any;
