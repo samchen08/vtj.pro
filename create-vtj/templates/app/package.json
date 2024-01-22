@@ -8,7 +8,6 @@
     "setup": "npm install --unsafe-perm --registry=https://registry.npmmirror.com",
     "dev": "cross-env ENV_TYPE=local vite",
     "build": "npm run build:prod",
-    "build:dev": "vue-tsc && cross-env ENV_TYPE=dev vite build",
     "build:sit": "vue-tsc && cross-env ENV_TYPE=sit vite build",
     "build:uat": "vue-tsc && cross-env ENV_TYPE=uat vite build",
     "build:pre": "vue-tsc && cross-env ENV_TYPE=pre vite build",

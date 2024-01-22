@@ -28,7 +28,7 @@ const request = new Request({
   }
 });
 
-const createApi = (url: string = '/vtj/local/api/${type}.json') => {
+const createApi = (url: string = '/vtj/local/repository/${type}.json') => {
   return (type: string, data: any) => {
     return request.send({
       url,
@@ -123,8 +123,11 @@ export class BaseService implements Service {
     ));
   }
 
-  async getRaw(project: ProjectSchema, dsl: BlockSchema): Promise<string> {
-    return await this.api('getRaw', { project, dsl }).catch(() => '');
+  async genVueContent(
+    project: ProjectSchema,
+    dsl: BlockSchema
+  ): Promise<string> {
+    return await this.api('genVueContent', { project, dsl }).catch(() => '');
   }
 
   async createRawPage(file: PageFile): Promise<boolean> {

@@ -25,6 +25,7 @@ import {
 import { ContextMode } from '../constants';
 import { createRenderer, createLoader } from '../render';
 import { PageContainer } from './page';
+import { StartupContainer } from './startup';
 
 export const providerKey: InjectionKey<Provider> = Symbol('Provider');
 
@@ -64,9 +65,7 @@ export class Provider extends Base {
     super();
     const {
       service,
-      mode = process.env.NODE_ENV === 'production'
-        ? ContextMode.Raw
-        : ContextMode.Runtime,
+      mode = ContextMode.Raw,
       dependencies,
       materials,
       project = {},
@@ -96,7 +95,7 @@ export class Provider extends Base {
   }
 
   async load(project: ProjectSchema) {
-    const module = this.modules['.vtj/project.json'];
+    const module = this.modules[`.vtj/projects/${project.id}.json`];
     this.project = module ? await module() : await this.service.init(project);
     if (!this.project) {
       throw new Error('project is null');
@@ -165,13 +164,11 @@ export class Provider extends Base {
       component: PageContainer
     });
 
-    if (project?.homepage) {
-      router.addRoute({
-        path: '/',
-        name: 'VtjHomepage',
-        component: PageContainer
-      });
-    }
+    router.addRoute({
+      path: '/',
+      name: 'VtjHomepage',
+      component: project?.homepage ? PageContainer : StartupContainer
+    });
   }
 
   install(app: App) {
@@ -226,10 +223,7 @@ export class Provider extends Base {
       logger.warn(`Can not find file: ${id}`);
       return null;
     }
-    const rawPath =
-      file.type === 'page' && !!(file as PageFile).raw
-        ? `/src/views/${id}.vue`
-        : `.vtj/raw/${id}.vue`;
+    const rawPath = `.vtj/vue/${id}.vue`;
     const rawModule = this.modules[rawPath];
     if (rawModule) {
       return (await rawModule())?.default;
@@ -285,10 +279,7 @@ export function useProvider(options: UseProviderOptions = {}): Provider {
   if (!provider) {
     throw new Error('Can not find provider');
   }
-  if (
-    provider.mode === ContextMode.Runtime &&
-    process.env.NODE_ENV === 'development'
-  ) {
+  if (provider.mode === ContextMode.Raw) {
     const { id, version } = options;
     if (id && version) {
       (async () => {

@@ -155,7 +155,7 @@ const aliasPlugin = function (options: DevPluginOptions): Plugin {
 
 export function createDevPlugin(options: Partial<DevPluginOptions> = {}) {
   const opts: DevPluginOptions = {
-    baseURL: '/vtj/local/api',
+    baseURL: '/vtj/local/repository',
     copy: true,
     server: true,
     staticBase: '/',

@@ -262,7 +262,8 @@ export class ProjectModel {
    * @param silent
    */
   createPage(page: PageFile, parentId?: string, silent: boolean = false) {
-    page.id = page.id || uid();
+    // 源码文件用name作为文件名
+    page.id = page.raw ? page.name : page.id || uid();
     page.type = 'page';
     if (page.dir) {
       page.children = [];
@@ -291,7 +292,7 @@ export class ProjectModel {
     }
 
     // 没有打开任何文件时，自动打开新建的页面
-    if (!this.currentFile) {
+    if (!this.currentFile && !page.dir) {
       this.active(page, silent);
     }
 
