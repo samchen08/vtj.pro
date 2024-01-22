@@ -82,7 +82,7 @@
       border: 1px dashed var(--el-border-color);
       border-radius: 4px;
       text-align: center;
-      line-height: 48px;
+      line-height: 50px;
       &:hover {
         border: 1px solid #409eff;
         cursor: pointer;
@@ -93,7 +93,7 @@
         border: none;
       }
       & + .x-icon {
-        margin-left: 0;
+        margin-left: 5px;
       }
     }
   }

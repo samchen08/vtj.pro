@@ -28,3 +28,4 @@ coverage
 dist
 dist-ssr
 *.local
+.vtj/logs

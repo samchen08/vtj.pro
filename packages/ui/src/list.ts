@@ -16,6 +16,7 @@ import {
   XDataItem,
   XChart,
   XList,
+  XStartup,
   XTest
 } from './components';
 
@@ -36,5 +37,6 @@ export default [
   XDataItem,
   XChart,
   XList,
+  XStartup,
   XTest
 ] as DefineComponent<any, any, any, any>[];

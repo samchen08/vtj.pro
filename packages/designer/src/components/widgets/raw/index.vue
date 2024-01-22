@@ -35,7 +35,10 @@
     async (v) => {
       const project = engine.project.value;
       if (project && v) {
-        content.value = await engine.service.getRaw(project.toDsl(), v.toDsl());
+        content.value = await engine.service.genVueContent(
+          project.toDsl(),
+          v.toDsl()
+        );
       } else {
         content.value = '';
       }

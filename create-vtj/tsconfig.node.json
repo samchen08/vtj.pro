@@ -9,6 +9,6 @@
     "build.config.ts"
   ],
   "exclude": [
-    "temlates"
+    "templates"
   ],
 }

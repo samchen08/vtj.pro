@@ -40,7 +40,7 @@ export async function createEmptyPage(file: PageFile) {
     <template>
       <div>
         <h3>源码模式页面</h3>
-        <div>文件路径：/src/views/${file.id}.vue</div>
+        <div>文件路径：/.vtj/vue/${file.id}.vue</div>
       </div>
     </template>
     <script lang="ts" setup>

@@ -219,7 +219,7 @@ export class Engine extends Base {
       const file = e.data as BlockFile | PageFile;
       if (project.isPageFile(file) && !!file.raw) {
         await this.service.createRawPage(file);
-        message(`源码文件已经生成：@/views/${file.id}.vue`, 'success');
+        message(`源码文件已经生成：/.vtj/vue/${file.id}.vue`, 'success');
       } else {
         file.dsl && (await this.service.saveFile(file.dsl));
       }
@@ -242,8 +242,10 @@ export class Engine extends Base {
       if (file && project.isPageFile(file) && !!file.raw) {
         await this.service.removeRawPage(file.id);
       } else {
-        await this.service.removeFile(file.id);
-        await this.service.removeHistory(file.id);
+        if (!(file as PageFile).dir) {
+          await this.service.removeFile(file.id);
+          await this.service.removeHistory(file.id);
+        }
       }
     }
 
