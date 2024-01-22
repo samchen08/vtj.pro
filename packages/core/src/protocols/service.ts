@@ -35,7 +35,7 @@ export abstract class Service {
     project: ProjectSchema,
     file: PageFile | BlockFile
   ): Promise<boolean>;
-  public abstract getRaw(
+  public abstract genVueContent(
     project: ProjectSchema,
     dsl: BlockSchema
   ): Promise<string>;

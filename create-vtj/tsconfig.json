@@ -3,6 +3,9 @@
   "include": [
     "src"
   ],
+  "exclude": [
+    "templates"
+  ],
   "references": [
     {
       "path": "./tsconfig.node.json"

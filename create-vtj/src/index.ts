@@ -5,7 +5,7 @@ import { red } from 'kolorist';
 import { emptyDirSync, pathExistsSync, ensureDirSync } from '@vtj/node';
 import { createOptions, templates } from './options';
 import { pkgFromUserAgent } from './utils';
-import { createLibrary, createApp } from './generator';
+import { createProject } from './generator';
 const cwd = process.cwd();
 const argv = minimist<{
   t?: string;
@@ -46,24 +46,12 @@ async function init() {
   } else {
     ensureDirSync(root);
   }
-  const templatePath = getTemplatePath(templateName);
 
-  switch (templateName) {
-    case 'library':
-      createLibrary({
-        name: options.packageName,
-        template: templatePath,
-        root
-      });
-      break;
-    case 'app':
-      createApp({
-        name: options.packageName,
-        template: templatePath,
-        root
-      });
-      break;
-  }
+  createProject({
+    name: options.packageName,
+    template: getTemplatePath(templateName),
+    root
+  });
 
   console.log(`\nDone. Now run:\n`);
   if (root !== cwd) {
@@ -80,13 +68,6 @@ async function init() {
       break;
   }
   console.log();
-
-  // console.log({
-  //   root,
-  //   options,
-  //   templatePath,
-  //   pkgManager
-  // });
 }
 
 init().catch((err) => {

@@ -1,0 +1,62 @@
+@use 'core' as *;
+
+@include b(startup) {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  @include e(wrapper) {
+    padding: 40px;
+    max-width: 1000px;
+    min-width: 800px;
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+
+    border-radius: 10px;
+    box-shadow: var(--el-box-shadow-lighter);
+  }
+
+  @include e(name) {
+    max-width: 576px;
+    line-height: 56px;
+    font-size: 48px;
+    font-weight: 700;
+    white-space: pre-wrap;
+    .clip {
+      background: -webkit-linear-gradient(120deg, #bd34fe 30%, #41d1ff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+  }
+
+  @include e(text) {
+    max-width: 576px;
+    line-height: 56px;
+    font-size: 48px;
+    font-weight: 700;
+    white-space: pre-wrap;
+    color: rgba(60, 60, 67);
+  }
+
+  @include e(tagline) {
+    padding-top: 12px;
+    max-width: 576px;
+    line-height: 32px;
+    font-size: 20px;
+    font-weight: 500;
+    white-space: pre-wrap;
+    color: rgba(60, 60, 67, 0.78);
+  }
+
+  @include e(actions) {
+    padding-top: 32px;
+    display: flex;
+    flex-wrap: wrap;
+    margin: -6px;
+    justify-content: flex-end;
+    border-top: 1px solid rgba(60, 60, 67, 0.08);
+    margin-top: 32px;
+  }
+}

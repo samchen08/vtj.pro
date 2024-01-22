@@ -70,7 +70,7 @@ const controller: Controller = {
   },
   getRaw: async (req: ApiRequest) => {
     const { project, dsl } = req.data || {};
-    return service.getRaw(project, dsl);
+    return service.genVueContent(project, dsl);
   },
   createRawPage: async (req: ApiRequest) => {
     const file = req.data as PageFile;

@@ -1,11 +1,5 @@
 import { createRouter, createWebHashHistory } from 'vue-router';
 
-declare module 'vue-router' {
-  interface RouteMeta {
-    mask?: boolean;
-  }
-}
-
 const router = createRouter({
   history: createWebHashHistory(),
   routes: [

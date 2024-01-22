@@ -7,6 +7,13 @@ import type {
 
 import { type StaticPluginOption } from '../plugins/static';
 
+declare namespace NodeJS {
+  interface ProcessEnv {
+    NODE_ENV: 'development' | 'production';
+    ENV_TYPE: 'local' | 'dev' | 'sit' | 'uat' | 'live';
+  }
+}
+
 /**
  * 代理配置
  */
