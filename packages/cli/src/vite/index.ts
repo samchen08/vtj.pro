@@ -51,7 +51,7 @@ export function createViteConfig(
   const opts = Object.assign({}, defaults, options);
 
   const envType: EnvType = (process.env.ENV_TYPE || 'local') as EnvType;
-  const envConfig = getConfig(opts.envPath || '/', envType);
+  const envConfig = getConfig(opts.envPath || './', envType);
   const define = createEnv(envType, envConfig);
 
   const alias = {

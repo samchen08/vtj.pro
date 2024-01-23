@@ -8,7 +8,7 @@
     "setup": "npm install --unsafe-perm --registry=https://registry.npmmirror.com",
     "dev": "cross-env ENV_TYPE=local vite",
     "build": "vue-tsc && vite build && npm run copy",
-    "build:gitee": "vue-tsc && cross-env BUILD_TYPE=gitee vite build && npm run copy",
+    "build:gitee": "vue-tsc && cross-env ENV_TYPE=gitee vite build && npm run copy",
     "preview": "vite preview",
     "copy": "vtj copy dist ../docs/dist/lcdp && vtj copy dist/@vtj ../docs/dist/@vtj"
   },
