@@ -1,11 +1,12 @@
 <template>
   <div>
-    <component :is="renderer" title="456" subtitle="subtitle"></component>
+    <component :is="renderer"></component>
   </div>
 </template>
 <script lang="ts" setup>
   import { reactive } from 'vue';
   import { createRenderer, type BlockSchema } from '@vtj/pro';
+  import { XAction } from '@vtj/web';
 
   const dsl: BlockSchema = reactive({
     name: 'Test',
@@ -21,16 +22,15 @@
     ],
     nodes: [
       {
-        name: 'div',
-        children: {
-          type: 'JSExpression',
-          value: '`title:${this.$props.title}`'
+        name: 'XAction',
+        props: {
+          label: 'ABC'
         }
       }
     ]
   });
 
-  const { renderer } = createRenderer({ dsl });
+  const { renderer } = createRenderer({ dsl, components: { XAction } });
 
   console.log(renderer);
 

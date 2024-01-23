@@ -1,6 +1,10 @@
 <template>
   <Panel :title="props.title" class="v-sub-panel" size="small" :fit="false">
-    <ElForm size="small" label-width="80px" @keydown.enter.prevent.stop>
+    <ElForm
+      class="v-properties-widget__form"
+      size="small"
+      label-width="90px"
+      @keydown.enter.prevent.stop>
       <SetterWrapper
         v-for="item of props.items"
         v-bind="item"

@@ -1,5 +1,5 @@
 import { createViteConfig } from '@vtj/cli';
-import { createDevPlugin } from '@vtj/local';
+import { createDevTools } from '@vtj/local';
 
 export default createViteConfig({
   base: './',
@@ -14,7 +14,7 @@ export default createViteConfig({
     'monaco-editor/esm/vs/language/typescript/ts.worker'
   ],
   plugins: [
-    createDevPlugin({
+    createDevTools({
       link: false,
       copy: true,
       devMode: true

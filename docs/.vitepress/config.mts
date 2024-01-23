@@ -13,14 +13,14 @@ let outDir = './dist';
 
 if (buildType === 'gitee') {
   base = '/vtj/';
-  outDir = './dist/vtj';
+  // outDir = './dist/vtj';
 }
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
   lang: 'zh-CN',
   base,
-  title: '低代码引擎',
+  title: 'VTJ 低代码引擎',
   description: 'VTJ 是一款基于 Vue3 + Typescript 的低代码开发工具.',
   srcDir: 'src',
   cacheDir: './cache',
@@ -28,6 +28,9 @@ export default defineConfig({
     // https://vitepress.dev/reference/default-theme-config
     nav,
     sidebar,
+    search: {
+      provider: 'local'
+    },
     socialLinks: [
       { icon: { svg: gitee }, link: 'https://gitee.com/newgateway/vtj' }
     ],

@@ -68,7 +68,7 @@ const controller: Controller = {
     const project = req.data || {};
     return service.publish(project);
   },
-  getRaw: async (req: ApiRequest) => {
+  genVueContent: async (req: ApiRequest) => {
     const { project, dsl } = req.data || {};
     return service.genVueContent(project, dsl);
   },

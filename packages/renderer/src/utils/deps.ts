@@ -1,4 +1,5 @@
-import { isUrl } from '@vtj/utils';
+import { isUrl, url as urlUtils } from '@vtj/utils';
+import { version } from '../version';
 
 import type { Dependencie, MaterialDescription } from '@vtj/core';
 
@@ -19,11 +20,20 @@ export function isJSUrl(url: string): boolean {
   return /\.js$/.test(url);
 }
 export function createAssetScripts(scripts: string[]): string {
-  return scripts.map((url) => `<script src="${url}"></script>`).join('');
+  return scripts
+    .map(
+      (url) => `<script src="${urlUtils.append(url, { v: version })}"></script>`
+    )
+    .join('');
 }
 
 export function createAssetsCss(css: string[] = []) {
-  return css.map((url) => `<link rel="stylesheet" href="${url}" />`).join('');
+  return css
+    .map(
+      (url) =>
+        `<link rel="stylesheet" href="${urlUtils.append(url, { v: version })}" />`
+    )
+    .join('');
 }
 
 export function parseDeps(deps: Dependencie[], basePath: string) {

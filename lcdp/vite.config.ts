@@ -1,11 +1,11 @@
 import { createViteConfig } from '@vtj/cli';
-import { createDevPlugin } from '@vtj/pro/vite';
+import { createDevTools } from '@vtj/pro/vite';
 
 export default createViteConfig({
   base: './',
   visualizer: false,
   plugins: [
-    createDevPlugin({
+    createDevTools({
       devMode: true,
       packagesDir: '../packages',
       link: './link.js',

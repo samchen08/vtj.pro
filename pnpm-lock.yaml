@@ -25,7 +25,7 @@ importers:
         version: 3.0.3
       pnpm:
         specifier: ~8.14.0
-        version: 8.14.1
+        version: 8.14.2
       ts-node:
         specifier: ~10.9.2
         version: 10.9.2(@types/node@20.11.5)(typescript@5.3.3)
@@ -150,7 +150,7 @@ importers:
   create-vtj:
     dependencies:
       '@vtj/node':
-        specifier: ^0.7.2
+        specifier: ^0.7.3
         version: link:../packages/node
       cross-spawn:
         specifier: ~7.0.3
@@ -204,27 +204,27 @@ importers:
     dependencies:
       '@vitepress-demo-preview/component':
         specifier: ~2.3.2
-        version: 2.3.2(vitepress@1.0.0-rc.39)(vue@3.4.15)
+        version: 2.3.2(vitepress@1.0.0-rc.40)(vue@3.4.15)
       '@vitepress-demo-preview/plugin':
         specifier: ~1.2.2
-        version: 1.2.2(markdown-it-container@3.0.0)(vitepress@1.0.0-rc.39)(vue@3.4.15)
+        version: 1.2.2(markdown-it-container@3.0.0)(vitepress@1.0.0-rc.40)(vue@3.4.15)
       '@vtj/icons':
-        specifier: ^0.7.6
+        specifier: ^0.7.7
         version: link:../packages/icons
       '@vtj/pro':
-        specifier: ^0.7.6
+        specifier: ^0.7.7
         version: link:../platforms/pro
       '@vtj/renderer':
-        specifier: ^0.7.6
+        specifier: ^0.7.7
         version: link:../packages/renderer
       '@vtj/ui':
-        specifier: ^0.7.6
+        specifier: ^0.7.7
         version: link:../packages/ui
       '@vtj/utils':
-        specifier: ^0.7.6
+        specifier: ^0.7.7
         version: link:../packages/utils
       '@vtj/web':
-        specifier: ^0.7.6
+        specifier: ^0.7.7
         version: link:../platforms/web
       vue:
         specifier: ~3.4.14
@@ -234,11 +234,11 @@ importers:
         version: 4.2.5(vue@3.4.15)
     devDependencies:
       '@vtj/cli':
-        specifier: ^0.7.4
+        specifier: ^0.7.5
         version: link:../packages/cli
       vitepress:
-        specifier: 1.0.0-rc.39
-        version: 1.0.0-rc.39(@algolia/client-search@4.22.1)(@types/node@20.11.5)(axios@1.6.5)(search-insights@2.13.0)(typescript@5.3.3)
+        specifier: 1.0.0-rc.40
+        version: 1.0.0-rc.40(@algolia/client-search@4.22.1)(@types/node@20.11.5)(axios@1.6.5)(search-insights@2.13.0)(typescript@5.3.3)
 
   lcdp:
     dependencies:
@@ -272,8 +272,8 @@ importers:
         version: 0.2.1
     devDependencies:
       '@types/crypto-js':
-        specifier: ~4.2.1
-        version: 4.2.1
+        specifier: ~4.2.2
+        version: 4.2.2
       crypto-js:
         specifier: ~4.2.0
         version: 4.2.0
@@ -341,7 +341,7 @@ importers:
         specifier: ~1.2.1
         version: 1.2.1(vitest@1.2.1)
       '@vtj/node':
-        specifier: ^0.7.2
+        specifier: ^0.7.3
         version: link:../node
       '@vue/test-utils':
         specifier: ~2.4.3
@@ -395,55 +395,55 @@ importers:
   packages/coder:
     dependencies:
       '@vtj/base':
-        specifier: ^0.7.2
+        specifier: ^0.7.3
         version: link:../base
       '@vtj/core':
-        specifier: ^0.7.6
+        specifier: ^0.7.7
         version: link:../core
       prettier:
         specifier: ~3.2.1
         version: 3.2.4
     devDependencies:
       '@vtj/cli':
-        specifier: ^0.7.4
+        specifier: ^0.7.5
         version: link:../cli
 
   packages/core:
     dependencies:
       '@vtj/base':
-        specifier: ^0.7.2
+        specifier: ^0.7.3
         version: link:../base
       mitt:
         specifier: ~3.0.1
         version: 3.0.1
     devDependencies:
       '@vtj/cli':
-        specifier: ^0.7.4
+        specifier: ^0.7.5
         version: link:../cli
 
   packages/designer:
     dependencies:
       '@vtj/core':
-        specifier: ^0.7.6
+        specifier: ^0.7.7
         version: link:../core
       '@vtj/icons':
-        specifier: ^0.7.6
+        specifier: ^0.7.7
         version: link:../icons
       '@vtj/renderer':
-        specifier: ^0.7.6
+        specifier: ^0.7.7
         version: link:../renderer
       '@vtj/ui':
-        specifier: ^0.7.6
+        specifier: ^0.7.7
         version: link:../ui
       '@vtj/utils':
-        specifier: ^0.7.6
+        specifier: ^0.7.7
         version: link:../utils
       monaco-editor:
         specifier: ~0.45.0
         version: 0.45.0
     devDependencies:
       '@vtj/cli':
-        specifier: ^0.7.4
+        specifier: ^0.7.5
         version: link:../cli
       vue:
         specifier: ~3.4.15
@@ -459,7 +459,7 @@ importers:
         version: 2.3.1(vue@3.4.15)
     devDependencies:
       '@vtj/cli':
-        specifier: ^0.7.4
+        specifier: ^0.7.5
         version: link:../cli
       vue:
         specifier: ~3.4.15
@@ -471,17 +471,17 @@ importers:
   packages/local:
     dependencies:
       '@vtj/coder':
-        specifier: ^0.7.6
+        specifier: ^0.7.7
         version: link:../coder
       '@vtj/core':
-        specifier: ^0.7.6
+        specifier: ^0.7.7
         version: link:../core
       '@vtj/node':
-        specifier: ^0.7.2
+        specifier: ^0.7.3
         version: link:../node
     devDependencies:
       '@vtj/cli':
-        specifier: ^0.7.4
+        specifier: ^0.7.5
         version: link:../cli
       unbuild:
         specifier: ~2.0.0
@@ -496,16 +496,16 @@ importers:
   packages/materials:
     devDependencies:
       '@vtj/cli':
-        specifier: ^0.7.4
+        specifier: ^0.7.5
         version: link:../cli
       '@vtj/core':
-        specifier: ^0.7.6
+        specifier: ^0.7.7
         version: link:../core
       '@vtj/ui':
-        specifier: ^0.7.6
+        specifier: ^0.7.7
         version: link:../ui
       '@vtj/utils':
-        specifier: ^0.7.6
+        specifier: ^0.7.7
         version: link:../utils
       ant-design-vue:
         specifier: ~4.1.0
@@ -514,8 +514,8 @@ importers:
         specifier: ~5.4.3
         version: 5.4.3
       element-plus:
-        specifier: ~2.5.2
-        version: 2.5.2(vue@3.4.15)
+        specifier: ~2.5.3
+        version: 2.5.3(vue@3.4.15)
       vant:
         specifier: ~4.8.3
         version: 4.8.3(vue@3.4.15)
@@ -532,7 +532,7 @@ importers:
         specifier: ~11.0.4
         version: 11.0.4
       '@vtj/base':
-        specifier: ^0.7.2
+        specifier: ^0.7.3
         version: link:../base
       axios:
         specifier: ~1.6.4
@@ -551,23 +551,23 @@ importers:
   packages/renderer:
     dependencies:
       '@vtj/core':
-        specifier: ^0.7.6
+        specifier: ^0.7.7
         version: link:../core
       '@vtj/icons':
-        specifier: ^0.7.6
+        specifier: ^0.7.7
         version: link:../icons
       '@vtj/ui':
-        specifier: ^0.7.6
+        specifier: ^0.7.7
         version: link:../ui
       '@vtj/utils':
-        specifier: ^0.7.6
+        specifier: ^0.7.7
         version: link:../utils
       zen-logger:
         specifier: ~1.1.4
         version: 1.1.4
     devDependencies:
       '@vtj/cli':
-        specifier: ^0.7.4
+        specifier: ^0.7.5
         version: link:../cli
       vue:
         specifier: ~3.4.15
@@ -585,10 +585,10 @@ importers:
         specifier: ~5.1.0
         version: 5.1.0
       '@vtj/icons':
-        specifier: ^0.7.6
+        specifier: ^0.7.7
         version: link:../icons
       '@vtj/utils':
-        specifier: ^0.7.6
+        specifier: ^0.7.7
         version: link:../utils
       '@vueuse/core':
         specifier: ~10.7.0
@@ -597,11 +597,11 @@ importers:
         specifier: ~5.4.3
         version: 5.4.3
       element-plus:
-        specifier: ~2.5.2
-        version: 2.5.2(vue@3.4.15)
+        specifier: ~2.5.3
+        version: 2.5.3(vue@3.4.15)
     devDependencies:
       '@vtj/cli':
-        specifier: ^0.7.4
+        specifier: ^0.7.5
         version: link:../cli
       vue:
         specifier: ~3.4.15
@@ -613,14 +613,14 @@ importers:
   packages/utils:
     dependencies:
       '@vtj/base':
-        specifier: ^0.7.2
+        specifier: ^0.7.3
         version: link:../base
     devDependencies:
       '@types/js-cookie':
         specifier: ~3.0.6
         version: 3.0.6
       '@vtj/cli':
-        specifier: ^0.7.4
+        specifier: ^0.7.5
         version: link:../cli
       axios:
         specifier: ~1.6.4
@@ -638,32 +638,32 @@ importers:
   platforms/pro:
     dependencies:
       '@vtj/core':
-        specifier: ^0.7.6
+        specifier: ^0.7.7
         version: link:../../packages/core
       '@vtj/designer':
-        specifier: ^0.7.6
+        specifier: ^0.7.7
         version: link:../../packages/designer
       '@vtj/local':
-        specifier: ^0.7.6
+        specifier: ^0.7.7
         version: link:../../packages/local
       '@vtj/materials':
-        specifier: ^0.7.6
+        specifier: ^0.7.7
         version: link:../../packages/materials
       '@vtj/renderer':
-        specifier: ^0.7.6
+        specifier: ^0.7.7
         version: link:../../packages/renderer
     devDependencies:
       '@vtj/cli':
-        specifier: ^0.7.4
+        specifier: ^0.7.5
         version: link:../../packages/cli
       '@vtj/icons':
-        specifier: ^0.7.6
+        specifier: ^0.7.7
         version: link:../../packages/icons
       '@vtj/ui':
-        specifier: ^0.7.6
+        specifier: ^0.7.7
         version: link:../../packages/ui
       '@vtj/utils':
-        specifier: ^0.7.6
+        specifier: ^0.7.7
         version: link:../../packages/utils
       vue:
         specifier: ~3.4.15
@@ -675,20 +675,20 @@ importers:
   platforms/web:
     dependencies:
       '@vtj/icons':
-        specifier: ^0.7.6
+        specifier: ^0.7.7
         version: link:../../packages/icons
       '@vtj/renderer':
-        specifier: ^0.7.6
+        specifier: ^0.7.7
         version: link:../../packages/renderer
       '@vtj/ui':
-        specifier: ^0.7.6
+        specifier: ^0.7.7
         version: link:../../packages/ui
       '@vtj/utils':
-        specifier: ^0.7.6
+        specifier: ^0.7.7
         version: link:../../packages/utils
     devDependencies:
       '@vtj/cli':
-        specifier: ^0.7.4
+        specifier: ^0.7.5
         version: link:../../packages/cli
 
 packages:
@@ -2341,7 +2341,7 @@ packages:
       fs-extra: 10.1.0
       jest: 27.0.4(ts-node@10.9.2)
       jest-environment-node: 27.5.1
-      jsonc-parser: 3.2.0
+      jsonc-parser: 3.2.1
       licia: 1.39.2
       merge: 2.1.1
       qrcode-reader: 1.0.4
@@ -2386,7 +2386,7 @@ packages:
       fast-glob: 3.3.2
       fs-extra: 10.1.0
       hash-sum: 2.0.0
-      jsonc-parser: 3.2.0
+      jsonc-parser: 3.2.1
       magic-string: 0.30.5
       merge: 2.1.1
       mime: 3.0.0
@@ -2766,7 +2766,7 @@ packages:
       fast-glob: 3.3.2
       fs-extra: 10.1.0
       hash-sum: 2.0.0
-      jsonc-parser: 3.2.0
+      jsonc-parser: 3.2.1
       magic-string: 0.30.5
       picocolors: 1.0.0
       terser: 5.27.0
@@ -5058,8 +5058,8 @@ packages:
       '@types/node': 20.11.5
     dev: false
 
-  /@types/crypto-js@4.2.1:
-    resolution: {integrity: sha512-FSPGd9+OcSok3RsM0UZ/9fcvMOXJ1ENE/ZbLfOPlBWj7BgXtEAM8VYfTtT760GiLbQIMoVozwVuisjvsVwqYWw==}
+  /@types/crypto-js@4.2.2:
+    resolution: {integrity: sha512-sDOLlVbHhXpAUAL0YHDUUwDZf3iN4Bwi4W6a0W0b+QcAezUbRtH4FVb+9J4h+XFPW7l/gQ9F8qC7P+Ec4k8QVQ==}
     dev: true
 
   /@types/estree@1.0.5:
@@ -5264,7 +5264,7 @@ packages:
     dependencies:
       '@babel/core': 7.23.7
       '@babel/plugin-transform-typescript': 7.23.6(@babel/core@7.23.7)
-      '@vue/babel-plugin-jsx': 1.2.0(@babel/core@7.23.7)
+      '@vue/babel-plugin-jsx': 1.2.1(@babel/core@7.23.7)
       vite: 4.5.2(@types/node@20.11.5)(terser@5.27.0)
       vue: 3.4.15(typescript@5.3.3)
     transitivePeerDependencies:
@@ -5280,7 +5280,7 @@ packages:
     dependencies:
       '@babel/core': 7.23.7
       '@babel/plugin-transform-typescript': 7.23.6(@babel/core@7.23.7)
-      '@vue/babel-plugin-jsx': 1.2.0(@babel/core@7.23.7)
+      '@vue/babel-plugin-jsx': 1.2.1(@babel/core@7.23.7)
       vite: 5.0.12(@types/node@20.11.5)(sass@1.70.0)(terser@5.27.0)
       vue: 3.4.15(typescript@5.3.3)
     transitivePeerDependencies:
@@ -5307,17 +5307,17 @@ packages:
       vite: 5.0.12(@types/node@20.11.5)(sass@1.70.0)(terser@5.27.0)
       vue: 3.4.15(typescript@5.3.3)
 
-  /@vitepress-demo-preview/component@2.3.2(vitepress@1.0.0-rc.39)(vue@3.4.15):
+  /@vitepress-demo-preview/component@2.3.2(vitepress@1.0.0-rc.40)(vue@3.4.15):
     resolution: {integrity: sha512-+GCYl3eHA7uoBGZyH2nTP1uab6pHFGEdykj5bSz4Nt2carH05xomBf18kBecuK1SncSqB7kWV/6JHT2Y349NbQ==}
     peerDependencies:
       vitepress: '*'
       vue: ^3.2.0
     dependencies:
-      vitepress: 1.0.0-rc.39(@algolia/client-search@4.22.1)(@types/node@20.11.5)(axios@1.6.5)(search-insights@2.13.0)(typescript@5.3.3)
+      vitepress: 1.0.0-rc.40(@algolia/client-search@4.22.1)(@types/node@20.11.5)(axios@1.6.5)(search-insights@2.13.0)(typescript@5.3.3)
       vue: 3.4.15(typescript@5.3.3)
     dev: false
 
-  /@vitepress-demo-preview/plugin@1.2.2(markdown-it-container@3.0.0)(vitepress@1.0.0-rc.39)(vue@3.4.15):
+  /@vitepress-demo-preview/plugin@1.2.2(markdown-it-container@3.0.0)(vitepress@1.0.0-rc.40)(vue@3.4.15):
     resolution: {integrity: sha512-Gpw5fmiv8UkYStqNRcVr235NAVrXzO6MKdeuWbqvIoKzS2uLb7nhm4aL+rlXGxKOWP+UcHnpg/fl3+brUUejTw==}
     peerDependencies:
       markdown-it-container: ^3.0.0
@@ -5327,7 +5327,7 @@ packages:
       '@flypeng/tool': 5.5.1
       markdown-it: 13.0.2
       markdown-it-container: 3.0.0
-      vitepress: 1.0.0-rc.39(@algolia/client-search@4.22.1)(@types/node@20.11.5)(axios@1.6.5)(search-insights@2.13.0)(typescript@5.3.3)
+      vitepress: 1.0.0-rc.40(@algolia/client-search@4.22.1)(@types/node@20.11.5)(axios@1.6.5)(search-insights@2.13.0)(typescript@5.3.3)
       vue: 3.4.15(typescript@5.3.3)
     dev: false
 
@@ -5407,11 +5407,11 @@ packages:
       path-browserify: 1.0.1
     dev: false
 
-  /@vue/babel-helper-vue-transform-on@1.2.0:
-    resolution: {integrity: sha512-Zn6iRYAVvWl835GCcNsLUroy+jwNjH1yd83hvKNSgbiCkzeZwXvEFCC1u0lVKwoqL7z0IcrtY3dkBMuMxwB1fw==}
+  /@vue/babel-helper-vue-transform-on@1.2.1:
+    resolution: {integrity: sha512-jtEXim+pfyHWwvheYwUwSXm43KwQo8nhOBDyjrUITV6X2tB7lJm6n/+4sqR8137UVZZul5hBzWHdZ2uStYpyRQ==}
 
-  /@vue/babel-plugin-jsx@1.2.0(@babel/core@7.23.7):
-    resolution: {integrity: sha512-z0t7fjk03TqncyWYoChKQ4rWx1LXJaw1kNEDrUU5tbPWI2zkCPv2imQJOYlJ8GyTDoQ6/nD82asFcSxDRJ8YgQ==}
+  /@vue/babel-plugin-jsx@1.2.1(@babel/core@7.23.7):
+    resolution: {integrity: sha512-Yy9qGktktXhB39QE99So/BO2Uwm/ZG+gpL9vMg51ijRRbINvgbuhyJEi4WYmGRMx/MSTfK0xjgZ3/MyY+iLCEg==}
     peerDependencies:
       '@babel/core': ^7.0.0-0
     peerDependenciesMeta:
@@ -5425,16 +5425,16 @@ packages:
       '@babel/template': 7.22.15
       '@babel/traverse': 7.23.7
       '@babel/types': 7.23.6
-      '@vue/babel-helper-vue-transform-on': 1.2.0
-      '@vue/babel-plugin-resolve-type': 1.2.0-beta.0(@babel/core@7.23.7)
+      '@vue/babel-helper-vue-transform-on': 1.2.1
+      '@vue/babel-plugin-resolve-type': 1.2.1(@babel/core@7.23.7)
       camelcase: 6.3.0
       html-tags: 3.3.1
       svg-tags: 1.0.0
     transitivePeerDependencies:
       - supports-color
 
-  /@vue/babel-plugin-resolve-type@1.2.0-beta.0(@babel/core@7.23.7):
-    resolution: {integrity: sha512-zG5nXU+89UjXHVvvf0yehU0MDF1caJssCUF+bU5HWevEoR5qoRLt7wX6rNTtG/ZKHFUvB8BibIKL62Ix167Wxg==}
+  /@vue/babel-plugin-resolve-type@1.2.1(@babel/core@7.23.7):
+    resolution: {integrity: sha512-IOtnI7pHunUzHS/y+EG/yPABIAp0VN8QhQ0UCS09jeMVxgAnI9qdOzO85RXdQGxq+aWCdv8/+k3W0aYO6j/8fQ==}
     peerDependencies:
       '@babel/core': ^7.0.0-0
     dependencies:
@@ -6226,7 +6226,7 @@ packages:
     hasBin: true
     dependencies:
       caniuse-lite: 1.0.30001579
-      electron-to-chromium: 1.4.640
+      electron-to-chromium: 1.4.642
       node-releases: 2.0.14
       update-browserslist-db: 1.0.13(browserslist@4.22.2)
 
@@ -7212,11 +7212,11 @@ packages:
       jake: 10.8.7
     dev: true
 
-  /electron-to-chromium@1.4.640:
-    resolution: {integrity: sha512-z/6oZ/Muqk4BaE7P69bXhUhpJbUM9ZJeka43ZwxsDshKtePns4mhBlh8bU5+yrnOnz3fhG82XLzGUXazOmsWnA==}
+  /electron-to-chromium@1.4.642:
+    resolution: {integrity: sha512-M4+u22ZJGpk4RY7tne6W+APkZhnnhmAH48FNl8iEFK2lEgob+U5rUQsIqQhvAwCXYpfd3H20pHK/ENsCvwTbsA==}
 
-  /element-plus@2.5.2(vue@3.4.15):
-    resolution: {integrity: sha512-0Xbihy5CvpdH+OZeRPnZlfkbZS8uyLvHJiALehvw6n7nvHGrujCmdiw8NXvYhkLpRtwue/N6oBfAvMJvQSPoNA==}
+  /element-plus@2.5.3(vue@3.4.15):
+    resolution: {integrity: sha512-wmtstxaMkD6UinIgD+45CjrhbRh4u0vt+/GgxfPeMLt5pDpIVwZFjkUaVcWqqxcxd5a80HP3XlDF74fW7wim9A==}
     peerDependencies:
       vue: ^3.2.0
     dependencies:
@@ -9212,6 +9212,10 @@ packages:
 
   /jsonc-parser@3.2.0:
     resolution: {integrity: sha512-gfFQZrcTc8CnKXp6Y4/CBT3fTc0OVuDofpre4aEeEpSBPV5X5v4+Vmx+8snU7RLPrNHPKSgLxGo9YuQzz20o+w==}
+    dev: true
+
+  /jsonc-parser@3.2.1:
+    resolution: {integrity: sha512-AilxAyFOAcK5wA1+LeaySVBrHsGQvUFCDWXKpZjzaL0PqW+xfBOttn8GNtWKFWqneyMZj41MWF9Kl6iPWLwgOA==}
 
   /jsonfile@4.0.0:
     resolution: {integrity: sha512-m6F1R3z8jjlf2imQHS2Qez5sjKWQzbuuhuJ/FKYFRZvPE3PuHcSMVZzfsLhGVOkfd20obL5SWEBew5ShlquNxg==}
@@ -10745,7 +10749,7 @@ packages:
   /pkg-types@1.0.3:
     resolution: {integrity: sha512-nN7pYi0AQqJnoLPC9eHFQ8AcyaixBUOwvqc5TDnIKCMEE6I0y8P7OKA7fPexsXGCGxQDl/cmrLAp26LhcwxZ4A==}
     dependencies:
-      jsonc-parser: 3.2.0
+      jsonc-parser: 3.2.1
       mlly: 1.5.0
       pathe: 1.1.2
 
@@ -10754,8 +10758,8 @@ packages:
     engines: {node: '>=4.0.0'}
     dev: false
 
-  /pnpm@8.14.1:
-    resolution: {integrity: sha512-hWxOzZfF0/MDVOvDc80y+zcnQpXEidstD2E6HmDwEMrfuxUDbVJfOgbewYl+QhmzxPbTvo8vYvsKNmvuaqp1Mw==}
+  /pnpm@8.14.2:
+    resolution: {integrity: sha512-enyyRtKg4kQSBglRHotK2uJLIkrEWS58DaXraUiRtDU3YZECK/u475wDMkDuihoBk7Xg/gtxLgTpLzotcXC4nA==}
     engines: {node: '>=16.14'}
     hasBin: true
     dev: true
@@ -11758,23 +11762,23 @@ packages:
     resolution: {integrity: sha512-dNPAPrxSc87ua2sKJ3H5dQ/6ZaY8RNnaAqK+t0eG7p0Soi2ydiqbGOTaZCqaYvA/uZYfS1LJnemt3Q+mSfcPCg==}
     dependencies:
       ansi-sequence-parser: 1.1.1
-      jsonc-parser: 3.2.0
+      jsonc-parser: 3.2.1
       vscode-oniguruma: 1.7.0
       vscode-textmate: 8.0.0
     dev: true
 
-  /shikiji-core@0.9.19:
-    resolution: {integrity: sha512-AFJu/vcNT21t0e6YrfadZ+9q86gvPum6iywRyt1OtIPjPFe25RQnYJyxHQPMLKCCWA992TPxmEmbNcOZCAJclw==}
+  /shikiji-core@0.10.0:
+    resolution: {integrity: sha512-imG+bvRkuNlZUi2q9tMVfegRRouTpDxMFejpfF/6J+bFX3NDKtlW9T9iIAkBYnw4pcCtSwirW0AvkwlQR4wyxg==}
 
-  /shikiji-transformers@0.9.19:
-    resolution: {integrity: sha512-lGLI7Z8frQrIBbhZ74/eiJtxMoCQRbpaHEB+gcfvdIy+ZFaAtXncJGnc52932/UET+Y4GyKtwwC/vjWUCp+c/Q==}
+  /shikiji-transformers@0.10.0:
+    resolution: {integrity: sha512-x9oYybeF/XOrIc6Mm8G1gU5ezunMxdgD4WwBTKrZ5tAmFFaNIWCjwZENgRt1uR4iMi0+pGH0g9bmrbraSC41nA==}
     dependencies:
-      shikiji: 0.9.19
+      shikiji: 0.10.0
 
-  /shikiji@0.9.19:
-    resolution: {integrity: sha512-Kw2NHWktdcdypCj1GkKpXH4o6Vxz8B8TykPlPuLHOGSV8VkhoCLcFOH4k19K4LXAQYRQmxg+0X/eM+m2sLhAkg==}
+  /shikiji@0.10.0:
+    resolution: {integrity: sha512-1dAzIOWbtM7B4Sem5BvE+CEdsebDsRA34SfCxM4qJ4PLgR73ZD92VEtNfbcoZ3xOLSqvtV0J9i4WpCgVsmQteg==}
     dependencies:
-      shikiji-core: 0.9.19
+      shikiji-core: 0.10.0
 
   /side-channel@1.0.4:
     resolution: {integrity: sha512-q5XPytqFEIKHkGdiMIrY10mvLRvnQh42/+GoBlFW3b2LXLE2xxJpZFdm94we0BaoV3RwJyGqg5wS7epxTv0Zvw==}
@@ -12872,8 +12876,8 @@ packages:
     optionalDependencies:
       fsevents: 2.3.3
 
-  /vitepress@1.0.0-rc.39(@algolia/client-search@4.22.1)(@types/node@20.11.5)(axios@1.6.5)(search-insights@2.13.0)(typescript@5.3.3):
-    resolution: {integrity: sha512-EcgoRlAAp37WOxUOYv45oxyhLrcy3Upey+mKpqW3ldsg6Ol4trPndRBk2GO0QiSvEKlb9BMerk49D/bFICN6kg==}
+  /vitepress@1.0.0-rc.40(@algolia/client-search@4.22.1)(@types/node@20.11.5)(axios@1.6.5)(search-insights@2.13.0)(typescript@5.3.3):
+    resolution: {integrity: sha512-1x9PCrcsJwqhpccyTR93uD6jpiPDeRC98CBCAQLLBb44a3VSXYBPzhCahi+2kwAYylu49p0XhseMPVM4IVcWcw==}
     hasBin: true
     peerDependencies:
       markdown-it-mathjax3: ^4.3.2
@@ -12894,9 +12898,9 @@ packages:
       focus-trap: 7.5.4
       mark.js: 8.11.1
       minisearch: 6.3.0
-      shikiji: 0.9.19
-      shikiji-core: 0.9.19
-      shikiji-transformers: 0.9.19
+      shikiji: 0.10.0
+      shikiji-core: 0.10.0
+      shikiji-transformers: 0.10.0
       vite: 5.0.12(@types/node@20.11.5)(sass@1.70.0)(terser@5.27.0)
       vue: 3.4.15(typescript@5.3.3)
     transitivePeerDependencies:

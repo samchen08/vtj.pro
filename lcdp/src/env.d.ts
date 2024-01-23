@@ -8,6 +8,7 @@ declare module '*.vue' {
 
 declare namespace NodeJS {
   interface ProcessEnv {
+    BUILD_TYPE?: string;
     [key: string]: any;
   }
 }

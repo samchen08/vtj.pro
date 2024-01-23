@@ -5,7 +5,8 @@
       label="操作按钮"
       tooltip="提示信息"
       :disabled="disabled"
-      @click="onClick"></XAction>
+      @click="onClick">
+    </XAction>
     <XAction
       :icon="icon"
       :badge="value"

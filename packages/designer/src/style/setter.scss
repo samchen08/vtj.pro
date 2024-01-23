@@ -6,6 +6,10 @@
       border-bottom: 1px dashed var(--el-color-primary);
       cursor: help;
     }
+    span {
+      white-space: nowrap;
+      overflow: hidden;
+    }
   }
   .el-select {
     display: block;
