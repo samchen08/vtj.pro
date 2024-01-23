@@ -81,6 +81,10 @@ export class Engine extends Base {
   public isEmptyCurrent: Ref<boolean> = ref(false);
   public history: Ref<HistoryModel | null> = ref(null);
   public provider: Provider;
+  /**
+   * 当current变化时，更新该值，用于通知组件更新
+   */
+  public changed: Ref<symbol> = ref(Symbol());
   constructor(options: EngineOptions) {
     super();
     const {
@@ -200,6 +204,7 @@ export class Engine extends Base {
     await nextTick();
     this.context.value = this.simulator.renderer?.context || null;
     this.isEmptyCurrent.value = this.current.value?.nodes.length === 0;
+    this.changed.value = Symbol();
     if (isTrigger) {
       triggerRef(this.context);
     }

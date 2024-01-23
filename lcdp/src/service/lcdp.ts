@@ -25,7 +25,7 @@ export class LcdpService extends StorageService {
     });
     return Promise.resolve(false);
   }
-  getRaw(_project: ProjectSchema, _dsl: BlockSchema): Promise<string> {
+  genVueContent(_project: ProjectSchema, _dsl: BlockSchema): Promise<string> {
     ElNotification.warning({
       title: '提示',
       message: '在线演示版本不支持源码生成功能，如需体验请下载本地版本。'

@@ -15,7 +15,7 @@ import { join } from 'path';
 import bodyParser from 'body-parser';
 import { router } from './controller';
 
-export interface DevPluginOptions {
+export interface DevToolsOptions {
   baseURL: string;
   copy: boolean;
   server: boolean;
@@ -35,7 +35,7 @@ export interface LinkOptions {
 
 const setApis = (
   server: ViteDevServer | PreviewServer,
-  options: DevPluginOptions
+  options: DevToolsOptions
 ) => {
   server.middlewares.use(
     bodyParser.json({ type: 'application/json', limit: '50000kb' })
@@ -52,7 +52,7 @@ const setApis = (
   });
 };
 
-const apiServerPlugin = function (options: DevPluginOptions): Plugin {
+const apiServerPlugin = function (options: DevToolsOptions): Plugin {
   return {
     name: 'vtj-api-plugin',
     apply: 'serve',
@@ -67,7 +67,7 @@ const apiServerPlugin = function (options: DevPluginOptions): Plugin {
   };
 };
 
-const linkPlugin = function (options: DevPluginOptions): Plugin {
+const linkPlugin = function (options: DevToolsOptions): Plugin {
   const {
     entry = '/index.html',
     href = '',
@@ -104,7 +104,7 @@ const linkPlugin = function (options: DevPluginOptions): Plugin {
   };
 };
 
-const aliasPlugin = function (options: DevPluginOptions): Plugin {
+const aliasPlugin = function (options: DevToolsOptions): Plugin {
   return {
     name: 'vtj-alias-plugin',
     config(config) {
@@ -153,8 +153,8 @@ const aliasPlugin = function (options: DevPluginOptions): Plugin {
   };
 };
 
-export function createDevPlugin(options: Partial<DevPluginOptions> = {}) {
-  const opts: DevPluginOptions = {
+export function createDevTools(options: Partial<DevToolsOptions> = {}) {
+  const opts: DevToolsOptions = {
     baseURL: '/vtj/local/repository',
     copy: true,
     server: true,

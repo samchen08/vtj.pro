@@ -1,4 +1,4 @@
-export const MATERIAL_PATH = '/';
+export const MATERIAL_PATH = process.env.BUILD_TYPE === 'gitee' ? '/vtj' : '/';
 
 export const PROJECT_ID = 'LCDP';
 

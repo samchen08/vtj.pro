@@ -94,4 +94,8 @@
       removeCustom(name);
     }
   };
+
+  defineOptions({
+    name: 'PropertiesWidget'
+  });
 </script>

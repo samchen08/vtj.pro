@@ -1,6 +1,6 @@
 import { createViteConfig } from '@vtj/cli';
-import { createDevPlugin } from '@vtj/pro/vite';
+import { createDevTools } from '@vtj/pro/vite';
 
 export default createViteConfig({
-  plugins: [createDevPlugin()]
+  plugins: [createDevTools()]
 });

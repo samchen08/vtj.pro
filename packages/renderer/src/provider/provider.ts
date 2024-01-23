@@ -9,11 +9,18 @@ import {
   type BlockSchema,
   Base
 } from '@vtj/core';
-import { type IStaticRequest, type Jsonp, jsonp, loadScript } from '@vtj/utils';
+import {
+  type IStaticRequest,
+  type Jsonp,
+  jsonp,
+  loadScript,
+  url as urlUtils
+} from '@vtj/utils';
 import { ElNotification } from 'element-plus';
 import { request } from './defaults';
 import { createSchemaApis } from './apis';
 import { logger, isVuePlugin } from '../utils';
+import { version } from '../version';
 
 import {
   parseDeps,
@@ -121,10 +128,10 @@ export class Provider extends Base {
         const urls = libraryMap[libraryName] || [];
         for (const url of urls) {
           if (isCSSUrl(url)) {
-            await loadCss(libraryName, url);
+            await loadCss(libraryName, urlUtils.append(url, { v: version }));
           }
           if (isJSUrl(url)) {
-            await loadScript(url);
+            await loadScript(urlUtils.append(url, { v: version }));
           }
           library[libraryName] = (window as any)[libraryName];
         }
@@ -132,7 +139,7 @@ export class Provider extends Base {
     }
 
     for (const materialUrl of materials) {
-      await loadScript(materialUrl);
+      await loadScript(urlUtils.append(materialUrl, { v: version }));
     }
 
     const materialMap = this.materials || {};

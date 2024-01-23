@@ -73,9 +73,9 @@
         default: () => [node],
         dropdown: () => [
           h(ElDropdownMenu, () =>
-            (props.menus || []).map((item) => {
+            (props.menus || []).map((item, index) => {
               return h(ElDropdownItem, item, () =>
-                slots.item ? slots.item({ item }) : item.label
+                slots.item ? slots.item({ item, index}) : item.label
               );
             })
           )
@@ -91,9 +91,11 @@
   };
 
   const action = computed(() => {
-    let vnode: VNode = slots.default
-      ? slots.default()[0]
-      : h(markRaw(Trigger), { ...props, onClick });
+    let vnode: VNode = h(markRaw(Trigger), { ...props, onClick });
+    const children = slots.default?.();
+    if (children && children.length) {
+      vnode = children[0];
+    }
 
     if (badge.value) {
       vnode = wrapBadge(vnode);
@@ -104,6 +106,7 @@
     if (tooltip.value) {
       vnode = wrapTooltip(vnode);
     }
+
     return vnode;
   });
 </script>
