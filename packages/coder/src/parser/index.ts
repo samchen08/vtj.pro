@@ -56,7 +56,7 @@ export function parser(
   );
 
   const blocksImport = importBlocks.map((n: any) => {
-    return `import ${n.name} from '$vtj/raw/${n.id}.vue';`;
+    return `import ${n.name} from './${n.id}.vue';`;
   });
 
   const imports = parseImports(

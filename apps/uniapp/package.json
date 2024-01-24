@@ -1,6 +1,6 @@
 {
   "name": "vtj-project-uniapp",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "private": true,
   "scripts": {
     "dev:app": "uni -p app",
@@ -37,7 +37,8 @@
     "build:quickapp-webview": "uni build -p quickapp-webview",
     "build:quickapp-webview-huawei": "uni build -p quickapp-webview-huawei",
     "build:quickapp-webview-union": "uni build -p quickapp-webview-union",
-    "type-check": "vue-tsc --noEmit"
+    "type-check": "vue-tsc --noEmit",
+    "preview:h5": "cross-env PREVIEW=true vite preview"
   },
   "dependencies": {
     "@dcloudio/uni-app": "3.0.0-3090920231225001",
@@ -63,6 +64,7 @@
     "@dcloudio/uni-stacktracey": "3.0.0-3090920231225001",
     "@dcloudio/vite-plugin-uni": "3.0.0-3090920231225001",
     "@vtj/cli": "workspace:*",
-    "@vue/runtime-core": "~3.4.15"
+    "@vue/runtime-core": "~3.4.15",
+    "vite": "~5.0.12"
   }
 }
