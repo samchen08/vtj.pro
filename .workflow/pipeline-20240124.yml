@@ -23,6 +23,10 @@ stages:
           - '# 设置NPM源，提升安装速度'
           - npm config set registry https://registry.npmmirror.com
           - ''
+          - '# 设置git'
+          - git config --global user.email "samchen08@163.com"
+          - git config --global user.name "@samchen08"
+          - ''
           - '# 执行编译命令'
           - npm i -g pnpm && pnpm install && npm run build && npm run docs:gitee && npm run ci
         artifacts:
