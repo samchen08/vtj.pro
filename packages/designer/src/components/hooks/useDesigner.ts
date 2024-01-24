@@ -1,4 +1,4 @@
-import { type Ref, computed } from 'vue';
+import { type Ref, computed, watch } from 'vue';
 import { type Dependencie } from '@vtj/core';
 import { useEngine, type DesignHelper } from '../../framework';
 
@@ -23,6 +23,10 @@ export function useDesigner(
   const selected = computed(() =>
     getComputedHelper('selected', designer.value?.selected.value)
   );
+
+  watch(engine.changed, () => {
+    designer.value?.updateRect();
+  });
 
   return {
     designer,

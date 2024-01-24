@@ -1,4 +1,4 @@
-import { type Ref, type ShallowRef, shallowRef, watchEffect, watch } from 'vue';
+import { type Ref, type ShallowRef, shallowRef, watch } from 'vue';
 import { type Dependencie, type Material, Base } from '@vtj/core';
 import {
   parseDeps,
@@ -53,20 +53,24 @@ export class Simulator extends Base {
     });
   }
   init(iframe: Ref<HTMLIFrameElement | undefined>, deps: Ref<Dependencie[]>) {
-    watchEffect(() => {
-      if (iframe.value && deps.value.length) {
-        this.resetReady();
-        this.setup(iframe.value, deps.value);
-        if (this.contentWindow) {
-          this.designer.value?.dispose();
-          this.designer.value = new Designer(
-            this.engine,
-            this.contentWindow,
-            deps
-          );
+    watch(
+      [iframe, deps],
+      () => {
+        if (iframe.value && deps.value.length) {
+          this.resetReady();
+          this.setup(iframe.value, deps.value);
+          if (this.contentWindow) {
+            this.designer.value?.dispose();
+            this.designer.value = new Designer(
+              this.engine,
+              this.contentWindow,
+              deps
+            );
+          }
         }
-      }
-    });
+      },
+      { immediate: true }
+    );
   }
 
   private setup(iframe: HTMLIFrameElement, deps: Dependencie[]) {

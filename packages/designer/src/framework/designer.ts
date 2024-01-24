@@ -356,7 +356,7 @@ export class Designer {
 
   async updateRect() {
     // 等待元素更新才能获取更新后的 getBoundingClientRect
-    await delay(0);
+    await delay(100);
     const selected = unref(this.selected);
     const hover = unref(this.hover);
 

@@ -82,9 +82,7 @@ export function parseTemplate(
       }
 
       contents.push(
-        `<${name} ${directives} ${props} ${events}>
-        ${childContent}
-      </${name}>`
+        `<${name} ${directives} ${props} ${events}>${childContent.trim()}</${name}>`
       );
     }
     const node = wrapSlot(item.slot, contents.join('\n'), parent?.id);

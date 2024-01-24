@@ -19,8 +19,14 @@
 - 设计器大纲树支持清空子组件功能
 - 演示样例模板
 - Mask pro风格主题
+- uniapp工程支持cli环境配置
 
 # 定制版
 
 - Meta数据源
 - Adapter适配
+
+# Bug
+
+- 编辑属性导致selected丢失
+- 历史记录需要回写block dsl

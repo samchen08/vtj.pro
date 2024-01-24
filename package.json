@@ -73,7 +73,10 @@
     "lcdp:dev": "cd lcdp && npm run dev",
     "lcdp:build": "cd lcdp  && npm run build",
     "lcdp:gitee": "cd lcdp  && npm run build:gitee",
-    "lcdp:preview": "cd lcdp && npm run preview"
+    "lcdp:preview": "cd lcdp && npm run preview",
+    "uniapp:dev": "cd apps/uniapp && npm run dev:h5",
+    "uniapp:build": "cd apps/uniapp && npm run build:h5",
+    "uniapp:preview": "cd apps/uniapp && npm run preview:h5"
   },
   "engines": {
     "node": ">=20.0.0",
