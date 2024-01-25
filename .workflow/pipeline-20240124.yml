@@ -28,7 +28,7 @@ stages:
           - git config --global user.name "@samchen08"
           - ''
           - '# 执行编译命令'
-          - npm i -g pnpm && pnpm install && npm run build && npm run docs:gitee && npm run ci
+          - npm i -g pnpm && pnpm install && npm run build && npm run docs:gitee
         artifacts:
           - name: BUILD_ARTIFACT
             path:
