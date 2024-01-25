@@ -47,8 +47,9 @@ export class Collecter {
       const path = sections.join('.') + '.';
       const library = sections.pop() as string;
       if (name && library) {
-        const packageName = this.dependencies.find((n) => n.library === library)
-          ?.package;
+        const packageName = this.dependencies.find(
+          (n) => n.library === library
+        )?.package;
         if (packageName) {
           const imports =
             this.imports[packageName] ||
@@ -74,7 +75,8 @@ export class Collecter {
       for (const match of matches) {
         const res = this.collectImport(match);
         if (res) {
-          result = result.replace(new RegExp(res.path, 'g'), '');
+          const pathStr = res.path.replace(/\$/g, '\\$');
+          result = result.replace(new RegExp(pathStr, 'g'), '');
         }
       }
     }

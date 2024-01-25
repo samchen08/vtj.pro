@@ -1,10 +1,24 @@
-import { type MaybeRef, shallowRef, unref, watch, ref } from 'vue';
+import {
+  type MaybeRef,
+  type ShallowRef,
+  type Ref,
+  shallowRef,
+  unref,
+  watch,
+  ref
+} from 'vue';
+
+export interface UseLoaderResult<T> {
+  data: ShallowRef<T>;
+  loading: Ref<boolean>;
+  loader: (params?: any) => Promise<T>;
+}
 
 export function useLoader<T = any, P = any>(
   loaderRef: MaybeRef<T | ((params?: P) => T | Promise<T>)>,
   defaultValue: T,
   params?: P
-) {
+): UseLoaderResult<T> {
   const data = shallowRef(defaultValue);
   const loading = ref(false);
   const run = async (params?: P) => {
@@ -21,7 +35,7 @@ export function useLoader<T = any, P = any>(
     return await run(params).then((res) => {
       data.value = res || defaultValue;
       loading.value = false;
-      return data;
+      return unref(data);
     });
   };
 

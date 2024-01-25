@@ -98,11 +98,6 @@ export interface CreateViteConfigOptions {
   alias?: Record<string, string>;
 
   /**
-   * UniApp 应用
-   */
-  uniapp?: boolean;
-
-  /**
    * 生成定义文件, 在库模式有效
    */
   dts?: boolean;
@@ -221,4 +216,56 @@ export interface CreateViteConfigOptions {
    * 环境配置文件目录位置
    */
   envPath?: string;
+}
+
+export interface CreateUniappViteConfigOptions {
+  /**
+   * 打印最终 vite.config
+   */
+  debug?: boolean;
+
+  /**
+   * 自定义配置 vite 配置
+   */
+  defineConfig?: (config: UserConfig) => UserConfigExport;
+
+  /**
+   * 环境配置文件目录位置
+   */
+  envPath?: string;
+
+  /**
+   * 开发端口
+   */
+  port?: number;
+
+  /**
+   * 预览端口
+   */
+  previewPort?: number;
+
+  /**
+   * 主机头
+   */
+  host?: string;
+
+  /**
+   * 开启https
+   */
+  https?: boolean;
+
+  /**
+   * 代理
+   */
+  proxy?: ProxyConfig;
+
+  /**
+   * 打包输出文件夹
+   */
+  outDir?: string;
+
+  /**
+   * 插件
+   */
+  plugins?: PluginOption[];
 }

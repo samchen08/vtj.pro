@@ -8,6 +8,8 @@ declare module '*.vue' {
 
 declare namespace NodeJS {
   interface ProcessEnv {
+    NODE_ENV: 'development' | 'production';
+    ENV_TYPE?: string;
     [key: string]: any;
   }
 }

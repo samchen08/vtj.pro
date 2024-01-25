@@ -13,6 +13,7 @@ import { babelPlugin } from '../plugins/babel';
 import { versionPlugin } from '../plugins/version';
 import { staticPlugin } from '../plugins/static';
 import { loadingPlugin } from '../plugins/loading';
+import { envPlugin } from '../plugins/env';
 const createBabelPlugin = (targets: string[]) => {
   return babelPlugin({
     apply: 'build',
@@ -28,17 +29,21 @@ const createBabelPlugin = (targets: string[]) => {
 };
 
 export const mergePlugins = (opts: CreateViteConfigOptions) => {
-  const plugins: PluginOption[] = opts.uniapp ? [] : [vue(), vueJsx()];
+  const plugins: PluginOption[] = [
+    envPlugin({ dir: opts.envPath }),
+    vue(),
+    vueJsx()
+  ];
 
   if (opts.version) {
     plugins.push(versionPlugin());
   }
 
-  if (opts.babel && !opts.uniapp && opts.targets) {
+  if (opts.babel && opts.targets) {
     plugins.push(createBabelPlugin(toArray(opts.targets)));
   }
 
-  if (opts.elementPlus && !opts.uniapp) {
+  if (opts.elementPlus) {
     plugins.push(
       ElementPlus(typeof opts.elementPlus === 'object' ? opts.elementPlus : {})
     );
@@ -63,7 +68,7 @@ export const mergePlugins = (opts: CreateViteConfigOptions) => {
     plugins.push(basicSsl() as PluginOption);
   }
 
-  if (!opts.lib && !opts.uniapp) {
+  if (!opts.lib) {
     plugins.push(
       legacy({
         targets: opts.targets,
