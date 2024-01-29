@@ -20,7 +20,7 @@ import {
   XTest
 } from './components';
 
-export default [
+export const components = [
   XIcon,
   XMenu,
   XAction,

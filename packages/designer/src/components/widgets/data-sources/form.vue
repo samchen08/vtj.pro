@@ -74,7 +74,8 @@
     BlockModel,
     type JSFunction
   } from '@vtj/core';
-  import { type Context, parseExpression, logger } from '@vtj/renderer';
+  import { type Context, parseExpression } from '@vtj/renderer';
+  import { logger } from '@vtj/utils';
   import Editor from '../../editor';
   import { NAME_REGEX } from '../../../constants';
   import { expressionValidate, notify } from '../../../utils';

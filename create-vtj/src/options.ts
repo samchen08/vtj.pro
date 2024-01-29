@@ -16,11 +16,11 @@ export const templates: ITemplate[] = [
     display: 'Web应用( app )',
     color: green
   },
-  // {
-  //   name: 'uniapp',
-  //   display: '移动端应用( uniapp )',
-  //   color: cyan
-  // },
+  {
+    name: 'uniapp',
+    display: '移动端应用( uniapp )',
+    color: cyan
+  },
   // {
   //   name: 'nest',
   //   display: '服务端应用( nest )',

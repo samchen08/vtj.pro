@@ -2,7 +2,7 @@ import {
   type Directive,
   watch,
   effectScope,
-  EffectScope,
+  type EffectScope,
   ref,
   type Ref
 } from 'vue';

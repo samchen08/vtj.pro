@@ -44,9 +44,9 @@ import {
   type Context,
   ContextMode,
   Provider,
-  logger,
   type ProvideAdapter
 } from '@vtj/renderer';
+import { logger } from '@vtj/utils';
 import { SkeletonWrapper, type SkeletonWrapperInstance } from '../wrappers';
 import { depsManager } from '../managers';
 import { Simulator } from './simulator';

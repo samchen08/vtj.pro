@@ -1,5 +1,5 @@
 import type { JSExpression, JSFunction } from '@vtj/core';
-import { logger } from './logger';
+import { logger } from '@vtj/utils';
 
 export function parseExpression(
   str: JSExpression | JSFunction,
