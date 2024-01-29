@@ -1,6 +1,5 @@
 import { defineComponent, ref, h } from 'vue';
-import { toArray } from '@vtj/utils';
-import { logger } from '@vtj/renderer';
+import { toArray, logger } from '@vtj/utils';
 import { useEngine, RegionType } from '../framework';
 import { Skeleton } from '../components';
 import { widgetManager } from '../managers';

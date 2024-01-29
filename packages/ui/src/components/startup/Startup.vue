@@ -28,8 +28,10 @@
   const props = defineProps(startupProps);
 
   const onClick = () => {
-    const options = (window as any).__VTJ_LINK__ || {};
-    let path = options.href || window.location.pathname + '@vtj/pro/#/';
-    location.href = path;
+    if (typeof window !== 'undefined') {
+      const options = (window as any).__VTJ_LINK__ || {};
+      let path = options.href || window.location.pathname + '@vtj/pro/#/';
+      window.location.href = path;
+    }
   };
 </script>

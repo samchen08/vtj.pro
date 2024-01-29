@@ -5,11 +5,15 @@
     "paths": {
       "@/*": [
         "src/*"
+      ],
+      "$vtj/*": [
+        ".vtj/*"
       ]
     }
   },
   "include": [
-    "src"
+    "src",
+    ".vtj/**/*",
   ],
   "references": [
     {

@@ -2,7 +2,7 @@ import type { PropType, ExtractPropTypes } from 'vue';
 import {
   type ElTooltipProps,
   type BadgeProps,
-  dropdownProps,
+  type dropdownProps,
   type ButtonProps
 } from 'element-plus';
 import type { ComponentPropsType, BaseSize, BaseType } from '../shared';

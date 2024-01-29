@@ -1,4 +1,4 @@
-import mitt from 'mitt';
+import { mitt } from '@vtj/base';
 import {
   type ProjectModelEvent,
   type BlockModel,

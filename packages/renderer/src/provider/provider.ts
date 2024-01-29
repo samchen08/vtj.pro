@@ -14,12 +14,13 @@ import {
   type Jsonp,
   jsonp,
   loadScript,
+  logger,
   url as urlUtils
 } from '@vtj/utils';
 import { ElNotification } from 'element-plus';
 import { request } from './defaults';
 import { createSchemaApis } from './apis';
-import { logger, isVuePlugin } from '../utils';
+import { isVuePlugin } from '../utils';
 import { version } from '../version';
 
 import {

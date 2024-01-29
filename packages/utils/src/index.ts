@@ -6,5 +6,6 @@ export * from './storage';
 export * from './jsonp';
 export * from './loadScript';
 export * from './util';
+export * from './logger';
 export * as cookie from './cookie';
 export * as url from './url';

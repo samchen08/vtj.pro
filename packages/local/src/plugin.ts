@@ -25,6 +25,7 @@ export interface DevToolsOptions {
   vtjDir: string;
   packagesDir: string;
   devMode: boolean;
+  hm?: string;
 }
 
 export interface LinkOptions {
@@ -104,6 +105,29 @@ const linkPlugin = function (options: DevToolsOptions): Plugin {
   };
 };
 
+const hmPlugin = function (options: DevToolsOptions): Plugin {
+  const { hm } = options;
+  return {
+    name: 'vtj-hm-plugin',
+    transformIndexHtml(html) {
+      return html.replace(
+        /<\/body>/,
+        `
+        <script>
+        (function () {
+          window._hmt = window._hmt || [];
+          const hm = document.createElement('script');
+          hm.src = 'https://hm.baidu.com/hm.js?${hm}';
+          var s = document.getElementsByTagName('script')[0];
+          s.parentNode.insertBefore(hm, s);
+        })();       
+        </script>
+        `
+      );
+    }
+  };
+};
+
 const aliasPlugin = function (options: DevToolsOptions): Plugin {
   return {
     name: 'vtj-alias-plugin',
@@ -164,6 +188,7 @@ export function createDevTools(options: Partial<DevToolsOptions> = {}) {
     vtjDir: '.vtj',
     packagesDir: '../../packages',
     devMode: false,
+    hm: '42f2469b4aa27c3f8978f634c0c19d24',
     ...options
   };
   const plugins: Plugin[] = [aliasPlugin(opts)];
@@ -234,6 +259,10 @@ export function createDevTools(options: Partial<DevToolsOptions> = {}) {
   // 链接插件
   if (!!opts.link) {
     plugins.push(linkPlugin(opts));
+  }
+
+  if (opts.hm) {
+    plugins.push(hmPlugin(opts));
   }
   return plugins;
 }

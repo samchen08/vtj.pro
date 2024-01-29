@@ -1,5 +1,4 @@
-import { logger } from '@vtj/renderer';
-import { merge } from '@vtj/utils';
+import { merge, logger } from '@vtj/utils';
 import { builtInWidgets } from './built-in';
 import { type Widget, RegionType } from '../framework';
 
