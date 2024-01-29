@@ -5,9 +5,9 @@ import {
   createAssetsCss,
   createAssetScripts,
   createSchemaApis,
-  getRawComponent,
-  logger
+  getRawComponent
 } from '@vtj/renderer';
+import { logger } from '@vtj/utils';
 import { Renderer } from './renderer';
 import { Designer } from './designer';
 import { type Engine } from './engine';

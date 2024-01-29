@@ -1,5 +1,5 @@
 <template>
-  <XPanel>{{ title }} this is a example </XPanel>
+  <XPanel>{{ title }} this is a example</XPanel>
 </template>
 <script lang="ts" setup>
   import { XPanel } from '@vtj/ui';
