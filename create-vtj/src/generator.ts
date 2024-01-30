@@ -19,11 +19,15 @@ export function createProject(options: IGeneratorOptions) {
   pkg.name = options.name;
   writeJsonSync(join(options.root, 'package.json'), pkg, { spaces: 2 });
   const gitignore = join(options.template, '../_gitignore');
+  const npmrc = join(options.template, '../_npmrc');
   if (pathExistsSync(gitignore)) {
     outputFile(
       join(options.root, '.gitignore'),
       readFileSync(gitignore, 'utf-8')
     );
+  }
+  if (pathExistsSync(npmrc)) {
+    outputFile(join(options.root, '.npmrc'), readFileSync(npmrc, 'utf-8'));
   }
 }
 

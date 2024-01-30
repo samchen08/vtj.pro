@@ -1,0 +1,189 @@
+{
+  "input": {
+    "type": "genVueContent",
+    "data": {
+      "project": {
+        "__VTJ_PROJECT__": true,
+        "__VERSION__": "1706593082599",
+        "id": "@vtj/pro",
+        "name": "VTJ.PRO",
+        "homepage": "",
+        "description": "VTJ.PRO",
+        "dependencies": [
+          {
+            "package": "vue",
+            "version": "latest",
+            "library": "Vue",
+            "urls": ["@vtj/materials/deps/vue/vue.global.prod.js"],
+            "required": true,
+            "official": true,
+            "enabled": true
+          },
+          {
+            "package": "vue-router",
+            "version": "latest",
+            "library": "VueRouter",
+            "urls": [
+              "@vtj/materials/deps/vue-router/vue-router.global.prod.js"
+            ],
+            "required": true,
+            "official": true,
+            "enabled": true
+          },
+          {
+            "package": "@vtj/utils",
+            "version": "latest",
+            "library": "VtjUtils",
+            "urls": ["@vtj/materials/deps/@vtj/utils/index.umd.js"],
+            "required": true,
+            "official": true,
+            "enabled": true
+          },
+          {
+            "package": "@vtj/icons",
+            "version": "latest",
+            "library": "VtjIcons",
+            "urls": [
+              "@vtj/materials/deps/@vtj/icons/style.css",
+              "@vtj/materials/deps/@vtj/icons/index.umd.js"
+            ],
+            "required": true,
+            "official": true,
+            "enabled": true
+          },
+          {
+            "package": "element-plus",
+            "version": "latest",
+            "library": "ElementPlus",
+            "urls": [
+              "@vtj/materials/deps/element-plus/index.css",
+              "@vtj/materials/deps/element-plus/index.full.min.js"
+            ],
+            "assetsUrl": "@vtj/materials/assets/element/index.umd.js",
+            "assetsLibrary": "ElementPlusMaterial",
+            "required": false,
+            "official": true,
+            "enabled": true
+          },
+          {
+            "package": "echarts",
+            "version": "latest",
+            "library": "echarts",
+            "urls": ["@vtj/materials/deps/echarts/echarts.min.js"],
+            "required": false,
+            "official": true,
+            "enabled": true
+          },
+          {
+            "package": "@vtj/ui",
+            "version": "latest",
+            "library": "VtjUI",
+            "urls": [
+              "@vtj/materials/deps/@vtj/ui/style.css",
+              "@vtj/materials/deps/@vtj/ui/index.umd.js"
+            ],
+            "assetsUrl": "@vtj/materials/assets/ui/index.umd.js",
+            "assetsLibrary": "VtjUIMaterial",
+            "required": false,
+            "official": true,
+            "enabled": true
+          },
+          {
+            "package": "ant-design-vue",
+            "version": "latest",
+            "library": "antd",
+            "urls": [
+              "@vtj/materials/deps/ant-design-vue/rest.css",
+              "@vtj/materials/deps/ant-design-vue/dayjs/dayjs.min.js",
+              "@vtj/materials/deps/ant-design-vue/dayjs/plugin/customParseFormat.js",
+              "@vtj/materials/deps/ant-design-vue/dayjs/plugin/weekday.js",
+              "@vtj/materials/deps/ant-design-vue/dayjs/plugin/localeData.js",
+              "@vtj/materials/deps/ant-design-vue/dayjs/plugin/weekOfYear.js",
+              "@vtj/materials/deps/ant-design-vue/dayjs/plugin/weekYear.js",
+              "@vtj/materials/deps/ant-design-vue/dayjs/plugin/advancedFormat.js",
+              "@vtj/materials/deps/ant-design-vue/dayjs/plugin/quarterOfYear.js",
+              "@vtj/materials/deps/ant-design-vue/antd.min.js"
+            ],
+            "assetsUrl": "@vtj/materials/assets/antdv/index.umd.js",
+            "assetsLibrary": "AntdvMaterial",
+            "required": false,
+            "official": true,
+            "enabled": true
+          }
+        ],
+        "pages": [
+          {
+            "dir": false,
+            "name": "A",
+            "title": "a",
+            "icon": "",
+            "mask": false,
+            "hidden": false,
+            "raw": false,
+            "id": "184mrl38szx",
+            "type": "page"
+          }
+        ],
+        "blocks": [
+          {
+            "name": "Aaaa",
+            "title": "aaa",
+            "type": "block",
+            "id": "23qhcwzogmh"
+          }
+        ],
+        "apis": []
+      },
+      "dsl": {
+        "name": "A",
+        "locked": false,
+        "inject": [],
+        "state": {},
+        "lifeCycles": {},
+        "methods": {},
+        "computed": {},
+        "watch": [],
+        "css": "",
+        "props": [],
+        "emits": [],
+        "slots": [],
+        "dataSources": {},
+        "__VTJ_BLOCK__": true,
+        "__VERSION__": "1706593082599",
+        "id": "184mrl38szx",
+        "nodes": [
+          {
+            "id": "2h10mnzjhso",
+            "name": "ElButton",
+            "from": "element-plus",
+            "invisible": false,
+            "locked": false,
+            "children": "按钮",
+            "props": { "type": "primary" },
+            "directives": [],
+            "events": {
+              "click": {
+                "name": "click",
+                "handler": {
+                  "type": "JSFunction",
+                  "value": "() => alert('ok')"
+                },
+                "modifiers": {}
+              }
+            }
+          }
+        ]
+      }
+    }
+  },
+  "error": {
+    "loc": { "start": { "line": 2, "column": 420 } },
+    "cause": {
+      "code": "BABEL_PARSER_SYNTAX_ERROR",
+      "reasonCode": "UnexpectedToken",
+      "loc": { "line": 2, "column": 419, "index": 466 },
+      "pos": 466
+    },
+    "codeFrame": "  1 | import { defineComponent,reactive} from 'vue';\n> 2 | import { ElButton} from 'element-plus';import { useProvider } from '@vtj/renderer';export default defineComponent({  name: 'A',      components: { ElButton },        setup(props) {    const provider = useProvider({      id: '184mrl38szx',      version: '1706593082599'    });    const state = reactive({  });    return {      state,      props,      provider          };  },     methods: { click_handler_2h10mnzjhso()  alert('ok') },    });\n    |                                                                                                                                                                                                                                                                                                                                                                                                                                    ^"
+  }
+}
