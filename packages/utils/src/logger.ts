@@ -86,20 +86,20 @@ class Logger {
     const { bizName } = this.options;
     return record(level, targetLevel, bizName as string, targetBizName);
   }
-  debug(...args: any | any[]): any {
+  debug(...args: any[]): any {
     return this._log('debug')(...args);
   }
-  log(...args: any | any[]): any {
+  log(...args: any[]): any {
     return this._log('log')(...args);
   }
-  info(...args: any | any[]): any {
+  info(...args: any[]): any {
     return this._log('info')(...args);
   }
-  warn(...args: any | any[]): any {
+  warn(...args: any[]): any {
     return this._log('warn')(...args);
   }
-  error(...args: any | any[]): any {
-    return this._log('warn')(...args);
+  error(...args: any[]): any {
+    return this._log('error')(...args);
   }
 }
 

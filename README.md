@@ -55,7 +55,6 @@ npm run setup && npm run build && npm run dev
   - `utils` 浏览器环境工具库
   - `icons` 图标库
   - `ui` 通用组件库
-  - `mui` 移动端组件库
   - `core` 低代码核心库，包含协议定义和模型
   - `renderer` 低代码Vue渲染器
   - `materials` 低代码物料库

@@ -12,9 +12,10 @@ export function useNodeEvents(
   selected: ComputedRef<DesignHelper | null | undefined>
 ) {
   const engine = useEngine();
+
   const node = computed(() => {
     const model = selected.value?.model || null;
-    return isBlock(model) ? null : model;
+    return !model || isBlock(model) ? null : model;
   });
 
   const blockMaterial = ref<MaterialDescription>();

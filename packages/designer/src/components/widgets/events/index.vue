@@ -7,6 +7,7 @@
         description="该组件无自带事件"></ElEmpty>
       <Item
         v-for="item in componentEventList"
+        :key="`component_${item.name}`"
         :title="item.name"
         :model-value="item"
         border
@@ -19,6 +20,7 @@
     <Panel title="鼠标事件" class="v-sub-panel" size="small" :fit="false">
       <Item
         v-for="item in mouseEventList"
+        :key="`mouse_${item.name}`"
         :title="item.name"
         :model-value="item"
         border
@@ -31,6 +33,7 @@
     <Panel title="键盘事件" class="v-sub-panel" size="small" grow :fit="false">
       <Item
         v-for="item in keyboardEventList"
+        :key="`keyboard_${item.name}`"
         :title="item.name"
         :model-value="item"
         border

@@ -24,7 +24,7 @@
   const editorRef = ref();
   const content = ref('');
   const subtitle = computed(() => {
-    return current.value ? `$vtj/raw/${current.value.id}.vue` : '';
+    return current.value ? `$vtj/vue/${current.value.id}.vue` : '';
   });
   const title = computed(() => {
     return current.value ? current.value.name : '';

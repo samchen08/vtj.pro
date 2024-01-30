@@ -187,15 +187,20 @@ function bindNodeEvents(
     ? `({${nodeContext.join(', ')}}, args)`
     : '';
   const binders = Object.entries(events).map(([name, value]) => {
-    const binder = `${camelCase(name)}_handler_${id}${eventParams}`;
-    handlers[binder] = nodeContext.length
-      ? {
-          type: 'JSFunction',
-          value: `{
+    const isExp = value.handler.value.startsWith('this.');
+    const binder = isExp
+      ? replaceThis(value.handler.value)
+      : `${camelCase(name)}_handler_${id}${eventParams}`;
+    if (!isExp) {
+      handlers[binder] = nodeContext.length
+        ? {
+            type: 'JSFunction',
+            value: `{
           return (${value.handler.value}).apply(this, args);
         }`
-        }
-      : value.handler;
+          }
+        : value.handler;
+    }
     return bindEvent(name, value, binder, nodeContext);
   });
   return {
@@ -212,7 +217,6 @@ function parsePropsAndEvents(
   computedKeys: string[]
 ) {
   const { binders, handlers } = bindNodeEvents(id, events, context);
-
   return {
     props: bindNodeProps(props, computedKeys).join(' '),
     handlers,
