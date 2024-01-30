@@ -1,10 +1,10 @@
 <template>
   <div class="v-actions-widget">
-    <ElBadge :value="0" :max="99" :hidden="true">
+    <ElBadge v-if="false" :value="0" :max="99" :hidden="true">
       <XAction mode="icon" :icon="VtjIconBug" background="hover"></XAction>
     </ElBadge>
 
-    <ElDivider direction="vertical"></ElDivider>
+    <ElDivider v-if="false" direction="vertical"></ElDivider>
 
     <ElButton
       @click="onPreview"

@@ -25,7 +25,7 @@ export function replaceThis(content: string) {
 }
 
 export function replaceContext(content: string) {
-  return content.replace(new RegExp('this.context.', 'g'), '');
+  return content.replace(/this\.context\??\./g, '');
 }
 
 export function parseValue(
@@ -57,12 +57,26 @@ export function replaceComputedValue(content: string, keys: string[] = []) {
 
 export function replaceFunctionTag(content: string) {
   let handler: string = content.trim();
+  // 匹配格式： ( async function() {} ) 或  ( function() {} ) 或 (()=>{})
+  const bracketRegex = /^\((\(|async|function)/;
+  const isBracket = bracketRegex.test(handler);
+  // 取括号内的内容
+  handler = isBracket ? handler.substring(1, handler.length - 1) : handler;
   if (handler.startsWith('{')) return handler;
   if (handler.startsWith('async function')) {
     handler = handler.replace(/^async function/, 'async');
   } else if (handler.startsWith('function')) {
     handler = handler.replace(/^function/, '');
   } else {
+    // 匹配格式： ( async () => {} ) 或  ( () => {} )
+    const regex = /^(async\s)?\([\w]*\)\s+\=\>\s([\w\W]+)/;
+    const match = handler.match(regex);
+    if (match && match[2]) {
+      if (!match[2].startsWith('{')) {
+        handler = handler.replace(match[2], `{ return ${match[2]} }`);
+      }
+    }
+    // 替换第一个箭头
     handler = handler.replace('=>', '');
   }
   return handler;

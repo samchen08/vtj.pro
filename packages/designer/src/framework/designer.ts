@@ -2,6 +2,7 @@ import {
   type Ref,
   type ShallowRef,
   shallowRef,
+  ref,
   unref,
   nextTick,
   createApp
@@ -59,7 +60,7 @@ export class Designer {
   public document: Document | null = null;
   public hover: ShallowRef<DesignHelper | null> = shallowRef(null);
   public dropping: ShallowRef<DesignHelper | null> = shallowRef(null);
-  public selected: ShallowRef<DesignHelper | null> = shallowRef(null);
+  public selected: Ref<DesignHelper | null> = ref(null);
   public dragging: MaterialDescription | null = null;
   constructor(
     public engine: Engine,

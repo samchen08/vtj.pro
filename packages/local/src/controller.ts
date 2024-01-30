@@ -88,7 +88,11 @@ export const router = async (req: any) => {
   try {
     return await handler(body);
   } catch (e) {
-    await service.saveLogs(e);
+    const info = {
+      input: body,
+      error: e
+    };
+    await service.saveLogs(info);
     return fail('异常错误', e);
   }
 };

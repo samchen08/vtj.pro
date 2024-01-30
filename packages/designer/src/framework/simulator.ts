@@ -69,7 +69,7 @@ export class Simulator extends Base {
           }
         }
       },
-      { immediate: true }
+      { immediate: true, deep: true }
     );
   }
 
