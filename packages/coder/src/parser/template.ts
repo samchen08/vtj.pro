@@ -9,7 +9,8 @@ import {
   type NodeEvent,
   type NodeEvents,
   type NodeDirective,
-  type NodeChildren
+  type NodeChildren,
+  BUILT_IN_TAGS
 } from '@vtj/core';
 import { isPlainObject, camelCase, dedupArray } from '@vtj/base';
 import {
@@ -82,7 +83,9 @@ export function parseTemplate(
       }
 
       contents.push(
-        `<${name} ${directives} ${props} ${events}>${childContent.trim()}</${name}>`
+        name === 'img'
+          ? `<${name} ${directives} ${props} ${events} />`
+          : `<${name} ${directives} ${props} ${events}>${childContent.trim()}</${name}>`
       );
     }
     const node = wrapSlot(item.slot, contents.join('\n'), parent?.id);
@@ -121,7 +124,7 @@ function getComponentName(
   componentMap: Map<string, MaterialDescription>,
   from?: NodeFrom
 ) {
-  if (['slot', 'component', 'template'].includes(name)) return null;
+  if (BUILT_IN_TAGS.includes(name)) return null;
 
   const desc = componentMap.get(name);
   if (desc && desc.alias) {

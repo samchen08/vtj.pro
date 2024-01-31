@@ -4,7 +4,7 @@
     "data": {
       "project": {
         "__VTJ_PROJECT__": true,
-        "__VERSION__": "1706593082599",
+        "__VERSION__": "1706682506703",
         "id": "@vtj/pro",
         "name": "VTJ.PRO",
         "homepage": "",
@@ -15,6 +15,7 @@
             "version": "latest",
             "library": "Vue",
             "urls": ["@vtj/materials/deps/vue/vue.global.prod.js"],
+            "assetsLibrary": "VueMaterial",
             "required": true,
             "official": true,
             "enabled": true
@@ -26,6 +27,7 @@
             "urls": [
               "@vtj/materials/deps/vue-router/vue-router.global.prod.js"
             ],
+            "assetsLibrary": "VueRouterMaterial",
             "required": true,
             "official": true,
             "enabled": true
@@ -111,31 +113,19 @@
             "enabled": true
           }
         ],
-        "pages": [
-          {
-            "dir": false,
-            "name": "A",
-            "title": "a",
-            "icon": "",
-            "mask": false,
-            "hidden": false,
-            "raw": false,
-            "id": "184mrl38szx",
-            "type": "page"
-          }
-        ],
+        "pages": [],
         "blocks": [
           {
-            "name": "Aaaa",
+            "name": "Aaa",
             "title": "aaa",
             "type": "block",
-            "id": "23qhcwzogmh"
+            "id": "2lr5vnuyjh6"
           }
         ],
         "apis": []
       },
       "dsl": {
-        "name": "A",
+        "name": "Aaa",
         "locked": false,
         "inject": [],
         "state": {},
@@ -149,41 +139,91 @@
         "slots": [],
         "dataSources": {},
         "__VTJ_BLOCK__": true,
-        "__VERSION__": "1706593082599",
-        "id": "184mrl38szx",
+        "__VERSION__": "1706682506703",
+        "id": "2lr5vnuyjh6",
         "nodes": [
           {
-            "id": "2h10mnzjhso",
-            "name": "ElButton",
-            "from": "element-plus",
+            "id": "2k9zqm3ukw6",
+            "name": "Transition",
+            "from": "vue",
             "invisible": false,
             "locked": false,
-            "children": "按钮",
-            "props": { "type": "primary" },
-            "directives": [],
-            "events": {
-              "click": {
-                "name": "click",
-                "handler": {
-                  "type": "JSFunction",
-                  "value": "() => alert('ok')"
+            "children": [
+              {
+                "id": "105ierhhix6",
+                "name": "img",
+                "from": "",
+                "invisible": false,
+                "locked": false,
+                "children": [],
+                "props": {
+                  "src": "/@fs/D:/vtj/vtj-next/vtj/packages/designer/src/assets/logo.png",
+                  "width": "200",
+                  "height": "200"
                 },
-                "modifiers": {}
+                "directives": [],
+                "events": {}
               }
-            }
+            ],
+            "props": {},
+            "directives": [],
+            "events": {}
+          },
+          {
+            "id": "2gqdswbbsks",
+            "name": "RouterLink",
+            "from": "vue-router",
+            "invisible": false,
+            "locked": false,
+            "children": "RouterLink",
+            "props": { "to": "/?a=3", "replace": true },
+            "directives": [],
+            "events": {}
           }
         ]
       }
     }
   },
   "error": {
-    "loc": { "start": { "line": 2, "column": 420 } },
-    "cause": {
-      "code": "BABEL_PARSER_SYNTAX_ERROR",
-      "reasonCode": "UnexpectedToken",
-      "loc": { "line": 2, "column": 419, "index": 466 },
-      "pos": 466
+    "loc": {
+      "start": { "line": 3, "column": 117 },
+      "end": { "line": 3, "column": 123 }
     },
-    "codeFrame": "  1 | import { defineComponent,reactive} from 'vue';\n> 2 | import { ElButton} from 'element-plus';import { useProvider } from '@vtj/renderer';export default defineComponent({  name: 'A',      components: { ElButton },        setup(props) {    const provider = useProvider({      id: '184mrl38szx',      version: '1706593082599'    });    const state = reactive({  });    return {      state,      props,      provider          };  },     methods: { click_handler_2h10mnzjhso()  alert('ok') },    });\n    |                                                                                                                                                                                                                                                                                                                                                                                                                                    ^"
+    "cause": {
+      "span": {
+        "start": {
+          "file": {
+            "content": "\n<template>\n<Transition   ><img  src=\"/@fs/D:/vtj/vtj-next/vtj/packages/designer/src/assets/logo.png\" width=\"200\" height=\"200\" ></img></Transition>\n<RouterLink  to=\"/?a=3\" :replace='true' >RouterLink</RouterLink>\n</template>\n<script lang=\"ts\">\nimport { defineComponent, reactive, Transition } from 'vue';\nimport { RouterLink } from 'vue-router';\nimport { useProvider } from '@vtj/renderer';\nexport default defineComponent({\n  name: 'Aaa',\n  components: { Transition, img, RouterLink },\n  setup(props) {\n    const provider = useProvider({\n      id: '2lr5vnuyjh6',\n      version: '1706682506703'\n    });\n    const state = reactive({});\n    return { state, props, provider };\n  }\n});\n\n</script>\n<style lang=\"scss\" scoped>\n\n</style>\n",
+            "url": "angular-html-parser"
+          },
+          "offset": 128,
+          "line": 2,
+          "col": 116
+        },
+        "end": {
+          "file": {
+            "content": "\n<template>\n<Transition   ><img  src=\"/@fs/D:/vtj/vtj-next/vtj/packages/designer/src/assets/logo.png\" width=\"200\" height=\"200\" ></img></Transition>\n<RouterLink  to=\"/?a=3\" :replace='true' >RouterLink</RouterLink>\n</template>\n<script lang=\"ts\">\nimport { defineComponent, reactive, Transition } from 'vue';\nimport { RouterLink } from 'vue-router';\nimport { useProvider } from '@vtj/renderer';\nexport default defineComponent({\n  name: 'Aaa',\n  components: { Transition, img, RouterLink },\n  setup(props) {\n    const provider = useProvider({\n      id: '2lr5vnuyjh6',\n      version: '1706682506703'\n    });\n    const state = reactive({});\n    return { state, props, provider };\n  }\n});\n\n</script>\n<style lang=\"scss\" scoped>\n\n</style>\n",
+            "url": "angular-html-parser"
+          },
+          "offset": 134,
+          "line": 2,
+          "col": 122
+        },
+        "fullStart": {
+          "file": {
+            "content": "\n<template>\n<Transition   ><img  src=\"/@fs/D:/vtj/vtj-next/vtj/packages/designer/src/assets/logo.png\" width=\"200\" height=\"200\" ></img></Transition>\n<RouterLink  to=\"/?a=3\" :replace='true' >RouterLink</RouterLink>\n</template>\n<script lang=\"ts\">\nimport { defineComponent, reactive, Transition } from 'vue';\nimport { RouterLink } from 'vue-router';\nimport { useProvider } from '@vtj/renderer';\nexport default defineComponent({\n  name: 'Aaa',\n  components: { Transition, img, RouterLink },\n  setup(props) {\n    const provider = useProvider({\n      id: '2lr5vnuyjh6',\n      version: '1706682506703'\n    });\n    const state = reactive({});\n    return { state, props, provider };\n  }\n});\n\n</script>\n<style lang=\"scss\" scoped>\n\n</style>\n",
+            "url": "angular-html-parser"
+          },
+          "offset": 128,
+          "line": 2,
+          "col": 116
+        },
+        "details": null
+      },
+      "msg": "Void elements do not have end tags \"img\"",
+      "level": 1,
+      "elementName": "img"
+    },
+    "codeFrame": "  1 |\n  2 | <template>\n> 3 | <Transition   ><img  src=\"/@fs/D:/vtj/vtj-next/vtj/packages/designer/src/assets/logo.png\" width=\"200\" height=\"200\" ></img></Transition>\n    |                                                                                                                     ^^^^^^\n  4 | <RouterLink  to=\"/?a=3\" :replace='true' >RouterLink</RouterLink>\n  5 | </template>\n  6 | <script lang=\"ts\">"
   }
 }

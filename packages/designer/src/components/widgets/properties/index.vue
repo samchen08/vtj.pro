@@ -9,7 +9,7 @@
       :items="commonProps"
       @change="change"></Setters>
     <Setters
-      v-if="node"
+      v-if="node && componentProps.length"
       title="组件属性"
       :current="current"
       :context="context"

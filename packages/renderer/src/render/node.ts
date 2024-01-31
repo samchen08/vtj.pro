@@ -13,7 +13,7 @@ import {
 } from '@vtj/core';
 import { camelCase, upperFirst, isString, pick } from '@vtj/utils';
 import { type Context } from './context';
-import { BUILDIN_DIRECTIVES } from '../constants';
+import { BUILT_IN_DIRECTIVES } from '../constants';
 import { toString, isJSExpression, isJSFunction } from '../utils';
 import { defaultLoader, type BlockLoader } from './loader';
 
@@ -97,7 +97,7 @@ function getDiretives(directives: NodeDirective[] = []) {
   const vBind = directives.find((n) => camelCase(n.name) === 'vBind');
   const vModels = directives.filter((n) => camelCase(n.name) === 'vModel');
   const others = directives.filter(
-    (n) => !BUILDIN_DIRECTIVES.includes(camelCase(n.name))
+    (n) => !BUILT_IN_DIRECTIVES.includes(camelCase(n.name))
   );
   return {
     vIf,
@@ -120,16 +120,19 @@ function createBuiltInComponent(context: Context, is?: string | JSExpression) {
 }
 
 function parseNodeProps(id: string | null, props: NodeProps, context: Context) {
-  const _props = Object.keys(props || {}).reduce((result, key: string) => {
-    let val = (props as any)[key];
-    if (isJSExpression(val)) {
-      val = context.__parseExpression(val);
-    } else if (isJSFunction(val)) {
-      val = context.__parseFunction(val);
-    }
-    result[key] = val;
-    return result;
-  }, {} as Record<string, any>);
+  const _props = Object.keys(props || {}).reduce(
+    (result, key: string) => {
+      let val = (props as any)[key];
+      if (isJSExpression(val)) {
+        val = context.__parseExpression(val);
+      } else if (isJSFunction(val)) {
+        val = context.__parseFunction(val);
+      }
+      result[key] = val;
+      return result;
+    },
+    {} as Record<string, any>
+  );
   _props.ref = context.__ref(id, _props.ref);
 
   return _props;
@@ -142,19 +145,22 @@ function parseNodeEvents(Vue: any, events: NodeEvents, context: Context) {
     once: 'Once',
     passive: 'OnceCapture'
   };
-  return Object.keys(events || {}).reduce((result, key: string) => {
-    const event = events[key];
-    const modifiers = getModifiers(event.modifiers);
-    const suffix = modifiers.find((n) => suffixModifiers.includes(n));
-    const name =
-      'on' + upperFirst(key) + (suffix ? suffixMap[suffix] || '' : '');
+  return Object.keys(events || {}).reduce(
+    (result, key: string) => {
+      const event = events[key];
+      const modifiers = getModifiers(event.modifiers);
+      const suffix = modifiers.find((n) => suffixModifiers.includes(n));
+      const name =
+        'on' + upperFirst(key) + (suffix ? suffixMap[suffix] || '' : '');
 
-    const handler = context.__parseFunction(event.handler);
-    if (handler) {
-      result[name] = Vue.withModifiers(handler, modifiers);
-    }
-    return result;
-  }, {} as Record<string, any>);
+      const handler = context.__parseFunction(event.handler);
+      if (handler) {
+        result[name] = Vue.withModifiers(handler, modifiers);
+      }
+      return result;
+    },
+    {} as Record<string, any>
+  );
 }
 
 export function getModifiers(

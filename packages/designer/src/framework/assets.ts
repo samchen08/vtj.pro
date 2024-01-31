@@ -48,7 +48,7 @@ export class Assets {
       if (!categories || !components) {
         continue;
       }
-      const names = components.map((n) => n.name);
+      const names = components.filter((n) => !!n.package).map((n) => n.name);
       const children: AssetGroup[] = categories.map((c) =>
         this.getCateoryComponents(c, components)
       );

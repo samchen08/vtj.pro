@@ -19,7 +19,7 @@ export async function notMatch(_req: ApiRequest) {
 }
 
 export async function saveLogs(e: any) {
-  const name = `error-${timestamp()}.json`;
+  const name = `error-${timestamp()}`;
   const logs = new JsonRepository('logs');
   const json = JSON.parse(JSON.stringify(e));
   return logs.save(name, json);
