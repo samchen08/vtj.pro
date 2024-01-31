@@ -1,4 +1,4 @@
-import { isUrl, url as urlUtils } from '@vtj/utils';
+import { isUrl, url as urlUtils, dedupArray } from '@vtj/utils';
 import { version } from '../version';
 
 import type { Dependencie, MaterialDescription } from '@vtj/core';
@@ -73,7 +73,7 @@ export function parseDeps(deps: Dependencie[], basePath: string) {
     css: fillBasePath(css, basePath),
     materials: fillBasePath(materials, basePath),
     libraryExports,
-    materialExports,
+    materialExports: dedupArray(materialExports),
     materialMapLibrary,
     libraryMap
   };

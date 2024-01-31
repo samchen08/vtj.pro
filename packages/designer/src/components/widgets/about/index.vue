@@ -8,7 +8,7 @@
   </div>
 </template>
 <script lang="ts" setup>
-  import logo from '../logo/logo.png';
+  import logo from '../../../assets/logo.png';
   import { version } from '../../../version';
 
   defineOptions({

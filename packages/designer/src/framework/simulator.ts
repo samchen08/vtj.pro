@@ -1,5 +1,11 @@
 import { type Ref, type ShallowRef, shallowRef, watch } from 'vue';
-import { type Dependencie, type Material, Base } from '@vtj/core';
+import {
+  type Dependencie,
+  type Material,
+  Base,
+  BUILT_IN_NAME,
+  BUILT_IN_LIBRARAY_MAP
+} from '@vtj/core';
 import {
   parseDeps,
   createAssetsCss,
@@ -11,6 +17,7 @@ import { logger } from '@vtj/utils';
 import { Renderer } from './renderer';
 import { Designer } from './designer';
 import { type Engine } from './engine';
+
 declare global {
   interface Window {
     __simulator__: Simulator;
@@ -23,6 +30,7 @@ declare global {
 export interface SimulatorEnv {
   window: Window;
   Vue: any;
+  VueRouter: any;
   library: Record<string, any>;
   materials: Record<string, any>;
   components: Record<string, any>;
@@ -166,27 +174,40 @@ export class Simulator extends Base {
     const components: Record<string, any> = {};
 
     const { groups, componentMap } = assets;
+
     for (const group of groups.value) {
       const names = group.names || [];
-      const lib = library[materialMapLibrary[group.library || '']];
-      if (lib) {
+      if (group.name === BUILT_IN_NAME) {
         names.forEach((name) => {
           const desc = componentMap.get(name);
-          if (desc) {
+          const packageName = desc?.package || '';
+          const exportName = BUILT_IN_LIBRARAY_MAP[packageName];
+          const lib = library[exportName];
+          if (lib && desc) {
             components[name] = getRawComponent(desc, lib);
-          } else {
-            components[name] = lib[name];
           }
         });
+      } else {
+        const lib = library[materialMapLibrary[group.library || '']];
+
+        if (lib) {
+          names.forEach((name) => {
+            const desc = componentMap.get(name);
+            if (desc) {
+              components[name] = getRawComponent(desc, lib);
+            } else {
+              components[name] = lib[name];
+            }
+          });
+        }
       }
     }
-
     const { adapter, globals } = provider;
     const apis = createSchemaApis(project.value?.apis, adapter);
-
     return {
       window: cw,
       Vue: cw.Vue,
+      VueRouter: cw.VueRouter,
       library,
       materials,
       components,

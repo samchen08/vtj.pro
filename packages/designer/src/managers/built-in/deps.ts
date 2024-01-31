@@ -1,4 +1,4 @@
-import type { Dependencie } from '@vtj/core';
+import { type Dependencie, BUILT_IN_VUE, BUILT_IN_VUE_ROUTER } from '@vtj/core';
 
 export const builtInDeps: Dependencie[] = [
   {
@@ -6,6 +6,7 @@ export const builtInDeps: Dependencie[] = [
     version: 'latest',
     library: 'Vue',
     urls: ['@vtj/materials/deps/vue/vue.global.prod.js'],
+    assetsLibrary: BUILT_IN_VUE,
     required: true,
     official: true,
     enabled: true
@@ -15,6 +16,7 @@ export const builtInDeps: Dependencie[] = [
     version: 'latest',
     library: 'VueRouter',
     urls: ['@vtj/materials/deps/vue-router/vue-router.global.prod.js'],
+    assetsLibrary: BUILT_IN_VUE_ROUTER,
     required: true,
     official: true,
     enabled: true

@@ -36,7 +36,14 @@ export class Renderer {
   }
 
   private install(app: App) {
-    const { library, globals } = this.env;
+    const { library, globals, VueRouter } = this.env;
+    if (VueRouter) {
+      const router = VueRouter.createRouter({
+        history: VueRouter.createWebHashHistory(),
+        routes: []
+      });
+      app.use(router);
+    }
     const plugins = Object.values(library);
     Object.assign(app.config.globalProperties, globals);
     app.config.errorHandler = (err: any, instance, info) => {

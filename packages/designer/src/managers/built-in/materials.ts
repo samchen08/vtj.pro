@@ -1,10 +1,17 @@
-import type {
-  Material,
-  MaterialCategory,
-  MaterialDescription
+import {
+  type Material,
+  type MaterialCategory,
+  type MaterialDescription,
+  BUILT_IN_NAME
 } from '@vtj/core';
 
+import logo from '../../assets/logo.png';
+
 const categories: MaterialCategory[] = [
+  {
+    id: 'html',
+    category: 'HTML'
+  },
   {
     id: 'elements',
     category: '特殊元素'
@@ -16,6 +23,102 @@ const categories: MaterialCategory[] = [
 ];
 
 const elements: MaterialDescription[] = [
+  {
+    name: 'div',
+    label: '容器',
+    categoryId: 'html',
+    snippet: {
+      children: '容器文本内容示例'
+    }
+  },
+  {
+    name: 'span',
+    label: '内联',
+    categoryId: 'html',
+    snippet: {
+      children: '内联容器文本内容示例'
+    }
+  },
+  {
+    name: 'a',
+    label: '链接',
+    categoryId: 'html',
+    props: [
+      {
+        name: 'href',
+        label: 'href',
+        setters: 'InputSetter'
+      }
+    ],
+    snippet: {
+      children: '链接文本内容示例',
+      props: {
+        href: '#'
+      }
+    }
+  },
+  {
+    name: 'img',
+    label: '图片',
+    categoryId: 'html',
+    childIncludes: false,
+    props: [
+      {
+        name: 'src',
+        label: 'src',
+        setters: 'InputSetter'
+      },
+      {
+        name: 'width',
+        label: 'width',
+        setters: 'InputSetter'
+      },
+      {
+        name: 'height',
+        label: 'height',
+        setters: 'InputSetter'
+      }
+    ],
+    snippet: {
+      props: {
+        src: logo,
+        width: '200',
+        height: '200'
+      }
+    }
+  },
+  {
+    name: 'h1',
+    label: '大标题',
+    categoryId: 'html',
+    snippet: {
+      children: '标题'
+    }
+  },
+  {
+    name: 'h2',
+    label: '中标题',
+    categoryId: 'html',
+    snippet: {
+      children: '标题'
+    }
+  },
+  {
+    name: 'h3',
+    label: '小标题',
+    categoryId: 'html',
+    snippet: {
+      children: '标题'
+    }
+  },
+  {
+    name: 'p',
+    label: '段落',
+    categoryId: 'html',
+    snippet: {
+      children: '段落文本'
+    }
+  },
   {
     name: 'component',
     label: '动态组件',
@@ -352,7 +455,7 @@ const components: MaterialDescription[] = [
       },
       {
         name: 'disabled',
-        label: '目标容器',
+        label: '禁用',
         title:
           '当值为 `true` 时，内容将保留在其原始位置, 而不是移动到目标容器中, 可以动态更改',
         setters: ['BooleanSetter']
@@ -372,15 +475,40 @@ const components: MaterialDescription[] = [
         setters: ['InputSetter']
       }
     ]
+  },
+  {
+    name: 'RouterLink',
+    label: '路由链接',
+    categoryId: 'components',
+    doc: 'https://router.vuejs.org/zh/api/interfaces/RouterLinkProps.html',
+    package: 'vue-router',
+    props: [
+      {
+        name: 'to',
+        label: 'to',
+        setters: ['InputSetter']
+      },
+      {
+        name: 'replace',
+        label: 'replace',
+        setters: ['BooleanSetter']
+      }
+    ],
+    snippet: {
+      children: 'RouterLink',
+      props: {
+        to: '/'
+      }
+    }
   }
 ];
 
 export const builtInMaterials: Material[] = [
   {
-    name: 'vue',
+    name: BUILT_IN_NAME,
     version: 'latest',
     label: '内置',
-    library: 'Vue',
+    library: BUILT_IN_NAME,
     order: 0,
     categories,
     components
