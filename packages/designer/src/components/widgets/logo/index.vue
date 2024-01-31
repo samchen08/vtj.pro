@@ -10,7 +10,7 @@
 </template>
 
 <script lang="ts" setup>
-  import logo from './logo.png';
+  import logo from '../../../assets/logo.png';
   export interface Props {
     icon?: string;
     text?: string;

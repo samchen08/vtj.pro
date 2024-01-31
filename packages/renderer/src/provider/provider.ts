@@ -7,7 +7,8 @@ import {
   type Service,
   type Material,
   type BlockSchema,
-  Base
+  Base,
+  BUILT_IN_COMPONENTS
 } from '@vtj/core';
 import {
   type IStaticRequest,
@@ -117,7 +118,6 @@ export class Provider extends Base {
       materialExports,
       materialMapLibrary
     } = parseDeps(deps, materialPath);
-
     for (const libraryName of libraryExports) {
       const raw = dependencies[libraryName];
       const lib = (window as any)[libraryName];
@@ -144,15 +144,26 @@ export class Provider extends Base {
     }
 
     const materialMap = this.materials || {};
+    // console.log(materialExports, materialMap);
+
     for (const materialExport of materialExports) {
-      const material = materialMap[materialExport]
-        ? ((await materialMap[materialExport]()).default as Material)
-        : ((window as any)[materialExport] as Material);
       const lib = (window as any)[materialMapLibrary[materialExport]];
-      if (material && lib) {
-        material.components.forEach((item) => {
-          components[item.name] = getRawComponent(item, lib);
-        });
+      const builtInComponents = BUILT_IN_COMPONENTS[materialExport];
+      if (builtInComponents) {
+        if (lib) {
+          builtInComponents.forEach((name) => {
+            components[name] = lib[name];
+          });
+        }
+      } else {
+        const material = materialMap[materialExport]
+          ? ((await materialMap[materialExport]()).default as Material)
+          : ((window as any)[materialExport] as Material);
+        if (material && lib) {
+          (material.components || []).forEach((item) => {
+            components[item.name] = getRawComponent(item, lib);
+          });
+        }
       }
     }
 

@@ -1,6 +1,6 @@
 {
   "name": "@vtj/mobile",
-  "version": "0.7.13",
+  "version": "0.7.14",
   "private": false,
   "scripts": {
     "dev:app": "uni -p app",
@@ -44,8 +44,8 @@
     "build": "vtj rm ./lib && vtj copy ./src/mui ./lib/mui && npm run check"
   },
   "dependencies": {
-    "@vtj/icons": "^0.7.13",
-    "@vtj/utils": "^0.7.13"
+    "@vtj/icons": "^0.7.14",
+    "@vtj/utils": "^0.7.14"
   },
   "devDependencies": {
     "@dcloudio/types": "~3.4.7",

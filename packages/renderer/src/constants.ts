@@ -59,7 +59,7 @@ export const LIFE_CYCLES_LIST = [
 /**
  * 内置指令
  */
-export const BUILDIN_DIRECTIVES = ['vIf', 'vShow', 'vModel', 'vFor', 'vBind'];
+export const BUILT_IN_DIRECTIVES = ['vIf', 'vShow', 'vModel', 'vFor', 'vBind'];
 
 /**
  * 数据类型
