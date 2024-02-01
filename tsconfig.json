@@ -5,5 +5,8 @@
     "docs/refs",
     "packages/base/src/**/*.ts",
     "packages/node/src/**/*.ts"
+  ],
+  "exclude": [
+    "create-vtj/templates/**/*",
   ]
 }

@@ -142,3 +142,22 @@
     max-width: 100% !important;
   }
 }
+
+.frame-page .VPContent {
+  position: relative;
+}
+.frame-page .VPPage {
+  position: absolute;
+  width: 100%;
+
+  height: 100%;
+}
+.frame-page .VPPage div {
+  height: 100%;
+}
+
+@media (min-width: 960px) {
+  .frame-page .VPPage {
+    height: calc(100% - var(--vp-nav-height));
+  }
+}

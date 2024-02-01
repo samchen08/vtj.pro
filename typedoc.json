@@ -9,11 +9,16 @@
         "docs/refs/ui.ts",
         "docs/refs/core.ts",
         "docs/refs/designer.ts",
+        "docs/refs/renderer.ts"
     ],
+    "readme": "typedoc.md",
     "entryPointStrategy": "resolve",
-    "out": "docs/dist/typedoc",
+    "out": "docs/src/typedoc",
     "excludeExternals": true,
     "externalPattern": [
-        "**/node_modules/**",
+        "**/node_modules/**"
+    ],
+    "exclude": [
+        "README.md"
     ]
 }

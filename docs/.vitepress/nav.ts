@@ -1,6 +1,7 @@
 export default [
   { text: '首页', link: '/' },
   { text: '帮助中心', link: '/help/' },
+  { text: 'API', link: '/typedoc/modules.html' },
   {
     text: '相关链接',
     items: [
