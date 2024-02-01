@@ -45,5 +45,6 @@ export default defineConfig({
       md.use(componentPreview);
     }
   },
-  outDir
+  outDir,
+  ignoreDeadLinks: true
 });

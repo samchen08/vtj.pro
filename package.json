@@ -11,7 +11,8 @@
     "typedoc": "~0.25.6",
     "typescript": "~5.3.3",
     "ts-node": "~10.9.2",
-    "nodemon": "~3.0.2"
+    "nodemon": "~3.0.2",
+    "typedoc-plugin-markdown": "~3.17.1"
   },
   "scripts": {
     "setup": "pnpm install --unsafe-perm --registry=https://registry.npmmirror.com",
@@ -26,7 +27,7 @@
     "test": "lerna run --no-private test",
     "build": "lerna run --no-private build",
     "coverage": "lerna run --no-private coverage",
-    "typedoc": "typedoc",
+    "typedoc": "typedoc --plugin typedoc-plugin-markdown",
     "ci": "git add . && git commit -m \"ci commit \" && git push",
     "prerelease": "lerna version prerelease --yes && npm run test && npm run build && npm run ci && lerna publish from-package --dist-tag test --no-private --yes && pnpm run sync",
     "patch": "lerna version patch --yes && npm run build && npm run ci && npm run publish && pnpm run sync",
@@ -61,8 +62,8 @@
     "vtj:dev": "node create-vtj/dist/index.mjs",
     "vtj:build": "cd create-vtj && npm run build",
     "docs:dev": "cd docs && vitepress dev",
-    "docs:build": "cd docs && npm run docs:build && cd .. && npm run lcdp:build",
-    "docs:gitee": "cd docs && npm run build:gitee && cd .. && npm run lcdp:gitee",
+    "docs:build": "npm run typedoc && cd docs && npm run docs:build && cd .. && npm run lcdp:build",
+    "docs:gitee": "npm run typedoc && cd docs && npm run build:gitee && cd .. && npm run lcdp:gitee",
     "docs:preview": "cd docs && vitepress preview",
     "pro:dev": "cd platforms/pro && npm run dev",
     "pro:build": "cd platforms/pro && npm run build",

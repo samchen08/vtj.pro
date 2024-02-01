@@ -1,5 +1,6 @@
 import guide from './guide';
-
+import typedoc from './typedoc';
 export default {
-  '/guide/': guide
+  '/guide/': guide,
+  '/typedoc/': typedoc
 };
