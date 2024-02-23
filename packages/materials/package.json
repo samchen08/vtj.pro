@@ -1,7 +1,7 @@
 {
   "name": "@vtj/materials",
   "private": false,
-  "version": "0.7.14",
+  "version": "0.7.15",
   "type": "module",
   "scripts": {
     "build": "npm run remove && npm run build:ui && npm run build:element && npm run build:antdv && npm run copy",
@@ -12,16 +12,16 @@
     "copy": "node scripts/copy.mjs"
   },
   "devDependencies": {
-    "@vtj/cli": "^0.7.10",
-    "@vtj/core": "^0.7.14",
-    "@vtj/ui": "^0.7.14",
-    "@vtj/utils": "^0.7.14",
+    "@vtj/cli": "^0.7.11",
+    "@vtj/core": "^0.7.15",
+    "@vtj/ui": "^0.7.15",
+    "@vtj/utils": "^0.7.15",
     "ant-design-vue": "~4.1.0",
-    "echarts": "~5.4.3",
+    "echarts": "~5.5.0",
     "element-plus": "~2.5.3",
     "vant": "~4.8.3",
     "vue": "~3.4.15",
-    "vue-router": "~4.2.5"
+    "vue-router": "~4.3.0"
   },
   "files": [
     "dist"

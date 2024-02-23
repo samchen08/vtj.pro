@@ -1,6 +1,6 @@
 {
   "name": "vtj-project-uniapp",
-  "version": "0.7.14",
+  "version": "0.7.15",
   "private": true,
   "scripts": {
     "dev:app": "uni -p app",
@@ -60,7 +60,7 @@
     "@dcloudio/uni-mp-toutiao": "3.0.0-3090920231225001",
     "@dcloudio/uni-mp-weixin": "3.0.0-3090920231225001",
     "@dcloudio/uni-quickapp-webview": "3.0.0-3090920231225001",
-    "@dcloudio/uni-ui": "~1.5.0",
+    "@dcloudio/uni-ui": "~1.5.2",
     "@vtj/mobile": "workspace:*",
     "vue": "~3.4.15",
     "vue-i18n": "~9.9.0"
@@ -73,6 +73,6 @@
     "@dcloudio/vite-plugin-uni": "3.0.0-3090920231225001",
     "@vtj/cli": "workspace:*",
     "@vue/runtime-core": "~3.4.15",
-    "vite": "~5.0.12"
+    "vite": "~5.1.1"
   }
 }

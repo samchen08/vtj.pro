@@ -27,13 +27,16 @@
         :items="tabs"
         v-model="currentTab"
         stretch
-        :body="{ padding: false }">
+        :body="{ padding: false }"
+        @action-click="onTabActionClick">
         <template v-for="widget in widgets" :key="widget.name">
           <WidgetWrapper
             ref="widgetsRef"
             v-if="currentTab === widget.name"
             :region="region"
-            :widget="widget"></WidgetWrapper>
+            :widget="
+              merge({ props: { isStyleCodeMode } }, widget)
+            "></WidgetWrapper>
         </template>
       </Tabs>
     </XContainer>
@@ -48,8 +51,9 @@
 </template>
 <script lang="ts" setup>
   import { computed, ref, watch } from 'vue';
-  import { XContainer, XAction } from '@vtj/ui';
-  import { VtjIconLayers, VtjIconHelp } from '@vtj/icons';
+  import { XContainer, XAction, type TabsItem } from '@vtj/ui';
+  import { merge } from '@vtj/utils';
+  import { VtjIconLayers, VtjIconHelp, Switch } from '@vtj/icons';
   import { ElEmpty } from 'element-plus';
 
   import {
@@ -77,16 +81,28 @@
 
   const { widgets, widgetsRef } = useRegion(props.region, group);
 
+  const currentTab = ref();
+
+  const isStyleCodeMode = ref(false);
+
   const tabs = computed(() => {
     return (widgets.value as TabWidget[]).map((n) => {
       return {
         name: n.name,
-        label: n.label
-      };
+        label: n.label,
+        actions:
+          n.name === 'Style'
+            ? [
+                {
+                  name: 'switch',
+                  icon: Switch,
+                  background: 'hover'
+                }
+              ]
+            : undefined
+      } as TabsItem;
     });
   });
-
-  const currentTab = ref('');
 
   const docUrl = computed(() => {
     const node = selected.value?.model;
@@ -109,6 +125,10 @@
     { immediate: true }
   );
 
+  watch(currentTab, () => {
+    isStyleCodeMode.value = false;
+  });
+
   const openDocs = () => {
     if (docUrl.value) {
       const region = engine.skeleton?.getRegion('Workspace');
@@ -117,6 +137,12 @@
           url: docUrl.value
         });
       }
+    }
+  };
+
+  const onTabActionClick = (e: any) => {
+    if (e.name === 'switch') {
+      isStyleCodeMode.value = !isStyleCodeMode.value;
     }
   };
 

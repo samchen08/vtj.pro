@@ -9,6 +9,7 @@ import { parseWatch } from './watch';
 import { parseDataSources } from './dataSources';
 import { parseTemplate } from './template';
 import { parseImports } from './imports';
+import { parseStyle } from './style';
 
 export interface Token {
   id: string;
@@ -27,6 +28,7 @@ export interface Token {
   returns: string;
   template: string;
   css: string;
+  style: string;
 }
 export function parser(
   collecter: Collecter,
@@ -82,6 +84,7 @@ export function parser(
     components: components.join(','),
     returns: collecter.members.join(','),
     template: nodes.join('\n'),
-    css: dsl.css || ''
+    css: dsl.css || '',
+    style: parseStyle(collecter.style)
   };
 }

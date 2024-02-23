@@ -19,6 +19,10 @@ const files = [
     modules + 'element-plus/dist/index.full.min.js',
     'deps/element-plus/index.full.min.js'
   ],
+  [
+    modules + 'element-plus/theme-chalk/dark/css-vars.css',
+    'deps/element-plus/dark/css-vars.css'
+  ],
   [modules + 'element-plus/dist/index.css', 'deps/element-plus/index.css'],
   [modules + 'echarts/dist/echarts.min.js', 'deps/echarts/echarts.min.js'],
 

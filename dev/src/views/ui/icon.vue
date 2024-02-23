@@ -2,10 +2,10 @@
   <div>
     <hr />
     <div class="my-block" direction="row" :grow="false" border>
-      <XIcon icon="Star" @click="handleClick"></XIcon>
+      <XIcon :icon="Star" @click="handleClick"></XIcon>
       <XIcon :icon="Menu" @click="handleClick"></XIcon>
       <XIcon :icon="Setting" @click="handleClick"></XIcon>
-      <XIcon icon="vtj-icon-user"></XIcon>
+      <XIcon :icon="VtjIconUser"></XIcon>
       <XIcon :src="Logo"></XIcon>
       <XIcon :icon="Fixed"></XIcon>
     </div>
@@ -13,21 +13,21 @@
     <div class="my-block" direction="row" :grow="false" border>
       <XIcon size="small" :icon="Menu" @click="handleClick"></XIcon>
       <XIcon size="small" :icon="Setting" @click="handleClick"></XIcon>
-      <XIcon size="small" icon="vtj-icon-user"></XIcon>
+      <XIcon size="small" :icon="VtjIconUser"></XIcon>
       <XIcon size="small" :src="Logo"></XIcon>
     </div>
     <hr />
     <div class="my-block" direction="row" :grow="false" border>
       <XIcon size="large" :icon="Menu" @click="handleClick"></XIcon>
       <XIcon size="large" :icon="Setting" @click="handleClick"></XIcon>
-      <XIcon size="large" icon="vtj-icon-user"></XIcon>
+      <XIcon size="large" :icon="VtjIconUser"></XIcon>
       <XIcon size="large" :src="Logo"></XIcon>
     </div>
     <hr />
     <div class="my-block" direction="row" :grow="false" border>
       <XIcon :size="40" :icon="Menu" @click="handleClick"></XIcon>
       <XIcon :size="40" :icon="Setting" @click="handleClick"></XIcon>
-      <XIcon :size="40" icon="vtj-icon-user"></XIcon>
+      <XIcon :size="40" :icon="VtjIconUser"></XIcon>
       <XIcon :size="40" :src="Logo"></XIcon>
       <XIcon :size="40" :icon="vnodeIcon"></XIcon>
     </div>
@@ -36,8 +36,7 @@
 </template>
 <script lang="ts" setup>
   import { h } from 'vue';
-  import { XIcon, Fixed } from '@vtj/web';
-  import { Menu, Setting } from '@element-plus/icons-vue';
+  import { XIcon, Fixed, Menu, Setting, Star, VtjIconUser } from '@vtj/web';
   import Logo from '@/assets/logo.png';
 
   const vnodeIcon = h('span', { class: 'vnode-icon' });

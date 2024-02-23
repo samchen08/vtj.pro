@@ -1,6 +1,6 @@
 import type { ExtractPropTypes, PropType, VNode } from 'vue';
 
-export type IconParam = string | VNode | object | IconProps;
+export type IconParam = string | VNode | IconProps | Record<string, any>;
 export type IconSize = number | 'inherit' | 'large' | 'default' | 'small';
 
 export const iconSizeMap = {
