@@ -37,6 +37,7 @@ const vueTemplate = `
 </script>
 <style lang="scss" scoped>
 <%= css %>
+<%= style %>
 </style>
 `;
 

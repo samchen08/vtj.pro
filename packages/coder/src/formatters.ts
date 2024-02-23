@@ -30,6 +30,15 @@ const prettierOptions: Options = {
   vueIndentScriptAndStyle: true
 };
 
+export async function vueFormatter(content: string, disabled?: boolean) {
+  if (disabled) return content;
+  return await format(content, {
+    parser: 'vue',
+    ...prettierOptions,
+    plugins: [htmlParser, babelParser, estree, cssParser]
+  });
+}
+
 /**
  * 格式化HTMl代码
  */

@@ -1,13 +1,14 @@
 {
   "name": "@vtj/icons",
   "private": false,
-  "version": "0.7.14",
+  "version": "0.7.15",
   "type": "module",
   "scripts": {
     "svg2vue": "node scripts/svg.mjs",
     "icons": "node scripts/icons.mjs",
+    "assets": "node scripts/assets.mjs",
     "gen": "npm run svg2vue && npm run icons",
-    "build": "npm run gen && vue-tsc && vite build && npm run build:umd",
+    "build": "npm run gen && npm run assets && vue-tsc && vite build && npm run build:umd",
     "build:umd": "cross-env UMD=true vite build",
     "test": "npm run gen && vitest run",
     "vitest": "npm run gen && vitest",
@@ -17,7 +18,7 @@
     "@element-plus/icons-vue": "~2.3.1"
   },
   "devDependencies": {
-    "@vtj/cli": "^0.7.10",
+    "@vtj/cli": "^0.7.11",
     "vue": "~3.4.15",
     "xml2js": "~0.6.2"
   },
@@ -26,7 +27,7 @@
     ".": {
       "types": "./types/index.d.ts",
       "import": "./dist/index.mjs",
-      "require": "./dist/index.cjs"
+      "require": "./dist/index.umd.js"
     }
   },
   "main": "./dist/index.umd.js",
@@ -34,7 +35,8 @@
   "types": "./types/index.d.ts",
   "files": [
     "dist",
-    "types"
+    "types",
+    "assets"
   ],
   "gitHead": "0b470d76f584714cd96bf684bf66c720c2661df1",
   "publishConfig": {

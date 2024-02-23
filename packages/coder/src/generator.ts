@@ -5,7 +5,12 @@ import {
   type PageFile
 } from '@vtj/core';
 import { cloneDeep } from '@vtj/base';
-import { tsFormatter, htmlFormatter, cssFormatter } from './formatters';
+import {
+  tsFormatter,
+  // htmlFormatter,
+  cssFormatter,
+  vueFormatter
+} from './formatters';
 import { Collecter } from './collecter';
 import { parser } from './parser';
 import { scriptCompiled, vueCompiled } from './templates';
@@ -30,9 +35,10 @@ export async function generator(
   const vue = vueCompiled({
     template: token.template,
     css: await cssFormatter(token.css, formatterDisabled),
-    script: await tsFormatter(script, formatterDisabled)
+    script: await tsFormatter(script, formatterDisabled),
+    style: await cssFormatter(token.style, formatterDisabled)
   });
-  return await htmlFormatter(vue, formatterDisabled);
+  return await vueFormatter(vue, formatterDisabled);
 }
 
 export async function createEmptyPage(file: PageFile) {
@@ -48,5 +54,5 @@ export async function createEmptyPage(file: PageFile) {
     <style scoped lang="scss">
     </style>
   `;
-  return await htmlFormatter(content);
+  return await vueFormatter(content);
 }

@@ -16,7 +16,7 @@
       justify-content: center;
       align-items: center;
       border: 1px solid #eee;
-      background: #fff;
+      background: rgba(255,255,255,.8);
       box-shadow: 0 0 3px rgba(0,0,0,.1);
     }
     #vtjLink svg{

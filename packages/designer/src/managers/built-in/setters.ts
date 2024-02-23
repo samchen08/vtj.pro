@@ -84,5 +84,43 @@ export const builtInSetters: Array<Setter> = [
     name: 'FunctionSetter',
     component: setters.FunctionSetter,
     type: 'Function'
+  },
+  {
+    name: 'RadioSetter',
+    component: setters.RadioSetter,
+    type: 'String'
+  },
+  {
+    name: 'TagSetter',
+    component: setters.TagSetter,
+    type: 'String'
+  },
+  {
+    name: 'SizeSetter',
+    component: setters.SizeSetter,
+    type: 'String'
+  },
+  {
+    name: 'ImageSetter',
+    component: setters.ImageSetter,
+    type: 'String'
+  },
+  {
+    name: 'SectionSetter',
+    component: setters.SectionSetter,
+    type: 'String'
+  },
+  {
+    name: 'SliderSetter',
+    component: setters.SliderSetter,
+    type: 'Number'
+  },
+  {
+    name: 'RangeSetter',
+    component: setters.SliderSetter,
+    type: 'Array',
+    props: {
+      range: true
+    }
   }
 ];

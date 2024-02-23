@@ -54,6 +54,7 @@ export function parseTemplate(
 
       // 收集属性和事件
       const { props, events, handlers } = parsePropsAndEvents(
+        child,
         id as string,
         child.props,
         child.events,
@@ -84,8 +85,8 @@ export function parseTemplate(
 
       contents.push(
         name === 'img'
-          ? `<${name} ${directives} ${props} ${events} />`
-          : `<${name} ${directives} ${props} ${events}>${childContent.trim()}</${name}>`
+          ? `<${name} ${directives} ${props} ${events} />\n`
+          : `<${name} ${directives} ${props} ${events}>${childContent ? '\n' + childContent.trim() : ''}</${name}>`
       );
     }
     const node = wrapSlot(item.slot, contents.join('\n'), parent?.id);
@@ -144,6 +145,16 @@ function isFromSchema(from?: NodeFrom): from is NodeFromSchema {
 }
 
 function bindProp(name: string, value: unknown, computedKeys: string[] = []) {
+  if (name === 'style') {
+    return '';
+  }
+  if (name === '__class' && isJSCode(value)) {
+    return `:class="${parseValue({
+      ...value,
+      value: replaceComputedValue(value.value, computedKeys)
+    })}"`;
+  }
+
   if (typeof value === 'string') {
     return `${name}="${value}"`;
   } else if (isJSCode(value)) {
@@ -160,7 +171,26 @@ function bindProp(name: string, value: unknown, computedKeys: string[] = []) {
   }
 }
 
-function bindNodeProps(props: NodeProps = {}, computedKeys: string[] = []) {
+function bindNodeProps(
+  node: NodeSchema,
+  props: NodeProps = {},
+  computedKeys: string[] = []
+) {
+  const hasStyle = !!Object.keys(props.style || {}).length;
+  if (hasStyle) {
+    const className = `${node.name}_${node.id}`;
+    if (props.class) {
+      if (typeof props.class === 'string') {
+        props.class = [props.class, className].join(' ');
+      } else {
+        props.__class = props.class;
+        props.class = className;
+      }
+    } else {
+      props.class = className;
+      delete props.style;
+    }
+  }
   return Object.entries(props).map(([name, value]) => {
     return bindProp(name, value, computedKeys);
   });
@@ -213,6 +243,7 @@ function bindNodeEvents(
 }
 
 function parsePropsAndEvents(
+  node: NodeSchema,
   id: string,
   props: NodeProps = {},
   events: NodeEvents = {},
@@ -221,7 +252,7 @@ function parsePropsAndEvents(
 ) {
   const { binders, handlers } = bindNodeEvents(id, events, context);
   return {
-    props: bindNodeProps(props, computedKeys).join(' '),
+    props: bindNodeProps(node, props, computedKeys).join(' '),
     handlers,
     binders,
     events: binders.join(' ')

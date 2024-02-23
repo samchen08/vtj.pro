@@ -8,6 +8,17 @@
     --el-empty-padding: 10px 0;
     --el-empty-description-margin-top: 10px;
   }
+  > .x-panel__body {
+    transition: height 0.2s;
+  }
+  @include when(collapsed) {
+    border-bottom: 3px solid var(--el-bg-color);
+    overflow: hidden;
+    > .x-panel__body {
+      height: 0;
+      padding: 0;
+    }
+  }
 }
 
 @include b(sub-panel) {
@@ -16,7 +27,7 @@
   }
   .x-header__content {
     color: var(--el-text-color-regular);
-    // font-weight: normal;
+    font-weight: normal;
   }
   .el-form-item {
     margin-bottom: 10px;
