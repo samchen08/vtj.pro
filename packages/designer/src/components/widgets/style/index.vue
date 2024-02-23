@@ -1,57 +1,85 @@
 <template>
-  <Panel
-    class="v-css-widget v-sub-panel"
-    title="style"
-    size="small"
-    fit
-    save
-    @save="onSave">
-    <Editor
-      ref="editorRef"
-      :model-value="style"
-      height="100%"
-      lang="json"
-      dark
-      @blur="saveStyle"></Editor>
-  </Panel>
+  <JsonMode v-if="props.isStyleCodeMode"></JsonMode>
+  <XContainer v-else class="v-style-widget" direction="column" fit>
+    <Layout
+      :key="`Layout${node?.id}`"
+      :style-json="styleJson"
+      :setStyle="setStyle"></Layout>
+    <Spacing
+      :key="`Spacing${node?.id}`"
+      :style-json="styleJson"
+      :setStyle="setStyle"></Spacing>
+    <Sizing
+      :key="`Sizing${node?.id}`"
+      :style-json="styleJson"
+      :setStyle="setStyle"></Sizing>
+    <Positioning
+      :key="`Positioning${node?.id}`"
+      :style-json="styleJson"
+      :setStyle="setStyle"></Positioning>
+    <Texting
+      :key="`Texting${node?.id}`"
+      :style-json="styleJson"
+      :setStyle="setStyle"></Texting>
+    <Backgound
+      :key="`Backgound${node?.id}`"
+      :style-json="styleJson"
+      :setStyle="setStyle"></Backgound>
+    <Border
+      :key="`Border${node?.id}`"
+      :style-json="styleJson"
+      :setStyle="setStyle"></Border>
+    <Effect
+      :key="`Effect${node?.id}`"
+      :style-json="styleJson"
+      :setStyle="setStyle"></Effect>
+  </XContainer>
 </template>
 <script lang="ts" setup>
-  import { ref, computed } from 'vue';
+  import { computed } from 'vue';
   import { isBlock } from '@vtj/core';
-  import { Panel } from '../../shared';
-  import Editor from '../../editor';
+  import { XContainer } from '@vtj/ui';
   import { useSelected } from '../../hooks';
-  import { message, notify } from '../../../utils';
+  import Layout from './layout.vue';
+  import JsonMode from './JsonMode.vue';
+  import Spacing from './spacing.vue';
+  import Sizing from './sizing.vue';
+  import Positioning from './positioning.vue';
+  import Texting from './texting.vue';
+  import Backgound from './backgound.vue';
+  import Border from './border.vue';
+  import Effect from './effect.vue';
 
-  defineOptions({
-    name: 'StyleWidget'
-  });
+  export interface Props {
+    isStyleCodeMode: boolean;
+  }
+
+  const props = defineProps<Props>();
   const { selected } = useSelected();
-
-  const editorRef = ref();
 
   const node = computed(() => {
     const model = selected.value?.model || null;
     return isBlock(model) ? null : model;
   });
 
-  const style = computed(() =>
-    JSON.stringify(node.value?.getPropValue('style') || {}, null, 2)
+  const styleJson = computed(
+    () => (node.value?.getPropValue('style') || {}) as Record<string, any>
   );
 
-  const saveStyle = (value: string) => {
-    try {
-      const json = JSON.parse(value);
-      node.value?.setProp('style', json);
-    } catch (e) {
-      notify('JSON格式错误');
+  const setStyle = (name: string, value?: any) => {
+    const style = (node.value?.getPropValue('style') || {}) as Record<
+      string,
+      any
+    >;
+    if (value !== undefined) {
+      style[name] = value;
+    } else {
+      delete style[name];
     }
+    node.value?.setProp('style', style);
   };
 
-  const onSave = () => {
-    const editor = editorRef.value?.getEditor();
-    const value = editor.getValue();
-    saveStyle(value);
-    message('保存成功');
-  };
+  defineOptions({
+    name: 'StyleWidget'
+  });
 </script>

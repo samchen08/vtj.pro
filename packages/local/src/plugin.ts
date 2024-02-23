@@ -152,6 +152,7 @@ const aliasPlugin = function (options: DevToolsOptions): Plugin {
               ),
               '@vtj/base': join(packagesDir, 'base/src'),
               '@vtj/utils': join(packagesDir, 'utils/src/index.ts'),
+              '@vtj/icons/svg': join(packagesDir, 'icons/dist/svg.ts'),
               '@vtj/icons': join(packagesDir, 'icons/src'),
               '@vtj/ui': join(packagesDir, 'ui/src'),
               '@vtj/core': join(packagesDir, 'core/src'),

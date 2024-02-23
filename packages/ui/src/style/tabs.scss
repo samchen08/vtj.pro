@@ -14,6 +14,8 @@
 
   .el-tabs__item {
     padding: 0 15px;
+    display: flex;
+    justify-content: space-between;
   }
   &.el-tabs--card > .el-tabs__header .el-tabs__item.is-active {
     background: var(--el-bg-color);
@@ -29,6 +31,16 @@
 
   @include e(icon) {
     margin-right: 5px;
+  }
+
+  @include e(label-inner) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+  }
+  @include e(actions) {
+    padding-left: 10px;
   }
 }
 

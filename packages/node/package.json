@@ -1,7 +1,7 @@
 {
   "name": "@vtj/node",
   "private": false,
-  "version": "0.7.5",
+  "version": "0.7.6",
   "type": "module",
   "scripts": {
     "build": "unbuild && npm run dts",
@@ -12,13 +12,13 @@
   },
   "dependencies": {
     "@types/fs-extra": "~11.0.4",
-    "@vtj/base": "^0.7.5",
+    "@vtj/base": "^0.7.6",
     "axios": "~1.6.4",
     "fs-extra": "~11.2.0"
   },
   "devDependencies": {
     "unbuild": "~2.0.0",
-    "vitest": "~1.2.1"
+    "vitest": "~1.3.0"
   },
   "exports": {
     ".": {

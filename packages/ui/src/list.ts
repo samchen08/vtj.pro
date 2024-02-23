@@ -17,7 +17,8 @@ import {
   XChart,
   XList,
   XStartup,
-  XTest
+  XTest,
+  XInputUnit
 } from './components';
 
 export const components = [
@@ -38,5 +39,6 @@ export const components = [
   XChart,
   XList,
   XStartup,
-  XTest
+  XTest,
+  XInputUnit
 ] as DefineComponent<any, any, any, any>[];

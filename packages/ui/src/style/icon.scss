@@ -22,9 +22,18 @@
     width: 100%;
     height: 100%;
     transform: translateY(1px);
+    filter: invert(0.1);
   }
 
   & + .x-icon {
     margin-left: 10px;
+  }
+}
+
+html.dark {
+  @include b(icon) {
+    img {
+      filter: invert(0.9);
+    }
   }
 }

@@ -16,5 +16,5 @@ export default createViteConfig({
         vue: 'Vue'
       }
     : undefined,
-  formats: isUmd ? ['umd', 'iife'] : ['es', 'cjs']
+  formats: isUmd ? ['umd'] : ['es']
 });

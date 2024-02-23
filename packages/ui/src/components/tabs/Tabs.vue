@@ -10,7 +10,25 @@
             v-if="item.icon"
             class="x-tabs__icon"
             :is="useIcon(item.icon)"></component>
-          {{ item.label }}
+          <div class="x-tabs__label-inner">
+            {{ item.label }}
+            <div
+              class="x-tabs__actions"
+              v-if="
+                item.actions &&
+                [item.name, item.value].includes($attrs.modelValue as any)
+              ">
+              <XAction
+                v-for="action of item.actions"
+                mode="icon"
+                type="primary"
+                size="small"
+                circle
+                v-bind="action"
+                @click="onActionClick"
+                @command="onActionCommand"></XAction>
+            </div>
+          </div>
         </slot>
       </template>
       <slot v-bind="item">
@@ -25,7 +43,8 @@
 <script lang="ts" setup>
   import { computed } from 'vue';
   import { ElTabs, ElTabPane } from 'element-plus';
-  import { tabsProps, type TabsItem } from './types';
+  import { XAction, type ActionProps, type ActionMenuItem } from '../';
+  import { tabsProps, type TabsItem, type TabsEmits } from './types';
   import { useIcon } from '../../hooks';
 
   defineOptions({
@@ -33,7 +52,7 @@
   });
 
   const props = defineProps(tabsProps);
-
+  const emit = defineEmits<TabsEmits>();
   const getTabPane = (item: TabsItem) => {
     const { label, name, value, disabled, closable, lazy } = item;
     return {
@@ -50,4 +69,12 @@
       'is-no-border': !props.border
     };
   });
+
+  const onActionClick = (e: ActionProps) => {
+    emit('actionClick', e);
+  };
+
+  const onActionCommand = (e: ActionMenuItem) => {
+    emit('actionCommand', e);
+  };
 </script>

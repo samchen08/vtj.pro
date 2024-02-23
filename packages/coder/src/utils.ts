@@ -95,3 +95,14 @@ export function getModifiers(
   const keys = Object.keys(modifiers);
   return isToString ? keys.map((n) => '.' + n) : keys;
 }
+
+export function jsonToStyle(json: Record<string, any>) {
+  let cssString = '';
+  for (var key in json) {
+    if (json.hasOwnProperty(key)) {
+      var value = json[key];
+      cssString += key + ': ' + value + ';';
+    }
+  }
+  return cssString;
+}

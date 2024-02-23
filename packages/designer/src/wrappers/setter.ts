@@ -10,10 +10,12 @@ export const SetterWrapper = defineComponent({
   name: 'SetterWrapper',
   props: {
     context: {
-      type: Object as PropType<Context | null>
+      type: Object as PropType<Context | null>,
+      default: null
     },
     current: {
-      type: Object as PropType<BlockModel | null>
+      type: Object as PropType<BlockModel | null>,
+      default: null
     },
     name: String,
     label: String,

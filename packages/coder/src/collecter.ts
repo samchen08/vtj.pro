@@ -15,6 +15,7 @@ export class Collecter {
    */
   public imports: Record<string, Set<string>> = {};
   public context: Record<string, Set<string>> = {};
+  public style: Record<string, Record<string, any>> = {};
   public members: string[] = [];
   private libraryRegex: RegExp[] = [];
 
@@ -134,9 +135,16 @@ export class Collecter {
     this.context[node.id as string] = nodeContext;
   }
 
+  private collectStyle(node: NodeSchema) {
+    if (node.id && node.props?.style) {
+      this.style[`.${node.name}_${node.id}`] = node.props.style;
+    }
+  }
+
   private walkNodes(dsl: BlockSchema) {
     const walking = (node: NodeSchema, parent?: NodeSchema) => {
       this.collectContext(node, parent);
+      this.collectStyle(node);
       if (Array.isArray(node.children)) {
         node.children.forEach((n) => walking(n, node));
       }

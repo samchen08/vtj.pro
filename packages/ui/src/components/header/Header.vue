@@ -4,13 +4,18 @@
     justify="space-between"
     align="center"
     :class="classes">
-    <XContainer align="center" class="x-header__wrapper" grow :class="classes">
+    <XContainer
+      align="center"
+      class="x-header__wrapper"
+      grow
+      :class="classes"
+      @click="attrs.onClick">
       <component
         v-if="icon"
         :is="icon"
         class="x-header__icon"
         :onClick="attrs.onClickIcon || attrs.onClick"></component>
-      <span class="x-header__content" @click="attrs.onClick">
+      <span class="x-header__content">
         <slot>{{ props.content }}</slot>
       </span>
       <XIcon

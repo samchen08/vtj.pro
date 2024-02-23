@@ -45,7 +45,7 @@ lib
 /dev/public/@vtj
 
 # docs
-/docs/typedoc
+/docs/src/typedoc
 /docs/.vitepress/cache
 /docs/cache
 

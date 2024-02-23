@@ -8,6 +8,7 @@
           type="card"
           v-model="currentTab"
           @tab-remove="handelTabRemove"
+          @action-click="onTabActionClick"
           :stretch="props.stretch"></XTabs>
         <div v-if="props.menus && props.menus.length" class="v-tabs__actions">
           <XAction
@@ -63,7 +64,12 @@
     items: () => []
   });
 
-  const emit = defineEmits(['update:modelValue', 'command', 'remove']);
+  const emit = defineEmits([
+    'update:modelValue',
+    'command',
+    'remove',
+    'action-click'
+  ]);
 
   const currentTab = ref<string | number>(
     (props.modelValue || props.items[0]?.name) ?? ''
@@ -85,5 +91,9 @@
   };
   const handelTabRemove = (name: any) => {
     emit('remove', name);
+  };
+
+  const onTabActionClick = (e: any) => {
+    emit('action-click', e);
   };
 </script>
