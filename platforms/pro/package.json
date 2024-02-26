@@ -22,7 +22,7 @@
     "@vtj/ui": "^0.7.15",
     "@vtj/utils": "^0.7.15",
     "vue": "~3.4.15",
-    "vue-router": "~4.2.5"
+    "vue-router": "~4.3.0"
   },
   "exports": {
     "./vite": {

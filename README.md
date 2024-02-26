@@ -25,7 +25,7 @@ VTJ 使用了最新的 Vue3 生态技术栈，要求 Node 版本必须是 v20+�
 开发项目工程采用`lerna` 和 `pnpm` 包管理工具，需要全局安装。
 
 ```sh
-npm install -g lerna@latest pnpm@lastest --registry=https://registry.npmmirror.com
+npm install -g lerna@latest pnpm@latest --registry=https://registry.npmmirror.com
 ```
 
 ## 快速体验
@@ -43,7 +43,7 @@ npm create vtj@latest -- -t app
 ```sh
 git clone https://gitee.com/newgateway/vtj.git
 cd vtj
-npm run setup && npm run build && npm run dev
+npm run setup && npm run build && npm run pro:dev
 ```
 
 ### 模块说明

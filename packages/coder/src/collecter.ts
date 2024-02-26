@@ -137,7 +137,10 @@ export class Collecter {
 
   private collectStyle(node: NodeSchema) {
     if (node.id && node.props?.style) {
-      this.style[`.${node.name}_${node.id}`] = node.props.style;
+      const hasStyle = !!Object.keys(node.props.style).length;
+      if (hasStyle) {
+        this.style[`.${node.name}_${node.id}`] = node.props.style;
+      }
     }
   }
 
