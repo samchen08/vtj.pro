@@ -43,7 +43,7 @@ npm create vtj@latest -- -t app
 ```sh
 git clone https://gitee.com/newgateway/vtj.git
 cd vtj
-npm run setup && npm run build && npm run pro:dev
+npm run setup && npm run build && npm run app:dev
 ```
 
 ### 模块说明
