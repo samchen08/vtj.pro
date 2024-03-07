@@ -30,13 +30,15 @@ npm install -g lerna@latest pnpm@latest --registry=https://registry.npmmirror.co
 
 ## 快速体验
 
-VTJ 提供了项目脚手架，可快速创建新项目。 命令：
+使用或体验VTJ低代码功能是不需要拉源码的。VTJ 提供了项目脚手架，可快速创建新项目。 命令：
 
 ```sh
 npm create vtj@latest -- -t app
 ```
 
 ## 贡献指南
+
+如果需要二开或贡献代码，可以拉取仓库master分支。
 
 ### 快速开始
 
@@ -45,6 +47,10 @@ git clone https://gitee.com/newgateway/vtj.git
 cd vtj
 npm run setup && npm run build && npm run app:dev
 ```
+
+首次启动需要执行初始化：`npm run setup && npm run build`
+重启开发环境：`npm run app:dev`
+清理项目：`npm run clean` 清理后需要重新执行初始化
 
 ### 模块说明
 
@@ -90,4 +96,4 @@ npm run setup && npm run build && npm run app:dev
 
 ## 交流群
 
-![输入图片说明](dev/public/ding.jpg)
+![输入图片说明](dev/public/1709807457504.png)
