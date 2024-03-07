@@ -14,3 +14,6 @@ declare namespace NodeJS {
     [key: string]: any;
   }
 }
+
+declare module 'axios/lib/core/settle';
+declare module 'axios/lib/helpers/buildURL';

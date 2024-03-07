@@ -2,7 +2,8 @@
   <ElRadioGroup class="v-radio-setter" size="small" v-bind="$attrs">
     <ElRadioButton
       v-for="item in props.options"
-      :label="item.value"
+      :label="item.label"
+      :value="item.value"
       :title="item.label">
       <XIcon v-if="item.svg" :src="item.svg"></XIcon>
       <template v-else>{{ item.label }}</template>

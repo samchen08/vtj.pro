@@ -1,7 +1,7 @@
 {
   "name": "vtj-project-library",
   "private": true,
-  "version": "0.7.11",
+  "version": "0.7.15",
   "type": "module",
   "scripts": {
     "build": "vue-tsc && vite build",

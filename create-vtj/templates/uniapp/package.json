@@ -74,6 +74,9 @@
     "@dcloudio/vite-plugin-uni": "3.0.0-3090920231225001",
     "@vtj/cli": "latest",
     "@vue/runtime-core": "~3.4.15",
-    "vite": "~5.0.12"
+    "@uni-helper/uni-app-types": "~0.5.12",
+    "@uni-helper/uni-ui-types": "~0.5.11",
+    "miniprogram-api-typings": "~3.12.2",
+    "vite": "~5.1.4"
   }
 }

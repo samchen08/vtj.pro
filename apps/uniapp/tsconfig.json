@@ -8,18 +8,28 @@
       ]
     },
     "lib": [
-      "esnext",
-      "dom"
+      "esnext"
     ],
     "types": [
+      "node",
       "@dcloudio/types",
-      "node"
+      "miniprogram-api-typings",
+      "@uni-helper/uni-app-types",
+      "@uni-helper/uni-ui-types"
     ]
   },
   "include": [
+    "shims-uni.d.ts",
     "src/**/*.ts",
     "src/**/*.d.ts",
     "src/**/*.tsx",
     "src/**/*.vue"
-  ]
+  ],
+  "vueCompilerOptions": {
+    "nativeTags": [
+      "component",
+      "template",
+      "slot"
+    ]
+  }
 }

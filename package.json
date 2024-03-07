@@ -8,8 +8,8 @@
     "axios": "~1.6.4",
     "fs-extra": "~11.2.0",
     "jsdom": "~24.0.0",
-    "typedoc": "~0.25.9",
-    "typescript": "~5.3.3",
+    "typedoc": "~0.25.11",
+    "typescript": "~5.4.2",
     "ts-node": "~10.9.2",
     "nodemon": "~3.1.0",
     "typedoc-plugin-markdown": "~3.17.1"
@@ -69,6 +69,7 @@
     "pro:build": "cd platforms/pro && npm run build",
     "pro:preview": "cd platforms/pro && npm run preview",
     "mui:dev": "cd platforms/mobile && npm run dev",
+    "mui:app": "cd platforms/mobile && npm run dev:app",
     "mui:build": "cd platforms/mobile && npm run build && npm run build:h5",
     "mui:preview": "cd platforms/mobile && npm run preview",
     "web:build": "cd platforms/web && npm run build",
