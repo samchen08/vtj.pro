@@ -12,8 +12,11 @@
       "dom"
     ],
     "types": [
+      "node",
       "@dcloudio/types",
-      "node"
+      "miniprogram-api-typings",
+      "@uni-helper/uni-app-types",
+      "@uni-helper/uni-ui-types"
     ]
   },
   "include": [
@@ -22,5 +25,12 @@
     "src/**/*.tsx",
     "src/**/*.vue",
     "lib"
-  ]
+  ],
+  "vueCompilerOptions": {
+    "nativeTags": [
+      "component",
+      "template",
+      "slot"
+    ]
+  }
 }

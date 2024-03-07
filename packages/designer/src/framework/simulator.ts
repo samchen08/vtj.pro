@@ -2,6 +2,7 @@ import { type Ref, type ShallowRef, shallowRef, watch } from 'vue';
 import {
   type Dependencie,
   type Material,
+  type ApiSchema,
   Base,
   BUILT_IN_NAME,
   BUILT_IN_LIBRARAY_MAP
@@ -60,9 +61,13 @@ export class Simulator extends Base {
       this.refresh();
     });
   }
-  init(iframe: Ref<HTMLIFrameElement | undefined>, deps: Ref<Dependencie[]>) {
+  init(
+    iframe: Ref<HTMLIFrameElement | undefined>,
+    deps: Ref<Dependencie[]>,
+    apis: Ref<ApiSchema[]>
+  ) {
     watch(
-      [iframe, deps],
+      [iframe, deps, apis],
       () => {
         if (iframe.value && deps.value.length) {
           this.resetReady();
@@ -231,5 +236,6 @@ export class Simulator extends Base {
     this.contentWindow = null;
     this.renderer = null;
     this.designer.value = null;
+    this.resetReady();
   }
 }

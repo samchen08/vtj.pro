@@ -7,6 +7,7 @@ import type {
   ProxyConfig
 } from './types';
 import { resolve } from 'path';
+import { nodePolyfills } from 'vite-plugin-node-polyfills';
 import { defaults } from './defaults';
 import { createBuild } from './build';
 import { mergePlugins } from './plugins';
@@ -105,6 +106,15 @@ export function createUniappViteConfig(
     options
   );
 
+  const alias = {
+    '@': resolve('src'),
+    'axios/lib/core/settle': resolve('node_modules/axios/lib/core/settle'),
+    'axios/lib/helpers/buildURL': resolve(
+      'node_modules/axios/lib/helpers/buildURL'
+    ),
+    ...opts.alias
+  };
+
   const server = createServer(
     opts.port as number,
     opts.proxy,
@@ -125,11 +135,18 @@ export function createUniappViteConfig(
     plugins.push(basicSsl() as PluginOption);
   }
 
+  if (opts.node) {
+    plugins.push(nodePolyfills());
+  }
+
   if (opts.plugins) {
     plugins.push(...opts.plugins);
   }
 
   const config: UserConfig = {
+    resolve: {
+      alias
+    },
     server,
     preview,
     plugins,

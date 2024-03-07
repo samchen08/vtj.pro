@@ -31,6 +31,7 @@ import {
   EVENT_PROJECT_FILE_PUBLISH,
   EVENT_HISTORY_CHANGE,
   EVENT_HISTORY_LOAD,
+  // EVENT_PROJECT_APIS_CHANGE,
   type Service,
   type Emitter,
   type ProjectSchema,
@@ -112,6 +113,7 @@ export class Engine extends Base {
       engine: this,
       materialPath
     });
+
     this.bindEvents();
     this.init(project as ProjectSchema);
     onMounted(this.render.bind(this));

@@ -86,7 +86,7 @@ export function parseTemplate(
       contents.push(
         name === 'img'
           ? `<${name} ${directives} ${props} ${events} />\n`
-          : `<${name} ${directives} ${props} ${events}>${childContent ? '\n' + childContent.trim() : ''}</${name}>`
+          : `<${name} ${directives} ${props} ${events}>${childContent ? '\n' + childContent.trim() : ''}</${name}>\n`
       );
     }
     const node = wrapSlot(item.slot, contents.join('\n'), parent?.id);

@@ -9,7 +9,7 @@ export function parseDataSources(
       ? item.transform.value || `(res) => res`
       : `(res) => res`;
     return `async ${item.name}(...args:any[]) {
-          return await this.provider.apis.${item.ref}.apply(this, args).then(${transform});
+          return await this.provider.apis['${item.ref}'].apply(this, args).then(${transform});
         }`;
   });
 }

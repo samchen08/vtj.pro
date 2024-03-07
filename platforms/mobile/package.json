@@ -1,13 +1,13 @@
 {
   "name": "@vtj/mobile",
-  "version": "0.7.15",
+  "version": "0.7.21",
   "private": false,
   "scripts": {
     "dev:app": "uni -p app",
     "dev:app-android": "uni -p app-android",
     "dev:app-ios": "uni -p app-ios",
     "dev:custom": "uni -p",
-    "dev:h5": "cross-env VITE_CJS_IGNORE_WARNING=true uni",
+    "dev:h5": "cross-env VITE_CJS_IGNORE_WARNING=true uni --force",
     "dev:h5:ssr": "uni --ssr",
     "dev:mp-alipay": "uni -p mp-alipay",
     "dev:mp-baidu": "uni -p mp-baidu",
@@ -44,8 +44,8 @@
     "build": "vtj rm ./lib && vtj copy ./src/mui ./lib/mui && npm run check"
   },
   "dependencies": {
-    "@vtj/icons": "^0.7.15",
-    "@vtj/utils": "^0.7.15"
+    "@vtj/icons": "^0.7.21",
+    "@vtj/utils": "^0.7.21"
   },
   "devDependencies": {
     "@dcloudio/types": "~3.4.7",
@@ -67,11 +67,14 @@
     "@dcloudio/uni-stacktracey": "3.0.0-3090920231225001",
     "@dcloudio/uni-ui": "~1.5.2",
     "@dcloudio/vite-plugin-uni": "3.0.0-3090920231225001",
-    "@vtj/cli": "^0.7.11",
+    "@uni-helper/uni-app-types": "~0.5.12",
+    "@uni-helper/uni-ui-types": "~0.5.11",
+    "@vtj/cli": "^0.7.15",
     "@vue/runtime-core": "~3.4.18",
+    "miniprogram-api-typings": "~3.12.2",
     "vite": "~5.1.1",
     "vue": "~3.4.18",
-    "vue-i18n": "~9.9.0"
+    "vue-i18n": "~9.10.1"
   },
   "files": [
     "lib"

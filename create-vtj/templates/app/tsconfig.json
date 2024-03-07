@@ -1,6 +1,8 @@
 {
   "extends": "./node_modules/@vtj/cli/config/tsconfig.web.json",
   "compilerOptions": {
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
     "baseUrl": "./",
     "paths": {
       "@/*": [
