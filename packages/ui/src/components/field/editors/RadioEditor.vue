@@ -4,7 +4,8 @@
       v-for="(item, index) in props.options"
       :is="itemComponent"
       :key="`item_${index}_${item.value}`"
-      :label="item.value">
+      :label="item.label"
+      :value="item.value">
       {{ item.label }}
     </component>
   </ElRadioGroup>

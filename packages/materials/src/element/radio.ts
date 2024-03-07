@@ -16,6 +16,11 @@ const Radio: MaterialDescription[] = [
       {
         name: 'label',
         defaultValue: '',
+        setters: ['InputSetter']
+      },
+      {
+        name: 'value',
+        defaultValue: '',
         setters: ['InputSetter', 'NumberSetter', 'BooleanSetter']
       },
       {
@@ -50,7 +55,8 @@ const Radio: MaterialDescription[] = [
     ],
     snippet: {
       props: {
-        label: '选项一'
+        label: '选项一',
+        value: '1'
       }
     }
   },
@@ -109,19 +115,22 @@ const Radio: MaterialDescription[] = [
         {
           name: 'ElRadio',
           props: {
-            label: '选项一'
+            label: '选项一',
+            value: '1'
           }
         },
         {
           name: 'ElRadio',
           props: {
-            label: '选项二'
+            label: '选项二',
+            value: '2'
           }
         },
         {
           name: 'ElRadio',
           props: {
-            label: '选项三'
+            label: '选项三',
+            value: '3'
           }
         }
       ]
@@ -138,6 +147,11 @@ const Radio: MaterialDescription[] = [
         name: 'label',
         defaultValue: '',
         setters: ['InputSetter', 'NumberSetter']
+      },
+      {
+        name: 'value',
+        defaultValue: '',
+        setters: ['InputSetter', 'NumberSetter', 'BooleanSetter']
       },
       {
         name: 'disabled',

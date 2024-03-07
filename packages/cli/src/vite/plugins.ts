@@ -7,6 +7,7 @@ import basicSsl from '@vitejs/plugin-basic-ssl';
 import dts from 'vite-plugin-dts';
 import { visualizer } from 'rollup-plugin-visualizer';
 import ElementPlus from 'unplugin-element-plus/vite';
+import { nodePolyfills } from 'vite-plugin-node-polyfills';
 import { removeSync, toArray } from '@vtj/node';
 import { copyPlugin, type CopyPluginOption } from '../plugins/copy';
 import { babelPlugin } from '../plugins/babel';
@@ -102,6 +103,10 @@ export const mergePlugins = (opts: CreateViteConfigOptions) => {
 
   if (opts.loading) {
     plugins.push(loadingPlugin());
+  }
+
+  if (opts.node) {
+    plugins.push(nodePolyfills());
   }
 
   if (opts.plugins) {

@@ -1,6 +1,7 @@
 {
   "recommendations": [
     "vue.volar",
+    "uni-helper.uni-helper-vscode",
     "dbaeumer.vscode-eslint",
     "esbenp.prettier-vscode",
     "lokalise.i18n-ally",

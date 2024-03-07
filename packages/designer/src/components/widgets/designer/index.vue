@@ -42,7 +42,7 @@
   const container = ref();
   const iframe = ref<HTMLIFrameElement>();
   const { width, height } = useElementSize(container);
-  const { dependencies, engine } = useDeps();
+  const { dependencies, engine, apis } = useDeps();
   const { current, isEmpty } = useCurrent();
 
   const mode = computed(() => {
@@ -52,7 +52,8 @@
 
   const { designer, hover, dropping, selected } = useDesigner(
     iframe,
-    dependencies
+    dependencies,
+    apis
   );
 
   const onAction = (e: any) => {
