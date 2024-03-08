@@ -19,20 +19,9 @@ VTJ 一款基于 Vue3 + Typescript 的低代码开发工具，内置了设计器
 
 ![输入图片说明](dev/public/preview.png)
 
-## 开发环境要求
-
-VTJ 使用了最新的 Vue3 生态技术栈，要求 Node 版本必须是 v20+， 建议使用 nvm 切换 Node 版本。
-开发项目工程采用`lerna` 和 `pnpm` 包管理工具，需要全局安装。
-
-```sh
-npm install -g lerna@latest pnpm@latest --registry=https://registry.npmmirror.com
-```
-
 ## 快速体验
 
-
 **注意：使用或体验VTJ低代码功能是不需要拉源码的。**
-
 
 可以使用VTJ 提供了项目脚手架，可快速创建体验项目。 命令：
 
@@ -41,6 +30,15 @@ npm create vtj@latest -- -t app
 ```
 
 ## 贡献指南
+
+### 开发环境要求
+
+VTJ 使用了最新的 Vue3 生态技术栈，要求 Node 版本必须是 v20+， 建议使用 nvm 切换 Node 版本。
+开发项目工程采用`lerna` 和 `pnpm` 包管理工具，需要全局安装。
+
+```sh
+npm install -g lerna@latest pnpm@latest --registry=https://registry.npmmirror.com
+```
 
 如果需要二开或贡献代码，可以拉取仓库master分支。
 
@@ -100,7 +98,7 @@ npm run setup && npm run build && npm run app:dev
   - 文件上传
   - 表格
 
-### 用户招募  
+### 用户招募
 
 诚邀对该项目感兴趣的同学参与测试体验。
 
