@@ -30,7 +30,11 @@ npm install -g lerna@latest pnpm@latest --registry=https://registry.npmmirror.co
 
 ## 快速体验
 
-使用或体验VTJ低代码功能是不需要拉源码的。VTJ 提供了项目脚手架，可快速创建新项目。 命令：
+
+**注意：使用或体验VTJ低代码功能是不需要拉源码的。**
+
+
+可以使用VTJ 提供了项目脚手架，可快速创建体验项目。 命令：
 
 ```sh
 npm create vtj@latest -- -t app
@@ -48,9 +52,9 @@ cd vtj
 npm run setup && npm run build && npm run app:dev
 ```
 
-首次启动需要执行初始化：`npm run setup && npm run build`
-重启开发环境：`npm run app:dev`
-清理项目：`npm run clean` 清理后需要重新执行初始化
+- 首次启动需要执行初始化：`npm run setup && npm run build`
+- 重启开发环境：`npm run app:dev`
+- 清理项目：`npm run clean` 清理后需要重新执行初始化
 
 ### 模块说明
 
@@ -87,12 +91,18 @@ npm run setup && npm run build && npm run app:dev
 ### Todo
 
 - `@vtj/designer` 低代码设计器
-  - 样式设置器 `StyleSetter`
-  - 数据设计器 `DataSetter`
+  - ~~样式设置器 `StyleSetter`~~
+  - 数据设置器 `DataSetter`
+  - 接口模拟数据 Mock
+  - 项目配置模块
 - `@vtj/ui` 组件库
   - 富文本编辑器
   - 文件上传
   - 表格
+
+### 用户招募  
+
+诚邀对该项目感兴趣的同学参与测试体验。
 
 ## 交流群
 
