@@ -1,3 +1,4 @@
+import './browser-patch';
 export { version as VTJ_UTILS_VERSION } from './version';
 export * from './base';
 export * from './request';

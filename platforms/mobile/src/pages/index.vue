@@ -29,6 +29,11 @@
       title: 'XImageViewer',
       rightText: '图片预览器',
       path: '/pages/components/image-viewer'
+    },
+    {
+      title: 'XAvatar',
+      rightText: '头像',
+      path: '/pages/components/avatar'
     }
   ];
 </script>

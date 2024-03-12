@@ -32,6 +32,12 @@
       }
     },
     {
+      "path": "pages/components/avatar",
+      "style": {
+        "navigationBarTitleText": "XAvatar"
+      }
+    },
+    {
       "path": "pages/components/test",
       "style": {
         "navigationBarTitleText": "Test"

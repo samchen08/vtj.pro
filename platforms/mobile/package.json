@@ -1,13 +1,13 @@
 {
   "name": "@vtj/mobile",
-  "version": "0.7.21",
+  "version": "0.7.22",
   "private": false,
   "scripts": {
     "dev:app": "uni -p app",
     "dev:app-android": "uni -p app-android",
     "dev:app-ios": "uni -p app-ios",
     "dev:custom": "uni -p",
-    "dev:h5": "cross-env VITE_CJS_IGNORE_WARNING=true uni --force",
+    "dev:h5": "cross-env VITE_CJS_IGNORE_WARNING=true uni --force -- --trace-warnings",
     "dev:h5:ssr": "uni --ssr",
     "dev:mp-alipay": "uni -p mp-alipay",
     "dev:mp-baidu": "uni -p mp-baidu",
@@ -44,8 +44,8 @@
     "build": "vtj rm ./lib && vtj copy ./src/mui ./lib/mui && npm run check"
   },
   "dependencies": {
-    "@vtj/icons": "^0.7.21",
-    "@vtj/utils": "^0.7.21"
+    "@vtj/icons": "^0.7.22",
+    "@vtj/utils": "^0.7.22"
   },
   "devDependencies": {
     "@dcloudio/types": "~3.4.7",
