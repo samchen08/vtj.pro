@@ -1,6 +1,6 @@
 {
   "name": "@vtj/mobile",
-  "version": "0.7.23",
+  "version": "0.7.24",
   "private": false,
   "scripts": {
     "dev:app": "uni -p app",
@@ -44,8 +44,8 @@
     "build": "vtj rm ./lib && vtj copy ./src/mui ./lib/mui && npm run check"
   },
   "dependencies": {
-    "@vtj/icons": "^0.7.23",
-    "@vtj/utils": "^0.7.23"
+    "@vtj/icons": "^0.7.24",
+    "@vtj/utils": "^0.7.24"
   },
   "devDependencies": {
     "@dcloudio/types": "~3.4.7",
@@ -69,7 +69,7 @@
     "@dcloudio/vite-plugin-uni": "3.0.0-3090920231225001",
     "@uni-helper/uni-app-types": "~0.5.12",
     "@uni-helper/uni-ui-types": "~0.5.11",
-    "@vtj/cli": "^0.7.16",
+    "@vtj/cli": "^0.7.17",
     "@vue/runtime-core": "~3.4.18",
     "miniprogram-api-typings": "~3.12.2",
     "vite": "~5.1.1",

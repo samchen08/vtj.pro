@@ -221,7 +221,7 @@ export interface CreateViteConfigOptions {
   /**
    * 开启 nodePolyfills
    */
-  node?: boolean;
+  node?: boolean | PolyfillOptions;
 }
 
 export interface CreateUniappViteConfigOptions {
