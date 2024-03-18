@@ -5,7 +5,8 @@ import type {
   MaterialDescription,
   NodeFrom,
   Service,
-  BlockPropDataType
+  BlockPropDataType,
+  BlockSchema
 } from '@vtj/core';
 import { arrayToMap } from '@vtj/utils';
 import { builtInMaterials, setterManager } from '../managers';
@@ -24,6 +25,7 @@ export class Assets {
   components: MaterialDescription[] = [];
   componentMap: Map<string, MaterialDescription> = new Map();
   groups: Ref<AssetGroup[]> = ref([]);
+  private caches: Record<string, BlockSchema> = {};
   constructor(public service: Service) {}
 
   private getCateoryComponents(
@@ -85,8 +87,9 @@ export class Assets {
     if (!from || typeof from === 'string') return null;
     const blockId = from.type === 'Schema' ? from.id : null;
     if (!blockId) return null;
-    const dsl = await this.service.getFile(blockId);
+    const dsl = this.caches[blockId] || (await this.service.getFile(blockId));
     if (!dsl) return null;
+    this.caches[blockId] = dsl;
     const { id, name, slots, props, emits } = dsl;
     /**
      * 根据数据类型自动匹配设置器
@@ -124,5 +127,9 @@ export class Assets {
       from
     };
     return desc;
+  }
+
+  clearCaches() {
+    this.caches = {};
   }
 }

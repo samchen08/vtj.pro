@@ -1,7 +1,7 @@
 {
   "name": "@vtj/docs",
   "private": true,
-  "version": "0.7.25",
+  "version": "0.7.26",
   "type": "module",
   "scripts": {
     "docs:dev": "vitepress dev",
@@ -12,18 +12,18 @@
   },
   "dependencies": {
     "@vitepress-demo-preview/component": "~2.3.2",
-    "@vitepress-demo-preview/plugin": "~1.2.2",
-    "@vtj/icons": "^0.7.25",
-    "@vtj/pro": "^0.7.25",
-    "@vtj/renderer": "^0.7.25",
-    "@vtj/ui": "^0.7.25",
-    "@vtj/utils": "^0.7.25",
-    "@vtj/web": "^0.7.25",
+    "@vitepress-demo-preview/plugin": "~1.2.3",
+    "@vtj/icons": "^0.7.26",
+    "@vtj/pro": "^0.7.26",
+    "@vtj/renderer": "^0.7.26",
+    "@vtj/ui": "^0.7.26",
+    "@vtj/utils": "^0.7.26",
+    "@vtj/web": "^0.7.26",
     "vue": "~3.4.14",
     "vue-router": "~4.3.0"
   },
   "devDependencies": {
-    "@vtj/cli": "^0.7.17",
+    "@vtj/cli": "^0.7.18",
     "vitepress": "^1.0.0-rc.45"
   },
   "gitHead": "b65d1b19322cbd0721173d094db1b5ece018d980"

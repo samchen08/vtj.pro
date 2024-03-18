@@ -1,3 +1,4 @@
+import { ref } from 'vue';
 import axios from 'axios';
 import type {
   AxiosInstance,
@@ -467,7 +468,6 @@ export const request: IStaticRequest = createRequest({
   }
 });
 
-
 export function createApi<R = any, D = any>(config: string | IRequestConfig) {
   const _conifg: IRequestConfig =
     typeof config === 'string' ? { url: config } : config;
@@ -485,6 +485,27 @@ export function createApis(map: IApiMap) {
     apis[name] = createApi(opts);
   }
   return apis;
+}
+
+export function useApi<R = any>(api: Promise<R>, transform?: (res: any) => R) {
+  const data = ref<R | null>(null);
+  const error = ref<any>();
+  const loading = ref<boolean>(true);
+  api
+    .then((res: any) => {
+      data.value = transform ? transform(res) : res;
+    })
+    .catch((err) => {
+      error.value = err;
+    })
+    .finally(() => {
+      loading.value = false;
+    });
+  return {
+    data,
+    error,
+    loading
+  };
 }
 
 export {
