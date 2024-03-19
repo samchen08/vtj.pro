@@ -258,7 +258,7 @@ function childrenToSlots(
         toString(context.__parseExpression(children as JSExpression))
     };
   }
-  if (Array.isArray(children)) {
+  if (Array.isArray(children) && children.length > 0) {
     const slots = createSlotsConfig(children);
     const getScope = (scope: any) => {
       if (!scope || !parent) return {};
@@ -283,6 +283,7 @@ function childrenToSlots(
       return result;
     }, {} as any);
   }
+  return null;
 }
 
 function createSlotsConfig(nodes: NodeSchema[]) {

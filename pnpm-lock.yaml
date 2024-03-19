@@ -233,22 +233,22 @@ importers:
         specifier: ~1.2.3
         version: 1.2.3(markdown-it-container@3.0.0)(vitepress@1.0.0-rc.45)(vue@3.4.21)
       '@vtj/icons':
-        specifier: ^0.7.26
+        specifier: ^0.7.27
         version: link:../packages/icons
       '@vtj/pro':
-        specifier: ^0.7.26
+        specifier: ^0.7.27
         version: link:../platforms/pro
       '@vtj/renderer':
-        specifier: ^0.7.26
+        specifier: ^0.7.27
         version: link:../packages/renderer
       '@vtj/ui':
-        specifier: ^0.7.26
+        specifier: ^0.7.27
         version: link:../packages/ui
       '@vtj/utils':
-        specifier: ^0.7.26
+        specifier: ^0.7.27
         version: link:../packages/utils
       '@vtj/web':
-        specifier: ^0.7.26
+        specifier: ^0.7.27
         version: link:../platforms/web
       vue:
         specifier: ~3.4.14
@@ -431,7 +431,7 @@ importers:
         specifier: ^0.7.7
         version: link:../base
       '@vtj/core':
-        specifier: ^0.7.26
+        specifier: ^0.7.27
         version: link:../core
       prettier:
         specifier: ~3.2.1
@@ -454,19 +454,19 @@ importers:
   packages/designer:
     dependencies:
       '@vtj/core':
-        specifier: ^0.7.26
+        specifier: ^0.7.27
         version: link:../core
       '@vtj/icons':
-        specifier: ^0.7.26
+        specifier: ^0.7.27
         version: link:../icons
       '@vtj/renderer':
-        specifier: ^0.7.26
+        specifier: ^0.7.27
         version: link:../renderer
       '@vtj/ui':
-        specifier: ^0.7.26
+        specifier: ^0.7.27
         version: link:../ui
       '@vtj/utils':
-        specifier: ^0.7.26
+        specifier: ^0.7.27
         version: link:../utils
       monaco-editor:
         specifier: ~0.47.0
@@ -501,10 +501,10 @@ importers:
   packages/local:
     dependencies:
       '@vtj/coder':
-        specifier: ^0.7.26
+        specifier: ^0.7.27
         version: link:../coder
       '@vtj/core':
-        specifier: ^0.7.26
+        specifier: ^0.7.27
         version: link:../core
       '@vtj/node':
         specifier: ^0.7.7
@@ -529,13 +529,13 @@ importers:
         specifier: ^0.7.18
         version: link:../cli
       '@vtj/core':
-        specifier: ^0.7.26
+        specifier: ^0.7.27
         version: link:../core
       '@vtj/ui':
-        specifier: ^0.7.26
+        specifier: ^0.7.27
         version: link:../ui
       '@vtj/utils':
-        specifier: ^0.7.26
+        specifier: ^0.7.27
         version: link:../utils
       ant-design-vue:
         specifier: ~4.1.0
@@ -548,7 +548,7 @@ importers:
         version: 2.6.1(vue@3.4.21)
       vant:
         specifier: ~4.8.6
-        version: 4.8.6(vue@3.4.21)
+        version: 4.8.7(vue@3.4.21)
       vue:
         specifier: ~3.4.15
         version: 3.4.21(typescript@5.4.2)
@@ -581,16 +581,16 @@ importers:
   packages/renderer:
     dependencies:
       '@vtj/core':
-        specifier: ^0.7.26
+        specifier: ^0.7.27
         version: link:../core
       '@vtj/icons':
-        specifier: ^0.7.26
+        specifier: ^0.7.27
         version: link:../icons
       '@vtj/ui':
-        specifier: ^0.7.26
+        specifier: ^0.7.27
         version: link:../ui
       '@vtj/utils':
-        specifier: ^0.7.26
+        specifier: ^0.7.27
         version: link:../utils
     devDependencies:
       '@vtj/cli':
@@ -612,10 +612,10 @@ importers:
         specifier: ~5.1.0
         version: 5.1.0
       '@vtj/icons':
-        specifier: ^0.7.26
+        specifier: ^0.7.27
         version: link:../icons
       '@vtj/utils':
-        specifier: ^0.7.26
+        specifier: ^0.7.27
         version: link:../utils
       '@vueuse/core':
         specifier: ~10.9.0
@@ -665,10 +665,10 @@ importers:
   platforms/mobile:
     dependencies:
       '@vtj/icons':
-        specifier: ^0.7.26
+        specifier: ^0.7.27
         version: link:../../packages/icons
       '@vtj/utils':
-        specifier: ^0.7.26
+        specifier: ^0.7.27
         version: link:../../packages/utils
     devDependencies:
       '@dcloudio/types':
@@ -756,32 +756,32 @@ importers:
   platforms/pro:
     dependencies:
       '@vtj/core':
-        specifier: ^0.7.26
+        specifier: ^0.7.27
         version: link:../../packages/core
       '@vtj/designer':
-        specifier: ^0.7.26
+        specifier: ^0.7.27
         version: link:../../packages/designer
       '@vtj/local':
-        specifier: ^0.7.26
+        specifier: ^0.7.27
         version: link:../../packages/local
       '@vtj/materials':
-        specifier: ^0.7.26
+        specifier: ^0.7.27
         version: link:../../packages/materials
       '@vtj/renderer':
-        specifier: ^0.7.26
+        specifier: ^0.7.27
         version: link:../../packages/renderer
     devDependencies:
       '@vtj/cli':
         specifier: ^0.7.18
         version: link:../../packages/cli
       '@vtj/icons':
-        specifier: ^0.7.26
+        specifier: ^0.7.27
         version: link:../../packages/icons
       '@vtj/ui':
-        specifier: ^0.7.26
+        specifier: ^0.7.27
         version: link:../../packages/ui
       '@vtj/utils':
-        specifier: ^0.7.26
+        specifier: ^0.7.27
         version: link:../../packages/utils
       vue:
         specifier: ~3.4.15
@@ -793,16 +793,16 @@ importers:
   platforms/web:
     dependencies:
       '@vtj/icons':
-        specifier: ^0.7.26
+        specifier: ^0.7.27
         version: link:../../packages/icons
       '@vtj/renderer':
-        specifier: ^0.7.26
+        specifier: ^0.7.27
         version: link:../../packages/renderer
       '@vtj/ui':
-        specifier: ^0.7.26
+        specifier: ^0.7.27
         version: link:../../packages/ui
       '@vtj/utils':
-        specifier: ^0.7.26
+        specifier: ^0.7.27
         version: link:../../packages/utils
     devDependencies:
       '@vtj/cli':
@@ -13301,8 +13301,8 @@ packages:
     resolution: {integrity: sha512-z2YZusTFC6KnLERx1cgoIRX2CjPRP0W75N+3CC6gbvdX5Ch47rZkEMGO2Xnf+IEmi3RiFLxS18gayMA27iU7Kg==}
     dev: false
 
-  /vant@4.8.6(vue@3.4.21):
-    resolution: {integrity: sha512-1k1D5wDivY8n8BYD52kM042hR8avV3LV5kDeic3ce4XgqtJl9vlLX0ASyPYeNIe/ufSe2TRvlZ8K12+uPpe26g==}
+  /vant@4.8.7(vue@3.4.21):
+    resolution: {integrity: sha512-puBsqVzC94niN2fFLbkpZGInE8fYK+jjoOAhQ7XAreFCn8xkxnjGpcLNoLvQSP2hUYKN7+kES1bbz/h7RHF7vQ==}
     peerDependencies:
       vue: ^3.0.0
     dependencies:
