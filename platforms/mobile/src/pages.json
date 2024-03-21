@@ -48,6 +48,12 @@
       "style": {
         "navigationBarTitleText": "Test"
       }
+    },
+    {
+      "path": "pages/hooks/useKeyboardHeight",
+      "style": {
+        "navigationBarTitleText": "useKeyboardHeight"
+      }
     }
   ],
   "globalStyle": {

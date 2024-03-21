@@ -10,6 +10,15 @@
           :to="item.path"></uni-list-item>
       </uni-list>
     </uni-section>
+    <uni-section title="hooks" type="line">
+      <uni-list>
+        <uni-list-item
+          v-for="item in hooks"
+          :title="item.title"
+          clickable
+          :to="item.path"></uni-list-item>
+      </uni-list>
+    </uni-section>
   </view>
 </template>
 
@@ -39,6 +48,13 @@
       title: 'XLoading',
       rightText: '加载中',
       path: '/pages/components/loading'
+    }
+  ];
+
+  const hooks = [
+    {
+      title: 'useKeyboardHeight',
+      path: '/pages/hooks/useKeyboardHeight'
     }
   ];
 </script>
