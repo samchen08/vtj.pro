@@ -4,10 +4,10 @@
 <script lang="ts" setup>
   import { ref } from 'vue';
   import { useRouter } from 'vue-router';
-  import { Engine, widgetManager, createMemoryService } from '@vtj/pro';
+  import { Engine, widgetManager, LocalService } from '@vtj/pro';
 
   const container = ref();
-  const service = createMemoryService();
+  const service = new LocalService();
   const router = useRouter();
 
   new Engine({
@@ -19,7 +19,8 @@
     },
     materials: {
       ElementPlusMaterial: () => import('@vtj/materials/src/element'),
-      VtjUIMaterial: () => import('@vtj/materials/src/ui')
+      VtjUIMaterial: () => import('@vtj/materials/src/ui'),
+      AntdvMaterial: () => import('@vtj/materials/src/antdv')
     }
   });
 
