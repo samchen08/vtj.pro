@@ -1,7 +1,7 @@
 {
   "name": "@vtj/icons",
   "private": false,
-  "version": "0.7.26",
+  "version": "0.7.28",
   "type": "module",
   "scripts": {
     "svg2vue": "node scripts/svg.mjs",
@@ -18,7 +18,7 @@
     "@element-plus/icons-vue": "~2.3.1"
   },
   "devDependencies": {
-    "@vtj/cli": "^0.7.18",
+    "@vtj/cli": "^0.7.19",
     "vue": "~3.4.15",
     "xml2js": "~0.6.2"
   },

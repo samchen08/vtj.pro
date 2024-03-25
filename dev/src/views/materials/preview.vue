@@ -4,8 +4,8 @@
 <script lang="ts" setup>
   import { ref, getCurrentInstance } from 'vue';
   import { useRoute } from 'vue-router';
-  import { createProvider, createMemoryService, ContextMode } from '@vtj/web';
-  const service = createMemoryService();
+  import { createProvider, LocalService, ContextMode } from '@vtj/web';
+  const service = new LocalService();
 
   const { provider, onReady } = createProvider({
     mode: ContextMode.Runtime,

@@ -1,7 +1,7 @@
 {
   "name": "@vtj/local",
   "private": false,
-  "version": "0.7.26",
+  "version": "0.7.28",
   "type": "module",
   "scripts": {
     "build": "unbuild",
@@ -10,14 +10,14 @@
     "coverage": "vitest run --coverage"
   },
   "dependencies": {
-    "@vtj/coder": "^0.7.26",
-    "@vtj/core": "^0.7.26",
+    "@vtj/coder": "^0.7.28",
+    "@vtj/core": "^0.7.28",
     "@vtj/node": "^0.7.7"
   },
   "devDependencies": {
-    "@vtj/cli": "^0.7.18",
+    "@vtj/cli": "^0.7.19",
     "unbuild": "~2.0.0",
-    "vite": "~5.1.1",
+    "vite": "~5.2.6",
     "vitest": "~1.4.0"
   },
   "exports": {
