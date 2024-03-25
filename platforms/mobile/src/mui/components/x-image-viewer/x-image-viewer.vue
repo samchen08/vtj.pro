@@ -29,7 +29,7 @@
   import { computed } from 'vue';
   import { imageViewerProps } from './props';
 
-  import { useRect } from '../../hooks';
+  import { useRect } from '../../hooks/useRect';
 
   const props = defineProps(imageViewerProps);
   const emit = defineEmits<{

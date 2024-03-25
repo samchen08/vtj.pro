@@ -20,14 +20,20 @@ export function useNodeEvents(
 
   const blockMaterial = ref<MaterialDescription>();
 
-  watch(node, async (v) => {
-    if (v?.from) {
-      blockMaterial.value =
-        (await engine.assets.getBlockMaterial(v.from)) || undefined;
-    } else {
-      blockMaterial.value = undefined;
+  watch(
+    node,
+    async (v) => {
+      if (v?.from) {
+        blockMaterial.value =
+          (await engine.assets.getBlockMaterial(v.from)) || undefined;
+      } else {
+        blockMaterial.value = undefined;
+      }
+    },
+    {
+      immediate: true
     }
-  });
+  );
 
   const mouseEventList = computed(() => {
     if (isBlock(node.value)) return [];

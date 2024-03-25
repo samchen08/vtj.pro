@@ -136,7 +136,7 @@ export function createUniappViteConfig(
   }
 
   if (opts.node) {
-    plugins.push(nodePolyfills());
+    plugins.push(nodePolyfills(typeof opts.node === 'object' ? opts.node : {}));
   }
 
   if (opts.plugins) {

@@ -1,6 +1,11 @@
 <template>
   <JsonMode v-if="props.isStyleCodeMode"></JsonMode>
-  <XContainer v-else class="v-style-widget" direction="column" fit>
+  <XContainer
+    v-else
+    :key="`widget-style-${node?.id}`"
+    class="v-style-widget"
+    direction="column"
+    fit>
     <Layout
       :key="`Layout${node?.id}`"
       :style-json="styleJson"

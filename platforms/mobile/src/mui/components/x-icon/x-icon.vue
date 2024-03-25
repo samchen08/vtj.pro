@@ -56,5 +56,9 @@
     display: inline-flex;
     justify-content: center;
     align-items: center;
+    vertical-align: middle;
+    & + .x-icon {
+      margin-left: 10px;
+    }
   }
 </style>
