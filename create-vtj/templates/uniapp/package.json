@@ -64,7 +64,7 @@
     "@dcloudio/uni-ui": "~1.5.0",
     "@vtj/mobile": "latest",
     "vue": "~3.4.15",
-    "vue-i18n": "~9.9.0"
+    "vue-i18n": "~9.10.2"
   },
   "devDependencies": {
     "@dcloudio/types": "~3.4.7",
@@ -75,8 +75,8 @@
     "@vtj/cli": "latest",
     "@vue/runtime-core": "~3.4.15",
     "@uni-helper/uni-app-types": "~0.5.12",
-    "@uni-helper/uni-ui-types": "~0.5.11",
+    "@uni-helper/uni-ui-types": "~0.5.13",
     "miniprogram-api-typings": "~3.12.2",
-    "vite": "~5.1.4"
+    "vite": "~5.2.6"
   }
 }

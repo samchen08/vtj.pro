@@ -1,13 +1,13 @@
 <template>
   <div class="v-toolbar-widget">
     <ElRadioGroup size="small" v-model="mode">
-      <ElRadioButton label="pc">
+      <ElRadioButton label="pc" value="pc">
         <VtjIconPc></VtjIconPc>
       </ElRadioButton>
-      <ElRadioButton label="mobile">
+      <ElRadioButton label="mobile" value="mobile">
         <VtjIconPhone></VtjIconPhone>
       </ElRadioButton>
-      <ElRadioButton label="pad">
+      <ElRadioButton label="pad" value="pad">
         <VtjIconPad></VtjIconPad>
       </ElRadioButton>
     </ElRadioGroup>

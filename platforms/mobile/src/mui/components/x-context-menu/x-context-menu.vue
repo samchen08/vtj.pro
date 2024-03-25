@@ -32,6 +32,7 @@
   import { nextTick, reactive, watch, computed, ref } from 'vue';
   import type { ContextMenuItem, ContextMenuIcon } from './types';
   import { contextMenuProps } from './props';
+  import { getBoundingClientRect } from '../../utils/node';
 
   const props = defineProps(contextMenuProps);
 
@@ -52,18 +53,13 @@
 
   const elRef = ref();
 
-  const initState = () => {
-    const query = uni.createSelectorQuery().in(this);
-    query
-      .select('.x-context-menu__list')
-      .boundingClientRect()
-      .exec((e: UniApp.NodeInfo[]) => {
-        const [el] = e;
-        Object.assign(state, {
-          width: el?.width || 0,
-          height: el?.height || 0
-        });
-      });
+  const initState = async () => {
+    const rect = await getBoundingClientRect('.x-context-menu__list');
+    const { width = 0, height = 0 } = rect || {};
+    Object.assign(state, {
+      width: width || 0,
+      height: height || 0
+    });
     const info = uni.getSystemInfoSync();
     const { windowHeight, windowTop, windowWidth } = info;
     Object.assign(state, {

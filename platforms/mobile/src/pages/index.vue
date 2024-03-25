@@ -10,6 +10,15 @@
           :to="item.path"></uni-list-item>
       </uni-list>
     </uni-section>
+    <uni-section title="hooks" type="line">
+      <uni-list>
+        <uni-list-item
+          v-for="item in hooks"
+          :title="item.title"
+          clickable
+          :to="item.path"></uni-list-item>
+      </uni-list>
+    </uni-section>
   </view>
 </template>
 
@@ -29,6 +38,23 @@
       title: 'XImageViewer',
       rightText: '图片预览器',
       path: '/pages/components/image-viewer'
+    },
+    {
+      title: 'XAvatar',
+      rightText: '头像',
+      path: '/pages/components/avatar'
+    },
+    {
+      title: 'XLoading',
+      rightText: '加载中',
+      path: '/pages/components/loading'
+    }
+  ];
+
+  const hooks = [
+    {
+      title: 'useKeyboardHeight',
+      path: '/pages/hooks/useKeyboardHeight'
     }
   ];
 </script>

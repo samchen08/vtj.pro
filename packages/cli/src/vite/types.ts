@@ -6,6 +6,7 @@ import type {
 } from 'vite';
 
 import { type StaticPluginOption } from '../plugins/static';
+import { type PolyfillOptions } from 'vite-plugin-node-polyfills';
 
 declare namespace NodeJS {
   interface ProcessEnv {
@@ -220,7 +221,7 @@ export interface CreateViteConfigOptions {
   /**
    * 开启 nodePolyfills
    */
-  node?: boolean;
+  node?: boolean | PolyfillOptions;
 }
 
 export interface CreateUniappViteConfigOptions {
@@ -287,5 +288,5 @@ export interface CreateUniappViteConfigOptions {
   /**
    * 开启 nodePolyfills
    */
-  node?: boolean;
+  node?: boolean | PolyfillOptions;
 }

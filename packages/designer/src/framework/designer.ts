@@ -223,6 +223,7 @@ export class Designer {
       current.addNode(node, to, type);
     }
     this.dropping.value = null;
+    engine.assets.clearCaches();
   }
 
   private onSelected(e: MouseEvent) {
