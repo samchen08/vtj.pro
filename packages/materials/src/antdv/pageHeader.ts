@@ -72,13 +72,7 @@ const components: MaterialDescription[] = [
         title: 'Title',
         subTitle: 'This is a subtitle',
         style: { border: '1px solid rgb(235, 237, 240)' }
-      },
-      children: [
-        {
-          name: 'component',
-          slot: 'backIcon'
-        }
-      ]
+      }
     }
   }
 ];

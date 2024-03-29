@@ -33,19 +33,29 @@ const components: MaterialDescription[] = [
     snippet: {
       children: [
         {
-          name: 'ALayoutHeader',
-          children: 'header',
-          props: { style: { ...headerStyle } }
+          name: 'ALayoutSider',
+          children: 'ALayoutSider',
+          props: { style: { ...siderStyle } }
         },
         {
-          name: 'ALayoutContent',
-          children: 'content',
-          props: { style: { ...contentStyle } }
-        },
-        {
-          name: 'ALayoutFooter',
-          children: 'footer',
-          props: { style: { ...footerStyle } }
+          name: 'ALayout',
+          children: [
+            {
+              name: 'ALayoutHeader',
+              children: 'header',
+              props: { style: { ...headerStyle } }
+            },
+            {
+              name: 'ALayoutContent',
+              children: 'content',
+              props: { style: { ...contentStyle } }
+            },
+            {
+              name: 'ALayoutFooter',
+              children: 'footer',
+              props: { style: { ...footerStyle } }
+            }
+          ]
         }
       ]
     }

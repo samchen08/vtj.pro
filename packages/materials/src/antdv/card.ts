@@ -101,13 +101,12 @@ const components: MaterialDescription[] = [
         title: 'Default size card',
         style: { width: '300px' }
       },
+      slot: 'extra',
       children: [
         {
-          name: '',
-          slot: 'extra',
-          children: [
-            { name: 'component', props: { is: 'a' }, children: 'more' }
-          ]
+          name: 'a',
+          slot: { name: 'extra' },
+          children: 'more'
         },
         { name: 'component', props: { is: 'p' }, children: 'card content' },
         { name: 'component', props: { is: 'p' }, children: 'card content' },
@@ -126,7 +125,16 @@ const components: MaterialDescription[] = [
       props: {
         style: { width: '25%', textAline: 'center' }
       },
-      children: 'content'
+      children: 'content',
+      directives: [
+        {
+          name: 'vFor',
+          value: {
+            type: 'JSExpression',
+            value: '8'
+          }
+        }
+      ]
     }
   },
   {
@@ -137,12 +145,6 @@ const components: MaterialDescription[] = [
     categoryId: 'data',
     doc: 'https://www.antdv.com/components/card-cn',
     props: [
-      {
-        name: 'avatar',
-        label: 'avatar',
-        title: '头像/图标',
-        setters: 'StringSetter'
-      },
       {
         name: 'description',
         label: 'description',
@@ -156,7 +158,18 @@ const components: MaterialDescription[] = [
         setters: 'StringSetter'
       }
     ],
-    slots: ['avatar', 'description', 'title']
+    slots: ['avatar', 'description', 'title'],
+    snippet: {
+      props: { title: 'Europe Street beat' },
+      slot: 'description',
+      children: [
+        {
+          name: 'span',
+          slot: { name: 'description' },
+          children: 'www.instagram.com'
+        }
+      ]
+    }
   }
 ];
 export default components;

@@ -28,8 +28,8 @@ const components: MaterialDescription[] = [
         name: 'size',
         label: 'size',
         title: '间距大小',
-        setters: 'SelectSetter',
-        options: ['small', 'middle', 'large', 'number'],
+        setters: ['SelectSetter', 'NumberSetter'],
+        options: ['small', 'middle', 'large'],
         defaultValue: 'small'
       },
       {
@@ -62,15 +62,6 @@ const components: MaterialDescription[] = [
               }
             }
           ]
-        }
-      ],
-      directives: [
-        {
-          name: 'vFor',
-          value: {
-            type: 'JSExpression',
-            value: '2'
-          }
         }
       ]
     }

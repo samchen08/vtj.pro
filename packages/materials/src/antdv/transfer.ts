@@ -1,5 +1,15 @@
 import type { MaterialDescription } from '@vtj/core';
 
+const mockData = [];
+for (let i = 0; i < 20; i++) {
+  mockData.push({
+    key: i.toString(),
+    title: `content${i + 1}`,
+    description: `description of content${i + 1}`,
+    disabled: i % 3 < 1
+  });
+}
+
 const components: MaterialDescription[] = [
   {
     name: 'ATransfer',
@@ -28,7 +38,7 @@ const components: MaterialDescription[] = [
         label: 'filterOption',
         title:
           '接收 inputValue option 两个参数，当 option 符合筛选条件时，应返回 true，反之则返回 false',
-        setters: 'BooleanSetter' //?? (inputValue, option): boolean
+        setters: 'FunctionSetter'
       },
       {
         name: 'footer',
@@ -64,7 +74,7 @@ const components: MaterialDescription[] = [
         name: 'operations',
         label: 'operations',
         title: '操作文案集合，顺序从上至下',
-        setters: 'StringArraySetter',
+        setters: 'ArraySetter',
         defaultValue: ['>', '<']
       },
       {
@@ -144,7 +154,13 @@ const components: MaterialDescription[] = [
       'update:selectedKeys',
       'update:targetKeys'
     ],
-    slots: ['footer', 'render', 'selectAllLabels']
+    slots: ['footer', 'render', 'selectAllLabels'],
+    snippet: {
+      props: {
+        dataSource: mockData,
+        titles: "['Source', 'Target']"
+      }
+    }
   }
 ];
 export default components;

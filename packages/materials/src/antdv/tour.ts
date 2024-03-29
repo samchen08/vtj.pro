@@ -3,7 +3,7 @@ import type { MaterialDescription } from '@vtj/core';
 const components: MaterialDescription[] = [
   {
     name: 'ATour',
-    alias: 'ATour',
+    alias: 'Tour',
     label: '漫游式引导',
     categoryId: 'data',
     doc: 'https://www.antdv.com/components/tour-cn',
@@ -62,13 +62,9 @@ const components: MaterialDescription[] = [
         label: 'scrollIntoViewOptions',
         title:
           '是否支持当前元素滚动到视窗内，也可传入配置指定滚动视窗的相关参数',
-        setters: ['BooleanSetter', 'StringSetter'], //?? boolean | ScrollIntoViewOptions
+        setters: ['BooleanSetter', 'SelectSetter'], //?? boolean | ScrollIntoViewOptions
+        options: ['ScrollIntoViewOptions'],
         defaultValue: true
-      },
-      {
-        name: 'indicatorsRender',
-        label: 'indicatorsRender',
-        title: '自定义指示器'
       },
       {
         name: 'zIndex',
@@ -76,6 +72,12 @@ const components: MaterialDescription[] = [
         title: 'Tour 的层级',
         setters: 'NumberSetter',
         defaultValue: 1001
+      },
+      {
+        name: 'steps',
+        label: 'steps',
+        title: 'Tour 的数据',
+        setters: 'ArraySetter'
       }
     ],
     events: ['close', 'finish', 'change', 'update:current'],
@@ -83,7 +85,7 @@ const components: MaterialDescription[] = [
     snippet: {
       props: {
         open: true,
-        current: 0,
+        current: 1,
         steps: [
           {
             title: 'Center',
@@ -106,7 +108,7 @@ const components: MaterialDescription[] = [
   },
   {
     name: 'ATourSteps ',
-    alias: 'ATourSteps',
+    alias: 'TourSteps',
     label: '漫游式引导步',
     categoryId: 'data',
     doc: 'https://www.antdv.com/components/tour-cn',
@@ -115,7 +117,7 @@ const components: MaterialDescription[] = [
         name: 'target',
         label: 'target',
         title: '获取引导卡片指向的元素，为空时居中于屏幕',
-        setters: ['StringSetter', 'FunctionSetter'] //?? () => HTMLElement | HTMLElement
+        setters: ['FunctionSetter', 'StringSetter']
       },
       {
         name: 'arrow',
@@ -178,7 +180,8 @@ const components: MaterialDescription[] = [
         label: 'scrollIntoViewOptions',
         title:
           '是否支持当前元素滚动到视窗内，也可传入配置指定滚动视窗的相关参数，默认跟随 Tour 的 scrollIntoViewOptions 属性',
-        setters: ['BooleanSetter', 'StringSetter'], //?? boolean | ScrollIntoViewOptions
+        setters: ['BooleanSetter', 'SelectSetter'], //?? boolean | ScrollIntoViewOptions
+        options: ['ScrollIntoViewOptions'],
         defaultValue: true
       }
     ],

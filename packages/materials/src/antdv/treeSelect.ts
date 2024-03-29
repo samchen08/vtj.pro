@@ -274,7 +274,7 @@ const components: MaterialDescription[] = [
         name: 'value',
         label: 'value',
         title: '指定当前选中的条目',
-        setters: ['StringSetter', 'StringArraySetter']
+        setters: ['StringSetter', 'ArraySetter']
       },
       {
         name: 'virtual',
@@ -307,6 +307,7 @@ const components: MaterialDescription[] = [
       //  ! 选中没值
       props: {
         value: '',
+        showSearch: true,
         dropdownStyle: { maxHeight: '400px', overflow: 'auto' },
         placeholder: 'please select',
         treeDefaultExpandAll: true,

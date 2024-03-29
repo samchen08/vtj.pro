@@ -198,7 +198,13 @@ const components: MaterialDescription[] = [
         title: '重要程度，相当于 h1、h2、h3、h4、h5',
         setters: ['SelectSetter', 'NumberSetter'],
         //?? number: 1, 2, 3, 4, 5
-        options: [{ label: 'H1', value: 1 }],
+        options: [
+          { label: 'H1', value: 1 },
+          { label: 'H2', value: 2 },
+          { label: 'H3', value: 3 },
+          { label: 'H4', value: 4 },
+          { label: 'H5', value: 5 }
+        ],
         defaultValue: 1
       },
       {
@@ -333,7 +339,6 @@ const components: MaterialDescription[] = [
       ]
     },
     events: ['update:content'],
-    // todo
     slots: [
       'copyableIcon',
       'copyableTooltip',

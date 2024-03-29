@@ -33,7 +33,7 @@ const components: MaterialDescription[] = [
         name: 'value',
         label: 'value',
         title: '根据 value 进行比较，判断是否选中',
-        setters: 'AnySetter' //! any
+        setters: 'StringSetter'
       }
     ],
     events: ['update:checked'],
@@ -42,7 +42,6 @@ const components: MaterialDescription[] = [
   {
     name: 'ARadioButton',
     alias: 'RadioButton',
-    parent: 'Radio',
     label: '单选按钮',
     categoryId: 'input',
     doc: 'https://www.antdv.com/components/radio-cn',
@@ -72,45 +71,23 @@ const components: MaterialDescription[] = [
         name: 'value',
         label: 'value',
         title: '根据 value 进行比较，判断是否选中',
-        setters: 'AnySetter'
+        setters: 'StringSetter'
       }
     ],
     events: ['update:checked'],
     snippet: {
-      props: { size: 'large', value: 'value1' },
-      children: [
-        {
-          name: 'ARadioButton',
-          children: 'Hangzhou',
-          props: {
-            value: 'a',
-            style: { padding: '5px', border: '1px solid red' }
-          }
-        },
-        {
-          name: 'ARadioButton',
-          children: 'Shanghai',
-          props: {
-            value: 'b',
-            style: { padding: '5px', border: '1px solid red' }
-          }
-        },
-        {
-          name: 'ARadioButton',
-          children: 'Beijing',
-          props: {
-            value: 'c',
-            style: { padding: '5px', border: '1px solid red' }
-          }
-        }
-      ]
+      props: {
+        size: 'large',
+        value: 'value1',
+        style: { border: '1px solid red' }
+      },
+      children: 'Hangzhou'
     }
   },
   {
     name: 'ARadioGroup',
     alias: 'RadioGroup',
-    parent: 'Radio',
-    label: '单选按钮组',
+    label: '单选框组合',
     categoryId: 'input',
     doc: 'https://www.antdv.com/components/radio-cn',
     props: [
@@ -161,16 +138,20 @@ const components: MaterialDescription[] = [
         name: 'value',
         label: 'value',
         title: '用于设置当前选中的值',
-        setters: 'anySetter'
+        setters: 'StringSetter'
       }
     ],
     events: ['change', 'update:value'],
     snippet: {
-      children: [
-        { name: 'ARadio', children: 'radio1' },
-        { name: 'ARadio', children: 'radio2' },
-        { name: 'ARadio', children: 'radio3' }
-      ]
+      props: {
+        value: 'value2',
+        optionType: 'button',
+        options: [
+          { label: 'Apple', value: 'Apple' },
+          { label: 'Pear', value: 'Pear' },
+          { label: 'Orange', value: 'Orange', disabled: true }
+        ]
+      }
     }
   }
 ];
