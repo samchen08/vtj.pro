@@ -17,13 +17,6 @@ const components: MaterialDescription[] = [
         defaultValue: false
       },
       {
-        name: 'allowClear',
-        label: 'allowClear',
-        title: '支持清除, 单选模式有效',
-        setters: 'BooleanSetter',
-        defaultValue: false
-      },
-      {
         name: 'backfill',
         label: 'backfill',
         title: '使用键盘选择选项的时候把选中项回填到输入框中',
@@ -127,7 +120,13 @@ const components: MaterialDescription[] = [
       'clear',
       'update:value'
     ],
-    slots: ['clearIcon', 'default', 'option', 'placeholder'],
+    // slots: ['clearIcon', 'default', 'option', 'placeholder'],
+    slots: [
+      { name: 'clearIcon' },
+      { name: 'default' },
+      { name: 'option', params: ['value', 'label', 'array'] }, //?? value, label, [disabled, key, title]
+      { name: 'placeholder' }
+    ],
     snippet: {
       props: {
         placeholder: 'input here',

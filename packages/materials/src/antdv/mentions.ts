@@ -52,7 +52,7 @@ const components: MaterialDescription[] = [
         name: 'prefix',
         label: 'prefix',
         title: '设置触发关键字',
-        setters: ['StringSetter', 'StringArraySetter'],
+        setters: ['StringSetter', 'ArraySetter'],
         defaultValue: '@'
       },
       {
@@ -67,8 +67,7 @@ const components: MaterialDescription[] = [
         label: 'status',
         title: '设置校验状态',
         setters: 'SelectSetter',
-        options: ['error', 'warning'],
-        defaultValue: ' ' //?? -
+        options: ['error', 'warning']
       },
       {
         name: 'validateSearch',
@@ -96,48 +95,77 @@ const components: MaterialDescription[] = [
       }
     ],
     events: ['blur', 'change', 'focus', 'search', 'select', 'update:value'],
-    slots: ['notFoundContent', 'option']
-  },
-  {
-    name: 'AMentionOption',
-    alias: 'Option',
-    parent: 'Mention',
-    label: '提及项',
-    categoryId: 'input',
-    doc: 'https://www.antdv.com/components/mentions-cn',
-    props: [
-      {
-        name: 'value',
-        label: 'value',
-        title: '选择时填充的值',
-        setters: 'StringSetter',
-        defaultValue: 'number'
-      },
-      {
-        name: 'disabled',
-        label: 'disabled',
-        title: '是否可选',
-        setters: 'BooleanSetter'
-      },
-      {
-        name: 'class',
-        label: 'class',
-        title: 'css 类名',
-        setters: 'StringSetter'
-      },
-      {
-        name: 'style',
-        label: 'style',
-        title: '选项样式',
-        setters: 'ObjectSetter'
-      },
-      {
-        name: 'payload',
-        label: 'payload',
-        title: '其它数据',
-        setters: 'ObjectSetter'
+    slots: [
+      { name: 'notFoundContent' },
+      { name: 'option', params: ['object'] }
+    ],
+    snippet: {
+      props: {
+        value: '@afc163',
+        options: [
+          {
+            value: 'afc163',
+            label: 'afc163'
+          },
+          {
+            value: 'zombieJ',
+            label: 'zombieJ'
+          },
+          {
+            value: 'yesmeck',
+            label: 'yesmeck'
+          }
+        ]
       }
-    ]
+    }
   }
+  // {
+  //   name: 'AMentionOption',
+  //   alias: 'Option',
+  //   parent: 'Mention',
+  //   label: '提及项',
+  //   categoryId: 'input',
+  //   doc: 'https://www.antdv.com/components/mentions-cn',
+  //   props: [
+  //     {
+  //       name: 'value',
+  //       label: 'value',
+  //       title: '选择时填充的值',
+  //       setters: 'StringSetter',
+  //       defaultValue: 'number'
+  //     },
+  //     {
+  //       name: 'label',
+  //       label: 'label',
+  //       title: '选项的标题',
+  //       setters: 'FunctionSetter'
+  //     },
+  //     {
+  //       name: 'disabled',
+  //       label: 'disabled',
+  //       title: '是否可选',
+  //       setters: 'BooleanSetter'
+  //     },
+  //     {
+  //       name: 'class',
+  //       label: 'class',
+  //       title: 'css 类名',
+  //       setters: 'StringSetter'
+  //     },
+  //     {
+  //       name: 'style',
+  //       label: 'style',
+  //       title: '选项样式',
+  //       setters: 'ObjectSetter'
+  //     },
+  //     {
+  //       name: 'payload',
+  //       label: 'payload',
+  //       title: '其它数据',
+  //       setters: 'ObjectSetter'
+  //     }
+  //   ],
+  //   slots: ['label']
+  // }
 ];
 export default components;

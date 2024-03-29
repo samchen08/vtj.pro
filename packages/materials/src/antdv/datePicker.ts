@@ -213,6 +213,7 @@ const components: MaterialDescription[] = [
     categoryId: 'input',
     doc: 'https://www.antdv.com/components/date-picker-cn',
     props: [
+      // 以下 API 为 DatePicker、 RangePicker 共享的 API。
       {
         name: 'allowClear',
         label: 'allowClear',
@@ -353,6 +354,7 @@ const components: MaterialDescription[] = [
           '可选，绑定值的格式，对 value、defaultValue、defaultPickerValue 起作用。不指定则绑定值为 dayjs 对象',
         setters: 'StringSetter'
       },
+      //  以下是 rangePicker
       {
         name: 'allowEmpty',
         label: 'allowEmpty',

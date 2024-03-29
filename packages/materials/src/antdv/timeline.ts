@@ -19,7 +19,7 @@ const components: MaterialDescription[] = [
         name: 'pending',
         label: 'pending',
         title: '指定最后一个幽灵节点是否存在或内容',
-        setters: ['BooleanSetter', 'StringSetter'], //?? boolean|string|slot
+        setters: ['BooleanSetter', 'StringSetter'],
         defaultValue: false
       },
       {
@@ -71,13 +71,13 @@ const components: MaterialDescription[] = [
         name: 'dot',
         label: 'dot',
         title: '自定义时间轴点',
-        setters: 'StringSetter' //??     string|slot
+        setters: 'StringSetter'
       },
       {
         name: 'label',
         label: 'label',
         title: '设置标签',
-        setters: 'StringSetter' //?? string | slot
+        setters: 'StringSetter'
       },
       {
         name: 'position',

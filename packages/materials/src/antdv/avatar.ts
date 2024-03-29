@@ -18,14 +18,14 @@ const components: MaterialDescription[] = [
         name: 'crossOrigin',
         label: 'crossOrigin',
         title: 'cors 属性设置',
-        setters: 'SelectSetter', //?? 'anonymous' | 'use-credentials' | ''
+        setters: 'SelectSetter',
         options: ['anonymous', 'use-credentials', '']
       },
       {
         name: 'draggable',
         label: 'draggable',
         title: '图片是否允许拖动',
-        setters: ['BooleanSetter', 'SelectSetter'], //?? boolean | 'true' | 'false'
+        setters: ['BooleanSetter', 'SelectSetter'],
         options: ['true', 'false']
       },
       {
@@ -53,7 +53,7 @@ const components: MaterialDescription[] = [
         name: 'size',
         label: 'size',
         title: '设置头像的大小',
-        setters: ['NumberSetter', 'SelectSetter', 'ObjectSetter'], //?? 	number | large | small | default | { xs: number, sm: number, ...}
+        setters: ['NumberSetter', 'SelectSetter', 'ObjectSetter'],
         options: ['large', 'small', 'default'],
         defaultValue: 'default'
       },
@@ -70,7 +70,7 @@ const components: MaterialDescription[] = [
         setters: 'StringSetter'
       }
     ],
-    slots: ['icon'], //!
+    slots: ['icon'],
     snippet: {
       props: {
         size: '64'
@@ -114,13 +114,13 @@ const components: MaterialDescription[] = [
         name: 'maxStyle',
         label: 'maxStyle',
         title: '多余头像样式',
-        setters: 'ObjectSetter' //?? CSSProperties
+        setters: 'ObjectSetter'
       },
       {
         name: 'size',
         label: 'size',
         title: '设置头像的大小',
-        setters: ['NumberSetter', 'SelectSetter', 'ObjectSetter'], //?? 	number | large | small | default | { xs: number, sm: number, ...}
+        setters: ['NumberSetter', 'SelectSetter', 'ObjectSetter'],
         options: ['large', 'small', 'default'],
         defaultValue: 'default'
       },

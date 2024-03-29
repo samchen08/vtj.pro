@@ -19,7 +19,7 @@ const components: MaterialDescription[] = [
         label: 'count',
         title:
           '展示的数字，大于 overflowCount 时显示为 ${overflowCount}+，为 0 时隐藏',
-        setters: ['NumberSetter', 'StringSetter'] //?? number | string | slot
+        setters: ['NumberSetter', 'StringSetter']
       },
       {
         name: 'dot',
@@ -39,7 +39,7 @@ const components: MaterialDescription[] = [
         name: 'offset',
         label: 'offset',
         title: '设置状态点的位置偏移，格式为 [x, y]',
-        setters: 'ArraySetters' //?? 	[number|string, number|string]
+        setters: 'ArraySetters'
       },
       {
         name: 'overflowCount',
@@ -59,7 +59,7 @@ const components: MaterialDescription[] = [
         name: 'status',
         label: 'status',
         title: '设置 Badge 为状态点',
-        setters: 'SelectSetter', //?? Enum{ 'success', 'processing, 'default', 'error', 'warning' }
+        setters: 'SelectSetter',
         options: ['success', 'processing', 'default', 'error', 'warning'],
         defaultValue: ''
       },
@@ -110,7 +110,7 @@ const components: MaterialDescription[] = [
         name: 'text',
         label: 'text',
         title: '缎带中填入的内容',
-        setters: 'StringSetter' //?? string | VNode | slot
+        setters: 'StringSetter'
       }
     ],
     slots: ['text'],

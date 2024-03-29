@@ -76,7 +76,7 @@ const components: MaterialDescription[] = [
         name: 'expandedKeys',
         label: 'expandedKeys',
         title: '（受控）展开指定的树节点',
-        setters: ['StringArraySetter', 'NumberArraySetter'],
+        setters: 'ArraySetter',
         defaultValue: []
       },
       {
@@ -109,7 +109,7 @@ const components: MaterialDescription[] = [
         name: 'loadedKeys',
         label: 'loadedKeys',
         title: '（受控）已经加载的节点，需要配合 loadData 使用',
-        setters: ['StringArraySetter', 'NumberArraySetter'],
+        setters: 'ArraySetter',
         defaultValue: []
       },
       {
@@ -130,7 +130,7 @@ const components: MaterialDescription[] = [
         name: 'selectedKeys',
         label: 'selectedKeys',
         title: '（受控）设置选中的树节点',
-        setters: ['StringArraySetter', 'NumberArraySetter']
+        setters: 'ArraySetter'
       },
       {
         name: 'showIcon',
