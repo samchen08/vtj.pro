@@ -49,6 +49,7 @@ export interface ProviderOptions {
   materials?: Record<string, () => Promise<any>>;
   globals?: Record<string, any>;
   materialPath?: string;
+  nodeEnv?: 'development' | 'production';
 }
 
 export interface ProvideAdapter {
@@ -68,6 +69,7 @@ export class Provider extends Base {
   public service: Service;
   public project: ProjectSchema | null = null;
   public components: Record<string, any> = {};
+  public nodeEnv: 'development' | 'production' = 'development';
   private router: Router | null = null;
   private materialPath: string = './';
   constructor(options: ProviderOptions) {
@@ -82,13 +84,15 @@ export class Provider extends Base {
       globals = {},
       modules = {},
       router = null,
-      materialPath = './'
+      materialPath = './',
+      nodeEnv = 'development'
     } = options;
     this.mode = mode;
     this.modules = modules;
     this.service = service;
     this.router = router;
     this.materialPath = materialPath;
+    this.nodeEnv = nodeEnv;
     if (dependencies) {
       this.dependencies = dependencies;
     }
@@ -298,7 +302,7 @@ export function useProvider(options: UseProviderOptions = {}): Provider {
   if (!provider) {
     throw new Error('Can not find provider');
   }
-  if (provider.mode === ContextMode.Raw) {
+  if (provider.mode === ContextMode.Raw && provider.nodeEnv === 'development') {
     const { id, version } = options;
     if (id && version) {
       (async () => {

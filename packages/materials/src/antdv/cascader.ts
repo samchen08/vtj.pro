@@ -103,7 +103,8 @@ const components: MaterialDescription[] = [
         name: 'maxTagCount',
         label: 'maxTagCount',
         title: '最多显示多少个 tag，响应式模式会对性能产生损耗',
-        setters: 'NumberSetter' //??		number | responsive
+        setters: ['NumberSetter', 'SelectSetter'], //??		number | responsive
+        options: ['responsive']
       },
       {
         name: 'maxTagPlaceholder',

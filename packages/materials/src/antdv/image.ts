@@ -24,19 +24,19 @@ const components: MaterialDescription[] = [
         name: 'height',
         label: 'height',
         title: '图像高度',
-        setters: ['StringSetter', 'NumberSetter']
+        setters: ['NumberSetter', 'StringSetter']
       },
       {
         name: 'placeholder',
         label: 'placeholder',
         title: '加载占位, 为 true 时使用默认占位',
-        setters: 'BooleanSetter' //?? boolean | slot
+        setters: 'BooleanSetter'
       },
       {
         name: 'preview',
         label: 'preview',
         title: '预览参数，为 false 时禁用',
-        setters: ['BooleanSetter', 'ObjectSetter'], //?? boolean | previewType
+        setters: ['BooleanSetter', 'ObjectSetter'],
         defaultValue: true
       },
       {
@@ -49,13 +49,13 @@ const components: MaterialDescription[] = [
         name: 'previewMask',
         label: 'previewMask',
         title: '自定义 mask',
-        setters: ['FunctionSetter', 'StringSetter'] //?? false | function | slot
+        setters: ['StringSetter', 'FunctionSetter']
       },
       {
         name: 'width',
         label: 'width',
         title: '图像宽度',
-        setters: ['StringSetter', 'NumberSetter']
+        setters: ['NumberSetter', 'StringSetter']
       }
     ],
     events: ['error'],

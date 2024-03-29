@@ -19,16 +19,16 @@ const components: MaterialDescription[] = [
         name: 'orientation',
         label: 'orientation',
         title: '分割线标题的位置',
-        setters: 'BooleanSetter',
-        defaultValue: false
+        setters: 'SelectSetter',
+        options: ['left', 'right', 'center'],
+        defaultValue: 'center'
       },
       {
-        name: 'orientationMargin	',
-        label: 'orientationMargin	',
+        name: 'orientationMargin',
+        label: 'orientationMargin',
         title:
           '标题和最近 left/right 边框之间的距离，去除了分割线，同时 orientation 必须为 left 或 right',
-        setters: 'SelectSetter',
-        options: ['StringSetter', 'NumberSetter']
+        setters: ['StringSetter', 'NumberSetter']
       },
       {
         name: 'plain',
@@ -48,12 +48,14 @@ const components: MaterialDescription[] = [
     ],
     snippet: {
       props: {
+        type: 'horizontal',
+        dashed: true,
         style: {
-          width: '100%',
-          height: '2px',
-          backgroundColor: '#7cb305'
+          height: '60px',
+          borderColor: '#7cb305'
         }
-      }
+      },
+      children: 'Text'
     }
   }
 ];

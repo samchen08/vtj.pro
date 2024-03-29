@@ -20,7 +20,7 @@ lerna-debug.log*
 .history
 
 # Project
-package.lock.json
+package-lock.json
 yarn-lock.json
 tsconfig.tsbuildinfo
 node_modules

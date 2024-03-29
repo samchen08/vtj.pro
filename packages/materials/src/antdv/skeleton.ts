@@ -46,8 +46,7 @@ const components: MaterialDescription[] = [
   },
   {
     name: 'ASkeletonAvatar',
-    alias: 'Avatar',
-    parent: 'Skeleton',
+    alias: 'SkeletonAvatar',
     label: '头像骨架屏',
     categoryId: 'feedback',
     doc: 'https://www.antdv.com/components/skeleton-cn',
@@ -63,15 +62,14 @@ const components: MaterialDescription[] = [
         name: 'size',
         label: 'size',
         title: '设置头像占位图的大小',
-        setters: 'SelectSetter',
-        options: ['number', 'large', 'small', 'default']
+        setters: ['SelectSetter', 'NumberSetter'],
+        options: ['large', 'small', 'default']
       }
     ]
   },
   {
     name: 'ASkeletonButton',
-    alias: 'Button',
-    parent: 'Skeleton',
+    alias: 'SkeletonButton',
     label: '按钮骨架屏',
     categoryId: 'feedback',
     doc: 'https://www.antdv.com/components/skeleton-cn',
@@ -108,8 +106,7 @@ const components: MaterialDescription[] = [
   },
   {
     name: 'ASkeletonInput',
-    alias: 'Input',
-    parent: 'Skeleton',
+    alias: 'SkeletonInput',
     label: '输入框骨架屏',
     categoryId: 'feedback',
     doc: 'https://www.antdv.com/components/skeleton-cn',

@@ -4,6 +4,7 @@ const components: MaterialDescription[] = [
   {
     name: 'ASelect',
     alias: 'Select',
+    childIncludes: ['ASelectOption', 'ASelectOptGroup'],
     label: '选择器',
     categoryId: 'input',
     doc: 'https://www.antdv.com/components/select-cn',
@@ -108,7 +109,7 @@ const components: MaterialDescription[] = [
         name: 'firstActiveValue',
         label: 'firstActiveValue',
         title: '默认高亮的选项',
-        setters: ['StringSetter', 'StringArraySetter']
+        setters: ['StringSetter', 'ArraySetter']
       },
       {
         name: 'getPopupContainer',
@@ -281,16 +282,30 @@ const components: MaterialDescription[] = [
       'select',
       'update:value'
     ],
+    // slots: [
+    //   'clearIcon',
+    //   'maxTagPlaceholder',
+    //   'menuItemSelectedIcon',
+    //   'notFoundContent',
+    //   'option',
+    //   'placeholder',
+    //   'removeIcon',
+    //   'suffixIcon',
+    //   'tagRender'
+    // ],
     slots: [
-      'clearIcon',
-      'maxTagPlaceholder',
-      'menuItemSelectedIcon',
-      'notFoundContent',
-      'option',
-      'placeholder',
-      'removeIcon',
-      'suffixIcon',
-      'tagRender'
+      { name: 'clearIcon' },
+      { name: 'maxTagPlaceholder' },
+      { name: 'menuItemSelectedIcon' },
+      { name: 'notFoundContent' },
+      {
+        name: 'option',
+        params: ['value', 'label', 'array'] //! {value, label, [disabled, key, title]}
+      },
+      { name: 'placeholder' },
+      { name: 'removeIcon' },
+      { name: 'suffixIcon' },
+      { name: 'tagRender' }
     ],
     snippet: {
       props: { style: { width: '120px' }, value: 'lucy' },
@@ -321,6 +336,7 @@ const components: MaterialDescription[] = [
   {
     name: 'ASelectOption',
     alias: 'SelectOption',
+    parentIncludes: ['ASelect', 'ASelectOptGroup'],
     parent: 'Select',
     label: '选择器项',
     categoryId: 'input',
@@ -366,7 +382,8 @@ const components: MaterialDescription[] = [
   },
   {
     name: 'ASelectOptGroup',
-    alias: 'ASelectOptGroup',
+    alias: 'SelectOptGroup',
+    parentIncludes: ['ASelect'],
     parent: 'Select',
     label: '选择器组',
     categoryId: 'input',
@@ -387,19 +404,12 @@ const components: MaterialDescription[] = [
     ],
     slots: ['label'],
     snippet: {
+      slot: 'label',
       children: [
         {
-          name: 'template',
-          slot: 'label',
-          children: [
-            {
-              name: 'component',
-              props: {
-                is: 'span'
-              },
-              children: 'Manager'
-            }
-          ]
+          name: 'span',
+          slot: { name: 'label' },
+          children: 'Manager'
         },
         { name: 'ASelectOption', children: 'Jack', props: { value: 'jack' } },
         { name: 'ASelectOption', children: 'Lucy', props: { value: 'lucy' } }

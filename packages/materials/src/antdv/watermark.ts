@@ -66,7 +66,8 @@ const components: MaterialDescription[] = [
         name: 'offset',
         label: 'offset',
         title: '水印距离容器左上角的偏移量，默认为 gap/2',
-        setters: 'ArraySetter'
+        setters: 'ArraySetter',
+        defaultValue: [50, 50]
       }
     ],
     snippet: {

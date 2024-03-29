@@ -4,6 +4,7 @@ const components: MaterialDescription[] = [
   {
     name: 'ATabs',
     alias: 'Tabs',
+    childIncludes: ['ATabPane'],
     label: '标签页',
     categoryId: 'data',
     doc: 'https://www.antdv.com/components/tabs-cn',
@@ -67,14 +68,16 @@ const components: MaterialDescription[] = [
         name: 'tabPosition',
         label: 'tabPosition',
         title: '页签位置，可选值有 top right bottom left',
-        setters: 'StringSetter',
+        setters: 'SelectSetter',
+        options: ['top', 'right', 'bottom', 'left'],
         defaultValue: 'top'
       },
       {
         name: 'type',
         label: 'type',
         title: '页签的基本样式，可选 line、card editable-card 类型',
-        setters: 'StringSetter',
+        setters: 'SelectSetter',
+        options: ['line', 'card', 'editable-card'],
         defaultValue: 'line'
       }
     ],

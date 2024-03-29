@@ -42,11 +42,6 @@ const components: MaterialDescription[] = [
         setters: 'FunctionSetter'
       },
       {
-        name: 'overlay(v-slot)',
-        label: 'overlay(v-slot)',
-        title: '菜单'
-      },
-      {
         name: 'overlayClassName',
         label: 'overlayClassName',
         title: '下拉根元素的类名称',

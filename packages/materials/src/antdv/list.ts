@@ -100,7 +100,73 @@ const components: MaterialDescription[] = [
         defaultValue: true
       }
     ],
-    slots: ['footer', 'header', 'loadMore']
+    slots: [
+      {
+        name: 'footer'
+      },
+      {
+        name: 'header'
+      },
+      {
+        name: 'loadMore'
+      },
+      {
+        name: 'renderItem',
+        params: ['item', 'index']
+      }
+    ],
+    snippet: {
+      props: {
+        itemLayout: 'horizontal',
+        dataSource: [
+          {
+            title: 'Ant Design Title 1'
+          },
+          {
+            title: 'Ant Design Title 2'
+          },
+          {
+            title: 'Ant Design Title 3'
+          },
+          {
+            title: 'Ant Design Title 4'
+          }
+        ]
+      },
+      slot: 'renderItem',
+      children: [
+        {
+          name: 'span',
+          slot: { name: 'renderItem', params: ['item', 'index'] },
+          children: [
+            {
+              name: 'AListItem',
+              children: [
+                {
+                  name: 'AListItemMeta',
+                  props: {
+                    description:
+                      'Ant Design, a design language for background applications, is refined by Ant UED Team'
+                  },
+                  children: [
+                    {
+                      name: 'a',
+                      slot: { name: 'title' },
+                      props: { href: 'https://www.antdv.com/' }
+                    },
+                    {
+                      name: 'AAvatar',
+                      slot: { name: 'avatar' },
+                      props: { href: 'https://joeschmoe.io/api/v1/random' }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
   },
   {
     name: 'AListItem',
@@ -124,7 +190,31 @@ const components: MaterialDescription[] = [
         setters: 'StringSetter'
       }
     ],
-    slots: ['actions', 'extra']
+    slots: ['actions', 'extra'],
+    snippet: {
+      children: [
+        {
+          name: 'AListItemMeta',
+          props: {
+            description:
+              'Ant Design, a design language for background applications, is refined by Ant UED Team'
+          },
+          children: [
+            {
+              name: 'a',
+              slot: { name: 'title' },
+              props: { href: 'https://www.antdv.com/' },
+              children: 'itemTitle'
+            },
+            {
+              name: 'AAvatar',
+              slot: { name: 'avatar' },
+              props: { href: 'https://joeschmoe.io/api/v1/random' }
+            }
+          ]
+        }
+      ]
+    }
   },
   {
     name: 'AListItemMeta',
@@ -153,7 +243,13 @@ const components: MaterialDescription[] = [
         setters: 'StringSetter'
       }
     ],
-    slots: ['avatar', 'description', 'title']
+    slots: ['avatar', 'description', 'title'],
+    snippet: {
+      props: {
+        description:
+          'Ant Design, a design language for background applications, is refined by Ant UED Team'
+      }
+    }
   }
 ];
 export default components;

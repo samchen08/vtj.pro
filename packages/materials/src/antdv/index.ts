@@ -18,7 +18,7 @@ import space from './space';
 import anchor from './anchor';
 import breadcrumb from './breadcrumb';
 import dropdown from './dropdown';
-import menu from './menu'; // todo 错误
+import menu from './menu';
 import pageHeader from './pageHeader';
 import pagination from './pagination';
 import steps from './steps';
@@ -27,32 +27,32 @@ import autocomplete from './autocomplete';
 import cascader from './cascader';
 import checkbox from './checkbox';
 import datePicker from './datePicker';
-import form from './form'; //todo  ?? 错误
+import form from './form';
 import input from './input';
 import inputNumber from './inputNumber';
 import mentions from './mentions';
 import radio from './radio';
 import rate from './rate';
-import select from './select'; // todo
+import select from './select';
 import slider from './slider';
 import Switch from './switch';
 import timePicker from './timePicker';
 import transfer from './transfer';
-import treeSelect from './treeSelect'; // todo
-import upload from './upload'; // todo template > slot 多了一层
+import treeSelect from './treeSelect';
+import upload from './upload';
 // * data
 import avatar from './avatar';
 import badge from './badge';
 import calendar from './calendar';
-import card from './card'; // todo template > slot 多了一层
+import card from './card';
 import carousel from './carousel';
 import collapse from './collapse';
-import comment from './comment'; //todo  template
+import comment from './comment';
 import descriptions from './description';
 import empty from './empty';
 import image from './image';
-import list from './list'; // todo template > slot 多了一层
-import popover from './popover'; //todo todo template > slot 多了一层
+import list from './list';
+import popover from './popover';
 import qrCode from './qrCode';
 import segmented from './segmented';
 import statistic from './statistic';
@@ -60,8 +60,8 @@ import table from './table';
 import tabs from './tabs';
 import tag from './tag';
 import timeline from './timeline';
-import tooltip from './tooltip'; //todo template
-import tour from './tour'; //todo  错误
+import tooltip from './tooltip';
+import tour from './tour';
 import tree from './tree';
 //  * feedback
 import alert from './alert';

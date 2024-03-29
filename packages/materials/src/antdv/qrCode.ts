@@ -2,7 +2,7 @@ import type { MaterialDescription } from '@vtj/core';
 
 const components: MaterialDescription[] = [
   {
-    name: 'QRCode',
+    name: 'AQRCode',
     alias: 'QRCode',
     label: '二维码',
     categoryId: 'data',

@@ -12,20 +12,20 @@ const components: MaterialDescription[] = [
         name: 'description',
         label: 'description',
         title: '自定义描述内容',
-        setters: 'StringSetter' //?? string | v-slot
+        setters: 'StringSetter'
       },
       {
         name: 'image',
         label: 'image',
         title: '设置显示图片，为 string 时表示自定义图片地址',
-        setters: 'StringSetter', //?? string | v-slot
+        setters: 'StringSetter',
         defaultValue: false
       },
       {
         name: 'imageStyle',
         label: 'imageStyle',
         title: '图片样式',
-        setters: 'ObjectSetter' //?? CSSProperties
+        setters: 'ObjectSetter'
       }
     ],
     slots: ['description', 'image']

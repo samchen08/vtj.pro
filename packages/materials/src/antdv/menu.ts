@@ -200,7 +200,6 @@ const components: MaterialDescription[] = [
       children: '菜单项',
       props: {
         key: 'key',
-        label: 'Navigation One',
         title: 'Navigation One'
       }
     }
@@ -208,6 +207,7 @@ const components: MaterialDescription[] = [
   {
     name: 'AMenuSubMenu',
     alias: 'SubMenu',
+    childIncludes: ['AMenuItem', 'AMenuSubMenu'],
     parent: 'Menu',
     label: '导航子菜单',
     categoryId: 'nav',
@@ -248,12 +248,24 @@ const components: MaterialDescription[] = [
     events: ['titleClick'],
     slots: ['expandIcon', 'icon', 'title'],
     snippet: {
-      //? children 只能为 AMenuItem
+      //Menu.SubMenu 的子元素必须是 MenuItem 或者 SubMenu.
+      //SubMenu 必须传递 key，如不传递，该 SubMenu 下子元素将提前渲染，而且部分场景无法进行有效高亮。
+      children: [
+        {
+          name: 'AMenuItem',
+          children: '菜单项',
+          props: {
+            key: 'key',
+            title: 'Navigation One -- AMenuItem'
+          }
+        }
+      ]
     }
   },
   {
     name: 'AMenuItemGroup',
     alias: 'ItemGroup',
+    childIncludes: ['AMenuItem'],
     parent: 'Menu',
     label: '导航菜单项组',
     categoryId: 'nav',
@@ -269,6 +281,16 @@ const components: MaterialDescription[] = [
     slots: ['title'],
     snippet: {
       //? children 只能为 AMenuItem
+      children: [
+        {
+          name: 'AMenuItem',
+          children: '菜单项',
+          props: {
+            key: 'key',
+            title: 'Navigation One -- AMenuItem'
+          }
+        }
+      ]
     }
   },
   {

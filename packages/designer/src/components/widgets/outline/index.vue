@@ -22,9 +22,12 @@
           :class="{
             'is-locked': data.model.locked,
             'is-invisible': data.model.invisible,
-            'is-dragging': data.dragging
+            'is-dragging': data.dragging,
+            'is-slot': data.type === 'slot'
           }"
-          :active="!data.model.invisible && node.isCurrent"
+          :active="
+            !data.model.invisible && node.isCurrent && data.type !== 'slot'
+          "
           grow
           small
           background
@@ -39,7 +42,7 @@
           "
           :title="data.label"
           :subtitle="data.type"
-          :actions="getActions(data.model)"
+          :actions="getActions(data.model, data.type)"
           @action="onAction"
           @mouseenter="onMouseEnter(data)"
           @mouseleave="onMouseLeave">
@@ -68,6 +71,7 @@
     model: NodeModel;
     children?: TreeNodeData[];
     dragging?: boolean;
+    disabled?: boolean;
   }
 
   export interface TreeRootData {
@@ -86,7 +90,8 @@
   const { current } = useCurrent();
   const tree: Ref<TreeRootData[]> = ref([]);
 
-  const getActions = (node: BlockModel | NodeModel): any[] => {
+  const getActions = (node: BlockModel | NodeModel, type: string): any[] => {
+    if (type === 'slot') return [];
     if (isBlock(node)) {
       return node.locked ? ['unlock'] : ['lock'];
     }
@@ -109,6 +114,33 @@
     return ['lock', 'invisible', 'copy', 'remove'];
   };
 
+  const groupBySlots = (children: NodeModel[], parent: NodeModel) => {
+    const slots: Record<string, NodeModel[]> = {};
+    const hasSlot = children.some((child) => child.slot);
+    if (!hasSlot) return toTree(children);
+    for (const child of children) {
+      if (child.slot) {
+        const slotName = child.slot.name;
+        if (!slots[slotName]) {
+          slots[slotName] = [];
+        }
+        slots[slotName].push(child);
+      }
+    }
+    const result: TreeNodeData[] = [];
+    for (const [name, nodes] of Object.entries(slots)) {
+      result.push({
+        id: `${parent.id}-${name}`,
+        label: `#${name}`,
+        type: 'slot',
+        model: parent,
+        disabled: true,
+        children: toTree(nodes)
+      });
+    }
+    return result;
+  };
+
   const toTree = (models: NodeModel[]) => {
     const items: TreeNodeData[] = [];
     models.forEach((model) => {
@@ -119,7 +151,7 @@
         model
       };
       if (Array.isArray(model.children)) {
-        item.children = toTree(model.children);
+        item.children = groupBySlots(model.children, model);
       }
       items.push(item);
     });
@@ -155,6 +187,7 @@
 
   const allowDrag = (node: any) => {
     const item: TreeRootData | TreeNodeData = node.data;
+    if (item.type === 'slot') return false;
     // 页面不能拖
     if (isBlock(item.model)) return false;
     // 锁定的节点不能更改
@@ -196,7 +229,11 @@
 
   const handleCurrentChange = (cur: any) => {
     const node = cur?.model;
-    if (!node || node.invisible) return;
+    if (!node || node.invisible || cur.type === 'slot') {
+      designer.value?.setSelected(null);
+      designer.value?.setHover(null);
+      return;
+    }
     designer.value?.setSelected(node);
     designer.value?.setHover(null);
   };
@@ -244,6 +281,10 @@
   };
 
   const onMouseEnter = (data: TreeNodeData | TreeRootData) => {
+    if (data.type === 'slot') {
+      designer.value?.setHover(null);
+      return;
+    }
     if (isBlock(data.model)) {
       designer.value?.setHover(data.model);
     } else {

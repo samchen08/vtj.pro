@@ -125,48 +125,5 @@ const components: MaterialDescription[] = [
       }
     }
   }
-  // {
-  //   name: 'AAnchorItem',
-  //   alias: 'AAnchorItem',
-  //   label: '锚点项',
-  //   parent: 'Anchor',
-  //   categoryId: 'nav',
-  //   doc: 'https://www.antdv.com/components/anchor-cn',
-  //   props: [
-  //     {
-  //       name: 'key',
-  //       label: 'key',
-  //       title: '唯一标志',
-  //       setters: ['StringSetter', 'NumberSetter']
-  //     },
-  //     {
-  //       name: 'href',
-  //       label: 'href',
-  //       title: '锚点链接',
-  //       setters: 'StringSetter'
-  //     },
-  //     {
-  //       name: 'target',
-  //       label: 'target',
-  //       title: '该属性指定在何处显示链接的资源',
-  //       setters: 'StringSetter'
-  //     },
-  //     {
-  //       name: 'title',
-  //       label: 'title',
-  //       title: '文字内容',
-  //       setters: 'FunctionSetter' //?? VueNode | (item: AnchorItem) => VueNode
-  //     },
-  //     {
-  //       name: 'children',
-  //       label: 'children',
-  //       title: '嵌套的 Anchor Link，注意：水平方向该属性不支持',
-  //       setters: 'ArraySetter'
-  //     }
-  //   ],
-  //   events: ['change', 'click'],
-  //   slots: ['title'],
-  //   snippet: {}
-  // }
 ];
 export default components;

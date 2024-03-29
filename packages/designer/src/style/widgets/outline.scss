@@ -5,6 +5,10 @@
     --el-tree-node-hover-bg-color: transparent;
     .v-item {
       margin: 0;
+      &.is-slot {
+        color: var(--el-color-warning-dark-2);
+        cursor: not-allowed !important;
+      }
     }
   }
   .el-tree-node__content {
