@@ -1,4 +1,4 @@
-import { computed, watchEffect, reactive, ref } from 'vue';
+import { computed, watchEffect, reactive, ref, watch } from 'vue';
 import { useEngine, type AssetGroup } from '../../framework';
 
 const getDefaultModelValue = (categories: any[] = []) => {
@@ -50,6 +50,16 @@ export function useAssets() {
     );
     Object.assign(model, result);
   });
+
+  watch(
+    tabs,
+    (v) => {
+      if (v.length && !currentTab.value) {
+        currentTab.value = v[0].name;
+      }
+    },
+    { immediate: true }
+  );
 
   const searchResult = computed(() => {
     const key = searchKey.value.toLowerCase();
