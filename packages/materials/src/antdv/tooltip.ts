@@ -126,7 +126,11 @@ const components: MaterialDescription[] = [
     events: ['openChange', 'update:open'],
     slots: ['title'],
     snippet: {
-      children: [{ name: 'Template', slot: 'title', children: 'prompt text' }]
+      slot: 'title',
+      children: [
+        { name: 'p', slot: { name: 'title' }, children: 'prompt text' },
+        { name: 'p', children: ' Tooltip will show when mouse enter.' }
+      ]
     }
   }
 ];

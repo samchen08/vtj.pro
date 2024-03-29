@@ -115,8 +115,8 @@ const components: MaterialDescription[] = [
         name: 'gap',
         label: 'gap',
         title: '设置网格之间的间隙',
-        setters: 'SelectSetter',
-        options: ['small', 'middle', 'large', 'string', 'number'],
+        setters: ['SelectSetter', 'NumberSetter', 'StringSetter'],
+        options: ['small', 'middle', 'large'],
         defaultValue: 'normal'
       }
     ],
@@ -124,7 +124,10 @@ const components: MaterialDescription[] = [
     snippet: {
       props: {
         vertical: false,
-        gap: 'middle'
+        gap: 'middle',
+        style: {
+          width: '100%'
+        }
       },
       children: [
         {
@@ -135,19 +138,49 @@ const components: MaterialDescription[] = [
               width: '25%',
               height: '54px',
               color: '#fff',
-              background: '#23272e'
+              background: '#1677ff'
             }
           },
-          children: 'flex item',
-          directives: [
-            {
-              name: 'vFor',
-              value: {
-                type: 'JSExpression',
-                value: '4'
-              }
+          children: 'flex item111'
+        },
+        {
+          name: 'component',
+          props: {
+            is: 'div',
+            style: {
+              width: '25%',
+              height: '54px',
+              color: '#fff',
+              background: '#1677ffbf'
             }
-          ]
+          },
+          children: 'flex item222'
+        },
+        {
+          name: 'component',
+          props: {
+            is: 'div',
+            style: {
+              width: '25%',
+              height: '54px',
+              color: '#fff',
+              background: '#1677ff'
+            }
+          },
+          children: 'flex item333'
+        },
+        {
+          name: 'component',
+          props: {
+            is: 'div',
+            style: {
+              width: '25%',
+              height: '54px',
+              color: '#fff',
+              background: '#1677ffbf'
+            }
+          },
+          children: 'flex item444'
         }
       ]
     }

@@ -137,11 +137,18 @@ const components: MaterialDescription[] = [
       slot: 'content',
       children: [
         {
-          name: 'Template',
-          children: [
-            { name: 'p', children: 'Content' },
-            { name: 'p', children: 'Content' }
-          ]
+          name: 'p',
+          slot: {
+            name: 'content'
+          },
+          children: 'content'
+        },
+        {
+          name: 'p',
+          slot: {
+            name: 'content'
+          },
+          children: 'content'
         },
         { name: 'AButton', props: { type: 'primary' }, children: 'Hover me' }
       ]

@@ -3,7 +3,7 @@ import type { MaterialDescription } from '@vtj/core';
 const components: MaterialDescription[] = [
   {
     name: 'AModal',
-    alias: 'modal',
+    alias: 'Modal',
     label: '对话框',
     categoryId: 'feedback',
     doc: 'https://www.antdv.com/components/modal-cn',

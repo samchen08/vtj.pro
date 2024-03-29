@@ -66,7 +66,7 @@ const components: MaterialDescription[] = [
         title:
           '指定 Drawer 挂载的节点，并在容器内展现 | () => HTMLElement | Selectors',
         setters: 'StringSetter', //?? 'body'
-        defaultValue: 'body' //!
+        defaultValue: 'body'
       },
       {
         name: 'headerStyle',

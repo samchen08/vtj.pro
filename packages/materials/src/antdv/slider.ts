@@ -86,7 +86,7 @@ const components: MaterialDescription[] = [
         label: 'value',
         title:
           '设置当前取值。当 range 为 false 时，使用 number，否则用 [number, number]',
-        setters: ['NumberSetter', 'NumberArraySetter']
+        setters: ['NumberSetter', 'ArraySetter']
       },
       {
         name: 'vertical',

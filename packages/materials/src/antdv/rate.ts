@@ -53,7 +53,7 @@ const components: MaterialDescription[] = [
         name: 'tooltips',
         label: 'tooltips',
         title: '自定义每项的提示信息',
-        setters: 'StringArraySetter'
+        setters: 'ArraySetter'
       },
       {
         name: 'value',

@@ -253,18 +253,140 @@ const components: MaterialDescription[] = [
       'update:expandedRowKeys'
     ],
     slots: [
-      'bodyCell',
-      'customFilterDropdown',
-      'customFilterIcon',
-      'emptyText',
-      'expandedRowRender',
-      'expandColumnTitle',
-      'expandIcon',
-      'footer',
-      'headerCell',
-      'summary',
-      'title'
-    ]
+      { name: 'bodyCell', params: ['text', 'record', 'index', 'column'] },
+      { name: 'customFilterDropdown' },
+      { name: 'customFilterIcon', params: ['filtered', 'column'] },
+      { name: 'emptyText' },
+      {
+        name: 'expandedRowRender',
+        params: ['record', 'index', 'indent', 'expanded']
+      },
+      {
+        name: 'expandColumnTitle'
+      },
+      { name: 'expandIcon', params: ['props'] },
+      { name: 'expandIcon', params: ['currentPageData'] },
+      {
+        name: 'headerCell',
+        params: ['title', 'column']
+      },
+      {
+        name: 'summary'
+      },
+      { name: 'title', params: ['currentPageData'] }
+    ],
+    snippet: {
+      props: {
+        columns: [
+          {
+            title: 'Name',
+            dataIndex: 'name',
+            key: 'name'
+          },
+          {
+            title: 'Age',
+            dataIndex: 'age',
+            key: 'age'
+          },
+          {
+            title: 'Address',
+            dataIndex: 'address',
+            key: 'address'
+          },
+          {
+            title: 'Tags',
+            key: 'tags',
+            dataIndex: 'tags'
+          },
+          {
+            title: 'Action',
+            key: 'action'
+          }
+        ],
+        dataSource: [
+          {
+            key: '1',
+            name: 'John Brown',
+            age: 32,
+            address: 'New York No. 1 Lake Park',
+            tags: ['nice', 'developer']
+          },
+          {
+            key: '2',
+            name: 'Jim Green',
+            age: 42,
+            address: 'London No. 1 Lake Park',
+            tags: ['loser']
+          },
+          {
+            key: '3',
+            name: 'Joe Black',
+            age: 32,
+            address: 'Sidney No. 1 Lake Park',
+            tags: ['cool', 'teacher']
+          }
+        ]
+      }
+      // children: [
+      //   {
+      //     name: 'div',
+      //     slot: { name: 'headerCell', params: ['column'] },
+      //     children: [{ name: 'span', children: 'Name??' }]
+      //   },
+      //   {
+      //     name: 'div',
+      //     slot: { name: 'bodyCell', params: ['column', 'record'] },
+      //     children: [
+      //       { name: 'a', children: 'record.name' },
+      //       {
+      //         name: 'template',
+      //         children: [
+      //           {
+      //             name: 'span',
+      //             children: [
+      //               {
+      //                 name: 'ATag',
+      //                 props: { color: 'volcano' },
+      //                 children: 'tag.toUpperCase()'
+      //               }
+      //             ]
+      //           }
+      //         ]
+      //       },
+      //       {
+      //         name: 'template',
+      //         children: [
+      //           {
+      //             name: 'span',
+      //             children: [
+      //               {
+      //                 name: 'a',
+      //                 children: 'Invite 一 {{ record.name }}'
+      //               },
+      //               {
+      //                 name: 'ADivider',
+      //                 props: { type: 'vertical' }
+      //               },
+      //               {
+      //                 name: 'a',
+      //                 children: 'Delete'
+      //               },
+      //               {
+      //                 name: 'ADivider',
+      //                 props: { type: 'vertical' }
+      //               },
+      //               {
+      //                 name: 'a',
+      //                 children: 'More actions'
+      //               }
+      //             ]
+      //           }
+      //         ]
+      //       }
+      //     ]
+      //   }
+      // ]
+    }
   }
 ];
 export default components;

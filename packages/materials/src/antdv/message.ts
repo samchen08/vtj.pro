@@ -7,7 +7,7 @@ const components: MaterialDescription[] = [
     label: '全局提示',
     categoryId: 'feedback',
     doc: 'https://www.antdv.com/components/message-cn',
-    props: [] //!
+    props: []
   }
 ];
 export default components;

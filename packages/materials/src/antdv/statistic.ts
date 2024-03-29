@@ -15,6 +15,12 @@ const components: MaterialDescription[] = [
         defaultValue: '.'
       },
       {
+        name: 'formatter',
+        label: 'formatter',
+        title: '自定义数值展示',
+        setters: 'FunctionSetter'
+      },
+      {
         name: 'groupSeparator',
         label: 'groupSeparator',
         title: '设置千分位标识符',
@@ -31,31 +37,31 @@ const components: MaterialDescription[] = [
         name: 'prefix',
         label: 'prefix',
         title: '设置数值的前缀',
-        setters: 'StringSetter' //?? 	string | v-slot
+        setters: 'StringSetter'
       },
       {
         name: 'suffix',
         label: 'suffix',
         title: '设置数值的后缀',
-        setters: 'StringSetter' //?? 	string | v-slot
+        setters: 'StringSetter'
       },
       {
         name: 'title',
         label: 'title',
         title: '数值的标题',
-        setters: 'StringSetter' //?? 	string | v-slot
+        setters: 'StringSetter'
       },
       {
         name: 'value',
         label: 'value',
         title: '数值内容',
-        setters: 'StringSetter' //?? 	string | number
+        setters: ['StringSetter', 'NumberSetter']
       },
       {
         name: 'valueStyle',
         label: 'valueStyle',
         title: '设置数值的样式',
-        setters: 'ObjectSetter' //?? style
+        setters: 'ObjectSetter'
       }
     ],
     slots: ['formatter', 'prefix', 'suffix', 'title'],
@@ -85,31 +91,31 @@ const components: MaterialDescription[] = [
         name: 'prefix',
         label: 'prefix',
         title: '设置数值的前缀',
-        setters: 'StringSetter' //?? 	string | v-slot
+        setters: 'StringSetter'
       },
       {
         name: 'suffix',
         label: 'suffix',
         title: '设置数值的后缀',
-        setters: 'StringSetter' //?? 	string | v-slot
+        setters: 'StringSetter'
       },
       {
         name: 'title',
         label: 'title',
         title: '数值的标题',
-        setters: 'StringSetter' //?? 	string | v-slot
+        setters: 'StringSetter'
       },
       {
         name: 'value',
         label: 'value',
         title: '数值内容',
-        setters: ['NumberSetter'] //?? number | dayjs
+        setters: ['NumberSetter', 'FunctionSetter']
       },
       {
         name: 'valueStyle',
         label: 'valueStyle',
         title: '设置数值的样式',
-        setters: 'ObjectSetter' //?? 	style
+        setters: 'ObjectSetter'
       }
     ],
     events: ['finish'],
