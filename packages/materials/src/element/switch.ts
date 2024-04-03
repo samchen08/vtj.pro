@@ -50,6 +50,16 @@ const Switch: MaterialDescription = {
       setters: 'InputSetter'
     },
     {
+      name: 'activeActionIcon',
+      defaultValue: '',
+      setters: 'InputSetter'
+    },
+    {
+      name: 'inactiveActionIcon',
+      defaultValue: '',
+      setters: 'InputSetter'
+    },
+    {
       name: 'activeText',
       defaultValue: '',
       setters: 'InputSetter'
@@ -96,11 +106,18 @@ const Switch: MaterialDescription = {
     },
     {
       name: 'beforeChange',
-      defaultValue: '',
       setters: 'FunctionSetter'
-    }
+    },
+    { name: 'id', defaultValue: '', setters: 'StringSetter' },
+    {
+      name: 'tabindex',
+      defaultValue: '',
+      setters: ['StringSetter', 'NumberSetter']
+    },
+    { name: 'label', defaultValue: '', setters: 'StringSetter' }
   ],
-  events: ['change', 'update:modelValue']
+  events: ['change', 'update:modelValue'],
+  slots: ['active-action', 'inactive-action']
 };
 
 export default Switch;

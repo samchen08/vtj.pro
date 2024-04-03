@@ -47,6 +47,7 @@ const Steps: MaterialDescription[] = [
         setters: 'BooleanSetter'
       }
     ],
+    slots: ['default'],
     snippet: {
       name: 'ElSteps',
       children: [

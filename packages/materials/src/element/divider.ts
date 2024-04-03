@@ -26,6 +26,7 @@ const components: MaterialDescription = {
       options: ['left', 'right', 'center']
     }
   ],
+  slots: ['default'],
   snippet: {
     name: 'ElDivider',
     children: '分割线'

@@ -140,6 +140,9 @@ const Autodcomplete: MaterialDescription = {
     },
     {
       name: 'append'
+    },
+    {
+      name: 'loading'
     }
   ],
   events: [

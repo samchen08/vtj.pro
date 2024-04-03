@@ -42,6 +42,7 @@ const components: MaterialDescription[] = [
         setters: 'InputSetter'
       }
     ],
+    slots: ['default'],
     snippet: {
       props: {
         gutter: 10
@@ -138,6 +139,7 @@ const components: MaterialDescription[] = [
         setters: 'InputSetter'
       }
     ],
+    slots: ['default'],
     snippet: {
       props: {
         span: 6

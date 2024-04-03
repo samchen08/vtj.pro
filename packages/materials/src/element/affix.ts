@@ -38,6 +38,7 @@ const components: MaterialDescription = {
       name: 'scroll'
     }
   ],
+  slots: ['default'],
   snippet: {
     name: 'ElAffix',
     children: [

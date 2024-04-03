@@ -118,7 +118,8 @@ const Cascader: MaterialDescription[] = [
         name: 'validateEvent',
         defaultValue: true,
         setters: 'BooleanSetter'
-      }
+      },
+      { name: 'maxCollapseTags', setters: 'NumberSetter', defaultValue: 1 }
     ],
     events: [
       {
@@ -188,8 +189,12 @@ const Cascader: MaterialDescription[] = [
       },
       {
         name: 'expand-change'
+      },
+      {
+        name: 'close'
       }
     ],
+    slots: ['default'],
     snippet: {
       props: {
         options: mockTreeData(),

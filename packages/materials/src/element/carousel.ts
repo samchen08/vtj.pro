@@ -69,6 +69,11 @@ const Carousel: MaterialDescription[] = [
         name: 'pauseOnHover',
         defaultValue: true,
         setters: 'BooleanSetter'
+      },
+      {
+        name: 'motionBlur',
+        defaultValue: false,
+        setters: 'BooleanSetter'
       }
     ],
     events: ['change'],

@@ -5,68 +5,90 @@ import type {
 } from '@vtj/core';
 import { version } from '../version';
 import { setPackageName } from '../shared';
-import affix from './affix';
-import alert from './alert';
-import autodcomplete from './autodcomplete';
-import avatar from './avatar';
-import backtop from './backtop';
-import badge from './badge';
-import breadcrumb from './breadcrumb';
+
+// * base 基础组件
 import button from './button';
+import container from './container';
+import layout from './layout';
+import link from './link';
+import text from './text';
+import scrollbar from './scrollbar';
+import space from './space';
+
+// * form 表单组件
+import autodcomplete from './autodcomplete';
+import cascader from './cascader';
+import checkbox from './checkbox';
+import colorPicker from './colorPicker';
+import datePicker from './datePicker';
+import dateTime from './dateTime';
+import input from './input';
+import inputNumber from './inputNumber';
+import radio from './radio';
+import rate from './rate';
+import select from './select';
+import selectV2 from './selectV2';
+import slider from './slider';
+import Switch from './switch';
+import timePicker from './timePicker';
+import timeSelect from './timeSelect';
+import transfer from './transfer';
+import upload from './upload';
+
+// * data 数据展示
+import avatar from './avatar';
+import badge from './badge';
 import calendar from './calendar';
 import card from './card';
 import carousel from './carousel';
-import cascader from './cascader';
-import checkbox from './checkbox';
 import collapse from './collapse';
-import colorPicker from './colorPicker';
-import container from './container';
-import datePicker from './datePicker';
 import descriptions from './descriptions';
-import dialog from './dialog';
-import divider from './divider';
-import drawer from './drawer';
-import dropdown from './dropdown';
 import empty from './empty';
 import image from './image';
-import input from './input';
-import inputNumber from './inputNumber';
-import layout from './layout';
-import link from './link';
-import menu from './menu';
-import pageHeader from './pageHeader';
 import pagination from './pagination';
-import popconfirm from './popconfirm';
-import popover from './popover';
 import progress from './progress';
-import radio from './radio';
-import rate from './rate';
 import result from './result';
-import scrollbar from './scrollbar';
-import select from './select';
-import selectV2 from './selectV2';
 import skeleton from './skeleton';
-import slider from './slider';
-import space from './space';
-import steps from './steps';
-import Switch from './switch';
 import table from './table';
-import tabs from './tabs';
+import virtualizedTable from './virtualizedTable';
 import tag from './tag';
 import timeline from './timeline';
-import timePicker from './timePicker';
-import timeSelect from './timeSelect';
-import tooltip from './tooltip';
-import transfer from './transfer';
+import tour from './tour';
 import tree from './tree';
+import treeSelect from './treeSelect';
 import treeV2 from './treeV2';
-import upload from './upload';
-import virtualizedTable from './virtualizedTable';
+import statistic from './statistic';
+
+// * nav 导航
+import affix from './affix';
+import anchor from './anchor';
+import backtop from './backtop';
+import breadcrumb from './breadcrumb';
+import dropdown from './dropdown';
+import menu from './menu';
+import pageHeader from './pageHeader';
+import steps from './steps';
+import tabs from './tabs';
+
+// * Feedback 反馈组件
+import alert from './alert';
+import dialog from './dialog';
+import drawer from './drawer';
+import popconfirm from './popconfirm';
+import popover from './popover';
+import tooltip from './tooltip';
+
+// * other
+import divider from './divider';
+import watermark from './watermark';
+
+import configProvider from './configProvider';
 
 const name = 'element-plus';
 const components: MaterialDescription[] = [
   affix,
   alert,
+  anchor,
   autodcomplete,
   avatar,
   backtop,
@@ -80,8 +102,10 @@ const components: MaterialDescription[] = [
   checkbox,
   collapse,
   colorPicker,
+  configProvider,
   container,
   datePicker,
+  dateTime,
   descriptions,
   dialog,
   divider,
@@ -108,20 +132,25 @@ const components: MaterialDescription[] = [
   skeleton,
   slider,
   space,
+  statistic,
   steps,
   Switch,
   table,
   tabs,
   tag,
+  text,
   timeline,
   timePicker,
   timeSelect,
   tooltip,
+  tour,
   transfer,
   tree,
+  treeSelect,
   treeV2,
   upload,
-  virtualizedTable
+  virtualizedTable,
+  watermark
 ].flat();
 
 const categories: MaterialCategory[] = [

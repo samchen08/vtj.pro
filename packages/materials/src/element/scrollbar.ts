@@ -62,6 +62,31 @@ const Scrollbar: MaterialDescription = {
       name: 'minSize',
       defaultValue: 20,
       setters: 'NumberSetter'
+    },
+    {
+      name: 'id',
+      label: 'id',
+      title: '视图id',
+      setters: 'StringSetter'
+    },
+    {
+      name: 'role',
+      label: 'role',
+      title: '视图的角色',
+      setters: 'StringSetter'
+    },
+    {
+      name: 'ariaLabel',
+      label: 'ariaLabel',
+      title: '视图的 aria-label',
+      setters: 'StringSetter'
+    },
+    {
+      name: 'ariaOrientation',
+      label: 'ariaOrientation',
+      title: '视图的 aria-orientation',
+      setters: 'SelectSetter',
+      options: ['horizontal', 'vertical']
     }
   ],
   events: [

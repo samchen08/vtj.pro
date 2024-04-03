@@ -20,6 +20,7 @@ const Breadcrumb: MaterialDescription[] = [
         setters: ['InputSetter']
       }
     ],
+    slots: ['default'],
     snippet: {
       children: [
         {
@@ -39,7 +40,7 @@ const Breadcrumb: MaterialDescription[] = [
   },
   {
     name: 'ElBreadcrumbItem',
-    label: '面包屑item',
+    label: '面包屑项',
 
     categoryId: 'nav',
     package: 'element-plus',
@@ -55,6 +56,7 @@ const Breadcrumb: MaterialDescription[] = [
         setters: 'InputSetter'
       }
     ],
+    slots: ['default'],
     snippet: {
       name: 'ElBreadcrumbItem',
       children: 'BreadcrumbItem'

@@ -101,6 +101,13 @@ const components: MaterialDescription = {
       name: 'zIndex',
       defaultValue: 0,
       setters: 'NumberSetter'
+    },
+    {
+      name: 'headerAriaLevel',
+      label: 'headerAriaLevel',
+      title: 'header 的 aria-level 属性',
+      setters: 'StringSetter',
+      defaultValue: 2
     }
   ],
   events: [
@@ -115,6 +122,12 @@ const components: MaterialDescription = {
     },
     {
       name: 'closed'
+    },
+    {
+      name: 'open-auto-focus'
+    },
+    {
+      name: 'close-auto-focus'
     }
   ],
   slots: [

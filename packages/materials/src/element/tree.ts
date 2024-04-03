@@ -171,6 +171,7 @@ const Tree: MaterialDescription = {
     'node-drop',
     'node-drag-end'
   ],
+  slots: [{ name: 'default', params: ['node', 'data'] }, { name: 'empty' }],
   snippet: {
     props: {
       data: mockTreeData()

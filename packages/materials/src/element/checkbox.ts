@@ -24,6 +24,16 @@ const Checkbox: MaterialDescription[] = [
         setters: ['InputSetter', 'NumberSetter', 'BooleanSetter', 'JSONSetter']
       },
       {
+        name: 'trueValue',
+        defaultValue: '',
+        setters: ['InputSetter', 'NumberSetter']
+      },
+      {
+        name: 'falseValue',
+        defaultValue: '',
+        setters: ['InputSetter', 'NumberSetter']
+      },
+      {
         name: 'trueLabel',
         defaultValue: '',
         setters: ['InputSetter', 'NumberSetter']
@@ -72,6 +82,24 @@ const Checkbox: MaterialDescription[] = [
         title: '输入时是否触发表单的校验',
         label: '表单校验',
         setters: 'BooleanSetter'
+      },
+      {
+        name: 'tabindex',
+        label: 'tabindex',
+        title: '输入框的 tabindex',
+        setters: ['StringSetter', 'NumberSetter']
+      },
+      {
+        name: 'id',
+        label: 'id',
+        title: 'input id',
+        setters: 'StringSetter'
+      },
+      {
+        name: 'controls',
+        label: 'controls',
+        title: '与 aria-control一致, 当 indeterminate为 true时生效',
+        setters: 'BooleanSetter'
       }
     ],
     events: [
@@ -82,6 +110,7 @@ const Checkbox: MaterialDescription[] = [
         name: 'update:modelValue'
       }
     ],
+    slots: ['default'],
     snippet: {
       props: {
         label: '选项一',
@@ -153,6 +182,7 @@ const Checkbox: MaterialDescription[] = [
       }
     ],
     events: ['change', 'update:modelValue'],
+    slots: ['default'],
     snippet: {
       children: [
         {

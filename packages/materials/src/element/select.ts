@@ -11,7 +11,7 @@ const Select: MaterialDescription[] = [
       {
         name: 'modelValue',
         defaultValue: '',
-        setters: ['NumberSetter', 'InputerSetter', 'BooleanSetter']
+        setters: ['NumberSetter', 'InputSetter', 'BooleanSetter']
       },
       {
         name: 'multiple',
@@ -26,7 +26,7 @@ const Select: MaterialDescription[] = [
       {
         name: 'valueKey',
         defaultValue: 'value',
-        setters: 'InputerSetter'
+        setters: 'InputSetter'
       },
       {
         name: 'size',
@@ -60,7 +60,7 @@ const Select: MaterialDescription[] = [
       {
         name: 'name',
         defaultValue: '',
-        setters: 'InputerSetter'
+        setters: 'InputSetter'
       },
       {
         name: 'effect',
@@ -76,7 +76,7 @@ const Select: MaterialDescription[] = [
       {
         name: 'placeholder',
         defaultValue: 'Select',
-        setters: 'InputerSetter'
+        setters: 'InputSetter'
       },
       {
         name: 'filterable',
@@ -183,6 +183,55 @@ const Select: MaterialDescription[] = [
         name: 'validateEvent',
         defaultValue: true,
         setters: 'BooleanSetter'
+      },
+      {
+        name: 'placement',
+        label: 'placement',
+        title: '下拉框出现的位置',
+        setters: 'SelectSetter',
+        options: [
+          'top',
+          'top-start',
+          'top-end',
+          'bottom',
+          'bottom-start',
+          'bottom-end',
+          'left',
+          'left-start',
+          'left-end',
+          'right',
+          'right-start',
+          'right-end'
+        ],
+        defaultValue: 'bottom-start'
+      },
+      {
+        name: 'fallbackPlacements',
+        label: 'fallbackPlacements',
+        title: 'dropdown 可用的 positions',
+        setters: 'ArraySetter',
+        defaultValue: ['bottom-start', 'top-start', 'right', 'left']
+      },
+      {
+        name: 'maxCollapseTags',
+        label: 'maxCollapseTags',
+        title:
+          '需要显示的 Tag 的最大数量 只有当 collapse-tags 设置为 true 时才会生效。',
+        setters: 'NumberSetter',
+        defaultValue: 1
+      },
+      {
+        name: 'popperOptions',
+        label: 'popperOptions',
+        title: 'popper.js 参数',
+        setters: 'ObjectSetter',
+        defaultValue: {}
+      },
+      {
+        name: 'ariaLabel',
+        label: 'ariaLabel',
+        title: '等价于原生 input aria-label 属性',
+        setters: 'StringSetter'
       }
     ],
     events: [
@@ -199,10 +248,22 @@ const Select: MaterialDescription[] = [
         name: 'default'
       },
       {
+        name: 'header'
+      },
+      {
+        name: 'footer'
+      },
+      {
         name: 'prefix'
       },
       {
         name: 'empty'
+      },
+      {
+        name: 'tag'
+      },
+      {
+        name: 'loading'
       }
     ],
     snippet: {
@@ -212,7 +273,7 @@ const Select: MaterialDescription[] = [
           props: {
             label: {
               type: 'JSExpression',
-              value: "`选项${this.context.item}`"
+              value: '`选项${this.context.item}`'
             }
           },
           directives: [
@@ -239,7 +300,7 @@ const Select: MaterialDescription[] = [
       {
         name: 'label',
         defaultValue: '',
-        setters: 'InputerSetter'
+        setters: 'InputSetter'
       },
       {
         name: 'disabled',
@@ -247,6 +308,7 @@ const Select: MaterialDescription[] = [
         setters: 'BooleanSetter'
       }
     ],
+    slots: ['default'],
     snippet: {
       props: {
         label: '分组'
@@ -265,17 +327,12 @@ const Select: MaterialDescription[] = [
       {
         name: 'value',
         defaultValue: '',
-        setters: [
-          'InputerSetter',
-          'NumberSetter',
-          'BooleanSetter',
-          'JSONSetter'
-        ]
+        setters: ['InputSetter', 'NumberSetter', 'BooleanSetter', 'JSONSetter']
       },
       {
         name: 'label',
         defaultValue: '',
-        setters: ['InputerSetter', 'NumberSetter']
+        setters: ['InputSetter', 'NumberSetter']
       },
       {
         name: 'disabled',
@@ -283,6 +340,7 @@ const Select: MaterialDescription[] = [
         setters: 'BooleanSetter'
       }
     ],
+    slots: ['default'],
     snippet: {
       props: {
         label: '选项'

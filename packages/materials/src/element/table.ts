@@ -142,6 +142,17 @@ const Table: MaterialDescription[] = [
         setters: 'SelectSetter'
       },
       {
+        name: 'tooltip-options',
+        defaultValue: {
+          enterable: true,
+          placement: 'top',
+          showArrow: true,
+          hideAfter: 200,
+          popperOptions: { strategy: 'fixed' }
+        },
+        setters: 'ObjectSetter'
+      },
+      {
         name: 'show-summary',
         defaultValue: false,
         label: '显示合计行',
@@ -406,6 +417,11 @@ const Table: MaterialDescription[] = [
         title: '过滤弹出框的定位,与 Tooltip 的 placement 属性相同',
         label: 'placement',
         setters: 'InputSetter'
+      },
+      {
+        name: 'filter-class-name',
+        defaultValue: '',
+        setters: 'StringSetter'
       },
       {
         name: 'filter-multiple',

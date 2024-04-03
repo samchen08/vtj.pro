@@ -88,6 +88,13 @@ const Dropdown: MaterialDescription[] = [
         name: 'popperOptions',
         defaultValue: undefined,
         setters: 'JSONSetter'
+      },
+      {
+        name: 'teleported',
+        label: 'teleported',
+        title: '是否将下拉列表插入至 body 元素',
+        setters: 'BooleanSetter',
+        defaultValue: true
       }
     ],
     slots: [
@@ -188,6 +195,7 @@ const Dropdown: MaterialDescription[] = [
         setters: ['InputSetter']
       }
     ],
+    slots: ['default'],
     snippet: {
       name: 'ElDropdownItem',
       children: '下拉选项'

@@ -15,6 +15,7 @@ const components: MaterialDescription[] = [
         options: ['horizontal', 'vertical']
       }
     ],
+    slots: ['default'],
     snippet: {
       props: {
         style: {
@@ -52,7 +53,8 @@ const components: MaterialDescription[] = [
         defaultValue: '300px',
         setters: ['InputSetter']
       }
-    ]
+    ],
+    slots: ['default']
   },
   {
     name: 'ElMain',
@@ -75,7 +77,8 @@ const components: MaterialDescription[] = [
         defaultValue: '60px',
         setters: ['InputSetter']
       }
-    ]
+    ],
+    slots: ['default']
   }
 ];
 

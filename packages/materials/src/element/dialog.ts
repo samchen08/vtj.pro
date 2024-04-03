@@ -38,9 +38,22 @@ const components: MaterialDescription = {
       setters: 'BooleanSetter'
     },
     {
+      name: 'modalClass',
+      label: 'modalClass',
+      title: '遮罩的自定义类名',
+      setters: 'StringSetter'
+    },
+    {
       name: 'appendToBody',
       defaultValue: false,
       setters: 'BooleanSetter'
+    },
+    {
+      name: 'appendTo',
+      label: 'appendTo',
+      title: 'Dialog 挂载到哪个 DOM 元素 将覆盖 append-to-body',
+      setters: 'StringSetter',
+      defaultValue: 'body'
     },
     {
       name: 'lockScroll',
@@ -90,6 +103,13 @@ const components: MaterialDescription = {
       setters: 'BooleanSetter'
     },
     {
+      name: 'overflow',
+      label: 'overflow',
+      title: '拖动范围可以超出可视区',
+      setters: 'BooleanSetter',
+      defaultValue: false
+    },
+    {
       name: 'center',
       defaultValue: false,
       setters: 'BooleanSetter'
@@ -103,6 +123,25 @@ const components: MaterialDescription = {
       name: 'destroyOnClose',
       defaultValue: false,
       setters: 'BooleanSetter'
+    },
+    {
+      name: 'closeIcon',
+      label: 'closeIcon',
+      title: '自定义关闭图标',
+      setters: ['StringSetter', 'IconSetter'] //!  string / Component
+    },
+    {
+      name: 'z-index',
+      label: 'z-index',
+      title: '和原生的 CSS 的 z-index 相同，改变 z 轴的顺序',
+      setters: 'NumberSetter'
+    },
+    {
+      name: 'headerAriaLevel',
+      label: 'headerAriaLevel',
+      title: 'header 的 aria-level 属性',
+      setters: 'StringSetter',
+      defaultValue: 2
     }
   ],
   events: [
