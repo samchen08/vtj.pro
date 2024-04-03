@@ -20,7 +20,7 @@ import {
 } from '@vtj/utils';
 import { ElNotification } from 'element-plus';
 import { request } from './defaults';
-import { createSchemaApis } from './apis';
+import { createSchemaApis, mockApis, mockCleanup } from './apis';
 import { isVuePlugin } from '../utils';
 import { version } from '../version';
 
@@ -173,6 +173,10 @@ export class Provider extends Base {
 
     if (apis) {
       this.apis = createSchemaApis(apis, this.adapter);
+      mockCleanup();
+      if (this.project.config?.mock) {
+        mockApis(apis);
+      }
     }
     this.initRouter();
     this.triggerReady();

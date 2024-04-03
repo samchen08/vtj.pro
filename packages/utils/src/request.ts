@@ -9,7 +9,15 @@ import type {
   InternalAxiosRequestConfig,
   CancelTokenSource
 } from 'axios';
-import { merge, omit, template, debounce, throttle, uuid } from '@vtj/base';
+import {
+  merge,
+  omit,
+  debounce,
+  throttle,
+  uuid,
+  pathToRegexpCompile,
+  template
+} from '@vtj/base';
 
 const TYPES = {
   form: 'application/x-www-form-urlencoded',
@@ -271,10 +279,18 @@ export class Request {
   }
 
   private createUrl(config: IRequestConfig) {
-    const { url, query } = config;
-    if (query) {
-      const compiled = template(url);
-      return compiled(query);
+    let { url, query } = config;
+    if (url) {
+      if (query) {
+        const compiled = template(url);
+        url = compiled(query);
+      }
+      try {
+        const toPath = pathToRegexpCompile(url, { encode: encodeURIComponent });
+        return toPath(query || {});
+      } catch (e) {
+        console.warn('createUrl', 'pathToRegexpCompile error', url);
+      }
     }
     return url;
   }

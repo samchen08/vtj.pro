@@ -47,6 +47,12 @@ export interface ProjectSchema {
   apis?: ApiSchema[];
 
   /**
+   * 项目配置
+   */
+
+  config?: ProjectConfig;
+
+  /**
    * 标记
    */
   __VTJ_PROJECT__?: boolean;
@@ -55,4 +61,29 @@ export interface ProjectSchema {
    * 版本
    */
   __VERSION__?: string;
+}
+
+/**
+ * 项目配置信息
+ */
+export interface ProjectConfig {
+  /**
+   * 开启模拟数据
+   */
+  mock?: boolean;
+
+  /**
+   * 开启主题切换
+   */
+  themeSwitchable?: boolean;
+
+  /**
+   * 站点标题
+   */
+  title?: string;
+
+  /**
+   * logo
+   */
+  logo?: string;
 }

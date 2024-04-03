@@ -63,10 +63,6 @@
   provide(formInstanceKey, instance);
   provide(formModelKey, model);
 
-  watch(model, () => {
-    emit('change', toRaw(model));
-  });
-
   watch(
     () => props.model,
     (v) => {
@@ -74,6 +70,10 @@
     },
     { deep: true }
   );
+
+  watch(model, () => {
+    emit('change', toRaw(model));
+  });
 
   const submit = async () => {
     const ret = await formRef.value.validate().catch(() => false);

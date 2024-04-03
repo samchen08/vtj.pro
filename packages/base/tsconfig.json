@@ -2,7 +2,8 @@
   "extends": "../cli/config/tsconfig.json",
   "compilerOptions": {},
   "include": [
-    "src"
+    "src",
+    "env.d.ts"
   ],
   "references": [
     {

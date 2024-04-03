@@ -1,14 +1,14 @@
 {
   "name": "@vtj/base",
   "private": false,
-  "version": "0.7.7",
+  "version": "0.7.8",
   "type": "module",
   "scripts": {
     "build": "unbuild && npm run dts",
     "test": "vitest run",
     "vitest": "vitest",
     "coverage": "vitest run --coverage",
-    "dts": "tsc src/index.ts --target es2015 --moduleResolution Node --outDir temp --declarationDir types --declaration --esModuleInterop"
+    "dts": "tsc src/index.ts --target es2020 --moduleResolution Node --outDir temp --declarationDir types --declaration --esModuleInterop"
   },
   "dependencies": {
     "@types/lodash-es": "~4.17.12",
@@ -24,6 +24,7 @@
     "lz-string": "~1.5.0",
     "mitt": "~3.0.1",
     "numeral": "~2.0.6",
+    "path-to-regexp": "~6.2.1",
     "unbuild": "~2.0.0",
     "vitest": "~1.4.0"
   },

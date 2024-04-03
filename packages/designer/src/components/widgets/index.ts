@@ -25,6 +25,7 @@ import Schema from './schema/index.vue';
 import Raw from './raw/index.vue';
 import Docs from './docs/index.vue';
 import About from './about/index.vue';
+import ProjectConfig from './project-config/index.vue';
 
 export const widgets = {
   Logo,
@@ -53,5 +54,6 @@ export const widgets = {
   Schema,
   Raw,
   Docs,
-  About
+  About,
+  ProjectConfig
 };

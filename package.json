@@ -12,7 +12,12 @@
     "typescript": "~5.4.3",
     "ts-node": "~10.9.2",
     "nodemon": "~3.1.0",
-    "typedoc-plugin-markdown": "~3.17.1"
+    "typedoc-plugin-markdown": "~3.17.1",
+    "git-cz": "^4.9.0",
+    "husky": "^9.0.11",
+    "@commitlint/cli": "^19.2.1",
+    "@commitlint/config-conventional": "^19.1.0",
+    "mime": "~4.0.1"
   },
   "scripts": {
     "setup": "pnpm install --unsafe-perm --registry=https://registry.npmmirror.com",
@@ -28,7 +33,9 @@
     "build": "lerna run --no-private build",
     "coverage": "lerna run --no-private coverage",
     "typedoc": "typedoc --plugin typedoc-plugin-markdown",
-    "ci": "git add . && git commit -m \"ci commit \" && git push",
+    "ci": "git add . && git commit -m \"ci: 👷commit \" && git push",
+    "commit": "git add . && git-cz",
+    "prepare": "husky install",
     "prerelease": "lerna version prerelease --yes && npm run test && npm run build && npm run ci && lerna publish from-package --dist-tag test --no-private --yes && pnpm run sync",
     "patch": "lerna version patch --yes && npm run build && npm run ci && npm run publish && pnpm run sync",
     "minor": "lerna version minor --yes && npm run build && npm run ci && npm run publish && pnpm run sync",
@@ -92,6 +99,11 @@
   "packageManager": "^pnpm@8.10.4",
   "publishConfig": {
     "access": "public"
+  },
+  "config": {
+    "commitizen": {
+      "path": "git-cz"
+    }
   },
   "nodemonConfig": {
     "watch": [

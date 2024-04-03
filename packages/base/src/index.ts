@@ -7,3 +7,4 @@ export * from './util';
 export * from './data';
 export * from './lz-string';
 export * from './mitt';
+export * from './path-to-regexp';

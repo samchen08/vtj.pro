@@ -20,3 +20,17 @@ export const fileToBase64 = (file: File) => {
     };
   });
 };
+
+/**
+ * FormData 转换为json
+ * @param data
+ * @returns
+ */
+export function formDataToJson(data: FormData) {
+  const json: Record<string, any> = {};
+  if (!data) return {};
+  data.forEach((val, key) => {
+    json[key] = typeof val === 'string' ? decodeURIComponent(val) : val;
+  });
+  return json;
+}
