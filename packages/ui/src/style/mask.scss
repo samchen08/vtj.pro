@@ -39,7 +39,7 @@
   height: 40px;
   overflow: hidden;
   @include e(logo) {
-    height: 26px;
+    height: 20px;
     width: 60px;
     text-align: center;
     cursor: pointer;
@@ -53,7 +53,7 @@
   @include e(title) {
     font-size: 16px;
     font-weight: bold;
-    color: getCssVar('mask-brand-color');
+    color: var(--el-text-color-regular);
     font-family: 'Microsoft YaHei', '微软雅黑', Arial, sans-serif;
     > span {
       position: relative;
@@ -388,7 +388,7 @@
   @include e(right) {
     @include when(collasped) {
       width: 100%;
-      padding-right: 5px;
+      padding-right: 0;
     }
   }
 

@@ -10,7 +10,19 @@ const SelectV2: MaterialDescription = {
     {
       name: 'modelValue',
       defaultValue: '',
-      setters: ['InputerSetter', 'NumberSetter', 'JSONSetter']
+      setters: ['InputSetter', 'NumberSetter', 'JSONSetter']
+    },
+    {
+      name: 'options',
+      label: 'options',
+      title: '选项的数据源， value 的 key 和 label 可以通过 props自定义.',
+      setters: 'ArraySetter'
+    },
+    {
+      name: 'props',
+      label: 'props',
+      title: '配置选项，具体看下表',
+      setters: 'ObjectSetter'
     },
     {
       name: 'multiple',
@@ -25,7 +37,7 @@ const SelectV2: MaterialDescription = {
     {
       name: 'valueKey',
       defaultValue: 'value',
-      setters: 'InputerSetter'
+      setters: 'InputSetter'
     },
     {
       name: 'size',
@@ -39,27 +51,28 @@ const SelectV2: MaterialDescription = {
       setters: 'BooleanSetter'
     },
     {
+      name: 'clearIcon',
+      label: 'clearIcon',
+      title: '自定义清除图标',
+      setters: ['StringSetter', 'ObjectSetter'],
+      defaultValue: 'CircleClose'
+    },
+    {
       name: 'collapseTags',
       defaultValue: false,
       setters: 'BooleanSetter'
     },
     {
-      name: 'collapseTagsTooltip',
-      defaultValue: false,
-      title:
-        '当鼠标悬停于折叠标签的文本时，是否显示所有选中的标签。 只有当 collapse-tags 设置为 true 时才会生效。',
-      label: 'Tooltip',
-      setters: 'BooleanSetter'
-    },
-    {
       name: 'multipleLimit',
-      defaultValue: 0,
-      setters: 'NumberSetter'
+      label: 'multipleLimit',
+      title: '多选时可被选择的最大数目。 当被设置为0时，可被选择的数目不设限。',
+      setters: 'NumberSetter',
+      defaultValue: 0
     },
     {
       name: 'name',
       defaultValue: '',
-      setters: 'InputerSetter'
+      setters: 'InputSetter'
     },
     {
       name: 'effect',
@@ -70,12 +83,12 @@ const SelectV2: MaterialDescription = {
     {
       name: 'autocomplete',
       defaultValue: 'off',
-      setters: 'InputerSetter'
+      setters: 'InputSetter'
     },
     {
       name: 'placeholder',
       defaultValue: 'Select',
-      setters: 'InputerSetter'
+      setters: 'InputSetter'
     },
     {
       name: 'filterable',
@@ -84,6 +97,102 @@ const SelectV2: MaterialDescription = {
     },
     {
       name: 'allowCreate',
+      defaultValue: false,
+      setters: 'BooleanSetter'
+    },
+    {
+      name: 'filterMethod',
+      label: 'filterMethod',
+      title: '自定义筛选方法',
+      setters: 'FunctionSetter'
+    },
+    {
+      name: 'loading',
+      label: 'loading',
+      title: '是否从远程加载数据',
+      setters: 'BooleanSetter',
+      defaultValue: false
+    },
+    {
+      name: 'loadingText',
+      label: 'loadingText',
+      title: '从服务器加载数据时显示的文本，默认为“Loading”',
+      setters: 'StringSetter',
+      defaultValue: 'Loading'
+    },
+    {
+      name: 'reserveKeyword',
+      label: 'reserveKeyword',
+      title: '筛选时，是否在选择选项后保留关键字',
+      setters: 'BooleanSetter',
+      defaultValue: true
+    },
+    {
+      name: 'noMatchText',
+      label: 'noMatchText',
+      title:
+        '搜索条件无匹配时显示的文字，也可以使用 empty 插槽设置，默认是 “No matching data“',
+      setters: 'StringSetter'
+    },
+    {
+      name: 'noDataText',
+      label: 'noDataText',
+      title: '当在没有数据时显示的文字，你同时可以使用empty插槽进行设置。',
+      setters: 'StringSetter',
+      defaultValue: 'No Data'
+    },
+    {
+      name: 'popperClass',
+      label: 'popperClass',
+      title: '选择器下拉菜单的自定义类名',
+      setters: 'StringSetter',
+      defaultValue: ''
+    },
+    {
+      name: 'popperAppendToBody ',
+      label: 'popperAppendToBody ',
+      title:
+        '是否将弹出框插入至 body 元素 当弹出框的位置出现问题时，你可以尝试将该属性设置为false。',
+      setters: 'BooleanSetter',
+      defaultValue: false
+    }, //?? deprecated
+    {
+      name: 'teleported',
+      label: 'teleported',
+      title: '是否将下拉列表元素插入 append-to 指向的元素下',
+      setters: 'BooleanSetter',
+      defaultValue: true
+    },
+    {
+      name: 'persistent',
+      defaultValue: true,
+      setters: 'BooleanSetter'
+    },
+    {
+      name: 'popperOptions',
+      label: 'popperOptions',
+      setters: 'ObjectSetter',
+      defaultValue: {}
+    },
+    {
+      name: 'automaticDropdown',
+      defaultValue: false,
+      setters: 'BooleanSetter'
+    },
+    {
+      name: 'height',
+      defaultValue: 274,
+      setters: 'NumberSetter'
+    },
+    {
+      name: 'itemHeight',
+      label: 'itemHeight',
+      title: '下拉项的高度',
+      setters: 'NumberSetter',
+      defaultValue: 34
+    },
+    {
+      name: 'scrollbarAlwaysOn',
       defaultValue: false,
       setters: 'BooleanSetter'
     },
@@ -98,54 +207,59 @@ const SelectV2: MaterialDescription = {
       setters: 'FunctionSetter'
     },
     {
-      name: 'popperClass',
-      defaultValue: '',
-      setters: 'InputSetter'
-    },
-    {
-      name: 'reserveKeyword',
-      defaultValue: true,
-      setters: 'BooleanSetter'
-    },
-    {
-      name: 'popperAppendToBody',
-      defaultValue: true,
-      setters: 'BooleanSetter'
-    },
-    {
-      name: 'teleported',
-      defaultValue: true,
-      setters: 'BooleanSetter'
-    },
-    {
-      name: 'persistent',
-      defaultValue: true,
-      setters: 'BooleanSetter'
-    },
-    {
-      name: 'automaticDropdown',
-      defaultValue: false,
-      setters: 'BooleanSetter'
-    },
-    {
-      name: 'clearIcon',
-      defaultValue: 'CircleClose',
-      setters: 'InputSetter'
-    },
-    {
-      name: 'height',
-      defaultValue: 170,
-      setters: 'NumberSetter'
-    },
-    {
-      name: 'scrollbarAlwaysOn',
-      defaultValue: false,
-      setters: 'BooleanSetter'
-    },
-    {
       name: 'validateEvent',
       defaultValue: true,
       setters: 'BooleanSetter'
+    },
+    {
+      name: 'placement',
+      label: 'placement',
+      title: '下拉框出现的位置',
+      setters: 'SelectSetter',
+      options: [
+        'top',
+        'top-start',
+        'top-end',
+        'bottom',
+        'bottom-start',
+        'bottom-end',
+        'left',
+        'left-start',
+        'left-end',
+        'right',
+        'right-start',
+        'right-end'
+      ],
+      defaultValue: 'bottom-start'
+    },
+    {
+      name: 'fallbackPlacements',
+      setters: 'ArraySetter',
+      defaultValue: ['bottom-start', 'top-start', 'right', 'left']
+    },
+    {
+      name: 'collapseTagsTooltip',
+      setters: 'BooleanSetter',
+      defaultValue: false
+    },
+    {
+      name: 'maxCollapseTags',
+      setters: 'NumberSetter',
+      defaultValue: 1
+    },
+    {
+      name: 'tagType',
+      label: 'tagType',
+      title: '标签类型',
+      setters: 'SelectSetter',
+      options: ['', 'success', 'info', 'warning', 'danger'],
+      defaultValue: 'info'
+    },
+    {
+      name: 'ariaLabel',
+      label: 'ariaLabel',
+      title: '等价于原生 input aria-label 属性',
+      setters: 'StringSetter'
     }
   ],
   events: [
@@ -162,10 +276,22 @@ const SelectV2: MaterialDescription = {
       name: 'default'
     },
     {
+      name: 'header'
+    },
+    {
+      name: 'footer'
+    },
+    {
       name: 'prefix'
     },
     {
       name: 'empty'
+    },
+    {
+      name: 'tag'
+    },
+    {
+      name: 'loading'
     }
   ]
 };

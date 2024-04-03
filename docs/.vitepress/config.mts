@@ -31,7 +31,7 @@ export default defineConfig({
   srcDir: 'src',
   cacheDir: './cache',
   themeConfig: {
-    logo: 'assets/logo.png',
+    logo: '/assets/logo.svg',
     // https://vitepress.dev/reference/default-theme-config
     nav,
     sidebar,

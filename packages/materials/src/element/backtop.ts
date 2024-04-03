@@ -33,6 +33,7 @@ const components: MaterialDescription = {
       name: 'click'
     }
   ],
+  slots: ['default'],
   snippet: {
     name: 'ElBacktop',
     children: [

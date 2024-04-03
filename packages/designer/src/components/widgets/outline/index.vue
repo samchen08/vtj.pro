@@ -119,13 +119,11 @@
     const hasSlot = children.some((child) => child.slot);
     if (!hasSlot) return toTree(children);
     for (const child of children) {
-      if (child.slot) {
-        const slotName = child.slot.name;
-        if (!slots[slotName]) {
-          slots[slotName] = [];
-        }
-        slots[slotName].push(child);
+      const slotName = child.slot?.name || 'default';
+      if (!slots[slotName]) {
+        slots[slotName] = [];
       }
+      slots[slotName].push(child);
     }
     const result: TreeNodeData[] = [];
     for (const [name, nodes] of Object.entries(slots)) {

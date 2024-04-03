@@ -1,5 +1,5 @@
 import type { MaterialDescription } from '@vtj/core';
-import { size } from '../shared';
+
 const Avatar: MaterialDescription = {
   name: 'ElAvatar',
   label: '头像',
@@ -11,9 +11,14 @@ const Avatar: MaterialDescription = {
     {
       name: 'icon',
       defaultValue: '',
-      setters: 'InputSetter'
+      setters: 'IconSetter' //!
     },
-    size('size'),
+    {
+      name: 'size',
+      setters: ['SelectSetter', 'NumberSetter'],
+      options: ['large', 'default', 'small'],
+      defaultValue: 'default'
+    },
     {
       name: 'shape',
       defaultValue: 'circle',
@@ -43,6 +48,7 @@ const Avatar: MaterialDescription = {
     }
   ],
   events: ['error'],
+  slots: ['default'],
   snippet: {
     props: {
       src: 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png'

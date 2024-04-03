@@ -110,6 +110,25 @@ const Rate: MaterialDescription = {
       name: 'scoreTemplate',
       defaultValue: '',
       setters: 'InputSetter'
+    },
+    {
+      name: 'clearable',
+      label: 'clearable',
+      title: '是否可以重置值为 0',
+      setters: 'BooleanSetter',
+      defaultValue: false
+    },
+    {
+      name: 'id',
+      label: 'id',
+      title: '原生 id 属性',
+      setters: 'StringSetter'
+    },
+    {
+      name: 'label',
+      label: 'label',
+      title: '和 Rate 的 aria-label 属性保持一致',
+      setters: 'StringSetter'
     }
   ],
   events: ['change', 'update:modelValue']

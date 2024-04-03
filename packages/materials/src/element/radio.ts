@@ -14,6 +14,12 @@ const Radio: MaterialDescription[] = [
         setters: ['InputSetter', 'NumberSetter', 'BooleanSetter']
       },
       {
+        name: 'value',
+        label: 'value',
+        title: '单选框的值',
+        setters: ['InputSetter', 'NumberSetter', 'BooleanSetter']
+      },
+      {
         name: 'label',
         defaultValue: '',
         setters: ['InputSetter']
@@ -99,6 +105,24 @@ const Radio: MaterialDescription[] = [
         name: 'validateEvent',
         defaultValue: true,
         setters: 'BooleanSetter'
+      },
+      {
+        name: 'label',
+        label: 'label',
+        title: '与 RadioGroup 中的 aria-label 属性相同',
+        setters: 'StringSetter'
+      },
+      {
+        name: 'name',
+        label: 'name',
+        title: '原生 name 属性',
+        setters: 'StringSetter'
+      },
+      {
+        name: 'id',
+        label: 'id',
+        title: '原生 id 属性',
+        setters: 'StringSetter'
       }
     ],
     events: [
@@ -164,6 +188,7 @@ const Radio: MaterialDescription[] = [
         setters: 'InputSetter'
       }
     ],
+    slots: ['default'],
     snippet: {
       children: '按钮选项'
     }

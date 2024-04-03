@@ -79,6 +79,7 @@ const Space: MaterialDescription = {
       setters: 'NumberSetter'
     }
   ],
+  slots: ['default'],
   snippet: {
     props: {
       fill: true,

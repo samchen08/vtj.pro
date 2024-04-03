@@ -76,8 +76,23 @@ const Progress: MaterialDescription = {
       name: 'format',
       defaultValue: '',
       setters: 'FunctionSetter'
+    },
+    {
+      name: 'striped',
+      label: 'striped',
+      title: '在进度条上增加条纹',
+      setters: 'BooleanSetter',
+      defaultValue: false
+    },
+    {
+      name: 'stripedFlow',
+      label: 'stripedFlow',
+      title: '让进度条上的条纹流动起来',
+      setters: 'BooleanSetter',
+      defaultValue: false
     }
   ],
+  slots: ['default'],
   snippet: {
     name: 'ElProgress',
     props: {

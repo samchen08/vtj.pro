@@ -49,6 +49,25 @@ const ColorPicker: MaterialDescription = {
       name: 'validateEvent',
       defaultValue: true,
       setters: 'BooleanSetter'
+    },
+    {
+      name: 'tabindex',
+      label: 'tabindex',
+      title: 'ColorPicker 的 tabindex',
+      setters: ['StringSetter', 'NumberSetter'],
+      defaultValue: 0
+    },
+    {
+      name: 'label',
+      label: 'label',
+      title: 'ColorPicker 的 aria-label',
+      setters: 'StringSetter'
+    },
+    {
+      name: 'id',
+      label: 'id',
+      title: 'ColorPicker 的 id',
+      setters: 'StringSetter'
     }
   ],
   events: [

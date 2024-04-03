@@ -14,6 +14,9 @@ const button: MaterialDescription = {
       defaultValue: false,
       setters: 'BooleanSetter'
     },
+    { name: 'text', defaultValue: false, setters: 'BooleanSetter' },
+    { name: 'bg', defaultValue: false, setters: 'BooleanSetter' },
+    { name: 'link', defaultValue: false, setters: 'BooleanSetter' },
     {
       name: 'round',
       defaultValue: false,
@@ -29,6 +32,7 @@ const button: MaterialDescription = {
       defaultValue: false,
       setters: 'BooleanSetter'
     },
+    { name: 'loadingIcon', defaultValue: undefined, setters: 'IconSetter' }, //??
     {
       name: 'disabled',
       defaultValue: false,
@@ -49,9 +53,28 @@ const button: MaterialDescription = {
       defaultValue: 'button',
       setters: 'SelectSetter',
       options: ['button ', 'submit', 'reset']
+    },
+    {
+      name: 'autoInsertSpace',
+      setters: 'BooleanSetter'
+    },
+    {
+      name: 'color',
+      setters: 'StringSetter'
+    },
+    {
+      name: 'dark',
+      defaultValue: false,
+      setters: 'BooleanSetter'
+    },
+    {
+      name: 'tag',
+      setters: 'StringSetter',
+      defaultValue: 'button'
     }
   ],
   events: ['click'],
+  slots: ['default', 'loading', 'icon', 'loading', 'icon', 'tag'],
   snippet: {
     name: 'ElButton',
     children: '按钮',
@@ -67,6 +90,7 @@ const buttonGroup: MaterialDescription = {
   label: '按钮组',
   categoryId: 'base',
   props: [size('size'), type('type')],
+  slots: ['default'],
   snippet: {
     name: 'ElButtonGroup',
     children: [
