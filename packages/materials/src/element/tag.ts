@@ -54,6 +54,7 @@ const Tag: MaterialDescription[] = [
       }
     ],
     events: ['click', 'close'],
+    slots: ['default'],
     snippet: {
       children: '标签一'
     }
@@ -69,9 +70,18 @@ const Tag: MaterialDescription[] = [
         name: 'checked',
         defaultValue: false,
         setters: 'BooleanSetter'
+      },
+      {
+        name: 'type',
+        label: 'type',
+        title: 'CheckTag 类型',
+        setters: 'SelectSetter',
+        options: ['primary', 'success', 'info', 'warning', 'danger'],
+        defaultValue: 'primary'
       }
     ],
-    events: ['change'],
+    events: ['change', 'update:checked'],
+    slots: ['default'],
     snippet: {
       children: '标签一'
     }

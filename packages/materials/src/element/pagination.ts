@@ -45,7 +45,8 @@ const Pagination: MaterialDescription = {
       setters: 'NumberSetter'
     },
     {
-      name: 'current-page',
+      // name: 'current-page',
+      name: 'currentPage',
       defaultValue: 1,
       setters: 'NumberSetter'
     },
@@ -96,13 +97,29 @@ const Pagination: MaterialDescription = {
       setters: 'BooleanSetter'
     },
     {
+      name: 'teleported ',
+      label: 'teleported ',
+      title: '是否将下拉菜单teleport至 body',
+      setters: 'BooleanSetter',
+      defaultValue: true
+    },
+    {
       name: 'hideOnSinglePage',
       defaultValue: '',
       label: '只有一页隐藏',
       setters: 'BooleanSetter'
     }
   ],
-  events: ['size-change', 'current-change', 'prev-click', 'next-click'],
+  events: [
+    'size-change',
+    'current-change',
+    'change',
+    'prev-click',
+    'next-click',
+    'update:pageSize',
+    'update:currentPage'
+  ],
+  slots: ['default'],
   snippet: {
     props: {
       total: 1000,

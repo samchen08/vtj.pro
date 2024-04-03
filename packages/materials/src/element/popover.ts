@@ -1,7 +1,7 @@
 import type { MaterialDescription } from '@vtj/core';
 const components: MaterialDescription = {
   name: 'ElPopover',
-  label: 'Popover弹窗框',
+  label: '气泡卡片',
 
   categoryId: 'other',
   doc: 'https://element-plus.org/zh-CN/component/popover.html',
@@ -137,6 +137,9 @@ const components: MaterialDescription = {
     },
     {
       name: 'after-leave'
+    },
+    {
+      name: 'update:visible'
     }
   ],
   slots: [

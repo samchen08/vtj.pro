@@ -36,4 +36,40 @@ const Skeleton: MaterialDescription = {
   slots: ['default', 'template']
 };
 
-export default Skeleton;
+const SkeletonItem: MaterialDescription = {
+  name: 'ElSkeletonItem',
+  label: '骨架项',
+  doc: 'https://element-plus.org/zh-CN/component/skeleton.html',
+
+  categoryId: 'data',
+  package: 'element-plus',
+  props: [
+    {
+      name: 'variant',
+      setters: 'SelectSetter',
+      options: [
+        'p',
+        'text',
+        'h1',
+        'h3',
+        'caption',
+        'button',
+        'image',
+        'circle',
+        'rect'
+      ],
+      defaultValue: 'text'
+    }
+  ],
+  snippet: {
+    props: {
+      variant: 'image',
+      style: {
+        width: '240px',
+        height: '240px'
+      }
+    }
+  }
+};
+
+export default [Skeleton, SkeletonItem];

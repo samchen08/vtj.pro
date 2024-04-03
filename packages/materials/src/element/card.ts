@@ -13,14 +13,23 @@ const Card: MaterialDescription = {
       setters: 'InputSetter'
     },
     {
+      name: 'footer',
+      defaultValue: '',
+      setters: 'InputSetter'
+    },
+    {
       name: 'bodyStyle',
       defaultValue: undefined,
       setters: 'JSONSetter'
     },
     {
+      name: 'bodyClass',
+      setters: 'StringSetter'
+    },
+    {
       name: 'shadow',
       defaultValue: 'always',
-      options: ['always', 'hover', 'neve'],
+      options: ['always', 'hover', 'never'],
       setters: 'SelectSetter'
     }
   ],
@@ -30,6 +39,9 @@ const Card: MaterialDescription = {
     },
     {
       name: 'header'
+    },
+    {
+      name: 'footer'
     }
   ],
   snippet: {

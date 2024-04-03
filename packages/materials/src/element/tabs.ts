@@ -20,7 +20,7 @@ const Tabs: MaterialDescription[] = [
           {
             name: 'SelectSetter',
             props: {
-              clerable: true
+              closable: true
             }
           }
         ],
@@ -78,7 +78,7 @@ const Tabs: MaterialDescription[] = [
         name: 'update:modelValue'
       }
     ],
-    slots: ['default', 'addIcon'],
+    slots: ['default', 'addIcon', 'add-icon'],
     snippet: {
       props: {
         modelValue: '1'

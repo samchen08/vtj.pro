@@ -94,6 +94,7 @@ const InputNumber: MaterialDescription = {
       setters: 'BooleanSetter'
     }
   ],
+  slots: ['decrease-icon', 'increase-icon'],
   events: [
     {
       name: 'change'

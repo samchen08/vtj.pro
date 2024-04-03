@@ -7,6 +7,7 @@ const Timeline: MaterialDescription[] = [
     doc: 'https://element-plus.org/zh-CN/component/timeline.html',
     categoryId: 'form',
     package: 'element-plus',
+    slots: ['default'],
     snippet: {
       name: 'ElTimeline',
       children: [
@@ -90,7 +91,7 @@ const Timeline: MaterialDescription[] = [
       {
         name: 'icon',
         defaultValue: '',
-        setters: 'InputSetter'
+        setters: 'IconSetter'
       },
       {
         name: 'hollow',

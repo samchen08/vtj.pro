@@ -36,8 +36,20 @@ const Badge: MaterialDescription = {
       title: 'badge 类型。',
       options: ['primary', 'success', 'warning', 'danger', 'info'],
       setters: 'SelectSetter'
+    },
+    {
+      name: 'showZero',
+      title: '值为零时是否显示 Badge  ',
+      setters: 'BooleanSetter',
+      defaultValue: true
+    },
+    {
+      name: 'color',
+      title: '背景色',
+      setters: 'ColorSetter'
     }
   ],
+  slots: ['default'],
   snippet: {
     props: {
       value: 12
