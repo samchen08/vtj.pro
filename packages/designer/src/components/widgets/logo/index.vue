@@ -1,16 +1,18 @@
 <template>
   <div class="v-logo-widget" @click="onClick">
     <img
-      v-if="props.icon"
+      v-if="_logo"
       :title="props.text"
       class="v-logo-widget__icon"
-      :src="props.icon" />
+      :src="_logo" />
     <span v-else>{{ props.text }}</span>
   </div>
 </template>
 
 <script lang="ts" setup>
-  import logo from '../../../assets/logo.png';
+  import { computed } from 'vue';
+  import { useCurrent } from '../../hooks';
+  import logo from '../../../assets/logo.svg';
   export interface Props {
     icon?: string;
     text?: string;
@@ -21,10 +23,14 @@
     name: 'LogoWidget',
     inheritAttrs: false
   });
+  const { engine } = useCurrent();
 
   const props = withDefaults(defineProps<Props>(), {
-    text: 'VTJ',
-    icon: logo
+    text: 'VTJ'
+  });
+
+  const _logo = computed(() => {
+    return props.icon || engine.project.value?.config?.logo || logo;
   });
 
   const onClick = () => {

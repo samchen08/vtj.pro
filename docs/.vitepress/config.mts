@@ -20,11 +20,18 @@ if (buildType === 'gitee') {
 export default defineConfig({
   lang: 'zh-CN',
   base,
-  title: 'VTJ 低代码引擎',
+  title: 'VTJ.PRO',
   description: 'VTJ 是一款基于 Vue3 + Typescript 的低代码开发工具.',
+  head: [
+    [
+      'link',
+      { rel: 'icon', type: 'image/svg+xml', href: `${base}assets/logo.svg` }
+    ]
+  ],
   srcDir: 'src',
   cacheDir: './cache',
   themeConfig: {
+    logo: 'assets/logo.png',
     // https://vitepress.dev/reference/default-theme-config
     nav,
     sidebar,
@@ -37,6 +44,10 @@ export default defineConfig({
     footer: {
       message: 'Released under the MIT License.',
       copyright: 'Copyright © 2024-present VTJ.PRO'
+    },
+    outline: {
+      level: 'deep',
+      label: '页面导航'
     }
   },
   markdown: {

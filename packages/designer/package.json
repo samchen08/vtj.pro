@@ -15,12 +15,14 @@
     "@vtj/renderer": "^0.7.30",
     "@vtj/ui": "^0.7.30",
     "@vtj/utils": "^0.7.30",
-    "monaco-editor": "~0.47.0"
+    "monaco-editor": "~0.47.0",
+    "mockjs": "~1.1.0"
   },
   "devDependencies": {
     "@vtj/cli": "^0.7.20",
     "vue": "~3.4.15",
-    "vue-router": "~4.3.0"
+    "vue-router": "~4.3.0",
+    "@types/mockjs": "~1.0.10"
   },
   "files": [
     "dist",

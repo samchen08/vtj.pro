@@ -21,7 +21,8 @@ export default createViteConfig({
     'monaco-editor/esm/vs/language/json/json.worker?worker',
     'monaco-editor/esm/vs/language/css/css.worker?worker',
     'monaco-editor/esm/vs/language/html/html.worker?worker',
-    'monaco-editor/esm/vs/language/typescript/ts.worker?worker'
+    'monaco-editor/esm/vs/language/typescript/ts.worker?worker',
+    'mockjs'
   ],
   formats: ['es', 'cjs']
 });

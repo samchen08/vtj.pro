@@ -12,7 +12,7 @@
           v-if="props.tag"
           class="v-item__tag"
           size="small"
-          :type="props.tagType as any">
+          :type="(props as any).tagType">
           {{ props.tag }}
         </ElTag>
         <span v-if="index !== undefined" class="v-item__index">

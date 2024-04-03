@@ -53,6 +53,16 @@ export interface ApiSchema {
    * jsonp请求配置
    */
   jsonpOptions?: Record<string, any>;
+
+  /**
+   * 模拟数据模板
+   */
+  mockTemplate?: JSFunction;
+
+  /**
+   * 是否开启模拟数据
+   */
+  mock?: boolean;
 }
 
 /**

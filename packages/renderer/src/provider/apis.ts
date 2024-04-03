@@ -1,8 +1,17 @@
 import { type ApiSchema } from '@vtj/core';
-import { type IRequestConfig, merge } from '@vtj/utils';
+import {
+  type IRequestConfig,
+  merge,
+  pathToRegexp,
+  pathToRegexpMatch,
+  url as urlUtil,
+  formDataToJson
+} from '@vtj/utils';
+import Mock from 'mockjs';
 import { parseExpression } from '../utils';
 
 import { type ProvideAdapter } from './provider';
+
 export function createSchemaApi(schema: ApiSchema, adapter: ProvideAdapter) {
   const { jsonp, request } = adapter;
   if (schema.method === 'jsonp') {
@@ -32,8 +41,72 @@ export function createSchemaApis(
   schema: ApiSchema[] = [],
   adapter: ProvideAdapter
 ) {
-  return schema.reduce((apis, api) => {
-    apis[api.id] = createSchemaApi(api, adapter);
-    return apis;
-  }, {} as Record<string, any>);
+  return schema.reduce(
+    (apis, api) => {
+      apis[api.id] = createSchemaApi(api, adapter);
+      return apis;
+    },
+    {} as Record<string, any>
+  );
+}
+
+export function mockApis(schemas: ApiSchema[] = []) {
+  Mock.setup({
+    timeout: '50-500'
+  });
+  mockCleanup();
+  schemas.forEach((n) => mockApi(n));
+}
+
+export interface MockCallbackOptions {
+  /**
+   * 请求url
+   */
+  url: string;
+  /**
+   * 请求方法类型
+   */
+  type: string;
+  /**
+   * 发送数据 playload
+   */
+  body: string | FormData;
+  /**
+   * url路径参数，/api/:id  =>  {id}
+   */
+  query?: Record<string, any>;
+  /**
+   * url 查询参数，/api/332?name=abc => {name:'abc}
+   */
+  params?: Record<string, any>;
+
+  /**
+   * 发送数据， body 转 json
+   */
+  data?: any;
+}
+
+export function mockApi(schema: ApiSchema) {
+  if (!schema.mock) return;
+  const { url, mockTemplate } = schema;
+  if (url && mockTemplate) {
+    const rUrl = pathToRegexp(`${url}(.*)`);
+    const match = pathToRegexpMatch(url, { decode: decodeURIComponent });
+    const handler = parseExpression(mockTemplate, {}, true);
+    Mock.mock(rUrl, (options: MockCallbackOptions) => {
+      const params = urlUtil.parse(options.url) || {};
+      const data =
+        options.body instanceof FormData
+          ? formDataToJson(options.body)
+          : options.body;
+      const query = (match(options.url) as any)?.params;
+      Object.assign(options, { data, params, query });
+      return Mock.mock(handler(options));
+    });
+  }
+}
+
+export function mockCleanup() {
+  // 清除已设置的模拟数据配置
+  (Mock as any)._mocked = {};
 }

@@ -3,12 +3,12 @@
     <Suspense>
       <XMask
         :title="title"
-        :logo="logo"
+        :logo="logo || _logo"
         :menus="menus"
         :disabled="disabled"
         :actions="actions"
         @action-click="onActionClick"
-        theme></XMask>
+        :theme="themeSwitchable"></XMask>
     </Suspense>
   </ElConfigProvider>
 </template>
@@ -25,8 +25,8 @@
     type ActionProps
   } from '@vtj/web';
   import zhCn from 'element-plus/es/locale/lang/zh-cn';
-  import logo from './assets/vue.svg';
-  const { disabled, title, menus } = useMask();
+  import _logo from './assets/vue.svg';
+  const { disabled, title, menus, logo, themeSwitchable } = useMask();
 
   const actions: ActionBarItems = [
     {

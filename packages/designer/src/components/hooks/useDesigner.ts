@@ -1,15 +1,20 @@
 import { type Ref, computed, watch } from 'vue';
-import { type Dependencie, type ApiSchema } from '@vtj/core';
+import {
+  type Dependencie,
+  type ApiSchema,
+  type ProjectConfig
+} from '@vtj/core';
 import { useEngine, type DesignHelper } from '../../framework';
 
 export function useDesigner(
   iframe: Ref<HTMLIFrameElement | undefined>,
   dependencies: Ref<Dependencie[]>,
-  apis: Ref<ApiSchema[]>
+  apis: Ref<ApiSchema[]>,
+  config: Ref<ProjectConfig>
 ) {
   const engine = useEngine();
 
-  engine.simulator.init(iframe, dependencies, apis);
+  engine.simulator.init(iframe, dependencies, apis, config);
 
   const designer = computed(() => engine.simulator.designer.value);
 

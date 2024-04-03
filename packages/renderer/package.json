@@ -13,7 +13,8 @@
     "@vtj/core": "^0.7.30",
     "@vtj/icons": "^0.7.30",
     "@vtj/ui": "^0.7.30",
-    "@vtj/utils": "^0.7.30"
+    "@vtj/utils": "^0.7.30",
+    "mockjs": "~1.1.0"
   },
   "devDependencies": {
     "@vtj/cli": "^0.7.20",
