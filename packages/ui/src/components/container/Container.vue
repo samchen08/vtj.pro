@@ -42,7 +42,7 @@
       [`is-align-content-${props.alignContent}`]:
         props.flex && props.alignContent !== 'stretch',
       'is-grow': props.grow ?? parentFlex.value,
-      'is-shrink': parentFlex.value && props.shrink,
+      'is-shrink': props.shrink,
       [`is-align-self-${props.alignSelf}`]:
         parentFlex.value && props.alignSelf !== 'auto',
       [`is-overflow-${props.overflow}`]: !!props.overflow,

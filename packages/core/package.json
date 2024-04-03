@@ -1,7 +1,7 @@
 {
   "name": "@vtj/core",
   "private": false,
-  "version": "0.7.30",
+  "version": "0.7.31",
   "type": "module",
   "scripts": {
     "build": "vue-tsc && vite build",
@@ -10,10 +10,10 @@
     "coverage": "vitest run --coverage"
   },
   "dependencies": {
-    "@vtj/base": "^0.7.7"
+    "@vtj/base": "^0.7.8"
   },
   "devDependencies": {
-    "@vtj/cli": "^0.7.20"
+    "@vtj/cli": "^0.7.21"
   },
   "exports": {
     ".": {

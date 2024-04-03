@@ -1,18 +1,18 @@
 {
   "name": "@vtj/node",
   "private": false,
-  "version": "0.7.7",
+  "version": "0.7.8",
   "type": "module",
   "scripts": {
     "build": "unbuild && npm run dts",
     "test": "vitest run",
     "vitest": "vitest",
     "coverage": "vitest run --coverage",
-    "dts": "tsc src/index.ts --target es2015 --moduleResolution Node --outDir temp --declarationDir types --declaration --esModuleInterop"
+    "dts": "tsc src/index.ts --target es2020 --moduleResolution Node --outDir temp --declarationDir types --declaration --esModuleInterop"
   },
   "dependencies": {
     "@types/fs-extra": "~11.0.4",
-    "@vtj/base": "^0.7.7",
+    "@vtj/base": "^0.7.8",
     "axios": "~1.6.8",
     "fs-extra": "~11.2.0"
   },

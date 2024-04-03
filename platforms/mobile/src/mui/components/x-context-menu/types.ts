@@ -3,6 +3,7 @@ import { contextMenuProps } from './props';
 
 export interface ContextMenuItem {
   title: string;
+  name?: string;
   icon?: string | ContextMenuIcon;
   disabled?: boolean;
   click?: () => void;

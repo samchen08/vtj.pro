@@ -16,7 +16,9 @@
 
   const emit = defineEmits(['click']);
   const { engine } = useCurrent();
-  const title = computed(() => engine.project.value?.name);
+  const title = computed(() => {
+    return engine.project.value?.config?.title || engine.project.value?.name;
+  });
   const subtitle = computed(() => engine.project.value?.currentFile?.title);
 
   const onClick = () => {

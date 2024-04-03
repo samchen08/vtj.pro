@@ -3,6 +3,7 @@ import {
   type Dependencie,
   type Material,
   type ApiSchema,
+  type ProjectConfig,
   Base,
   BUILT_IN_NAME,
   BUILT_IN_LIBRARAY_MAP
@@ -12,7 +13,9 @@ import {
   createAssetsCss,
   createAssetScripts,
   createSchemaApis,
-  getRawComponent
+  getRawComponent,
+  mockApis,
+  mockCleanup
 } from '@vtj/renderer';
 import { logger } from '@vtj/utils';
 import { Renderer } from './renderer';
@@ -64,10 +67,11 @@ export class Simulator extends Base {
   init(
     iframe: Ref<HTMLIFrameElement | undefined>,
     deps: Ref<Dependencie[]>,
-    apis: Ref<ApiSchema[]>
+    apis: Ref<ApiSchema[]>,
+    config: Ref<ProjectConfig>
   ) {
     watch(
-      [iframe, deps, apis],
+      [iframe, deps, apis, config],
       () => {
         if (iframe.value && deps.value.length) {
           this.resetReady();
@@ -209,6 +213,11 @@ export class Simulator extends Base {
     }
     const { adapter, globals } = provider;
     const apis = createSchemaApis(project.value?.apis, adapter);
+    mockCleanup();
+    if (project.value?.config?.mock) {
+      mockApis(project.value?.apis);
+    }
+
     return {
       window: cw,
       Vue: cw.Vue,

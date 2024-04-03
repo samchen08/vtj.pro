@@ -165,6 +165,7 @@
     hide,
     submit,
     cancel,
+    close,
     componentInstance
   });
 </script>

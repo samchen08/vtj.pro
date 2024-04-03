@@ -4,7 +4,8 @@ import type {
   Dependencie,
   PageFile,
   BlockFile,
-  ApiSchema
+  ApiSchema,
+  ProjectConfig
 } from '../protocols';
 import { emitter, type ModelEventType } from '../tools';
 import { BlockModel } from './block';
@@ -64,6 +65,7 @@ export class ProjectModel {
   blocks: BlockFile[] = [];
   apis: ApiSchema[] = [];
   currentFile: PageFile | BlockFile | null = null;
+  config: ProjectConfig = {};
   static attrs: string[] = [
     'name',
     'homepage',
@@ -71,7 +73,8 @@ export class ProjectModel {
     'dependencies',
     'pages',
     'blocks',
-    'apis'
+    'apis',
+    'config'
   ];
   constructor(schema: ProjectSchema) {
     const { id } = schema;
@@ -579,6 +582,18 @@ export class ProjectModel {
         model: this,
         type: 'update',
         data: id
+      };
+      emitter.emit(EVENT_PROJECT_CHANGE, event);
+    }
+  }
+
+  setConfig(config: ProjectConfig, silent: boolean = false) {
+    this.config = Object.assign(this.config, config);
+    if (!silent) {
+      const event: ProjectModelEvent = {
+        model: this,
+        type: 'update',
+        data: config
       };
       emitter.emit(EVENT_PROJECT_CHANGE, event);
     }
