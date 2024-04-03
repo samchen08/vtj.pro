@@ -50,10 +50,13 @@
     return widget?.widgetRef.mode ?? 'pc';
   });
 
+  const config = computed(() => engine.project.value?.config || {});
+
   const { designer, hover, dropping, selected } = useDesigner(
     iframe,
     dependencies,
-    apis
+    apis,
+    config
   );
 
   const onAction = (e: any) => {

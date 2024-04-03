@@ -1,13 +1,13 @@
 {
   "name": "create-vtj",
   "private": false,
-  "version": "0.7.20",
+  "version": "0.7.21",
   "type": "module",
   "scripts": {
     "build": "unbuild"
   },
   "dependencies": {
-    "@vtj/node": "^0.7.7",
+    "@vtj/node": "^0.7.8",
     "cross-spawn": "~7.0.3",
     "kolorist": "~1.8.0",
     "minimist": "~1.2.8",

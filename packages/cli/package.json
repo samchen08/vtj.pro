@@ -1,7 +1,7 @@
 {
   "name": "@vtj/cli",
   "private": false,
-  "version": "0.7.20",
+  "version": "0.7.21",
   "type": "module",
   "bin": {
     "vtj": "./bin/vtj.js"
@@ -22,14 +22,14 @@
     "@rollup/plugin-babel": "~6.0.4",
     "@types/babel__core": "~7.20.5",
     "@types/body-parser": "~1.19.5",
-    "@types/node": "~20.11.30",
+    "@types/node": "~20.12.2",
     "@types/serve-static": "~1.15.5",
     "@vitejs/plugin-basic-ssl": "~1.1.0",
     "@vitejs/plugin-legacy": "~5.3.1",
     "@vitejs/plugin-vue": "~5.0.4",
     "@vitejs/plugin-vue-jsx": "~3.1.0",
     "@vitest/coverage-v8": "~1.4.0",
-    "@vtj/node": "^0.7.7",
+    "@vtj/node": "^0.7.8",
     "@vue/test-utils": "~2.4.5",
     "body-parser": "~1.20.2",
     "cross-env": "~7.0.3",

@@ -27,6 +27,12 @@ export const tabsProps = {
   },
   border: {
     type: Boolean
+  },
+  fit: {
+    type: Boolean
+  },
+  align: {
+    type: String as PropType<'left' | 'center' | 'right'>
   }
 };
 

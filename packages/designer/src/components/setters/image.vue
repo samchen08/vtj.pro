@@ -30,7 +30,7 @@
   const props = withDefaults(defineProps<Props>(), {
     limit: 1
   });
-  const emit = defineEmits(['change']);
+  const emit = defineEmits(['change', 'update:modelValue']);
 
   const fileList = ref<UploadUserFile[]>([]);
 
@@ -65,7 +65,9 @@
   );
 
   watch(fileList, () => {
-    emit('change', fileList.value[0]?.url);
+    const url = fileList.value[0]?.url;
+    emit('change', url);
+    emit('update:modelValue', url);
   });
 
   defineOptions({

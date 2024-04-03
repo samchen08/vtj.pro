@@ -14,6 +14,7 @@ export default createViteConfig({
     '@vtj/icons',
     '@vueuse/core',
     'element-plus',
-    '@element-plus/icons-vue'
+    '@element-plus/icons-vue',
+    'mockjs'
   ]
 });

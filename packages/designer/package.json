@@ -1,7 +1,7 @@
 {
   "name": "@vtj/designer",
   "private": false,
-  "version": "0.7.30",
+  "version": "0.7.31",
   "type": "module",
   "scripts": {
     "build": "vue-tsc && vite build",
@@ -10,15 +10,17 @@
     "coverage": "vitest run --coverage"
   },
   "dependencies": {
-    "@vtj/core": "^0.7.30",
-    "@vtj/icons": "^0.7.30",
-    "@vtj/renderer": "^0.7.30",
-    "@vtj/ui": "^0.7.30",
-    "@vtj/utils": "^0.7.30",
+    "@vtj/core": "^0.7.31",
+    "@vtj/icons": "^0.7.31",
+    "@vtj/renderer": "^0.7.31",
+    "@vtj/ui": "^0.7.31",
+    "@vtj/utils": "^0.7.31",
+    "mockjs": "~1.1.0",
     "monaco-editor": "~0.47.0"
   },
   "devDependencies": {
-    "@vtj/cli": "^0.7.20",
+    "@types/mockjs": "~1.0.10",
+    "@vtj/cli": "^0.7.21",
     "vue": "~3.4.15",
     "vue-router": "~4.3.0"
   },

@@ -11,5 +11,19 @@
     "dev",
     "docs",
     "lcdp"
-  ]
+  ],
+  "command": {
+    "publish": {
+      "ignoreChanges": ["**/*.md"],
+      "message": "build: 📦 release",
+      "conventionalCommits": true,
+      "exec": "npx commitlint --from $LERNA_PACKAGE_NAME"
+    },
+    "version": {
+      "ignoreChanges": ["**/*.md"],
+      "message": "build: 📦 release",
+      "conventionalCommits": true,
+      "exec": "npx commitlint --from $LERNA_PACKAGE_NAME"
+    }
+  }
 }

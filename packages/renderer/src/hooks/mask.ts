@@ -38,10 +38,12 @@ export function useMask() {
   });
 
   const menus: MenuDataItem[] = createMenus(project?.pages);
-
+  const config = project?.config;
   return {
     disabled,
-    title: project?.description || project?.name || 'VTJ App',
+    logo: config?.logo,
+    themeSwitchable: config?.themeSwitchable,
+    title: config?.title || project?.description || project?.name || 'VTJ App',
     menus
   };
 }

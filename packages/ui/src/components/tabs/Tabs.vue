@@ -66,7 +66,9 @@
 
   const classComputed = computed(() => {
     return {
-      'is-no-border': !props.border
+      'is-no-border': !props.border,
+      'is-fit': !!props.fit,
+      [`is-align-${props.align}`]: !!props.align
     };
   });
 

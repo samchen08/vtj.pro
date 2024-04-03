@@ -17,7 +17,8 @@ import {
   VtjIconHistory,
   VtjIconApi,
   VtjIconCategory,
-  VtjIconInfo
+  VtjIconInfo,
+  VtjIconSetting
 } from '@vtj/icons';
 
 export const builtInWidgets: Array<AppWidget | TabWidget | Widget> = [
@@ -103,6 +104,15 @@ export const builtInWidgets: Array<AppWidget | TabWidget | Widget> = [
     openType: 'panel',
     icon: VtjIconCategory,
     label: '依赖管理'
+  },
+  {
+    name: 'ProjectConfig',
+    region: 'Apps',
+    component: widgets.ProjectConfig,
+    type: 'app',
+    openType: 'panel',
+    icon: VtjIconSetting,
+    label: '项目配置'
   },
   {
     name: 'About',

@@ -67,7 +67,7 @@
 
   // const url = '/api/test/user/${id}';
   // const url = '/api/scm/auth/scm/scmPurchaseApplyH/waitList.do';
-  const url = '/mock/api.json?q=${id}';
+  const url = '/mock/api/:id.json';
 
   const execApi1 = () => {
     // console.log(request);
@@ -76,7 +76,7 @@
         // type: 'json'
       },
       url,
-      method: 'get',
+      method: 'post',
       params: {
         id: 'abc'
       },
