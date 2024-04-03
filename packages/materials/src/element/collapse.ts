@@ -24,6 +24,7 @@ const Collapse: MaterialDescription[] = [
       }
     ],
     events: ['change'],
+    slots: ['default'],
     snippet: {
       children: [
         {

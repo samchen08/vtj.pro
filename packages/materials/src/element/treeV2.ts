@@ -95,6 +95,13 @@ const TreeV2: MaterialDescription = {
       defaultValue: '',
       title: '相邻级节点间的水平缩进，单位为像素',
       setters: 'InputSetter'
+    },
+    {
+      name: 'itemSize ',
+      label: 'itemSize ',
+      title: '自定义树节点的高度',
+      setters: 'NumberSetter',
+      defaultValue: 26
     }
   ],
   events: [
@@ -105,7 +112,8 @@ const TreeV2: MaterialDescription = {
     'current-change',
     'node-expand',
     'node-collapse'
-  ]
+  ],
+  slots: [{ name: 'default', params: ['node', 'data'] }]
 };
 
 export default TreeV2;

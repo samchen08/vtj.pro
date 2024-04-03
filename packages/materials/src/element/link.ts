@@ -24,6 +24,14 @@ const link: MaterialDescription = {
       setters: 'InputSetter'
     },
     {
+      name: 'target',
+      label: 'target',
+      title: '同原生 target 属性',
+      setters: 'SelectSetter',
+      options: ['_blank', '_parent', '_self', '_top'],
+      defaultValue: '_self'
+    },
+    {
       name: 'icon',
       defaultValue: '',
       setters: 'IconSetter'

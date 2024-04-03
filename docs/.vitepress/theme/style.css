@@ -161,3 +161,11 @@
     height: calc(100% - var(--vp-nav-height));
   }
 }
+
+.VPImage.image-src {
+  opacity: 0.5;
+}
+
+.VPImage.logo {
+  zoom: 0.8;
+}

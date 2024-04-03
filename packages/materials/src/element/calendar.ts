@@ -18,6 +18,7 @@ const Calendar: MaterialDescription = {
       setters: 'JSONSetter'
     }
   ],
+  events: ['update:modelValue'],
   slots: [
     {
       name: 'date-cell'

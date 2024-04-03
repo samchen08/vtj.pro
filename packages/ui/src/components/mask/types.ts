@@ -9,7 +9,7 @@ import type {
   DialogProps
 } from '../';
 import type { Emits } from '../shared';
-import logo from './assets/logo.png';
+import logo from './assets/logo.svg';
 import type Mask from './Mask.vue';
 
 export const TAB_ITEM_WIDTH = 140;

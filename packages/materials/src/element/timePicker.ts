@@ -94,6 +94,7 @@ const TimePicker: MaterialDescription = {
       defaultValue: '',
       setters: 'InputSetter'
     },
+    { name: 'label', defaultValue: '', setters: 'InputSetter' },
     {
       name: 'prefixIcon',
       defaultValue: 'Clock',
@@ -123,6 +124,13 @@ const TimePicker: MaterialDescription = {
       name: 'teleported',
       defaultValue: true,
       setters: 'BooleanSetter'
+    },
+    {
+      name: 'tabindex',
+      label: 'tabindex',
+      title: '输入框的 tabindex',
+      setters: ['StringSetter', 'NumberSetter'],
+      defaultValue: 0
     }
   ],
   events: ['change', 'blur', 'focus', 'visible-change', 'update:modelValue']

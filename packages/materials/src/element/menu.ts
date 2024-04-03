@@ -25,6 +25,19 @@ const Menu: MaterialDescription[] = [
         setters: 'BooleanSetter'
       },
       {
+        name: 'ellipsisIcon',
+        label: 'ellipsisIcon',
+        title: '自定义省略图标 (仅在水平模式下可用)',
+        setters: 'StringSetter' //?? component
+      },
+      {
+        name: 'popperOffset',
+        label: 'popperOffset',
+        title: '弹出层的偏移量(对所有子菜单有效)',
+        setters: 'NumberSetter',
+        defaultValue: 6
+      },
+      {
         name: 'backgroundColor',
         defaultValue: '#ffffff',
         setters: 'ColorSetter'
@@ -69,6 +82,41 @@ const Menu: MaterialDescription[] = [
         name: 'collapseTransition',
         defaultValue: true,
         setters: 'BooleanSetter'
+      },
+      {
+        name: 'popperEffect',
+        label: 'popperEffect',
+        title: 'Tooltip 主题，内置了 dark / light 两种主题',
+        setters: 'SelectSetter',
+        options: ['dark', 'light'],
+        defaultValue: 'dark'
+      },
+      {
+        name: 'closeOnClickOutside',
+        label: 'closeOnClickOutside',
+        title: '可选，单击外部时是否折叠菜单',
+        setters: 'BooleanSetter',
+        defaultValue: false
+      },
+      {
+        name: 'popperClass ',
+        label: 'popperClass ',
+        title: '为 popper 添加类名',
+        setters: 'StringSetter'
+      },
+      {
+        name: 'showTimeout',
+        label: 'showTimeout',
+        title: '菜单出现前的延迟',
+        setters: 'NumberSetter',
+        defaultValue: 300
+      },
+      {
+        name: 'hideTimeout',
+        label: 'hideTimeout',
+        title: '菜单消失前的延迟',
+        setters: 'NumberSetter',
+        defaultValue: 300
       }
     ],
     events: [
@@ -82,6 +130,7 @@ const Menu: MaterialDescription[] = [
         name: 'close'
       }
     ],
+    slots: ['default'],
     snippet: {
       props: {
         mode: 'horizontal'

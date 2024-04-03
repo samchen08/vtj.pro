@@ -51,6 +51,13 @@ const Image: MaterialDescription = {
       setters: 'InputSetter'
     },
     {
+      name: 'crossorigin',
+      label: 'crossorigin',
+      title: '原生属性 crossorigin',
+      setters: 'SelectSetter',
+      options: ['', 'anonymous', 'use-credentials']
+    },
+    {
       name: 'previewSrcList',
       defaultValue: '',
       setters: 'JSONSetter'
@@ -116,7 +123,7 @@ const Image: MaterialDescription = {
       title: '图像查看器缩放事件的最大缩放比例'
     }
   ],
-  events: ['load', 'error', 'switch', 'close'],
+  events: ['load', 'error', 'switch', 'close', 'show'],
   slots: ['placeholder', 'error', 'viewer'],
   snippet: {
     props: {

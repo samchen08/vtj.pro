@@ -49,6 +49,10 @@ const components: MaterialDescription = {
       ]
     },
     {
+      name: 'fallback-placements',
+      setters: 'ArraySetter'
+    },
+    {
       name: 'visible',
       defaultValue: false,
       setters: 'BooleanSetter'
@@ -67,11 +71,6 @@ const components: MaterialDescription = {
       name: 'transition',
       defaultValue: 'el-fade-in-linear',
       setters: 'InputSetter'
-    },
-    {
-      name: 'visibleArrow',
-      defaultValue: false,
-      setters: 'BooleanSetter'
     },
     {
       name: 'popperOptions',
@@ -99,11 +98,6 @@ const components: MaterialDescription = {
       setters: 'NumberSetter'
     },
     {
-      name: 'manual',
-      defaultValue: false,
-      setters: 'BooleanSetter'
-    },
-    {
       name: 'popper-class',
       defaultValue: '',
       setters: 'InputSetter'
@@ -114,20 +108,19 @@ const components: MaterialDescription = {
       setters: 'BooleanSetter'
     },
     {
-      name: 'tabindex',
-      defaultValue: 0,
-      setters: 'NumberSetter'
-    },
-    {
       name: 'teleported',
-      defaultValue: '',
-      setters: 'BooleanSetter'
+      label: 'teleported',
+      title: '是否使用 teleport。设置成 true则会被追加到 append-to 的位置',
+      setters: 'BooleanSetter',
+      defaultValue: true
     },
     {
       name: 'trigger',
-      defaultValue: 'hover',
+      label: 'trigger',
+      title: '如何触发 Tooltip',
+      setters: 'SelectSetter',
       options: ['hover', 'click', 'focus', 'contextmenu'],
-      setters: 'SelectSetter'
+      defaultValue: 'hover'
     },
     {
       name: 'virtual-triggering',
@@ -143,6 +136,16 @@ const components: MaterialDescription = {
       name: 'trigger-keys',
       defaultValue: ['Enter', 'Space'],
       setters: 'ExpressionSetter'
+    },
+    {
+      name: 'persistent',
+      setters: 'BooleanSetter'
+    },
+    {
+      name: 'ariaLabel',
+      label: 'ariaLabel',
+      title: '和 aria-label 属性保持一致',
+      setters: 'StringSetter'
     }
   ],
   events: [
@@ -151,18 +154,24 @@ const components: MaterialDescription = {
     },
     {
       name: 'cancel'
+    },
+    {
+      name: 'update:visible '
     }
   ],
   slots: [
     {
-      name: 'reference'
+      name: 'default'
+    },
+    {
+      name: 'content'
     }
   ],
   snippet: {
     name: 'ElTooltip',
     children: '文字提示',
     props: {
-      title: '自定义弹出框的内容'
+      content: '自定义弹出框的内容'
     }
   }
 };

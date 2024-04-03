@@ -6,7 +6,7 @@ hero:
   name: 'VTJ.PRO'
   tagline: 基于 Vue3 + TypeScript 快速打造高生产力的低代码研发平台
   image:
-    src: assets/logo.svg
+    src: /assets/logo-w.svg
   actions:
     - theme: brand
       text: 快速开始
