@@ -73,7 +73,8 @@ const Image: MaterialDescription = {
       setters: 'NumberSetter'
     },
     {
-      name: 'ESC键关闭',
+      name: 'close-on-press-escape',
+      label: 'close-on-press-escape',
       defaultValue: true,
       title: '是否可以通过按下 ESC 关闭 Image Viewer',
       setters: 'BooleanSetter'
