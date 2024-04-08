@@ -18,3 +18,4 @@ export * from './list';
 export * from './startup';
 export * from './test';
 export * from './input-unit';
+export * from './ckeditor';

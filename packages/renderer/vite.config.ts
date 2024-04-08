@@ -9,12 +9,15 @@ export default createViteConfig({
     'vue-router',
     '@vtj/base',
     '@vtj/core',
-    // '@vtj/ui',
+    '@vtj/ui',
     '@vtj/utils',
     '@vtj/icons',
     '@vueuse/core',
     'element-plus',
     '@element-plus/icons-vue',
-    'mockjs'
+    'mockjs',
+    '@ckeditor/ckeditor5-build-classic',
+    '@ckeditor/ckeditor5-vue',
+    '@ckeditor/ckeditor5-build-classic/build/translations/zh-cn.js'
   ]
 });

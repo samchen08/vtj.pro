@@ -9,13 +9,15 @@ import test from './test';
 import icon from './icon';
 import container from './container';
 import action from './action';
+import ckeditor from './ckeditor'
 
 const name = '@vtj/ui';
 const components: MaterialDescription[] = [
   test,
   icon,
   container,
-  action
+  action,
+  ckeditor
 ].flat();
 
 const categories: MaterialCategory[] = [

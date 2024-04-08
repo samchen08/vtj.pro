@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.7.33](https://gitee.com/newgateway/vtj/compare/dev-web@0.7.32...dev-web@0.7.33) (2024-04-08)
+
+
+### Features
+
+* ✨ ui add XCkeditor ([2870b53](https://gitee.com/newgateway/vtj/commits/2870b538869530b0f703ebd85d462bf7769ed262))
+
+
+
+
+
+
 ## [0.7.32](https://gitee.com/newgateway/vtj/compare/dev-web@0.7.31...dev-web@0.7.32) (2024-04-03)
 
 **Note:** Version bump only for package dev-web
