@@ -99,8 +99,8 @@ const Tour: MaterialDescription = {
       defaultValue: ''
     },
     {
-      name: 'ESC 关闭',
-      label: 'ESC 关闭',
+      name: 'close-on-press-escape',
+      label: 'close-on-press-escape',
       title: '是否可以通过按下 ESC 关闭引导',
       setters: 'BooleanSetter',
       defaultValue: true

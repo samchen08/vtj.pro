@@ -23,7 +23,14 @@
       editor="select"
       label="级联"
       :cascader="['type']"
-      :options="optionsLoader"></XField>
+      :options="optionsLoader">
+    </XField>
+
+    <XField name="ck" label="富文本">
+      <template #editor>
+        <XCKEditor v-model="model.ck"></XCKEditor>
+      </template>
+    </XField>
 
     <XField
       v-for="(_item, index) of model.items"
@@ -42,7 +49,7 @@
 <script lang="ts" setup>
   import { ElButton } from 'element-plus';
   import { reactive, ref } from 'vue';
-  import { XField, XForm } from '@vtj/web';
+  import { XField, XForm, XCKEditor } from '@vtj/web';
 
   const form = ref();
   const inline = ref(false);
@@ -69,7 +76,8 @@
       {
         title: 'ABC'
       }
-    ]
+    ],
+    ck: `<p>tests</p>`
   });
 
   const onSubmit = (m: any) => {

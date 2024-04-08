@@ -25,7 +25,7 @@
     type ActionProps
   } from '@vtj/web';
   import zhCn from 'element-plus/es/locale/lang/zh-cn';
-  import logo from './assets/vue.svg';
+  import logo from './assets/logo.svg';
   const { disabled, title, menus } = useMask();
 
   const actions: ActionBarItems = [

@@ -64,6 +64,7 @@ export class Simulator extends Base {
       this.refresh();
     });
   }
+
   init(
     iframe: Ref<HTMLIFrameElement | undefined>,
     deps: Ref<Dependencie[]>,
@@ -75,6 +76,8 @@ export class Simulator extends Base {
       () => {
         if (iframe.value && deps.value.length) {
           this.resetReady();
+          this.renderer?.dispose();
+          this.renderer = null;
           this.setup(iframe.value, deps.value);
           if (this.contentWindow) {
             this.designer.value?.dispose();
@@ -98,6 +101,8 @@ export class Simulator extends Base {
     }
     cw.__simulator__ = this;
     const doc = cw.document;
+    // 解决 CKEDITOR 重复加载报错
+    (cw as any).CKEDITOR_VERSION = undefined;
     this.contentWindow = cw;
     const {
       scripts,

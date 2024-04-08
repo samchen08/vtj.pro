@@ -2,7 +2,7 @@ import fs from 'node:fs';
 import prompts from 'prompts';
 import { isValidPackageName, formatTargetDir, isEmpty } from './utils';
 
-import { cyan, green, lightRed, magenta, red, reset, yellow } from 'kolorist';
+import { cyan, green, magenta, red, reset } from 'kolorist';
 
 export interface ITemplate {
   name: string;
