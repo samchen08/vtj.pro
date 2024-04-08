@@ -8,7 +8,6 @@
 - 主题切换动画效果
 - 整站发布显示结果详情
 - UI物料
-- UI组件：文件上传、文件预览、 富文本编辑器、高级表格、筛选条件表单、工具条、数据选择器、组织结构、打印、 登录、锁屏
 - 设置器： 样式、数据、变量颜色
 - 设计器帮助中心支持刷新和主页功能
 - 设计器错误日志模块
@@ -20,11 +19,13 @@
 - Mask pro风格主题
 - ~~uniapp工程支持cli环境配置~~
 - 支持配置源码文件生成位置
-- Api支持mock设置
+- ~~Api支持mock设置~~
 - ~~内置组件增加 html 和 路由相关元素~~
 - 设计器属性设置，禁用已绑定了双向绑定的属性设置器
 - 设计视图禁用组件鼠标事件
 - 画布支持组件拖拽
+- ssh发布阿里云
+- 依赖管理增加重置内置依赖项功能
 
 # 定制版
 
@@ -48,3 +49,20 @@
 - ~~自定义区块自定义事件失效~~
 - 大纲树中拖拽子节点放置到根节点，dsl没有更新
 - 插槽内容节点为template时,出码生成重复template
+
+# UI
+
+- XQrcode 二维码 https://github.com/rx-ts/vue/blob/master/packages/vue-qrcode/index.ts
+- ~~XCKEditor 富文本编辑器~~
+- XSmsCodeInput 短信验证码输入框
+- XAttachment 附件管理（upload/viewer）
+- XCondition 查询条件表单
+- XFilterBar 筛选栏
+- XToolbar 工具栏
+- XTable 高级表格
+- XDataPicker 数据选择器
+- XLogin 登录
+- XLockscreen 锁屏
+- XPrint
+- XOrgPicker 组织架构
+- XConfigPage 配置化页面

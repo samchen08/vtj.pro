@@ -24,5 +24,5 @@ export default createViteConfig({
     'monaco-editor/esm/vs/language/typescript/ts.worker?worker',
     'mockjs'
   ],
-  formats: ['es', 'cjs']
+  formats: ['es']
 });

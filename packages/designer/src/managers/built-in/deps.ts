@@ -57,20 +57,24 @@ export const builtInDeps: Dependencie[] = [
     official: true,
     enabled: true
   },
-  {
-    package: 'echarts',
-    version: 'latest',
-    library: 'echarts',
-    urls: ['@vtj/materials/deps/echarts/echarts.min.js'],
-    required: false,
-    official: true,
-    enabled: true
-  },
+  // {
+  //   package: 'echarts',
+  //   version: 'latest',
+  //   library: 'echarts',
+  //   urls: ['@vtj/materials/deps/echarts/echarts.min.js'],
+  //   required: false,
+  //   official: true,
+  //   enabled: true
+  // },
   {
     package: '@vtj/ui',
     version: 'latest',
     library: 'VtjUI',
     urls: [
+      '@vtj/materials/deps/echarts/echarts.min.js',
+      '@vtj/materials/deps/@ckeditor/ckeditor5-build-classic/ckeditor.js',
+      '@vtj/materials/deps/@ckeditor/ckeditor5-build-classic/zh-cn.js',
+      '@vtj/materials/deps/@ckeditor/ckeditor5-vue/ckeditor.js',
       '@vtj/materials/deps/@vtj/ui/style.css',
       '@vtj/materials/deps/@vtj/ui/index.umd.js'
     ],
@@ -85,7 +89,7 @@ export const builtInDeps: Dependencie[] = [
     version: 'latest',
     library: 'antd',
     urls: [
-      '@vtj/materials/deps/ant-design-vue/rest.css',
+      '@vtj/materials/deps/ant-design-vue/reset.css',
       '@vtj/materials/deps/ant-design-vue/dayjs/dayjs.min.js',
       '@vtj/materials/deps/ant-design-vue/dayjs/plugin/customParseFormat.js',
       '@vtj/materials/deps/ant-design-vue/dayjs/plugin/weekday.js',

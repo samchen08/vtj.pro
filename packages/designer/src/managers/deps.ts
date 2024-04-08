@@ -44,10 +44,15 @@ class DepsManager {
      */
     for (const dep of this.deps) {
       const userDep = projectDeps.find((n) => n.package === dep.package);
-      deps.push({
-        ...dep,
-        ...userDep
-      });
+      deps.push(
+        userDep
+          ? {
+              ...userDep,
+              ...dep,
+              enabled: userDep.enabled
+            }
+          : dep
+      );
     }
 
     /**
