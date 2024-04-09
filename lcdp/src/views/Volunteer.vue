@@ -302,7 +302,7 @@
     // const rank = myVolunteer.value.findIndex((n) => schoolIndex === n);
     const rank = myVolunteerMap[schoolIndex];
     if (rank === undefined) {
-      return null;
+      // return null;
     }
     // if (!isSubmited || rank === undefined) {
     //   return null;
