@@ -107,7 +107,7 @@
   </div>
 </template>
 <script lang="ts" setup>
-  import { reactive, ref, toRaw, computed } from 'vue';
+  import { reactive, ref, toRaw, computed, nextTick, triggerRef } from 'vue';
   import {
     ElForm,
     ElFormItem,
@@ -233,9 +233,9 @@
   const myVolunteerMap = reactive<Record<any, any>>(myVolunteerJSON || {});
 
   const myVolunteer = computed(() => {
-    const values = Object.values(toRaw(myVolunteerMap)).sort();
+    const values = Object.values(myVolunteerMap).sort();
     return values.map((v) => {
-      const entries = Object.entries(toRaw(myVolunteerMap));
+      const entries = Object.entries(myVolunteerMap);
       const item = entries.find((n) => n[1] === v);
       return Number.parseInt(item?.[0] as any) as unknown as number;
     });
@@ -266,7 +266,7 @@
     return values.map((n) => n.index);
   };
 
-  const submitVolunteer = () => {
+  const submitVolunteer = async () => {
     localStorage.setItem('studentTotal', studentTotal.value.toString());
     localStorage.setItem('schools', JSON.stringify(toRaw(schools)));
     localStorage.setItem('myVolunteer', JSON.stringify(toRaw(myVolunteerMap)));
@@ -279,6 +279,8 @@
       return;
     }
     students = {};
+    triggerRef(myVolunteer);
+    await nextTick();
     students[myRandomNo] = toRaw(myVolunteer.value as number[]);
     for (let i = 0; i < studentTotal.value - 1; i++) {
       students[createRandomNo()] = mockVolunteer();
@@ -306,25 +308,33 @@
   const getMyRank = (schoolIndex: number) => {
     // const isSubmited = (myVolunteer.value as number[]).every((n) => n >= 0);
     // const rank = myVolunteer.value.findIndex((n) => schoolIndex === n);
-    const rank = myVolunteerMap[schoolIndex];
+    const rank = Number.parseInt(myVolunteerMap[schoolIndex] as any);
     if (rank === undefined) {
       // return null;
     }
     // if (!isSubmited || rank === undefined) {
     //   return null;
     // }
+    // console.log(rank, students);
     const studentNoArray = Object.entries(students)
       .filter(([_no, values]) => {
-        return values[rank] === schoolIndex;
+        return (
+          Number.parseInt(values[rank] as any) ===
+          Number.parseInt(schoolIndex as any)
+        );
       })
       .map((items) => items[0])
       .sort((a, b) => {
         return Number.parseInt(b) - Number.parseInt(a);
       });
 
+    // console.log(rank, studentNoArray);
+
     const index = studentNoArray.findIndex(
       (n) => n.toString() == myRandomNo.toString()
     );
+
+    // console.log(rank, studentNoArray, index);
 
     return index + 1;
   };
