@@ -3,6 +3,8 @@ import { ref, markRaw } from 'vue';
 export async function ckLoader() {
   if (typeof window === 'undefined') return undefined;
   const win = window as any;
+  const version = win.CKEDITOR_VERSION;
+  win.CKEDITOR_VERSION = undefined;
 
   const ClassicEditor =
     win.ClassicEditor ||
@@ -20,7 +22,7 @@ export async function ckLoader() {
       )
     ).default;
   win.CKEditorCN = CKEditorCN;
-
+  win.CKEDITOR_VERSION = version;
   return {
     ClassicEditor: markRaw(ClassicEditor),
     CKEditor: markRaw(CKEditorVue.component),

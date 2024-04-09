@@ -6,6 +6,9 @@
 
   @include e(logo) {
     margin-bottom: 20px;
+    img {
+      width: 130px;
+    }
   }
 
   @include e(name) {
