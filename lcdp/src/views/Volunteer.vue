@@ -8,6 +8,7 @@
             <ElText class="randomNo" type="success" size="large">
               {{ myRandomNo }}
             </ElText>
+            <ElLink type="primary" @click="changeRandomNo">更换</ElLink>
           </ElFormItem>
         </ElForm>
         <ElForm label-position="right" inline label-width="80px">
@@ -20,6 +21,14 @@
               v-model="studentTotal"></ElInputNumber>
           </ElFormItem>
         </ElForm>
+      </div>
+
+      <div
+        class="result"
+        v-if="!result && myVolunteer.length === schools.length && hasSubmit">
+        <ElAlert type="warning" title="已提交志愿" :closable="false">
+          <div>{{ myVolunteerNames }}</div>
+        </ElAlert>
       </div>
 
       <div v-if="result" class="result">
@@ -86,6 +95,11 @@
             </ElSelect>
           </template>
         </ElTableColumn>
+        <ElTableColumn label="计划招生" min-width="100px">
+          <template #default="{ row }">
+            {{ Math.ceil((row.percentage * studentTotal) / 100) }}
+          </template>
+        </ElTableColumn>
         <ElTableColumn label="志愿人数" min-width="100px">
           <template #default="{ row }">
             {{ getSchoolStudentsCount(row.index) || '待提交志愿' }}
@@ -119,7 +133,8 @@
     ElSelect,
     ElOption,
     ElMessage,
-    ElAlert
+    ElAlert,
+    ElLink
   } from 'element-plus';
 
   const createRandomNo = () => {
@@ -139,11 +154,12 @@
   );
 
   // 我的随机号
-  const myRandomNo = createRandomNo();
+  const myRandomNo = ref(createRandomNo());
 
   const info = ref<string[]>([]);
   const result = ref<any>();
   const showLogs = ref(false);
+  const hasSubmit = ref(false);
 
   interface School {
     index: number;
@@ -158,61 +174,61 @@
       {
         index: 0,
         name: '第七中学',
-        hot: 1,
+        hot: 20,
         percentage: 4.27
       },
       {
         index: 1,
         name: '第十中学',
-        hot: 1,
+        hot: 3,
         percentage: 29.3
       },
       {
         index: 2,
         name: '十三中学',
-        hot: 1,
+        hot: 10,
         percentage: 8.37
       },
       {
         index: 3,
         name: '十六中学',
-        hot: 1,
+        hot: 30,
         percentage: 12.09
       },
       {
         index: 4,
         name: '十六中东华',
-        hot: 1,
+        hot: 5,
         percentage: 20.9
       },
       {
         index: 5,
         name: '培正中学',
-        hot: 1,
+        hot: 40,
         percentage: 8.83
       },
       {
         index: 6,
         name: '七中东山',
-        hot: 1,
+        hot: 5,
         percentage: 2.32
       },
       {
         index: 7,
         name: '省实中学',
-        hot: 1,
+        hot: 80,
         percentage: 7.44
       },
       {
         index: 8,
         name: '执信本部',
-        hot: 1,
+        hot: 60,
         percentage: 2.32
       },
       {
         index: 9,
         name: '铁一中学',
-        hot: 1,
+        hot: 50,
         percentage: 4.09
       }
     ]
@@ -239,6 +255,15 @@
       const item = entries.find((n) => n[1] === v);
       return Number.parseInt(item?.[0] as any) as unknown as number;
     });
+  });
+
+  const myVolunteerNames = computed(() => {
+    return myVolunteer.value
+      .map((n, i) => {
+        const school = schools.find((s) => s.index.toString() === n.toString());
+        return `#${i + 1}  ${school?.name}`;
+      })
+      .join(', ');
   });
 
   const tableKey = ref(Symbol());
@@ -281,14 +306,14 @@
     students = {};
     triggerRef(myVolunteer);
     await nextTick();
-    students[myRandomNo] = toRaw(myVolunteer.value as number[]);
+    students[myRandomNo.value] = toRaw(myVolunteer.value as number[]);
     for (let i = 0; i < studentTotal.value - 1; i++) {
       students[createRandomNo()] = mockVolunteer();
     }
 
     result.value = null;
     tableKey.value = Symbol();
-
+    hasSubmit.value = true;
     // console.log(students);
   };
 
@@ -331,7 +356,7 @@
     // console.log(rank, studentNoArray);
 
     const index = studentNoArray.findIndex(
-      (n) => n.toString() == myRandomNo.toString()
+      (n) => n.toString() == myRandomNo.value.toString()
     );
 
     // console.log(rank, studentNoArray, index);
@@ -398,7 +423,7 @@
           }
           picked.push(item);
           plan.students.push(item);
-          if (item === myRandomNo.toString()) {
+          if (item === myRandomNo.value.toString()) {
             info.value.push(`<dd class="current">您被${school.name}录取</dd>`);
             // break;
           }
@@ -416,7 +441,7 @@
     }
 
     for (const item of Object.values(plans)) {
-      if ((item as any).students.includes(myRandomNo.toString())) {
+      if ((item as any).students.includes(myRandomNo.value.toString())) {
         console.log(item);
         result.value = item;
         break;
@@ -428,12 +453,27 @@
 
   const reset = () => {
     result.value = null;
+    hasSubmit.value = false;
+    localStorage.removeItem('myVolunteer');
+    localStorage.removeItem('studentTotal');
+    localStorage.removeItem('schools');
     localStorage.removeItem('myVolunteer');
     location.reload();
   };
 
   const toggleLogs = () => {
     showLogs.value = !showLogs.value;
+  };
+
+  const changeRandomNo = () => {
+    myRandomNo.value = createRandomNo();
+    students = {};
+    result.value = null;
+    hasSubmit.value = false;
+    // Object.keys(myVolunteerMap).forEach((k) => {
+    //   delete myVolunteerMap[k];
+    // });
+    // localStorage.removeItem('myVolunteer');
   };
 </script>
 <style lang="scss" scoped>
@@ -475,6 +515,7 @@
   }
   .randomNo {
     font-size: 20px;
+    margin-right: 20px;
   }
   .content {
     padding: 10px;
