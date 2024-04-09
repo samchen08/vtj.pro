@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
+    <meta http-equiv="Pragma" content="no-cache"/>
+    <meta http-equiv="Expires" content="0"/>
+    <title>广州越秀区小升初志愿录取测算</title>
+    <script type="module" crossorigin src="./assets/yx-BmALnwU8.js"></script>
+    <link rel="modulepreload" crossorigin href="./assets/index-DOjeZZeJ.js">
+    <link rel="modulepreload" crossorigin href="./assets/@vue-DbHY7CtS.js">
+    <link rel="modulepreload" crossorigin href="./assets/lodash-es-DKmLY3Gz.js">
+    <link rel="modulepreload" crossorigin href="./assets/@vueuse-DrUKsxYo.js">
+    <link rel="modulepreload" crossorigin href="./assets/@element-plus-mH6lrfSY.js">
+    <link rel="modulepreload" crossorigin href="./assets/@popperjs-CsO2-mKt.js">
+    <link rel="modulepreload" crossorigin href="./assets/@ctrl-r5W6hzzQ.js">
+    <link rel="modulepreload" crossorigin href="./assets/@ckeditor-Cpj98o6Y.js">
+    <link rel="modulepreload" crossorigin href="./assets/dayjs-Bz4m6kJv.js">
+    <link rel="modulepreload" crossorigin href="./assets/async-validator-BKXt4Vjq.js">
+    <link rel="modulepreload" crossorigin href="./assets/memoize-one-BdPwpGay.js">
+    <link rel="modulepreload" crossorigin href="./assets/normalize-wheel-es-B6fDCfyv.js">
+    <link rel="modulepreload" crossorigin href="./assets/@floating-ui-o_LpjUj1.js">
+    <link rel="modulepreload" crossorigin href="./assets/element-plus-BsffbOUp.js">
+    <link rel="modulepreload" crossorigin href="./assets/_plugin-vue_export-helper-DlAUqK2U.js">
+    <link rel="stylesheet" crossorigin href="./assets/index-0GYCgXuA.css">
+    <link rel="stylesheet" crossorigin href="./assets/element-plus-DoYkJ_wQ.css">
+    <link rel="stylesheet" crossorigin href="./assets/yx-bX1qEfG7.css">
+  
+<style>
+.dark {
+  background-color: #141414;
+}
+#vtj-ide-loading {
+  width: 400px;
+  height: 100px;
+  position: fixed;
+  left:50%;
+  top: 50%;
+  transform: translate(-50%,-50%);
+  z-index: 9999;
+  border-radius: 4px;
+  background-color: rgba(255,255,255,0.1);
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+  padding: 20px;
+  font-size: 12px;
+  box-sizing: border-box;
+}
+.vtj-ide-loading__bar {
+  height: 14px;
+  border-radius: 4px;
+  margin-top: 10px;
+  border: 1px solid #eee;
+  overflow: hidden;
+}
+.vtj-ide-loading__title {
+  display: flex;
+  justify-content: space-between;
+}
+.dark .vtj-ide-loading__title {
+  color:#fff;
+}
+.vtj-ide-loading__value {
+  display: block;
+  height: 100%;
+  background-color: #409eff;
+  border-radius: 4px;
+  font-size: 0;
+}
+</style>
+</head>
+  <body>
+<div id="vtj-ide-loading">
+<div class="vtj-ide-loading__title"><span>正在加载资源.... </span><span id="vtj-ide-loading-count"></span></div>
+<div class="vtj-ide-loading__bar">
+  <span class="vtj-ide-loading__value" id="vtj-ide-loading-value" style="width:0%"></span>
+</div>
+</div>
+
+    <div id="app"></div>
+  
+<script>
+(function(){
+  var loading = document.querySelector('#vtj-ide-loading');
+  var countEl = document.querySelector('#vtj-ide-loading-count');
+  var valueEl = document.querySelector('#vtj-ide-loading-value');
+  var links = document.querySelectorAll('link,script');
+  var total = links.length;
+  var setValue = function(current) {
+    countEl.innerHTML = current + '/' +total;
+    valueEl.style.width = (current * 100 / total) + '%';
+    if(!total || current === total) {
+      setTimeout(function() {
+         loading.parentNode.removeChild(loading);
+         loading = null;
+         countEl = null;
+         valueEl = null;
+      }, 100);
+    }
+  }
+
+  var current = 0;
+  links.forEach(function(link) {
+    link.onload = function() {
+        ++current;
+        setValue(current);
+        link.onload = null;
+    }
+  })
+  window.addEventListener('load',function() {
+    current = total
+    setValue(current)
+  });
+
+})()
+
+</script> 
+
+        <script>
+        (function () {
+          window._hmt = window._hmt || [];
+          const hm = document.createElement('script');
+          hm.src = 'https://hm.baidu.com/hm.js?42f2469b4aa27c3f8978f634c0c19d24';
+          var s = document.getElementsByTagName('script')[0];
+          s.parentNode.insertBefore(hm, s);
+        })();       
+        </script>
+        
+</html>
