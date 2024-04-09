@@ -22,6 +22,21 @@
         </ElForm>
       </div>
 
+      <div v-if="result" class="result">
+        <ElAlert type="success" title="录取结果" :closable="false">
+          <div>
+            您已被【 {{ result.school.name }} 】录取, 计划招生
+            {{ result.total }} 人。
+          </div>
+          <div style="padding: 10px 0">
+            <ElButton size="small" @click="toggleLogs">派位过程</ElButton>
+          </div>
+        </ElAlert>
+      </div>
+      <div v-if="result && showLogs" class="logs">
+        <dl v-html="info.join('')"></dl>
+      </div>
+
       <ElTable border stripe :data="schools" :key="tableKey">
         <ElTableColumn
           type="index"
@@ -82,16 +97,6 @@
           </template>
         </ElTableColumn>
       </ElTable>
-      <div v-if="result" class="result">
-        <ElAlert type="success" title="录取结果" :closable="false">
-          您已被【 {{ result.school.name }} 】录取, 计划招生
-          {{ result.total }} 人。
-        </ElAlert>
-      </div>
-      <div v-if="result" class="logs">
-        <h4>派位过程：</h4>
-        <dl v-html="info.join('')"></dl>
-      </div>
     </div>
 
     <div class="op">
@@ -138,6 +143,7 @@
 
   const info = ref<string[]>([]);
   const result = ref<any>();
+  const showLogs = ref(false);
 
   interface School {
     index: number;
@@ -415,6 +421,10 @@
     localStorage.removeItem('myVolunteer');
     location.reload();
   };
+
+  const toggleLogs = () => {
+    showLogs.value = !showLogs.value;
+  };
 </script>
 <style lang="scss" scoped>
   .volunteer {
@@ -461,6 +471,7 @@
   }
   .result {
     margin-top: 20px;
+    margin-bottom: 20px;
   }
   :deep(.current) {
     font-weight: bold;
