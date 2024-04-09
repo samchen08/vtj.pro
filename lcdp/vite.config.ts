@@ -4,6 +4,7 @@ import { createDevTools } from '@vtj/pro/vite';
 export default createViteConfig({
   base: './',
   visualizer: false,
+  elementPlus: true,
   plugins: [
     createDevTools({
       devMode: true,
@@ -19,6 +20,7 @@ export default createViteConfig({
   ],
   pages: {
     app: 'index.html',
-    designer: 'designer/index.html'
+    designer: 'designer/index.html',
+    yx: 'yx.html'
   }
 });
