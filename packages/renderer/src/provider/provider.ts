@@ -122,13 +122,15 @@ export class Provider extends Base {
       materialExports,
       materialMapLibrary
     } = parseDeps(deps, materialPath);
+    const _window = window as any;
+    _window.CKEDITOR_VERSION = undefined;
     for (const libraryName of libraryExports) {
       const raw = dependencies[libraryName];
-      const lib = (window as any)[libraryName];
+      const lib = _window[libraryName];
       if (lib) {
         library[libraryName] = lib;
       } else if (raw) {
-        (window as any)[libraryName] = library[libraryName] = await raw();
+        _window[libraryName] = library[libraryName] = await raw();
       } else {
         const urls = libraryMap[libraryName] || [];
         for (const url of urls) {
@@ -138,7 +140,7 @@ export class Provider extends Base {
           if (isJSUrl(url)) {
             await loadScript(urlUtils.append(url, { v: version }));
           }
-          library[libraryName] = (window as any)[libraryName];
+          library[libraryName] = _window[libraryName];
         }
       }
     }
@@ -151,7 +153,7 @@ export class Provider extends Base {
     // console.log(materialExports, materialMap);
 
     for (const materialExport of materialExports) {
-      const lib = (window as any)[materialMapLibrary[materialExport]];
+      const lib = _window[materialMapLibrary[materialExport]];
       const builtInComponents = BUILT_IN_COMPONENTS[materialExport];
       if (builtInComponents) {
         if (lib) {
@@ -162,7 +164,7 @@ export class Provider extends Base {
       } else {
         const material = materialMap[materialExport]
           ? ((await materialMap[materialExport]()).default as Material)
-          : ((window as any)[materialExport] as Material);
+          : (_window[materialExport] as Material);
         if (material && lib) {
           (material.components || []).forEach((item) => {
             components[item.name] = getRawComponent(item, lib);
