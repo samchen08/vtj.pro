@@ -114,8 +114,10 @@
     </div>
 
     <div class="op">
-      <ElButton type="primary" @click="submitVolunteer">提交志愿</ElButton>
-      <ElButton type="warning" @click="showResult">派位录取</ElButton>
+      <div>
+        <ElButton type="primary" @click="submitVolunteer">提交志愿</ElButton>
+        <ElButton type="warning" @click="showResult">派位录取</ElButton>
+      </div>
       <ElButton @click="reset">重置</ElButton>
     </div>
   </div>
@@ -499,6 +501,8 @@
     padding: 10px;
     box-sizing: border-box;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    display: flex;
+    justify-content: space-between;
   }
   .base {
     display: flex;
