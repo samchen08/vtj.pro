@@ -486,12 +486,13 @@
     padding-bottom: 60px;
     height: 100%;
     overflow: auto;
+    background: url('../assets/bg.jpg') no-repeat center top;
   }
   .op {
     position: fixed;
     bottom: 0;
     z-index: 10;
-    background-color: rgba(255, 255, 255, 0.8);
+    background-color: rgba(231, 240, 248, 0.8);
     width: 100%;
     height: 60px;
     border-top: 1px solid #ddd;
@@ -512,6 +513,7 @@
     padding: 10px;
     margin-bottom: 20px;
     flex-wrap: wrap;
+    background-color: #fff;
     .el-form-item {
       margin-bottom: 5px;
       margin-right: 0;
@@ -523,6 +525,11 @@
   }
   .content {
     padding: 10px;
+    > h3 {
+      font-size: 20px;
+      margin: 0 0 20px 0;
+      color: #04538b;
+    }
   }
   .result {
     margin-top: 20px;
