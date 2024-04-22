@@ -427,8 +427,8 @@ export class ProjectModel {
     block.type = 'block';
     block.dsl = new BlockModel({ id, name }).toDsl();
     this.blocks.push(block);
-
-    if (!this.currentFile) {
+    const type = block.fromType || 'Schema';
+    if (!this.currentFile && type === 'Schema') {
       this.active(block, silent);
     }
 

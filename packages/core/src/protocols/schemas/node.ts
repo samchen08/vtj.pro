@@ -62,7 +62,7 @@ export type NodeFrom =
   | string
   | NodeFromSchema
   | NodeFromUrlSchema
-  | NodeFromRemote;
+  | NodeFromPlugin;
 
 /**
  *  来源于其他Schema对象
@@ -86,9 +86,9 @@ export interface NodeFromUrlSchema {
 /**
  * 来源远程组件
  */
-export interface NodeFromRemote {
-  type: 'Remote';
-  urls: string;
+export interface NodeFromPlugin {
+  type: 'Plugin';
+  urls: string[];
   library?: string;
 }
 

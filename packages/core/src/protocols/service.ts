@@ -4,9 +4,11 @@ import type {
   HistorySchema,
   HistoryItem,
   PageFile,
-  BlockFile
+  BlockFile,
+  NodeFromPlugin
 } from './schemas';
 import type { MaterialDescription } from './assets';
+import type { StaticFileInfo } from './shared';
 
 export abstract class Service {
   public abstract init(project: ProjectSchema): Promise<ProjectSchema>;
@@ -42,4 +44,19 @@ export abstract class Service {
 
   public abstract createRawPage(file: PageFile): Promise<boolean>;
   public abstract removeRawPage(id: string): Promise<boolean>;
+
+  public abstract uploadStaticFile(
+    file: File,
+    projectId: string
+  ): Promise<StaticFileInfo | null>;
+  public abstract getStaticFiles(projectId: string): Promise<StaticFileInfo[]>;
+  public abstract removeStaticFile(
+    name: string,
+    projectId: string
+  ): Promise<boolean>;
+  public abstract clearStaticFiles(projectId: string): Promise<boolean>;
+
+  public abstract getPluginMaterial(
+    from: NodeFromPlugin
+  ): Promise<MaterialDescription | null>;
 }

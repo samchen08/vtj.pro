@@ -126,13 +126,12 @@ export class Context {
         return;
       }
 
-      // 记录id
-      dom.__vtj__ = id;
-
       // 如果是text节点，取兄弟节点
       if (dom.nodeType === 3 && dom.nextSibling) {
         dom = dom.nextSibling;
       }
+
+      dom.__vtj__ = id;
 
       // 设计模式记录上下文
       if (ContextMode.Design === this.__mode) {

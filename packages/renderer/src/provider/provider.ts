@@ -1,4 +1,4 @@
-import { type App, type InjectionKey, inject } from 'vue';
+import { type App, type InjectionKey, inject, defineAsyncComponent } from 'vue';
 import { type Router } from 'vue-router';
 import {
   type ProjectSchema,
@@ -7,6 +7,7 @@ import {
   type Service,
   type Material,
   type BlockSchema,
+  type NodeFromPlugin,
   Base,
   BUILT_IN_COMPONENTS
 } from '@vtj/core';
@@ -23,16 +24,21 @@ import { request } from './defaults';
 import { createSchemaApis, mockApis, mockCleanup } from './apis';
 import { isVuePlugin } from '../utils';
 import { version } from '../version';
-
 import {
   parseDeps,
   isCSSUrl,
   isJSUrl,
   loadCss,
-  getRawComponent
+  getRawComponent,
+  loadCssUrl
 } from '../utils';
 import { ContextMode } from '../constants';
-import { createRenderer, createLoader } from '../render';
+import {
+  createRenderer,
+  createLoader,
+  getPlugin,
+  type CreateRendererOptions
+} from '../render';
 import { PageContainer } from './page';
 import { StartupContainer } from './startup';
 
@@ -72,6 +78,7 @@ export class Provider extends Base {
   public nodeEnv: 'development' | 'production' = 'development';
   private router: Router | null = null;
   private materialPath: string = './';
+  private urlDslCaches: Record<string, any> = {};
   constructor(options: ProviderOptions) {
     super();
     const {
@@ -246,6 +253,54 @@ export class Provider extends Base {
     const module = this.modules[`.vtj/files/${id}.json`];
     return module ? await module() : this.service.getFile(id).catch(() => null);
   }
+
+  async getDslByUrl(url: string): Promise<BlockSchema | null> {
+    const cache = this.urlDslCaches[url];
+    if (cache) return cache;
+    return (this.urlDslCaches[url] = this.adapter.request
+      .send({
+        url,
+        method: 'get',
+        settings: {
+          validSuccess: false,
+          originResponse: true
+        }
+      })
+      .then((res) => res.data as BlockSchema)
+      .catch(() => null));
+  }
+
+  createDslRenderer(
+    dsl: BlockSchema,
+    opts: Partial<CreateRendererOptions> = {}
+  ) {
+    const { library, components, mode, apis } = this;
+    const options = {
+      mode,
+      Vue: library.Vue,
+      components,
+      libs: library,
+      apis,
+      window,
+      ...opts
+    };
+    const loader = createLoader({
+      getDsl: async (id: string) => {
+        return (await this.getDsl(id)) || null;
+      },
+      getDslByUrl: async (url: string) => {
+        return (await this.getDslByUrl(url)) || null;
+      },
+      options
+    });
+
+    return createRenderer({
+      ...options,
+      dsl,
+      loader
+    });
+  }
+
   async getRenderComponent(id: string) {
     const file = this.getFile(id);
     if (!file) {
@@ -263,29 +318,29 @@ export class Provider extends Base {
       logger.warn(`Can not find dsl: ${id}`);
       return null;
     }
-    const { library, components, mode, apis } = this;
-    const options = {
-      mode,
-      Vue: library.Vue,
-      components,
-      libs: library,
-      apis,
-      window
-    };
-    const loader = createLoader({
-      getDsl: async (id: string) => {
-        return (await this.getDsl(id)) || null;
-      },
-      options
-    });
+    return this.createDslRenderer(dsl).renderer;
+  }
 
-    const { renderer } = createRenderer({
-      ...options,
-      dsl,
-      loader
+  defineUrlSchemaComponent(url: string, name?: string) {
+    return defineAsyncComponent(async () => {
+      const dsl = await this.getDslByUrl(url);
+      if (dsl) {
+        dsl.name = name || dsl.name;
+        return this.createDslRenderer(dsl).renderer;
+      }
+      return null;
     });
+  }
 
-    return renderer;
+  definePluginComponent(from: NodeFromPlugin) {
+    return defineAsyncComponent(async () => {
+      const plugin = await getPlugin(from, window);
+      if (plugin) {
+        loadCssUrl(plugin.css);
+        return plugin.component as any;
+      }
+      return null;
+    });
   }
 }
 

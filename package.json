@@ -15,10 +15,10 @@
     "typedoc-plugin-markdown": "~3.17.1",
     "git-cz": "^4.9.0",
     "husky": "^9.0.11",
-    "@commitlint/cli": "^19.2.1",
-    "@commitlint/config-conventional": "^19.1.0",
+    "@commitlint/cli": "^19.2.2",
+    "@commitlint/config-conventional": "^19.2.2",
     "mime": "~4.0.1",
-    "node-ssh": "~13.1.0"
+    "node-ssh": "~13.2.0"
   },
   "scripts": {
     "setup": "pnpm install --unsafe-perm --registry=https://registry.npmmirror.com",
@@ -91,7 +91,10 @@
     "lcdp:preview": "cd lcdp && npm run preview",
     "uniapp:dev": "cd apps/uniapp && npm run dev:h5",
     "uniapp:build": "cd apps/uniapp && npm run build:h5",
-    "uniapp:preview": "cd apps/uniapp && npm run preview:h5"
+    "uniapp:preview": "cd apps/uniapp && npm run preview:h5",
+    "plugin:dev": "cd apps/plugin && npm run dev",
+    "plugin:test": "cd apps/plugin && npm run test",
+    "plugin:build": "cd apps/plugin && npm run build"
   },
   "engines": {
     "node": ">=20.0.0",

@@ -11,8 +11,14 @@ import {
 import { resolve } from 'path';
 import { readJsonSync, upperFirstCamelCase, timestamp } from '@vtj/node';
 import { generator, createEmptyPage } from '@vtj/coder';
+import formidable from 'formidable';
 import { fail, success, type ApiRequest } from './shared';
-import { JsonRepository, VueRepository } from './repository';
+import {
+  JsonRepository,
+  VueRepository,
+  StaticRepository,
+  type StaticRepositoryOptions
+} from './repository';
 
 export async function notMatch(_req: ApiRequest) {
   return fail('找不到处理程序');
@@ -170,7 +176,9 @@ export async function publish(project: ProjectSchema) {
   );
 
   for (const block of blocks) {
-    await publishFile(project, block, componentMap);
+    if (!block.fromType || block.fromType === 'Schema') {
+      await publishFile(project, block, componentMap);
+    }
   }
   for (const page of pages) {
     if (!page.raw) {
@@ -198,8 +206,41 @@ export async function createRawPage(file: PageFile) {
   repository.save(file.id as string, page);
   return success(true);
 }
+
 export async function removeRawPage(id: string) {
   const repository = new VueRepository();
   repository.remove(id);
   return success(true);
+}
+
+export async function uploadStaticFiles(
+  files: formidable.File[],
+  options: StaticRepositoryOptions
+) {
+  const repository = new StaticRepository(options);
+  const error = repository.validate(files);
+  if (error) {
+    return fail('文件名称已存在', error);
+  }
+  const res = repository.save(files);
+  return success(res);
+}
+
+export async function removeStaticFile(
+  filename: string,
+  options: StaticRepositoryOptions
+) {
+  const repository = new StaticRepository(options);
+  const ret = repository.remove(filename);
+  return ret ? success(true) : fail('删除失败');
+}
+
+export async function getStaticFiles(options: StaticRepositoryOptions) {
+  const repository = new StaticRepository(options);
+  return success(repository.getAllFiles());
+}
+
+export async function clearStaticFiles(options: StaticRepositoryOptions) {
+  const repository = new StaticRepository(options);
+  return success(repository.clear());
 }

@@ -23,12 +23,17 @@
         height="100%"
         :model-value="textValue"
         dark></Editor>
+      <template #extra>
+        <ElButton type="warning" @click="handleClear" size="default">
+          清除
+        </ElButton>
+      </template>
     </XDialog>
   </div>
 </template>
 <script lang="ts" setup>
   import { ref, computed } from 'vue';
-  import { ElInput } from 'element-plus';
+  import { ElInput, ElButton } from 'element-plus';
   import { MoreFilled } from '@vtj/icons';
   import { XDialog } from '@vtj/ui';
   import { type JSFunction } from '@vtj/core';

@@ -46,6 +46,22 @@
         :setters="{ name: 'RangeSetter' }"
         :variable="true"
         @change="onChange"></SetterWrapper>
+
+      <SetterWrapper
+        name="FunctionSetter"
+        label="JS"
+        setters="FunctionSetter"
+        :variable="true"
+        @change="onChange"></SetterWrapper>
+      <SetterWrapper
+        name="file"
+        label="文件"
+        :setters="{
+          name: 'FileSetter',
+          props: { attachment: { uploader, multiple: true } }
+        }"
+        :variable="true"
+        @change="onChange"></SetterWrapper>
     </ElForm>
 
     <div
@@ -56,6 +72,7 @@
   import { ElForm } from 'element-plus';
   import { ref } from 'vue';
   import { SetterWrapper } from '@vtj/pro';
+  import { request } from '@vtj/web';
   import {
     IconDisplayBlock,
     IconDisplayFlex,
@@ -97,5 +114,25 @@
   const onChange = (n: string, v: any) => {
     console.log('change', n, v);
     // imgUrl.value = v;
+  };
+
+  const uploader = async (file: File) => {
+    return request({
+      url: '/mock-api/upload',
+      settings: {
+        type: 'data',
+        originResponse: false,
+        validSuccess: true,
+        validate: (r) => r.data.code === 0
+      },
+      data: {
+        file
+      }
+    }).then((res) => {
+      return {
+        name: file.name,
+        url: res as unknown as string
+      };
+    });
   };
 </script>

@@ -1,0 +1,42 @@
+{
+  "name": "vtj-block-plugin",
+  "private": false,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "setup": "pnpm install --unsafe-perm --registry=https://registry.npmmirror.com",
+    "dev": "cross-env DEV=true vite",
+    "build": "vue-tsc && vite build && npm run build:umd",
+    "build:umd": "cross-env UMD=true vite build",
+    "test": "vitest run",
+    "vitest": "vitest"
+  },
+  "dependencies": {
+    "@vtj/icons": "latest",
+    "@vtj/utils": "latest",
+    "@vtj/ui": "latest*"
+  },
+  "devDependencies": {
+    "@vtj/core": "latest",
+    "@vtj/cli": "latest",
+    "@vtj/pro": "latest",
+    "@vtj/web": "latest"
+  },
+  "exports": {
+    ".": {
+      "types": "./types/index.d.ts",
+      "import": "./dist/{{name}}.mjs"
+    }
+  },
+  "main": "./dist/{{name}}.umd.js",
+  "module": "./dist/{{name}}.mjs",
+  "types": "./types/index.d.ts",
+  "files": [
+    "dist",
+    "types"
+  ],
+  "gitHead": "0b470d76f584714cd96bf684bf66c720c2661df1",
+  "publishConfig": {
+    "access": "public"
+  }
+}

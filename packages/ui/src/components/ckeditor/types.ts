@@ -1,7 +1,10 @@
 import { type PropType } from 'vue';
 import type { ComponentPropsType } from '../shared';
+import type { UploaderResponse } from '../../adapter';
 
-export type CKEditorImageUploder = (file: File) => Promise<string>;
+export type CKEditorImageUploder = (
+  file: File
+) => Promise<string | UploaderResponse | null>;
 
 export const ckeditorProps = {
   /**

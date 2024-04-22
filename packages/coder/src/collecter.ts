@@ -3,7 +3,9 @@ import {
   type Dependencie,
   type JSExpression,
   type JSFunction,
-  type NodeSchema
+  type NodeSchema,
+  type NodeFromUrlSchema,
+  type NodeFromPlugin
 } from '@vtj/core';
 
 import { dedupArray } from '@vtj/base';
@@ -17,6 +19,8 @@ export class Collecter {
   public context: Record<string, Set<string>> = {};
   public style: Record<string, Record<string, any>> = {};
   public members: string[] = [];
+  public urlSchemas: Record<string, NodeFromUrlSchema> = {};
+  public blockPlugins: Record<string, NodeFromPlugin> = {};
   private libraryRegex: RegExp[] = [];
 
   constructor(
@@ -144,10 +148,24 @@ export class Collecter {
     }
   }
 
+  private collectUrlSchema(node: NodeSchema) {
+    if (typeof node.from === 'object' && node.from.type === 'UrlSchema') {
+      this.urlSchemas[node.name] = node.from;
+    }
+  }
+
+  private collectBlockPlugin(node: NodeSchema) {
+    if (typeof node.from === 'object' && node.from.type === 'Plugin') {
+      this.blockPlugins[node.name] = node.from;
+    }
+  }
+
   private walkNodes(dsl: BlockSchema) {
     const walking = (node: NodeSchema, parent?: NodeSchema) => {
       this.collectContext(node, parent);
       this.collectStyle(node);
+      this.collectUrlSchema(node);
+      this.collectBlockPlugin(node);
       if (Array.isArray(node.children)) {
         node.children.forEach((n) => walking(n, node));
       }

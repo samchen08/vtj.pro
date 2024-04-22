@@ -3,6 +3,35 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.8.0](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.7.34...@vtj/renderer@0.8.0) (2024-04-22)
+
+
+### Bug Fixes
+
+* 🐛 修复组件渲染根节点是text类型时无法选中设置属性 ([4bce89e](https://gitee.com/newgateway/vtj/commits/4bce89e21608d1eabeb89de4f451ee2abb556feb))
+
+
+### Features
+
+* ✨ 依赖支持语言包设置 ([362190e](https://gitee.com/newgateway/vtj/commits/362190e66d663412d2d07261bc29b9ef439af8ed))
+* ✨ 支持 UrlSchema ([edae2c5](https://gitee.com/newgateway/vtj/commits/edae2c52ce88ad72a4a7c31844385dc083249e72))
+* ✨ 支持区块插件 ([88b5028](https://gitee.com/newgateway/vtj/commits/88b5028cdb142dd9f5642c51ecb9f978333858ce))
+* ✨ add FileSetter ([8467349](https://gitee.com/newgateway/vtj/commits/8467349162e8694808fd3fdcd2354d8bb6de086f))
+* ✨ base service 支持 static files ([8875c7c](https://gitee.com/newgateway/vtj/commits/8875c7c4e7d14ccbe2dee89d8a214d40a4c57546))
+* ✨ cli 支持 插件项目 ([f8a61c9](https://gitee.com/newgateway/vtj/commits/f8a61c97f7e94a6a4afd23e91c6d2b879cf8eaa3))
+* ✨ urlSchema blockPlugin coder ([055aaf1](https://gitee.com/newgateway/vtj/commits/055aaf115e6df548a5b298e3d89551232ae7a86b))
+* ✨ x-attachment ([09a3391](https://gitee.com/newgateway/vtj/commits/09a33914ee22a2410a396ed004a799d368259987))
+
+
+### Performance Improvements
+
+* ⚡ 代码优化 ([8d5e2d3](https://gitee.com/newgateway/vtj/commits/8d5e2d366876cd1c91eb8e4c7b30237e65dd33b5))
+
+
+
+
+
+
 ## [0.7.34](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.7.33...@vtj/renderer@0.7.34) (2024-04-10)
 
 

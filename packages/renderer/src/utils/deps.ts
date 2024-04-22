@@ -19,6 +19,11 @@ export function isCSSUrl(url: string): boolean {
 export function isJSUrl(url: string): boolean {
   return /\.js$/.test(url);
 }
+
+export function isJSON(url: string): boolean {
+  return /\.json$/.test(url);
+}
+
 export function createAssetScripts(scripts: string[]): string {
   return scripts
     .map(
@@ -43,31 +48,37 @@ export function parseDeps(deps: Dependencie[], basePath: string) {
   const materials: string[] = [];
   const libraryExports: string[] = [];
   const libraryMap: Record<string, string[]> = {};
+  const libraryLocaleMap: Record<string, string> = {};
   const materialExports: string[] = [];
   const materialMapLibrary: Record<string, string> = {};
-  packages.forEach(({ urls, assetsUrl, library, assetsLibrary }) => {
-    urls?.forEach((url) => {
-      if (isJSUrl(url)) {
-        scripts.push(url);
+  packages.forEach(
+    ({ urls, assetsUrl, library, assetsLibrary, localeLibrary }) => {
+      urls?.forEach((url) => {
+        if (isJSUrl(url)) {
+          scripts.push(url);
+        }
+        if (isCSSUrl(url)) {
+          css.push(url);
+        }
+      });
+      if (library) {
+        libraryExports.push(library);
+        libraryMap[library] = fillBasePath(urls || [], basePath);
+        if (localeLibrary) {
+          libraryLocaleMap[library] = localeLibrary;
+        }
       }
-      if (isCSSUrl(url)) {
-        css.push(url);
+      if (assetsUrl) {
+        materials.push(assetsUrl);
       }
-    });
-    if (library) {
-      libraryExports.push(library);
-      libraryMap[library] = fillBasePath(urls || [], basePath);
+      if (assetsLibrary) {
+        materialExports.push(assetsLibrary);
+      }
+      if (library && assetsLibrary) {
+        materialMapLibrary[assetsLibrary] = library;
+      }
     }
-    if (assetsUrl) {
-      materials.push(assetsUrl);
-    }
-    if (assetsLibrary) {
-      materialExports.push(assetsLibrary);
-    }
-    if (library && assetsLibrary) {
-      materialMapLibrary[assetsLibrary] = library;
-    }
-  });
+  );
   return {
     scripts: fillBasePath(scripts, basePath),
     css: fillBasePath(css, basePath),
@@ -75,7 +86,8 @@ export function parseDeps(deps: Dependencie[], basePath: string) {
     libraryExports,
     materialExports: dedupArray(materialExports),
     materialMapLibrary,
-    libraryMap
+    libraryMap,
+    libraryLocaleMap
   };
 }
 

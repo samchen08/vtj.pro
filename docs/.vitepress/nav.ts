@@ -1,5 +1,5 @@
 export default [
-  { text: '首页', link: '/' },
+  { text: '指引', link: '/guide/' },
   { text: '帮助中心', link: '/help/' },
   { text: 'API', link: '/typedoc/modules.html' },
   {

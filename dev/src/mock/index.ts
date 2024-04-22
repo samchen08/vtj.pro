@@ -1,7 +1,7 @@
 import Mock from 'mockjs';
 
 Mock.setup({
-  timeout: 50 - 1000
+  timeout: '500-3000'
 });
 
 Mock.mock(/\/mock-api\/image/, () => {
@@ -13,5 +13,6 @@ Mock.mock(/\/mock-api\/image/, () => {
 
 Mock.mock(/\/mock-api\/upload/, {
   code: 0,
-  data: '@image'
+  data: '@image',
+  success: true
 });

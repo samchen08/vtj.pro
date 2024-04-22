@@ -228,6 +228,18 @@ export interface CreateViteConfigOptions {
    * https://rollupjs.org/configuration-options/#output-exports
    */
   exports?: 'auto' | 'default' | 'named' | 'none';
+
+  /**
+   * 编译完成时触发回调函数
+   * @param error
+   * @returns
+   */
+  buildEnd?: (error?: any) => void;
+
+  /**
+   * 默认情况下，Vite 会在构建阶段将 publicDir 目录中的所有文件复制到 outDir 目录中。可以通过设置该选项为 false 来禁用该行为。
+   */
+  copyPublicDir?: boolean;
 }
 
 export interface CreateUniappViteConfigOptions {
@@ -295,4 +307,17 @@ export interface CreateUniappViteConfigOptions {
    * 开启 nodePolyfills
    */
   node?: boolean | PolyfillOptions;
+
+  /**
+   * 编译完成时触发回调函数
+   * @param error
+   * @returns
+   */
+  buildEnd?: (error?: any) => void;
+}
+
+export interface CreatePluginViteConfigOptions extends CreateViteConfigOptions {
+  isUmd?: boolean;
+  material?: string;
+  style?: string;
 }
