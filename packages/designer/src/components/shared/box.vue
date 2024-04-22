@@ -17,6 +17,12 @@
       <XIcon :icon="VtjIconEdit" @click="onEdit"></XIcon>
       <XIcon :icon="VtjIconRemove" @click="onRemove"></XIcon>
     </XContainer>
+    <span
+      v-if="props.tag"
+      class="v-box__tag"
+      :class="{ [`is-${props.tagType}`]: !!props.tagType }">
+      {{ props.tag }}
+    </span>
   </div>
 </template>
 <script lang="ts" setup>
@@ -31,6 +37,8 @@
     editable?: boolean;
     active?: boolean;
     draggable?: boolean;
+    tag?: string;
+    tagType?: 'warning' | 'success' | 'danger' | 'primary';
   }
 
   const props = defineProps<Props>();

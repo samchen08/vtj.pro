@@ -108,7 +108,7 @@ export class Engine extends Base {
       materials,
       materialPath
     });
-    this.assets = new Assets(this.service);
+    this.assets = new Assets(this.service, this.provider);
     this.simulator = new Simulator({
       engine: this,
       materialPath

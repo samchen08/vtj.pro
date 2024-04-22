@@ -24,8 +24,12 @@
 - 设计器属性设置，禁用已绑定了双向绑定的属性设置器
 - 设计视图禁用组件鼠标事件
 - 画布支持组件拖拽
-- ssh发布阿里云
+- ~~ssh发布阿里云~~
 - 依赖管理增加重置内置依赖项功能
+- 文件上传设置器
+- local 支持文件上传
+- 区块支持远程schema 和 远程高代码组件
+- element-plus 国际化
 
 # 定制版
 
@@ -53,7 +57,7 @@
 # UI
 
 - XQrcode 二维码 https://github.com/rx-ts/vue/blob/master/packages/vue-qrcode/index.ts
-- ~~XCKEditor 富文本编辑器~~
+- XImageCodeInput 图形验证码输入框
 - XSmsCodeInput 短信验证码输入框
 - XAttachment 附件管理（upload/viewer）
 - XCondition 查询条件表单
@@ -66,3 +70,15 @@
 - XPrint
 - XOrgPicker 组织架构
 - XConfigPage 配置化页面
+
+# 路线图
+
+- v0.8 远程区块、资源管理
+- v0.9 物料市场、配套后端服务、支持从模板创建页面、上传模板、安装区块
+- v1.0 完善UI、模板、区块、文档、发布社区正式版本
+- v1.1 用户体系
+- v1.2 团队协作
+- v1.3 vscode插件
+- v1.4 支持uni-app
+- v1.5 支持Electron
+- v1.6 AI助手

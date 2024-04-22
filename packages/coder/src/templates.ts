@@ -14,11 +14,14 @@ export default defineComponent({
       id: '<%= id %>',
       version: '<%= version %>'
     });
-    const state = reactive({ <%= state %> });
+    const state = reactive<Record<string, any>>({ <%= state %> });
+    <%= urlSchemas %>
+    <%= blockPlugins %>
     return {
       state,
       props,
       provider
+      <% if(asyncComponents) { %>, <%= asyncComponents %> <% }%>
       <% if(returns) { %>, <%= returns %> <% } %>
     };
   },

@@ -1,6 +1,6 @@
 {
   "name": "vtj-project-uniapp",
-  "version": "0.7.34",
+  "version": "0.8.0",
   "private": true,
   "scripts": {
     "dev:app": "uni -p app",
@@ -62,7 +62,7 @@
     "@dcloudio/uni-quickapp-webview": "3.0.0-4000820240401001",
     "@dcloudio/uni-ui": "~1.5.3",
     "@vtj/mobile": "workspace:*",
-    "vue-i18n": "~9.10.2"
+    "vue-i18n": "~9.13.1"
   },
   "devDependencies": {
     "@dcloudio/types": "~3.4.7",

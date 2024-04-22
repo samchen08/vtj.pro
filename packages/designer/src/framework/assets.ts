@@ -9,6 +9,7 @@ import type {
   BlockSchema
 } from '@vtj/core';
 import { arrayToMap } from '@vtj/utils';
+import { type Provider } from '@vtj/renderer';
 import { builtInMaterials, setterManager } from '../managers';
 
 export interface AssetGroup {
@@ -26,7 +27,10 @@ export class Assets {
   componentMap: Map<string, MaterialDescription> = new Map();
   groups: Ref<AssetGroup[]> = ref([]);
   private caches: Record<string, BlockSchema> = {};
-  constructor(public service: Service) {}
+  constructor(
+    public service: Service,
+    public provider: Provider
+  ) {}
 
   private getCateoryComponents(
     cateory: MaterialCategory,
@@ -83,13 +87,32 @@ export class Assets {
     this.componentMap = arrayToMap(this.components, 'name');
   }
 
-  async getBlockMaterial(from: NodeFrom) {
+  async getBlockMaterial(from: NodeFrom, blockName?: string) {
     if (!from || typeof from === 'string') return null;
-    const blockId = from.type === 'Schema' ? from.id : null;
-    if (!blockId) return null;
-    const dsl = this.caches[blockId] || (await this.service.getFile(blockId));
+    let dsl;
+    if (from.type === 'Schema' && from.id) {
+      dsl = this.caches[from.id] || (await this.service.getFile(from.id));
+      this.caches[from.id] = dsl;
+    }
+    if (from.type === 'UrlSchema' && from.url) {
+      dsl =
+        this.caches[from.url] || (await this.provider.getDslByUrl(from.url));
+      this.caches[from.url] = dsl;
+    }
+
+    if (from.type === 'Plugin') {
+      const material = await this.service.getPluginMaterial(from);
+      if (material) {
+        material.name = blockName || material.name;
+        material.from = from;
+        this.componentMap.set(material.name, material);
+        return material;
+      }
+      return null;
+    }
+
     if (!dsl) return null;
-    this.caches[blockId] = dsl;
+    dsl.name = blockName || dsl.name;
     const { id, name, slots, props, emits } = dsl;
     /**
      * 根据数据类型自动匹配设置器
@@ -126,6 +149,7 @@ export class Assets {
       slots,
       from
     };
+    this.componentMap.set(name, desc);
     return desc;
   }
 

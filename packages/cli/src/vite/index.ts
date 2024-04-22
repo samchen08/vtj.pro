@@ -4,10 +4,17 @@ import basicSsl from '@vitejs/plugin-basic-ssl';
 import type {
   CreateViteConfigOptions,
   CreateUniappViteConfigOptions,
+  CreatePluginViteConfigOptions,
   ProxyConfig
 } from './types';
 import { resolve } from 'path';
 import { nodePolyfills } from 'vite-plugin-node-polyfills';
+import {
+  upperFirstCamelCase,
+  pathExistsSync,
+  copySync,
+  removeSync
+} from '@vtj/node';
 import { defaults } from './defaults';
 import { createBuild } from './build';
 import { mergePlugins } from './plugins';
@@ -143,6 +150,15 @@ export function createUniappViteConfig(
     plugins.push(...opts.plugins);
   }
 
+  if (opts.buildEnd) {
+    plugins.push({
+      name: 'vtj-build-end-plugin',
+      buildStart(err: any) {
+        opts.buildEnd && opts.buildEnd(err);
+      }
+    });
+  }
+
   const config: UserConfig = {
     resolve: {
       alias
@@ -161,4 +177,71 @@ export function createUniappViteConfig(
     console.log(JSON.stringify(userConfig, null, 2));
   }
   return userConfig;
+}
+
+export function createPluginViteConfig(
+  options: CreatePluginViteConfigOptions = {}
+) {
+  const {
+    libFileName = 'vtj-block-plugin',
+    style = 'style.css',
+    outDir = 'dist',
+    material = 'material.json',
+    isUmd
+  } = options;
+  const library = upperFirstCamelCase(libFileName);
+
+  const buildEnd = () => {
+    if (!isUmd) return;
+
+    const stylePath = resolve(outDir, style);
+    const materialPath = resolve('src', material);
+
+    if (pathExistsSync(stylePath)) {
+      copySync(stylePath, stylePath.replace(style, `${libFileName}.css`));
+      setTimeout(() => {
+        removeSync(stylePath);
+      }, 1000);
+    }
+
+    if (pathExistsSync(materialPath)) {
+      copySync(materialPath, resolve(outDir, `${libFileName}.json`));
+    }
+  };
+
+  const defaults = {
+    copyPublicDir: false,
+    exports: 'named',
+    buildEnd,
+    lib: true,
+    dts: isUmd ? false : true,
+    version: false,
+    emptyOutDir: isUmd ? false : true,
+    formats: isUmd ? ['umd'] : ['es'],
+    library,
+    libFileName,
+    external: [
+      'vue',
+      'vue-router',
+      '@vtj/icons',
+      '@vtj/utils',
+      '@vtj/ui',
+      '@vtj/core',
+      'element-plus',
+      '@element-plus/icons-vue'
+    ],
+    externalGlobals: isUmd
+      ? {
+          vue: 'Vue',
+          'vue-router': 'VueRouter',
+          'element-plus': 'ElementPlus',
+          '@element-plus/icons-vue': 'VtjIcons',
+          '@vtj/utils': 'VtjUtils',
+          '@vtj/icons': 'VtjIcons',
+          '@vtj/ui': 'VtjUI'
+        }
+      : undefined
+  };
+
+  return createViteConfig(Object.assign(defaults, options));
 }

@@ -24,6 +24,11 @@
         lang="json"
         dark
         :model-value="textValue"></Editor>
+      <template #extra>
+        <ElButton type="warning" @click="handleClear" size="default">
+          清除
+        </ElButton>
+      </template>
     </XDialog>
   </div>
 </template>
@@ -32,7 +37,7 @@
   import { XDialog } from '@vtj/ui';
   import { MoreFilled } from '@vtj/icons';
   import { isPlainObject } from '@vtj/utils';
-  import { ElInput, ElNotification } from 'element-plus';
+  import { ElInput, ElNotification, ElButton } from 'element-plus';
   import Editor from '../editor';
 
   export interface Props {

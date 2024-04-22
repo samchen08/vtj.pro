@@ -4,8 +4,7 @@
       v-for="(item, index) in props.options"
       :is="itemComponent"
       :key="`item_${index}_${item.value}`"
-      :label="item.label"
-      :value="item.value">
+      v-bind="item">
       {{ item.label }}
     </component>
   </ElCheckboxGroup>

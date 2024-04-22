@@ -3,6 +3,27 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.8.0](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.7.34...@vtj/materials@0.8.0) (2024-04-22)
+
+
+### Bug Fixes
+
+* 🐛 修复组件渲染根节点是text类型时无法选中设置属性 ([4bce89e](https://gitee.com/newgateway/vtj/commits/4bce89e21608d1eabeb89de4f451ee2abb556feb))
+* 🐛 ui qrcode ([a10c46c](https://gitee.com/newgateway/vtj/commits/a10c46c65be54ecfc987241a4f485ea2f9f5bd8f))
+
+
+### Features
+
+* ✨ 支持区块插件 ([88b5028](https://gitee.com/newgateway/vtj/commits/88b5028cdb142dd9f5642c51ecb9f978333858ce))
+* ✨ add FileSetter ([8467349](https://gitee.com/newgateway/vtj/commits/8467349162e8694808fd3fdcd2354d8bb6de086f))
+* ✨ cli add buildEnd ([3682809](https://gitee.com/newgateway/vtj/commits/368280984975733948c824ccab64624b1de8bd30))
+* ✨ urlSchema blockPlugin coder ([055aaf1](https://gitee.com/newgateway/vtj/commits/055aaf115e6df548a5b298e3d89551232ae7a86b))
+
+
+
+
+
+
 ## [0.7.34](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.7.33...@vtj/materials@0.7.34) (2024-04-10)
 
 **Note:** Version bump only for package @vtj/materials

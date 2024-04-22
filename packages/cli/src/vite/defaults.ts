@@ -12,5 +12,6 @@ export const defaults: CreateViteConfigOptions = {
   libFileName: 'index',
   formats: ['es', 'cjs', 'umd', 'iife'],
   loading: true,
-  envPath: './'
+  envPath: './',
+  copyPublicDir: true
 };

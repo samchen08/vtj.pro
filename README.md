@@ -2,8 +2,6 @@
 
 VTJ 一款基于 Vue3 + Typescript 的低代码开发工具，内置了设计器引擎、渲染器和代码生成器。
 
-![VTJ.PRO](dev/public/startup.png)
-
 ## 演示
 
 - [http://vtj.pro](http://vtj.pro)
@@ -23,7 +21,7 @@ VTJ 一款基于 Vue3 + Typescript 的低代码开发工具，内置了设计器
 
 **注意：使用或体验VTJ低代码功能是不需要拉源码的。**
 
-可以使用VTJ 提供了项目脚手架，可快速创建体验项目。 命令：
+可以使用VTJ提供的项目脚手架，可快速创建体验项目。 命令：
 
 ```sh
 npm create vtj@latest -- -t app

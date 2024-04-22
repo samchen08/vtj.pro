@@ -20,11 +20,13 @@ export interface DevToolsOptions {
   copy: boolean;
   server: boolean;
   staticBase: string;
+  staticDir: string;
   link: boolean | string;
   linkOptions: LinkOptions | null;
   vtjDir: string;
   packagesDir: string;
   devMode: boolean;
+  uploader: string;
   hm?: string;
 }
 
@@ -44,7 +46,7 @@ const setApis = (
   server.middlewares.use(async (req, res, next) => {
     const reqUrl = req.url || '';
     if (reqUrl.startsWith(options.baseURL)) {
-      const data = await router(req);
+      const data = await router(req, options);
       res.writeHead(200, { 'Content-Type': 'application/json' });
       res.end(JSON.stringify(data));
     } else {
@@ -184,11 +186,13 @@ export function createDevTools(options: Partial<DevToolsOptions> = {}) {
     copy: true,
     server: true,
     staticBase: '/',
+    staticDir: 'public',
     link: true,
     linkOptions: null,
     vtjDir: '.vtj',
     packagesDir: '../../packages',
     devMode: false,
+    uploader: '/uploader.json',
     hm: '42f2469b4aa27c3f8978f634c0c19d24',
     ...options
   };

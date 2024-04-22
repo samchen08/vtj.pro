@@ -9,6 +9,7 @@ import { mapToObject } from '@vtj/utils';
 import { BaseService } from './base';
 
 export class LocalService extends BaseService {
+  private getFileCaches: Record<string, any> = {};
   async init(project: ProjectSchema): Promise<ProjectSchema> {
     const res = await this.api('init', project).catch(() => null);
     return (res || {}) as ProjectSchema;
@@ -34,8 +35,13 @@ export class LocalService extends BaseService {
     return !!res;
   }
   async getFile(id: string): Promise<BlockSchema> {
-    const res = await this.api('getFile', id).catch(() => null);
-    return (res || {}) as BlockSchema;
+    const cache = this.getFileCaches[id];
+    if (cache) return cache;
+    return (this.getFileCaches[id] = this.api('getFile', id).catch(
+      () => null
+    )).finally(() => {
+      delete this.getFileCaches[id];
+    });
   }
 
   async removeFile(id: string): Promise<boolean> {
