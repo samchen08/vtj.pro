@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.8.0](https://gitee.com/newgateway/vtj/compare/@vtj/utils@0.7.34...@vtj/utils@0.8.0) (2024-04-22)
+
+
+### Features
+
+* ✨ x-attachment ([09a3391](https://gitee.com/newgateway/vtj/commits/09a33914ee22a2410a396ed004a799d368259987))
+
+
+
+
+
+
 ## [0.7.34](https://gitee.com/newgateway/vtj/compare/@vtj/utils@0.7.33...@vtj/utils@0.7.34) (2024-04-10)
 
 **Note:** Version bump only for package @vtj/utils

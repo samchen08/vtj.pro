@@ -45,6 +45,7 @@ export const createBuild = (opts: CreateViteConfigOptions) => {
     // 关闭可提高打包速度
     reportCompressedSize: false,
     chunkSizeWarningLimit: 1024,
+    copyPublicDir: opts.copyPublicDir,
     lib: opts.lib
       ? ({
           entry: opts.entry,
@@ -59,7 +60,8 @@ export const createBuild = (opts: CreateViteConfigOptions) => {
       external: opts.external,
       plugins: rollupPlugins,
       output: {
-        manualChunks
+        manualChunks,
+        exports: opts.exports || 'auto'
       },
       input: createInput(opts)
     }

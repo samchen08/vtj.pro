@@ -10,6 +10,8 @@ import {
   type NodeEvents,
   type NodeDirective,
   type NodeChildren,
+  type NodeFromUrlSchema,
+  type NodeFromPlugin,
   BUILT_IN_TAGS
 } from '@vtj/core';
 import { isPlainObject, camelCase, dedupArray } from '@vtj/base';
@@ -83,10 +85,12 @@ export function parseTemplate(
         importBlocks = importBlocks.concat(nodeChildren?.importBlocks || []);
       }
 
+      const tagName =
+        isFromUrlSchema(from) || isFromPlugin(from) ? 'component' : name;
       contents.push(
         name === 'img'
-          ? `<${name} ${directives} ${props} ${events} />\n`
-          : `<${name} ${directives} ${props} ${events}>${childContent ? '\n' + childContent.trim() : ''}</${name}>\n`
+          ? `<${name} ${directives} ${props} ${events} />`
+          : `<${tagName} ${directives} ${props} ${events}>${childContent ? '\n' + childContent.trim() : ''}</${tagName}>`
       );
     }
     const node = wrapSlot(item.slot, contents.join('\n'), parent?.id);
@@ -133,7 +137,7 @@ function getComponentName(
     return `${name}: ${aliasName}`;
   }
 
-  if (from || desc) {
+  if (isFromSchema(from) || desc) {
     return name;
   }
 
@@ -142,6 +146,14 @@ function getComponentName(
 
 function isFromSchema(from?: NodeFrom): from is NodeFromSchema {
   return !!from && typeof from === 'object' && from.type === 'Schema';
+}
+
+function isFromUrlSchema(from?: NodeFrom): from is NodeFromUrlSchema {
+  return typeof from === 'object' && from.type === 'UrlSchema';
+}
+
+function isFromPlugin(from?: NodeFrom): from is NodeFromPlugin {
+  return typeof from === 'object' && from.type === 'Plugin';
 }
 
 function bindProp(name: string, value: unknown, computedKeys: string[] = []) {
@@ -191,6 +203,13 @@ function bindNodeProps(
       delete props.style;
     }
   }
+  const from = node.from;
+  if (isFromUrlSchema(from) || isFromPlugin(from)) {
+    props.is = {
+      type: 'JSExpression',
+      value: node.name
+    };
+  }
   return Object.entries(props).map(([name, value]) => {
     return bindProp(name, value, computedKeys);
   });
@@ -223,7 +242,7 @@ function bindNodeEvents(
     const isExp = value.handler.value.startsWith('this.');
     const binder = isExp
       ? replaceThis(value.handler.value)
-      : `${camelCase(name)}_handler_${id}${eventParams}`;
+      : `${camelCase(name)}_${id}${eventParams}`;
     if (!isExp) {
       handlers[binder] = nodeContext.length
         ? {

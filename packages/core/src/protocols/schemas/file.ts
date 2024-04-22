@@ -5,6 +5,21 @@ import type { BlockSchema } from './block';
  */
 export type FileType = 'block' | 'page';
 
+export interface MarketInstallInfo {
+  /**
+   * 物料标识
+   */
+  id: string;
+  /**
+   * 安装版本号
+   */
+  version: string;
+  /**
+   * 物料主页 url
+   */
+  url: string;
+}
+
 export interface BlockFile {
   /**
    * 文件类型
@@ -24,6 +39,29 @@ export interface BlockFile {
    * 页面标题
    */
   title: string;
+
+  /**
+   * 从物料市场安装
+   */
+  market?: MarketInstallInfo;
+
+  /**
+   * 区块来源，默认为Schema，一旦确定，不允许更改
+   */
+  fromType?: 'Schema' | 'UrlSchema' | 'Plugin';
+
+  /**
+   * 资源url，
+   * Schema: 无url
+   * UrlSchema： 只允许一个json文件
+   * Plugin：支持多个文件（.css或.js）,多个文件用逗号分隔
+   */
+  urls?: string;
+
+  /**
+   * Plugin 时的插件名称
+   */
+  library?: string;
 
   /**
    * 文件内容

@@ -1,5 +1,6 @@
 import fs from 'fs-extra';
 export { fs };
+fs.readdirSync;
 export const copy = fs.copy;
 export const emptyDir = fs.emptyDir;
 export const ensureFile = fs.ensureFile;
@@ -28,3 +29,5 @@ export const readJson = fs.readJson;
 export const writeJson = fs.writeJson;
 export const readJsonSync = fs.readJsonSync;
 export const writeJsonSync = fs.writeJsonSync;
+export const readdir = fs.readdir;
+export const readdirSync = fs.readdirSync;

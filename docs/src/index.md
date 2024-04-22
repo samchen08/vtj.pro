@@ -4,7 +4,8 @@ layout: home
 
 hero:
   name: 'VTJ.PRO'
-  tagline: 基于 Vue3 + TypeScript 快速打造高生产力的低代码研发平台
+  text: 前端开发辅助工具
+  tagline: 基于 Vue3 + TypeScript 打造高生产力低代码研发平台
   image:
     src: /assets/logo-w.svg
   actions:

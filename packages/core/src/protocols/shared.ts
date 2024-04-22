@@ -51,3 +51,11 @@ export type DataType =
   | 'Object'
   | 'Array'
   | 'Function';
+
+/**
+ * 静态文件
+ */
+export interface StaticFileInfo {
+  filename?: string;
+  filepath: string;
+}

@@ -109,6 +109,15 @@ export const mergePlugins = (opts: CreateViteConfigOptions) => {
     plugins.push(nodePolyfills(typeof opts.node === 'object' ? opts.node : {}));
   }
 
+  if (opts.buildEnd) {
+    plugins.push({
+      name: 'vtj-build-end-plugin',
+      buildStart(err: any) {
+        opts.buildEnd && opts.buildEnd(err);
+      }
+    });
+  }
+
   if (opts.plugins) {
     plugins.push(...opts.plugins);
   }

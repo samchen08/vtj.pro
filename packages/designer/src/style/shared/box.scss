@@ -50,4 +50,25 @@
     color: var(--el-text-color-regular);
     line-height: 1.5em;
   }
+  @include e(tag) {
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-size: 12px;
+    padding: 2px 3px;
+    border-radius: 2px;
+    zoom: 0.9;
+    @include when(primary) {
+      background-color: var(--el-color-primary-light-8);
+      color: var(--el-color-primary-dark-2);
+    }
+    @include when(warning) {
+      background-color: var(--el-color-warning-light-9);
+      color: var(--el-color-warning);
+    }
+    @include when(danger) {
+      background-color: var(--el-color-danger-light-9);
+      color: var(--el-color-danger);
+    }
+  }
 }

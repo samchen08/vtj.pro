@@ -12,6 +12,8 @@
           :title="block.title"
           :active="current?.id === block.id"
           editable
+          :tag="fromTypeMap[block.fromType || 'Schema']?.label"
+          :tagType="fromTypeMap[block.fromType || 'Schema']?.type"
           @edit="onEdit(block)"
           @remove="onRemove(block)"
           @click="onClick(block)"
@@ -26,9 +28,16 @@
       :title="title"
       :model="model"
       width="600px"
-      height="250px"
+      height="400px"
       :form-props="{ tooltipMessage: false }"
       :submit-method="submitMethod">
+      <XField
+        name="fromType"
+        label="类型"
+        required
+        editor="radio"
+        :disabled="!!model?.id"
+        :options="fromTypeOptions"></XField>
       <XField
         name="name"
         label="名称"
@@ -40,6 +49,18 @@
         }"
         @change="onNameChange"></XField>
       <XField name="title" label="标题" required></XField>
+      <XField
+        v-if="model?.fromType === 'Plugin'"
+        name="library"
+        label="插件名称"
+        required></XField>
+      <XField
+        name="urls"
+        label="资源文件"
+        v-if="['Plugin', 'UrlSchema'].includes(model?.fromType || '')"
+        required
+        :editor="FileSetter"
+        :props="{ attachment: { accept, multiple } }"></XField>
     </XDialogForm>
   </Panel>
 </template>
@@ -48,31 +69,82 @@
   import { ElRow, ElCol, ElEmpty } from 'element-plus';
   import { XDialogForm, XField } from '@vtj/ui';
   import { upperFirstCamelCase, cloneDeep } from '@vtj/utils';
-  import type { BlockFile, NodeFrom } from '@vtj/core';
+  import { type BlockFile, createNodeFrom } from '@vtj/core';
   import { type Designer } from '../../../framework';
   import { Panel, Box } from '../../shared';
   import { useColSpan, useBlocks, useCurrent } from '../../hooks';
   import { notify } from '../../../utils';
   import { NAME_REGEX } from '../../../constants';
+  import FileSetter from '../../setters/file.vue';
 
   const { span } = useColSpan();
   const { blocks, engine } = useBlocks();
 
+  const fromTypeOptions = [
+    {
+      label: '设计',
+      value: 'Schema',
+      border: true
+    },
+    {
+      label: '引用',
+      value: 'UrlSchema',
+      border: true
+    },
+    {
+      label: '插件',
+      value: 'Plugin',
+      border: true
+    }
+  ];
+
+  const fromTypeMap: Record<string, any> = {
+    Schema: {
+      label: '设计',
+      type: 'primary'
+    },
+    UrlSchema: {
+      label: '引用',
+      type: 'warning'
+    },
+    Plugin: {
+      label: '插件',
+      type: 'danger'
+    }
+  };
+
   const model: Ref<BlockFile | undefined> = ref(undefined);
   const { current } = useCurrent();
   const visible = ref(false);
-  const title = computed(() => (model.value?.id ? '编辑' : '新增'));
+  const title = computed(() => (model.value?.id ? '编辑区块' : '新增区块'));
   const subtitle = computed(() => {
     return `(共 ${blocks.value.length} 个)`;
   });
 
   const createEmtpyModel = () => {
     return {
+      fromType: 'Schema',
       name: '',
       title: '',
+      urls: '',
+      library: '',
       type: 'block'
     } as BlockFile;
   };
+
+  const accept = computed(() => {
+    if (model.value?.fromType === 'UrlSchema') {
+      return '.json';
+    }
+    if (model.value?.fromType === 'Plugin') {
+      return '.js,.css,.json';
+    }
+    return undefined;
+  });
+
+  const multiple = computed(() => {
+    return model.value?.fromType === 'Plugin';
+  });
 
   const submitMethod = async (data: any) => {
     const file = data as BlockFile;
@@ -117,15 +189,14 @@
   };
 
   const onClick = async (file: BlockFile) => {
-    engine.project.value?.active(file);
+    if (!file.fromType || file.fromType === 'Schema') {
+      engine.project.value?.active(file);
+    }
   };
 
   const onDragStart = async (file: BlockFile) => {
-    const from: NodeFrom = {
-      type: 'Schema',
-      id: file.id as string
-    };
-    const desc = await engine.assets.getBlockMaterial(from);
+    const from = createNodeFrom(file);
+    const desc = await engine.assets.getBlockMaterial(from, file.name);
     const designer = engine.skeleton?.getWidget('Designer')?.widgetRef
       ?.designer as Designer;
     if (designer && desc) {

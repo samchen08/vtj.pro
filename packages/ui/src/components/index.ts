@@ -18,4 +18,7 @@ export * from './list';
 export * from './startup';
 export * from './test';
 export * from './input-unit';
+export * from './qrcode';
 export * from './ckeditor';
+export * from './sms-code-input';
+export * from './attachment';

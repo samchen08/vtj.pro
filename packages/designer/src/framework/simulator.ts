@@ -41,6 +41,8 @@ export interface SimulatorEnv {
   apis: Record<string, any>;
   container: HTMLElement;
   globals: Record<string, any>;
+  libraryLocaleMap: Record<string, any>;
+  locales: Record<string, any>;
 }
 
 export interface SimulatorOptions {
@@ -110,7 +112,8 @@ export class Simulator extends Base {
       materials,
       libraryExports,
       materialExports,
-      materialMapLibrary
+      materialMapLibrary,
+      libraryLocaleMap
     } = parseDeps(deps, this.materialPath);
     doc.open();
     doc.write(`
@@ -139,7 +142,9 @@ export class Simulator extends Base {
        <script>
        __simulator__.emitReady(${JSON.stringify(libraryExports)},
         ${JSON.stringify(materialExports)}, 
-    ${JSON.stringify(materialMapLibrary)});
+    ${JSON.stringify(materialMapLibrary)},
+    ${JSON.stringify(libraryLocaleMap)}
+    );
      </script> 
      </html>
     `);
@@ -149,7 +154,8 @@ export class Simulator extends Base {
   async emitReady(
     libraryExports: string[] = [],
     materialExports: string[] = [],
-    materialMapLibrary: Record<string, string> = {}
+    materialMapLibrary: Record<string, string> = {},
+    libraryLocaleMap: Record<string, string> = {}
   ) {
     this.renderer?.dispose();
     this.renderer = null;
@@ -164,8 +170,13 @@ export class Simulator extends Base {
       materials.push(material);
     }
     assets.load(materials);
-    const env = this.createEnv(libraryExports, materialMapLibrary, materials);
-    this.renderer = new Renderer(env, service, this.designer.value);
+    const env = this.createEnv(
+      libraryExports,
+      materialMapLibrary,
+      materials,
+      libraryLocaleMap
+    );
+    this.renderer = new Renderer(env, service, provider, this.designer.value);
     if (current.value) {
       this.renderer.render(current.value);
     }
@@ -175,7 +186,8 @@ export class Simulator extends Base {
   createEnv(
     libraryExports: string[] = [],
     materialMapLibrary: Record<string, string> = {},
-    materials: Material[] = []
+    materials: Material[] = [],
+    libraryLocaleMap: Record<string, string> = {}
   ): SimulatorEnv {
     const cw = this.contentWindow as any;
     const { engine } = this;
@@ -184,6 +196,11 @@ export class Simulator extends Base {
       prev[cur] = cw[cur];
       return prev;
     }, {} as any);
+
+    const locales: Record<string, any> = {};
+    Object.entries(libraryLocaleMap).forEach(([k, v]) => {
+      locales[k] = cw[v];
+    });
 
     const components: Record<string, any> = {};
 
@@ -232,7 +249,9 @@ export class Simulator extends Base {
       components,
       container: cw.document.body,
       apis,
-      globals
+      globals,
+      libraryLocaleMap,
+      locales
     };
   }
 

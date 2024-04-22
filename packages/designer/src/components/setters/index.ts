@@ -13,6 +13,7 @@ import SizeSetter from './size.vue';
 import ImageSetter from './image.vue';
 import SectionSetter from './section.vue';
 import SliderSetter from './slider.vue';
+import FileSetter from './file.vue';
 
 export const setters = {
   StringSetter,
@@ -29,5 +30,6 @@ export const setters = {
   SizeSetter,
   ImageSetter,
   SectionSetter,
-  SliderSetter
+  SliderSetter,
+  FileSetter
 };
