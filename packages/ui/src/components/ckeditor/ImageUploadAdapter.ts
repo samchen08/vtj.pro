@@ -19,7 +19,7 @@ export class ImageUploadAdapter {
         loader.uploadTotal = file.size;
         loader.uploaded = file.size;
         return {
-          default: data
+          default: typeof data === 'string' ? data : data.url
         };
       }
     }

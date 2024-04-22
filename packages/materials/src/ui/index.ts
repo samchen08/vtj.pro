@@ -9,7 +9,8 @@ import test from './test';
 import icon from './icon';
 import container from './container';
 import action from './action';
-import ckeditor from './ckeditor'
+import ckeditor from './ckeditor';
+import qrcode from './qrcode';
 
 const name = '@vtj/ui';
 const components: MaterialDescription[] = [
@@ -17,7 +18,8 @@ const components: MaterialDescription[] = [
   icon,
   container,
   action,
-  ckeditor
+  ckeditor,
+  qrcode
 ].flat();
 
 const categories: MaterialCategory[] = [

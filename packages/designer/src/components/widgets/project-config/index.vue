@@ -8,7 +8,11 @@
       :model="project.config"
       @change="onChange">
       <XField label="站点名称" name="title"></XField>
-      <XField label="Logo" name="logo" :editor="ImageSetter"></XField>
+      <XField
+        label="Logo"
+        name="logo"
+        :editor="FileSetter"
+        :props="{ attachment: { accept: '.png,.jpg,.jpeg' } }"></XField>
       <XField label="主题切换" name="themeSwitchable" editor="switch"></XField>
       <XField label="模拟数据" name="mock" editor="switch"></XField>
     </XForm>
@@ -18,7 +22,7 @@
   import { XForm, XField } from '@vtj/ui';
   import { type ProjectConfig } from '@vtj/core';
   import { Panel } from '../../shared';
-  import ImageSetter from '../../setters/image.vue';
+  import FileSetter from '../../setters/file.vue';
   import { useProject } from '../../hooks';
 
   defineOptions({

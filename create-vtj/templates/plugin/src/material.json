@@ -1,0 +1,8 @@
+{
+  "name": "VtjBlockPlugin",
+  "label": "区块测试插件",
+  "props": [],
+  "events": [],
+  "slots": [],
+  "snippet": {}
+}

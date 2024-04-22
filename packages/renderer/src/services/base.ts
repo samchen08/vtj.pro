@@ -6,10 +6,13 @@ import {
   type MaterialDescription,
   type HistorySchema,
   type HistoryItem,
-  type Service
+  type Service,
+  type StaticFileInfo,
+  type NodeFromPlugin
 } from '@vtj/core';
 import { Request } from '@vtj/utils';
 import { ElNotification } from 'element-plus';
+import { isJSON } from '../utils';
 
 const request = new Request({
   settings: {
@@ -29,7 +32,7 @@ const request = new Request({
 });
 
 const createApi = (url: string = '/vtj/local/repository/${type}.json') => {
-  return (type: string, data: any) => {
+  return (type: string, data?: any) => {
     return request.send({
       url,
       method: 'post',
@@ -42,10 +45,42 @@ const createApi = (url: string = '/vtj/local/repository/${type}.json') => {
   };
 };
 
+const createUploader = (
+  url: string = '/vtj/local/repository/uploader.json'
+) => {
+  return async (file: File, projectId: string) => {
+    return await request
+      .send({
+        url,
+        method: 'post',
+        data: {
+          files: file,
+          projectId
+        },
+        settings: {
+          type: 'data'
+        }
+      })
+      .then((res) => {
+        if (res && res[0]) {
+          return res[0];
+        }
+        return null;
+      })
+      .catch(() => null);
+  };
+};
+
 export class BaseService implements Service {
   protected api: (type: string, data: any) => Promise<any>;
+  private pluginCaches: Record<string, any> = {};
+  protected uploader: (
+    file: File,
+    projectId: string
+  ) => Promise<StaticFileInfo>;
   constructor() {
     this.api = createApi();
+    this.uploader = createUploader();
   }
 
   async init(project: ProjectSchema): Promise<ProjectSchema> {
@@ -136,5 +171,45 @@ export class BaseService implements Service {
 
   async removeRawPage(id: string): Promise<boolean> {
     return await this.api('removeRawPage', id).catch(() => '');
+  }
+
+  async uploadStaticFile(
+    file: File,
+    projectId: string
+  ): Promise<StaticFileInfo | null> {
+    return await this.uploader(file, projectId).catch(() => null);
+  }
+  async getStaticFiles(projectId: string): Promise<StaticFileInfo[]> {
+    const res = await this.api('getStaticFiles', projectId).catch(() => []);
+    return res as StaticFileInfo[];
+  }
+  async removeStaticFile(name: string, projectId: string): Promise<boolean> {
+    return await this.api('removeStaticFile', { name, projectId }).catch(
+      () => ''
+    );
+  }
+  async clearStaticFiles(projectId: string): Promise<boolean> {
+    return await this.api('clearStaticFiles', projectId).catch(() => '');
+  }
+
+  async getPluginMaterial(
+    from: NodeFromPlugin
+  ): Promise<MaterialDescription | null> {
+    const { urls = [] } = from;
+    const url = urls.filter((n) => isJSON(n))[0];
+    if (!url) return null;
+    const cache = this.pluginCaches[url];
+    if (cache) return cache;
+    return (this.pluginCaches[url] = request
+      .send({
+        url,
+        method: 'get',
+        settings: {
+          validSuccess: false,
+          originResponse: true
+        }
+      })
+      .then((res) => res.data as MaterialDescription)
+      .catch(() => null));
   }
 }

@@ -122,5 +122,21 @@ export const builtInSetters: Array<Setter> = [
     props: {
       range: true
     }
+  },
+  {
+    name: 'FileSetter',
+    component: setters.FileSetter,
+    type: 'String',
+    props: {
+      multiple: false
+    }
+  },
+  {
+    name: 'FilesSetter',
+    component: setters.FileSetter,
+    type: 'String',
+    props: {
+      multiple: true
+    }
   }
 ];

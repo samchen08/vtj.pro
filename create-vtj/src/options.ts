@@ -17,6 +17,11 @@ export const templates: ITemplate[] = [
     color: green
   },
   {
+    name: 'plugin',
+    display: '低代码区块插件( plugin )',
+    color: green
+  },
+  {
     name: 'uniapp',
     display: '移动端应用( uniapp )',
     color: cyan

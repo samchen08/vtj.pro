@@ -30,6 +30,11 @@ export interface Dependencie {
   library: string;
 
   /**
+   * 语言包库导出名称
+   */
+  localeLibrary?: string;
+
+  /**
    * 加载资源url
    */
   urls: string[];

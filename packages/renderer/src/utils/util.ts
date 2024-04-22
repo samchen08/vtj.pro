@@ -41,6 +41,48 @@ export async function loadCss(id: string, url: string) {
   }
 }
 
+export function loadCssUrl(urls: string[], global: any = window) {
+  const doc = global.document;
+  const head = global.document.head;
+  for (const url of urls) {
+    const el = doc.getElementById(url);
+    if (!el) {
+      const link = doc.createElement('link');
+      link.rel = 'stylesheet';
+      link.id = url;
+      link.href = url;
+      head.appendChild(link);
+    }
+  }
+}
+
+export async function loadScriptUrl(
+  urls: string[],
+  library: string,
+  global: any = window
+) {
+  const doc = global.document;
+  const head = global.document.head;
+  let module = global[library];
+  if (module) return module.default || module;
+  return new Promise((reslove, inject) => {
+    for (const url of urls) {
+      const el = doc.createElement('script');
+      el.src = url;
+      el.onload = () => {
+        module = global[library];
+        if (module) {
+          reslove(module.default || module);
+        }
+      };
+      el.onerror = (e: any) => {
+        inject(e);
+      };
+      head.appendChild(el);
+    }
+  });
+}
+
 export function isVuePlugin(value: unknown): value is Plugin {
   return isFunction(value) || isFunction((value as any)?.install);
 }

@@ -7,6 +7,7 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
+vite.config.ts.timestamp-*
 
 node_modules/
 dist
@@ -50,3 +51,6 @@ lib
 
 # pro
 /platforms/pro/public/@vtj
+
+/scripts/ssh.mjs
+

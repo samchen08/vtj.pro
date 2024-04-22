@@ -1,0 +1,32 @@
+@use 'core' as *;
+
+@include b(qrcode) {
+  display: inline-block;
+  position: relative;
+
+  @include e(mask) {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--el-mask-color);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: var(--el-color-success-dark-2);
+  }
+
+  @include e(logo) {
+    cursor: pointer;
+    > p {
+      font-size: 24px;
+    }
+  }
+
+  @include e(tip) {
+    color: var(--el-color-black);
+    width: 90px;
+  }
+}

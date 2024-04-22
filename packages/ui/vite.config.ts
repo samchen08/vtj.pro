@@ -19,7 +19,10 @@ export default createViteConfig({
         'echarts',
         '@ckeditor/ckeditor5-build-classic',
         '@ckeditor/ckeditor5-vue',
-        '@ckeditor/ckeditor5-build-classic/build/translations/zh-cn.js'
+        '@ckeditor/ckeditor5-build-classic/build/translations/zh-cn.js',
+        '@vue-office/docx',
+        '@vue-office/excel',
+        '@vue-office/pdf'
       ]
     : [
         'vue',
@@ -32,7 +35,10 @@ export default createViteConfig({
         'echarts',
         '@ckeditor/ckeditor5-build-classic',
         '@ckeditor/ckeditor5-vue',
-        '@ckeditor/ckeditor5-build-classic/build/translations/zh-cn.js'
+        '@ckeditor/ckeditor5-build-classic/build/translations/zh-cn.js',
+        '@vue-office/docx',
+        '@vue-office/excel',
+        '@vue-office/pdf'
       ],
   externalGlobals: isUmd
     ? {
@@ -46,7 +52,10 @@ export default createViteConfig({
         '@ckeditor/ckeditor5-build-classic': 'ClassicEditor',
         '@ckeditor/ckeditor5-vue': 'CKEditor',
         '@ckeditor/ckeditor5-build-classic/build/translations/zh-cn.js':
-          'CKEDITOR_TRANSLATIONS'
+          'CKEDITOR_TRANSLATIONS',
+        '@vue-office/docx': 'vue-office-docx',
+        '@vue-office/excel': 'vue-office-excel',
+        '@vue-office/pdf': 'vue-office-pdf'
       }
     : undefined,
   formats: isUmd ? ['umd'] : ['es']

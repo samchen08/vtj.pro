@@ -1,4 +1,4 @@
-import { shallowRef, computed, watchEffect, ref } from 'vue';
+import { shallowRef, computed, watchEffect, ref, type Ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { arrayToMap, isUrl } from '@vtj/utils';
 import type { MaskProps, MaskEmitsFn } from '../types';
@@ -32,7 +32,7 @@ export function useMenus(props: MaskProps, emit: MaskEmitsFn) {
   // 菜单id映射
   const menusMap = computed(() => arrayToMap(flatMenus.value, 'id'));
   // 当前激活的菜单项
-  const active = ref<MenuDataItem | null>(null);
+  const active: Ref<MenuDataItem | null> = ref(null);
 
   // 选中菜单
   const select = (id: string | number | MenuDataItem): void => {
