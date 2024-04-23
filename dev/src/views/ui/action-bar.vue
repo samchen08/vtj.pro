@@ -32,7 +32,11 @@
     {
       label: '按钮一',
       icon: VtjIconPlus,
-      tooltip: '提示信息内容'
+      tooltip: '提示信息内容',
+      draggable: true,
+      onDragstart: (d: any, e: any) => {
+        console.log(d, e);
+      }
     },
     {
       label: '按钮二',

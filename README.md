@@ -84,17 +84,17 @@ npm run setup && npm run build && npm run app:dev
 - `dev` 开发工程
 - `lcdp` 在线演示项目
 
-### Todo
+### 路线图
 
-- `@vtj/designer` 低代码设计器
-  - ~~样式设置器 `StyleSetter`~~
-  - 数据设置器 `DataSetter`
-  - 接口模拟数据 Mock
-  - 项目配置模块
-- `@vtj/ui` 组件库
-  - 富文本编辑器
-  - 文件上传
-  - 表格
+- ~~v0.8 远程区块、资源管理~~
+- v0.9 物料市场、配套后端服务。支持按模板创建页面、上传模板、安装区块
+- v1.0 完善UI、模板、区块、文档、发布社区正式版本
+- v1.1 用户体系
+- v1.2 团队协作
+- v1.3 vscode插件
+- v1.4 支持uni-app
+- v1.5 支持Electron
+- v1.6 AI助手
 
 ### 用户招募
 

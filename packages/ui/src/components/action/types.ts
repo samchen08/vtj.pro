@@ -120,6 +120,9 @@ export const actionProps = {
    */
   circle: {
     type: Boolean
+  },
+  draggable: {
+    type: Boolean
   }
 };
 
@@ -128,4 +131,6 @@ export type ActionProps = ComponentPropsType<typeof actionProps>;
 export type ActionEmits = {
   click: [props: ActionProps];
   command: [item: ActionMenuItem];
+  dragstart: [props: ActionProps, e: any];
+  dragend: [props: ActionProps, e: any];
 };
