@@ -328,6 +328,7 @@ export class Engine extends Base {
     if (item && item.dsl) {
       const block = new BlockModel(item.dsl);
       await this.updateCurrent(block);
+      this.service.saveFile(item.dsl);
       triggerRef(this.history);
     }
   }
