@@ -2,7 +2,7 @@ import fs from 'node:fs';
 import prompts from 'prompts';
 import { isValidPackageName, formatTargetDir, isEmpty } from './utils';
 
-import { cyan, green, magenta, red, reset } from 'kolorist';
+import { cyan, green, magenta, red, reset, lightRed } from 'kolorist';
 
 export interface ITemplate {
   name: string;
@@ -19,7 +19,7 @@ export const templates: ITemplate[] = [
   {
     name: 'plugin',
     display: '低代码区块插件( plugin )',
-    color: green
+    color: lightRed
   },
   {
     name: 'uniapp',

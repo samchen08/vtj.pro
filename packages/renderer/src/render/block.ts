@@ -62,7 +62,7 @@ export function createRenderer(options: CreateRendererOptions) {
     },
     setup(props: any) {
       context.$props = props;
-
+      context.props = props;
       if (dsl.value.id) {
         adoptedStyleSheets(
           options.window || window,

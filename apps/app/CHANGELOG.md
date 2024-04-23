@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.2](https://gitee.com/newgateway/vtj/compare/vtj-project-app@0.8.1...vtj-project-app@0.8.2) (2024-04-22)
+
+
+### Bug Fixes
+
+* 🐛 编译后不应该调service.init; 出码$props 改为 props ([b3ab003](https://gitee.com/newgateway/vtj/commits/b3ab003c59df81225da8b0a43593f2b28f7bf53b))
+
+
+
+
+
+## [0.8.1](https://gitee.com/newgateway/vtj/compare/vtj-project-app@0.8.0...vtj-project-app@0.8.1) (2024-04-22)
+
+**Note:** Version bump only for package vtj-project-app
+
+
+
+
+
+
 # [0.8.0](https://gitee.com/newgateway/vtj/compare/vtj-project-app@0.7.34...vtj-project-app@0.8.0) (2024-04-22)
 
 **Note:** Version bump only for package vtj-project-app

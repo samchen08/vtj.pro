@@ -23,17 +23,3 @@ export function parseBlockPlugins(
   });
   return result;
 }
-
-// export function parseRendererImports(
-//   urlSchemas: Record<string, NodeFromUrlSchema> = {},
-//   plugins: Record<string, NodeFromPlugin> = {}
-// ) {
-//   const result: string[] = [];
-//   if (Object.keys(urlSchemas).length) {
-//     result.push('defineUrlSchemaComponent');
-//   }
-//   if (Object.keys(plugins).length) {
-//     result.push('definePluginComponent');
-//   }
-//   return result;
-// }

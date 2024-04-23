@@ -11,6 +11,7 @@ import container from './container';
 import action from './action';
 import ckeditor from './ckeditor';
 import qrcode from './qrcode';
+import panel from './panel';
 
 const name = '@vtj/ui';
 const components: MaterialDescription[] = [
@@ -19,7 +20,8 @@ const components: MaterialDescription[] = [
   container,
   action,
   ckeditor,
-  qrcode
+  qrcode,
+  panel
 ].flat();
 
 const categories: MaterialCategory[] = [

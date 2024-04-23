@@ -11,7 +11,7 @@ export const PAD_SIZE = {
 /**
  * 名称正则表达式
  */
-export const NAME_REGEX = /^[A-Za-z_$][\w_-]*$/;
+export const NAME_REGEX = /^[A-Za-z_$][\:\w_-]*$/;
 
 /**
  * 鼠标事件列表

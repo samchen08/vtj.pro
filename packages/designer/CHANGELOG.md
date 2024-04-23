@@ -3,6 +3,31 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.2](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.8.1...@vtj/designer@0.8.2) (2024-04-22)
+
+
+### Bug Fixes
+
+* 🐛 编译后不应该调service.init; 出码$props 改为 props ([b3ab003](https://gitee.com/newgateway/vtj/commits/b3ab003c59df81225da8b0a43593f2b28f7bf53b))
+* 🐛 出码作用域插槽没传递出来 ([bfdcf63](https://gitee.com/newgateway/vtj/commits/bfdcf630d5a67d4e7d6e60cb23537da9a89ae224))
+* 🐛 定义事件的事件名称不支持 update:modelValue 格式，无法增加双向绑定 ([3cba3c7](https://gitee.com/newgateway/vtj/commits/3cba3c76687f2e3a0842ae6957f69266c0fd92fe))
+
+
+
+
+
+## [0.8.1](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.8.0...@vtj/designer@0.8.1) (2024-04-22)
+
+
+### Bug Fixes
+
+* 🐛 cli template ([911c3a0](https://gitee.com/newgateway/vtj/commits/911c3a0e2bb60548affe5dcf5a496577809d63b8))
+
+
+
+
+
+
 # [0.8.0](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.7.34...@vtj/designer@0.8.0) (2024-04-22)
 
 

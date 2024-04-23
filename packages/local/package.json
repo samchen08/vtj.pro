@@ -1,7 +1,7 @@
 {
   "name": "@vtj/local",
   "private": false,
-  "version": "0.8.0",
+  "version": "0.8.2",
   "type": "module",
   "scripts": {
     "build": "unbuild",
@@ -10,14 +10,14 @@
     "coverage": "vitest run --coverage"
   },
   "dependencies": {
-    "@vtj/coder": "^0.8.0",
-    "@vtj/core": "^0.8.0",
-    "@vtj/node": "^0.8.0",
+    "@vtj/coder": "^0.8.2",
+    "@vtj/core": "^0.8.2",
+    "@vtj/node": "^0.8.1",
     "formidable": "~3.5.1"
   },
   "devDependencies": {
     "@types/formidable": "~3.4.5",
-    "@vtj/cli": "^0.8.0",
+    "@vtj/cli": "^0.8.1",
     "unbuild": "~2.0.0",
     "vite": "~5.2.6",
     "vitest": "~1.5.0"
@@ -36,7 +36,7 @@
   "files": [
     "dist"
   ],
-  "gitHead": "0b470d76f584714cd96bf684bf66c720c2661df1",
+  "gitHead": "d03843144f07c2d98c1e0c72c8c6eb1117c01722",
   "publishConfig": {
     "access": "public"
   }
