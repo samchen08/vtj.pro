@@ -1,5 +1,10 @@
 <template>
-  <div class="x-action" :class="classes">
+  <div
+    class="x-action"
+    :class="classes"
+    :draggable="draggable"
+    @dragstart="onDragStart"
+    @dragend="onDragEnd">
     <component :is="action"></component>
   </div>
 </template>
@@ -38,6 +43,7 @@
   const badge = useBadge(props);
   const dropdown = useDropdown(props);
   const disabled = useDisabled(toRef(props, 'disabled'));
+  const draggable = computed(() => !!props.draggable && !disabled.value);
 
   const classes = computed(() => {
     return {
@@ -58,6 +64,16 @@
     }
   };
 
+  const onDragStart = (e: any) => {
+    if (!draggable) return;
+    emit('dragstart', toRaw(props), e);
+  };
+
+  const onDragEnd = (e: any) => {
+    if (!draggable) return;
+    emit('dragend', toRaw(props), e);
+  };
+
   const wrapBadge = (node: VNode | VNode[]) => {
     return h(ElBadge, badge.value, () => ([] as VNode[]).concat(node));
   };
@@ -75,7 +91,7 @@
           h(ElDropdownMenu, () =>
             (props.menus || []).map((item, index) => {
               return h(ElDropdownItem, item, () =>
-                slots.item ? slots.item({ item, index}) : item.label
+                slots.item ? slots.item({ item, index }) : item.label
               );
             })
           )

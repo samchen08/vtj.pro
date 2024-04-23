@@ -106,12 +106,22 @@
     <XAction tooltip="提示">
       <h1>Custom</h1>
     </XAction>
+
+    <XAction
+      mode="icon"
+      :icon="Rank"
+      draggable
+      @dragstart="onDragStart"></XAction>
+
+    <div
+      style="height: 400px; background-color: #ccc"
+      @dragover="onDragOver"></div>
   </div>
 </template>
 <script lang="ts" setup>
   import { ref } from 'vue';
   import { XAction } from '@vtj/web';
-  import { VtjIconBug, VtjIconApi, VtjIconPlus } from '@vtj/web';
+  import { VtjIconBug, VtjIconApi, VtjIconPlus, Rank } from '@vtj/web';
 
   const menus = [
     {
@@ -145,4 +155,13 @@
   };
 
   const disabled = () => true;
+
+  const onDragStart = (e: any) => {
+    console.log('onDragStart', e);
+  };
+
+  const onDragOver = (e: any) => {
+    console.log('onDragOver', e);
+    e.preventDefault();
+  };
 </script>

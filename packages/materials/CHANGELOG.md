@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.3](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.8.2...@vtj/materials@0.8.3) (2024-04-23)
+
+
+### Bug Fixes
+
+* 🐛 大纲树中拖拽子节点放置到根节点，dsl没有更新 ([c6a020b](https://gitee.com/newgateway/vtj/commits/c6a020b8b5f5fdec9b5e58a87fb750589f2d5668))
+
+
+
+
+
+
 ## [0.8.2](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.8.1...@vtj/materials@0.8.2) (2024-04-22)
 
 

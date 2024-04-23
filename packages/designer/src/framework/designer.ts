@@ -62,6 +62,7 @@ export class Designer {
   public dropping: ShallowRef<DesignHelper | null> = shallowRef(null);
   public selected: Ref<DesignHelper | null> = ref(null);
   public dragging: MaterialDescription | null = null;
+  public draggingNode: NodeModel | null = null;
   constructor(
     public engine: Engine,
     public contentWindow: Window,
@@ -161,7 +162,6 @@ export class Designer {
     const componentMap = assets.componentMap;
     const targetDesc =
       (await assets.getBlockMaterial(to.from)) || componentMap.get(to.name);
-    console.log('targetDesc', targetDesc);
     if (!targetDesc?.slots) return undefined;
     const slots: MaterialSlot[] = (targetDesc?.slots || ['default']).map(
       (n) => {
@@ -202,17 +202,27 @@ export class Designer {
 
   private async onDrop(e: DragEvent) {
     e.preventDefault();
-    const { engine, dragging, dropping } = this;
+    const { engine, dragging, dropping, draggingNode } = this;
     const current = engine.current.value;
     const helper = this.getHelper(e);
     if (!current || !dragging || !dropping.value || !helper) return;
     const to = helper.model;
     const type = dropping.value.type;
     if (!(await this.allowDrop(to, type))) return;
-    const dsl = this.createNodeDsl(dragging);
-    const node = new NodeModel(dsl);
+    let node;
+    if (draggingNode) {
+      node = draggingNode;
+    } else {
+      const dsl = this.createNodeDsl(dragging);
+      node = new NodeModel(dsl);
+    }
     if (isBlock(to)) {
-      current.addNode(node, undefined, type);
+      if (draggingNode) {
+        delete node.slot;
+        current.move(node, undefined, 'inner');
+      } else {
+        current.addNode(node, undefined, type);
+      }
     } else {
       const slot = await this.getDropSlot(type === 'inner' ? to : to.parent);
       // null 是用户没选任何插槽
@@ -221,9 +231,14 @@ export class Designer {
         return;
       }
       node.slot = slot;
-      current.addNode(node, to, type);
+      if (draggingNode) {
+        current.move(node, to, type);
+      } else {
+        current.addNode(node, to, type);
+      }
     }
     this.dropping.value = null;
+    engine.simulator.refresh();
     engine.assets.clearCaches();
   }
 
@@ -382,6 +397,10 @@ export class Designer {
 
   setDragging(desc: MaterialDescription | null) {
     this.dragging = desc;
+  }
+
+  setDraggingNode(node: NodeModel | null) {
+    this.draggingNode = node;
   }
 
   async setHover(model: NodeModel | BlockModel | null) {

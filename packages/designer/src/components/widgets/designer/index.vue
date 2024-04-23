@@ -20,7 +20,9 @@
           :position="selected.position"
           :model="selected.model"
           :path="selected.path"
-          @action="onAction"></Actions>
+          @action="onAction"
+          @dragstart="onDragStart"
+          @dragend="onDragEnd"></Actions>
       </div>
     </Viewport>
     <ElEmpty v-if="!current" description="请新建或打开文件"></ElEmpty>
@@ -88,6 +90,21 @@
         designer.value?.setSelected(model);
         break;
     }
+  };
+
+  const onDragStart = (model: any) => {
+    if (model) {
+      const desc = engine.assets.componentMap.get(model.name);
+      if (desc) {
+        designer.value?.setDragging(desc);
+      }
+      designer.value?.setDraggingNode(model);
+    }
+  };
+
+  const onDragEnd = () => {
+    designer.value?.setDraggingNode(null);
+    designer.value?.setDragging(null);
   };
 
   defineExpose({

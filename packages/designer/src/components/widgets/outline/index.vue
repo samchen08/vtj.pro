@@ -240,6 +240,9 @@
     const item: TreeNodeData = dragging.data;
     const target: TreeRootData | TreeNodeData = drop.data;
     if (isBlock(target.model)) {
+      const node = item.model as NodeModel;
+      delete node.slot;
+      current.value?.move(node, undefined, 'inner');
       designer.value?.setDropping(null);
       designer.value?.setDragging(null);
       return;
@@ -251,6 +254,7 @@
       targetNode,
       dropType as DropPosition
     );
+
     if (!ret) {
       designer.value?.setDropping(null);
       refreshTree();

@@ -25,7 +25,8 @@
     VtjIconArrowUp,
     VtjIconArrowDown,
     VtjIconCopy,
-    VtjIconRemove
+    VtjIconRemove,
+    Rank
   } from '@vtj/icons';
   import { NodeModel, BlockModel, isBlock } from '@vtj/core';
   import { confirm } from '../../../utils';
@@ -40,7 +41,7 @@
     path: () => []
   });
 
-  const emits = defineEmits(['action']);
+  const emits = defineEmits(['action', 'dragstart', 'dragend']);
 
   const title = computed(() => props.model.name);
 
@@ -61,6 +62,18 @@
   });
 
   const items = [
+    {
+      name: 'move',
+      icon: Rank,
+      title: '移动',
+      draggable: true,
+      onDragstart: () => {
+        emits('dragstart', props.model);
+      },
+      onDragend: () => {
+        emits('dragend', props.model);
+      }
+    },
     {
       name: 'prev',
       icon: VtjIconArrowUp,
