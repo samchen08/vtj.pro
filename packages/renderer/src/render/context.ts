@@ -28,6 +28,7 @@ export class Context {
   __refs: Record<string, any> = {};
   context: Record<string, any> = {};
   state: Record<string, any> = {};
+  props: Record<string, any> = {};
   $props: Record<string, any> = {};
   $refs: Record<string, any> = {};
   $el: any = null;

@@ -1,13 +1,13 @@
 {
   "name": "create-vtj",
   "private": false,
-  "version": "0.8.0",
+  "version": "0.8.2",
   "type": "module",
   "scripts": {
     "build": "unbuild"
   },
   "dependencies": {
-    "@vtj/node": "^0.8.0",
+    "@vtj/node": "^0.8.1",
     "cross-spawn": "~7.0.3",
     "kolorist": "~1.8.0",
     "minimist": "~1.2.8",
@@ -29,7 +29,7 @@
     ".gitignore",
     "**/.gitignore"
   ],
-  "gitHead": "0b470d76f584714cd96bf684bf66c720c2661df1",
+  "gitHead": "d03843144f07c2d98c1e0c72c8c6eb1117c01722",
   "publishConfig": {
     "access": "public"
   }

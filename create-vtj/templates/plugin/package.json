@@ -1,7 +1,7 @@
 {
   "name": "vtj-block-plugin",
   "private": false,
-  "version": "0.1.0",
+  "version": "0.8.0",
   "type": "module",
   "scripts": {
     "setup": "pnpm install --unsafe-perm --registry=https://registry.npmmirror.com",
@@ -14,13 +14,15 @@
   "dependencies": {
     "@vtj/icons": "latest",
     "@vtj/utils": "latest",
-    "@vtj/ui": "latest*"
+    "@vtj/ui": "latest"
   },
   "devDependencies": {
     "@vtj/core": "latest",
     "@vtj/cli": "latest",
     "@vtj/pro": "latest",
-    "@vtj/web": "latest"
+    "@vtj/web": "latest",
+    "vue": "^3.4.15",
+    "vue-router": "~4.3.0"
   },
   "exports": {
     ".": {

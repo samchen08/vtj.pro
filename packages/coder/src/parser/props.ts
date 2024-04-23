@@ -1,6 +1,6 @@
 import { type BlockProp, type BlockPropDataType } from '@vtj/core';
 import { toArray } from '@vtj/base';
-import { parseValue } from '../utils';
+import { parseValue, isJSCode } from '../utils';
 
 export function parseProps(props: Array<string | BlockProp> = []) {
   const toTypes = (type?: BlockPropDataType | BlockPropDataType[]) => {
@@ -16,9 +16,12 @@ export function parseProps(props: Array<string | BlockProp> = []) {
     if (typeof prop === 'string') {
       return `${prop}: {}`;
     } else {
+      if (isJSCode(prop.default) && !prop.default.value) {
+        prop.default.value = 'undefined';
+      }
       return `${prop.name}: {
           type:${toTypes(prop.type)},
-          required: ${prop.required},
+          required: ${parseValue(!!prop.required, true, false)},
           default: ${parseValue(prop.default, true, false)}
           }`;
     }

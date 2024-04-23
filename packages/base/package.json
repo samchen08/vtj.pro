@@ -1,7 +1,7 @@
 {
   "name": "@vtj/base",
   "private": false,
-  "version": "0.8.0",
+  "version": "0.8.1",
   "type": "module",
   "scripts": {
     "build": "unbuild && npm run dts",
@@ -45,5 +45,5 @@
   "publishConfig": {
     "access": "public"
   },
-  "gitHead": "0b470d76f584714cd96bf684bf66c720c2661df1"
+  "gitHead": "d03843144f07c2d98c1e0c72c8c6eb1117c01722"
 }
