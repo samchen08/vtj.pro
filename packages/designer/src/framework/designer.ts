@@ -161,6 +161,7 @@ export class Designer {
     const componentMap = assets.componentMap;
     const targetDesc =
       (await assets.getBlockMaterial(to.from)) || componentMap.get(to.name);
+    console.log('targetDesc', targetDesc);
     if (!targetDesc?.slots) return undefined;
     const slots: MaterialSlot[] = (targetDesc?.slots || ['default']).map(
       (n) => {
@@ -188,13 +189,13 @@ export class Designer {
     /**
      * 当只有一个插槽，名称是default，并且没有任何参数，可以省略不指定插槽名
      */
-    if (
-      slot &&
-      slot.name === 'default' &&
-      (!slot.params || slot.params?.length === 0)
-    ) {
-      return undefined;
-    }
+    // if (
+    //   slot &&
+    //   slot.name === 'default' &&
+    //   (!slot.params || slot.params?.length === 0)
+    // ) {
+    //   return undefined;
+    // }
 
     return slot;
   }

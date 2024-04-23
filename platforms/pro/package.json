@@ -2,7 +2,7 @@
   "name": "@vtj/pro",
   "description": "VTJ.PRO",
   "private": false,
-  "version": "0.8.0",
+  "version": "0.8.2",
   "type": "module",
   "scripts": {
     "dev": "cross-env ENV_TYPE=local vite",
@@ -10,17 +10,17 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@vtj/core": "^0.8.0",
-    "@vtj/designer": "^0.8.0",
-    "@vtj/local": "^0.8.0",
-    "@vtj/materials": "^0.8.0",
-    "@vtj/renderer": "^0.8.0"
+    "@vtj/core": "^0.8.2",
+    "@vtj/designer": "^0.8.2",
+    "@vtj/local": "^0.8.2",
+    "@vtj/materials": "^0.8.2",
+    "@vtj/renderer": "^0.8.2"
   },
   "devDependencies": {
-    "@vtj/cli": "^0.8.0",
-    "@vtj/icons": "^0.8.0",
-    "@vtj/ui": "^0.8.0",
-    "@vtj/utils": "^0.8.0",
+    "@vtj/cli": "^0.8.1",
+    "@vtj/icons": "^0.8.2",
+    "@vtj/ui": "^0.8.2",
+    "@vtj/utils": "^0.8.2",
     "vue": "~3.4.15",
     "vue-router": "~4.3.0"
   },
@@ -43,7 +43,7 @@
     "dist",
     "src"
   ],
-  "gitHead": "0b470d76f584714cd96bf684bf66c720c2661df1",
+  "gitHead": "d03843144f07c2d98c1e0c72c8c6eb1117c01722",
   "publishConfig": {
     "access": "public"
   }

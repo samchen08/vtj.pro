@@ -38,7 +38,10 @@ export async function generator(
     script: await tsFormatter(script, formatterDisabled),
     style: await cssFormatter(token.style, formatterDisabled)
   });
-  return await vueFormatter(vue, formatterDisabled);
+  return await vueFormatter(vue, formatterDisabled).catch((e) => {
+    e.content = vue;
+    return e;
+  });
 }
 
 export async function createEmptyPage(file: PageFile) {

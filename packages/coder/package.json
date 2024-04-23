@@ -1,7 +1,7 @@
 {
   "name": "@vtj/coder",
   "private": false,
-  "version": "0.8.0",
+  "version": "0.8.2",
   "type": "module",
   "scripts": {
     "build": "vue-tsc && vite build",
@@ -10,12 +10,12 @@
     "coverage": "vitest run --coverage"
   },
   "dependencies": {
-    "@vtj/base": "^0.8.0",
-    "@vtj/core": "^0.8.0",
+    "@vtj/base": "^0.8.1",
+    "@vtj/core": "^0.8.2",
     "prettier": "~3.2.1"
   },
   "devDependencies": {
-    "@vtj/cli": "^0.8.0"
+    "@vtj/cli": "^0.8.1"
   },
   "exports": {
     ".": {
@@ -31,7 +31,7 @@
     "dist",
     "types"
   ],
-  "gitHead": "0b470d76f584714cd96bf684bf66c720c2661df1",
+  "gitHead": "d03843144f07c2d98c1e0c72c8c6eb1117c01722",
   "publishConfig": {
     "access": "public"
   }

@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.2](https://gitee.com/newgateway/vtj/compare/@vtj/docs@0.8.1...@vtj/docs@0.8.2) (2024-04-22)
+
+**Note:** Version bump only for package @vtj/docs
+
+
+
+
+
+## [0.8.1](https://gitee.com/newgateway/vtj/compare/@vtj/docs@0.8.0...@vtj/docs@0.8.1) (2024-04-22)
+
+
+### Bug Fixes
+
+* 🐛 cli templates deps ([e509c3f](https://gitee.com/newgateway/vtj/commits/e509c3fee7d360654944dab79b482dee133da638))
+
+
+
+
+
+
 # [0.8.0](https://gitee.com/newgateway/vtj/compare/@vtj/docs@0.7.34...@vtj/docs@0.8.0) (2024-04-22)
 
 
