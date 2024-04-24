@@ -9,7 +9,6 @@ import test from './test';
 import icon from './icon';
 import container from './container';
 import action from './action';
-import ckeditor from './ckeditor';
 import qrcode from './qrcode';
 import panel from './panel';
 
@@ -19,7 +18,6 @@ const components: MaterialDescription[] = [
   icon,
   container,
   action,
-  ckeditor,
   qrcode,
   panel
 ].flat();

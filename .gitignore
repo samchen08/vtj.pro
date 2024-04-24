@@ -41,6 +41,13 @@ lib
 /packages/*/tsconfig.tsbuildinfo
 /packages/icons/src/components
 
+# apps
+/apps/*/temp/
+/apps/*/types/
+/apps/*/dist/
+/apps/*/coverage/
+/apps/*/node_modules/
+
 # dev
 /dev/public/@vtj
 

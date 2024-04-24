@@ -46,6 +46,7 @@ export function nodeRender(
       if (dsl.name === 'slot') return dsl.name;
 
       // 组件加载器,默认返回 dsl.name
+
       const name = loader(dsl.name, dsl.from, Vue);
       return isString(name) ? $components[name] ?? name : name;
     })();
@@ -55,7 +56,7 @@ export function nodeRender(
 
     // 插槽
     if (dsl.name === 'slot') {
-      return renderSlot(Vue, dsl, props, context);
+      return renderSlot(Vue, dsl, props, context, loader);
     }
 
     // v-bind
@@ -77,7 +78,13 @@ export function nodeRender(
 
     // todo: v-others 绑定其他指令
 
-    const slots = childrenToSlots(Vue, dsl.children ?? [], context, dsl);
+    const slots = childrenToSlots(
+      Vue,
+      dsl.children ?? [],
+      context,
+      loader,
+      dsl
+    );
 
     return Vue.createVNode(component, { ...props, ...events }, slots);
   };
@@ -175,7 +182,8 @@ function renderSlot(
   Vue: any,
   node: NodeSchema,
   props: Record<string, any>,
-  context: Context
+  context: Context,
+  loader: BlockLoader
 ) {
   const { children } = node;
   const realSlot = getNodeSlot(node, context);
@@ -196,7 +204,9 @@ function renderSlot(
     }
 
     if (Array.isArray(children)) {
-      return children.map((n) => nodeRender(n, context, Vue)) as VNode[];
+      return children.map((n) =>
+        nodeRender(n, context, Vue, loader)
+      ) as VNode[];
     }
     return null;
   }
@@ -246,6 +256,7 @@ function childrenToSlots(
   Vue: any,
   children: NodeChildren,
   context: Context,
+  loader: BlockLoader,
   parent?: NodeSchema
 ) {
   if (!children) return null;
@@ -277,7 +288,7 @@ function childrenToSlots(
           : getScope(scope);
 
         return nodes.map((node) =>
-          nodeRender(node, context.__clone(props), Vue)
+          nodeRender(node, context.__clone(props), Vue, loader)
         );
       };
       return result;

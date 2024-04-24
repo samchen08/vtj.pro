@@ -74,9 +74,6 @@ export const builtInDeps: Dependencie[] = [
     library: 'VtjUI',
     urls: [
       '@vtj/materials/deps/echarts/echarts.min.js',
-      '@vtj/materials/deps/@ckeditor/ckeditor5-build-classic/ckeditor.js',
-      '@vtj/materials/deps/@ckeditor/ckeditor5-build-classic/zh-cn.js',
-      '@vtj/materials/deps/@ckeditor/ckeditor5-vue/ckeditor.js',
       '@vtj/materials/deps/@vtj/ui/style.css',
       '@vtj/materials/deps/@vtj/ui/index.umd.js'
     ],

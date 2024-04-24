@@ -188,6 +188,7 @@ export class Designer {
     const slot = await createSlotsPicker(slots).catch(() => null);
     /**
      * 当只有一个插槽，名称是default，并且没有任何参数，可以省略不指定插槽名
+     * 删除的原因：自定义区块，没有定义params，出码会找不到插槽作用域，需要区块增加插槽参数设置后才能用这个判断
      */
     // if (
     //   slot &&
@@ -469,10 +470,19 @@ export class Designer {
     target: NodeModel | BlockModel,
     type: DropPosition = 'inner'
   ) {
-    const { dragging, engine } = this;
+    const { dragging, engine, draggingNode } = this;
     const current = engine.current.value;
     if (!dragging || !current) return false;
     if (isBlock(target)) return true;
+    // 不能放置自身
+
+    if (draggingNode && target.id === draggingNode.id) {
+      return false;
+    }
+    // 防止无限递归
+    if (draggingNode && draggingNode.isChild(target)) {
+      return false;
+    }
     const componentMap = engine.assets.componentMap;
     const node = type !== 'inner' ? target.parent || target : target;
     const targetDesc =
