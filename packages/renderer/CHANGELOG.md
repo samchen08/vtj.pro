@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.4](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.8.3...@vtj/renderer@0.8.4) (2024-04-24)
+
+
+### Bug Fixes
+
+* 🐛 插件区块在子节点下没有渲染 ([455c7ef](https://gitee.com/newgateway/vtj/commits/455c7ef296a08d9f899dc36a221fd8c2a8c3c7ac))
+
+
+
+
+
+
 ## [0.8.3](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.8.2...@vtj/renderer@0.8.3) (2024-04-23)
 
 **Note:** Version bump only for package @vtj/renderer

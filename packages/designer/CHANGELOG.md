@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.4](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.8.3...@vtj/designer@0.8.4) (2024-04-24)
+
+
+### Bug Fixes
+
+* 🐛 设计画布拖拽组件需要判断，不能有无限递归 ([6f0d412](https://gitee.com/newgateway/vtj/commits/6f0d412fe45cfc9428ea88c6b84cf4074177ac5c))
+
+
+
+
+
+
 ## [0.8.3](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.8.2...@vtj/designer@0.8.3) (2024-04-23)
 
 

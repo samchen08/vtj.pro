@@ -93,18 +93,20 @@
   };
 
   const onDragStart = (model: any) => {
-    if (model) {
+    if (model && designer.value) {
       const desc = engine.assets.componentMap.get(model.name);
       if (desc) {
-        designer.value?.setDragging(desc);
+        designer.value.setDragging(desc);
       }
-      designer.value?.setDraggingNode(model);
+      designer.value.setDraggingNode(model);
     }
   };
 
   const onDragEnd = () => {
-    designer.value?.setDraggingNode(null);
-    designer.value?.setDragging(null);
+    if (designer.value) {
+      designer.value.setDraggingNode(null);
+      designer.value.setDragging(null);
+    }
   };
 
   defineExpose({

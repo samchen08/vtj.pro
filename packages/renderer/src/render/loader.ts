@@ -51,7 +51,6 @@ export interface CreateLoaderOptions {
   options: Partial<CreateRendererOptions>;
 }
 
-
 export function createLoader(opts: CreateLoaderOptions): BlockLoader {
   const { getDsl, getDslByUrl, options } = opts;
 
