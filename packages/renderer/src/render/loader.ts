@@ -11,6 +11,9 @@ import { loadCssUrl, loadScriptUrl, isJSUrl, isCSSUrl } from '../utils';
 
 import * as globalVue from 'vue';
 
+// 已注册的插件名称
+let __plugins__: string[] = [];
+
 export type BlockLoader = (
   name: string,
   from?: NodeFrom,
@@ -54,6 +57,14 @@ export interface CreateLoaderOptions {
 export function createLoader(opts: CreateLoaderOptions): BlockLoader {
   const { getDsl, getDslByUrl, options } = opts;
 
+  // 重置插件
+  if (options.window) {
+    __plugins__.forEach((plugin) => {
+      delete (options.window as any)[plugin];
+    });
+    __plugins__ = [];
+  }
+
   return (name: string, from?: NodeFrom, Vue: any = globalVue) => {
     if (!from || typeof from === 'string') return name;
 
@@ -94,10 +105,14 @@ export function createLoader(opts: CreateLoaderOptions): BlockLoader {
     }
 
     if (from.type === 'Plugin') {
+      // 记录插件名称
+      if (from.library) {
+        __plugins__.push(from.library);
+      }
       return Vue.defineAsyncComponent(async () => {
         const plugin = await getPlugin(from, options.window);
         if (plugin) {
-          loadCssUrl(plugin.css);
+          loadCssUrl(plugin.css, options.window);
           return plugin.component;
         }
         return null;

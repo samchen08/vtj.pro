@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.5](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.8.4...@vtj/renderer@0.8.5) (2024-04-24)
+
+
+### Bug Fixes
+
+* 🐛 更新项目信息不能正常渲染插件 ([a8ddf43](https://gitee.com/newgateway/vtj/commits/a8ddf4356dc03e1b430ebeba4195c1af88c20827))
+* 🐛 加载插件css文件环境错误 ([43dface](https://gitee.com/newgateway/vtj/commits/43dface3f7d0c5c3ed78a8586567f06392be7040))
+
+
+
+
+
 ## [0.8.4](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.8.3...@vtj/renderer@0.8.4) (2024-04-24)
 
 
