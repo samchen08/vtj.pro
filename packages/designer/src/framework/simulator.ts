@@ -103,8 +103,6 @@ export class Simulator extends Base {
     }
     cw.__simulator__ = this;
     const doc = cw.document;
-    // 解决 CKEDITOR 重复加载报错
-    (cw as any).CKEDITOR_VERSION = undefined;
     this.contentWindow = cw;
     const {
       scripts,

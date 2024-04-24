@@ -19,7 +19,6 @@ import {
   XStartup,
   XTest,
   XInputUnit,
-  XCKEditor,
   XQrcode,
   XSmsCodeInput,
   XAttachment
@@ -45,7 +44,6 @@ export const components = [
   XStartup,
   XTest,
   XInputUnit,
-  XCKEditor,
   XQrcode,
   XSmsCodeInput,
   XAttachment
