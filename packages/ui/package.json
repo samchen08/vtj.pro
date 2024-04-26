@@ -1,7 +1,7 @@
 {
   "name": "@vtj/ui",
   "private": false,
-  "version": "0.8.5",
+  "version": "0.8.6",
   "type": "module",
   "scripts": {
     "build": "vue-tsc && vite build && npm run build:umd",
@@ -14,15 +14,14 @@
     "node": ">=16.0.0"
   },
   "dependencies": {
-    "@vtj/icons": "^0.8.5",
-    "@vtj/utils": "^0.8.5",
+    "@vtj/icons": "workspace:*",
+    "@vtj/utils": "workspace:*",
     "@vueuse/core": "~10.9.0",
-    "echarts": "~5.5.0",
     "element-plus": "~2.7.0"
   },
   "devDependencies": {
     "@types/qrcode": "^1.5.5",
-    "@vtj/cli": "^0.8.2",
+    "@vtj/cli": "workspace:*",
     "qrcode": "~1.5.3",
     "vue": "~3.4.15",
     "vue-router": "~4.3.0"

@@ -17,6 +17,11 @@ const materials = {
     entry: 'src/antdv/index.ts',
     library: 'AntdvMaterial',
     outDir: 'dist/assets/antdv'
+  },
+  charts: {
+    entry: 'src/charts/index.ts',
+    library: 'VtjChartsMaterial',
+    outDir: 'dist/assets/charts'
   }
 };
 

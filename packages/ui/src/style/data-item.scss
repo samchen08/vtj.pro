@@ -9,6 +9,7 @@
   }
   @include e(icon) {
     margin-right: 5px;
+    box-sizing: content-box;
   }
   @include e(desc) {
     font-size: 12px;

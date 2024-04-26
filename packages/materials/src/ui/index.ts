@@ -9,6 +9,8 @@ import test from './test';
 import icon from './icon';
 import container from './container';
 import action from './action';
+import actionBar from './action-bar';
+import attachment from './attachment';
 import qrcode from './qrcode';
 import panel from './panel';
 
@@ -18,8 +20,10 @@ const components: MaterialDescription[] = [
   icon,
   container,
   action,
+  actionBar,
   qrcode,
-  panel
+  panel,
+  attachment
 ].flat();
 
 const categories: MaterialCategory[] = [

@@ -1,0 +1,20 @@
+@use 'core' as *;
+
+@include b(image-code-input) {
+  @include e(image) {
+    height: 100%;
+    width: 100%;
+    cursor: pointer;
+    @include when(small) {
+      height: 22px;
+    }
+
+    @include when(default) {
+      height: 30px;
+    }
+
+    @include when(large) {
+      height: 38px;
+    }
+  }
+}

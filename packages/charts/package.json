@@ -1,0 +1,44 @@
+{
+  "name": "@vtj/charts",
+  "private": false,
+  "version": "0.8.6",
+  "type": "module",
+  "scripts": {
+    "build": "vue-tsc && vite build && npm run build:umd",
+    "build:umd": "cross-env UMD=true vite build",
+    "test": "vitest run",
+    "vitest": "vitest",
+    "coverage": "vitest run --coverage"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "dependencies": {
+    "@vtj/icons": "workspace:*",
+    "@vtj/utils": "workspace:*",
+    "@vueuse/core": "~10.9.0",
+    "echarts": "~5.5.0"
+  },
+  "devDependencies": {
+    "@vtj/cli": "workspace:*"
+  },
+  "files": [
+    "dist",
+    "types"
+  ],
+  "main": "dist/index.umd.js",
+  "module": "dist/index.mjs",
+  "types": "types/index.d.ts",
+  "exports": {
+    "./dist/style.css": "./dist/style.css",
+    ".": {
+      "types": "./types/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.umd.js"
+    }
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "gitHead": "d03843144f07c2d98c1e0c72c8c6eb1117c01722"
+}

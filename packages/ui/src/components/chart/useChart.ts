@@ -14,15 +14,19 @@ import type { ECharts } from 'echarts';
 import type { ChartProps } from './types';
 import { debounce } from '@vtj/utils';
 
-function loadEcharts() {
-  return import('echarts');
-}
+// function loadEcharts() {
+//   return import('echarts');
+// }
 
-export function useChart(el: MaybeRef<HTMLElement>, props: ChartProps) {
+export function useChart(
+  _echarts: any,
+  el: MaybeRef<HTMLElement>,
+  props: ChartProps
+) {
   const echartsInstance = ref<ECharts | undefined>();
   const echarts = shallowRef();
   onMounted(async () => {
-    echarts.value = await loadEcharts();
+    echarts.value = _echarts;
     const target = unref(el);
     if (!target) return;
     if (!echartsInstance.value) {

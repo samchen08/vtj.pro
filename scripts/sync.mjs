@@ -5,6 +5,7 @@ const modules = [
   '@vtj/utils',
   '@vtj/icons',
   '@vtj/ui',
+  '@vtj/charts',
   '@vtj/designer',
   '@vtj/matrials',
   '@vtj/renderer',

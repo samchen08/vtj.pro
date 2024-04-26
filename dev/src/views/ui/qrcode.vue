@@ -3,7 +3,7 @@
   <div style="height: 100%">
     <XQrcode
       :value="dataUrl"
-      :width="400"
+      :width="300"
       :timeout="timeoutValue"
       @refresh="handleRefresh">
     </XQrcode>
