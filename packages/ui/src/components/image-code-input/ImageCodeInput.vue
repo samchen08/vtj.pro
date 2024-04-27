@@ -5,7 +5,7 @@
     :maxlength="maxlength"
     :placeholder="props.placeholder">
     <!-- 图片 -->
-    <template #prefix>
+    <template #prepend>
       <img
         class="x-image-code-input__image"
         :class="imgClass"
@@ -15,15 +15,17 @@
     <!-- 状态图标 -->
     <template #suffix>
       <XIcon
+        class="x-image-code-input__iconSuccess"
         v-if="status === 'success'"
         :icon="SuccessFilled"
-        :size="IconSize"
-        style="color: green"></XIcon>
+        :size="IconSize">
+      </XIcon>
       <XIcon
         v-if="status === 'error'"
+        class="x-image-code-input__iconError"
         :icon="CircleCloseFilled"
-        :size="IconSize"
-        style="color: red"></XIcon>
+        :size="IconSize">
+      </XIcon>
     </template>
   </ElInput>
 </template>
@@ -54,10 +56,17 @@
   runImgFn();
 
   // 验证码图片大小
-  const IconSize = ref();
+  const IconSize = ref<number>();
   const imgClass = computed(() => {
-    const size = attrs.size || 'default';
-    IconSize.value = size === 'small' ? '24' : size === 'large' ? '40' : '30';
+    const size: string = (attrs.size as string) || 'default';
+    const map: Record<string, number> = {
+      small: 22,
+      default: 30,
+      large: 38
+    };
+    IconSize.value = map[size];
+    console.log(IconSize.value);
+
     return {
       [`is-${size}`]: !!size
     };
@@ -72,6 +81,7 @@
 
   const handleRefreshImage = () => {
     runImgFn();
+    inputValue.value = '';
   };
 
   // watch 值的长度 变化
