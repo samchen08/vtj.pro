@@ -1,21 +1,21 @@
 {
   "name": "@vtj/web",
   "private": false,
-  "version": "0.8.6",
+  "version": "0.8.8",
   "type": "module",
   "scripts": {
     "check": "vue-tsc --noEmit",
     "build": "npm run check"
   },
   "dependencies": {
-    "@vtj/charts": "workspace:*",
-    "@vtj/icons": "workspace:*",
-    "@vtj/renderer": "workspace:*",
-    "@vtj/ui": "workspace:*",
-    "@vtj/utils": "workspace:*"
+    "@vtj/charts": "workspace:~",
+    "@vtj/icons": "workspace:~",
+    "@vtj/renderer": "workspace:~",
+    "@vtj/ui": "workspace:~",
+    "@vtj/utils": "workspace:~"
   },
   "devDependencies": {
-    "@vtj/cli": "workspace:*"
+    "@vtj/cli": "workspace:~"
   },
   "exports": {
     ".": {

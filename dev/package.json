@@ -1,7 +1,7 @@
 {
   "name": "dev-web",
   "private": true,
-  "version": "0.8.6",
+  "version": "0.8.8",
   "type": "module",
   "scripts": {
     "dev": "cross-env ENV_TYPE=local vite",
@@ -17,16 +17,16 @@
     "node": ">=20.0.0"
   },
   "dependencies": {
-    "@vtj/icons": "workspace:*",
-    "@vtj/materials": "workspace:*",
-    "@vtj/pro": "workspace:*",
-    "@vtj/web": "workspace:*",
+    "@vtj/icons": "workspace:~",
+    "@vtj/materials": "workspace:~",
+    "@vtj/pro": "workspace:~",
+    "@vtj/web": "workspace:~",
     "vue": "~3.4.15",
     "vue-router": "~4.3.0"
   },
   "devDependencies": {
-    "@vtj/cli": "workspace:*",
-    "@vtj/local": "workspace:*"
+    "@vtj/cli": "workspace:~",
+    "@vtj/local": "workspace:~"
   },
   "description": "> TODO: description",
   "author": "陈华春 <samchen08@163.com>",

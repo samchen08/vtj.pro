@@ -40,7 +40,7 @@
     "prerelease": "lerna version prerelease --yes && npm run test && npm run build && npm run ci && lerna publish from-package --dist-tag test --no-private --yes && pnpm run sync",
     "patch": "lerna version patch --yes && npm run build && npm run ci && npm run publish && pnpm run sync",
     "minor": "lerna version minor --yes && npm run build && npm run ci && npm run publish && pnpm run sync",
-    "publish": "pnpm -r publish  --access public --publish-branch next",
+    "publish": "pnpm -r publish  --access public --publish-branch next --report-summary",
     "ssh": "node scripts/ssh.mjs",
     "cli:test": "cd packages/cli && npm run vitest",
     "cli:build": "cd packages/cli && npm run build",

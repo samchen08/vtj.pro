@@ -7,7 +7,7 @@ import { version } from '../version';
 import { setPackageName } from '../shared';
 import chart from './chart';
 
-const name = '@vtj/chart';
+const name = '@vtj/charts';
 const components: MaterialDescription[] = [chart].flat();
 
 const categories: MaterialCategory[] = [
@@ -26,7 +26,7 @@ const categories: MaterialCategory[] = [
 ];
 
 const material: Material = {
-  name: '@vtj/charts',
+  name,
   version,
   label: '图表',
   library: 'VtjChartsMaterial',

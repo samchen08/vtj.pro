@@ -60,7 +60,7 @@ importers:
   apps/app:
     dependencies:
       '@vtj/web':
-        specifier: workspace:*
+        specifier: workspace:~
         version: link:../../platforms/web
       vue:
         specifier: ^3.4.15
@@ -69,58 +69,61 @@ importers:
         specifier: ~4.3.0
         version: 4.3.2(vue@3.4.25(typescript@5.4.5))
     devDependencies:
+      '@vtj/charts':
+        specifier: workspace:~
+        version: link:../../packages/charts
       '@vtj/cli':
-        specifier: workspace:*
+        specifier: workspace:~
         version: link:../../packages/cli
       '@vtj/icons':
-        specifier: workspace:*
+        specifier: workspace:~
         version: link:../../packages/icons
       '@vtj/pro':
-        specifier: workspace:*
+        specifier: workspace:~
         version: link:../../platforms/pro
       '@vtj/renderer':
-        specifier: workspace:*
+        specifier: workspace:~
         version: link:../../packages/renderer
       '@vtj/ui':
-        specifier: workspace:*
+        specifier: workspace:~
         version: link:../../packages/ui
       '@vtj/utils':
-        specifier: workspace:*
+        specifier: workspace:~
         version: link:../../packages/utils
 
   apps/library:
     dependencies:
       '@vtj/base':
-        specifier: workspace:*
+        specifier: workspace:~
         version: link:../../packages/base
     devDependencies:
       '@vtj/cli':
-        specifier: workspace:*
+        specifier: workspace:~
         version: link:../../packages/cli
 
   apps/plugin:
     dependencies:
       '@vtj/icons':
-        specifier: workspace:*
+        specifier: workspace:~
         version: link:../../packages/icons
       '@vtj/ui':
-        specifier: workspace:*
+        specifier: workspace:~
         version: link:../../packages/ui
       '@vtj/utils':
-        specifier: workspace:*
+        specifier: workspace:~
         version: link:../../packages/utils
     devDependencies:
       '@vtj/cli':
-        specifier: workspace:*
+        specifier: workspace:~
         version: link:../../packages/cli
       '@vtj/core':
-        specifier: workspace:*
+        specifier: workspace:~
         version: link:../../packages/core
       '@vtj/pro':
-        specifier: workspace:*
+        specifier: workspace:~
         version: link:../../platforms/pro
       '@vtj/web':
-        specifier: workspace:*
+        specifier: workspace:~
         version: link:../../platforms/web
       vue:
         specifier: ^3.4.15
@@ -174,7 +177,7 @@ importers:
         specifier: ~1.5.3
         version: 1.5.5
       '@vtj/mobile':
-        specifier: workspace:*
+        specifier: workspace:~
         version: link:../../platforms/mobile
       vue-i18n:
         specifier: ~9.13.1
@@ -202,7 +205,7 @@ importers:
         specifier: ~0.5.13
         version: 0.5.13(@uni-helper/uni-app-types@0.5.12(typescript@5.4.5))(typescript@5.4.5)
       '@vtj/cli':
-        specifier: workspace:*
+        specifier: workspace:~
         version: link:../../packages/cli
       '@vue/runtime-core':
         specifier: ~3.4.15
@@ -242,16 +245,16 @@ importers:
   dev:
     dependencies:
       '@vtj/icons':
-        specifier: workspace:*
+        specifier: workspace:~
         version: link:../packages/icons
       '@vtj/materials':
-        specifier: workspace:*
+        specifier: workspace:~
         version: link:../packages/materials
       '@vtj/pro':
-        specifier: workspace:*
+        specifier: workspace:~
         version: link:../platforms/pro
       '@vtj/web':
-        specifier: workspace:*
+        specifier: workspace:~
         version: link:../platforms/web
       vue:
         specifier: ~3.4.15
@@ -261,10 +264,10 @@ importers:
         version: 4.3.2(vue@3.4.25(typescript@5.4.5))
     devDependencies:
       '@vtj/cli':
-        specifier: workspace:*
+        specifier: workspace:~
         version: link:../packages/cli
       '@vtj/local':
-        specifier: workspace:*
+        specifier: workspace:~
         version: link:../packages/local
 
   docs:
@@ -276,23 +279,23 @@ importers:
         specifier: ~1.2.3
         version: 1.2.3(markdown-it-container@3.0.0)(vitepress@1.1.3(@algolia/client-search@4.23.3)(@types/node@20.12.7)(async-validator@4.2.5)(axios@1.6.8)(postcss@8.4.38)(qrcode@1.5.3)(sass@1.75.0)(search-insights@2.13.0)(terser@5.30.4)(typescript@5.4.5))(vue@3.4.25(typescript@5.4.5))
       '@vtj/icons':
-        specifier: ^0.8.5
-        version: 0.8.5(vue@3.4.25(typescript@5.4.5))
+        specifier: workspace:*
+        version: link:../packages/icons
       '@vtj/pro':
-        specifier: ^0.8.5
-        version: 0.8.5(vue@3.4.25(typescript@5.4.5))
+        specifier: workspace:*
+        version: link:../platforms/pro
       '@vtj/renderer':
-        specifier: ^0.8.5
-        version: 0.8.5(vue@3.4.25(typescript@5.4.5))
+        specifier: workspace:*
+        version: link:../packages/renderer
       '@vtj/ui':
-        specifier: ^0.8.5
-        version: 0.8.5(vue@3.4.25(typescript@5.4.5))
+        specifier: workspace:*
+        version: link:../packages/ui
       '@vtj/utils':
-        specifier: ^0.8.5
-        version: 0.8.5
+        specifier: workspace:*
+        version: link:../packages/utils
       '@vtj/web':
-        specifier: ^0.8.5
-        version: 0.8.5(vue@3.4.25(typescript@5.4.5))
+        specifier: workspace:*
+        version: link:../platforms/web
       vue:
         specifier: ~3.4.14
         version: 3.4.25(typescript@5.4.5)
@@ -301,8 +304,8 @@ importers:
         version: 4.3.2(vue@3.4.25(typescript@5.4.5))
     devDependencies:
       '@vtj/cli':
-        specifier: ^0.8.2
-        version: 0.8.2(rollup@3.29.4)(vue@3.4.25(typescript@5.4.5))
+        specifier: workspace:*
+        version: link:../packages/cli
       vitepress:
         specifier: ^1.0.1
         version: 1.1.3(@algolia/client-search@4.23.3)(@types/node@20.12.7)(async-validator@4.2.5)(axios@1.6.8)(postcss@8.4.38)(qrcode@1.5.3)(sass@1.75.0)(search-insights@2.13.0)(terser@5.30.4)(typescript@5.4.5)
@@ -375,10 +378,10 @@ importers:
   packages/charts:
     dependencies:
       '@vtj/icons':
-        specifier: workspace:*
+        specifier: workspace:~
         version: link:../icons
       '@vtj/utils':
-        specifier: workspace:*
+        specifier: workspace:~
         version: link:../utils
       '@vueuse/core':
         specifier: ~10.9.0
@@ -388,7 +391,7 @@ importers:
         version: 5.5.0
     devDependencies:
       '@vtj/cli':
-        specifier: workspace:*
+        specifier: workspace:~
         version: link:../cli
 
   packages/cli:
@@ -478,8 +481,8 @@ importers:
         specifier: ~5.2.6
         version: 5.2.10(@types/node@20.12.7)(sass@1.75.0)(terser@5.30.4)
       vite-plugin-dts:
-        specifier: ~3.8.1
-        version: 3.8.3(@types/node@20.12.7)(rollup@3.29.4)(typescript@5.4.5)(vite@5.2.10(@types/node@20.12.7)(sass@1.75.0)(terser@5.30.4))
+        specifier: ~3.9.0
+        version: 3.9.0(@types/node@20.12.7)(rollup@3.29.4)(typescript@5.4.5)(vite@5.2.10(@types/node@20.12.7)(sass@1.75.0)(terser@5.30.4))
       vite-plugin-node-polyfills:
         specifier: ~0.21.0
         version: 0.21.0(rollup@3.29.4)(vite@5.2.10(@types/node@20.12.7)(sass@1.75.0)(terser@5.30.4))
@@ -493,58 +496,58 @@ importers:
   packages/coder:
     dependencies:
       '@vtj/base':
-        specifier: workspace:*
+        specifier: workspace:~
         version: link:../base
       '@vtj/core':
-        specifier: workspace:*
+        specifier: workspace:~
         version: link:../core
       prettier:
         specifier: ~3.2.1
         version: 3.2.5
     devDependencies:
       '@vtj/cli':
-        specifier: workspace:*
+        specifier: workspace:~
         version: link:../cli
 
   packages/core:
     dependencies:
       '@vtj/base':
-        specifier: workspace:*
+        specifier: workspace:~
         version: link:../base
     devDependencies:
       '@vtj/cli':
-        specifier: workspace:*
+        specifier: workspace:~
         version: link:../cli
 
   packages/designer:
     dependencies:
       '@vtj/core':
-        specifier: workspace:*
+        specifier: workspace:~
         version: link:../core
       '@vtj/icons':
-        specifier: workspace:*
+        specifier: workspace:~
         version: link:../icons
       '@vtj/renderer':
-        specifier: workspace:*
+        specifier: workspace:~
         version: link:../renderer
       '@vtj/ui':
-        specifier: workspace:*
+        specifier: workspace:~
         version: link:../ui
       '@vtj/utils':
-        specifier: workspace:*
+        specifier: workspace:~
         version: link:../utils
       mockjs:
         specifier: ~1.1.0
         version: 1.1.0
       monaco-editor:
-        specifier: ~0.47.0
-        version: 0.47.0
+        specifier: ~0.48.0
+        version: 0.48.0
     devDependencies:
       '@types/mockjs':
         specifier: ~1.0.10
         version: 1.0.10
       '@vtj/cli':
-        specifier: workspace:*
+        specifier: workspace:~
         version: link:../cli
       vue:
         specifier: ~3.4.15
@@ -560,7 +563,7 @@ importers:
         version: 2.3.1(vue@3.4.25(typescript@5.4.5))
     devDependencies:
       '@vtj/cli':
-        specifier: workspace:*
+        specifier: workspace:~
         version: link:../cli
       vue:
         specifier: ~3.4.15
@@ -572,13 +575,13 @@ importers:
   packages/local:
     dependencies:
       '@vtj/coder':
-        specifier: workspace:*
+        specifier: workspace:~
         version: link:../coder
       '@vtj/core':
-        specifier: workspace:*
+        specifier: workspace:~
         version: link:../core
       '@vtj/node':
-        specifier: workspace:*
+        specifier: workspace:~
         version: link:../node
       formidable:
         specifier: ~3.5.1
@@ -588,7 +591,7 @@ importers:
         specifier: ~3.4.5
         version: 3.4.5
       '@vtj/cli':
-        specifier: workspace:*
+        specifier: workspace:~
         version: link:../cli
       unbuild:
         specifier: ~2.0.0
@@ -603,19 +606,19 @@ importers:
   packages/materials:
     devDependencies:
       '@vtj/charts':
-        specifier: workspace:*
+        specifier: workspace:~
         version: link:../charts
       '@vtj/cli':
-        specifier: workspace:*
+        specifier: workspace:~
         version: link:../cli
       '@vtj/core':
-        specifier: workspace:*
+        specifier: workspace:~
         version: link:../core
       '@vtj/ui':
-        specifier: workspace:*
+        specifier: workspace:~
         version: link:../ui
       '@vtj/utils':
-        specifier: workspace:*
+        specifier: workspace:~
         version: link:../utils
       '@vueuse/core':
         specifier: ~10.9.0
@@ -628,7 +631,7 @@ importers:
         version: 5.5.0
       element-plus:
         specifier: ~2.7.0
-        version: 2.7.1(vue@3.4.25(typescript@5.4.5))
+        version: 2.7.2(vue@3.4.25(typescript@5.4.5))
       vant:
         specifier: ~4.8.11
         version: 4.8.11(vue@3.4.25(typescript@5.4.5))
@@ -664,23 +667,23 @@ importers:
   packages/renderer:
     dependencies:
       '@vtj/core':
-        specifier: workspace:*
+        specifier: workspace:~
         version: link:../core
       '@vtj/icons':
-        specifier: workspace:*
+        specifier: workspace:~
         version: link:../icons
       '@vtj/ui':
-        specifier: workspace:*
+        specifier: workspace:~
         version: link:../ui
       '@vtj/utils':
-        specifier: workspace:*
+        specifier: workspace:~
         version: link:../utils
       mockjs:
         specifier: ~1.1.0
         version: 1.1.0
     devDependencies:
       '@vtj/cli':
-        specifier: workspace:*
+        specifier: workspace:~
         version: link:../cli
       vue:
         specifier: ~3.4.15
@@ -692,23 +695,23 @@ importers:
   packages/ui:
     dependencies:
       '@vtj/icons':
-        specifier: workspace:*
+        specifier: workspace:~
         version: link:../icons
       '@vtj/utils':
-        specifier: workspace:*
+        specifier: workspace:~
         version: link:../utils
       '@vueuse/core':
         specifier: ~10.9.0
         version: 10.9.0(vue@3.4.25(typescript@5.4.5))
       element-plus:
         specifier: ~2.7.0
-        version: 2.7.1(vue@3.4.25(typescript@5.4.5))
+        version: 2.7.2(vue@3.4.25(typescript@5.4.5))
     devDependencies:
       '@types/qrcode':
         specifier: ^1.5.5
         version: 1.5.5
       '@vtj/cli':
-        specifier: workspace:*
+        specifier: workspace:~
         version: link:../cli
       qrcode:
         specifier: ~1.5.3
@@ -723,14 +726,14 @@ importers:
   packages/utils:
     dependencies:
       '@vtj/base':
-        specifier: workspace:*
+        specifier: workspace:~
         version: link:../base
     devDependencies:
       '@types/js-cookie':
         specifier: ~3.0.6
         version: 3.0.6
       '@vtj/cli':
-        specifier: workspace:*
+        specifier: workspace:~
         version: link:../cli
       axios:
         specifier: ~1.6.8
@@ -748,10 +751,10 @@ importers:
   platforms/mobile:
     dependencies:
       '@vtj/icons':
-        specifier: workspace:*
+        specifier: workspace:~
         version: link:../../packages/icons
       '@vtj/utils':
-        specifier: workspace:*
+        specifier: workspace:~
         version: link:../../packages/utils
     devDependencies:
       '@dcloudio/types':
@@ -818,7 +821,7 @@ importers:
         specifier: ~0.5.13
         version: 0.5.13(@uni-helper/uni-app-types@0.5.12(typescript@5.4.5))(typescript@5.4.5)
       '@vtj/cli':
-        specifier: workspace:*
+        specifier: workspace:~
         version: link:../../packages/cli
       '@vue/runtime-core':
         specifier: ~3.4.18
@@ -833,32 +836,35 @@ importers:
   platforms/pro:
     dependencies:
       '@vtj/core':
-        specifier: workspace:*
+        specifier: workspace:~
         version: link:../../packages/core
       '@vtj/designer':
-        specifier: workspace:*
+        specifier: workspace:~
         version: link:../../packages/designer
       '@vtj/local':
-        specifier: workspace:*
+        specifier: workspace:~
         version: link:../../packages/local
       '@vtj/materials':
-        specifier: workspace:*
+        specifier: workspace:~
         version: link:../../packages/materials
       '@vtj/renderer':
-        specifier: workspace:*
+        specifier: workspace:~
         version: link:../../packages/renderer
     devDependencies:
+      '@vtj/charts':
+        specifier: workspace:~
+        version: link:../../packages/charts
       '@vtj/cli':
-        specifier: workspace:*
+        specifier: workspace:~
         version: link:../../packages/cli
       '@vtj/icons':
-        specifier: workspace:*
+        specifier: workspace:~
         version: link:../../packages/icons
       '@vtj/ui':
-        specifier: workspace:*
+        specifier: workspace:~
         version: link:../../packages/ui
       '@vtj/utils':
-        specifier: workspace:*
+        specifier: workspace:~
         version: link:../../packages/utils
       vue:
         specifier: ~3.4.15
@@ -870,23 +876,23 @@ importers:
   platforms/web:
     dependencies:
       '@vtj/charts':
-        specifier: workspace:*
+        specifier: workspace:~
         version: link:../../packages/charts
       '@vtj/icons':
-        specifier: workspace:*
+        specifier: workspace:~
         version: link:../../packages/icons
       '@vtj/renderer':
-        specifier: workspace:*
+        specifier: workspace:~
         version: link:../../packages/renderer
       '@vtj/ui':
-        specifier: workspace:*
+        specifier: workspace:~
         version: link:../../packages/ui
       '@vtj/utils':
-        specifier: workspace:*
+        specifier: workspace:~
         version: link:../../packages/utils
     devDependencies:
       '@vtj/cli':
-        specifier: workspace:*
+        specifier: workspace:~
         version: link:../../packages/cli
 
 packages:
@@ -3272,47 +3278,8 @@ packages:
   '@vtj/base@0.8.2':
     resolution: {integrity: sha512-9JGXx17IahjnEv4uyXdJidBnemcyO9sycpaS3OCrMvsMoGyxzEzTJBu5Vat0AY6/qIDsy4ObTlwmJQx5wa5pKw==}
 
-  '@vtj/cli@0.8.2':
-    resolution: {integrity: sha512-LxfLm+HmjfBVGyoqScwfIUuhbn9ohVhbou7VHMlHwmC4YGvKIrtS0zi7APDmCyXnfyn0i5ajofTjL+b/52Ob9g==}
-    engines: {node: '>=20.0.0'}
-    hasBin: true
-
-  '@vtj/coder@0.8.5':
-    resolution: {integrity: sha512-PfPTFkCDNHUgrLWBbsYHoWtpjkF1CA21RcYYs5d1tZjvnMqTYfXxg0wi88p/4sMRvkDYLCch2wNyVRwbvYcGcw==}
-
-  '@vtj/core@0.8.5':
-    resolution: {integrity: sha512-29dFIQA9XKJbLOhXF+P55J3DEyNjX8ulVkjrd9qsYZ39B5Gech7ywOwuESe1Sbtb6w4fEPmGZkT6UWXeGszUag==}
-
-  '@vtj/designer@0.8.5':
-    resolution: {integrity: sha512-+wF0TSbF8oOcmLXgqw6YhT3dJXzEFh0pAbxAagqMuBDdarNjCo/Ft+FjQ3QdXxEnjDYi39voDBhERUHCmFBB0Q==}
-
-  '@vtj/icons@0.8.5':
-    resolution: {integrity: sha512-/R2I+hPYBejGny3YyUjimJ6JhOVVHimRDQGM7vnHNSkelKylrZNFgZ+GnaIbjxvl7F/JoTU2C13xeOE/2X4cWQ==}
-
-  '@vtj/local@0.8.5':
-    resolution: {integrity: sha512-9NhCxxZPqrjFCC7P/k8EO3LgbRgJkOg+3TUeJMQH41nraz5769AYdlEeSECLrkOFn9R9ewgTC47lLg1mfGVGTw==}
-
-  '@vtj/materials@0.8.5':
-    resolution: {integrity: sha512-RJGhCZUxSEdZhnLXa1E8r0QiFOW9+I9NMuHSd8PvujoUvAdXKN5epTN+BKrS9CE8soy1myPz6GyFVZuj6y04Dw==}
-
   '@vtj/node@0.8.2':
     resolution: {integrity: sha512-ELEGVVSLdlMgF1n8+aBipkN5NBRO9eKIb/wt4t3o7MpaquJvcsFA+5UB19L8dU0iHSh53OnVCAq6urZwklo+zg==}
-
-  '@vtj/pro@0.8.5':
-    resolution: {integrity: sha512-NOKm4hHPXmeR8j0PXNMFxYdHZ4NbpcFK9S6MQwsIokYeajEh8NTGOsJORQjqOYNyFG32BLOGLyN7oB9EHmuRIQ==}
-
-  '@vtj/renderer@0.8.5':
-    resolution: {integrity: sha512-nXR2C1rGj8jviIVcgnKJhWuwbmubx2e6aikgGnxICxjiqoHTB8sGxZvqY/0oxWOndf5o0zGthESe+Z6EfhbpHA==}
-
-  '@vtj/ui@0.8.5':
-    resolution: {integrity: sha512-Nz4hm1lFfeCw1Te7qwA9nHjoiuPjGBMI7hvHHVMQXmcJjJEKIb8AM1syF9takRhnmMzLIFG3PEahPLrhLhRj5Q==}
-    engines: {node: '>=16.0.0'}
-
-  '@vtj/utils@0.8.5':
-    resolution: {integrity: sha512-JwiDZCVybXKxe9uvB92PpdPxodTdZQCR+S9V/W3bc8c7KmH1+ERh55CPaSmdIW6/niBtEwXbHs5Zz5FLBXy9Kg==}
-
-  '@vtj/web@0.8.5':
-    resolution: {integrity: sha512-7AUH4WeCxL1zE6vGTxI3Lizsz532gN25KLipweJRWkjOsdvTnPxiWIOyXqCsl/WnqctD4Tr/UDVzRbr3O6FSfQ==}
 
   '@vue/babel-helper-vue-transform-on@1.2.2':
     resolution: {integrity: sha512-nOttamHUR3YzdEqdM/XXDyCSdxMA9VizUKoroLX6yTyRtggzQMHXcmwh8a7ZErcJttIBIc9s68a1B8GZ+Dmvsw==}
@@ -3357,16 +3324,16 @@ packages:
   '@vue/devtools-api@6.6.1':
     resolution: {integrity: sha512-LgPscpE3Vs0x96PzSSB4IGVSZXZBZHpfxs+ZA1d+VEPwHdOXowy/Y2CsvCAIFrf+ssVU1pD1jidj505EpUnfbA==}
 
-  '@vue/devtools-api@7.1.2':
-    resolution: {integrity: sha512-AKd49cN3BdRgttmX5Aw8op7sx6jmaPwaILcDjaa05UKc1yIHDYST7P8yGZs6zd2pKFETAQz40gmyG7+b57slsQ==}
+  '@vue/devtools-api@7.1.3':
+    resolution: {integrity: sha512-W8IwFJ/o5iUk78jpqhvScbgCsPiOp2uileDVC0NDtW38gCWhsnu9SeBTjcdu3lbwLdsjc+H1c5Msd/x9ApbcFA==}
 
-  '@vue/devtools-kit@7.1.2':
-    resolution: {integrity: sha512-UTrcUSOhlI9eXqbPMHUWwA6NQiiPT3onzXsVk2JHGR8ZFFSkzsWTTpHyVA1woG8zvgu2HNV/wigW2k87p858zw==}
+  '@vue/devtools-kit@7.1.3':
+    resolution: {integrity: sha512-NFskFSJMVCBXTkByuk2llzI3KD3Blcm7WqiRorWjD6nClHPgkH5BobDH08rfulqq5ocRt5xV+3qOT1Q9FXJrwQ==}
     peerDependencies:
       vue: ^3.0.0
 
-  '@vue/devtools-shared@7.1.2':
-    resolution: {integrity: sha512-r9cUf93VMhKSsxF2/cBbf6Lm1nRBx+r1pRuji5CiAf3JIPYPOjeEqJ13OuwP1fauYh1tyBFcCxt3eJPvHT59gg==}
+  '@vue/devtools-shared@7.1.3':
+    resolution: {integrity: sha512-KJ3AfgjTn3tJz/XKF+BlVShNPecim3G21oHRue+YQOsooW+0s+qXvm09U09aO7yBza5SivL1QgxSrzAbiKWjhQ==}
 
   '@vue/language-core@1.8.27':
     resolution: {integrity: sha512-L8Kc27VdQserNaCUNiSFdDl9LWT24ly8Hpwf1ECy3aFb9m6bDhBGQYOujDm21N7EW3moKIOKEanQwe1q5BK+mA==}
@@ -4255,8 +4222,8 @@ packages:
     engines: {node: '>=4'}
     hasBin: true
 
-  cssnano-preset-default@7.0.0:
-    resolution: {integrity: sha512-3YdcG6aHxALLdT0Gjq44zA45PcgW+qWuODq4XNtwpx1olR08cX+tozlXOU25IjeXeaYyqvTUxicIr2fcdJHRZg==}
+  cssnano-preset-default@7.0.1:
+    resolution: {integrity: sha512-Fumyr+uZMcjYQeuHssAZxn0cKj3cdQc5GcxkBcmEzISGB+UW9CLNlU4tBOJbJGcPukFDlicG32eFbrc8K9V5pw==}
     engines: {node: ^18.12.0 || ^20.9.0 || >=22.0}
     peerDependencies:
       postcss: ^8.4.31
@@ -4267,8 +4234,8 @@ packages:
     peerDependencies:
       postcss: ^8.4.31
 
-  cssnano@7.0.0:
-    resolution: {integrity: sha512-hhVRaaGbEDpb99AHBTaNJf6oXpnU4B7evBi7rt3ShiOh5JEnWsBWYsldywE9L0twVTLPBY9jT/zY6YODXP3TEg==}
+  cssnano@7.0.1:
+    resolution: {integrity: sha512-917Mej/4SdI7b55atsli3sU4MOJ9XDoKgnlCtQtXYj8XUFcM3riTuYHyqBBnnskawW+zWwp0KxJzpEUodlpqUg==}
     engines: {node: ^18.12.0 || ^20.9.0 || >=22.0}
     peerDependencies:
       postcss: ^8.4.31
@@ -4499,11 +4466,11 @@ packages:
     engines: {node: '>=0.10.0'}
     hasBin: true
 
-  electron-to-chromium@1.4.749:
-    resolution: {integrity: sha512-LRMMrM9ITOvue0PoBrvNIraVmuDbJV5QC9ierz/z5VilMdPOVMjOtpICNld3PuXuTZ3CHH/UPxX9gHhAPwi+0Q==}
+  electron-to-chromium@1.4.750:
+    resolution: {integrity: sha512-9ItEpeu15hW5m8jKdriL+BQrgwDTXEL9pn4SkillWFu73ZNNNQ2BKKLS+ZHv2vC9UkNhosAeyfxOf/5OSeTCPA==}
 
-  element-plus@2.7.1:
-    resolution: {integrity: sha512-yk/vXFwJp0flMrd2kfcR0XlumhwtPjB19HJvwcf0n3DvRE7UK8LeSK14LVghSzk0TzPsFFElweMnZEEv7+MYuQ==}
+  element-plus@2.7.2:
+    resolution: {integrity: sha512-AdEzBU/A68iUleio0MkQ46JeU5SeQvFFd915GJFScJmUEo5AmYg3OQ4pVjcu+p3b3Nupg9MC5Wa4xjAiC51kUg==}
     peerDependencies:
       vue: ^3.2.0
 
@@ -6097,8 +6064,8 @@ packages:
   module-alias@2.2.3:
     resolution: {integrity: sha512-23g5BFj4zdQL/b6tor7Ji+QY4pEfNH784BMslY9Qb0UnJWRAt+lQGLYmRaM0KDBwIG23ffEBELhZDP2rhi9f/Q==}
 
-  monaco-editor@0.47.0:
-    resolution: {integrity: sha512-VabVvHvQ9QmMwXu4du008ZDuyLnHs9j7ThVFsiJoXSOQk18+LF89N4ADzPbFenm0W4V2bGHnFBztIRQTgBfxzw==}
+  monaco-editor@0.48.0:
+    resolution: {integrity: sha512-goSDElNqFfw7iDHMg8WDATkfcyeLTNpBHQpO8incK6p5qZt5G/1j41X0xdGzpIkGojGXM+QiRQyLjnfDVvrpwA==}
 
   mri@1.2.0:
     resolution: {integrity: sha512-tzzskb3bG8LvYGFF/mDTpq3jpI6Q9wc3LEmBaghu+DdCssd1FakN7Bc0hVNmEyGq1bq3RgfkCb3cmQLpNPOroA==}
@@ -6621,11 +6588,11 @@ packages:
     resolution: {integrity: sha512-d7Uw+eZoloe0EHDIYoe+bQ5WXnGMOpmiZFTuMWCwpjzzkL2nTjcKiAk4hh8TjnGye2TwWOk3UXucZ+3rbmBa8Q==}
     engines: {node: '>= 0.4'}
 
-  postcss-calc@9.0.1:
-    resolution: {integrity: sha512-TipgjGyzP5QzEhsOZUaIkeO5mKeMFpebWzRogWG/ysonUlnHcq5aJe0jOjpfzUU8PeSaBQnrE8ehR0QA5vs8PQ==}
-    engines: {node: ^14 || ^16 || >=18.0}
+  postcss-calc@10.0.0:
+    resolution: {integrity: sha512-OmjhudoNTP0QleZCwl1i6NeBwN+5MZbY5ersLZz69mjJiDVv/p57RjRuKDkHeDWr4T+S97wQfsqRTNoDHB2e3g==}
+    engines: {node: ^18.12 || ^20.9 || >=22.0}
     peerDependencies:
-      postcss: ^8.2.2
+      postcss: ^8.4.38
 
   postcss-colormin@7.0.0:
     resolution: {integrity: sha512-5CN6fqtsEtEtwf3mFV3B4UaZnlYljPpzmGeDB4yCK067PnAtfLe9uX2aFZaEwxHE7HopG5rUkW8gyHrNAesHEg==}
@@ -6982,8 +6949,8 @@ packages:
   react-is@17.0.2:
     resolution: {integrity: sha512-w2GsyukL62IJnlaff/nRegPQR94C/XXamvMWmSHRJ4y7Ts/4ocGRmTHvOs8PSE6pB3dWOrD/nueuU5sduBsQ4w==}
 
-  react-is@18.3.0:
-    resolution: {integrity: sha512-wRiUsea88TjKDc4FBEn+sLvIDesp6brMbGWnJGjew2waAc9evdhja/2LvePc898HJbHw0L+MTWy7NhpnELAvLQ==}
+  react-is@18.3.1:
+    resolution: {integrity: sha512-/LLMVyas0ljjAtoYiPqYiL8VWXzUUdThrmU5+n20DZv+a+ClRoevUzw5JxU+Ieh5/c87ytoTBV9G1FiKfNJdmg==}
 
   read-cache@1.0.0:
     resolution: {integrity: sha512-Owdv/Ft7IjOgm/i0xvNDZ1LrRANRfew4b2prF3OWMQLxLfu3bS8FVhCsrSCMK4lR56Y9ya+AThoTpDCTxCmpRA==}
@@ -7934,8 +7901,8 @@ packages:
     engines: {node: ^18.0.0 || >=20.0.0}
     hasBin: true
 
-  vite-plugin-dts@3.8.3:
-    resolution: {integrity: sha512-yRHiRosQw7MXdOhmcrVI+kRiB8YEShbSxnADNteK4eZGdEoyOkMHihvO5XOAVlOq8ng9sIqu8vVefDK1zcj3qw==}
+  vite-plugin-dts@3.9.0:
+    resolution: {integrity: sha512-pwFIEYQ3LZvMafkEGvNnileb6af5JuyZsBfYQrTDYxdeGEy0OS4B4hCsLPo5YGnhK5k9EzyO6BXVO6y+Lt5T2A==}
     engines: {node: ^14.18.0 || >=16.0.0}
     peerDependencies:
       typescript: '*'
@@ -11520,97 +11487,6 @@ snapshots:
       '@types/numeral': 2.0.5
       reflect-metadata: 0.2.2
 
-  '@vtj/cli@0.8.2(rollup@3.29.4)(vue@3.4.25(typescript@5.4.5))':
-    dependencies:
-      '@babel/core': 7.24.4
-      '@babel/preset-env': 7.24.4(@babel/core@7.24.4)
-      '@babel/types': 7.24.0
-      '@rollup/plugin-babel': 6.0.4(@babel/core@7.24.4)(@types/babel__core@7.20.5)(rollup@3.29.4)
-      '@types/babel__core': 7.20.5
-      '@types/body-parser': 1.19.5
-      '@types/node': 20.12.7
-      '@types/serve-static': 1.15.7
-      '@vitejs/plugin-basic-ssl': 1.1.0(vite@5.2.10(@types/node@20.12.7)(sass@1.75.0)(terser@5.30.4))
-      '@vitejs/plugin-legacy': 5.3.2(terser@5.30.4)(vite@5.2.10(@types/node@20.12.7)(sass@1.75.0)(terser@5.30.4))
-      '@vitejs/plugin-vue': 5.0.4(vite@5.2.10(@types/node@20.12.7)(sass@1.75.0)(terser@5.30.4))(vue@3.4.25(typescript@5.4.5))
-      '@vitejs/plugin-vue-jsx': 3.1.0(vite@5.2.10(@types/node@20.12.7)(sass@1.75.0)(terser@5.30.4))(vue@3.4.25(typescript@5.4.5))
-      '@vitest/coverage-v8': 1.5.2(vitest@1.5.2(@types/node@20.12.7)(jsdom@24.0.0)(sass@1.75.0)(terser@5.30.4))
-      '@vtj/node': 0.8.2
-      '@vue/test-utils': 2.4.5
-      body-parser: 1.20.2
-      cross-env: 7.0.3
-      jsdom: 24.0.0
-      memfs: 4.8.2
-      rollup-plugin-external-globals: 0.10.0(rollup@3.29.4)
-      rollup-plugin-visualizer: 5.12.0(rollup@3.29.4)
-      sass: 1.75.0
-      serve-static: 1.15.0
-      terser: 5.30.4
-      typescript: 5.4.5
-      unbuild: 2.0.0(sass@1.75.0)(typescript@5.4.5)(vue-tsc@2.0.14(typescript@5.4.5))
-      unplugin-element-plus: 0.8.0(rollup@3.29.4)
-      vite: 5.2.10(@types/node@20.12.7)(sass@1.75.0)(terser@5.30.4)
-      vite-plugin-dts: 3.8.3(@types/node@20.12.7)(rollup@3.29.4)(typescript@5.4.5)(vite@5.2.10(@types/node@20.12.7)(sass@1.75.0)(terser@5.30.4))
-      vite-plugin-node-polyfills: 0.21.0(rollup@3.29.4)(vite@5.2.10(@types/node@20.12.7)(sass@1.75.0)(terser@5.30.4))
-      vitest: 1.5.2(@types/node@20.12.7)(jsdom@24.0.0)(sass@1.75.0)(terser@5.30.4)
-      vue-tsc: 2.0.14(typescript@5.4.5)
-    transitivePeerDependencies:
-      - '@edge-runtime/vm'
-      - '@vitest/browser'
-      - '@vitest/ui'
-      - bufferutil
-      - canvas
-      - debug
-      - happy-dom
-      - less
-      - lightningcss
-      - rollup
-      - stylus
-      - sugarss
-      - supports-color
-      - utf-8-validate
-      - vue
-
-  '@vtj/coder@0.8.5':
-    dependencies:
-      '@vtj/base': 0.8.2
-      '@vtj/core': 0.8.5
-      prettier: 3.2.5
-
-  '@vtj/core@0.8.5':
-    dependencies:
-      '@vtj/base': 0.8.2
-
-  '@vtj/designer@0.8.5(vue@3.4.25(typescript@5.4.5))':
-    dependencies:
-      '@vtj/core': 0.8.5
-      '@vtj/icons': 0.8.5(vue@3.4.25(typescript@5.4.5))
-      '@vtj/renderer': 0.8.5(vue@3.4.25(typescript@5.4.5))
-      '@vtj/ui': 0.8.5(vue@3.4.25(typescript@5.4.5))
-      '@vtj/utils': 0.8.5
-      mockjs: 1.1.0
-      monaco-editor: 0.47.0
-    transitivePeerDependencies:
-      - '@vue/composition-api'
-      - vue
-
-  '@vtj/icons@0.8.5(vue@3.4.25(typescript@5.4.5))':
-    dependencies:
-      '@element-plus/icons-vue': 2.3.1(vue@3.4.25(typescript@5.4.5))
-    transitivePeerDependencies:
-      - vue
-
-  '@vtj/local@0.8.5':
-    dependencies:
-      '@vtj/coder': 0.8.5
-      '@vtj/core': 0.8.5
-      '@vtj/node': 0.8.2
-      formidable: 3.5.1
-    transitivePeerDependencies:
-      - debug
-
-  '@vtj/materials@0.8.5': {}
-
   '@vtj/node@0.8.2':
     dependencies:
       '@types/fs-extra': 11.0.4
@@ -11619,54 +11495,6 @@ snapshots:
       fs-extra: 11.2.0
     transitivePeerDependencies:
       - debug
-
-  '@vtj/pro@0.8.5(vue@3.4.25(typescript@5.4.5))':
-    dependencies:
-      '@vtj/core': 0.8.5
-      '@vtj/designer': 0.8.5(vue@3.4.25(typescript@5.4.5))
-      '@vtj/local': 0.8.5
-      '@vtj/materials': 0.8.5
-      '@vtj/renderer': 0.8.5(vue@3.4.25(typescript@5.4.5))
-    transitivePeerDependencies:
-      - '@vue/composition-api'
-      - debug
-      - vue
-
-  '@vtj/renderer@0.8.5(vue@3.4.25(typescript@5.4.5))':
-    dependencies:
-      '@vtj/core': 0.8.5
-      '@vtj/icons': 0.8.5(vue@3.4.25(typescript@5.4.5))
-      '@vtj/ui': 0.8.5(vue@3.4.25(typescript@5.4.5))
-      '@vtj/utils': 0.8.5
-      mockjs: 1.1.0
-    transitivePeerDependencies:
-      - '@vue/composition-api'
-      - vue
-
-  '@vtj/ui@0.8.5(vue@3.4.25(typescript@5.4.5))':
-    dependencies:
-      '@vtj/icons': 0.8.5(vue@3.4.25(typescript@5.4.5))
-      '@vtj/utils': 0.8.5
-      '@vueuse/core': 10.9.0(vue@3.4.25(typescript@5.4.5))
-      echarts: 5.5.0
-      element-plus: 2.7.1(vue@3.4.25(typescript@5.4.5))
-    transitivePeerDependencies:
-      - '@vue/composition-api'
-      - vue
-
-  '@vtj/utils@0.8.5':
-    dependencies:
-      '@vtj/base': 0.8.2
-
-  '@vtj/web@0.8.5(vue@3.4.25(typescript@5.4.5))':
-    dependencies:
-      '@vtj/icons': 0.8.5(vue@3.4.25(typescript@5.4.5))
-      '@vtj/renderer': 0.8.5(vue@3.4.25(typescript@5.4.5))
-      '@vtj/ui': 0.8.5(vue@3.4.25(typescript@5.4.5))
-      '@vtj/utils': 0.8.5
-    transitivePeerDependencies:
-      - '@vue/composition-api'
-      - vue
 
   '@vue/babel-helper-vue-transform-on@1.2.2': {}
 
@@ -11759,22 +11587,22 @@ snapshots:
 
   '@vue/devtools-api@6.6.1': {}
 
-  '@vue/devtools-api@7.1.2(vue@3.4.25(typescript@5.4.5))':
+  '@vue/devtools-api@7.1.3(vue@3.4.25(typescript@5.4.5))':
     dependencies:
-      '@vue/devtools-kit': 7.1.2(vue@3.4.25(typescript@5.4.5))
+      '@vue/devtools-kit': 7.1.3(vue@3.4.25(typescript@5.4.5))
     transitivePeerDependencies:
       - vue
 
-  '@vue/devtools-kit@7.1.2(vue@3.4.25(typescript@5.4.5))':
+  '@vue/devtools-kit@7.1.3(vue@3.4.25(typescript@5.4.5))':
     dependencies:
-      '@vue/devtools-shared': 7.1.2
+      '@vue/devtools-shared': 7.1.3
       hookable: 5.5.3
       mitt: 3.0.1
       perfect-debounce: 1.0.0
       speakingurl: 14.0.1
       vue: 3.4.25(typescript@5.4.5)
 
-  '@vue/devtools-shared@7.1.2':
+  '@vue/devtools-shared@7.1.3':
     dependencies:
       rfdc: 1.3.1
 
@@ -12328,7 +12156,7 @@ snapshots:
   browserslist@4.23.0:
     dependencies:
       caniuse-lite: 1.0.30001612
-      electron-to-chromium: 1.4.749
+      electron-to-chromium: 1.4.750
       node-releases: 2.0.14
       update-browserslist-db: 1.0.13(browserslist@4.23.0)
 
@@ -12811,13 +12639,13 @@ snapshots:
 
   cssesc@3.0.0: {}
 
-  cssnano-preset-default@7.0.0(postcss@8.4.38):
+  cssnano-preset-default@7.0.1(postcss@8.4.38):
     dependencies:
       browserslist: 4.23.0
       css-declaration-sorter: 7.2.0(postcss@8.4.38)
       cssnano-utils: 5.0.0(postcss@8.4.38)
       postcss: 8.4.38
-      postcss-calc: 9.0.1(postcss@8.4.38)
+      postcss-calc: 10.0.0(postcss@8.4.38)
       postcss-colormin: 7.0.0(postcss@8.4.38)
       postcss-convert-values: 7.0.0(postcss@8.4.38)
       postcss-discard-comments: 7.0.0(postcss@8.4.38)
@@ -12849,9 +12677,9 @@ snapshots:
     dependencies:
       postcss: 8.4.38
 
-  cssnano@7.0.0(postcss@8.4.38):
+  cssnano@7.0.1(postcss@8.4.38):
     dependencies:
-      cssnano-preset-default: 7.0.0(postcss@8.4.38)
+      cssnano-preset-default: 7.0.1(postcss@8.4.38)
       lilconfig: 3.1.1
       postcss: 8.4.38
 
@@ -13047,9 +12875,9 @@ snapshots:
     dependencies:
       jake: 10.8.7
 
-  electron-to-chromium@1.4.749: {}
+  electron-to-chromium@1.4.750: {}
 
-  element-plus@2.7.1(vue@3.4.25(typescript@5.4.5)):
+  element-plus@2.7.2(vue@3.4.25(typescript@5.4.5)):
     dependencies:
       '@ctrl/tinycolor': 3.6.1
       '@element-plus/icons-vue': 2.3.1(vue@3.4.25(typescript@5.4.5))
@@ -15085,7 +14913,7 @@ snapshots:
     dependencies:
       autoprefixer: 10.4.19(postcss@8.4.38)
       citty: 0.1.6
-      cssnano: 7.0.0(postcss@8.4.38)
+      cssnano: 7.0.1(postcss@8.4.38)
       defu: 6.1.4
       esbuild: 0.20.2
       fs-extra: 11.2.0
@@ -15118,7 +14946,7 @@ snapshots:
 
   module-alias@2.2.3: {}
 
-  monaco-editor@0.47.0: {}
+  monaco-editor@0.48.0: {}
 
   mri@1.2.0: {}
 
@@ -15743,7 +15571,7 @@ snapshots:
 
   possible-typed-array-names@1.0.0: {}
 
-  postcss-calc@9.0.1(postcss@8.4.38):
+  postcss-calc@10.0.0(postcss@8.4.38):
     dependencies:
       postcss: 8.4.38
       postcss-selector-parser: 6.0.16
@@ -15972,7 +15800,7 @@ snapshots:
     dependencies:
       '@jest/schemas': 29.6.3
       ansi-styles: 5.2.0
-      react-is: 18.3.0
+      react-is: 18.3.1
 
   proc-log@3.0.0: {}
 
@@ -16073,7 +15901,7 @@ snapshots:
 
   react-is@17.0.2: {}
 
-  react-is@18.3.0: {}
+  react-is@18.3.1: {}
 
   read-cache@1.0.0:
     dependencies:
@@ -17110,7 +16938,7 @@ snapshots:
       - supports-color
       - terser
 
-  vite-plugin-dts@3.8.3(@types/node@20.12.7)(rollup@3.29.4)(typescript@5.4.5)(vite@5.2.10(@types/node@20.12.7)(sass@1.75.0)(terser@5.30.4)):
+  vite-plugin-dts@3.9.0(@types/node@20.12.7)(rollup@3.29.4)(typescript@5.4.5)(vite@5.2.10(@types/node@20.12.7)(sass@1.75.0)(terser@5.30.4)):
     dependencies:
       '@microsoft/api-extractor': 7.43.0(@types/node@20.12.7)
       '@rollup/pluginutils': 5.1.0(rollup@3.29.4)
@@ -17154,7 +16982,7 @@ snapshots:
       '@shikijs/transformers': 1.3.0
       '@types/markdown-it': 14.0.1
       '@vitejs/plugin-vue': 5.0.4(vite@5.2.10(@types/node@20.12.7)(sass@1.75.0)(terser@5.30.4))(vue@3.4.25(typescript@5.4.5))
-      '@vue/devtools-api': 7.1.2(vue@3.4.25(typescript@5.4.5))
+      '@vue/devtools-api': 7.1.3(vue@3.4.25(typescript@5.4.5))
       '@vueuse/core': 10.9.0(vue@3.4.25(typescript@5.4.5))
       '@vueuse/integrations': 10.9.0(async-validator@4.2.5)(axios@1.6.8)(focus-trap@7.5.4)(qrcode@1.5.3)(vue@3.4.25(typescript@5.4.5))
       focus-trap: 7.5.4

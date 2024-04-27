@@ -1,13 +1,14 @@
 <template>
-  <button @click="handleChangeDataUrl">改变 qrcode value类型为函数</button>
-  <div style="height: 100%">
-    <XQrcode
-      :value="dataUrl"
-      :width="300"
-      :timeout="timeoutValue"
-      @refresh="handleRefresh">
-    </XQrcode>
+  <div>
+    <button @click="handleChangeDataUrl">改变 qrcode value类型为函数</button>
   </div>
+  <XQrcode></XQrcode>
+  <XQrcode
+    :value="dataUrl"
+    :width="200"
+    :timeout="timeoutValue"
+    @refresh="handleRefresh">
+  </XQrcode>
 </template>
 <script lang="ts" setup>
   import { ref } from 'vue';

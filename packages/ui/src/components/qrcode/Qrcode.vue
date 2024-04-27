@@ -7,7 +7,7 @@
       <div class="x-qrcode__mask" :style="{ scale: widthScale }">
         <div class="x-qrcode__logo" @click="handleRefresh">
           <slot name="logo">
-            <XIcon :icon="Refresh" :size="20"></XIcon>
+            <XIcon :icon="Refresh" :size="24"></XIcon>
             <div>刷新</div>
           </slot>
         </div>
@@ -37,7 +37,7 @@
   const attrs = useAttrs();
 
   const isTimeout = ref<boolean>(false);
-  const isLoading = ref<boolean>(true);
+  const isLoading = ref<boolean>(false);
   // 样式
   const widthScale = ref<number>(1);
 
@@ -87,10 +87,7 @@
     () => props.width,
     () => {
       if (props.width) {
-        console.log('props.width', props.width);
-
         widthScale.value = props.width / 140;
-        console.log(widthScale.value);
       }
     },
     { immediate: true }

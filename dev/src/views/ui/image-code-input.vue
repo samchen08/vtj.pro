@@ -1,8 +1,13 @@
 <template>
   <p>1111</p>
-  <XImageCodeInput
-    :image="getImageFn"
-    :validate="handleValidate"></XImageCodeInput>
+  <XImageCodeInput :image="getImageFn" size="small" :validate="handleValidate">
+  </XImageCodeInput>
+
+  <XImageCodeInput :image="getImageFn" :validate="handleValidate">
+  </XImageCodeInput>
+
+  <XImageCodeInput :image="getImageFn" size="large" :validate="handleValidate">
+  </XImageCodeInput>
 </template>
 
 <script lang="ts" setup>
@@ -21,15 +26,23 @@
     'https://fuss10.elemecdn.com/a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg'
   ];
   let getImageFn = () => {
-    return srcList[Math.floor(Math.random() * 10)];
+    let promise = new Promise((resolve) => {
+      setTimeout(() => resolve(srcList[Math.floor(Math.random() * 10)]));
+    });
+    return promise;
   };
 
   // 校验  return (true/false)
   const handleValidate = (v: string) => {
-    if ('1111' === v) {
-      return true;
-    } else {
-      return false;
-    }
+    let promise = new Promise((resolve) => {
+      setTimeout(() => {
+        if ('1111' === v) {
+          resolve(true);
+        } else {
+          resolve(false);
+        }
+      });
+    });
+    return promise;
   };
 </script>

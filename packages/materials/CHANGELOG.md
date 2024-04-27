@@ -3,6 +3,33 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.8](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.8.7...@vtj/materials@0.8.8) (2024-04-27)
+
+
+### Bug Fixes
+
+* 🐛 qrcode ([478acfd](https://gitee.com/newgateway/vtj/commits/478acfd35dfc97976abbaa4dd6076e1aebe6fc3f))
+
+
+
+
+
+## [0.8.7](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.8.5...@vtj/materials@0.8.7) (2024-04-26)
+
+
+### Bug Fixes
+
+* 🐛 图表包名错误 ([0caf865](https://gitee.com/newgateway/vtj/commits/0caf865a33d2a2b3c7f3268fb351f10cffe4bba4))
+
+
+### Features
+
+* ✨ add charts module ([2e5b7e9](https://gitee.com/newgateway/vtj/commits/2e5b7e9ca763a2446d3e65af6fa8d1d32b8f2243))
+
+
+
+
+
 ## [0.8.6](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.8.5...@vtj/materials@0.8.6) (2024-04-26)
 
 

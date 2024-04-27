@@ -3,6 +3,34 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.8](https://gitee.com/newgateway/vtj/compare/dev-web@0.8.7...dev-web@0.8.8) (2024-04-27)
+
+
+### Bug Fixes
+
+* 🐛 ui qrcode, ui image-code-input ([fcd8e72](https://gitee.com/newgateway/vtj/commits/fcd8e72bb6d6482a06f48052247e59e3785a1686))
+
+
+
+
+
+## [0.8.7](https://gitee.com/newgateway/vtj/compare/dev-web@0.8.5...dev-web@0.8.7) (2024-04-26)
+
+
+### Bug Fixes
+
+* 🐛 ui qrcode 样式 ([d6a2fda](https://gitee.com/newgateway/vtj/commits/d6a2fda4b6aa44c3da8857c5912bf575eea9ec69))
+
+
+### Features
+
+* ✨ add charts module ([2e5b7e9](https://gitee.com/newgateway/vtj/commits/2e5b7e9ca763a2446d3e65af6fa8d1d32b8f2243))
+* ✨ ui add imageCodeInput ([ce6b848](https://gitee.com/newgateway/vtj/commits/ce6b8489d681de75f2eaad9e40396373f5042cb6))
+
+
+
+
+
 ## [0.8.6](https://gitee.com/newgateway/vtj/compare/dev-web@0.8.5...dev-web@0.8.6) (2024-04-26)
 
 

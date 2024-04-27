@@ -25,6 +25,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    gap: 5px;
     color: var(--el-color-success-dark-2);
     overflow: hidden;
   }
@@ -36,13 +37,14 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    font-size: var(--el-font-size-extra-small);
+    font-size: var(--el-font-size-base);
     cursor: pointer;
   }
 
   @include e(tip) {
-    color: var(--el-text-color-primary);
+    color: var(--el-text-color-secondary);
     font-size: var(--el-font-size-extra-small);
+    scale: 0.7;
     max-width: 80px;
     text-align: center;
   }

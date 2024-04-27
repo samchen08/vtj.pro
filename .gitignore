@@ -60,4 +60,4 @@ lib
 /platforms/pro/public/@vtj
 
 /scripts/ssh.mjs
-
+/pnpm-publish-summary.json

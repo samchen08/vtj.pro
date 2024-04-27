@@ -17,4 +17,16 @@
       height: 38px;
     }
   }
+
+  @include e(iconSuccess) {
+    color: var(--el-color-success);
+  }
+
+  @include e(iconError) {
+    color: var(--el-color-error);
+  }
+}
+
+.el-input-group__prepend {
+  padding: 0;
 }

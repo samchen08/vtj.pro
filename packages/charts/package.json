@@ -1,7 +1,7 @@
 {
   "name": "@vtj/charts",
   "private": false,
-  "version": "0.8.6",
+  "version": "0.8.8",
   "type": "module",
   "scripts": {
     "build": "vue-tsc && vite build && npm run build:umd",
@@ -14,13 +14,13 @@
     "node": ">=16.0.0"
   },
   "dependencies": {
-    "@vtj/icons": "workspace:*",
-    "@vtj/utils": "workspace:*",
+    "@vtj/icons": "workspace:~",
+    "@vtj/utils": "workspace:~",
     "@vueuse/core": "~10.9.0",
     "echarts": "~5.5.0"
   },
   "devDependencies": {
-    "@vtj/cli": "workspace:*"
+    "@vtj/cli": "workspace:~"
   },
   "files": [
     "dist",
