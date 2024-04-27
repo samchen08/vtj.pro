@@ -1,6 +1,7 @@
 @use 'core' as *;
 
 @include b(action-bar) {
+  display: inline-block;
   white-space: nowrap;
   @include e(divider) {
     margin: 0 1em !important;

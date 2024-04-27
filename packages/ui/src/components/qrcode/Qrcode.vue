@@ -3,16 +3,18 @@
     <img class="x-qrcode__qrcode" v-bind="attrs" :src="qrcodeValue" />
 
     <!-- 蒙层 -->
-    <div class="x-qrcode__mask" v-if="qrcodeValue && isTimeout">
-      <div class="x-qrcode__logo" @click="handleRefresh">
-        <slot name="logo">
-          <XIcon :icon="Refresh" :size="40"></XIcon>
-          <p>刷新</p>
-        </slot>
-      </div>
+    <div class="x-qrcode__maskWrapper" v-if="qrcodeValue && isTimeout">
+      <div class="x-qrcode__mask" :style="{ scale: widthScale }">
+        <div class="x-qrcode__logo" @click="handleRefresh">
+          <slot name="logo">
+            <XIcon :icon="Refresh" :size="24"></XIcon>
+            <div>刷新</div>
+          </slot>
+        </div>
 
-      <div class="x-qrcode__tip">
-        <slot name="tip">{{ props.tip }}</slot>
+        <div class="x-qrcode__tip">
+          <slot name="tip">{{ props.tip }}</slot>
+        </div>
       </div>
     </div>
   </div>
@@ -35,7 +37,9 @@
   const attrs = useAttrs();
 
   const isTimeout = ref<boolean>(false);
-  const isLoading = ref<boolean>(true);
+  const isLoading = ref<boolean>(false);
+  // 样式
+  const widthScale = ref<number>(1);
 
   let timer: any;
   const refreshTimeout = (): void => {
@@ -79,6 +83,15 @@
   };
 
   watch(props, toDataURL, { immediate: true });
+  watch(
+    () => props.width,
+    () => {
+      if (props.width) {
+        widthScale.value = props.width / 140;
+      }
+    },
+    { immediate: true }
+  );
 
   // 组件
   const qrcodeRef = ref();

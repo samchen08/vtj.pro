@@ -14,15 +14,10 @@ export default createViteConfig({
         'vue-router',
         'element-plus',
         '@element-plus/icons-vue',
+        '@vueuse/core',
         '@vtj/utils',
         '@vtj/icons',
-        'echarts',
-        '@ckeditor/ckeditor5-build-classic',
-        '@ckeditor/ckeditor5-vue',
-        '@ckeditor/ckeditor5-build-classic/build/translations/zh-cn.js',
-        '@vue-office/docx',
-        '@vue-office/excel',
-        '@vue-office/pdf'
+        'echarts'
       ]
     : [
         'vue',
@@ -32,13 +27,7 @@ export default createViteConfig({
         '@vueuse/core',
         '@vtj/utils',
         '@vtj/icons',
-        'echarts',
-        '@ckeditor/ckeditor5-build-classic',
-        '@ckeditor/ckeditor5-vue',
-        '@ckeditor/ckeditor5-build-classic/build/translations/zh-cn.js',
-        '@vue-office/docx',
-        '@vue-office/excel',
-        '@vue-office/pdf'
+        'echarts'
       ],
   externalGlobals: isUmd
     ? {
@@ -46,16 +35,10 @@ export default createViteConfig({
         'vue-router': 'VueRouter',
         'element-plus': 'ElementPlus',
         '@element-plus/icons-vue': 'VtjIcons',
+        '@vueuse/core': 'VueUse',
         '@vtj/utils': 'VtjUtils',
         '@vtj/icons': 'VtjIcons',
-        echarts: 'echarts',
-        '@ckeditor/ckeditor5-build-classic': 'ClassicEditor',
-        '@ckeditor/ckeditor5-vue': 'CKEditor',
-        '@ckeditor/ckeditor5-build-classic/build/translations/zh-cn.js':
-          'CKEDITOR_TRANSLATIONS',
-        '@vue-office/docx': 'vue-office-docx',
-        '@vue-office/excel': 'vue-office-excel',
-        '@vue-office/pdf': 'vue-office-pdf'
+        echarts: 'echarts'
       }
     : undefined,
   formats: isUmd ? ['umd'] : ['es']

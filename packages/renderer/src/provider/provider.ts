@@ -147,8 +147,8 @@ export class Provider extends Base {
           if (isJSUrl(url)) {
             await loadScript(urlUtils.append(url, { v: version }));
           }
-          library[libraryName] = _window[libraryName];
         }
+        library[libraryName] = _window[libraryName];
       }
     }
 

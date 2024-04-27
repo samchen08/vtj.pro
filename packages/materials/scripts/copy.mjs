@@ -9,6 +9,7 @@ const files = [
   [packages + 'icons/dist/style.css', 'deps/@vtj/icons/style.css'],
   [packages + 'ui/dist/index.umd.js', 'deps/@vtj/ui/index.umd.js'],
   [packages + 'ui/dist/style.css', 'deps/@vtj/ui/style.css'],
+  [packages + 'charts/dist/index.umd.js', 'deps/@vtj/charts/index.umd.js'],
 
   [modules + 'vue/dist/vue.global.prod.js', 'deps/vue/vue.global.prod.js'],
   [
@@ -26,7 +27,14 @@ const files = [
   ],
   [modules + 'element-plus/dist/index.css', 'deps/element-plus/index.css'],
   [modules + 'echarts/dist/echarts.min.js', 'deps/echarts/echarts.min.js'],
-
+  [
+    modules + '@vueuse/shared/index.iife.min.js',
+    'deps/@vueuse/shared/index.iife.min.js'
+  ],
+  [
+    modules + '@vueuse/core/index.iife.min.js',
+    'deps/@vueuse/core/index.iife.min.js'
+  ],
   [
     modules + 'ant-design-vue/dist/antd.min.js',
     'deps/ant-design-vue/antd.min.js'

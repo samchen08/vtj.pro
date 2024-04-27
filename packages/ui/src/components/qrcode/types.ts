@@ -21,21 +21,20 @@ export const qrcodeProps = {
    * 外边距 margin
    */
   margin: {
-    type: Number,
-    default: 4
+    type: Number
   },
   /**
    *  规模 scale
    */
   scale: {
-    type: Number,
-    default: 4
+    type: Number
   },
   /**
    *  宽度 width
    */
   width: {
-    type: Number
+    type: Number,
+    default: 200
   },
   // color
   color: {
@@ -74,11 +73,11 @@ export const qrcodeProps = {
   // tip
   tip: {
     type: String,
-    default: '二维码已失效请刷新居重试'
+    default: '二维码已失效请刷新后重试'
   }
 };
 
-export type qrcodeProps = ComponentPropsType<typeof qrcodeProps>;
+export type QrcodeProps = ComponentPropsType<typeof qrcodeProps>;
 
 export type qrcodeEmits = {
   refresh: [];

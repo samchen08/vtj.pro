@@ -3,6 +3,7 @@
 </template>
 <script lang="ts" setup>
   import { ref, computed } from 'vue';
+  import * as _echarts from 'echarts';
   import { chartProps } from './types';
   import { getSizeValue } from '../../utils';
   import { useChart } from './useChart';
@@ -13,7 +14,7 @@
 
   const props = defineProps(chartProps);
   const chartRef = ref();
-  const { echartsInstance, echarts } = useChart(chartRef, props);
+  const { echartsInstance, echarts } = useChart(_echarts, chartRef, props);
   const styleComputed = computed(() => {
     return {
       width: getSizeValue(props.width),

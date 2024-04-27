@@ -33,6 +33,8 @@ const desc: MaterialDescription = {
       options: ['button', 'text', 'icon'],
       defaultValue: 'button'
     },
+    size(),
+    type(),
     {
       name: 'menus',
       label: '菜单配置',
@@ -64,8 +66,6 @@ const desc: MaterialDescription = {
       label: '禁用',
       setters: 'BooleanSetter'
     },
-    size(),
-    type(),
     {
       name: 'background',
       label: '背景',

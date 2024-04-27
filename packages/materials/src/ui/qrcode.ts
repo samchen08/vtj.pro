@@ -7,34 +7,28 @@ const qrcode: MaterialDescription = {
   props: [
     {
       name: 'margin',
-      setters: 'NumberSetter',
-      defaultValue: 4
+      setters: 'NumberSetter'
     },
     {
       name: 'scale',
-      setters: 'NumberSetter',
-      defaultValue: 4
+      setters: 'NumberSetter'
     },
     {
       name: 'width',
-      setters: 'NumberSetter',
-      defaultValue: 400
+      setters: 'NumberSetter'
     },
     {
       name: 'darkColor',
-      setters: 'StringSetter',
-      defaultValue: '#000000ff'
+      setters: 'StringSetter'
     },
     {
       name: 'lightColor',
-      setters: 'StringSetter',
-      defaultValue: '#ffffffff'
+      setters: 'StringSetter'
     },
     {
       name: 'quality',
       title: 'number(0-1)',
-      setters: 'NumberSetter',
-      defaultValue: 0.92
+      setters: 'NumberSetter'
     },
     {
       name: 'value',
@@ -42,8 +36,7 @@ const qrcode: MaterialDescription = {
     },
     {
       name: 'timeout',
-      setters: 'NumberSetter',
-      defaultValue: 0
+      setters: 'NumberSetter'
     },
     {
       name: 'tip',
