@@ -43,6 +43,18 @@ export const builtInDeps: Dependencie[] = [
     enabled: true
   },
   {
+    package: '@vueuse/core',
+    version: 'latest',
+    library: 'VueUse',
+    urls: [
+      '@vtj/materials/deps/@vueuse/shared/index.iife.min.js',
+      '@vtj/materials/deps/@vueuse/core/index.iife.min.js'
+    ],
+    required: false,
+    official: true,
+    enabled: true
+  },
+  {
     package: 'element-plus',
     version: 'latest',
     library: 'ElementPlus',
@@ -73,12 +85,25 @@ export const builtInDeps: Dependencie[] = [
     version: 'latest',
     library: 'VtjUI',
     urls: [
-      '@vtj/materials/deps/echarts/echarts.min.js',
       '@vtj/materials/deps/@vtj/ui/style.css',
       '@vtj/materials/deps/@vtj/ui/index.umd.js'
     ],
     assetsUrl: '@vtj/materials/assets/ui/index.umd.js',
     assetsLibrary: 'VtjUIMaterial',
+    required: false,
+    official: true,
+    enabled: true
+  },
+  {
+    package: '@vtj/charts',
+    version: 'latest',
+    library: 'VtjCharts',
+    urls: [
+      '@vtj/materials/deps/echarts/echarts.min.js',
+      '@vtj/materials/deps/@vtj/charts/index.umd.js'
+    ],
+    assetsUrl: '@vtj/materials/assets/charts/index.umd.js',
+    assetsLibrary: 'VtjChartsMaterial',
     required: false,
     official: true,
     enabled: true

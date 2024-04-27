@@ -190,7 +190,7 @@ const material: Material = {
   version: version,
   label: 'Antdv',
   library: 'AntdvMaterial',
-  order: 2,
+  order: 4,
   categories,
   components: setPackageName(components, name)
 };

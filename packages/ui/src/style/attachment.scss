@@ -98,7 +98,8 @@
 
     .el-upload-list__item-thumbnail {
       &.is-icon {
-        padding: 24px;
+        padding: 20px;
+        box-sizing: border-box;
       }
     }
   }

@@ -4,7 +4,7 @@
     size="default"
     label-width="80px"
     :inline="inline"
-    :inline-columns="3"
+    :inline-columns="2"
     :model="model"
     @submit="onSubmit"
     @change="onModelChange">
@@ -26,12 +26,6 @@
       :options="optionsLoader">
     </XField>
 
-    <XField name="ck" label="富文本">
-      <template #editor>
-        <XCKEditor v-model="model.ck"></XCKEditor>
-      </template>
-    </XField>
-
     <XField
       v-for="(_item, index) of model.items"
       :name="`items.${index}.title`"
@@ -49,10 +43,10 @@
 <script lang="ts" setup>
   import { ElButton } from 'element-plus';
   import { reactive, ref } from 'vue';
-  import { XField, XForm, XCKEditor } from '@vtj/web';
+  import { XField, XForm } from '@vtj/web';
 
   const form = ref();
-  const inline = ref(false);
+  const inline = ref(true);
 
   const options = [
     {
