@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.9](https://gitee.com/newgateway/vtj/compare/@vtj/pro@0.8.8...@vtj/pro@0.8.9) (2024-04-30)
+
+
+### Features
+
+* ✨ 设计器支持远程扩展 ([ed2ed8e](https://gitee.com/newgateway/vtj/commits/ed2ed8ec38f51d389d0eb05488a3e8e06a1fdd35))
+
+
+
+
+
+
 ## [0.8.8](https://gitee.com/newgateway/vtj/compare/@vtj/pro@0.8.7...@vtj/pro@0.8.8) (2024-04-27)
 
 

@@ -31,25 +31,35 @@ export async function saveLogs(e: any) {
   return logs.save(name, json);
 }
 
+export async function getExtension() {
+  const root = resolve('./');
+  const pkg = readJsonSync(resolve(root, 'package.json'));
+  const { vtj = {} } = pkg || {};
+  return success(vtj.extension || null);
+}
+
 export async function init() {
   const root = resolve('./');
   const pkg = readJsonSync(resolve(root, 'package.json'));
   const repository = new JsonRepository('projects');
   // 从项目的 package.json 中读取项目信息
-  const { name, description } = pkg || {};
-
+  const { vtj = {} } = pkg || {};
+  const id = vtj.id || pkg.name;
+  const name = vtj.name || pkg.description || upperFirstCamelCase(id);
+  const description = vtj.description || pkg.description || '';
   // 如果项目文件已经存在，则直接返回文件内容
-  let dsl = repository.get(name);
+  let dsl = repository.get(id);
   if (dsl) {
+    Object.assign(dsl, { id, name, description });
     return success(dsl);
   } else {
     const model = new ProjectModel({
-      id: name,
-      name: description || upperFirstCamelCase(name),
+      id,
+      name,
       description
     });
     dsl = model.toDsl();
-    repository.save(name, dsl);
+    repository.save(id, dsl);
     return success(dsl);
   }
 }

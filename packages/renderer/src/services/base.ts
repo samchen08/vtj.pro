@@ -82,6 +82,12 @@ export class BaseService implements Service {
     this.api = createApi();
     this.uploader = createUploader();
   }
+  async getExtension(): Promise<
+    { urls: string[]; library: string } | undefined
+  > {
+    console.log('BaseService.getExtension');
+    return undefined;
+  }
 
   async init(project: ProjectSchema): Promise<ProjectSchema> {
     console.log('BaseService.init', project);

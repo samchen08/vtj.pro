@@ -27,6 +27,7 @@ export interface DevToolsOptions {
   packagesDir: string;
   devMode: boolean;
   uploader: string;
+  packageName: string;
   hm?: string;
 }
 
@@ -92,7 +93,9 @@ const linkPlugin = function (options: DevToolsOptions): Plugin {
           return html;
         }
         const link =
-          typeof options.link === 'string' ? options.link : '@vtj/pro/link.js';
+          typeof options.link === 'string'
+            ? options.link
+            : `${options.packageName}/link.js`;
         const url = `${config.base}${link}`;
         return html.replace(
           /<\/body>/,
@@ -194,13 +197,14 @@ export function createDevTools(options: Partial<DevToolsOptions> = {}) {
     packagesDir: '../../packages',
     devMode: false,
     uploader: '/uploader.json',
+    packageName: '@vtj/pro',
     hm: '42f2469b4aa27c3f8978f634c0c19d24',
     ...options
   };
   const plugins: Plugin[] = [aliasPlugin(opts)];
-  const proPath = 'node_modules/@vtj/pro/dist';
+  const proPath = `node_modules/${opts.packageName}/dist`;
   const materialsPath1 = 'node_modules/@vtj/materials/dist';
-  const materialsPath2 = 'node_modules/@vtj/pro/' + materialsPath1;
+  const materialsPath2 = `node_modules/${opts.packageName}/${materialsPath1}`;
 
   // 复制物料目录
   if (opts.copy) {
@@ -236,7 +240,7 @@ export function createDevTools(options: Partial<DevToolsOptions> = {}) {
 
     if (pathExistsSync(proPath)) {
       staticOptions.push({
-        path: `${opts.staticBase}@vtj/pro`,
+        path: `${opts.staticBase}${opts.packageName}`,
         dir: proPath
       });
     }

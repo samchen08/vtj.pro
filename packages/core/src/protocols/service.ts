@@ -11,6 +11,9 @@ import type { MaterialDescription } from './assets';
 import type { StaticFileInfo } from './shared';
 
 export abstract class Service {
+  public abstract getExtension(): Promise<
+    { urls: string[]; library: string } | undefined
+  >;
   public abstract init(project: ProjectSchema): Promise<ProjectSchema>;
   public abstract saveProject(project: ProjectSchema): Promise<boolean>;
   public abstract saveMaterials(

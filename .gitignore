@@ -47,9 +47,11 @@ lib
 /apps/*/dist/
 /apps/*/coverage/
 /apps/*/node_modules/
+/apps/*/public/extension
 
 # dev
 /dev/public/@vtj
+/dev/public/extension
 
 # docs
 /docs/src/typedoc
@@ -58,6 +60,8 @@ lib
 
 # pro
 /platforms/pro/public/@vtj
+/platforms/pro/public/extension
+
 
 /scripts/ssh.mjs
 /pnpm-publish-summary.json

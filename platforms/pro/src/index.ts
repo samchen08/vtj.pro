@@ -7,3 +7,4 @@ import '@vtj/designer/dist/style.css';
 export * from '@vtj/core';
 export * from '@vtj/designer';
 export * from '@vtj/renderer';
+export * from './extension';

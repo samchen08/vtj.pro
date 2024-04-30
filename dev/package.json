@@ -1,7 +1,7 @@
 {
   "name": "dev-web",
   "private": true,
-  "version": "0.8.8",
+  "version": "0.8.9",
   "type": "module",
   "scripts": {
     "dev": "cross-env ENV_TYPE=local vite",
@@ -11,6 +11,7 @@
     "build:uat": "vue-tsc && cross-env ENV_TYPE=uat vite build",
     "build:pre": "vue-tsc && cross-env ENV_TYPE=pre vite build",
     "build:prod": "vue-tsc && cross-env ENV_TYPE=live vite build",
+    "build:ext": "cross-env Extension=true vite build",
     "preview": "vite preview"
   },
   "engines": {

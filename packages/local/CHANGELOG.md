@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.9](https://gitee.com/newgateway/vtj/compare/@vtj/local@0.8.8...@vtj/local@0.8.9) (2024-04-30)
+
+
+### Features
+
+* ✨ 设计器支持远程扩展 ([ed2ed8e](https://gitee.com/newgateway/vtj/commits/ed2ed8ec38f51d389d0eb05488a3e8e06a1fdd35))
+* ✨ local增加packageName参数 ([72d0c71](https://gitee.com/newgateway/vtj/commits/72d0c71a67ff0accf324db9ca087ef3dd3f165e3))
+
+
+
+
+
+
 ## [0.8.8](https://gitee.com/newgateway/vtj/compare/@vtj/local@0.8.7...@vtj/local@0.8.8) (2024-04-27)
 
 **Note:** Version bump only for package @vtj/local

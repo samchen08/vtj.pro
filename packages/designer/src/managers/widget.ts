@@ -63,9 +63,15 @@ class WidgetManager {
   getWidgets(region?: keyof typeof RegionType, group?: string) {
     const widgets = Object.values(this.widgets);
     if (region) {
-      return widgets.filter(
-        (n) => n.region === region && (!group || (group && group === n.group))
-      );
+      return widgets
+        .filter(
+          (n) => n.region === region && (!group || (group && group === n.group))
+        )
+        .map((n, i) => {
+          n.order = n.order ?? i;
+          return n;
+        })
+        .sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
     }
     return widgets;
   }

@@ -21,6 +21,7 @@ const controller: Controller = {
   notMatch: async (_req: ApiRequest) => {
     return fail('找不到处理程序');
   },
+  getExtension: service.getExtension,
   init: service.init,
   saveProject: async (req: ApiRequest) => {
     const project = req.data as ProjectSchema;

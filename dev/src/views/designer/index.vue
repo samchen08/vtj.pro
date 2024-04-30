@@ -3,7 +3,14 @@
 </template>
 <script lang="ts" setup>
   import { ref } from 'vue';
-  import { Engine, widgetManager, MemoryService } from '@vtj/pro';
+  import { Engine, widgetManager, MemoryService, Extension } from '@vtj/pro';
+
+  const extension = new Extension({
+    urls: ['/extension/style.css', '/extension/index.umd.js'],
+    library: 'VtjExtension'
+  });
+
+  const options = await extension.load();
 
   widgetManager.set('Switcher', {
     props: {
@@ -20,7 +27,8 @@
     project: {
       id: 'demo',
       name: 'dev-project'
-    }
+    },
+    ...options
   });
   console.log('engine', engine);
 </script>

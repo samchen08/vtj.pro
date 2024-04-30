@@ -4,11 +4,20 @@
 <script lang="ts" setup>
   import { ref, watch } from 'vue';
   import { useRoute } from 'vue-router';
-  import { Engine, widgetManager, LocalService, ProjectModel } from '../../src';
+  import {
+    Engine,
+    widgetManager,
+    LocalService,
+    ProjectModel,
+    Extension
+  } from '../../src';
 
   const route = useRoute();
   const container = ref();
   const service = new LocalService();
+
+  const ext = await service.getExtension().catch(() => null);
+  const options = ext ? await new Extension(ext).load() : undefined;
 
   widgetManager.set('Switcher', {
     props: {
@@ -35,7 +44,8 @@
 
   const engine = new Engine({
     container,
-    service
+    service,
+    ...options
   });
 
   engine.ready(() => {

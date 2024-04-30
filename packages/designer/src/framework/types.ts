@@ -66,6 +66,11 @@ export interface Widget {
    * 分组名称
    */
   group?: string;
+
+  /**
+   * 排序
+   */
+  order?: number;
 }
 
 /**

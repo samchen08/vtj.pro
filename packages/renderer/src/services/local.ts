@@ -10,6 +10,14 @@ import { BaseService } from './base';
 
 export class LocalService extends BaseService {
   private getFileCaches: Record<string, any> = {};
+
+  async getExtension(): Promise<
+    { urls: string[]; library: string } | undefined
+  > {
+    const res = await this.api('getExtension', {}).catch(() => undefined);
+    return res as any;
+  }
+
   async init(project: ProjectSchema): Promise<ProjectSchema> {
     const res = await this.api('init', project).catch(() => null);
     return (res || {}) as ProjectSchema;
