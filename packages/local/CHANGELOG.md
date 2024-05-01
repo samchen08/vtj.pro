@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.11](https://gitee.com/newgateway/vtj/compare/@vtj/local@0.8.10...@vtj/local@0.8.11) (2024-05-01)
+
+**Note:** Version bump only for package @vtj/local
+
+
+
+
+
+## [0.8.10](https://gitee.com/newgateway/vtj/compare/@vtj/local@0.8.9...@vtj/local@0.8.10) (2024-05-01)
+
+
+### Bug Fixes
+
+* 🐛 local 增加 nodeModulesDir 参数 ([6049bb6](https://gitee.com/newgateway/vtj/commits/6049bb6746e23a803cfdcaec94bc2996ae86a9f5))
+
+
+
+
+
 ## [0.8.9](https://gitee.com/newgateway/vtj/compare/@vtj/local@0.8.8...@vtj/local@0.8.9) (2024-04-30)
 
 

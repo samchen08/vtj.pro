@@ -34,16 +34,14 @@ async function sendSync(name) {
   if (res.data) {
     const logId = res.data.logId;
     counter = 0;
-    await checkDone(logId);
+    await checkDone(name, logId);
     console.log('sendSync:', name, 'done!');
   }
 }
 
-async function checkDone(logId) {
+async function checkDone(name, logId) {
   const res = await axios
-    .get(
-      `https://registry-direct.npmmirror.com/@newpearl/cli/sync/log/${logId}`
-    )
+    .get(`https://registry-direct.npmmirror.com/${name}/sync/log/${logId}`)
     .catch((e) => {
       console.log('error:', e.message);
       return {};
@@ -58,7 +56,7 @@ async function checkDone(logId) {
         return;
       }
       setTimeout(async () => {
-        syncDone = await checkDone(logId);
+        syncDone = await checkDone(name, logId);
         if (syncDone) {
           resolve(true);
         }

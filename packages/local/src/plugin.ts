@@ -28,6 +28,7 @@ export interface DevToolsOptions {
   devMode: boolean;
   uploader: string;
   packageName: string;
+  nodeModulesDir: string;
   hm?: string;
 }
 
@@ -198,13 +199,14 @@ export function createDevTools(options: Partial<DevToolsOptions> = {}) {
     devMode: false,
     uploader: '/uploader.json',
     packageName: '@vtj/pro',
+    nodeModulesDir: 'node_modules',
     hm: '42f2469b4aa27c3f8978f634c0c19d24',
     ...options
   };
   const plugins: Plugin[] = [aliasPlugin(opts)];
-  const proPath = `node_modules/${opts.packageName}/dist`;
-  const materialsPath1 = 'node_modules/@vtj/materials/dist';
-  const materialsPath2 = `node_modules/${opts.packageName}/${materialsPath1}`;
+  const proPath = `${opts.nodeModulesDir}/${opts.packageName}/dist`;
+  const materialsPath1 = `${opts.nodeModulesDir}/@vtj/materials/dist`;
+  const materialsPath2 = `${opts.nodeModulesDir}/${opts.packageName}/${materialsPath1}`;
 
   // 复制物料目录
   if (opts.copy) {
