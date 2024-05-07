@@ -4,6 +4,7 @@ const isUmd = !!process.env.UMD;
 export default createViteConfig({
   lib: true,
   dts: isUmd ? false : true,
+  buildTarget: isUmd ? 'es2015' : 'esnext',
   entry: isUmd ? 'src/install.ts' : 'src/index.ts',
   version: true,
   library: 'VtjUI',

@@ -8,7 +8,8 @@ import {
   type HistoryItem,
   type Service,
   type StaticFileInfo,
-  type NodeFromPlugin
+  type NodeFromPlugin,
+  type ExtensionConfig
 } from '@vtj/core';
 import { Request } from '@vtj/utils';
 import { ElNotification } from 'element-plus';
@@ -82,9 +83,7 @@ export class BaseService implements Service {
     this.api = createApi();
     this.uploader = createUploader();
   }
-  async getExtension(): Promise<
-    { urls: string[]; library: string } | undefined
-  > {
+  async getExtension(): Promise<ExtensionConfig | undefined> {
     console.log('BaseService.getExtension');
     return undefined;
   }

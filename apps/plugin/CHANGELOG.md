@@ -3,6 +3,121 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.25](https://gitee.com/newgateway/vtj/compare/vtj-plugin@0.8.24...vtj-plugin@0.8.25) (2024-05-07)
+
+**Note:** Version bump only for package vtj-plugin
+
+
+
+
+
+## [0.8.24](https://gitee.com/newgateway/vtj/compare/vtj-plugin@0.8.23...vtj-plugin@0.8.24) (2024-05-07)
+
+**Note:** Version bump only for package vtj-plugin
+
+
+
+
+
+## [0.8.23](https://gitee.com/newgateway/vtj/compare/vtj-plugin@0.8.22...vtj-plugin@0.8.23) (2024-05-07)
+
+**Note:** Version bump only for package vtj-plugin
+
+
+
+
+
+## [0.8.22](https://gitee.com/newgateway/vtj/compare/vtj-plugin@0.8.21...vtj-plugin@0.8.22) (2024-05-07)
+
+**Note:** Version bump only for package vtj-plugin
+
+
+
+
+
+## [0.8.21](https://gitee.com/newgateway/vtj/compare/vtj-plugin@0.8.20...vtj-plugin@0.8.21) (2024-05-06)
+
+**Note:** Version bump only for package vtj-plugin
+
+
+
+
+
+## [0.8.20](https://gitee.com/newgateway/vtj/compare/vtj-plugin@0.8.19...vtj-plugin@0.8.20) (2024-05-06)
+
+**Note:** Version bump only for package vtj-plugin
+
+
+
+
+
+## [0.8.19](https://gitee.com/newgateway/vtj/compare/vtj-plugin@0.8.18...vtj-plugin@0.8.19) (2024-05-06)
+
+
+### Features
+
+* ✨ auto plugins from package.json ([f327858](https://gitee.com/newgateway/vtj/commits/f3278585be56c841b672745bba5be780f26fb054))
+
+
+
+
+
+## [0.8.18](https://gitee.com/newgateway/vtj/compare/vtj-plugin@0.8.17...vtj-plugin@0.8.18) (2024-05-04)
+
+**Note:** Version bump only for package vtj-plugin
+
+
+
+
+
+## [0.8.17](https://gitee.com/newgateway/vtj/compare/vtj-plugin@0.8.16...vtj-plugin@0.8.17) (2024-05-02)
+
+**Note:** Version bump only for package vtj-plugin
+
+
+
+
+
+## [0.8.16](https://gitee.com/newgateway/vtj/compare/vtj-plugin@0.8.15...vtj-plugin@0.8.16) (2024-05-02)
+
+**Note:** Version bump only for package vtj-plugin
+
+
+
+
+
+## [0.8.15](https://gitee.com/newgateway/vtj/compare/vtj-plugin@0.8.14...vtj-plugin@0.8.15) (2024-05-02)
+
+**Note:** Version bump only for package vtj-plugin
+
+
+
+
+
+## [0.8.14](https://gitee.com/newgateway/vtj/compare/vtj-plugin@0.8.13...vtj-plugin@0.8.14) (2024-05-02)
+
+**Note:** Version bump only for package vtj-plugin
+
+
+
+
+
+## [0.8.13](https://gitee.com/newgateway/vtj/compare/vtj-plugin@0.8.12...vtj-plugin@0.8.13) (2024-05-02)
+
+**Note:** Version bump only for package vtj-plugin
+
+
+
+
+
+## [0.8.12](https://gitee.com/newgateway/vtj/compare/vtj-plugin@0.8.11...vtj-plugin@0.8.12) (2024-05-01)
+
+**Note:** Version bump only for package vtj-plugin
+
+
+
+
+
 ## [0.8.11](https://gitee.com/newgateway/vtj/compare/vtj-plugin@0.8.10...vtj-plugin@0.8.11) (2024-05-01)
 
 **Note:** Version bump only for package vtj-plugin

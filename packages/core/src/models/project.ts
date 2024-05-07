@@ -1,4 +1,4 @@
-import { uid, timestamp, merge, upperFirstCamelCase } from '@vtj/base';
+import { uid, timestamp, merge, upperFirstCamelCase, delay } from '@vtj/base';
 import type {
   ProjectSchema,
   Dependencie,
@@ -264,7 +264,7 @@ export class ProjectModel {
    * @param parentId
    * @param silent
    */
-  createPage(page: PageFile, parentId?: string, silent: boolean = false) {
+  async createPage(page: PageFile, parentId?: string, silent: boolean = false) {
     // 源码文件用name作为文件名
     page.id = page.raw ? page.name : page.id || uid();
     page.type = 'page';
@@ -294,11 +294,6 @@ export class ProjectModel {
       this.pages.push(page);
     }
 
-    // 没有打开任何文件时，自动打开新建的页面
-    if (!this.currentFile && !page.dir) {
-      this.active(page, silent);
-    }
-
     if (!silent) {
       const event: ProjectModelEvent = {
         model: this,
@@ -307,6 +302,12 @@ export class ProjectModel {
       };
       emitter.emit(EVENT_PROJECT_PAGES_CHANGE, event);
       emitter.emit(EVENT_PROJECT_CHANGE, event);
+    }
+
+    // 没有打开任何文件时，自动打开新建的页面
+    if (!this.currentFile && !page.dir) {
+      await delay(2000);
+      this.active(page, silent);
     }
   }
 
@@ -420,7 +421,7 @@ export class ProjectModel {
    * @param block
    * @param silent
    */
-  createBlock(block: BlockFile, silent: boolean = false) {
+  async createBlock(block: BlockFile, silent: boolean = false) {
     const id = block.id || uid();
     const name = upperFirstCamelCase(block.name);
     block.id = id;
@@ -428,9 +429,6 @@ export class ProjectModel {
     block.dsl = new BlockModel({ id, name }).toDsl();
     this.blocks.push(block);
     const type = block.fromType || 'Schema';
-    if (!this.currentFile && type === 'Schema') {
-      this.active(block, silent);
-    }
 
     if (!silent) {
       const event: ProjectModelEvent = {
@@ -440,6 +438,11 @@ export class ProjectModel {
       };
       emitter.emit(EVENT_PROJECT_BLOCKS_CHANGE, event);
       emitter.emit(EVENT_PROJECT_CHANGE, event);
+    }
+
+    if (!this.currentFile && type === 'Schema') {
+      await delay(2000);
+      this.active(block, silent);
     }
   }
 

@@ -13,7 +13,7 @@ import { resolve } from 'path';
 export interface Controller {
   [index: string]: (
     req: ApiRequest,
-    opts?: DevToolsOptions
+    opts: DevToolsOptions
   ) => Promise<ApiResponse>;
 }
 

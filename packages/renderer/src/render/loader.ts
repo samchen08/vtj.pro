@@ -33,13 +33,9 @@ export async function getPlugin(
   const scripts = urls.filter((n) => isJSUrl(n));
   if (scripts.length === 0 || !library) return null;
   const css = urls.filter((n) => isCSSUrl(n));
-  let component;
-  const mod: any = await loadScriptUrl(scripts, library, global).catch(
+  const component: any = await loadScriptUrl(scripts, library, global).catch(
     () => null
   );
-  if (mod?.plugin) {
-    component = mod.plugin;
-  }
   return component
     ? {
         component,

@@ -1,7 +1,7 @@
 {
   "name": "@vtj/materials",
   "private": false,
-  "version": "0.8.11",
+  "version": "0.8.25",
   "type": "module",
   "scripts": {
     "build": "npm run remove && npm run build:ui && npm run build:charts && npm run build:element && npm run build:antdv && npm run copy",
@@ -22,7 +22,7 @@
     "ant-design-vue": "~4.2.0",
     "echarts": "~5.5.0",
     "element-plus": "~2.7.0",
-    "vant": "~4.8.11",
+    "vant": "~4.9.0",
     "vue": "~3.4.15",
     "vue-router": "~4.3.0"
   },

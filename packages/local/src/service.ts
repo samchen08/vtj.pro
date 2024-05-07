@@ -17,8 +17,12 @@ import {
   JsonRepository,
   VueRepository,
   StaticRepository,
+  PluginRepository,
   type StaticRepositoryOptions
 } from './repository';
+import type { DevToolsOptions } from './plugin';
+
+let isInit = false;
 
 export async function notMatch(_req: ApiRequest) {
   return fail('找不到处理程序');
@@ -38,25 +42,35 @@ export async function getExtension() {
   return success(vtj.extension || null);
 }
 
-export async function init() {
+export async function init(_body: any, opts: DevToolsOptions) {
   const root = resolve('./');
   const pkg = readJsonSync(resolve(root, 'package.json'));
   const repository = new JsonRepository('projects');
+  const pluginPepository = new PluginRepository(pkg, opts);
   // 从项目的 package.json 中读取项目信息
   const { vtj = {} } = pkg || {};
   const id = vtj.id || pkg.name;
   const name = vtj.name || pkg.description || upperFirstCamelCase(id);
   const description = vtj.description || pkg.description || '';
+
   // 如果项目文件已经存在，则直接返回文件内容
-  let dsl = repository.get(id);
+  let dsl: ProjectSchema = repository.get(id);
+  const plugins = pluginPepository.getPlugins();
   if (dsl) {
+    const blocks = (dsl.blocks || []).filter((n) => !n.preset);
+    dsl.blocks = plugins.concat(blocks);
     Object.assign(dsl, { id, name, description });
+    if (!isInit) {
+      isInit = true;
+      repository.save(id, dsl);
+    }
     return success(dsl);
   } else {
     const model = new ProjectModel({
       id,
       name,
-      description
+      description,
+      blocks: plugins
     });
     dsl = model.toDsl();
     repository.save(id, dsl);

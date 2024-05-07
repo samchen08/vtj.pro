@@ -7,6 +7,7 @@ export const defaults: CreateViteConfigOptions = {
   previewPort: 3010,
   dtsOutputDir: 'types',
   targets: ['chrome > 60'],
+  // buildTarget: 'esnext',
   polyfills: true,
   entry: 'src/index.ts',
   libFileName: 'index',

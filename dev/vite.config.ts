@@ -12,11 +12,12 @@ function creator() {
       library: 'VtjExtension',
       formats: ['umd'],
       copyPublicDir: false,
-      external: ['@vtj/pro', 'vue', '@vtj/icons', 'element-plus'],
+      external: ['@vtj/pro', 'vue', '@vtj/icons', '@vtj/utils', 'element-plus'],
       externalGlobals: {
         vue: 'Vue',
         '@vtj/pro': '__VTJ_PRO__',
         '@vtj/icons': 'VtjIcons',
+        '@vtj/utils': 'VtjUtils',
         'element-plus': 'ElementPlus'
       }
     };

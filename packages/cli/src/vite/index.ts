@@ -13,7 +13,8 @@ import {
   upperFirstCamelCase,
   pathExistsSync,
   copySync,
-  removeSync
+  removeSync,
+  readJsonSync
 } from '@vtj/node';
 import { defaults } from './defaults';
 import { createBuild } from './build';
@@ -183,30 +184,33 @@ export function createPluginViteConfig(
   options: CreatePluginViteConfigOptions = {}
 ) {
   const {
-    libFileName = 'vtj-block-plugin',
     style = 'style.css',
     outDir = 'dist',
     material = 'material.json',
     isUmd
   } = options;
-  const library = upperFirstCamelCase(libFileName);
+
+  const pkg = readJsonSync(resolve('package.json'));
+
+  const library = upperFirstCamelCase(pkg.name);
+
+  const outputFileName = pkg.name.replace(/\//gi, '__');
 
   const buildEnd = () => {
-    if (!isUmd) return;
-
     const stylePath = resolve(outDir, style);
     const materialPath = resolve('src', material);
-
+    if (!isUmd) {
+      removeSync(stylePath);
+      return;
+    }
     if (pathExistsSync(stylePath)) {
-      copySync(stylePath, stylePath.replace(style, `${libFileName}.css`));
-      setTimeout(() => {
-        removeSync(stylePath);
-      }, 1000);
+      copySync(stylePath, stylePath.replace(style, `${outputFileName}.css`));
     }
 
     if (pathExistsSync(materialPath)) {
-      copySync(materialPath, resolve(outDir, `${libFileName}.json`));
+      copySync(materialPath, resolve(outDir, `${outputFileName}.json`));
     }
+    removeSync(stylePath);
   };
 
   const defaults = {
@@ -218,8 +222,9 @@ export function createPluginViteConfig(
     version: false,
     emptyOutDir: isUmd ? false : true,
     formats: isUmd ? ['umd'] : ['es'],
+    buildTarget: 'es2015',
     library,
-    libFileName,
+    libFileName: outputFileName,
     external: [
       'vue',
       'vue-router',

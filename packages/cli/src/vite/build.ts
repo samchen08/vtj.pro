@@ -37,9 +37,15 @@ export const createBuild = (opts: CreateViteConfigOptions) => {
   const manualChunks = opts.lib
     ? undefined
     : opts.manualChunks || defaultManualChunks;
+  const buildTarget =
+    typeof opts.buildTarget === 'undefined'
+      ? opts.lib
+        ? 'esnext'
+        : 'es2015'
+      : opts.buildTarget;
   const build: BuildOptions = {
     // plugin-legacy overrode 'build.target'.
-    target: opts.legacy ? undefined : 'esnext',
+    target: opts.legacy ? undefined : buildTarget,
     outDir: opts.outDir,
     emptyOutDir: opts.emptyOutDir,
     // 关闭可提高打包速度

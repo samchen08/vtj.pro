@@ -6,6 +6,7 @@ export default createViteConfig({
   dts: true,
   version: true,
   library: 'VtjUtils',
+  buildTarget: isUmd ? 'es2015' : 'esnext',
   emptyOutDir: isUmd ? false : true,
   external: isUmd ? undefined : ['@vtj/base'],
   formats: isUmd ? ['umd', 'iife'] : ['es', 'cjs']

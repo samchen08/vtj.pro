@@ -1,5 +1,6 @@
 import * as Vue from 'vue';
 import * as core from '@vtj/core';
+import * as VtjUtils from '@vtj/utils';
 import * as designer from '@vtj/designer';
 import * as renderer from '@vtj/renderer';
 import * as VtjIcons from '@vtj/icons';
@@ -10,11 +11,15 @@ import type { EngineOptions } from '@vtj/designer';
 export interface ExtensionOptions {
   urls: string[];
   library: string;
+  params?: any[];
 }
+
+export type ExtensionFactory = () => Partial<EngineOptions> | void;
 
 export class Extension {
   private urls: string[] = [];
   private library: string = '';
+  private params: any[] = [];
   constructor(options: ExtensionOptions) {
     const __VTJ_PRO__ = {
       ...core,
@@ -24,11 +29,13 @@ export class Extension {
 
     (window as any).Vue = Vue;
     (window as any).__VTJ_PRO__ = __VTJ_PRO__;
+    (window as any).VtjUtils = VtjUtils;
     (window as any).VtjIcons = VtjIcons;
     (window as any).ElementPlus = ElementPlus;
-    const { urls, library } = options;
+    const { urls, library, params = [] } = options;
     this.urls = urls;
     this.library = library;
+    this.params = params;
   }
   async load(): Promise<Partial<EngineOptions> | undefined> {
     const css = this.urls.filter((n) => renderer.isCSSUrl(n));
@@ -39,7 +46,7 @@ export class Extension {
         .loadScriptUrl(scripts, this.library)
         .catch(() => null);
       if (output && typeof output === 'function') {
-        return output();
+        return output.apply(output, this.params);
       }
     }
   }

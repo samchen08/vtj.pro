@@ -59,3 +59,12 @@ export interface StaticFileInfo {
   filename?: string;
   filepath: string;
 }
+
+/**
+ * 扩展配置
+ */
+export interface ExtensionConfig {
+  urls: string[];
+  library: string;
+  params?: any[];
+}

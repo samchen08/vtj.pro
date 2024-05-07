@@ -358,7 +358,6 @@ export class Request {
       isSkipWarn
     );
     this.showLoading(settings);
-
     return new Promise<R>((resolve, reject) => {
       this.axios({
         cancelToken: source.token,

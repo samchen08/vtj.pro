@@ -5,7 +5,8 @@ export default createViteConfig({
   proxy,
   plugins: [
     createDevTools({
-      devMode: false
+      devMode: false,
+      pluginNodeModulesDir: '../../node_modules'
     })
   ]
 });

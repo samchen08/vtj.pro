@@ -3,6 +3,124 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.25](https://gitee.com/newgateway/vtj/compare/dev-web@0.8.24...dev-web@0.8.25) (2024-05-07)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
+## [0.8.24](https://gitee.com/newgateway/vtj/compare/dev-web@0.8.23...dev-web@0.8.24) (2024-05-07)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
+## [0.8.23](https://gitee.com/newgateway/vtj/compare/dev-web@0.8.22...dev-web@0.8.23) (2024-05-07)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
+## [0.8.22](https://gitee.com/newgateway/vtj/compare/dev-web@0.8.21...dev-web@0.8.22) (2024-05-07)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
+## [0.8.21](https://gitee.com/newgateway/vtj/compare/dev-web@0.8.20...dev-web@0.8.21) (2024-05-06)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
+## [0.8.20](https://gitee.com/newgateway/vtj/compare/dev-web@0.8.19...dev-web@0.8.20) (2024-05-06)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
+## [0.8.19](https://gitee.com/newgateway/vtj/compare/dev-web@0.8.18...dev-web@0.8.19) (2024-05-06)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
+## [0.8.18](https://gitee.com/newgateway/vtj/compare/dev-web@0.8.17...dev-web@0.8.18) (2024-05-04)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
+## [0.8.17](https://gitee.com/newgateway/vtj/compare/dev-web@0.8.16...dev-web@0.8.17) (2024-05-02)
+
+
+### Features
+
+* ✨ extension add params ([ce517b8](https://gitee.com/newgateway/vtj/commits/ce517b8075a491186fc69ae8a757d810022538d4))
+
+
+
+
+
+## [0.8.16](https://gitee.com/newgateway/vtj/compare/dev-web@0.8.15...dev-web@0.8.16) (2024-05-02)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
+## [0.8.15](https://gitee.com/newgateway/vtj/compare/dev-web@0.8.14...dev-web@0.8.15) (2024-05-02)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
+## [0.8.14](https://gitee.com/newgateway/vtj/compare/dev-web@0.8.13...dev-web@0.8.14) (2024-05-02)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
+## [0.8.13](https://gitee.com/newgateway/vtj/compare/dev-web@0.8.12...dev-web@0.8.13) (2024-05-02)
+
+
+### Features
+
+* ✨ 插件增加install参数 ([45b704b](https://gitee.com/newgateway/vtj/commits/45b704b445bf7f7c935844a2ee53b5714f4f2140))
+
+
+
+
+
+## [0.8.12](https://gitee.com/newgateway/vtj/compare/dev-web@0.8.11...dev-web@0.8.12) (2024-05-01)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
 ## [0.8.11](https://gitee.com/newgateway/vtj/compare/dev-web@0.8.10...dev-web@0.8.11) (2024-05-01)
 
 **Note:** Version bump only for package dev-web

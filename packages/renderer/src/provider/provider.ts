@@ -61,6 +61,7 @@ export interface ProviderOptions {
 export interface ProvideAdapter {
   request: IStaticRequest;
   jsonp: Jsonp;
+  [index: string]: any;
 }
 
 export class Provider extends Base {
@@ -363,7 +364,7 @@ export function useProvider(options: UseProviderOptions = {}): Provider {
   if (!provider) {
     throw new Error('Can not find provider');
   }
-  if (provider.mode === ContextMode.Raw && provider.nodeEnv === 'development') {
+  if (provider.nodeEnv === 'development') {
     const { id, version } = options;
     if (id && version) {
       (async () => {

@@ -51,6 +51,11 @@ export interface BlockFile {
   fromType?: 'Schema' | 'UrlSchema' | 'Plugin';
 
   /**
+   * 是否预设，预设的插件不能编辑和删除
+   */
+  preset?: boolean;
+
+  /**
    * 资源url，
    * Schema: 无url
    * UrlSchema： 只允许一个json文件

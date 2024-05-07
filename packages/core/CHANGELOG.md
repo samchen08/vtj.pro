@@ -3,6 +3,124 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.25](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.8.24...@vtj/core@0.8.25) (2024-05-07)
+
+**Note:** Version bump only for package @vtj/core
+
+
+
+
+
+## [0.8.24](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.8.23...@vtj/core@0.8.24) (2024-05-07)
+
+**Note:** Version bump only for package @vtj/core
+
+
+
+
+
+## [0.8.23](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.8.22...@vtj/core@0.8.23) (2024-05-07)
+
+**Note:** Version bump only for package @vtj/core
+
+
+
+
+
+## [0.8.22](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.8.21...@vtj/core@0.8.22) (2024-05-07)
+
+**Note:** Version bump only for package @vtj/core
+
+
+
+
+
+## [0.8.21](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.8.20...@vtj/core@0.8.21) (2024-05-06)
+
+**Note:** Version bump only for package @vtj/core
+
+
+
+
+
+## [0.8.20](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.8.19...@vtj/core@0.8.20) (2024-05-06)
+
+**Note:** Version bump only for package @vtj/core
+
+
+
+
+
+## [0.8.19](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.8.18...@vtj/core@0.8.19) (2024-05-06)
+
+
+### Features
+
+* ✨ auto plugins from package.json ([f327858](https://gitee.com/newgateway/vtj/commits/f3278585be56c841b672745bba5be780f26fb054))
+
+
+
+
+
+## [0.8.18](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.8.17...@vtj/core@0.8.18) (2024-05-04)
+
+**Note:** Version bump only for package @vtj/core
+
+
+
+
+
+## [0.8.17](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.8.16...@vtj/core@0.8.17) (2024-05-02)
+
+**Note:** Version bump only for package @vtj/core
+
+
+
+
+
+## [0.8.16](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.8.15...@vtj/core@0.8.16) (2024-05-02)
+
+**Note:** Version bump only for package @vtj/core
+
+
+
+
+
+## [0.8.15](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.8.14...@vtj/core@0.8.15) (2024-05-02)
+
+**Note:** Version bump only for package @vtj/core
+
+
+
+
+
+## [0.8.14](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.8.13...@vtj/core@0.8.14) (2024-05-02)
+
+**Note:** Version bump only for package @vtj/core
+
+
+
+
+
+## [0.8.13](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.8.12...@vtj/core@0.8.13) (2024-05-02)
+
+
+### Bug Fixes
+
+* 🐛 偶发获取本地文件失败 ([c57e9d7](https://gitee.com/newgateway/vtj/commits/c57e9d766f40949da74d5eb24e94e84f83836a91))
+
+
+
+
+
+## [0.8.12](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.8.11...@vtj/core@0.8.12) (2024-05-01)
+
+**Note:** Version bump only for package @vtj/core
+
+
+
+
+
 ## [0.8.11](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.8.10...@vtj/core@0.8.11) (2024-05-01)
 
 **Note:** Version bump only for package @vtj/core

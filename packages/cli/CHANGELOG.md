@@ -3,6 +3,79 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.10](https://gitee.com/newgateway/vtj/compare/@vtj/cli@0.8.9...@vtj/cli@0.8.10) (2024-05-07)
+
+**Note:** Version bump only for package @vtj/cli
+
+
+
+
+
+## [0.8.9](https://gitee.com/newgateway/vtj/compare/@vtj/cli@0.8.8...@vtj/cli@0.8.9) (2024-05-07)
+
+**Note:** Version bump only for package @vtj/cli
+
+
+
+
+
+## [0.8.8](https://gitee.com/newgateway/vtj/compare/@vtj/cli@0.8.7...@vtj/cli@0.8.8) (2024-05-06)
+
+
+### Bug Fixes
+
+* 🐛 removeSync ([a3bb5eb](https://gitee.com/newgateway/vtj/commits/a3bb5eb019c10f4df28fcf6d268312effea9af67))
+
+
+
+
+
+## [0.8.7](https://gitee.com/newgateway/vtj/compare/@vtj/cli@0.8.6...@vtj/cli@0.8.7) (2024-05-06)
+
+
+### Bug Fixes
+
+* 🐛 libFileName error ([4ba35ff](https://gitee.com/newgateway/vtj/commits/4ba35ff4c64c5cc292688adbdba8c45d91ecc61d))
+
+
+
+
+
+## [0.8.6](https://gitee.com/newgateway/vtj/compare/@vtj/cli@0.8.5...@vtj/cli@0.8.6) (2024-05-06)
+
+
+### Features
+
+* ✨ auto plugins from package.json ([f327858](https://gitee.com/newgateway/vtj/commits/f3278585be56c841b672745bba5be780f26fb054))
+
+
+
+
+
+## [0.8.5](https://gitee.com/newgateway/vtj/compare/@vtj/cli@0.8.4...@vtj/cli@0.8.5) (2024-05-04)
+
+
+### Features
+
+* ✨ cli support buildTarget setting ([1220f51](https://gitee.com/newgateway/vtj/commits/1220f51c215ee0ca4a10a71116f187dcb059c8f7))
+* ✨ cli自动设置buildTarget ([c0e626b](https://gitee.com/newgateway/vtj/commits/c0e626bbe099c224b8cda1ca04b86a4a8b018dda))
+
+
+
+
+
+## [0.8.4](https://gitee.com/newgateway/vtj/compare/@vtj/cli@0.8.3...@vtj/cli@0.8.4) (2024-05-01)
+
+
+### Bug Fixes
+
+* 🐛 cli copyPlugin ([a6ed88e](https://gitee.com/newgateway/vtj/commits/a6ed88e2edcd08f06f154e6bb80286e3f664f53f))
+
+
+
+
+
+
 ## [0.8.3](https://gitee.com/newgateway/vtj/compare/@vtj/cli@0.8.2...@vtj/cli@0.8.3) (2024-04-27)
 
 

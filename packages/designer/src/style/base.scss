@@ -16,3 +16,6 @@ body {
   font-size: 14px;
   color: getCssVar('text-color-primary');
 }
+.el-loading-mask {
+  background-color: var(--el-mask-color-extra-light) !important;
+}

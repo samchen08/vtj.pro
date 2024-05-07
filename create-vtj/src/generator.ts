@@ -18,7 +18,10 @@ export function createProject(options: IGeneratorOptions) {
   const pkg = readJsonSync(join(options.root, 'package.json'));
   pkg.name = options.name;
   let jsonStr = JSON.stringify(pkg);
-  jsonStr = jsonStr.replace(/\{\{name\}\}/gi, options.name);
+  jsonStr = jsonStr.replace(
+    /\{\{name\}\}/gi,
+    options.name.replace(/\//gi, '__')
+  );
   writeJsonSync(join(options.root, 'package.json'), JSON.parse(jsonStr), {
     spaces: 2
   });

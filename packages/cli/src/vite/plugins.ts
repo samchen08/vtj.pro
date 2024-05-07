@@ -112,8 +112,8 @@ export const mergePlugins = (opts: CreateViteConfigOptions) => {
   if (opts.buildEnd) {
     plugins.push({
       name: 'vtj-build-end-plugin',
-      buildStart(err: any) {
-        opts.buildEnd && opts.buildEnd(err);
+      closeBundle() {
+        opts.buildEnd && opts.buildEnd();
       }
     });
   }

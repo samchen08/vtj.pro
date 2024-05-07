@@ -64,7 +64,9 @@ export function parseTemplate(
         computedKeys
       );
 
-      const directives = parseDirectives(child.directives).join(' ');
+      const directives = parseDirectives(child.directives, computedKeys).join(
+        ' '
+      );
       const nodeChildren = child.children
         ? parseNodeChildren(
             child.children,
@@ -278,29 +280,38 @@ function parsePropsAndEvents(
   };
 }
 
-function parseDirectives(directives: NodeDirective[] = []) {
+function parseDirectives(
+  directives: NodeDirective[] = [],
+  computedKeys: string[] = []
+) {
   const result: string[] = [];
   const { vIf, vShow, vModels, vFor } = getDiretives(directives);
   if (vIf) {
-    result.push(`v-if="${parseValue(vIf.value)}"`);
+    result.push(`v-if="${parseValue(vIf.value, true, true, computedKeys)}"`);
   }
   if (vShow) {
-    result.push(`v-show="${parseValue(vShow.value)}"`);
+    result.push(
+      `v-show="${parseValue(vShow.value, true, true, computedKeys)}"`
+    );
   }
 
   vModels.forEach((vModel) => {
     const modifiers = getModifiers(vModel.modifiers, true);
     const arg = vModel.arg
       ? isJSExpression(vModel.arg)
-        ? `:[${parseValue(vModel.arg)}]`
+        ? `:[${parseValue(vModel.arg, true, true, computedKeys)}]`
         : `:${vModel.arg}`
       : '';
-    result.push(`v-model${arg}${modifiers}="${parseValue(vModel.value)}"`);
+    result.push(
+      `v-model${arg}${modifiers}="${parseValue(vModel.value, true, true, computedKeys)}"`
+    );
   });
 
   if (vFor) {
     const { item, index } = { item: 'item', index: 'index', ...vFor.iterator };
-    result.push(`v-for="(${item}, ${index}) in ${parseValue(vFor.value)}"`);
+    result.push(
+      `v-for="(${item}, ${index}) in ${parseValue(vFor.value, true, true, computedKeys)}"`
+    );
   }
   // todo: 实现others 指令
   return result;

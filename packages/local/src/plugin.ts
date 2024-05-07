@@ -10,8 +10,8 @@ import {
   type CopyPluginOption,
   type StaticPluginOption
 } from '@vtj/cli';
-import { pathExistsSync } from '@vtj/node';
-import { join } from 'path';
+import { pathExistsSync, readJsonSync } from '@vtj/node';
+import { join, resolve } from 'path';
 import bodyParser from 'body-parser';
 import { router } from './controller';
 
@@ -29,6 +29,9 @@ export interface DevToolsOptions {
   uploader: string;
   packageName: string;
   nodeModulesDir: string;
+  presetPlugins: string[];
+  pluginNodeModulesDir?: string;
+  extensionDir: string;
   hm?: string;
 }
 
@@ -185,6 +188,39 @@ const aliasPlugin = function (options: DevToolsOptions): Plugin {
   };
 };
 
+export function parsePresetPlugins(options: DevToolsOptions) {
+  const {
+    presetPlugins = [],
+    pluginNodeModulesDir = 'node_modules',
+    staticBase
+  } = options;
+  const pkg = readJsonSync(resolve('./package.json'));
+  const { devDependencies, dependencies } = pkg || {};
+  const deps = Object.keys({ ...devDependencies, ...dependencies }).filter(
+    (name) => presetPlugins.some((regex) => name.startsWith(regex))
+  );
+  const copies: CopyPluginOption[] = [];
+  const staticDirs: StaticPluginOption[] = [];
+  for (const dep of deps) {
+    const dist = join(pluginNodeModulesDir, dep, 'dist');
+    if (pathExistsSync(dist)) {
+      copies.push({
+        from: dist,
+        to: '@vtj/plugins',
+        emptyDir: false
+      });
+      staticDirs.push({
+        path: `${staticBase}@vtj/plugins`,
+        dir: dist
+      });
+    }
+  }
+  return {
+    copies,
+    staticDirs
+  };
+}
+
 export function createDevTools(options: Partial<DevToolsOptions> = {}) {
   const opts: DevToolsOptions = {
     baseURL: '/vtj/local/repository',
@@ -200,6 +236,9 @@ export function createDevTools(options: Partial<DevToolsOptions> = {}) {
     uploader: '/uploader.json',
     packageName: '@vtj/pro',
     nodeModulesDir: 'node_modules',
+    presetPlugins: ['@newpearl/plugin-', '@vtj/plugin-'],
+    pluginNodeModulesDir: 'node_modules',
+    extensionDir: '',
     hm: '42f2469b4aa27c3f8978f634c0c19d24',
     ...options
   };
@@ -227,6 +266,13 @@ export function createDevTools(options: Partial<DevToolsOptions> = {}) {
       console.warn(
         '\n @vtj/materials is not installed, please install it first.\n'
       );
+    }
+    if (opts.extensionDir && pathExistsSync(opts.extensionDir)) {
+      copyOptions.push({
+        from: opts.extensionDir,
+        to: '@vtj/extension',
+        emptyDir: true
+      });
     }
     if (copyOptions.length > 0) {
       plugins.push(copyPlugin(copyOptions));
@@ -263,8 +309,25 @@ export function createDevTools(options: Partial<DevToolsOptions> = {}) {
       );
     }
 
+    if (opts.extensionDir && pathExistsSync(opts.extensionDir)) {
+      staticOptions.push({
+        path: `${opts.staticBase}@vtj/extension`,
+        dir: opts.extensionDir
+      });
+    }
+
     if (staticOptions.length > 0) {
       plugins.push(staticPlugin(staticOptions));
+    }
+  }
+
+  if (opts.presetPlugins && opts.presetPlugins.length) {
+    const { copies, staticDirs } = parsePresetPlugins(opts);
+    if (copies.length) {
+      plugins.push(copyPlugin(copies));
+    }
+    if (staticDirs.length) {
+      plugins.push(staticPlugin(staticDirs));
     }
   }
 

@@ -3,6 +3,37 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.6](https://gitee.com/newgateway/vtj/compare/create-vtj@0.8.5...create-vtj@0.8.6) (2024-05-07)
+
+**Note:** Version bump only for package create-vtj
+
+
+
+
+
+## [0.8.5](https://gitee.com/newgateway/vtj/compare/create-vtj@0.8.4...create-vtj@0.8.5) (2024-05-06)
+
+
+### Bug Fixes
+
+* 🐛 create-vtj options.name ([46cf35e](https://gitee.com/newgateway/vtj/commits/46cf35ec573e10f8869edd4445037e49bfb09092))
+
+
+
+
+
+## [0.8.4](https://gitee.com/newgateway/vtj/compare/create-vtj@0.8.3...create-vtj@0.8.4) (2024-05-06)
+
+
+### Features
+
+* ✨ auto plugins from package.json ([f327858](https://gitee.com/newgateway/vtj/commits/f3278585be56c841b672745bba5be780f26fb054))
+
+
+
+
+
+
 ## [0.8.3](https://gitee.com/newgateway/vtj/compare/create-vtj@0.8.2...create-vtj@0.8.3) (2024-04-23)
 
 **Note:** Version bump only for package create-vtj

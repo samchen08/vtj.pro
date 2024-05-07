@@ -8,12 +8,10 @@ import type {
   NodeFromPlugin
 } from './schemas';
 import type { MaterialDescription } from './assets';
-import type { StaticFileInfo } from './shared';
+import type { StaticFileInfo, ExtensionConfig } from './shared';
 
 export abstract class Service {
-  public abstract getExtension(): Promise<
-    { urls: string[]; library: string } | undefined
-  >;
+  public abstract getExtension(): Promise<ExtensionConfig | undefined>;
   public abstract init(project: ProjectSchema): Promise<ProjectSchema>;
   public abstract saveProject(project: ProjectSchema): Promise<boolean>;
   public abstract saveMaterials(

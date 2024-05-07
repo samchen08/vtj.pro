@@ -17,10 +17,11 @@ export const copyPlugin = function (options: CopyPluginOption[] = []): Plugin {
     closeBundle() {
       const outDir = config.build.outDir;
       for (const { from, to, emptyDir = false } of options) {
+        const toDir = to.startsWith('/') ? to.substring(1) : to;
         if (emptyDir) {
-          emptyDirSync(resolve(outDir, to));
+          emptyDirSync(resolve(outDir, toDir));
         }
-        copySync(resolve(from), resolve(outDir, to));
+        copySync(resolve(from), resolve(outDir, toDir));
       }
     }
   };

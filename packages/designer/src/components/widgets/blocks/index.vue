@@ -11,7 +11,7 @@
           :name="block.name"
           :title="block.title"
           :active="current?.id === block.id"
-          editable
+          :editable="!block.preset"
           :tag="fromTypeMap[block.fromType || 'Schema']?.label"
           :tagType="fromTypeMap[block.fromType || 'Schema']?.type"
           @edit="onEdit(block)"

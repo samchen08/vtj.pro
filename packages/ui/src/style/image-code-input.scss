@@ -25,8 +25,7 @@
   @include e(iconError) {
     color: var(--el-color-error);
   }
-}
-
-.el-input-group__prepend {
-  padding: 0;
+  .el-input-group__prepend {
+    padding: 0;
+  }
 }

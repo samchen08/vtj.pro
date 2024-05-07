@@ -31,7 +31,6 @@ import {
   EVENT_PROJECT_FILE_PUBLISH,
   EVENT_HISTORY_CHANGE,
   EVENT_HISTORY_LOAD,
-  // EVENT_PROJECT_APIS_CHANGE,
   type Service,
   type Emitter,
   type ProjectSchema,
@@ -66,6 +65,7 @@ export interface EngineOptions {
   materialPath?: string;
   globals?: Record<string, any>;
   adapter?: ProvideAdapter;
+  install?: (app: App, engine: Engine) => void;
 }
 
 export class Engine extends Base {
@@ -86,7 +86,7 @@ export class Engine extends Base {
    * 当current变化时，更新该值，用于通知组件更新
    */
   public changed: Ref<symbol> = ref(Symbol());
-  constructor(options: EngineOptions) {
+  constructor(private options: EngineOptions) {
     super();
     const {
       container,
@@ -95,8 +95,9 @@ export class Engine extends Base {
       globals = {},
       dependencies,
       materials,
-      materialPath = './'
-    } = options;
+      materialPath = './',
+      adapter
+    } = this.options;
     this.container = container;
     this.service = service;
     this.provider = new Provider({
@@ -106,7 +107,8 @@ export class Engine extends Base {
       service,
       dependencies,
       materials,
-      materialPath
+      materialPath,
+      adapter
     });
     this.assets = new Assets(this.service, this.provider);
     this.simulator = new Simulator({
@@ -135,6 +137,9 @@ export class Engine extends Base {
     const container = unref(this.container);
     if (container) {
       const app = createApp(SkeletonWrapper);
+      if (this.options.install) {
+        app.use(this.options.install, this);
+      }
       app.provide(engineKey, shallowReactive(this));
       app.mount(container);
       this.app = app;

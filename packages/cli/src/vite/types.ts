@@ -119,6 +119,11 @@ export interface CreateViteConfigOptions {
   targets?: string | string[];
 
   /**
+   * 编译语法版本 esnext / es2015
+   */
+  buildTarget?: string;
+
+  /**
    * 设置 polyfills，在非库模式下有效，默认为true
    */
   polyfills?: boolean | string[];

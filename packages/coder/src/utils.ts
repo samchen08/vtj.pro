@@ -31,14 +31,11 @@ export function replaceContext(content: string) {
 export function parseValue(
   val: unknown,
   stringify: boolean = true,
-  noThis: boolean = true
+  noThis: boolean = true,
+  computedKeys: string[] = []
 ) {
-  const value = isJSCode(val)
-    ? val.value
-    : stringify
-      ? JSON.stringify(val)
-      : val;
-
+  let value = isJSCode(val) ? val.value : stringify ? JSON.stringify(val) : val;
+  value = replaceComputedValue(value as string, computedKeys);
   return noThis
     ? replaceThis(replaceContext(value as string))
     : replaceContext(value as string);

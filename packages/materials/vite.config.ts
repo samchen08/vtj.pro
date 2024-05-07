@@ -35,6 +35,7 @@ function createConfig(name: string) {
     dts: false,
     version: true,
     formats: ['umd'],
+    buildTarget: 'es2015',
     external: ['vue', 'vue-router', '@vtj/base', '@vtj/core']
   });
 }
