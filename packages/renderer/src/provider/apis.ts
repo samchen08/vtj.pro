@@ -1,4 +1,4 @@
-import { type ApiSchema } from '@vtj/core';
+import { type ApiSchema, type MetaSchema } from '@vtj/core';
 import {
   type IRequestConfig,
   merge,
@@ -37,17 +37,32 @@ export function createSchemaApi(schema: ApiSchema, adapter: ProvideAdapter) {
   }
 }
 
+export function createMetaApi(meta: MetaSchema, adapter: ProvideAdapter) {
+  const { metaQuery } = adapter;
+  if (!metaQuery) return undefined;
+  const { code, queryCode } = meta;
+  return (data: any, opts?: IRequestConfig) => {
+    if (!metaQuery) {
+      console.warn('adapter.metaQuery is not defined!');
+      return;
+    }
+    return metaQuery(code, queryCode, data, opts);
+  };
+}
+
 export function createSchemaApis(
-  schema: ApiSchema[] = [],
+  apis: ApiSchema[] = [],
+  meta: MetaSchema[] = [],
   adapter: ProvideAdapter
 ) {
-  return schema.reduce(
-    (apis, api) => {
-      apis[api.id] = createSchemaApi(api, adapter);
-      return apis;
-    },
-    {} as Record<string, any>
-  );
+  const result: Record<string, any> = {};
+  for (const api of apis) {
+    result[api.id] = createSchemaApi(api, adapter);
+  }
+  for (const item of meta) {
+    result[item.id] = createMetaApi(item, adapter);
+  }
+  return result;
 }
 
 export function mockApis(schemas: ApiSchema[] = []) {

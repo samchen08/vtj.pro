@@ -3,6 +3,7 @@ import {
   type Dependencie,
   type Material,
   type ApiSchema,
+  type MetaSchema,
   type ProjectConfig,
   Base,
   BUILT_IN_NAME,
@@ -71,10 +72,11 @@ export class Simulator extends Base {
     iframe: Ref<HTMLIFrameElement | undefined>,
     deps: Ref<Dependencie[]>,
     apis: Ref<ApiSchema[]>,
+    meta: Ref<MetaSchema[]>,
     config: Ref<ProjectConfig>
   ) {
     watch(
-      [iframe, deps, apis, config],
+      [iframe, deps, apis, meta, config],
       () => {
         if (iframe.value && deps.value.length) {
           this.resetReady();
@@ -232,7 +234,11 @@ export class Simulator extends Base {
       }
     }
     const { adapter, globals } = provider;
-    const apis = createSchemaApis(project.value?.apis, adapter);
+    const apis = createSchemaApis(
+      project.value?.apis,
+      project.value?.meta,
+      adapter
+    );
     mockCleanup();
     if (project.value?.config?.mock) {
       mockApis(project.value?.apis);

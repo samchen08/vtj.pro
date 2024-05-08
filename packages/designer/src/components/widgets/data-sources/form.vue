@@ -1,23 +1,32 @@
 <template>
   <XDialogForm
     width="1000px"
-    height="600px"
+    height="700px"
     :title="title"
     :model="model"
     :form-props="{ tooltipMessage: false }"
     :submit-method="submit">
     <XField
-      name="ref"
-      label="引用API"
-      editor="select"
+      name="type"
+      label="数据类型"
+      editor="radio"
+      :options="typeOptions"
       required
       :disabled="!!props.item"
-      :options="apiOptions"
+      @change="onTypeChange"></XField>
+    <XField
+      name="ref"
+      label="引用"
+      editor="select"
+      :key="model.type"
+      required
+      :disabled="!!props.item"
+      :options="refOptions"
       :props="{ filterable: true }"
       @change="onRefChange">
       <template #option="{ option }">
-        {{ option.data.label }}
-        <i>[ {{ option.data.name }} ]</i>
+        {{ option.label }}
+        <i>[ {{ option.data.name || option.data.code }} ]</i>
       </template>
     </XField>
     <XField
@@ -92,7 +101,27 @@
   });
 
   const props = defineProps<Props>();
-  const { apis } = useDataSources();
+
+  const typeOptions = [
+    {
+      label: 'API',
+      value: 'api',
+      border: true
+    },
+    {
+      label: '数据配置',
+      value: 'meta',
+      border: true
+    },
+    {
+      label: '数据魔方',
+      value: 'cube',
+      disabled: true,
+      border: true
+    }
+  ];
+
+  const { apis, meta } = useDataSources();
 
   const createEmtpyModel = () => {
     return {
@@ -103,7 +132,6 @@
       transform: {
         type: 'JSFunction',
         value: `(res) => {
-    /* 在这里可对接口返回数据进行转换  */
     return res;
 }`
       },
@@ -123,23 +151,51 @@
   const runResult = ref('');
   const showResult = ref(false);
 
-  const apiOptions = computed(() => {
-    return apis.value.map((api) => {
-      return {
-        label: api.label || '',
-        value: api.id,
-        data: api
-      };
-    });
+  const refOptions = computed(() => {
+    if (model.value.type === 'api') {
+      return apis.value.map((api) => {
+        return {
+          label: api.label || '',
+          value: api.id,
+          data: api
+        };
+      });
+    }
+
+    if (model.value.type === 'meta') {
+      return meta.value.map((item) => {
+        return {
+          label: item.title || '',
+          value: item.id,
+          data: item
+        };
+      });
+    }
+    return [];
   });
 
   const title = computed(() => (props.item ? '编辑数据源' : '新增数据源'));
 
+  const onTypeChange = (_val: string) => {
+    model.value.ref = '';
+    model.value.name = '';
+    model.value.label = '';
+  };
+
   const onRefChange = (val: string) => {
-    const api = apis.value.find((api) => api.id === val);
-    if (api) {
-      model.value.name = api.name;
-      model.value.label = api.label || '';
+    if (model.value.type === 'api') {
+      const api = apis.value.find((api) => api.id === val);
+      if (api) {
+        model.value.name = api.name;
+        model.value.label = api.label || '';
+      }
+    }
+    if (model.value.type === 'meta') {
+      const item = meta.value.find((n) => n.id === val);
+      if (item) {
+        model.value.name = item.code;
+        model.value.label = item.title || '';
+      }
     }
   };
 

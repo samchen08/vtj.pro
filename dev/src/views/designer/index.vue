@@ -3,11 +3,14 @@
 </template>
 <script lang="ts" setup>
   import { ref } from 'vue';
-  import { Engine, widgetManager, MemoryService, Extension } from '@vtj/pro';
+  import { Engine, widgetManager, StorageService, Extension } from '@vtj/pro';
 
   const extension = new Extension({
-    urls: ['/extension/style.css', '/extension/index.umd.js'],
-    library: 'VtjExtension'
+    urls: [
+      '/extension/@newpearl__extension.css',
+      '/extension/@newpearl__extension.umd.js'
+    ],
+    library: 'NewpearlExtension'
   });
 
   const options = await extension.load();
@@ -23,10 +26,26 @@
   const container = ref();
   const engine = new Engine({
     container,
-    service: new MemoryService(),
+    service: new StorageService(),
     project: {
       id: 'demo',
-      name: 'dev-project'
+      name: 'dev-project',
+      apis: [
+        {
+          id: '1',
+          label: '测试api',
+          name: 'testApi',
+          url: '/api/test'
+        }
+      ],
+      meta: [
+        {
+          id: 'feedBack',
+          title: '意见反馈',
+          code: 'feedBack',
+          queryCode: 'd5c37cae-9748-454a-8ca7-f31af60bda42'
+        }
+      ]
     },
     ...options
   });

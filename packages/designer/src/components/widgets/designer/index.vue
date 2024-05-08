@@ -44,7 +44,7 @@
   const container = ref();
   const iframe = ref<HTMLIFrameElement>();
   const { width, height } = useElementSize(container);
-  const { dependencies, engine, apis } = useDeps();
+  const { dependencies, engine, apis, meta } = useDeps();
   const { current, isEmpty } = useCurrent();
 
   const mode = computed(() => {
@@ -58,6 +58,7 @@
     iframe,
     dependencies,
     apis,
+    meta,
     config
   );
 

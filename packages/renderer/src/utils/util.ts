@@ -73,6 +73,8 @@ export async function loadScriptUrl(
         module = global[library];
         if (module) {
           reslove(module.default || module);
+        } else {
+          inject(null);
         }
       };
       el.onerror = (e: any) => {

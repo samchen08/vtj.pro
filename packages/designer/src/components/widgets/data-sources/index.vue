@@ -1,6 +1,11 @@
 <template>
   <XContainer class="v-data-sources-widget" direction="column" fit>
-    <Panel title="API" class="v-sub-panel" size="small" plus @plus="onPlus">
+    <Panel
+      title="请求方法"
+      class="v-sub-panel"
+      size="small"
+      plus
+      @plus="onPlus">
       <Item
         v-for="item in apiDataSources"
         border
@@ -8,6 +13,8 @@
         :subtitle="item.label"
         :model-value="item"
         :actions="['edit', 'remove']"
+        :tag="item.type.toUpperCase()"
+        :tag-type="getTagType(item.type)"
         @action="onAction"
         @click="onEdit(item)"></Item>
       <ElEmpty v-if="!apiDataSources.length" :image-size="50"></ElEmpty>
@@ -38,10 +45,19 @@
   const currentApi = ref();
 
   const apiDataSources = computed(() => {
-    return Object.values(current.value?.dataSources || {}).filter(
-      (item) => item.type === 'api'
+    return Object.values(current.value?.dataSources || {}).filter((item) =>
+      ['meta', 'api'].includes(item.type)
     );
   });
+
+  const getTagType = (type: string) => {
+    const map: Record<string, string> = {
+      api: 'primary',
+      meta: 'success',
+      cube: 'warning'
+    };
+    return map[type] as any;
+  };
 
   const onPlus = () => {
     currentApi.value = undefined;

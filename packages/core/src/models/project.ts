@@ -5,6 +5,7 @@ import type {
   PageFile,
   BlockFile,
   ApiSchema,
+  MetaSchema,
   ProjectConfig
 } from '../protocols';
 import { emitter, type ModelEventType } from '../tools';
@@ -46,6 +47,11 @@ export const EVENT_PROJECT_BLOCKS_CHANGE = 'EVENT_PROJECT_BLOCKS_CHANGE';
 export const EVENT_PROJECT_APIS_CHANGE = 'EVENT_PROJECT_APIS_CHANGE';
 
 /**
+ * Meta更新
+ */
+export const EVENT_PROJECT_META_CHANGE = 'EVENT_PROJECT_META_CHANGE';
+
+/**
  * 项目发布
  */
 export const EVENT_PROJECT_PUBLISH = 'EVENT_PROJECT_PUBLISH';
@@ -64,6 +70,7 @@ export class ProjectModel {
   pages: PageFile[] = [];
   blocks: BlockFile[] = [];
   apis: ApiSchema[] = [];
+  meta: MetaSchema[] = [];
   currentFile: PageFile | BlockFile | null = null;
   config: ProjectConfig = {};
   static attrs: string[] = [
@@ -74,6 +81,7 @@ export class ProjectModel {
     'pages',
     'blocks',
     'apis',
+    'meta',
     'config'
   ];
   constructor(schema: ProjectSchema) {
@@ -306,7 +314,7 @@ export class ProjectModel {
 
     // 没有打开任何文件时，自动打开新建的页面
     if (!this.currentFile && !page.dir) {
-      await delay(2000);
+      await delay(1000);
       this.active(page, silent);
     }
   }
@@ -441,7 +449,7 @@ export class ProjectModel {
     }
 
     if (!this.currentFile && type === 'Schema') {
-      await delay(2000);
+      await delay(1000);
       this.active(block, silent);
     }
   }
@@ -578,6 +586,54 @@ export class ProjectModel {
   existApiName(name: string, excludes: string[] = []) {
     return this.apis.some((n) => n.name === name && !excludes.includes(n.id));
   }
+
+  setMeta(item: MetaSchema, silent: boolean = false) {
+    const match = this.meta.find(
+      (n) => n.code === item.code || n.id === item.id
+    );
+    let type: ModelEventType;
+    if (match) {
+      type = 'update';
+      Object.assign(match, item);
+    } else {
+      type = 'create';
+      item.id = uid();
+      this.meta.push(item);
+    }
+
+    if (!silent) {
+      const event: ProjectModelEvent = {
+        model: this,
+        type,
+        data: item
+      };
+      emitter.emit(EVENT_PROJECT_META_CHANGE, event);
+      emitter.emit(EVENT_PROJECT_CHANGE, event);
+    }
+  }
+
+  removeMeta(code: string, silent: boolean = false) {
+    const index = this.meta.findIndex((n) => n.code === code || n.id === code);
+    if (index > -1) {
+      this.meta.splice(index, 1);
+    } else {
+      console.warn(`not found meta for name: ${name} `);
+    }
+    if (!silent) {
+      const event: ProjectModelEvent = {
+        model: this,
+        type: 'delete',
+        data: code
+      };
+      emitter.emit(EVENT_PROJECT_META_CHANGE, event);
+      emitter.emit(EVENT_PROJECT_CHANGE, event);
+    }
+  }
+
+  existMetaCode(code: string, excludes: string[] = []) {
+    return this.meta.some((n) => n.code === code && !excludes.includes(n.id));
+  }
+
   setHomepage(id: string, silent: boolean = false) {
     this.homepage = id;
     if (!silent) {

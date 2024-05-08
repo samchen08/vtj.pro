@@ -61,6 +61,7 @@ export interface ProviderOptions {
 export interface ProvideAdapter {
   request: IStaticRequest;
   jsonp: Jsonp;
+  metaQuery?: (...args: any[]) => Promise<any>;
   [index: string]: any;
 }
 
@@ -121,7 +122,11 @@ export class Provider extends Base {
     if (!this.project) {
       throw new Error('project is null');
     }
-    const { dependencies: deps = [], apis } = this.project as ProjectSchema;
+    const {
+      dependencies: deps = [],
+      apis = [],
+      meta = []
+    } = this.project as ProjectSchema;
     const { dependencies, library, components, materialPath } = this;
     const {
       libraryExports,
@@ -181,13 +186,12 @@ export class Provider extends Base {
       }
     }
 
-    if (apis) {
-      this.apis = createSchemaApis(apis, this.adapter);
-      mockCleanup();
-      if (this.project.config?.mock) {
-        mockApis(apis);
-      }
+    this.apis = createSchemaApis(apis, meta, this.adapter);
+    mockCleanup();
+    if (this.project.config?.mock) {
+      mockApis(apis);
     }
+
     this.initRouter();
     this.triggerReady();
   }

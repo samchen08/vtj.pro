@@ -1,6 +1,6 @@
 import type { PageFile, BlockFile } from './file';
 import type { Dependencie } from '../assets';
-import type { ApiSchema } from './dataSource';
+import type { ApiSchema, MetaSchema } from './dataSource';
 
 /**
  * 项目描述信息
@@ -45,6 +45,11 @@ export interface ProjectSchema {
    * api
    */
   apis?: ApiSchema[];
+
+  /**
+   * 配置化查询
+   */
+  meta?: MetaSchema[];
 
   /**
    * 项目配置

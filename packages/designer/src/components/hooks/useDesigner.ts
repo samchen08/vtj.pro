@@ -2,6 +2,7 @@ import { type Ref, computed, watch } from 'vue';
 import {
   type Dependencie,
   type ApiSchema,
+  type MetaSchema,
   type ProjectConfig
 } from '@vtj/core';
 import { useEngine, type DesignHelper } from '../../framework';
@@ -10,11 +11,12 @@ export function useDesigner(
   iframe: Ref<HTMLIFrameElement | undefined>,
   dependencies: Ref<Dependencie[]>,
   apis: Ref<ApiSchema[]>,
+  meta: Ref<MetaSchema[]>,
   config: Ref<ProjectConfig>
 ) {
   const engine = useEngine();
 
-  engine.simulator.init(iframe, dependencies, apis, config);
+  engine.simulator.init(iframe, dependencies, apis, meta, config);
 
   const designer = computed(() => engine.simulator.designer.value);
 

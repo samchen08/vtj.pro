@@ -66,6 +66,28 @@ export interface ApiSchema {
 }
 
 /**
+ * 配置化查询数据源
+ */
+export interface MetaSchema {
+  /**
+   * 唯一标识
+   */
+  id: string;
+  /**
+   * 功能号
+   */
+  code: string;
+  /**
+   * 报表名称
+   */
+  title: string;
+  /**
+   * 查询方案编号
+   */
+  queryCode: string;
+}
+
+/**
  * 页面级引用数据源
  */
 export interface DataSourceSchema {
