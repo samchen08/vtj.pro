@@ -46,3 +46,9 @@ export function expressionValidate(
   }
   return vaild;
 }
+
+export function getClassProperties(obj: any) {
+  return Object.keys(obj)
+    .concat(Object.getOwnPropertyNames(Object.getPrototypeOf(obj)))
+    .filter((n) => !['constructor'].includes(n));
+}

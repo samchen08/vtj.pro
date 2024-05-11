@@ -36,6 +36,20 @@
     .v-item {
       margin: 0;
     }
+    .v-item__subtitle {
+      font-size: 12px;
+      &.Function,
+      &.AsyncFunction {
+        color: var(--el-color-warning);
+      }
+      &.Object,
+      &.Array {
+        color: var(--el-color-success);
+      }
+      &.Module {
+        color: var(--el-color-primary);
+      }
+    }
   }
   .el-tree-node__content {
     height: 28px;

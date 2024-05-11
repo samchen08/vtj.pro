@@ -19,7 +19,12 @@
           # {{ index }}
         </span>
         <span class="v-item__content">{{ title }}</span>
-        <span v-if="subtitle" class="v-item__subtitle">{{ subtitle }}</span>
+        <span
+          v-if="subtitle"
+          class="v-item__subtitle"
+          :class="props.subtitleCls"
+          >{{ subtitle }}</span
+        >
       </slot>
     </XContainer>
     <XContainer class="v-item__actions" @click.stop>
@@ -103,6 +108,7 @@
     tagType?: 'success' | 'info' | 'warning' | 'danger' | '';
     title?: string;
     subtitle?: string;
+    subtitleCls?: string;
     actions?: Array<keyof typeof builtInActions>;
     background?: boolean;
     border?: boolean;

@@ -26,6 +26,7 @@
     height: 1px;
     overflow: auto;
     padding: 10px;
+    border-left: 1px solid getCssVar('mask-sidebar-border-color');
   }
 
   @include when(disabled) {
@@ -267,7 +268,6 @@
 
   @include e(wrapper) {
     position: relative;
-    border-right: 1px solid getCssVar('mask-sidebar-border-color');
     > .el-divider {
       margin: 0;
     }
@@ -320,7 +320,7 @@
     --el-tabs-header-height: 30px;
     --el-font-size-base: 12px;
     position: relative;
-    left: -1px;
+    left: 0;
   }
 
   .el-tabs__header {

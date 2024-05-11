@@ -1,5 +1,10 @@
 <template>
-  <XContainer class="x-mask__content" :flex="false" grow :padding="false">
+  <XContainer
+    class="x-mask__content"
+    overflow="auto"
+    :flex="false"
+    grow
+    :padding="false">
     <slot></slot>
 
     <RouterView v-slot="{ Component, route }">

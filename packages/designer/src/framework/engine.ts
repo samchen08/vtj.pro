@@ -65,7 +65,7 @@ export interface EngineOptions {
   materialPath?: string;
   globals?: Record<string, any>;
   adapter?: ProvideAdapter;
-  install?: (app: App, engine: Engine) => void;
+  install?: (app: App, engine?: Engine) => void;
 }
 
 export class Engine extends Base {
@@ -96,7 +96,8 @@ export class Engine extends Base {
       dependencies,
       materials,
       materialPath = './',
-      adapter
+      adapter,
+      install
     } = this.options;
     this.container = container;
     this.service = service;
@@ -108,7 +109,8 @@ export class Engine extends Base {
       dependencies,
       materials,
       materialPath,
-      adapter
+      adapter,
+      install
     });
     this.assets = new Assets(this.service, this.provider);
     this.simulator = new Simulator({

@@ -3,6 +3,33 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.30](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.8.29...@vtj/renderer@0.8.30) (2024-05-11)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
+## [0.8.29](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.8.28...@vtj/renderer@0.8.29) (2024-05-11)
+
+
+### Bug Fixes
+
+* 🐛 provider install ([92f7535](https://gitee.com/newgateway/vtj/commits/92f75352286ec4956ce0b8b6cee752fab6730216))
+
+
+
+
+
+## [0.8.28](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.8.27...@vtj/renderer@0.8.28) (2024-05-09)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
 ## [0.8.27](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.8.26...@vtj/renderer@0.8.27) (2024-05-08)
 
 

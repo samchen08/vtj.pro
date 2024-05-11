@@ -225,6 +225,7 @@ export interface CreateViteConfigOptions {
 
   /**
    * 开启 nodePolyfills
+   * https://github.com/davidmyersdev/vite-plugin-node-polyfills
    */
   node?: boolean | PolyfillOptions;
 

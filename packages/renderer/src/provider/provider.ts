@@ -56,6 +56,7 @@ export interface ProviderOptions {
   globals?: Record<string, any>;
   materialPath?: string;
   nodeEnv?: 'development' | 'production';
+  install?: (app: App) => void;
 }
 
 export interface ProvideAdapter {
@@ -81,7 +82,7 @@ export class Provider extends Base {
   private router: Router | null = null;
   private materialPath: string = './';
   private urlDslCaches: Record<string, any> = {};
-  constructor(options: ProviderOptions) {
+  constructor(public options: ProviderOptions) {
     super();
     const {
       service,

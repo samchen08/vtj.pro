@@ -3,6 +3,33 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.30](https://gitee.com/newgateway/vtj/compare/dev-web@0.8.29...dev-web@0.8.30) (2024-05-11)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
+## [0.8.29](https://gitee.com/newgateway/vtj/compare/dev-web@0.8.28...dev-web@0.8.29) (2024-05-11)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
+## [0.8.28](https://gitee.com/newgateway/vtj/compare/dev-web@0.8.27...dev-web@0.8.28) (2024-05-09)
+
+
+### Bug Fixes
+
+* 🐛 x-mask样式 ([aaf6eba](https://gitee.com/newgateway/vtj/commits/aaf6eba2ea07df375196a21b44d7a72c18a7415b))
+
+
+
+
+
 ## [0.8.27](https://gitee.com/newgateway/vtj/compare/dev-web@0.8.26...dev-web@0.8.27) (2024-05-08)
 
 

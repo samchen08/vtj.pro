@@ -36,7 +36,7 @@
         label-width="100px"
         editor="select"
         :props="{ multiple: true }"
-        :options="optionsLoader"
+        :options="options"
         tooltip-position="outer">
         <template #option="{ option }">
           <div>-- {{ option.label }}</div>
@@ -116,17 +116,17 @@
     console.log('onBlur');
   };
 
-  const options: any = [
+  const options: any = ref([
     { label: '选项一', value: 1 },
     { label: '选项二', value: 2, disabled: true },
     { label: '选项三', value: 3 },
     { label: '选项四', value: 4 }
-  ];
+  ]);
 
   const optionsLoader = () => {
     return new Promise<any>((resolve) => {
       setTimeout(() => {
-        resolve(options);
+        resolve(options.value);
       }, 0);
     });
   };
@@ -136,5 +136,6 @@
     // fieldValue.value = 'ABC';
     // fieldRef.value.focus();
     // console.log('fieldRef.value.focus', fieldRef.value.focus);
+    options.value.push({ label: '选项五', value: 5 });
   }, 100);
 </script>
