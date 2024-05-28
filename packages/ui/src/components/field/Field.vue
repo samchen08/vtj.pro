@@ -12,7 +12,6 @@
     <template v-if="$slots.label" #label>
       <slot name="label"></slot>
     </template>
-
     <template #error="{ error }">
       <slot name="error" :error="error">
         <div

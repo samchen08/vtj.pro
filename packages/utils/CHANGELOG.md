@@ -3,6 +3,66 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.37](https://gitee.com/newgateway/vtj/compare/@vtj/utils@0.8.36...@vtj/utils@0.8.37) (2024-05-28)
+
+**Note:** Version bump only for package @vtj/utils
+
+
+
+
+
+## [0.8.36](https://gitee.com/newgateway/vtj/compare/@vtj/utils@0.8.35...@vtj/utils@0.8.36) (2024-05-27)
+
+**Note:** Version bump only for package @vtj/utils
+
+
+
+
+
+## [0.8.35](https://gitee.com/newgateway/vtj/compare/@vtj/utils@0.8.34...@vtj/utils@0.8.35) (2024-05-27)
+
+**Note:** Version bump only for package @vtj/utils
+
+
+
+
+
+## [0.8.34](https://gitee.com/newgateway/vtj/compare/@vtj/utils@0.8.33...@vtj/utils@0.8.34) (2024-05-24)
+
+**Note:** Version bump only for package @vtj/utils
+
+
+
+
+
+## [0.8.33](https://gitee.com/newgateway/vtj/compare/@vtj/utils@0.8.32...@vtj/utils@0.8.33) (2024-05-23)
+
+**Note:** Version bump only for package @vtj/utils
+
+
+
+
+
+## [0.8.32](https://gitee.com/newgateway/vtj/compare/@vtj/utils@0.8.30...@vtj/utils@0.8.32) (2024-05-23)
+
+
+### Features
+
+* ✨ ui物料 ([3429074](https://gitee.com/newgateway/vtj/commits/34290740f2a2f125c033b7e3cf3bcbea4e48c1bc))
+* ✨ x-grid edit ([2ee75c2](https://gitee.com/newgateway/vtj/commits/2ee75c25589b8062fe2d8a0852957779888238ad))
+
+
+
+
+
+## [0.8.31](https://gitee.com/newgateway/vtj/compare/@vtj/utils@0.8.30...@vtj/utils@0.8.31) (2024-05-14)
+
+**Note:** Version bump only for package @vtj/utils
+
+
+
+
+
 ## [0.8.30](https://gitee.com/newgateway/vtj/compare/@vtj/utils@0.8.29...@vtj/utils@0.8.30) (2024-05-11)
 
 **Note:** Version bump only for package @vtj/utils

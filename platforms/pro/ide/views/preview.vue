@@ -10,6 +10,7 @@
     ContextMode,
     Extension
   } from '../../src';
+  import { IconsPlugin } from '@vtj/icons';
   const service = new LocalService();
   const ext = await service.getExtension().catch(() => null);
   const options = ext ? await new Extension(ext).load() : undefined;
@@ -18,10 +19,12 @@
     mode: ContextMode.Runtime,
     service,
     adapter,
+    install,
     dependencies: {
       Vue: () => import('vue'),
       VueRouter: () => import('vue-router'),
-      ElementPlus: () => import('element-plus')
+      ElementPlus: () => import('element-plus'),
+      VtjIcons: () => import('@vtj/icons')
     }
   });
   const route = useRoute();
@@ -31,8 +34,8 @@
   onReady(async () => {
     const app = instance?.appContext.app;
     if (app) {
+      app.use(IconsPlugin);
       app.use(provider);
-      app.use(install as any);
     }
 
     renderer.value = await provider.getRenderComponent(

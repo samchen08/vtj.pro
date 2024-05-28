@@ -221,6 +221,9 @@ export class Provider extends Base {
         installed[name] = true;
       }
     }
+    if (this.options.install) {
+      app.use(this.options.install);
+    }
     app.provide(providerKey, this);
     app.config.globalProperties.installed = installed;
   }

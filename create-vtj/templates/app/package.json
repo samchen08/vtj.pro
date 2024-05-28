@@ -16,7 +16,6 @@
   },
   "dependencies": {
     "@vtj/web": "latest",
-    "@vtj/plugin-ckeditor": "~0.1.3",
     "vue": "^3.4.14",
     "vue-router": "^4.2.5"
   },

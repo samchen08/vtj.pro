@@ -4,8 +4,8 @@
   "description": "VTJ 一款基于 Vue3 + Typescript 的低代码开发工具，内置了设计器引擎、渲染器和代码生成器。",
   "devDependencies": {
     "pnpm": "~9.1.0",
-    "lerna": "~8.1.2",
-    "axios": "~1.6.4",
+    "lerna": "8.1.2",
+    "axios": "~1.6.8",
     "fs-extra": "~11.2.0",
     "jsdom": "~24.0.0",
     "typedoc": "~0.25.11",

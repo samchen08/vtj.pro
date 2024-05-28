@@ -1,7 +1,7 @@
 {
   "name": "@vtj/ui",
   "private": false,
-  "version": "0.8.30",
+  "version": "0.8.37",
   "type": "module",
   "scripts": {
     "build": "vue-tsc && vite build && npm run build:umd",
@@ -17,10 +17,14 @@
     "@vtj/icons": "workspace:~",
     "@vtj/utils": "workspace:~",
     "@vueuse/core": "~10.9.0",
-    "element-plus": "~2.7.0"
+    "element-plus": "~2.7.0",
+    "sortablejs": "~1.15.2",
+    "vxe-table": "~4.6.16",
+    "vxe-table-plugin-menus": "~4.0.3"
   },
   "devDependencies": {
     "@types/qrcode": "^1.5.5",
+    "@types/sortablejs": "~1.15.8",
     "@vtj/cli": "workspace:~",
     "qrcode": "~1.5.3",
     "vue": "~3.4.15",

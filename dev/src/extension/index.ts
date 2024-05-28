@@ -2,6 +2,7 @@ import { widgetManager, type AppWidget, type ExtensionFactory } from '@vtj/pro';
 import { type App } from 'vue';
 import { VtjIconDatabase } from '@vtj/icons';
 import { request, jsonp } from '@vtj/utils';
+import { AdapterPlugin } from '@vtj/ui';
 import Meta from './Meta.vue';
 
 const meta: AppWidget = {
@@ -29,6 +30,11 @@ const factory: ExtensionFactory = () => {
     },
     install(app: App, engine: any) {
       console.log('ExtensionFactory install', app, engine);
+      app.use(AdapterPlugin, {
+        uploader: () => {
+          console.log('custom uploader');
+        }
+      });
     }
   };
 };

@@ -36,14 +36,14 @@ export const formProps = {
    * 提交按钮文本
    */
   submitText: {
-    type: String,
+    type: String as PropType<string | null>,
     default: '提交'
   },
   /**
    * 重置按钮文本
    */
   resetText: {
-    type: String,
+    type: String as PropType<string | null>,
     default: '重置'
   },
   /**

@@ -104,8 +104,7 @@ export const actionProps = {
    * 颜色类型
    */
   type: {
-    type: String as PropType<BaseType>,
-    default: 'primary'
+    type: String as PropType<BaseType>
   },
 
   /**

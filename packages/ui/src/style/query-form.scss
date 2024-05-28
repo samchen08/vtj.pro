@@ -1,0 +1,41 @@
+@use 'core' as *;
+
+@include b(query-form) {
+  .x-field {
+    margin-bottom: 5px;
+  }
+  .x-form__footer {
+    display: flex;
+    justify-content: center;
+    width: 100% !important;
+    min-height: 20px;
+    .x-field__editor_wrap {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .el-form-item__label {
+      display: none;
+    }
+    .el-form-item__content {
+      padding-left: 0;
+      padding-right: 0 !important;
+    }
+  }
+  &.el-form--inline .el-form-item {
+    margin-right: 0;
+  }
+
+  .el-button + .x-query-form__collapsible {
+    margin-left: 12px;
+  }
+
+  @include e(collapsible) {
+    display: inline-block;
+  }
+  @include e(inner) {
+    @include when(collapsed) {
+      overflow: hidden;
+    }
+  }
+}

@@ -3,6 +3,68 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.37](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.8.36...@vtj/materials@0.8.37) (2024-05-28)
+
+**Note:** Version bump only for package @vtj/materials
+
+
+
+
+
+## [0.8.36](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.8.35...@vtj/materials@0.8.36) (2024-05-27)
+
+**Note:** Version bump only for package @vtj/materials
+
+
+
+
+
+## [0.8.35](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.8.34...@vtj/materials@0.8.35) (2024-05-27)
+
+**Note:** Version bump only for package @vtj/materials
+
+
+
+
+
+## [0.8.34](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.8.33...@vtj/materials@0.8.34) (2024-05-24)
+
+
+### Bug Fixes
+
+* 🐛 grid bug ([0e21683](https://gitee.com/newgateway/vtj/commits/0e216835c6d91c362236e51378aea587bbbd9e59))
+
+
+
+
+
+## [0.8.33](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.8.32...@vtj/materials@0.8.33) (2024-05-23)
+
+**Note:** Version bump only for package @vtj/materials
+
+
+
+
+
+## [0.8.32](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.8.30...@vtj/materials@0.8.32) (2024-05-23)
+
+
+### Features
+
+* ✨ ui物料 ([3429074](https://gitee.com/newgateway/vtj/commits/34290740f2a2f125c033b7e3cf3bcbea4e48c1bc))
+
+
+
+
+
+## [0.8.31](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.8.30...@vtj/materials@0.8.31) (2024-05-14)
+
+**Note:** Version bump only for package @vtj/materials
+
+
+
+
+
 ## [0.8.30](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.8.29...@vtj/materials@0.8.30) (2024-05-11)
 
 **Note:** Version bump only for package @vtj/materials

@@ -50,6 +50,7 @@
   import { XField } from '../../';
 
   defineOptions({
+    inheritAttrs: false,
     name: 'XForm'
   });
 
@@ -88,7 +89,7 @@
   };
 
   const reset = (fields?: string[] | string) => {
-    formRef.value.resetFields(fields);
+    formRef.value?.resetFields(fields);
     emit('reset');
   };
 

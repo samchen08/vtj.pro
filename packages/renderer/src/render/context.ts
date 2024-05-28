@@ -59,6 +59,10 @@ export class Context {
   setup(attrs: Record<string, any>, Vue: any = globalVue) {
     const instance = Vue.getCurrentInstance();
     if (!instance) return;
+    this.__refs = {};
+    this.$refs = {};
+    this.context = {};
+    this.__contextRefs = {};
     this.__instance = instance.proxy;
     const globalProperties = instance.appContext.config.globalProperties;
     Object.assign(this, globalProperties);
@@ -70,6 +74,12 @@ export class Context {
     });
     Vue.onUnmounted(() => {
       this.__cleanup();
+    });
+    Vue.onBeforeUpdate(() => {
+      this.__refs = {};
+      this.$refs = {};
+      this.__contextRefs = {};
+      this.context = {};
     });
   }
   private __proxy() {

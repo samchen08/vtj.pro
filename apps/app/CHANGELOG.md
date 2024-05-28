@@ -3,6 +3,68 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.37](https://gitee.com/newgateway/vtj/compare/vtj-project-app@0.8.36...vtj-project-app@0.8.37) (2024-05-28)
+
+**Note:** Version bump only for package vtj-project-app
+
+
+
+
+
+## [0.8.36](https://gitee.com/newgateway/vtj/compare/vtj-project-app@0.8.35...vtj-project-app@0.8.36) (2024-05-27)
+
+**Note:** Version bump only for package vtj-project-app
+
+
+
+
+
+## [0.8.35](https://gitee.com/newgateway/vtj/compare/vtj-project-app@0.8.34...vtj-project-app@0.8.35) (2024-05-27)
+
+**Note:** Version bump only for package vtj-project-app
+
+
+
+
+
+## [0.8.34](https://gitee.com/newgateway/vtj/compare/vtj-project-app@0.8.33...vtj-project-app@0.8.34) (2024-05-24)
+
+**Note:** Version bump only for package vtj-project-app
+
+
+
+
+
+## [0.8.33](https://gitee.com/newgateway/vtj/compare/vtj-project-app@0.8.32...vtj-project-app@0.8.33) (2024-05-23)
+
+**Note:** Version bump only for package vtj-project-app
+
+
+
+
+
+## [0.8.32](https://gitee.com/newgateway/vtj/compare/vtj-project-app@0.8.30...vtj-project-app@0.8.32) (2024-05-23)
+
+
+### Features
+
+* ✨ ui support ADAPTER_KEY_STRING ([44cf31d](https://gitee.com/newgateway/vtj/commits/44cf31dee87f4896b4071b688e35eddbf5a96b1c))
+
+
+
+
+
+## [0.8.31](https://gitee.com/newgateway/vtj/compare/vtj-project-app@0.8.30...vtj-project-app@0.8.31) (2024-05-14)
+
+
+### Features
+
+* ✨ ui support ADAPTER_KEY_STRING ([44cf31d](https://gitee.com/newgateway/vtj/commits/44cf31dee87f4896b4071b688e35eddbf5a96b1c))
+
+
+
+
+
 ## [0.8.30](https://gitee.com/newgateway/vtj/compare/vtj-project-app@0.8.29...vtj-project-app@0.8.30) (2024-05-11)
 
 **Note:** Version bump only for package vtj-project-app

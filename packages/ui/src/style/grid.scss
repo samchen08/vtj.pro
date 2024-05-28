@@ -1,0 +1,93 @@
+@use 'core' as *;
+@use 'vxe-table/es/style.css';
+
+@include b(grid) {
+  display: flex;
+  flex-direction: column;
+
+  @include e(TagCell) {
+    .vxe-cell {
+      line-height: 0;
+    }
+  }
+  @include e(ImageCell) {
+    .vxe-cell {
+      line-height: 0;
+      padding: 5px;
+    }
+  }
+  @include e(edit) {
+    &.col--active {
+      .vxe-cell {
+        line-height: 0;
+      }
+    }
+    &.col--valid-error {
+      .el-input__wrapper {
+        --el-input-focus-border-color: var(--el-color-danger);
+      }
+    }
+    .el-date-editor {
+      --el-date-editor-width: 100%;
+    }
+  }
+
+  @include e(filter) {
+    padding: 10px;
+    width: 180px;
+  }
+  @include e(DateFilter) {
+    width: 240px;
+  }
+
+  &.size--mini {
+    --vxe-table-column-padding-mini: 0;
+    --vxe-table-row-height-mini: 24px;
+  }
+  &.size--small {
+    --vxe-table-column-padding-small: 5px 0;
+    --vxe-table-row-height-small: 32px;
+  }
+
+  .vxe-body--column.col--checkbox {
+    > .vxe-cell {
+      line-height: 0;
+    }
+  }
+  .vxe-body--column.col--radio {
+    > .vxe-cell {
+      line-height: 0;
+    }
+  }
+
+  .sortable-chosen {
+    opacity: 0.6;
+    background-color: var(--el-color-warning-light-8) !important;
+  }
+  .sortable-fallback {
+    background-color: var(--el-color-primary-light-8) !important;
+    background-image: none !important;
+  }
+  .vxe-pager {
+    margin-top: 5px;
+  }
+  &.size--mini {
+    .vxe-pager {
+      zoom: 0.9;
+    }
+  }
+  .vxe-pager--left-wrapper {
+    float: left;
+  }
+  > .vxe-grid--toolbar-wrapper {
+    border-bottom: 1px solid var(--el-border-color-lighter);
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    .vxe-toolbar {
+      padding: 0;
+    }
+  }
+  > .vxe-grid--top-wrapper {
+    padding-bottom: 10px;
+  }
+}

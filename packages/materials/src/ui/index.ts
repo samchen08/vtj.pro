@@ -13,6 +13,16 @@ import actionBar from './action-bar';
 import attachment from './attachment';
 import qrcode from './qrcode';
 import panel from './panel';
+import dataItem from './data-item';
+import dialog from './dialog';
+import dialogForm from './dialog-form';
+import field from './field';
+import form from './form';
+import grid from './grid';
+import header from './header';
+import list from './list';
+import queryForm from './query-form';
+import tabs from './tabs';
 
 const name = '@vtj/ui';
 const components: MaterialDescription[] = [
@@ -23,7 +33,17 @@ const components: MaterialDescription[] = [
   actionBar,
   qrcode,
   panel,
-  attachment
+  attachment,
+  dataItem,
+  dialog,
+  dialogForm,
+  field,
+  form,
+  grid,
+  header,
+  list,
+  queryForm,
+  tabs
 ].flat();
 
 const categories: MaterialCategory[] = [

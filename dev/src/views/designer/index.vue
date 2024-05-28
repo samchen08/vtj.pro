@@ -6,11 +6,8 @@
   import { Engine, widgetManager, StorageService, Extension } from '@vtj/pro';
 
   const extension = new Extension({
-    urls: [
-      '/extension/@newpearl__extension.css',
-      '/extension/@newpearl__extension.umd.js'
-    ],
-    library: 'NewpearlExtension'
+    urls: ['/extension/@newpearl__extension.css', '/extension/index.umd.js'],
+    library: 'VtjExtension'
   });
 
   const options = await extension.load();

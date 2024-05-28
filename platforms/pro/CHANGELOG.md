@@ -3,6 +3,76 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.37](https://gitee.com/newgateway/vtj/compare/@vtj/pro@0.8.36...@vtj/pro@0.8.37) (2024-05-28)
+
+
+### Bug Fixes
+
+* 🐛 icons ([1f322d7](https://gitee.com/newgateway/vtj/commits/1f322d78f925888dece85625db7093e68e7f5f01))
+
+
+
+
+
+## [0.8.36](https://gitee.com/newgateway/vtj/compare/@vtj/pro@0.8.35...@vtj/pro@0.8.36) (2024-05-27)
+
+**Note:** Version bump only for package @vtj/pro
+
+
+
+
+
+## [0.8.35](https://gitee.com/newgateway/vtj/compare/@vtj/pro@0.8.34...@vtj/pro@0.8.35) (2024-05-27)
+
+**Note:** Version bump only for package @vtj/pro
+
+
+
+
+
+## [0.8.34](https://gitee.com/newgateway/vtj/compare/@vtj/pro@0.8.33...@vtj/pro@0.8.34) (2024-05-24)
+
+**Note:** Version bump only for package @vtj/pro
+
+
+
+
+
+## [0.8.33](https://gitee.com/newgateway/vtj/compare/@vtj/pro@0.8.32...@vtj/pro@0.8.33) (2024-05-23)
+
+**Note:** Version bump only for package @vtj/pro
+
+
+
+
+
+## [0.8.32](https://gitee.com/newgateway/vtj/compare/@vtj/pro@0.8.30...@vtj/pro@0.8.32) (2024-05-23)
+
+
+### Bug Fixes
+
+* 🐛 provider install ([587112d](https://gitee.com/newgateway/vtj/commits/587112d873cb5738691be63b269d16e04ae9312e))
+
+
+### Features
+
+* ✨ ui support ADAPTER_KEY_STRING ([44cf31d](https://gitee.com/newgateway/vtj/commits/44cf31dee87f4896b4071b688e35eddbf5a96b1c))
+
+
+
+
+
+## [0.8.31](https://gitee.com/newgateway/vtj/compare/@vtj/pro@0.8.30...@vtj/pro@0.8.31) (2024-05-14)
+
+
+### Features
+
+* ✨ ui support ADAPTER_KEY_STRING ([44cf31d](https://gitee.com/newgateway/vtj/commits/44cf31dee87f4896b4071b688e35eddbf5a96b1c))
+
+
+
+
+
 ## [0.8.30](https://gitee.com/newgateway/vtj/compare/@vtj/pro@0.8.29...@vtj/pro@0.8.30) (2024-05-11)
 
 **Note:** Version bump only for package @vtj/pro

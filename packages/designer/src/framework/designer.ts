@@ -190,13 +190,13 @@ export class Designer {
      * 当只有一个插槽，名称是default，并且没有任何参数，可以省略不指定插槽名
      * 删除的原因：自定义区块，没有定义params，出码会找不到插槽作用域，需要区块增加插槽参数设置后才能用这个判断
      */
-    // if (
-    //   slot &&
-    //   slot.name === 'default' &&
-    //   (!slot.params || slot.params?.length === 0)
-    // ) {
-    //   return undefined;
-    // }
+    if (
+      slot &&
+      slot.name === 'default' &&
+      (!slot.params || slot.params?.length === 0)
+    ) {
+      return undefined;
+    }
 
     return slot;
   }

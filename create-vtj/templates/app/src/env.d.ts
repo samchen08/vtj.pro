@@ -15,3 +15,14 @@ declare namespace NodeJS {
 declare module global {
   interface Window {}
 }
+
+declare module 'vue' {
+  interface ComponentCustomProperties {
+    $uploader: any;
+    $reqeust: any;
+    $apis: any;
+    $libs: any;
+  }
+}
+
+export {};

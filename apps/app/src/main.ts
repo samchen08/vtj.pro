@@ -9,7 +9,7 @@ const app = createApp(App);
 const service = new LocalService();
 
 const { provider, onReady } = createProvider({
-  nodeEnv: process.env.NODE_ENV,
+  nodeEnv: process.env.NODE_ENV as 'development' | 'production',
   modules: createModules(),
   service,
   router,

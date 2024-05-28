@@ -40,11 +40,9 @@ export class Renderer {
       });
       app.use(router);
     }
+    app.use(this.provider)
     const plugins = Object.entries(library);
     Object.assign(app.config.globalProperties, globals);
-    if (this.provider.options.install) {
-      this.provider.options.install(app);
-    }
     app.config.errorHandler = (err: any, instance, info) => {
       const name = instance?.$options.name;
       const msg = err?.message || err?.msg || '未知错误';

@@ -3,6 +3,76 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.37](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.8.36...@vtj/renderer@0.8.37) (2024-05-28)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
+## [0.8.36](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.8.35...@vtj/renderer@0.8.36) (2024-05-27)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
+## [0.8.35](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.8.34...@vtj/renderer@0.8.35) (2024-05-27)
+
+
+### Bug Fixes
+
+* 🐛 renderer ref 更新错误 ([1ef184a](https://gitee.com/newgateway/vtj/commits/1ef184a8e08331141b8ab136241a4ff2ba4b506c))
+
+
+
+
+
+## [0.8.34](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.8.33...@vtj/renderer@0.8.34) (2024-05-24)
+
+
+### Bug Fixes
+
+* 🐛 grid bug ([0e21683](https://gitee.com/newgateway/vtj/commits/0e216835c6d91c362236e51378aea587bbbd9e59))
+
+
+
+
+
+## [0.8.33](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.8.32...@vtj/renderer@0.8.33) (2024-05-23)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
+## [0.8.32](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.8.30...@vtj/renderer@0.8.32) (2024-05-23)
+
+
+### Bug Fixes
+
+* 🐛 provider install ([587112d](https://gitee.com/newgateway/vtj/commits/587112d873cb5738691be63b269d16e04ae9312e))
+
+
+### Features
+
+* ✨ ui物料 ([3429074](https://gitee.com/newgateway/vtj/commits/34290740f2a2f125c033b7e3cf3bcbea4e48c1bc))
+
+
+
+
+
+## [0.8.31](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.8.30...@vtj/renderer@0.8.31) (2024-05-14)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
 ## [0.8.30](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.8.29...@vtj/renderer@0.8.30) (2024-05-11)
 
 **Note:** Version bump only for package @vtj/renderer

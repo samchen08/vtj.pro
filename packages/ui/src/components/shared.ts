@@ -25,7 +25,13 @@ export type UnReadOnly<T> = {
 
 export type BaseSize = 'large' | 'default' | 'small';
 
-export type BaseType = 'primary' | 'success' | 'warning' | 'danger' | 'info';
+export type BaseType =
+  | 'primary'
+  | 'success'
+  | 'warning'
+  | 'danger'
+  | 'info'
+  | 'default';
 
 export type UnionToIntersection<U> = (
   U extends any ? (k: U) => void : never

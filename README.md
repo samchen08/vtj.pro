@@ -6,8 +6,6 @@ VTJ 一款基于 Vue3 + Typescript 的低代码开发工具，内置了设计器
 
 - [http://vtj.pro](http://vtj.pro)
 
-- [http://newgateway.gitee.io/vtj](http://newgateway.gitee.io/vtj)
-
 ## VTJ 的特点
 
 - 面向前端开发者，不改变前端开发流程和编码习惯，会 Vue 就会用，无学习成本。

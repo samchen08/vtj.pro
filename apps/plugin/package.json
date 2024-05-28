@@ -1,7 +1,7 @@
 {
   "name": "vtj-plugin",
   "private": true,
-  "version": "0.8.30",
+  "version": "0.8.37",
   "type": "module",
   "scripts": {
     "setup": "pnpm install --unsafe-perm --registry=https://registry.npmmirror.com",
@@ -19,7 +19,6 @@
   "devDependencies": {
     "@vtj/cli": "workspace:~",
     "@vtj/core": "workspace:~",
-    "@vtj/plugin-ckeditor": "*",
     "@vtj/pro": "workspace:~",
     "@vtj/web": "workspace:~",
     "vue": "^3.4.15",

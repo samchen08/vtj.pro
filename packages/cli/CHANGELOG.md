@@ -3,6 +3,30 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.13](https://gitee.com/newgateway/vtj/compare/@vtj/cli@0.8.11...@vtj/cli@0.8.13) (2024-05-23)
+
+
+### Bug Fixes
+
+* 🐛 provider install ([587112d](https://gitee.com/newgateway/vtj/commits/587112d873cb5738691be63b269d16e04ae9312e))
+
+
+### Features
+
+* ✨ ui物料 ([3429074](https://gitee.com/newgateway/vtj/commits/34290740f2a2f125c033b7e3cf3bcbea4e48c1bc))
+
+
+
+
+
+## [0.8.12](https://gitee.com/newgateway/vtj/compare/@vtj/cli@0.8.11...@vtj/cli@0.8.12) (2024-05-14)
+
+**Note:** Version bump only for package @vtj/cli
+
+
+
+
+
 ## [0.8.11](https://gitee.com/newgateway/vtj/compare/@vtj/cli@0.8.10...@vtj/cli@0.8.11) (2024-05-11)
 
 

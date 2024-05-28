@@ -1,4 +1,4 @@
-import type { MaterialDescription } from '@vtj/core';
+import type { MaterialDescription, MaterialProp } from '@vtj/core';
 
 export function setPackageName(
   components: MaterialDescription[],
@@ -10,4 +10,8 @@ export function setPackageName(
       package: name
     } as MaterialDescription;
   });
+}
+
+export function omitPropItem(props: MaterialProp[] = [], names: string[] = []) {
+  return props.filter((n) => !names.includes(n.name));
 }
