@@ -11,11 +11,13 @@
       :cellRenders="cellRenders"
       :filterRenders="filterRenders"></XGrid>
 
+    <ElButton @click="onAdd">Add</ElButton>
+    <hr />
     <XForm :model="model" @submit="onSubmit">
-      <XField label="子表格" name="children">
+      <XField label="子列表" name="children">
         <template #editor>
           <XGrid
-            :auto-resize="false"
+            ref="gridRef"
             height="200px"
             :editable="editable"
             :columns="columns"
@@ -24,17 +26,19 @@
             :editRenders="editRenders"
             :cellRenders="cellRenders"
             :filterRenders="filterRenders"
-            @edit-closed="onEditClosed"></XGrid>
+            @edit-change="onEditChange"></XGrid>
         </template>
       </XField>
     </XForm>
   </div>
 </template>
 <script lang="ts" setup>
-  import { ref, toValue } from 'vue';
+  import { ref } from 'vue';
+  import { ElButton } from 'element-plus';
   import { XGrid, XForm, XField } from '@vtj/ui';
 
   const editable = ref(false);
+  const gridRef = ref();
 
   const model = ref({
     children: [
@@ -138,7 +142,13 @@
         ]
       }
     },
-    date: 'XDate',
+    date: {
+      name: 'XDate',
+      props: {
+        valueFormat: 'YYYY-MM-DD hh:mm:ss',
+        type: 'datetime'
+      }
+    },
     link: 'XLink',
     image: 'XImage'
   };
@@ -173,14 +183,17 @@
     ]
   };
 
-  const onEditClosed = (e: any) => {
-    const data = e.$grid.getData().map((n: any) => toValue(n));
-    console.log('onEditClosed', e, data);
-    model.value.children = data;
+  const onEditChange = (rows: any) => {
+    console.log('change', rows);
+    model.value.children = rows;
   };
 
   const onSubmit = (m: any) => {
     console.log('submit', m);
+  };
+
+  const onAdd = () => {
+    gridRef.value.insertActived({});
   };
 
   setTimeout(() => {

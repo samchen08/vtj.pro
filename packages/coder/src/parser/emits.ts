@@ -1,6 +1,8 @@
+import type { BlockEmit } from '@vtj/core';
 
-export function parseEmits(emits: string[] = []) {
+export function parseEmits(emits: Array<string | BlockEmit> = []) {
   return emits.map((n) => {
-    return `'${n}'`;
+    const name = typeof n === 'string' ? n : n.name;
+    return `'${name}'`;
   });
 }

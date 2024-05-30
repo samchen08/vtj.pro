@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.39](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.8.38...@vtj/designer@0.8.39) (2024-05-30)
+
+
+### Features
+
+* ✨ 事件插槽定义支持配置参数 ([d6728b3](https://gitee.com/newgateway/vtj/commits/d6728b330815a937cb582f0d0afb667f54bc590e))
+
+
+
+
+
+## [0.8.38](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.8.37...@vtj/designer@0.8.38) (2024-05-29)
+
+**Note:** Version bump only for package @vtj/designer
+
+
+
+
+
 ## [0.8.37](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.8.36...@vtj/designer@0.8.37) (2024-05-28)
 
 **Note:** Version bump only for package @vtj/designer

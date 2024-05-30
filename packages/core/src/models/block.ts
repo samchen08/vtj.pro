@@ -1,4 +1,4 @@
-import { uid, timestamp } from '@vtj/base';
+import { uid, timestamp, isString } from '@vtj/base';
 import { emitter, cloneDsl } from '../tools';
 import type {
   BlockSchema,
@@ -9,7 +9,9 @@ import type {
   JSExpression,
   BlockWatch,
   BlockProp,
-  DataSourceSchema
+  DataSourceSchema,
+  BlockEmit,
+  BlockSlot
 } from '../protocols';
 
 import { NodeModel } from './node';
@@ -36,8 +38,8 @@ export class BlockModel {
   public watch: BlockWatch[] = [];
   public css: string = '';
   public props: Array<string | BlockProp> = [];
-  public emits: string[] = [];
-  public slots: string[] = [];
+  public emits: Array<string | BlockEmit> = [];
+  public slots: Array<string | BlockSlot> = [];
   public dataSources: Record<string, DataSourceSchema> = {};
   public nodes: NodeModel[] = [];
   public locked: boolean = false;
@@ -263,12 +265,13 @@ export class BlockModel {
    * @param emit
    * @param silent
    */
-  setEmit(emit: string, silent: boolean = false) {
-    const index = this.emits.findIndex((n) => n === emit);
+  setEmit(emit: string | BlockEmit, silent: boolean = false) {
+    const item: BlockEmit = isString(emit) ? { name: emit, params: [] } : emit;
+    const index = this.emits.findIndex((n) => n === item.name || n === item);
     if (index > -1) {
-      this.emits.splice(index, 1, emit);
+      this.emits.splice(index, 1, item);
     } else {
-      this.emits.push(emit);
+      this.emits.push(item);
     }
     if (!silent) {
       emitter.emit(EVENT_BLOCK_CHANGE, this);
@@ -281,7 +284,9 @@ export class BlockModel {
    * @param silent
    */
   removeEmit(emit: string, silent: boolean = false) {
-    const index = this.emits.findIndex((n) => n === emit);
+    const index = this.emits.findIndex((n) =>
+      isString(n) ? n === emit : n.name === emit
+    );
     if (index > -1) {
       this.emits.splice(index, 1);
       if (!silent) {
@@ -295,12 +300,13 @@ export class BlockModel {
    * @param slot
    * @param silent
    */
-  setSlot(slot: string, silent: boolean = false) {
-    const index = this.slots.findIndex((n) => n === slot);
+  setSlot(slot: string | BlockSlot, silent: boolean = false) {
+    const item: BlockEmit = isString(slot) ? { name: slot, params: [] } : slot;
+    const index = this.slots.findIndex((n) => n === item.name || n === item);
     if (index > -1) {
-      this.slots.splice(index, 1, slot);
+      this.slots.splice(index, 1, item);
     } else {
-      this.slots.push(slot);
+      this.slots.push(item);
     }
     if (!silent) {
       emitter.emit(EVENT_BLOCK_CHANGE, this);
@@ -313,7 +319,9 @@ export class BlockModel {
    * @param silent
    */
   removeSlot(slot: string, silent: boolean = false) {
-    const index = this.slots.findIndex((n) => n === slot);
+    const index = this.slots.findIndex((n) =>
+      isString(n) ? n === slot : n.name === slot
+    );
     if (index > -1) {
       this.slots.splice(index, 1);
       if (!silent) {

@@ -61,12 +61,12 @@ export interface BlockSchema {
   /**
    * 定义事件
    */
-  emits?: string[];
+  emits?: Array<string | BlockEmit>;
 
   /**
    * 定义插槽
    */
-  slots?: string[];
+  slots?: Array<string | BlockSlot>;
 
   /**
    * 节点树
@@ -134,3 +134,13 @@ export type BlockPropDataType =
   | 'Object'
   | 'Function'
   | 'Date';
+
+export interface BlockEmit {
+  name: string;
+  params: string[];
+}
+
+export interface BlockSlot {
+  name: string;
+  params: string[];
+}

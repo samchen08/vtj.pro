@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.39](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.8.38...@vtj/ui@0.8.39) (2024-05-30)
+
+**Note:** Version bump only for package @vtj/ui
+
+
+
+
+
+## [0.8.38](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.8.37...@vtj/ui@0.8.38) (2024-05-29)
+
+
+### Features
+
+* ✨ 增强表格 ([ed364ce](https://gitee.com/newgateway/vtj/commits/ed364ce463361d51b8858a28b44c5075e77eccbf))
+
+
+
+
+
 ## [0.8.37](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.8.36...@vtj/ui@0.8.37) (2024-05-28)
 
 

@@ -37,7 +37,7 @@
       <Item
         v-for="item in blockEvents"
         :model-value="item"
-        :title="item"
+        :title="item.name"
         border
         :actions="['remove']"
         @click="onEventsEdit(item)"
@@ -60,7 +60,7 @@
       <Item
         v-for="item in blockSlots"
         :model-value="item"
-        :title="item"
+        :title="item.name"
         border
         :actions="['remove']"
         @click="onSlotsEdit(item)"
@@ -103,7 +103,12 @@
   import { ref, computed } from 'vue';
   import { XContainer } from '@vtj/ui';
   import { ElEmpty } from 'element-plus';
-  import { type BlockProp, type BlockInject } from '@vtj/core';
+  import {
+    type BlockProp,
+    type BlockInject,
+    type BlockSlot,
+    type BlockEmit
+  } from '@vtj/core';
   import { Panel, Item } from '../../shared';
   import { useCurrent } from '../../hooks';
   import DefinedPropsDialog from './props.vue';
@@ -123,12 +128,16 @@
     });
   });
 
-  const blockEvents = computed(() => {
-    return current.value?.emits || [];
+  const blockEvents = computed<BlockEmit[]>(() => {
+    return (current.value?.emits || []).map((n) => {
+      return typeof n === 'string' ? { name: n, params: [] } : n;
+    });
   });
 
-  const blockSlots = computed(() => {
-    return current.value?.slots || [];
+  const blockSlots = computed<BlockSlot[]>(() => {
+    return (current.value?.slots || []).map((n) => {
+      return typeof n === 'string' ? { name: n, params: [] } : n;
+    });
   });
 
   const blockInjects = computed(() => {
@@ -138,9 +147,9 @@
   const visibleProps = ref(false);
   const currentPropItem = ref<BlockProp>();
   const visibleEvents = ref(false);
-  const currentEventItem = ref<string>();
+  const currentEventItem = ref<BlockEmit>();
   const visibleSlots = ref(false);
-  const currentSlotItem = ref<string>();
+  const currentSlotItem = ref<BlockSlot>();
   const visibleInjects = ref(false);
   const currentInjectItem = ref<BlockInject>();
 
@@ -170,7 +179,7 @@
   };
 
   const onEventsEdit = (item: any) => {
-    currentEventItem.value = item;
+    currentEventItem.value = { ...item };
     visibleEvents.value = true;
   };
 
@@ -180,7 +189,7 @@
       onEventsEdit(modelValue);
     }
     if (name === 'remove') {
-      current.value?.removeEmit(modelValue);
+      current.value?.removeEmit(modelValue.name);
     }
   };
 
@@ -190,7 +199,7 @@
   };
 
   const onSlotsEdit = (item: any) => {
-    currentSlotItem.value = item;
+    currentSlotItem.value = { ...item };
     visibleSlots.value = true;
   };
 
@@ -200,7 +209,7 @@
       onSlotsEdit(modelValue);
     }
     if (name === 'remove') {
-      current.value?.removeSlot(modelValue);
+      current.value?.removeSlot(modelValue.name);
     }
   };
 

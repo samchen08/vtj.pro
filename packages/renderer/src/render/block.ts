@@ -7,7 +7,8 @@ import {
   type BlockInject,
   type DataSourceSchema,
   type BlockWatch,
-  type NodeSchema
+  type NodeSchema,
+  type BlockEmit
 } from '@vtj/core';
 import { isString } from '@vtj/utils';
 import { ContextMode, DATA_TYPES } from '../constants';
@@ -92,7 +93,7 @@ export function createRenderer(options: CreateRendererOptions) {
         vtj: context
       };
     },
-    emits: [...(dsl.value.emits ?? [])],
+    emits: createEmits(dsl.value.emits),
     expose: ['vtj'],
     render() {
       if (!dsl.value.nodes) return null;
@@ -110,6 +111,12 @@ export function createRenderer(options: CreateRendererOptions) {
     renderer: Vue.markRaw(renderer),
     context
   };
+}
+
+function createEmits(emits: Array<string | BlockEmit> = []) {
+  return emits.map((n) => {
+    return isString(n) ? n : n.name;
+  });
 }
 
 function createProps(props: Array<string | BlockProp> = [], context: Context) {

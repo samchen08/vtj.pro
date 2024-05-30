@@ -310,6 +310,7 @@ const desc: MaterialDescription = {
   events: [
     'rowSort',
     'columnSort',
+    'editChange',
     'keydown',
     'current-change',
     'radio-change',

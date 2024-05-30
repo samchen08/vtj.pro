@@ -6,7 +6,8 @@
     :columns="columns"
     @custom="onCustom"
     :loading="false"
-    @resizable-change="onResize">
+    @resizable-change="onResize"
+    @edit-closed="onEditClosed">
     <template v-for="name in slots" v-slot:[name]="scope">
       <slot :name="name" v-bind="scope"></slot>
     </template>
@@ -17,6 +18,7 @@
 </template>
 <script lang="ts" setup>
   import { ref, provide, getCurrentInstance } from 'vue';
+  import { ElMessageBox } from 'element-plus';
   import {
     useVxe,
     useProps,
@@ -52,6 +54,13 @@
     await instance.setEditRow(newRow);
   };
 
+  const setActived = async (row: any) => {
+    return vxeRef.value?.setEditRow(row);
+  };
+
+  /**
+   * 重新加载数据
+   */
   const reload = async () => {
     const info = getProxyInfo();
     if (info && props.query) {
@@ -62,13 +71,73 @@
     }
   };
 
+  const loadData = (data: any[], reload?: boolean) => {
+    const grid = vxeRef.value;
+    if (!grid) return;
+    if (reload) {
+      grid.reloadData(data);
+    } else {
+      grid.loadData(data);
+    }
+  };
+
+  const getRows = () => {
+    const grid = vxeRef.value;
+    if (!grid) return [];
+    const { tableData = [] } = grid.getTableData();
+    return tableData;
+  };
+
+  const validate = async () => {
+    const rows = getRows();
+    return vxeRef.value?.validate(rows);
+  };
+
+  const getSelected = () => {
+    const grid = vxeRef.value;
+    if (!grid) return null;
+    const columns = grid.getColumns();
+    const hasRadio = !!columns.find((n) => n.type === 'radio');
+    if (hasRadio) {
+      return grid.getRadioRecord(true);
+    }
+    const hasCheckbox = !!columns.find((n) => n.type === 'checkbox');
+    if (hasCheckbox) {
+      return grid.getCheckboxRecords(true);
+    }
+    return null;
+  };
+
+  const onEditClosed = () => {
+    const rows = getRows();
+    emit('editChange', rows);
+  };
+
+  const remove = async (rows: any) => {
+    const grid = vxeRef.value;
+    if (!grid) return;
+    const ret = await ElMessageBox.confirm('确认删除？', '提示', {
+      type: 'warning'
+    });
+    if (ret) {
+      await grid.remove(rows);
+      onEditClosed();
+    }
+  };
+
   defineExpose({
     vxeRef,
     rowSortable,
     columnSortable,
     insertActived,
     getProxyInfo,
-    reload
+    reload,
+    validate,
+    getSelected,
+    remove,
+    getRows,
+    loadData,
+    setActived
   });
 
   defineOptions({

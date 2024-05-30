@@ -126,3 +126,4 @@ export function useMenus(props: MaskProps, emit: MaskEmitsFn) {
     toggleFavorite
   };
 }
+

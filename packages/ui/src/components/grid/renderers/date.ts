@@ -6,7 +6,7 @@ import DateFilter from './components/DateFilter.vue';
 
 export const XDate: RendererOptions = {
   cellClassName: 'x-grid__edit',
-  autofocus: '.el-select__input',
+  autofocus: '.el-input__inner',
   renderEdit(renderOpts, params) {
     return [h(DateEdit, { params, renderOpts })];
   },
