@@ -159,6 +159,7 @@ export class Provider extends Base {
       }
     }
 
+    // todo: 需要优化，生产环境不需要物料
     for (const materialUrl of materials) {
       await loadScript(urlUtils.append(materialUrl, { v: version }));
     }

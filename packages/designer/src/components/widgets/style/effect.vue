@@ -4,7 +4,9 @@
       <SetterWrapper
         name="opacity"
         label="透明度"
-        :setters="{ name: 'SliderSetter' }"
+        :setters="{
+          name: 'SliderSetter'
+        }"
         :variable="false"
         :value="getOpactiy()"
         @change="setOpacity"></SetterWrapper>
@@ -96,6 +98,6 @@
   };
 
   const getOpactiy = () => {
-    return Number(props.styleJson.opactiy || 0) * 100;
+    return Number(props.styleJson.opacity ?? 1) * 100;
   };
 </script>

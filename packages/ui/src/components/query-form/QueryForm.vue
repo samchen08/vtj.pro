@@ -4,7 +4,7 @@
     class="x-query-form"
     inline
     :inline-columns="4"
-    label-width="120px"
+    label-width="100px"
     :submit-text="null"
     :reset-text="null">
     <div

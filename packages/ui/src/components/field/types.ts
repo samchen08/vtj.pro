@@ -1,6 +1,6 @@
 import type { PropType, VNode } from 'vue';
-import type { ComponentPropsType, BaseSize } from '../shared';
-import type { ElTooltipProps } from 'element-plus';
+import type { ComponentPropsType, BaseSize, UnReadOnly } from '../shared';
+import type { ElTooltipProps, FormItemProps } from 'element-plus';
 import {
   type BuiltinFieldEditor,
   type BuiltinFieldEditorType,
@@ -168,7 +168,8 @@ export const fieldProps = {
   }
 };
 
-export type FieldProps = ComponentPropsType<typeof fieldProps>;
+export type FieldProps = ComponentPropsType<typeof fieldProps> &
+  Partial<UnReadOnly<FormItemProps>>;
 
 export type FieldEmits = {
   'update:modelValue': [value: any];

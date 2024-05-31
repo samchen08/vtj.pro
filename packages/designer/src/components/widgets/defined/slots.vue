@@ -22,6 +22,7 @@
       placeholder="输入参数名称回车确定"
       :options="[
         { label: 'data', value: 'data' },
+        { label: 'params', value: 'params' },
         { label: 'item', value: 'item' },
         { label: 'index', value: 'index' }
       ]"

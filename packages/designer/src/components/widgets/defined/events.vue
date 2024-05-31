@@ -23,6 +23,7 @@
       :options="[
         { label: 'e', value: 'e' },
         { label: 'data', value: 'data' },
+        { label: 'params', value: 'params' },
         { label: 'item', value: 'item' },
         { label: 'index', value: 'index' }
       ]"

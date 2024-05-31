@@ -1,6 +1,6 @@
 # VTJ.PRO
 
-VTJ 一款基于 Vue3 + Typescript 的低代码开发工具，内置了设计器引擎、渲染器和代码生成器。
+VTJ 一款基于 Vue3 + Typescript 的低代码开发工具，内置低代码引擎、设计器、渲染器和代码生成器。
 
 ## 演示
 
@@ -13,7 +13,11 @@ VTJ 一款基于 Vue3 + Typescript 的低代码开发工具，内置了设计器
 - 开发环境提供本地离线服务，安全易接入，采用设计器和渲染器分离，不污染项目代码。
 - 内置丰富组件提供支持，可定制可复用区块组件。
 
-![输入图片说明](dev/public/preview.png)
+![输入图片说明](dev/public/preview/p1.png)
+
+![输入图片说明](dev/public/preview/p2.png)
+
+![输入图片说明](dev/public/preview/p3.png)
 
 ## 快速体验
 
