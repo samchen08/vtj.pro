@@ -23,3 +23,4 @@ export * from './sms-code-input';
 export * from './attachment';
 export * from './query-form';
 export * from './grid';
+export * from './picker';

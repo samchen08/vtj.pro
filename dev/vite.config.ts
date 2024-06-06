@@ -47,6 +47,7 @@ function creator() {
     ],
     plugins: [
       createDevTools({
+        hm: null,
         link: false,
         copy: false,
         devMode: true,

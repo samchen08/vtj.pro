@@ -23,6 +23,7 @@ import header from './header';
 import list from './list';
 import queryForm from './query-form';
 import tabs from './tabs';
+import picker from './picker';
 
 const name = '@vtj/ui';
 const components: MaterialDescription[] = [
@@ -43,7 +44,8 @@ const components: MaterialDescription[] = [
   header,
   list,
   queryForm,
-  tabs
+  tabs,
+  picker
 ].flat();
 
 const categories: MaterialCategory[] = [

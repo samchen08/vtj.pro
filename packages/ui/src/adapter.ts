@@ -6,7 +6,11 @@ import {
   getCurrentInstance
 } from 'vue';
 import { storage } from '@vtj/utils';
-import type { GridCustomInfo } from './components';
+import {
+  type GridCustomInfo,
+  type BuiltinFieldEditor,
+  registerFieldEditors
+} from './components';
 import type { VXETableConfigOptions } from 'vxe-table';
 export const ADAPTER_KEY: InjectionKey<Adapter> = Symbol('ADAPTER_KEY');
 
@@ -30,8 +34,10 @@ export function useAdapter(): Adapter {
 }
 
 export interface Adapter {
+  fieldEditors?: Record<string, BuiltinFieldEditor>;
   uploader?: Uploader;
   vxeConfig?: VXETableConfigOptions;
+  vxePlugin?: any;
   getCustom?: (id: string) => Promise<GridCustomInfo>;
   saveCustom?: (info: GridCustomInfo) => Promise<any>;
   [index: string]: any;
@@ -49,6 +55,9 @@ const defaults: Adapter = {
 export const AdapterPlugin: Plugin = {
   install(app: App, options: Adapter = {}) {
     const adapter = Object.assign(defaults, options);
+    if (adapter.fieldEditors) {
+      registerFieldEditors(adapter.fieldEditors);
+    }
     app.config.globalProperties.$adapter = adapter;
     app.provide(ADAPTER_KEY, adapter);
   }

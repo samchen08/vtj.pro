@@ -90,12 +90,17 @@
       <XField label="开关" editor="switch"> </XField>
       <XField label="滑块" editor="slider"> </XField>
       <XField label="级联" editor="cascader" :options="TreeData"> </XField>
+      <XField
+        label="数据选择器"
+        editor="picker"
+        :props="{ loader, columns, valueKey: 'id', onPicked }">
+      </XField>
     </ElForm>
   </div>
 </template>
 <script lang="ts" setup>
   import { ref } from 'vue';
-  import { XField } from '@vtj/web';
+  import { XField, request } from '@vtj/web';
   import { ElInput, ElForm } from 'element-plus';
   import TreeData from '../../data/tree';
 
@@ -138,4 +143,63 @@
     // console.log('fieldRef.value.focus', fieldRef.value.focus);
     options.value.push({ label: '选项五', value: 5 });
   }, 100);
+
+  const fetchData = (data: any) => {
+    return request({
+      url: '/mock-api/list',
+      method: 'get',
+      data,
+      settings: {
+        originResponse: false
+      }
+    });
+  };
+
+  const loader: any = async (params: any) => {
+    console.log('do load', params);
+    const { page, pageSize = 50, form } = params || {};
+    // console.log('query', { ...params, ...model, tab: tabValue.value });
+    return await fetchData({
+      ...form,
+      currentPage: page,
+      pageSize,
+      total: 1000
+    });
+  };
+
+  const columns = [
+    {
+      field: 'id',
+      title: 'ID'
+    },
+    {
+      field: 'name',
+      title: '姓名'
+    },
+
+    {
+      field: 'sex',
+      title: '性别'
+    },
+    {
+      field: 'age',
+      title: '年龄'
+    },
+    {
+      field: 'intro',
+      title: '简介'
+    },
+    {
+      field: 'join',
+      title: '入职日期'
+    },
+    {
+      field: 'create',
+      title: '创建时间'
+    }
+  ];
+
+  const onPicked = (data: any) => {
+    console.log('picked', data);
+  };
 </script>

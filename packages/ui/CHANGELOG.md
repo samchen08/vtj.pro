@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.40](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.8.39...@vtj/ui@0.8.40) (2024-06-06)
+
+
+### Bug Fixes
+
+* 🐛 修复类型、style透明度回填错误 ([eb92ad6](https://gitee.com/newgateway/vtj/commits/eb92ad66cff7e80197f09e91c21eff7dac2ea14f))
+
+
+### Features
+
+* ✨ 重构XGrid ([d2d2c8b](https://gitee.com/newgateway/vtj/commits/d2d2c8bc9c8dcaacd189aa120754fa67de6636af))
+* ✨ x-picker ([893a42c](https://gitee.com/newgateway/vtj/commits/893a42cb2f6b464563a7a2f5458998546b8830cc))
+* ✨ x-picker ([5ffb170](https://gitee.com/newgateway/vtj/commits/5ffb1709b3125f0f21de729c957269ac065757c4))
+* ✨ x-picker ([0373e4f](https://gitee.com/newgateway/vtj/commits/0373e4f82a448db00026c1f4cf440a0504799ae0))
+
+
+
+
+
 ## [0.8.39](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.8.38...@vtj/ui@0.8.39) (2024-05-30)
 
 **Note:** Version bump only for package @vtj/ui

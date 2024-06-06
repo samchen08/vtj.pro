@@ -1,5 +1,6 @@
 // https://vitepress.dev/guide/custom-theme
-
+import 'core-js/stable';
+import 'regenerator-runtime/runtime';
 import { h } from 'vue';
 import { type Theme } from 'vitepress';
 import DefaultTheme from 'vitepress/theme';

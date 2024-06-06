@@ -11,6 +11,11 @@ const desc: MaterialDescription = {
       setters: 'ArraySetter'
     },
     {
+      name: 'loader',
+      title: '数据加载函数: (state) => {list, total}',
+      setters: 'FunctionSetter'
+    },
+    {
       name: 'rowSortable',
       title: '行拖拽排序',
       setters: 'BooleanSetter'
@@ -30,28 +35,37 @@ const desc: MaterialDescription = {
       setters: 'BooleanSetter'
     },
     {
-      name: 'query',
-      setters: 'FunctionSetter'
-    },
-    {
-      name: 'queryAll',
-      setters: 'FunctionSetter'
-    },
-    {
-      name: 'delete',
-      setters: 'FunctionSetter'
-    },
-    {
-      name: 'save',
-      setters: 'FunctionSetter'
-    },
-    {
       name: 'pager',
+      title: '开启分页功能',
       setters: 'BooleanSetter'
+    },
+    {
+      name: 'page',
+      setters: 'NumberSetter'
+    },
+    {
+      name: 'pageSize',
+      setters: 'NumberSetter'
+    },
+    {
+      name: 'pageSizes',
+      title: '每页显示个数选择器的选项设置',
+      setters: 'ArraySetter'
+    },
+    {
+      name: 'auto',
+      title: '初始执行加载函数',
+      setters: 'BooleanSetter',
+      defaultValue: true
     },
     {
       name: 'virtual',
       title: '开启虚拟滚动',
+      setters: 'BooleanSetter'
+    },
+    {
+      name: 'editable',
+      title: '开启编辑模式',
       setters: 'BooleanSetter'
     },
     {
@@ -65,13 +79,8 @@ const desc: MaterialDescription = {
       setters: 'ObjectSetter'
     },
     {
-      name: 'editable',
-      title: '开启编辑模式',
-      setters: 'BooleanSetter'
-    },
-    {
-      name: 'queryModel',
-      title: '查询表单模型数据',
+      name: 'filterRenders',
+      title: '过滤器渲染器',
       setters: 'ObjectSetter'
     },
     {
@@ -356,17 +365,7 @@ const desc: MaterialDescription = {
     'toolbar-tool-click',
     'zoom'
   ],
-  slots: [
-    'empty',
-    'loading',
-    'form',
-    'toolbar',
-    'top',
-    'bottom',
-    'pager',
-    'toolbar__buttons',
-    'pager__left'
-  ],
+  slots: ['empty', 'form', 'top', 'bottom', 'toolbar__buttons', 'pager__left'],
   snippet: {
     props: {
       height: 'auto',

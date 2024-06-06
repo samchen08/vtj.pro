@@ -48,3 +48,5 @@ export type Emits<T extends Record<string, any>> = UnionToIntersection<
 >;
 
 export type DataLoader<T = any, P = any> = T | ((params?: P) => T | Promise<T>);
+
+export type MaybePromise<T = any> = T | Promise<T>;

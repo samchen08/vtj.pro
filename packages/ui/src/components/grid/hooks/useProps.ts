@@ -1,14 +1,14 @@
-import { type MaybeRef, computed, useAttrs, unref } from 'vue';
-import { merge, camelCase, kebabCase } from '@vtj/utils';
+import { computed, useAttrs } from 'vue';
+import { camelCase, kebabCase, merge } from '@vtj/utils';
 import type {
   GridProps,
   GridEmits,
-  VxeGridProps,
   VxeGridPropTypes,
-  VxeGridInstance
+  VxeGridProps
 } from '../types';
-import { BUTTONS_SLOT_NAME, PAGER_LEFT_SLOT_NAME } from '../constants';
+
 import type { Emits } from '../../shared';
+import { BUTTONS_SLOT_NAME } from '../constants';
 
 function getAttrValue(attrs: Record<string, any>, name: string) {
   return attrs[camelCase(name)] ?? attrs[kebabCase(name)] ?? undefined;
@@ -30,90 +30,14 @@ function useRowConfig(attrs: Record<string, any>) {
   };
 }
 
-function useProxyConfig(
-  props: GridProps,
-  attrs: Record<string, any>,
-  wrapper: (...args: any) => any
-) {
-  const { query, queryAll, save } = props;
-  const config: VxeGridPropTypes.ProxyConfig = {
-    enabled: !!query,
-    seq: true,
-    sort: true,
-    filter: true,
-    form: false,
-    props: {
-      total: 'total',
-      result: 'list',
-      list: 'list',
-      message: 'msg'
-    },
-    ajax: {
-      query: wrapper(query),
-      queryAll: wrapper(queryAll),
-      save: wrapper(save),
-      delete: wrapper(props.delete)
-    }
-  };
-  return merge(config, getAttrValue(attrs, 'proxyConfig') || {});
-}
-
-function useToolbarConfig(
-  props: GridProps,
-  attrs: Record<string, any>,
-  slots: string[]
-) {
-  const toolbarConfig = getAttrValue(attrs, 'toolbarConfig');
-  const slot = slots.find((n) => n === BUTTONS_SLOT_NAME);
-  const config: VxeGridPropTypes.ToolbarConfig = {
-    enabled: !!toolbarConfig || !!slot,
-    custom: !!props.customable,
-    slots: {
-      buttons: slot
-    }
-  };
-
-  return merge(config, toolbarConfig || {});
-}
-
-function usePagerConig(
-  props: GridProps,
-  attrs: Record<string, any>,
-  slots: string[]
-) {
-  const { pager } = props;
-  const slot = slots.find((n) => n === PAGER_LEFT_SLOT_NAME);
-  const config: VxeGridPropTypes.PagerConfig = {
-    background: true,
-    size: 'mini',
-    pageSize: 50,
-    pageSizes: [50, 100, 200, 500],
-    layouts: [
-      'Total',
-      'Sizes',
-      'PrevJump',
-      'PrevPage',
-      'JumpNumber',
-      'NextPage',
-      'NextJump',
-      'FullJump'
-    ],
-    slots: {
-      left: slot
-    }
-  };
-  return pager
-    ? Object.assign(config, getAttrValue(attrs, 'pagerConfig') || {})
-    : undefined;
-}
-
 function useScrollY(props: GridProps, attrs: Record<string, any>) {
   const { virtual } = props;
   return virtual
     ? Object.assign(
         {
           enabled: true,
-          gt: 10
+          gt: 20,
+          scrollToTopOnChange: true
         },
         getAttrValue(attrs, 'scrollY') || {}
       )
@@ -190,11 +114,28 @@ function useEditMode(
   };
 }
 
+function useToolbarConfig(
+  props: GridProps,
+  attrs: Record<string, any>,
+  slots: string[]
+) {
+  const toolbarConfig = getAttrValue(attrs, 'toolbarConfig');
+  const slot = slots.find((n) => n === BUTTONS_SLOT_NAME);
+  const config: VxeGridPropTypes.ToolbarConfig = {
+    enabled: !!toolbarConfig || !!slot,
+    custom: !!props.customable,
+    slots: {
+      buttons: slot
+    }
+  };
+
+  return merge(config, toolbarConfig || {});
+}
+
 export function useProps(
   props: GridProps,
   slots: string[],
-  emit: Emits<GridEmits>,
-  vxeRef: MaybeRef<VxeGridInstance | undefined>
+  emit: Emits<GridEmits>
 ) {
   const attrs: Record<string, any> = useAttrs();
   const defaults: VxeGridProps = {
@@ -208,33 +149,13 @@ export function useProps(
     autoResize: false
   };
 
-  const getProxyInfo = () => {
-    const info = unref(vxeRef)?.getProxyInfo();
-    if (props.queryModel && info) {
-      info.form = Object.assign({}, info.form, props.queryModel);
-    }
-    return info;
-  };
-
-  const wrapper = (func: any) => {
-    if (func) {
-      return (info: any) => {
-        info.form = Object.assign({}, info.form, props.queryModel);
-        return func(info);
-      };
-    }
-    return undefined;
-  };
-
   const vxeProps = computed(() => {
     const columnConfig = useColumnConfig(props, attrs);
     const rowConfig = useRowConfig(attrs);
-    const pagerConfig = usePagerConig(props, attrs, slots);
-    const proxyConfig = useProxyConfig(props, attrs, wrapper);
     const scrollY = useScrollY(props, attrs);
-    const toolbarConfig = useToolbarConfig(props, attrs, slots);
     const filterConfig = useFitlerConfig(props, attrs);
     const sortConfig = useSortconfig(props, attrs);
+    const toolbarConfig = useToolbarConfig(props, attrs, slots);
     const {
       keepSource,
       editConfig,
@@ -248,22 +169,19 @@ export function useProps(
       ...attrs,
       columnConfig,
       rowConfig,
-      pagerConfig,
-      proxyConfig,
       scrollY,
-      toolbarConfig,
       filterConfig,
       sortConfig,
       keepSource,
       editConfig,
       mouseConfig,
       keyboardConfig,
+      toolbarConfig,
       onCellSelected
     };
   });
 
   return {
-    vxeProps,
-    getProxyInfo
+    vxeProps
   };
 }

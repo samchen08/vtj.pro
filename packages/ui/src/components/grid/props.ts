@@ -3,10 +3,10 @@ import type {
   GridSortableOptions,
   GridColumns,
   GridCustomInfo,
-  VxeGridPropTypes,
   GridCellRenders,
   GridEditRenders,
-  GridFilterRenders
+  GridFilterRenders,
+  GridLoader
 } from './types';
 
 export const gridProps = {
@@ -18,6 +18,9 @@ export const gridProps = {
     default() {
       return [] as GridColumns;
     }
+  },
+  loader: {
+    type: Function as PropType<GridLoader>
   },
   /**
    * 行拖拽排序
@@ -64,46 +67,44 @@ export const gridProps = {
   },
 
   /**
-   * 查询方法，可以通过 proxy-config.props 配置读取响应结构的字段；
-   * 如果使用了服务端排序，sort 属性可以获取相关信息；
-   * 如果使用了服务端过滤，filter 属性可以获取相关信息；
-   * 如果使用了表单，form 属性可以获取相关信息
-   */
-  query: {
-    type: Function as PropType<
-      (params: VxeGridPropTypes.ProxyAjaxQueryParams) => Promise<any>
-    >
-  },
-  /**
-   * 全量查询方法，和 query 同样属于查询方法，区别是 queryAll 只会被特殊行为触发，
-   * 例如导出模式 export-config.mode=all 时会触发该方法并将返回值进行导出
-   */
-  queryAll: {
-    type: Function as PropType<
-      (params: VxeGridPropTypes.ProxyAjaxQueryAllParams) => Promise<any>
-    >
-  },
-  /**
-   * 删除方法，提交的参数 { removeRecords }
-   */
-  delete: {
-    type: Function as PropType<
-      (params: VxeGridPropTypes.ProxyAjaxDeleteParams) => Promise<any>
-    >
-  },
-  /**
-   * 保存方法，body 参数 { insertRecords, updateRecords, removeRecords, pendingRecords
-   */
-  save: {
-    type: Function as PropType<
-      (params: VxeGridPropTypes.ProxyAjaxSaveParams) => Promise<any>
-    >
-  },
-  /**
    * 开启分页
    */
   pager: {
     type: Boolean
+  },
+
+  /**
+   *  初始页码
+   */
+  page: {
+    type: Number,
+    default: 1
+  },
+
+  /**
+   * 初始每页显示条目个数
+   */
+  pageSize: {
+    type: Number,
+    default: 50
+  },
+
+  /**
+   * 每页显示个数选择器的选项设置
+   */
+  pageSizes: {
+    type: Array as PropType<number[]>,
+    default: () => {
+      return [50, 100, 200, 500];
+    }
+  },
+
+  /**
+   * 初始执行加载函数
+   */
+  auto: {
+    type: Boolean,
+    default: true
   },
 
   /**
@@ -141,12 +142,6 @@ export const gridProps = {
   editable: {
     type: Boolean,
     default: false
-  },
-  /**
-   *  查询表单模型数据
-   */
-  queryModel: {
-    type: Object as PropType<Record<string, any>>
   }
 };
 

@@ -1,5 +1,4 @@
-import { ref, computed, useAttrs, inject } from 'vue';
-import { delay } from '@vtj/utils';
+import { ref, computed, useAttrs, inject, nextTick } from 'vue';
 import type { QueryFormProps, QueryFormEmits } from './types';
 import type { Emits } from '../shared';
 import { GridInstanceKey } from '../grid/props';
@@ -17,25 +16,35 @@ export function useCollapsed(
     small: 24 + 5
   };
 
+  const showCollapsible = computed(() => {
+    if (props.items) {
+      return (
+        props.collapsible && props.items.length > (props.inlineColumns || 0)
+      );
+    } else {
+      return props.collapsible;
+    }
+  });
+
   const toggleCollapsed = async () => {
     if (!props.collapsible) return;
     collapsed.value = !collapsed.value;
     emit('collapsed', collapsed.value);
-    if (grid && grid.exposeProxy) {
-      await delay(100);
-      grid.exposeProxy.vxeRef.recalculate(true);
+    if (grid && grid) {
+      await nextTick();
+      grid.exposed?.doLayout();
     }
   };
 
   const collapsedClass = computed(() => {
     return {
-      'is-collapsed': collapsed.value
+      'is-collapsed': showCollapsible.value && collapsed.value
     };
   });
 
   const collapsedStyle = computed(() => {
     const currentSize = sizeMap[attrs.size || 'default'] ?? sizeMap.default;
-    return collapsed.value
+    return showCollapsible.value && collapsed.value
       ? {
           height: `${currentSize}px`
         }
@@ -46,6 +55,7 @@ export function useCollapsed(
     collapsed,
     toggleCollapsed,
     collapsedClass,
-    collapsedStyle
+    collapsedStyle,
+    showCollapsible
   };
 }

@@ -57,6 +57,7 @@ lib
 /docs/src/typedoc
 /docs/.vitepress/cache
 /docs/cache
+/docs/dist
 
 # pro
 /platforms/pro/public/@vtj

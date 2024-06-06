@@ -35,7 +35,8 @@ const desc: MaterialDescription = {
         'switch',
         'slider',
         'rate',
-        'cascader'
+        'cascader',
+        'picker'
       ]
     },
     {

@@ -33,10 +33,13 @@ export function useVxe(options: VXETableConfigOptions = {}) {
   ];
   const instance = getCurrentInstance();
   const app = instance?.appContext.app;
-  const { vxeConfig } = useAdapter();
+  const { vxeConfig, vxePlugin } = useAdapter();
 
   if (app && !(app as any).__installVxe) {
     VXETable.use(RenderPlugin);
+    if (vxePlugin) {
+      VXETable.use(vxePlugin);
+    }
     VXETable.setConfig({
       ...vxeConfig,
       ...options

@@ -6,61 +6,33 @@
       size="small"
       :columns="columns"
       :rowSortable="true"
-      @toolbarButtonClick="onToolbarButtonClick"
       @row-sort="onRowSort"
       @column-sort="onColSort"
       columnSortable
+      :filter-renders="{ name: 'XInput' }"
+      :toolbar-config="{}"
+      :cell-renders="{ sex: 'XTag' }"
       @resizable-change="onResize"
-      :customable="false"
+      :customable="true"
       :getCustom="getCustom"
       :saveCustom="saveCustom"
       :border="true"
       :stripe="false"
-      :query="query"
+      :loader="loader"
+      :page="page"
       :pager="true"
+      :auto="true"
       :resizable="true"
-      :showOverflow="true"
-      :virtual="true"
-      :cellRenders="cellRenders"
-      :editRenders="editRenders"
-      :editRules="editRules"
-      :editable="false"
-      :query-model="fromModel">
-      <template #form>
-        <XQueryForm v-bind="formConfig"></XQueryForm>
-      </template>
-      <template #top>
-        <XTabs v-bind="tabsConfig"></XTabs>
-      </template>
-
-      <template #toolbar__buttons>
-        <XActionBar
-          v-bind="toolbarConfig"
-          @click="onToolbarButtonClick"></XActionBar>
-      </template>
+      :virtual="true">
     </XGrid>
   </div>
 </template>
 <script lang="ts" setup>
-  import { ref, markRaw } from 'vue';
-  import {
-    XGrid,
-    XQueryForm,
-    XTabs,
-    XActionBar,
-    type GridCellRenders,
-    type GridColumns,
-    type ActionBarProps
-  } from '@vtj/ui';
+  import { ref } from 'vue';
+  import { XGrid, type GridColumns } from '@vtj/ui';
   import { request, storage, numberFormat } from '@vtj/utils';
-  import { EditPen, Delete, Search, Plus } from '@vtj/icons';
-
   const gridRef = ref<InstanceType<typeof XGrid>>();
-
-  const fromModel = ref({
-    name: 'abx'
-  });
-
+  const page = ref(1);
   const fetchData = (data: any) => {
     return request({
       url: '/mock-api/list',
@@ -83,7 +55,6 @@
       field: 'name',
       title: '姓名',
       filters: [{ value: null }],
-      filterRender: { name: 'InputFilter' },
       cellRender: {
         name: 'LinkCell',
         events: {
@@ -97,7 +68,7 @@
       field: 'avatar',
       title: '头像',
       showOverflow: false,
-      visible: false
+      visible: true
     },
     {
       field: 'sex',
@@ -166,85 +137,6 @@
     }
   ];
 
-  const cellRenders: GridCellRenders = {
-    avatar: {
-      name: 'ImageCell',
-      props: {
-        style: {
-          width: '50px',
-          height: '50px'
-        }
-      }
-    },
-    sex: {
-      name: 'TagCell',
-      props: (params: any) => {
-        return {
-          type: params.cellValue === 1 ? 'success' : 'warning'
-        };
-      }
-    },
-    actions: {
-      name: 'ActionsCell',
-      props: {
-        mode: 'icon',
-        size: 'default',
-        items: [
-          {
-            label: '编辑',
-            icon: markRaw(EditPen),
-            type: 'primary'
-          },
-          {
-            label: '删除',
-            icon: markRaw(Delete),
-            type: 'danger'
-          }
-        ]
-      }
-    }
-  };
-
-  const editRenders = {
-    id: 'InputEdit',
-    age: {
-      name: 'SelectEdit',
-      props: {
-        options: [
-          {
-            label: '选项一',
-            value: 1
-          },
-          {
-            label: '选项二',
-            value: 2
-          }
-        ]
-      }
-      // props: () => {
-      //   return {
-      //     options: [
-      //       {
-      //         label: '选项一',
-      //         value: 1
-      //       },
-      //       {
-      //         label: '选项二',
-      //         value: 2
-      //       }
-      //     ]
-      //   };
-      // }
-    },
-    city: 'InputEdit',
-    join: {
-      name: 'DateEdit',
-      props: {
-        type: 'datetime'
-      }
-    }
-  };
-
   const onRowSort = (e: any) => {
     console.log('onRowSort', e);
   };
@@ -263,139 +155,14 @@
     storage.save(info.id, info, { type: 'local' });
   };
 
-  const query = async (params: any) => {
-    const { currentPage, pageSize = 50 } = params.page || {};
+  const loader = async (params: any) => {
+    const { page, pageSize = 50 } = params || {};
     console.log('query', params);
     return await fetchData({
-      currentPage,
+      currentPage: page,
       pageSize,
       total: 1000
     });
-  };
-
-  const toolbarConfig: ActionBarProps = {
-    items: [
-      {
-        label: '查询',
-        value: 'search',
-        icon: Search
-      },
-      {
-        label: '新增',
-        value: 'insert_last_actived',
-        icon: Plus,
-        type: 'primary'
-      }
-    ]
-    // buttons: [
-    //   {
-    //     name: '新增',
-    //     type: 'button',
-    //     status: 'primary',
-    //     code: 'insert_last_actived'
-    //   },
-    //   {
-    //     name: '校验',
-    //     type: 'button',
-    //     status: 'warning',
-    //     code: 'validate'
-    //   }
-    // ]
-  };
-
-  const editRules = {
-    id: [
-      {
-        required: true,
-        message: '验证错误信息'
-      },
-      {
-        validator({ cellValue }: any) {
-          // 模拟服务端校验
-          return new Promise((resolve, reject) => {
-            setTimeout(() => {
-              if (
-                cellValue &&
-                (cellValue.length < 3 || cellValue.length > 50)
-              ) {
-                reject(new Error('名称长度在 3 到 50 个字符之间'));
-              } else {
-                resolve(true);
-              }
-            }, 100);
-          });
-        }
-      }
-    ]
-  };
-
-  const onToolbarButtonClick = async (e: any) => {
-    if (e.value === 'insert_last_actived') {
-      gridRef.value?.insertActived();
-    }
-    if (e.value === 'search') {
-      // pageConfig.total = 10;
-      // pageConfig.currentPage = 1;
-      gridRef.value?.reload();
-    }
-    // console.log(e);
-  };
-
-  const formConfig: any = {
-    model: fromModel,
-    items: [
-      {
-        label: '姓名',
-        name: 'name'
-      },
-      {
-        label: '性别',
-        name: 'sex'
-      },
-      {
-        label: '年',
-        name: 'year'
-      },
-      {
-        label: '月',
-        name: 'month'
-      },
-      {
-        label: '入职开始日期',
-        name: 'joinStart',
-        editor: 'date',
-        props: {
-          valueFormat: 'YYYY-MM-DD'
-        }
-      },
-      {
-        label: '入职结束日期',
-        name: 'joinEnd',
-        editor: 'date',
-        props: {
-          valueFormat: 'YYYY-MM-DD'
-        }
-      }
-    ]
-  };
-
-  const tabsConfig = {
-    type: 'card',
-    modelValue: 1,
-    items: [
-      {
-        label: '待办',
-        value: 1
-      },
-      {
-        label: '已办',
-        value: 2
-      },
-      {
-        label: '全部',
-        value: 3
-      }
-    ]
   };
 </script>
 

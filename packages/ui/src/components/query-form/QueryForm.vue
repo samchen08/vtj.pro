@@ -3,10 +3,11 @@
     ref="formRef"
     class="x-query-form"
     inline
-    :inline-columns="4"
+    :inline-columns="props.inlineColumns"
     label-width="100px"
     :submit-text="null"
-    :reset-text="null">
+    :reset-text="null"
+    :footer="showCollapsible">
     <div
       class="x-query-form__inner"
       :class="collapsedClass"
@@ -19,18 +20,20 @@
       </slot>
     </div>
     <template #action>
-      <div v-if="props.collapsible" class="x-query-form__collapsible">
+      <div v-if="showCollapsible" class="x-query-form__collapsible">
         <XAction
           v-if="collapsed"
           :icon="CaretBottom"
           label="展开"
           mode="text"
+          type="primary"
           @click="toggleCollapsed"></XAction>
         <XAction
           v-else
           :icon="CaretTop"
           label="收起"
           mode="text"
+          type="primary"
           @click="toggleCollapsed"></XAction>
       </div>
     </template>
@@ -43,6 +46,7 @@
   import type { QueryFormEmits } from './types';
   import { queryFormProps } from './props';
   import { useCollapsed } from './hooks';
+
   defineOptions({
     name: 'XQueryForm'
   });
@@ -50,8 +54,13 @@
   const props = defineProps(queryFormProps);
   const emit = defineEmits<QueryFormEmits>();
   const formRef = ref<InstanceType<typeof XForm>>();
-  const { collapsed, toggleCollapsed, collapsedClass, collapsedStyle } =
-    useCollapsed(props, emit);
+  const {
+    collapsed,
+    toggleCollapsed,
+    collapsedClass,
+    collapsedStyle,
+    showCollapsible
+  } = useCollapsed(props, emit);
 
   const submit = async () => {
     formRef.value?.submit();

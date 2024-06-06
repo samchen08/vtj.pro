@@ -19,6 +19,7 @@
     props.renderOpts,
     props.params
   );
+
   defineOptions({
     name: 'InputEdit'
   });

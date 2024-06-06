@@ -7,20 +7,46 @@
     @custom="onCustom"
     :loading="false"
     @resizable-change="onResize"
-    @edit-closed="onEditClosed">
+    @edit-closed="onEditClosed"
+    @filter-change="onFilterChange"
+    @sort-change="onSortChange">
     <template v-for="name in slots" v-slot:[name]="scope">
       <slot :name="name" v-bind="scope"></slot>
     </template>
-    <template #loading>
-      <div></div>
+    <template #empty>
+      <slot name="empty">
+        <ElEmpty></ElEmpty>
+      </slot>
+    </template>
+    <template #pager>
+      <ElPagination
+        v-if="props.pager"
+        class="x-grid__pager"
+        small
+        background
+        layout="slot, -> ,total, sizes, prev, pager, next, jumper"
+        :page-sizes="props.pageSizes"
+        :default-page-size="props.pageSizes[0]"
+        v-model:current-page="state.page"
+        :v-model:page-size="state.pageSize"
+        :total="state.total"
+        @change="onPagerChange">
+        <slot name="pager__left"></slot>
+      </ElPagination>
     </template>
   </VxeGrid>
 </template>
 <script lang="ts" setup>
   import { ref, provide, getCurrentInstance } from 'vue';
-  import { ElMessageBox } from 'element-plus';
+  import {
+    ElMessageBox,
+    ElPagination,
+    ElNotification,
+    ElEmpty
+  } from 'element-plus';
   import {
     useVxe,
+    useLoader,
     useProps,
     useRowSortable,
     useColumnSortable,
@@ -34,10 +60,19 @@
   const props = defineProps(gridProps);
   const emit = defineEmits<GridEmits>();
   const slots = useVxeSlots();
-  const { vxeProps, getProxyInfo } = useProps(props, slots, emit, vxeRef);
+  const { vxeProps } = useProps(props, slots, emit);
   const { columns, onResize, onCustom, onSort } = useCustom(vxeRef, props);
   const rowSortable = useRowSortable(vxeRef, props, emit);
   const columnSortable = useColumnSortable(vxeRef, props, emit, onSort);
+  const {
+    state,
+    onPagerChange,
+    onFilterChange,
+    onSortChange,
+    load,
+    search,
+    doLayout
+  } = useLoader(props, vxeRef, emit);
   const instance = getCurrentInstance();
   provide(GridInstanceKey, instance);
 
@@ -58,34 +93,17 @@
     return vxeRef.value?.setEditRow(row);
   };
 
-  /**
-   * 重新加载数据
-   */
-  const reload = async () => {
-    const info = getProxyInfo();
-    if (info && props.query) {
-      info.pager.currentPage = 1;
-      const res = await props.query(info as any).catch(() => null);
-      info.pager.total = res?.total || 0;
-      vxeRef.value?.reloadData(res?.list || []);
-    }
-  };
-
-  const loadData = (data: any[], reload?: boolean) => {
-    const grid = vxeRef.value;
-    if (!grid) return;
-    if (reload) {
-      grid.reloadData(data);
-    } else {
-      grid.loadData(data);
-    }
-  };
-
   const getRows = () => {
     const grid = vxeRef.value;
     if (!grid) return [];
-    const { tableData = [] } = grid.getTableData();
-    return tableData;
+    const { fullData = [] } = grid.getTableData();
+    return fullData;
+  };
+
+  const getColumns = () => {
+    const grid = vxeRef.value;
+    if (!grid) return [];
+    return grid.getColumns();
   };
 
   const validate = async () => {
@@ -99,11 +117,11 @@
     const columns = grid.getColumns();
     const hasRadio = !!columns.find((n) => n.type === 'radio');
     if (hasRadio) {
-      return grid.getRadioRecord(true);
+      return grid.getRadioRecord(false);
     }
     const hasCheckbox = !!columns.find((n) => n.type === 'checkbox');
     if (hasCheckbox) {
-      return grid.getCheckboxRecords(true);
+      return grid.getCheckboxRecords(false);
     }
     return null;
   };
@@ -116,7 +134,13 @@
   const remove = async (rows: any) => {
     const grid = vxeRef.value;
     if (!grid) return;
-    const ret = await ElMessageBox.confirm('确认删除？', '提示', {
+    if (!rows || (Array.isArray(rows) && !rows.length)) {
+      ElNotification.info({
+        message: '请选择需要删除的数据'
+      });
+      return;
+    }
+    const ret = await ElMessageBox.confirm('确认删除数据？', '提示', {
       type: 'warning'
     });
     if (ret) {
@@ -125,19 +149,37 @@
     }
   };
 
+  const getRecords = () => {
+    return vxeRef.value?.getRecordset();
+  };
+
+  const setSelectCell = (row?: any, column?: any) => {
+    if (!vxeRef.value) return;
+    if (!row) {
+      const rows = getRows();
+      const columns = getColumns();
+      vxeRef.value.setSelectCell(rows[0], columns[0]);
+    } else {
+      vxeRef.value.setSelectCell(row, column ?? getColumns()[0]);
+    }
+    vxeRef.value.focus();
+  };
+
   defineExpose({
+    load,
+    search,
     vxeRef,
     rowSortable,
     columnSortable,
     insertActived,
-    getProxyInfo,
-    reload,
     validate,
     getSelected,
     remove,
     getRows,
-    loadData,
-    setActived
+    setActived,
+    doLayout,
+    getRecords,
+    setSelectCell
   });
 
   defineOptions({

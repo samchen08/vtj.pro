@@ -7,6 +7,7 @@ import { XLink } from './link';
 import { XSelect } from './select';
 import { XTag } from './tag';
 import { XText } from './text';
+import { XPicker } from './picker';
 
 import { handleClerEdit, handleClearFilter } from './interceptors';
 
@@ -20,7 +21,8 @@ export const RenderPlugin = {
       XLink,
       XSelect,
       XTag,
-      XText
+      XText,
+      XPicker
     });
 
     vxetable.interceptor.add('event.clearFilter', handleClearFilter);

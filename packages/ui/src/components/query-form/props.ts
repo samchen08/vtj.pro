@@ -8,5 +8,9 @@ export const queryFormProps = {
   },
   items: {
     type: Array as PropType<QueryFormItems>
+  },
+  inlineColumns: {
+    type: Number,
+    default: 4
   }
 };

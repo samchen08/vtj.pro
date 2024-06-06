@@ -143,3 +143,32 @@ export function trim(obj: any): any {
   }
   return obj;
 }
+
+/**
+ * 求合计
+ * @param list
+ * @param field
+ * @returns
+ */
+export function sum<T = any>(list: T[] = [], field?: keyof T) {
+  if (field) {
+    return list.reduce((prev: number, cur: T) => {
+      return prev + Number(cur[field]);
+    }, 0);
+  } else {
+    return list.reduce((prev: number, cur: T) => {
+      return prev + Number(cur);
+    }, 0);
+  }
+}
+
+/**
+ * 求平均值
+ * @param list
+ * @param field
+ * @returns
+ */
+export function avg<T = any>(list: T[] = [], field?: keyof T) {
+  const total = sum(list, field);
+  return list.length ? total / list.length : 0;
+}

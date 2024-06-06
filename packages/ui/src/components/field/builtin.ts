@@ -9,6 +9,7 @@ import {
   ElCascader
 } from 'element-plus';
 import { SelectEditor, CheckboxEditor, RadioEditor } from './editors';
+import { XPicker } from '../picker';
 
 export interface BuiltinFieldEditor {
   component: any;
@@ -30,7 +31,8 @@ export type BuiltinFieldEditorType =
   | 'switch'
   | 'slider'
   | 'rate'
-  | 'cascader';
+  | 'cascader'
+  | 'picker';
 
 export const builtinFieldEditors: Record<
   BuiltinFieldEditorType,
@@ -105,5 +107,15 @@ export const builtinFieldEditors: Record<
   cascader: {
     component: ElCascader,
     props: {}
+  },
+  picker: {
+    component: XPicker,
+    props: {}
   }
 };
+
+export function registerFieldEditors(
+  editors: Record<string, BuiltinFieldEditor>
+) {
+  Object.assign(builtinFieldEditors, editors);
+}

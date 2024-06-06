@@ -46,7 +46,6 @@ const Select: MaterialDescription[] = [
       },
       {
         name: 'collapseTagsTooltip',
-        label: 'Tooltip',
         title:
           '当鼠标悬停于折叠标签的文本时，是否显示所有选中的标签。 要使用此属性，collapse-tags属性必须设定为 true',
         defaultValue: false,

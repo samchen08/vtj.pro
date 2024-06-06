@@ -23,7 +23,8 @@ import {
   XSmsCodeInput,
   XAttachment,
   XQueryForm,
-  XGrid
+  XGrid,
+  XPicker
 } from './components';
 
 export const components = [
@@ -50,5 +51,6 @@ export const components = [
   XSmsCodeInput,
   XAttachment,
   XQueryForm,
-  XGrid
+  XGrid,
+  XPicker
 ] as DefineComponent<any, any, any, any>[];

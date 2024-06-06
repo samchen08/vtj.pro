@@ -1,7 +1,7 @@
 import Mock from 'mockjs';
 import { url } from '@vtj/utils';
 Mock.setup({
-  timeout: '50-500'
+  // timeout: '50-500'
 });
 
 Mock.mock(/\/mock-api\/image/, () => {

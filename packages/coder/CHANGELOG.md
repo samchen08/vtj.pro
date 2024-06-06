@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.40](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.39...@vtj/coder@0.8.40) (2024-06-06)
+
+
+### Features
+
+* ✨ 重构XGrid ([d2d2c8b](https://gitee.com/newgateway/vtj/commits/d2d2c8bc9c8dcaacd189aa120754fa67de6636af))
+
+
+
+
+
 ## [0.8.39](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.38...@vtj/coder@0.8.39) (2024-05-30)
 
 

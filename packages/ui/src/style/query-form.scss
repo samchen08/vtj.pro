@@ -36,6 +36,7 @@
   @include e(inner) {
     @include when(collapsed) {
       overflow: hidden;
+      // border-bottom: 2px dotted var(--el-border-color-lighter);
     }
   }
 }
