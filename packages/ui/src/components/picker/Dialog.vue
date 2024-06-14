@@ -23,7 +23,8 @@
       :loader="props.loader"
       @keydown="onKeydown"
       @loaded="onLoaded"
-      @cell-dblclick="onDblClick">
+      @cell-dblclick="onDblClick"
+      v-bind="props.gridProps">
       <template #toolbar__buttons>
         <XAction
           label="查询"
@@ -52,7 +53,7 @@
   import { XGrid } from '../grid';
   import { XAction } from '../action';
   import { XQueryForm } from '../query-form';
-  import type { PickerColumns, PrickerFields, PickerLoader } from './types';
+  import type { PickerColumns, PickerFields, PickerLoader } from './types';
   import {
     VtjIconNpSearch,
     VtjIconNpReturn,
@@ -63,7 +64,7 @@
     gridProps?: any;
     formProps?: any;
     columns?: PickerColumns;
-    fields?: PrickerFields;
+    fields?: PickerFields;
     loader?: PickerLoader;
     formModel?: Record<string, any>;
     multiple?: boolean;
@@ -72,6 +73,8 @@
 
   const props = defineProps<Props>();
   const gridRef = ref();
+
+  // const columnsComputed = computed(() => props.columns ?? []);
 
   const onSearch = () => {
     gridRef.value?.search();
@@ -102,7 +105,7 @@
     if (props.multiple) {
       pick();
     } else {
-      const { row } = gridRef.value?.vxeRef.getSelectedCell();
+      const { row } = gridRef.value?.vxeRef.getSelectedCell() || {};
       if (row) {
         props.onPick(row);
       }
@@ -112,4 +115,9 @@
   const onLoaded = () => {
     gridRef.value?.setSelectCell();
   };
+
+  defineExpose({
+    pick,
+    gridRef
+  });
 </script>

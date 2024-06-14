@@ -3,6 +3,89 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.50](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.8.49...@vtj/designer@0.8.50) (2024-06-14)
+
+**Note:** Version bump only for package @vtj/designer
+
+
+
+
+
+## [0.8.49](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.8.48...@vtj/designer@0.8.49) (2024-06-14)
+
+
+### Features
+
+* ✨ 记录环境，在扩展时可能需要用到 ([18419e7](https://gitee.com/newgateway/vtj/commits/18419e74973dffe6010a2ac4c4b1bd04df5ec0b7))
+
+
+
+
+
+## [0.8.48](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.8.47...@vtj/designer@0.8.48) (2024-06-14)
+
+**Note:** Version bump only for package @vtj/designer
+
+
+
+
+
+## [0.8.47](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.8.46...@vtj/designer@0.8.47) (2024-06-14)
+
+**Note:** Version bump only for package @vtj/designer
+
+
+
+
+
+## [0.8.46](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.8.45...@vtj/designer@0.8.46) (2024-06-14)
+
+**Note:** Version bump only for package @vtj/designer
+
+
+
+
+
+## [0.8.45](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.8.44...@vtj/designer@0.8.45) (2024-06-14)
+
+**Note:** Version bump only for package @vtj/designer
+
+
+
+
+
+## [0.8.44](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.8.43...@vtj/designer@0.8.44) (2024-06-13)
+
+**Note:** Version bump only for package @vtj/designer
+
+
+
+
+
+## [0.8.43](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.8.42...@vtj/designer@0.8.43) (2024-06-12)
+
+**Note:** Version bump only for package @vtj/designer
+
+
+
+
+
+## [0.8.42](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.8.41...@vtj/designer@0.8.42) (2024-06-12)
+
+**Note:** Version bump only for package @vtj/designer
+
+
+
+
+
+## [0.8.41](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.8.40...@vtj/designer@0.8.41) (2024-06-12)
+
+**Note:** Version bump only for package @vtj/designer
+
+
+
+
+
 ## [0.8.40](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.8.39...@vtj/designer@0.8.40) (2024-06-06)
 
 

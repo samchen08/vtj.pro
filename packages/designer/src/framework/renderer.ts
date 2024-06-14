@@ -32,6 +32,9 @@ export class Renderer {
   }
 
   private install(app: App) {
+    // 记录环境，在扩展时可能需要用到
+    (app as any).__vtj_env__ = this.env;
+
     const { library, globals, VueRouter, locales } = this.env;
     if (VueRouter) {
       const router = VueRouter.createRouter({
@@ -40,7 +43,8 @@ export class Renderer {
       });
       app.use(router);
     }
-    app.use(this.provider)
+    app.use(this.provider);
+
     const plugins = Object.entries(library);
     Object.assign(app.config.globalProperties, globals);
     app.config.errorHandler = (err: any, instance, info) => {
@@ -88,7 +92,13 @@ export class Renderer {
       libs: library
     });
 
-    this.app = Vue.createApp(renderer) as App;
+    const AppContainer = Vue.defineComponent({
+      render() {
+        return Vue.h(Vue.Suspense, [Vue.h(renderer)]);
+      }
+    });
+
+    this.app = Vue.createApp(AppContainer) as App;
     this.install(this.app);
     try {
       this.app.mount(el);

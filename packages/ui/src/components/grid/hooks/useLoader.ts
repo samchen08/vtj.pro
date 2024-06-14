@@ -67,15 +67,21 @@ export function useLoader(
     vxeRef.value?.recalculate(true);
   };
 
-  if (auto) {
-    load();
-  }
-
   watch(
     () => props.pager,
     () => {
       nextTick(doLayout);
     }
+  );
+
+  watch(
+    () => props.loader,
+    () => {
+      if (auto) {
+        load();
+      }
+    },
+    { immediate: true }
   );
 
   return {

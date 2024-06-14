@@ -42,6 +42,7 @@ export interface GridState {
   total?: number;
   filters?: VxeTableDefines.FilterCheckedParams[];
   sorts?: VxeTableDefines.SortCheckedParams[];
+  form?: Record<string, any>;
   [index: string]: any;
 }
 

@@ -31,6 +31,10 @@ body.is-resizing {
   margin-left: 5px;
 }
 
+.el-loading-mask {
+  background-color: var(--el-mask-color-extra-light) !important;
+}
+
 // for common
 
 // // for tiny components

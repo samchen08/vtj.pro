@@ -10,6 +10,9 @@
   const service = new LocalService();
   const router = useRouter();
 
+  // depsManager.remove('@vtj/ui');
+  // depsManager.remove('ant-design-vue');
+
   new Engine({
     container,
     service,

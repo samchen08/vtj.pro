@@ -34,6 +34,7 @@ export function useAdapter(): Adapter {
 }
 
 export interface Adapter {
+  components?: any[];
   fieldEditors?: Record<string, BuiltinFieldEditor>;
   uploader?: Uploader;
   vxeConfig?: VXETableConfigOptions;
@@ -55,8 +56,12 @@ const defaults: Adapter = {
 export const AdapterPlugin: Plugin = {
   install(app: App, options: Adapter = {}) {
     const adapter = Object.assign(defaults, options);
-    if (adapter.fieldEditors) {
-      registerFieldEditors(adapter.fieldEditors);
+    const { components = [], fieldEditors = {} } = adapter;
+    registerFieldEditors(fieldEditors);
+    for (const component of components) {
+      if (component.name) {
+        app.component(component.name, component);
+      }
     }
     app.config.globalProperties.$adapter = adapter;
     app.provide(ADAPTER_KEY, adapter);

@@ -1,7 +1,7 @@
 import type { PropType } from 'vue';
 import type {
   PickerColumns,
-  PrickerFields,
+  PickerFields,
   PickerDialogProps,
   PickerGridProps,
   PickerLoader
@@ -18,7 +18,14 @@ export const pickerProps = {
    * 查询条件表单字段
    */
   fields: {
-    type: Array as PropType<PrickerFields>
+    type: Array as PropType<PickerFields>
+  },
+
+  /**
+   * 查询表单字段值
+   */
+  model: {
+    type: Object as PropType<Record<string, any>>
   },
 
   /**
@@ -90,12 +97,6 @@ export const pickerProps = {
     type: Boolean
   },
 
-  /**
-   * 初始默认查询参数
-   */
-  defaultQuery: {
-    type: Function as PropType<() => any>
-  },
   /**
    *  弹窗组件配置参数
    */

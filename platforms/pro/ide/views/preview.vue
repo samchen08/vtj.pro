@@ -14,12 +14,10 @@
   const service = new LocalService();
   const ext = await service.getExtension().catch(() => null);
   const options = ext ? await new Extension(ext).load() : undefined;
-  const { install, adapter } = options || {};
   const { provider, onReady } = createProvider({
     mode: ContextMode.Runtime,
     service,
-    adapter,
-    install,
+    ...(options || {}),
     dependencies: {
       Vue: () => import('vue'),
       VueRouter: () => import('vue-router'),

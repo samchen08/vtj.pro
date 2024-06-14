@@ -34,7 +34,10 @@ export async function getPlugin(
   if (scripts.length === 0 || !library) return null;
   const css = urls.filter((n) => isCSSUrl(n));
   const component: any = await loadScriptUrl(scripts, library, global).catch(
-    () => null
+    (e: any) => {
+      console.warn('loadScriptUrl error', scripts, library, e);
+      return null;
+    }
   );
   return component
     ? {
@@ -110,6 +113,8 @@ export function createLoader(opts: CreateLoaderOptions): BlockLoader {
         if (plugin) {
           loadCssUrl(plugin.css, options.window);
           return plugin.component;
+        } else {
+          console.warn('getPlugin result is null', from);
         }
         return null;
       });

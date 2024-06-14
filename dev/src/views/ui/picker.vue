@@ -3,13 +3,14 @@
     <XField label="单选">
       <template #editor>
         <XPicker
+          ref="pickerRef"
           v-model="modelValue1"
           value-key="id"
           label-key="name"
           query-key="name"
           :columns="columns"
           :fields="fields"
-          :loader="loader"
+          :loader="asyncLoader"
           @change="onChange"
           @picked="onPicked"></XPicker>
       </template>
@@ -55,15 +56,15 @@
   </div>
 </template>
 <script lang="ts" setup>
-  import { ref } from 'vue';
+  import { ref, watch, type Ref, nextTick } from 'vue';
   import {
     XPicker,
     XField,
     type PickerColumns,
-    type PrickerFields
+    type PickerFields
   } from '@vtj/ui';
   import { request } from '@vtj/utils';
-
+  const pickerRef = ref();
   const modelValue1 = ref();
   const modelValue2 = ref([]);
   const modelValue3 = ref([
@@ -73,7 +74,9 @@
     }
   ]);
 
-  const columns: PickerColumns = [
+  const columns: Ref<any> = ref([]);
+
+  const columns2: PickerColumns = [
     {
       field: 'id',
       title: 'ID'
@@ -105,7 +108,7 @@
     }
   ];
 
-  const fields: PrickerFields = [
+  const fields: PickerFields = [
     {
       label: '姓名',
       name: 'name',
@@ -168,6 +171,8 @@
     });
   };
 
+  const asyncLoader = ref();
+
   const defaultQuery = () => {
     return {
       name: 'default'
@@ -181,4 +186,16 @@
   const onPicked = (raw: any) => {
     console.log('onPicked', raw);
   };
+
+  watch(
+    () => pickerRef.value?.visible,
+    async (v: boolean) => {
+      console.log('change', v);
+      await nextTick();
+      setTimeout(() => {
+        columns.value = columns2;
+        asyncLoader.value = loader;
+      }, 1000);
+    }
+  );
 </script>

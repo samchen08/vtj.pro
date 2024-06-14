@@ -1,1 +1,1 @@
-export const INSTALLED_KEY = Symbol('INSTALLED_KEY');
+export const INSTALLED_KEY = '__VTJ_UI_INSTALLED__';

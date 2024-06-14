@@ -1,4 +1,4 @@
-import { h } from 'vue';
+import { h, createTextVNode } from 'vue';
 import type { RendererOptions } from 'vxe-table';
 import { sharedFilterOptions } from './shared';
 import SelectEdit from './components/SelectEdit.vue';
@@ -15,5 +15,13 @@ export const XSelect: RendererOptions = {
   ...sharedFilterOptions,
   renderFilter(renderOpts, params) {
     return [h(SelectFilter, { params, renderOpts })];
+  },
+  renderDefault(_renderOpts, params) {
+    const { row, column } = params;
+    return [createTextVNode(row[column.field] ?? '')];
+  },
+  renderCell(_renderOpts, params) {
+    const { row, column } = params;
+    return [createTextVNode(row[column.field] ?? '')];
   }
 };

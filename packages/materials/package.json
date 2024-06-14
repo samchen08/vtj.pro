@@ -1,7 +1,7 @@
 {
   "name": "@vtj/materials",
   "private": false,
-  "version": "0.8.40",
+  "version": "0.8.50",
   "type": "module",
   "scripts": {
     "build": "npm run remove && npm run build:ui && npm run build:charts && npm run build:element && npm run build:antdv && npm run copy",
@@ -27,7 +27,8 @@
     "vue-router": "~4.3.0"
   },
   "files": [
-    "dist"
+    "dist",
+    "src"
   ],
   "gitHead": "d03843144f07c2d98c1e0c72c8c6eb1117c01722",
   "publishConfig": {

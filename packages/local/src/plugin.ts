@@ -32,6 +32,7 @@ export interface DevToolsOptions {
   presetPlugins: string[];
   pluginNodeModulesDir?: string;
   extensionDir: string;
+  materialDirs: string[];
   hm?: string;
 }
 
@@ -239,6 +240,7 @@ export function createDevTools(options: Partial<DevToolsOptions> = {}) {
     presetPlugins: ['@newpearl/plugin-', '@vtj/plugin-'],
     pluginNodeModulesDir: 'node_modules',
     extensionDir: '',
+    materialDirs: [],
     hm: '42f2469b4aa27c3f8978f634c0c19d24',
     ...options
   };
@@ -246,6 +248,10 @@ export function createDevTools(options: Partial<DevToolsOptions> = {}) {
   const proPath = `${opts.nodeModulesDir}/${opts.packageName}/dist`;
   const materialsPath1 = `${opts.nodeModulesDir}/@vtj/materials/dist`;
   const materialsPath2 = `${opts.nodeModulesDir}/${opts.packageName}/${materialsPath1}`;
+
+  const materialDirs = opts.materialDirs.map((n) => {
+    return `${opts.pluginNodeModulesDir}/${n}/dist`;
+  });
 
   // 复制物料目录
   if (opts.copy) {
@@ -267,6 +273,15 @@ export function createDevTools(options: Partial<DevToolsOptions> = {}) {
         '\n @vtj/materials is not installed, please install it first.\n'
       );
     }
+
+    materialDirs.forEach((form) => {
+      copyOptions.push({
+        from: form,
+        to: '@vtj/materials',
+        emptyDir: false
+      });
+    });
+
     if (opts.extensionDir && pathExistsSync(opts.extensionDir)) {
       copyOptions.push({
         from: opts.extensionDir,
@@ -308,6 +323,13 @@ export function createDevTools(options: Partial<DevToolsOptions> = {}) {
         '\n @vtj/materials is not installed, please install it first.\n'
       );
     }
+
+    materialDirs.forEach((dir) => {
+      staticOptions.push({
+        path: `${opts.staticBase}@vtj/materials`,
+        dir: dir
+      });
+    });
 
     if (opts.extensionDir && pathExistsSync(opts.extensionDir)) {
       staticOptions.push({

@@ -19,7 +19,8 @@
     <ElOption v-for="n in options" :label="n.label" :value="n.value"></ElOption>
   </ElSelect>
   <Dialog
-    v-if="dialogVisible"
+    v-if="dialogVisible && props.loader"
+    ref="dialogRef"
     v-model="dialogVisible"
     :grid-props="props.gridProps"
     :form-props="props.formProps"
@@ -37,32 +38,27 @@
   import { MoreFilled } from '@vtj/icons';
   import Dialog from './Dialog.vue';
   import { pickerProps } from './props';
-  import type { PickerEmits, PickerLoader } from './types';
-  import { useOptions, useGridColumns } from './hooks';
+  import type { PickerEmits, PickerLoader, PickerState } from './types';
+  import { useOptions, useGridColumns, useModel } from './hooks';
 
   const props = defineProps(pickerProps);
   const emit = defineEmits<PickerEmits>();
   const attrs = useAttrs();
   const dialogVisible = ref(false);
   const selectRef = ref();
-  const formModel = ref<Record<string, any>>({});
+  const dialogRef = ref();
+
   const { options, setOptions, current } = useOptions(props, emit);
+  const { formModel } = useModel(props);
   const columns = useGridColumns(props);
 
   const disabled = computed(() => {
     return dialogVisible.value ? true : !!props.disabled;
   });
 
-  const setDefaultQuery = async () => {
-    if (props.defaultQuery) {
-      const query = await props.defaultQuery();
-      Object.assign(formModel.value, query || {});
-    }
-  };
-
-  const dataLoader: PickerLoader = (params: any) => {
-    params.form = formModel.value;
+  const dataLoader: PickerLoader = (params: PickerState) => {
     if (props.loader) {
+      params.form = formModel.value;
       return props.loader(params);
     }
     return {
@@ -81,15 +77,15 @@
 
   const onEnter = async (e: any) => {
     const inputValue = e.target.value;
-    focus();
-    await setDefaultQuery();
     if (props.queryKey) {
       formModel.value[props.queryKey] = inputValue;
     }
+    focus();
     if (!props.multiple && props.preload) {
       const res = await dataLoader({});
       // 有且只有一条数据，自动返回，不打开弹窗
       if (res?.list && res.list.length === 1) {
+        blur();
         onPick(res.list[0]);
       } else {
         dialogVisible.value = true;
@@ -98,12 +94,11 @@
       dialogVisible.value = true;
     }
   };
-  const onClick = async (e: any) => {
+  const onClick = (e: any) => {
     if (props.disabled) return;
     const tags = ['I', 'SVG', 'PATH'];
     if (tags.includes(e.target.nodeName.toUpperCase())) {
       blur();
-      await setDefaultQuery();
       dialogVisible.value = true;
     }
   };
@@ -127,6 +122,9 @@
     disabled,
     options,
     setOptions,
-    current
+    current,
+    visible: dialogVisible,
+    dialogRef,
+    formModel
   });
 </script>
