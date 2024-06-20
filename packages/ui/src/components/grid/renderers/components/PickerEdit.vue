@@ -27,6 +27,6 @@
   });
 
   defineOptions({
-    name: 'FilterEdit'
+    name: 'PickerEdit'
   });
 </script>

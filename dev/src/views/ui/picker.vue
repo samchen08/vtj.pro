@@ -4,7 +4,6 @@
       <template #editor>
         <XPicker
           ref="pickerRef"
-          v-model="modelValue1"
           value-key="id"
           label-key="name"
           query-key="name"

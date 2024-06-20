@@ -3,6 +3,33 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.53](https://gitee.com/newgateway/vtj/compare/@vtj/web@0.8.52...@vtj/web@0.8.53) (2024-06-20)
+
+**Note:** Version bump only for package @vtj/web
+
+
+
+
+
+## [0.8.52](https://gitee.com/newgateway/vtj/compare/@vtj/web@0.8.51...@vtj/web@0.8.52) (2024-06-18)
+
+**Note:** Version bump only for package @vtj/web
+
+
+
+
+
+## [0.8.51](https://gitee.com/newgateway/vtj/compare/@vtj/web@0.8.50...@vtj/web@0.8.51) (2024-06-16)
+
+
+### Performance Improvements
+
+* ⚡ 性能优化 ([cb22d73](https://gitee.com/newgateway/vtj/commits/cb22d733e3a90b39b72ee571eddc141ea238d912))
+
+
+
+
+
 ## [0.8.50](https://gitee.com/newgateway/vtj/compare/@vtj/web@0.8.49...@vtj/web@0.8.50) (2024-06-14)
 
 **Note:** Version bump only for package @vtj/web

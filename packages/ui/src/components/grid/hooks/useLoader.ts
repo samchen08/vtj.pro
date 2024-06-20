@@ -16,13 +16,13 @@ export function useLoader(
   const { auto, pager } = props;
   const { state } = useState(props);
 
-  const loadData = (data: any[], reset?: boolean) => {
+  const loadData = async (data: any[], reset?: boolean) => {
     const grid = vxeRef.value;
     if (!grid) return;
     if (reset) {
-      grid.reloadData(data);
+      await grid.reloadData(data);
     } else {
-      grid.loadData(data);
+      await grid.loadData(data);
     }
   };
 
@@ -30,7 +30,8 @@ export function useLoader(
     if (props.loader) {
       const { list = [], total = 0 } = (await props.loader(state)) || {};
       await nextTick();
-      loadData(list, reset);
+      await loadData(list, reset);
+      await nextTick();
       state.total = total;
       await nextTick();
       emit('loaded', list);

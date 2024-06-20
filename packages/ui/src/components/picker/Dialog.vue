@@ -9,6 +9,7 @@
     maximizable>
     <XGrid
       ref="gridRef"
+      v-if="props.columns && props.columns.length"
       :columns="props.columns"
       pager
       auto-resize

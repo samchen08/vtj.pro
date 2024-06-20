@@ -1,4 +1,4 @@
-import { type MaybeRef, ref, unref, onMounted, watch } from 'vue';
+import { type MaybeRef, shallowRef, unref, watch } from 'vue';
 import { cloneDeep } from '@vtj/utils';
 import type {
   VxeGridInstance,
@@ -8,7 +8,8 @@ import type {
   GridCustomInfo,
   GridSortableEvent,
   VxeTableDefines,
-  VxeColumnPropTypes
+  VxeColumnPropTypes,
+  GridColumns
 } from '../types';
 import { mergeCustomInfo, getName } from '../utils';
 import { useAdapter } from '../../../adapter';
@@ -60,7 +61,7 @@ export function useCustom(
   vxeRef: MaybeRef<VxeGridInstance | undefined>,
   props: GridProps
 ) {
-  const columns = ref<VxeGridPropTypes.Columns>([]);
+  const columns = shallowRef<VxeGridPropTypes.Columns>([]);
   const adapter = useAdapter();
   let info: GridCustomInfo | null = null;
   const {
@@ -133,23 +134,25 @@ export function useCustom(
     }
   };
 
-  const updateColumns = async () => {
+  const updateColumns = async (columnsValue: GridColumns) => {
     const grid = unref(vxeRef);
-    if (!customable || !grid || !getCustom) return;
+    if (!customable || !grid || !getCustom) {
+      columns.value = columnsValue;
+      return;
+    }
     const id = getId(grid);
     info = (await getCustom(id).catch(() => null)) || { id };
     if (info) {
-      columns.value = mergeCustomInfo(columns.value, info).slice(0);
+      columns.value = mergeCustomInfo(columnsValue, info).slice(0);
     }
   };
 
-  onMounted(updateColumns);
+  // onMounted(updateColumns);
 
   watch(
     () => [props.columns, props.editable],
     () => {
-      columns.value = createColumns(props);
-      updateColumns();
+      updateColumns(createColumns(props));
     },
     { immediate: true }
   );

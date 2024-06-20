@@ -1,8 +1,9 @@
 {
   "name": "@vtj/web",
   "private": false,
-  "version": "0.8.50",
+  "version": "0.8.53",
   "type": "module",
+  "sideEffects": false,
   "scripts": {
     "check": "vue-tsc --noEmit",
     "build": "npm run check"
@@ -24,7 +25,8 @@
       "types": "./src/index.ts",
       "import": "./src/index.ts",
       "require": "./src/index.ts"
-    }
+    },
+    "./src/index.scss": "./src/index.scss"
   },
   "main": "./src/index.ts",
   "module": "./src/index.ts",

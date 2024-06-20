@@ -91,6 +91,7 @@
         dialogVisible.value = true;
       }
     } else {
+      blur();
       dialogVisible.value = true;
     }
   };

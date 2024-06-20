@@ -5,6 +5,19 @@ import SelectEdit from './components/SelectEdit.vue';
 import SelectFilter from './components/SelectFilter.vue';
 import { baseRendererOptions } from './input';
 
+function renderCell(renderOpts: any, params: any) {
+  const { props = {} } = renderOpts;
+  const { options = [] } = props;
+  const { row, column } = params;
+  const value = row[column.field] ?? '';
+  let label;
+  if (Array.isArray(options)) {
+    const option = options.find((n) => n.value === value);
+    label = option?.label;
+  }
+  return [createTextVNode(label ?? value)];
+}
+
 export const XSelect: RendererOptions = {
   ...baseRendererOptions,
   cellClassName: 'x-grid__edit',
@@ -16,12 +29,6 @@ export const XSelect: RendererOptions = {
   renderFilter(renderOpts, params) {
     return [h(SelectFilter, { params, renderOpts })];
   },
-  renderDefault(_renderOpts, params) {
-    const { row, column } = params;
-    return [createTextVNode(row[column.field] ?? '')];
-  },
-  renderCell(_renderOpts, params) {
-    const { row, column } = params;
-    return [createTextVNode(row[column.field] ?? '')];
-  }
+  renderDefault: renderCell,
+  renderCell
 };

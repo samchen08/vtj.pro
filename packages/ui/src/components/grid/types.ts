@@ -14,7 +14,8 @@ import type {
   VxeGlobalRendererHandles,
   VxeColumnSlotTypes,
   DefineRendererOption,
-  VxeGlobalInterceptorHandles
+  VxeGlobalInterceptorHandles,
+  RendererOptions
 } from 'vxe-table';
 
 export type GridSortableOptions = Sortable.Options;
@@ -104,6 +105,8 @@ export type GridEmits = {
 };
 
 export type GridInstance = InstanceType<typeof Grid>;
+
+export type GridRendererOptions = RendererOptions;
 
 export type {
   VxeGridInstance,

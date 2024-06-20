@@ -123,11 +123,27 @@ export class Provider extends Base {
     if (!this.project) {
       throw new Error('project is null');
     }
-    const {
-      dependencies: deps = [],
-      apis = [],
-      meta = []
-    } = this.project as ProjectSchema;
+    const { apis = [], meta = [] } = this.project as ProjectSchema;
+    const _window = window as any;
+    // 解决CkEditor错误提示问题
+    _window.CKEDITOR_VERSION = undefined;
+
+    if (this.nodeEnv !== 'production') {
+      await this.loadAssets(_window);
+    }
+
+    this.apis = createSchemaApis(apis, meta, this.adapter);
+    mockCleanup();
+    if (this.project.config?.mock) {
+      mockApis(apis);
+    }
+
+    this.initRouter();
+    this.triggerReady();
+  }
+
+  private async loadAssets(_window: any) {
+    const { dependencies: deps = [] } = this.project as ProjectSchema;
     const { dependencies, library, components, materialPath } = this;
     const {
       libraryExports,
@@ -136,8 +152,6 @@ export class Provider extends Base {
       materialExports,
       materialMapLibrary
     } = parseDeps(deps, materialPath);
-    const _window = window as any;
-    _window.CKEDITOR_VERSION = undefined;
     for (const libraryName of libraryExports) {
       const raw = dependencies[libraryName];
       const lib = _window[libraryName];
@@ -159,7 +173,7 @@ export class Provider extends Base {
       }
     }
 
-    // todo: 需要优化，生产环境不需要物料
+    // 生产环境不需要物料
     for (const materialUrl of materials) {
       await loadScript(urlUtils.append(materialUrl, { v: version }));
     }
@@ -187,15 +201,6 @@ export class Provider extends Base {
         }
       }
     }
-
-    this.apis = createSchemaApis(apis, meta, this.adapter);
-    mockCleanup();
-    if (this.project.config?.mock) {
-      mockApis(apis);
-    }
-
-    this.initRouter();
-    this.triggerReady();
   }
 
   private initRouter() {

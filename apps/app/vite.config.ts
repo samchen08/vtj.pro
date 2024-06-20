@@ -3,6 +3,7 @@ import { createDevTools } from '@vtj/pro/vite';
 import proxy from './proxy.config';
 export default createViteConfig({
   proxy,
+  elementPlus: false,
   plugins: [
     createDevTools({
       devMode: false,

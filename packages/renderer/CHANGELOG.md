@@ -3,6 +3,33 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.53](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.8.52...@vtj/renderer@0.8.53) (2024-06-20)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
+## [0.8.52](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.8.51...@vtj/renderer@0.8.52) (2024-06-18)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
+## [0.8.51](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.8.50...@vtj/renderer@0.8.51) (2024-06-16)
+
+
+### Bug Fixes
+
+* 🐛 生产环境不加载物料 ([2725aca](https://gitee.com/newgateway/vtj/commits/2725aca626c409fe09ad22cf43987d0b40095887))
+
+
+
+
+
 ## [0.8.50](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.8.49...@vtj/renderer@0.8.50) (2024-06-14)
 
 **Note:** Version bump only for package @vtj/renderer
