@@ -4,20 +4,19 @@ import { sharedFilterOptions } from './shared';
 import InputFilter from './components/InputFilter.vue';
 import PickerEdit from './components/PickerEdit.vue';
 
+const renderCell = (_renderOpts: any, params: any) => {
+  const { row, column } = params;
+  return [createTextVNode(row[column.field] || '')];
+};
+
 export const XPicker: RendererOptions = {
   cellClassName: 'x-grid__edit',
   autofocus: '.el-select__input',
   renderEdit(renderOpts, params) {
     return [h(PickerEdit, { params, renderOpts })];
   },
-  renderCell(_renderOpts, params) {
-    const { row, column } = params;
-    return [createTextVNode(row[column.field])];
-  },
-  renderDefault(_renderOpts, params) {
-    const { row, column } = params;
-    return [createTextVNode(row[column.field])];
-  },
+  renderCell,
+  renderDefault: renderCell,
   ...sharedFilterOptions,
   renderFilter(renderOpts, params) {
     return [h(InputFilter, { params, renderOpts })];

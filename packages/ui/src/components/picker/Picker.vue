@@ -107,7 +107,7 @@
   const onPick = async (rows: any) => {
     setOptions(rows, props.multiple && props.append);
     dialogVisible.value = false;
-    emit('picked', rows);
+    emit('picked', rows, props.data);
     await nextTick();
     focus();
   };

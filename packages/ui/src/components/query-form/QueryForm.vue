@@ -66,11 +66,16 @@
     formRef.value?.submit();
   };
 
+  const validate = async () => {
+    return await formRef.value?.validate();
+  };
+
   const reset = (fields?: string[] | string) => {
     formRef.value?.reset(fields);
   };
 
   defineExpose({
+    validate,
     submit,
     reset,
     formRef

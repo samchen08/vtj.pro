@@ -6,7 +6,8 @@
     v-model="currentTab"
     checkable
     @remove="onRemove"
-    @command="onCommand">
+    @command="onCommand"
+    @action-click="onActionClick">
     <template v-for="widget in widgets" :key="widget.name">
       <WidgetWrapper
         ref="widgetsRef"
@@ -18,6 +19,7 @@
 </template>
 <script lang="ts" setup>
   import { computed, reactive, ref } from 'vue';
+
   import { Tabs } from '../shared';
   import { RegionType, type TabWidget } from '../../framework';
   import { WidgetWrapper } from '../../wrappers';
@@ -38,13 +40,14 @@
         label: n.label,
         closable: !!n.closable,
         props: n.props || {},
-        checked: !n.closable
+        checked: !n.closable,
+        actions: n.actions as any[]
       };
     })
   );
 
   const tabs = computed(() => {
-    return items.filter((n) => !n.closable || n.checked);
+    return items?.filter((n) => !n.closable || n.checked);
   });
 
   const menus = computed(() => {
@@ -91,6 +94,18 @@
       item.props = Object.assign({}, item.props, props);
       item.checked = true;
       currentTab.value = item.name;
+    }
+  };
+
+  const onActionClick = (e: any) => {
+    if (widgetsRef.value) {
+      const currentRef = widgetsRef.value[0]?.widgetRef;
+      if (!currentRef) return;
+      switch (e.name) {
+        case 'home':
+          currentRef.refresh();
+          break;
+      }
     }
   };
 

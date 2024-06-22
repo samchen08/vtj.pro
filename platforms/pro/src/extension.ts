@@ -41,7 +41,7 @@ export class Extension {
   }
   async load(): Promise<Partial<EngineOptions> | undefined> {
     const css = this.urls.filter((n) => renderer.isCSSUrl(n));
-    const scripts = this.urls.filter((n) => renderer.isJSUrl(n));
+    const scripts: string[] = this.urls.filter((n) => renderer.isJSUrl(n));
     renderer.loadCssUrl(css);
     if (scripts.length) {
       const output = await renderer

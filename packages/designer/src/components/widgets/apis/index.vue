@@ -1,5 +1,13 @@
 <template>
   <Panel class="v-apis-widget" title="API管理" plus @plus="onPlus">
+    <div class="v-apis__search">
+      <ElInput
+        size="small"
+        v-model="keyword"
+        :prefix-icon="Search"
+        placeholder="搜索API"
+        clearable></ElInput>
+    </div>
     <Item
       v-for="item in list"
       :key="item.id"
@@ -24,7 +32,8 @@
   import { ref, computed } from 'vue';
   import { type ApiSchema } from '@vtj/core';
   import { cloneDeep } from '@vtj/utils';
-  import { ElEmpty } from 'element-plus';
+  import { Search } from '@vtj/icons';
+  import { ElEmpty, ElInput } from 'element-plus';
   import DialogForm from './form.vue';
   import { Panel, Item } from '../../shared';
   import { useProject } from '../../hooks';
@@ -34,9 +43,20 @@
 
   const visible = ref(false);
   const formModel = ref<any>(null);
+  const keyword = ref('');
   const isEdit = ref(false);
   const list = computed(() => {
-    return project.value?.apis || [];
+    const apis = project.value?.apis || [];
+    if (keyword.value) {
+      return apis.filter((n) => {
+        return (
+          n.name.includes(keyword.value) ||
+          n.label?.includes(keyword.value) ||
+          n.url.includes(keyword.value)
+        );
+      });
+    }
+    return apis;
   });
 
   const { project } = useProject();
@@ -65,11 +85,11 @@
       mockTemplate: {
         type: 'JSFunction',
         value: `(req) => {
-  return {
-    code: 0,
-    data: null
-  }
-}`
+    return {
+      code: 0,
+      data: null
+    }
+  }`
       }
     } as ApiSchema;
   };

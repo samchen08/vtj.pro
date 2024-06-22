@@ -4,6 +4,7 @@ import { MATERIAL_PATH, PROJECT_ID, PROJECT_NAME } from './contants';
 import router from './router/app';
 import App from './App.vue';
 import { LcdpService } from './service/lcdp';
+import '@vtj/web/src/index.scss'
 import './style/index.scss';
 
 const app = createApp(App);

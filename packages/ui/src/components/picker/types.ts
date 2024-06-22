@@ -25,8 +25,8 @@ export type PickerProps = ComponentPropsType<typeof pickerProps>;
 
 export type PickerEmits = {
   'update:modelValue': [value: any];
-  change: [value: any];
-  picked: [value: any];
+  change: [value: any, data:any];
+  picked: [value: any, data:any];
 };
 
 export interface PickerOption {

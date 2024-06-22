@@ -64,7 +64,7 @@ export function useOptions(props: PickerProps, emit: Emits<PickerEmits>) {
     if (!isEqual(v, o)) {
       const data = raw ? getRawData(v) : v;
       emit('update:modelValue', data);
-      emit('change', data);
+      emit('change', data, props.data);
     }
   });
 

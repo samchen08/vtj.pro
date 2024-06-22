@@ -3,6 +3,39 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.56](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.8.55...@vtj/ui@0.8.56) (2024-06-22)
+
+
+### Features
+
+* ✨ api管理支持搜索，帮助中心支持返回首页 ([cbc1e9c](https://gitee.com/newgateway/vtj/commits/cbc1e9c0eb2fe15e52b98491178c2ba5ed56f423))
+
+
+
+
+
+## [0.8.55](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.8.54...@vtj/ui@0.8.55) (2024-06-21)
+
+
+### Bug Fixes
+
+* 🐛 x-picker 支持附加数据 ([8834e9c](https://gitee.com/newgateway/vtj/commits/8834e9cfa86780c7a3f7c87ac3d19486aadfac81))
+
+
+
+
+
+## [0.8.54](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.8.53...@vtj/ui@0.8.54) (2024-06-20)
+
+
+### Features
+
+* ✨ 表单增加验证方法 ([4af9928](https://gitee.com/newgateway/vtj/commits/4af9928ed2c3008b2b54067b14231d3b8954ff32))
+
+
+
+
+
 ## [0.8.53](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.8.52...@vtj/ui@0.8.53) (2024-06-20)
 
 

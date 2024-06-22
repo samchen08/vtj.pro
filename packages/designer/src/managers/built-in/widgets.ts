@@ -18,8 +18,10 @@ import {
   VtjIconApi,
   VtjIconCategory,
   VtjIconInfo,
-  VtjIconSetting
+  VtjIconSetting,
+  HomeFilled
 } from '@vtj/icons';
+import { markRaw } from 'vue';
 
 export const builtInWidgets: Array<AppWidget | TabWidget | Widget> = [
   {
@@ -165,7 +167,14 @@ export const builtInWidgets: Array<AppWidget | TabWidget | Widget> = [
     component: widgets.Docs,
     type: 'tab',
     closable: true,
-    label: '帮助中心'
+    label: '帮助中心',
+    actions: [
+      {
+        icon: markRaw(HomeFilled),
+        type: 'info',
+        name: 'home'
+      }
+    ]
   },
   {
     name: 'Scripts',

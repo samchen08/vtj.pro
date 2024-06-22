@@ -8,6 +8,8 @@ export interface TabsItem {
   icon?: IconParam;
   // name 别名，为统一命名
   value?: string | number;
+  // 附加数据
+  data?: any;
   disabled?: boolean;
   closable?: boolean;
   lazy?: boolean;

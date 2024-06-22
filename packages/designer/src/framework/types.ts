@@ -120,6 +120,11 @@ export interface TabWidget extends Widget {
    * 能关闭的
    */
   closable?: boolean;
+
+  /**
+   * 操作按钮
+   */
+  actions?: any[];
 }
 
 /**

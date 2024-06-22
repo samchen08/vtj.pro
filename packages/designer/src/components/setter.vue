@@ -7,7 +7,7 @@
         :content="props.title">
         {{ props.label || props.name }}
       </ElTooltip>
-      <span v-else>{{ props.label || props.name }}</span>
+      <span v-else :title="props.name">{{ props.label || props.name }}</span>
     </template>
     <div class="v-setter__content">
       <div v-if="currentSetter" class="v-setter__input">

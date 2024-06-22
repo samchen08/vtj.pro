@@ -6,7 +6,7 @@
     :body="{ padding: false }"
     :header="false"
     ref="panel">
-    <iframe ref="frame" :src="props.url" @load="onLoad"></iframe>
+    <iframe :key="key" ref="frame" :src="props.url" @load="onLoad"></iframe>
   </Panel>
 </template>
 <script lang="ts" setup>
@@ -22,6 +22,12 @@
 
   const panel = ref();
   let loading: any = null;
+  const key = ref(Symbol());
+
+  const refresh = () => {
+    key.value = Symbol();
+  };
+
   onMounted(() => {
     if (!loading) {
       loading = ElLoading.service({ target: panel.value?.$el });
@@ -40,4 +46,6 @@
   defineOptions({
     name: 'DocsWidget'
   });
+
+  defineExpose({ refresh });
 </script>

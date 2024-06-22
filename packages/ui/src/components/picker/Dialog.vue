@@ -103,6 +103,8 @@
 
   const onKeydown = (e: any) => {
     if (e.$event.key !== 'Enter') return;
+    e.$event.stopPropagation();
+    e.$event.preventDefault();
     if (props.multiple) {
       pick();
     } else {
@@ -111,6 +113,7 @@
         props.onPick(row);
       }
     }
+    return false;
   };
 
   const onLoaded = () => {

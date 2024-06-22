@@ -4,6 +4,7 @@
     size="small"
     v-model="cellValue"
     @change="onChange"
+    :data="props.params"
     v-bind="renderProps"></XPicker>
 </template>
 <script lang="ts" setup>

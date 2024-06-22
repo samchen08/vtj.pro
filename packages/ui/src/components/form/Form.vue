@@ -76,8 +76,12 @@
     emit('change', toRaw(model));
   });
 
+  const validate = async () => {
+    return await formRef.value.validate().catch(() => false);
+  };
+
   const submit = async () => {
-    const ret = await formRef.value.validate().catch(() => false);
+    const ret = await validate();
     if (ret) {
       emit('submit', toRaw(model));
       if (props.submitMethod) {
@@ -97,6 +101,7 @@
     formRef,
     model,
     submit,
-    reset
+    reset,
+    validate
   });
 </script>

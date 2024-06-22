@@ -220,7 +220,11 @@
       props: {
         loader: pickerLoader,
         columns: pickerColumns,
-        valueKey: 'id'
+        valueKey: 'id',
+        onPicked(data: any, params: any) {
+          console.log(data, params);
+          params.row.input = '333333';
+        }
       }
     }
   };
