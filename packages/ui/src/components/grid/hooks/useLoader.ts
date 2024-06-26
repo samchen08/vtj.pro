@@ -14,7 +14,7 @@ export function useLoader(
   emit: Emits<GridEmits>
 ) {
   const { auto, pager } = props;
-  const { state } = useState(props);
+  const { state, resetState } = useState(props);
 
   const loadData = async (data: any[], reset?: boolean) => {
     const grid = vxeRef.value;
@@ -78,6 +78,7 @@ export function useLoader(
   watch(
     () => props.loader,
     () => {
+      resetState();
       if (auto) {
         load();
       }

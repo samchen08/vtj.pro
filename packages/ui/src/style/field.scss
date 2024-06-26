@@ -1,6 +1,11 @@
 @use 'core' as *;
 
 @include b(field) {
+  .el-form-item__label {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
   @include e(info) {
     position: absolute !important;
     right: 0;

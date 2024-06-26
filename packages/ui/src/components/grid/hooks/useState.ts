@@ -12,6 +12,16 @@ export function useState(props: GridProps) {
     sorts: []
   });
 
+  const resetState = () => {
+    Object.assign(state, {
+      page: props.page,
+      pageSize: props.pageSize,
+      total: 0,
+      filters: [],
+      sorts: []
+    });
+  };
+
   watch(
     [page, pageSize],
     ([p, s]) => {
@@ -22,6 +32,7 @@ export function useState(props: GridProps) {
   );
 
   return {
-    state
+    state,
+    resetState
   };
 }

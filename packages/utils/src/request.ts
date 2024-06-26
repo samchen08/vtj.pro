@@ -26,8 +26,8 @@ const TYPES = {
 };
 const DATA_METHODS = ['put', 'post', 'patch'];
 const LOCAL_REQUEST_ID = 'Local-Request-Id';
-const LOADING_DELAY = 200;
-const ERROR_DELAY = 500;
+const LOADING_DELAY = 50;
+const ERROR_DELAY = 200;
 
 export interface IRequestSkipWarn {
   // 处理程序

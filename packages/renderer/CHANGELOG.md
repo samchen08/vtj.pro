@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.58](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.8.57...@vtj/renderer@0.8.58) (2024-06-26)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
+## [0.8.57](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.8.56...@vtj/renderer@0.8.57) (2024-06-25)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
 ## [0.8.56](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.8.55...@vtj/renderer@0.8.56) (2024-06-22)
 
 **Note:** Version bump only for package @vtj/renderer

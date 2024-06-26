@@ -22,7 +22,7 @@
       <ElPagination
         v-if="props.pager"
         class="x-grid__pager"
-        small
+        size="small"
         background
         layout="slot, -> ,total, sizes, prev, pager, next, jumper"
         :page-sizes="props.pageSizes"
@@ -166,6 +166,7 @@
   };
 
   defineExpose({
+    state,
     load,
     search,
     vxeRef,
