@@ -1,9 +1,10 @@
 import { computed, useAttrs } from 'vue';
-import { camelCase, kebabCase, merge } from '@vtj/utils';
+import { camelCase, kebabCase, merge, toFixed } from '@vtj/utils';
 import type {
   GridProps,
   GridEmits,
   VxeGridPropTypes,
+  VxeTablePropTypes,
   VxeGridProps
 } from '../types';
 
@@ -26,6 +27,8 @@ function useColumnConfig(props: GridProps, attrs: Record<string, any>) {
 function useRowConfig(attrs: Record<string, any>) {
   return {
     useKey: true,
+    isCurrent: true,
+    isHover: true,
     ...getAttrValue(attrs, 'rowConfig')
   };
 }
@@ -53,19 +56,19 @@ function useFitlerConfig(props: GridProps, attrs: Record<string, any>) {
         },
         getAttrValue(attrs, 'fitlerConfig') || {}
       )
-    : undefined;
+    : getAttrValue(attrs, 'fitlerConfig');
 }
 
-function useSortconfig(props: GridProps, attrs: Record<string, any>) {
+function useSortConfig(props: GridProps, attrs: Record<string, any>) {
   const { pager } = props;
   return pager
     ? Object.assign(
         {
           remote: pager
         },
-        getAttrValue(attrs, 'sortconfig') || {}
+        getAttrValue(attrs, 'sortConfig') || {}
       )
-    : undefined;
+    : getAttrValue(attrs, 'sortConfig');
 }
 
 function useEditMode(
@@ -94,7 +97,9 @@ function useEditMode(
         isEsc: true,
         isTab: true,
         isEdit: true,
+        isEnter: true,
         isChecked: true,
+        isDel: true,
         ...(getAttrValue(attrs, 'keyboardConfig') || {})
       }
     : undefined;
@@ -132,6 +137,81 @@ function useToolbarConfig(
   return merge(config, toolbarConfig || {});
 }
 
+function useFooter(props: GridProps, attrs: Record<string, any>) {
+  const { sumFields = [], avgFields = [], sumAllFields } = props;
+  const showFooter =
+    !!sumFields.length ||
+    !!avgFields.length ||
+    !!sumAllFields ||
+    getAttrValue(attrs, 'showFooter');
+
+  const sumMethod = (list: any[], field: string) => {
+    let count = 0;
+    list.forEach((item) => {
+      count += Number(item[field] || 0);
+    });
+    return toFixed(count, 4, true);
+  };
+
+  const avgMethod = (list: any[], field: string) => {
+    let count = sumMethod(list, field);
+    return toFixed(count / list.length, 4, true);
+  };
+
+  const defaultFooterMethod = getAttrValue(attrs, 'footerMethod');
+  const footerMethod: VxeTablePropTypes.FooterMethod = (params) => {
+    const { columns, data } = params;
+
+    const rows = [];
+    if (sumFields.length) {
+      const sumPage = columns.map((column, columnIndex) => {
+        if (columnIndex === 0) {
+          return '合计';
+        }
+        if (sumFields.includes(column.field)) {
+          return sumMethod(data, column.field);
+        }
+        return null;
+      });
+      rows.push(sumPage);
+    }
+
+    if (avgFields.length) {
+      const avgPage = columns.map((column, columnIndex) => {
+        if (columnIndex === 0) {
+          return '平均';
+        }
+        if (avgFields.includes(column.field)) {
+          return avgMethod(data, column.field);
+        }
+        return null;
+      });
+      rows.push(avgPage);
+    }
+
+    if (sumAllFields) {
+      const keys = Object.keys(sumAllFields);
+      const sumAll = columns.map((column, columnIndex) => {
+        if (columnIndex === 0) {
+          return '总计';
+        }
+        if (keys.includes(column.field)) {
+          return sumAllFields[column.field];
+        }
+        return null;
+      });
+      rows.push(sumAll);
+    }
+
+    return rows;
+  };
+
+  return {
+    footerMethod: defaultFooterMethod || footerMethod,
+    showFooter
+  };
+}
+
 export function useProps(
   props: GridProps,
   slots: string[],
@@ -154,7 +234,7 @@ export function useProps(
     const rowConfig = useRowConfig(attrs);
     const scrollY = useScrollY(props, attrs);
     const filterConfig = useFitlerConfig(props, attrs);
-    const sortConfig = useSortconfig(props, attrs);
+    const sortConfig = useSortConfig(props, attrs);
     const toolbarConfig = useToolbarConfig(props, attrs, slots);
     const {
       keepSource,
@@ -164,9 +244,12 @@ export function useProps(
       onCellSelected
     } = useEditMode(props, attrs, emit);
 
+    const { footerMethod, showFooter } = useFooter(props, attrs);
+
     return {
       ...defaults,
       ...attrs,
+      id: props.id,
       columnConfig,
       rowConfig,
       scrollY,
@@ -177,7 +260,9 @@ export function useProps(
       mouseConfig,
       keyboardConfig,
       toolbarConfig,
-      onCellSelected
+      onCellSelected,
+      footerMethod,
+      showFooter
     };
   });
 

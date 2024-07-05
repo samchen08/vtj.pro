@@ -26,7 +26,8 @@ export {
   throttle,
   template,
   lowerFirst,
-  kebabCase
+  kebabCase,
+  snakeCase
 } from 'lodash-es';
 
 export function upperFirstCamelCase(name: string) {

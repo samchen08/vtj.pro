@@ -21,8 +21,8 @@
     "@vtj/cli": "latest",
     "@vtj/pro": "latest",
     "@vtj/web": "latest",
-    "vue": "^3.4.15",
-    "vue-router": "~4.3.0"
+    "vue": "~3.4.14",
+    "vue-router": "~4.4.0"
   },
   "exports": {
     ".": {

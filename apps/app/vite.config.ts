@@ -6,7 +6,7 @@ export default createViteConfig({
   elementPlus: false,
   plugins: [
     createDevTools({
-      devMode: false,
+      devMode: true,
       pluginNodeModulesDir: '../../node_modules'
     })
   ]

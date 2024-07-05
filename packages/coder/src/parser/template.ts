@@ -221,9 +221,13 @@ function bindEvent(
   name: string,
   value: NodeEvent,
   binder: string,
-  nodeContext: string[]
+  nodeContext: string[],
+  isExp: boolean
 ) {
   const modifiers = getModifiers(value.modifiers, true);
+  if (isExp) {
+    return `@${name}${modifiers.join('')}="${binder}"`;
+  }
   if (nodeContext && nodeContext.length > 0) {
     return `@${name}${modifiers.join('')}="(...args:any[]) => ${binder}"`;
   }
@@ -255,7 +259,7 @@ function bindNodeEvents(
           }
         : value.handler;
     }
-    return bindEvent(name, value, binder, nodeContext);
+    return bindEvent(name, value, binder, nodeContext, isExp);
   });
   return {
     binders,

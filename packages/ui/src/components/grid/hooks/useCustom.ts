@@ -70,8 +70,8 @@ export function useCustom(
     saveCustom = adapter.saveCustom
   } = props;
 
-  const getId = (grid: VxeGridInstance) => {
-    return `X_Grid_${grid.id || grid?.$.uid}`;
+  const getId = (grid?: VxeGridInstance) => {
+    return props.id || `X_Grid_${grid?.id || grid?.$.uid}`;
   };
 
   const onResize = (e: VxeGridDefines.ResizableChangeEventParams) => {
@@ -136,7 +136,7 @@ export function useCustom(
 
   const updateColumns = async (columnsValue: GridColumns) => {
     const grid = unref(vxeRef);
-    if (!customable || !grid || !getCustom) {
+    if (!customable || !getCustom) {
       columns.value = columnsValue;
       return;
     }

@@ -105,6 +105,12 @@
     if (e.$event.key !== 'Enter') return;
     e.$event.stopPropagation();
     e.$event.preventDefault();
+    const nodeName = e.$event.target.nodeName || '';
+    const inputs = ['INPUT', 'SELECT', 'RADIO', 'CHECKBOX'];
+    if (inputs.includes(nodeName.toUpperCase())) {
+      return;
+    }
+
     if (props.multiple) {
       pick();
     } else {

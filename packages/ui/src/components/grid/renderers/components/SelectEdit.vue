@@ -4,7 +4,8 @@
     clearable
     v-model="cellValue"
     @change="onChange"
-    v-bind="renderProps"></SelectEditor>
+    v-bind="renderProps"
+    v-on="renderEvents"></SelectEditor>
 </template>
 <script lang="ts" setup>
   import type { VxeGlobalRendererHandles } from '../../types';
@@ -15,7 +16,7 @@
     renderOpts: VxeGlobalRendererHandles.RenderEditOptions;
   }
   const props = defineProps<Props>();
-  const { renderProps, cellValue, onChange } = useEditRender(
+  const { renderProps, renderEvents, cellValue, onChange } = useEditRender(
     props.renderOpts,
     props.params
   );

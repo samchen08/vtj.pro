@@ -4,7 +4,8 @@
     clearable
     v-model="cellValue"
     @input="onChange"
-    v-bind="renderProps"></ElInput>
+    v-bind="renderProps"
+    v-on="renderEvents"></ElInput>
 </template>
 <script lang="ts" setup>
   import { ElInput } from 'element-plus';
@@ -15,7 +16,7 @@
     renderOpts: VxeGlobalRendererHandles.RenderEditOptions;
   }
   const props = defineProps<Props>();
-  const { renderProps, cellValue, onChange } = useEditRender(
+  const { renderProps, renderEvents, cellValue, onChange } = useEditRender(
     props.renderOpts,
     props.params
   );

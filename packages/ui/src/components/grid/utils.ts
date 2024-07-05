@@ -30,8 +30,14 @@ export function createRowSortHandler(
 ) {
   return (e: Sortable.SortableEvent) => {
     const { getRowNode } = grid;
-    const { newIndex, oldIndex } = e;
+    const { newIndex = 0, oldIndex = 0 } = e;
     const info = getRowNode(e.item);
+    const { items = [], item } = info || {};
+    if (item) {
+      items.splice(oldIndex, 1);
+      items.splice(newIndex, 0, item);
+      grid.reloadData(items);
+    }
     emit('rowSort', {
       info,
       newIndex,

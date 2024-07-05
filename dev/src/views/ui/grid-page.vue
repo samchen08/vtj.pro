@@ -10,6 +10,7 @@
       virtual
       resizable
       column-sortable
+      row-sortable
       show-footer
       :footer-method="footerMethod">
       <template #toolbar__buttons>

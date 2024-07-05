@@ -1,5 +1,5 @@
 import { computed } from 'vue';
-import { isFunction, camelCase } from '@vtj/utils';
+import { isFunction } from '@vtj/utils';
 import type { VxeGlobalRendererHandles } from '../types';
 
 export function useEditRender(
@@ -20,22 +20,23 @@ export function useEditRender(
     ? props({ row, column, cellValue })
     : props;
 
-  const renderEvents: Record<string, any> = Object.entries(events).reduce(
-    (prev, [name, handler]) => {
-      const eventName = camelCase(`on-${name}`);
-      prev[eventName] = (...args: any[]) =>
-        handler({ cellValue, row, column } as any, ...args);
-      return prev;
-    },
-    {} as Record<string, any>
-  );
+  // const renderEvents: Record<string, any> = Object.entries(events).reduce(
+  //   (prev, [name, handler]) => {
+  //     const eventName = camelCase(`on-${name}`);
+  //     prev[eventName] = (...args: any[]) =>
+  //       handler({ cellValue, row, column } as any, ...args);
+  //     return prev;
+  //   },
+  //   {} as Record<string, any>
+  // );
 
   const onChange = () => {
     params.$grid?.updateStatus(params, cellValue.value);
   };
 
   return {
-    renderProps: Object.assign({}, renderProps, renderEvents),
+    renderProps,
+    renderEvents: events,
     cellValue,
     row,
     column,

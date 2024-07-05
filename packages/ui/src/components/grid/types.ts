@@ -7,6 +7,7 @@ import type {
   VxeGridInstance,
   VxeTableDefines,
   VxeGridPropTypes,
+  VxeTablePropTypes,
   VxeGridDefines,
   VxeColumnPropTypes,
   VxeGridEvents,
@@ -119,5 +120,6 @@ export type {
   VxeGlobalRendererHandles,
   VxeColumnSlotTypes,
   DefineRendererOption,
-  VxeGlobalInterceptorHandles
+  VxeGlobalInterceptorHandles,
+  VxeTablePropTypes
 };

@@ -26,8 +26,8 @@ const TYPES = {
 };
 const DATA_METHODS = ['put', 'post', 'patch'];
 const LOCAL_REQUEST_ID = 'Local-Request-Id';
-const LOADING_DELAY = 50;
-const ERROR_DELAY = 200;
+const LOADING_DELAY = 100;
+const ERROR_DELAY = 300;
 
 export interface IRequestSkipWarn {
   // 处理程序
@@ -453,7 +453,7 @@ export class Request {
 }
 
 export interface IStaticRequest extends Request {
-  (options: IRequestConfig): Promise<AxiosResponse>;
+  (options: IRequestConfig): Promise<any>;
   instance: Request;
 }
 

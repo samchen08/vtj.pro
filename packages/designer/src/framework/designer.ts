@@ -95,7 +95,11 @@ export class Designer {
     doc.addEventListener('dragleave', this.bind(this.onLeave, 'onLeave'));
     doc.addEventListener('dragover', this.bind(this.onDragOver, 'onDragOver'));
     doc.addEventListener('drop', this.bind(this.onDrop, 'onDrop'));
-    doc.addEventListener('click', this.bind(this.onSelected, 'onSelected'));
+    doc.addEventListener(
+      'click',
+      this.bind(this.onSelected, 'onSelected'),
+      true
+    );
     emitter.on(
       EVENT_PROJECT_ACTIVED,
       this.bind(this.onActiveChange, 'onActiveChange')
@@ -244,6 +248,7 @@ export class Designer {
   }
 
   private onSelected(e: MouseEvent) {
+    e.stopPropagation();
     this.setHover(null);
     this.selected.value = this.getHelper(e);
   }

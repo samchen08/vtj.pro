@@ -1,19 +1,18 @@
 <template>
-  <div class="x-grid__filter x-grid__DateFilter">
-    <ElDatePicker
+  <div class="x-grid__filter">
+    <ElInputNumber
       size="small"
-      placeholder="选择日期筛选"
-      value-format="YYYY-MM-DD"
+      placeholder="输入数量回车筛选"
       clearable
       v-model="state.option.value"
-      @change="onChange"
+      @input="onChange"
       @keyup.enter.stop="onKeyup"
       v-bind="renderProps"
-      v-on="renderEvents"></ElDatePicker>
+      v-on="renderEvents"></ElInputNumber>
   </div>
 </template>
 <script lang="ts" setup>
-  import { ElDatePicker } from 'element-plus';
+  import { ElInputNumber } from 'element-plus';
   import type { VxeGlobalRendererHandles } from '../../types';
   import { useFilterRender } from '../../hooks';
 
@@ -30,6 +29,6 @@
   load();
 
   defineOptions({
-    name: 'DateFilter'
+    name: 'NumberFilter'
   });
 </script>

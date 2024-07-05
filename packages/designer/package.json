@@ -1,7 +1,7 @@
 {
   "name": "@vtj/designer",
   "private": false,
-  "version": "0.8.58",
+  "version": "0.8.71",
   "type": "module",
   "scripts": {
     "build": "vue-tsc && vite build",
@@ -22,7 +22,7 @@
     "@types/mockjs": "~1.0.10",
     "@vtj/cli": "workspace:~",
     "vue": "~3.4.15",
-    "vue-router": "~4.3.0"
+    "vue-router": "~4.4.0"
   },
   "files": [
     "dist",

@@ -1,3 +1,4 @@
+import { delay } from '@vtj/utils';
 import * as globalVue from 'vue';
 import { ContextMode, CONTEXT_HOST } from '../constants';
 import {
@@ -124,8 +125,10 @@ export class Context {
       this.__contextRefs[id] = this;
     }
 
-    return (el: any) => {
-      let dom = el?.$vtjEl || el?.$el || el;
+    return async (el: any) => {
+      // 异步组件需要等待渲染
+      await delay(0);
+      let dom = el?.$vtjEl || el?.$el || el?._?.vnode?.el || el;
       // 销毁时，无dom
       if (!dom) {
         if (typeof ref === 'string') {

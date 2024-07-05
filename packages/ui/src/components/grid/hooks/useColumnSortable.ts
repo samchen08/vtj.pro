@@ -1,5 +1,13 @@
-import { type MaybeRef, unref, ref, onMounted, onUnmounted, watch } from 'vue';
-import { delay } from '@vtj/utils';
+import {
+  type MaybeRef,
+  unref,
+  ref,
+  onUnmounted,
+  watch,
+  onMounted,
+  nextTick
+} from 'vue';
+// import { delay } from '@vtj/utils';
 import type {
   VxeGridInstance,
   GridProps,
@@ -26,8 +34,10 @@ export function useColumnSortable(
   const init = async () => {
     const grid = unref(vxeRef);
     if (!grid || !grid.$el) return;
+
     // 分组的标题需要延时才能获取到，nextTick失效
-    await delay(200);
+    // await delay(200);
+    await nextTick();
     const headerRows: HTMLElement[] = Array.from(
       grid.$el.querySelectorAll('.vxe-header--row')
     );
@@ -48,6 +58,7 @@ export function useColumnSortable(
     sortables.value.forEach((n) => {
       n.destroy();
     });
+
     sortables.value = [];
   };
 
@@ -56,12 +67,12 @@ export function useColumnSortable(
       destroy();
     }
     if (props.columns) {
-      await init();
+      init();
     }
   };
 
   watch(() => props.columns, reset);
-  onMounted(init);
+  onMounted(reset);
   onUnmounted(destroy);
   return sortables;
 }

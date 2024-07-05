@@ -7,6 +7,8 @@
             ref="gridRef"
             size="small"
             height="200px"
+            row-sortable
+            column-sortable
             :editable="editable"
             :columns="columns"
             :loader="loader"
@@ -137,6 +139,10 @@
       title: 'Input'
     },
     {
+      field: 'number',
+      title: 'Number'
+    },
+    {
       field: 'select',
       title: 'Select'
     },
@@ -192,6 +198,7 @@
 
   const editRenders = {
     input: 'XInput',
+    number: 'XNumber',
     select: {
       name: 'XSelect',
       props: {

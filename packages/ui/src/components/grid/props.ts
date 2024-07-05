@@ -11,6 +11,12 @@ import type {
 
 export const gridProps = {
   /**
+   * 表格id，保存用户自定义配置时需要用到，唯一标识（被某些特定的功能所依赖）
+   */
+  id: {
+    type: String
+  },
+  /**
    * 列配置，重定义是为了实现列拖拽排序， watch列变化变化刷新列
    */
   columns: {
@@ -142,6 +148,25 @@ export const gridProps = {
   editable: {
     type: Boolean,
     default: false
+  },
+  /**
+   * 单页合计列
+   */
+  sumFields: {
+    type: Array as PropType<string[]>
+  },
+  /**
+   * 单页平均值列
+   */
+  avgFields: {
+    type: Array as PropType<string[]>
+  },
+
+  /**
+   * 全部数据总计列
+   */
+  sumAllFields: {
+    type: Object as PropType<Record<string, number>>
   }
 };
 

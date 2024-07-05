@@ -3,6 +3,117 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.71](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.8.70...@vtj/renderer@0.8.71) (2024-07-05)
+
+
+### Performance Improvements
+
+* ⚡ 优化错误提示 ([d965bda](https://gitee.com/newgateway/vtj/commits/d965bda468cda1d561a9f53c3a8e2f78ae24c4ad))
+
+
+
+
+
+## [0.8.70](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.8.69...@vtj/renderer@0.8.70) (2024-07-05)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
+## [0.8.69](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.8.68...@vtj/renderer@0.8.69) (2024-07-04)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
+## [0.8.68](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.8.67...@vtj/renderer@0.8.68) (2024-07-04)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
+## [0.8.67](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.8.66...@vtj/renderer@0.8.67) (2024-07-03)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
+## [0.8.66](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.8.65...@vtj/renderer@0.8.66) (2024-07-03)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
+## [0.8.65](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.8.64...@vtj/renderer@0.8.65) (2024-07-02)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
+## [0.8.64](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.8.63...@vtj/renderer@0.8.64) (2024-06-28)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
+## [0.8.63](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.8.62...@vtj/renderer@0.8.63) (2024-06-28)
+
+
+### Bug Fixes
+
+* 🐛 修复设计器不能选中异步组件 ([f09c73e](https://gitee.com/newgateway/vtj/commits/f09c73e9b73e7577b98f8604537720d8f0d56122))
+* 🐛 修复设计器部分组件找不到dom节点 ([e7b1b22](https://gitee.com/newgateway/vtj/commits/e7b1b22e987007832867f98a0fc89d79120fd27f))
+
+
+
+
+
+## [0.8.62](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.8.61...@vtj/renderer@0.8.62) (2024-06-27)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
+## [0.8.61](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.8.60...@vtj/renderer@0.8.61) (2024-06-26)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
+## [0.8.60](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.8.59...@vtj/renderer@0.8.60) (2024-06-26)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
+## [0.8.59](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.8.58...@vtj/renderer@0.8.59) (2024-06-26)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
 ## [0.8.58](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.8.57...@vtj/renderer@0.8.58) (2024-06-26)
 
 **Note:** Version bump only for package @vtj/renderer

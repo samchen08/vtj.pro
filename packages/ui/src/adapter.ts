@@ -6,6 +6,7 @@ import {
   getCurrentInstance
 } from 'vue';
 import { storage } from '@vtj/utils';
+import { ElMessage, ElMessageBox, ElNotification } from 'element-plus';
 import {
   type GridCustomInfo,
   type BuiltinFieldEditor,
@@ -63,6 +64,9 @@ export const AdapterPlugin: Plugin = {
         app.component(component.name, component);
       }
     }
+    [ElMessage, ElMessageBox, ElNotification].forEach((n) => {
+      app.use(n);
+    });
     app.config.globalProperties.$adapter = adapter;
     app.provide(ADAPTER_KEY, adapter);
   }

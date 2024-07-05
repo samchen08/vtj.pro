@@ -1,5 +1,6 @@
 <template>
   <component
+    ref="elRef"
     class="x-container"
     :is="props.tag"
     :class="className"
@@ -9,7 +10,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { computed, getCurrentInstance, useAttrs } from 'vue';
+  import { ref, computed, getCurrentInstance, useAttrs } from 'vue';
   import { containerProps, type ContainerInstance } from './types';
   import { getSizeValue } from '../../utils';
 
@@ -20,6 +21,9 @@
   const props = defineProps(containerProps);
   const attrs = useAttrs();
   const instance = getCurrentInstance();
+
+  const elRef = ref();
+  const $vtjEl = computed(() => elRef.value?.$el);
 
   const parentFlex = computed(() => {
     const parent = instance?.parent;
@@ -59,5 +63,9 @@
       width: !!width ? getSizeValue(width) : undefined,
       height: !!height ? getSizeValue(height) : undefined
     };
+  });
+
+  defineExpose({
+    $vtjEl
   });
 </script>

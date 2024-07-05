@@ -31,7 +31,7 @@
           </div>
         </slot>
       </template>
-      <slot v-bind="item">
+      <slot v-if="isMounted" v-bind="item">
         <component
           v-if="item.component"
           :is="item.component"
@@ -41,7 +41,7 @@
   </ElTabs>
 </template>
 <script lang="ts" setup>
-  import { computed } from 'vue';
+  import { computed, onMounted, ref, onUnmounted } from 'vue';
   import { ElTabs, ElTabPane } from 'element-plus';
   import { XAction, type ActionProps, type ActionMenuItem } from '../';
   import { tabsProps, type TabsItem, type TabsEmits } from './types';
@@ -53,6 +53,7 @@
 
   const props = defineProps(tabsProps);
   const emit = defineEmits<TabsEmits>();
+  const isMounted = ref(false);
   const getTabPane = (item: TabsItem) => {
     const { label, name, value, disabled, closable, lazy } = item;
     return {
@@ -79,4 +80,12 @@
   const onActionCommand = (e: ActionMenuItem) => {
     emit('actionCommand', e);
   };
+
+  onMounted(() => {
+    isMounted.value = true;
+  });
+
+  onUnmounted(() => {
+    isMounted.value = false;
+  });
 </script>

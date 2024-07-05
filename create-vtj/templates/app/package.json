@@ -16,8 +16,8 @@
   },
   "dependencies": {
     "@vtj/web": "latest",
-    "vue": "^3.4.14",
-    "vue-router": "^4.2.5"
+    "vue": "~3.4.14",
+    "vue-router": "~4.4.0"
   },
   "devDependencies": {
     "@vtj/cli": "latest",

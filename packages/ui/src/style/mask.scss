@@ -32,6 +32,7 @@
   @include when(disabled) {
     @include e(content) {
       height: 100%;
+      width: 100%;
     }
   }
 }

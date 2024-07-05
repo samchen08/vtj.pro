@@ -3,6 +3,146 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.71](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.8.70...@vtj/ui@0.8.71) (2024-07-05)
+
+
+### Bug Fixes
+
+* 🐛 mask 在无框架情况下内容宽度异常 ([8e4cb5a](https://gitee.com/newgateway/vtj/commits/8e4cb5aab68b8a7047704e605130289b746b9928))
+
+
+
+
+
+## [0.8.70](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.8.69...@vtj/ui@0.8.70) (2024-07-05)
+
+
+### Bug Fixes
+
+* 🐛 mask tab ([4b7451d](https://gitee.com/newgateway/vtj/commits/4b7451d1f85e8fd9bee485e5d24a4a178ea037ee))
+
+
+
+
+
+## [0.8.69](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.8.68...@vtj/ui@0.8.69) (2024-07-04)
+
+
+### Bug Fixes
+
+* 🐛 mask tab ([d6b0ad5](https://gitee.com/newgateway/vtj/commits/d6b0ad5a95d14d56c021d39133a7f60c9c09f611))
+
+
+
+
+
+## [0.8.68](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.8.67...@vtj/ui@0.8.68) (2024-07-04)
+
+
+### Bug Fixes
+
+* 🐛 修复出码节点事件不执行 ([569dd7b](https://gitee.com/newgateway/vtj/commits/569dd7bb81cf1907b83248ae82c337b0322f6be2))
+
+
+
+
+
+## [0.8.67](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.8.66...@vtj/ui@0.8.67) (2024-07-03)
+
+
+### Bug Fixes
+
+* 🐛 grid参数 ([2ccf9ae](https://gitee.com/newgateway/vtj/commits/2ccf9ae872d8e83a430f5852bac9d5c57990e9b3))
+
+
+
+
+
+## [0.8.66](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.8.65...@vtj/ui@0.8.66) (2024-07-03)
+
+
+### Bug Fixes
+
+* 🐛 表格行排序 ([7592899](https://gitee.com/newgateway/vtj/commits/75928990e4b9aacee8ec7a3f170e037eecdbe8ab))
+
+
+
+
+
+## [0.8.65](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.8.64...@vtj/ui@0.8.65) (2024-07-02)
+
+
+### Performance Improvements
+
+* ⚡ 优化表格和tabs ([449c86f](https://gitee.com/newgateway/vtj/commits/449c86f2bd21e5491283fa3f4df87ad1f2b68c9e))
+
+
+
+
+
+## [0.8.64](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.8.63...@vtj/ui@0.8.64) (2024-06-28)
+
+**Note:** Version bump only for package @vtj/ui
+
+
+
+
+
+## [0.8.63](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.8.62...@vtj/ui@0.8.63) (2024-06-28)
+
+
+### Bug Fixes
+
+* 🐛 修复设计器部分组件找不到dom节点 ([e7b1b22](https://gitee.com/newgateway/vtj/commits/e7b1b22e987007832867f98a0fc89d79120fd27f))
+
+
+
+
+
+## [0.8.62](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.8.61...@vtj/ui@0.8.62) (2024-06-27)
+
+
+### Bug Fixes
+
+* 🐛 picker 筛选条件回车错误触发关闭弹窗 ([16d38af](https://gitee.com/newgateway/vtj/commits/16d38afe7e0900d5d60001634357d01789ce4d3b))
+
+
+
+
+
+## [0.8.61](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.8.60...@vtj/ui@0.8.61) (2024-06-26)
+
+
+### Bug Fixes
+
+* 🐛 x-grid id 不更新 ([2e94d29](https://gitee.com/newgateway/vtj/commits/2e94d2972972f1f894ed7d1cbf73b3d62180c731))
+
+
+
+
+
+## [0.8.60](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.8.59...@vtj/ui@0.8.60) (2024-06-26)
+
+
+### Bug Fixes
+
+* 🐛 grid customable 失效 ([81e1e7f](https://gitee.com/newgateway/vtj/commits/81e1e7f1522771f9ed106af31776852771e7594d))
+
+
+
+
+
+## [0.8.59](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.8.58...@vtj/ui@0.8.59) (2024-06-26)
+
+
+### Features
+
+* ✨ 表格支持合计配置 ([8faca18](https://gitee.com/newgateway/vtj/commits/8faca18a3e2c7476d5c0a7a865ee751a0d115ea9))
+
+
+
+
+
 ## [0.8.58](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.8.57...@vtj/ui@0.8.58) (2024-06-26)
 
 **Note:** Version bump only for package @vtj/ui

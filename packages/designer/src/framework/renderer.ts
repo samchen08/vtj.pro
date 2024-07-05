@@ -11,7 +11,6 @@ import {
 } from '@vtj/core';
 import { type SimulatorEnv } from './simulator';
 import { Provider, type Context, ContextMode } from '@vtj/renderer';
-import { ElNotification } from 'element-plus';
 import { notify } from '../utils';
 import { type Designer } from './designer';
 
@@ -47,20 +46,6 @@ export class Renderer {
 
     const plugins = Object.entries(library);
     Object.assign(app.config.globalProperties, globals);
-    app.config.errorHandler = (err: any, instance, info) => {
-      const name = instance?.$options.name;
-      const msg = err?.message || err?.msg || '未知错误';
-      const message = `[ ${name} ] ${msg}`;
-      console.error({
-        err,
-        instance,
-        info
-      });
-      ElNotification.error({
-        title: '运行错误',
-        message
-      });
-    };
     plugins.forEach(([name, plugin]) => {
       if (
         typeof plugin === 'function' ||

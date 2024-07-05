@@ -5,7 +5,8 @@
     v-model="cellValue"
     @change="onChange"
     :data="props.params"
-    v-bind="renderProps"></XPicker>
+    v-bind="renderProps"
+    v-on="renderEvents"></XPicker>
 </template>
 <script lang="ts" setup>
   import { ref, onMounted } from 'vue';
@@ -18,7 +19,7 @@
   }
   const props = defineProps<Props>();
   const elRef = ref();
-  const { renderProps, cellValue, onChange } = useEditRender(
+  const { renderProps, renderEvents, cellValue, onChange } = useEditRender(
     props.renderOpts,
     props.params
   );

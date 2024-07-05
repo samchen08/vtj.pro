@@ -1,4 +1,11 @@
-import { type MaybeRef, unref, ref, onMounted, onUnmounted } from 'vue';
+import {
+  type MaybeRef,
+  unref,
+  ref,
+  onMounted,
+  onUnmounted,
+  onUpdated
+} from 'vue';
 import type {
   VxeGridInstance,
   GridProps,
@@ -15,7 +22,8 @@ export function useRowSortable(
 ) {
   const sortable = ref();
   if (!props.rowSortable) return sortable;
-  onMounted(() => {
+
+  const init = () => {
     const grid = unref(vxeRef);
     if (!grid) return;
     const el = grid.$el.querySelector('.vxe-table--body>tbody');
@@ -27,10 +35,16 @@ export function useRowSortable(
       };
       sortable.value = createSortable(el, options);
     }
-  });
+  };
+  onMounted(init);
 
   onUnmounted(() => {
     sortable.value?.destroy();
+  });
+
+  onUpdated(() => {
+    sortable.value?.destroy();
+    init();
   });
 
   return sortable;

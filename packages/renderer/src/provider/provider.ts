@@ -232,6 +232,27 @@ export class Provider extends Base {
     }
     app.provide(providerKey, this);
     app.config.globalProperties.installed = installed;
+    if (this.nodeEnv === 'development') {
+      app.config.errorHandler = (err: any, instance, info) => {
+        const name = instance?.$options.name;
+        const msg = err?.message || err?.msg || '未知错误';
+        const message = `[ ${name} ] ${msg}`;
+        console.error(
+          '[VTJ Error]:',
+          {
+            err,
+            instance,
+            info
+          },
+          err?.stack
+        );
+
+        ElNotification.error({
+          title: '运行时错误：请在控制台查看详情',
+          message
+        });
+      };
+    }
   }
 
   getFile(id: string): PageFile | BlockFile | null {
