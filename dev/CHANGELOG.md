@@ -3,6 +3,63 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.77](https://gitee.com/newgateway/vtj/compare/dev-web@0.8.76...dev-web@0.8.77) (2024-07-09)
+
+
+### Features
+
+* ✨ x-dialog-grid ([455082a](https://gitee.com/newgateway/vtj/commits/455082a306bda5ad7925e0903aff18db7d95d50b))
+
+
+
+
+
+## [0.8.76](https://gitee.com/newgateway/vtj/compare/dev-web@0.8.75...dev-web@0.8.76) (2024-07-08)
+
+
+### Bug Fixes
+
+* 🐛 import-button 组件style ([39b0402](https://gitee.com/newgateway/vtj/commits/39b04021b47820cd0116b94e27b1c434743ab1f9))
+
+
+
+
+
+## [0.8.75](https://gitee.com/newgateway/vtj/compare/dev-web@0.8.74...dev-web@0.8.75) (2024-07-08)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
+## [0.8.74](https://gitee.com/newgateway/vtj/compare/dev-web@0.8.73...dev-web@0.8.74) (2024-07-06)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
+## [0.8.73](https://gitee.com/newgateway/vtj/compare/dev-web@0.8.72...dev-web@0.8.73) (2024-07-06)
+
+
+### Features
+
+* ✨ x-import-button ([c37101e](https://gitee.com/newgateway/vtj/commits/c37101e96cdfcd96d0eb3c4428086ea048ab7a66))
+
+
+
+
+
+## [0.8.72](https://gitee.com/newgateway/vtj/compare/dev-web@0.8.71...dev-web@0.8.72) (2024-07-06)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
 ## [0.8.71](https://gitee.com/newgateway/vtj/compare/dev-web@0.8.70...dev-web@0.8.71) (2024-07-05)
 
 **Note:** Version bump only for package dev-web

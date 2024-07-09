@@ -1,0 +1,15 @@
+@use 'core' as *;
+
+@include b(import-button) {
+  display: inline-block;
+  .el-upload-list {
+    display: none;
+  }
+}
+
+.x-import-button + .x-action,
+.x-action + .x-import-button,
+.x-import-button + .el-button,
+.el-button + .x-import-button {
+  margin-left: 10px;
+}

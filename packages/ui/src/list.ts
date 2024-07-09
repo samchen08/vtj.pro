@@ -24,7 +24,8 @@ import {
   XAttachment,
   XQueryForm,
   XGrid,
-  XPicker
+  XPicker,
+  XImportButton
 } from './components';
 
 export const components = [
@@ -52,5 +53,6 @@ export const components = [
   XAttachment,
   XQueryForm,
   XGrid,
-  XPicker
+  XPicker,
+  XImportButton
 ] as DefineComponent<any, any, any, any>[];

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.7](https://gitee.com/newgateway/vtj/compare/@vtj/base@0.8.6...@vtj/base@0.8.7) (2024-07-09)
+
+
+### Features
+
+* ✨ x-dialog-grid ([455082a](https://gitee.com/newgateway/vtj/commits/455082a306bda5ad7925e0903aff18db7d95d50b))
+
+
+
+
+
 ## [0.8.6](https://gitee.com/newgateway/vtj/compare/@vtj/base@0.8.5...@vtj/base@0.8.6) (2024-07-03)
 
 

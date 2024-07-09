@@ -14,9 +14,11 @@
   const service = new LocalService();
   const ext = await service.getExtension().catch(() => null);
   const options = ext ? await new Extension(ext).load() : undefined;
+  const { __BASE_PATH__ = '/' } = ext || {};
   const { provider, onReady } = createProvider({
     mode: ContextMode.Runtime,
     service,
+    materialPath: __BASE_PATH__,
     ...(options || {}),
     dependencies: {
       Vue: () => import('vue'),

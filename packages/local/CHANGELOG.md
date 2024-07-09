@@ -3,6 +3,60 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.77](https://gitee.com/newgateway/vtj/compare/@vtj/local@0.8.76...@vtj/local@0.8.77) (2024-07-09)
+
+**Note:** Version bump only for package @vtj/local
+
+
+
+
+
+## [0.8.76](https://gitee.com/newgateway/vtj/compare/@vtj/local@0.8.75...@vtj/local@0.8.76) (2024-07-08)
+
+**Note:** Version bump only for package @vtj/local
+
+
+
+
+
+## [0.8.75](https://gitee.com/newgateway/vtj/compare/@vtj/local@0.8.74...@vtj/local@0.8.75) (2024-07-08)
+
+**Note:** Version bump only for package @vtj/local
+
+
+
+
+
+## [0.8.74](https://gitee.com/newgateway/vtj/compare/@vtj/local@0.8.73...@vtj/local@0.8.74) (2024-07-06)
+
+
+### Features
+
+* ✨ 格式化json文件 ([a436e13](https://gitee.com/newgateway/vtj/commits/a436e1349196a1c8b662346fe49762ddc5272b58))
+
+
+
+
+
+## [0.8.73](https://gitee.com/newgateway/vtj/compare/@vtj/local@0.8.72...@vtj/local@0.8.73) (2024-07-06)
+
+**Note:** Version bump only for package @vtj/local
+
+
+
+
+
+## [0.8.72](https://gitee.com/newgateway/vtj/compare/@vtj/local@0.8.71...@vtj/local@0.8.72) (2024-07-06)
+
+
+### Features
+
+* ✨ 支持项目部署二级目录配置 ([200e87b](https://gitee.com/newgateway/vtj/commits/200e87bea6ed66776d367164e2c84584e3cd22a1))
+
+
+
+
+
 ## [0.8.71](https://gitee.com/newgateway/vtj/compare/@vtj/local@0.8.70...@vtj/local@0.8.71) (2024-07-05)
 
 **Note:** Version bump only for package @vtj/local

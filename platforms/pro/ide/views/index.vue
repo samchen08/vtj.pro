@@ -18,12 +18,13 @@
 
   const ext = await service.getExtension().catch(() => null);
   const options = ext ? await new Extension(ext).load() : undefined;
-
+  const { __BASE_PATH__ = '/' } = ext || {};
   widgetManager.set('Switcher', {
     props: {
       onClick: (project: ProjectModel) => {
         const pathname = location.pathname;
-        let url = pathname === '/@vtj/pro/' ? '/' : pathname;
+        let url =
+          pathname === `${__BASE_PATH__}@vtj/pro/` ? __BASE_PATH__ : pathname;
         const file = project.currentFile;
         if (file && file.type === 'page' && project.homepage !== file.id) {
           url = `${url}#/page/${file.id}`;
@@ -45,6 +46,7 @@
   const engine = new Engine({
     container,
     service,
+    materialPath: __BASE_PATH__,
     ...options
   });
 

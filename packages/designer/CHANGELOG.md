@@ -3,6 +3,57 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.77](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.8.76...@vtj/designer@0.8.77) (2024-07-09)
+
+
+### Bug Fixes
+
+* 🐛 接触绑定变量值改为undefined ([e49b4b4](https://gitee.com/newgateway/vtj/commits/e49b4b40f99e87f24bdc84ff96dc0cff36f84f8d))
+
+
+
+
+
+## [0.8.76](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.8.75...@vtj/designer@0.8.76) (2024-07-08)
+
+**Note:** Version bump only for package @vtj/designer
+
+
+
+
+
+## [0.8.75](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.8.74...@vtj/designer@0.8.75) (2024-07-08)
+
+**Note:** Version bump only for package @vtj/designer
+
+
+
+
+
+## [0.8.74](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.8.73...@vtj/designer@0.8.74) (2024-07-06)
+
+**Note:** Version bump only for package @vtj/designer
+
+
+
+
+
+## [0.8.73](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.8.72...@vtj/designer@0.8.73) (2024-07-06)
+
+**Note:** Version bump only for package @vtj/designer
+
+
+
+
+
+## [0.8.72](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.8.71...@vtj/designer@0.8.72) (2024-07-06)
+
+**Note:** Version bump only for package @vtj/designer
+
+
+
+
+
 ## [0.8.71](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.8.70...@vtj/designer@0.8.71) (2024-07-05)
 
 

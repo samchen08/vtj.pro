@@ -25,6 +25,46 @@ export function mapToObject<V = any>(map: Map<any, V>) {
 }
 
 /**
+ * 数组转键值对
+ * @param data
+ * @param key
+ * @param value
+ * @returns
+ */
+export function arrayToKv(
+  data: Record<string, any>[] = [],
+  key: string = 'key',
+  value: string = 'value'
+) {
+  const result: Record<string, any> = {};
+  for (const item of data) {
+    result[item[key]] = item[item[value]];
+  }
+  return result;
+}
+
+/**
+ * 键值对转数组
+ * @param data
+ * @param key
+ * @param value
+ * @returns
+ */
+export function kvToArray(
+  data: Record<string, any> = {},
+  key: string = 'key',
+  value: string = 'value'
+) {
+  const entries = Object.entries(data);
+  return entries.map((k, v) => {
+    return {
+      [key]: k,
+      [value]: v
+    };
+  });
+}
+
+/**
  * 数组去重
  * @param array
  * @param prop

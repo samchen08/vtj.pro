@@ -1,4 +1,4 @@
-import { uid, timestamp, merge, upperFirstCamelCase, delay } from '@vtj/base';
+import { uid, merge, upperFirstCamelCase, delay } from '@vtj/base';
 import type {
   ProjectSchema,
   Dependencie,
@@ -109,7 +109,7 @@ export class ProjectModel {
     return file.type === 'page';
   }
 
-  toDsl(version?: string) {
+  toDsl(_version?: string) {
     const { id } = this;
     const attrs = ProjectModel.attrs.reduce(
       (result, current) => {
@@ -132,7 +132,7 @@ export class ProjectModel {
     }
     return {
       __VTJ_PROJECT__: true,
-      __VERSION__: version || timestamp().toString(),
+      // __VERSION__: version || timestamp().toString(),
       id,
       ...attrs
     } as ProjectSchema;

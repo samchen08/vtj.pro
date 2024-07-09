@@ -64,7 +64,22 @@ export interface StaticFileInfo {
  * 扩展配置
  */
 export interface ExtensionConfig {
+  /**
+   * 扩展资源文件路径：js、css文件，js文件要求 umd 格式
+   */
   urls: string[];
+  /**
+   * js库导出名
+   */
   library: string;
-  params?: any[];
+
+  /**
+   * 附加参数/数据，用作个性需求
+   */
+  params?: Array<Record<string, any>>;
+
+  /**
+   * 项目部署目录
+   */
+  __BASE_PATH__?: string;
 }

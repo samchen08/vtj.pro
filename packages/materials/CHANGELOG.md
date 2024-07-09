@@ -3,6 +3,63 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.77](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.8.76...@vtj/materials@0.8.77) (2024-07-09)
+
+
+### Features
+
+* ✨ x-dialog-grid ([455082a](https://gitee.com/newgateway/vtj/commits/455082a306bda5ad7925e0903aff18db7d95d50b))
+
+
+
+
+
+## [0.8.76](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.8.75...@vtj/materials@0.8.76) (2024-07-08)
+
+**Note:** Version bump only for package @vtj/materials
+
+
+
+
+
+## [0.8.75](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.8.74...@vtj/materials@0.8.75) (2024-07-08)
+
+**Note:** Version bump only for package @vtj/materials
+
+
+
+
+
+## [0.8.74](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.8.73...@vtj/materials@0.8.74) (2024-07-06)
+
+**Note:** Version bump only for package @vtj/materials
+
+
+
+
+
+## [0.8.73](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.8.72...@vtj/materials@0.8.73) (2024-07-06)
+
+
+### Features
+
+* ✨ x-import-button ([c37101e](https://gitee.com/newgateway/vtj/commits/c37101e96cdfcd96d0eb3c4428086ea048ab7a66))
+
+
+
+
+
+## [0.8.72](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.8.71...@vtj/materials@0.8.72) (2024-07-06)
+
+
+### Features
+
+* ✨ 支持项目部署二级目录配置 ([200e87b](https://gitee.com/newgateway/vtj/commits/200e87bea6ed66776d367164e2c84584e3cd22a1))
+
+
+
+
+
 ## [0.8.71](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.8.70...@vtj/materials@0.8.71) (2024-07-05)
 
 **Note:** Version bump only for package @vtj/materials

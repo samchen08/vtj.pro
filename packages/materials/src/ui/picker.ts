@@ -91,7 +91,8 @@ const desc: MaterialDescription = {
       'modelValue',
       'disabled',
       'valueKey',
-      'teleported'
+      'teleported',
+      'multiple'
     ])
   ],
   events: ['picked', ...(select[0].events || [])],

@@ -6,8 +6,8 @@ export function downloadUrl(url: string, filename: string = '') {
   link.click();
 }
 
-export function downloadBlob(data: any, filename: string = '') {
-  const blob = new Blob([data]);
+export function downloadBlob(data: any, filename: string = '', type?: string) {
+  const blob = new Blob([data], { type });
   const link = document.createElement('a');
   link.download = filename;
   link.style.display = 'none';
@@ -16,10 +16,19 @@ export function downloadBlob(data: any, filename: string = '') {
   URL.revokeObjectURL(link.href);
 }
 
-export async function downloadRemoteFile(url: string, filename: string = '') {
+export async function downloadRemoteFile(
+  url: string,
+  filename: string = '',
+  type?: string
+) {
   return fetch(url).then(async (res) => {
     const data = await res.blob();
-    downloadBlob(data, filename);
+    downloadBlob(data, filename, type);
     return data;
   });
+}
+
+export function downloadJson(data: any, filename: string = '') {
+  const jsonString = JSON.stringify(data);
+  downloadBlob(jsonString, filename, 'application/json');
 }

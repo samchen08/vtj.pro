@@ -66,6 +66,11 @@ export interface ProjectSchema {
    * 版本
    */
   __VERSION__?: string;
+
+  /**
+   * 项目部署目录
+   */
+  __BASE_PATH__?: string;
 }
 
 /**

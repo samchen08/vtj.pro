@@ -196,7 +196,7 @@
     if (ret) {
       closeBinder();
       modelValue.value = undefined;
-      emit('change', '');
+      emit('change', undefined);
     }
   };
 </script>

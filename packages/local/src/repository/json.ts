@@ -21,7 +21,10 @@ export class JsonRepository {
     if (!this.exist(name)) {
       ensureFileSync(filePath);
     }
-    writeJsonSync(filePath, json);
+    writeJsonSync(filePath, json, {
+      spaces: 2,
+      EOL: '\n'
+    });
     return true;
   }
   get(name: string) {

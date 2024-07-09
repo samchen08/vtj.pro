@@ -35,11 +35,17 @@ export async function saveLogs(e: any) {
   return logs.save(name, json);
 }
 
-export async function getExtension() {
+export async function getExtension(_body: any, opts: DevToolsOptions) {
   const root = resolve('./');
   const pkg = readJsonSync(resolve(root, 'package.json'));
   const { vtj = {} } = pkg || {};
-  return success(vtj.extension || null);
+
+  const extension = {
+    ...(vtj.extension || {}),
+    __BASE_PATH__: opts.staticBase
+  };
+
+  return success(extension);
 }
 
 export async function init(_body: any, opts: DevToolsOptions) {
@@ -64,6 +70,7 @@ export async function init(_body: any, opts: DevToolsOptions) {
       isInit = true;
       repository.save(id, dsl);
     }
+    dsl.__BASE_PATH__ = opts.staticBase;
     return success(dsl);
   } else {
     const model = new ProjectModel({
@@ -74,6 +81,7 @@ export async function init(_body: any, opts: DevToolsOptions) {
     });
     dsl = model.toDsl();
     repository.save(id, dsl);
+    dsl.__BASE_PATH__ = opts.staticBase;
     return success(dsl);
   }
 }

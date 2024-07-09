@@ -6,21 +6,17 @@ import * as designer from '@vtj/designer';
 import * as renderer from '@vtj/renderer';
 import * as VtjIcons from '@vtj/icons';
 import * as ElementPlus from 'element-plus';
-
+import type { ExtensionConfig } from '@vtj/core';
 import type { EngineOptions } from '@vtj/designer';
 
-export interface ExtensionOptions {
-  urls: string[];
-  library: string;
-  params?: any[];
-}
-
+export type ExtensionOptions = ExtensionConfig;
 export type ExtensionFactory = () => Partial<EngineOptions> | void;
 
 export class Extension {
   private urls: string[] = [];
   private library: string = '';
   private params: any[] = [];
+  private __BASE_PATH__: string = '/';
   constructor(options: ExtensionOptions) {
     const __VTJ_PRO__ = {
       ...core,
@@ -34,14 +30,21 @@ export class Extension {
     (window as any).VtjIcons = VtjIcons;
     (window as any).VtjUI = VtjUI;
     (window as any).ElementPlus = ElementPlus;
-    const { urls, library, params = [] } = options;
+    const { urls = [], library, params = [], __BASE_PATH__ = '/' } = options;
     this.urls = urls;
     this.library = library;
     this.params = params;
+    this.__BASE_PATH__ = __BASE_PATH__;
   }
   async load(): Promise<Partial<EngineOptions> | undefined> {
-    const css = this.urls.filter((n) => renderer.isCSSUrl(n));
-    const scripts: string[] = this.urls.filter((n) => renderer.isJSUrl(n));
+    if (!this.library) return;
+    const base = this.__BASE_PATH__;
+    const css = this.urls
+      .filter((n) => renderer.isCSSUrl(n))
+      .map((n) => `${base}${n}`);
+    const scripts: string[] = this.urls
+      .filter((n) => renderer.isJSUrl(n))
+      .map((n) => `${base}${n}`);
     renderer.loadCssUrl(css);
     if (scripts.length) {
       const output = await renderer
