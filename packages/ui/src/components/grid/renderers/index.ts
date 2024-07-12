@@ -9,6 +9,7 @@ import { XTag } from './tag';
 import { XText } from './text';
 import { XPicker } from './picker';
 import { XNumber } from './number';
+import { XGrider } from './grid';
 
 import { handleClerEdit, handleClearFilter } from './interceptors';
 
@@ -24,7 +25,8 @@ export const RenderPlugin = {
       XTag,
       XText,
       XPicker,
-      XNumber
+      XNumber,
+      XGrider
     });
 
     vxetable.interceptor.add('event.clearFilter', handleClearFilter);

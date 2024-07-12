@@ -10,6 +10,7 @@ import {
 } from 'element-plus';
 import { SelectEditor, CheckboxEditor, RadioEditor } from './editors';
 import { XPicker } from '../picker';
+import { XGridEditor } from '../grid-editor';
 
 export interface BuiltinFieldEditor {
   component: any;
@@ -32,7 +33,8 @@ export type BuiltinFieldEditorType =
   | 'slider'
   | 'rate'
   | 'cascader'
-  | 'picker';
+  | 'picker'
+  | 'grid';
 
 export const builtinFieldEditors: Record<
   BuiltinFieldEditorType,
@@ -110,6 +112,10 @@ export const builtinFieldEditors: Record<
   },
   picker: {
     component: XPicker,
+    props: {}
+  },
+  grid: {
+    component: XGridEditor,
     props: {}
   }
 };

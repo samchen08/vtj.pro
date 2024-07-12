@@ -161,27 +161,32 @@ export class Designer {
 
   public async getDropSlot(to: NodeModel | null) {
     if (!to) return undefined;
-    const { engine } = this;
+    const { engine, dropping } = this;
+    const vueInstance = dropping.value
+      ? this.getVueInstance(dropping.value, to.id)
+      : null;
+    const dynamicSlots: string[] = vueInstance?.$vtjDynamicSlots
+      ? vueInstance.$vtjDynamicSlots()
+      : [];
     const assets = engine.assets;
     const componentMap = assets.componentMap;
     const targetDesc =
       (await assets.getBlockMaterial(to.from)) || componentMap.get(to.name);
-    if (!targetDesc?.slots) return undefined;
-    const slots: MaterialSlot[] = (targetDesc?.slots || ['default']).map(
-      (n) => {
-        if (typeof n === 'string') {
-          return {
-            name: n,
-            params: []
-          };
-        } else {
-          return {
-            name: n.name,
-            params: n.params || []
-          };
-        }
+    // if (!targetDesc?.slots) return undefined;
+    const mergeSlots = (targetDesc?.slots || ['default']).concat(dynamicSlots);
+    const slots: MaterialSlot[] = mergeSlots.map((n) => {
+      if (typeof n === 'string') {
+        return {
+          name: n,
+          params: []
+        };
+      } else {
+        return {
+          name: n.name,
+          params: n.params || []
+        };
       }
-    );
+    });
     if (slots.length === 0) {
       return undefined;
     }
@@ -203,6 +208,13 @@ export class Designer {
     }
 
     return slot;
+  }
+
+  public getVueInstance(helper: DesignHelper, id?: string) {
+    const { el, model } = helper;
+    const refs = el.__context__?.__refs;
+    if (!refs) return null;
+    return refs[id || model.id];
   }
 
   private async onDrop(e: DragEvent) {

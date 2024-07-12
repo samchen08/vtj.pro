@@ -7,13 +7,19 @@ import { baseRendererOptions } from './input';
 
 function renderCell(renderOpts: any, params: any) {
   const { props = {} } = renderOpts;
-  const { options = [] } = props;
+  const { options = [], multiple, parser } = props;
   const { row, column } = params;
   const value = row[column.field] ?? '';
   let label;
   if (Array.isArray(options)) {
-    const option = options.find((n) => n.value === value);
-    label = option?.label;
+    if (multiple) {
+      const values = parser ? parser(value) : value || [];
+      const matches = options.filter((n) => values.includes(n.value));
+      label = matches.map((n) => n.label).join(',');
+    } else {
+      const option = options.find((n) => n.value === value);
+      label = option?.label;
+    }
   }
   return [createTextVNode(label ?? value)];
 }

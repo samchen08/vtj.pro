@@ -3,6 +3,41 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.81](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.8.80...@vtj/designer@0.8.81) (2024-07-12)
+
+**Note:** Version bump only for package @vtj/designer
+
+
+
+
+
+## [0.8.80](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.8.79...@vtj/designer@0.8.80) (2024-07-10)
+
+**Note:** Version bump only for package @vtj/designer
+
+
+
+
+
+## [0.8.79](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.8.78...@vtj/designer@0.8.79) (2024-07-10)
+
+
+### Features
+
+* ✨ 设计器支持动态插槽 ([c9f8d7e](https://gitee.com/newgateway/vtj/commits/c9f8d7e4016b6e410ff878a75f36513c8db45a19))
+
+
+
+
+
+## [0.8.78](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.8.77...@vtj/designer@0.8.78) (2024-07-09)
+
+**Note:** Version bump only for package @vtj/designer
+
+
+
+
+
 ## [0.8.77](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.8.76...@vtj/designer@0.8.77) (2024-07-09)
 
 

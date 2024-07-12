@@ -264,7 +264,7 @@
       designer.value?.setDragging(null);
       return;
     }
-
+    
     const slot = await designer.value?.getDropSlot(
       type === 'inner' ? targetNode : targetNode.parent
     );

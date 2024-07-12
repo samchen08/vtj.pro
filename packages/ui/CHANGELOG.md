@@ -3,6 +3,55 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.81](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.8.80...@vtj/ui@0.8.81) (2024-07-12)
+
+
+### Bug Fixes
+
+* 🐛 select render 支持multiple ([0403fe3](https://gitee.com/newgateway/vtj/commits/0403fe3d387ce246410581136c2bdd996c7a48fe))
+
+
+### Features
+
+* ✨ x-grid支持动态插槽 ([cfe0d33](https://gitee.com/newgateway/vtj/commits/cfe0d333457a235cc11fd501c8f02629add9f23a))
+
+
+
+
+
+## [0.8.80](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.8.79...@vtj/ui@0.8.80) (2024-07-10)
+
+
+### Features
+
+* ✨ useEditRender 增加转换api ([95a994a](https://gitee.com/newgateway/vtj/commits/95a994a9e5f5ee553ef88c5792a4ad40c347070d))
+
+
+
+
+
+## [0.8.79](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.8.78...@vtj/ui@0.8.79) (2024-07-10)
+
+
+### Features
+
+* ✨ 设计器支持动态插槽 ([c9f8d7e](https://gitee.com/newgateway/vtj/commits/c9f8d7e4016b6e410ff878a75f36513c8db45a19))
+
+
+
+
+
+## [0.8.78](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.8.77...@vtj/ui@0.8.78) (2024-07-09)
+
+
+### Features
+
+* ✨ XGrider ([3984daa](https://gitee.com/newgateway/vtj/commits/3984daa58a583c052f1fe54e0df17d4ad05865b9))
+
+
+
+
+
 ## [0.8.77](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.8.76...@vtj/ui@0.8.77) (2024-07-09)
 
 

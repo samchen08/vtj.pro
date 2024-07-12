@@ -95,12 +95,18 @@
         editor="picker"
         :props="{ loader, columns, valueKey: 'id', onPicked }">
       </XField>
+      <XField
+        label="表格编辑器"
+        editor="grid"
+        :model-value="{ a: 1 }"
+        :props="dialogGrid">
+      </XField>
     </ElForm>
   </div>
 </template>
 <script lang="ts" setup>
   import { ref } from 'vue';
-  import { XField, request } from '@vtj/web';
+  import { XField, request, arrayToKv, kvToArray } from '@vtj/web';
   import { ElInput, ElForm } from 'element-plus';
   import TreeData from '../../data/tree';
 
@@ -201,5 +207,37 @@
 
   const onPicked = (data: any) => {
     console.log('picked', data);
+  };
+
+  const dialogGrid = {
+    title: '键值对',
+    columns: [
+      {
+        type: 'checkbox',
+        title: '',
+        width: 60
+      },
+      {
+        type: 'seq',
+        title: '序号',
+        width: 60
+      },
+      {
+        field: 'key',
+        title: '键',
+        editRender: {
+          name: 'XInput'
+        }
+      },
+      {
+        field: 'value',
+        title: '值',
+        editRender: {
+          name: 'XInput'
+        }
+      }
+    ],
+    formatter: kvToArray,
+    valueFormatter: arrayToKv
   };
 </script>

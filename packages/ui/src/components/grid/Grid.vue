@@ -165,6 +165,18 @@
     vxeRef.value.focus();
   };
 
+  const $vtjDynamicSlots = () => {
+    const { fullColumn = [] } = vxeRef.value?.getTableColumn() || {};
+    let result: string[] = [];
+    for (const col of fullColumn) {
+      const slots = Object.values(col.slots || {}).filter(
+        (v) => typeof v === 'string'
+      );
+      result = result.concat(slots as string[]);
+    }
+    return result;
+  };
+
   defineExpose({
     state,
     load,
@@ -180,7 +192,8 @@
     setActived,
     doLayout,
     getRecords,
-    setSelectCell
+    setSelectCell,
+    $vtjDynamicSlots
   });
 
   defineOptions({

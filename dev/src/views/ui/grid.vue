@@ -236,6 +236,8 @@
         width: '150px'
       }
     ] as GridColumns;
+
+    // console.log(gridRef.value?.vxeRef?.getTableColumn());
   }, 1000);
 
   const onRowSort = (e: any) => {

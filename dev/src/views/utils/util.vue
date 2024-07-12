@@ -2,7 +2,7 @@
   <div>util</div>
 </template>
 <script lang="ts" setup>
-  import { dedupArray } from '@vtj/web';
+  import { dedupArray, arrayToKv, kvToArray } from '@vtj/web';
 
   const array = [
     {
@@ -24,4 +24,8 @@
   ];
 
   console.log('dedupArray(array)', dedupArray(array, 'id'));
+
+  console.log('arrayToKv', arrayToKv(array, 'name', 'id'));
+
+  console.log('kvToArray', kvToArray(arrayToKv(array, 'name', 'id')));
 </script>

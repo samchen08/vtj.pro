@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.9](https://gitee.com/newgateway/vtj/compare/@vtj/base@0.8.8...@vtj/base@0.8.9) (2024-07-12)
+
+
+### Features
+
+* ✨ utils 增加公共数据处理方法 ([473e808](https://gitee.com/newgateway/vtj/commits/473e80821933d24a6fefd2548fdc9c0311f29e17))
+
+
+
+
+
+## [0.8.8](https://gitee.com/newgateway/vtj/compare/@vtj/base@0.8.7...@vtj/base@0.8.8) (2024-07-09)
+
+
+### Features
+
+* ✨ XGrider ([3984daa](https://gitee.com/newgateway/vtj/commits/3984daa58a583c052f1fe54e0df17d4ad05865b9))
+
+
+
+
+
 ## [0.8.7](https://gitee.com/newgateway/vtj/compare/@vtj/base@0.8.6...@vtj/base@0.8.7) (2024-07-09)
 
 

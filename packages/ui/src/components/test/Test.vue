@@ -25,6 +25,10 @@
         </div>
       </XPanel>
     </XContainer>
+    <ElDivider>动态插槽</ElDivider>
+    <XContainer>
+      <slot v-for="item of $vtjDynamicSlots()" :name="item"></slot>
+    </XContainer>
     <ElDivider>双向绑定</ElDivider>
     <XContainer>
       <ElDescriptions :column="2" border>
@@ -65,6 +69,10 @@
   const props = defineProps(testProps);
   const emit = defineEmits<TestEmits>();
   const propsArray = computed(() => Object.entries(props));
+
+  const $vtjDynamicSlots = () => {
+    return ['dSlot_1', 'dSlot_2'];
+  };
 
   const currentModelValue = computed({
     get() {
@@ -113,6 +121,7 @@
     click,
     submit,
     data,
-    change
+    change,
+    $vtjDynamicSlots
   });
 </script>

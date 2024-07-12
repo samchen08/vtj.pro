@@ -7,15 +7,18 @@ export function useEditRender(
   params: VxeGlobalRendererHandles.RenderEditParams
 ) {
   const { row, column } = params;
+  const { props = {}, events = {} } = renderOpts;
+  const { parser, stringify } = props;
+
   const cellValue = computed({
     get() {
-      return row[column.field];
+      return parser ? parser(row[column.field]) : row[column.field];
     },
     set(v) {
-      row[column.field] = v;
+      row[column.field] = stringify ? stringify(v) : v;
     }
   });
-  const { props = {}, events = {} } = renderOpts;
+
   const renderProps = isFunction(props)
     ? props({ row, column, cellValue })
     : props;

@@ -8,7 +8,9 @@
       :columns="columns"
       :model="model"
       :rules="rules"
-      :submit-method="submitMethod"></XDialogGrid>
+      :submit-method="submitMethod"
+      width="600px"
+      height="500px"></XDialogGrid>
   </div>
 </template>
 <script lang="ts" setup>

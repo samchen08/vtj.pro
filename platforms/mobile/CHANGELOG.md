@@ -3,6 +3,38 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.81](https://gitee.com/newgateway/vtj/compare/@vtj/mobile@0.8.80...@vtj/mobile@0.8.81) (2024-07-12)
+
+**Note:** Version bump only for package @vtj/mobile
+
+
+
+
+
+## [0.8.80](https://gitee.com/newgateway/vtj/compare/@vtj/mobile@0.8.79...@vtj/mobile@0.8.80) (2024-07-10)
+
+**Note:** Version bump only for package @vtj/mobile
+
+
+
+
+
+## [0.8.79](https://gitee.com/newgateway/vtj/compare/@vtj/mobile@0.8.78...@vtj/mobile@0.8.79) (2024-07-10)
+
+**Note:** Version bump only for package @vtj/mobile
+
+
+
+
+
+## [0.8.78](https://gitee.com/newgateway/vtj/compare/@vtj/mobile@0.8.77...@vtj/mobile@0.8.78) (2024-07-09)
+
+**Note:** Version bump only for package @vtj/mobile
+
+
+
+
+
 ## [0.8.77](https://gitee.com/newgateway/vtj/compare/@vtj/mobile@0.8.76...@vtj/mobile@0.8.77) (2024-07-09)
 
 **Note:** Version bump only for package @vtj/mobile

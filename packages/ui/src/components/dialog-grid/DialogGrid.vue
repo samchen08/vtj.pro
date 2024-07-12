@@ -59,6 +59,7 @@
 
   const emit = defineEmits<DialogGridEmits>();
   const modelValue = defineModel<boolean>();
+  const $vtjEl = computed(() => dialogRef.value?.$vtjEl);
 
   const tableData = computed(() => {
     return props.formatter ? props.formatter(props.model) : props.model;
@@ -107,6 +108,7 @@
   });
 
   defineExpose({
+    $vtjEl,
     gridRef,
     dialogRef,
     addRow,

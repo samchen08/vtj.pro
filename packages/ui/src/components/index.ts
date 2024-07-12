@@ -26,3 +26,4 @@ export * from './grid';
 export * from './picker';
 export * from './import-button';
 export * from './dialog-grid';
+export * from './grid-editor';

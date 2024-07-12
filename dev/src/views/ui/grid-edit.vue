@@ -159,6 +159,10 @@
       title: 'Picker'
     },
     {
+      field: 'grider',
+      title: 'Grider'
+    },
+    {
       field: 'actions',
       title: 'Actions'
     }
@@ -232,6 +236,40 @@
           console.log(data, params);
           params.row.input = '333333';
         }
+      }
+    },
+    grider: {
+      name: 'XGrider',
+      props: {
+        title: '键值对',
+        columns: [
+          {
+            type: 'checkbox',
+            title: '',
+            width: 60
+          },
+          {
+            type: 'seq',
+            title: '序号',
+            width: 60
+          },
+          {
+            field: 'key',
+            title: '键',
+            editRender: {
+              name: 'XInput'
+            }
+          },
+          {
+            field: 'value',
+            title: '值',
+            editRender: {
+              name: 'XInput'
+            }
+          }
+        ],
+        formatter: (data: any) => JSON.parse(data || '[]'),
+        valueFormatter: (data: any) => JSON.stringify(data)
       }
     }
   };
