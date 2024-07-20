@@ -28,12 +28,17 @@
           :label="nameLabel"
           required
           :disabled="isEdit"></XField>
-        <XField ref="codeFieldRef" name="value" :label="valueLabel" required>
+        <XField
+          class="v-binder__editor"
+          ref="codeFieldRef"
+          name="value"
+          :label="valueLabel"
+          required>
           <template #editor>
             <Editor
               ref="editorRef"
               dark
-              height="350px"
+              height="100%"
               v-model="model.value"
               @blur="onEditorBlur"></Editor>
           </template>

@@ -15,6 +15,7 @@ dist-ssr
 lib
 *.local
 .nx
+.husky/_
 
 
 # Editor directories and files

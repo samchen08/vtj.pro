@@ -17,12 +17,16 @@
         :options="options"
         required
         :disabled="isEdit"></XField>
-      <XField name="value" :label="valueLabel" required>
+      <XField
+        class="v-binder__editor"
+        name="value"
+        :label="valueLabel"
+        required>
         <template #editor>
           <Editor
             ref="editorRef"
             dark
-            height="350px"
+            height="100%"
             v-model="model.value"></Editor>
         </template>
       </XField>
@@ -32,7 +36,11 @@
 <script lang="ts" setup>
   import { computed } from 'vue';
   import { BlockModel, type JSFunction } from '@vtj/core';
-  import { type Context, LIFE_CYCLES_LIST, JSCodeToString } from '@vtj/renderer';
+  import {
+    type Context,
+    LIFE_CYCLES_LIST,
+    JSCodeToString
+  } from '@vtj/renderer';
   import { XField } from '@vtj/ui';
   import Group from './group.vue';
   import { notify, expressionValidate } from '../../../utils';

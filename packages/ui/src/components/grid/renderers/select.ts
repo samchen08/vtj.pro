@@ -21,7 +21,7 @@ function renderCell(renderOpts: any, params: any) {
       label = option?.label;
     }
   }
-  return [createTextVNode(label ?? value)];
+  return [createTextVNode(label || value)];
 }
 
 export const XSelect: RendererOptions = {

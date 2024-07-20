@@ -12,9 +12,22 @@
     :itemTitle="itemTitle"
     grow>
     <template #fields="{ model, nameLabel, valueLabel }">
-      <XField name="source" :label="nameLabel" required>
+      <XField
+        class="v-binder__editor"
+        name="source"
+        :label="nameLabel"
+        required>
         <template #editor>
-          <Editor dark height="100px" v-model="model.source"></Editor>
+          <Editor dark height="100%" v-model="model.source"></Editor>
+        </template>
+      </XField>
+      <XField
+        class="v-binder__editor"
+        name="handler"
+        :label="valueLabel"
+        required>
+        <template #editor>
+          <Editor dark height="100%" v-model="model.handler"></Editor>
         </template>
       </XField>
       <XField
@@ -27,11 +40,6 @@
         v-model="model.immediate"
         label="立即执行"
         editor="switch"></XField>
-      <XField name="handler" :label="valueLabel" required>
-        <template #editor>
-          <Editor dark height="130px" v-model="model.handler"></Editor>
-        </template>
-      </XField>
     </template>
   </Group>
 </template>

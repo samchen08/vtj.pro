@@ -12,13 +12,17 @@
       editor="checkbox"
       :options="modifiers">
     </XField>
-    <XField name="handler.value" label="事件处理函数 [ JSFunction ]" required>
+    <XField
+      class="v-binder__editor"
+      name="handler.value"
+      label="事件处理函数 [ JSFunction ]"
+      required>
       <template #editor>
         <Editor
           ref="editorRef"
           v-model="model.handler.value"
           dark
-          height="350px"></Editor>
+          height="100%"></Editor>
       </template>
     </XField>
   </Binder>

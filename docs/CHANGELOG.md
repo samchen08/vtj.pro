@@ -3,6 +3,110 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.94](https://gitee.com/newgateway/vtj/compare/@vtj/docs@0.8.93...@vtj/docs@0.8.94) (2024-07-20)
+
+**Note:** Version bump only for package @vtj/docs
+
+
+
+
+
+## [0.8.93](https://gitee.com/newgateway/vtj/compare/@vtj/docs@0.8.92...@vtj/docs@0.8.93) (2024-07-20)
+
+**Note:** Version bump only for package @vtj/docs
+
+
+
+
+
+## [0.8.92](https://gitee.com/newgateway/vtj/compare/@vtj/docs@0.8.91...@vtj/docs@0.8.92) (2024-07-19)
+
+**Note:** Version bump only for package @vtj/docs
+
+
+
+
+
+## [0.8.91](https://gitee.com/newgateway/vtj/compare/@vtj/docs@0.8.90...@vtj/docs@0.8.91) (2024-07-19)
+
+**Note:** Version bump only for package @vtj/docs
+
+
+
+
+
+## [0.8.90](https://gitee.com/newgateway/vtj/compare/@vtj/docs@0.8.89...@vtj/docs@0.8.90) (2024-07-18)
+
+**Note:** Version bump only for package @vtj/docs
+
+
+
+
+
+## [0.8.89](https://gitee.com/newgateway/vtj/compare/@vtj/docs@0.8.88...@vtj/docs@0.8.89) (2024-07-18)
+
+**Note:** Version bump only for package @vtj/docs
+
+
+
+
+
+## [0.8.88](https://gitee.com/newgateway/vtj/compare/@vtj/docs@0.8.87...@vtj/docs@0.8.88) (2024-07-16)
+
+**Note:** Version bump only for package @vtj/docs
+
+
+
+
+
+## [0.8.87](https://gitee.com/newgateway/vtj/compare/@vtj/docs@0.8.86...@vtj/docs@0.8.87) (2024-07-16)
+
+**Note:** Version bump only for package @vtj/docs
+
+
+
+
+
+## [0.8.86](https://gitee.com/newgateway/vtj/compare/@vtj/docs@0.8.85...@vtj/docs@0.8.86) (2024-07-15)
+
+**Note:** Version bump only for package @vtj/docs
+
+
+
+
+
+## [0.8.85](https://gitee.com/newgateway/vtj/compare/@vtj/docs@0.8.84...@vtj/docs@0.8.85) (2024-07-15)
+
+**Note:** Version bump only for package @vtj/docs
+
+
+
+
+
+## [0.8.84](https://gitee.com/newgateway/vtj/compare/@vtj/docs@0.8.83...@vtj/docs@0.8.84) (2024-07-15)
+
+**Note:** Version bump only for package @vtj/docs
+
+
+
+
+
+## [0.8.83](https://gitee.com/newgateway/vtj/compare/@vtj/docs@0.8.82...@vtj/docs@0.8.83) (2024-07-12)
+
+**Note:** Version bump only for package @vtj/docs
+
+
+
+
+
+## [0.8.82](https://gitee.com/newgateway/vtj/compare/@vtj/docs@0.8.81...@vtj/docs@0.8.82) (2024-07-12)
+
+**Note:** Version bump only for package @vtj/docs
+
+
+
+
+
 ## [0.8.81](https://gitee.com/newgateway/vtj/compare/@vtj/docs@0.8.80...@vtj/docs@0.8.81) (2024-07-12)
 
 **Note:** Version bump only for package @vtj/docs

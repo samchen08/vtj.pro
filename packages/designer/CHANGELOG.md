@@ -3,6 +3,119 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.94](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.8.93...@vtj/designer@0.8.94) (2024-07-20)
+
+
+### Bug Fixes
+
+* 🐛 绑定器支持最大化 ([7c852f7](https://gitee.com/newgateway/vtj/commits/7c852f7514629d247ea498d0ac3170871dd6b551))
+
+
+
+
+
+## [0.8.93](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.8.92...@vtj/designer@0.8.93) (2024-07-20)
+
+**Note:** Version bump only for package @vtj/designer
+
+
+
+
+
+## [0.8.92](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.8.91...@vtj/designer@0.8.92) (2024-07-19)
+
+**Note:** Version bump only for package @vtj/designer
+
+
+
+
+
+## [0.8.91](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.8.90...@vtj/designer@0.8.91) (2024-07-19)
+
+
+### Bug Fixes
+
+* 🐛 双向绑定属性提取错误 ([7482192](https://gitee.com/newgateway/vtj/commits/74821920edfc8495b2f4f388c07630f9906a35cd))
+
+
+
+
+
+## [0.8.90](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.8.89...@vtj/designer@0.8.90) (2024-07-18)
+
+**Note:** Version bump only for package @vtj/designer
+
+
+
+
+
+## [0.8.89](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.8.88...@vtj/designer@0.8.89) (2024-07-18)
+
+**Note:** Version bump only for package @vtj/designer
+
+
+
+
+
+## [0.8.88](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.8.87...@vtj/designer@0.8.88) (2024-07-16)
+
+**Note:** Version bump only for package @vtj/designer
+
+
+
+
+
+## [0.8.87](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.8.86...@vtj/designer@0.8.87) (2024-07-16)
+
+**Note:** Version bump only for package @vtj/designer
+
+
+
+
+
+## [0.8.86](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.8.85...@vtj/designer@0.8.86) (2024-07-15)
+
+**Note:** Version bump only for package @vtj/designer
+
+
+
+
+
+## [0.8.85](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.8.84...@vtj/designer@0.8.85) (2024-07-15)
+
+**Note:** Version bump only for package @vtj/designer
+
+
+
+
+
+## [0.8.84](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.8.83...@vtj/designer@0.8.84) (2024-07-15)
+
+**Note:** Version bump only for package @vtj/designer
+
+
+
+
+
+## [0.8.83](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.8.82...@vtj/designer@0.8.83) (2024-07-12)
+
+**Note:** Version bump only for package @vtj/designer
+
+
+
+
+
+## [0.8.82](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.8.81...@vtj/designer@0.8.82) (2024-07-12)
+
+
+### Bug Fixes
+
+* 🐛 getVueInstance 异步组件失效 ([3774776](https://gitee.com/newgateway/vtj/commits/377477630d83a9e2b97aee95682e35bb6062ee4c))
+
+
+
+
+
 ## [0.8.81](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.8.80...@vtj/designer@0.8.81) (2024-07-12)
 
 **Note:** Version bump only for package @vtj/designer

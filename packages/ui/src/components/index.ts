@@ -18,7 +18,7 @@ export * from './startup';
 export * from './test';
 export * from './input-unit';
 export * from './image-code-input';
-export * from './qrcode';
+export * from './qr-code';
 export * from './sms-code-input';
 export * from './attachment';
 export * from './query-form';

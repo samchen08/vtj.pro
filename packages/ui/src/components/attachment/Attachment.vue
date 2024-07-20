@@ -2,53 +2,55 @@
   <div class="x-attachment" :class="classes">
     <ElUpload
       ref="elUploadRef"
-      :key="refreshKey"
       v-model:file-list="fileList"
-      v-bind="uploadProps"
       :on-exceed="onExceed"
       :on-change="onChange"
-      :http-request="httpRequest">
+      :http-request="httpRequest"
+      v-bind="uploadProps">
       <div class="x-attachment__upload">
-        <ElIcon><Plus /></ElIcon>
+        <slot name="upload">
+          <ElIcon><Plus /></ElIcon>
+        </slot>
       </div>
       <template #file="{ file }">
         <div
           class="x-attachment__item"
-          :class="{ 'is-selected': isSelected(file.response || file) }"
-          v-loading="file.status === 'ready' || file.status === 'uploading'"
-          @click="onClick(file.response || file)">
+          :class="{ 'is-selected': isSelected(file) }"
+          v-loading="loadings[file.uid]"
+          @click="onClick(file)">
           <div class="x-attachment__wrapper">
             <img
               class="el-upload-list__item-thumbnail"
-              :class="{ 'is-icon': !isImage(file.response || file) }"
-              :src="createFileThumbnail(file.response || file)" />
+              :class="{ 'is-icon': !isImage(file) }"
+              :src="createFileThumbnail(file)" />
             <div
+              v-if="props.listType !== 'card' || file.name"
               class="el-upload-list__item-name"
-              :title="(file.response || file).url">
+              :title="file.url">
               <span v-if="file.name" class="x-attachment__item-name">
-                {{ (file.response || file).name }}</span
+                {{ file.name }}</span
               >
               <span class="el-upload-list__item-url">
-                {{ (file.response || file).url }}
+                {{ file.url }}
               </span>
             </div>
           </div>
           <div v-if="hasAction" class="el-upload-list__item-actions">
             <span
               v-if="props.previewable"
-              @click="openImagePreviewer(file.response || file)"
+              @click.stop="openImagePreviewer(file)"
               class="el-upload-list__item-preview">
               <el-icon><ZoomIn /></el-icon>
             </span>
             <span
               v-if="props.downloadable"
-              @click="download(file.response || file)"
+              @click.stop="download(file)"
               class="el-upload-list__item-delete">
               <el-icon><Download /></el-icon>
             </span>
             <span
               v-if="props.removable && !props.disabled"
-              @click="remove(file)"
+              @click.stop="remove(file)"
               class="el-upload-list__item-delete">
               <el-icon><Delete /></el-icon>
             </span>
@@ -70,7 +72,7 @@
   </div>
 </template>
 <script lang="ts" setup>
-  import { computed, ref, watch, type Ref } from 'vue';
+  import { computed, ref, watch, useAttrs, type Ref } from 'vue';
   import {
     ElUpload,
     ElIcon,
@@ -92,13 +94,15 @@
   import { icons } from './icons';
 
   defineOptions({
-    name: 'XAttachment'
+    name: 'XAttachment',
+    inheritAttrs: false
   });
 
   const adapter = useAdapter();
   const props = defineProps(attachmentProps);
   const emit = defineEmits<AttachmentEmits>();
-  const uploading = ref(false);
+  const attrs = useAttrs();
+  const loadings: Record<string, boolean> = {};
   const elUploadRef = ref();
   const refreshKey = ref(Symbol());
   const imagePreviewerVisible = ref(false);
@@ -110,7 +114,8 @@
       [`x-attachment--${props.listType}`]: !!props.listType,
       ['is-disabled']: !!props.disabled,
       ['is-pointer']: !!props.clickable || !!props.selectable,
-      ['is-not-add']: !props.addable || props.limit === fileList.value.length,
+      ['is-not-add']:
+        !props.addable || (props.limit && props.limit <= fileList.value.length),
       [`is-${props.size}`]: !!props.size
     };
   });
@@ -128,28 +133,36 @@
   );
 
   const createFileThumbnail = (file: any) => {
-    const type = getFileType(file.response || file);
+    const type = getFileType(file);
     if (type === 'img') {
-      return props.thumbnail ? props.thumbnail(file) : file.url;
+      return props.thumbnail && !file.url.startsWith('blob:')
+        ? props.thumbnail(file)
+        : file.url;
     }
     return icons[type];
   };
 
   const uploadProps = computed(() => {
     return {
-      autoUpload: true,
       limit: props.limit,
-      disabled: uploading.value || props.disabled,
+      disabled: props.disabled,
       multiple: props.multiple,
       accept: props.accept,
-      listType: { card: 'picture-card', list: 'picture' }[props.listType] as any
+      listType: { card: 'picture-card', list: 'picture' }[
+        props.listType
+      ] as any,
+      beforeUpload: props.beforeUpload as any,
+      ...attrs
     };
   });
 
   watch(
     () => props.modelValue,
-    (v) => {
-      fileList.value = cloneDeep(v || []) as UploadUserFile[];
+    async (v) => {
+      const copy = cloneDeep(v || []);
+      fileList.value = props.formatter
+        ? await props.formatter(copy)
+        : (copy as UploadUserFile[]);
     },
     {
       immediate: true
@@ -174,22 +187,53 @@
     });
   };
 
+  const valueFormat = async (files: any[] = []) => {
+    return props.valueFormatter ? await props.valueFormatter(files) : files;
+  };
+
+  const validateLimitSize = (file: File) => {
+    if (!props.limitSize) return true;
+    const limitSize = props.limitSize.toUpperCase();
+    const value = Number.parseFloat(limitSize) || 0;
+    if (value) {
+      if (limitSize.endsWith('M')) {
+        return file.size < value * 1024 ** 2;
+      } else {
+        return file.size < value * 1024;
+      }
+    }
+    return true;
+  };
+
+  const clean = (file: UploadUserFile) => {
+    const index = fileList.value.findIndex((n) => n.uid === file.uid);
+    if (index > -1) {
+      fileList.value.splice(index, 1);
+    }
+  };
+
   const httpRequest = async (options: UploadRequestOptions) => {
     const uploader = props.uploader || adapter.uploader;
     if (uploader) {
-      uploading.value = true;
       const file = options.file;
-      const res = await uploader(file).catch(() => null);
-      if (!res) {
-        const index = fileList.value.findIndex((n) => n.uid === file.uid);
-        if (index > -1) {
-          fileList.value.splice(index, 1);
-          ElMessage.error({
-            message: `文件${file.name}上传失败。`
-          });
-        }
+      const valid = validateLimitSize(file);
+      if (!valid) {
+        clean(file as UploadUserFile);
+        ElMessage.error({
+          message: `上传文件体积不可超过${props.limitSize}`
+        });
+        return;
       }
-      uploading.value = false;
+      loadings[file.uid] = true;
+      const res = await uploader(file).catch(() => null);
+      loadings[file.uid] = false;
+      if (!res) {
+        clean(file as UploadUserFile);
+        ElMessage.error({
+          message: `文件${file.name}上传失败。`
+        });
+        return;
+      }
       return typeof res === 'string' ? { url: res } : res;
     }
   };
@@ -204,9 +248,9 @@
       }
     } else {
       if (props.multiple) {
-        selections.value.push(toAttachmentFile(file.response || file));
+        selections.value.push(toAttachmentFile(file));
       } else {
-        selections.value = [toAttachmentFile(file.response || file)];
+        selections.value = [toAttachmentFile(file)];
       }
     }
     emit('select', selections.value);
@@ -229,25 +273,24 @@
 
   const onClick = (file: UploadUserFile) => {
     if (props.clickable) {
-      emit('click', toAttachmentFile(file.response || file));
+      emit('click', toAttachmentFile(file));
     }
     if (props.selectable) {
       toggleSelected(file);
     }
   };
 
-  const onChange = async (
-    _uploadFile: UploadFile,
-    uploadFiles: UploadFiles
-  ) => {
+  const onChange = async (uploadFile: UploadFile, uploadFiles: UploadFiles) => {
     const isAllSuccess = uploadFiles.every((n) => n.status === 'success');
     if (isAllSuccess && uploadFiles.length === fileList.value.length) {
       const files: AttachmentFile[] = fileList.value.map((n) => {
-        return toAttachmentFile(n.response || n);
+        return toAttachmentFile(n);
       });
       emit('change', files);
-      emit('update:modelValue', files);
-      refreshKey.value = Symbol();
+      emit('update:modelValue', await valueFormat(files));
+      if (uploadFile?.response) {
+        refreshKey.value = Symbol();
+      }
     }
   };
 
@@ -261,20 +304,26 @@
         return n.uid !== (file as UploadUserFile).uid || n.url !== file.url;
       })
       .map((n) => {
-        return toAttachmentFile(n.response || n);
+        return toAttachmentFile(n);
       });
     fileList.value = files;
     emit('remove', file);
     emit('change', files);
-    emit('update:modelValue', files);
+    emit('update:modelValue', await valueFormat(files));
     unSelect(file);
-    refreshKey.value = Symbol();
+    if (!file?.raw) {
+      refreshKey.value = Symbol();
+    }
   };
 
   const download = (file: AttachmentFile) => {
-    downloadRemoteFile(file.url, file.name).catch(() => {
-      downloadUrl(file.url, file.name);
-    });
+    if (props.downloader) {
+      props.downloader(file);
+    } else {
+      downloadRemoteFile(file.url, file.name).catch(() => {
+        downloadUrl(file.url, file.name);
+      });
+    }
     emit('download', file);
   };
 
@@ -285,7 +334,11 @@
       );
       imagePreviewerVisible.value = true;
     } else {
-      downloadUrl(file.url, file.name);
+      if (props.previewer) {
+        props.previewer(file);
+      } else {
+        window.open(file.url);
+      }
     }
 
     emit('preview', file);
@@ -295,11 +348,16 @@
     imagePreviewerVisible.value = false;
   };
 
+  const upload = () => {
+    elUploadRef.value?.submit();
+  };
+
   defineExpose({
     elUploadRef,
     remove,
     download,
     selections,
-    fileList
+    fileList,
+    upload
   });
 </script>

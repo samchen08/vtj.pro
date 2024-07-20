@@ -40,7 +40,7 @@ function findModelProps(desc: MaterialDescription) {
 
     if (!updated.length) return [];
     return props.filter((n) => {
-      return updated.some((e) => e.includes(n.name));
+      return updated.some((e) => e.endsWith(':' + n.name));
     });
   }
   return [];

@@ -1,6 +1,6 @@
 import type { PropType } from 'vue';
-import { type BaseSize } from '../shared';
-
+import { type BaseSize, type MaybePromise } from '../shared';
+import type { UploadUserFile } from 'element-plus';
 import type {
   AttachmentFile,
   AttachmentUploader,
@@ -114,5 +114,38 @@ export const attachmentProps = {
   listType: {
     type: String as PropType<'card' | 'list'>,
     default: 'card'
+  },
+  /**
+   * 上传前守卫
+   */
+  beforeUpload: {
+    type: Function
+  },
+  /**
+   * 允许上传的文件大写最大值， 支持 K / M
+   */
+  limitSize: {
+    type: String,
+    default: '10M'
+  },
+
+  formatter: {
+    type: Function as PropType<
+      (files: AttachmentFile[]) => MaybePromise<UploadUserFile[]>
+    >
+  },
+
+  valueFormatter: {
+    type: Function as PropType<
+      (files: UploadUserFile[]) => MaybePromise<AttachmentFile[]>
+    >
+  },
+
+  previewer: {
+    type: Function as PropType<(file: AttachmentFile) => void>
+  },
+
+  downloader: {
+    type: Function as PropType<(file: AttachmentFile) => void>
   }
 };

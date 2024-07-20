@@ -19,6 +19,7 @@ export interface AttachmentFile extends UploaderResponse {
   url: string;
   name?: string;
   type?: AttachmentFileType;
+  [index: string]: any;
 }
 
 export type AttachmentUploader = (

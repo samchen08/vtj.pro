@@ -32,10 +32,11 @@ export function isImage(file: AttachmentFile) {
 }
 
 export function toAttachmentFile(file: any) {
-  const { url, type, name } = file || {};
+  const { url, type } = file || {};
   return {
     url,
-    type: type || getFileType(file),
-    name
+    ...file,
+    ...file.response,
+    type: type || getFileType(file.response || file)
   };
 }

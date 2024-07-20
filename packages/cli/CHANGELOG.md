@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.22](https://gitee.com/newgateway/vtj/compare/@vtj/cli@0.8.21...@vtj/cli@0.8.22) (2024-07-20)
+
+**Note:** Version bump only for package @vtj/cli
+
+
+
+
+
+## [0.8.21](https://gitee.com/newgateway/vtj/compare/@vtj/cli@0.8.20...@vtj/cli@0.8.21) (2024-07-15)
+
+
+### Features
+
+* ✨ 静态服务器添加 Access-Control-Allow-Origin ([a7d38c9](https://gitee.com/newgateway/vtj/commits/a7d38c96f735a8d3708a25b888f5fb6a407ac02c))
+
+
+
+
+
 ## [0.8.20](https://gitee.com/newgateway/vtj/compare/@vtj/cli@0.8.19...@vtj/cli@0.8.20) (2024-07-12)
 
 **Note:** Version bump only for package @vtj/cli

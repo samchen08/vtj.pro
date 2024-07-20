@@ -40,13 +40,13 @@ const desc: MaterialDescription = {
       name: 'accept',
       label: 'accept',
       title: ' 接受上传的文件类型, 如：image/png, image/jpeg, .pptx',
-      setters: 'NumberSetter'
+      setters: 'StringSetter'
     },
     {
       name: 'disabled',
       label: 'disabled',
       title: '禁止更改文件，不能上传和删除',
-      setters: 'NumberSetter'
+      setters: 'BooleanSetter'
     },
     size(),
     {

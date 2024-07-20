@@ -1,6 +1,9 @@
 @use 'core' as *;
 
 @include b(attachment) {
+  .el-upload-list__item {
+    transition: none;
+  }
   @include when(disabled) {
     .el-upload {
       display: none;
@@ -105,6 +108,12 @@
   }
 
   @include m(list) {
+    .el-upload-list__item-actions {
+      .el-icon {
+        font-size: 16px;
+      }
+    }
+
     @include e(item) {
       width: 100%;
       display: flex;
@@ -136,6 +145,11 @@
         height: 24px;
         width: 24px;
       }
+      .el-upload-list__item-actions {
+        .el-icon {
+          font-size: 14px;
+        }
+      }
     }
 
     @include when(large) {
@@ -148,6 +162,11 @@
       .el-upload-list__item-thumbnail {
         height: 50px;
         width: 50px;
+      }
+      .el-upload-list__item-actions {
+        .el-icon {
+          font-size: 18px;
+        }
       }
     }
 

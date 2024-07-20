@@ -6,7 +6,8 @@
     width="1000px"
     height="600px"
     :body-padding="false"
-    :maximizable="false"
+    :resizable="false"
+    :maximizable="true"
     :minimizable="false"
     @close="onClose">
     <XContainer fit direction="row" overflow="hidden">

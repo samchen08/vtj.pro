@@ -1,7 +1,7 @@
 {
   "name": "@vtj/web",
   "private": false,
-  "version": "0.8.81",
+  "version": "0.8.94",
   "type": "module",
   "sideEffects": false,
   "scripts": {
@@ -26,7 +26,10 @@
       "types": "./src/index.ts",
       "import": "./src/index.ts",
       "require": "./src/index.ts"
-    }
+    },
+    "./*": [
+      "./*"
+    ]
   },
   "main": "./src/index.ts",
   "module": "./src/index.ts",

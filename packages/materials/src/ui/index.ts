@@ -11,7 +11,7 @@ import container from './container';
 import action from './action';
 import actionBar from './action-bar';
 import attachment from './attachment';
-import qrcode from './qrcode';
+import qrCode from './qr-code';
 import panel from './panel';
 import dataItem from './data-item';
 import dialog from './dialog';
@@ -34,7 +34,7 @@ const components: MaterialDescription[] = [
   container,
   action,
   actionBar,
-  qrcode,
+  qrCode,
   panel,
   attachment,
   dataItem,

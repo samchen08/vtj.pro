@@ -13,16 +13,26 @@ export function staticPlugin(
   const opts = options.map((item) => {
     return typeof item === 'string' ? { path: '/', dir: item } : item;
   });
+
+  const setHeaders = (res: any, _path: any) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+  };
   return {
     name: 'vtj-static-server',
     configureServer(server) {
       for (let option of opts) {
-        server.middlewares.use(option.path, serveStatic(resolve(option.dir)));
+        server.middlewares.use(
+          option.path,
+          serveStatic(resolve(option.dir), { setHeaders })
+        );
       }
     },
     configurePreviewServer(server) {
       for (let option of opts) {
-        server.middlewares.use(option.path, serveStatic(resolve(option.dir)));
+        server.middlewares.use(
+          option.path,
+          serveStatic(resolve(option.dir), { setHeaders })
+        );
       }
     }
   };

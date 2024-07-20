@@ -6,13 +6,13 @@
     :context="props.context"
     :model="model"
     @pick="onPick">
-    <XField name="value" label="绑定内容 [ JSExpression ]" required>
+    <XField class="v-binder__editor" name="value" label="绑定内容 [ JSExpression ]" required>
       <template #editor>
         <Editor
           ref="editorRef"
           v-model="model.value"
           dark
-          height="450px"></Editor>
+          height="100%"></Editor>
       </template>
     </XField>
   </Binder>

@@ -3,6 +3,116 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.94](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.8.93...@vtj/materials@0.8.94) (2024-07-20)
+
+**Note:** Version bump only for package @vtj/materials
+
+
+
+
+
+## [0.8.93](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.8.92...@vtj/materials@0.8.93) (2024-07-20)
+
+**Note:** Version bump only for package @vtj/materials
+
+
+
+
+
+## [0.8.92](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.8.91...@vtj/materials@0.8.92) (2024-07-19)
+
+
+### Bug Fixes
+
+* 🐛 附件上传物料 ([102bae9](https://gitee.com/newgateway/vtj/commits/102bae9a5840f54f4b2e43c9e58791a2f16c49b2))
+
+
+
+
+
+## [0.8.91](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.8.90...@vtj/materials@0.8.91) (2024-07-19)
+
+**Note:** Version bump only for package @vtj/materials
+
+
+
+
+
+## [0.8.90](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.8.89...@vtj/materials@0.8.90) (2024-07-18)
+
+**Note:** Version bump only for package @vtj/materials
+
+
+
+
+
+## [0.8.89](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.8.88...@vtj/materials@0.8.89) (2024-07-18)
+
+**Note:** Version bump only for package @vtj/materials
+
+
+
+
+
+## [0.8.88](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.8.87...@vtj/materials@0.8.88) (2024-07-16)
+
+**Note:** Version bump only for package @vtj/materials
+
+
+
+
+
+## [0.8.87](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.8.86...@vtj/materials@0.8.87) (2024-07-16)
+
+**Note:** Version bump only for package @vtj/materials
+
+
+
+
+
+## [0.8.86](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.8.85...@vtj/materials@0.8.86) (2024-07-15)
+
+**Note:** Version bump only for package @vtj/materials
+
+
+
+
+
+## [0.8.85](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.8.84...@vtj/materials@0.8.85) (2024-07-15)
+
+**Note:** Version bump only for package @vtj/materials
+
+
+
+
+
+## [0.8.84](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.8.83...@vtj/materials@0.8.84) (2024-07-15)
+
+
+### Features
+
+* ✨ 二维码组件 ([ca2c380](https://gitee.com/newgateway/vtj/commits/ca2c3801326eef7e1c31a4773756c1d7a1a0dc47))
+
+
+
+
+
+## [0.8.83](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.8.82...@vtj/materials@0.8.83) (2024-07-12)
+
+**Note:** Version bump only for package @vtj/materials
+
+
+
+
+
+## [0.8.82](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.8.81...@vtj/materials@0.8.82) (2024-07-12)
+
+**Note:** Version bump only for package @vtj/materials
+
+
+
+
+
 ## [0.8.81](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.8.80...@vtj/materials@0.8.81) (2024-07-12)
 
 **Note:** Version bump only for package @vtj/materials

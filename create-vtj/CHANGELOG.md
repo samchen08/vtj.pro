@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.15](https://gitee.com/newgateway/vtj/compare/create-vtj@0.8.14...create-vtj@0.8.15) (2024-07-19)
+
+
+### Bug Fixes
+
+* 🐛 修复项目模板样式丢失 ([1ed5f3d](https://gitee.com/newgateway/vtj/commits/1ed5f3d6842545aba045eb361201fca6bbbfc708))
+
+
+
+
+
 ## [0.8.14](https://gitee.com/newgateway/vtj/compare/create-vtj@0.8.13...create-vtj@0.8.14) (2024-07-12)
 
 **Note:** Version bump only for package create-vtj
