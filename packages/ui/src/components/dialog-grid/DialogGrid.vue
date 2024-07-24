@@ -34,6 +34,9 @@
       <template #top>
         <slot name="top"></slot>
       </template>
+      <template v-for="slot of slots" #[slot]="slotData">
+        <slot :name="slot" v-bind="slotData"></slot>
+      </template>
     </XGrid>
     <template #extra>
       <slot name="extra"></slot>
@@ -48,6 +51,7 @@
   import { XAction } from '../action';
   import { Plus, Minus } from '@vtj/icons';
   import type { DialogGridProps, DialogGridEmits } from './types';
+  import { useDefineSlots } from '../../hooks';
 
   const gridRef = ref();
   const dialogRef = ref();
@@ -60,6 +64,7 @@
   const emit = defineEmits<DialogGridEmits>();
   const modelValue = defineModel<boolean>();
   const $vtjEl = computed(() => dialogRef.value?.$vtjEl);
+  const slots = useDefineSlots(['top', 'extra', 'buttons']);
 
   const tableData = computed(() => {
     return props.formatter ? props.formatter(props.model) : props.model;
@@ -96,6 +101,10 @@
     }
   };
 
+  const $vtjDynamicSlots = () => {
+    return gridRef.value?.$vtjDynamicSlots();
+  };
+
   watch(gridRef, async (grid) => {
     if (grid) {
       await delay();
@@ -109,6 +118,7 @@
 
   defineExpose({
     $vtjEl,
+    $vtjDynamicSlots,
     gridRef,
     dialogRef,
     addRow,

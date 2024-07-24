@@ -30,12 +30,12 @@
     return !isAuto.value ? '0.00' : undefined;
   });
 
-  const onChange = (v: string | number) => {
+  const onChange = (v?: string | number) => {
     isAuto.value = v === 'auto';
     console.log('value change', v);
   };
 
-  const onUnitChange = (v: string) => {
+  const onUnitChange = (v?: string) => {
     console.log('onUnitChange', v);
   };
 

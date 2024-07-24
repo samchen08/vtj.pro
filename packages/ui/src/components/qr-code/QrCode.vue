@@ -40,18 +40,22 @@
       image.value = '';
       return;
     }
-    qrcode.toDataURL(value, { ...props.options }, (err, url) => {
-      if (err) {
-        console.warn('QrCode', err);
-        return;
+    qrcode.toDataURL(
+      value,
+      { margin: 0, scale: 10, ...props.options },
+      (err, url) => {
+        if (err) {
+          console.warn('QrCode', err);
+          return;
+        }
+        image.value = url;
+        if (props.expired) {
+          isExpired.value = false;
+          setExpired();
+        }
+        emit('draw', url);
       }
-      image.value = url;
-      if (props.expired) {
-        isExpired.value = false;
-        setExpired();
-      }
-      emit('draw', url);
-    });
+    );
   };
 
   const setExpired = () => {

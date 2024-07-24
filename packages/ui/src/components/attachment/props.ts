@@ -147,5 +147,9 @@ export const attachmentProps = {
 
   downloader: {
     type: Function as PropType<(file: AttachmentFile) => void>
+  },
+  autoUpload: {
+    type: Boolean,
+    default: true
   }
 };

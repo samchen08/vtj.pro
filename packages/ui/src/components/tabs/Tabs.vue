@@ -37,6 +37,7 @@
           :is="item.component"
           v-bind="item.props"></component>
       </slot>
+      <slot v-if="item.slot" :name="item.slot" v-bind="item"></slot>
     </ElTabPane>
   </ElTabs>
 </template>
@@ -54,6 +55,10 @@
   const props = defineProps(tabsProps);
   const emit = defineEmits<TabsEmits>();
   const isMounted = ref(false);
+  const tabSlots = computed(() => {
+    const items = props.items || [];
+    return items.filter((n: TabsItem) => !!n.slot).map((n: TabsItem) => n.slot);
+  });
   const getTabPane = (item: TabsItem) => {
     const { label, name, value, disabled, closable, lazy } = item;
     return {
@@ -87,5 +92,13 @@
 
   onUnmounted(() => {
     isMounted.value = false;
+  });
+
+  const $vtjDynamicSlots = () => {
+    return tabSlots.value;
+  };
+
+  defineExpose({
+    $vtjDynamicSlots
   });
 </script>

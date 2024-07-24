@@ -104,6 +104,37 @@ const desc: MaterialDescription = {
       setters: 'SelectSetter',
       options: ['card', 'list'],
       defaultValue: 'card'
+    },
+    {
+      name: 'beforeUpload',
+      title: '上传前守卫',
+      setters: 'FunctionSetter'
+    },
+    {
+      name: 'limitSize',
+      title: '允许上传的文件大写最大值， 支持 K / M',
+      setters: 'StringSetter',
+      defaultValue: '10M'
+    },
+    {
+      name: 'formatter',
+      setters: 'FunctionSetter'
+    },
+    {
+      name: 'valueFormatter',
+      setters: 'FunctionSetter'
+    },
+    {
+      name: 'previewer',
+      setters: 'FunctionSetter'
+    },
+    {
+      name: 'downloader',
+      setters: 'FunctionSetter'
+    },
+    {
+      name: 'autoUpload',
+      setters: 'BooleanSetter'
     }
   ],
   events: [

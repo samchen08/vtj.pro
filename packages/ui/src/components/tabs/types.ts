@@ -18,6 +18,11 @@ export interface TabsItem {
   component?: any;
   // 组件参数
   props?: Record<string, any>;
+
+  /**
+   * 自定义内容插槽名称
+   */
+  slot?: string;
 }
 
 export const tabsProps = {

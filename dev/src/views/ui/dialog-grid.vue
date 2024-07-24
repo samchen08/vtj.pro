@@ -10,16 +10,20 @@
       :rules="rules"
       :submit-method="submitMethod"
       width="600px"
-      height="500px"></XDialogGrid>
+      height="500px">
+      <template #valueCell>
+        <span>valueCell</span>
+      </template>
+    </XDialogGrid>
   </div>
 </template>
 <script lang="ts" setup>
   import { ref } from 'vue';
-  import { XDialogGrid, XAction } from '@vtj/ui';
+  import { XDialogGrid, XAction, type GridColumns } from '@vtj/ui';
 
   const visible = ref(false);
 
-  const columns = [
+  const columns: GridColumns = [
     {
       type: 'checkbox',
       title: '',
@@ -42,6 +46,9 @@
       title: '值',
       editRender: {
         name: 'XInput'
+      },
+      slots: {
+        default: 'valueCell'
       }
     }
   ];
@@ -65,12 +72,6 @@
 
   const show = () => {
     visible.value = true;
-  };
-
-  const onSubmit = (data: any) => {
-    console.log('submit', data);
-    model.value = data;
-    visible.value = false;
   };
 
   const submitMethod = async (data: any) => {

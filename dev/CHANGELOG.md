@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.95](https://gitee.com/newgateway/vtj/compare/dev-web@0.8.94...dev-web@0.8.95) (2024-07-22)
+
+
+### Features
+
+* ✨ query-form dialog-grid支持插槽穿透 ([4f9b48a](https://gitee.com/newgateway/vtj/commits/4f9b48aed65ddc99b83d2106eee5cf7600ba1fca))
+
+
+
+
+
 ## [0.8.94](https://gitee.com/newgateway/vtj/compare/dev-web@0.8.93...dev-web@0.8.94) (2024-07-20)
 
 **Note:** Version bump only for package dev-web

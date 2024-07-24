@@ -72,7 +72,7 @@
   </div>
 </template>
 <script lang="ts" setup>
-  import { computed, ref, watch, useAttrs, type Ref } from 'vue';
+  import { computed, ref, watch, type Ref } from 'vue';
   import {
     ElUpload,
     ElIcon,
@@ -94,14 +94,12 @@
   import { icons } from './icons';
 
   defineOptions({
-    name: 'XAttachment',
-    inheritAttrs: false
+    name: 'XAttachment'
   });
 
   const adapter = useAdapter();
   const props = defineProps(attachmentProps);
   const emit = defineEmits<AttachmentEmits>();
-  const attrs = useAttrs();
   const loadings: Record<string, boolean> = {};
   const elUploadRef = ref();
   const refreshKey = ref(Symbol());
@@ -152,7 +150,7 @@
         props.listType
       ] as any,
       beforeUpload: props.beforeUpload as any,
-      ...attrs
+      autoUpload: props.autoUpload
     };
   });
 

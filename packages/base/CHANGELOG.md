@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.10](https://gitee.com/newgateway/vtj/compare/@vtj/base@0.8.9...@vtj/base@0.8.10) (2024-07-22)
+
+
+### Features
+
+* ✨ query-form dialog-grid支持插槽穿透 ([4f9b48a](https://gitee.com/newgateway/vtj/commits/4f9b48aed65ddc99b83d2106eee5cf7600ba1fca))
+
+
+
+
+
 ## [0.8.9](https://gitee.com/newgateway/vtj/compare/@vtj/base@0.8.8...@vtj/base@0.8.9) (2024-07-12)
 
 

@@ -26,6 +26,7 @@ import tabs from './tabs';
 import picker from './picker';
 import importButton from './import-button';
 import dialogGrid from './dialog-grid';
+import captcha from './captcha';
 
 const name = '@vtj/ui';
 const components: MaterialDescription[] = [
@@ -49,7 +50,8 @@ const components: MaterialDescription[] = [
   tabs,
   picker,
   importButton,
-  dialogGrid
+  dialogGrid,
+  captcha
 ].flat();
 
 const categories: MaterialCategory[] = [
