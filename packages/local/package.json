@@ -1,7 +1,7 @@
 {
   "name": "@vtj/local",
   "private": false,
-  "version": "0.8.95",
+  "version": "0.8.96",
   "type": "module",
   "scripts": {
     "build": "unbuild",

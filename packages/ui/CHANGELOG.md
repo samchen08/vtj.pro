@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.96](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.8.95...@vtj/ui@0.8.96) (2024-07-25)
+
+
+### Features
+
+* ✨ 验证码组件 ([408217a](https://gitee.com/newgateway/vtj/commits/408217a15a0b9a315eb14a6cb35d9175d78e0f8c))
+* ✨ 验证码组件 ([8af3004](https://gitee.com/newgateway/vtj/commits/8af3004426c876c1fdaad7be99eb76bc76d1fc3d))
+* ✨ 验证码组件 ([d49afd7](https://gitee.com/newgateway/vtj/commits/d49afd776387273227952b91f9d368e934d3c89e))
+
+
+
+
+
 ## [0.8.95](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.8.94...@vtj/ui@0.8.95) (2024-07-22)
 
 

@@ -40,7 +40,9 @@ const qrcode: MaterialDescription = {
   ],
   slots: ['tip'],
   snippet: {
-    props: {}
+    props: {
+      content: '二维码内容'
+    }
   }
 };
 

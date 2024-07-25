@@ -2,7 +2,12 @@
   <div class="x-qr-code" :style="comptedStyle">
     <img v-if="image" class="x-qr-code__code" :src="image" />
     <div v-if="isExpired" class="x-qr-code__expired">
-      <Refresh @click="refresh" class="x-qr-code__refresh"></Refresh>
+      <div class="x-qr-code__refresh">
+        <XIcon :icon="Refresh" @click="refresh" :size="32"></XIcon>
+        <!-- <Refresh @click="refresh" class="x-qr-code__refresh"></Refresh> -->
+        刷新
+      </div>
+
       <div class="x-qr-code__tip">
         <slot name="tip">{{ props.tip }}</slot>
       </div>
@@ -11,6 +16,7 @@
 </template>
 <script lang="ts" setup>
   import { ref, computed, watch, onUnmounted } from 'vue';
+  import { XIcon } from '../icon';
   import { Refresh } from '@vtj/icons';
   import qrcode from 'qrcode';
   import type { QrCodeProps, QrCodeEmits, QrCodeContentLoader } from './types';

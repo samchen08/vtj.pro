@@ -2,7 +2,7 @@ import type { MaterialDescription } from '@vtj/core';
 import elInput from '../element/input';
 import { omitPropItem } from '../shared';
 
-const test: MaterialDescription = {
+const desc: MaterialDescription = {
   name: 'XCaptcha',
   label: '图形验证码',
   categoryId: 'form',
@@ -10,8 +10,7 @@ const test: MaterialDescription = {
     {
       name: 'src',
       setters: 'FunctionSetter',
-      title: '() => MaybePromise<string>',
-      defaultValue: true
+      title: '() => MaybePromise<string>'
     },
     {
       name: 'maxlength',
@@ -42,4 +41,4 @@ const test: MaterialDescription = {
   }
 };
 
-export default test;
+export default desc;
