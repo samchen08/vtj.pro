@@ -8,6 +8,8 @@
   width: 1em;
   height: 1em;
   overflow: hidden;
+  color: var(--color);
+  box-sizing: content-box;
   > svg {
     width: 1em;
     height: 1em;
