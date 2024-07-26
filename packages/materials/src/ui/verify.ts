@@ -3,20 +3,20 @@ import elInput from '../element/input';
 import { omitPropItem } from '../shared';
 
 const desc: MaterialDescription = {
-  name: 'XCaptcha',
-  label: '图形验证码',
+  name: 'XVerify',
+  label: '短信验证码',
   categoryId: 'form',
   props: [
     {
-      name: 'src',
+      name: 'api',
       setters: 'FunctionSetter',
-      title: '() => MaybePromise<string>'
+      title: '() => Promise<boolean>'
     },
     {
       name: 'maxlength',
       title: '验证码长度',
       setters: 'NumberSetter',
-      defaultValue: 4
+      defaultValue: 6
     },
     {
       name: 'placeholder',
@@ -24,9 +24,10 @@ const desc: MaterialDescription = {
       defaultValue: '请输入图形验证码'
     },
     {
-      name: 'validate',
-      setters: 'FunctionSetter',
-      title: '校验函数：(value: string) => MaybePromise<boolean>'
+      name: 'seconds',
+      setters: 'NumberSetter',
+      title: '可重发秒数',
+      defaultValue: 60
     },
     ...omitPropItem(elInput.props, ['maxlength', 'placeholder'])
   ],
@@ -35,7 +36,7 @@ const desc: MaterialDescription = {
     props: {
       src: {
         type: 'JSFunction',
-        value: "() => 'https://dummyimage.com/300x120'"
+        value: 'async () => true'
       }
     }
   }

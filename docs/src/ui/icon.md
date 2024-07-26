@@ -1,6 +1,6 @@
 # XIcon 图标
 
-VTJ 提供了一套常用的图标集合，包含SVG、Iconfont，它们都统一以Vue组件的形式使用。
+VTJ 提供了一套常用的图标集合，包含SVG、Iconfont，它们都统一以Vue组件的形式使用。[内置图标](./icons.md)
 
 ## 示例
 

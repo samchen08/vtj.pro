@@ -9,7 +9,7 @@
       class="x-header__wrapper"
       grow
       :class="classes"
-      @click="attrs.onClick">
+      @click="(attrs as any).onClick">
       <component
         v-if="icon"
         :is="icon"
@@ -25,7 +25,7 @@
       <span
         v-if="props.subtitle || $slots.subtitle"
         class="x-header__subtitle"
-        @click="attrs.onClick">
+        @click="(attrs as any).onClick">
         <slot name="subtitle"> {{ props.subtitle }} </slot>
       </span>
     </XContainer>
