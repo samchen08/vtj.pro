@@ -1,0 +1,1 @@
+import{_ as s,c as i,o as a,a6 as n}from"./chunks/framework.CX3W3h5X.js";const o=JSON.parse('{"title":"模拟数据","description":"","frontmatter":{},"headers":[],"relativePath":"help/mock.md","filePath":"help/mock.md"}'),l={name:"help/mock.md"},t=n("",31),p=[t];function h(e,k,d,r,E,c){return a(),i("div",null,p)}const y=s(l,[["render",h]]);export{o as __pageData,y as default};
