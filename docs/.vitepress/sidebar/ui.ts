@@ -17,13 +17,14 @@ export default [
     items: [
       { text: 'XPanel 面板', link: '/panel' },
       { text: 'XDialog 弹窗', link: '/dialog' },
-      { text: 'XHeader 标题头', link: '/header' }
+      { text: 'XHeader 标题头', link: '/header' },
+      { text: 'XTabs 选项卡', link: '/tabs' }
     ]
   },
   {
     text: '表单相关',
     base: '/ui',
-    items: []
+    items: [{ text: 'XDialogForm 弹窗表单', link: '/dialogForm' }]
   },
   {
     text: '数据展示',
