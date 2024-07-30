@@ -1,0 +1,23 @@
+@use 'core' as *;
+
+@include b(picker) {
+  .el-select__popper {
+    display: none !important;
+  }
+  .el-select__suffix {
+    .el-select__icon {
+      background: var(--el-fill-color);
+      border-radius: 4px;
+      width: 20px;
+      height: 20px;
+    }
+  }
+  &.el-select--small {
+    .el-select__suffix {
+      .el-select__icon {
+        width: 18px;
+        height: 18px;
+      }
+    }
+  }
+}

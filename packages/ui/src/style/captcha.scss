@@ -1,0 +1,37 @@
+@use 'core' as *;
+
+@include b(captcha) {
+  .el-input-group__prepend {
+    padding: 1px 2px;
+    img {
+      border-radius: 4px 0 0 4px;
+      height: 28px;
+    }
+  }
+
+  &.el-input--large {
+    .el-input-group__prepend {
+      padding: 1px 2px;
+      img {
+        height: 36px;
+      }
+    }
+  }
+
+  &.el-input--small {
+    .el-input-group__prepend {
+      padding: 1px 2px;
+      img {
+        height: 20px;
+      }
+    }
+  }
+
+  @include m(success) {
+    color: var(--el-color-success);
+  }
+
+  @include m(error) {
+    color: var(--el-color-danger);
+  }
+}
