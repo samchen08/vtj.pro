@@ -148,7 +148,10 @@
       await nextTick();
       if (instance) {
         emit('open', instance);
+        document.body.classList.add('x-dialog-visible');
       }
+    } else {
+      document.body.classList.remove('x-dialog-visible');
     }
   });
 
