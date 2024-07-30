@@ -1,7 +1,0 @@
-(function(t,i){typeof exports=="object"&&typeof module<"u"?i(exports):typeof define=="function"&&define.amd?define(["exports"],i):(t=typeof globalThis<"u"?globalThis:t||self,i(t.VtjCharts={}))})(this,function(t){"use strict";/**!
- * Copyright (c) 2024, VTJ.PRO All rights reserved.
- * @name @vtj/charts 
- * @author CHC chenhuachun1549@dingtalk.com 
- * @version 0.8.8
- * @license <a href="https://vtj.pro/license.html">MIT License</a>
- */const i="0.8.8";function f(u,n,o){const e=Vue.ref();return Vue.onMounted(()=>{const s=Vue.unref(n);s&&(e.value||(e.value=Vue.markRaw(u.init(s))),e.value&&e.value.setOption(o.value||{}))}),Vue.onUnmounted(()=>{e.value&&e.value.dispose()}),Vue.watch(o,s=>{e.value&&e.value.setOption(s||{})},{deep:!0}),VueUse.useResizeObserver(n,VtjUtils.debounce(()=>{e.value&&e.value.resize()},150)),{echartsInstance:e}}const a=Vue.defineComponent({name:"XChart",props:{width:{type:String,default:"100%"},height:{type:String,default:"400px"},option:{type:Object}},setup(u){const{width:n,height:o,option:e}=Vue.toRefs(u),s=Vue.ref(),l=Vue.computed(()=>({width:n.value,height:o.value})),{echartsInstance:d}=f(echarts,s,e);return{chartRef:s,option:e,styles:l,echartsInstance:d}},render(){return Vue.h("div",{class:"x-chart",ref:"chartRef",style:this.styles})},expose:["chartRef","option","echartsInstance"]}),c=[a],r=Symbol("INSTALLED_KEY");function h(u){u[r]||(u[r]=!0,c.forEach(n=>{n.name&&u.component(n.name,n)}))}t.INSTALLED_KEY=r,t.VTJ_CHARTS_VERSION=i,t.XChart=a,t.components=c,t.install=h,Object.defineProperty(t,Symbol.toStringTag,{value:"Module"})});
