@@ -35,6 +35,7 @@
       resizable
       @open="onOpen">
     </XDialog>
+    <div v-for="n in 100" style="height: 40px">{{ n }}</div>
   </div>
 </template>
 <script lang="ts" setup>

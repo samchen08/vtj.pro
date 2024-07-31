@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.97](https://gitee.com/newgateway/vtj/compare/lcdp@0.8.96...lcdp@0.8.97) (2024-07-31)
+
+**Note:** Version bump only for package lcdp
+
+
+
+
+
+
 ## [0.8.96](https://gitee.com/newgateway/vtj/compare/lcdp@0.8.95...lcdp@0.8.96) (2024-07-25)
 
 **Note:** Version bump only for package lcdp

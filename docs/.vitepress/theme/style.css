@@ -44,7 +44,7 @@
  * -------------------------------------------------------------------------- */
 
 :root {
-  --vp-layout-max-width: 1920px;
+  --vp-layout-max-width: 100%;
 
   --vp-c-default-1: var(--vp-c-gray-1);
   --vp-c-default-2: var(--vp-c-gray-2);
@@ -173,5 +173,9 @@
 }
 
 .VPDoc.has-aside .content-container {
-  max-width: 1200px !important;
+  max-width: 1440px !important;
+}
+
+.vitepress-demo-preview__element-plus__container {
+  box-shadow: none !important ;
 }

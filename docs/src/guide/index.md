@@ -4,6 +4,8 @@
 
 VTJ.PRO 是一个基于Vue3 + TypeScript的低代码开发工具平台，它致力于提供高生产力的低代码研发解决方案。以下是对VTJ.PRO的详细介绍：
 
+![p1](../assets/p1.png)
+
 ### 平台特点
 
 **技术基础：** VTJ.PRO采用Vue3和TypeScript作为其核心技术栈，确保了平台的现代性和高效性。
