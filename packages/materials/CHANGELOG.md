@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.97](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.8.96...@vtj/materials@0.8.97) (2024-07-31)
+
+
+### Features
+
+* ✨ x-form 物料props配置错误 ([f03883b](https://gitee.com/newgateway/vtj/commits/f03883b791b7de20d2915553abc68a37d39177cf))
+
+
+
+
+
+
 ## [0.8.96](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.8.95...@vtj/materials@0.8.96) (2024-07-25)
 
 
