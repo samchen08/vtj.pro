@@ -100,7 +100,7 @@ npm run setup && npm run build && npm run app:dev
 
 ### 用户招募
 
-诚邀对该项目感兴趣的同学参与测试体验。
+诚邀对该项目感兴趣的同学参与测试体验,谢谢。
 
 ## 交流群
 
