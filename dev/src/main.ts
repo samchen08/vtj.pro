@@ -9,7 +9,7 @@ app.use(router);
 app.use(IconsPlugin);
 app.use(AdapterPlugin, {
   vxeConfig: {
-    // size: 'mini'
+    // size: 'mini' /
   }
 });
 app.mount('#app');
