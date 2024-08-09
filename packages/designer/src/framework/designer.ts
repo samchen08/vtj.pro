@@ -172,8 +172,11 @@ export class Designer {
     const componentMap = assets.componentMap;
     const targetDesc =
       (await assets.getBlockMaterial(to.from)) || componentMap.get(to.name);
-    // if (!targetDesc?.slots) return undefined;
+
+    // 物料没有定义插槽，组件也没有动态插槽
+    if (!targetDesc?.slots && dynamicSlots.length === 0) return undefined;
     const mergeSlots = (targetDesc?.slots || ['default']).concat(dynamicSlots);
+
     const slots: MaterialSlot[] = mergeSlots.map((n) => {
       if (typeof n === 'string') {
         return {
@@ -187,6 +190,7 @@ export class Designer {
         };
       }
     });
+
     if (slots.length === 0) {
       return undefined;
     }

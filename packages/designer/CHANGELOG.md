@@ -3,6 +3,40 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.100](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.8.99...@vtj/designer@0.8.100) (2024-08-09)
+
+
+### Bug Fixes
+
+* 🐛 style设置border回填不正确 ([d05da3c](https://gitee.com/newgateway/vtj/commits/d05da3c28d6ec611a99b5417ba2db23bca72555d))
+
+
+
+
+
+## [0.8.99](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.8.98...@vtj/designer@0.8.99) (2024-08-08)
+
+
+### Bug Fixes
+
+* 🐛 插槽构造错误 ([da1bafe](https://gitee.com/newgateway/vtj/commits/da1bafe2a0c6e2761dc954ac6647f22f2b13ef0e))
+
+
+
+
+
+## [0.8.98](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.8.97...@vtj/designer@0.8.98) (2024-08-08)
+
+
+### Bug Fixes
+
+* 🐛 绑定上下文代码校验问题 ([01b3aca](https://gitee.com/newgateway/vtj/commits/01b3acaa69fe8ef8af30587ceaf6481a91a3221d))
+
+
+
+
+
+
 ## [0.8.97](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.8.96...@vtj/designer@0.8.97) (2024-07-31)
 
 **Note:** Version bump only for package @vtj/designer

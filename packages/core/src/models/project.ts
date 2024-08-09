@@ -393,7 +393,7 @@ export class ProjectModel {
       }
       for (const page of pages) {
         if (page.children && page.children.length) {
-          return remover(id, page.children);
+          remover(id, page.children);
         }
       }
     };

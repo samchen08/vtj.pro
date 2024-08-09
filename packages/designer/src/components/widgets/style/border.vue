@@ -50,7 +50,7 @@
   </Panel>
 </template>
 <script lang="ts" setup>
-  import { ref } from 'vue';
+  import { ref, watch } from 'vue';
   import { ElForm } from 'element-plus';
   import {
     IconBorderAll,
@@ -73,6 +73,19 @@
 
   const props = defineProps<Props>();
 
+  const getDefaultBorder = () => {
+    const keys = Object.keys(props.styleJson || {});
+    const left = keys.find((k) => k.startsWith('border-left'));
+    if (left) return 'border-left';
+    const top = keys.find((k) => k.startsWith('border-top'));
+    if (top) return 'border-top';
+    const bottom = keys.find((k) => k.startsWith('border-bottom'));
+    if (bottom) return 'border-bottom';
+    const right = keys.find((k) => k.startsWith('border-right'));
+    if (right) return 'border-right';
+    return 'border';
+  };
+
   const current = ref('border');
 
   const borders = [
@@ -93,4 +106,14 @@
   const onBordersChange = (_name: any, val: string) => {
     current.value = val;
   };
+
+  watch(
+    () => props.styleJson,
+    () => {
+      current.value = getDefaultBorder();
+    },
+    {
+      immediate: true
+    }
+  );
 </script>

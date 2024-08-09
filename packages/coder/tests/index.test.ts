@@ -1,15 +1,16 @@
 import { expect, test } from 'vitest';
 
 import { generator } from '../src';
-import { input } from './log.json';
+// import { input } from './log.json';
 
 import { deps } from './deps';
-// import { dsl } from './dsl';
+import { dsl } from './dsl';
 
 test('index', async () => {
   try {
     const content = await generator(
-      input.data.dsl as any,
+      // input.data.dsl as any,
+      dsl as any,
       new Map(),
       deps,
       false
