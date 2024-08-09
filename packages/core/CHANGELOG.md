@@ -3,6 +3,34 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.100](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.8.99...@vtj/core@0.8.100) (2024-08-09)
+
+**Note:** Version bump only for package @vtj/core
+
+
+
+
+
+## [0.8.99](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.8.98...@vtj/core@0.8.99) (2024-08-08)
+
+**Note:** Version bump only for package @vtj/core
+
+
+
+
+
+## [0.8.98](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.8.97...@vtj/core@0.8.98) (2024-08-08)
+
+
+### Bug Fixes
+
+* 🐛 删除页面或目录 ([fd5aa9b](https://gitee.com/newgateway/vtj/commits/fd5aa9b3fa68b0b708eaed8f0f06faf4ad5091f8)), closes [#IAH862](https://gitee.com/newgateway/vtj/issues/IAH862)
+
+
+
+
+
+
 ## [0.8.97](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.8.96...@vtj/core@0.8.97) (2024-07-31)
 
 **Note:** Version bump only for package @vtj/core

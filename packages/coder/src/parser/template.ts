@@ -348,9 +348,8 @@ function parseNodeChildren(
   }
 
   if (isJSExpression(children)) {
-    let content = parseValue(children, false) as string;
-    content = replaceComputedValue(content, computedKeys);
-    content = replaceThis(content);
+    const content = parseValue(children, false, true, computedKeys) as string;
+
     return `{{ ${content} }}`;
   }
 

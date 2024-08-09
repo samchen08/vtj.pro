@@ -132,13 +132,16 @@ export const router = async (req: any, opts: DevToolsOptions) => {
     const handler = controller[body.type] || controller.notMatch;
     try {
       return await handler(body, opts);
-    } catch (e) {
+    } catch (e: any) {
       const info = {
         input: body,
-        error: e
+        error: {
+          message: e?.message,
+          stack: e?.stack
+        }
       };
       await service.saveLogs(info);
-      return fail('异常错误', e);
+      return fail('异常错误', e?.message);
     }
   }
 };

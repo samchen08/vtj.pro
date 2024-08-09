@@ -25,17 +25,30 @@ export function message(
   });
 }
 
+export function proxyContext(context: any) {
+  const proxy = context ? { ...context } : ({} as any);
+
+  proxy.context = new Proxy((proxy.context || {}) as any, {
+    get(target: any, prop: string) {
+      return target[prop] ?? {};
+    }
+  });
+
+  return proxy;
+}
+
 export function expressionValidate(
   str: JSExpression | JSFunction,
   self: any,
   thisRequired = false
 ) {
   let vaild = true;
+  const context = proxyContext(self);
   try {
     if (str.type === 'JSExpression') {
-      parseExpression(str, self, thisRequired, true);
+      parseExpression(str, context, thisRequired, true);
     } else {
-      parseFunction(str, self, thisRequired, true);
+      parseFunction(str, context, thisRequired, true);
     }
   } catch (e: any) {
     vaild = false;
