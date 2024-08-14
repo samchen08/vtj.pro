@@ -79,7 +79,7 @@ export function useEditor(
       options: optionsRef.value,
       onFocus: () => emit('focus'),
       onBlur: () => emit('blur'),
-      onChange: (v: any) => emit('change', v)
+      onChange: (v: any, data?: any) => emit('change', v, data)
     };
 
     const builtinEditor: BuiltinFieldEditor =

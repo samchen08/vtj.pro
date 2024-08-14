@@ -9,7 +9,14 @@ import type {
 } from './types';
 
 export function useOptions(props: PickerProps, emit: Emits<PickerEmits>) {
-  const { multiple, raw, valueKey = 'value', labelKey = 'label' } = props;
+  const {
+    multiple,
+    raw,
+    valueKey = 'value',
+    labelKey = 'label',
+    formatter,
+    valueFormatter
+  } = props;
   const current = ref();
   const options = ref<PickerOption[]>([]);
 
@@ -21,11 +28,13 @@ export function useOptions(props: PickerProps, emit: Emits<PickerEmits>) {
       };
     });
     options.value = append ? [...options.value, ...array] : array;
+    let val;
     if (multiple) {
-      current.value = options.value.map((n) => n.value);
+      val = options.value.map((n) => n.value);
     } else {
-      current.value = options.value[0]?.value;
+      val = options.value[0]?.value;
     }
+    current.value = val;
   };
 
   const getRawData = (values: any) => {
@@ -52,7 +61,8 @@ export function useOptions(props: PickerProps, emit: Emits<PickerEmits>) {
       if (raw && v && typeof v === 'object') {
         setOptions(v);
       } else {
-        current.value = multiple ? toArray(v) : v;
+        const val = formatter ? formatter(v) : v;
+        current.value = multiple ? toArray(val) : val;
       }
     },
     {
@@ -63,8 +73,9 @@ export function useOptions(props: PickerProps, emit: Emits<PickerEmits>) {
   watch(current, (v, o) => {
     if (!isEqual(v, o)) {
       const data = raw ? getRawData(v) : v;
-      emit('update:modelValue', data);
-      emit('change', data, props.data);
+      const val = valueFormatter ? valueFormatter(data) : data;
+      emit('update:modelValue', val);
+      emit('change', val, props.data);
     }
   });
 

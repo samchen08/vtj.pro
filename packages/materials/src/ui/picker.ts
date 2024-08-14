@@ -87,6 +87,16 @@ const desc: MaterialDescription = {
       title: '查询表单配置参数',
       setters: 'ObjectSetter'
     },
+    {
+      name: 'formatter',
+      title: '接受数据转换函数',
+      setters: 'FunctionSetter'
+    },
+    {
+      name: 'valueFormatter',
+      title: '发送数据转换函数',
+      setters: 'FunctionSetter'
+    },
     ...omitPropItem(select[0].props, [
       'modelValue',
       'disabled',

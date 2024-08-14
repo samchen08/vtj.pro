@@ -3,6 +3,34 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.103](https://gitee.com/newgateway/vtj/compare/vtj-project-app@0.8.102...vtj-project-app@0.8.103) (2024-08-14)
+
+**Note:** Version bump only for package vtj-project-app
+
+
+
+
+
+## [0.8.102](https://gitee.com/newgateway/vtj/compare/vtj-project-app@0.8.101...vtj-project-app@0.8.102) (2024-08-13)
+
+**Note:** Version bump only for package vtj-project-app
+
+
+
+
+
+## [0.8.101](https://gitee.com/newgateway/vtj/compare/vtj-project-app@0.8.100...vtj-project-app@0.8.101) (2024-08-13)
+
+
+### Bug Fixes
+
+* 🐛 项目工程 tsconfig.ts exclude .vtj ([c064e2e](https://gitee.com/newgateway/vtj/commits/c064e2e0e385f91e6c5c4b2107b4fd41c456b0b9))
+
+
+
+
+
+
 ## [0.8.100](https://gitee.com/newgateway/vtj/compare/vtj-project-app@0.8.99...vtj-project-app@0.8.100) (2024-08-09)
 
 **Note:** Version bump only for package vtj-project-app

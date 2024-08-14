@@ -30,6 +30,7 @@
           @picked="onPicked"></XPicker>
       </template>
     </XField>
+
     <XField label="多选对象值">
       <template #editor>
         <XPicker
@@ -49,9 +50,28 @@
           @picked="onPicked"></XPicker>
       </template>
     </XField>
+    <XField label="多选值转换">
+      <template #editor>
+        <XPicker
+          v-model="modelValue4"
+          :formatter="formatter"
+          :value-formatter="valueFormatter"
+          multiple
+          :max-collapse-tags="5"
+          value-key="id"
+          label-key="name"
+          query-key="name"
+          :columns="columns"
+          :fields="fields"
+          :loader="loader"
+          @change="onChange"
+          @picked="onPicked"></XPicker>
+      </template>
+    </XField>
     <div>modelValue1: {{ modelValue1 }}</div>
     <div>modelValue2: {{ modelValue2 }}</div>
     <div>modelValue3: {{ modelValue3 }}</div>
+    <div>modelValue4: {{ modelValue4 }}</div>
   </div>
 </template>
 <script lang="ts" setup>
@@ -72,6 +92,16 @@
       name: 'ABC'
     }
   ]);
+  const modelValue4 = ref('530000198609055651,650000201712031238');
+
+  const formatter = (val: any = '') => {
+    // console.trace('formatter', val);
+    return val && typeof val === 'string' ? val.split(',') : val;
+  };
+
+  const valueFormatter = (val: any[] = []) => {
+    return val.join(',');
+  };
 
   const columns: Ref<any> = ref([]);
 

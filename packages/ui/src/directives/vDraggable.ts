@@ -114,16 +114,16 @@ export class Draggable {
   }
   getPosition(targetRect: DOMRect, rect: DOMRect, x: number, y: number) {
     const { edge = 50 } = this.options;
-    const xMin = -rect.width + edge;
-    const xMax = targetRect.width - edge;
-    const yMin = 0;
-    const yMax = targetRect.height - edge;
+    const xMin = -rect.width + targetRect.x + edge;
+    const xMax = targetRect.width + targetRect.x - edge;
+    const yMin = targetRect.y;
+    const yMax = targetRect.height + targetRect.y - edge;
 
     const left = Math.min(xMax, Math.max(x, xMin));
     const top = Math.min(yMax, Math.max(y, yMin));
     return {
-      x: left,
-      y: top
+      x: left - targetRect.x,
+      y: top - targetRect.y
     };
   }
   destory() {

@@ -289,13 +289,19 @@ function parseDirectives(
   computedKeys: string[] = []
 ) {
   const result: string[] = [];
-  const { vIf, vShow, vModels, vFor } = getDiretives(directives);
+  const { vIf, vShow, vModels, vFor, vBind } = getDiretives(directives);
   if (vIf) {
     result.push(`v-if="${parseValue(vIf.value, true, true, computedKeys)}"`);
   }
   if (vShow) {
     result.push(
       `v-show="${parseValue(vShow.value, true, true, computedKeys)}"`
+    );
+  }
+
+  if (vBind) {
+    result.push(
+      `v-bind="${parseValue(vBind.value, true, true, computedKeys)}"`
     );
   }
 
