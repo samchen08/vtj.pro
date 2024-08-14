@@ -215,8 +215,9 @@ export function useResizableOptions(
         emit('resizing', dir, mie);
       },
       onEnd(dir, mie) {
-        state.left = mie.elementPositionX.value;
-        state.top = mie.elementPositionY.value;
+        const bodyRect = document.body.getBoundingClientRect();
+        state.left = mie.elementPositionX.value - bodyRect.x;
+        state.top = mie.elementPositionY.value - bodyRect.y;
         state.width = mie.elementWidth.value;
         state.height = mie.elementHeight.value;
         state.resizing = false;

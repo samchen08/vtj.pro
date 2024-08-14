@@ -9,7 +9,8 @@
     }
   },
   "exclude": [
-    "src/vite/*.ts"
+    "src/vite/*.ts",
+    ".vtj"
   ],
   "references": [
     {

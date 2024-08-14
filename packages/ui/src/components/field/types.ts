@@ -23,7 +23,7 @@ export interface FieldEditorProps {
   modelValue?: any;
   onFocus?: () => void;
   onBlur?: () => void;
-  onChange?: (v: any) => void;
+  onChange?: (v: any, data?: any) => void;
   'onUpdate:modelValue'?: (v: any) => void;
   [key: string]: any;
 }
@@ -33,6 +33,7 @@ export interface FieldOption {
   value: any;
   disabled?: boolean;
   children?: FieldOption[];
+  data?: any;
 }
 
 export type FieldOptionsLoader = (
@@ -173,7 +174,7 @@ export type FieldProps = ComponentPropsType<typeof fieldProps> &
 
 export type FieldEmits = {
   'update:modelValue': [value: any];
-  change: [value: any];
+  change: [value: any, data?: any];
   focus: [];
   blur: [];
 };

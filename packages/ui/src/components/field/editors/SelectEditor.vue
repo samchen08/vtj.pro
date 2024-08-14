@@ -1,5 +1,5 @@
 <template>
-  <ElSelect v-bind="$attrs">
+  <ElSelect v-bind="$attrs" @change="onChange">
     <ElOption
       v-for="(option, index) in props.options"
       :key="`item_${index}_${option.value}`"
@@ -20,4 +20,16 @@
   const props = withDefaults(defineProps<Props>(), {
     options: () => [] as FieldOption[]
   });
+
+  const emit = defineEmits(['change']);
+
+  const onChange = (v: any) => {
+    const items = props.options.filter((n) => {
+      if (Array.isArray(v)) {
+        return v.includes(n.value);
+      }
+      return v === n.value;
+    });
+    emit('change', v, items);
+  };
 </script>
