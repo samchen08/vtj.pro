@@ -2,6 +2,15 @@
   <div>
     <ElForm size="default">
       <XField
+        label="字段名称1"
+        error="错误信息"
+        label-width="100px"
+        editor="select"
+        :options="options"
+        @change="onChange">
+      </XField>
+
+      <XField
         ref="fieldRef"
         v-model="fieldValue"
         @focus="onFocus"
@@ -115,8 +124,8 @@
 
   const disabled = ref(false);
 
-  const onChange = (val: any) => {
-    console.log('onChange', val);
+  const onChange: any = (val: any, data: any) => {
+    console.log('onChange', val, data);
   };
 
   const onFocus = () => {

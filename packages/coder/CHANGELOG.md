@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.102](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.101...@vtj/coder@0.8.102) (2024-08-13)
+
+**Note:** Version bump only for package @vtj/coder
+
+
+
+
+
+## [0.8.101](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.100...@vtj/coder@0.8.101) (2024-08-13)
+
+
+### Bug Fixes
+
+* 🐛 v-bind出码错误 ([73ea9a7](https://gitee.com/newgateway/vtj/commits/73ea9a7630688cb5904883d5e586608ff3d997cf))
+
+
+
+
+
+
 ## [0.8.100](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.99...@vtj/coder@0.8.100) (2024-08-09)
 
 

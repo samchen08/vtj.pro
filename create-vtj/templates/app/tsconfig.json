@@ -14,8 +14,10 @@
     }
   },
   "include": [
-    "src",
-    ".vtj/**/*",
+    "src"
+  ],
+  "exclude": [
+    ".vtj",
   ],
   "references": [
     {
