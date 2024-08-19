@@ -103,7 +103,6 @@
     "lerna": ">=8.0.0",
     "pnpm": ">=8.0.0"
   },
-  "packageManager": "^pnpm@8.10.4",
   "publishConfig": {
     "access": "public"
   },

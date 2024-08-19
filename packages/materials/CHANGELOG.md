@@ -3,6 +3,58 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.108](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.8.107...@vtj/materials@0.8.108) (2024-08-18)
+
+**Note:** Version bump only for package @vtj/materials
+
+
+
+
+
+## [0.8.107](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.8.106...@vtj/materials@0.8.107) (2024-08-17)
+
+**Note:** Version bump only for package @vtj/materials
+
+
+
+
+
+## [0.8.106](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.8.105...@vtj/materials@0.8.106) (2024-08-17)
+
+**Note:** Version bump only for package @vtj/materials
+
+
+
+
+
+## [0.8.105](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.8.104...@vtj/materials@0.8.105) (2024-08-16)
+
+**Note:** Version bump only for package @vtj/materials
+
+
+
+
+
+## [0.8.104](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.8.103...@vtj/materials@0.8.104) (2024-08-16)
+
+**Note:** Version bump only for package @vtj/materials
+
+
+
+
+
+
+## [0.8.103](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.8.102...@vtj/materials@0.8.103) (2024-08-14)
+
+
+### Features
+
+* ✨ picker 支持格式化数据 ([882848d](https://gitee.com/newgateway/vtj/commits/882848d4a2936f669261dd0e64f8d13c34544e50))
+
+
+
+
+
 ## [0.8.102](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.8.101...@vtj/materials@0.8.102) (2024-08-13)
 
 **Note:** Version bump only for package @vtj/materials

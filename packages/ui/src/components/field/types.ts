@@ -166,6 +166,12 @@ export const fieldProps = {
    */
   inline: {
     type: Boolean
+  },
+  /**
+   * 隐藏域
+   */
+  hidden: {
+    type: Boolean
   }
 };
 

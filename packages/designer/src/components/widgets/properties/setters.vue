@@ -3,7 +3,7 @@
     <ElForm
       class="v-properties-widget__form"
       size="small"
-      label-width="90px"
+      label-position="left"
       @keydown.enter.prevent.stop>
       <SetterWrapper
         v-for="item of props.items"

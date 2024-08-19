@@ -3,6 +3,61 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.108](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.8.107...@vtj/designer@0.8.108) (2024-08-18)
+
+
+### Features
+
+* ✨ 优化属性设置面板 ([d427a0f](https://gitee.com/newgateway/vtj/commits/d427a0fa3f848547d295256440847e394221f312))
+
+
+
+
+
+## [0.8.107](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.8.106...@vtj/designer@0.8.107) (2024-08-17)
+
+**Note:** Version bump only for package @vtj/designer
+
+
+
+
+
+## [0.8.106](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.8.105...@vtj/designer@0.8.106) (2024-08-17)
+
+
+### Bug Fixes
+
+* 🐛 不校验上下文对象 ([ed79d7d](https://gitee.com/newgateway/vtj/commits/ed79d7d70ecff6070fa9e2a9d12b1818fe16d8e9))
+
+
+
+
+
+## [0.8.105](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.8.104...@vtj/designer@0.8.105) (2024-08-16)
+
+**Note:** Version bump only for package @vtj/designer
+
+
+
+
+
+## [0.8.104](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.8.103...@vtj/designer@0.8.104) (2024-08-16)
+
+**Note:** Version bump only for package @vtj/designer
+
+
+
+
+
+
+## [0.8.103](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.8.102...@vtj/designer@0.8.103) (2024-08-14)
+
+**Note:** Version bump only for package @vtj/designer
+
+
+
+
+
 ## [0.8.102](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.8.101...@vtj/designer@0.8.102) (2024-08-13)
 
 **Note:** Version bump only for package @vtj/designer

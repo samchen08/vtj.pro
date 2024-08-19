@@ -117,11 +117,24 @@ export const pickerProps = {
   formProps: {
     type: Object as PropType<Record<string, any>>
   },
-  
+
   /**
    * 附加数据，在事件中回调
    */
   data: {
-    type:Object as PropType<any>
+    type: Object as PropType<any>
+  },
+  /**
+   * 接受数据后格式化
+   */
+  formatter: {
+    type: Function
+  },
+
+  /**
+   * 输出数据格式化
+   */
+  valueFormatter: {
+    type: Function
   }
 };

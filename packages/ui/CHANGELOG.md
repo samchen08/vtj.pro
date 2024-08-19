@@ -3,6 +3,64 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.108](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.8.107...@vtj/ui@0.8.108) (2024-08-18)
+
+**Note:** Version bump only for package @vtj/ui
+
+
+
+
+
+## [0.8.107](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.8.106...@vtj/ui@0.8.107) (2024-08-17)
+
+
+### Features
+
+* ✨ field 支持隐藏域 ([a0e8c15](https://gitee.com/newgateway/vtj/commits/a0e8c1586274004c19d052bf3e423d08887ad122))
+
+
+
+
+
+## [0.8.106](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.8.105...@vtj/ui@0.8.106) (2024-08-17)
+
+**Note:** Version bump only for package @vtj/ui
+
+
+
+
+
+## [0.8.105](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.8.104...@vtj/ui@0.8.105) (2024-08-16)
+
+**Note:** Version bump only for package @vtj/ui
+
+
+
+
+
+## [0.8.104](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.8.103...@vtj/ui@0.8.104) (2024-08-16)
+
+
+### Bug Fixes
+
+* 🐛 queryKey更新问题 ([a07426d](https://gitee.com/newgateway/vtj/commits/a07426ddfa1b3897e75f7600fc97db0bbac37bf4))
+
+
+
+
+
+
+## [0.8.103](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.8.102...@vtj/ui@0.8.103) (2024-08-14)
+
+
+### Features
+
+* ✨ picker 支持格式化数据 ([882848d](https://gitee.com/newgateway/vtj/commits/882848d4a2936f669261dd0e64f8d13c34544e50))
+
+
+
+
+
 ## [0.8.102](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.8.101...@vtj/ui@0.8.102) (2024-08-13)
 
 

@@ -33,7 +33,7 @@
     v-bind="props.dialogProps"></Dialog>
 </template>
 <script lang="ts" setup>
-  import { ref, useAttrs, computed, nextTick } from 'vue';
+  import { ref, useAttrs, computed, nextTick, watch } from 'vue';
   import { ElSelect, ElOption } from 'element-plus';
   import { MoreFilled } from '@vtj/icons';
   import Dialog from './Dialog.vue';
@@ -111,6 +111,19 @@
     await nextTick();
     focus();
   };
+
+  watch(
+    () => props.queryKey,
+    (newKey, oldKey) => {
+      if (newKey && oldKey) {
+        const lastValue = formModel.value[oldKey];
+        if (typeof lastValue !== 'undefined') {
+          formModel.value[newKey] = lastValue;
+          delete formModel.value[oldKey];
+        }
+      }
+    }
+  );
 
   defineOptions({
     name: 'XPicker',

@@ -1,6 +1,7 @@
 <template>
   <ElFormItem
     v-if="fieldVisible"
+    v-show="!props.hidden"
     class="x-field"
     ref="itemRef"
     :prop="props.name"
