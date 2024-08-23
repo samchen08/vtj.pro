@@ -3,6 +3,116 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.113](https://gitee.com/newgateway/vtj/compare/dev-web@0.8.112...dev-web@0.8.113) (2024-08-23)
+
+
+### Features
+
+* ✨ cli支持自动清空缓存 ([ccf1c94](https://gitee.com/newgateway/vtj/commits/ccf1c941fccbd45cd9f1860852dd86e7876fb780))
+
+
+
+
+
+## [0.8.112](https://gitee.com/newgateway/vtj/compare/dev-web@0.8.111...dev-web@0.8.112) (2024-08-22)
+
+
+### Bug Fixes
+
+* 🐛 优化picker ([4090761](https://gitee.com/newgateway/vtj/commits/409076158f91044cc1531bcaac64ac8e598dfabf))
+* 🐛 picker ([c1e462e](https://gitee.com/newgateway/vtj/commits/c1e462e34bcc8a50a1b07c43a3b89532b8b4a6da))
+
+
+
+
+
+## [0.8.111](https://gitee.com/newgateway/vtj/compare/dev-web@0.8.110...dev-web@0.8.111) (2024-08-22)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
+## [0.8.110](https://gitee.com/newgateway/vtj/compare/dev-web@0.8.109...dev-web@0.8.110) (2024-08-22)
+
+
+### Bug Fixes
+
+* 🐛 优化picker ([22888dd](https://gitee.com/newgateway/vtj/commits/22888dda9627e56c62d1b37cd55b023bdef1c448))
+
+
+
+
+
+
+## [0.8.109](https://gitee.com/newgateway/vtj/compare/dev-web@0.8.108...dev-web@0.8.109) (2024-08-20)
+
+
+### Bug Fixes
+
+* 🐛 field 支持defaultValue参数 ([13df738](https://gitee.com/newgateway/vtj/commits/13df73887fb1752275120dd6394ac88a0b7903e2))
+
+
+
+
+
+
+## [0.8.108](https://gitee.com/newgateway/vtj/compare/dev-web@0.8.107...dev-web@0.8.108) (2024-08-18)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
+## [0.8.107](https://gitee.com/newgateway/vtj/compare/dev-web@0.8.106...dev-web@0.8.107) (2024-08-17)
+
+
+### Features
+
+* ✨ field 支持隐藏域 ([a0e8c15](https://gitee.com/newgateway/vtj/commits/a0e8c1586274004c19d052bf3e423d08887ad122))
+
+
+
+
+
+## [0.8.106](https://gitee.com/newgateway/vtj/compare/dev-web@0.8.105...dev-web@0.8.106) (2024-08-17)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
+## [0.8.105](https://gitee.com/newgateway/vtj/compare/dev-web@0.8.104...dev-web@0.8.105) (2024-08-16)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
+## [0.8.104](https://gitee.com/newgateway/vtj/compare/dev-web@0.8.103...dev-web@0.8.104) (2024-08-16)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
+
+## [0.8.103](https://gitee.com/newgateway/vtj/compare/dev-web@0.8.102...dev-web@0.8.103) (2024-08-14)
+
+
+### Features
+
+* ✨ picker 支持格式化数据 ([882848d](https://gitee.com/newgateway/vtj/commits/882848d4a2936f669261dd0e64f8d13c34544e50))
+
+
+
+
+
 ## [0.8.102](https://gitee.com/newgateway/vtj/compare/dev-web@0.8.101...dev-web@0.8.102) (2024-08-13)
 
 

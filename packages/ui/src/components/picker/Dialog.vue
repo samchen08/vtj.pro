@@ -42,6 +42,7 @@
         <XQueryForm
           :model="props.formModel"
           :items="props.fields"
+          @submit="onFormSubmit"
           v-bind="props.formProps"></XQueryForm>
       </template>
     </XGrid>
@@ -93,8 +94,7 @@
   };
 
   const onDblClick = (e: any) => {
-    if (props.multiple) return;
-    props.onPick(e.row);
+    props.onPick(props.multiple ? [e.row] : e.row);
   };
 
   onMounted(() => {
@@ -124,6 +124,10 @@
 
   const onLoaded = () => {
     gridRef.value?.setSelectCell();
+  };
+
+  const onFormSubmit = () => {
+    onSearch();
   };
 
   defineExpose({

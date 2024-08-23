@@ -3,7 +3,8 @@
     <ElForm
       class="v-properties-widget__form"
       size="small"
-      label-width="90px"
+      label-position="right"
+      :label-width="labelWidth"
       @keydown.enter.prevent.stop>
       <SetterWrapper
         v-for="item of props.items"
@@ -19,6 +20,7 @@
   </Panel>
 </template>
 <script lang="ts" setup>
+  import { computed } from 'vue';
   import { ElForm } from 'element-plus';
   import {
     type MaterialSetter,
@@ -48,4 +50,17 @@
   const onRemove = (name: string) => {
     emit('remove', name);
   };
+
+  const getLen = (str: string) => {
+    if (!str) return 0;
+    return str.replace(/[\u0391-\uFFE5]/g, 'aa').length;
+  };
+
+  const labelWidth = computed(() => {
+    const items = props.items || [];
+    const max = items
+      .map((n) => getLen(n.label || n.name))
+      .sort((a, b) => b - a)[0];
+    return max ? max * 6 + 12 : 100;
+  });
 </script>

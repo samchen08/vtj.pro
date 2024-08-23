@@ -166,6 +166,20 @@ export const fieldProps = {
    */
   inline: {
     type: Boolean
+  },
+  /**
+   * 隐藏域
+   */
+  hidden: {
+    type: Boolean
+  },
+
+  /**
+   * 默认值
+   */
+  defaultValue: {
+    type: [String, Number, Boolean, Object, Array],
+    default: undefined
   }
 };
 

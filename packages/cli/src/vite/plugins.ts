@@ -15,6 +15,8 @@ import { versionPlugin } from '../plugins/version';
 import { staticPlugin } from '../plugins/static';
 import { loadingPlugin } from '../plugins/loading';
 import { envPlugin } from '../plugins/env';
+import { reloadPlugin } from '../plugins/reload';
+
 const createBabelPlugin = (targets: string[]) => {
   return babelPlugin({
     apply: 'build',
@@ -31,6 +33,7 @@ const createBabelPlugin = (targets: string[]) => {
 
 export const mergePlugins = (opts: CreateViteConfigOptions) => {
   const plugins: PluginOption[] = [
+    reloadPlugin(),
     envPlugin({ dir: opts.envPath }),
     vue(),
     vueJsx()

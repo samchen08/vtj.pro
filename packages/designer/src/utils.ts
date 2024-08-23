@@ -28,9 +28,17 @@ export function message(
 export function proxyContext(context: any) {
   const proxy = context ? { ...context } : ({} as any);
 
+  const _proxy = (prop: any) => {
+    return new Proxy(prop || {}, {
+      get(target: any, name: string) {
+        return _proxy(target[name]);
+      }
+    });
+  };
+
   proxy.context = new Proxy((proxy.context || {}) as any, {
     get(target: any, prop: string) {
-      return target[prop] ?? {};
+      return _proxy(target[prop]);
     }
   });
 

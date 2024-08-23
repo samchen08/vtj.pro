@@ -1,6 +1,7 @@
 <template>
   <ElFormItem
     v-if="fieldVisible"
+    v-show="!props.hidden"
     class="x-field"
     ref="itemRef"
     :prop="props.name"
@@ -97,9 +98,11 @@
   const initFieldValue = () => {
     const proxy = formInstance?.proxy as FormInstance;
     if (proxy && formModel && props.name) {
-      return get(formModel, props.name) ?? props.modelValue;
+      return (
+        get(formModel, props.name) ?? props.modelValue ?? props.defaultValue
+      );
     } else {
-      return props.modelValue;
+      return props.modelValue ?? props.defaultValue;
     }
   };
 
@@ -213,6 +216,8 @@
           fieldValue.value = undefined;
           set(formModel, props.name, undefined);
         }
+      } else {
+        fieldValue.value = props.modelValue ?? props.defaultValue;
       }
     },
     {

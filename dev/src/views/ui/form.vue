@@ -12,6 +12,7 @@
       name="type"
       label="分类"
       editor="radio"
+      :hidden="false"
       :props="{ button: true }"
       :options="options"></XField>
     <XField name="common" label="公共" readonly></XField>

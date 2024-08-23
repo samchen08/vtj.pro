@@ -1,6 +1,11 @@
 <template>
   <div>
-    <XQueryForm ref="formRef" size="default" :model="model" :items="items">
+    <XQueryForm
+      ref="formRef"
+      size="default"
+      :model="model"
+      :items="items"
+      @submit="onSubmit">
       <template #custom>
         <XField label="自定义"></XField>
       </template>
@@ -24,10 +29,15 @@
       name: 'name',
       required: true,
       editor: 'select',
+      defaultValue: 1,
       options: [
         {
           label: '选项一',
           value: 1
+        },
+        {
+          label: '选项二',
+          value: 2
         }
       ]
     },
@@ -36,5 +46,9 @@
 
   const onClick = () => {
     formRef.value.submit();
+  };
+
+  const onSubmit = () => {
+    console.log('submit', model);
   };
 </script>

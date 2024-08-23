@@ -12,7 +12,8 @@ export function useEditRender(
 
   const cellValue = computed({
     get() {
-      return parser ? parser(row[column.field]) : row[column.field];
+      const value = row[column.field];
+      return parser ? parser(value) : value;
     },
     set(v) {
       row[column.field] = stringify ? stringify(v) : v;
