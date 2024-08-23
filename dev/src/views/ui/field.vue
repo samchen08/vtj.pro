@@ -5,6 +5,7 @@
         label="字段名称1"
         error="错误信息"
         label-width="100px"
+        :default-value="3"
         editor="select"
         :options="options"
         @change="onChange">

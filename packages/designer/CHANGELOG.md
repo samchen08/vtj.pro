@@ -3,6 +3,51 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.113](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.8.112...@vtj/designer@0.8.113) (2024-08-23)
+
+
+### Features
+
+* ✨ 自动判断label宽度 ([6b28fd4](https://gitee.com/newgateway/vtj/commits/6b28fd46f751da3d4d0f70d3efa457a3bd25a3cb))
+
+
+
+
+
+## [0.8.112](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.8.111...@vtj/designer@0.8.112) (2024-08-22)
+
+**Note:** Version bump only for package @vtj/designer
+
+
+
+
+
+## [0.8.111](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.8.110...@vtj/designer@0.8.111) (2024-08-22)
+
+**Note:** Version bump only for package @vtj/designer
+
+
+
+
+
+## [0.8.110](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.8.109...@vtj/designer@0.8.110) (2024-08-22)
+
+**Note:** Version bump only for package @vtj/designer
+
+
+
+
+
+
+## [0.8.109](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.8.108...@vtj/designer@0.8.109) (2024-08-20)
+
+**Note:** Version bump only for package @vtj/designer
+
+
+
+
+
+
 ## [0.8.108](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.8.107...@vtj/designer@0.8.108) (2024-08-18)
 
 

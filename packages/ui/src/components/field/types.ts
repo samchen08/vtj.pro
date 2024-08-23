@@ -172,6 +172,14 @@ export const fieldProps = {
    */
   hidden: {
     type: Boolean
+  },
+
+  /**
+   * 默认值
+   */
+  defaultValue: {
+    type: [String, Number, Boolean, Object, Array],
+    default: undefined
   }
 };
 

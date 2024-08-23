@@ -201,7 +201,9 @@
   };
 
   const editRenders = {
-    input: 'XInput',
+    input: {
+      name: 'XInput'
+    },
     number: 'XNumber',
     select: {
       name: 'XSelect',
