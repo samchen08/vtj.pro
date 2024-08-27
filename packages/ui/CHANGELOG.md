@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.114](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.8.113...@vtj/ui@0.8.114) (2024-08-27)
+
+
+### Bug Fixes
+
+* 🐛 dialog fixed position ([f07b457](https://gitee.com/newgateway/vtj/commits/f07b4575a1ceaaac9caa7318bbd32773c3cddb96))
+
+
+
+
+
+
 ## [0.8.113](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.8.112...@vtj/ui@0.8.113) (2024-08-23)
 
 **Note:** Version bump only for package @vtj/ui

@@ -2,8 +2,9 @@
 
 @include b(dialog) {
   background-color: getCssVar('bg-color');
-  position: absolute;
+  position: fixed;
   pointer-events: initial;
+  z-index: 1000;
 
   @include when(draggable) {
     & > .x-panel__header {
@@ -23,7 +24,7 @@
   }
 
   @include e(wrapper) {
-    position: absolute;
+    position: fixed;
     left: 0;
     right: 0;
     top: 0;
@@ -43,7 +44,7 @@
   }
 
   @include e(modal) {
-    position: absolute;
+    position: fixed;
     left: 0;
     right: 0;
     top: 0;
