@@ -13,6 +13,13 @@
       text-overflow: ellipsis;
     }
   }
+
+  &:hover {
+    .el-form-item__label {
+      color: var(--el-color-primary);
+    }
+  }
+
   .el-select {
     display: block;
   }
@@ -116,6 +123,14 @@
     .el-input__suffix {
       color: var(--el-color-primary);
     }
+    .el-input__wrapper {
+      background-color: var(--el-color-primary-light-9);
+      box-shadow: 0 0 0 1px
+        var(--el-color-primary-light-7, var(--el-color-primary-light-7)) inset;
+    }
+    .el-input__inner {
+      color: var(--el-color-primary);
+    }
   }
 }
 
@@ -126,6 +141,14 @@
 @include b(function-setter) {
   @include when(active) {
     .el-input__suffix {
+      color: var(--el-color-primary);
+    }
+    .el-input__wrapper {
+      background-color: var(--el-color-primary-light-9);
+      box-shadow: 0 0 0 1px
+        var(--el-color-primary-light-7, var(--el-color-primary-light-7)) inset;
+    }
+    .el-input__inner {
       color: var(--el-color-primary);
     }
   }

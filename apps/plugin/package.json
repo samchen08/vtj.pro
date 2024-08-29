@@ -1,7 +1,7 @@
 {
   "name": "vtj-plugin",
   "private": true,
-  "version": "0.8.103",
+  "version": "0.8.117",
   "type": "module",
   "scripts": {
     "setup": "pnpm install --unsafe-perm --registry=https://registry.npmmirror.com",

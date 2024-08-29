@@ -102,6 +102,16 @@ const desc: MaterialDescription = {
       title: '表单项内容采用inline布局',
       setters: 'BooleanSetter'
     },
+    {
+      name: 'hidden',
+      title: '隐藏域',
+      setters: 'BooleanSetter'
+    },
+    {
+      name: 'defaultValue',
+      title: '默认值',
+      setters: 'StringSetter'
+    },
     ...omitPropItem(elForm[1].props, ['prop', 'size', 'label'])
   ],
   events: ['update:modelValue', 'change', 'focus', 'blur'],

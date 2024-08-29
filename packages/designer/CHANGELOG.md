@@ -3,6 +3,135 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.117](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.8.116...@vtj/designer@0.8.117) (2024-08-29)
+
+**Note:** Version bump only for package @vtj/designer
+
+
+
+
+
+## [0.8.116](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.8.115...@vtj/designer@0.8.116) (2024-08-28)
+
+
+### Bug Fixes
+
+* 🐛 setter labelWidth ([4b970f6](https://gitee.com/newgateway/vtj/commits/4b970f671577fe32ff60b80d2a65b67d51cae88b))
+
+
+
+
+
+## [0.8.115](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.8.114...@vtj/designer@0.8.115) (2024-08-28)
+
+**Note:** Version bump only for package @vtj/designer
+
+
+
+
+
+
+## [0.8.114](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.8.113...@vtj/designer@0.8.114) (2024-08-27)
+
+**Note:** Version bump only for package @vtj/designer
+
+
+
+
+
+
+## [0.8.113](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.8.112...@vtj/designer@0.8.113) (2024-08-23)
+
+
+### Features
+
+* ✨ 自动判断label宽度 ([6b28fd4](https://gitee.com/newgateway/vtj/commits/6b28fd46f751da3d4d0f70d3efa457a3bd25a3cb))
+
+
+
+
+
+## [0.8.112](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.8.111...@vtj/designer@0.8.112) (2024-08-22)
+
+**Note:** Version bump only for package @vtj/designer
+
+
+
+
+
+## [0.8.111](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.8.110...@vtj/designer@0.8.111) (2024-08-22)
+
+**Note:** Version bump only for package @vtj/designer
+
+
+
+
+
+## [0.8.110](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.8.109...@vtj/designer@0.8.110) (2024-08-22)
+
+**Note:** Version bump only for package @vtj/designer
+
+
+
+
+
+
+## [0.8.109](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.8.108...@vtj/designer@0.8.109) (2024-08-20)
+
+**Note:** Version bump only for package @vtj/designer
+
+
+
+
+
+
+## [0.8.108](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.8.107...@vtj/designer@0.8.108) (2024-08-18)
+
+
+### Features
+
+* ✨ 优化属性设置面板 ([d427a0f](https://gitee.com/newgateway/vtj/commits/d427a0fa3f848547d295256440847e394221f312))
+
+
+
+
+
+## [0.8.107](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.8.106...@vtj/designer@0.8.107) (2024-08-17)
+
+**Note:** Version bump only for package @vtj/designer
+
+
+
+
+
+## [0.8.106](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.8.105...@vtj/designer@0.8.106) (2024-08-17)
+
+
+### Bug Fixes
+
+* 🐛 不校验上下文对象 ([ed79d7d](https://gitee.com/newgateway/vtj/commits/ed79d7d70ecff6070fa9e2a9d12b1818fe16d8e9))
+
+
+
+
+
+## [0.8.105](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.8.104...@vtj/designer@0.8.105) (2024-08-16)
+
+**Note:** Version bump only for package @vtj/designer
+
+
+
+
+
+## [0.8.104](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.8.103...@vtj/designer@0.8.104) (2024-08-16)
+
+**Note:** Version bump only for package @vtj/designer
+
+
+
+
+
+
 ## [0.8.103](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.8.102...@vtj/designer@0.8.103) (2024-08-14)
 
 **Note:** Version bump only for package @vtj/designer

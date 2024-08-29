@@ -3,6 +3,126 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.117](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.8.116...@vtj/materials@0.8.117) (2024-08-29)
+
+**Note:** Version bump only for package @vtj/materials
+
+
+
+
+
+## [0.8.116](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.8.115...@vtj/materials@0.8.116) (2024-08-28)
+
+**Note:** Version bump only for package @vtj/materials
+
+
+
+
+
+## [0.8.115](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.8.114...@vtj/materials@0.8.115) (2024-08-28)
+
+**Note:** Version bump only for package @vtj/materials
+
+
+
+
+
+
+## [0.8.114](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.8.113...@vtj/materials@0.8.114) (2024-08-27)
+
+**Note:** Version bump only for package @vtj/materials
+
+
+
+
+
+
+## [0.8.113](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.8.112...@vtj/materials@0.8.113) (2024-08-23)
+
+**Note:** Version bump only for package @vtj/materials
+
+
+
+
+
+## [0.8.112](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.8.111...@vtj/materials@0.8.112) (2024-08-22)
+
+**Note:** Version bump only for package @vtj/materials
+
+
+
+
+
+## [0.8.111](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.8.110...@vtj/materials@0.8.111) (2024-08-22)
+
+**Note:** Version bump only for package @vtj/materials
+
+
+
+
+
+## [0.8.110](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.8.109...@vtj/materials@0.8.110) (2024-08-22)
+
+**Note:** Version bump only for package @vtj/materials
+
+
+
+
+
+
+## [0.8.109](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.8.108...@vtj/materials@0.8.109) (2024-08-20)
+
+
+### Bug Fixes
+
+* 🐛 field 默认值 ([474824b](https://gitee.com/newgateway/vtj/commits/474824bf3f77f10e89415d87ef377898f06005a9))
+
+
+
+
+
+
+## [0.8.108](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.8.107...@vtj/materials@0.8.108) (2024-08-18)
+
+**Note:** Version bump only for package @vtj/materials
+
+
+
+
+
+## [0.8.107](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.8.106...@vtj/materials@0.8.107) (2024-08-17)
+
+**Note:** Version bump only for package @vtj/materials
+
+
+
+
+
+## [0.8.106](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.8.105...@vtj/materials@0.8.106) (2024-08-17)
+
+**Note:** Version bump only for package @vtj/materials
+
+
+
+
+
+## [0.8.105](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.8.104...@vtj/materials@0.8.105) (2024-08-16)
+
+**Note:** Version bump only for package @vtj/materials
+
+
+
+
+
+## [0.8.104](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.8.103...@vtj/materials@0.8.104) (2024-08-16)
+
+**Note:** Version bump only for package @vtj/materials
+
+
+
+
+
+
 ## [0.8.103](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.8.102...@vtj/materials@0.8.103) (2024-08-14)
 
 
