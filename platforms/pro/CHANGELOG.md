@@ -3,6 +3,43 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.117](https://gitee.com/newgateway/vtj/compare/@vtj/pro@0.8.116...@vtj/pro@0.8.117) (2024-08-29)
+
+**Note:** Version bump only for package @vtj/pro
+
+
+
+
+
+## [0.8.116](https://gitee.com/newgateway/vtj/compare/@vtj/pro@0.8.115...@vtj/pro@0.8.116) (2024-08-28)
+
+**Note:** Version bump only for package @vtj/pro
+
+
+
+
+
+## [0.8.115](https://gitee.com/newgateway/vtj/compare/@vtj/pro@0.8.114...@vtj/pro@0.8.115) (2024-08-28)
+
+
+### Bug Fixes
+
+* 🐛 link.js 改为position:fixed ([d46c67c](https://gitee.com/newgateway/vtj/commits/d46c67c64e6f78407758fadc13b4aeea2ff18cdc))
+
+
+
+
+
+
+## [0.8.114](https://gitee.com/newgateway/vtj/compare/@vtj/pro@0.8.113...@vtj/pro@0.8.114) (2024-08-27)
+
+**Note:** Version bump only for package @vtj/pro
+
+
+
+
+
+
 ## [0.8.113](https://gitee.com/newgateway/vtj/compare/@vtj/pro@0.8.112...@vtj/pro@0.8.113) (2024-08-23)
 
 **Note:** Version bump only for package @vtj/pro

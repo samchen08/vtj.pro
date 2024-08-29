@@ -2,7 +2,7 @@
 
 @include b(dialog) {
   background-color: getCssVar('bg-color');
-  position: absolute;
+  position: fixed;
   pointer-events: initial;
 
   @include when(draggable) {
@@ -23,13 +23,14 @@
   }
 
   @include e(wrapper) {
-    position: absolute;
+    position: fixed;
     left: 0;
     right: 0;
     top: 0;
     bottom: 0;
     pointer-events: none;
     overflow: hidden;
+    z-index: 1000;
     @include when(minimized) {
       display: none;
     }
@@ -43,7 +44,7 @@
   }
 
   @include e(modal) {
-    position: absolute;
+    position: fixed;
     left: 0;
     right: 0;
     top: 0;

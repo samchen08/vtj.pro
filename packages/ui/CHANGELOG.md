@@ -3,6 +3,46 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.117](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.8.116...@vtj/ui@0.8.117) (2024-08-29)
+
+**Note:** Version bump only for package @vtj/ui
+
+
+
+
+
+## [0.8.116](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.8.115...@vtj/ui@0.8.116) (2024-08-28)
+
+**Note:** Version bump only for package @vtj/ui
+
+
+
+
+
+## [0.8.115](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.8.114...@vtj/ui@0.8.115) (2024-08-28)
+
+
+### Bug Fixes
+
+* 🐛 dialog wrapper fixed ([a1c113e](https://gitee.com/newgateway/vtj/commits/a1c113e17fbfdd1767e8b6dd95d1567fad8cf2b0))
+
+
+
+
+
+
+## [0.8.114](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.8.113...@vtj/ui@0.8.114) (2024-08-27)
+
+
+### Bug Fixes
+
+* 🐛 dialog fixed position ([f07b457](https://gitee.com/newgateway/vtj/commits/f07b4575a1ceaaac9caa7318bbd32773c3cddb96))
+
+
+
+
+
+
 ## [0.8.113](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.8.112...@vtj/ui@0.8.113) (2024-08-23)
 
 **Note:** Version bump only for package @vtj/ui

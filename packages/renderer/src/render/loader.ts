@@ -33,18 +33,16 @@ export async function getPlugin(
   const scripts = urls.filter((n) => isJSUrl(n));
   if (scripts.length === 0 || !library) return null;
   const css = urls.filter((n) => isCSSUrl(n));
+  if (css.length) {
+    loadCssUrl(css);
+  }
   const component: any = await loadScriptUrl(scripts, library, global).catch(
     (e: any) => {
       console.warn('loadScriptUrl error', scripts, library, e);
       return null;
     }
   );
-  return component
-    ? {
-        component,
-        css
-      }
-    : null;
+  return component;
 }
 
 export interface CreateLoaderOptions {

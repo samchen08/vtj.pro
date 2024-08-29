@@ -32,7 +32,7 @@ async function sendSync(name) {
       return {};
     });
   if (res.data) {
-    const logId = res.data.logId;
+    const logId = res.data.logId || res.data.id;
     counter = 0;
     await checkDone(name, logId);
     console.log('sendSync:', name, 'done!');
@@ -46,6 +46,7 @@ async function checkDone(name, logId) {
       console.log('error:', e.message);
       return {};
     });
+
   let syncDone = !!res.data?.syncDone;
   return new Promise((resolve) => {
     if (!syncDone) {
