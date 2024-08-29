@@ -61,6 +61,6 @@
     const max = items
       .map((n) => getLen(n.label || n.name))
       .sort((a, b) => b - a)[0];
-    return max ? max * 6 + 12 : 100;
+    return max ? max * 6 + 24 : 100;
   });
 </script>

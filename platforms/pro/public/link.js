@@ -3,7 +3,7 @@
   const style = document.createElement('style');
   style.innerHTML = `
     #vtjLink {
-      position: absolute;
+      position: fixed;
       right: 50px;
       bottom: 50px;
       width: 40px;

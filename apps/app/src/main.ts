@@ -14,15 +14,15 @@ const { provider, onReady } = createProvider({
   service,
   router,
   dependencies: {
-    // Vue: () => import('vue'),
-    // VueRouter: () => import('vue-router'),
+    Vue: () => import('vue'),
+    VueRouter: () => import('vue-router'),
+    VtjUI: () => import('@vtj/ui')
     // ElementPlus: () => import('element-plus')
   },
   project: {
     id: name
   }
 });
-
 onReady(async () => {
   app.use(router);
   app.use(provider);

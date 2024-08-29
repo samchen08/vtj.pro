@@ -4,7 +4,6 @@
   background-color: getCssVar('bg-color');
   position: fixed;
   pointer-events: initial;
-  z-index: 1000;
 
   @include when(draggable) {
     & > .x-panel__header {
@@ -31,6 +30,7 @@
     bottom: 0;
     pointer-events: none;
     overflow: hidden;
+    z-index: 1000;
     @include when(minimized) {
       display: none;
     }
