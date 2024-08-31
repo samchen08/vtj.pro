@@ -14,6 +14,16 @@
       :props="{ button: true, size: 'small' }"
       :disabled="!!props.item"
       required></XField>
+    <XField v-if="!model.dir && !!props.item" label="路由" disabled>
+      <template #editor>
+        <ElAlert :closable="false">
+          {{ `/page/${(model as any).id}` }}
+          <XIcon
+            :icon="CopyDocument"
+            @click="onCopy(`/page/${(model as any).id}`)"></XIcon>
+        </ElAlert>
+      </template>
+    </XField>
     <XField
       name="name"
       label="名称"
@@ -45,8 +55,11 @@
 </template>
 <script lang="ts" setup>
   import { computed, ref } from 'vue';
-  import { XDialogForm, XField } from '@vtj/ui';
+  import { XDialogForm, XField, XIcon } from '@vtj/ui';
   import { type PageFile } from '@vtj/core';
+  import { useClipboard } from '@vueuse/core';
+  import { ElAlert, ElMessage } from 'element-plus';
+  import { CopyDocument } from '@vtj/icons';
   import { upperFirstCamelCase } from '@vtj/utils';
   import IconSetter from '../../setters/icon.vue';
   import { NAME_REGEX } from '../../../constants';
@@ -100,5 +113,14 @@
       project.value?.createPage(data, props.parentId);
     }
     return true;
+  };
+
+  const { copy } = useClipboard({});
+
+  const onCopy = (name: string) => {
+    copy(name);
+    ElMessage.success({
+      message: '已经复制到粘贴板'
+    });
   };
 </script>
