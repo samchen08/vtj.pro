@@ -134,11 +134,11 @@ export class Simulator extends Base {
             }
          </style>
          ${createAssetsCss(css)}
-         ${createAssetScripts(scripts)}
-         ${createAssetScripts(materials)}
        </head>
        <body> 
        </body>
+       ${createAssetScripts(scripts)}
+       ${createAssetScripts(materials)}
        <script>
        __simulator__.emitReady(${JSON.stringify(libraryExports)},
         ${JSON.stringify(materialExports)}, 

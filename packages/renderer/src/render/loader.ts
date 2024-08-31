@@ -34,7 +34,7 @@ export async function getPlugin(
   if (scripts.length === 0 || !library) return null;
   const css = urls.filter((n) => isCSSUrl(n));
   if (css.length) {
-    loadCssUrl(css);
+    loadCssUrl(css, global);
   }
   const component: any = await loadScriptUrl(scripts, library, global).catch(
     (e: any) => {
@@ -109,8 +109,7 @@ export function createLoader(opts: CreateLoaderOptions): BlockLoader {
       return Vue.defineAsyncComponent(async () => {
         const plugin = await getPlugin(from, options.window);
         if (plugin) {
-          loadCssUrl(plugin.css, options.window);
-          return plugin.component;
+          return plugin;
         } else {
           console.warn('getPlugin result is null', from);
         }
