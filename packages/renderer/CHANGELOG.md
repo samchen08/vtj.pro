@@ -3,6 +3,38 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.120](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.8.119...@vtj/renderer@0.8.120) (2024-08-31)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
+
+## [0.8.119](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.8.118...@vtj/renderer@0.8.119) (2024-08-29)
+
+
+### Bug Fixes
+
+* 🐛 loadCssUrl ([9056939](https://gitee.com/newgateway/vtj/commits/905693968a7e5bc1e1665f880b2ee8a3ff176057))
+
+
+
+
+
+## [0.8.118](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.8.117...@vtj/renderer@0.8.118) (2024-08-29)
+
+
+### Bug Fixes
+
+* 🐛 getPlugin error ([c3cc783](https://gitee.com/newgateway/vtj/commits/c3cc78322e2aeb59cec8af7a6e6b14caa1b459d3))
+
+
+
+
+
+
 ## [0.8.117](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.8.116...@vtj/renderer@0.8.117) (2024-08-29)
 
 
