@@ -73,6 +73,8 @@
 
   const submitMethod = async (data: any) => {
     data.urls = data.urls.split('\n');
+    data.enabled = true;
+    data.official = false;
     engine.project.value?.setDeps(data);
     return true;
   };
