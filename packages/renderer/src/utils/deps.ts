@@ -5,7 +5,7 @@ import type { Dependencie, MaterialDescription } from '@vtj/core';
 
 export function fillBasePath(urls: string[], basePath: string) {
   return urls.map((url) => {
-    if (isUrl(url)) {
+    if (isUrl(url) || url.startsWith('/')) {
       return url;
     }
     return `${basePath}${url}`;

@@ -366,7 +366,6 @@ export class Request {
       isSkipWarn,
       query
     );
-    console.log('params, query', params, query);
     this.showLoading(settings);
     return new Promise<R>((resolve, reject) => {
       this.axios({
