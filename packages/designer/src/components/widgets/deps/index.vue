@@ -100,6 +100,8 @@
     if (e.name === 'edit') {
       model.value = {
         ...dep,
+        enabled: true,
+        official: false,
         urls: dep.urls.join('\n')
       };
       readonly.value = false;

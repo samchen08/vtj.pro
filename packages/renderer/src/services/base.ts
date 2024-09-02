@@ -32,12 +32,12 @@ const request = new Request({
   }
 });
 
-const createApi = (url: string = '/vtj/local/repository/${type}.json') => {
+const createApi = (url: string = '/vtj/local/repository/:type.json') => {
   return (type: string, data?: any) => {
     return request.send({
       url,
       method: 'post',
-      query: { type },
+      params: { type },
       data: {
         type,
         data

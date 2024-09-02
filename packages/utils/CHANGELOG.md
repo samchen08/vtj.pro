@@ -3,6 +3,30 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.122](https://gitee.com/newgateway/vtj/compare/@vtj/utils@0.8.121...@vtj/utils@0.8.122) (2024-09-02)
+
+
+### Bug Fixes
+
+* 🐛 clean console.log ([42f3253](https://gitee.com/newgateway/vtj/commits/42f32534527710a50c0af13dda48402905a0c9bf))
+
+
+
+
+
+
+## [0.8.121](https://gitee.com/newgateway/vtj/compare/@vtj/utils@0.8.120...@vtj/utils@0.8.121) (2024-09-02)
+
+
+### Features
+
+* ✨ 重构request params ([ec58198](https://gitee.com/newgateway/vtj/commits/ec58198554f7be7e851ce2b4db903d2b14b75f3c))
+
+
+
+
+
+
 ## [0.8.120](https://gitee.com/newgateway/vtj/compare/@vtj/utils@0.8.119...@vtj/utils@0.8.120) (2024-08-31)
 
 **Note:** Version bump only for package @vtj/utils

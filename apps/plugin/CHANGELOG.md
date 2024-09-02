@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.122](https://gitee.com/newgateway/vtj/compare/vtj-plugin@0.8.121...vtj-plugin@0.8.122) (2024-09-02)
+
+**Note:** Version bump only for package vtj-plugin
+
+
+
+
+
+
+## [0.8.121](https://gitee.com/newgateway/vtj/compare/vtj-plugin@0.8.120...vtj-plugin@0.8.121) (2024-09-02)
+
+**Note:** Version bump only for package vtj-plugin
+
+
+
+
+
+
 ## [0.8.120](https://gitee.com/newgateway/vtj/compare/vtj-plugin@0.8.119...vtj-plugin@0.8.120) (2024-08-31)
 
 **Note:** Version bump only for package vtj-plugin

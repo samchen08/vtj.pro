@@ -21,7 +21,7 @@
         list-type="list"
         :selectable="true"
         :uploader="uploader"
-        :model-value="fileList"
+        v-model="fileList"
         v-model:select-value="selectValue"
         v-bind="props.attachment"
         @remove="handleRemove"></XAttachment>
