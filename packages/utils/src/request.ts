@@ -15,8 +15,7 @@ import {
   debounce,
   throttle,
   uuid,
-  pathToRegexpCompile,
-  template
+  pathToRegexpCompile
 } from '@vtj/base';
 
 const TYPES = {
@@ -148,6 +147,10 @@ export interface IRequestRecord {
   source: CancelTokenSource;
 }
 
+export type IRequest<R = any, D = any> = (
+  config?: IRequestConfig<D>
+) => Promise<R>;
+
 export class Request {
   axios: AxiosInstance;
   settings: IRequestSettings;
@@ -159,7 +162,8 @@ export class Request {
   constructor(options: IRequestOptions = {}) {
     this.settings = options.settings || {};
     const defaults = omit<IRequestOptions, CreateAxiosDefaults>(options, [
-      'settings'
+      'settings',
+      'query'
     ]);
     this.axios = axios.create(
       merge(
@@ -183,7 +187,8 @@ export class Request {
   setConfig(options: IRequestOptions = {}) {
     this.settings = merge(this.settings, options.settings || {});
     const defaults = omit<IRequestOptions, CreateAxiosDefaults>(options, [
-      'settings'
+      'settings',
+      'query'
     ]);
     this.axios.defaults = merge(this.axios.defaults, defaults);
     this.setupSkipWarn(this.settings);
@@ -252,11 +257,12 @@ export class Request {
     settings: IRequestSettings,
     config: AxiosRequestConfig,
     headers: RawAxiosRequestHeaders,
-    isSkipWarn: boolean
+    isSkipWarn: boolean,
+    query: Record<string, any> = {}
   ) {
     const { type, skipWarn } = settings;
     const { name = 'skipWarn' } = skipWarn || {};
-    let { data, params, method = 'get' } = config;
+    let { data, params = {}, method = 'get' } = config;
     const skip = isSkipWarn ? { [name]: true } : {};
     if (DATA_METHODS.includes(method.toLowerCase())) {
       data = Object.assign(data || {}, skip);
@@ -264,10 +270,14 @@ export class Request {
         type !== 'json' || !this.isJsonType(headers)
           ? this.toFormData(data, type)
           : data;
+      params = {
+        ...query
+      };
     } else {
       params = {
         ...data,
         ...params,
+        ...query,
         ...skip
       };
     }
@@ -278,16 +288,12 @@ export class Request {
     };
   }
 
-  private createUrl(config: IRequestConfig) {
-    let { url, query } = config;
+  private createUrl(config: AxiosRequestConfig) {
+    let { url, params } = config;
     if (url) {
-      if (query) {
-        const compiled = template(url);
-        url = compiled(query);
-      }
       try {
         const toPath = pathToRegexpCompile(url, { encode: encodeURIComponent });
-        return toPath(query || {});
+        return toPath(params || {});
       } catch (e) {
         console.warn('createUrl', 'pathToRegexpCompile error', url);
       }
@@ -343,8 +349,10 @@ export class Request {
     isSkipWarn: boolean = false
   ) {
     const settings = merge({}, this.settings, options.settings || {});
-    const config = omit<IRequestConfig<D>, IRequestConfig<D>>(options, [
-      'settings'
+    const query = options.query || {};
+    const config = omit<IRequestConfig<D>, AxiosRequestConfig<D>>(options, [
+      'settings',
+      'query'
     ]);
     const id = uuid(false);
     const source = axios.CancelToken.source();
@@ -355,8 +363,10 @@ export class Request {
       settings,
       config,
       headers,
-      isSkipWarn
+      isSkipWarn,
+      query
     );
+    console.log('params, query', params, query);
     this.showLoading(settings);
     return new Promise<R>((resolve, reject) => {
       this.axios({
@@ -452,8 +462,8 @@ export class Request {
   }
 }
 
-export interface IStaticRequest extends Request {
-  (options: IRequestConfig): Promise<any>;
+export interface IStaticRequest<R = any, D = any> extends Request {
+  (options: IRequestConfig<D>): Promise<R>;
   instance: Request;
 }
 
