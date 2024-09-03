@@ -1,6 +1,6 @@
 {
   "name": "@vtj/mobile",
-  "version": "0.8.120",
+  "version": "0.8.123",
   "private": false,
   "scripts": {
     "dev:app": "uni -p app",

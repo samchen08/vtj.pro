@@ -30,7 +30,7 @@ export const SetterWrapper = defineComponent({
       >,
       required: true,
       default() {
-        return [];
+        return [setterManager.defaultSetter];
       }
     },
     options: {

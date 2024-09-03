@@ -4,8 +4,8 @@ export const MOBILE_SIZE = {
 };
 
 export const PAD_SIZE = {
-  width: 1180,
-  height: 820
+  width: 1024,
+  height: 768
 };
 
 /**

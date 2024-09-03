@@ -73,6 +73,8 @@
 
   const submitMethod = async (data: any) => {
     data.urls = data.urls.split('\n');
+    data.enabled = true;
+    data.official = false;
     engine.project.value?.setDeps(data);
     return true;
   };
@@ -100,6 +102,8 @@
     if (e.name === 'edit') {
       model.value = {
         ...dep,
+        enabled: true,
+        official: false,
         urls: dep.urls.join('\n')
       };
       readonly.value = false;
