@@ -106,7 +106,7 @@
     e.$event.stopPropagation();
     e.$event.preventDefault();
     const nodeName = e.$event.target.nodeName || '';
-    const inputs = ['INPUT', 'SELECT', 'RADIO', 'CHECKBOX'];
+    const inputs = ['INPUT', 'SELECT', 'RADIO', 'CHECKBOX', 'WUJIE-APP'];
     if (inputs.includes(nodeName.toUpperCase())) {
       return;
     }

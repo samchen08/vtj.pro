@@ -19,7 +19,7 @@ export function reloadPlugin(): Plugin {
                 const result = content.match(regex);
                 if (result && result[1]) {
                   if (result[1] !== __BUILD_TIME__) {
-                    location.reload(true);
+                    top.location.reload(true);
                   }
                 }
               }

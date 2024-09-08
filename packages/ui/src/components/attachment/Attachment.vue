@@ -21,7 +21,7 @@
           <div class="x-attachment__wrapper">
             <img
               class="el-upload-list__item-thumbnail"
-              :class="{ 'is-icon': !isImage(file) }"
+              :class="{ 'is-icon': !isImage(file as AttachmentFile) }"
               :src="createFileThumbnail(file)" />
             <div
               v-if="props.listType !== 'card' || file.name"
@@ -38,19 +38,19 @@
           <div v-if="hasAction" class="el-upload-list__item-actions">
             <span
               v-if="props.previewable"
-              @click.stop="openImagePreviewer(file)"
+              @click.stop="openImagePreviewer(file as AttachmentFile)"
               class="el-upload-list__item-preview">
               <el-icon><ZoomIn /></el-icon>
             </span>
             <span
               v-if="props.downloadable"
-              @click.stop="download(file)"
+              @click.stop="download(file as AttachmentFile)"
               class="el-upload-list__item-delete">
               <el-icon><Download /></el-icon>
             </span>
             <span
               v-if="props.removable && !props.disabled"
-              @click.stop="remove(file)"
+              @click.stop="remove(file as AttachmentFile)"
               class="el-upload-list__item-delete">
               <el-icon><Delete /></el-icon>
             </span>

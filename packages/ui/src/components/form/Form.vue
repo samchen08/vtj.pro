@@ -80,6 +80,10 @@
     return await formRef.value.validate().catch(() => false);
   };
 
+  const clearValidate = () => {
+    formRef.value.clearValidate();
+  };
+
   const submit = async () => {
     const ret = await validate();
     if (ret) {
@@ -102,6 +106,7 @@
     model,
     submit,
     reset,
-    validate
+    validate,
+    clearValidate
   });
 </script>

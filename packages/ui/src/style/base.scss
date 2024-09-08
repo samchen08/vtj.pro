@@ -4,6 +4,7 @@ body {
   margin: 0;
   font-family: getCssVar('font-family');
   background-color: getCssVar('bg-color');
+  font-family: 'Microsoft YaHei', Arial, sans-serif;
   &.user-select-none {
     user-select: none;
     overflow: hidden !important;
@@ -34,15 +35,3 @@ body.is-resizing {
 .el-loading-mask {
   background-color: var(--el-mask-color-extra-light) !important;
 }
-
-// for common
-
-// // for tiny components
-// html.tiny {
-//   @include set-css-var-value('vtj-page-bg', $bg-color);
-// }
-
-// // for dark components
-// html.dark {
-//   @include set-css-var-value('vtj-page-bg', $bg-color);
-// }

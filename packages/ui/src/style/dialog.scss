@@ -51,6 +51,7 @@
     bottom: 0;
     background-color: getCssVar('mask-color-extra-light');
     pointer-events: initial;
+    opacity: 0.5;
   }
 
   @include e(frame) {
