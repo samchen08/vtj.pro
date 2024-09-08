@@ -28,8 +28,11 @@
       label: '姓名',
       name: 'name',
       required: true,
-      editor: 'select',
+      editor: 'picker',
       defaultValue: 1,
+      props: {
+        loader: () => {}
+      },
       options: [
         {
           label: '选项一',

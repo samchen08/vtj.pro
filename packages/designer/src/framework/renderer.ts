@@ -47,6 +47,10 @@ export class Renderer {
     const plugins = Object.entries(library);
     Object.assign(app.config.globalProperties, globals);
     plugins.forEach(([name, plugin]) => {
+      if (!plugin) {
+        console.warn(`plugin: ${name} is undefined`);
+        return;
+      }
       if (
         typeof plugin === 'function' ||
         typeof plugin.install === 'function'

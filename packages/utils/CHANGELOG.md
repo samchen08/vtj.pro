@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.125](https://gitee.com/newgateway/vtj/compare/@vtj/utils@0.8.124...@vtj/utils@0.8.125) (2024-09-08)
+
+**Note:** Version bump only for package @vtj/utils
+
+
+
+
+
+## [0.8.124](https://gitee.com/newgateway/vtj/compare/@vtj/utils@0.8.123...@vtj/utils@0.8.124) (2024-09-06)
+
+
+### Bug Fixes
+
+* 🐛 plugin is undefined error ([82f370c](https://gitee.com/newgateway/vtj/commits/82f370cc3d8d1db757cffcd843454aa1b4e2653c))
+
+
+
+
+
+
 ## [0.8.123](https://gitee.com/newgateway/vtj/compare/@vtj/utils@0.8.122...@vtj/utils@0.8.123) (2024-09-02)
 
 **Note:** Version bump only for package @vtj/utils

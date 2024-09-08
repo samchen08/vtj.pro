@@ -3,6 +3,29 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.28](https://gitee.com/newgateway/vtj/compare/@vtj/cli@0.8.27...@vtj/cli@0.8.28) (2024-09-08)
+
+
+### Bug Fixes
+
+* 🐛 更新依赖导致的兼容问题 ([d96fe5d](https://gitee.com/newgateway/vtj/commits/d96fe5d457ab1dc35ace670dca062a3cd86894c2))
+
+
+
+
+
+## [0.8.27](https://gitee.com/newgateway/vtj/compare/@vtj/cli@0.8.26...@vtj/cli@0.8.27) (2024-09-06)
+
+
+### Bug Fixes
+
+* 🐛 cli top.location.reload ([25c50cf](https://gitee.com/newgateway/vtj/commits/25c50cfa57a4b2c307a002c26ba5b4ca976ed1c4))
+
+
+
+
+
+
 ## [0.8.26](https://gitee.com/newgateway/vtj/compare/@vtj/cli@0.8.25...@vtj/cli@0.8.26) (2024-08-27)
 
 **Note:** Version bump only for package @vtj/cli

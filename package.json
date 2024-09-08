@@ -5,9 +5,9 @@
   "devDependencies": {
     "pnpm": "~9.5.0",
     "lerna": "~8.1.5",
-    "axios": "~1.6.8",
+    "axios": "~1.6.0",
     "fs-extra": "~11.2.0",
-    "jsdom": "~24.1.0",
+    "jsdom": "~25.0.0",
     "typedoc": "~0.26.5",
     "typescript": "~5.5.3",
     "ts-node": "~10.9.2",

@@ -7,6 +7,7 @@
     label-width="100px"
     :submit-text="null"
     :reset-text="null"
+    :disabled="disabled"
     :footer="showCollapsible">
     <div
       class="x-query-form__inner"
@@ -15,7 +16,11 @@
       <slot>
         <template v-for="item in props.items">
           <slot v-if="isSlotField(item)" :name="item"></slot>
-          <XField v-else v-bind="item" :key="`field_${item.name}`"></XField>
+          <XField
+            v-else
+            :disabled="disabled"
+            v-bind="item"
+            :key="`field_${item.name}`"></XField>
         </template>
       </slot>
     </div>
@@ -70,6 +75,10 @@
     return await formRef.value?.validate();
   };
 
+  const clearValidate = () => {
+    formRef.value?.clearValidate();
+  };
+
   const reset = (fields?: string[] | string) => {
     formRef.value?.reset(fields);
   };
@@ -85,6 +94,7 @@
 
   defineExpose({
     validate,
+    clearValidate,
     submit,
     reset,
     formRef,

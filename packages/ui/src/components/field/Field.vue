@@ -122,7 +122,7 @@
 
   const tooltipMessageComputed = computed(() => {
     return Object.assign(
-      {},
+      { placement: 'bottom-end' },
       formInstance?.props.tooltipMessage || {},
       typeof props.tooltipMessage === 'boolean' ? {} : props.tooltipMessage
     );

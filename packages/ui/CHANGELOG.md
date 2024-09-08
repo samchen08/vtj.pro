@@ -3,6 +3,37 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.125](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.8.124...@vtj/ui@0.8.125) (2024-09-08)
+
+
+### Bug Fixes
+
+* 🐛 更新依赖导致的兼容问题 ([d96fe5d](https://gitee.com/newgateway/vtj/commits/d96fe5d457ab1dc35ace670dca062a3cd86894c2))
+* 🐛 降低dialog modal 透明度 ([1b1aa41](https://gitee.com/newgateway/vtj/commits/1b1aa41dfc74f8619b1ba6ced9975aaa2a26fcec))
+* 🐛 tooltip placement ([c0b9a09](https://gitee.com/newgateway/vtj/commits/c0b9a0987ebca32591bdebda9ad3d7c6192db378))
+
+
+
+
+
+## [0.8.124](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.8.123...@vtj/ui@0.8.124) (2024-09-06)
+
+
+### Bug Fixes
+
+* 🐛 picker dialog enter event ([d54a1bb](https://gitee.com/newgateway/vtj/commits/d54a1bb34937202824ca43bc4d82bd4b3c0dbb20))
+* 🐛 query-form disabled 失效 ([3726a9d](https://gitee.com/newgateway/vtj/commits/3726a9d49f71dc30636d20ada3563c1d836e76c1))
+
+
+### Features
+
+* ✨ form add clearValidate ([15d222b](https://gitee.com/newgateway/vtj/commits/15d222b2c2efbb278eb0064da58a03d23a312f0b))
+
+
+
+
+
+
 ## [0.8.123](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.8.122...@vtj/ui@0.8.123) (2024-09-02)
 
 **Note:** Version bump only for package @vtj/ui

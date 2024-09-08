@@ -12,5 +12,8 @@ export const queryFormProps = {
   inlineColumns: {
     type: Number,
     default: 4
+  },
+  disabled: {
+    type: Boolean
   }
 };

@@ -5,6 +5,7 @@ import vueJsx from '@vitejs/plugin-vue-jsx';
 import legacy from '@vitejs/plugin-legacy';
 import basicSsl from '@vitejs/plugin-basic-ssl';
 import dts from 'vite-plugin-dts';
+import vueDevTools from 'vite-plugin-vue-devtools';
 import { visualizer } from 'rollup-plugin-visualizer';
 import ElementPlus from 'unplugin-element-plus/vite';
 import { nodePolyfills } from 'vite-plugin-node-polyfills';
@@ -110,6 +111,12 @@ export const mergePlugins = (opts: CreateViteConfigOptions) => {
 
   if (opts.node) {
     plugins.push(nodePolyfills(typeof opts.node === 'object' ? opts.node : {}));
+  }
+
+  if (opts.vueDevTools) {
+    plugins.push(
+      vueDevTools(typeof opts.vueDevTools === 'object' ? opts.vueDevTools : {})
+    );
   }
 
   if (opts.buildEnd) {
