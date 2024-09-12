@@ -3,6 +3,75 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.133](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.132...@vtj/coder@0.8.133) (2024-09-12)
+
+**Note:** Version bump only for package @vtj/coder
+
+
+
+
+
+## [0.8.132](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.131...@vtj/coder@0.8.132) (2024-09-12)
+
+**Note:** Version bump only for package @vtj/coder
+
+
+
+
+
+## [0.8.131](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.130...@vtj/coder@0.8.131) (2024-09-12)
+
+**Note:** Version bump only for package @vtj/coder
+
+
+
+
+
+
+## [0.8.130](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.129...@vtj/coder@0.8.130) (2024-09-10)
+
+**Note:** Version bump only for package @vtj/coder
+
+
+
+
+
+## [0.8.129](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.128...@vtj/coder@0.8.129) (2024-09-10)
+
+**Note:** Version bump only for package @vtj/coder
+
+
+
+
+
+
+## [0.8.128](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.127...@vtj/coder@0.8.128) (2024-09-09)
+
+**Note:** Version bump only for package @vtj/coder
+
+
+
+
+
+
+## [0.8.127](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.126...@vtj/coder@0.8.127) (2024-09-09)
+
+**Note:** Version bump only for package @vtj/coder
+
+
+
+
+
+
+## [0.8.126](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.125...@vtj/coder@0.8.126) (2024-09-09)
+
+**Note:** Version bump only for package @vtj/coder
+
+
+
+
+
+
 ## [0.8.125](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.124...@vtj/coder@0.8.125) (2024-09-08)
 
 **Note:** Version bump only for package @vtj/coder

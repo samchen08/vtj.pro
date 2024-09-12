@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.29](https://gitee.com/newgateway/vtj/compare/@vtj/cli@0.8.28...@vtj/cli@0.8.29) (2024-09-12)
+
+
+### Features
+
+* ✨ devtools ([1afcfcb](https://gitee.com/newgateway/vtj/commits/1afcfcb1389dd65c3c94dda3ee7d0472424e9067))
+
+
+
+
+
+
 ## [0.8.28](https://gitee.com/newgateway/vtj/compare/@vtj/cli@0.8.27...@vtj/cli@0.8.28) (2024-09-08)
 
 

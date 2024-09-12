@@ -91,7 +91,7 @@ export const pickerProps = {
     type: String
   },
   /**
-   * 单选模式，回车时自动检测取回有且计有唯一数据
+   * 回车时自动检测取回有且计有唯一数据
    */
   preload: {
     type: Boolean
@@ -135,6 +135,12 @@ export const pickerProps = {
    * 输出数据格式化
    */
   valueFormatter: {
+    type: Function
+  },
+  /**
+   * 弹窗在打开之前回调
+   */
+  beforeInit: {
     type: Function
   }
 };

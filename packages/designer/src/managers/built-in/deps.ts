@@ -71,15 +71,6 @@ export const builtInDeps: Dependencie[] = [
     official: true,
     enabled: true
   },
-  // {
-  //   package: 'echarts',
-  //   version: 'latest',
-  //   library: 'echarts',
-  //   urls: ['@vtj/materials/deps/echarts/echarts.min.js'],
-  //   required: false,
-  //   official: true,
-  //   enabled: true
-  // },
   {
     package: '@vtj/ui',
     version: 'latest',

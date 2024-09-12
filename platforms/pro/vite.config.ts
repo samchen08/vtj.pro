@@ -19,5 +19,6 @@ export default createViteConfig({
       copy: true,
       devMode: true
     })
-  ]
+  ],
+  devtools: false
 });

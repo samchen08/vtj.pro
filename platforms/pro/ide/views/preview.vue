@@ -22,9 +22,7 @@
     ...(options || {}),
     dependencies: {
       Vue: () => import('vue'),
-      VueRouter: () => import('vue-router'),
-      ElementPlus: () => import('element-plus'),
-      VtjIcons: () => import('@vtj/icons')
+      VueRouter: () => import('vue-router')
     }
   });
   const route = useRoute();

@@ -53,10 +53,10 @@ function creator() {
         devMode: true,
         packagesDir: '../packages'
       })
-    ],
-    vueDevTools: {
-      componentInspector: false
-    }
+    ]
+    // vueDevTools: {
+    //   componentInspector: false
+    // }
   };
 }
 
