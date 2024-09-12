@@ -251,7 +251,7 @@ export interface CreateViteConfigOptions {
   /**
    * 开启 VueDevTools
    */
-  vueDevTools?: boolean | VitePluginVueDevToolsOptions;
+  devtools?: boolean | VitePluginVueDevToolsOptions;
 }
 
 export interface CreateUniappViteConfigOptions {

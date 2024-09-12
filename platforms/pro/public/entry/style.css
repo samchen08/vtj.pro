@@ -1,0 +1,57 @@
+.vue-devtools__anchor-btn.vtj-link svg {
+  height: 14px;
+  width: 14px;
+  color: #333;
+}
+.vue-devtools__anchor-btn {
+  border-width: 0;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0.8;
+}
+.vue-devtools__anchor-btn.vtj-link {
+  cursor: pointer;
+  border-left: 1px solid #eee;
+}
+.vue-devtools__anchor-btn.vtj-link:hover svg {
+  color: #409eff;
+}
+
+#vtjLink {
+  position: fixed;
+  right: 50px;
+  bottom: 50px;
+  width: 40px;
+  height: 40px;
+  border: none;
+  z-index: 9999;
+  cursor: pointer;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #eee;
+  background: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
+}
+#vtjLink svg {
+  height: 20px;
+  width: 20px;
+  color: #333;
+}
+#vtjLink:hover {
+  background: #ecf5ff;
+}
+#vtjLink:hover svg {
+  color: #409eff;
+}
+.vtj-link-dragging {
+  user-select: none;
+  iframe {
+    user-select: none;
+    pointer-events: none;
+  }
+}

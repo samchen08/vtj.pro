@@ -14,6 +14,7 @@ import { pathExistsSync, readJsonSync } from '@vtj/node';
 import { join, resolve } from 'path';
 import bodyParser from 'body-parser';
 import { router } from './controller';
+import { CLIENT_DIR } from './shared';
 
 export interface DevToolsOptions {
   baseURL: string;
@@ -38,7 +39,6 @@ export interface DevToolsOptions {
 
 export interface LinkOptions {
   entry?: string;
-  href?: string;
   serveOnly?: boolean;
 }
 
@@ -77,11 +77,7 @@ const apiServerPlugin = function (options: DevToolsOptions): Plugin {
 };
 
 const linkPlugin = function (options: DevToolsOptions): Plugin {
-  const {
-    entry = '/index.html',
-    href = '',
-    serveOnly = true
-  } = options.linkOptions || {};
+  const { entry = '/index.html', serveOnly = true } = options.linkOptions || {};
   let config: ResolvedConfig;
   return {
     name: 'vtj-link-plugin',
@@ -100,12 +96,11 @@ const linkPlugin = function (options: DevToolsOptions): Plugin {
         const link =
           typeof options.link === 'string'
             ? options.link
-            : `${options.packageName}/link.js`;
+            : `${CLIENT_DIR}/entry/index.js`;
         const url = `${config.base}${link}`;
         return html.replace(
           /<\/body>/,
           `
-          <script>window.__VTJ_LINK__ = { href: '${href}' }</script>
           <script src="${url}"></script></body>
           `
         );
@@ -224,7 +219,7 @@ export function parsePresetPlugins(options: DevToolsOptions) {
 
 export function createDevTools(options: Partial<DevToolsOptions> = {}) {
   const opts: DevToolsOptions = {
-    baseURL: '/vtj/local/repository',
+    baseURL: `/${CLIENT_DIR}/api`,
     copy: true,
     server: true,
     staticBase: '/',
@@ -303,7 +298,7 @@ export function createDevTools(options: Partial<DevToolsOptions> = {}) {
 
     if (pathExistsSync(proPath)) {
       staticOptions.push({
-        path: `${opts.staticBase}${opts.packageName}`,
+        path: `${opts.staticBase}${CLIENT_DIR}`,
         dir: proPath
       });
     }

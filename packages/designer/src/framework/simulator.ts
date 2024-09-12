@@ -1,4 +1,4 @@
-import { type Ref, type ShallowRef, shallowRef, watch } from 'vue';
+import { type Ref, type ShallowRef, shallowRef, watch, ref } from 'vue';
 import {
   type Dependencie,
   type Material,
@@ -22,6 +22,7 @@ import { logger } from '@vtj/utils';
 import { Renderer } from './renderer';
 import { Designer } from './designer';
 import { type Engine } from './engine';
+import { DevTools } from './devtools';
 
 declare global {
   interface Window {
@@ -57,6 +58,8 @@ export class Simulator extends Base {
   public designer: ShallowRef<Designer | null> = shallowRef(null);
   public engine: Engine;
   public materialPath: string;
+  public rendered: Ref<symbol> = ref(Symbol());
+  public devtools: DevTools = new DevTools();
   constructor(options: SimulatorOptions) {
     super();
     const { engine, materialPath } = options;
@@ -88,7 +91,8 @@ export class Simulator extends Base {
             this.designer.value = new Designer(
               this.engine,
               this.contentWindow,
-              deps
+              deps,
+              this.devtools
             );
           }
         }
@@ -114,7 +118,7 @@ export class Simulator extends Base {
       materialExports,
       materialMapLibrary,
       libraryLocaleMap
-    } = parseDeps(deps, this.materialPath);
+    } = parseDeps(deps, this.materialPath, true);
     doc.open();
     doc.write(`
      <!DOCTYPE html>
@@ -133,7 +137,7 @@ export class Simulator extends Base {
               background: #fff;
             }
          </style>
-         ${createAssetsCss(css)}
+       ${createAssetsCss(css)}
        </head>
        <body> 
        </body>
@@ -176,9 +180,11 @@ export class Simulator extends Base {
       materials,
       libraryLocaleMap
     );
+    this.devtools.init(cw, this.engine);
     this.renderer = new Renderer(env, service, provider, this.designer.value);
     if (current.value) {
       this.renderer.render(current.value);
+      this.rendered.value = Symbol();
     }
     this.triggerReady();
   }
@@ -264,6 +270,7 @@ export class Simulator extends Base {
     const current = this.engine.current.value;
     if (current) {
       this.renderer?.render(current);
+      this.rendered.value = Symbol();
     }
   }
 

@@ -32,3 +32,5 @@ export const fail = (msg: string, data: any = null): ApiResponse => {
     success: false
   };
 };
+
+export const CLIENT_DIR = '__vtj__';

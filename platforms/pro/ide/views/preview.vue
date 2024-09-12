@@ -8,7 +8,8 @@
     createProvider,
     LocalService,
     ContextMode,
-    Extension
+    Extension,
+    DevTools
   } from '../../src';
   import { IconsPlugin } from '@vtj/icons';
   const service = new LocalService();
@@ -36,6 +37,7 @@
     if (app) {
       app.use(IconsPlugin);
       app.use(provider);
+      new DevTools().setup(window, app, __BASE_PATH__);
     }
 
     renderer.value = await provider.getRenderComponent(

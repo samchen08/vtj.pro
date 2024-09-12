@@ -1,0 +1,6 @@
+@use '../core' as *;
+@include b(status-region) {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}

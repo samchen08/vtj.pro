@@ -55,3 +55,13 @@ export const EVENT_MODIFIERS = [
   'once',
   'passive'
 ];
+
+/**
+ * vue-devtools 状态缓存key
+ */
+export const VUE_DEVTOOLS_FRAME_STATE_KEY = '__vue-devtools-frame-state__';
+
+/**
+ * vue-devtools 文件路径
+ */
+export const VUE_DEVTOOLS_PATH = '@id/virtual:vue-devtools-path:overlay.js';

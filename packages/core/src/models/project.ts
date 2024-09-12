@@ -73,6 +73,7 @@ export class ProjectModel {
   meta: MetaSchema[] = [];
   currentFile: PageFile | BlockFile | null = null;
   config: ProjectConfig = {};
+  __BASE_PATH__: string = '/';
   static attrs: string[] = [
     'name',
     'homepage',
@@ -82,7 +83,8 @@ export class ProjectModel {
     'blocks',
     'apis',
     'meta',
-    'config'
+    'config',
+    '__BASE_PATH__'
   ];
   constructor(schema: ProjectSchema) {
     const { id } = schema;

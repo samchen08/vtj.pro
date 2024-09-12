@@ -13,5 +13,6 @@ export default createViteConfig({
       devMode: true,
       pluginNodeModulesDir: '../../node_modules'
     })
-  ]
+  ],
+  devtools: true
 });

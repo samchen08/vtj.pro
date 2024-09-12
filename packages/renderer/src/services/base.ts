@@ -32,7 +32,7 @@ const request = new Request({
   }
 });
 
-const createApi = (url: string = '/vtj/local/repository/:type.json') => {
+const createApi = (url: string = '/__vtj__/api/:type.json') => {
   return (type: string, data?: any) => {
     return request.send({
       url,
@@ -46,9 +46,7 @@ const createApi = (url: string = '/vtj/local/repository/:type.json') => {
   };
 };
 
-const createUploader = (
-  url: string = '/vtj/local/repository/uploader.json'
-) => {
+const createUploader = (url: string = '/__vtj__/api/uploader.json') => {
   return async (file: File, projectId: string) => {
     return await request
       .send({

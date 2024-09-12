@@ -24,7 +24,7 @@
       onClick: (project: ProjectModel) => {
         const pathname = location.pathname;
         let url =
-          pathname === `${__BASE_PATH__}@vtj/pro/` ? __BASE_PATH__ : pathname;
+          pathname === `${__BASE_PATH__}__vtj__/` ? __BASE_PATH__ : pathname;
         const file = project.currentFile;
         if (file && file.type === 'page' && project.homepage !== file.id) {
           url = `${url}#/page/${file.id}`;
