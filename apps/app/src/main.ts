@@ -1,4 +1,4 @@
-import { createProvider, LocalService, createModules } from '@vtj/web';
+import { createProvider, LocalService, createModules, NodeEnv } from '@vtj/web';
 import { createApp } from 'vue';
 import router from './router';
 import App from './App.vue';
@@ -9,16 +9,13 @@ const app = createApp(App);
 const service = new LocalService();
 
 const { provider, onReady } = createProvider({
-  nodeEnv: process.env.NODE_ENV as 'development' | 'production',
+  nodeEnv: process.env.NODE_ENV as NodeEnv,
   modules: createModules(),
   service,
   router,
   dependencies: {
     Vue: () => import('vue'),
-    VueRouter: () => import('vue-router'),
-    ElementPlus: () => import('element-plus'),
-    VtjUtils: () => import('@vtj/utils'),
-    VtjUI: () => import('@vtj/ui')
+    VueRouter: () => import('vue-router')
   },
   project: {
     id: name

@@ -3,6 +3,83 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.133](https://gitee.com/newgateway/vtj/compare/@vtj/pro@0.8.132...@vtj/pro@0.8.133) (2024-09-12)
+
+
+### Performance Improvements
+
+* ⚡ devtools ([a27f48d](https://gitee.com/newgateway/vtj/commits/a27f48db10321d46994975aafce347b413f47ded))
+
+
+
+
+
+## [0.8.132](https://gitee.com/newgateway/vtj/compare/@vtj/pro@0.8.131...@vtj/pro@0.8.132) (2024-09-12)
+
+**Note:** Version bump only for package @vtj/pro
+
+
+
+
+
+## [0.8.131](https://gitee.com/newgateway/vtj/compare/@vtj/pro@0.8.130...@vtj/pro@0.8.131) (2024-09-12)
+
+
+### Features
+
+* ✨ 更改设计器入口样式 ([9d37c84](https://gitee.com/newgateway/vtj/commits/9d37c842958792a1948efc6ba0b053ff139afb26))
+* ✨ devtools ([1afcfcb](https://gitee.com/newgateway/vtj/commits/1afcfcb1389dd65c3c94dda3ee7d0472424e9067))
+* ✨ devtools module ([18e2949](https://gitee.com/newgateway/vtj/commits/18e294909e0533119f2d6f7d9fa33d470f3a6abb))
+
+
+
+
+
+
+## [0.8.130](https://gitee.com/newgateway/vtj/compare/@vtj/pro@0.8.129...@vtj/pro@0.8.130) (2024-09-10)
+
+**Note:** Version bump only for package @vtj/pro
+
+
+
+
+
+## [0.8.129](https://gitee.com/newgateway/vtj/compare/@vtj/pro@0.8.128...@vtj/pro@0.8.129) (2024-09-10)
+
+**Note:** Version bump only for package @vtj/pro
+
+
+
+
+
+
+## [0.8.128](https://gitee.com/newgateway/vtj/compare/@vtj/pro@0.8.127...@vtj/pro@0.8.128) (2024-09-09)
+
+**Note:** Version bump only for package @vtj/pro
+
+
+
+
+
+
+## [0.8.127](https://gitee.com/newgateway/vtj/compare/@vtj/pro@0.8.126...@vtj/pro@0.8.127) (2024-09-09)
+
+**Note:** Version bump only for package @vtj/pro
+
+
+
+
+
+
+## [0.8.126](https://gitee.com/newgateway/vtj/compare/@vtj/pro@0.8.125...@vtj/pro@0.8.126) (2024-09-09)
+
+**Note:** Version bump only for package @vtj/pro
+
+
+
+
+
+
 ## [0.8.125](https://gitee.com/newgateway/vtj/compare/@vtj/pro@0.8.124...@vtj/pro@0.8.125) (2024-09-08)
 
 **Note:** Version bump only for package @vtj/pro

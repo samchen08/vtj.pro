@@ -41,7 +41,17 @@ export function createAssetsCss(css: string[] = []) {
     .join('');
 }
 
-export function parseDeps(deps: Dependencie[], basePath: string) {
+export function removeProdFlag(url: string, isDev: boolean = false) {
+  return isDev && url.endsWith('.prod.js')
+    ? url.replace('.prod.js', '.js')
+    : url;
+}
+
+export function parseDeps(
+  deps: Dependencie[],
+  basePath: string,
+  isDev: boolean = false
+) {
   const packages = deps.filter((n) => !!n.enabled);
   const scripts: string[] = [];
   const css: string[] = [];
@@ -55,7 +65,7 @@ export function parseDeps(deps: Dependencie[], basePath: string) {
     ({ urls, assetsUrl, library, assetsLibrary, localeLibrary }) => {
       urls?.forEach((url) => {
         if (isJSUrl(url)) {
-          scripts.push(url);
+          scripts.push(removeProdFlag(url, isDev));
         }
         if (isCSSUrl(url)) {
           css.push(url);

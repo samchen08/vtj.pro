@@ -14,5 +14,6 @@ export const defaults: CreateViteConfigOptions = {
   formats: ['es', 'cjs', 'umd', 'iife'],
   loading: true,
   envPath: './',
-  copyPublicDir: true
+  copyPublicDir: true,
+  devtools: true
 };

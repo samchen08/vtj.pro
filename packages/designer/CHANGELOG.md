@@ -3,6 +3,82 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.133](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.8.132...@vtj/designer@0.8.133) (2024-09-12)
+
+**Note:** Version bump only for package @vtj/designer
+
+
+
+
+
+## [0.8.132](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.8.131...@vtj/designer@0.8.132) (2024-09-12)
+
+
+### Bug Fixes
+
+* 🐛 devtools delay load ([2c20df7](https://gitee.com/newgateway/vtj/commits/2c20df765cb28ac14c1fd1c9b4e8aa773e9628bd))
+
+
+
+
+
+## [0.8.131](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.8.130...@vtj/designer@0.8.131) (2024-09-12)
+
+
+### Features
+
+* ✨ devtools ([1afcfcb](https://gitee.com/newgateway/vtj/commits/1afcfcb1389dd65c3c94dda3ee7d0472424e9067))
+* ✨ devtools module ([18e2949](https://gitee.com/newgateway/vtj/commits/18e294909e0533119f2d6f7d9fa33d470f3a6abb))
+
+
+
+
+
+
+## [0.8.130](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.8.129...@vtj/designer@0.8.130) (2024-09-10)
+
+**Note:** Version bump only for package @vtj/designer
+
+
+
+
+
+## [0.8.129](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.8.128...@vtj/designer@0.8.129) (2024-09-10)
+
+**Note:** Version bump only for package @vtj/designer
+
+
+
+
+
+
+## [0.8.128](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.8.127...@vtj/designer@0.8.128) (2024-09-09)
+
+**Note:** Version bump only for package @vtj/designer
+
+
+
+
+
+
+## [0.8.127](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.8.126...@vtj/designer@0.8.127) (2024-09-09)
+
+**Note:** Version bump only for package @vtj/designer
+
+
+
+
+
+
+## [0.8.126](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.8.125...@vtj/designer@0.8.126) (2024-09-09)
+
+**Note:** Version bump only for package @vtj/designer
+
+
+
+
+
+
 ## [0.8.125](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.8.124...@vtj/designer@0.8.125) (2024-09-08)
 
 

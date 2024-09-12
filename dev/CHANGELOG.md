@@ -3,6 +3,84 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.133](https://gitee.com/newgateway/vtj/compare/dev-web@0.8.132...dev-web@0.8.133) (2024-09-12)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
+## [0.8.132](https://gitee.com/newgateway/vtj/compare/dev-web@0.8.131...dev-web@0.8.132) (2024-09-12)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
+## [0.8.131](https://gitee.com/newgateway/vtj/compare/dev-web@0.8.130...dev-web@0.8.131) (2024-09-12)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
+
+## [0.8.130](https://gitee.com/newgateway/vtj/compare/dev-web@0.8.129...dev-web@0.8.130) (2024-09-10)
+
+
+### Bug Fixes
+
+* 🐛 picker 多选回填bug ([87ec2c9](https://gitee.com/newgateway/vtj/commits/87ec2c94252529c6ccb023c4873730c6fb7bb467))
+
+
+
+
+
+## [0.8.129](https://gitee.com/newgateway/vtj/compare/dev-web@0.8.128...dev-web@0.8.129) (2024-09-10)
+
+
+### Bug Fixes
+
+* 🐛 picker多选带回单条数据 ([533cb23](https://gitee.com/newgateway/vtj/commits/533cb23b32e9e663ad74a89ef180a39540049a17))
+
+
+
+
+
+
+## [0.8.128](https://gitee.com/newgateway/vtj/compare/dev-web@0.8.127...dev-web@0.8.128) (2024-09-09)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
+
+## [0.8.127](https://gitee.com/newgateway/vtj/compare/dev-web@0.8.126...dev-web@0.8.127) (2024-09-09)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
+
+## [0.8.126](https://gitee.com/newgateway/vtj/compare/dev-web@0.8.125...dev-web@0.8.126) (2024-09-09)
+
+
+### Bug Fixes
+
+* 🐛 多选选择弹窗问题 ([5b3fe55](https://gitee.com/newgateway/vtj/commits/5b3fe55523a410f1d9e24d91a69799588b3b014e))
+
+
+
+
+
+
 ## [0.8.125](https://gitee.com/newgateway/vtj/compare/dev-web@0.8.124...dev-web@0.8.125) (2024-09-08)
 
 

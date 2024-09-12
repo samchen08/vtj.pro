@@ -5,7 +5,8 @@ import {
   ref,
   unref,
   nextTick,
-  createApp
+  createApp,
+  watch
 } from 'vue';
 import { type Context } from '@vtj/renderer';
 import {
@@ -24,6 +25,7 @@ import {
 import { delay } from '@vtj/utils';
 import { SlotsPicker } from '../components';
 import { type Engine } from './engine';
+import { type DevTools } from './devtools';
 
 export function createSlotsPicker(slots: MaterialSlot[]) {
   return new Promise<MaterialSlot>((resolve, reject) => {
@@ -63,10 +65,12 @@ export class Designer {
   public selected: Ref<DesignHelper | null> = ref(null);
   public dragging: MaterialDescription | null = null;
   public draggingNode: NodeModel | null = null;
+
   constructor(
     public engine: Engine,
     public contentWindow: Window,
-    public dependencies: Ref<Dependencie[]>
+    public dependencies: Ref<Dependencie[]>,
+    public devtools: DevTools
   ) {
     this.document = this.contentWindow.document;
     this.bindEvents(contentWindow, this.document);
@@ -105,6 +109,16 @@ export class Designer {
       this.bind(this.onActiveChange, 'onActiveChange')
     );
     emitter.on(EVENT_NODE_CHANGE, this.bind(this.onViewChange, 'onViewChange'));
+
+    watch(
+      this.devtools.isOpen,
+      (open) => {
+        if (open) {
+          this.cleanHelper();
+        }
+      },
+      { immediate: true }
+    );
   }
 
   private unbindEvents(cw: Window, doc: Document) {
@@ -139,6 +153,7 @@ export class Designer {
   }
 
   private onMouseOver(e: MouseEvent) {
+    if (this.devtools.isOpen.value) return;
     const hover = this.getHelper(e);
     if (hover?.model.id !== this.selected.value?.model.id) {
       this.hover.value = hover;
@@ -265,7 +280,9 @@ export class Designer {
   }
 
   private onSelected(e: MouseEvent) {
-    e.stopPropagation();
+    if (this.devtools.isOpen.value) return;
+    // 与 vue-devtools 冲突，不能阻止冒泡
+    // e.stopPropagation();
     this.setHover(null);
     this.selected.value = this.getHelper(e);
   }

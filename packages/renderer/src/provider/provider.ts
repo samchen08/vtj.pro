@@ -54,8 +54,13 @@ export interface ProviderOptions {
   materials?: Record<string, () => Promise<any>>;
   globals?: Record<string, any>;
   materialPath?: string;
-  nodeEnv?: 'development' | 'production';
+  nodeEnv?: NodeEnv;
   install?: (app: App) => void;
+}
+
+export enum NodeEnv {
+  Production = 'production',
+  Development = 'development'
 }
 
 export interface ProvideAdapter {
@@ -77,7 +82,7 @@ export class Provider extends Base {
   public service: Service;
   public project: ProjectSchema | null = null;
   public components: Record<string, any> = {};
-  public nodeEnv: 'development' | 'production' = 'development';
+  public nodeEnv: NodeEnv = NodeEnv.Development;
   private router: Router | null = null;
   private materialPath: string = './';
   private urlDslCaches: Record<string, any> = {};
@@ -94,7 +99,7 @@ export class Provider extends Base {
       modules = {},
       router = null,
       materialPath = './',
-      nodeEnv = 'development'
+      nodeEnv = NodeEnv.Development
     } = options;
     this.mode = mode;
     this.modules = modules;
@@ -154,14 +159,14 @@ export class Provider extends Base {
 
   private async loadAssets(_window: any) {
     const { dependencies: deps = [] } = this.project as ProjectSchema;
-    const { dependencies, library, components, materialPath } = this;
+    const { dependencies, library, components, materialPath, nodeEnv } = this;
     const {
       libraryExports,
       libraryMap,
       materials,
       materialExports,
       materialMapLibrary
-    } = parseDeps(deps, materialPath);
+    } = parseDeps(deps, materialPath, nodeEnv === NodeEnv.Development);
     for (const libraryName of libraryExports) {
       const raw = dependencies[libraryName];
       const lib = _window[libraryName];
