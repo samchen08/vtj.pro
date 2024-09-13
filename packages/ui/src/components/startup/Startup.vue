@@ -30,7 +30,7 @@
   const onClick = () => {
     if (typeof window !== 'undefined') {
       const options = (window as any).__VTJ_LINK__ || {};
-      let path = options.href || window.location.pathname + '@vtj/pro/#/';
+      let path = options.href || window.location.pathname + '__vtj__/#/';
       window.location.href = path;
     }
   };
