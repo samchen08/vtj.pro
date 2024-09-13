@@ -8,6 +8,7 @@ import type {
 import { type StaticPluginOption } from '../plugins/static';
 import { type PolyfillOptions } from 'vite-plugin-node-polyfills';
 import { type VitePluginVueDevToolsOptions } from 'vite-plugin-vue-devtools';
+import { type CdnPluginOptions } from '../plugins/cdn';
 
 declare namespace NodeJS {
   interface ProcessEnv {
@@ -252,6 +253,11 @@ export interface CreateViteConfigOptions {
    * 开启 VueDevTools
    */
   devtools?: boolean | VitePluginVueDevToolsOptions;
+
+  /**
+   * CDN配置
+   */
+  cdn?: CdnPluginOptions;
 }
 
 export interface CreateUniappViteConfigOptions {

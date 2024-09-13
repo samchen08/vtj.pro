@@ -45,7 +45,7 @@ export function useOptions(props: PickerProps, emit: Emits<PickerEmits>) {
     current.value = val;
   };
 
-  const getRawData = (values: any) => {
+  const getRawData = (values: any[]) => {
     const rawData = options.value.map((n) => {
       const data = toRaw(n);
       return {
@@ -59,8 +59,6 @@ export function useOptions(props: PickerProps, emit: Emits<PickerEmits>) {
           return rawData.find((n) => n[valueKey] === v);
         })
         .filter((n) => !!n);
-    } else {
-      rawData.find((n) => n[valueKey] === values);
     }
     return rawData;
   };
@@ -69,8 +67,12 @@ export function useOptions(props: PickerProps, emit: Emits<PickerEmits>) {
     () => props.modelValue,
     (v) => {
       const val = formatter ? formatter(v) : v;
-      const rawData = getRawData(val);
-      setOptions(rawData.length ? rawData : val);
+      if (val) {
+        const rawData = getRawData(val);
+        setOptions(rawData.length ? rawData : val);
+      } else {
+        setOptions([]);
+      }
     },
     {
       immediate: true

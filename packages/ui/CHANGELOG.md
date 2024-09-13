@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.135](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.8.134...@vtj/ui@0.8.135) (2024-09-13)
+
+
+### Features
+
+* ✨ cli 增加cdn配置 ([e6cba54](https://gitee.com/newgateway/vtj/commits/e6cba54d82184732c8f39a8625e4489434e8e308))
+
+
+
+
+
+## [0.8.134](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.8.133...@vtj/ui@0.8.134) (2024-09-12)
+
+**Note:** Version bump only for package @vtj/ui
+
+
+
+
+
+
 ## [0.8.133](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.8.132...@vtj/ui@0.8.133) (2024-09-12)
 
 **Note:** Version bump only for package @vtj/ui

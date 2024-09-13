@@ -12,8 +12,9 @@
           :loader="asyncLoader"
           @change="onChange"
           @picked="onPicked"
-          :clearable="false"
-          size="small"></XPicker>
+          v-model="modelValue1"
+          :clearable="true"
+          size="default"></XPicker>
       </template>
     </XField>
 
