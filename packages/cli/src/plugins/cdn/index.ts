@@ -14,6 +14,11 @@ export interface CdnPluginOptions {
   basePath: string;
 
   /**
+   * node_modules dir
+   */
+  nodeModulesDir: string;
+
+  /**
    * 文件上传到cdn方法
    * @param modules
    * @returns
@@ -43,9 +48,11 @@ export interface CdnPluginModuleParsed extends CdnPluginModule {
 
 export function cdnPlugin(options: CdnPluginOptions): Plugin[] {
   const { modules, basePath } = options;
-
+  const nodeModulesDir = options.nodeModulesDir || 'node_modules';
   const modulesParsed: CdnPluginModuleParsed[] = modules.map((item) => {
-    const pkg = readJsonSync(resolve(`node_modules/${item.name}/package.json`));
+    const pkg = readJsonSync(
+      resolve(`${nodeModulesDir}/${item.name}/package.json`)
+    );
     return {
       ...item,
       version: pkg.version,

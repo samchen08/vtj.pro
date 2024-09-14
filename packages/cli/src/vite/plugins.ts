@@ -17,6 +17,7 @@ import { staticPlugin } from '../plugins/static';
 import { loadingPlugin } from '../plugins/loading';
 import { envPlugin } from '../plugins/env';
 import { reloadPlugin } from '../plugins/reload';
+import { cdnPlugin } from '../plugins/cdn';
 
 const createBabelPlugin = (targets: string[]) => {
   return babelPlugin({
@@ -121,6 +122,10 @@ export const mergePlugins = (opts: CreateViteConfigOptions) => {
           : { componentInspector: false }
       )
     );
+  }
+
+  if(opts.cdn) {
+    plugins.push(cdnPlugin(opts.cdn));
   }
 
   if (opts.buildEnd) {

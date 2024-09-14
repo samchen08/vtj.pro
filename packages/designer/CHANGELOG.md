@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.136](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.8.135...@vtj/designer@0.8.136) (2024-09-14)
+
+
+### Bug Fixes
+
+* 🐛 设计器样式污染预览页面样式 ([f3631cd](https://gitee.com/newgateway/vtj/commits/f3631cdb440c6f1d5a327763a4d4695835cf3782))
+
+
+
+
+
+
 ## [0.8.135](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.8.134...@vtj/designer@0.8.135) (2024-09-13)
 
 **Note:** Version bump only for package @vtj/designer

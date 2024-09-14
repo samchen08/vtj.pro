@@ -1,7 +1,7 @@
 {
   "name": "@vtj/node",
   "private": false,
-  "version": "0.8.11",
+  "version": "0.8.12",
   "type": "module",
   "scripts": {
     "build": "unbuild && npm run dts",
@@ -18,7 +18,7 @@
   },
   "devDependencies": {
     "unbuild": "~2.0.0",
-    "vitest": "~2.0.3"
+    "vitest": "~2.1.1"
   },
   "exports": {
     ".": {

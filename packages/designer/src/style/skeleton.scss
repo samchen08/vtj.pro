@@ -8,6 +8,10 @@
   background-color: getCssVar('bg-color');
   font-size: 14px;
   color: getCssVar('text-color-primary');
+  font-family: 'Microsoft YaHei', Arial, sans-serif;
+  * {
+    box-sizing: border-box;
+  }
 
   @include e(header) {
     padding: 0 !important;
