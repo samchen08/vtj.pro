@@ -39,6 +39,7 @@ export interface DevToolsOptions {
 
 export interface LinkOptions {
   entry?: string;
+  href?: string;
   serveOnly?: boolean;
 }
 
@@ -77,7 +78,11 @@ const apiServerPlugin = function (options: DevToolsOptions): Plugin {
 };
 
 const linkPlugin = function (options: DevToolsOptions): Plugin {
-  const { entry = '/index.html', serveOnly = true } = options.linkOptions || {};
+  const {
+    entry = '/index.html',
+    href = '',
+    serveOnly = true
+  } = options.linkOptions || {};
   let config: ResolvedConfig;
   return {
     name: 'vtj-link-plugin',
@@ -86,7 +91,7 @@ const linkPlugin = function (options: DevToolsOptions): Plugin {
       config = resolvedConfig;
     },
     transformIndexHtml(html, ctx) {
-      if (html.includes('VTJ-LINK')) {
+      if (html.includes('__VTJ_LINK__')) {
         return html;
       }
       if (options.link) {
@@ -101,6 +106,7 @@ const linkPlugin = function (options: DevToolsOptions): Plugin {
         return html.replace(
           /<\/body>/,
           `
+          <script>window.__VTJ_LINK__ = { href: '${href}' }</script>
           <script src="${url}"></script></body>
           `
         );

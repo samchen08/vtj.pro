@@ -1,7 +1,7 @@
 {
   "name": "@vtj/cli",
   "private": false,
-  "version": "0.8.30",
+  "version": "0.8.31",
   "type": "module",
   "bin": {
     "vtj": "./bin/vtj.js"
@@ -28,7 +28,7 @@
     "@vitejs/plugin-legacy": "~5.4.0",
     "@vitejs/plugin-vue": "~5.1.0",
     "@vitejs/plugin-vue-jsx": "~4.0.0",
-    "@vitest/coverage-v8": "~2.0.3",
+    "@vitest/coverage-v8": "~2.1.1",
     "@vtj/node": "workspace:~",
     "@vue/test-utils": "~2.4.5",
     "body-parser": "~1.20.2",
@@ -48,7 +48,7 @@
     "vite-plugin-dts": "~3.9.0",
     "vite-plugin-node-polyfills": "~0.22.0",
     "vite-plugin-vue-devtools": "~7.4.4",
-    "vitest": "~2.0.3",
+    "vitest": "~2.1.1",
     "vue-tsc": "~2.0.13"
   },
   "exports": {

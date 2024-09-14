@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.31](https://gitee.com/newgateway/vtj/compare/@vtj/cli@0.8.30...@vtj/cli@0.8.31) (2024-09-14)
+
+
+### Features
+
+* ✨ cli add cdn ([aeb6e91](https://gitee.com/newgateway/vtj/commits/aeb6e914a377b02cf9428e49ceebd70dd54f1ffe))
+
+
+
+
+
+
 ## [0.8.30](https://gitee.com/newgateway/vtj/compare/@vtj/cli@0.8.29...@vtj/cli@0.8.30) (2024-09-13)
 
 

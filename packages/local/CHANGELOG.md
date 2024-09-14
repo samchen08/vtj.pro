@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.136](https://gitee.com/newgateway/vtj/compare/@vtj/local@0.8.135...@vtj/local@0.8.136) (2024-09-14)
+
+
+### Bug Fixes
+
+* 🐛 lcdp entry link ([6847dd1](https://gitee.com/newgateway/vtj/commits/6847dd1dd262ef925c59e7240810d8dac56c69e1))
+
+
+
+
+
+
 ## [0.8.135](https://gitee.com/newgateway/vtj/compare/@vtj/local@0.8.134...@vtj/local@0.8.135) (2024-09-13)
 
 **Note:** Version bump only for package @vtj/local
