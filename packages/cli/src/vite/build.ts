@@ -67,7 +67,8 @@ export const createBuild = (opts: CreateViteConfigOptions) => {
       plugins: rollupPlugins,
       output: {
         manualChunks,
-        exports: opts.exports || 'auto'
+        exports: opts.exports || 'auto',
+        globals: opts.externalGlobals
       },
       input: createInput(opts)
     }

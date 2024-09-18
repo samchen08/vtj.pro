@@ -10,7 +10,13 @@
 </template>
 
 <script lang="ts" setup>
-  import { ref, computed, getCurrentInstance, useAttrs } from 'vue';
+  import {
+    ref,
+    computed,
+    getCurrentInstance,
+    useAttrs,
+    type ComputedRef
+  } from 'vue';
   import { containerProps, type ContainerInstance } from './types';
   import { getSizeValue } from '../../utils';
 
@@ -25,7 +31,7 @@
   const elRef = ref();
   const $vtjEl = computed(() => elRef.value?.$el);
 
-  const parentFlex = computed(() => {
+  const parentFlex: ComputedRef<boolean> = computed(() => {
     const parent = instance?.parent;
     if (!parent) return false;
     const proxy = parent.proxy as ContainerInstance;

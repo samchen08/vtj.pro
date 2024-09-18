@@ -1,7 +1,7 @@
 {
   "name": "@vtj/renderer",
   "private": false,
-  "version": "0.8.136",
+  "version": "0.8.140",
   "type": "module",
   "scripts": {
     "build": "vue-tsc && vite build",
@@ -18,7 +18,7 @@
   },
   "devDependencies": {
     "@vtj/cli": "workspace:~",
-    "vue": "~3.4.15",
+    "vue": "~3.5.5",
     "vue-router": "~4.4.0"
   },
   "exports": {

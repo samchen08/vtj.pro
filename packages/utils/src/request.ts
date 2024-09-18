@@ -1,4 +1,4 @@
-import { ref } from 'vue';
+import { ref, type Ref } from 'vue';
 import axios from 'axios';
 import type {
   AxiosInstance,
@@ -511,8 +511,17 @@ export function createApis(map: IApiMap) {
   return apis;
 }
 
-export function useApi<R = any>(api: Promise<R>, transform?: (res: any) => R) {
-  const data = ref<R | null>(null);
+export interface UseApiReturn<R = any> {
+  data: Ref<R | null>;
+  error: Ref<any>;
+  loading: Ref<boolean>;
+}
+
+export function useApi<R = any>(
+  api: Promise<R>,
+  transform?: (res: any) => R
+): UseApiReturn<R> {
+  const data: Ref<R | null> = ref(null);
   const error = ref<any>();
   const loading = ref<boolean>(true);
   api

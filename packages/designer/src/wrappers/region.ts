@@ -17,8 +17,9 @@ export const RegionWrapper = defineComponent({
     };
   },
   render() {
+    const { $props = {}, $attrs = {} } = this as any;
     const component = (regions as any)[this.region] || regions.EmptyRegion;
-    return h(component, { ...this.$props, ...this.$attrs, ref: 'regionRef' });
+    return h(component, { ...$props, ...$attrs, ref: 'regionRef' });
   }
 });
 

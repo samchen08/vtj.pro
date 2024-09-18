@@ -3,10 +3,10 @@ const isUmd = !!process.env.UMD;
 
 export default createViteConfig({
   lib: true,
-  dts: true,
+  dts: isUmd ? false : true,
   version: true,
   library: 'VtjUtils',
-  buildTarget: isUmd ? 'es2015' : 'esnext',
+  buildTarget: isUmd ? 'es2015' : 'es2020',
   emptyOutDir: isUmd ? false : true,
   external: isUmd ? undefined : ['@vtj/base'],
   formats: isUmd ? ['umd', 'iife'] : ['es', 'cjs']

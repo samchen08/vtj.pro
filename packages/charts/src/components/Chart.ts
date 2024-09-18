@@ -1,4 +1,12 @@
-import { defineComponent, h, ref, computed, toRefs, type PropType } from 'vue';
+import {
+  defineComponent,
+  h,
+  ref,
+  computed,
+  toRefs,
+  type PropType,
+  type ComputedRef
+} from 'vue';
 import type { EChartsOption, ECharts } from 'echarts';
 import * as echarts from 'echarts';
 import { useChart } from '../hooks';
@@ -25,7 +33,7 @@ export default defineComponent({
     const { width, height, option } = toRefs(props);
     const chartRef = ref();
 
-    const styles = computed(() => {
+    const styles: ComputedRef<Record<string, any>> = computed(() => {
       return {
         width: width.value,
         height: height.value
@@ -40,7 +48,8 @@ export default defineComponent({
     };
   },
   render() {
-    return h('div', { class: 'x-chart', ref: 'chartRef', style: this.styles });
+    const { styles } = this as any;
+    return h('div', { class: 'x-chart', ref: 'chartRef', style: styles });
   },
   expose: ['chartRef', 'option', 'echartsInstance']
 });

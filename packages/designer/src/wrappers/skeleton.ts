@@ -19,10 +19,11 @@ export const SkeletonWrapper = defineComponent({
     };
   },
   mounted() {
-    this.engine.skeleton = this;
+    this.engine.skeleton = this as any;
   },
   render() {
-    return h(Skeleton, { ...this.$props, ...this.$attrs, ref: 'skeletonRef' });
+    const { $props = {}, $attrs = {} } = this as any;
+    return h(Skeleton, { ...$props, ...$attrs, ref: 'skeletonRef' });
   },
   methods: {
     /**
