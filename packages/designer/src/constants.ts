@@ -65,3 +65,9 @@ export const VUE_DEVTOOLS_FRAME_STATE_KEY = '__vue-devtools-frame-state__';
  * vue-devtools 文件路径
  */
 export const VUE_DEVTOOLS_PATH = '@id/virtual:vue-devtools-path:overlay.js';
+
+/**
+ * vue-devtools overlay path
+ */
+export const VUE_DEVTOOLS_OVERLAY_PATH =
+  '@id/virtual:vue-devtools-path:overlay/devtools-overlay.mjs';

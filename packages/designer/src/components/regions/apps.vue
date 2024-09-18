@@ -34,6 +34,7 @@
   </div>
 </template>
 <script lang="ts" setup>
+  // @ts-ignore
   import { computed, ref, KeepAlive, watch } from 'vue';
   import { createDialog } from '@vtj/ui';
   import { WidgetWrapper } from '../../wrappers';

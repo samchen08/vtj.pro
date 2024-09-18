@@ -47,9 +47,18 @@ const setApis = (
   server: ViteDevServer | PreviewServer,
   options: DevToolsOptions
 ) => {
-  server.middlewares.use(
-    bodyParser.json({ type: 'application/json', limit: '50000kb' })
-  );
+  server.middlewares.use((req, res, next) => {
+    const reqUrl = req.url || '';
+    if (reqUrl.startsWith(options.baseURL)) {
+      bodyParser.json({ type: 'application/json', limit: '50000kb' })(
+        req,
+        res,
+        next
+      );
+    } else {
+      next();
+    }
+  });
   server.middlewares.use(async (req, res, next) => {
     const reqUrl = req.url || '';
     if (reqUrl.startsWith(options.baseURL)) {

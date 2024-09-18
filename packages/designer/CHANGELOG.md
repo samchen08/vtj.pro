@@ -3,6 +3,46 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.140](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.8.139...@vtj/designer@0.8.140) (2024-09-18)
+
+
+### Bug Fixes
+
+* 🐛 dev-tools ([07008d9](https://gitee.com/newgateway/vtj/commits/07008d98d1778081ef0c9ed74f659babf0476fc6))
+
+
+
+
+
+## [0.8.139](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.8.138...@vtj/designer@0.8.139) (2024-09-16)
+
+**Note:** Version bump only for package @vtj/designer
+
+
+
+
+
+## [0.8.138](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.8.137...@vtj/designer@0.8.138) (2024-09-16)
+
+**Note:** Version bump only for package @vtj/designer
+
+
+
+
+
+## [0.8.137](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.8.136...@vtj/designer@0.8.137) (2024-09-16)
+
+
+### Bug Fixes
+
+* 🐛 升级vue3.5 ([3b12449](https://gitee.com/newgateway/vtj/commits/3b12449447692487882539d43210d57dcc97a48a))
+* 🐛 devtools ([7ec8411](https://gitee.com/newgateway/vtj/commits/7ec8411956b43a9eadd022c253f382d13233f596))
+
+
+
+
+
+
 ## [0.8.136](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.8.135...@vtj/designer@0.8.136) (2024-09-14)
 
 

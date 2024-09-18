@@ -18,6 +18,7 @@
   </XContainer>
 </template>
 <script lang="ts" setup>
+  // @ts-ignore
   import { KeepAlive } from 'vue';
   import { RouterView, type RouteLocationNormalizedLoaded } from 'vue-router';
   import { XContainer } from '../../';

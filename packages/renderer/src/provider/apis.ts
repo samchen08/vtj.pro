@@ -105,10 +105,10 @@ export function mockApi(schema: ApiSchema) {
   if (!schema.mock) return;
   const { url, mockTemplate } = schema;
   if (url && mockTemplate) {
-    const rUrl = pathToRegexp(`${url}(.*)`);
+    const regexp = pathToRegexp(`${url}(.*)`);
     const match = pathToRegexpMatch(url, { decode: decodeURIComponent });
     const handler = parseExpression(mockTemplate, {}, true);
-    Mock.mock(rUrl, (options: MockCallbackOptions) => {
+    Mock.mock(regexp, (options: MockCallbackOptions) => {
       const params = urlUtil.parse(options.url) || {};
       const data =
         options.body instanceof FormData

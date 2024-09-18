@@ -102,6 +102,7 @@
 </template>
 <script lang="ts" setup>
   import {
+    // @ts-ignore
     Teleport,
     ref,
     watchEffect,

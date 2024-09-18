@@ -4,6 +4,7 @@ export default createViteConfig({
   lib: true,
   dts: true,
   version: true,
+  buildTarget: 'es2020',
   external: [
     'vue',
     'vue-router',

@@ -1,7 +1,7 @@
 {
   "name": "@vtj/ui",
   "private": false,
-  "version": "0.8.136",
+  "version": "0.8.140",
   "type": "module",
   "scripts": {
     "build": "vue-tsc && vite build && npm run build:umd",
@@ -27,7 +27,7 @@
     "@types/sortablejs": "~1.15.8",
     "@vtj/cli": "workspace:~",
     "qrcode": "~1.5.3",
-    "vue": "~3.4.15",
+    "vue": "~3.5.5",
     "vue-router": "~4.4.0"
   },
   "files": [

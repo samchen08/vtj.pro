@@ -20,10 +20,11 @@ export const WidgetWrapper = defineComponent({
     };
   },
   render() {
+    const { $props = {}, $attrs = {} } = this as any;
     return h(this.widget.component, {
       ...this.widget.props,
-      ...this.$props,
-      ...this.$attrs,
+      ...$props,
+      ...$attrs,
       ref: 'widgetRef'
     });
   }

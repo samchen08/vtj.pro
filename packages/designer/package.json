@@ -1,7 +1,7 @@
 {
   "name": "@vtj/designer",
   "private": false,
-  "version": "0.8.136",
+  "version": "0.8.140",
   "type": "module",
   "scripts": {
     "build": "vue-tsc && vite build",
@@ -16,12 +16,12 @@
     "@vtj/ui": "workspace:~",
     "@vtj/utils": "workspace:~",
     "mockjs": "~1.1.0",
-    "monaco-editor": "~0.48.0"
+    "monaco-editor": "~0.51.0"
   },
   "devDependencies": {
     "@types/mockjs": "~1.0.10",
     "@vtj/cli": "workspace:~",
-    "vue": "~3.4.15",
+    "vue": "~3.5.5",
     "vue-router": "~4.4.0"
   },
   "files": [

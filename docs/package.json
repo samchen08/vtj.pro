@@ -1,7 +1,7 @@
 {
   "name": "@vtj/docs",
   "private": true,
-  "version": "0.8.136",
+  "version": "0.8.140",
   "type": "module",
   "scripts": {
     "docs:dev": "vitepress dev",
@@ -19,7 +19,7 @@
     "@vtj/ui": "workspace:*",
     "@vtj/utils": "workspace:*",
     "@vtj/web": "workspace:*",
-    "vue": "~3.4.14",
+    "vue": "~3.5.5",
     "vue-router": "~4.4.0"
   },
   "devDependencies": {

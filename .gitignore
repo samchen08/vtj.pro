@@ -53,6 +53,7 @@ lib
 # dev
 /dev/public/@vtj
 /dev/public/extension
+/dev/vxe-table-pro
 
 # docs
 /docs/src/typedoc

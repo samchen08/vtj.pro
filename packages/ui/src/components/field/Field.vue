@@ -5,11 +5,11 @@
     class="x-field"
     ref="itemRef"
     :prop="props.name"
-    :label="label"
+    :label="props.label"
     :size="computedSize"
     :class="computedClass"
     :style="computedStyle"
-    v-bind="$attrs">
+    v-bind="$attrs as any">
     <template v-if="$slots.label" #label>
       <slot name="label"></slot>
     </template>
@@ -58,7 +58,7 @@
   </ElFormItem>
 </template>
 <script lang="ts" setup>
-  import { computed, ref, watch, inject } from 'vue';
+  import { computed, ref, watch, inject, type ComputedRef } from 'vue';
   import { ElFormItem, ElTooltip, formContextKey } from 'element-plus';
   import { WarningFilled } from '@vtj/icons';
   import { isEqual, isObject, set, get } from '@vtj/utils';
@@ -67,6 +67,7 @@
   import {
     formInstanceKey,
     type FormInstance,
+    type BaseSize,
     formModelKey,
     getSizeValue
   } from '../../';
@@ -81,7 +82,7 @@
   const formInstance = inject(formInstanceKey, null);
   const formContext = inject(formContextKey, null);
   const formModel = inject(formModelKey, null);
-  const fieldVisible = computed<boolean>(() => {
+  const fieldVisible: ComputedRef<boolean> = computed(() => {
     const proxy = formInstance?.proxy as FormInstance;
     if (!proxy || !formModel) return props.visible;
     if (typeof props.visible === 'function') {
@@ -116,7 +117,7 @@
   );
   const itemRef = ref();
   const editorRef = ref();
-  const computedSize = computed(
+  const computedSize: ComputedRef<BaseSize> = computed(
     () => props.size || formContext?.size || 'default'
   );
 
@@ -145,7 +146,7 @@
     };
   });
 
-  const computedStyle = computed(() => {
+  const computedStyle: ComputedRef<Record<string, any>> = computed(() => {
     const proxy = formInstance?.proxy as FormInstance;
     const width = props.width
       ? getSizeValue(props.width)
