@@ -5,7 +5,6 @@
     v-bind="vxeProps"
     :columns="columns"
     @custom="onCustom"
-    :mouse-config="{ area: true }"
     :loading="false"
     @resizable-change="onResize"
     @edit-closed="onEditClosed"

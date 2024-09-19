@@ -131,7 +131,6 @@ export class Provider extends Base {
     const _window = window as any;
     // 解决CkEditor错误提示问题
     _window.CKEDITOR_VERSION = undefined;
-
     if (this.nodeEnv !== 'production') {
       await this.loadAssets(_window);
     } else {
@@ -176,6 +175,7 @@ export class Provider extends Base {
         _window[libraryName] = library[libraryName] = await raw();
       } else {
         const urls = libraryMap[libraryName] || [];
+
         for (const url of urls) {
           if (isCSSUrl(url)) {
             await loadCss(libraryName, urlUtils.append(url, { v: version }));

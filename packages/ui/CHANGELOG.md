@@ -3,6 +3,42 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.144](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.8.143...@vtj/ui@0.8.144) (2024-09-19)
+
+**Note:** Version bump only for package @vtj/ui
+
+
+
+
+
+## [0.8.143](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.8.142...@vtj/ui@0.8.143) (2024-09-19)
+
+**Note:** Version bump only for package @vtj/ui
+
+
+
+
+
+## [0.8.142](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.8.141...@vtj/ui@0.8.142) (2024-09-18)
+
+**Note:** Version bump only for package @vtj/ui
+
+
+
+
+
+## [0.8.141](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.8.140...@vtj/ui@0.8.141) (2024-09-18)
+
+
+### Features
+
+* ✨ 打包移除vxe-table ([27e9fd5](https://gitee.com/newgateway/vtj/commits/27e9fd501d76d2890e656f9676e07150bbd1f72f))
+
+
+
+
+
+
 ## [0.8.140](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.8.139...@vtj/ui@0.8.140) (2024-09-18)
 
 

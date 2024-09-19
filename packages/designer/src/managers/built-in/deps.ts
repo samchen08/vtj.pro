@@ -76,7 +76,10 @@ export const builtInDeps: Dependencie[] = [
     version: 'latest',
     library: 'VtjUI',
     urls: [
+      '@vtj/materials/deps/vxe-table/style.min.css',
       '@vtj/materials/deps/@vtj/ui/style.css',
+      '@vtj/materials/deps/xe-utils/xe-utils.umd.min.js',
+      '@vtj/materials/deps/vxe-table/index.umd.min.js',
       '@vtj/materials/deps/@vtj/ui/index.umd.js'
     ],
     assetsUrl: '@vtj/materials/assets/ui/index.umd.js',

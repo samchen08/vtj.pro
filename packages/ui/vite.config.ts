@@ -18,7 +18,9 @@ export default createViteConfig({
         '@vueuse/core',
         '@vtj/utils',
         '@vtj/icons',
-        'echarts'
+        'echarts',
+        'vxe-table',
+        'xe-utils'
       ]
     : [
         'vue',
@@ -28,7 +30,9 @@ export default createViteConfig({
         '@vueuse/core',
         '@vtj/utils',
         '@vtj/icons',
-        'echarts'
+        'echarts',
+        'vxe-table',
+        'xe-utils'
       ],
   externalGlobals: isUmd
     ? {
@@ -39,7 +43,9 @@ export default createViteConfig({
         '@vueuse/core': 'VueUse',
         '@vtj/utils': 'VtjUtils',
         '@vtj/icons': 'VtjIcons',
-        echarts: 'echarts'
+        echarts: 'echarts',
+        'vxe-table': 'VXETable',
+        'xe-utils': 'XEUtils'
       }
     : undefined,
   formats: isUmd ? ['umd'] : ['es']
