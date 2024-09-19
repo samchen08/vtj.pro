@@ -1,7 +1,7 @@
 {
   "name": "@vtj/cli",
   "private": false,
-  "version": "0.8.34",
+  "version": "0.8.36",
   "type": "module",
   "bin": {
     "vtj": "./bin/vtj.js"
@@ -40,7 +40,7 @@
     "rollup-plugin-visualizer": "~5.12.0",
     "sass": "~1.78.0",
     "serve-static": "~1.16.0",
-    "terser": "~5.32.0",
+    "terser": "~5.33.0",
     "typescript": "~5.6.2",
     "unbuild": "~2.0.0",
     "unplugin-element-plus": "~0.8.0",

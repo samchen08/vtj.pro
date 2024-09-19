@@ -74,15 +74,17 @@ export class DevTools {
   init(window: Window, engine: Engine) {
     if (!this.engine) {
       this.engine = engine;
-      const { simulator, changed, current } = this.engine;
-      watch(simulator.rendered, () => this.proxyLoad(this.window));
+      const { simulator, changed } = this.engine;
+      watch(simulator.rendered, () => {
+        // console.log('rendered');
+        this.proxyLoad(this.window);
+      });
       watch(
         () => changed?.value,
-        () => this.proxyLoad(this.window)
-      );
-      watch(
-        () => current?.value,
-        () => this.proxyLoad(this.window)
+        () => {
+          // console.log('changed');
+          this.proxyLoad(this.window);
+        }
       );
     }
     if (this.window) {
@@ -117,9 +119,14 @@ export class DevTools {
     if (simulator && devtools) {
       const app = simulator.renderer?.app;
       if (!app) return;
-      if (this.isInited) {
+      if (!window.__VUE_DEVTOOLS_KIT_ACTIVE_APP_RECORD__) {
+        window.__VUE_DEVTOOLS_KIT_ACTIVE_APP_RECORD__ = {};
+      }
+      if (app._uid === 1) {
+        // console.log('before app:unmount');
         devtools.emit('app:unmount', app);
       }
+      // console.log('app:init');
       devtools.emit('app:init', app, app.version, {});
       this.app = app;
     }
@@ -128,6 +135,7 @@ export class DevTools {
   appUnmount(window: Window) {
     const devtools = window.__VUE_DEVTOOLS_GLOBAL_HOOK__;
     if (devtools && this.app) {
+      // console.log('appUnmount');
       devtools.emit('app:unmount', this.app);
       this.app = undefined;
     }

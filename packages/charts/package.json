@@ -1,7 +1,7 @@
 {
   "name": "@vtj/charts",
   "private": false,
-  "version": "0.8.140",
+  "version": "0.8.144",
   "type": "module",
   "scripts": {
     "build": "vue-tsc && vite build && npm run build:umd",
@@ -16,7 +16,7 @@
   "dependencies": {
     "@vtj/icons": "workspace:~",
     "@vtj/utils": "workspace:~",
-    "@vueuse/core": "~11.0.3",
+    "@vueuse/core": "~11.1.0",
     "echarts": "~5.5.0"
   },
   "devDependencies": {

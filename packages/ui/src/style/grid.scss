@@ -1,6 +1,4 @@
 @use 'core' as *;
-@use 'vxe-table/es/style.css';
-
 @include b(grid) {
   display: flex;
   flex-direction: column;

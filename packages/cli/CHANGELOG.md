@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.36](https://gitee.com/newgateway/vtj/compare/@vtj/cli@0.8.35...@vtj/cli@0.8.36) (2024-09-19)
+
+
+### Bug Fixes
+
+* 🐛 回滚sass依赖 ([43f1522](https://gitee.com/newgateway/vtj/commits/43f1522b46e165c95421e84f44ccc97cd690d52a))
+
+
+
+
+
+## [0.8.35](https://gitee.com/newgateway/vtj/compare/@vtj/cli@0.8.34...@vtj/cli@0.8.35) (2024-09-19)
+
+**Note:** Version bump only for package @vtj/cli
+
+
+
+
+
+
 ## [0.8.34](https://gitee.com/newgateway/vtj/compare/@vtj/cli@0.8.33...@vtj/cli@0.8.34) (2024-09-16)
 
 **Note:** Version bump only for package @vtj/cli

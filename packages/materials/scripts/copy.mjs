@@ -85,6 +85,15 @@ const files = [
   [
     modules + '@ckeditor/ckeditor5-vue/dist/ckeditor.js',
     'deps/@ckeditor/ckeditor5-vue/ckeditor.js'
+  ],
+  [
+    modules + 'vxe-table/lib/index.umd.min.js',
+    'deps/vxe-table/index.umd.min.js'
+  ],
+  [modules + 'vxe-table/lib/style.min.css', 'deps/vxe-table/style.min.css'],
+  [
+    modules + 'xe-utils/dist/xe-utils.umd.min.js',
+    'deps/xe-utils/xe-utils.umd.min.js'
   ]
 ];
 
