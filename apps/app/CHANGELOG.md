@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.145](https://gitee.com/newgateway/vtj/compare/vtj-project-app@0.8.144...vtj-project-app@0.8.145) (2024-09-20)
+
+
+### Features
+
+* ✨ mockjs改为异步按需加载 ([d3e49ad](https://gitee.com/newgateway/vtj/commits/d3e49ad6cba70eee8beca88b1c1c24610a13ebcb))
+
+
+
+
+
+
 ## [0.8.144](https://gitee.com/newgateway/vtj/compare/vtj-project-app@0.8.143...vtj-project-app@0.8.144) (2024-09-19)
 
 **Note:** Version bump only for package vtj-project-app

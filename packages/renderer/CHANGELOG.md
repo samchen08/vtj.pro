@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.145](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.8.144...@vtj/renderer@0.8.145) (2024-09-20)
+
+
+### Features
+
+* ✨ 画布支持直接拖拽节点 ([5dde38d](https://gitee.com/newgateway/vtj/commits/5dde38d401aaa2e040e97e320fb09b67a3ed1b48))
+* ✨ mockjs改为异步按需加载 ([d3e49ad](https://gitee.com/newgateway/vtj/commits/d3e49ad6cba70eee8beca88b1c1c24610a13ebcb))
+
+
+
+
+
+
 ## [0.8.144](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.8.143...@vtj/renderer@0.8.144) (2024-09-19)
 
 **Note:** Version bump only for package @vtj/renderer

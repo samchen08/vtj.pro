@@ -1,7 +1,6 @@
 <template>
   <div ref="container" class="v-designer">
     <Viewport :mode="mode" :width="width" :height="height">
-      <iframe ref="iframe" frameborder="0"></iframe>
       <div
         v-if="dropping"
         class="v-designer__dropping"
@@ -24,12 +23,13 @@
           @dragstart="onDragStart"
           @dragend="onDragEnd"></Actions>
       </div>
-    </Viewport>
-    <ElEmpty v-if="!current" description="请新建或打开文件"></ElEmpty>
+      <ElEmpty v-if="!current" description="请新建或打开文件"></ElEmpty>
 
-    <div v-if="current && isEmpty" class="v-designer__placeholder">
-      您可以拖拽组件放置到这里
-    </div>
+      <div v-if="current && isEmpty" class="v-designer__placeholder">
+        您可以拖拽组件放置到这里
+      </div>
+      <iframe ref="iframe" frameborder="0"></iframe>
+    </Viewport>
   </div>
 </template>
 <script lang="ts" setup>

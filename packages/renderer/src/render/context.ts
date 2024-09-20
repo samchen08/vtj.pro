@@ -98,7 +98,7 @@ export class Context {
     if (!code) return;
     if (this.__mode === ContextMode.Runtime) {
       const { id, type } = code;
-      const value = id ? this.__transform[id] ?? code.value : code.value;
+      const value = id ? (this.__transform[id] ?? code.value) : code.value;
       return parseFunction({ type, value }, this);
     } else {
       return parseFunction(code, this);
@@ -108,7 +108,7 @@ export class Context {
     if (!code) return;
     if (this.__mode === ContextMode.Runtime) {
       const { id, type } = code;
-      const value = id ? this.__transform[id] ?? code.value : code.value;
+      const value = id ? (this.__transform[id] ?? code.value) : code.value;
       return parseExpression({ type, value }, this);
     } else {
       return parseExpression(code, this);
@@ -150,6 +150,7 @@ export class Context {
       // 设计模式记录上下文
       if (ContextMode.Design === this.__mode) {
         dom.__context__ = this;
+        dom.draggable = true;
       }
 
       if (id) {

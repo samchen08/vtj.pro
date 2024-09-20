@@ -98,6 +98,10 @@ export class Designer {
     doc.addEventListener('mouseleave', this.bind(this.onLeave, 'onLeave'));
     doc.addEventListener('dragleave', this.bind(this.onLeave, 'onLeave'));
     doc.addEventListener('dragover', this.bind(this.onDragOver, 'onDragOver'));
+    doc.addEventListener(
+      'dragstart',
+      this.bind(this.onDragStart, 'onDragStart')
+    );
     doc.addEventListener('drop', this.bind(this.onDrop, 'onDrop'));
     doc.addEventListener(
       'click',
@@ -140,6 +144,10 @@ export class Designer {
       'dragover',
       this.bind(this.onDragOver, 'onDragOver')
     );
+    doc.removeEventListener(
+      'dragstart',
+      this.bind(this.onDragStart, 'onDragStart')
+    );
     doc.removeEventListener('drop', this.bind(this.onDrop, 'onDrop'));
     doc.removeEventListener('click', this.bind(this.onSelected, 'onSelected'));
     emitter.off(
@@ -155,7 +163,7 @@ export class Designer {
   private onMouseOver(e: MouseEvent) {
     if (this.devtools.isOpen.value) return;
     const hover = this.getHelper(e);
-    if (hover?.model.id !== this.selected.value?.model.id) {
+    if (hover && hover?.model.id !== this.selected.value?.model.id) {
       this.hover.value = hover;
     }
   }
@@ -297,6 +305,17 @@ export class Designer {
     } else {
       this.dropping.value = null;
     }
+  }
+
+  private onDragStart(e: DragEvent) {
+    const helper = this.getHelper(e);
+    if (!helper) return;
+    const { model } = helper;
+    const desc = this.engine.assets.componentMap.get(model.name);
+    if (desc) {
+      this.setDragging(desc);
+    }
+    this.setDraggingNode(model as NodeModel);
   }
 
   private isVtjElement(el: EventTarget | HTMLElement): el is VtjElement {
