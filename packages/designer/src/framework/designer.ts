@@ -102,6 +102,7 @@ export class Designer {
       'dragstart',
       this.bind(this.onDragStart, 'onDragStart')
     );
+    doc.addEventListener('dragend', this.bind(this.onDragEnd, 'onDragEnd'));
     doc.addEventListener('drop', this.bind(this.onDrop, 'onDrop'));
     doc.addEventListener(
       'click',
@@ -148,6 +149,7 @@ export class Designer {
       'dragstart',
       this.bind(this.onDragStart, 'onDragStart')
     );
+    doc.removeEventListener('dragend', this.bind(this.onDragEnd, 'onDragEnd'));
     doc.removeEventListener('drop', this.bind(this.onDrop, 'onDrop'));
     doc.removeEventListener('click', this.bind(this.onSelected, 'onSelected'));
     emitter.off(
@@ -316,6 +318,11 @@ export class Designer {
       this.setDragging(desc);
     }
     this.setDraggingNode(model as NodeModel);
+  }
+
+  private onDragEnd() {
+    this.setDraggingNode(null);
+    this.setDragging(null);
   }
 
   private isVtjElement(el: EventTarget | HTMLElement): el is VtjElement {

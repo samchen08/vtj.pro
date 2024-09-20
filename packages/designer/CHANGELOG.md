@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.146](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.8.145...@vtj/designer@0.8.146) (2024-09-20)
+
+
+### Bug Fixes
+
+* 🐛 画布拖拽结束状态没更新 ([e5209d3](https://gitee.com/newgateway/vtj/commits/e5209d3fd010c7275f731816e0078a12a807fe9a))
+
+
+
+
+
+
 ## [0.8.145](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.8.144...@vtj/designer@0.8.145) (2024-09-20)
 
 
