@@ -1,3 +1,4 @@
+import { cloneDeep } from '@vtj/base';
 import { BlockModel, NodeModel } from '../models';
 import {
   type BlockSchema,
@@ -18,7 +19,8 @@ export function isBlockSchema(value: unknown): value is BlockSchema {
   return !!(value as any).__VTJ_BLOCK__;
 }
 
-export function cloneDsl(dsl: NodeSchema) {
+export function cloneDsl(oDsl: NodeSchema) {
+  const dsl = cloneDeep(oDsl);
   delete dsl.id;
   if (Array.isArray(dsl.children)) {
     dsl.children = dsl.children.map((n) => cloneDsl(n));

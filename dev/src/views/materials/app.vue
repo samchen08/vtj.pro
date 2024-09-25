@@ -4,10 +4,10 @@
 <script lang="ts" setup>
   import { ref } from 'vue';
   import { useRouter } from 'vue-router';
-  import { Engine, widgetManager, LocalService } from '@vtj/pro';
+  import { Engine, widgetManager, StorageService } from '@vtj/pro';
 
   const container = ref();
-  const service = new LocalService();
+  const service = new StorageService();
   const router = useRouter();
 
   // depsManager.remove('@vtj/ui');
@@ -23,7 +23,8 @@
     materials: {
       ElementPlusMaterial: () => import('@vtj/materials/src/element'),
       VtjUIMaterial: () => import('@vtj/materials/src/ui'),
-      AntdvMaterial: () => import('@vtj/materials/src/antdv')
+      AntdvMaterial: () => import('@vtj/materials/src/antdv'),
+      VantMaterial: () => import('@vtj/materials/src/vant')
     }
   });
 
