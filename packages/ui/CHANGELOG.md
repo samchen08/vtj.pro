@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.147](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.8.146...@vtj/ui@0.8.147) (2024-09-25)
+
+
+### Bug Fixes
+
+* 🐛 XGrid透传参数 ([4a1bd11](https://gitee.com/newgateway/vtj/commits/4a1bd1100eaa48e131c285cce11a27d780f3f923))
+
+
+
+
+
+
 ## [0.8.146](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.8.145...@vtj/ui@0.8.146) (2024-09-20)
 
 **Note:** Version bump only for package @vtj/ui

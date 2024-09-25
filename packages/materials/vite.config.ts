@@ -22,6 +22,11 @@ const materials = {
     entry: 'src/charts/index.ts',
     library: 'VtjChartsMaterial',
     outDir: 'dist/assets/charts'
+  },
+  vant: {
+    entry: 'src/vant/index.ts',
+    library: 'VantMaterial',
+    outDir: 'dist/assets/vant'
   }
 };
 

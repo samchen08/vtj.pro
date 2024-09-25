@@ -44,7 +44,7 @@ function useScrollY(props: GridProps, attrs: Record<string, any>) {
         },
         getAttrValue(attrs, 'scrollY') || {}
       )
-    : undefined;
+    : getAttrValue(attrs, 'scrollY');
 }
 
 function useFitlerConfig(props: GridProps, attrs: Record<string, any>) {
@@ -86,7 +86,7 @@ function useEditMode(
         showStatus: true,
         ...(getAttrValue(attrs, 'editConfig') || {})
       }
-    : undefined;
+    : getAttrValue(attrs, 'editConfig');
   const mouseConfig = {
     selected: !!editable,
     ...(getAttrValue(attrs, 'mouseConfig') || {})
@@ -102,7 +102,7 @@ function useEditMode(
         isDel: true,
         ...(getAttrValue(attrs, 'keyboardConfig') || {})
       }
-    : undefined;
+    : getAttrValue(attrs, 'keyboardConfig');
 
   const onCellSelected = (params: any) => {
     const { $grid } = params;

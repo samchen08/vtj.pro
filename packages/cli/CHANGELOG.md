@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.37](https://gitee.com/newgateway/vtj/compare/@vtj/cli@0.8.36...@vtj/cli@0.8.37) (2024-09-25)
+
+
+### Bug Fixes
+
+* 🐛 复制节点对象引用问题 ([7789076](https://gitee.com/newgateway/vtj/commits/7789076f31b8c56697ce4affe3eacd2932df1cda))
+
+
+
+
+
+
 ## [0.8.36](https://gitee.com/newgateway/vtj/compare/@vtj/cli@0.8.35...@vtj/cli@0.8.36) (2024-09-19)
 
 

@@ -1,14 +1,15 @@
 {
   "name": "@vtj/materials",
   "private": false,
-  "version": "0.8.146",
+  "version": "0.8.147",
   "type": "module",
   "scripts": {
-    "build": "npm run remove && npm run build:ui && npm run build:charts && npm run build:element && npm run build:antdv && npm run copy",
+    "build": "npm run remove && npm run build:ui && npm run build:charts && npm run build:element && npm run build:antdv && npm run build:vant && npm run copy",
     "build:ui": "vue-tsc && cross-env BUILD_TYPE=ui vite build",
     "build:element": "vue-tsc && cross-env BUILD_TYPE=element vite build",
     "build:antdv": "vue-tsc && cross-env BUILD_TYPE=antdv vite build",
     "build:charts": "vue-tsc && cross-env BUILD_TYPE=charts vite build",
+    "build:vant": "vue-tsc && cross-env BUILD_TYPE=vant vite build",
     "remove": "node scripts/rm.mjs",
     "copy": "node scripts/copy.mjs"
   },
