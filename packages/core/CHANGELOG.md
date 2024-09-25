@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.147](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.8.146...@vtj/core@0.8.147) (2024-09-25)
+
+
+### Bug Fixes
+
+* 🐛 复制节点对象引用问题 ([7789076](https://gitee.com/newgateway/vtj/commits/7789076f31b8c56697ce4affe3eacd2932df1cda))
+
+
+
+
+
+
 ## [0.8.146](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.8.145...@vtj/core@0.8.146) (2024-09-20)
 
 **Note:** Version bump only for package @vtj/core

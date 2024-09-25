@@ -83,7 +83,10 @@ export class NodeModel {
    */
   public disposed: boolean = false;
 
-  constructor(schema: NodeSchema, public parent: NodeModel | null = null) {
+  constructor(
+    schema: NodeSchema,
+    public parent: NodeModel | null = null
+  ) {
     const { id = uid(), name, from = '' } = schema;
     this.id = id;
     this.name = name;

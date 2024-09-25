@@ -123,5 +123,19 @@ export const builtInDeps: Dependencie[] = [
     required: false,
     official: true,
     enabled: false
+  },
+  {
+    package: 'vant',
+    version: 'latest',
+    library: 'vant',
+    urls: [
+      '@vtj/materials/deps/vant/index.css',
+      '@vtj/materials/deps/vant/vant.min.js'
+    ],
+    assetsUrl: '@vtj/materials/assets/vant/index.umd.js',
+    assetsLibrary: 'VantMaterial',
+    required: false,
+    official: true,
+    enabled: false
   }
 ];

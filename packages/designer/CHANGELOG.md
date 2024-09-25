@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.147](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.8.146...@vtj/designer@0.8.147) (2024-09-25)
+
+
+### Features
+
+* ✨ 初始化vant物料 ([9279d61](https://gitee.com/newgateway/vtj/commits/9279d61ebbf90a2824a157ad2d182294627a3bad))
+
+
+
+
+
+
 ## [0.8.146](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.8.145...@vtj/designer@0.8.146) (2024-09-20)
 
 

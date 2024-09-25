@@ -94,7 +94,9 @@ const files = [
   [
     modules + 'xe-utils/dist/xe-utils.umd.min.js',
     'deps/xe-utils/xe-utils.umd.min.js'
-  ]
+  ],
+  [modules + 'vant/lib/vant.min.js', 'deps/vant/vant.min.js'],
+  [modules + 'vant/lib/index.css', 'deps/vant/index.css']
 ];
 
 function doCopy() {
