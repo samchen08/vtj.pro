@@ -3,6 +3,40 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.150](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.8.149...@vtj/ui@0.8.150) (2024-09-30)
+
+
+### Bug Fixes
+
+* 🐛 x-grid remove return result ([a321960](https://gitee.com/newgateway/vtj/commits/a321960a63b2e90189392b3821f79eb8ee072593))
+
+
+
+
+
+## [0.8.149](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.8.148...@vtj/ui@0.8.149) (2024-09-27)
+
+
+### Bug Fixes
+
+* 🐛 撤销installVxe判断 ([b3f0870](https://gitee.com/newgateway/vtj/commits/b3f0870ffbe10528fdd16b4a3c1e76a27c5f1c32))
+
+
+
+
+
+## [0.8.148](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.8.147...@vtj/ui@0.8.148) (2024-09-27)
+
+
+### Bug Fixes
+
+* 🐛 防止vxe-table重复注册 ([8a6cf45](https://gitee.com/newgateway/vtj/commits/8a6cf45e9c0f95b48dc91ea46c142d20770b4c90))
+
+
+
+
+
+
 ## [0.8.147](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.8.146...@vtj/ui@0.8.147) (2024-09-25)
 
 

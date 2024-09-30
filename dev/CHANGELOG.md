@@ -3,6 +3,34 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.150](https://gitee.com/newgateway/vtj/compare/dev-web@0.8.149...dev-web@0.8.150) (2024-09-30)
+
+
+### Bug Fixes
+
+* 🐛 panel物料插槽缺少 ([1eb019f](https://gitee.com/newgateway/vtj/commits/1eb019f1b16e3af17b3f36c8340ccb50d16adbf7))
+
+
+
+
+
+## [0.8.149](https://gitee.com/newgateway/vtj/compare/dev-web@0.8.148...dev-web@0.8.149) (2024-09-27)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
+## [0.8.148](https://gitee.com/newgateway/vtj/compare/dev-web@0.8.147...dev-web@0.8.148) (2024-09-27)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
+
 ## [0.8.147](https://gitee.com/newgateway/vtj/compare/dev-web@0.8.146...dev-web@0.8.147) (2024-09-25)
 
 

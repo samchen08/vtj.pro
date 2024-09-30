@@ -147,6 +147,7 @@
       await grid.remove(rows);
       onEditClosed();
     }
+    return ret;
   };
 
   const getRecords = () => {

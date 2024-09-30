@@ -33,8 +33,10 @@ export function createSchemaApi(schema: ApiSchema, adapter: ProvideAdapter) {
         headers
       }
     };
-    return (data: any, opts?: IRequestConfig) =>
-      request.send(merge(config, opts || {}, { data }));
+    return (data: any, opts?: IRequestConfig) => {
+      delete config.data;
+      return request.send(merge(config, opts || {}, { data }));
+    };
   }
 }
 

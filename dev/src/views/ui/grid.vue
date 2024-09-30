@@ -1,38 +1,43 @@
 <template>
-  <div class="container">
-    <XGrid
-      ref="gridRef"
-      id="demo"
-      size="small"
-      :columns="columns"
-      :rowSortable="true"
-      @row-sort="onRowSort"
-      @column-sort="onColSort"
-      columnSortable
-      :filter-renders="{ name: 'XInput' }"
-      :toolbar-config="{}"
-      :cell-renders="{ sex: 'XTag' }"
-      @resizable-change="onResize"
-      :customable="true"
-      :getCustom="getCustom"
-      :saveCustom="saveCustom"
-      :border="true"
-      :stripe="false"
-      :loader="loader"
-      :page="page"
-      :pager="true"
-      :auto="true"
-      :resizable="true"
-      :virtual="true"
-      :sumFields="['age', 'month']"
-      :avgFields="['age', 'year']"
-      :sumAllFields="{ age: 23232 }">
-    </XGrid>
-  </div>
+  <XContainer fit>
+    <XContainer width="0px"></XContainer>
+    <XContainer grow width="500px" :flex="false">
+      <XContainer fit :flex="false">
+        <XGrid
+          ref="gridRef"
+          id="demo"
+          size="small"
+          :columns="columns"
+          :rowSortable="true"
+          @row-sort="onRowSort"
+          @column-sort="onColSort"
+          columnSortable
+          :filter-renders="{ name: 'XInput' }"
+          :toolbar-config="{}"
+          :cell-renders="{ sex: 'XTag' }"
+          @resizable-change="onResize"
+          :customable="true"
+          :getCustom="getCustom"
+          :saveCustom="saveCustom"
+          :border="true"
+          :stripe="false"
+          :loader="loader"
+          :page="page"
+          :pager="true"
+          :auto="true"
+          :resizable="true"
+          :virtual="true"
+          :sumFields="['age', 'month']"
+          :avgFields="['age', 'year']"
+          :sumAllFields="{ age: 23232 }">
+        </XGrid>
+      </XContainer>
+    </XContainer>
+  </XContainer>
 </template>
 <script lang="ts" setup>
   import { ref, type Ref } from 'vue';
-  import { XGrid, type GridColumns } from '@vtj/ui';
+  import { XGrid, type GridColumns, XContainer } from '@vtj/ui';
   import { request, storage, numberFormat } from '@vtj/utils';
   const gridRef = ref<InstanceType<typeof XGrid>>();
   const page = ref(1);

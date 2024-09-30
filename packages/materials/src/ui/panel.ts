@@ -62,6 +62,7 @@ const desc: MaterialDescription = {
       setters: 'ObjectSetter'
     }
   ],
+  slots: ['default', 'actions', 'title', 'footer'],
   snippet: {
     props: {
       header: '标题文本',
