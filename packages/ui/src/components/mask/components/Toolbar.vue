@@ -4,6 +4,7 @@
       :icon="MoreFilled"
       :menus="tabs"
       :dropdown="{ size: 'small' }"
+      type="primary"
       mode="icon"
       circle
       background="hover"
@@ -26,6 +27,7 @@
       mode="icon"
       size="default"
       background="hover"
+      type="primary"
       :items="actions"
       @click="onActionClick"
       @command="onActionCommand"></XActionBar>

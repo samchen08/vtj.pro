@@ -1,4 +1,4 @@
-import { getCurrentInstance } from 'vue';
+import { getCurrentInstance, watch } from 'vue';
 import {
   VxeTableFilterModule,
   VxeTableEditModule,
@@ -14,6 +14,7 @@ import {
   VxeModal,
   type VXETableConfigOptions
 } from 'vxe-table';
+import { useDark } from '@vueuse/core';
 import { useAdapter } from '../../../adapter';
 import { RenderPlugin } from '../renderers';
 
@@ -34,7 +35,7 @@ export function useVxe(options: VXETableConfigOptions = {}) {
   const instance = getCurrentInstance();
   const app = instance?.appContext.app;
   const { vxeConfig, vxePlugin } = useAdapter();
-
+  const isDark = useDark();
   if (app && !(app as any).__installVxe) {
     VXETable.use(RenderPlugin);
     if (vxePlugin) {
@@ -47,6 +48,14 @@ export function useVxe(options: VXETableConfigOptions = {}) {
     modules.forEach((n) => app.use(n));
     (app as any).__installVxe = true;
   }
+
+  watch(
+    isDark,
+    (v) => {
+      VXETable.setTheme(v ? 'dark' : 'light');
+    },
+    { immediate: true }
+  );
 
   return {
     VxeGrid,

@@ -32,6 +32,11 @@ const desc: MaterialDescription = {
       setters: 'ObjectSetter'
     },
     {
+      name: 'formProps',
+      title: '表单XForm组件参数选项',
+      setters: 'ObjectSetter'
+    },
+    {
       name: 'submitMethod',
       title: '表单提交处理方法, return true 关闭弹窗',
       setters: 'FunctionSetter'
