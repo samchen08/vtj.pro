@@ -129,6 +129,7 @@ export class Context {
       // 异步组件需要等待渲染
       await delay(0);
       let dom = el?.$vtjEl || el?.$el || el?._?.vnode?.el || el;
+
       // 销毁时，无dom
       if (!dom) {
         if (typeof ref === 'string') {
@@ -161,7 +162,7 @@ export class Context {
         ref(el);
       } else if (ref) {
         const exist = this.$refs[ref];
-        if (exist) {
+        if (exist && el !== exist) {
           // 去重
           const sets = new Set([].concat(exist, el));
           this.$refs[ref] = Array.from(sets);
