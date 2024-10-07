@@ -12,7 +12,9 @@
       column-sortable
       row-sortable
       show-footer
-      :footer-method="footerMethod">
+      :sum-fields="['age']"
+      :avg-fields="['age']"
+      :sum-all-fields="{ age: 92323 }">
       <template #toolbar__buttons>
         <XActionBar :items="buttons" @click="onToolbarClick"></XActionBar>
       </template>

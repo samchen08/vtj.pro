@@ -75,7 +75,7 @@
     float: left;
   }
   > .vxe-grid--toolbar-wrapper {
-    border-bottom: 1px solid var(--el-border-color-lighter);
+    // border-bottom: 1px solid var(--el-border-color-lighter);
     .vxe-toolbar {
       padding: 0;
       margin-bottom: 10px;
@@ -85,6 +85,7 @@
     padding-bottom: 10px;
   }
   .vxe-grid--form-wrapper {
+    border-top: 1px solid var(--el-border-color-lighter);
     padding-top: 10px;
     padding-bottom: 5px;
   }

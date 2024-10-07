@@ -5,11 +5,11 @@
   @include set-css-var-value('mask-content-bg-color', getCssVar('bg-color'));
   @include set-css-var-value(
     'mask-topbar-bg-color',
-    getCssVar('fill-color-lighter')
+    getCssVar('bg-color') // getCssVar('fill-color-lighter')
   );
   @include set-css-var-value(
     'mask-sidebar-bg-color',
-    getCssVar('fill-color-lighter')
+    getCssVar('bg-color') // getCssVar('fill-color-lighter')
   );
 
   @include set-css-var-value(
@@ -27,6 +27,16 @@
     overflow: auto;
     padding: 10px;
     border-left: 1px solid getCssVar('mask-sidebar-border-color');
+    background-color: getCssVar('fill-color-light');
+  }
+  @include e(inner) {
+    height: 100%;
+    width: 100%;
+    background-color: getCssVar('bg-color');
+    border-radius: 4px;
+    padding: 10px;
+    overflow: auto;
+    box-sizing: border-box;
   }
 
   @include when(disabled) {
@@ -329,7 +339,8 @@
     margin: 0;
     border-bottom: none !important;
     .el-tabs__item.is-active {
-      background-color: getCssVar('bg-color');
+      background-color: getCssVar('fill-color-light');
+      border-bottom-color: getCssVar('fill-color-light');
       border-radius: 2px;
     }
     .x-icon {
