@@ -27,7 +27,8 @@ export {
   template,
   lowerFirst,
   kebabCase,
-  snakeCase
+  snakeCase,
+  groupBy
 } from 'lodash-es';
 
 export function upperFirstCamelCase(name: string) {

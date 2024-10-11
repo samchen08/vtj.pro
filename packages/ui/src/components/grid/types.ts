@@ -66,7 +66,7 @@ export type GridCustomInfo = {
 };
 
 export type GridCellRender = VxeColumnPropTypes.CellRender & {
-  props:
+  props?:
     | ((
         params: VxeGlobalRendererHandles.RenderDefaultParams
       ) => Record<string, any>)
@@ -76,7 +76,7 @@ export type GridCellRender = VxeColumnPropTypes.CellRender & {
 export type GridCellRenders = Record<string, string | GridCellRender>;
 
 export type GridEditRender = VxeColumnPropTypes.EditRender & {
-  props:
+  props?:
     | ((
         params: VxeGlobalRendererHandles.RenderEditParams
       ) => Record<string, any>)
@@ -86,7 +86,7 @@ export type GridEditRender = VxeColumnPropTypes.EditRender & {
 export type GridEditRenders = Record<string, string | GridEditRender>;
 
 export type GridFilterRender = VxeColumnPropTypes.FilterRender & {
-  props:
+  props?:
     | ((
         params: VxeGlobalRendererHandles.RenderFilterParams
       ) => Record<string, any>)

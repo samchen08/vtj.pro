@@ -7,9 +7,9 @@ import {
   nextTick,
   provide
 } from 'vue';
-import { useRouter, useRoute } from 'vue-router';
+import { useRouter, useRoute, type RouteLocationRaw } from 'vue-router';
 import { ElMessageBox } from 'element-plus';
-import { upperFirstCamelCase, uid } from '@vtj/utils';
+import { upperFirstCamelCase, uid, delay } from '@vtj/utils';
 import { useElementSize } from '@vueuse/core';
 import {
   type MaskProps,
@@ -43,6 +43,10 @@ export function useTabs(
 
   const isCurrentTab = (tab: MaskTab) => {
     return route.fullPath === tab.url;
+  };
+
+  const isHomeTab = (tab: MaskTab) => {
+    return home.value.id === tab.id;
   };
 
   const getTab = (id: string) => {
@@ -86,7 +90,6 @@ export function useTabs(
     const creator = tabCreators[url];
     const id = uid();
     const name = upperFirstCamelCase(url);
-
     return {
       id,
       name,
@@ -99,13 +102,14 @@ export function useTabs(
     };
   };
 
-  const removeTab = async (tab: MaskTab) => {
-    const ret = await ElMessageBox.confirm('是否关闭页签', '提示', {
-      type: 'warning'
-    }).catch(() => false);
+  const removeTab = async (tab: MaskTab, silent?: boolean) => {
+    if (!silent) {
+      const ret = await ElMessageBox.confirm('是否关闭页签', '提示', {
+        type: 'warning'
+      }).catch(() => false);
 
-    if (!ret) return;
-
+      if (!ret) return;
+    }
     tabs.value = tabs.value.filter((n) => n.id !== tab.id);
     // 删除的是激活tab
     if (tabValue.value === tab.id) {
@@ -150,6 +154,19 @@ export function useTabs(
     activeTab(tab);
   };
 
+  const closeCurrnetTab = async (to?: RouteLocationRaw) => {
+    if (!currentTab.value) return;
+    if (!currentTab.value.closable) return;
+    if (isHomeTab(currentTab.value)) return;
+    await removeTab(currentTab.value, true);
+    await delay(0);
+    if (to) {
+      router.push(to);
+    } else {
+      router.push(home.value.url);
+    }
+  };
+
   const init = async () => {
     await nextTick();
     const isHome = home.value.url === route.path;
@@ -166,7 +183,7 @@ export function useTabs(
   };
 
   watch(menus, init);
-  watch(route, init, { immediate: true });
+  watch(route, init);
   provide(TAB_CREATORS_KEY, tabCreators);
 
   return {
@@ -186,6 +203,7 @@ export function useTabs(
     dropdownTabs,
     removeAllTabs,
     removeOtherTabs,
-    moveToShow
+    moveToShow,
+    closeCurrnetTab
   };
 }

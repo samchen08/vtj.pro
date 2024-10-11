@@ -1,4 +1,7 @@
 (function () {
+  if (window.$wujie) {
+    return;
+  }
   let hasDevTools = false;
   let clientPath = '/__vtj__/entry/';
   const entry = '/__vtj__/entry/index.js';

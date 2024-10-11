@@ -145,4 +145,4 @@ export type TabCreator = () => Promise<Partial<MaskTab>> | Partial<MaskTab>;
 export const TAB_CREATORS_KEY: InjectionKey<Record<string, TabCreator>> =
   Symbol();
 
-export const MASK_KEY = Symbol();
+export const MASK_KEY = '$mask';

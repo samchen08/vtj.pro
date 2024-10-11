@@ -12,10 +12,28 @@ export const pageRoutes = computed(() => {
   const items: any[] = [];
   for (let key of files) {
     const path = key.replace('.vue', '').replace('/src/views', '');
+    const isMask = path.startsWith('/ui/mask');
+    const children = isMask
+      ? [
+          {
+            path: '',
+            component: modules['/src/views/ui/pages/homepage.vue']
+          },
+          {
+            path: 'page',
+            component: modules['/src/views/ui/pages/index.vue']
+          },
+          {
+            path: 'subpage',
+            component: modules['/src/views/ui/pages/subpage.vue']
+          }
+        ]
+      : undefined;
     items.push({
       path,
       name: path,
-      component: modules[key]
+      component: modules[key],
+      children
     });
   }
   return items;

@@ -15,8 +15,6 @@
   } from 'element-plus';
   let loading: any = null;
 
-
-
   request.setConfig({
     settings: {
       showLoading() {
@@ -75,10 +73,10 @@
     // console.log(request);
     request({
       settings: {
-        // type: 'json'
+        // type: 'form'
       },
       url,
-      method: 'post',
+      method: 'delete',
       params: {
         id: 'abc'
       },

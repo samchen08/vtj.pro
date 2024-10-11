@@ -9,7 +9,6 @@
     :disabled="false"
     theme
     @action-click="onActionClick">
-    <div>ABC</div>
   </XMask>
 </template>
 <script lang="ts" setup>

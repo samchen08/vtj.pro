@@ -35,6 +35,11 @@ export interface ApiSchema {
   url: string;
 
   /**
+   * 分组
+   */
+  category?: string;
+
+  /**
    * 接口请求方法
    */
   method?: ApiMethod;

@@ -23,7 +23,9 @@
           :tooltipMessage="false"
           :model="currentModel"
           :submitMethod="submitMethod">
-          <BaseInfo v-show="currentTab === 'base'"></BaseInfo>
+          <BaseInfo
+            :categories="categories"
+            v-show="currentTab === 'base'"></BaseInfo>
 
           <div v-if="currentTab === 'settings'">
             <JsonpOptions v-if="isJsonp"></JsonpOptions>
@@ -92,6 +94,7 @@
   export interface Props {
     model?: ApiSchema;
     project?: ProjectModel | null;
+    categories?: string[];
   }
 
   const props = defineProps<Props>();
