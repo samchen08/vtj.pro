@@ -2,6 +2,7 @@ import { template } from '@vtj/base';
 
 const scriptTemplate = `
 // @ts-nocheck
+
 <%= imports %>
 import { useProvider } from '@vtj/renderer';
 export default defineComponent({
