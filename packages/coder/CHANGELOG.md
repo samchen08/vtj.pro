@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.159](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.158...@vtj/coder@0.8.159) (2024-10-11)
+
+
+### Bug Fixes
+
+* 🐛 coder ts-nocheck ([be86c37](https://gitee.com/newgateway/vtj/commits/be86c37fc42f07d700701d00a5c455f9d4d37a63))
+
+
+
+
+
+
 ## [0.8.158](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.157...@vtj/coder@0.8.158) (2024-10-11)
 
 

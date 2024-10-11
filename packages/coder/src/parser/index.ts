@@ -97,7 +97,7 @@ export function parser(
     lifeCycles: lifeCycles.join(','),
     computed: mergeComputed.join(','),
     methods: [...dataSources, ...mergeMethods].join(','),
-    imports: imports.join('\n'),
+    imports: '\n' + imports.join('\n'),
     components: components.join(','),
     returns: collecter.members.join(','),
     template: nodes.join('\n'),
