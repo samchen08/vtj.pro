@@ -3,6 +3,41 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.158](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.8.157...@vtj/designer@0.8.158) (2024-10-11)
+
+
+### Features
+
+* ✨ 区块管理支持分组 ([08f64a0](https://gitee.com/newgateway/vtj/commits/08f64a09088ef42142fc607ba8099afe6946c35f))
+* ✨ api分组 ([bd029b0](https://gitee.com/newgateway/vtj/commits/bd029b0418ef48afac4830ed158e00c1771a55e0))
+
+
+
+
+
+## [0.8.157](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.8.156...@vtj/designer@0.8.157) (2024-10-09)
+
+
+### Bug Fixes
+
+* 🐛 只有一个名为default的插槽，并且无参数，可以省略 ([3a16e2d](https://gitee.com/newgateway/vtj/commits/3a16e2dbdb776b44dbb6ca24c1ac57170503d5b7))
+
+
+
+
+
+## [0.8.156](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.8.155...@vtj/designer@0.8.156) (2024-10-08)
+
+
+### Bug Fixes
+
+* 🐛 XDialog classList bug ([d96b8ba](https://gitee.com/newgateway/vtj/commits/d96b8ba4901f69249707a955638a40902d79bd73))
+
+
+
+
+
+
 ## [0.8.155](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.8.154...@vtj/designer@0.8.155) (2024-10-07)
 
 **Note:** Version bump only for package @vtj/designer

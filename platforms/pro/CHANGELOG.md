@@ -3,6 +3,34 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.158](https://gitee.com/newgateway/vtj/compare/@vtj/pro@0.8.157...@vtj/pro@0.8.158) (2024-10-11)
+
+
+### Bug Fixes
+
+* 🐛 wujie不加载link ([b2a9fb4](https://gitee.com/newgateway/vtj/commits/b2a9fb47a7efb644da19bd7422a43eb3f7d7c019))
+
+
+
+
+
+## [0.8.157](https://gitee.com/newgateway/vtj/compare/@vtj/pro@0.8.156...@vtj/pro@0.8.157) (2024-10-09)
+
+**Note:** Version bump only for package @vtj/pro
+
+
+
+
+
+## [0.8.156](https://gitee.com/newgateway/vtj/compare/@vtj/pro@0.8.155...@vtj/pro@0.8.156) (2024-10-08)
+
+**Note:** Version bump only for package @vtj/pro
+
+
+
+
+
+
 ## [0.8.155](https://gitee.com/newgateway/vtj/compare/@vtj/pro@0.8.154...@vtj/pro@0.8.155) (2024-10-07)
 
 **Note:** Version bump only for package @vtj/pro

@@ -5,23 +5,38 @@
     :subtitle="subtitle"
     plus
     @plus="onAdd">
-    <ElRow wrap="wrap" :gutter="5">
-      <ElCol v-for="block in blocks" :key="block.id" :span="span">
-        <Box
-          :name="block.name"
-          :title="block.title"
-          :active="current?.id === block.id"
-          :editable="!block.preset"
-          :tag="fromTypeMap[block.fromType || 'Schema']?.label"
-          :tagType="fromTypeMap[block.fromType || 'Schema']?.type"
-          @edit="onEdit(block)"
-          @remove="onRemove(block)"
-          @click="onClick(block)"
-          :draggable="current?.id !== block.id"
-          @dragstart="onDragStart(block)"
-          @dragend="onDragEnd"></Box>
-      </ElCol>
-    </ElRow>
+    <div class="v-blocks__search">
+      <ElInput
+        size="small"
+        v-model="keyword"
+        :prefix-icon="Search"
+        placeholder="搜索API"
+        clearable></ElInput>
+    </div>
+    <ElCollapse :model-value="categories">
+      <ElCollapseItem
+        v-for="(items, name) in groups"
+        :name="name"
+        :title="`${name} (${items.length})`">
+        <ElRow wrap="wrap" :gutter="5">
+          <ElCol v-for="block in blocks" :key="block.id" :span="span">
+            <Box
+              :name="block.name"
+              :title="block.title"
+              :active="current?.id === block.id"
+              :editable="!block.preset"
+              :tag="fromTypeMap[block.fromType || 'Schema']?.label"
+              :tagType="fromTypeMap[block.fromType || 'Schema']?.type"
+              @edit="onEdit(block)"
+              @remove="onRemove(block)"
+              @click="onClick(block)"
+              :draggable="current?.id !== block.id"
+              @dragstart="onDragStart(block)"
+              @dragend="onDragEnd"></Box>
+          </ElCol>
+        </ElRow>
+      </ElCollapseItem>
+    </ElCollapse>
     <ElEmpty v-if="!blocks.length"></ElEmpty>
     <XDialogForm
       v-model="visible"
@@ -61,14 +76,28 @@
         required
         :editor="FileSetter"
         :props="{ attachment: { accept, multiple } }"></XField>
+      <XField
+        name="category"
+        label="分组"
+        editor="select"
+        :props="categoryProps"
+        :options="options"></XField>
     </XDialogForm>
   </Panel>
 </template>
 <script lang="ts" setup>
   import { ref, computed, type Ref } from 'vue';
-  import { ElRow, ElCol, ElEmpty } from 'element-plus';
+  import {
+    ElRow,
+    ElCol,
+    ElEmpty,
+    ElCollapse,
+    ElCollapseItem,
+    ElInput
+  } from 'element-plus';
   import { XDialogForm, XField } from '@vtj/ui';
-  import { upperFirstCamelCase, cloneDeep } from '@vtj/utils';
+  import { Search } from '@vtj/icons';
+  import { upperFirstCamelCase, cloneDeep, groupBy } from '@vtj/utils';
   import { type BlockFile, createNodeFrom } from '@vtj/core';
   import { type Designer } from '../../../framework';
   import { Panel, Box } from '../../shared';
@@ -79,6 +108,39 @@
 
   const { span } = useColSpan();
   const { blocks, engine } = useBlocks();
+  const keyword = ref('');
+
+  const list = computed(() => {
+    if (keyword.value) {
+      return blocks.value.filter((n) => {
+        return (
+          n.name.includes(keyword.value) || n.title?.includes(keyword.value)
+        );
+      });
+    }
+    return blocks.value;
+  });
+
+  const groups = computed(() =>
+    groupBy(list.value, (block) => block.category || '默认分组')
+  );
+
+  const categories = computed(() => Object.keys(groups.value));
+
+  const categoryProps = {
+    filterable: true,
+    allowCreate: true,
+    defaultFirstOption: true
+  };
+
+  const options = computed(() => {
+    return categories.value.map((n) => {
+      return {
+        label: n,
+        value: n
+      };
+    });
+  });
 
   const fromTypeOptions = [
     {

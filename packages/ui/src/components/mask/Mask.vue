@@ -79,7 +79,7 @@
   </XContainer>
 </template>
 <script lang="ts" setup>
-  import { provide } from 'vue';
+  import { provide, watch, toValue } from 'vue';
   import { XContainer, type ActionProps, type ActionMenuItem } from '../';
   import Sidebar from './components/Sidebar.vue';
   import SwitchBar from './components/SwitchBar.vue';
@@ -92,6 +92,7 @@
 
   import { maskProps, type MaskEmits, MASK_KEY, type MaskTab } from './types';
   import { useSidebar, useHome, useMenus, useTabs, useContent } from './hooks';
+  import { delay } from '@vtj/utils';
   defineOptions({
     name: 'XMask'
   });
@@ -115,16 +116,24 @@
     removeAllTabs,
     removeOtherTabs,
     dropdownTabs,
-    moveToShow
+    moveToShow,
+    closeCurrnetTab
   } = useTabs(props, emit, flatMenus, active, home);
 
-  const { createView, openDialog, refresh, exclude, cleanCache, closeDialogs } =
-    useContent({
-      tabs,
-      updateTab,
-      isCurrentTab,
-      activeHome
-    });
+  const {
+    createView,
+    openDialog,
+    closeDialog,
+    refresh,
+    exclude,
+    cleanCache,
+    closeDialogs
+  } = useContent({
+    tabs,
+    updateTab,
+    isCurrentTab,
+    activeHome
+  });
 
   const onRemoveTab = async (tab: MaskTab) => {
     const ret = await removeTab(tab);
@@ -157,12 +166,31 @@
     emit('actionCommand', action, item);
   };
 
+  const close = async (tab?: MaskTab) => {
+    const tabValue = toValue(tab || currentTab);
+    if (tabValue) {
+      if (tabValue.dialog) {
+        closeDialog(tabValue);
+      }
+      await removeTab(tabValue, true);
+      await delay(50);
+    }
+  };
+
+  watch(currentTab, (tab) => {
+    if (tab?.dialog) {
+      closeDialog(tab);
+    }
+  });
+
   provide(MASK_KEY, {
     tabs,
     flatMenus,
     favorites,
     updateTab,
     active,
-    currentTab
+    currentTab,
+    closeCurrnetTab,
+    close
   });
 </script>

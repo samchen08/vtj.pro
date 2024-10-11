@@ -3,6 +3,34 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.158](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.8.157...@vtj/materials@0.8.158) (2024-10-11)
+
+**Note:** Version bump only for package @vtj/materials
+
+
+
+
+
+## [0.8.157](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.8.156...@vtj/materials@0.8.157) (2024-10-09)
+
+**Note:** Version bump only for package @vtj/materials
+
+
+
+
+
+## [0.8.156](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.8.155...@vtj/materials@0.8.156) (2024-10-08)
+
+
+### Bug Fixes
+
+* 🐛 XDialog classList bug ([d96b8ba](https://gitee.com/newgateway/vtj/commits/d96b8ba4901f69249707a955638a40902d79bd73))
+
+
+
+
+
+
 ## [0.8.155](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.8.154...@vtj/materials@0.8.155) (2024-10-07)
 
 **Note:** Version bump only for package @vtj/materials

@@ -5,8 +5,10 @@
 </template>
 
 <script lang="ts" setup>
-  // import { defineTab } from '@vtj/web';
-  // const { tab, route } = defineTab({
-  //   title: '二级页面'
-  // });
+  import { defineTab } from '@vtj/ui';
+  const { tab, mask } = defineTab({
+    title: '二级页面'
+  });
+
+  console.log('defineTab', tab, mask);
 </script>

@@ -160,7 +160,7 @@ export class Request {
   private showLoading: (settings: IRequestSettings) => void;
   private showError: (settings: IRequestSettings, e: any) => void;
   constructor(options: IRequestOptions = {}) {
-    this.settings = options.settings || {};
+    this.settings = Object.assign({ type: 'form' }, options.settings || {});
     const defaults = omit<IRequestOptions, CreateAxiosDefaults>(options, [
       'settings',
       'query'
@@ -264,6 +264,7 @@ export class Request {
     const { name = 'skipWarn' } = skipWarn || {};
     let { data, params = {}, method = 'get' } = config;
     const skip = isSkipWarn ? { [name]: true } : {};
+
     if (DATA_METHODS.includes(method.toLowerCase())) {
       data = Object.assign(data || {}, skip);
       data =
@@ -274,12 +275,21 @@ export class Request {
         ...query
       };
     } else {
-      params = {
-        ...data,
-        ...params,
-        ...query,
-        ...skip
-      };
+      if (type === 'form') {
+        params = {
+          ...(data || {}),
+          ...query,
+          ...skip
+        };
+      } else {
+        if (data && (type !== 'json' || !this.isJsonType(headers))) {
+          data = this.toFormData(data, type);
+        }
+        params = {
+          ...query,
+          ...skip
+        };
+      }
     }
 
     return {
@@ -327,7 +337,8 @@ export class Request {
   private _showError(settings: IRequestSettings, e: any) {
     const { failMessage, showError } = settings;
     if (failMessage && showError) {
-      const msg = e?.message || e?.msg || '未知错误';
+      const data = e.response?.data;
+      const msg = data?.message || data?.msg || e?.message || '未知错误';
       showError(msg, e);
     }
   }

@@ -3,6 +3,40 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.158](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.8.157...@vtj/ui@0.8.158) (2024-10-11)
+
+**Note:** Version bump only for package @vtj/ui
+
+
+
+
+
+## [0.8.157](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.8.156...@vtj/ui@0.8.157) (2024-10-09)
+
+**Note:** Version bump only for package @vtj/ui
+
+
+
+
+
+## [0.8.156](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.8.155...@vtj/ui@0.8.156) (2024-10-08)
+
+
+### Bug Fixes
+
+* 🐛 XDialog classList bug ([d96b8ba](https://gitee.com/newgateway/vtj/commits/d96b8ba4901f69249707a955638a40902d79bd73))
+* 🐛 XGrid types error ([d804a06](https://gitee.com/newgateway/vtj/commits/d804a0632acead23a9ac5bad1fecbfe7849f06fb))
+
+
+### Features
+
+* ✨ 增强 XMask ([1908cd9](https://gitee.com/newgateway/vtj/commits/1908cd93522fe21cb00447a7173ce8c2997c8773))
+
+
+
+
+
+
 ## [0.8.155](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.8.154...@vtj/ui@0.8.155) (2024-10-07)
 
 **Note:** Version bump only for package @vtj/ui

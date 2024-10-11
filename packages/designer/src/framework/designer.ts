@@ -219,8 +219,10 @@ export class Designer {
     if (slots.length === 0) {
       return undefined;
     }
+    // 只有一个名为default的插槽，并且无参数，可以省略
     if (slots.length === 1) {
-      return slots[0];
+      const { name, params = [] } = slots[0];
+      return name === 'default' && !params.length ? undefined : slots[0];
     }
     // 用户没选择插槽，返回null
     const slot = await createSlotsPicker(slots).catch(() => null);

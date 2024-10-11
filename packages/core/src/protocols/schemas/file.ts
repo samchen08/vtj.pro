@@ -41,6 +41,11 @@ export interface BlockFile {
   title: string;
 
   /**
+   * 分组
+   */
+  category?: string;
+
+  /**
    * 从物料市场安装
    */
   market?: MarketInstallInfo;
