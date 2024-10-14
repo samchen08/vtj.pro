@@ -338,7 +338,8 @@ export class Request {
     const { failMessage, showError } = settings;
     if (failMessage && showError) {
       const data = e.response?.data;
-      const msg = data?.message || data?.msg || e?.message || '未知错误';
+      const msg =
+        data?.message || data?.msg || e?.message || e?.msg || '未知错误';
       showError(msg, e);
     }
   }
