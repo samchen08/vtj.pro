@@ -31,7 +31,9 @@ export function proxyContext(context: any) {
   const _proxy = (prop: any) => {
     return new Proxy(prop || {}, {
       get(target: any, name: string) {
-        return _proxy(target[name]);
+        return typeof name === 'symbol'
+          ? () => undefined
+          : _proxy(target[name]);
       }
     });
   };
