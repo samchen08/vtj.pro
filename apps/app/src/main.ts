@@ -1,4 +1,10 @@
-import { createProvider, LocalService, createModules, NodeEnv } from '@vtj/web';
+import {
+  createProvider,
+  LocalService,
+  createModules,
+  NodeEnv,
+  autoUpdate
+} from '@vtj/web';
 import { createApp } from 'vue';
 import router from './router';
 import App from './App.vue';
@@ -21,8 +27,13 @@ const { provider, onReady } = createProvider({
     id: name
   }
 });
+
 onReady(async () => {
   app.use(router);
   app.use(provider);
   app.mount('#app');
 });
+
+if (process.env.NODE_ENV === 'production') {
+  autoUpdate();
+}

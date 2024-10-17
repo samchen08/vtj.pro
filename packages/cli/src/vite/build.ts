@@ -3,14 +3,41 @@ import externalGlobals from 'rollup-plugin-external-globals';
 import type { BuildOptions, LibraryOptions } from 'vite';
 import { resolve } from 'path';
 
+const PACKAGES = ['@vueuse', '@vant'];
+const P_MAP: Record<string, string> = {
+  'async-validator': 'shared',
+  'lodash-unified': 'shared',
+  'memoize-one': 'shared',
+  'normalize-wheel-es': 'shared',
+  'regenerator-runtime': 'shared',
+  'dom-zindex': 'shared',
+  tslib: 'shared',
+  '@ctrl': 'shared',
+  '@popperjs': 'shared',
+  '@floating-ui': 'shared',
+  'vue-demi': 'shared',
+  'core-js': 'shared',
+  zrender: 'echarts',
+  '@vue': 'vue',
+  'vxe-table': 'vxe',
+  'xe-utils': 'vxe'
+};
+
 const defaultManualChunks = (id: string) => {
   if (id.includes('node_modules')) {
     const arr = id.split('node_modules/');
     const dirs = arr[arr.length - 1].split('/');
-    if (dirs[0].startsWith('@') && dirs.length > 2) {
-      return `${dirs[0]}-${dirs[1]}`;
+    const name = dirs[0];
+    if (PACKAGES.includes(name)) {
+      return name;
     }
-    return dirs[0];
+    if (P_MAP[name]) {
+      return P_MAP[name];
+    }
+    if (name.startsWith('@') && dirs.length > 2) {
+      return `${name}-${dirs[1]}`;
+    }
+    return name;
   }
 };
 

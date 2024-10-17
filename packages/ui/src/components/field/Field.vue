@@ -9,7 +9,7 @@
     :size="computedSize"
     :class="computedClass"
     :style="computedStyle"
-    v-bind="$attrs as any">
+    v-bind="$attrs">
     <template v-if="$slots.label" #label>
       <slot name="label"></slot>
     </template>

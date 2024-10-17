@@ -1,4 +1,4 @@
-import './polyfill'
+import './polyfill';
 export * from './contants';
 export * from './utils';
 export * from './hooks';

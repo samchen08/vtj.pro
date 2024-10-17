@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.23](https://gitee.com/newgateway/vtj/compare/create-vtj@0.8.22...create-vtj@0.8.23) (2024-10-15)
+
+
+### Bug Fixes
+
+* 🐛 app template ([a92f512](https://gitee.com/newgateway/vtj/commits/a92f512fb3b78bdca96c79ce1b595aba76e77b51))
+
+
+
+
+
+
 ## [0.8.22](https://gitee.com/newgateway/vtj/compare/create-vtj@0.8.21...create-vtj@0.8.22) (2024-10-11)
 
 **Note:** Version bump only for package create-vtj
