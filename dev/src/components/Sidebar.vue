@@ -11,6 +11,7 @@
         <ElOption label="@vtj/core" value="core"></ElOption>
         <ElOption label="@vtj/designer" value="designer"></ElOption>
         <ElOption label="@vtj/materials" value="materials"></ElOption>
+        <ElOption label="debug" value="debug"></ElOption>
       </ElSelect>
     </div>
     <Menus :title="`@vtj/${current}`" :items="list"></Menus>

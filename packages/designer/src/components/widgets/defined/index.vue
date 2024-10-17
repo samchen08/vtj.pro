@@ -130,13 +130,17 @@
 
   const blockEvents = computed<BlockEmit[]>(() => {
     return (current.value?.emits || []).map((n) => {
-      return typeof n === 'string' ? { name: n, params: [] } : n;
+      return typeof n === 'string'
+        ? { name: n, params: [] }
+        : Object.assign({ params: [] }, n);
     });
   });
 
   const blockSlots = computed<BlockSlot[]>(() => {
     return (current.value?.slots || []).map((n) => {
-      return typeof n === 'string' ? { name: n, params: [] } : n;
+      return typeof n === 'string'
+        ? { name: n, params: [] }
+        : Object.assign({ params: [] }, n);
     });
   });
 

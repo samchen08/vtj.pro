@@ -47,8 +47,8 @@ export function useEditor(
   });
 
   watch(
-    watcher,
-    async (val: any) => {
+    [watcher, () => props.options],
+    async ([val, _o]) => {
       if (fieldVisible.value) {
         optionsRef.value = await useOptions(props, val);
         const reset = instance?.exposed?.reset;

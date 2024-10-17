@@ -8,7 +8,7 @@
     "axios": "~1.6.0",
     "fs-extra": "~11.2.0",
     "jsdom": "~25.0.0",
-    "typedoc": "~0.26.5",
+    "typedoc": "~0.26.9",
     "typescript": "~5.6.2",
     "ts-node": "~10.9.2",
     "nodemon": "~3.1.0",
