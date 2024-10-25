@@ -42,7 +42,8 @@ export async function getExtension(_body: any, opts: DevToolsOptions) {
 
   const extension = {
     ...(vtj.extension || {}),
-    __BASE_PATH__: opts.staticBase
+    __BASE_PATH__: opts.staticBase,
+    __adapters__: vtj.adapters || {}
   };
 
   return success(extension);

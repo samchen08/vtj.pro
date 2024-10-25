@@ -57,9 +57,9 @@
             @clickTab="moveToShow"
             @action-click="onActionClick"
             @action-command="onActionCommand">
-            <Avatar :avatar="props.avatar">
+            <Avatar :avatar="props.avatar" :width="props.userCardWidth">
               <template v-if="$slots.user" #default>
-                <slot name="user"> </slot>
+                <slot name="user"></slot>
               </template>
             </Avatar>
           </Toolbar>

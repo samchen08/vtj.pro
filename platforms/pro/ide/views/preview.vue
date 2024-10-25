@@ -8,17 +8,29 @@
     createProvider,
     LocalService,
     ContextMode,
-    Extension
+    Extension,
+    Access
   } from '../../src';
   import { IconsPlugin } from '@vtj/icons';
+  import { ElMessageBox } from 'element-plus';
   const service = new LocalService();
-  const ext = await service.getExtension().catch(() => null);
-  const options = ext ? await new Extension(ext).load() : undefined;
-  const { __BASE_PATH__ = '/' } = ext || {};
+  const config = await service.getExtension().catch(() => null);
+  const { options, adapters } = config
+    ? await new Extension(config).load()
+    : {};
+  const { __BASE_PATH__ = '/' } = config || {};
+  const accessOptions = adapters?.access;
+  const access = accessOptions
+    ? new Access({
+        ...accessOptions,
+        alert: ElMessageBox.alert
+      })
+    : undefined;
   const { provider, onReady } = createProvider({
     mode: ContextMode.Runtime,
     service,
     materialPath: __BASE_PATH__,
+    adapter: { access },
     ...(options || {}),
     dependencies: {
       Vue: () => import('vue'),

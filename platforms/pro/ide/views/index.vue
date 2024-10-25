@@ -4,21 +4,32 @@
 <script lang="ts" setup>
   import { ref, watch } from 'vue';
   import { useRoute } from 'vue-router';
+  import { ElMessageBox } from 'element-plus';
   import {
     Engine,
     widgetManager,
     LocalService,
     ProjectModel,
-    Extension
+    Extension,
+    Access
   } from '../../src';
 
   const route = useRoute();
   const container = ref();
   const service = new LocalService();
+  const config = await service.getExtension().catch(() => null);
+  const { options, adapters } = config
+    ? await new Extension(config).load()
+    : {};
+  const { __BASE_PATH__ = '/' } = config || {};
+  const accessOptions = adapters?.access;
+  const access = accessOptions
+    ? new Access({
+        ...accessOptions,
+        alert: ElMessageBox.alert
+      })
+    : undefined;
 
-  const ext = await service.getExtension().catch(() => null);
-  const options = ext ? await new Extension(ext).load() : undefined;
-  const { __BASE_PATH__ = '/' } = ext || {};
   widgetManager.set('Switcher', {
     props: {
       onClick: (project: ProjectModel) => {
@@ -47,6 +58,7 @@
     container,
     service,
     materialPath: __BASE_PATH__,
+    adapter: { access },
     ...options
   });
 

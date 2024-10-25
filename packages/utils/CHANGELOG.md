@@ -3,6 +3,119 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.172](https://gitee.com/newgateway/vtj/compare/@vtj/utils@0.8.171...@vtj/utils@0.8.172) (2024-10-25)
+
+**Note:** Version bump only for package @vtj/utils
+
+
+
+
+
+## [0.8.171](https://gitee.com/newgateway/vtj/compare/@vtj/utils@0.8.170...@vtj/utils@0.8.171) (2024-10-24)
+
+**Note:** Version bump only for package @vtj/utils
+
+
+
+
+
+## [0.8.170](https://gitee.com/newgateway/vtj/compare/@vtj/utils@0.8.169...@vtj/utils@0.8.170) (2024-10-24)
+
+**Note:** Version bump only for package @vtj/utils
+
+
+
+
+
+## [0.8.169](https://gitee.com/newgateway/vtj/compare/@vtj/utils@0.8.168...@vtj/utils@0.8.169) (2024-10-24)
+
+**Note:** Version bump only for package @vtj/utils
+
+
+
+
+
+## [0.8.168](https://gitee.com/newgateway/vtj/compare/@vtj/utils@0.8.167...@vtj/utils@0.8.168) (2024-10-22)
+
+
+### Bug Fixes
+
+* 🐛 access adapter ([4ed5e17](https://gitee.com/newgateway/vtj/commits/4ed5e17d8746639598819457fe06c541c307d1a2))
+
+
+
+
+
+## [0.8.167](https://gitee.com/newgateway/vtj/compare/@vtj/utils@0.8.166...@vtj/utils@0.8.167) (2024-10-22)
+
+**Note:** Version bump only for package @vtj/utils
+
+
+
+
+
+## [0.8.166](https://gitee.com/newgateway/vtj/compare/@vtj/utils@0.8.165...@vtj/utils@0.8.166) (2024-10-22)
+
+**Note:** Version bump only for package @vtj/utils
+
+
+
+
+
+## [0.8.165](https://gitee.com/newgateway/vtj/compare/@vtj/utils@0.8.164...@vtj/utils@0.8.165) (2024-10-21)
+
+**Note:** Version bump only for package @vtj/utils
+
+
+
+
+
+## [0.8.164](https://gitee.com/newgateway/vtj/compare/@vtj/utils@0.8.163...@vtj/utils@0.8.164) (2024-10-21)
+
+**Note:** Version bump only for package @vtj/utils
+
+
+
+
+
+
+## [0.8.163](https://gitee.com/newgateway/vtj/compare/@vtj/utils@0.8.162...@vtj/utils@0.8.163) (2024-10-17)
+
+**Note:** Version bump only for package @vtj/utils
+
+
+
+
+
+## [0.8.162](https://gitee.com/newgateway/vtj/compare/@vtj/utils@0.8.161...@vtj/utils@0.8.162) (2024-10-15)
+
+**Note:** Version bump only for package @vtj/utils
+
+
+
+
+
+## [0.8.161](https://gitee.com/newgateway/vtj/compare/@vtj/utils@0.8.160...@vtj/utils@0.8.161) (2024-10-14)
+
+**Note:** Version bump only for package @vtj/utils
+
+
+
+
+
+
+## [0.8.160](https://gitee.com/newgateway/vtj/compare/@vtj/utils@0.8.159...@vtj/utils@0.8.160) (2024-10-14)
+
+
+### Bug Fixes
+
+* 🐛 request _showError message ([fe9251f](https://gitee.com/newgateway/vtj/commits/fe9251fbd602745f691dd8fd9c5a0373010e700d))
+
+
+
+
+
+
 ## [0.8.159](https://gitee.com/newgateway/vtj/compare/@vtj/utils@0.8.158...@vtj/utils@0.8.159) (2024-10-11)
 
 **Note:** Version bump only for package @vtj/utils

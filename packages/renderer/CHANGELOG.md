@@ -3,6 +3,147 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.172](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.8.171...@vtj/renderer@0.8.172) (2024-10-25)
+
+
+### Bug Fixes
+
+* 🐛 优化access ([d846537](https://gitee.com/newgateway/vtj/commits/d8465372ff78a4f5c935534d1b8f1b8e5cffd78d))
+
+
+
+
+
+## [0.8.171](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.8.170...@vtj/renderer@0.8.171) (2024-10-24)
+
+
+### Bug Fixes
+
+* 🐛 access改为RSA加密 ([c4811cf](https://gitee.com/newgateway/vtj/commits/c4811cf9ae941a31f95494b5a6c41c3d69aa9f25))
+
+
+
+
+
+## [0.8.170](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.8.169...@vtj/renderer@0.8.170) (2024-10-24)
+
+
+### Bug Fixes
+
+* 🐛 未处理的异常提示 ([368fd27](https://gitee.com/newgateway/vtj/commits/368fd279596f81c8aa83943650ee7a1a99e67ab0))
+* 🐛 acesss route permission  guard ([b42c3d4](https://gitee.com/newgateway/vtj/commits/b42c3d471ecda4f2a291d3a9e196c327b99798d1))
+
+
+
+
+
+## [0.8.169](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.8.168...@vtj/renderer@0.8.169) (2024-10-24)
+
+
+### Bug Fixes
+
+* 🐛 access menus ([477e663](https://gitee.com/newgateway/vtj/commits/477e663f8bd506bf5fbfc00cb01fa8ec8ceb3487))
+
+
+### Features
+
+* ✨ 菜单支持权限控制 ([7c4306f](https://gitee.com/newgateway/vtj/commits/7c4306f02ee6232d2583d70987c1d086b5615b94))
+* ✨ 菜单支持权限控制 ([bdc2bc7](https://gitee.com/newgateway/vtj/commits/bdc2bc7320767108977f673bcad55aacf406b2e8))
+
+
+
+
+
+## [0.8.168](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.8.167...@vtj/renderer@0.8.168) (2024-10-22)
+
+
+### Bug Fixes
+
+* 🐛 access adapter ([4ed5e17](https://gitee.com/newgateway/vtj/commits/4ed5e17d8746639598819457fe06c541c307d1a2))
+
+
+
+
+
+## [0.8.167](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.8.166...@vtj/renderer@0.8.167) (2024-10-22)
+
+
+### Bug Fixes
+
+* 🐛 provider $access 被重定义问题 ([f127f31](https://gitee.com/newgateway/vtj/commits/f127f31dbca44d7e806462b56b3aba99636d8829))
+
+
+
+
+
+## [0.8.166](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.8.165...@vtj/renderer@0.8.166) (2024-10-22)
+
+
+### Features
+
+* ✨ 设计器支持Access配置 ([4d1e91e](https://gitee.com/newgateway/vtj/commits/4d1e91ebcf1b00ad05ac11d1f05fbc96d1ffd06d))
+
+
+
+
+
+## [0.8.165](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.8.164...@vtj/renderer@0.8.165) (2024-10-21)
+
+
+### Bug Fixes
+
+* 🐛 Access ([b321e9f](https://gitee.com/newgateway/vtj/commits/b321e9f444aa58bea03cf4faf6ce6c40083b005c))
+
+
+
+
+
+## [0.8.164](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.8.163...@vtj/renderer@0.8.164) (2024-10-21)
+
+
+### Features
+
+* ✨ Access ([a46d0b3](https://gitee.com/newgateway/vtj/commits/a46d0b36693a9ded045213b5bd1600c4aac7fcb3))
+
+
+
+
+
+
+## [0.8.163](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.8.162...@vtj/renderer@0.8.163) (2024-10-17)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
+## [0.8.162](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.8.161...@vtj/renderer@0.8.162) (2024-10-15)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
+## [0.8.161](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.8.160...@vtj/renderer@0.8.161) (2024-10-14)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
+
+## [0.8.160](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.8.159...@vtj/renderer@0.8.160) (2024-10-14)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
+
 ## [0.8.159](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.8.158...@vtj/renderer@0.8.159) (2024-10-11)
 
 **Note:** Version bump only for package @vtj/renderer

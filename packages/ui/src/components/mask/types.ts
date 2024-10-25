@@ -103,6 +103,10 @@ export const maskProps = {
   },
   removeFavorite: {
     type: Function as PropType<(menu: MenuDataItem) => void>
+  },
+  userCardWidth: {
+    type: Number,
+    default: 350
   }
 };
 

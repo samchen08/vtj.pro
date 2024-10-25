@@ -64,7 +64,7 @@ export interface EngineOptions {
   materials?: Record<string, () => Promise<any>>;
   materialPath?: string;
   globals?: Record<string, any>;
-  adapter?: ProvideAdapter;
+  adapter?: Partial<ProvideAdapter>;
   install?: (app: App, engine?: Engine) => void;
 }
 

@@ -1,5 +1,6 @@
 import { createViteConfig } from '@vtj/cli';
 import { createDevTools } from '@vtj/local';
+import proxy from './proxy.config';
 const isExtension = !!process.env.Extension;
 
 function creator() {
@@ -31,6 +32,7 @@ function creator() {
     };
   }
   return {
+    proxy,
     host: '0.0.0.0',
     https: false,
     legacy: false,

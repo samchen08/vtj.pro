@@ -3,6 +3,113 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.172](https://gitee.com/newgateway/vtj/compare/lcdp@0.8.171...lcdp@0.8.172) (2024-10-25)
+
+**Note:** Version bump only for package lcdp
+
+
+
+
+
+## [0.8.171](https://gitee.com/newgateway/vtj/compare/lcdp@0.8.170...lcdp@0.8.171) (2024-10-24)
+
+**Note:** Version bump only for package lcdp
+
+
+
+
+
+## [0.8.170](https://gitee.com/newgateway/vtj/compare/lcdp@0.8.169...lcdp@0.8.170) (2024-10-24)
+
+**Note:** Version bump only for package lcdp
+
+
+
+
+
+## [0.8.169](https://gitee.com/newgateway/vtj/compare/lcdp@0.8.168...lcdp@0.8.169) (2024-10-24)
+
+**Note:** Version bump only for package lcdp
+
+
+
+
+
+## [0.8.168](https://gitee.com/newgateway/vtj/compare/lcdp@0.8.167...lcdp@0.8.168) (2024-10-22)
+
+**Note:** Version bump only for package lcdp
+
+
+
+
+
+## [0.8.167](https://gitee.com/newgateway/vtj/compare/lcdp@0.8.166...lcdp@0.8.167) (2024-10-22)
+
+**Note:** Version bump only for package lcdp
+
+
+
+
+
+## [0.8.166](https://gitee.com/newgateway/vtj/compare/lcdp@0.8.165...lcdp@0.8.166) (2024-10-22)
+
+**Note:** Version bump only for package lcdp
+
+
+
+
+
+## [0.8.165](https://gitee.com/newgateway/vtj/compare/lcdp@0.8.164...lcdp@0.8.165) (2024-10-21)
+
+**Note:** Version bump only for package lcdp
+
+
+
+
+
+## [0.8.164](https://gitee.com/newgateway/vtj/compare/lcdp@0.8.163...lcdp@0.8.164) (2024-10-21)
+
+**Note:** Version bump only for package lcdp
+
+
+
+
+
+
+## [0.8.163](https://gitee.com/newgateway/vtj/compare/lcdp@0.8.162...lcdp@0.8.163) (2024-10-17)
+
+**Note:** Version bump only for package lcdp
+
+
+
+
+
+## [0.8.162](https://gitee.com/newgateway/vtj/compare/lcdp@0.8.161...lcdp@0.8.162) (2024-10-15)
+
+**Note:** Version bump only for package lcdp
+
+
+
+
+
+## [0.8.161](https://gitee.com/newgateway/vtj/compare/lcdp@0.8.160...lcdp@0.8.161) (2024-10-14)
+
+**Note:** Version bump only for package lcdp
+
+
+
+
+
+
+## [0.8.160](https://gitee.com/newgateway/vtj/compare/lcdp@0.8.159...lcdp@0.8.160) (2024-10-14)
+
+**Note:** Version bump only for package lcdp
+
+
+
+
+
+
 ## [0.8.159](https://gitee.com/newgateway/vtj/compare/lcdp@0.8.158...lcdp@0.8.159) (2024-10-11)
 
 **Note:** Version bump only for package lcdp

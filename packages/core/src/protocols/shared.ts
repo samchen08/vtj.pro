@@ -82,4 +82,9 @@ export interface ExtensionConfig {
    * 项目部署目录
    */
   __BASE_PATH__?: string;
+
+  /**
+   * 适配类个性参数配置
+   */
+  __adapters__: Record<string, any>;
 }

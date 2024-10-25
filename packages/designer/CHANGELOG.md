@@ -3,6 +3,128 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.172](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.8.171...@vtj/designer@0.8.172) (2024-10-25)
+
+**Note:** Version bump only for package @vtj/designer
+
+
+
+
+
+## [0.8.171](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.8.170...@vtj/designer@0.8.171) (2024-10-24)
+
+**Note:** Version bump only for package @vtj/designer
+
+
+
+
+
+## [0.8.170](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.8.169...@vtj/designer@0.8.170) (2024-10-24)
+
+**Note:** Version bump only for package @vtj/designer
+
+
+
+
+
+## [0.8.169](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.8.168...@vtj/designer@0.8.169) (2024-10-24)
+
+**Note:** Version bump only for package @vtj/designer
+
+
+
+
+
+## [0.8.168](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.8.167...@vtj/designer@0.8.168) (2024-10-22)
+
+
+### Bug Fixes
+
+* 🐛 access adapter ([4ed5e17](https://gitee.com/newgateway/vtj/commits/4ed5e17d8746639598819457fe06c541c307d1a2))
+
+
+
+
+
+## [0.8.167](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.8.166...@vtj/designer@0.8.167) (2024-10-22)
+
+**Note:** Version bump only for package @vtj/designer
+
+
+
+
+
+## [0.8.166](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.8.165...@vtj/designer@0.8.166) (2024-10-22)
+
+
+### Features
+
+* ✨ 设计器支持Access配置 ([4d1e91e](https://gitee.com/newgateway/vtj/commits/4d1e91ebcf1b00ad05ac11d1f05fbc96d1ffd06d))
+
+
+
+
+
+## [0.8.165](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.8.164...@vtj/designer@0.8.165) (2024-10-21)
+
+**Note:** Version bump only for package @vtj/designer
+
+
+
+
+
+## [0.8.164](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.8.163...@vtj/designer@0.8.164) (2024-10-21)
+
+
+### Bug Fixes
+
+* 🐛 apis tag style ([0a7c12e](https://gitee.com/newgateway/vtj/commits/0a7c12e781d6d7ef6370d03c549a23812a99a4d0))
+
+
+
+
+
+
+## [0.8.163](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.8.162...@vtj/designer@0.8.163) (2024-10-17)
+
+
+### Bug Fixes
+
+* 🐛 element-plus 2.8.5 bug 自定义校验函数导致ElSelect异常 ([79c2d71](https://gitee.com/newgateway/vtj/commits/79c2d71b3363afd4445a3a6f6738f1c998509a3a))
+
+
+
+
+
+## [0.8.162](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.8.161...@vtj/designer@0.8.162) (2024-10-15)
+
+**Note:** Version bump only for package @vtj/designer
+
+
+
+
+
+## [0.8.161](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.8.160...@vtj/designer@0.8.161) (2024-10-14)
+
+**Note:** Version bump only for package @vtj/designer
+
+
+
+
+
+
+## [0.8.160](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.8.159...@vtj/designer@0.8.160) (2024-10-14)
+
+
+### Bug Fixes
+
+* 🐛 parseExpression error ([3c3f555](https://gitee.com/newgateway/vtj/commits/3c3f5559153ad8eba11ae688c84133421f2e9021))
+
+
+
+
+
+
 ## [0.8.159](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.8.158...@vtj/designer@0.8.159) (2024-10-11)
 
 **Note:** Version bump only for package @vtj/designer

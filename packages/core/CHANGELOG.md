@@ -3,6 +3,119 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.172](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.8.171...@vtj/core@0.8.172) (2024-10-25)
+
+**Note:** Version bump only for package @vtj/core
+
+
+
+
+
+## [0.8.171](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.8.170...@vtj/core@0.8.171) (2024-10-24)
+
+**Note:** Version bump only for package @vtj/core
+
+
+
+
+
+## [0.8.170](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.8.169...@vtj/core@0.8.170) (2024-10-24)
+
+**Note:** Version bump only for package @vtj/core
+
+
+
+
+
+## [0.8.169](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.8.168...@vtj/core@0.8.169) (2024-10-24)
+
+**Note:** Version bump only for package @vtj/core
+
+
+
+
+
+## [0.8.168](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.8.167...@vtj/core@0.8.168) (2024-10-22)
+
+
+### Bug Fixes
+
+* 🐛 access adapter ([4ed5e17](https://gitee.com/newgateway/vtj/commits/4ed5e17d8746639598819457fe06c541c307d1a2))
+
+
+
+
+
+## [0.8.167](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.8.166...@vtj/core@0.8.167) (2024-10-22)
+
+**Note:** Version bump only for package @vtj/core
+
+
+
+
+
+## [0.8.166](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.8.165...@vtj/core@0.8.166) (2024-10-22)
+
+
+### Features
+
+* ✨ 设计器支持Access配置 ([4d1e91e](https://gitee.com/newgateway/vtj/commits/4d1e91ebcf1b00ad05ac11d1f05fbc96d1ffd06d))
+
+
+
+
+
+## [0.8.165](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.8.164...@vtj/core@0.8.165) (2024-10-21)
+
+**Note:** Version bump only for package @vtj/core
+
+
+
+
+
+## [0.8.164](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.8.163...@vtj/core@0.8.164) (2024-10-21)
+
+**Note:** Version bump only for package @vtj/core
+
+
+
+
+
+
+## [0.8.163](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.8.162...@vtj/core@0.8.163) (2024-10-17)
+
+**Note:** Version bump only for package @vtj/core
+
+
+
+
+
+## [0.8.162](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.8.161...@vtj/core@0.8.162) (2024-10-15)
+
+**Note:** Version bump only for package @vtj/core
+
+
+
+
+
+## [0.8.161](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.8.160...@vtj/core@0.8.161) (2024-10-14)
+
+**Note:** Version bump only for package @vtj/core
+
+
+
+
+
+
+## [0.8.160](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.8.159...@vtj/core@0.8.160) (2024-10-14)
+
+**Note:** Version bump only for package @vtj/core
+
+
+
+
+
+
 ## [0.8.159](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.8.158...@vtj/core@0.8.159) (2024-10-11)
 
 **Note:** Version bump only for package @vtj/core

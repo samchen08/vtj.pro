@@ -9,6 +9,7 @@
     :disabled="false"
     theme
     @action-click="onActionClick">
+    <template #user>User</template>
   </XMask>
 </template>
 <script lang="ts" setup>

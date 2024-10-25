@@ -3,10 +3,11 @@
     <h1>request</h1>
     <ElButton @click="execApi1">Test api1</ElButton>
     <ElButton @click="doRequest">Test api2</ElButton>
+    <ElButton @click="doRequest3">Test api3</ElButton>
   </div>
 </template>
 <script lang="ts" setup>
-  import { request } from '@vtj/web';
+  import { request, Access } from '@vtj/web';
   import {
     ElNotification,
     ElLoading,
@@ -57,12 +58,24 @@
     }
   });
 
+  const access = new Access({
+    alert: ElMessageBox.alert
+  });
+
+  access.connect({ request: request });
+
   const doRequest = () => {
     for (let i = 0; i < 10; i++) {
       request({
         url: '/mock/api.json?t=' + Date.now()
       });
     }
+  };
+
+  const doRequest3 = () => {
+    request({
+      url: '/api/logs'
+    });
   };
 
   // const url = '/api/test/user/${id}';

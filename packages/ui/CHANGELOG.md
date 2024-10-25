@@ -3,6 +3,128 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.172](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.8.171...@vtj/ui@0.8.172) (2024-10-25)
+
+
+### Features
+
+* ✨ mask支持设置用户卡片宽度 ([8148e6b](https://gitee.com/newgateway/vtj/commits/8148e6b61e9353f038f06cccc17d358ea18bb34c))
+
+
+
+
+
+## [0.8.171](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.8.170...@vtj/ui@0.8.171) (2024-10-24)
+
+**Note:** Version bump only for package @vtj/ui
+
+
+
+
+
+## [0.8.170](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.8.169...@vtj/ui@0.8.170) (2024-10-24)
+
+**Note:** Version bump only for package @vtj/ui
+
+
+
+
+
+## [0.8.169](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.8.168...@vtj/ui@0.8.169) (2024-10-24)
+
+
+### Features
+
+* ✨ 菜单支持权限控制 ([bdc2bc7](https://gitee.com/newgateway/vtj/commits/bdc2bc7320767108977f673bcad55aacf406b2e8))
+
+
+
+
+
+## [0.8.168](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.8.167...@vtj/ui@0.8.168) (2024-10-22)
+
+
+### Bug Fixes
+
+* 🐛 access adapter ([4ed5e17](https://gitee.com/newgateway/vtj/commits/4ed5e17d8746639598819457fe06c541c307d1a2))
+
+
+
+
+
+## [0.8.167](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.8.166...@vtj/ui@0.8.167) (2024-10-22)
+
+**Note:** Version bump only for package @vtj/ui
+
+
+
+
+
+## [0.8.166](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.8.165...@vtj/ui@0.8.166) (2024-10-22)
+
+**Note:** Version bump only for package @vtj/ui
+
+
+
+
+
+## [0.8.165](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.8.164...@vtj/ui@0.8.165) (2024-10-21)
+
+**Note:** Version bump only for package @vtj/ui
+
+
+
+
+
+## [0.8.164](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.8.163...@vtj/ui@0.8.164) (2024-10-21)
+
+**Note:** Version bump only for package @vtj/ui
+
+
+
+
+
+
+## [0.8.163](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.8.162...@vtj/ui@0.8.163) (2024-10-17)
+
+**Note:** Version bump only for package @vtj/ui
+
+
+
+
+
+## [0.8.162](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.8.161...@vtj/ui@0.8.162) (2024-10-15)
+
+
+### Bug Fixes
+
+* 🐛 XField options ([3afe487](https://gitee.com/newgateway/vtj/commits/3afe487f905156d5ceaba628c183e1ea3b49b979))
+
+
+
+
+
+## [0.8.161](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.8.160...@vtj/ui@0.8.161) (2024-10-14)
+
+
+### Features
+
+* ✨ auto update ([f8993a0](https://gitee.com/newgateway/vtj/commits/f8993a054bcbe3e5ccb32d274930a236a07eeab3))
+
+
+
+
+
+
+## [0.8.160](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.8.159...@vtj/ui@0.8.160) (2024-10-14)
+
+**Note:** Version bump only for package @vtj/ui
+
+
+
+
+
+
 ## [0.8.159](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.8.158...@vtj/ui@0.8.159) (2024-10-11)
 
 **Note:** Version bump only for package @vtj/ui

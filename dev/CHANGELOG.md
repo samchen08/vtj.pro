@@ -3,6 +3,125 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.172](https://gitee.com/newgateway/vtj/compare/dev-web@0.8.171...dev-web@0.8.172) (2024-10-25)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
+## [0.8.171](https://gitee.com/newgateway/vtj/compare/dev-web@0.8.170...dev-web@0.8.171) (2024-10-24)
+
+
+### Bug Fixes
+
+* 🐛 access改为RSA加密 ([c4811cf](https://gitee.com/newgateway/vtj/commits/c4811cf9ae941a31f95494b5a6c41c3d69aa9f25))
+
+
+
+
+
+## [0.8.170](https://gitee.com/newgateway/vtj/compare/dev-web@0.8.169...dev-web@0.8.170) (2024-10-24)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
+## [0.8.169](https://gitee.com/newgateway/vtj/compare/dev-web@0.8.168...dev-web@0.8.169) (2024-10-24)
+
+
+### Features
+
+* ✨ 菜单支持权限控制 ([bdc2bc7](https://gitee.com/newgateway/vtj/commits/bdc2bc7320767108977f673bcad55aacf406b2e8))
+
+
+
+
+
+## [0.8.168](https://gitee.com/newgateway/vtj/compare/dev-web@0.8.167...dev-web@0.8.168) (2024-10-22)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
+## [0.8.167](https://gitee.com/newgateway/vtj/compare/dev-web@0.8.166...dev-web@0.8.167) (2024-10-22)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
+## [0.8.166](https://gitee.com/newgateway/vtj/compare/dev-web@0.8.165...dev-web@0.8.166) (2024-10-22)
+
+
+### Features
+
+* ✨ 设计器支持Access配置 ([4d1e91e](https://gitee.com/newgateway/vtj/commits/4d1e91ebcf1b00ad05ac11d1f05fbc96d1ffd06d))
+
+
+
+
+
+## [0.8.165](https://gitee.com/newgateway/vtj/compare/dev-web@0.8.164...dev-web@0.8.165) (2024-10-21)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
+## [0.8.164](https://gitee.com/newgateway/vtj/compare/dev-web@0.8.163...dev-web@0.8.164) (2024-10-21)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
+
+## [0.8.163](https://gitee.com/newgateway/vtj/compare/dev-web@0.8.162...dev-web@0.8.163) (2024-10-17)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
+## [0.8.162](https://gitee.com/newgateway/vtj/compare/dev-web@0.8.161...dev-web@0.8.162) (2024-10-15)
+
+
+### Bug Fixes
+
+* 🐛 XField options ([3afe487](https://gitee.com/newgateway/vtj/commits/3afe487f905156d5ceaba628c183e1ea3b49b979))
+
+
+
+
+
+## [0.8.161](https://gitee.com/newgateway/vtj/compare/dev-web@0.8.160...dev-web@0.8.161) (2024-10-14)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
+
+## [0.8.160](https://gitee.com/newgateway/vtj/compare/dev-web@0.8.159...dev-web@0.8.160) (2024-10-14)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
+
 ## [0.8.159](https://gitee.com/newgateway/vtj/compare/dev-web@0.8.158...dev-web@0.8.159) (2024-10-11)
 
 **Note:** Version bump only for package dev-web
