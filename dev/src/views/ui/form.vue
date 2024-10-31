@@ -27,6 +27,22 @@
       :options="optionsLoader">
     </XField>
 
+    <XField name="file" editor="none" label="单文件">
+      <template #editor>
+        <XAttachment
+          v-model="model.file"
+          :uploader="uploader"
+          :multiple="false"
+          :limit="1"></XAttachment>
+      </template>
+    </XField>
+
+    <XField name="ck" editor="none" label="富文本">
+      <template #editor>
+        <CkEditor v-model="model.ck" height="500px"></CkEditor>
+      </template>
+    </XField>
+
     <XField
       v-for="(_item, index) of model.items"
       :name="`items.${index}.title`"
@@ -44,10 +60,12 @@
 <script lang="ts" setup>
   import { ElButton } from 'element-plus';
   import { reactive, ref } from 'vue';
-  import { XField, XForm } from '@vtj/web';
+  import { XField, XForm, XAttachment } from '@vtj/web';
+  import { plugin as CkEditor } from '@vtj/plugin-ckeditor';
+  import '@vtj/plugin-ckeditor/dist/@vtj__plugin-ckeditor.css';
 
   const form = ref();
-  const inline = ref(true);
+  const inline = ref(false);
 
   const options = [
     {
@@ -67,6 +85,11 @@
   const model = reactive({
     type: 1,
     common: 'ABC',
+    file: [
+      {
+        url: 'https://oss.newpearl.com/newpearl/image/2024-07-15/acd6ff3e0bf8fce74d795a870c9069e6.png'
+      }
+    ],
     items: [
       {
         title: 'ABC'
@@ -113,6 +136,12 @@
   const onDelItem = (index: number) => {
     model.items.splice(index, 1);
   };
+
+  const uploader: any = async () => {
+    // return null;
+    return 'https://oss.newpearl.com/newpearl/image/2024-07-15/acd6ff3e0bf8fce74d795a870c9069e6.png';
+  };
+
 </script>
 
 <style scoped>

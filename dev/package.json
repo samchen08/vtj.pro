@@ -29,7 +29,8 @@
   },
   "devDependencies": {
     "@vtj/cli": "workspace:~",
-    "@vtj/local": "workspace:~"
+    "@vtj/local": "workspace:~",
+    "@vtj/plugin-ckeditor": "~0.2.1"
   },
   "description": "> TODO: description",
   "author": "陈华春 <samchen08@163.com>",
