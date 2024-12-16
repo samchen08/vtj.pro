@@ -53,7 +53,7 @@ export function useEditor(
         optionsRef.value = await useOptions(props, val);
         const reset = instance?.exposed?.reset;
         if (reset && props.name) {
-          reset(props.name);
+          // reset(props.name);
         }
       }
     },

@@ -9,6 +9,7 @@ import vueDevTools from 'vite-plugin-vue-devtools';
 import { visualizer } from 'rollup-plugin-visualizer';
 import ElementPlus from 'unplugin-element-plus/vite';
 import { nodePolyfills } from 'vite-plugin-node-polyfills';
+import StyleBundler from 'vite-plugin-vue-style-bundler';
 import { removeSync, toArray } from '@vtj/node';
 import { copyPlugin, type CopyPluginOption } from '../plugins/copy';
 import { babelPlugin } from '../plugins/babel';
@@ -124,8 +125,16 @@ export const mergePlugins = (opts: CreateViteConfigOptions) => {
     );
   }
 
-  if(opts.cdn) {
+  if (opts.cdn) {
     plugins.push(cdnPlugin(opts.cdn));
+  }
+
+  if (opts.styleBundler) {
+    plugins.push(
+      StyleBundler({
+        sassOptions: {}
+      })
+    );
   }
 
   if (opts.buildEnd) {

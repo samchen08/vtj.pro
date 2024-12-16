@@ -19,9 +19,15 @@ VTJ 一款基于 Vue3 + Typescript 的低代码开发工具，内置低代码引
 
 ![输入图片说明](dev/public/preview/p3.png)
 
-## 快速体验
+## 体验设计器途径
 
-**注意：使用或体验VTJ低代码功能是不需要拉源码的。**
+### 在线体验
+
+- [http://lcdp.vtj.pro](http://lcdp.vtj.pro)
+
+访问Vtj专属低代码开发平台，创建应用可以体验设计器和出码功能
+
+### 本地体验
 
 可以使用VTJ提供的项目脚手架，可快速创建体验项目。 命令：
 
@@ -53,55 +59,3 @@ npm run setup && npm run build && npm run app:dev
 - 首次启动需要执行初始化：`npm run setup && npm run build`
 - 重启开发环境：`npm run app:dev`
 - 清理项目：`npm run clean` 清理后需要重新执行初始化
-
-### 模块说明
-
-- `packages` 子模块
-  - `base` 基础工具库，适配 Node 和 浏览器环境
-  - `node` Node环境基础工具库
-  - `cli` 项目工程脚手架及命令行工具
-  - `utils` 浏览器环境工具库
-  - `icons` 图标库
-  - `ui` 通用组件库
-  - `core` 低代码核心库，包含协议定义和模型
-  - `renderer` 低代码Vue渲染器
-  - `materials` 低代码物料库
-  - `coder` 代码生成器
-  - `local` 低代码本地开发环境辅助工具
-  - `designer` 低代码设计器
-- `platforms` 平台整合依赖包
-  - `desktop` 桌面平台
-  - `pro` 低代码开发平台
-  - `server` 服务器端
-  - `mobile` 移动端
-  - `web` Web端
-- `apps` 应用项目模板
-  - `electron` 桌面跨端项目
-  - `libaray` 类库项目
-  - `uniapp` 移动跨端项目
-  - `nest` 服务端项目
-  - `app` PC端项目
-- `create-vtj` 项目搭建工具
-- `docs` 文档
-- `dev` 开发工程
-- `lcdp` 在线演示项目
-
-### 路线图
-
-- ~~v0.8 远程区块、资源管理~~
-- v0.9 物料市场、配套后端服务。支持按模板创建页面、上传模板、安装区块
-- v1.0 完善UI、模板、区块、文档、发布社区正式版本
-- v1.1 用户体系
-- v1.2 团队协作
-- v1.3 vscode插件
-- v1.4 支持uni-app
-- v1.5 支持Electron
-- v1.6 AI助手
-
-### 用户招募
-
-诚邀对该项目感兴趣的同学参与测试体验,谢谢!
-
-## 交流群
-
-![输入图片说明](dev/public/1709807457504.png)

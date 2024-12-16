@@ -14,6 +14,11 @@ export const PAD_SIZE = {
 export const NAME_REGEX = /^[A-Za-z_$][\:\w_-]*$/;
 
 /**
+ * 版本号表达式
+ */
+export const VERSION_REGEX = /(\d+)\.(\d+)\.(\d+)/;
+
+/**
  * 鼠标事件列表
  */
 export const MOUSE_EVENT_LIST = [

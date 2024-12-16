@@ -508,7 +508,7 @@ export function createApi<R = any, D = any>(config: string | IRequestConfig) {
   const _conifg: IRequestConfig =
     typeof config === 'string' ? { url: config } : config;
   return (data?: D, opts?: IRequestConfig) =>
-    request.send<R, D>(merge(_conifg, opts || {}, { data }));
+    request.send<R, D>(merge({}, _conifg, opts || {}, { data }));
 }
 
 export interface IApiMap {

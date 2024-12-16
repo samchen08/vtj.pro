@@ -3,6 +3,7 @@
 @include b(actions-widget) {
   padding: 0 10px;
   .el-button + .el-button,
+  .el-button + .el-dropdown,
   .el-dropdown + .el-dropdown {
     margin-left: 5px;
   }
@@ -16,5 +17,15 @@
     .el-button {
       margin-left: 0 !important;
     }
+  }
+}
+
+.x-coder-result {
+  font-size: 14px;
+  a {
+    word-wrap: break-word;
+  }
+  div {
+    padding: 5px 0;
   }
 }

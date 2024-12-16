@@ -7,8 +7,10 @@
     :tabs="20"
     :actions="actions"
     :disabled="false"
+    :pure="false"
     theme
     @action-click="onActionClick">
+    <template #user>User</template>
   </XMask>
 </template>
 <script lang="ts" setup>

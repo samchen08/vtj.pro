@@ -258,6 +258,11 @@ export interface CreateViteConfigOptions {
    * CDN配置
    */
   cdn?: CdnPluginOptions;
+
+  /**
+   * StyleBundler sassOptions
+   */
+  styleBundler?: boolean;
 }
 
 export interface CreateUniappViteConfigOptions {

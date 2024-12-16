@@ -114,7 +114,7 @@
         label: '收藏',
         name: 'favorite',
         value: tab.menu,
-        disabled: !tab.menu
+        disabled: !tab.menu || !!tab.menu.hidden
       },
       '|',
       {

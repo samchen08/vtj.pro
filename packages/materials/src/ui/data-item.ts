@@ -56,6 +56,18 @@ const desc: MaterialDescription = {
       name: 'split',
       setters: ['BooleanSetter']
     },
+    {
+      name: 'active',
+      setters: ['BooleanSetter']
+    },
+    {
+      name: 'hover',
+      setters: ['BooleanSetter']
+    },
+    {
+      name: 'padding',
+      setters: ['BooleanSetter']
+    },
     ...omitPropItem(container.props, ['direction'])
   ],
   events: [

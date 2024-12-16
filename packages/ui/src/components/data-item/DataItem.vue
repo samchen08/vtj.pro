@@ -2,6 +2,7 @@
   <XContainer
     class="x-data-item"
     :direction="props.direction"
+    :padding="props.padding"
     :class="classComputed">
     <XContainer
       v-if="props.imageSrc || $slots.image"
@@ -88,7 +89,9 @@
   const classComputed = computed(() => {
     return {
       [`is-image-${props.direction}`]: !!props.direction,
-      'is-split': !!props.split
+      'is-split': !!props.split,
+      'is-active': !!props.active,
+      'is-hover': !!props.hover
     };
   });
 

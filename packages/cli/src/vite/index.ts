@@ -92,7 +92,14 @@ export function createViteConfig(
     preview,
     build,
     plugins,
-    optimizeDeps
+    optimizeDeps,
+    css: {
+      preprocessorOptions: {
+        scss: {
+          api: 'modern-compiler'
+        }
+      }
+    }
   };
 
   const userConfig = opts.defineConfig ? opts.defineConfig(config) : config;

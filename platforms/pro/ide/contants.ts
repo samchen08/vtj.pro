@@ -1,0 +1,1 @@
+export const ACCESS_STORAGE_KEY = 'RRO_IDE_ACCESS_STORAGE__';

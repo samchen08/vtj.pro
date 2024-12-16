@@ -3,6 +3,38 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.9.0](https://gitee.com/newgateway/vtj/compare/@vtj/node@0.9.0-alpha.2...@vtj/node@0.9.0) (2024-12-16)
+
+**Note:** Version bump only for package @vtj/node
+
+
+
+
+
+# [0.9.0-alpha.2](https://gitee.com/newgateway/vtj/compare/@vtj/node@0.9.0-alpha.1...@vtj/node@0.9.0-alpha.2) (2024-11-27)
+
+**Note:** Version bump only for package @vtj/node
+
+
+
+
+
+# [0.9.0-alpha.1](https://gitee.com/newgateway/vtj/compare/@vtj/node@0.9.0-alpha.0...@vtj/node@0.9.0-alpha.1) (2024-11-20)
+
+**Note:** Version bump only for package @vtj/node
+
+
+
+
+
+# [0.9.0-alpha.0](https://gitee.com/newgateway/vtj/compare/@vtj/node@0.8.13...@vtj/node@0.9.0-alpha.0) (2024-11-18)
+
+**Note:** Version bump only for package @vtj/node
+
+
+
+
+
 ## [0.8.13](https://gitee.com/newgateway/vtj/compare/@vtj/node@0.8.12...@vtj/node@0.8.13) (2024-10-11)
 
 **Note:** Version bump only for package @vtj/node

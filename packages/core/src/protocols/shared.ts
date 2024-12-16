@@ -79,7 +79,28 @@ export interface ExtensionConfig {
   params?: Array<Record<string, any>>;
 
   /**
+   * 路由History模式
+   */
+
+  history?: 'hash' | 'web';
+
+  /**
+   * 页面路由 base， 默认 '/'
+   */
+  base?: string;
+
+  /**
+   * 页面路由目录名称，默认： page
+   */
+  pageRouteName?: string;
+
+  /**
    * 项目部署目录
    */
   __BASE_PATH__?: string;
+
+  /**
+   * 适配类个性参数配置
+   */
+  __adapters__: Record<string, any>;
 }

@@ -57,21 +57,25 @@
             @clickTab="moveToShow"
             @action-click="onActionClick"
             @action-command="onActionCommand">
-            <Avatar :avatar="props.avatar">
+            <Avatar :avatar="props.avatar" :width="props.userCardWidth">
               <template v-if="$slots.user" #default>
-                <slot name="user"> </slot>
+                <slot name="user"></slot>
               </template>
             </Avatar>
           </Toolbar>
         </XContainer>
-        <Content :createView="createView" :exclude="exclude">
+        <Content :createView="createView" :exclude="exclude" :pure="props.pure">
           <template v-if="$slots.default">
             <slot></slot>
           </template>
         </Content>
       </XContainer>
     </template>
-    <Content v-else :createView="createView" :exclude="exclude">
+    <Content
+      v-else
+      :createView="createView"
+      :exclude="exclude"
+      :pure="props.pure">
       <template v-if="$slots.default">
         <slot></slot>
       </template>
@@ -128,12 +132,15 @@
     exclude,
     cleanCache,
     closeDialogs
-  } = useContent({
-    tabs,
-    updateTab,
-    isCurrentTab,
-    activeHome
-  });
+  } = useContent(
+    {
+      tabs,
+      updateTab,
+      isCurrentTab,
+      activeHome
+    },
+    props
+  );
 
   const onRemoveTab = async (tab: MaskTab) => {
     const ret = await removeTab(tab);

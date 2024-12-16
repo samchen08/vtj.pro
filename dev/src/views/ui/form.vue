@@ -15,6 +15,23 @@
       :hidden="false"
       :props="{ button: true }"
       :options="options"></XField>
+    <XField
+      name="options"
+      label="多选"
+      editor="select"
+      required
+      :props="{ multiple: true, valueKey: 'id' }">
+      <template #editor="{ editor }">
+        <ElSelect v-bind="editor">
+          <ElOption
+            v-for="item in dataOptions"
+            :key="item.id"
+            :label="item.label"
+            :value="item"></ElOption>
+        </ElSelect>
+      </template>
+    </XField>
+
     <XField name="common" label="公共" readonly></XField>
     <XField name="type1" label="选项一" :visible="type1Visible"></XField>
     <XField name="type2" label="选项二" :visible="type2Visible"></XField>
@@ -25,6 +42,22 @@
       label="级联"
       :cascader="['type']"
       :options="optionsLoader">
+    </XField>
+
+    <XField name="file" editor="none" label="单文件">
+      <template #editor>
+        <XAttachment
+          v-model="model.file"
+          :uploader="uploader"
+          :multiple="false"
+          :limit="1"></XAttachment>
+      </template>
+    </XField>
+
+    <XField name="ck" editor="none" label="富文本">
+      <template #editor>
+        <CkEditor v-model="model.ck" height="500px"></CkEditor>
+      </template>
     </XField>
 
     <XField
@@ -42,12 +75,72 @@
   </XForm>
 </template>
 <script lang="ts" setup>
-  import { ElButton } from 'element-plus';
+  import { ElButton, ElSelect, ElOption } from 'element-plus';
   import { reactive, ref } from 'vue';
-  import { XField, XForm } from '@vtj/web';
+  import { XField, XForm, XAttachment } from '@vtj/web';
+  import { plugin as CkEditor } from '@vtj/plugin-ckeditor';
+  import '@vtj/plugin-ckeditor/dist/@vtj__plugin-ckeditor.css';
 
   const form = ref();
-  const inline = ref(true);
+  const inline = ref(false);
+
+  const dataOptions = [
+    {
+      id: 'a1bde999-ff98-4671-b5be-bc2e0f9858cf',
+      createdAt: '2024-11-15T06:55:38.328Z',
+      updatedAt: '2024-11-21T06:58:02.661Z',
+      name: 'Normal',
+      label: '普通会员',
+      order: 0,
+      isDefault: true,
+      isSuper: true,
+      notes: '默认普通会员'
+    },
+    {
+      id: '1022f0ea-06aa-4b53-b010-446bd6d48e42',
+      createdAt: '2024-11-21T03:34:54.999Z',
+      updatedAt: '2024-11-21T03:36:10.000Z',
+      name: 'VIP',
+      label: '订阅用户',
+      order: 1,
+      isDefault: false,
+      isSuper: false,
+      notes: '付费订阅用户'
+    },
+    {
+      id: '7e62d270-43ad-423f-94ce-13262e4b7ea2',
+      createdAt: '2024-11-21T03:30:44.422Z',
+      updatedAt: '2024-11-21T03:33:31.000Z',
+      name: 'App',
+      label: '应用管理员',
+      order: 1,
+      isDefault: false,
+      isSuper: false,
+      notes: '能管理自己的应用'
+    },
+    {
+      id: 'b3cc97c8-3478-4982-b3cf-710146ebf299',
+      createdAt: '2024-11-21T02:38:28.663Z',
+      updatedAt: '2024-11-21T03:34:01.000Z',
+      name: 'Admin',
+      label: '系统管理员',
+      order: 1,
+      isDefault: false,
+      isSuper: false,
+      notes: '系统基础数据管理'
+    },
+    {
+      id: '666fa227-2d76-4713-bdde-4bfcfe6167ac',
+      createdAt: '2024-11-21T02:37:06.379Z',
+      updatedAt: '2024-11-21T03:32:14.000Z',
+      name: 'Super',
+      label: '超级管理员',
+      order: 2,
+      isDefault: false,
+      isSuper: true,
+      notes: '最高权限，不能删除'
+    }
+  ];
 
   const options = [
     {
@@ -67,6 +160,11 @@
   const model = reactive({
     type: 1,
     common: 'ABC',
+    file: [
+      {
+        url: 'https://oss.newpearl.com/newpearl/image/2024-07-15/acd6ff3e0bf8fce74d795a870c9069e6.png'
+      }
+    ],
     items: [
       {
         title: 'ABC'
@@ -112,6 +210,11 @@
 
   const onDelItem = (index: number) => {
     model.items.splice(index, 1);
+  };
+
+  const uploader: any = async () => {
+    // return null;
+    return 'https://oss.newpearl.com/newpearl/image/2024-07-15/acd6ff3e0bf8fce74d795a870c9069e6.png';
   };
 </script>
 

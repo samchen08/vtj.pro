@@ -2,7 +2,7 @@
   <XDialogForm
     :title="title"
     width="800px"
-    height="500px"
+    height="700px"
     :form-props="{ tooltipMessage: false }"
     :model="model"
     :submit-method="submit">
@@ -17,10 +17,14 @@
     <XField v-if="!model.dir && !!props.item" label="路由" disabled>
       <template #editor>
         <ElAlert :closable="false">
-          {{ `/page/${(model as any).id}` }}
+          {{ `${engine.options.pageBasePath || ''}/page/${(model as any).id}` }}
           <XIcon
             :icon="CopyDocument"
-            @click="onCopy(`/page/${(model as any).id}`)"></XIcon>
+            @click="
+              onCopy(
+                `${engine.options.pageBasePath || ''}/page/${(model as any).id}`
+              )
+            "></XIcon>
         </ElAlert>
       </template>
     </XField>
@@ -38,10 +42,34 @@
     </XField>
     <XField
       :visible="{ dir: false }"
+      inline
       name="mask"
       label="包含母版"
-      editor="switch"></XField>
-    <XField name="hidden" label="隐藏菜单" editor="switch"></XField>
+      editor="switch"
+      tip="页面内嵌入框架"></XField>
+
+    <XField
+      name="cache"
+      :visible="{ dir: false }"
+      inline
+      label="开启缓存"
+      editor="switch"
+      tip="开启路由 KeepAlive 缓存"></XField>
+
+    <XField
+      name="hidden"
+      inline
+      label="隐藏菜单"
+      editor="switch"
+      tip="系统菜单中不显示该项"></XField>
+
+    <XField
+      :visible="{ dir: false }"
+      inline
+      name="pure"
+      label="纯净页面"
+      editor="switch"
+      tip="页面默认不带背景和内边距"></XField>
 
     <XField
       :visible="{ dir: false }"
@@ -51,6 +79,16 @@
       label="源码模式"
       editor="switch"
       tip="页面是非低代码开发，不能在线编辑"></XField>
+
+    <XField
+      :visible="{ dir: false }"
+      name="meta"
+      label="路由元信息"
+      label-width="100px">
+      <template #editor>
+        <Editor dark height="100px" lang="json" v-model="computedMeta"></Editor>
+      </template>
+    </XField>
   </XDialogForm>
 </template>
 <script lang="ts" setup>
@@ -63,8 +101,9 @@
   import { upperFirstCamelCase } from '@vtj/utils';
   import IconSetter from '../../setters/icon.vue';
   import { NAME_REGEX } from '../../../constants';
-  import { useProject } from '../../hooks';
+  import { useProject, useSelected } from '../../hooks';
   import { notify } from '../../../utils';
+  import Editor from '../../editor';
 
   export interface Props {
     item?: PageFile;
@@ -76,7 +115,8 @@
   });
 
   const props = defineProps<Props>();
-  const { project } = useProject();
+  const { project, engine } = useProject();
+  const { designer } = useSelected();
   const title = computed(() => (props.item ? '编辑页面' : '新增页面'));
   const createEmptyModel = () => ({
     dir: false,
@@ -85,10 +125,26 @@
     icon: '',
     mask: true,
     hidden: false,
-    raw: false
+    raw: false,
+    prue: false,
+    meta: null,
+    cache: false
   });
 
   const model = ref(props.item || createEmptyModel());
+
+  const computedMeta = computed({
+    get() {
+      return JSON.stringify(model.value.meta || {}, null, 4);
+    },
+    set(v) {
+      try {
+        model.value.meta = JSON.parse(v);
+      } catch (e) {
+        notify('路由元信息解析出错，必须是JSON格式数据', '运行时错误');
+      }
+    }
+  });
 
   const typeOptions = [
     { label: '页面', value: false },
@@ -109,6 +165,8 @@
     }
     if (!!props.item) {
       project.value?.updatePage(data);
+      designer.value?.setSelected(null);
+      engine.simulator.refresh();
     } else {
       project.value?.createPage(data, props.parentId);
     }

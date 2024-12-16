@@ -1,6 +1,6 @@
 <template>
   <ElPopover
-    :width="200"
+    :width="props.width"
     popper-class="x-mask-avatar__popper"
     :disabled="!$slots.default">
     <template #reference>
@@ -20,7 +20,10 @@
 
   export interface Props {
     avatar?: string;
+    width?: number;
   }
 
-  const props = defineProps<Props>();
+  const props = withDefaults(defineProps<Props>(), {
+    width: 350
+  });
 </script>

@@ -16,6 +16,8 @@ export default createViteConfig({
     '@vtj/icons',
     '@vtj/ui',
     'element-plus/es/locale/lang/zh-cn',
+    'html2canvas',
+    'mockjs',
     'monaco-editor',
     // 'monaco-editor/esm/vs/editor/editor.worker?worker',
     // 'monaco-editor/esm/vs/language/json/json.worker?worker',

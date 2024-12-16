@@ -1,6 +1,7 @@
 export default {
   '/api': {
-    target: 'https://sso-sit.newpearl.com',
-    changeOrigin: true
+    target: 'http://localhost:3000',
+    changeOrigin: true,
+    ws: true
   }
 };

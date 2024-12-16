@@ -17,9 +17,9 @@ import {
   VtjIconHistory,
   VtjIconApi,
   VtjIconCategory,
-  VtjIconInfo,
   VtjIconSetting,
-  HomeFilled
+  HomeFilled,
+  VtjIconTemplate
 } from '@vtj/icons';
 import { markRaw } from 'vue';
 
@@ -72,6 +72,15 @@ export const builtInWidgets: Array<AppWidget | TabWidget | Widget> = [
     label: '组件库'
   },
   {
+    name: 'Templates',
+    region: 'Apps',
+    component: widgets.Templates,
+    type: 'app',
+    openType: 'panel',
+    icon: VtjIconTemplate,
+    label: '模板'
+  },
+  {
     name: 'Outline',
     region: 'Apps',
     component: widgets.Outline,
@@ -122,7 +131,7 @@ export const builtInWidgets: Array<AppWidget | TabWidget | Widget> = [
     component: widgets.About,
     type: 'app',
     openType: 'dialog',
-    icon: VtjIconInfo,
+    icon: widgets.UserAvatar,
     label: '关于',
     props: {
       width: 500,
@@ -176,6 +185,21 @@ export const builtInWidgets: Array<AppWidget | TabWidget | Widget> = [
       }
     ]
   },
+  // {
+  //   name: 'Market',
+  //   region: 'Workspace',
+  //   component: widgets.Market,
+  //   type: 'tab',
+  //   closable: true,
+  //   label: '物料市场',
+  //   actions: [
+  //     {
+  //       icon: markRaw(HomeFilled),
+  //       type: 'info',
+  //       name: 'home'
+  //     }
+  //   ]
+  // },
   {
     name: 'Scripts',
     region: 'Settings',

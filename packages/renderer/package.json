@@ -1,7 +1,7 @@
 {
   "name": "@vtj/renderer",
   "private": false,
-  "version": "0.8.163",
+  "version": "0.9.0",
   "type": "module",
   "scripts": {
     "build": "vue-tsc && vite build",
@@ -11,15 +11,15 @@
   },
   "dependencies": {
     "@vtj/core": "workspace:~",
-    "@vtj/icons": "workspace:~",
-    "@vtj/ui": "workspace:~",
     "@vtj/utils": "workspace:~",
     "mockjs": "~1.1.0"
   },
   "devDependencies": {
     "@vtj/cli": "workspace:~",
+    "@vtj/icons": "workspace:~",
+    "@vtj/ui": "workspace:~",
     "vue": "~3.5.5",
-    "vue-router": "~4.4.0"
+    "vue-router": "~4.5.0"
   },
   "exports": {
     ".": {

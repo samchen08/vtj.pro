@@ -81,7 +81,7 @@
     if (item.openType === 'dialog') {
       createDialog({
         title: item.label,
-        icon: item.icon,
+        // icon: item.icon,
         ...item.props,
         content: item.component
       });

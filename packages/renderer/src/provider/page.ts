@@ -1,4 +1,4 @@
-import { defineComponent, h } from 'vue';
+import { defineComponent, h, ref } from 'vue';
 import { useRoute } from 'vue-router';
 import { useTitle } from '@vueuse/core';
 import { useProvider } from './provider';
@@ -10,21 +10,32 @@ export const PageContainer = defineComponent({
     const id = route.params.id as string;
     const file = id ? provider.getPage(id) : provider.getHomepage();
     const component = file ? await provider.getRenderComponent(file.id) : null;
+    const sid = ref(Symbol());
     if (file) {
+      Object.assign(route.meta, file.meta || {}, { cache: file.cache });
       useTitle(file.title || 'VTJ');
     }
     return {
       provider,
       component,
       file,
-      query: route.query
+      query: route.query,
+      meta: route.meta,
+      sid,
+      route
     };
   },
   render() {
-    if (this.component) {
-      return h(this.component, this.query);
+    const { component, query, sid } = this;
+    if (component) {
+      return h(component, { ...query, key: sid });
     } else {
       return h('div', '页面不存在');
+    }
+  },
+  activated() {
+    if (this.meta.cache === false) {
+      this.sid = Symbol();
     }
   }
 });

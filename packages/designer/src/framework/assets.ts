@@ -91,7 +91,12 @@ export class Assets {
     if (!from || typeof from === 'string') return null;
     let dsl;
     if (from.type === 'Schema' && from.id) {
-      dsl = this.caches[from.id] || (await this.service.getFile(from.id));
+      dsl =
+        this.caches[from.id] ||
+        (await this.service.getFile(
+          from.id,
+          this.provider.project || undefined
+        ));
       this.caches[from.id] = dsl;
     }
     if (from.type === 'UrlSchema' && from.url) {

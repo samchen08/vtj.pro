@@ -13,11 +13,7 @@ export interface MarketInstallInfo {
   /**
    * 安装版本号
    */
-  version: string;
-  /**
-   * 物料主页 url
-   */
-  url: string;
+  version?: string;
 }
 
 export interface BlockFile {
@@ -112,4 +108,19 @@ export interface PageFile extends BlockFile {
    * 源码文件，非低代码页面
    */
   raw?: boolean;
+
+  /**
+   * 纯净的页面
+   */
+  pure?: boolean;
+
+  /**
+   * 开启页面缓存
+   */
+  cache?: boolean;
+
+  /**
+   * 路由元信息
+   */
+  meta?: Record<string, any>;
 }

@@ -103,6 +103,16 @@ export const maskProps = {
   },
   removeFavorite: {
     type: Function as PropType<(menu: MenuDataItem) => void>
+  },
+  userCardWidth: {
+    type: Number,
+    default: 350
+  },
+  /**
+   * 内嵌纯净页面，不加背景和边距
+   */
+  pure: {
+    type: Boolean
   }
 };
 

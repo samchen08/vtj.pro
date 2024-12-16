@@ -37,6 +37,11 @@
     padding: 10px;
     overflow: auto;
     box-sizing: border-box;
+    @include when(pure) {
+      background-color: transparent;
+      padding: 0;
+      border-radius: 0;
+    }
   }
 
   @include when(disabled) {

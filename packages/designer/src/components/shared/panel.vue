@@ -1,11 +1,14 @@
 <template>
-  <XPanel
-    class="v-panel"
-    :class="classes"
-    :border="false"
-    :header="header"
-    fit>
+  <XPanel class="v-panel" :class="classes" :border="false" :header="header" fit>
     <template #actions>
+      <XAction
+        v-if="props.refresh"
+        :size="($attrs as any).size"
+        mode="icon"
+        :icon="VtjIconRefresh"
+        background="hover"
+        title="刷新"
+        @click="onClickRefresh"></XAction>
       <XAction
         v-if="props.plus"
         :size="($attrs as any).size"
@@ -13,7 +16,10 @@
         :icon="VtjIconPlus"
         background="hover"
         title="新增"
-        @click="onClickPlus"></XAction>
+        :menus="props.menus"
+        :dropdown="{ placement: 'bottom-end' }"
+        @click="onClickPlus"
+        @command="onPlusCommand"></XAction>
       <XAction
         v-if="props.edit"
         :size="($attrs as any).size"
@@ -67,7 +73,7 @@
 </template>
 <script lang="ts" setup>
   import { ref, computed } from 'vue';
-  import { XPanel, XAction } from '@vtj/ui';
+  import { XPanel, XAction, type ActionMenuItem } from '@vtj/ui';
   import {
     VtjIconPlus,
     Back,
@@ -75,25 +81,37 @@
     VtjIconSave,
     EditPen,
     ArrowDown,
-    ArrowUp
+    ArrowUp,
+    VtjIconRefresh
   } from '@vtj/icons';
 
   export interface Props {
     title?: string;
     subtitle?: string;
     plus?: boolean;
+    refresh?: boolean;
     back?: boolean;
     edit?: boolean;
     remove?: boolean;
     save?: boolean;
     header?: boolean;
     collapsable?: boolean;
+    menus?: ActionMenuItem[];
   }
 
   const props = withDefaults(defineProps<Props>(), {
-    header: true
+    header: true,
+    menus: () => []
   });
-  const emit = defineEmits(['plus', 'back', 'remove', 'save', 'edit']);
+  const emit = defineEmits([
+    'refresh',
+    'plus',
+    'back',
+    'remove',
+    'save',
+    'edit',
+    'command'
+  ]);
 
   const collapsed = ref(false);
 
@@ -102,6 +120,10 @@
       'is-collapsed': !!collapsed.value
     };
   });
+
+  const onClickRefresh = () => {
+    emit('refresh');
+  };
 
   const onClickPlus = () => {
     emit('plus');
@@ -121,6 +143,10 @@
 
   const onClickSave = () => {
     emit('save');
+  };
+
+  const onPlusCommand = (item: ActionMenuItem) => {
+    emit('command', item.command);
   };
 
   const header = computed(() => {

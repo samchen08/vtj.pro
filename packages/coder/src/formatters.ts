@@ -35,7 +35,7 @@ export async function vueFormatter(content: string, disabled?: boolean) {
   return await format(content, {
     parser: 'vue',
     ...prettierOptions,
-    plugins: [htmlParser, babelParser, estree, cssParser]
+    plugins: [htmlParser, babelParser, estree as any, cssParser]
   });
 }
 
@@ -59,7 +59,7 @@ export async function tsFormatter(content: string, disabled?: boolean) {
   return await format(content, {
     parser: 'babel-ts',
     ...prettierOptions,
-    plugins: [babelParser, estree]
+    plugins: [babelParser, estree as any]
   });
 }
 
@@ -71,7 +71,7 @@ export async function jsFormatter(content: string, disabled?: boolean) {
   return await format(content, {
     parser: 'babel',
     ...prettierOptions,
-    plugins: [babelParser, estree]
+    plugins: [babelParser, estree as any]
   });
 }
 

@@ -7,6 +7,18 @@ import Binder from './binder.vue';
 import Viewer from './viewer.vue';
 import SlotsPicker from './slots.vue';
 import Viewport from './viewport.vue';
+import MicroApp from './micro-app.vue';
 
 export * from './types';
-export { Icon, Panel, Tabs, Item, Box, Binder, Viewer, SlotsPicker, Viewport };
+export {
+  Icon,
+  Panel,
+  Tabs,
+  Item,
+  Box,
+  Binder,
+  Viewer,
+  SlotsPicker,
+  Viewport,
+  MicroApp
+};

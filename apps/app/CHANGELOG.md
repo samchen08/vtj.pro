@@ -3,6 +3,511 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.9.0](https://gitee.com/newgateway/vtj/compare/vtj-project-app@0.9.0-alpha.50...vtj-project-app@0.9.0) (2024-12-16)
+
+**Note:** Version bump only for package vtj-project-app
+
+
+
+
+
+# [0.9.0-alpha.50](https://gitee.com/newgateway/vtj/compare/vtj-project-app@0.9.0-alpha.49...vtj-project-app@0.9.0-alpha.50) (2024-12-16)
+
+**Note:** Version bump only for package vtj-project-app
+
+
+
+
+
+# [0.9.0-alpha.49](https://gitee.com/newgateway/vtj/compare/vtj-project-app@0.9.0-alpha.48...vtj-project-app@0.9.0-alpha.49) (2024-12-16)
+
+**Note:** Version bump only for package vtj-project-app
+
+
+
+
+
+# [0.9.0-alpha.48](https://gitee.com/newgateway/vtj/compare/vtj-project-app@0.9.0-alpha.47...vtj-project-app@0.9.0-alpha.48) (2024-12-16)
+
+**Note:** Version bump only for package vtj-project-app
+
+
+
+
+
+# [0.9.0-alpha.47](https://gitee.com/newgateway/vtj/compare/vtj-project-app@0.9.0-alpha.46...vtj-project-app@0.9.0-alpha.47) (2024-12-16)
+
+**Note:** Version bump only for package vtj-project-app
+
+
+
+
+
+# [0.9.0-alpha.46](https://gitee.com/newgateway/vtj/compare/vtj-project-app@0.9.0-alpha.45...vtj-project-app@0.9.0-alpha.46) (2024-12-16)
+
+
+### Bug Fixes
+
+* 🐛 adapters ([8f9a6dc](https://gitee.com/newgateway/vtj/commits/8f9a6dc301929f3525e94fb9d2a521b3de167f7b))
+
+
+
+
+
+# [0.9.0-alpha.45](https://gitee.com/newgateway/vtj/compare/vtj-project-app@0.9.0-alpha.44...vtj-project-app@0.9.0-alpha.45) (2024-12-16)
+
+**Note:** Version bump only for package vtj-project-app
+
+
+
+
+
+# [0.9.0-alpha.44](https://gitee.com/newgateway/vtj/compare/vtj-project-app@0.9.0-alpha.43...vtj-project-app@0.9.0-alpha.44) (2024-12-14)
+
+
+### Bug Fixes
+
+* 🐛 NodeEnv ([2385a7e](https://gitee.com/newgateway/vtj/commits/2385a7e2ecc7aa96e685875ae1c5243ab084a38f))
+
+
+
+
+
+# [0.9.0-alpha.43](https://gitee.com/newgateway/vtj/compare/vtj-project-app@0.9.0-alpha.42...vtj-project-app@0.9.0-alpha.43) (2024-12-14)
+
+**Note:** Version bump only for package vtj-project-app
+
+
+
+
+
+# [0.9.0-alpha.42](https://gitee.com/newgateway/vtj/compare/vtj-project-app@0.9.0-alpha.41...vtj-project-app@0.9.0-alpha.42) (2024-12-11)
+
+**Note:** Version bump only for package vtj-project-app
+
+
+
+
+
+# [0.9.0-alpha.41](https://gitee.com/newgateway/vtj/compare/vtj-project-app@0.9.0-alpha.40...vtj-project-app@0.9.0-alpha.41) (2024-12-09)
+
+**Note:** Version bump only for package vtj-project-app
+
+
+
+
+
+# [0.9.0-alpha.40](https://gitee.com/newgateway/vtj/compare/vtj-project-app@0.9.0-alpha.39...vtj-project-app@0.9.0-alpha.40) (2024-12-06)
+
+**Note:** Version bump only for package vtj-project-app
+
+
+
+
+
+# [0.9.0-alpha.39](https://gitee.com/newgateway/vtj/compare/vtj-project-app@0.9.0-alpha.38...vtj-project-app@0.9.0-alpha.39) (2024-12-06)
+
+**Note:** Version bump only for package vtj-project-app
+
+
+
+
+
+# [0.9.0-alpha.38](https://gitee.com/newgateway/vtj/compare/vtj-project-app@0.9.0-alpha.37...vtj-project-app@0.9.0-alpha.38) (2024-12-06)
+
+**Note:** Version bump only for package vtj-project-app
+
+
+
+
+
+# [0.9.0-alpha.37](https://gitee.com/newgateway/vtj/compare/vtj-project-app@0.9.0-alpha.36...vtj-project-app@0.9.0-alpha.37) (2024-12-06)
+
+**Note:** Version bump only for package vtj-project-app
+
+
+
+
+
+# [0.9.0-alpha.36](https://gitee.com/newgateway/vtj/compare/vtj-project-app@0.9.0-alpha.35...vtj-project-app@0.9.0-alpha.36) (2024-12-06)
+
+**Note:** Version bump only for package vtj-project-app
+
+
+
+
+
+# [0.9.0-alpha.35](https://gitee.com/newgateway/vtj/compare/vtj-project-app@0.9.0-alpha.34...vtj-project-app@0.9.0-alpha.35) (2024-12-06)
+
+**Note:** Version bump only for package vtj-project-app
+
+
+
+
+
+# [0.9.0-alpha.34](https://gitee.com/newgateway/vtj/compare/vtj-project-app@0.9.0-alpha.33...vtj-project-app@0.9.0-alpha.34) (2024-12-06)
+
+**Note:** Version bump only for package vtj-project-app
+
+
+
+
+
+# [0.9.0-alpha.33](https://gitee.com/newgateway/vtj/compare/vtj-project-app@0.9.0-alpha.32...vtj-project-app@0.9.0-alpha.33) (2024-12-06)
+
+**Note:** Version bump only for package vtj-project-app
+
+
+
+
+
+# [0.9.0-alpha.32](https://gitee.com/newgateway/vtj/compare/vtj-project-app@0.9.0-alpha.31...vtj-project-app@0.9.0-alpha.32) (2024-12-05)
+
+**Note:** Version bump only for package vtj-project-app
+
+
+
+
+
+# [0.9.0-alpha.31](https://gitee.com/newgateway/vtj/compare/vtj-project-app@0.9.0-alpha.30...vtj-project-app@0.9.0-alpha.31) (2024-12-05)
+
+**Note:** Version bump only for package vtj-project-app
+
+
+
+
+
+# [0.9.0-alpha.30](https://gitee.com/newgateway/vtj/compare/vtj-project-app@0.9.0-alpha.29...vtj-project-app@0.9.0-alpha.30) (2024-12-05)
+
+**Note:** Version bump only for package vtj-project-app
+
+
+
+
+
+# [0.9.0-alpha.29](https://gitee.com/newgateway/vtj/compare/vtj-project-app@0.9.0-alpha.28...vtj-project-app@0.9.0-alpha.29) (2024-12-05)
+
+**Note:** Version bump only for package vtj-project-app
+
+
+
+
+
+# [0.9.0-alpha.28](https://gitee.com/newgateway/vtj/compare/vtj-project-app@0.9.0-alpha.27...vtj-project-app@0.9.0-alpha.28) (2024-12-05)
+
+**Note:** Version bump only for package vtj-project-app
+
+
+
+
+
+# [0.9.0-alpha.27](https://gitee.com/newgateway/vtj/compare/vtj-project-app@0.9.0-alpha.26...vtj-project-app@0.9.0-alpha.27) (2024-12-05)
+
+**Note:** Version bump only for package vtj-project-app
+
+
+
+
+
+# [0.9.0-alpha.26](https://gitee.com/newgateway/vtj/compare/vtj-project-app@0.9.0-alpha.25...vtj-project-app@0.9.0-alpha.26) (2024-12-05)
+
+**Note:** Version bump only for package vtj-project-app
+
+
+
+
+
+# [0.9.0-alpha.25](https://gitee.com/newgateway/vtj/compare/vtj-project-app@0.9.0-alpha.24...vtj-project-app@0.9.0-alpha.25) (2024-12-05)
+
+**Note:** Version bump only for package vtj-project-app
+
+
+
+
+
+# [0.9.0-alpha.24](https://gitee.com/newgateway/vtj/compare/vtj-project-app@0.9.0-alpha.23...vtj-project-app@0.9.0-alpha.24) (2024-12-04)
+
+**Note:** Version bump only for package vtj-project-app
+
+
+
+
+
+# [0.9.0-alpha.23](https://gitee.com/newgateway/vtj/compare/vtj-project-app@0.9.0-alpha.22...vtj-project-app@0.9.0-alpha.23) (2024-12-04)
+
+**Note:** Version bump only for package vtj-project-app
+
+
+
+
+
+# [0.9.0-alpha.22](https://gitee.com/newgateway/vtj/compare/vtj-project-app@0.9.0-alpha.21...vtj-project-app@0.9.0-alpha.22) (2024-12-04)
+
+**Note:** Version bump only for package vtj-project-app
+
+
+
+
+
+# [0.9.0-alpha.21](https://gitee.com/newgateway/vtj/compare/vtj-project-app@0.9.0-alpha.20...vtj-project-app@0.9.0-alpha.21) (2024-12-04)
+
+**Note:** Version bump only for package vtj-project-app
+
+
+
+
+
+# [0.9.0-alpha.20](https://gitee.com/newgateway/vtj/compare/vtj-project-app@0.9.0-alpha.19...vtj-project-app@0.9.0-alpha.20) (2024-12-04)
+
+
+### Bug Fixes
+
+* 🐛 designer ([e2d7a79](https://gitee.com/newgateway/vtj/commits/e2d7a79bb91050db5144d46db86a2c224af63368))
+
+
+
+
+
+# [0.9.0-alpha.19](https://gitee.com/newgateway/vtj/compare/vtj-project-app@0.9.0-alpha.18...vtj-project-app@0.9.0-alpha.19) (2024-12-03)
+
+**Note:** Version bump only for package vtj-project-app
+
+
+
+
+
+# [0.9.0-alpha.18](https://gitee.com/newgateway/vtj/compare/vtj-project-app@0.9.0-alpha.17...vtj-project-app@0.9.0-alpha.18) (2024-12-03)
+
+**Note:** Version bump only for package vtj-project-app
+
+
+
+
+
+# [0.9.0-alpha.17](https://gitee.com/newgateway/vtj/compare/vtj-project-app@0.9.0-alpha.16...vtj-project-app@0.9.0-alpha.17) (2024-12-02)
+
+**Note:** Version bump only for package vtj-project-app
+
+
+
+
+
+# [0.9.0-alpha.16](https://gitee.com/newgateway/vtj/compare/vtj-project-app@0.9.0-alpha.15...vtj-project-app@0.9.0-alpha.16) (2024-11-30)
+
+**Note:** Version bump only for package vtj-project-app
+
+
+
+
+
+# [0.9.0-alpha.15](https://gitee.com/newgateway/vtj/compare/vtj-project-app@0.9.0-alpha.14...vtj-project-app@0.9.0-alpha.15) (2024-11-30)
+
+**Note:** Version bump only for package vtj-project-app
+
+
+
+
+
+# [0.9.0-alpha.14](https://gitee.com/newgateway/vtj/compare/vtj-project-app@0.9.0-alpha.13...vtj-project-app@0.9.0-alpha.14) (2024-11-29)
+
+**Note:** Version bump only for package vtj-project-app
+
+
+
+
+
+# [0.9.0-alpha.13](https://gitee.com/newgateway/vtj/compare/vtj-project-app@0.9.0-alpha.12...vtj-project-app@0.9.0-alpha.13) (2024-11-29)
+
+**Note:** Version bump only for package vtj-project-app
+
+
+
+
+
+# [0.9.0-alpha.12](https://gitee.com/newgateway/vtj/compare/vtj-project-app@0.9.0-alpha.11...vtj-project-app@0.9.0-alpha.12) (2024-11-28)
+
+**Note:** Version bump only for package vtj-project-app
+
+
+
+
+
+# [0.9.0-alpha.11](https://gitee.com/newgateway/vtj/compare/vtj-project-app@0.9.0-alpha.10...vtj-project-app@0.9.0-alpha.11) (2024-11-28)
+
+**Note:** Version bump only for package vtj-project-app
+
+
+
+
+
+# [0.9.0-alpha.10](https://gitee.com/newgateway/vtj/compare/vtj-project-app@0.9.0-alpha.9...vtj-project-app@0.9.0-alpha.10) (2024-11-28)
+
+**Note:** Version bump only for package vtj-project-app
+
+
+
+
+
+# [0.9.0-alpha.9](https://gitee.com/newgateway/vtj/compare/vtj-project-app@0.9.0-alpha.8...vtj-project-app@0.9.0-alpha.9) (2024-11-27)
+
+**Note:** Version bump only for package vtj-project-app
+
+
+
+
+
+# [0.9.0-alpha.8](https://gitee.com/newgateway/vtj/compare/vtj-project-app@0.9.0-alpha.7...vtj-project-app@0.9.0-alpha.8) (2024-11-22)
+
+**Note:** Version bump only for package vtj-project-app
+
+
+
+
+
+# [0.9.0-alpha.7](https://gitee.com/newgateway/vtj/compare/vtj-project-app@0.9.0-alpha.6...vtj-project-app@0.9.0-alpha.7) (2024-11-22)
+
+**Note:** Version bump only for package vtj-project-app
+
+
+
+
+
+# [0.9.0-alpha.6](https://gitee.com/newgateway/vtj/compare/vtj-project-app@0.9.0-alpha.5...vtj-project-app@0.9.0-alpha.6) (2024-11-22)
+
+**Note:** Version bump only for package vtj-project-app
+
+
+
+
+
+# [0.9.0-alpha.5](https://gitee.com/newgateway/vtj/compare/vtj-project-app@0.9.0-alpha.4...vtj-project-app@0.9.0-alpha.5) (2024-11-20)
+
+**Note:** Version bump only for package vtj-project-app
+
+
+
+
+
+# [0.9.0-alpha.4](https://gitee.com/newgateway/vtj/compare/vtj-project-app@0.9.0-alpha.3...vtj-project-app@0.9.0-alpha.4) (2024-11-20)
+
+**Note:** Version bump only for package vtj-project-app
+
+
+
+
+
+# [0.9.0-alpha.3](https://gitee.com/newgateway/vtj/compare/vtj-project-app@0.9.0-alpha.2...vtj-project-app@0.9.0-alpha.3) (2024-11-19)
+
+**Note:** Version bump only for package vtj-project-app
+
+
+
+
+
+# [0.9.0-alpha.2](https://gitee.com/newgateway/vtj/compare/vtj-project-app@0.9.0-alpha.1...vtj-project-app@0.9.0-alpha.2) (2024-11-18)
+
+**Note:** Version bump only for package vtj-project-app
+
+
+
+
+
+# [0.9.0-alpha.1](https://gitee.com/newgateway/vtj/compare/vtj-project-app@0.9.0-alpha.0...vtj-project-app@0.9.0-alpha.1) (2024-11-18)
+
+**Note:** Version bump only for package vtj-project-app
+
+
+
+
+
+# [0.9.0-alpha.0](https://gitee.com/newgateway/vtj/compare/vtj-project-app@0.8.172...vtj-project-app@0.9.0-alpha.0) (2024-11-18)
+
+
+### Features
+
+* ✨ 设计器支持纯净页面和路由元信息设置 ([3a11d0f](https://gitee.com/newgateway/vtj/commits/3a11d0fa1e1a19e7286e82f562165c07a5cf0aaa))
+* ✨ scss modern-compiler ([ca6734f](https://gitee.com/newgateway/vtj/commits/ca6734f8af7072e79b2b7f6fafef6156593b75ab))
+
+
+
+
+
+## [0.8.172](https://gitee.com/newgateway/vtj/compare/vtj-project-app@0.8.171...vtj-project-app@0.8.172) (2024-10-25)
+
+**Note:** Version bump only for package vtj-project-app
+
+
+
+
+
+## [0.8.171](https://gitee.com/newgateway/vtj/compare/vtj-project-app@0.8.170...vtj-project-app@0.8.171) (2024-10-24)
+
+**Note:** Version bump only for package vtj-project-app
+
+
+
+
+
+## [0.8.170](https://gitee.com/newgateway/vtj/compare/vtj-project-app@0.8.169...vtj-project-app@0.8.170) (2024-10-24)
+
+**Note:** Version bump only for package vtj-project-app
+
+
+
+
+
+## [0.8.169](https://gitee.com/newgateway/vtj/compare/vtj-project-app@0.8.168...vtj-project-app@0.8.169) (2024-10-24)
+
+**Note:** Version bump only for package vtj-project-app
+
+
+
+
+
+## [0.8.168](https://gitee.com/newgateway/vtj/compare/vtj-project-app@0.8.167...vtj-project-app@0.8.168) (2024-10-22)
+
+**Note:** Version bump only for package vtj-project-app
+
+
+
+
+
+## [0.8.167](https://gitee.com/newgateway/vtj/compare/vtj-project-app@0.8.166...vtj-project-app@0.8.167) (2024-10-22)
+
+**Note:** Version bump only for package vtj-project-app
+
+
+
+
+
+## [0.8.166](https://gitee.com/newgateway/vtj/compare/vtj-project-app@0.8.165...vtj-project-app@0.8.166) (2024-10-22)
+
+
+### Features
+
+* ✨ 设计器支持Access配置 ([4d1e91e](https://gitee.com/newgateway/vtj/commits/4d1e91ebcf1b00ad05ac11d1f05fbc96d1ffd06d))
+
+
+
+
+
+## [0.8.165](https://gitee.com/newgateway/vtj/compare/vtj-project-app@0.8.164...vtj-project-app@0.8.165) (2024-10-21)
+
+**Note:** Version bump only for package vtj-project-app
+
+
+
+
+
+## [0.8.164](https://gitee.com/newgateway/vtj/compare/vtj-project-app@0.8.163...vtj-project-app@0.8.164) (2024-10-21)
+
+**Note:** Version bump only for package vtj-project-app
+
+
+
+
+
+
 ## [0.8.163](https://gitee.com/newgateway/vtj/compare/vtj-project-app@0.8.162...vtj-project-app@0.8.163) (2024-10-17)
 
 **Note:** Version bump only for package vtj-project-app

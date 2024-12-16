@@ -1,8 +1,8 @@
 import { defineComponent, h } from 'vue';
-import { XStartup } from '@vtj/ui';
+import { Startup } from '../components';
 export const StartupContainer = defineComponent({
   name: 'VtjStartupContainer',
   render() {
-    return h(XStartup);
+    return h(Startup);
   }
 });

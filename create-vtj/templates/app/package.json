@@ -12,12 +12,13 @@
     "build:uat": "vue-tsc && cross-env ENV_TYPE=uat vite build",
     "build:pre": "vue-tsc && cross-env ENV_TYPE=pre vite build",
     "build:prod": "vue-tsc && cross-env ENV_TYPE=live vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "clean": "node ./scripts/clean.mjs"
   },
   "dependencies": {
     "@vtj/web": "latest",
     "vue": "~3.5.0",
-    "vue-router": "~4.4.0"
+    "vue-router": "~4.5.0"
   },
   "devDependencies": {
     "@vtj/cli": "latest",

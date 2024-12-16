@@ -73,12 +73,20 @@ export function useStyle(props: DialogProps, state: DialogState) {
     };
   });
 
+  const zIndexStyle = computed(() => {
+    const { zIndex } = state;
+    return {
+      zIndex
+    };
+  });
+
   const classes = computed(() => {
     return {
       [`is-${state.mode}`]: !!state.mode,
       [`is-draggable`]: !!props.draggable,
       [`is-resizable`]: !!props.resizable,
-      'is-primary': !!props.primary
+      'is-primary': !!props.primary,
+      'is-pure': !!props.pure
     };
   });
 
@@ -100,7 +108,8 @@ export function useStyle(props: DialogProps, state: DialogState) {
     styles,
     classes,
     wrapperClass,
-    modalStyle
+    modalStyle,
+    zIndexStyle
   };
 }
 

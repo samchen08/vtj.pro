@@ -73,3 +73,13 @@ export const DATA_TYPES: Record<BlockPropDataType, any> = {
   Function: Function,
   Date: Date
 };
+
+/**
+ * 页面路由名称
+ */
+export const PAGE_ROUTE_NAME = 'VtjPage';
+
+/**
+ * 主页路由名称
+ */
+export const HOMEPAGE_ROUTE_NAME = 'VtjHomepage';

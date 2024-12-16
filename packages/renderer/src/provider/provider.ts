@@ -1,5 +1,10 @@
 import { type App, type InjectionKey, inject, defineAsyncComponent } from 'vue';
-import { type Router } from 'vue-router';
+import type {
+  Router,
+  RouteRecordName,
+  RouteRecordRaw,
+  RouteMeta
+} from 'vue-router';
 import {
   type ProjectSchema,
   type PageFile,
@@ -22,6 +27,7 @@ import {
 import { ElNotification } from 'element-plus';
 import { request } from './defaults';
 import { createSchemaApis, mockApis, mockCleanup } from './apis';
+import { Access } from '../plugins';
 import { isVuePlugin } from '../utils';
 import { version } from '../version';
 import {
@@ -31,7 +37,11 @@ import {
   loadCss,
   getRawComponent
 } from '../utils';
-import { ContextMode } from '../constants';
+import {
+  ContextMode,
+  PAGE_ROUTE_NAME,
+  HOMEPAGE_ROUTE_NAME
+} from '../constants';
 import {
   createRenderer,
   createLoader,
@@ -56,6 +66,9 @@ export interface ProviderOptions {
   materialPath?: string;
   nodeEnv?: NodeEnv;
   install?: (app: App) => void;
+  routeAppendTo?: RouteRecordName;
+  pageRouteName?: string;
+  routeMeta?: RouteMeta;
 }
 
 export enum NodeEnv {
@@ -67,6 +80,12 @@ export interface ProvideAdapter {
   request: IStaticRequest;
   jsonp: Jsonp;
   metaQuery?: (...args: any[]) => Promise<any>;
+  access?: Access;
+  startupComponent?: any;
+  /**
+   * 远程服务 host
+   */
+  remote?: string;
   [index: string]: any;
 }
 
@@ -115,9 +134,17 @@ export class Provider extends Base {
     }
     Object.assign(this.globals, globals);
     Object.assign(this.adapter, adapter);
+
+    const { access, request } = this.adapter;
+    if (access) {
+      access.connect({ mode, router, request });
+    }
+
     // 设计模式在引擎已初始化了项目数据，这里不需要再次初始化
-    if (mode !== ContextMode.Design) {
+    if (project && mode !== ContextMode.Design) {
       this.load(project as ProjectSchema);
+    } else {
+      this.project = project as ProjectSchema;
     }
   }
 
@@ -131,12 +158,15 @@ export class Provider extends Base {
     const _window = window as any;
     // 解决CkEditor错误提示问题
     _window.CKEDITOR_VERSION = undefined;
-    if (this.nodeEnv !== 'production') {
-      await this.loadAssets(_window);
-    } else {
-      await this.loadDependencies(_window);
-    }
 
+    /**
+     * 源码模式只加载原生代码依赖
+     */
+    if (this.mode === ContextMode.Raw) {
+      await this.loadDependencies(_window);
+    } else {
+      await this.loadAssets(_window);
+    }
     this.apis = createSchemaApis(apis, meta, this.adapter);
     mockCleanup();
     if (this.project.config?.mock) {
@@ -151,7 +181,7 @@ export class Provider extends Base {
     const entries = Object.entries(this.dependencies);
     for (const [name, raw] of entries) {
       if (!_window[name]) {
-        _window[name] = await raw();
+        _window[name] = this.library[name] = await raw();
       }
     }
   }
@@ -188,50 +218,68 @@ export class Provider extends Base {
       }
     }
 
-    // 生产环境不需要物料
-    for (const materialUrl of materials) {
-      await loadScript(urlUtils.append(materialUrl, { v: version }));
-    }
+    // 生产环境不需要物料描述文件
+    if (nodeEnv === NodeEnv.Development) {
+      for (const materialUrl of materials) {
+        await loadScript(urlUtils.append(materialUrl, { v: version }));
+      }
 
-    const materialMap = this.materials || {};
-    // console.log(materialExports, materialMap);
+      const materialMap = this.materials || {};
+      for (const materialExport of materialExports) {
+        const lib = _window[materialMapLibrary[materialExport]];
+        const builtInComponents = BUILT_IN_COMPONENTS[materialExport];
+        if (builtInComponents) {
+          if (lib) {
+            builtInComponents.forEach((name) => {
+              components[name] = lib[name];
+            });
+          }
+        } else {
+          const material = materialMap[materialExport]
+            ? ((await materialMap[materialExport]()).default as Material)
+            : (_window[materialExport] as Material);
 
-    for (const materialExport of materialExports) {
-      const lib = _window[materialMapLibrary[materialExport]];
-      const builtInComponents = BUILT_IN_COMPONENTS[materialExport];
-      if (builtInComponents) {
-        if (lib) {
-          builtInComponents.forEach((name) => {
-            components[name] = lib[name];
-          });
-        }
-      } else {
-        const material = materialMap[materialExport]
-          ? ((await materialMap[materialExport]()).default as Material)
-          : (_window[materialExport] as Material);
-        if (material && lib) {
-          (material.components || []).forEach((item) => {
-            components[item.name] = getRawComponent(item, lib);
-          });
+          if (material && lib) {
+            (material.components || []).forEach((item) => {
+              components[item.name] = getRawComponent(item, lib);
+            });
+          }
         }
       }
     }
   }
 
   private initRouter() {
-    const { router, project } = this;
+    const { router, project, options, adapter } = this;
     if (!router) return;
-    router.addRoute({
-      path: '/page/:id',
-      name: 'VtjPage',
+    const { routeAppendTo, pageRouteName = 'page', routeMeta } = options;
+    const pathStart = routeAppendTo ? '' : '/';
+    const pageRoute: RouteRecordRaw = {
+      path: `${pathStart}${pageRouteName}/:id`,
+      name: PAGE_ROUTE_NAME,
       component: PageContainer
-    });
-
-    router.addRoute({
-      path: '/',
-      name: 'VtjHomepage',
-      component: project?.homepage ? PageContainer : StartupContainer
-    });
+    };
+    const homeRoute: RouteRecordRaw = {
+      path: pathStart,
+      name: HOMEPAGE_ROUTE_NAME,
+      component: project?.homepage
+        ? PageContainer
+        : adapter.startupComponent || StartupContainer,
+      meta: routeMeta
+    };
+    if (router.hasRoute(PAGE_ROUTE_NAME)) {
+      router.removeRoute(PAGE_ROUTE_NAME);
+    }
+    if (router.hasRoute(HOMEPAGE_ROUTE_NAME)) {
+      router.removeRoute(HOMEPAGE_ROUTE_NAME);
+    }
+    if (routeAppendTo) {
+      router.addRoute(routeAppendTo, pageRoute);
+      router.addRoute(routeAppendTo, homeRoute);
+    } else {
+      router.addRoute(pageRoute);
+      router.addRoute(homeRoute);
+    }
   }
 
   install(app: App) {
@@ -245,13 +293,19 @@ export class Provider extends Base {
     if (this.options.install) {
       app.use(this.options.install);
     }
+    if (this.adapter.access) {
+      app.use(this.adapter.access);
+    }
     app.provide(providerKey, this);
     app.config.globalProperties.installed = installed;
-    if (this.nodeEnv === 'development') {
+    if (this.mode === ContextMode.Design) {
       app.config.errorHandler = (err: any, instance, info) => {
         const name = instance?.$options.name;
-        const msg = err?.message || err?.msg || '未知错误';
-        const message = `[ ${name} ] ${msg}`;
+        const msg =
+          typeof err === 'string'
+            ? err
+            : err?.message || err?.msg || '未知错误';
+        const message = `[ ${name} ] ${msg} ${info}`;
         console.error(
           '[VTJ Error]:',
           {
@@ -263,7 +317,7 @@ export class Provider extends Base {
         );
 
         ElNotification.error({
-          title: '运行时错误：请在控制台查看详情',
+          title: '未处理的异常：请在控制台查看详情',
           message
         });
       };
@@ -302,7 +356,9 @@ export class Provider extends Base {
   }
   async getDsl(id: string): Promise<BlockSchema | null> {
     const module = this.modules[`.vtj/files/${id}.json`];
-    return module ? await module() : this.service.getFile(id).catch(() => null);
+    return module
+      ? await module()
+      : this.service.getFile(id, this.project || undefined).catch(() => null);
   }
 
   async getDslByUrl(url: string): Promise<BlockSchema | null> {
@@ -352,11 +408,17 @@ export class Provider extends Base {
     });
   }
 
-  async getRenderComponent(id: string) {
+  async getRenderComponent(
+    id: string,
+    output?: (file: BlockFile | PageFile) => void
+  ) {
     const file = this.getFile(id);
     if (!file) {
       logger.warn(`Can not find file: ${id}`);
       return null;
+    }
+    if (output) {
+      output(file);
     }
     const rawPath = `.vtj/vue/${id}.vue`;
     const rawModule = this.modules[rawPath];
