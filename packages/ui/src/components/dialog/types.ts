@@ -100,6 +100,9 @@ export const dialogProps = {
   },
   primary: {
     type: Boolean
+  },
+  pure: {
+    type: Boolean
   }
 };
 

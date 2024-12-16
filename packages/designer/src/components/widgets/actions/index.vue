@@ -26,7 +26,26 @@
       <VtjIconSetting></VtjIconSetting>
     </ElButton>
     <ElDivider direction="vertical"></ElDivider>
+
+    <ElButton
+      v-if="props.coder"
+      @click="onCoder"
+      :icon="Download"
+      size="small"
+      type="success">
+      出码
+    </ElButton>
+
+    <ElButton
+      v-if="props.onlyPublishTemplate"
+      @click="onPublishToTemplate"
+      :icon="VtjIconTemplate"
+      size="small"
+      type="primary">
+      发布模板
+    </ElButton>
     <ElDropdown
+      v-else
       split-button
       type="primary"
       size="small"
@@ -35,45 +54,70 @@
       <span>发布</span>
       <template #dropdown>
         <ElDropdownMenu>
-          <ElDropdownItem command="current">发布页面</ElDropdownItem>
-          <ElDropdownItem command="project">整站发布</ElDropdownItem>
+          <ElDropdownItem command="current" :icon="VtjIconPublish">
+            发布文件
+          </ElDropdownItem>
+          <ElDropdownItem command="project" :icon="VtjIconProject">
+            整站发布
+          </ElDropdownItem>
+          <ElDropdownItem command="template" :icon="VtjIconTemplate" divided>
+            发布模板
+          </ElDropdownItem>
         </ElDropdownMenu>
       </template>
     </ElDropdown>
+
+    <Publisher
+      v-if="publisherVisible"
+      v-model="publisherVisible"
+      v-bind="publisherProps"></Publisher>
+
+    <!-- <Coder :icon="Download"></Coder> -->
   </div>
 </template>
 <script lang="ts" setup>
-  import { ref } from 'vue';
+  import { ref, h } from 'vue';
   import {
     ElButton,
     ElDivider,
     ElBadge,
     ElDropdown,
     ElDropdownMenu,
-    ElDropdownItem
+    ElDropdownItem,
+    ElMessageBox
   } from 'element-plus';
   import {
     VtjIconSetting,
     VtjIconRefresh,
     VtjIconBug,
-    VtjIconPreview
+    VtjIconPreview,
+    VtjIconTemplate,
+    VtjIconPublish,
+    VtjIconProject,
+    Download
   } from '@vtj/icons';
-  import { XAction } from '@vtj/ui';
+  import { XAction, createDialog } from '@vtj/ui';
   import { delay } from '@vtj/utils';
-  import { useSelected } from '../../hooks';
+  import Publisher from './publisher.vue';
+  import Coder from './coder.vue';
+  import { useSelected, useOpenApi } from '../../hooks';
   import { message } from '../../../utils';
 
   export interface Props {
+    onlyPublishTemplate?: boolean;
     coder?: boolean;
   }
 
-  withDefaults(defineProps<Props>(), {
-    coder: true,
-    copy: true
+  const props = withDefaults(defineProps<Props>(), {
+    onlyPublishTemplate: false,
+    coder: false
   });
 
   const { engine, designer } = useSelected();
+  const { isLogined, toRemoteAuth } = useOpenApi();
   const isPreview = ref(false);
+  const publisherVisible = ref(false);
+  const publisherProps = ref();
   const refresh = () => {
     if (engine.current.value) {
       if (isPreview.value) {
@@ -128,13 +172,71 @@
     }
   };
 
+  const onPublishToTemplate = async () => {
+    const project = engine.project.value;
+    if (!project) return;
+    if (project.currentFile) {
+      if (await isLogined()) {
+        const canvas = await engine.simulator.capture();
+        const { name, title, market } = project.currentFile;
+        if (!canvas) {
+          message('截图失败', 'warning');
+          return;
+        }
+        publisherProps.value = {
+          id: market?.id,
+          canvas,
+          name,
+          label: title,
+          dsl: engine.current.value?.toDsl()
+        };
+        publisherVisible.value = true;
+      } else {
+        const ret = await ElMessageBox.confirm(
+          '发布到模板需登录系统，您还没登录或登录已过期，请重新登录！',
+          '提示',
+          {
+            type: 'info',
+            confirmButtonText: '立即登录'
+          }
+        ).catch(() => false);
+        if (ret) {
+          toRemoteAuth();
+        }
+      }
+    } else {
+      message('请先打开文件', 'warning');
+    }
+  };
+
   const onPublishCommand = (command: string) => {
     const project = engine.project.value;
     if (!project) return;
-    if (command === 'current') {
-      onPublish();
-    } else {
-      project.publish();
+    switch (command) {
+      case 'current':
+        onPublish();
+        break;
+      case 'project':
+        project.publish();
+        break;
+      case 'template':
+        onPublishToTemplate();
+        break;
+    }
+  };
+
+  const onCoder = async () => {
+    const project = engine.project.value;
+    if (!project) return;
+    const link = await engine.genSource();
+    if (link) {
+      createDialog({
+        width: '600px',
+        height: '200px',
+        title: '出码',
+        icon: Download,
+        content: h(Coder, { link })
+      });
     }
   };
 

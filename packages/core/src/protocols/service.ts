@@ -12,26 +12,50 @@ import type { StaticFileInfo, ExtensionConfig } from './shared';
 
 export abstract class Service {
   public abstract getExtension(): Promise<ExtensionConfig | undefined>;
-  public abstract init(project: ProjectSchema): Promise<ProjectSchema>;
+  public abstract init(project: Partial<ProjectSchema>): Promise<ProjectSchema>;
   public abstract saveProject(project: ProjectSchema): Promise<boolean>;
   public abstract saveMaterials(
     project: ProjectSchema,
     materials: Map<string, MaterialDescription>
   ): Promise<boolean>;
-  public abstract saveFile(file: BlockSchema): Promise<boolean>;
-  public abstract getFile(id: string): Promise<BlockSchema>;
-  public abstract removeFile(id: string): Promise<boolean>;
-  public abstract saveHistory(history: HistorySchema): Promise<boolean>;
-  public abstract removeHistory(id: string): Promise<boolean>;
-  public abstract getHistory(id: string): Promise<HistorySchema>;
-  public abstract getHistoryItem(fId: string, id: string): Promise<HistoryItem>;
+  public abstract saveFile(
+    file: BlockSchema,
+    project?: ProjectSchema
+  ): Promise<boolean>;
+  public abstract getFile(
+    id: string,
+    project?: ProjectSchema
+  ): Promise<BlockSchema>;
+  public abstract removeFile(
+    id: string,
+    project?: ProjectSchema
+  ): Promise<boolean>;
+  public abstract saveHistory(
+    history: HistorySchema,
+    project?: ProjectSchema
+  ): Promise<boolean>;
+  public abstract removeHistory(
+    id: string,
+    project?: ProjectSchema
+  ): Promise<boolean>;
+  public abstract getHistory(
+    id: string,
+    project?: ProjectSchema
+  ): Promise<HistorySchema>;
+  public abstract getHistoryItem(
+    fId: string,
+    id: string,
+    project?: ProjectSchema
+  ): Promise<HistoryItem>;
   public abstract saveHistoryItem(
     fId: string,
-    item: HistoryItem
+    item: HistoryItem,
+    project?: ProjectSchema
   ): Promise<boolean>;
   public abstract removeHistoryItem(
     fId: string,
-    ids: string[]
+    ids: string[],
+    project?: ProjectSchema
   ): Promise<boolean>;
   public abstract publish(project: ProjectSchema): Promise<boolean>;
   public abstract publishFile(
@@ -43,8 +67,14 @@ export abstract class Service {
     dsl: BlockSchema
   ): Promise<string>;
 
-  public abstract createRawPage(file: PageFile): Promise<boolean>;
-  public abstract removeRawPage(id: string): Promise<boolean>;
+  public abstract createRawPage(
+    file: PageFile,
+    project?: ProjectSchema
+  ): Promise<boolean>;
+  public abstract removeRawPage(
+    id: string,
+    project?: ProjectSchema
+  ): Promise<boolean>;
 
   public abstract uploadStaticFile(
     file: File,
@@ -60,4 +90,6 @@ export abstract class Service {
   public abstract getPluginMaterial(
     from: NodeFromPlugin
   ): Promise<MaterialDescription | null>;
+
+  public abstract genSource(project: ProjectSchema): Promise<string>;
 }

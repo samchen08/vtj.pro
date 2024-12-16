@@ -40,7 +40,7 @@ export async function generator(
   });
   return await vueFormatter(vue, formatterDisabled).catch((e) => {
     e.content = vue;
-    return e;
+    return Promise.reject(e);
   });
 }
 

@@ -9,3 +9,16 @@ body,
   padding: 0;
   margin: 0;
 }
+#app {
+  background: var(--el-bg-color, #fff);
+  box-sizing: border-box;
+}
+
+#app.is-page {
+   padding: 10px;
+}
+
+#app.is-page.is-pure {
+   background-color: var(--el-fill-color-light, #f5f7fa);
+   padding: 0;
+}

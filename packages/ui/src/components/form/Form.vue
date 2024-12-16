@@ -4,7 +4,7 @@
     class="x-form"
     :inline="props.inline"
     :model="model"
-    @keyup.enter="submit"
+    @keyup.enter="onEnter"
     @submit.stop.prevent
     v-bind="$attrs">
     <slot></slot>
@@ -93,6 +93,12 @@
         await props.submitMethod(toRaw(model));
         loading.value = false;
       }
+    }
+  };
+
+  const onEnter = () => {
+    if (props.enterSubmit) {
+      submit();
     }
   };
 

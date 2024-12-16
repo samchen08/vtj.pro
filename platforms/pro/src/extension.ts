@@ -10,7 +10,9 @@ import type { ExtensionConfig } from '@vtj/core';
 import type { EngineOptions } from '@vtj/designer';
 
 export type ExtensionOptions = ExtensionConfig;
-export type ExtensionFactory = () => Partial<EngineOptions> | void;
+export type ExtensionFactory = (
+  config: ExtensionConfig
+) => Partial<EngineOptions> | void;
 
 export interface ExtensionOutput {
   options: Partial<EngineOptions>;
@@ -23,7 +25,7 @@ export class Extension {
   private params: any[] = [];
   private __BASE_PATH__: string = '/';
   private __adapters__: Record<string, any> = {};
-  constructor(options: ExtensionOptions) {
+  constructor(private options: ExtensionOptions) {
     const __VTJ_PRO__ = {
       ...core,
       ...designer,
@@ -65,7 +67,7 @@ export class Extension {
           .loadScriptUrl(scripts, this.library)
           .catch(() => null);
         if (output && typeof output === 'function') {
-          options = output.apply(output, this.params);
+          options = output.call(output, this.options, this.params);
         } else {
           options = output || {};
         }

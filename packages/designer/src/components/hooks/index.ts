@@ -13,3 +13,5 @@ export * from './useProject';
 export * from './useNodeEvents';
 export * from './useDirectives';
 export * from './useDataSources';
+export * from './useOpenApi';
+export * from './useTemplates';

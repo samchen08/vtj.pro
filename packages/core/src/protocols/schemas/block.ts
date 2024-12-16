@@ -92,6 +92,11 @@ export interface BlockSchema {
    * 版本
    */
   __VERSION__?: string;
+
+  /**
+   * 模板id
+   */
+  __TEMPLATE_ID__?: string;
 }
 
 /**

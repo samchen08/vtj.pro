@@ -6,6 +6,7 @@
         :logo="logo || _logo"
         :menus="menus"
         :disabled="disabled"
+        :pure="pure"
         :actions="actions"
         @action-click="onActionClick"
         :theme="themeSwitchable"></XMask>
@@ -26,7 +27,7 @@ import {
 } from '@vtj/web';
 import zhCn from 'element-plus/es/locale/lang/zh-cn';
 import _logo from './assets/logo.svg';
-const { disabled, title, menus, logo, themeSwitchable } = useMask();
+const { disabled, title, menus, logo, themeSwitchable, pure } = useMask();
 
 const actions: ActionBarItems = [
   {

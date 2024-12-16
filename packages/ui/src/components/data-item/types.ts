@@ -44,6 +44,15 @@ export const dataItemProps = {
   },
   onTitleClick: {
     type: Function
+  },
+  active: {
+    type: Boolean
+  },
+  hover: {
+    type: Boolean
+  },
+  padding: {
+    type: Boolean
   }
 };
 

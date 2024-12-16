@@ -3,6 +3,52 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.9.0](https://gitee.com/newgateway/vtj/compare/@vtj/cli@0.9.0-alpha.3...@vtj/cli@0.9.0) (2024-12-16)
+
+**Note:** Version bump only for package @vtj/cli
+
+
+
+
+
+# [0.9.0-alpha.3](https://gitee.com/newgateway/vtj/compare/@vtj/cli@0.9.0-alpha.2...@vtj/cli@0.9.0-alpha.3) (2024-12-16)
+
+**Note:** Version bump only for package @vtj/cli
+
+
+
+
+
+# [0.9.0-alpha.2](https://gitee.com/newgateway/vtj/compare/@vtj/cli@0.9.0-alpha.1...@vtj/cli@0.9.0-alpha.2) (2024-11-27)
+
+
+### Bug Fixes
+
+* 🐛 默认不开启devtools ([d084c35](https://gitee.com/newgateway/vtj/commits/d084c35c0d0a0faf21bd4ff2f5728d4c5eb18233))
+
+
+
+
+
+# [0.9.0-alpha.1](https://gitee.com/newgateway/vtj/compare/@vtj/cli@0.9.0-alpha.0...@vtj/cli@0.9.0-alpha.1) (2024-11-20)
+
+**Note:** Version bump only for package @vtj/cli
+
+
+
+
+
+# [0.9.0-alpha.0](https://gitee.com/newgateway/vtj/compare/@vtj/cli@0.8.39...@vtj/cli@0.9.0-alpha.0) (2024-11-18)
+
+
+### Features
+
+* ✨ scss modern-compiler ([ca6734f](https://gitee.com/newgateway/vtj/commits/ca6734f8af7072e79b2b7f6fafef6156593b75ab))
+
+
+
+
+
 ## [0.8.39](https://gitee.com/newgateway/vtj/compare/@vtj/cli@0.8.38...@vtj/cli@0.8.39) (2024-10-14)
 
 **Note:** Version bump only for package @vtj/cli

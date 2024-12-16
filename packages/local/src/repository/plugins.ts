@@ -37,6 +37,7 @@ export class PluginRepository {
       n.type = 'block';
       n.fromType = 'Plugin';
       n.preset = true;
+      n.category = '插件区块';
       return n;
     });
 
@@ -65,7 +66,8 @@ export class PluginRepository {
             name: this.getName(dep),
             title: description || name,
             library: name,
-            urls: urls.join(',')
+            urls: urls.join(','),
+            category: '插件区块'
           });
         }
       }

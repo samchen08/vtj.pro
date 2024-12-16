@@ -6,16 +6,25 @@
     @dragstart="onDragStart"
     @dragend="onDragEnd">
     <XContainer direction="column" justify="center" align="center">
-      <span class="v-box__name">{{ props.name }}</span>
-      <span class="v-box__label">{{ props.title }}</span>
+      <slot>
+        <span class="v-box__name">{{ props.name }}</span>
+        <span class="v-box__label">{{ props.title }}</span>
+      </slot>
     </XContainer>
     <XContainer
       v-if="props.editable"
       class="v-box__footer"
       justify="flex-end"
       align="center">
-      <XIcon :icon="VtjIconEdit" @click="onEdit"></XIcon>
-      <XIcon :icon="VtjIconRemove" @click="onRemove"></XIcon>
+      <XAction
+        :icon="MoreFilled"
+        mode="icon"
+        size="small"
+        background="none"
+        type="info"
+        :dropdown="{ placement: 'bottom-end' }"
+        :menus="menus"
+        @command="onCommand"></XAction>
     </XContainer>
     <span
       v-if="props.tag"
@@ -27,8 +36,13 @@
 </template>
 <script lang="ts" setup>
   import { computed } from 'vue';
-  import { XContainer, XIcon } from '@vtj/ui';
-  import { VtjIconEdit, VtjIconRemove } from '@vtj/icons';
+  import { XContainer, XAction } from '@vtj/ui';
+  import {
+    VtjIconEdit,
+    VtjIconRemove,
+    MoreFilled,
+    VtjIconCopy
+  } from '@vtj/icons';
   import { ElMessageBox } from 'element-plus';
 
   export interface Props {
@@ -42,9 +56,32 @@
   }
 
   const props = defineProps<Props>();
-  const emits = defineEmits(['edit', 'remove', 'dragstart', 'dragend']);
+  const emits = defineEmits(['copy', 'edit', 'remove', 'dragstart', 'dragend']);
+
+  const menus = [
+    {
+      label: '复制',
+      command: 'copy',
+      icon: VtjIconCopy
+    },
+    {
+      label: '编辑',
+      command: 'edit',
+      icon: VtjIconEdit
+    },
+    {
+      label: '删除',
+      command: 'remove',
+      icon: VtjIconRemove
+    }
+  ];
+
   const onEdit = () => {
     emits('edit');
+  };
+
+  const onCopy = () => {
+    emits('copy');
   };
 
   const onRemove = async () => {
@@ -53,6 +90,18 @@
     }).catch(() => false);
     if (ret) {
       emits('remove');
+    }
+  };
+
+  const onCommand = (item: any) => {
+    if (item.command === 'edit') {
+      onEdit();
+    }
+    if (item.command === 'remove') {
+      onRemove();
+    }
+    if (item.command === 'copy') {
+      onCopy();
     }
   };
 

@@ -17,12 +17,15 @@ import {
 import { upperFirstCamelCase } from '@vtj/utils';
 import { useEventListener } from '@vueuse/core';
 import { createDialog } from '../../';
-import type { MaskTab } from '../types';
+import type { MaskTab, MaskProps } from '../types';
 import { useTabs } from './useTabs';
 
 export type UseContentOptions = ReturnType<typeof useTabs>;
 
-export function useContent(options: Partial<UseContentOptions>) {
+export function useContent(
+  options: Partial<UseContentOptions>,
+  props: MaskProps
+) {
   const views = new Map();
   const exclude = ref<string[]>([]);
   const dialogs = reactive<any>({});
@@ -88,6 +91,7 @@ export function useContent(options: Partial<UseContentOptions>) {
   const openDialog = async (tab: MaskTab) => {
     tab.dialog = {
       ...tab.dialog,
+      pure: props.pure,
       onMinimized: () => {
         closeDialog(tab);
       },

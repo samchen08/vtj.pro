@@ -3,6 +3,44 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.9.0](https://gitee.com/newgateway/vtj/compare/@vtj/base@0.9.0-alpha.2...@vtj/base@0.9.0) (2024-12-16)
+
+**Note:** Version bump only for package @vtj/base
+
+
+
+
+
+# [0.9.0-alpha.2](https://gitee.com/newgateway/vtj/compare/@vtj/base@0.9.0-alpha.1...@vtj/base@0.9.0-alpha.2) (2024-11-27)
+
+
+### Features
+
+* ✨ 树结构扁平化 ([6a29e91](https://gitee.com/newgateway/vtj/commits/6a29e917f06865894bff50d27de75e9fb49dbe31))
+
+
+
+
+
+# [0.9.0-alpha.1](https://gitee.com/newgateway/vtj/compare/@vtj/base@0.9.0-alpha.0...@vtj/base@0.9.0-alpha.1) (2024-11-20)
+
+
+### Features
+
+* ✨ base add arrayToTree ([d48d2b4](https://gitee.com/newgateway/vtj/commits/d48d2b46a12a9fee2d145b819ab398cfecc2e528))
+
+
+
+
+
+# [0.9.0-alpha.0](https://gitee.com/newgateway/vtj/compare/@vtj/base@0.8.12...@vtj/base@0.9.0-alpha.0) (2024-11-18)
+
+**Note:** Version bump only for package @vtj/base
+
+
+
+
+
 ## [0.8.12](https://gitee.com/newgateway/vtj/compare/@vtj/base@0.8.11...@vtj/base@0.8.12) (2024-10-11)
 
 

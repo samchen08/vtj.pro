@@ -1,5 +1,5 @@
-@import 'element-plus/theme-chalk/dark/css-vars.css';
-@import 'element-plus/theme-chalk/index.css';
-@import 'vxe-table/es/style.css';
-@import '@vtj/icons/dist/style.css';
-@import '@vtj/ui/dist/style.css';
+@use 'element-plus/theme-chalk/dark/css-vars.css' as *;
+@use 'element-plus/theme-chalk/index.css' as *;
+@use 'vxe-table/es/style.css' as *;
+@use '@vtj/icons/dist/style.css' as *;
+@use '@vtj/ui/dist/style.css' as *;

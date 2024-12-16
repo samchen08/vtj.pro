@@ -1,4 +1,4 @@
-import { uid, merge, upperFirstCamelCase, delay } from '@vtj/base';
+import { uid, merge, upperFirstCamelCase, delay, cloneDeep } from '@vtj/base';
 import type {
   ProjectSchema,
   Dependencie,
@@ -60,6 +60,11 @@ export const EVENT_PROJECT_PUBLISH = 'EVENT_PROJECT_PUBLISH';
  * 项目文件发布
  */
 export const EVENT_PROJECT_FILE_PUBLISH = 'EVENT_PROJECT_FILE_PUBLISH';
+
+/**
+ * 出码
+ */
+export const EVENT_PROJECT_GEN_SOURCE = 'EVENT_PROJECT_GEN_SOURCE';
 
 export class ProjectModel {
   id: string = '';
@@ -131,15 +136,19 @@ export class ProjectModel {
     );
     if (attrs.pages) {
       attrs.pages = attrs.pages.map((n: PageFile) => {
-        delete n.dsl;
-        return n;
+        return cloneDeep({
+          ...n,
+          dsl: undefined
+        });
       });
       this.cleanPagesDsl(attrs.pages);
     }
     if (attrs.blocks) {
       attrs.blocks = attrs.blocks.map((n: BlockFile) => {
-        delete n.dsl;
-        return n;
+        return cloneDeep({
+          ...n,
+          dsl: undefined
+        });
       });
     }
     return {
@@ -381,11 +390,43 @@ export class ProjectModel {
         model: this,
         type: 'clone',
         data: {
-          page,
-          newPage
+          source: page,
+          target: newPage
         }
       };
       emitter.emit(EVENT_PROJECT_PAGES_CHANGE, event);
+      emitter.emit(EVENT_PROJECT_CHANGE, event);
+    }
+  }
+
+  async saveToBlock(page: PageFile, silent: boolean = false) {
+    this.active(page, silent);
+    await delay(1000);
+    const id = uid();
+    const name = page.name;
+    const title = page.title;
+    const dsl = new BlockModel({
+      id,
+      name
+    }).toDsl();
+
+    const block: BlockFile = merge({}, page, {
+      id,
+      name,
+      title,
+      dsl,
+      type: 'block',
+      fromType: 'Schema'
+    });
+
+    this.blocks.push(block);
+    if (!silent) {
+      const event: ProjectModelEvent = {
+        model: this,
+        type: 'create',
+        data: block
+      };
+      emitter.emit(EVENT_PROJECT_BLOCKS_CHANGE, event);
       emitter.emit(EVENT_PROJECT_CHANGE, event);
     }
   }
@@ -486,6 +527,32 @@ export class ProjectModel {
         model: this,
         type: 'update',
         data: block
+      };
+      emitter.emit(EVENT_PROJECT_BLOCKS_CHANGE, event);
+      emitter.emit(EVENT_PROJECT_CHANGE, event);
+    }
+  }
+
+  cloneBlock(block: BlockFile, silent: boolean = false) {
+    const id = uid();
+    const name = `${block.name}Copy`;
+    const title = `${block.title}_副本`;
+
+    const dsl = new BlockModel({
+      id,
+      name
+    }).toDsl();
+    const newBlock = merge({}, block, { id, name, title, dsl });
+    const index = this.blocks.findIndex((n) => n.id === block.id);
+    this.blocks.splice(index + 1, 0, newBlock);
+    if (!silent) {
+      const event: ProjectModelEvent = {
+        model: this,
+        type: 'clone',
+        data: {
+          source: block,
+          target: newBlock
+        }
       };
       emitter.emit(EVENT_PROJECT_BLOCKS_CHANGE, event);
       emitter.emit(EVENT_PROJECT_CHANGE, event);
@@ -681,5 +748,14 @@ export class ProjectModel {
     } else {
       emitter.emit(EVENT_PROJECT_PUBLISH, event);
     }
+  }
+
+  genSource() {
+    const event: ProjectModelEvent = {
+      model: this,
+      type: 'gen',
+      data: null
+    };
+    emitter.emit(EVENT_PROJECT_GEN_SOURCE, event);
   }
 }

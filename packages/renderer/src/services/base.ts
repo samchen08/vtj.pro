@@ -215,4 +215,9 @@ export class BaseService implements Service {
       .then((res) => res.data as MaterialDescription)
       .catch(() => null));
   }
+
+  public async genSource(project: ProjectSchema): Promise<string> {
+    console.log('BaseService.genSource', project);
+    return '';
+  }
 }

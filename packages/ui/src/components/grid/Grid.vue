@@ -37,7 +37,7 @@
   </VxeGrid>
 </template>
 <script lang="ts" setup>
-  import { ref, provide, getCurrentInstance } from 'vue';
+  import { ref, provide, getCurrentInstance, onActivated } from 'vue';
   import {
     ElMessageBox,
     ElPagination,
@@ -177,6 +177,10 @@
     }
     return result;
   };
+
+  onActivated(() => {
+    vxeRef.value?.recalculate(true);
+  });
 
   defineExpose({
     state,

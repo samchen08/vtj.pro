@@ -11,6 +11,7 @@
     Extension,
     Access
   } from '../../src';
+  import { ACCESS_STORAGE_KEY } from '../contants';
   import { IconsPlugin } from '@vtj/icons';
   import { ElMessageBox } from 'element-plus';
   const service = new LocalService();
@@ -20,18 +21,20 @@
     : {};
   const { __BASE_PATH__ = '/' } = config || {};
   const accessOptions = adapters?.access;
+  const remote = adapters?.remote;
   const access = accessOptions
     ? new Access({
-        ...accessOptions,
-        alert: ElMessageBox.alert
+        alert: ElMessageBox.alert,
+        storageKey: ACCESS_STORAGE_KEY,
+        ...accessOptions
       })
     : undefined;
   const { provider, onReady } = createProvider({
     mode: ContextMode.Runtime,
     service,
     materialPath: __BASE_PATH__,
-    adapter: { access },
     ...(options || {}),
+    adapter: Object.assign({ access, remote }, options?.adapter || {}),
     dependencies: {
       Vue: () => import('vue'),
       VueRouter: () => import('vue-router')
@@ -49,7 +52,18 @@
     }
 
     renderer.value = await provider.getRenderComponent(
-      route.params.id.toString()
+      route.params.id.toString(),
+      (file: any) => {
+        Object.assign(route.meta, file.meta);
+        const el = app?._container;
+        if (file?.type === 'page') {
+          el.classList.add('is-page');
+        }
+        const isPure = file?.pure;
+        if (isPure) {
+          el.classList.add('is-pure');
+        }
+      }
     );
   });
 </script>

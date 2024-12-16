@@ -9,7 +9,7 @@ import { createApp } from 'vue';
 import router from './router';
 import App from './App.vue';
 import './style/index.scss';
-import { name } from '../package.json';
+import { name, description } from '../package.json';
 
 const app = createApp(App);
 const service = new LocalService();
@@ -24,7 +24,8 @@ const { provider, onReady } = createProvider({
     VueRouter: () => import('vue-router')
   },
   project: {
-    id: name
+    id: name,
+    name: description
   }
 });
 

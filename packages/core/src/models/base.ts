@@ -1,6 +1,6 @@
 export class Base {
   protected listeners: Array<() => void> = [];
-  protected isReady: boolean = false;
+  public isReady: boolean = false;
   protected triggerReady() {
     this.isReady = true;
     for (const listener of this.listeners) {

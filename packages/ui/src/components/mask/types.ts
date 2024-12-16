@@ -107,6 +107,12 @@ export const maskProps = {
   userCardWidth: {
     type: Number,
     default: 350
+  },
+  /**
+   * 内嵌纯净页面，不加背景和边距
+   */
+  pure: {
+    type: Boolean
   }
 };
 

@@ -103,7 +103,7 @@
       if (!currentRef) return;
       switch (e.name) {
         case 'home':
-          currentRef.refresh();
+          currentRef.reload();
           break;
       }
     }

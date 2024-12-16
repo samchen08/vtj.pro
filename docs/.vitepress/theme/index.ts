@@ -6,6 +6,7 @@ import { type Theme } from 'vitepress';
 import DefaultTheme from 'vitepress/theme';
 import { ElementPlusContainer } from '@vitepress-demo-preview/component';
 import '@vitepress-demo-preview/component/dist/style.css';
+import 'element-plus/theme-chalk/index.css';
 import '@vtj/icons/dist/style.css';
 import '@vtj/ui/dist/style.css';
 import './style.css';

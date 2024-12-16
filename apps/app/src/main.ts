@@ -3,7 +3,8 @@ import {
   LocalService,
   createModules,
   NodeEnv,
-  autoUpdate
+  autoUpdate,
+  ContextMode
 } from '@vtj/web';
 import { createApp } from 'vue';
 import router from './router';
@@ -16,6 +17,7 @@ const service = new LocalService();
 
 const { provider, onReady } = createProvider({
   nodeEnv: process.env.NODE_ENV as NodeEnv,
+  mode: ContextMode.Raw,
   modules: createModules(),
   service,
   router,

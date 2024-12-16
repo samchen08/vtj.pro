@@ -1,29 +1,23 @@
 export const local = {
-  PORTAL_HOST: 'sso-sit.newpearl.com',
-  PORTAL_HOST_I: 'ssoi-sit.newpearl.com'
+  REMOTE: 'http://localhost:9527'
 };
 
 export const dev = {
-  PORTAL_HOST: 'sso-sit.newpearl.com',
-  PORTAL_HOST_I: 'ssoi-sit.newpearl.com'
+  REMOTE: 'http://localhost:9527'
 };
 
 export const sit = {
-  PORTAL_HOST: 'sso-sit.newpearl.com',
-  PORTAL_HOST_I: 'ssoi-sit.newpearl.com'
+  REMOTE: 'https://lcdp.vtj.pro'
 };
 
 export const uat = {
-  PORTAL_HOST: 'sso-uat.newpearl.com',
-  PORTAL_HOST_I: 'ssoi-uat.newpearl.com'
+  REMOTE: 'https://lcdp.vtj.pro'
 };
 
 export const pre = {
-  PORTAL_HOST: 'sso.newpearl.com',
-  PORTAL_HOST_I: 'ssoi.newpearl.com'
+  REMOTE: 'https://lcdp.vtj.pro'
 };
 
 export const live = {
-  PORTAL_HOST: 'sso.newpearl.com',
-  PORTAL_HOST_I: 'ssoi.newpearl.com'
+  REMOTE: 'https://lcdp.vtj.pro'
 };

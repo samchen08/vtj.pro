@@ -50,6 +50,6 @@
   );
 
   defineOptions({
-    name: 'SchemaWidget'
+    name: 'RawWidget'
   });
 </script>

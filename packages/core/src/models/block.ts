@@ -58,7 +58,8 @@ export class BlockModel {
     'props',
     'emits',
     'slots',
-    'dataSources'
+    'dataSources',
+    '__TEMPLATE_ID__'
   ];
 
   constructor(schema: BlockSchema) {

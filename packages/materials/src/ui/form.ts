@@ -44,6 +44,12 @@ const desc: MaterialDescription = {
       title: '是否在tooltip显示校验信息',
       setters: ['BooleanSetter', 'ObjectSetter']
     },
+    {
+      name: 'enterSubmit',
+      title: '回车键触发提交',
+      setters: 'BooleanSetter'
+    },
+
     ...omitPropItem(elForm[0].props, ['model', 'inline'])
   ],
   events: [

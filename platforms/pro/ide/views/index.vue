@@ -5,6 +5,7 @@
   import { ref, watch } from 'vue';
   import { useRoute } from 'vue-router';
   import { ElMessageBox } from 'element-plus';
+  import { ACCESS_STORAGE_KEY } from '../contants';
   import {
     Engine,
     widgetManager,
@@ -21,14 +22,35 @@
   const { options, adapters } = config
     ? await new Extension(config).load()
     : {};
-  const { __BASE_PATH__ = '/' } = config || {};
+  const {
+    __BASE_PATH__ = '/',
+    history = 'hash',
+    base = '/',
+    pageRouteName = 'page'
+  } = config || {};
   const accessOptions = adapters?.access;
+  const remote = adapters?.remote;
   const access = accessOptions
     ? new Access({
-        ...accessOptions,
-        alert: ElMessageBox.alert
+        alert: ElMessageBox.alert,
+        storageKey: ACCESS_STORAGE_KEY,
+        ...accessOptions
       })
     : undefined;
+
+  const isHashRouter = () => history === 'hash';
+
+  const fillPrefix = (path: string) => {
+    if (path === '/') return '';
+    if (path.startsWith('/')) {
+      path = path.substring(1);
+    }
+    if (!path.endsWith('/')) {
+      path = path + '/';
+    }
+
+    return path;
+  };
 
   widgetManager.set('Switcher', {
     props: {
@@ -38,7 +60,8 @@
           pathname === `${__BASE_PATH__}__vtj__/` ? __BASE_PATH__ : pathname;
         const file = project.currentFile;
         if (file && file.type === 'page' && project.homepage !== file.id) {
-          url = `${url}#/page/${file.id}`;
+          const pagePath = `${fillPrefix(base)}${pageRouteName}/${file.id}`;
+          url = isHashRouter() ? `${url}#/${pagePath}` : `${url}${pagePath}`;
         }
         window.open(url, 'VTJProject');
       }
@@ -53,13 +76,12 @@
       }
     }
   });
-
   const engine = new Engine({
     container,
     service,
     materialPath: __BASE_PATH__,
-    adapter: { access },
-    ...options
+    ...options,
+    adapter: Object.assign({ access, remote }, options?.adapter || {})
   });
 
   engine.ready(() => {

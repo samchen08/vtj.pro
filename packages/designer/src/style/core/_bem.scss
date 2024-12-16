@@ -4,6 +4,9 @@
 @forward 'config';
 @forward 'function';
 
+$B: null;
+$E: null;
+
 // BEM
 @mixin b($block) {
   $B: $v-namespace + '-' + $block !global;

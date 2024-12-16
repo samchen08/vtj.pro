@@ -10,16 +10,17 @@
         size="small"
         v-model="keyword"
         :prefix-icon="Search"
-        placeholder="搜索API"
+        placeholder="搜索区块"
         clearable></ElInput>
     </div>
-    <ElCollapse :model-value="categories">
+    <ElEmpty v-if="!list.length" description="找不到符合条件的区块"></ElEmpty>
+    <ElCollapse v-else :model-value="categories">
       <ElCollapseItem
         v-for="(items, name) in groups"
         :name="name"
         :title="`${name} (${items.length})`">
         <ElRow wrap="wrap" :gutter="5">
-          <ElCol v-for="block in blocks" :key="block.id" :span="span">
+          <ElCol v-for="block in items" :key="block.id" :span="span">
             <Box
               :name="block.name"
               :title="block.title"
@@ -28,6 +29,7 @@
               :tag="fromTypeMap[block.fromType || 'Schema']?.label"
               :tagType="fromTypeMap[block.fromType || 'Schema']?.type"
               @edit="onEdit(block)"
+              @copy="onCopy(block)"
               @remove="onRemove(block)"
               @click="onClick(block)"
               :draggable="current?.id !== block.id"
@@ -37,7 +39,6 @@
         </ElRow>
       </ElCollapseItem>
     </ElCollapse>
-    <ElEmpty v-if="!blocks.length"></ElEmpty>
     <XDialogForm
       v-model="visible"
       :title="title"
@@ -240,6 +241,10 @@
     visible.value = true;
   };
 
+  const onCopy = (file: BlockFile) => {
+    engine.project.value?.cloneBlock(file);
+  };
+
   const onRemove = (file: BlockFile) => {
     engine.project.value?.removeBlock(file.id);
   };
@@ -253,6 +258,10 @@
   const onClick = async (file: BlockFile) => {
     if (!file.fromType || file.fromType === 'Schema') {
       engine.project.value?.active(file);
+      const region = engine.skeleton?.getRegion('Workspace');
+      if (region) {
+        region.regionRef.openTab('Designer');
+      }
     }
   };
 

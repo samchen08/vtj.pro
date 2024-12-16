@@ -3,6 +3,97 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.9.0](https://gitee.com/newgateway/vtj/compare/create-vtj@0.9.0-alpha.7...create-vtj@0.9.0) (2024-12-16)
+
+**Note:** Version bump only for package create-vtj
+
+
+
+
+
+# [0.9.0-alpha.7](https://gitee.com/newgateway/vtj/compare/create-vtj@0.9.0-alpha.6...create-vtj@0.9.0-alpha.7) (2024-12-16)
+
+
+### Bug Fixes
+
+* 🐛 simulator style ([08af11b](https://gitee.com/newgateway/vtj/commits/08af11b3e4a7ba310eff971a3f5c871c5b501d18))
+
+
+
+
+
+# [0.9.0-alpha.6](https://gitee.com/newgateway/vtj/compare/create-vtj@0.9.0-alpha.5...create-vtj@0.9.0-alpha.6) (2024-12-14)
+
+
+### Bug Fixes
+
+* 🐛 NodeEnv.Development ([a791d74](https://gitee.com/newgateway/vtj/commits/a791d74b6f2fcc57394bf501b75b7dd1aaedfc01))
+
+
+
+
+
+# [0.9.0-alpha.5](https://gitee.com/newgateway/vtj/compare/create-vtj@0.9.0-alpha.4...create-vtj@0.9.0-alpha.5) (2024-11-27)
+
+**Note:** Version bump only for package create-vtj
+
+
+
+
+
+# [0.9.0-alpha.4](https://gitee.com/newgateway/vtj/compare/create-vtj@0.9.0-alpha.3...create-vtj@0.9.0-alpha.4) (2024-11-22)
+
+
+### Features
+
+* ✨ data-item add active hover paadding prop settings ([833c52f](https://gitee.com/newgateway/vtj/commits/833c52fbecafb1c5fc02d71999db6af287b5f2e9))
+
+
+
+
+
+# [0.9.0-alpha.3](https://gitee.com/newgateway/vtj/compare/create-vtj@0.9.0-alpha.2...create-vtj@0.9.0-alpha.3) (2024-11-22)
+
+
+### Bug Fixes
+
+* 🐛 project ignore .vtj/histories ([a6f0e14](https://gitee.com/newgateway/vtj/commits/a6f0e1422ad51dde551d5731c1221c0d457469f9))
+
+
+
+
+
+# [0.9.0-alpha.2](https://gitee.com/newgateway/vtj/compare/create-vtj@0.9.0-alpha.1...create-vtj@0.9.0-alpha.2) (2024-11-20)
+
+
+### Bug Fixes
+
+* 🐛 project template ([8b72f9b](https://gitee.com/newgateway/vtj/commits/8b72f9b78dc2ab1fc0695806178b8114fbc675fb))
+* 🐛 template project add clean script ([b209526](https://gitee.com/newgateway/vtj/commits/b2095262aacc54506c6d44c01bee03d91dd39d01))
+
+
+
+
+
+# [0.9.0-alpha.1](https://gitee.com/newgateway/vtj/compare/create-vtj@0.9.0-alpha.0...create-vtj@0.9.0-alpha.1) (2024-11-18)
+
+
+### Bug Fixes
+
+* 🐛 link error ([faef175](https://gitee.com/newgateway/vtj/commits/faef175bd44b52fdf4d84644e2dce0ad70be232d))
+
+
+
+
+
+# [0.9.0-alpha.0](https://gitee.com/newgateway/vtj/compare/create-vtj@0.8.23...create-vtj@0.9.0-alpha.0) (2024-11-18)
+
+**Note:** Version bump only for package create-vtj
+
+
+
+
+
 ## [0.8.23](https://gitee.com/newgateway/vtj/compare/create-vtj@0.8.22...create-vtj@0.8.23) (2024-10-15)
 
 

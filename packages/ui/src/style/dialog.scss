@@ -89,6 +89,13 @@
       }
     }
   }
+
+  @include when(pure) {
+    background-color: var(--el-fill-color-light);
+    > .x-panel__body {
+      padding: 0;
+    }
+  }
 }
 
 body.x-dialog-visible {

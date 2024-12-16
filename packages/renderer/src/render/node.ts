@@ -25,6 +25,8 @@ export function nodeRender(
 ): VNode | VNode[] | null {
   if (!dsl || !dsl.name || dsl.invisible) return null;
 
+  const appContext = Vue.getCurrentInstance()?.appContext;
+
   const { id = null, directives = [] } = dsl;
 
   const { vIf, vFor, vShow, vModels, vBind } = getDiretives(directives);
@@ -48,7 +50,10 @@ export function nodeRender(
       // 组件加载器,默认返回 dsl.name
 
       const name = loader(dsl.name, dsl.from, Vue);
-      return isString(name) ? $components[name] ?? name : name;
+
+      return isString(name)
+        ? ($components[name] ?? appContext?.app?.component(name) ?? name)
+        : name;
     })();
 
     const props = parseNodeProps(id, dsl.props ?? {}, context);

@@ -4,11 +4,17 @@
   </div>
 </template>
 
-<script lang="ts" setup>
+<script lang="ts">
+  import { defineComponent } from 'vue';
   import { defineTab } from '@vtj/ui';
-  const { tab, mask } = defineTab({
-    title: '二级页面'
-  });
 
-  console.log('defineTab', tab, mask);
+  export default defineComponent({
+    setup() {
+      const { tab, mask } = defineTab({
+        title: '二级页面' + Math.random()
+      });
+
+      console.log('defineTab', tab, mask);
+    }
+  });
 </script>

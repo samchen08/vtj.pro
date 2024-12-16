@@ -3,6 +3,434 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.9.0](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.9.0-alpha.50...@vtj/materials@0.9.0) (2024-12-16)
+
+**Note:** Version bump only for package @vtj/materials
+
+
+
+
+
+# [0.9.0-alpha.50](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.9.0-alpha.49...@vtj/materials@0.9.0-alpha.50) (2024-12-16)
+
+**Note:** Version bump only for package @vtj/materials
+
+
+
+
+
+# [0.9.0-alpha.49](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.9.0-alpha.48...@vtj/materials@0.9.0-alpha.49) (2024-12-16)
+
+**Note:** Version bump only for package @vtj/materials
+
+
+
+
+
+# [0.9.0-alpha.48](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.9.0-alpha.47...@vtj/materials@0.9.0-alpha.48) (2024-12-16)
+
+**Note:** Version bump only for package @vtj/materials
+
+
+
+
+
+# [0.9.0-alpha.47](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.9.0-alpha.46...@vtj/materials@0.9.0-alpha.47) (2024-12-16)
+
+**Note:** Version bump only for package @vtj/materials
+
+
+
+
+
+# [0.9.0-alpha.46](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.9.0-alpha.45...@vtj/materials@0.9.0-alpha.46) (2024-12-16)
+
+**Note:** Version bump only for package @vtj/materials
+
+
+
+
+
+# [0.9.0-alpha.45](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.9.0-alpha.44...@vtj/materials@0.9.0-alpha.45) (2024-12-16)
+
+**Note:** Version bump only for package @vtj/materials
+
+
+
+
+
+# [0.9.0-alpha.44](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.9.0-alpha.43...@vtj/materials@0.9.0-alpha.44) (2024-12-14)
+
+**Note:** Version bump only for package @vtj/materials
+
+
+
+
+
+# [0.9.0-alpha.43](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.9.0-alpha.42...@vtj/materials@0.9.0-alpha.43) (2024-12-14)
+
+**Note:** Version bump only for package @vtj/materials
+
+
+
+
+
+# [0.9.0-alpha.42](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.9.0-alpha.41...@vtj/materials@0.9.0-alpha.42) (2024-12-11)
+
+**Note:** Version bump only for package @vtj/materials
+
+
+
+
+
+# [0.9.0-alpha.41](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.9.0-alpha.40...@vtj/materials@0.9.0-alpha.41) (2024-12-09)
+
+**Note:** Version bump only for package @vtj/materials
+
+
+
+
+
+# [0.9.0-alpha.40](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.9.0-alpha.39...@vtj/materials@0.9.0-alpha.40) (2024-12-06)
+
+**Note:** Version bump only for package @vtj/materials
+
+
+
+
+
+# [0.9.0-alpha.39](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.9.0-alpha.38...@vtj/materials@0.9.0-alpha.39) (2024-12-06)
+
+**Note:** Version bump only for package @vtj/materials
+
+
+
+
+
+# [0.9.0-alpha.38](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.9.0-alpha.37...@vtj/materials@0.9.0-alpha.38) (2024-12-06)
+
+**Note:** Version bump only for package @vtj/materials
+
+
+
+
+
+# [0.9.0-alpha.37](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.9.0-alpha.36...@vtj/materials@0.9.0-alpha.37) (2024-12-06)
+
+**Note:** Version bump only for package @vtj/materials
+
+
+
+
+
+# [0.9.0-alpha.36](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.9.0-alpha.35...@vtj/materials@0.9.0-alpha.36) (2024-12-06)
+
+**Note:** Version bump only for package @vtj/materials
+
+
+
+
+
+# [0.9.0-alpha.35](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.9.0-alpha.34...@vtj/materials@0.9.0-alpha.35) (2024-12-06)
+
+**Note:** Version bump only for package @vtj/materials
+
+
+
+
+
+# [0.9.0-alpha.34](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.9.0-alpha.33...@vtj/materials@0.9.0-alpha.34) (2024-12-06)
+
+**Note:** Version bump only for package @vtj/materials
+
+
+
+
+
+# [0.9.0-alpha.33](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.9.0-alpha.32...@vtj/materials@0.9.0-alpha.33) (2024-12-06)
+
+**Note:** Version bump only for package @vtj/materials
+
+
+
+
+
+# [0.9.0-alpha.32](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.9.0-alpha.31...@vtj/materials@0.9.0-alpha.32) (2024-12-05)
+
+**Note:** Version bump only for package @vtj/materials
+
+
+
+
+
+# [0.9.0-alpha.31](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.9.0-alpha.30...@vtj/materials@0.9.0-alpha.31) (2024-12-05)
+
+**Note:** Version bump only for package @vtj/materials
+
+
+
+
+
+# [0.9.0-alpha.30](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.9.0-alpha.29...@vtj/materials@0.9.0-alpha.30) (2024-12-05)
+
+**Note:** Version bump only for package @vtj/materials
+
+
+
+
+
+# [0.9.0-alpha.29](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.9.0-alpha.28...@vtj/materials@0.9.0-alpha.29) (2024-12-05)
+
+**Note:** Version bump only for package @vtj/materials
+
+
+
+
+
+# [0.9.0-alpha.28](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.9.0-alpha.27...@vtj/materials@0.9.0-alpha.28) (2024-12-05)
+
+**Note:** Version bump only for package @vtj/materials
+
+
+
+
+
+# [0.9.0-alpha.27](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.9.0-alpha.26...@vtj/materials@0.9.0-alpha.27) (2024-12-05)
+
+**Note:** Version bump only for package @vtj/materials
+
+
+
+
+
+# [0.9.0-alpha.26](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.9.0-alpha.25...@vtj/materials@0.9.0-alpha.26) (2024-12-05)
+
+**Note:** Version bump only for package @vtj/materials
+
+
+
+
+
+# [0.9.0-alpha.25](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.9.0-alpha.24...@vtj/materials@0.9.0-alpha.25) (2024-12-05)
+
+**Note:** Version bump only for package @vtj/materials
+
+
+
+
+
+# [0.9.0-alpha.24](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.9.0-alpha.23...@vtj/materials@0.9.0-alpha.24) (2024-12-04)
+
+**Note:** Version bump only for package @vtj/materials
+
+
+
+
+
+# [0.9.0-alpha.23](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.9.0-alpha.22...@vtj/materials@0.9.0-alpha.23) (2024-12-04)
+
+**Note:** Version bump only for package @vtj/materials
+
+
+
+
+
+# [0.9.0-alpha.22](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.9.0-alpha.21...@vtj/materials@0.9.0-alpha.22) (2024-12-04)
+
+**Note:** Version bump only for package @vtj/materials
+
+
+
+
+
+# [0.9.0-alpha.21](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.9.0-alpha.20...@vtj/materials@0.9.0-alpha.21) (2024-12-04)
+
+**Note:** Version bump only for package @vtj/materials
+
+
+
+
+
+# [0.9.0-alpha.20](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.9.0-alpha.19...@vtj/materials@0.9.0-alpha.20) (2024-12-04)
+
+**Note:** Version bump only for package @vtj/materials
+
+
+
+
+
+# [0.9.0-alpha.19](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.9.0-alpha.18...@vtj/materials@0.9.0-alpha.19) (2024-12-03)
+
+**Note:** Version bump only for package @vtj/materials
+
+
+
+
+
+# [0.9.0-alpha.18](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.9.0-alpha.17...@vtj/materials@0.9.0-alpha.18) (2024-12-03)
+
+**Note:** Version bump only for package @vtj/materials
+
+
+
+
+
+# [0.9.0-alpha.17](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.9.0-alpha.16...@vtj/materials@0.9.0-alpha.17) (2024-12-02)
+
+**Note:** Version bump only for package @vtj/materials
+
+
+
+
+
+# [0.9.0-alpha.16](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.9.0-alpha.15...@vtj/materials@0.9.0-alpha.16) (2024-11-30)
+
+**Note:** Version bump only for package @vtj/materials
+
+
+
+
+
+# [0.9.0-alpha.15](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.9.0-alpha.14...@vtj/materials@0.9.0-alpha.15) (2024-11-30)
+
+**Note:** Version bump only for package @vtj/materials
+
+
+
+
+
+# [0.9.0-alpha.14](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.9.0-alpha.13...@vtj/materials@0.9.0-alpha.14) (2024-11-29)
+
+**Note:** Version bump only for package @vtj/materials
+
+
+
+
+
+# [0.9.0-alpha.13](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.9.0-alpha.12...@vtj/materials@0.9.0-alpha.13) (2024-11-29)
+
+**Note:** Version bump only for package @vtj/materials
+
+
+
+
+
+# [0.9.0-alpha.12](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.9.0-alpha.11...@vtj/materials@0.9.0-alpha.12) (2024-11-28)
+
+**Note:** Version bump only for package @vtj/materials
+
+
+
+
+
+# [0.9.0-alpha.11](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.9.0-alpha.10...@vtj/materials@0.9.0-alpha.11) (2024-11-28)
+
+
+### Features
+
+* ✨ mask 支持 menuBasePath ([5613bd7](https://gitee.com/newgateway/vtj/commits/5613bd793a873d5ce493e8184335ab3b4f845be8))
+
+
+
+
+
+# [0.9.0-alpha.10](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.9.0-alpha.9...@vtj/materials@0.9.0-alpha.10) (2024-11-28)
+
+
+### Features
+
+* ✨ 用户信息 ([e6b237d](https://gitee.com/newgateway/vtj/commits/e6b237dcb7f561597b43b9f3ef96d9cbc728bba0))
+
+
+
+
+
+# [0.9.0-alpha.9](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.9.0-alpha.8...@vtj/materials@0.9.0-alpha.9) (2024-11-27)
+
+**Note:** Version bump only for package @vtj/materials
+
+
+
+
+
+# [0.9.0-alpha.8](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.9.0-alpha.7...@vtj/materials@0.9.0-alpha.8) (2024-11-22)
+
+
+### Bug Fixes
+
+* 🐛 data-item meterial ([f4110d5](https://gitee.com/newgateway/vtj/commits/f4110d5e705af03be32f466c487a1c2d3bd68a13))
+
+
+
+
+
+# [0.9.0-alpha.7](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.9.0-alpha.6...@vtj/materials@0.9.0-alpha.7) (2024-11-22)
+
+**Note:** Version bump only for package @vtj/materials
+
+
+
+
+
+# [0.9.0-alpha.6](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.9.0-alpha.5...@vtj/materials@0.9.0-alpha.6) (2024-11-22)
+
+**Note:** Version bump only for package @vtj/materials
+
+
+
+
+
+# [0.9.0-alpha.5](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.9.0-alpha.4...@vtj/materials@0.9.0-alpha.5) (2024-11-20)
+
+**Note:** Version bump only for package @vtj/materials
+
+
+
+
+
+# [0.9.0-alpha.4](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.9.0-alpha.3...@vtj/materials@0.9.0-alpha.4) (2024-11-20)
+
+**Note:** Version bump only for package @vtj/materials
+
+
+
+
+
+# [0.9.0-alpha.3](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.9.0-alpha.2...@vtj/materials@0.9.0-alpha.3) (2024-11-19)
+
+**Note:** Version bump only for package @vtj/materials
+
+
+
+
+
+# [0.9.0-alpha.2](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.9.0-alpha.1...@vtj/materials@0.9.0-alpha.2) (2024-11-18)
+
+**Note:** Version bump only for package @vtj/materials
+
+
+
+
+
+# [0.9.0-alpha.1](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.9.0-alpha.0...@vtj/materials@0.9.0-alpha.1) (2024-11-18)
+
+**Note:** Version bump only for package @vtj/materials
+
+
+
+
+
+# [0.9.0-alpha.0](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.8.172...@vtj/materials@0.9.0-alpha.0) (2024-11-18)
+
+
+### Features
+
+* ✨ scss modern-compiler ([ca6734f](https://gitee.com/newgateway/vtj/commits/ca6734f8af7072e79b2b7f6fafef6156593b75ab))
+
+
+
+
+
 ## [0.8.172](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.8.171...@vtj/materials@0.8.172) (2024-10-25)
 
 **Note:** Version bump only for package @vtj/materials

@@ -9,7 +9,7 @@ import {
   type BlockFile
 } from '@vtj/core';
 import { resolve } from 'path';
-import { readJsonSync, upperFirstCamelCase, timestamp } from '@vtj/node';
+import { readJsonSync, upperFirstCamelCase, timestamp, merge } from '@vtj/node';
 import { generator, createEmptyPage } from '@vtj/coder';
 import formidable from 'formidable';
 import { fail, success, type ApiRequest } from './shared';
@@ -40,10 +40,21 @@ export async function getExtension(_body: any, opts: DevToolsOptions) {
   const pkg = readJsonSync(resolve(root, 'package.json'));
   const { vtj = {} } = pkg || {};
 
+  const adapters = {
+    remote: 'https://lcdp.vtj.pro',
+    access: {
+      privateKey:
+        'MIIBOgIBAAJBAKoIzmn1FYQ1YOhOBw9EhABxZ+PySAIaydI+zdhoKflrdgJ4A5E4/5gbQmRpk09hPWG8nvX7h+l/QLU8kXxAIBECAwEAAQJAAlgpxQY6sByLsXqzJcthC8LSGsLf2JEJkHwlnpwFqlEV8UCkoINpuZ2Wzl+aftURu5rIfAzRCQBvHmeOTW9/zQIhAO5ufWDmnSLyfAAsNo5JRNpVuLFCFodR8Xm+ulDlosR/AiEAtpAltyP9wmCABKG/v/hrtTr3mcvFNGCjoGa9bUAok28CIHbrVs9w1ijrBlvTsXYwJw46uP539uKRRT4ymZzlm9QjAiB+1KH/G9f9pEEL9rtaSOG7JF5D0JcOjlze4MGVFs+ZrQIhALKOUFBNr2zEsyJIjw2PlvEucdlG77UniszjXTROHSPd'
+    }
+  };
+
   const extension = {
     ...(vtj.extension || {}),
+    history: vtj.history || 'hash',
+    base: vtj.base || '/',
+    pageRouteName: vtj.pageRouteName || 'page',
     __BASE_PATH__: opts.staticBase,
-    __adapters__: vtj.adapters || {}
+    __adapters__: merge({}, adapters, vtj.adapters || {})
   };
 
   return success(extension);
@@ -244,7 +255,13 @@ export async function genVueContent(project: ProjectSchema, dsl: BlockSchema) {
     Object.entries(materials)
   );
 
-  const content = await generator(dsl, componentMap, project.dependencies);
+  const content = await generator(
+    dsl,
+    componentMap,
+    project.dependencies
+  ).catch((e) => {
+    throw e;
+  });
   return success(content);
 }
 

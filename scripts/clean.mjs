@@ -14,16 +14,23 @@ async function cleanDir(list, parentPath) {
   for (let pkg of list) {
     for (let dir of DIRS) {
       const dirpath = join(parentPath, pkg, dir);
-      await rm(dirpath, { recursive: true, force: true });
+      try {
+        await rm(dirpath, { recursive: true, force: true });
+      } catch (e) {}
     }
     for (let file of FILES) {
       const filepath = join(parentPath, pkg, file);
-      await rm(filepath, { recursive: true, force: true });
+      try {
+        await rm(filepath, { recursive: true, force: true });
+      } catch (e) {}
     }
   }
   await rm('node_modules', { recursive: true, force: true });
+
   for (let file of FILES) {
-    await rm(file, { recursive: true, force: true });
+    try {
+      await rm(file, { recursive: true, force: true });
+    } catch (e) {}
   }
 }
 

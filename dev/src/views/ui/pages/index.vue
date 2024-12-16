@@ -29,6 +29,10 @@
 
   const { tab, mask } = defineTab();
 
+  Object.assign(route.meta, { pure: true });
+  route.meta.pure = true;
+  console.log('set meta');
+
   const onNewPage = () => {
     router.push('/ui/pages/index?t=' + Date.now());
   };

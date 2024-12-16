@@ -1,6 +1,10 @@
 <template>
   <Teleport v-if="props.modelValue" to="body">
-    <div ref="wrapper" class="x-dialog__wrapper" :class="wrapperClass">
+    <div
+      ref="wrapper"
+      class="x-dialog__wrapper"
+      :class="wrapperClass"
+      :style="zIndexStyle">
       <div v-if="props.modal" class="x-dialog__modal" :style="modalStyle"></div>
       <XPanel
         ref="panelRef"
@@ -135,7 +139,10 @@
   const wrapper = ref();
   const panelRef = ref();
   const { state, maximized, minimized, normal } = useState(props, wrapper);
-  const { styles, classes, wrapperClass, modalStyle } = useStyle(props, state);
+  const { styles, classes, wrapperClass, modalStyle, zIndexStyle } = useStyle(
+    props,
+    state
+  );
   const { changeMode, active, close, show, hide, submit, cancel } = useMethods(
     props,
     state,

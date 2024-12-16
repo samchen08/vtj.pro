@@ -2,12 +2,17 @@
   <div>
     <XContainer style="margin-bottom: 10px" wrap="wrap" gap>
       <XPanel
-        v-for="_n in 10"
+        v-for="n in 10"
         @click="onClick"
         :header="null"
         width="calc(20% - 10px)"
         shadow="always">
-        <XDataItem title="应用名称" :icon="icon"></XDataItem>
+        <XDataItem
+          title="应用名称"
+          :icon="icon"
+          :active="n === 1"
+          hover
+          padding></XDataItem>
       </XPanel>
     </XContainer>
 
@@ -19,7 +24,7 @@
           label="示意效果，需另行开发"></XAction>
       </template>
       <XDataItem
-        v-for="_n in 3"
+        v-for="n in 3"
         @imageClick="onClick"
         direction="column"
         :icon="Setting"
@@ -30,7 +35,8 @@
         description="可通过lazy开启懒加载功能， 当图片滚动到可视范围内才会加载。 可通过 scroll-container 来设置滚动容器， 若未定义，则为最近一个 overflow 值为 auto 或 scroll 的父元素。"
         :actions="actions"
         @actionClick="onActionClick"
-        split>
+        split
+        :active="n === 1">
         <div>
           <ElTag size="small">系统管理</ElTag>
           <ElTag size="small">系统管理</ElTag>
@@ -61,7 +67,9 @@
         title="占位内容加载失败"
         description="可通过lazy开启懒加载功能， 当图片滚动到可视范围内才会加载。 可通过 scroll-container 来设置滚动容器， 若未定义，则为最近一个 overflow 值为 auto 或 scroll 的父元素。"
         :actions="actions"
-        split></XDataItem>
+        split
+        padding
+        hover></XDataItem>
       <template #footer>
         <div>Footer</div>
       </template>

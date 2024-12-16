@@ -4,7 +4,16 @@ import type {
   RouteLocationNormalized,
   NavigationGuardNext
 } from 'vue-router';
-import { storage, cookie, toArray, Request, delay, unRSA } from '@vtj/utils';
+import {
+  storage,
+  cookie,
+  toArray,
+  Request,
+  delay,
+  unRSA,
+  isFunction,
+  isString
+} from '@vtj/utils';
 import { ContextMode, PAGE_ROUTE_NAME } from '../constants';
 
 export interface AccessOptions {
@@ -81,6 +90,11 @@ export interface AccessOptions {
    * RSA解密私钥
    */
   privateKey?: string;
+
+  /**
+   * 应用编码
+   */
+  appName?: string;
 }
 
 export interface AccessData {
@@ -110,12 +124,13 @@ const defaults: AccessOptions = {
   authKey: 'Authorization',
   storageKey: 'ACCESS_STORAGE',
   storagePrefix: '__VTJ_',
-  unauthorized: '/unauthorized',
+  unauthorized: undefined,
   auth: '/#/login',
   redirectParam: 'r',
   unauthorizedCode: 401,
   unauthorizedMessage: '登录已经失效，请重新登录！',
-  noPermissionMessage: '无权限访问该页面'
+  noPermissionMessage: '无权限访问该页面',
+  appName: ''
 };
 
 export const ACCESS_KEY: InjectionKey<Access> = Symbol('access');
@@ -132,7 +147,7 @@ export class Access {
   connect(params: AccessConnectParams) {
     const { mode, router, request } = params;
     this.mode = mode;
-    if (router && mode === ContextMode.Raw) {
+    if (router && this.mode === ContextMode.Raw) {
       this.setGuard(router);
     }
     if (request) {
@@ -172,22 +187,35 @@ export class Access {
   }
 
   getData() {
+    if (this.data) {
+      return this.data;
+    }
+    this.loadData();
     return this.data;
   }
 
+  getToken() {
+    if (!this.data) {
+      this.loadData();
+    }
+    return this.data?.token;
+  }
+
   can(code: string | string[] | ((p: Record<string, boolean>) => boolean)) {
+    const { appName } = this.options;
     const { permissions = {} } = this.data || {};
     if (typeof code === 'function') {
       return code(permissions);
     }
     const codes = toArray(code);
-    return codes.every((n) => permissions[n]);
+    return codes.every((n) => permissions[n] || permissions[appName + '.' + n]);
   }
 
   some(code: string | string[]) {
+    const { appName } = this.options;
     const { permissions = {} } = this.data || {};
     const codes = toArray(code);
-    return codes.some((n) => permissions[n]);
+    return codes.some((n) => permissions[n] || permissions[appName + '.' + n]);
   }
 
   install(app: App) {
@@ -212,7 +240,7 @@ export class Access {
   private toLogin() {
     const { auth, redirectParam } = this.options;
     if (!auth) return;
-    if (this.mode !== ContextMode.Raw) return;
+    // if (this.mode === ContextMode.Design) return;
     const search = redirectParam
       ? `?${redirectParam}=${encodeURIComponent(location.href)}`
       : '';
@@ -253,7 +281,7 @@ export class Access {
       prefix: storagePrefix
     });
 
-    this.setData(data);
+    this.setData(data || null);
   }
 
   private isLogined() {
@@ -261,7 +289,7 @@ export class Access {
     if (session && authKey) {
       return !!cookie.get(authKey);
     }
-    return !!this.data;
+    return !!this.getToken();
   }
 
   private hasRoutePermission(to: RouteLocationNormalized) {
@@ -276,7 +304,7 @@ export class Access {
     router.beforeEach((to, _from, next) => this.guard(to, next));
   }
 
-  private guard(to: RouteLocationNormalized, next: NavigationGuardNext) {
+  private async guard(to: RouteLocationNormalized, next: NavigationGuardNext) {
     if (this.isWhiteList(to) || this.isAuthPath(to)) {
       return next();
     }
@@ -285,9 +313,17 @@ export class Access {
       if (this.hasRoutePermission(to)) {
         return next();
       } else {
-        const msg = this.options.noPermissionMessage || '无权限访问';
-        this.showTip(msg);
-        return next(false);
+        const { noPermissionMessage = '无权限访问', unauthorized = false } =
+          this.options;
+        await this.showTip(noPermissionMessage);
+        if (isFunction(unauthorized)) {
+          unauthorized();
+          return next(false);
+        } else if (isString(unauthorized)) {
+          return next(unauthorized);
+        } else {
+          return next(false);
+        }
       }
     }
     next(false);
@@ -324,11 +360,12 @@ export class Access {
     if (alert) {
       // 延时是为了提示层渲染在loading的层级之上
       await delay(150);
-      await alert(content, {
+      return await alert(content, {
         title: '提示',
         type: 'warning'
-      }).catch((e) => e);
+      }).catch(() => false);
     }
+    return false;
   }
 
   private setRequest(request: Request) {

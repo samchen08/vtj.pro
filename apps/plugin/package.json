@@ -1,7 +1,7 @@
 {
   "name": "vtj-plugin",
   "private": true,
-  "version": "0.8.172",
+  "version": "0.9.0",
   "type": "module",
   "scripts": {
     "setup": "pnpm install --unsafe-perm --registry=https://registry.npmmirror.com",
@@ -22,7 +22,7 @@
     "@vtj/pro": "workspace:~",
     "@vtj/web": "workspace:~",
     "vue": "~3.5.5",
-    "vue-router": "~4.4.0"
+    "vue-router": "~4.5.0"
   },
   "exports": {
     ".": {

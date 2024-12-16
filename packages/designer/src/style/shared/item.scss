@@ -36,6 +36,19 @@
     zoom: 0.7;
   }
 
+  @include e(tags){
+    position: absolute;
+    right: 30px;
+    font-size: 12px;
+    > span {
+      margin: 0 2px;
+      zoom: 0.9;
+      color: var(--el-color-info);
+      opacity: 0.8;
+
+    }
+  }
+
   @include e(title) {
     > .x-icon {
       margin-right: 3px;
@@ -65,13 +78,15 @@
   }
 
   @include when(hover) {
-    > .v-item__actions {
+    .v-item__actions {
       display: none;
     }
     &:hover {
-      > .v-item__actions {
+      .v-item__actions {
         display: block;
       }
     }
   }
+
+
 }

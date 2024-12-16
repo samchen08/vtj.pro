@@ -59,6 +59,13 @@ export const formProps = {
   tooltipMessage: {
     type: [Object, Boolean] as PropType<boolean | Partial<ElTooltipProps>>,
     default: undefined
+  },
+  /**
+   * 回车键出发提交
+   */
+  enterSubmit: {
+    type: Boolean,
+    default: true
   }
 };
 
