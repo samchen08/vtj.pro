@@ -1,5 +1,5 @@
 import * as globalVue from 'vue';
-import type { VNode } from 'vue';
+import type { VNode, AppContext, DirectiveArguments } from 'vue';
 import {
   type NodeSchema,
   type NodeDirective,
@@ -14,7 +14,13 @@ import {
 import { camelCase, upperFirst, isString, pick } from '@vtj/utils';
 import { type Context } from './context';
 import { BUILT_IN_DIRECTIVES } from '../constants';
-import { toString, isJSExpression, isJSFunction } from '../utils';
+import {
+  toString,
+  isJSExpression,
+  isJSFunction,
+  isBuiltInTag,
+  isNativeTag
+} from '../utils';
 import { defaultLoader, type BlockLoader } from './loader';
 
 export function nodeRender(
@@ -29,7 +35,8 @@ export function nodeRender(
 
   const { id = null, directives = [] } = dsl;
 
-  const { vIf, vFor, vShow, vModels, vBind } = getDiretives(directives);
+  const { vIf, vFor, vShow, vModels, vBind, vHtml, others } =
+    getDiretives(directives);
 
   // v-if
   if (vIf && !vIfRender(vIf, context)) {
@@ -51,9 +58,14 @@ export function nodeRender(
 
       const name = loader(dsl.name, dsl.from, Vue);
 
-      return isString(name)
-        ? ($components[name] ?? appContext?.app?.component(name) ?? name)
-        : name;
+      if (isString(name)) {
+        if (isBuiltInTag(name) || isNativeTag(name)) {
+          return name;
+        }
+        return $components[name] ?? appContext?.app?.component(name) ?? name;
+      } else {
+        return name;
+      }
     })();
 
     const props = parseNodeProps(id, dsl.props ?? {}, context);
@@ -76,12 +88,15 @@ export function nodeRender(
         vShowRender(vShow, context)
       );
     }
+
+    // v-html
+    if (vHtml) {
+      Object.assign(props, vHtmlRender(vHtml, context));
+    }
     // v-model
     vModels.forEach((vModel) => {
       Object.assign(props, vModelRender(Vue, vModel, context));
     });
-
-    // todo: v-others 绑定其他指令
 
     const slots = childrenToSlots(
       Vue,
@@ -91,7 +106,17 @@ export function nodeRender(
       dsl
     );
 
-    return Vue.createVNode(component, { ...props, ...events }, slots);
+    let vnode = Vue.createVNode(component, { ...props, ...events }, slots);
+
+    // v-others 绑定其他指令
+    const withDirectives = appContext
+      ? createWithDirectives(appContext, others, context)
+      : [];
+    if (withDirectives.length) {
+      vnode = Vue.withDirectives(vnode, withDirectives);
+    }
+
+    return vnode;
   };
 
   // v-for
@@ -102,14 +127,45 @@ export function nodeRender(
   return render(context);
 }
 
+function createWithDirectives(
+  appContext: AppContext,
+  directives: NodeDirective[],
+  context: Context
+): DirectiveArguments {
+  const app = appContext.app;
+  return directives
+    .map((n) => {
+      const directive =
+        typeof n.name === 'string'
+          ? app.directive(n.name)
+          : context.__parseExpression(n.name);
+      if (!directive) return null;
+      const directiveArgument: any = [directive];
+      if (n.value) {
+        directiveArgument.push(context.__parseExpression(n.value));
+      }
+      if (n.arg) {
+        directiveArgument.push(n.arg);
+      }
+      if (n.modifiers) {
+        directiveArgument.push(n.modifiers);
+      }
+      return directiveArgument;
+    })
+    .filter((n) => !!n);
+}
+
 function getDiretives(directives: NodeDirective[] = []) {
-  const vIf = directives.find((n) => camelCase(n.name) === 'vIf');
-  const vFor = directives.find((n) => camelCase(n.name) === 'vFor');
-  const vShow = directives.find((n) => camelCase(n.name) === 'vShow');
-  const vBind = directives.find((n) => camelCase(n.name) === 'vBind');
-  const vModels = directives.filter((n) => camelCase(n.name) === 'vModel');
+  const vIf = directives.find((n) => camelCase(n.name as string) === 'vIf');
+  const vFor = directives.find((n) => camelCase(n.name as string) === 'vFor');
+  const vShow = directives.find((n) => camelCase(n.name as string) === 'vShow');
+  const vBind = directives.find((n) => camelCase(n.name as string) === 'vBind');
+  const vHtml = directives.find((n) => camelCase(n.name as string) === 'vHtml');
+  const vModels = directives.filter(
+    (n) => camelCase(n.name as string) === 'vModel'
+  );
   const others = directives.filter(
-    (n) => !BUILT_IN_DIRECTIVES.includes(camelCase(n.name))
+    (n) => !BUILT_IN_DIRECTIVES.includes(camelCase(n.name as string))
   );
   return {
     vIf,
@@ -117,7 +173,8 @@ function getDiretives(directives: NodeDirective[] = []) {
     vShow,
     vModels,
     vBind,
-    others
+    others,
+    vHtml
   };
 }
 
@@ -235,6 +292,13 @@ function vShowRender(directive: NodeDirective, context: Context) {
       };
 }
 
+function vHtmlRender(directive: NodeDirective, context: Context) {
+  const value = context.__parseExpression(directive.value);
+  return {
+    innerHTML: value || ''
+  };
+}
+
 function vModelRender(Vue: any, directive: NodeDirective, context: Context) {
   const handler: JSFunction = {
     type: 'JSFunction',
@@ -246,7 +310,11 @@ function vModelRender(Vue: any, directive: NodeDirective, context: Context) {
   };
   const func = context.__parseFunction(handler);
   // todo: 实现 lazy trim number 修饰符
-  const modifiers = getModifiers(directive.modifiers);
+  const modifiers = getModifiers(
+    isJSExpression(directive.modifiers)
+      ? context.__parseExpression(directive.modifiers)
+      : directive.modifiers
+  );
   const arg = isJSExpression(directive.arg)
     ? context.__parseExpression(directive.arg)
     : directive.arg || 'modelValue';

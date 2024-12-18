@@ -1,5 +1,6 @@
 import type { Plugin } from 'vue';
 import { isFunction, isString } from '@vtj/utils';
+import { HTML_TAGS, BUILD_IN_TAGS } from '../constants';
 export function toString(value: any) {
   return isString(value) ? value : JSON.stringify(value);
 }
@@ -87,4 +88,12 @@ export async function loadScriptUrl(
 
 export function isVuePlugin(value: unknown): value is Plugin {
   return isFunction(value) || isFunction((value as any)?.install);
+}
+
+export function isBuiltInTag(tag: string) {
+  return BUILD_IN_TAGS.includes(tag);
+}
+
+export function isNativeTag(tag: string) {
+  return HTML_TAGS.includes(tag);
 }

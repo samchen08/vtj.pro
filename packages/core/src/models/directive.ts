@@ -14,7 +14,7 @@ export class DirectiveModel {
   /**
    * 指令名称
    */
-  public name: string = '';
+  public name: string | JSExpression = '';
   /**
    * 参数
    */
@@ -36,7 +36,7 @@ export class DirectiveModel {
     this.id = schema.id || uid();
     this.update(schema);
   }
-  update(schema: NodeDirective) {
+  update(schema: Partial<NodeDirective>) {
     Object.assign(this.schema, schema);
     const { name, arg, modifiers, value, iterator } = this.schema;
     this.name = name;

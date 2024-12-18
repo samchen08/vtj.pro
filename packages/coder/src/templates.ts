@@ -9,6 +9,7 @@ export default defineComponent({
   name: '<%= name %>', 
   <% if(inject) { %> inject: { <%= inject %>}, <% } %>
   <% if(components) { %> components: { <%= components %> }, <% } %>
+  <% if(directives) { %> directives: { <%= directives %> }, <% } %>
   <% if(props) { %> props: { <%= props %> }, <% } %>
   <% if(emits) {%> emits: [<%= emits %>], <% } %> 
   setup(props) {

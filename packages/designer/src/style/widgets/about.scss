@@ -3,21 +3,42 @@
 @include b(about-widget) {
   text-align: center;
   padding: 20px;
+  display: flex;
+  justify-content: center;
+ 
+  @include e(item){
+    width: 45%;
+  }
+
+  @include e(avatar){
+    box-shadow: 0 0 3px var(--el-border-color);
+    margin-left: -4px;
+    border: 1px solid var(--el-border-color);
+    font-size: 40px;
+  }
+
+  > .el-divider {
+    height: 150px;
+  }
 
   @include e(logo) {
-    margin-bottom: 20px;
+    margin-bottom: 0;
+
     img {
-      width: 130px;
+      width: 100px;
+
     }
   }
 
   @include e(name) {
-    font-size: 30px;
+    font-size: 18px;
     font-weight: bold;
     margin-bottom: 10px;
+    margin-top: 10px;
   }
 
   @include e(version) {
-    font-size: 16px;
+    font-size: 14px;
+    color:var(--el-text-color-secondary);
   }
 }

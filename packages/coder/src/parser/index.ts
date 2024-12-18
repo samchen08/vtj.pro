@@ -26,6 +26,7 @@ export interface Token {
   methods: string;
   imports: string;
   components: string;
+  directives: string;
   returns: string;
   template: string;
   css: string;
@@ -45,12 +46,13 @@ export function parser(
   const watch = parseWatch(dsl.watch, computedKeys);
   const dataSources = parseDataSources(dsl.dataSources);
 
-  const { methods, nodes, components, importBlocks } = parseTemplate(
-    dsl.nodes || [],
-    componentMap,
-    computedKeys,
-    collecter.context
-  );
+  const { methods, nodes, components, importBlocks, directives } =
+    parseTemplate(
+      dsl.nodes || [],
+      componentMap,
+      computedKeys,
+      collecter.context
+    );
   const mergeComputed = [...computed, ...watch.computed];
 
   const mergeMethods = parseFunctionMap(
@@ -99,6 +101,7 @@ export function parser(
     methods: [...dataSources, ...mergeMethods].join(','),
     imports: '\n' + imports.join('\n'),
     components: components.join(','),
+    directives: directives.join(','),
     returns: collecter.members.join(','),
     template: nodes.join('\n'),
     css: dsl.css || '',
