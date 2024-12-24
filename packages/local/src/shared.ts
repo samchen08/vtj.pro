@@ -7,6 +7,7 @@ export interface ApiResponse {
   code: number;
   msg: string;
   data: any;
+  stack?: any;
   success: boolean;
 }
 
@@ -24,11 +25,16 @@ export const success = (data: any): ApiResponse => {
   };
 };
 
-export const fail = (msg: string, data: any = null): ApiResponse => {
+export const fail = (
+  msg: string,
+  data: any = null,
+  stack: any = null
+): ApiResponse => {
   return {
     code: Result.Fail,
     msg,
     data,
+    stack,
     success: false
   };
 };

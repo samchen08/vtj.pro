@@ -15,6 +15,7 @@ import { ContextMode, DATA_TYPES } from '../constants';
 import { Context } from './context';
 import { adoptedStyleSheets, isJSExpression, isJSFunction } from '../utils';
 import { nodeRender } from './node';
+import { createMock } from '../provider';
 import type { ComputedRef, DefineComponent } from 'vue';
 import * as globalVue from 'vue';
 import { type BlockLoader } from './loader';
@@ -203,10 +204,10 @@ function createInject(Vue: any, injects: BlockInject[] = [], context: Context) {
       current.default;
       const key = isJSExpression(from)
         ? context.__parseExpression(from) || name
-        : from ?? name;
+        : (from ?? name);
       const value = isJSExpression(current.default)
         ? context.__parseExpression(current.default)
-        : current.default ?? null;
+        : (current.default ?? null);
       result[name] = Vue.inject(key, value);
       return result;
     },
@@ -221,17 +222,24 @@ export function createDataSources(
   return Object.keys(dataSources).reduce(
     (res, key) => {
       const source = dataSources[key];
-      const api = context.$apis[source.ref];
-      const transform = isJSFunction(source.transform)
-        ? source.transform.value
-          ? context.__parseFunction(source.transform)
-          : undefined
-        : source.transform;
 
-      res[key] = async (...args: any[]) => {
-        const res = await api.apply(context, args);
-        return transform ? transform(res) : res;
-      };
+      if (source.type === 'mock') {
+        res[key] = createMock(source);
+      } else {
+        if (source.ref) {
+          const api = context.$apis[source.ref];
+          const transform = isJSFunction(source.transform)
+            ? source.transform.value
+              ? context.__parseFunction(source.transform)
+              : undefined
+            : source.transform;
+
+          res[key] = async (...args: any[]) => {
+            const res = await api.apply(context, args);
+            return transform ? transform(res) : res;
+          };
+        }
+      }
       return res;
     },
     {} as Record<string, DataSourceHandler>

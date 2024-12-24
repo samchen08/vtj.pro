@@ -25,6 +25,7 @@ import {
   url as urlUtils
 } from '@vtj/utils';
 import { ElNotification } from 'element-plus';
+import Mock from 'mockjs';
 import { request } from './defaults';
 import { createSchemaApis, mockApis, mockCleanup } from './apis';
 import { Access } from '../plugins';
@@ -95,6 +96,7 @@ export class Provider extends Base {
   public modules: Record<string, () => Promise<any>> = {};
   public adapter: ProvideAdapter = { request, jsonp };
   public apis: Record<string, (...args: any[]) => Promise<any>> = {};
+  // public createMock: typeof createMock = createMock;
   public dependencies: Record<string, () => Promise<any>> = {};
   public materials: Record<string, () => Promise<any>> = {};
   public library: Record<string, any> = {};
@@ -146,6 +148,24 @@ export class Provider extends Base {
     } else {
       this.project = project as ProjectSchema;
     }
+
+    Mock.setup({
+      timeout: '50-500'
+    });
+  }
+
+  public createMock(func: (...args: any) => any) {
+    return async (...args: any[]) => {
+      let template = {};
+      if (func) {
+        try {
+          template = await func.apply(func, args);
+        } catch (e) {
+          logger.warn('模拟数据模版异常', e);
+        }
+      }
+      return Mock.mock(template);
+    };
   }
 
   async load(project: ProjectSchema) {
@@ -169,10 +189,7 @@ export class Provider extends Base {
     }
     this.apis = createSchemaApis(apis, meta, this.adapter);
     mockCleanup();
-    if (this.project.config?.mock) {
-      mockApis(apis);
-    }
-
+    mockApis(apis);
     this.initRouter();
     this.triggerReady();
   }

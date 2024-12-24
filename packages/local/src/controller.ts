@@ -141,7 +141,7 @@ export const router = async (req: any, opts: DevToolsOptions) => {
         }
       };
       await service.saveLogs(info);
-      return fail('异常错误', e?.message);
+      return fail('异常错误', e?.message, e?.stack);
     }
   }
 };
