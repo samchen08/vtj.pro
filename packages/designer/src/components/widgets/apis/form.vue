@@ -39,7 +39,7 @@
             <div>
               <ElButton
                 v-if="currentTab === 'mock'"
-                :disabled="!props.project?.config?.mock"
+                :disabled="!currentModel.mock"
                 type="warning"
                 @click="onPreview">
                 预览

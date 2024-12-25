@@ -3,6 +3,37 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.9.3](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.9.2...@vtj/coder@0.9.3) (2024-12-24)
+
+
+### Features
+
+* ✨ 数据源增加模拟数据类型 ([0a264d0](https://gitee.com/newgateway/vtj/commits/0a264d023c3a7c08ecad673e71fcd19e11a9e27d))
+
+
+
+
+
+## [0.9.2](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.9.1...@vtj/coder@0.9.2) (2024-12-18)
+
+
+### Features
+
+* ✨ 支持自定义指令 ([8a193fd](https://gitee.com/newgateway/vtj/commits/8a193fddd211d4b69d282bdfbfe6e76c6352033f))
+* ✨ v-html指令 ([189ffa7](https://gitee.com/newgateway/vtj/commits/189ffa76e8329d9a8d5c43346d1a1ff4d1377ea0))
+
+
+
+
+
+## [0.9.1](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.9.0...@vtj/coder@0.9.1) (2024-12-17)
+
+**Note:** Version bump only for package @vtj/coder
+
+
+
+
+
 # [0.9.0](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.9.0-alpha.50...@vtj/coder@0.9.0) (2024-12-16)
 
 **Note:** Version bump only for package @vtj/coder

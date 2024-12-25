@@ -133,7 +133,7 @@ export interface NodeSlot {
 export interface NodeDirective {
   id?: string;
   // 指令名称
-  name: string;
+  name: string | JSExpression;
   // 参数
   arg?: string | JSExpression;
   // 修饰符

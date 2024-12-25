@@ -46,7 +46,7 @@
 
   const apiDataSources = computed(() => {
     return Object.values(current.value?.dataSources || {}).filter((item) =>
-      ['meta', 'api'].includes(item.type)
+      ['meta', 'api', 'mock'].includes(item.type)
     );
   });
 
@@ -54,7 +54,8 @@
     const map: Record<string, string> = {
       api: 'primary',
       meta: 'success',
-      cube: 'warning'
+      cube: 'warning',
+      mock: 'warning'
     };
     return map[type] as any;
   };

@@ -136,7 +136,7 @@ const defaults: AccessOptions = {
 export const ACCESS_KEY: InjectionKey<Access> = Symbol('access');
 
 export class Access {
-  private options: AccessOptions;
+  public options: AccessOptions;
   private data: AccessData | null = null;
   private mode?: ContextMode = ContextMode.Raw;
   constructor(options: Partial<AccessOptions>) {

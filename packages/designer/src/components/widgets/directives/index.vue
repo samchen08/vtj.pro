@@ -29,6 +29,15 @@
           :value="vBind.value"
           @change="onValueChange">
         </SetterWrapper>
+        <SetterWrapper
+          name="vHtml"
+          label="v-html"
+          setters="ExpressionSetter"
+          :current="current"
+          :context="context"
+          :value="vHtml.value"
+          @change="onValueChange">
+        </SetterWrapper>
       </ElForm>
     </Panel>
     <Panel class="v-sub-panel" title="循环" size="small" :fit="false">
@@ -68,7 +77,7 @@
         </SetterWrapper>
       </ElForm>
     </Panel>
-    <Panel class="v-sub-panel" title="双向绑定" size="small" :fit="false" grow>
+    <Panel class="v-sub-panel" title="双向绑定" size="small" :fit="false">
       <Panel
         v-for="(vModel, index) in vModels"
         card
@@ -96,6 +105,67 @@
         description="当前组件没有双向绑定属性"
         :image-size="50"></ElEmpty>
     </Panel>
+    <Panel
+      class="v-sub-panel"
+      title="自定义指令"
+      size="small"
+      :fit="false"
+      plus
+      grow
+      @plus="onAddCustom">
+      <Panel
+        v-for="(item, index) of customDirectives"
+        :key="item.id"
+        card
+        border
+        class="v-sub-panel"
+        size="small"
+        :title="`# ${index + 1}`"
+        :body="{ grow: false }"
+        :fit="false"
+        :remove="true"
+        @remove="onRemoveCustom(item)">
+        <ElForm size="small" label-width="60px" @keydown.enter.prevent.stop>
+          <SetterWrapper
+            name="name"
+            label="指令"
+            setters="StringSetter"
+            :current="current"
+            :context="context"
+            :value="item.name"
+            :onChange="onCustomChange(item)">
+          </SetterWrapper>
+          <SetterWrapper
+            name="value"
+            label="值"
+            setters="ExpressionSetter"
+            :current="current"
+            :context="context"
+            :value="item.value"
+            :onChange="onCustomChange(item)">
+          </SetterWrapper>
+          <SetterWrapper
+            name="arg"
+            label="参数"
+            setters="StringSetter"
+            :current="current"
+            :context="context"
+            :value="item.arg"
+            :onChange="onCustomChange(item)">
+          </SetterWrapper>
+          <SetterWrapper
+            name="modifiers"
+            label="修饰符"
+            setters="ObjectSetter"
+            :current="current"
+            :context="context"
+            :value="item.modifiers"
+            :onChange="onCustomChange(item)"
+            :variable="false">
+          </SetterWrapper>
+        </ElForm>
+      </Panel>
+    </Panel>
   </XContainer>
 </template>
 <script lang="ts" setup>
@@ -118,10 +188,15 @@
     vShow,
     vBind,
     vFor,
+    vHtml,
     vModels,
+    customDirectives,
     onValueChange,
     onForChange,
-    onModelChange
+    onModelChange,
+    onAddCustom,
+    onRemoveCustom,
+    onCustomChange
   } = useDirectives(selected);
 
   const getModelArgName = (vModel: DirectiveModel) => {

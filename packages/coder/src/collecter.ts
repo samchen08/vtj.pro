@@ -76,7 +76,7 @@ export class Collecter {
     const { libraryRegex } = this;
     let result = code.value;
     for (const regex of libraryRegex) {
-      const matches = code.value.match(regex) || [];
+      const matches = code.value?.match(regex) || [];
       for (const match of matches) {
         const res = this.collectImport(match);
         if (res) {

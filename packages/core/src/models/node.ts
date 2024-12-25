@@ -232,12 +232,17 @@ export class NodeModel {
    * @param scheam
    * @param silent
    */
-  setDirective(scheam: NodeDirective, silent: boolean = false) {
+  setDirective(
+    scheam: NodeDirective | DirectiveModel,
+    silent: boolean = false
+  ) {
+    const model =
+      scheam instanceof DirectiveModel ? scheam : new DirectiveModel(scheam);
     const index = this.directives.findIndex((n) => n.id === scheam.id);
     if (index >= 0) {
-      this.directives.splice(index, 1, new DirectiveModel(scheam));
+      this.directives.splice(index, 1, model);
     } else {
-      this.directives.push(new DirectiveModel(scheam));
+      this.directives.push(model);
     }
     if (!silent) {
       emitter.emit(EVENT_NODE_CHANGE, this);

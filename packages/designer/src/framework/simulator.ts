@@ -260,9 +260,7 @@ export class Simulator extends Base {
       adapter
     );
     mockCleanup();
-    if (project.value?.config?.mock) {
-      mockApis(project.value?.apis);
-    }
+    mockApis(project.value?.apis || []);
 
     return {
       window: cw,

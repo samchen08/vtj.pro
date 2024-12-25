@@ -78,11 +78,6 @@ export interface ProjectSchema {
  */
 export interface ProjectConfig {
   /**
-   * 开启模拟数据
-   */
-  mock?: boolean;
-
-  /**
    * 开启主题切换
    */
   themeSwitchable?: boolean;

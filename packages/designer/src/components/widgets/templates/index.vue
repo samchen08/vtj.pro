@@ -128,7 +128,7 @@
       await installTemplate(template.id);
     } else {
       const ret = await ElMessageBox.confirm(
-        '使用需登录，您还没登录或登录已过期，请重新登录！',
+        '使用模版需登录，您还没登录或已过期，请重新登录！',
         '提示',
         {
           type: 'info',

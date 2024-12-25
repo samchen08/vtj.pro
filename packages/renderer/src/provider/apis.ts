@@ -1,17 +1,20 @@
-import { type ApiSchema, type MetaSchema } from '@vtj/core';
+import {
+  type ApiSchema,
+  type MetaSchema,
+  type DataSourceSchema
+} from '@vtj/core';
 import {
   type IRequestConfig,
   merge,
   pathToRegexp,
   pathToRegexpMatch,
   url as urlUtil,
-  formDataToJson
+  formDataToJson,
+  logger
 } from '@vtj/utils';
-import { parseExpression } from '../utils';
-
+import { parseExpression, isJSFunction, parseFunction } from '../utils';
+import Mock from 'mockjs';
 import { type ProvideAdapter } from './provider';
-
-let __Mock__: any;
 
 export function createSchemaApi(schema: ApiSchema, adapter: ProvideAdapter) {
   const { jsonp, request } = adapter;
@@ -69,16 +72,29 @@ export function createSchemaApis(
 }
 
 export async function mockApis(schemas: ApiSchema[] = []) {
-  __Mock__ = await import('mockjs').then((res) => {
-    return res.default || res;
-  });
-  if (__Mock__) {
-    __Mock__.setup({
-      timeout: '50-500'
-    });
+  if (Mock) {
     mockCleanup();
-    schemas.forEach((n) => mockApi(__Mock__, n));
+    schemas.forEach((n) => mockApi(Mock, n));
   }
+}
+
+export function createMock(source: DataSourceSchema) {
+  const mockTemplate =
+    isJSFunction(source.mockTemplate) && source.mockTemplate.value
+      ? parseFunction(source.mockTemplate, {}, true)
+      : undefined;
+
+  return async (...args: any[]) => {
+    let template = {};
+    if (mockTemplate) {
+      try {
+        template = await mockTemplate.apply(mockTemplate, args);
+      } catch (e) {
+        logger.warn('模拟数据模版异常', e);
+      }
+    }
+    return Mock.mock(template);
+  };
 }
 
 export interface MockCallbackOptions {
@@ -131,7 +147,7 @@ export function mockApi(Mock: any, schema: ApiSchema) {
 
 export function mockCleanup() {
   // 清除已设置的模拟数据配置
-  if (__Mock__) {
-    (__Mock__ as any)._mocked = {};
+  if (Mock) {
+    (Mock as any)._mocked = {};
   }
 }

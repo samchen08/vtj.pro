@@ -3,6 +3,30 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.9.3](https://gitee.com/newgateway/vtj/compare/@vtj/web@0.9.2...@vtj/web@0.9.3) (2024-12-24)
+
+**Note:** Version bump only for package @vtj/web
+
+
+
+
+
+## [0.9.2](https://gitee.com/newgateway/vtj/compare/@vtj/web@0.9.1...@vtj/web@0.9.2) (2024-12-18)
+
+**Note:** Version bump only for package @vtj/web
+
+
+
+
+
+## [0.9.1](https://gitee.com/newgateway/vtj/compare/@vtj/web@0.9.0...@vtj/web@0.9.1) (2024-12-17)
+
+**Note:** Version bump only for package @vtj/web
+
+
+
+
+
 # [0.9.0](https://gitee.com/newgateway/vtj/compare/@vtj/web@0.9.0-alpha.50...@vtj/web@0.9.0) (2024-12-16)
 
 **Note:** Version bump only for package @vtj/web

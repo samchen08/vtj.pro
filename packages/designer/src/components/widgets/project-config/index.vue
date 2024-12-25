@@ -14,7 +14,7 @@
         :editor="FileSetter"
         :props="{ attachment: { accept: '.png,.jpg,.jpeg' } }"></XField>
       <XField label="主题切换" name="themeSwitchable" editor="switch"></XField>
-      <XField label="模拟数据" name="mock" editor="switch"></XField>
+      <!-- <XField label="模拟数据" name="mock" editor="switch"></XField> -->
     </XForm>
   </Panel>
 </template>

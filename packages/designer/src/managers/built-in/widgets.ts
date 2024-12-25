@@ -135,7 +135,7 @@ export const builtInWidgets: Array<AppWidget | TabWidget | Widget> = [
     label: '关于',
     props: {
       width: 500,
-      height: 300
+      height: 250
     }
   },
   {

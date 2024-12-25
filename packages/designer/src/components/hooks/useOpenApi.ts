@@ -29,21 +29,15 @@ export interface TemplateDto {
 
 export function useOpenApi() {
   const engine = useEngine();
-  const { access, remote, auth = '#/auth' } = engine.adapter || {};
+  const { access, remote } = engine.adapter || {};
 
   const toRemoteAuth = () => {
-    if (remote) {
-      // const { protocol, host, pathname } = location;
-      // const clientUrl = `${protocol}//${host}${pathname}${auth}`;
-      // const redirectUrl =
-      //   clientUrl +
-      //   '?redirect=' +
-      //   encodeURIComponent(location.hash.substring(1));
-      // location.href = `${remote}/auth.html?r=${encodeURIComponent(redirectUrl)}`;
+    if (remote && access) {
       const redirect = encodeURIComponent(location.href);
+      const { auth = '/auth.html' } = access.options;
       const { protocol, host, pathname } = location;
       const clientUrl = `${protocol}//${host}${pathname}#/auth?redirect=${redirect}`;
-      location.href = `${remote}/auth.html?r=${encodeURIComponent(clientUrl)}`;
+      location.href = `${remote}${auth}?r=${encodeURIComponent(clientUrl)}`;
     }
   };
 
@@ -120,7 +114,6 @@ export function useOpenApi() {
     engine,
     access,
     remote,
-    auth,
     toRemoteAuth,
     isLogined,
     getTemplates,

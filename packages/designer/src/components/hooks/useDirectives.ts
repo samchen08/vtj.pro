@@ -7,6 +7,8 @@ import {
   type NodeDirectiveIterator
 } from '@vtj/core';
 import { type DesignHelper, useEngine } from '../../framework';
+import { confirm } from '../../utils';
+import { BUILT_IN_DIRECTIVES } from '@vtj/renderer';
 
 export const createEmptyDirective = (
   name: string,
@@ -81,17 +83,29 @@ export function useDirectives(
     });
   };
 
+  const getCustomDirectives = () => {
+    return computed(() => {
+      if (!node.value) return [];
+      return (node.value.directives || []).filter(
+        (n) => !BUILT_IN_DIRECTIVES.includes(n.name as string)
+      );
+    });
+  };
+
   const vIf = getDirctive('vIf');
   const vShow = getDirctive('vShow');
   const vBind = getDirctive('vBind');
   const vFor = getDirctive('vFor');
+  const vHtml = getDirctive('vHtml');
   const vModels = getVModels();
+  const customDirectives = getCustomDirectives();
 
   const directives = {
     vIf,
     vShow,
     vBind,
-    vFor
+    vFor,
+    vHtml
   };
 
   const onValueChange = (
@@ -144,6 +158,25 @@ export function useDirectives(
     }
   };
 
+  const onAddCustom = () => {
+    const cd = createEmptyDirective('');
+    node.value?.setDirective(cd);
+  };
+
+  const onRemoveCustom = async (model: DirectiveModel) => {
+    const ret = await confirm('确定删除指令？');
+    if (ret) {
+      node.value?.removeDirective(model);
+    }
+  };
+
+  const onCustomChange = (model: DirectiveModel) => {
+    return (name: string, value: any) => {
+      model.update({ [name]: value });
+      node.value?.setDirective(model);
+    };
+  };
+
   return {
     engine,
     node,
@@ -151,9 +184,14 @@ export function useDirectives(
     vShow,
     vBind,
     vFor,
+    vHtml,
     vModels,
+    customDirectives,
     onValueChange,
     onForChange,
-    onModelChange
+    onModelChange,
+    onAddCustom,
+    onRemoveCustom,
+    onCustomChange
   };
 }

@@ -21,6 +21,7 @@
       :key="model.type"
       required
       :disabled="!!props.item"
+      :visible="refVisible"
       :options="refOptions"
       :props="{ filterable: true }"
       @change="onRefChange">
@@ -40,10 +41,24 @@
         pattern: NAME_REGEX
       }"></XField>
     <XField name="label" label="备注说明" required></XField>
-    <XField name="transform.value" label="转换函数" editor="none">
+    <XField
+      name="transform.value"
+      label="转换函数"
+      editor="none"
+      :visible="refVisible">
       <Editor
         v-model="(model.transform as JSFunction).value"
         height="200px"
+        dark></Editor>
+    </XField>
+    <XField
+      name="mockTemplate.value"
+      label="Mock模版"
+      editor="none"
+      :visible="mockVisible">
+      <Editor
+        v-model="(model.mockTemplate as JSFunction).value"
+        height="300px"
         dark></Editor>
     </XField>
     <XField name="test.value" label="测试用例" editor="none">
@@ -83,8 +98,8 @@
     BlockModel,
     type JSFunction
   } from '@vtj/core';
-  import { type Context, parseExpression } from '@vtj/renderer';
-  import { logger } from '@vtj/utils';
+  import { type Context, parseExpression, createMock } from '@vtj/renderer';
+  import { logger, cloneDeep } from '@vtj/utils';
   import Editor from '../../editor';
   import { NAME_REGEX } from '../../../constants';
   import { expressionValidate, notify } from '../../../utils';
@@ -114,11 +129,16 @@
       border: true
     },
     {
-      label: '数据魔方',
-      value: 'cube',
-      disabled: true,
+      label: '模拟数据',
+      value: 'mock',
       border: true
     }
+    // {
+    //   label: '数据魔方',
+    //   value: 'cube',
+    //   disabled: true,
+    //   border: true
+    // }
   ];
 
   const { apis, meta } = useDataSources();
@@ -140,12 +160,18 @@
         value: `() => this.runApi({
     /* 在这里可输入接口参数  */
 })`
+      },
+      mockTemplate: {
+        type: 'JSFunction',
+        value: `(params) => {
+    return {};
+}`
       }
     } as DataSourceSchema;
   };
 
   const model = ref<DataSourceSchema>(
-    Object.assign(createEmtpyModel(), props.item)
+    Object.assign(createEmtpyModel(), cloneDeep(props.item))
   );
   const loading = ref(false);
   const runResult = ref('');
@@ -176,10 +202,37 @@
 
   const title = computed(() => (props.item ? '编辑数据源' : '新增数据源'));
 
+  const refVisible = (model: Record<string, any>) => {
+    return ['api', 'meta'].includes(model.type);
+  };
+
+  const mockVisible = (model: Record<string, any>) => {
+    return ['mock'].includes(model.type);
+  };
+
   const onTypeChange = (_val: string) => {
     model.value.ref = '';
     model.value.name = '';
     model.value.label = '';
+    if (
+      refVisible(model.value) &&
+      model.value.transform &&
+      !model.value.transform.value
+    ) {
+      model.value.transform.value = `(res) => {
+    return res;
+}`;
+    }
+
+    if (
+      mockVisible(model.value) &&
+      model.value.mockTemplate &&
+      !model.value.mockTemplate.value
+    ) {
+      model.value.mockTemplate.value = `(params) => {
+    return {};
+}`;
+    }
   };
 
   const onRefChange = (val: string) => {
@@ -231,7 +284,7 @@
   const runTest = async () => {
     if (!props.context) return;
 
-    if (!model.value.ref) {
+    if (refVisible(model.value) && !model.value.ref) {
       notify('请先选择API');
       return;
     }
@@ -246,11 +299,16 @@
     }
 
     const runApi = async (...args: any[]) => {
-      const api = props.context?.$apis[model.value.ref];
-      if (api) {
-        return await api.apply(api, args);
+      if (model.value.type === 'mock') {
+        const mock = createMock(model.value);
+        return await mock.apply(mock, args);
       } else {
-        logger.warn(`API【${model.value.ref}】不存在`);
+        let api = props.context?.$apis[model.value.ref as string];
+        if (api) {
+          return await api.apply(api, args);
+        } else {
+          logger.warn(`API【${model.value.ref}】不存在`);
+        }
       }
     };
 

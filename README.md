@@ -19,7 +19,7 @@ VTJ 一款基于 Vue3 + Typescript 的低代码开发工具，内置低代码引
 
 ![输入图片说明](dev/public/preview/p3.png)
 
-## 体验设计器途径
+## 体验低代码设计器
 
 ### 在线体验
 
@@ -27,7 +27,7 @@ VTJ 一款基于 Vue3 + Typescript 的低代码开发工具，内置低代码引
 
 访问Vtj专属低代码开发平台，创建应用可以体验设计器和出码功能
 
-### 本地体验
+### 本地体验（推荐：功能更全， 性能最佳）
 
 可以使用VTJ提供的项目脚手架，可快速创建体验项目。 命令：
 
@@ -59,3 +59,13 @@ npm run setup && npm run build && npm run app:dev
 - 首次启动需要执行初始化：`npm run setup && npm run build`
 - 重启开发环境：`npm run app:dev`
 - 清理项目：`npm run clean` 清理后需要重新执行初始化
+
+## 技术交流
+
+### 钉钉群
+
+![钉钉群](./dingtalk.png)
+
+### 微信群
+
+![微信群](./wechat.jpg)

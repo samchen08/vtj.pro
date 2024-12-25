@@ -3,7 +3,7 @@ import type { JSFunction, JSExpression } from '../shared';
 /**
  * 数据源类型，目前仅实现api类型
  */
-export type DataSourceType = 'api' | 'cube' | 'meta';
+export type DataSourceType = 'api' | 'cube' | 'meta' | 'mock';
 
 /**
  * 请求方法
@@ -102,10 +102,10 @@ export interface DataSourceSchema {
   type: DataSourceType;
 
   /**
-   * 数据源引用唯一标识
+   * 数据源引用唯一标识, type为 mock时，无需引用
    */
 
-  ref: string;
+  ref?: string;
 
   /**
    * 数据源名称
@@ -126,4 +126,9 @@ export interface DataSourceSchema {
    * 测试用例
    */
   test?: JSFunction;
+
+  /**
+   * 模拟数据模版， 当type为mock时，是必填项
+   */
+  mockTemplate?: JSFunction;
 }

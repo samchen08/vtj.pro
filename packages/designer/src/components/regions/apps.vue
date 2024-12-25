@@ -35,12 +35,12 @@
 </template>
 <script lang="ts" setup>
   // @ts-ignore
-  import { computed, ref, KeepAlive, watch } from 'vue';
+  import { computed, ref, KeepAlive, watch, h } from 'vue';
   import { createDialog } from '@vtj/ui';
   import { WidgetWrapper } from '../../wrappers';
   import { useEngine, RegionType, type AppWidget } from '../../framework';
   import { Icon } from '../shared';
-  import { useRegion } from '../hooks';
+  import { useRegion, useOpenApi } from '../hooks';
 
   export interface Props {
     region: RegionType;
@@ -51,6 +51,7 @@
     index: 0
   });
   const engine = useEngine();
+  const { isLogined, toRemoteAuth } = useOpenApi();
   const { widgets, widgetsRef } = useRegion(props.region);
   const panelWidgets = computed(() => {
     return (widgets.value as AppWidget[]).filter((n) => {
@@ -83,7 +84,7 @@
         title: item.label,
         // icon: item.icon,
         ...item.props,
-        content: item.component
+        content: h(item.component, { engine, isLogined, toRemoteAuth })
       });
     }
   };
