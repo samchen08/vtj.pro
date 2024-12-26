@@ -13,7 +13,7 @@
   </ElConfigProvider>
 </template>
 <script setup lang="ts">
-  //@ts-ignore
+  // @ts-ignore
   import { Suspense } from 'vue';
   import { ElConfigProvider, ElMessage } from 'element-plus';
   import {

@@ -11,7 +11,7 @@ hero:
   actions:
     - theme: brand
       text: 快速开始
-      link: https://lcdp.vtj.pro/page/92q671qifm
+      link: /guide/
     - theme: alt
       text: 在线体验
       link: https://lcdp.vtj.pro/page/92q671qifm

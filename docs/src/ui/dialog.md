@@ -44,6 +44,9 @@ demo-preview=../examples/ui/dialog/dialog-2.vue
 | bodyPadding | 显示内容区域的内边距               | `boolean`                     | `true`    |
 | primary     | 标题背景颜色                       | `boolean`                     | -         |
 
+
+#### 接收 XPanel 所有参数
+
 ### 事件
 
 | 名称                  | 说明                         | 回调参数 |

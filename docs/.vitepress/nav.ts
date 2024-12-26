@@ -2,7 +2,7 @@ export default [
   { text: '文档', link: '/guide/' },
   { text: '工具库', link: '/utils/' },
   { text: 'UI库', link: '/ui/' },
-  { text: '图表库', link: '/icons/' },
+  // { text: '图表库', link: '/icons/' },
   { text: 'API', link: '/typedoc/modules.html' },
   {
     text: '相关链接',

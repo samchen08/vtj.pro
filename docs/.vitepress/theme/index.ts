@@ -1,7 +1,7 @@
 // https://vitepress.dev/guide/custom-theme
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
-import { h } from 'vue';
+import { h, defineAsyncComponent } from 'vue';
 import { type Theme } from 'vitepress';
 import DefaultTheme from 'vitepress/theme';
 import { ElementPlusContainer } from '@vitepress-demo-preview/component';
@@ -18,7 +18,11 @@ export default {
     });
   },
   enhanceApp({ app, router, siteData }) {
-    app.component('demo-preview', ElementPlusContainer);
+    // app.component('demo-preview', ElementPlusContainer);
+    app.component(
+      'demo-preview',
+      defineAsyncComponent(async () => ElementPlusContainer)
+    );
 
     (function () {
       if (typeof window !== 'undefined') {

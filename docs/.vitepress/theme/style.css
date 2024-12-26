@@ -135,6 +135,10 @@
  * Component: Algolia
  * -------------------------------------------------------------------------- */
 
+body {
+  background-color: var(--vp-c-bg) !important;
+}
+
 .DocSearch {
   --docsearch-primary-color: var(--vp-c-brand-1) !important;
 }
@@ -178,4 +182,19 @@
 
 .vitepress-demo-preview__element-plus__container {
   box-shadow: none !important ;
+}
+
+.vitepress-demo-preview__element-plus__container table {
+  margin: initial;
+  display: table;
+}
+
+.vitepress-demo-preview__element-plus__container tr,
+.vitepress-demo-preview__element-plus__container td,
+.vitepress-demo-preview__element-plus__container th {
+  border: initial;
+}
+
+.vitepress-demo-preview__element-plus__container tr:nth-child(2n) {
+  background-color: initial;
 }
