@@ -68,4 +68,4 @@ npm run setup && npm run build && npm run app:dev
 
 ### 微信群
 
-![微信群](./wechat.jpg)
+![微信群](./wechat.png)
