@@ -1,4 +1,6 @@
 import { defineConfig } from 'vitepress';
+// import { nodePolyfills } from 'vite-plugin-node-polyfills';
+import { resolve } from 'path';
 import {
   containerPreview,
   componentPreview
@@ -57,5 +59,13 @@ export default defineConfig({
     }
   },
   outDir,
-  ignoreDeadLinks: true
+  ignoreDeadLinks: true,
+  vite: {
+    resolve: {
+      alias: {
+        $: resolve('./.vitepress')
+      }
+    }
+    // plugins: [nodePolyfills({})]
+  }
 });

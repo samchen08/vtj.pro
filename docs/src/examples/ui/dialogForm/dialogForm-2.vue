@@ -1,8 +1,9 @@
 <template>
   <div>
-    <ElButton @click="visible = true">handle 插槽 </ElButton>
+    <ElButton @click="visible1 = true">extra-handle 插槽 </ElButton>
+    <ElButton @click="visible2 = true">footer 插槽 </ElButton>
     <XDialogForm
-      v-model="visible"
+      v-model="visible1"
       title="弹窗表单"
       size="default"
       :form-props="{ labelWidth: '100px' }"
@@ -18,12 +19,37 @@
         editor="select"
         :options="options"></XField>
 
-      <template #extre>
-        <ElButton type="success">自定义按钮-插槽</ElButton>
+      <template #extra>
+        <ElButton type="success">插槽-- extra</ElButton>
       </template>
 
       <template #handle>
-        <ElButton type="success">自定义按钮-插槽</ElButton>
+        <ElButton type="success">插槽--handle</ElButton>
+      </template>
+    </XDialogForm>
+
+    <XDialogForm
+      v-model="visible2"
+      title="弹窗表单"
+      size="default"
+      :form-props="{ labelWidth: '100px' }"
+      :model="model"
+      :rules="rules"
+      @close="onClose"
+      @submit="onSubmit"
+      :submit-method="submitMethod">
+      <h1>footer 插槽只能单独使用</h1>
+
+      <template #extra>
+        <ElButton type="success">插槽-- extra</ElButton>
+      </template>
+
+      <template #handle>
+        <ElButton type="success">插槽--handle</ElButton>
+      </template>
+
+      <template #footer>
+        <ElButton type="success">插槽--footer</ElButton>
       </template>
     </XDialogForm>
   </div>
@@ -34,7 +60,8 @@
   import { ElButton } from 'element-plus';
   import { XDialogForm, XField } from '@vtj/ui';
 
-  const visible = ref(false);
+  const visible1 = ref(false);
+  const visible2 = ref(false);
 
   const rules = {
     title: [{ required: true, message: '我是必填项' }]

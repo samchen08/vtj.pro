@@ -5,6 +5,9 @@
     "paths": {
       "@/*": [
         "src/*"
+      ],
+      "$/*": [
+        ".vitepress/*"
       ]
     }
   },
@@ -13,7 +16,8 @@
     "src/**/*.d.ts",
     "src/**/*.tsx",
     "src/**/*.vue",
-    ".vitepress"
+    ".vitepress",
+    ".vitepress/**/*"
   ],
   "references": [
     {
