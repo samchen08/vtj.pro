@@ -10,15 +10,7 @@
 </template>
 
 <script lang="ts" setup>
-  import {
-    computed,
-    markRaw,
-    h,
-    type VNode,
-    useSlots,
-    toRef,
-    toRaw
-  } from 'vue';
+  import { computed, markRaw, h, type VNode, toRef, toRaw } from 'vue';
   import {
     ElBadge,
     ElTooltip,
@@ -36,7 +28,7 @@
   });
 
   const props = defineProps(actionProps);
-  const slots = useSlots();
+  const slots = defineSlots();
   const emit = defineEmits<ActionEmits>();
 
   const tooltip = useTooltip(props);
