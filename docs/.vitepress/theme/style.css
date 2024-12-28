@@ -198,3 +198,31 @@ body {
 .vitepress-demo-preview__element-plus__container tr:nth-child(2n) {
   background-color: initial;
 }
+
+.VPSidebar::-webkit-scrollbar {
+  z-index: 11;
+  width: 6px;
+}
+.VPSidebar::-webkit-scrollbar:horizontal {
+  height: 6px;
+} 
+.VPSidebar::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+  width: 6px;
+  background:  rgba(0, 0, 0, 0.1);
+}
+
+.VPSidebar::-webkit-scrollbar-corner {
+  border-radius: 5px;
+  width: 6px;
+  background:  rgba(0, 0, 0, 0.1);
+}
+
+.VPSidebar::-webkit-scrollbar-track {
+  background:  transparent;
+}
+
+.VPSidebar::-webkit-scrollbar-track-piece {
+  background:  transparent;
+  width: 6px;
+}
