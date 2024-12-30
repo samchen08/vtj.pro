@@ -86,7 +86,8 @@ export const createBuild = (opts: CreateViteConfigOptions) => {
           formats: opts.formats,
           fileName: (format) => {
             return opts.libFileName + extMap[format];
-          }
+          },
+          cssFileName: 'style'
         } as LibraryOptions)
       : false,
     rollupOptions: {

@@ -1,10 +1,19 @@
+<div align="center"> <a href="https://github.com/kailong321200875/vue-element-plus-admin"> <img width="100" src="./platforms/pro/public/logo.svg"> </a> <br> <br>
+
+[![star](https://gitee.com/newgateway/vtj/badge/star.svg?theme=gvp)](https://gitee.com/newgateway/vtj)
+[![npm version](https://img.shields.io/npm/v/@vtj/pro.svg?style=flat-square)](https://www.npmjs.com/package/@vtj/pro)
+[![npm downloads](https://img.shields.io/npm/dt/@vtj/pro.svg?style=flat-square)](https://npm-stat.com/charts.html?package=@vtj/pro)
+[![npm license](https://img.shields.io/github/license/mashape/apistatus.svg)](LICENSE)
+
+</div>
+
 # VTJ.PRO
 
-VTJ 一款基于 Vue3 + Typescript 的低代码开发工具，内置低代码引擎、设计器、渲染器和代码生成器。
+VTJ 一款基于 Vue3 + Typescript 的低代码页面可视化设计器。内置低代码引擎、渲染器和代码生成器，面向前端开发者，开箱即用。 无缝嵌入本地开发工程，不改变前端开发流程和编码习惯。
 
-## 演示
+## 官网
 
-- [http://vtj.pro](http://vtj.pro)
+- [https://vtj.pro](https://vtj.pro)
 
 ## VTJ 的特点
 
@@ -19,7 +28,7 @@ VTJ 一款基于 Vue3 + Typescript 的低代码开发工具，内置低代码引
 
 ![输入图片说明](dev/public/preview/p3.png)
 
-## 体验低代码设计器
+## 体验
 
 ### 在线体验
 

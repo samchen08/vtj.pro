@@ -32,6 +32,7 @@
         editor="textarea"
         :props="{ rows: 3 }"
         tip="多个资源可以换行输入"
+        @keyup.enter.stop
         required>
       </XField>
 

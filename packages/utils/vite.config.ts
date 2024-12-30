@@ -6,7 +6,7 @@ export default createViteConfig({
   dts: isUmd ? false : true,
   version: true,
   library: 'VtjUtils',
-  buildTarget: isUmd ? 'es2015' : 'es2020',
+  buildTarget: isUmd ? 'chrome60' : 'es2020',
   emptyOutDir: isUmd ? false : true,
   external: isUmd ? undefined : ['@vtj/base'],
   formats: isUmd ? ['umd', 'iife'] : ['es', 'cjs']
