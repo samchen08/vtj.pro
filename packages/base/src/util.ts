@@ -1,3 +1,6 @@
+// 计数递增种子
+let _incremental = 0;
+
 export const toTypeString = (value: unknown) =>
   Object.prototype.toString.call(value);
 
@@ -46,9 +49,7 @@ export const random = (min: number, max: number) => {
  * @returns
  */
 export function uid() {
-  return Number(Math.random().toString().substring(2, 5) + Date.now()).toString(
-    36
-  );
+  return Number((++_incremental).toString() + Date.now()).toString(36);
 }
 
 /**

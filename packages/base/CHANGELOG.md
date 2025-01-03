@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.9.2](https://gitee.com/newgateway/vtj/compare/@vtj/base@0.9.1...@vtj/base@0.9.2) (2025-01-03)
+
+
+### Bug Fixes
+
+* 🐛 uid 重复问题 ([6a5747d](https://gitee.com/newgateway/vtj/commits/6a5747dd5ba1dfdc49d994b5beb56178a5003682))
+
+
+
+
+
 ## [0.9.1](https://gitee.com/newgateway/vtj/compare/@vtj/base@0.9.0...@vtj/base@0.9.1) (2024-12-17)
 
 **Note:** Version bump only for package @vtj/base
