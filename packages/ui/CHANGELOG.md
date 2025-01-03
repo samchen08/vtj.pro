@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.9.6](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.9.5...@vtj/ui@0.9.6) (2025-01-03)
+
+
+### Bug Fixes
+
+* 🐛 回滚@vueuse/core版本 ([cca3222](https://gitee.com/newgateway/vtj/commits/cca3222c49f83b14d0ced25220f8e9314fae3964))
+
+
+
+
+
 ## [0.9.5](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.9.4...@vtj/ui@0.9.5) (2025-01-03)
 
 **Note:** Version bump only for package @vtj/ui

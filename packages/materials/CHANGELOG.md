@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.9.6](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.9.5...@vtj/materials@0.9.6) (2025-01-03)
+
+
+### Bug Fixes
+
+* 🐛 回滚@vueuse/core版本 ([cca3222](https://gitee.com/newgateway/vtj/commits/cca3222c49f83b14d0ced25220f8e9314fae3964))
+* 🐛 物料 el-slider ([6a272c5](https://gitee.com/newgateway/vtj/commits/6a272c593b0638c77a0136e8bdc1103723993b1e))
+* 🐛 物料 el-slider ([1f76d95](https://gitee.com/newgateway/vtj/commits/1f76d95808d38e1540921afb3e3988be17c43d4f))
+* 🐛 el-radio ([95b9d3e](https://gitee.com/newgateway/vtj/commits/95b9d3efa7bb4263719d5315b663065c7edb7882))
+* 🐛 el-space ([6653d74](https://gitee.com/newgateway/vtj/commits/6653d7482130ff1e7600bfee3f9ff6705f3f4098))
+* 🐛 XPlane ([a18ec52](https://gitee.com/newgateway/vtj/commits/a18ec529b993e94575c855ff20cc1886f0feeed8))
+* 🐛 XPlane ([44967f7](https://gitee.com/newgateway/vtj/commits/44967f7601af3603d511d6845ac8ead271c14513))
+
+
+
+
+
 ## [0.9.5](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.9.4...@vtj/materials@0.9.5) (2025-01-03)
 
 **Note:** Version bump only for package @vtj/materials

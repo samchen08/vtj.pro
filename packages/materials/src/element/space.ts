@@ -34,52 +34,62 @@ const Space: MaterialDescription = {
     },
     {
       name: 'class',
+      title: 'className',
       defaultValue: '',
-      setters: ['InputSetter']
+      setters: ['StringSetter', 'ObjectSetter', 'ArraySetter']
     },
     {
       name: 'direction',
+      title: '排列的方向',
       defaultValue: 'horizontal',
       options: ['vertical', 'horizontal'],
       setters: 'SelectSetter'
     },
     {
       name: 'prefixCls',
+      title: '给 space-items 的类名前缀',
       defaultValue: '',
-      setters: 'InputSetter'
+      setters: 'StringSetter'
     },
     {
       name: 'style',
+      title: '额外样式',
       defaultValue: '',
-      setters: ['InputSetter', 'JSONSetter']
+      setters: ['StringSetter', 'JSONSetter']
     },
     {
       name: 'spacer',
+      title: '间隔符',
       defaultValue: '',
-      setters: ['InputSetter', 'NumberSetter']
+      setters: ['StringSetter', 'NumberSetter']
     },
     {
       name: 'size',
+      title: '间隔大小',
       defaultValue: 'small',
-      setters: ['InputSetter', 'NumberSetter', 'JSONSetter']
+      setters: ['SelectSetter', 'NumberSetter', 'ArraySetter'],
+      options: ['large', 'default', 'small']
     },
     {
       name: 'wrap',
+      title: '设置是否自动折行',
       defaultValue: false,
       setters: 'BooleanSetter'
     },
     {
       name: 'fill',
+      title: '子元素是否填充父容器',
       defaultValue: false,
       setters: 'BooleanSetter'
     },
     {
       name: 'fillRatio',
+      title: '填充父容器的比例',
       defaultValue: 100,
       setters: 'NumberSetter'
     }
   ],
-  slots: ['default'],
+  slots: ['default', 'spacer'],
   snippet: {
     props: {
       fill: true,

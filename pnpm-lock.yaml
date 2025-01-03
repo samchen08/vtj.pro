@@ -61,7 +61,7 @@ importers:
     dependencies:
       '@vtj/plugin-ckeditor':
         specifier: ~0.2.1
-        version: 0.2.5(vue@3.5.13(typescript@5.7.2))
+        version: 0.2.5(typescript@5.7.2)(vue@3.5.13(typescript@5.7.2))
       '@vtj/web':
         specifier: workspace:~
         version: link:../../platforms/web
@@ -280,7 +280,7 @@ importers:
         version: link:../packages/local
       '@vtj/plugin-ckeditor':
         specifier: ~0.2.1
-        version: 0.2.5(vue@3.5.13(typescript@5.7.2))
+        version: 0.2.5(typescript@5.7.2)(vue@3.5.13(typescript@5.7.2))
 
   docs:
     dependencies:
@@ -396,8 +396,8 @@ importers:
         specifier: workspace:~
         version: link:../utils
       '@vueuse/core':
-        specifier: ~12.3.0
-        version: 12.3.0(typescript@5.7.2)
+        specifier: ~12.2.0
+        version: 12.2.0(typescript@5.7.2)
       echarts:
         specifier: ~5.6.0
         version: 5.6.0
@@ -645,8 +645,8 @@ importers:
         specifier: workspace:~
         version: link:../utils
       '@vueuse/core':
-        specifier: ~12.3.0
-        version: 12.3.0(typescript@5.7.2)
+        specifier: ~12.2.0
+        version: 12.2.0(typescript@5.7.2)
       ant-design-vue:
         specifier: ~4.2.0
         version: 4.2.6(vue@3.5.13(typescript@5.7.2))
@@ -725,8 +725,8 @@ importers:
         specifier: workspace:~
         version: link:../utils
       '@vueuse/core':
-        specifier: ~12.3.0
-        version: 12.3.0(typescript@5.7.2)
+        specifier: ~12.2.0
+        version: 12.2.0(typescript@5.7.2)
       element-plus:
         specifier: ~2.9.1
         version: 2.9.1(vue@3.5.13(typescript@5.7.2))
@@ -3662,21 +3662,21 @@ packages:
   '@volar/typescript@2.4.11':
     resolution: {integrity: sha512-2DT+Tdh88Spp5PyPbqhyoYavYCPDsqbHLFwcUI9K1NlY1YgUJvujGdrqUp0zWxnW7KWNTr3xSpMuv2WnaTKDAw==}
 
-  '@vtj/base@0.9.1':
-    resolution: {integrity: sha512-X5ETqVw06K2twAIqLj54V9dSWBma+TpBRFAGTKW9sv296rX6sSq/UamYPEV3LFtS7splFRuF7C2tSvLS/ZoFXg==}
+  '@vtj/base@0.9.2':
+    resolution: {integrity: sha512-TnKoUpSIzr0xG9T18NlbesGF81goTQ01xmSmTBwjkLo2/D2pan/GP8s0pSMoQX9evgvFLQQiPJENMLhGhW56hw==}
 
-  '@vtj/icons@0.9.3':
-    resolution: {integrity: sha512-xqCZghDruq1uavwi4vxBkoTBCmPHQZzas7RuYZ2cDwFMZEMtK4G5O92gx4RJBFRrKzL5tkrS3QdvpYpK9huNCw==}
+  '@vtj/icons@0.9.5':
+    resolution: {integrity: sha512-UaZXtgacWfUdVYdrEXViqhxEYgZQnGUzrffmJRoLaIpTWYiuziU2zJIbGvj6nMhNkKZ2D7Pb3VEt5DZhieDWow==}
 
   '@vtj/plugin-ckeditor@0.2.5':
     resolution: {integrity: sha512-moAcU4LhruhiNnIuviK/QBfHPH+nyNHS4iDLQocOrVbFn8RWEj8C4nBESscFU1hOBLaeAAc7aYQJCBEkfOnyQA==}
 
-  '@vtj/ui@0.9.3':
-    resolution: {integrity: sha512-Bq0QGlVaqHjt9/JEu7tjOkI0TcdQ0/op9AZj4JIqdsPFZx7QzjKqB/Uj/56Imp04fnf8m4IKO9MoPwFWetSPug==}
+  '@vtj/ui@0.9.5':
+    resolution: {integrity: sha512-rUFV29ZNMBEA9FvUUM/4SSTg1/94XJV4MZWK64CSHO+8auqe+9dm9TAS24kQp3fvoVt1RXKvaimiZf0+lsSwzw==}
     engines: {node: '>=16.0.0'}
 
-  '@vtj/utils@0.9.3':
-    resolution: {integrity: sha512-zY/efG5eF4jqNF0XsDJfxsS1kr1prqH17mdchoK6epF4J//PhnYQYgr09d3sS0pNSyBB+Zb+uNmvLUhGJZW8kA==}
+  '@vtj/utils@0.9.5':
+    resolution: {integrity: sha512-+vj+8arDWCV5yUGrHoqUZ+fmw8W7fdhmDHt1gNYXXhzgq4gypIEVho5TZqX7rTPLSFSUJhqbo0GosA/lVFfl8A==}
 
   '@vue/babel-helper-vue-transform-on@1.2.5':
     resolution: {integrity: sha512-lOz4t39ZdmU4DJAa2hwPYmKc8EsuGa2U0L9KaZaOJUt0UwQNjNA3AZTq6uEivhOKhhG1Wvy96SvYBoFmCg3uuw==}
@@ -3789,6 +3789,9 @@ packages:
   '@vueuse/core@11.3.0':
     resolution: {integrity: sha512-7OC4Rl1f9G8IT6rUfi9JrKiXy4bfmHhZ5x2Ceojy0jnd3mHNEvV4JaRygH362ror6/NZ+Nl+n13LPzGiPN8cKA==}
 
+  '@vueuse/core@12.2.0':
+    resolution: {integrity: sha512-jksyNu+5EGwggNkRWd6xX+8qBkYbmrwdFQMgCABsz+wq8bKF6w3soPFLB8vocFp3wFIzn0OYkSPM9JP+AFKwsg==}
+
   '@vueuse/core@12.3.0':
     resolution: {integrity: sha512-cnV8QDKZrsyKC7tWjPbeEUz2cD9sa9faxF2YkR8QqNwfofgbOhmfIgvSYmkp+ttSvfOw4E6hLcQx15mRPr0yBA==}
 
@@ -3839,6 +3842,9 @@ packages:
   '@vueuse/metadata@11.3.0':
     resolution: {integrity: sha512-pwDnDspTqtTo2HwfLw4Rp6yywuuBdYnPYDq+mO38ZYKGebCUQC/nVj/PXSiK9HX5otxLz8Fn7ECPbjiRz2CC3g==}
 
+  '@vueuse/metadata@12.2.0':
+    resolution: {integrity: sha512-x6zynZtTh1l52m0y8d/EgzpshnMjg8cNZ2KWoncJ62Z5qPSGoc4FUunmMVrrRM/I/5542rTEY89CGftngZvrkQ==}
+
   '@vueuse/metadata@12.3.0':
     resolution: {integrity: sha512-M/iQHHjMffOv2npsw2ihlUx1CTiBwPEgb7DzByLq7zpg1+Ke8r7s9p5ybUWc5OIeGewtpY4Xy0R2cKqFqM8hFg==}
 
@@ -3847,6 +3853,9 @@ packages:
 
   '@vueuse/shared@11.3.0':
     resolution: {integrity: sha512-P8gSSWQeucH5821ek2mn/ciCk+MS/zoRKqdQIM3bHq6p7GXDAJLmnRRKmF5F65sAVJIfzQlwR3aDzwCn10s8hA==}
+
+  '@vueuse/shared@12.2.0':
+    resolution: {integrity: sha512-SRr4AZwv/giS+EmyA1ZIzn3/iALjjnWAGaBNmoDTMEob9JwQaevAocuaMDnPAvU7Z35Y5g3CFRusCWgp1gVJ3Q==}
 
   '@vueuse/shared@12.3.0':
     resolution: {integrity: sha512-X3YD35GUeW0d5Gajcwv9jdLAJTV2Jdb/Ll6Ii2JIYcKLYZqv5wxyLeKtiQkqWmHg3v0J0ZWjDUMVOw2E7RCXfA==}
@@ -8597,8 +8606,8 @@ packages:
   typedarray-to-buffer@3.1.5:
     resolution: {integrity: sha512-zdu8XMNEDepKKR+XYOXAVPtWui0ly0NtohUscw+UmaHiAWT8hrV1rr//H6V+0DvJ3OQ19S979M0laLfX8rm82Q==}
 
-  typedarray.prototype.slice@1.0.4:
-    resolution: {integrity: sha512-39kLrJw12mfXs5Q1Db086cTKyS8GPsu5TAf6JmO3zL3iBAdz6/R5cojzTHSfcSCNGO4QTuNJH4/8o+t3PknHbw==}
+  typedarray.prototype.slice@1.0.5:
+    resolution: {integrity: sha512-q7QNVDGTdl702bVFiI5eY4l/HkgCM6at9KhcFbgUAzezHFbOVy4+0O/lCjsABEQwbZPravVfBIiBVGo89yzHFg==}
     engines: {node: '>= 0.4'}
 
   typedarray@0.0.6:
@@ -9227,8 +9236,8 @@ packages:
       utf-8-validate:
         optional: true
 
-  xe-utils@3.6.0:
-    resolution: {integrity: sha512-u+px9NlkW/tYId3R2GwzU5Q2mVEFkdmV/q5IF38MKsOsPLWtPTgO5TxukMmtqKJ21GKypAFNavwu5f7+OLpJww==}
+  xe-utils@3.7.0:
+    resolution: {integrity: sha512-2pndXCEivB7+xWCdCDth/LJ5ngAAstUOoHTGBQauwTqc03M3Cl1tYbNhPUqi4Lcj+UNZnnc8fANbFWjb6TMx6A==}
 
   xhr@2.6.0:
     resolution: {integrity: sha512-/eCGLb5rxjx5e3mF1A7s+pLlR6CGyqWN91fv1JgER5mVWg1MZmlhBvy9kjcsOdRk8RrIujotWyJamfyrp+WIcA==}
@@ -12857,43 +12866,45 @@ snapshots:
       path-browserify: 1.0.1
       vscode-uri: 3.0.8
 
-  '@vtj/base@0.9.1':
+  '@vtj/base@0.9.2':
     dependencies:
       '@types/lodash-es': 4.17.12
       '@types/numeral': 2.0.5
       reflect-metadata: 0.2.2
 
-  '@vtj/icons@0.9.3(vue@3.5.13(typescript@5.7.2))':
+  '@vtj/icons@0.9.5(vue@3.5.13(typescript@5.7.2))':
     dependencies:
       '@element-plus/icons-vue': 2.3.1(vue@3.5.13(typescript@5.7.2))
     transitivePeerDependencies:
       - vue
 
-  '@vtj/plugin-ckeditor@0.2.5(vue@3.5.13(typescript@5.7.2))':
+  '@vtj/plugin-ckeditor@0.2.5(typescript@5.7.2)(vue@3.5.13(typescript@5.7.2))':
     dependencies:
-      '@vtj/icons': 0.9.3(vue@3.5.13(typescript@5.7.2))
-      '@vtj/ui': 0.9.3(vue@3.5.13(typescript@5.7.2))
-      '@vtj/utils': 0.9.3
+      '@vtj/icons': 0.9.5(vue@3.5.13(typescript@5.7.2))
+      '@vtj/ui': 0.9.5(typescript@5.7.2)(vue@3.5.13(typescript@5.7.2))
+      '@vtj/utils': 0.9.5
     transitivePeerDependencies:
       - '@vue/composition-api'
+      - typescript
       - vue
 
-  '@vtj/ui@0.9.3(vue@3.5.13(typescript@5.7.2))':
+  '@vtj/ui@0.9.5(typescript@5.7.2)(vue@3.5.13(typescript@5.7.2))':
     dependencies:
-      '@vtj/icons': 0.9.3(vue@3.5.13(typescript@5.7.2))
-      '@vtj/utils': 0.9.3
-      '@vueuse/core': 11.3.0(vue@3.5.13(typescript@5.7.2))
+      '@vtj/icons': 0.9.5(vue@3.5.13(typescript@5.7.2))
+      '@vtj/utils': 0.9.5
+      '@vueuse/core': 12.3.0(typescript@5.7.2)
       element-plus: 2.9.1(vue@3.5.13(typescript@5.7.2))
       sortablejs: 1.15.6
       vxe-table: 4.6.25(vue@3.5.13(typescript@5.7.2))
       vxe-table-plugin-menus: 4.0.6(vxe-table@4.6.25(vue@3.5.13(typescript@5.7.2)))
     transitivePeerDependencies:
       - '@vue/composition-api'
+      - typescript
       - vue
 
-  '@vtj/utils@0.9.3':
+  '@vtj/utils@0.9.5':
     dependencies:
-      '@vtj/base': 0.9.1
+      '@vtj/base': 0.9.2
 
   '@vue/babel-helper-vue-transform-on@1.2.5': {}
 
@@ -13097,6 +13108,15 @@ snapshots:
       - '@vue/composition-api'
       - vue
 
+  '@vueuse/core@12.2.0(typescript@5.7.2)':
+    dependencies:
+      '@types/web-bluetooth': 0.0.20
+      '@vueuse/metadata': 12.2.0
+      '@vueuse/shared': 12.2.0(typescript@5.7.2)
+      vue: 3.5.13(typescript@5.7.2)
+    transitivePeerDependencies:
+      - typescript
+
   '@vueuse/core@12.3.0(typescript@5.7.2)':
     dependencies:
       '@types/web-bluetooth': 0.0.20
@@ -13133,6 +13153,8 @@ snapshots:
 
   '@vueuse/metadata@11.3.0': {}
 
+  '@vueuse/metadata@12.2.0': {}
+
   '@vueuse/metadata@12.3.0': {}
 
   '@vueuse/metadata@9.13.0': {}
@@ -13143,6 +13165,12 @@ snapshots:
     transitivePeerDependencies:
       - '@vue/composition-api'
       - vue
+
+  '@vueuse/shared@12.2.0(typescript@5.7.2)':
+    dependencies:
+      vue: 3.5.13(typescript@5.7.2)
+    transitivePeerDependencies:
+      - typescript
 
   '@vueuse/shared@12.3.0(typescript@5.7.2)':
     dependencies:
@@ -18586,7 +18614,7 @@ snapshots:
   traverse@0.6.10:
     dependencies:
       gopd: 1.2.0
-      typedarray.prototype.slice: 1.0.4
+      typedarray.prototype.slice: 1.0.5
       which-typed-array: 1.1.18
 
   tree-dump@1.0.2(tslib@2.8.1):
@@ -18693,7 +18721,7 @@ snapshots:
     dependencies:
       is-typedarray: 1.0.0
 
-  typedarray.prototype.slice@1.0.4:
+  typedarray.prototype.slice@1.0.5:
     dependencies:
       call-bind: 1.0.8
       define-properties: 1.2.1
@@ -19264,7 +19292,7 @@ snapshots:
     dependencies:
       dom-zindex: 1.0.6
       vue: 3.5.13(typescript@5.7.2)
-      xe-utils: 3.6.0
+      xe-utils: 3.7.0
 
   w3c-hr-time@1.0.2:
     dependencies:
@@ -19448,7 +19476,7 @@ snapshots:
 
   ws@8.18.0: {}
 
-  xe-utils@3.6.0: {}
+  xe-utils@3.7.0: {}
 
   xhr@2.6.0:
     dependencies:
