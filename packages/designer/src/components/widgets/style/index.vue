@@ -76,7 +76,7 @@
       string,
       any
     >;
-    if (value !== undefined) {
+    if (value !== undefined && value !== '') {
       style[name] = value;
     } else {
       delete style[name];

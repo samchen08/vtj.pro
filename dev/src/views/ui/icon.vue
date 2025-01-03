@@ -32,6 +32,14 @@
       <XIcon :size="40" :icon="vnodeIcon"></XIcon>
     </div>
     <hr />
+
+    <XIcon
+      :size="40"
+      :icon="VtjIconUser"
+      :padding="5"
+      :radius="5"
+      hover-effect
+      color="blue"></XIcon>
   </div>
 </template>
 <script lang="ts" setup>

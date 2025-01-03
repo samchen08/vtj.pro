@@ -33,6 +33,9 @@ export const iconProps = {
   },
   radius: {
     type: Number
+  },
+  hoverEffect: {
+    type: Boolean
   }
 };
 

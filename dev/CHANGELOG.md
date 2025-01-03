@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.9.4](https://gitee.com/newgateway/vtj/compare/dev-web@0.9.3...dev-web@0.9.4) (2025-01-03)
+
+
+### Features
+
+* ✨ XIcon增加鼠标悬停效果 ([8235732](https://gitee.com/newgateway/vtj/commits/8235732731b5596dbb020aedbffa8dc0fe25d0cd))
+
+
+
+
+
 ## [0.9.3](https://gitee.com/newgateway/vtj/compare/dev-web@0.9.2...dev-web@0.9.3) (2024-12-24)
 
 **Note:** Version bump only for package dev-web

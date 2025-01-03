@@ -59,8 +59,8 @@ const Menu: MaterialDescription[] = [
       },
       {
         name: 'defaultOpeneds',
-        defaultValue: '',
-        setters: 'JSONSetter'
+        defaultValue: [],
+        setters: 'ArraySetter'
       },
       {
         name: 'uniqueOpened',

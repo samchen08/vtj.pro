@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.9.4](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.9.3...@vtj/ui@0.9.4) (2025-01-03)
+
+
+### Bug Fixes
+
+* 🐛 style设置值为空时,出码异常 ([ee93c77](https://gitee.com/newgateway/vtj/commits/ee93c77d8473367b13c72d83d2f380e7f8a03bd0))
+
+
+### Features
+
+* ✨ XIcon增加鼠标悬停效果 ([8235732](https://gitee.com/newgateway/vtj/commits/8235732731b5596dbb020aedbffa8dc0fe25d0cd))
+
+
+
+
+
 ## [0.9.3](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.9.2...@vtj/ui@0.9.3) (2024-12-24)
 
 **Note:** Version bump only for package @vtj/ui

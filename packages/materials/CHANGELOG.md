@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.9.4](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.9.3...@vtj/materials@0.9.4) (2025-01-03)
+
+
+### Bug Fixes
+
+* 🐛 el-button 插槽 ([a0b2af4](https://gitee.com/newgateway/vtj/commits/a0b2af4427ef2560ee872f9e02fac11949f55988))
+* 🐛 el-button 插槽 ([bbae880](https://gitee.com/newgateway/vtj/commits/bbae880f00e77c241f3d4f71ab66cdb86ea88508))
+* 🐛 el-menu defaultOpeneds参数 ([d728f8a](https://gitee.com/newgateway/vtj/commits/d728f8a6be5bd30cefda25acfa66a276f9cc8fcb))
+* 🐛 style设置值为空时,出码异常 ([ee93c77](https://gitee.com/newgateway/vtj/commits/ee93c77d8473367b13c72d83d2f380e7f8a03bd0))
+
+
+### Features
+
+* ✨ XIcon增加鼠标悬停效果 ([8235732](https://gitee.com/newgateway/vtj/commits/8235732731b5596dbb020aedbffa8dc0fe25d0cd))
+
+
+
+
+
 ## [0.9.3](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.9.2...@vtj/materials@0.9.3) (2024-12-24)
 
 **Note:** Version bump only for package @vtj/materials

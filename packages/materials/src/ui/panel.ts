@@ -65,8 +65,8 @@ const desc: MaterialDescription = {
   slots: ['default', 'actions', 'title', 'footer'],
   snippet: {
     props: {
-      header: '标题文本',
-      fit: true
+      header: '标题',
+      children: '内容文本'
     }
   }
 };
