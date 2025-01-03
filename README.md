@@ -71,10 +71,13 @@ npm run setup && npm run build && npm run app:dev
 
 ## 技术交流
 
-### 钉钉群
+钉钉群、 微信群
 
-![钉钉群](./dingtalk.png)
+<table border="0">
+<tr><td><img src="./dingtalk.png" /></td><td><img src="./wechat.png" width="" /></td></tr></table>
 
-### 微信群
+## 项目定制、集成
 
-![微信群](./wechat.png)
+如有项目合作或项目外包，扫码加我好友，请备注来意。
+
+<img src="./qrcode.png" width="400" />
