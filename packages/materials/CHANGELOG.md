@@ -3,6 +3,64 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.9.7](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.9.6...@vtj/materials@0.9.7) (2025-01-04)
+
+
+### Bug Fixes
+
+* 🐛 el-autocomplete ([a6c4fca](https://gitee.com/newgateway/vtj/commits/a6c4fca66f081c80cfc6c6f62a66971e31c0af1d))
+* 🐛 el-cascader ([921cdb6](https://gitee.com/newgateway/vtj/commits/921cdb6adea30654bf2f921078c07f510694c8c7))
+* 🐛 el-checkbox ([31b0d2a](https://gitee.com/newgateway/vtj/commits/31b0d2a5333b8e8505379b57393bcf38aebc130e))
+* 🐛 XPanel 物料参数错误 ([fdf4892](https://gitee.com/newgateway/vtj/commits/fdf489219cac5c4d281fb6acf9378da63394a4c1))
+
+
+
+
+
+## [0.9.6](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.9.5...@vtj/materials@0.9.6) (2025-01-03)
+
+
+### Bug Fixes
+
+* 🐛 回滚@vueuse/core版本 ([cca3222](https://gitee.com/newgateway/vtj/commits/cca3222c49f83b14d0ced25220f8e9314fae3964))
+* 🐛 物料 el-slider ([6a272c5](https://gitee.com/newgateway/vtj/commits/6a272c593b0638c77a0136e8bdc1103723993b1e))
+* 🐛 物料 el-slider ([1f76d95](https://gitee.com/newgateway/vtj/commits/1f76d95808d38e1540921afb3e3988be17c43d4f))
+* 🐛 el-radio ([95b9d3e](https://gitee.com/newgateway/vtj/commits/95b9d3efa7bb4263719d5315b663065c7edb7882))
+* 🐛 el-space ([6653d74](https://gitee.com/newgateway/vtj/commits/6653d7482130ff1e7600bfee3f9ff6705f3f4098))
+* 🐛 XPlane ([a18ec52](https://gitee.com/newgateway/vtj/commits/a18ec529b993e94575c855ff20cc1886f0feeed8))
+* 🐛 XPlane ([44967f7](https://gitee.com/newgateway/vtj/commits/44967f7601af3603d511d6845ac8ead271c14513))
+
+
+
+
+
+## [0.9.5](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.9.4...@vtj/materials@0.9.5) (2025-01-03)
+
+**Note:** Version bump only for package @vtj/materials
+
+
+
+
+
+## [0.9.4](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.9.3...@vtj/materials@0.9.4) (2025-01-03)
+
+
+### Bug Fixes
+
+* 🐛 el-button 插槽 ([a0b2af4](https://gitee.com/newgateway/vtj/commits/a0b2af4427ef2560ee872f9e02fac11949f55988))
+* 🐛 el-button 插槽 ([bbae880](https://gitee.com/newgateway/vtj/commits/bbae880f00e77c241f3d4f71ab66cdb86ea88508))
+* 🐛 el-menu defaultOpeneds参数 ([d728f8a](https://gitee.com/newgateway/vtj/commits/d728f8a6be5bd30cefda25acfa66a276f9cc8fcb))
+* 🐛 style设置值为空时,出码异常 ([ee93c77](https://gitee.com/newgateway/vtj/commits/ee93c77d8473367b13c72d83d2f380e7f8a03bd0))
+
+
+### Features
+
+* ✨ XIcon增加鼠标悬停效果 ([8235732](https://gitee.com/newgateway/vtj/commits/8235732731b5596dbb020aedbffa8dc0fe25d0cd))
+
+
+
+
+
 ## [0.9.3](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.9.2...@vtj/materials@0.9.3) (2024-12-24)
 
 **Note:** Version bump only for package @vtj/materials

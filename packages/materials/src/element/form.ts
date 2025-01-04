@@ -10,6 +10,7 @@ const form: MaterialDescription[] = [
     props: [
       {
         name: 'model',
+        title: '表单数据对象',
         defaultValue: '',
         setters: 'ExpressionSetter'
       },
@@ -43,14 +44,12 @@ const form: MaterialDescription[] = [
         name: 'hideRequiredAsterisk',
         defaultValue: false,
         title: '是否显示必填字段的标签旁边的红色星号',
-        label: '隐藏必填星号',
         setters: 'BooleanSetter'
       },
       {
         name: 'requireAsteriskPosition',
         defaultValue: 'left',
         title: '星号的位置',
-        label: '星号位置',
         options: ['left', 'right'],
         setters: 'SelectSetter'
       },
@@ -58,7 +57,6 @@ const form: MaterialDescription[] = [
         name: 'showMessage',
         defaultValue: true,
         title: '是否显示校验错误信息',
-        label: '显示错误',
         setters: 'BooleanSetter'
       },
       {
@@ -77,7 +75,6 @@ const form: MaterialDescription[] = [
         name: 'validateOnRuleChange',
         defaultValue: true,
         title: '是否在 rules 属性改变后立即触发一次验证',
-        label: 'validate',
         setters: 'BooleanSetter'
       },
       {
@@ -95,6 +92,11 @@ const form: MaterialDescription[] = [
         name: 'scrollToError',
         defaultValue: false,
         setters: 'BooleanSetter'
+      },
+      {
+        name: 'scrollIntoViewOptions',
+        defaultValue: '',
+        setters: ['ExpressionSetter', 'BooleanSetter']
       }
     ],
     events: [
@@ -102,6 +104,7 @@ const form: MaterialDescription[] = [
         name: 'validate'
       }
     ],
+    slots: ['default'],
     snippet: {
       name: 'ElForm',
       props: {
@@ -155,6 +158,12 @@ const form: MaterialDescription[] = [
         setters: 'InputSetter'
       },
       {
+        name: 'labelPosition',
+        defaultValue: '',
+        setters: 'SelectSetter',
+        options: ['left', 'right', 'top']
+      },
+      {
         name: 'labelWidth',
         defaultValue: '',
         setters: ['InputSetter', 'NumberSetter']
@@ -192,6 +201,17 @@ const form: MaterialDescription[] = [
         name: 'size',
         defaultValue: 'default',
         options: ['large', 'default', 'small'],
+        setters: 'SelectSetter'
+      },
+      {
+        name: 'for',
+        defaultValue: '',
+        setters: 'StringSetter'
+      },
+      {
+        name: 'validateStatus',
+        title: 'formitem 校验的状态',
+        options: ['', 'error', 'validating', 'success'],
         setters: 'SelectSetter'
       }
     ],

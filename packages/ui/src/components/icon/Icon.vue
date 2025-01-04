@@ -30,7 +30,8 @@
 
   const iconClass = computed(() => {
     const cls: Record<string, boolean> = {
-      'is-pointer': !!attrs.onClick
+      'is-pointer': !!attrs.onClick,
+      'is-hover-effect': props.hoverEffect
     };
     if (!svgComponent.value && props.icon) {
       cls[props.icon as string] = true;
@@ -49,7 +50,7 @@
   const size = computed(() => {
     return typeof props.size === 'number'
       ? props.size
-      : iconSizeMap[props.size as IconSizeKey] ?? undefined;
+      : (iconSizeMap[props.size as IconSizeKey] ?? undefined);
   });
 
   defineOptions({

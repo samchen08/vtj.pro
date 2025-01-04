@@ -8,30 +8,34 @@ const Autodcomplete: MaterialDescription = {
   package: 'element-plus',
   props: [
     {
-      name: 'placeholder',
+      name: 'modelValue',
       defaultValue: '',
-      setters: 'InputSetter'
+      title: '选中项绑定值',
+      setters: 'StringSetter'
+    },
+    {
+      name: 'placeholder',
+      title: '占位文本',
+      defaultValue: '',
+      setters: 'StringSetter'
     },
     {
       name: 'clearable',
+      title: '是否可清空',
       defaultValue: false,
       setters: 'BooleanSetter'
     },
     {
       name: 'disabled',
+      title: '自动补全组件是否被禁用',
       defaultValue: false,
       setters: 'BooleanSetter'
     },
     {
       name: 'valueKey',
+      title: '输入建议对象中用于显示的键名',
       defaultValue: 'value',
-      setters: 'InputSetter'
-    },
-    {
-      name: 'modelValue',
-      defaultValue: '',
-      title: '选中项绑定值',
-      setters: 'InputSetter'
+      setters: 'StringSetter'
     },
     {
       name: 'debounce',
@@ -58,54 +62,47 @@ const Autodcomplete: MaterialDescription = {
       name: 'fetchSuggestions',
       defaultValue: '',
       title: '获取输入建议的方法',
-      label: '建议方法',
-      setters: 'FunctionSetter'
-    },
-    {
-      name: 'popperClass',
-      defaultValue: '',
-      title: '下拉列表的类名',
-      setters: 'InputSetter'
+      setters: ['ArraySetter', 'FunctionSetter']
     },
     {
       name: 'triggerOnFocus',
       defaultValue: true,
       title: '是否在输入框focus时显示建议列表',
-      label: 'focus触发',
       setters: 'BooleanSetter'
-    },
-    {
-      name: 'name',
-      defaultValue: '',
-      setters: 'InputSetter'
     },
     {
       name: 'selectWhenUnmatched',
       defaultValue: false,
       title: '在输入没有任何匹配建议的情况下，按下回车是否触发select事件',
-      label: '回车触发',
       setters: 'BooleanSetter'
     },
     {
-      name: 'label',
+      name: 'name',
+      title: '等价于原生 input name 属性',
       defaultValue: '',
-      title: '标签文本',
-      setters: 'InputSetter'
+      setters: 'StringSetter'
+    },
+    {
+      name: 'aria-label',
+      defaultValue: '',
+      title: '原生 aria-label属性',
+      setters: 'StringSetter'
     },
     {
       name: 'hideLoading',
+      title: '是否隐藏远程加载时的加载图标',
       defaultValue: false,
       setters: 'BooleanSetter'
     },
     {
-      name: 'popperAppendToBody',
-      defaultValue: false,
-      title: '是否将下拉列表插入至body元素',
-      label: '下拉列表',
-      setters: 'BooleanSetter'
+      name: 'popperClass',
+      defaultValue: '',
+      title: '下拉列表的类名',
+      setters: 'StringSetter'
     },
     {
       name: 'teleported',
+      title: '是否将下拉列表元素插入 append-to 指向的元素下',
       defaultValue: true,
       setters: 'BooleanSetter'
     },
@@ -113,14 +110,18 @@ const Autodcomplete: MaterialDescription = {
       name: 'highlightFirstItem',
       defaultValue: false,
       title: '是否默认突出显示远程搜索建议中的第一项',
-      label: '高亮第一项',
       setters: 'BooleanSetter'
     },
     {
       name: 'fit-input-width',
       defaultValue: false,
       title: '下拉框是否与输入框同宽',
-      label: '适配宽度',
+      setters: 'BooleanSetter'
+    },
+    {
+      name: 'popperAppendToBody',
+      defaultValue: false,
+      title: '是否将下拉列表插入至body元素',
       setters: 'BooleanSetter'
     }
   ],

@@ -24,50 +24,48 @@ const desc: MaterialDescription = {
     },
     {
       name: 'border',
-      label: 'border',
       title: '显示边框',
       setters: 'BooleanSetter'
     },
     {
       name: 'radius',
-      label: 'radius',
       title: '圆角',
       setters: 'BooleanSetter'
     },
     {
       name: 'card',
-      label: '卡片模式',
+      title: '卡片模式',
       setters: 'BooleanSetter'
     },
     Object.assign(size('size'), { setters: ['SelectSetter'] }),
     {
       name: 'shadow',
-      label: '阴影设置',
+      title: '阴影设置',
       setters: 'SelectSetter',
       options: ['none', 'always', 'hover']
     },
     {
       name: 'header',
-      label: '头部设置',
+      title: '头部设置',
       setters: ['StringSetter', 'ObjectSetter']
     },
     {
       name: 'body',
-      label: 'body',
+      title: 'body',
       setters: 'ObjectSetter'
     },
     {
       name: 'footer',
-      label: 'footer',
+      title: 'footer',
       setters: 'ObjectSetter'
     }
   ],
   slots: ['default', 'actions', 'title', 'footer'],
   snippet: {
     props: {
-      header: '标题文本',
-      fit: true
-    }
+      header: '标题'
+    },
+    children: '内容文本'
   }
 };
 

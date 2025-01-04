@@ -10,11 +10,13 @@ const ColorPicker: MaterialDescription = {
   props: [
     {
       name: 'modelValue',
+      title: '选中项绑定值',
       defaultValue: '',
-      setters: 'InputSetter'
+      setters: 'StringSetter'
     },
     {
       name: 'disabled',
+      title: '是否禁用',
       defaultValue: false,
       setters: 'BooleanSetter'
     },
@@ -26,27 +28,32 @@ const ColorPicker: MaterialDescription = {
     },
     {
       name: 'showAlpha',
+      title: '是否支持透明度选择',
       defaultValue: false,
       setters: 'BooleanSetter'
     },
     {
       name: 'colorFormat',
+      title: '写入 v-model 的颜色的格式',
       defaultValue: '',
       options: ['hsl', 'hsv', 'hex', 'rgb'],
       setters: 'SelectSetter'
     },
     {
       name: 'popperClass',
+      title: 'ColorPicker 下拉框的类名',
       defaultValue: '',
-      setters: 'InputSetter'
+      setters: 'StringSetter'
     },
     {
       name: 'predefine',
+      title: '预定义颜色',
       defaultValue: '',
       setters: 'JSONSetter'
     },
     {
       name: 'validateEvent',
+      title: '输入时是否触发表单的校验',
       defaultValue: true,
       setters: 'BooleanSetter'
     },
@@ -58,15 +65,24 @@ const ColorPicker: MaterialDescription = {
       defaultValue: 0
     },
     {
-      name: 'label',
-      label: 'label',
+      name: 'aria-label',
       title: 'ColorPicker 的 aria-label',
       setters: 'StringSetter'
     },
     {
       name: 'id',
-      label: 'id',
       title: 'ColorPicker 的 id',
+      setters: 'StringSetter'
+    },
+    {
+      name: 'teleported',
+      title: '是否将 popover 的下拉列表渲染至 body 下',
+      defaultValue: true,
+      setters: 'BooleanSetter'
+    },
+    {
+      name: 'label',
+      title: 'ColorPicker 的 aria-label(deprecated)',
       setters: 'StringSetter'
     }
   ],

@@ -36,6 +36,11 @@ const icon: MaterialDescription = {
       name: 'padding',
       label: '内边距',
       setters: 'NumberSetter'
+    },
+    {
+      name: 'hoverEffect',
+      label: '悬停效果',
+      setters: 'BooleanSetter'
     }
   ],
   snippet: {

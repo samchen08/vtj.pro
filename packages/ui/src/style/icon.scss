@@ -16,6 +16,16 @@
     width: 1em;
     height: 1em;
   }
+
+  @include when(hover-effect) {
+    transition: all 0.2s;
+    &:hover{
+      background-color: var(--color);
+      color: white;
+    }
+
+  }
+
   @include when(pointer) {
     cursor: pointer;
     &:hover {

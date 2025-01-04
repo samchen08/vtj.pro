@@ -20,7 +20,7 @@ const components: MaterialDescription = {
       setters: 'InputSetter'
     },
     {
-      name: 'trigger',
+      name: 'contentPosition',
       defaultValue: 'center',
       setters: 'SelectSetter',
       options: ['left', 'right', 'center']

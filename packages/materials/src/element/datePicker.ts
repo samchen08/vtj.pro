@@ -9,8 +9,14 @@ const DatePicker: MaterialDescription = {
   props: [
     {
       name: 'modelValue',
+      title: '绑定值，如果它是数组，长度应该是 2',
       defaultValue: '',
-      setters: 'ExpressionSetter'
+      setters: [
+        'NumberSetter',
+        'StringSetter',
+        'ArraySetter',
+        'ExpressionSetter'
+      ]
     },
     {
       name: 'readonly',
@@ -30,6 +36,7 @@ const DatePicker: MaterialDescription = {
     },
     {
       name: 'editable',
+      title: '文本框可输入',
       defaultValue: true,
       setters: 'BooleanSetter'
     },
@@ -47,14 +54,12 @@ const DatePicker: MaterialDescription = {
       name: 'startPlaceholder',
       defaultValue: '',
       title: '范围选择时开始日期的占位内容',
-      label: '开始日期',
       setters: 'InputSetter'
     },
     {
       name: 'endPlaceholder',
       defaultValue: '',
       title: '范围选择时结束日期的占位内容',
-      label: '结束日期',
       setters: 'InputSetter'
     },
     {
@@ -76,47 +81,45 @@ const DatePicker: MaterialDescription = {
     },
     {
       name: 'format',
+      title: '显示在输入框中的格式',
       defaultValue: 'YYYY-MM-DD',
       setters: 'InputSetter'
     },
     {
       name: 'popperClass',
+      title: 'DatePicker 下拉框的类名',
       defaultValue: '',
       setters: 'InputSetter'
+    },
+    {
+      name: 'popper-options',
+      title: '自定义 popper 选项',
+      defaultValue: '',
+      setters: ['ObjectSetter', 'JSONSetter']
     },
     {
       name: 'rangeSeparator',
       defaultValue: '-',
       title: '选择范围时的分隔符',
-      label: '分隔符',
       setters: 'InputSetter'
     },
     {
       name: 'defaultValue',
+      title: '可选，选择器打开时默认显示的时间',
       defaultValue: '',
       setters: 'ExpressionSetter'
     },
     {
       name: 'defaultTime',
+      title: '范围选择时选中日期所使用的当日内具体时刻',
       defaultValue: '',
       setters: 'ExpressionSetter'
     },
     {
       name: 'valueFormat',
+      title: '可选，绑定值的格式。 不指定则绑定值为 Date 对象',
       defaultValue: '',
       setters: 'InputSetter'
-    },
-    {
-      name: 'dateFormat',
-      defaultValue: '',
-      setters: 'InputSetter',
-      title: '时间选择器下拉列表中显示的日期格式'
-    },
-    {
-      name: 'timeFormat',
-      defaultValue: '',
-      setters: 'InputSetter',
-      title: '时间选择器下拉列表中显示的时间格式'
     },
     {
       name: 'id',
@@ -130,6 +133,7 @@ const DatePicker: MaterialDescription = {
     },
     {
       name: 'unlinkPanels',
+      title: '在范围选择器里取消两个日期面板之间的联动',
       defaultValue: false,
       setters: 'BooleanSetter'
     },
@@ -153,6 +157,8 @@ const DatePicker: MaterialDescription = {
     },
     {
       name: 'disabledDate',
+      title:
+        '一个用来判断该日期是否被禁用的函数，接受一个 Date 对象作为参数。 应该返回一个 Boolean 值。',
       defaultValue: '',
       setters: 'FunctionSetter'
     },
@@ -171,8 +177,48 @@ const DatePicker: MaterialDescription = {
     {
       name: 'teleported',
       defaultValue: true,
-      title: '设置自定义类名',
+      title: '是否将 date-picker 的下拉列表插入至 body 元素',
       setters: 'BooleanSetter'
+    },
+    {
+      name: 'empty-values',
+      title: '组件的空值配置',
+      setters: 'ArraySetter'
+    },
+    {
+      name: 'value-on-clear',
+      title: '清空选项的值',
+      setters: [
+        'StringSetter',
+        'NumberSetter',
+        'BooleanSetter',
+        'FunctionSetter'
+      ]
+    },
+    {
+      name: 'fallback-placements',
+      title: 'Tooltip 可用的 positions',
+      setters: 'ArraySetter'
+    },
+    {
+      name: 'placement',
+      title: '下拉框出现的位置',
+      defaultValue: 'bottom',
+      setters: 'SelectSetter',
+      options: [
+        'top',
+        'top-start',
+        'top-end',
+        'bottom',
+        'bottom-start',
+        'bottom-end',
+        'left',
+        'left-start',
+        'left-end',
+        'right',
+        'right-start',
+        'right-end'
+      ]
     }
   ],
   events: [
@@ -184,6 +230,9 @@ const DatePicker: MaterialDescription = {
     },
     {
       name: 'focus'
+    },
+    {
+      name: 'clear'
     },
     {
       name: 'calendar-change'
@@ -204,6 +253,18 @@ const DatePicker: MaterialDescription = {
     },
     {
       name: 'range-separator'
+    },
+    {
+      name: 'prev-month'
+    },
+    {
+      name: 'next-month'
+    },
+    {
+      name: 'prev-year'
+    },
+    {
+      name: 'next-year'
     }
   ]
 };

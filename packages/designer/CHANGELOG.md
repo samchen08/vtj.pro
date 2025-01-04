@@ -3,6 +3,45 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.9.7](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.9.6...@vtj/designer@0.9.7) (2025-01-04)
+
+
+### Bug Fixes
+
+* 🐛 优化插槽提示 ([9aa2ea4](https://gitee.com/newgateway/vtj/commits/9aa2ea459a023655450e39b7eadf99095ca093b5))
+
+
+
+
+
+## [0.9.6](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.9.5...@vtj/designer@0.9.6) (2025-01-03)
+
+**Note:** Version bump only for package @vtj/designer
+
+
+
+
+
+## [0.9.5](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.9.4...@vtj/designer@0.9.5) (2025-01-03)
+
+**Note:** Version bump only for package @vtj/designer
+
+
+
+
+
+## [0.9.4](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.9.3...@vtj/designer@0.9.4) (2025-01-03)
+
+
+### Bug Fixes
+
+* 🐛 文本框回车触发提交问题 ([b901a82](https://gitee.com/newgateway/vtj/commits/b901a82770e8f4ab52e20c71579137524faf7f8b))
+* 🐛 style设置值为空时,出码异常 ([ee93c77](https://gitee.com/newgateway/vtj/commits/ee93c77d8473367b13c72d83d2f380e7f8a03bd0))
+
+
+
+
+
 ## [0.9.3](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.9.2...@vtj/designer@0.9.3) (2024-12-24)
 
 

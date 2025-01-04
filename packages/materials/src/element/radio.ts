@@ -15,40 +15,39 @@ const Radio: MaterialDescription[] = [
       },
       {
         name: 'value',
-        label: 'value',
         title: '单选框的值',
-        setters: ['InputSetter', 'NumberSetter', 'BooleanSetter']
+        setters: ['StringSetter', 'NumberSetter', 'BooleanSetter']
       },
       {
         name: 'label',
         defaultValue: '',
-        setters: ['InputSetter']
-      },
-      {
-        name: 'value',
-        defaultValue: '',
-        setters: ['InputSetter', 'NumberSetter', 'BooleanSetter']
+        title: '单选框的 label 如果value没有值， label则作为value使用',
+        setters: ['StringSetter', 'NumberSetter', 'BooleanSetter']
       },
       {
         name: 'disabled',
+        title: '是否禁用单选框',
         defaultValue: false,
         setters: 'BooleanSetter'
       },
       {
         name: 'border',
+        title: '是否显示边框',
         defaultValue: false,
         setters: 'BooleanSetter'
       },
       {
         name: 'size',
+        title: '单选框的尺寸',
         defaultValue: '',
         options: ['large', 'default', 'small'],
         setters: 'SelectSetter'
       },
       {
         name: 'name',
+        title: '原始 name 属性',
         defaultValue: '',
-        setters: 'BooleanSetter'
+        setters: 'StringSetter'
       }
     ],
     events: [
@@ -75,40 +74,45 @@ const Radio: MaterialDescription[] = [
     props: [
       {
         name: 'modelValue',
+        title: '绑定值',
         defaultValue: '',
         setters: ['InputSetter', 'NumberSetter', 'BooleanSetter']
       },
       {
         name: 'size',
+        title: '单选框按钮或边框按钮的大小',
         defaultValue: '',
         options: ['large', 'default', 'small'],
         setters: 'SelectSetter'
       },
       {
         name: 'disabled',
+        title: '是否禁用',
         defaultValue: false,
         setters: 'BooleanSetter'
       },
       {
         name: 'textColor',
+        title: '按钮形式的 Radio 激活时的文本颜色',
         defaultValue: '#ffffff',
         setters: 'ColorSetter'
       },
 
       {
         name: 'fill',
+        title: '按钮形式的 Radio 激活时的填充色和边框色',
         defaultValue: '#409EFF',
         setters: 'ColorSetter'
       },
 
       {
         name: 'validateEvent',
+        title: '输入时是否触发表单的校验',
         defaultValue: true,
         setters: 'BooleanSetter'
       },
       {
-        name: 'label',
-        label: 'label',
+        name: 'aria-label',
         title: '与 RadioGroup 中的 aria-label 属性相同',
         setters: 'StringSetter'
       },
@@ -169,23 +173,27 @@ const Radio: MaterialDescription[] = [
     props: [
       {
         name: 'label',
+        title: '单选框的label,如果没有value,label则作为value使用',
         defaultValue: '',
-        setters: ['InputSetter', 'NumberSetter']
+        setters: ['StringSetter', 'NumberSetter']
       },
       {
         name: 'value',
+        title: '单选框的值',
         defaultValue: '',
-        setters: ['InputSetter', 'NumberSetter', 'BooleanSetter']
+        setters: ['StringSetter', 'NumberSetter', 'BooleanSetter']
       },
       {
         name: 'disabled',
+        title: '是否禁用单选框',
         defaultValue: false,
         setters: 'BooleanSetter'
       },
       {
         name: 'name',
+        title: '原生 name 属性',
         defaultValue: '',
-        setters: 'InputSetter'
+        setters: 'StringSetter'
       }
     ],
     slots: ['default'],

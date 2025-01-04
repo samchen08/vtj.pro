@@ -136,7 +136,7 @@ const Input: MaterialDescription = {
       setters: 'InputSetter'
     },
     {
-      name: 'label',
+      name: 'aria-label',
       defaultValue: '',
       setters: 'InputSetter'
     },

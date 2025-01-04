@@ -41,7 +41,7 @@ const InputNumber: MaterialDescription = {
     {
       name: 'size',
       defaultValue: 'default',
-      options: ['large', 'small'],
+      options: ['large', 'default', 'small'],
       setters: 'SelectSetter'
     },
     {
@@ -73,7 +73,7 @@ const InputNumber: MaterialDescription = {
       setters: 'InputSetter'
     },
     {
-      name: 'label',
+      name: 'ariaLabel',
       defaultValue: '',
       setters: 'InputSetter'
     },
@@ -94,7 +94,7 @@ const InputNumber: MaterialDescription = {
       setters: 'BooleanSetter'
     }
   ],
-  slots: ['decrease-icon', 'increase-icon'],
+  slots: ['decrease-icon', 'increase-icon', 'prefix', 'suffix'],
   events: [
     {
       name: 'change'
