@@ -27,10 +27,11 @@ import { SlotsPicker } from '../components';
 import { type Engine } from './engine';
 import { type DevTools } from './devtools';
 
-export function createSlotsPicker(slots: MaterialSlot[]) {
+export function createSlotsPicker(name: string, slots: MaterialSlot[]) {
   return new Promise<MaterialSlot>((resolve, reject) => {
     const dialog = createApp(SlotsPicker, {
-      slots: slots,
+      name,
+      slots,
       onClose: () => {
         dialog.unmount();
         reject(null);
@@ -225,7 +226,7 @@ export class Designer {
       return name === 'default' && !params.length ? undefined : slots[0];
     }
     // 用户没选择插槽，返回null
-    const slot = await createSlotsPicker(slots).catch(() => null);
+    const slot = await createSlotsPicker(to.name, slots).catch(() => null);
     /**
      * 当只有一个插槽，名称是default，并且没有任何参数，可以省略不指定插槽名
      * 删除的原因：自定义区块，没有定义params，出码会找不到插槽作用域，需要区块增加插槽参数设置后才能用这个判断

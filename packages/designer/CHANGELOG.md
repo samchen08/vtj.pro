@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.9.7](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.9.6...@vtj/designer@0.9.7) (2025-01-04)
+
+
+### Bug Fixes
+
+* 🐛 优化插槽提示 ([9aa2ea4](https://gitee.com/newgateway/vtj/commits/9aa2ea459a023655450e39b7eadf99095ca093b5))
+
+
+
+
+
 ## [0.9.6](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.9.5...@vtj/designer@0.9.6) (2025-01-03)
 
 **Note:** Version bump only for package @vtj/designer

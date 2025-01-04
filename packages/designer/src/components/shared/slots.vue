@@ -1,7 +1,7 @@
 <template>
   <XDialog
     class="v-slots-picker"
-    title="选择插槽"
+    :title="`选择插槽: ${props.name}`"
     width="600px"
     :height="height"
     submit
@@ -9,7 +9,7 @@
     @submit="submit"
     v-bind="$attrs">
     <ElAlert
-      title="该组件支持多个插槽，请选择放置到其中一个"
+      :title="`${props.name} 组件支持多个插槽，请选择放置到其中一个`"
       type="warning"
       :closable="false"></ElAlert>
     <XContainer
@@ -38,10 +38,12 @@
   import { notify } from '../../utils';
 
   export interface Props {
+    name?: string;
     slots?: MaterialSlot[];
   }
 
   const props = withDefaults(defineProps<Props>(), {
+    name: '',
     slots: () => []
   });
   const emit = defineEmits(['submit', 'update:modelValue']);

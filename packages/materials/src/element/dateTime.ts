@@ -11,7 +11,7 @@ const dateTime: MaterialDescription = {
     {
       name: 'modelValue',
       defaultValue: '',
-      setters: 'ExpressionSetter'
+      setters: ['NumberSetter', 'StringSetter', 'ExpressionSetter']
     },
     {
       name: 'readonly',
@@ -42,25 +42,22 @@ const dateTime: MaterialDescription = {
     {
       name: 'placeholder',
       defaultValue: '',
-      setters: 'InputSetter'
+      setters: 'StringSetter'
     },
     {
       name: 'startPlaceholder',
       defaultValue: '',
       title: '范围选择时开始日期的占位内容',
-      label: '开始日期',
-      setters: 'InputSetter'
+      setters: 'StringSetter'
     },
     {
       name: 'endPlaceholder',
       defaultValue: '',
       title: '范围选择时结束日期的占位内容',
-      label: '结束日期',
       setters: 'InputSetter'
     },
     {
       name: 'arrowControl',
-      label: 'arrowControl',
       title: '是否使用箭头进行时间选择',
       setters: 'BooleanSetter',
       defaultValue: false
@@ -84,60 +81,65 @@ const dateTime: MaterialDescription = {
     },
     {
       name: 'format',
+      title: '显示在输入框中的格式',
       defaultValue: 'YYYY-MM-DD HH:mm:ss',
-      setters: 'InputSetter'
+      setters: 'StringSetter'
     },
     {
       name: 'popperClass',
+      title: 'DateTimePicker 下拉框的类名',
       defaultValue: '',
-      setters: 'InputSetter'
+      setters: 'StringSetter'
     },
     {
       name: 'rangeSeparator',
       defaultValue: '-',
       title: '选择范围时的分隔符',
-      label: '分隔符',
-      setters: 'InputSetter'
+      setters: 'StringSetter'
     },
     {
       name: 'defaultValue',
+      title: '可选，选择器打开时默认显示的时间',
       defaultValue: '',
       setters: 'ExpressionSetter'
     },
     {
       name: 'defaultTime',
+      title: '选择日期后的默认时间值。 如未指定则默认时间值为 00:00:00',
       defaultValue: '',
       setters: 'ExpressionSetter'
     },
     {
       name: 'valueFormat',
+      title: '可选，绑定值的格式。 不指定则绑定值为 Date 对象',
       defaultValue: '',
-      setters: 'InputSetter'
+      setters: 'StringSetter'
     },
     {
       name: 'dateFormat',
       defaultValue: '',
-      setters: 'InputSetter',
+      setters: 'StringSetter',
       title: '时间选择器下拉列表中显示的日期格式'
     },
     {
       name: 'timeFormat',
       defaultValue: '',
-      setters: 'InputSetter',
+      setters: 'StringSetter',
       title: '时间选择器下拉列表中显示的时间格式'
     },
     {
       name: 'id',
       defaultValue: '',
-      setters: ['InputSetter']
+      setters: ['StringSetter', 'ArraySetter', 'ExpressionSetter']
     },
     {
       name: 'name',
       defaultValue: '',
-      setters: 'InputSetter'
+      setters: 'StringSetter'
     },
     {
       name: 'unlinkPanels',
+      title: '在范围选择器里取消两个日期面板之间的联动',
       defaultValue: false,
       setters: 'BooleanSetter'
     },
@@ -176,6 +178,27 @@ const dateTime: MaterialDescription = {
       defaultValue: true,
       title: '设置自定义类名',
       setters: 'BooleanSetter'
+    },
+    {
+      name: 'emptyValues',
+      title: '组件的空值配置',
+      setters: 'ArraySetter'
+    },
+    {
+      name: 'valueOnClear',
+      title: '清空选项的值',
+      setters: [
+        'StringSetter',
+        'NumberSetter',
+        'BooleanSetter',
+        'FunctionSetter'
+      ]
+    },
+    {
+      name: 'showNow',
+      title: '是否显示 now 按钮',
+      defaultValue: true,
+      setters: 'BooleanSetter'
     }
   ],
   events: [
@@ -187,6 +210,9 @@ const dateTime: MaterialDescription = {
     },
     {
       name: 'focus'
+    },
+    {
+      name: 'clear'
     },
     {
       name: 'calendar-change'
@@ -204,6 +230,18 @@ const dateTime: MaterialDescription = {
     },
     {
       name: 'range-separator'
+    },
+    {
+      name: 'prev-month'
+    },
+    {
+      name: 'next-month'
+    },
+    {
+      name: 'prev-year'
+    },
+    {
+      name: 'next-year'
     }
   ],
   snippet: {

@@ -10,51 +10,51 @@ const Checkbox: MaterialDescription[] = [
     props: [
       {
         name: 'modelValue',
+        title: '选中项绑定值',
         defaultValue: '',
         setters: ['InputSetter', 'NumberSetter', 'BooleanSetter']
       },
       {
         name: 'label',
+        title:
+          '选中状态的值，只有在绑定对象类型为 array 时有效。 如果没有 value， label则作为value使用',
         defaultValue: '',
         setters: ['InputSetter']
       },
       {
         name: 'value',
+        title:
+          '选中状态的值（只有在checkbox-group或者绑定对象类型为array时有效）',
         defaultValue: '',
         setters: ['InputSetter', 'NumberSetter', 'BooleanSetter', 'JSONSetter']
       },
       {
         name: 'trueValue',
+        title: '选中时的值',
         defaultValue: '',
         setters: ['InputSetter', 'NumberSetter']
       },
       {
         name: 'falseValue',
-        defaultValue: '',
-        setters: ['InputSetter', 'NumberSetter']
-      },
-      {
-        name: 'trueLabel',
-        defaultValue: '',
-        setters: ['InputSetter', 'NumberSetter']
-      },
-      {
-        name: 'falseLabel',
+        title: '没有选中时的值',
         defaultValue: '',
         setters: ['InputSetter', 'NumberSetter']
       },
       {
         name: 'disabled',
+        title: '是否禁用',
         defaultValue: false,
         setters: 'BooleanSetter'
       },
       {
         name: 'border',
+        title: '是否显示边框',
         defaultValue: false,
         setters: 'BooleanSetter'
       },
       {
         name: 'size',
+        title: 'Checkbox 的尺寸',
         defaultValue: 'default',
         options: ['large', 'default', 'small'],
         setters: 'SelectSetter'
@@ -66,6 +66,7 @@ const Checkbox: MaterialDescription[] = [
       },
       {
         name: 'checked',
+        title: '当前是否勾选',
         defaultValue: false,
         setters: 'BooleanSetter'
       },
@@ -73,14 +74,14 @@ const Checkbox: MaterialDescription[] = [
         name: 'indeterminate',
         defaultValue: false,
         title: '设置 indeterminate 状态，只负责样式控制',
-        label: '半选',
+        // label: '半选',
         setters: 'BooleanSetter'
       },
       {
         name: 'validateEvent',
         defaultValue: true,
         title: '输入时是否触发表单的校验',
-        label: '表单校验',
+        // label: '表单校验',
         setters: 'BooleanSetter'
       },
       {
@@ -96,8 +97,24 @@ const Checkbox: MaterialDescription[] = [
         setters: 'StringSetter'
       },
       {
-        name: 'controls',
-        label: 'controls',
+        name: 'aria-controls',
+        title: '与 aria-control一致, 当 indeterminate为 true时生效',
+        setters: 'BooleanSetter'
+      },
+      {
+        name: 'trueLabel',
+        title: '选中时的值(deprecated)',
+        defaultValue: '',
+        setters: ['InputSetter', 'NumberSetter']
+      },
+      {
+        name: 'falseLabel',
+        title: '没有选中时的值(deprecated)',
+        defaultValue: '',
+        setters: ['InputSetter', 'NumberSetter']
+      },
+      {
+        name: 'controls(deprecated)',
         title: '与 aria-control一致, 当 indeterminate为 true时生效',
         setters: 'BooleanSetter'
       }
@@ -128,42 +145,44 @@ const Checkbox: MaterialDescription[] = [
     props: [
       {
         name: 'modelValue',
+        title: '绑定值',
         defaultValue: [],
         setters: 'JSONSetter'
       },
       {
         name: 'size',
+        title: '多选框组尺寸',
         defaultValue: '',
         options: ['large', 'default', 'small'],
         setters: 'SelectSetter'
       },
       {
         name: 'disabled',
+        title: '是否禁用',
         defaultValue: false,
         setters: 'BooleanSetter'
       },
       {
         name: 'min',
+        title: '可被勾选的 checkbox 的最小数量',
         defaultValue: '',
         setters: 'NumberSetter'
       },
       {
         name: 'max',
+        title: '可被勾选的 checkbox 的最大数量',
         defaultValue: '',
         setters: 'NumberSetter'
       },
       {
-        name: 'label',
+        name: 'aria-label',
+        title: '原生 aria-label属性',
         defaultValue: '',
         setters: 'InputSetter'
       },
       {
-        name: 'value',
-        defaultValue: '',
-        setters: ['InputSetter', 'NumberSetter', 'BooleanSetter', 'JSONSetter']
-      },
-      {
         name: 'textColor',
+        title: '当按钮为活跃状态时的字体颜色',
         defaultValue: '#ffffff',
         setters: 'ColorSetter'
       },
@@ -174,11 +193,22 @@ const Checkbox: MaterialDescription[] = [
         setters: 'ColorSetter'
       },
       {
+        name: 'tag',
+        defaultValue: 'div',
+        title: '复选框组元素标签',
+        setters: 'StringSetter'
+      },
+      {
         name: 'validateEvent',
         defaultValue: true,
         title: '输入时是否触发表单的校验',
-        label: '表单校验',
         setters: 'BooleanSetter'
+      },
+      {
+        name: 'label',
+        title: '原生 aria-label属性',
+        defaultValue: '',
+        setters: 'StringSetter'
       }
     ],
     events: ['change', 'update:modelValue'],
@@ -217,36 +247,61 @@ const Checkbox: MaterialDescription[] = [
     package: 'element-plus',
     props: [
       {
+        name: 'modelValue',
+        title: '选中状态的值，只有在绑定对象类型为 array 时有效。',
+        defaultValue: [],
+        setters: ['StringSetter', 'NumberSetter', 'BooleanSetter', 'JSONSetter']
+      },
+      {
         name: 'label',
+        title:
+          '选中状态的值，只有在绑定对象类型为 array 时有效。 如果没有 value， label则作为value使用',
         defaultValue: '',
-        setters: ['JSONSetter', 'InputSetter', 'NumberSetter', 'BooleanSetter']
+        setters: ['StringSetter', 'NumberSetter', 'BooleanSetter', 'JSONSetter']
       },
       {
-        name: 'trueLabel',
+        name: 'trueValue',
+        title: '选中时的值',
         defaultValue: '',
-        setters: ['InputSetter', 'NumberSetter']
+        setters: ['StringSetter', 'NumberSetter']
       },
       {
-        name: 'falseLabel',
+        name: 'falseValue',
+        title: '没有选中时的值',
         defaultValue: '',
-        setters: ['InputSetter', 'NumberSetter']
+        setters: ['StringSetter', 'NumberSetter']
       },
       {
         name: 'disabled',
+        title: '是否禁用',
         defaultValue: false,
         setters: 'BooleanSetter'
       },
       {
         name: 'name',
+        title: '原生 name 属性',
         defaultValue: '',
-        setters: 'InputSetter'
+        setters: 'StringSetter'
       },
       {
         name: 'checked',
         defaultValue: false,
         setters: 'BooleanSetter'
+      },
+      {
+        name: 'trueLabel',
+        title: '选中时的值',
+        defaultValue: '',
+        setters: ['StringSetter', 'NumberSetter']
+      },
+      {
+        name: 'falseLabel',
+        title: '没有选中时的值',
+        defaultValue: '',
+        setters: ['StringSetter', 'NumberSetter']
       }
     ],
+    slots: ['default'],
     snippet: {
       props: {
         label: '按钮选项'

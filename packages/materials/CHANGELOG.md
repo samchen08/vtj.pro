@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.9.7](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.9.6...@vtj/materials@0.9.7) (2025-01-04)
+
+
+### Bug Fixes
+
+* 🐛 el-autocomplete ([a6c4fca](https://gitee.com/newgateway/vtj/commits/a6c4fca66f081c80cfc6c6f62a66971e31c0af1d))
+* 🐛 el-cascader ([921cdb6](https://gitee.com/newgateway/vtj/commits/921cdb6adea30654bf2f921078c07f510694c8c7))
+* 🐛 el-checkbox ([31b0d2a](https://gitee.com/newgateway/vtj/commits/31b0d2a5333b8e8505379b57393bcf38aebc130e))
+* 🐛 XPanel 物料参数错误 ([fdf4892](https://gitee.com/newgateway/vtj/commits/fdf489219cac5c4d281fb6acf9378da63394a4c1))
+
+
+
+
+
 ## [0.9.6](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.9.5...@vtj/materials@0.9.6) (2025-01-03)
 
 

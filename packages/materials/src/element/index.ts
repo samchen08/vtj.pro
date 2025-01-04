@@ -24,6 +24,8 @@ import datePicker from './datePicker';
 import dateTime from './dateTime';
 import input from './input';
 import inputNumber from './inputNumber';
+import inputTag from './inputTag';
+import Mention from './mention';
 import radio from './radio';
 import rate from './rate';
 import select from './select';
@@ -115,6 +117,8 @@ const components: MaterialDescription[] = [
   image,
   input,
   inputNumber,
+  inputTag,
+  Mention,
   layout,
   link,
   menu,
