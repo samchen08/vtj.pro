@@ -17,18 +17,14 @@ import {
   BUILT_IN_COMPONENTS
 } from '@vtj/core';
 import {
-  type IStaticRequest,
-  type Jsonp,
   jsonp,
   loadScript,
   logger,
+  request,
   url as urlUtils
 } from '@vtj/utils';
-import { ElNotification } from 'element-plus';
 import Mock from 'mockjs';
-import { request } from './defaults';
 import { createSchemaApis, mockApis, mockCleanup } from './apis';
-import { Access } from '../plugins';
 import { isVuePlugin } from '../utils';
 import { version } from '../version';
 import {
@@ -51,6 +47,7 @@ import {
 } from '../render';
 import { PageContainer } from './page';
 import { StartupContainer } from './startup';
+import { type ProvideAdapter } from './defaults';
 
 export const providerKey: InjectionKey<Provider> = Symbol('Provider');
 
@@ -59,7 +56,7 @@ export interface ProviderOptions {
   project?: Partial<ProjectSchema>;
   modules?: Record<string, () => Promise<any>>;
   mode?: ContextMode;
-  adapter?: Partial<ProvideAdapter>;
+  adapter?: ProvideAdapter;
   router?: Router;
   dependencies?: Record<string, () => Promise<any>>;
   materials?: Record<string, () => Promise<any>>;
@@ -77,26 +74,12 @@ export enum NodeEnv {
   Development = 'development'
 }
 
-export interface ProvideAdapter {
-  request: IStaticRequest;
-  jsonp: Jsonp;
-  metaQuery?: (...args: any[]) => Promise<any>;
-  access?: Access;
-  startupComponent?: any;
-  /**
-   * 远程服务 host
-   */
-  remote?: string;
-  [index: string]: any;
-}
-
 export class Provider extends Base {
   public mode: ContextMode;
   public globals: Record<string, any> = {};
   public modules: Record<string, () => Promise<any>> = {};
   public adapter: ProvideAdapter = { request, jsonp };
   public apis: Record<string, (...args: any[]) => Promise<any>> = {};
-  // public createMock: typeof createMock = createMock;
   public dependencies: Record<string, () => Promise<any>> = {};
   public materials: Record<string, () => Promise<any>> = {};
   public library: Record<string, any> = {};
@@ -333,10 +316,9 @@ export class Provider extends Base {
           err?.stack
         );
 
-        ElNotification.error({
-          title: '未处理的异常：请在控制台查看详情',
-          message
-        });
+        if (this.adapter.notify) {
+          this.adapter.notify(message, '组件渲染错误', 'error');
+        }
       };
     }
   }
@@ -494,10 +476,13 @@ export function useProvider(options: UseProviderOptions = {}): Provider {
       (async () => {
         const dsl = await provider.getDsl(id);
         if (dsl?.__VERSION__ !== version)
-          ElNotification.warning({
-            title: dsl?.name,
-            message: '当前组件源码版本与运行时版本不一致，请重新发布组件'
-          });
+          if (provider.adapter.notify) {
+            provider.adapter.notify(
+              `[ ${dsl?.name} ] 组件源码版本与运行时版本不一致，请重新发布组件`,
+              '版本不一致',
+              'warning'
+            );
+          }
       })();
     }
   }
