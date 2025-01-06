@@ -12,7 +12,7 @@ const Anchor: MaterialDescription = {
       name: 'container',
       label: 'container',
       title: '滚动的容器',
-      setters: 'StringSetter' //??
+      setters: 'StringSetter'
     },
     {
       name: 'offset',
@@ -57,6 +57,12 @@ const Anchor: MaterialDescription = {
       setters: 'SelectSetter',
       options: ['vertical', 'horizontal'],
       defaultValue: 'horizontal'
+    },
+    {
+      name: 'selectScrollTop',
+      title: '滚动时，链接是否选中位于顶部',
+      defaultValue: false,
+      setters: 'BooleanSetter'
     }
   ],
   events: ['change', 'click'],

@@ -58,6 +58,7 @@ const Radio: MaterialDescription[] = [
         name: 'update:modelValue'
       }
     ],
+    slots: ['default'],
     snippet: {
       props: {
         label: '选项一',
@@ -137,6 +138,7 @@ const Radio: MaterialDescription[] = [
         name: 'update:modelValue'
       }
     ],
+    slots: ['default'],
     snippet: {
       name: 'ElRadioGroup',
       children: [

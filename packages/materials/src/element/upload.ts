@@ -9,7 +9,7 @@ const Upload: MaterialDescription = {
   props: [
     {
       name: 'action',
-      defaultValue: '',
+      defaultValue: '#',
       title: '请求 URL',
       setters: 'InputSetter'
     },
@@ -60,54 +60,49 @@ const Upload: MaterialDescription = {
       setters: 'InputSetter'
     },
     {
+      name: 'crossorigin',
+      options: ['', 'anonymous', 'use-credentials'],
+      setters: 'SelectSetter'
+    },
+    {
       name: 'onPreview',
-      defaultValue: '',
       setters: 'FunctionSetter'
     },
     {
       name: 'onRemove',
-      defaultValue: '',
       setters: 'FunctionSetter'
     },
     {
       name: 'onSuccess',
-      defaultValue: '',
       setters: 'FunctionSetter'
     },
     {
       name: 'onError',
-      defaultValue: '',
-      setters: 'ExpressionSetter'
+      setters: ['FunctionSetter', 'ExpressionSetter']
     },
     {
       name: 'onProgress',
-      defaultValue: '',
-      setters: 'ExpressionSetter'
+      setters: ['FunctionSetter', 'ExpressionSetter']
     },
     {
       name: 'onChange',
-      defaultValue: '',
       setters: 'FunctionSetter'
     },
     {
       name: 'onExceed',
-      defaultValue: '',
       setters: 'FunctionSetter'
     },
     {
       name: 'beforeUpload',
-      defaultValue: '',
       setters: 'FunctionSetter'
     },
     {
       name: 'beforeRemove',
-      defaultValue: '',
       setters: 'FunctionSetter'
     },
     {
       name: 'fileList',
-      defaultValue: '',
-      setters: 'JSONSetter'
+      setters: ['ArraySetter', 'JSONSetter']
     },
     {
       name: 'listType',
@@ -122,7 +117,6 @@ const Upload: MaterialDescription = {
     },
     {
       name: 'httpRequest',
-      defaultValue: '',
       setters: 'FunctionSetter'
     },
     {

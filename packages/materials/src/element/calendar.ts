@@ -10,12 +10,12 @@ const Calendar: MaterialDescription = {
     {
       name: 'modelValue',
       defaultValue: '',
-      setters: 'ExpressionSetter'
+      setters: ['StringSetter', 'ExpressionSetter']
     },
     {
       name: 'range',
       defaultValue: '',
-      setters: 'JSONSetter'
+      setters: ['ArraySetter', 'JSONSetter']
     }
   ],
   events: ['update:modelValue'],

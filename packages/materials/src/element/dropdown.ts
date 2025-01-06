@@ -11,7 +11,16 @@ const Dropdown: MaterialDescription[] = [
       {
         name: 'type',
         defaultValue: '',
-        options: ['primary', 'warning', 'success', 'danger', 'info'],
+        options: [
+          '',
+          'default',
+          'primary',
+          'success',
+          'warning',
+          'info',
+          'danger',
+          'text'
+        ],
         setters: 'SelectSetter'
       },
       {
@@ -55,13 +64,19 @@ const Dropdown: MaterialDescription[] = [
         options: ['hover', 'click', 'contextmenu']
       },
       {
+        name: 'triggerKeys',
+        title: '指定键盘上哪些按键可以触发操作',
+        defaultValue: ['Enter', 'Space', 'ArrowDown', 'NumpadEnter'],
+        setters: 'ArraySetter'
+      },
+      {
         name: 'hideOnClick',
         defaultValue: true,
         setters: 'BooleanSetter'
       },
       {
         name: 'showTimeout',
-        defaultValue: 250,
+        defaultValue: 150,
         setters: 'NumberSetter'
       },
       {
@@ -77,7 +92,7 @@ const Dropdown: MaterialDescription[] = [
       {
         name: 'tabindex',
         defaultValue: 0,
-        setters: 'NumberSetter'
+        setters: ['NumberSetter', 'StringSetter']
       },
       {
         name: 'popperClass',
@@ -86,7 +101,11 @@ const Dropdown: MaterialDescription[] = [
       },
       {
         name: 'popperOptions',
-        defaultValue: undefined,
+        defaultValue: {
+          modifiers: [
+            { name: 'computeStyles', options: { gpuAcceleration: false } }
+          ]
+        },
         setters: 'JSONSetter'
       },
       {
@@ -164,7 +183,8 @@ const Dropdown: MaterialDescription[] = [
     label: '下拉菜单Menu',
 
     categoryId: 'nav',
-    package: 'element-plus'
+    package: 'element-plus',
+    slots: ['default']
   },
   {
     name: 'ElDropdownItem',
@@ -195,7 +215,7 @@ const Dropdown: MaterialDescription[] = [
         setters: ['InputSetter']
       }
     ],
-    slots: ['default'],
+    slots: ['default', 'icon'],
     snippet: {
       name: 'ElDropdownItem',
       children: '下拉选项'

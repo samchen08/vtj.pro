@@ -96,7 +96,7 @@ const Tour: MaterialDescription = {
       label: 'close-icon',
       title: '自定义关闭图标',
       setters: 'IconSetter',
-      defaultValue: ''
+      defaultValue: 'Close'
     },
     {
       name: 'close-on-press-escape',
@@ -115,7 +115,8 @@ const Tour: MaterialDescription = {
   ],
   slots: [
     { name: 'default' },
-    { name: 'indicators', params: ['current', 'total'] }
+    { name: 'indicators', params: ['current', 'total'] },
+    { name: 'close-icon' }
   ],
   events: ['close', 'finish', 'change', 'update:modelValue', 'update:current'],
   snippet: {
@@ -160,7 +161,7 @@ const TourStep: MaterialDescription = {
       name: 'target',
       label: 'target',
       title: '获取引导卡片指向的元素， 为空时居中于屏幕。',
-      setters: ['StringSetter', 'FunctionSetter'] //??
+      setters: ['StringSetter', 'FunctionSetter']
     },
     {
       name: 'showArrow',
@@ -173,8 +174,7 @@ const TourStep: MaterialDescription = {
       name: 'title',
       label: 'title',
       title: '标题',
-      setters: 'StringSetter',
-      defaultValue: '*'
+      setters: 'StringSetter'
     },
     {
       name: 'description',
@@ -240,7 +240,7 @@ const TourStep: MaterialDescription = {
       name: 'scrollIntoViewOptions',
       label: 'scrollIntoViewOptions',
       title: '是否支持当前元素滚动到视窗内，也可传入配置指定滚动视窗的相关参数',
-      setters: ['BooleanSetter', 'ObjectSetter'] //??
+      setters: ['BooleanSetter', 'ObjectSetter']
     },
     {
       name: 'showClose',
@@ -256,7 +256,7 @@ const TourStep: MaterialDescription = {
       setters: ['IconSetter']
     }
   ],
-  slots: [{ name: 'default' }, { name: 'header' }],
+  slots: [{ name: 'default' }, { name: 'header' }, { name: 'close-icon' }],
   events: ['close'],
   snippet: {
     props: {

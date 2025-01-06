@@ -68,14 +68,17 @@ const DatePicker: MaterialDescription = {
       title: '显示类型',
       options: [
         'year',
+        'years',
         'month',
+        'months',
         'date',
         'dates',
         'datetime',
         'week',
         'datetimerange',
         'daterange',
-        'monthrange'
+        'monthrange',
+        'yearrange'
       ],
       setters: 'SelectSetter'
     },

@@ -12,12 +12,16 @@
     LocalService,
     ProjectModel,
     Extension,
-    Access
+    Access,
+    createAdapter,
+    createServiceRequest
   } from '../../src';
 
+  import { notify, loading } from '../utils';
+  const adapter = createAdapter({ loading, notify });
   const route = useRoute();
   const container = ref();
-  const service = new LocalService();
+  const service = new LocalService(createServiceRequest(notify));
   const config = await service.getExtension().catch(() => null);
   const { options, adapters } = config
     ? await new Extension(config).load()
@@ -76,12 +80,13 @@
       }
     }
   });
+
   const engine = new Engine({
     container,
     service,
     materialPath: __BASE_PATH__,
     ...options,
-    adapter: Object.assign({ access, remote }, options?.adapter || {})
+    adapter: Object.assign(adapter, { access, remote }, options?.adapter || {})
   });
 
   engine.ready(() => {

@@ -38,7 +38,7 @@ const Carousel: MaterialDescription[] = [
       {
         name: 'indicatorPosition',
         defaultValue: '',
-        options: ['outside', 'none'],
+        options: ['', 'outside', 'none'],
         label: '指示器',
         setters: 'InputSetter'
       },
@@ -53,6 +53,11 @@ const Carousel: MaterialDescription[] = [
         defaultValue: '',
         options: ['', 'card'],
         setters: 'SelectSetter'
+      },
+      {
+        name: 'cardScale',
+        defaultValue: 0.83,
+        setters: 'NumberSetter'
       },
       {
         name: 'loop',
@@ -77,6 +82,7 @@ const Carousel: MaterialDescription[] = [
       }
     ],
     events: ['change'],
+    slots: ['default'],
     snippet: {
       props: {
         height: '300px',
@@ -136,6 +142,7 @@ const Carousel: MaterialDescription[] = [
         setters: 'InputSetter'
       }
     ],
+    slots: ['default'],
     snippet: {
       props: {
         style: {

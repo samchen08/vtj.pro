@@ -10,8 +10,8 @@ const Tag: MaterialDescription[] = [
     props: [
       {
         name: 'type',
-        defaultValue: '',
-        options: ['success', 'info', 'warning', 'danger'],
+        defaultValue: 'primary',
+        options: ['primary', 'success', 'info', 'warning', 'danger'],
         setters: 'SelectSetter'
       },
       {
@@ -68,6 +68,11 @@ const Tag: MaterialDescription[] = [
     props: [
       {
         name: 'checked',
+        defaultValue: false,
+        setters: 'BooleanSetter'
+      },
+      {
+        name: 'disabled',
         defaultValue: false,
         setters: 'BooleanSetter'
       },

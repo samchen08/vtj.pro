@@ -36,7 +36,7 @@ const components: MaterialDescription = {
     },
     {
       name: 'icon',
-      defaultValue: '',
+      defaultValue: 'QuestionFilled',
       setters: ['InputSetter']
     },
     {
@@ -48,6 +48,11 @@ const components: MaterialDescription = {
       name: 'hideIcon',
       defaultValue: false,
       setters: 'BooleanSetter'
+    },
+    {
+      name: 'hideAfter',
+      defaultValue: 200,
+      setters: 'NumberSetter'
     },
     {
       name: 'teleported',
@@ -76,6 +81,9 @@ const components: MaterialDescription = {
   slots: [
     {
       name: 'reference'
+    },
+    {
+      name: 'actions'
     }
   ],
   snippet: {

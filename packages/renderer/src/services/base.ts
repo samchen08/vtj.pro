@@ -11,28 +11,28 @@ import {
   type NodeFromPlugin,
   type ExtensionConfig
 } from '@vtj/core';
-import { Request } from '@vtj/utils';
-import { ElNotification } from 'element-plus';
+import {
+  type IStaticRequest,
+  type IRequestSettings,
+  request,
+  createRequest
+} from '@vtj/utils';
 import { isJSON } from '../utils';
 
-const request = new Request({
-  settings: {
-    type: 'json',
-    validSuccess: true,
-    originResponse: false,
-    failMessage: true,
-    validate: (res: any) => {
-      return res.data?.code === 0;
-    },
-    showError: (msg: string) => {
-      ElNotification.error({
-        message: msg || '未知错误'
-      });
-    }
+const settings: IRequestSettings = {
+  type: 'json',
+  validSuccess: true,
+  originResponse: false,
+  failMessage: true,
+  validate: (res: any) => {
+    return res.data?.code === 0;
   }
-});
+};
 
-const createApi = (url: string = '/__vtj__/api/:type.json') => {
+const createApi = (
+  request: IStaticRequest,
+  url: string = '/__vtj__/api/:type.json'
+) => {
   return (type: string, data?: any) => {
     return request.send({
       url,
@@ -41,12 +41,16 @@ const createApi = (url: string = '/__vtj__/api/:type.json') => {
       data: {
         type,
         data
-      }
+      },
+      settings
     });
   };
 };
 
-const createUploader = (url: string = '/__vtj__/api/uploader.json') => {
+const createUploader = (
+  request: IStaticRequest,
+  url: string = '/__vtj__/api/uploader.json'
+) => {
   return async (file: File, projectId: string) => {
     return await request
       .send({
@@ -57,6 +61,7 @@ const createUploader = (url: string = '/__vtj__/api/uploader.json') => {
           projectId
         },
         settings: {
+          ...settings,
           type: 'data'
         }
       })
@@ -70,6 +75,25 @@ const createUploader = (url: string = '/__vtj__/api/uploader.json') => {
   };
 };
 
+export function createServiceRequest(notify?: (msg: string) => void) {
+  return createRequest({
+    settings: {
+      type: 'json',
+      validSuccess: true,
+      originResponse: false,
+      failMessage: true,
+      validate: (res: any) => {
+        return res.data?.code === 0;
+      },
+      showError: (msg: string) => {
+        if (notify) {
+          notify(msg || '未知错误');
+        }
+      }
+    }
+  });
+}
+
 export class BaseService implements Service {
   protected api: (type: string, data: any) => Promise<any>;
   private pluginCaches: Record<string, any> = {};
@@ -77,9 +101,9 @@ export class BaseService implements Service {
     file: File,
     projectId: string
   ) => Promise<StaticFileInfo>;
-  constructor() {
-    this.api = createApi();
-    this.uploader = createUploader();
+  constructor(req: IStaticRequest = request) {
+    this.api = createApi(req);
+    this.uploader = createUploader(req);
   }
   async getExtension(): Promise<ExtensionConfig | undefined> {
     console.log('BaseService.getExtension');

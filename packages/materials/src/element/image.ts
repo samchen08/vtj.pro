@@ -16,7 +16,7 @@ const Image: MaterialDescription = {
     {
       name: 'fit',
       defaultValue: '',
-      options: ['fill', 'contain', 'cover', 'none', 'scale-down'],
+      options: ['', 'fill', 'contain', 'cover', 'none', 'scale-down'],
       setters: 'SelectSetter'
     },
     {
@@ -60,7 +60,7 @@ const Image: MaterialDescription = {
     {
       name: 'previewSrcList',
       defaultValue: '',
-      setters: 'JSONSetter'
+      setters: ['ArraySetter', 'JSONSetter']
     },
     {
       name: 'zIndex',

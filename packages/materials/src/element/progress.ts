@@ -21,7 +21,7 @@ const Progress: MaterialDescription = {
     },
     {
       name: 'type',
-      defaultValue: 0,
+      defaultValue: 'line',
       options: ['line', 'circle', 'dashboard'],
       setters: 'SelectSetter'
     },
@@ -54,7 +54,7 @@ const Progress: MaterialDescription = {
     {
       name: 'color',
       defaultValue: '',
-      setters: ['ColorSetter', 'FunctionSetter', 'JSONSetter']
+      setters: ['ColorSetter', 'FunctionSetter', 'ArraySetter', 'JSONSetter']
     },
     {
       name: 'width',
@@ -70,7 +70,7 @@ const Progress: MaterialDescription = {
       name: 'strokeLinecap',
       defaultValue: 'round',
       options: ['butt', 'round', 'square'],
-      setters: 'BooleanSetter'
+      setters: 'SelectSetter'
     },
     {
       name: 'format',

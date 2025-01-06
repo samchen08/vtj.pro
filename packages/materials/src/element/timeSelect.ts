@@ -11,7 +11,7 @@ const TimeSelect: MaterialDescription = {
     {
       name: 'modelValue',
       defaultValue: '',
-      setters: 'ExpressionSetter'
+      setters: ['StringSetter', 'ExpressionSetter']
     },
     {
       name: 'disabled',
@@ -51,17 +51,6 @@ const TimeSelect: MaterialDescription = {
       setters: 'SelectSetter'
     },
     {
-      name: 'effect',
-      defaultValue: 'light',
-      options: ['dark', 'light'],
-      setters: 'SelectSetter'
-    },
-    {
-      name: 'format',
-      defaultValue: 'HH:mm',
-      setters: 'InputSetter'
-    },
-    {
       name: 'prefixIcon',
       defaultValue: 'Clock',
       setters: 'InputSetter'
@@ -95,9 +84,29 @@ const TimeSelect: MaterialDescription = {
       name: 'maxTime',
       defaultValue: '',
       setters: 'InputSetter'
+    },
+    {
+      name: 'format',
+      defaultValue: 'HH:mm',
+      setters: 'InputSetter'
+    },
+    {
+      name: 'emptyValues',
+      title: '组件的空值配置',
+      setters: 'ArraySetter'
+    },
+    {
+      name: 'valueOnClear',
+      title: '清空选项的值',
+      setters: [
+        'StringSetter',
+        'NumberSetter',
+        'BooleanSetter',
+        'FunctionSetter'
+      ]
     }
   ],
-  events: ['change', 'blur', 'focus', 'update:modelValue']
+  events: ['change', 'blur', 'focus', 'clear', 'update:modelValue']
 };
 
 export default TimeSelect;

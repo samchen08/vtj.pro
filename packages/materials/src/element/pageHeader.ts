@@ -10,12 +10,12 @@ const components: MaterialDescription = {
   props: [
     {
       name: 'icon',
-      defaultValue: undefined,
+      defaultValue: 'Back',
       setters: 'InputSetter'
     },
     {
       name: 'title',
-      defaultValue: 'Back',
+      defaultValue: '',
       setters: 'InputSetter'
     },
     {

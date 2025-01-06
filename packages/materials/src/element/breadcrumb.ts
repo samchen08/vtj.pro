@@ -11,7 +11,7 @@ const Breadcrumb: MaterialDescription[] = [
     props: [
       {
         name: 'separator',
-        defaultValue: '',
+        defaultValue: '/',
         setters: 'InputSetter'
       },
       {
@@ -20,7 +20,7 @@ const Breadcrumb: MaterialDescription[] = [
         setters: ['InputSetter']
       }
     ],
-    slots: ['default'],
+    slots: ['default', 'separatorIcon'],
     snippet: {
       children: [
         {

@@ -80,6 +80,27 @@ const Switch: MaterialDescription = {
       setters: ['BooleanSetter', 'InputSetter', 'NumberSetter']
     },
     {
+      name: 'name',
+      defaultValue: '',
+      setters: 'InputSetter'
+    },
+    {
+      name: 'validateEvent',
+      defaultValue: true,
+      setters: 'BooleanSetter'
+    },
+    {
+      name: 'beforeChange',
+      setters: ['BooleanSetter', 'FunctionSetter']
+    },
+    { name: 'id', defaultValue: '', setters: 'StringSetter' },
+    {
+      name: 'tabindex',
+      defaultValue: '',
+      setters: ['StringSetter', 'NumberSetter']
+    },
+    { name: 'ariaLabel', defaultValue: '', setters: 'StringSetter' },
+    {
       name: 'activeColor',
       defaultValue: '',
       setters: 'ColorSetter'
@@ -93,26 +114,6 @@ const Switch: MaterialDescription = {
       name: 'borderColor',
       defaultValue: '',
       setters: 'ColorSetter'
-    },
-    {
-      name: 'name',
-      defaultValue: '',
-      setters: 'InputSetter'
-    },
-    {
-      name: 'validateEvent',
-      defaultValue: true,
-      setters: 'BooleanSetter'
-    },
-    {
-      name: 'beforeChange',
-      setters: 'FunctionSetter'
-    },
-    { name: 'id', defaultValue: '', setters: 'StringSetter' },
-    {
-      name: 'tabindex',
-      defaultValue: '',
-      setters: ['StringSetter', 'NumberSetter']
     },
     { name: 'label', defaultValue: '', setters: 'StringSetter' }
   ],

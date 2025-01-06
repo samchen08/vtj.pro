@@ -11,7 +11,7 @@ const TreeV2: MaterialDescription = {
     {
       name: 'data',
       defaultValue: '',
-      setters: 'JSONSetter'
+      setters: ['ArraySetter', 'JSONSetter']
     },
     {
       name: 'empty-text',
@@ -21,7 +21,7 @@ const TreeV2: MaterialDescription = {
     {
       name: 'props',
       defaultValue: '',
-      setters: 'JSONSetter'
+      setters: ['ObjectSetter', 'JSONSetter']
     },
     {
       name: 'highlight-current',
@@ -106,6 +106,7 @@ const TreeV2: MaterialDescription = {
   ],
   events: [
     'node-click',
+    'node-drop',
     'node-contextmenu',
     'check-change',
     'check',
