@@ -10,7 +10,7 @@ const SelectV2: MaterialDescription = {
     {
       name: 'modelValue',
       defaultValue: '',
-      setters: ['InputSetter', 'NumberSetter', 'JSONSetter']
+      setters: ['InputSetter', 'NumberSetter', 'BooleanSetter', 'JSONSetter']
     },
     {
       name: 'options',
@@ -41,8 +41,8 @@ const SelectV2: MaterialDescription = {
     },
     {
       name: 'size',
-      defaultValue: 'default',
-      options: ['large', 'default', 'small'],
+      defaultValue: '',
+      options: ['', 'large', 'default', 'small'],
       setters: 'SelectSetter'
     },
     {
@@ -78,7 +78,7 @@ const SelectV2: MaterialDescription = {
       name: 'effect',
       defaultValue: 'light',
       options: ['dark', 'light'],
-      setters: 'SelectSetter'
+      setters: ['SelectSetter', 'StringSetter']
     },
     {
       name: 'autocomplete',
@@ -87,7 +87,7 @@ const SelectV2: MaterialDescription = {
     },
     {
       name: 'placeholder',
-      defaultValue: 'Select',
+      defaultValue: 'Please select',
       setters: 'InputSetter'
     },
     {
@@ -149,19 +149,16 @@ const SelectV2: MaterialDescription = {
       defaultValue: ''
     },
     {
-      name: 'popperAppendToBody ',
-      label: 'popperAppendToBody ',
-      title:
-        '是否将弹出框插入至 body 元素 当弹出框的位置出现问题时，你可以尝试将该属性设置为false。',
-      setters: 'BooleanSetter',
-      defaultValue: false
-    }, //?? deprecated
-    {
       name: 'teleported',
       label: 'teleported',
       title: '是否将下拉列表元素插入 append-to 指向的元素下',
       setters: 'BooleanSetter',
       defaultValue: true
+    },
+    {
+      name: 'appendTo',
+      title: '下拉框挂载到哪个 DOM 元素',
+      setters: 'StringSetter'
     },
     {
       name: 'persistent',
@@ -178,6 +175,11 @@ const SelectV2: MaterialDescription = {
       name: 'automaticDropdown',
       defaultValue: false,
       setters: 'BooleanSetter'
+    },
+    {
+      name: 'fitInputWidth',
+      defaultValue: true,
+      setters: ['BooleanSetter', 'NumberSetter']
     },
     {
       name: 'height',
@@ -208,6 +210,18 @@ const SelectV2: MaterialDescription = {
     },
     {
       name: 'validateEvent',
+      defaultValue: true,
+      setters: 'BooleanSetter'
+    },
+    {
+      name: 'offset',
+      title: '下拉面板偏移量',
+      defaultValue: 12,
+      setters: 'NumberSetter'
+    },
+    {
+      name: 'showArrow',
+      title: '下拉菜单的内容是否有箭头',
       defaultValue: true,
       setters: 'BooleanSetter'
     },
@@ -256,10 +270,44 @@ const SelectV2: MaterialDescription = {
       defaultValue: 'info'
     },
     {
+      name: 'tagEffect',
+      title: '标签效果',
+      defaultValue: 'light',
+      options: ['', 'light', 'dark', 'plain'],
+      setters: 'SelectSetter'
+    },
+    {
       name: 'ariaLabel',
       label: 'ariaLabel',
       title: '等价于原生 input aria-label 属性',
       setters: 'StringSetter'
+    },
+    {
+      name: 'emptyValues',
+      title: '组件的空值配置',
+      setters: 'ArraySetter'
+    },
+    {
+      name: 'valueOnClear',
+      title: '清空选项的值 ',
+      setters: [
+        'StringSetter',
+        'NumberSetter',
+        'BooleanSetter',
+        'FunctionSetter'
+      ]
+    },
+    {
+      name: 'popperAppendToBody',
+      title:
+        '是否将弹出框插入至 body 元素 当弹出框的位置出现问题时，你可以尝试将该属性设置为false。',
+      setters: 'BooleanSetter',
+      defaultValue: false
+    },
+    {
+      name: 'tabindex',
+      title: 'input 的 tabindex',
+      setters: ['StringSetter', 'NumberSetter']
     }
   ],
   events: [
@@ -292,6 +340,9 @@ const SelectV2: MaterialDescription = {
     },
     {
       name: 'loading'
+    },
+    {
+      name: 'label'
     }
   ]
 };

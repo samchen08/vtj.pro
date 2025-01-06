@@ -47,9 +47,24 @@ const Badge: MaterialDescription = {
       name: 'color',
       title: '背景色',
       setters: 'ColorSetter'
+    },
+    {
+      name: 'offset',
+      title: 'badge 的偏移量',
+      setters: 'ArraySetter'
+    },
+    {
+      name: 'badgeStyle',
+      title: '自定义 badge 样式',
+      setters: 'ObjectSetter'
+    },
+    {
+      name: 'badgeClass',
+      title: '自定义 badge 类名',
+      setters: 'StringSetter'
     }
   ],
-  slots: ['default'],
+  slots: ['default', 'content'],
   snippet: {
     props: {
       value: 12

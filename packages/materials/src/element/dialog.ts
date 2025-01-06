@@ -19,8 +19,8 @@ const components: MaterialDescription = {
     },
     {
       name: 'width',
-      defaultValue: '50%',
-      setters: 'InputSetter'
+      defaultValue: '',
+      setters: ['InputSetter', 'NumberSetter']
     },
     {
       name: 'fullscreen',
@@ -29,7 +29,7 @@ const components: MaterialDescription = {
     },
     {
       name: 'top',
-      defaultValue: '15vh',
+      defaultValue: '',
       setters: 'InputSetter'
     },
     {
@@ -61,11 +61,6 @@ const components: MaterialDescription = {
       setters: 'BooleanSetter'
     },
     {
-      name: 'customClass',
-      defaultValue: '',
-      setters: 'InputSetter'
-    },
-    {
       name: 'openDelay',
       defaultValue: 0,
       setters: 'NumberSetter'
@@ -82,7 +77,7 @@ const components: MaterialDescription = {
       setters: 'BooleanSetter'
     },
     {
-      name: 'closOonPressEscape',
+      name: 'closeOnPressEscape',
       label: 'ESC键关闭',
       defaultValue: true,
       setters: 'BooleanSetter'
@@ -128,7 +123,7 @@ const components: MaterialDescription = {
       name: 'closeIcon',
       label: 'closeIcon',
       title: '自定义关闭图标',
-      setters: ['StringSetter', 'IconSetter'] //!  string / Component
+      setters: ['StringSetter', 'IconSetter']
     },
     {
       name: 'z-index',
@@ -142,6 +137,11 @@ const components: MaterialDescription = {
       title: 'header 的 aria-level 属性',
       setters: 'StringSetter',
       defaultValue: 2
+    },
+    {
+      name: 'customClass',
+      defaultValue: '',
+      setters: 'InputSetter'
     }
   ],
   events: [
@@ -176,6 +176,9 @@ const components: MaterialDescription = {
     },
     {
       name: 'footer'
+    },
+    {
+      name: 'title'
     }
   ],
   snippet: {

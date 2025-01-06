@@ -11,12 +11,12 @@ const Transfer: MaterialDescription = {
     {
       name: 'modelValue',
       defaultValue: '',
-      setters: 'ExpressionSetter'
+      setters: ['ArraySetter', 'ExpressionSetter']
     },
     {
       name: 'data',
       defaultValue: [],
-      setters: 'JSONSetter'
+      setters: ['ArraySetter', 'JSONSetter']
     },
     {
       name: 'filterable',
@@ -40,13 +40,13 @@ const Transfer: MaterialDescription = {
     },
     {
       name: 'titles',
-      defaultValue: ['List 1', 'List 2'],
-      setters: 'JSONSetter'
+      defaultValue: [],
+      setters: ['ArraySetter', 'JSONSetter']
     },
     {
       name: 'buttonTexts',
       defaultValue: [],
-      setters: 'JSONSetter'
+      setters: ['ArraySetter', 'JSONSetter']
     },
     {
       name: 'renderContent',
@@ -56,26 +56,24 @@ const Transfer: MaterialDescription = {
     {
       name: 'format',
       defaultValue: '',
-      setters: 'JSONSetter'
+      setters: ['ObjectSetter', 'JSONSetter']
     },
     {
       name: 'props',
       defaultValue: '',
-      setters: 'JSONSetter'
+      setters: ['ObjectSetter', 'JSONSetter']
     },
     {
       name: 'leftDefaultChecked',
       defaultValue: [],
       title: '初始状态下左侧列表的已勾选项的 key 数组',
-      label: '左侧勾选',
-      setters: 'JSONSetter'
+      setters: ['ArraySetter', 'JSONSetter']
     },
     {
       name: 'rightDefaultChecked',
       defaultValue: [],
       title: '初始状态下右侧列表的已勾选项的 key 数组',
-      label: '右侧勾选',
-      setters: 'JSONSetter'
+      setters: ['ArraySetter', 'JSONSetter']
     },
     {
       name: 'validateEvent',
@@ -85,13 +83,20 @@ const Transfer: MaterialDescription = {
   ],
   slots: [
     {
-      name: 'default'
+      name: 'default',
+      params: ['options']
     },
     {
       name: 'left-footer'
     },
     {
       name: 'right-footer'
+    },
+    {
+      name: 'left-empty'
+    },
+    {
+      name: 'right-empty'
     }
   ],
   events: [

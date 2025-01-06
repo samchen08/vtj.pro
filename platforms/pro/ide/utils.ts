@@ -1,5 +1,4 @@
-import { createAdapter } from '@vtj/renderer';
-import { ElNotification, ElLoading } from 'element-plus';
+import { ElLoading, ElNotification } from 'element-plus';
 
 export function loading() {
   return ElLoading.service({
@@ -20,7 +19,3 @@ export function notify(
     type
   });
 }
-
-export * from '@vtj/renderer';
-
-export const adapter = createAdapter({ loading, notify });

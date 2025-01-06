@@ -38,20 +38,18 @@ const Rate: MaterialDescription = {
       name: 'lowThreshold',
       defaultValue: 2,
       title: '低分和中等分数的界限值， 值本身被划分在低分中',
-      label: '低分界限',
       setters: 'NumberSetter'
     },
     {
       name: 'highThreshold',
       defaultValue: 4,
       title: '高分和中等分数的界限值， 值本身被划分在高分中',
-      label: '高分界限',
       setters: 'NumberSetter'
     },
     {
       name: 'colors',
       defaultValue: ['#F7BA2A', '#F7BA2A', '#F7BA2A'],
-      setters: 'JSONSetter'
+      setters: ['ArraySetter', 'JSONSetter']
     },
     {
       name: 'voidColor',
@@ -67,7 +65,7 @@ const Rate: MaterialDescription = {
     {
       name: 'icons',
       defaultValue: ['StarFilled', 'StarFilled', 'StarFilled'],
-      setters: 'JSONSetter'
+      setters: ['ArraySetter', 'JSONSetter']
     },
     {
       name: 'voidIcon',
@@ -104,7 +102,7 @@ const Rate: MaterialDescription = {
         'Satisfied',
         'Surprise'
       ],
-      setters: 'JSONSetter'
+      setters: ['ArraySetter', 'JSONSetter']
     },
     {
       name: 'scoreTemplate',
@@ -122,6 +120,11 @@ const Rate: MaterialDescription = {
       name: 'id',
       label: 'id',
       title: '原生 id 属性',
+      setters: 'StringSetter'
+    },
+    {
+      name: 'ariaLabel',
+      title: '和 Rate 的 aria-label 属性保持一致',
       setters: 'StringSetter'
     },
     {

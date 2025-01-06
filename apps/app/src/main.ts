@@ -4,21 +4,26 @@ import {
   createModules,
   NodeEnv,
   autoUpdate,
-  ContextMode
+  ContextMode,
+  notify,
+  loading,
+  createAdapter,
+  createServiceRequest
 } from '@vtj/web';
 import { createApp } from 'vue';
 import router from './router';
 import App from './App.vue';
-import './style/index.scss';
 import { name } from '../package.json';
+import './style/index.scss';
 
 const app = createApp(App);
-const service = new LocalService();
-
+const adapter = createAdapter({ loading, notify });
+const service = new LocalService(createServiceRequest(notify));
 const { provider, onReady } = createProvider({
   nodeEnv: process.env.NODE_ENV as NodeEnv,
   mode: ContextMode.Raw,
   modules: createModules(),
+  adapter,
   service,
   router,
   dependencies: {

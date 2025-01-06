@@ -220,14 +220,7 @@ const Cascader: MaterialDescription[] = [
         name: 'update:modelValue'
       }
     ],
-    slots: [
-      {
-        name: 'default'
-      },
-      {
-        name: 'empty'
-      }
-    ],
+    slots: [{ name: 'default', params: ['node', 'data'] }, { name: 'empty' }],
     snippet: {
       props: {
         options: mockTreeData(),
@@ -273,7 +266,7 @@ const Cascader: MaterialDescription[] = [
         name: 'close'
       }
     ],
-    slots: ['default', 'empty'],
+    slots: [{ name: 'default', params: ['node', 'data'] }, { name: 'empty' }],
     snippet: {
       props: {
         options: mockTreeData(),

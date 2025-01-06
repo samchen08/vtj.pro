@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.9.6](https://gitee.com/newgateway/vtj/compare/create-vtj@0.9.5...create-vtj@0.9.6) (2025-01-06)
+
+
+### Features
+
+* ✨ @vtj/renderer 与 element-plus 解耦 ([6e63fe8](https://gitee.com/newgateway/vtj/commits/6e63fe81bf5e7047f1c621277b9104d2b44b02bd))
+
+
+
+
+
 ## [0.9.5](https://gitee.com/newgateway/vtj/compare/create-vtj@0.9.4...create-vtj@0.9.5) (2025-01-04)
 
 **Note:** Version bump only for package create-vtj

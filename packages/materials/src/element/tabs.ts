@@ -24,7 +24,8 @@ const Tabs: MaterialDescription[] = [
             }
           }
         ],
-        options: ['card', 'border-card']
+        defaultValue: '',
+        options: ['', 'card', 'border-card']
       },
       {
         name: 'closable',

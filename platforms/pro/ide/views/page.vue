@@ -13,11 +13,15 @@
     LocalService,
     ContextMode,
     Extension,
-    Access
+    Access,
+    createAdapter,
+    createServiceRequest
   } from '../../src';
   import { IconsPlugin } from '@vtj/icons';
   import { ElMessageBox } from 'element-plus';
-  const service = new LocalService();
+  import { notify, loading } from '../utils';
+  const adapter = createAdapter({ loading, notify });
+  const service = new LocalService(createServiceRequest(notify));
   const config = await service.getExtension().catch(() => null);
   const { options, adapters } = config
     ? await new Extension(config).load()
@@ -36,7 +40,7 @@
     mode: ContextMode.Runtime,
     service,
     materialPath: __BASE_PATH__,
-    adapter: { access, remote },
+    adapter: Object.assign(adapter, { access, remote }, options?.adapter || {}),
     ...(options || {}),
     dependencies: {
       Vue: () => import('vue'),

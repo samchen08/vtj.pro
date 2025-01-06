@@ -103,6 +103,11 @@ const Select: MaterialDescription[] = [
         setters: 'FunctionSetter'
       },
       {
+        name: 'remoteShowSuffix',
+        defaultValue: false,
+        setters: 'BooleanSetter'
+      },
+      {
         name: 'loading',
         defaultValue: false,
         setters: 'BooleanSetter'
@@ -138,14 +143,15 @@ const Select: MaterialDescription[] = [
         setters: 'BooleanSetter'
       },
       {
-        name: 'popperAppendToBody',
+        name: 'teleported',
         defaultValue: true,
         setters: 'BooleanSetter'
       },
       {
-        name: 'teleported',
-        defaultValue: true,
-        setters: 'BooleanSetter'
+        name: 'appendTo',
+        title: '下拉框挂载到哪个 DOM 元素',
+        defaultValue: '',
+        setters: 'StringSetter'
       },
       {
         name: 'persistent',
@@ -179,7 +185,23 @@ const Select: MaterialDescription[] = [
         setters: 'SelectSetter'
       },
       {
+        name: 'tagEffect',
+        defaultValue: 'light',
+        options: ['', 'light', 'dark', 'plain'],
+        setters: 'SelectSetter'
+      },
+      {
         name: 'validateEvent',
+        defaultValue: true,
+        setters: 'BooleanSetter'
+      },
+      {
+        name: 'offset',
+        defaultValue: 12,
+        setters: 'NumberSetter'
+      },
+      {
+        name: 'showArrow',
         defaultValue: true,
         setters: 'BooleanSetter'
       },
@@ -231,6 +253,32 @@ const Select: MaterialDescription[] = [
         label: 'ariaLabel',
         title: '等价于原生 input aria-label 属性',
         setters: 'StringSetter'
+      },
+      {
+        name: 'emptyValues',
+        title: '组件的空值配置',
+        setters: 'ArraySetter'
+      },
+      {
+        name: 'valueOnClear',
+        title: '清空选项的值 ',
+        setters: [
+          'StringSetter',
+          'NumberSetter',
+          'BooleanSetter',
+          'FunctionSetter'
+        ]
+      },
+      {
+        name: 'suffixTransition',
+        title: '下拉菜单显示/消失时后缀图标的动画',
+        defaultValue: true,
+        setters: 'BooleanSetter'
+      },
+      {
+        name: 'tabindex',
+        title: 'input 的 tabindex',
+        setters: ['StringSetter', 'NumberSetter']
       }
     ],
     events: [
@@ -263,6 +311,9 @@ const Select: MaterialDescription[] = [
       },
       {
         name: 'loading'
+      },
+      {
+        name: 'label'
       }
     ],
     snippet: {

@@ -12,7 +12,7 @@ const Table: MaterialDescription[] = [
       {
         name: 'data',
         defaultValue: '',
-        setters: 'JSONSetter'
+        setters: ['ArraySetter', 'JSONSetter']
       },
       {
         name: 'height',
@@ -37,7 +37,7 @@ const Table: MaterialDescription[] = [
       {
         name: 'size',
         defaultValue: '',
-        options: ['large', 'default', 'small'],
+        options: ['', 'large', 'default', 'small'],
         setters: 'SelectSetter'
       },
       {
@@ -216,8 +216,21 @@ const Table: MaterialDescription[] = [
         setters: 'BooleanSetter'
       },
       {
+        name: 'show-overflow-tooltip',
+        setters: ['BooleanSetter', 'JSONSetter']
+      },
+      {
         name: 'flexible',
         defaultValue: false,
+        setters: 'BooleanSetter'
+      },
+      {
+        name: 'scrollbarTabindex',
+        setters: ['StringSetter', 'NumberSetter']
+      },
+      {
+        name: 'allowDragLastColumn',
+        defaultValue: true,
         setters: 'BooleanSetter'
       }
     ],
@@ -239,7 +252,8 @@ const Table: MaterialDescription[] = [
       'filter-change',
       'current-change',
       'header-dragend',
-      'expand-change'
+      'expand-change',
+      'scroll'
     ],
     slots: ['default', 'append', 'empty'],
     snippet: {
@@ -282,8 +296,8 @@ const Table: MaterialDescription[] = [
     props: [
       {
         name: 'type',
-        defaultValue: '',
-        options: ['selection', 'index', 'expand'],
+        defaultValue: 'default',
+        options: ['default', 'selection', 'index', 'expand'],
         setters: 'SelectSetter'
       },
       {
@@ -364,10 +378,9 @@ const Table: MaterialDescription[] = [
       },
       {
         name: 'show-overflow-tooltip',
-        defaultValue: false,
+        defaultValue: undefined,
         title: '当内容过长被隐藏时显示 tooltip',
-        label: 'tooltip',
-        setters: 'BooleanSetter'
+        setters: ['BooleanSetter', 'JSONSetter']
       },
       {
         name: 'align',
@@ -377,7 +390,7 @@ const Table: MaterialDescription[] = [
       },
       {
         name: 'header-align',
-        defaultValue: '',
+        defaultValue: 'left',
         options: ['left', 'center', 'right'],
         setters: 'SelectSetter'
       },
@@ -390,12 +403,10 @@ const Table: MaterialDescription[] = [
         name: 'label-class-name',
         defaultValue: '',
         title: '当前列标题的自定义类名',
-        label: '当前列类名',
         setters: 'InputSetter'
       },
       {
         name: 'selectable',
-        defaultValue: '',
         setters: 'FunctionSetter'
       },
       {
@@ -403,7 +414,6 @@ const Table: MaterialDescription[] = [
         defaultValue: false,
         title:
           '仅对  type=selection 的列有效， 请注意， 需指定 row-key 来让这个功能生效。',
-        label: '反选',
         setters: 'BooleanSetter'
       },
       {
@@ -415,7 +425,6 @@ const Table: MaterialDescription[] = [
         name: 'filter-placement',
         defaultValue: '',
         title: '过滤弹出框的定位,与 Tooltip 的 placement 属性相同',
-        label: 'placement',
         setters: 'InputSetter'
       },
       {
@@ -447,6 +456,10 @@ const Table: MaterialDescription[] = [
       {
         name: 'header',
         params: ['column', '$index']
+      },
+      {
+        name: 'filter-icon',
+        params: ['filterOpened']
       }
     ],
     snippet: {

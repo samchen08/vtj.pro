@@ -31,7 +31,7 @@ const components: MaterialDescription = {
     },
     {
       name: 'width',
-      defaultValue: '',
+      defaultValue: 150,
       setters: ['NumberSetter', 'InputSetter']
     },
     {
@@ -87,6 +87,10 @@ const components: MaterialDescription = {
       name: 'popperClass',
       defaultValue: '',
       setters: 'InputSetter'
+    },
+    {
+      name: 'popperStyle',
+      setters: ['InputSetter', 'ObjectSetter']
     },
     {
       name: 'showAfter',

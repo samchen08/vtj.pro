@@ -8,9 +8,10 @@ const Pagination: MaterialDescription = {
   package: 'element-plus',
   props: [
     {
-      name: 'small',
-      defaultValue: false,
-      setters: 'BooleanSetter'
+      name: 'size',
+      defaultValue: 'default',
+      options: ['large', 'default', 'small'],
+      setters: 'SelectSetter'
     },
     {
       name: 'background',
@@ -45,7 +46,6 @@ const Pagination: MaterialDescription = {
       setters: 'NumberSetter'
     },
     {
-      // name: 'current-page',
       name: 'currentPage',
       defaultValue: 1,
       setters: 'NumberSetter'
@@ -58,13 +58,18 @@ const Pagination: MaterialDescription = {
     },
     {
       name: 'layout',
-      defaultValue: undefined,
+      defaultValue: 'prev, pager, next, jumper, ->, total',
       setters: 'InputSetter'
     },
     {
       name: 'pageSizes',
       defaultValue: [10, 20, 30, 40, 50, 100],
-      setters: 'JSONSetter'
+      setters: ['ArraySetter', 'JSONSetter']
+    },
+    {
+      name: 'appendSizeTo',
+      title: '下拉框挂载到哪个 DOM 元素',
+      setters: 'StringSetter'
     },
     {
       name: 'popperClass',
@@ -78,7 +83,7 @@ const Pagination: MaterialDescription = {
     },
     {
       name: 'prevIcon',
-      defaultValue: '',
+      defaultValue: 'ArrowLeft',
       setters: 'InputSetter'
     },
     {
@@ -88,7 +93,7 @@ const Pagination: MaterialDescription = {
     },
     {
       name: 'nextIcon',
-      defaultValue: '',
+      defaultValue: 'ArrowRight',
       setters: 'InputSetter'
     },
     {
@@ -98,15 +103,18 @@ const Pagination: MaterialDescription = {
     },
     {
       name: 'teleported ',
-      label: 'teleported ',
       title: '是否将下拉菜单teleport至 body',
       setters: 'BooleanSetter',
       defaultValue: true
     },
     {
       name: 'hideOnSinglePage',
-      defaultValue: '',
-      label: '只有一页隐藏',
+      defaultValue: false,
+      setters: 'BooleanSetter'
+    },
+    {
+      name: 'small',
+      defaultValue: false,
       setters: 'BooleanSetter'
     }
   ],
@@ -119,7 +127,7 @@ const Pagination: MaterialDescription = {
     'update:pageSize',
     'update:currentPage'
   ],
-  slots: ['default'],
+  slots: ['default', 'prevIcon', 'nextIcon'],
   snippet: {
     props: {
       total: 1000,

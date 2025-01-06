@@ -14,7 +14,7 @@ const Collapse: MaterialDescription[] = [
         defaultValue: '',
         title:
           '当前激活的面板(如果是手风琴模式，绑定值类型需要为string，否则为array)',
-        setters: ['InputSetter', 'JSONSetter']
+        setters: ['InputSetter', 'ArraySetter', 'JSONSetter']
       },
       {
         name: 'accordion',
@@ -64,6 +64,11 @@ const Collapse: MaterialDescription[] = [
         setters: 'InputSetter'
       },
       {
+        name: 'icon',
+        defaultValue: 'ArrowRight',
+        setters: 'StringSetter'
+      },
+      {
         name: 'disabled',
         defaultValue: false,
         setters: 'BooleanSetter'
@@ -76,6 +81,9 @@ const Collapse: MaterialDescription[] = [
       },
       {
         name: 'title'
+      },
+      {
+        name: 'icon'
       }
     ],
     snippet: {

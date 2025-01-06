@@ -26,8 +26,8 @@ const Descriptions: MaterialDescription[] = [
       },
       {
         name: 'size',
-        defaultValue: 'default',
-        options: ['large', 'default', 'small'],
+        defaultValue: '',
+        options: ['', 'large', 'default', 'small'],
         setters: 'SelectSetter'
       },
       {
@@ -39,6 +39,11 @@ const Descriptions: MaterialDescription[] = [
         name: 'extra',
         defaultValue: '',
         setters: 'InputSetter'
+      },
+      {
+        name: 'labelWidth',
+        defaultValue: '',
+        setters: ['StringSetter', 'NumberSetter']
       }
     ],
     slots: ['default', 'title', 'extra'],
@@ -98,12 +103,22 @@ const Descriptions: MaterialDescription[] = [
         setters: 'NumberSetter'
       },
       {
+        name: 'rowspan',
+        defaultValue: 1,
+        setters: 'NumberSetter'
+      },
+      {
         name: 'width',
         defaultValue: '',
         setters: ['InputSetter', 'NumberSetter']
       },
       {
         name: 'min-width',
+        defaultValue: '',
+        setters: ['InputSetter', 'NumberSetter']
+      },
+      {
+        name: 'labelWidth',
         defaultValue: '',
         setters: ['InputSetter', 'NumberSetter']
       },
