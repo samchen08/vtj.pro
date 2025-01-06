@@ -150,7 +150,7 @@ const form: MaterialDescription[] = [
       {
         name: 'prop',
         defaultValue: '',
-        setters: ['InputSetter']
+        setters: ['InputSetter', 'ArraySetter']
       },
       {
         name: 'label',

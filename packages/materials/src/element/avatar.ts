@@ -11,7 +11,7 @@ const Avatar: MaterialDescription = {
     {
       name: 'icon',
       defaultValue: '',
-      setters: 'IconSetter' //!
+      setters: 'IconSetter'
     },
     {
       name: 'size',
@@ -48,7 +48,7 @@ const Avatar: MaterialDescription = {
     }
   ],
   events: ['error'],
-  slots: ['default'],
+  slots: ['default', 'icon'],
   snippet: {
     props: {
       src: 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png'

@@ -37,7 +37,7 @@ const TreeSelect: MaterialDescription = {
       setters: 'JSONSetter'
     },
     {
-      name: 'render-after-expand',
+      name: 'renderAfterExpand',
       defaultValue: true,
       setters: 'BooleanSetter'
     },
@@ -47,78 +47,73 @@ const TreeSelect: MaterialDescription = {
       setters: 'FunctionSetter'
     },
     {
-      name: 'render-content',
+      name: 'renderContent',
       defaultValue: '',
       setters: 'FunctionSetter'
     },
     {
-      name: 'highlight-current',
+      name: 'highlightCurrent',
       defaultValue: false,
-      label: '高亮当前节点',
       setters: 'BooleanSetter'
     },
     {
-      name: 'default-expand-all',
+      name: 'defaultExpandAll',
       defaultValue: false,
-      label: '展开所有节点',
       setters: 'BooleanSetter'
     },
     {
-      name: 'expand-on-click-node',
+      name: 'expandOnClickNode',
       defaultValue: true,
       title:
         '是否在点击节点的时候展开或者收缩节点， 默认值为 true，如果为 false，则只有点箭头图标的时候才会展开或者收缩节点。',
-      label: '点击展开',
       setters: 'BooleanSetter'
     },
     {
-      name: 'check-on-click-node',
+      name: 'checkOnClickNode',
       defaultValue: false,
       title:
         '是否在点击节点的时候选中节点，默认值为 false，即只有在点击复选框时才会选中节点。',
-      label: '点击选中',
       setters: 'BooleanSetter'
     },
     {
-      name: 'auto-expand-parent',
+      name: 'autoExpandParent',
       defaultValue: true,
       title: '展开子节点的时候是否自动展开父节点',
-      label: '自动展开',
       setters: 'BooleanSetter'
     },
     {
-      name: 'default-expanded-keys',
+      name: 'defaultExpandedKeys',
       defaultValue: '',
       title: '默认展开的节点的 key 的数组',
       label: '默认展开',
       setters: 'JSONSetter'
     },
     {
-      name: 'show-checkbox',
+      name: 'showCheckbox',
       defaultValue: false,
       label: '显示checkbox',
       setters: 'BooleanSetter'
     },
     {
-      name: 'check-strictly',
+      name: 'checkStrictly',
       defaultValue: false,
       setters: 'BooleanSetter'
     },
     {
-      name: 'default-checked-keys',
+      name: 'defaultCheckedKeys',
       defaultValue: '',
       title: '默认勾选的节点的 key 的数组',
       label: '默认勾选',
       setters: 'JSONSetter'
     },
     {
-      name: 'current-node-key',
+      name: 'currentNodeKey',
       defaultValue: '',
       label: '当前节点key',
       setters: ['InputSetter', 'NumberSetter']
     },
     {
-      name: 'filter-node-method',
+      name: 'filterNodeMethod',
       defaultValue: '',
       title:
         'filter-node-method 对树节点进行筛选时执行的方法， 返回 false 则表示这个节点会被隐藏',
@@ -151,13 +146,13 @@ const TreeSelect: MaterialDescription = {
       setters: 'BooleanSetter'
     },
     {
-      name: 'allow-drag',
+      name: 'allowDrag',
       defaultValue: '',
       title: '判断节点能否被拖拽 如果返回 false ，节点不能被拖动',
       setters: 'FunctionSetter'
     },
     {
-      name: 'allow-drop',
+      name: 'allowDrop',
       defaultValue: '',
       title:
         '拖拽时判定目标节点能否成为拖动目标位置。 如果返回 false ，拖动节点不能被拖放到目标节点。 type 参数有三种情况：prev、inner 和 next，分别表示放置在目标节点前、插入至目标节点和放置在目标节点后',
@@ -167,7 +162,13 @@ const TreeSelect: MaterialDescription = {
     {
       name: 'modelValue',
       defaultValue: '',
-      setters: ['NumberSetter', 'InputSetter', 'BooleanSetter']
+      setters: [
+        'StringSetter',
+        'NumberSetter',
+        'BooleanSetter',
+        'ObjectSetter',
+        'ArraySetter'
+      ]
     },
     {
       name: 'multiple',
@@ -260,6 +261,11 @@ const TreeSelect: MaterialDescription = {
       setters: 'FunctionSetter'
     },
     {
+      name: 'remoteShowSuffix',
+      defaultValue: false,
+      setters: 'BooleanSetter'
+    },
+    {
       name: 'loading',
       defaultValue: false,
       setters: 'BooleanSetter'
@@ -305,6 +311,10 @@ const TreeSelect: MaterialDescription = {
       setters: 'BooleanSetter'
     },
     {
+      name: 'appendTo',
+      setters: 'StringSetter'
+    },
+    {
       name: 'persistent',
       defaultValue: true,
       setters: 'BooleanSetter'
@@ -336,7 +346,23 @@ const TreeSelect: MaterialDescription = {
       setters: 'SelectSetter'
     },
     {
+      name: 'tagEffect',
+      defaultValue: 'light',
+      options: ['', 'light', 'dark', 'plain'],
+      setters: 'SelectSetter'
+    },
+    {
       name: 'validateEvent',
+      defaultValue: true,
+      setters: 'BooleanSetter'
+    },
+    {
+      name: 'offset',
+      defaultValue: 12,
+      setters: 'NumberSetter'
+    },
+    {
+      name: 'showArrow',
       defaultValue: true,
       setters: 'BooleanSetter'
     },
@@ -388,6 +414,29 @@ const TreeSelect: MaterialDescription = {
       label: 'ariaLabel',
       title: '等价于原生 input aria-label 属性',
       setters: 'StringSetter'
+    },
+    {
+      name: 'emptyValues',
+      setters: 'ArraySetter'
+    },
+    {
+      name: 'valueOnClear',
+      setters: [
+        'StringSetter',
+        'NumberSetter',
+        'BooleanSetter',
+        'FunctionSetter'
+      ]
+    },
+    {
+      name: 'suffixTransition',
+      title: '下拉菜单显示/消失时后缀图标的动画',
+      defaultValue: true,
+      setters: 'BooleanSetter'
+    },
+    {
+      name: 'tabindex',
+      setters: ['StringSetter', 'NumberSetter']
     }
   ],
   events: [
@@ -415,6 +464,7 @@ const TreeSelect: MaterialDescription = {
     'update:modelValue'
   ],
   slots: [
+    // tree
     {
       name: 'default',
       params: ['node', 'data']
@@ -422,6 +472,7 @@ const TreeSelect: MaterialDescription = {
     {
       name: 'empty'
     },
+    // select
     {
       name: 'header'
     },
@@ -439,6 +490,9 @@ const TreeSelect: MaterialDescription = {
     },
     {
       name: 'loading'
+    },
+    {
+      name: 'label'
     }
   ],
   snippet: {

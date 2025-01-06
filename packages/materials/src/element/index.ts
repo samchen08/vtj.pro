@@ -60,6 +60,7 @@ import tree from './tree';
 import treeSelect from './treeSelect';
 import treeV2 from './treeV2';
 import statistic from './statistic';
+import Segmented from './segmented';
 
 // * nav 导航
 import affix from './affix';
@@ -137,6 +138,7 @@ const components: MaterialDescription[] = [
   slider,
   space,
   statistic,
+  Segmented,
   steps,
   Switch,
   table,

@@ -28,7 +28,7 @@ const Menu: MaterialDescription[] = [
         name: 'ellipsisIcon',
         label: 'ellipsisIcon',
         title: '自定义省略图标 (仅在水平模式下可用)',
-        setters: 'StringSetter' //?? component
+        setters: 'StringSetter'
       },
       {
         name: 'popperOffset',
@@ -36,21 +36,6 @@ const Menu: MaterialDescription[] = [
         title: '弹出层的偏移量(对所有子菜单有效)',
         setters: 'NumberSetter',
         defaultValue: 6
-      },
-      {
-        name: 'backgroundColor',
-        defaultValue: '#ffffff',
-        setters: 'ColorSetter'
-      },
-      {
-        name: 'textColor',
-        defaultValue: '#303133',
-        setters: 'ColorSetter'
-      },
-      {
-        name: 'activeTextColor',
-        defaultValue: '#409EFF',
-        setters: 'ColorSetter'
       },
       {
         name: 'defaultActive',
@@ -99,8 +84,8 @@ const Menu: MaterialDescription[] = [
         defaultValue: false
       },
       {
-        name: 'popperClass ',
-        label: 'popperClass ',
+        name: 'popperClass',
+        label: 'popperClass',
         title: '为 popper 添加类名',
         setters: 'StringSetter'
       },
@@ -117,6 +102,21 @@ const Menu: MaterialDescription[] = [
         title: '菜单消失前的延迟',
         setters: 'NumberSetter',
         defaultValue: 300
+      },
+      {
+        name: 'backgroundColor',
+        defaultValue: '#ffffff',
+        setters: 'ColorSetter'
+      },
+      {
+        name: 'textColor',
+        defaultValue: '#303133',
+        setters: 'ColorSetter'
+      },
+      {
+        name: 'activeTextColor',
+        defaultValue: '#409EFF',
+        setters: 'ColorSetter'
       }
     ],
     events: [
@@ -130,7 +130,7 @@ const Menu: MaterialDescription[] = [
         name: 'close'
       }
     ],
-    slots: ['default'],
+    slots: ['default', 'ellipsis-icon'],
     snippet: {
       props: {
         mode: 'horizontal'
@@ -192,6 +192,7 @@ const Menu: MaterialDescription[] = [
     props: [
       {
         name: 'index',
+        label: 'index *',
         defaultValue: '',
         setters: 'InputSetter'
       },
@@ -202,17 +203,20 @@ const Menu: MaterialDescription[] = [
       },
       {
         name: 'showTimeout',
-        defaultValue: 300,
         setters: 'NumberSetter'
       },
       {
         name: 'hideTimeout',
-        defaultValue: 300,
         setters: 'NumberSetter'
       },
       {
         name: 'disabled',
         defaultValue: false,
+        setters: 'BooleanSetter'
+      },
+      {
+        name: 'teleported',
+        defaultValue: undefined,
         setters: 'BooleanSetter'
       },
       {
@@ -281,7 +285,7 @@ const Menu: MaterialDescription[] = [
       {
         name: 'route',
         defaultValue: '',
-        setters: 'JSONSetter'
+        setters: ['StringSetter', 'JSONSetter']
       },
       {
         name: 'disabled',

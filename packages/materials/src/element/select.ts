@@ -148,6 +148,12 @@ const Select: MaterialDescription[] = [
         setters: 'BooleanSetter'
       },
       {
+        name: 'appendTo',
+        title: '下拉框挂载到哪个 DOM 元素',
+        defaultValue: '',
+        setters: 'StringSetter'
+      },
+      {
         name: 'persistent',
         defaultValue: true,
         setters: 'BooleanSetter'

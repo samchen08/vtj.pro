@@ -18,6 +18,11 @@ const components: MaterialDescription = {
       setters: 'BooleanSetter'
     },
     {
+      name: 'appendTo',
+      defaultValue: 'body',
+      setters: 'StringSetter'
+    },
+    {
       name: 'lockScroll',
       defaultValue: true,
       setters: 'BooleanSetter'
@@ -48,11 +53,6 @@ const components: MaterialDescription = {
       name: 'closeDelay',
       defaultValue: 0,
       setters: 'NumberSetter'
-    },
-    {
-      name: 'customClass',
-      defaultValue: '',
-      setters: 'InputSetter'
     },
     {
       name: 'destroyOnClose',
@@ -108,6 +108,11 @@ const components: MaterialDescription = {
       title: 'header 的 aria-level 属性',
       setters: 'StringSetter',
       defaultValue: 2
+    },
+    {
+      name: 'customClass',
+      defaultValue: '',
+      setters: 'InputSetter'
     }
   ],
   events: [
@@ -139,6 +144,9 @@ const components: MaterialDescription = {
     },
     {
       name: 'footer'
+    },
+    {
+      name: 'title'
     }
   ],
   snippet: {

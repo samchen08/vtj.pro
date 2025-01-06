@@ -11,7 +11,12 @@ const TimePicker: MaterialDescription = {
     {
       name: 'modelValue',
       defaultValue: '',
-      setters: 'ExpressionSetter'
+      setters: [
+        'NumberSetter',
+        'StringSetter',
+        'ArraySetter',
+        'ExpressionSetter'
+      ]
     },
     {
       name: 'readonly',
@@ -85,6 +90,12 @@ const TimePicker: MaterialDescription = {
       setters: ['InputSetter', 'ExpressionSetter']
     },
     {
+      name: 'valueFormat',
+      title: '可选，绑定值的格式。 不指定则绑定值为 Date 对象',
+      defaultValue: '',
+      setters: 'StringSetter'
+    },
+    {
       name: 'id',
       defaultValue: '',
       setters: ['InputSetter']
@@ -94,7 +105,7 @@ const TimePicker: MaterialDescription = {
       defaultValue: '',
       setters: 'InputSetter'
     },
-    { name: 'label', defaultValue: '', setters: 'InputSetter' },
+    { name: 'ariaLabel', defaultValue: '', setters: 'InputSetter' },
     {
       name: 'prefixIcon',
       defaultValue: 'Clock',
@@ -131,9 +142,31 @@ const TimePicker: MaterialDescription = {
       title: '输入框的 tabindex',
       setters: ['StringSetter', 'NumberSetter'],
       defaultValue: 0
+    },
+    {
+      name: 'emptyValues',
+      title: '组件的空值配置',
+      setters: 'ArraySetter'
+    },
+    {
+      name: 'valueOnClear',
+      title: '清空选项的值',
+      setters: [
+        'StringSetter',
+        'NumberSetter',
+        'BooleanSetter',
+        'FunctionSetter'
+      ]
     }
   ],
-  events: ['change', 'blur', 'focus', 'visible-change', 'update:modelValue']
+  events: [
+    'change',
+    'blur',
+    'focus',
+    'clear',
+    'visible-change',
+    'update:modelValue'
+  ]
 };
 
 export default TimePicker;

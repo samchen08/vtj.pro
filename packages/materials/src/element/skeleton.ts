@@ -30,10 +30,19 @@ const Skeleton: MaterialDescription = {
     {
       name: 'throttle',
       defaultValue: 0,
-      setters: 'NumberSetter'
+      setters: ['NumberSetter', 'ObjectSetter']
     }
   ],
-  slots: ['default', 'template']
+  slots: [
+    {
+      name: 'default',
+      params: ['object']
+    },
+    {
+      name: 'template',
+      params: ['object']
+    }
+  ]
 };
 
 const SkeletonItem: MaterialDescription = {
