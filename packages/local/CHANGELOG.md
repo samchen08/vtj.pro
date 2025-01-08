@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.9.9](https://gitee.com/newgateway/vtj/compare/@vtj/local@0.9.8...@vtj/local@0.9.9) (2025-01-08)
+
+
+### Bug Fixes
+
+* 🐛 config.resolve.alias 支持数组 ([2213939](https://gitee.com/newgateway/vtj/commits/2213939483d758e208ece67a6c528698ce8f83b4))
+
+
+
+
+
 ## [0.9.8](https://gitee.com/newgateway/vtj/compare/@vtj/local@0.9.7...@vtj/local@0.9.8) (2025-01-06)
 
 **Note:** Version bump only for package @vtj/local

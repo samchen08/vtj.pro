@@ -20,14 +20,21 @@ const InputTag: MaterialDescription = {
       title: '标签类型',
       defaultValue: 'info',
       setters: 'SelectSetter',
-      options: ['', 'success', 'info', 'warning', 'danger']
+      options: ['primary', 'success', 'info', 'warning', 'danger']
     },
     {
       name: 'tagEffect',
       title: '标签效果',
       defaultValue: 'light',
       setters: 'SelectSetter',
-      options: ['', 'light', 'dark', 'plain']
+      options: ['light', 'dark', 'plain']
+    },
+    {
+      name: 'trigger',
+      title: '触发输入标签的按键',
+      defaultValue: 'Enter',
+      setters: 'SelectSetter',
+      options: ['Enter', 'Space']
     },
     {
       name: 'draggable',
@@ -38,6 +45,7 @@ const InputTag: MaterialDescription = {
     {
       name: 'size',
       setters: 'SelectSetter',
+      defaultValue: 'default',
       options: ['large', 'default', 'small']
     },
     {
@@ -124,7 +132,14 @@ const InputTag: MaterialDescription = {
       name: 'update:modelValue'
     }
   ],
-  slots: ['tag', 'prefix', 'suffix'],
+  slots: [
+    {
+      name: 'tag',
+      params: ['value', 'index']
+    },
+    { name: 'prefix' },
+    { name: 'suffix' }
+  ],
   snippet: {
     props: {
       modelValue: ['1', '2']

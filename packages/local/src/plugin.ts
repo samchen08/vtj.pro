@@ -183,10 +183,25 @@ const aliasPlugin = function (options: DevToolsOptions): Plugin {
             }
           : {};
       if (config.resolve) {
-        config.resolve.alias = Object.assign(config.resolve.alias || {}, {
-          $vtj: vtjDir,
-          ...devAlias
-        });
+        let alias = config.resolve.alias || {};
+        if (Array.isArray(alias)) {
+          alias.push({
+            find: '$vtj',
+            replacement: vtjDir
+          });
+          alias.push(
+            ...Object.entries(devAlias).map(([find, replacement]) => ({
+              find,
+              replacement
+            }))
+          );
+        } else {
+          Object.assign(alias, {
+            $vtj: vtjDir,
+            ...devAlias
+          });
+        }
+        config.resolve.alias = alias;
       } else {
         config.resolve = {
           alias: {
