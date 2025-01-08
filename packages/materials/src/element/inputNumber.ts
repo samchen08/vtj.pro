@@ -15,12 +15,12 @@ const InputNumber: MaterialDescription = {
     },
     {
       name: 'min',
-      defaultValue: '',
+      defaultValue: -Infinity,
       setters: 'NumberSetter'
     },
     {
       name: 'max',
-      defaultValue: '',
+      defaultValue: Infinity,
       setters: 'NumberSetter'
     },
     {
@@ -94,7 +94,12 @@ const InputNumber: MaterialDescription = {
       setters: 'BooleanSetter'
     }
   ],
-  slots: ['decrease-icon', 'increase-icon', 'prefix', 'suffix'],
+  slots: [
+    { name: 'decreaseIcon' },
+    { name: 'increaseIcon' },
+    { name: 'prefix' },
+    { name: 'suffix' }
+  ],
   events: [
     {
       name: 'change'

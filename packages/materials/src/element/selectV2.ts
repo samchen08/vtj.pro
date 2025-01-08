@@ -321,7 +321,8 @@ const SelectV2: MaterialDescription = {
   ],
   slots: [
     {
-      name: 'default'
+      name: 'default',
+      params: ['item']
     },
     {
       name: 'header'
