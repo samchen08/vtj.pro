@@ -1,7 +1,7 @@
 {
   "name": "@vtj/web",
   "private": false,
-  "version": "0.9.9",
+  "version": "0.9.11",
   "type": "module",
   "sideEffects": false,
   "scripts": {
@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@vtj/charts": "workspace:~",
+    "@vtj/core": "workspace:~",
     "@vtj/icons": "workspace:~",
     "@vtj/renderer": "workspace:~",
     "@vtj/ui": "workspace:~",

@@ -914,6 +914,9 @@ importers:
       '@vtj/charts':
         specifier: workspace:~
         version: link:../../packages/charts
+      '@vtj/core':
+        specifier: workspace:~
+        version: link:../../packages/core
       '@vtj/icons':
         specifier: workspace:~
         version: link:../../packages/icons
@@ -3662,21 +3665,21 @@ packages:
   '@volar/typescript@2.4.11':
     resolution: {integrity: sha512-2DT+Tdh88Spp5PyPbqhyoYavYCPDsqbHLFwcUI9K1NlY1YgUJvujGdrqUp0zWxnW7KWNTr3xSpMuv2WnaTKDAw==}
 
-  '@vtj/base@0.9.3':
-    resolution: {integrity: sha512-7D2QejMwXmWrTC3AtoSHacENOVr+TtdFoliDFWqlcmPATeDz0HZCeChLFcDQ8U1BJ5JbPf/hGj+Nx6aVj/0ocQ==}
+  '@vtj/base@0.9.5':
+    resolution: {integrity: sha512-WsWB2baJg1q6/fehnO/w5v6f2DSvT7w6Bqq4sCnoP86Vhe29mj36h5MdIvlpBrghRyo+JWELj3aVsPtwz3L2Ng==}
 
-  '@vtj/icons@0.9.6':
-    resolution: {integrity: sha512-Hpxts4hZUVm7vILl005h+DUub+Kux4Fuf9PgsauVhoWwZTWzdZOEttF6tRZfikRv1LFKwd7g048g+OqDVMPXUA==}
+  '@vtj/icons@0.9.9':
+    resolution: {integrity: sha512-ArueqBhziS0UylGqQuKLNTx6Qk/ldCe1XEu6R1HvVEyR4Og1y0vFOLeVElRCw4oWUYAm4hY8HeWshEIK0eGa4w==}
 
   '@vtj/plugin-ckeditor@0.2.5':
     resolution: {integrity: sha512-moAcU4LhruhiNnIuviK/QBfHPH+nyNHS4iDLQocOrVbFn8RWEj8C4nBESscFU1hOBLaeAAc7aYQJCBEkfOnyQA==}
 
-  '@vtj/ui@0.9.6':
-    resolution: {integrity: sha512-So9nv5H3bCuUQ2of5HLyAE2F/OayqSG96Kkwub17sSy4WzW9fVXLyzG5ruGbqUuGhqVkab1X6nSY3vaFc/TrQg==}
+  '@vtj/ui@0.9.9':
+    resolution: {integrity: sha512-aQYyoMD8Ix54qbnbiA6XaRs+jTxzEis9pvvtE8xiNX7FP4o85UyEOdX8l1o2i1pJIZWqrIyK5v3efmOKI4mxZw==}
     engines: {node: '>=16.0.0'}
 
-  '@vtj/utils@0.9.6':
-    resolution: {integrity: sha512-opQrLr32e0eOiIq9SXQ6D4gQ9q6KJS2Qlf4qTiyOieoXG3182uKEn4hwyGS4kZDtqNGraCHr1okqNsAullHy5g==}
+  '@vtj/utils@0.9.9':
+    resolution: {integrity: sha512-Nsw9ob6FI/nLxy8I4CaqtKGkoZY5mf6+pTDsXGZ/pG+V1hnptiwGUo8kafSEmNc1LfGOjhaflfQj+Ykj8vCzzw==}
 
   '@vue/babel-helper-vue-transform-on@1.2.5':
     resolution: {integrity: sha512-lOz4t39ZdmU4DJAa2hwPYmKc8EsuGa2U0L9KaZaOJUt0UwQNjNA3AZTq6uEivhOKhhG1Wvy96SvYBoFmCg3uuw==}
@@ -7895,6 +7898,7 @@ packages:
   rollup-plugin-visualizer@5.13.1:
     resolution: {integrity: sha512-vMg8i6BprL8aFm9DKvL2c8AwS8324EgymYQo9o6E26wgVvwMhsJxS37aNL6ZsU7X9iAcMYwdME7gItLfG5fwJg==}
     engines: {node: '>=18'}
+    deprecated: Contains unintended breaking changes
     hasBin: true
     peerDependencies:
       rolldown: 1.x
@@ -12870,13 +12874,13 @@ snapshots:
       path-browserify: 1.0.1
       vscode-uri: 3.0.8
 
-  '@vtj/base@0.9.3':
+  '@vtj/base@0.9.5':
     dependencies:
       '@types/lodash-es': 4.17.12
       '@types/numeral': 2.0.5
       reflect-metadata: 0.2.2
 
-  '@vtj/icons@0.9.6(vue@3.5.13(typescript@5.7.2))':
+  '@vtj/icons@0.9.9(vue@3.5.13(typescript@5.7.2))':
     dependencies:
       '@element-plus/icons-vue': 2.3.1(vue@3.5.13(typescript@5.7.2))
     transitivePeerDependencies:
@@ -12884,18 +12888,18 @@ snapshots:
 
   '@vtj/plugin-ckeditor@0.2.5(typescript@5.7.2)(vue@3.5.13(typescript@5.7.2))':
     dependencies:
-      '@vtj/icons': 0.9.6(vue@3.5.13(typescript@5.7.2))
-      '@vtj/ui': 0.9.6(typescript@5.7.2)(vue@3.5.13(typescript@5.7.2))
-      '@vtj/utils': 0.9.6
+      '@vtj/icons': 0.9.9(vue@3.5.13(typescript@5.7.2))
+      '@vtj/ui': 0.9.9(typescript@5.7.2)(vue@3.5.13(typescript@5.7.2))
+      '@vtj/utils': 0.9.9
     transitivePeerDependencies:
       - '@vue/composition-api'
       - typescript
       - vue
 
-  '@vtj/ui@0.9.6(typescript@5.7.2)(vue@3.5.13(typescript@5.7.2))':
+  '@vtj/ui@0.9.9(typescript@5.7.2)(vue@3.5.13(typescript@5.7.2))':
     dependencies:
-      '@vtj/icons': 0.9.6(vue@3.5.13(typescript@5.7.2))
-      '@vtj/utils': 0.9.6
+      '@vtj/icons': 0.9.9(vue@3.5.13(typescript@5.7.2))
+      '@vtj/utils': 0.9.9
       '@vueuse/core': 12.2.0(typescript@5.7.2)
       element-plus: 2.9.2(vue@3.5.13(typescript@5.7.2))
       sortablejs: 1.15.6
@@ -12906,9 +12910,9 @@ snapshots:
       - typescript
       - vue
 
-  '@vtj/utils@0.9.6':
+  '@vtj/utils@0.9.9':
     dependencies:
-      '@vtj/base': 0.9.3
+      '@vtj/base': 0.9.5
 
   '@vue/babel-helper-vue-transform-on@1.2.5': {}
 

@@ -8,3 +8,4 @@ export * from './components';
 export * from './renderer';
 export * from './modules';
 export * from './apis';
+export * from './integrations';
