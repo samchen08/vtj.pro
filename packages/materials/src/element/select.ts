@@ -369,7 +369,6 @@ const Select: MaterialDescription[] = [
     name: 'ElOption',
     label: '选择器选项',
 
-    childIncludes: false,
     categoryId: 'form',
     package: 'element-plus',
     parentIncludes: ['ElSelect', 'ElOptionGroup'],

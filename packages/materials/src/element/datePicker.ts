@@ -252,7 +252,8 @@ const DatePicker: MaterialDescription = {
   ],
   slots: [
     {
-      name: 'default'
+      name: 'default',
+      params: ['cell']
     },
     {
       name: 'range-separator'

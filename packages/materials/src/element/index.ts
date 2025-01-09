@@ -22,6 +22,7 @@ import checkbox from './checkbox';
 import colorPicker from './colorPicker';
 import datePicker from './datePicker';
 import dateTime from './dateTime';
+import form from './form';
 import input from './input';
 import inputNumber from './inputNumber';
 import inputTag from './inputTag';
@@ -115,6 +116,7 @@ const components: MaterialDescription[] = [
   drawer,
   dropdown,
   empty,
+  form,
   image,
   input,
   inputNumber,

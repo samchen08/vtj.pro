@@ -79,7 +79,6 @@ const Slider: MaterialDescription = {
     },
     {
       name: 'formatTooltip',
-      defaultValue: '',
       title: '格式化提示信息',
       setters: 'FunctionSetter'
     },
