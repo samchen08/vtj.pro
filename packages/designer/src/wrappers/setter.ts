@@ -90,13 +90,13 @@ export const SetterWrapper = defineComponent({
     defaultSetter() {
       const { value, computedSetters } = this;
       let type: string = typeof value;
-      if (type === 'Object') {
+      if (type === 'object') {
         if (Array.isArray(value)) {
-          type = 'Array';
+          type = 'array';
         } else if (isJSExpression(value)) {
-          type = 'Object';
+          type = 'object';
         } else if (isJSFunction(value)) {
-          type = 'Function';
+          type = 'function';
         }
       }
       const setters = setterManager.getByType(type as BlockPropDataType) || [];

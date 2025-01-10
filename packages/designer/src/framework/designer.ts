@@ -22,7 +22,7 @@ import {
   EVENT_PROJECT_ACTIVED,
   EVENT_NODE_CHANGE
 } from '@vtj/core';
-import { delay } from '@vtj/utils';
+import { delay, toArray } from '@vtj/utils';
 import { SlotsPicker } from '../components';
 import { type Engine } from './engine';
 import { type DevTools } from './devtools';
@@ -474,17 +474,21 @@ export class Designer {
       this.lines.value = [];
       return;
     }
-    await delay(100);
+    // 需要等待下一帧才能获取到HTML元素
+    await delay(0);
     const refs = this.engine.simulator.renderer?.context?.__refs || {};
-    const lines = [];
+    const lines: DOMRect[] = [];
     const ids = Object.keys(NodeModel.nodes);
     for (const id of ids) {
       const instance = refs[id];
-      const el = instance?.$el || instance;
-      if (el) {
-        const rect = el.getBoundingClientRect();
-        lines.push(rect);
-      }
+      const instances = instance ? toArray(instance) : [];
+      instances.forEach((item) => {
+        const el = item?.$el || item;
+        if (el) {
+          const rect = el.getBoundingClientRect();
+          lines.push(rect);
+        }
+      });
     }
     this.lines.value = lines;
   }

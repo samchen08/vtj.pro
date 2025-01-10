@@ -37,7 +37,7 @@
         <VtjIconRedo></VtjIconRedo>
       </ElButton>
     </ElButtonGroup>
-
+    <ElDivider direction="vertical"></ElDivider>
     <ElSwitch
       class="v-toolbar-widget__outline"
       size="default"
@@ -56,7 +56,8 @@
     ElRadioGroup,
     ElRadioButton,
     ElInput,
-    ElSwitch
+    ElSwitch,
+    ElDivider
   } from 'element-plus';
   import {
     ZoomIn,
