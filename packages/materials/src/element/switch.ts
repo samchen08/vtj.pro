@@ -3,7 +3,6 @@ const Switch: MaterialDescription = {
   name: 'ElSwitch',
   label: '开关',
 
-  childIncludes: false,
   doc: 'https://element-plus.org/zh-CN/component/switch.html',
   categoryId: 'form',
   package: 'element-plus',
