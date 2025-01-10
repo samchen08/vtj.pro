@@ -104,6 +104,15 @@
     opacity: 0.6;
     pointer-events: none;
   }
+
+  @include e(outline-lines){
+    pointer-events: none;
+    > div {
+      position: absolute;
+      pointer-events: none;
+      border: 1px dashed var(--el-border-color-light);
+    }
+  }
 }
 
 

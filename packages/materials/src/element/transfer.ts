@@ -5,7 +5,6 @@ const Transfer: MaterialDescription = {
 
   categoryId: 'form',
   doc: 'https://element-plus.org/zh-CN/component/transfer.html',
-  childIncludes: false,
   package: 'element-plus',
   props: [
     {

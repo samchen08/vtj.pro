@@ -29,4 +29,8 @@
   .el-input-group__prepend {
     padding: 0 15px;
   }
+
+  @include e(outline) {
+    margin-left: 5px;
+  }
 }

@@ -482,9 +482,9 @@ const TreeSelect: MaterialDescription = {
     {
       name: 'prefix'
     },
-    {
-      name: 'empty'
-    },
+    // {
+    //   name: 'empty'
+    // },
     {
       name: 'tag'
     },

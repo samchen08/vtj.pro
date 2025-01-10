@@ -5,7 +5,6 @@ const InputNumber: MaterialDescription = {
 
   categoryId: 'form',
   doc: 'https://element-plus.org/zh-CN/component/input-number.html',
-  childIncludes: false,
   package: 'element-plus',
   props: [
     {

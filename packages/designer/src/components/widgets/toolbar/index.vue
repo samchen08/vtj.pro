@@ -37,6 +37,15 @@
         <VtjIconRedo></VtjIconRedo>
       </ElButton>
     </ElButtonGroup>
+
+    <ElSwitch
+      class="v-toolbar-widget__outline"
+      size="default"
+      inline-prompt
+      active-text="辅助线"
+      inactive-text="辅助线"
+      :disabled="!!props.preview"
+      v-model="outline"></ElSwitch>
   </div>
 </template>
 <script lang="ts" setup>
@@ -46,7 +55,8 @@
     ElButton,
     ElRadioGroup,
     ElRadioButton,
-    ElInput
+    ElInput,
+    ElSwitch
   } from 'element-plus';
   import {
     ZoomIn,
@@ -67,6 +77,7 @@
 
   const { forward, backward, forwardDisabled, backwardDisabled } = useHistory();
   const mode = ref('pc');
+  const outline = ref(true);
 
   defineOptions({
     name: 'ToolbarWidget',
@@ -74,6 +85,7 @@
   });
 
   defineExpose({
-    mode
+    mode,
+    outline
   });
 </script>
