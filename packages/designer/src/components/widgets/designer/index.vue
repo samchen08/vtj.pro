@@ -25,6 +25,10 @@
       </div>
       <ElEmpty v-if="!current" description="请新建或打开文件"></ElEmpty>
 
+      <div class="v-designer__outline-lines" v-if="lines.length">
+        <div v-for="line in lines" :style="line"></div>
+      </div>
+
       <div v-if="current && isEmpty" class="v-designer__placeholder">
         您可以拖拽组件放置到这里
       </div>
@@ -33,9 +37,9 @@
   </div>
 </template>
 <script lang="ts" setup>
-  import { computed, ref } from 'vue';
+  import { computed, ref, watch } from 'vue';
   import { useElementSize } from '@vueuse/core';
-  import type { NodeModel } from '@vtj/core';
+  import { NodeModel } from '@vtj/core';
   import { ElEmpty } from 'element-plus';
   import Actions from './actions.vue';
   import { Viewport } from '../../shared';
@@ -52,9 +56,14 @@
     return widget?.widgetRef.mode ?? 'pc';
   });
 
+  const outlineEnabled = computed(() => {
+    const widget = engine.skeleton?.getWidget('Toolbar');
+    return !!widget?.widgetRef.outline;
+  });
+
   const config = computed(() => engine.project.value?.config || {});
 
-  const { designer, hover, dropping, selected } = useDesigner(
+  const { designer, hover, dropping, selected, lines } = useDesigner(
     iframe,
     dependencies,
     apis,
@@ -109,6 +118,12 @@
       designer.value.setDragging(null);
     }
   };
+
+  watch(outlineEnabled, (v) => {
+    if (designer.value) {
+      designer.value.outlineEnabled.value = v;
+    }
+  });
 
   defineExpose({
     designer,

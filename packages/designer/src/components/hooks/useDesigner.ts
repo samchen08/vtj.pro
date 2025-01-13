@@ -32,15 +32,21 @@ export function useDesigner(
     getComputedHelper('selected', designer.value?.selected.value)
   );
 
+  const lines = computed(() =>
+    getComputedLinesStyle(designer.value?.lines.value || [])
+  );
+
   watch(engine.changed, () => {
     designer.value?.updateRect();
+    designer.value?.updateLines();
   });
 
   return {
     designer,
     dropping,
     hover,
-    selected
+    selected,
+    lines
   };
 }
 
@@ -97,4 +103,16 @@ function getComputedHelper(name: string, helpr?: DesignHelper | null) {
     style,
     position: getPosition(helpr.rect, name !== 'selected')
   };
+}
+
+function getComputedLinesStyle(lines: DOMRect[]) {
+  return lines.map((rect) => {
+    const { width, height, left, top } = rect;
+    return {
+      width: `${width}px`,
+      height: `${height}px`,
+      left: `${left}px`,
+      top: `${top}px`
+    };
+  });
 }

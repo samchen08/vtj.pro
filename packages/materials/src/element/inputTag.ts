@@ -132,14 +132,7 @@ const InputTag: MaterialDescription = {
       name: 'update:modelValue'
     }
   ],
-  slots: [
-    {
-      name: 'tag',
-      params: ['value', 'index']
-    },
-    { name: 'prefix' },
-    { name: 'suffix' }
-  ],
+  slots: [{ name: 'tag' }, { name: 'prefix' }, { name: 'suffix' }],
   snippet: {
     props: {
       modelValue: ['1', '2']

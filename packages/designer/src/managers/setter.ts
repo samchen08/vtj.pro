@@ -54,7 +54,9 @@ class SetterManager {
 
   getByType(type: BlockPropDataType) {
     const setters = Object.values(this.setters);
-    return setters.filter((n) => n.type === type).map((n) => n.name);
+    return setters
+      .filter((n) => n.type.toLowerCase() === type.toLowerCase())
+      .map((n) => n.name);
   }
 }
 
