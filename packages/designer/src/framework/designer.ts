@@ -484,7 +484,7 @@ export class Designer {
       const instances = instance ? toArray(instance) : [];
       instances.forEach((item) => {
         const el = item?.$el || item;
-        if (el) {
+        if (el && el.getBoundingClientRect) {
           const rect = el.getBoundingClientRect();
           lines.push(rect);
         }
