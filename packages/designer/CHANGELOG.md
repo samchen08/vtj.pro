@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.9.15](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.9.14...@vtj/designer@0.9.15) (2025-01-13)
+
+
+### Bug Fixes
+
+* 🐛 text node getBoundingClientRect is not a function ([a80cc00](https://gitee.com/newgateway/vtj/commits/a80cc00b1d8369c34218c4890320a94a191e70e0))
+
+
+
+
+
 ## [0.9.14](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.9.13...@vtj/designer@0.9.14) (2025-01-10)
 
 
