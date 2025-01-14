@@ -2,7 +2,7 @@
   "name": "vtj-app-template",
   "description": "VTJ.PRO",
   "private": true,
-  "version": "0.8.0",
+  "version": "0.9.0",
   "type": "module",
   "scripts": {
     "setup": "npm install --unsafe-perm --registry=https://registry.npmmirror.com",

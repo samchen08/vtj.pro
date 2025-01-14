@@ -2,7 +2,7 @@ import type { MaterialDescription } from '@vtj/core';
 
 const Swipe: MaterialDescription[] = [
   {
-    name: 'VantSwipe',
+    name: 'VanSwipe',
     alias: 'Swipe',
     label: '轮播',
     categoryId: 'view',
@@ -98,14 +98,14 @@ const Swipe: MaterialDescription[] = [
         }
       },
       children: [
-        { name: 'VantSwipeItem', children: '1' },
-        { name: 'VantSwipeItem', children: '2' },
-        { name: 'VantSwipeItem', children: '3' }
+        { name: 'VanSwipeItem', children: '1' },
+        { name: 'VanSwipeItem', children: '2' },
+        { name: 'VanSwipeItem', children: '3' }
       ]
     }
   },
   {
-    name: 'VantSwipeItem',
+    name: 'VanSwipeItem',
     alias: 'SwipeItem',
     label: '轮播项',
     categoryId: 'view',

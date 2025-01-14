@@ -1,7 +1,7 @@
 import type { MaterialDescription } from '@vtj/core';
 
 const Stepper: MaterialDescription = {
-  name: 'VantStepper',
+  name: 'VanStepper',
   alias: 'Stepper',
   label: '步进器',
   categoryId: 'form',

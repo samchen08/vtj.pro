@@ -1,7 +1,7 @@
 import type { MaterialDescription } from '@vtj/core';
 
 const Button: MaterialDescription = {
-  name: 'VantButton',
+  name: 'VanButton',
   alias: 'Button',
   label: '按钮',
   categoryId: 'base',

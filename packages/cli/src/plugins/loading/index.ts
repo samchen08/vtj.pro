@@ -6,7 +6,7 @@ const style = `
   background-color: #141414;
 }
 #vtj-ide-loading {
-  width: 400px;
+  width: 240px;
   height: 100px;
   position: fixed;
   left:50%;

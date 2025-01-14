@@ -1,7 +1,7 @@
 import type { MaterialDescription } from '@vtj/core';
 
 const Notify: MaterialDescription = {
-  name: 'VantNotify',
+  name: 'VanNotify',
   alias: 'Notify',
   label: '消息提示',
   categoryId: 'feedback',
@@ -79,7 +79,7 @@ const Notify: MaterialDescription = {
     },
     children: [
       {
-        name: 'VantIcon',
+        name: 'VanIcon',
         props: {
           name: 'bell',
           style: { marginRight: '4px' }

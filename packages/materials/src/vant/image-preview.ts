@@ -1,7 +1,7 @@
 import type { MaterialDescription } from '@vtj/core';
 
 const ImagePreview: MaterialDescription = {
-  name: 'VantImagePreview',
+  name: 'VanImagePreview',
   alias: 'ImagePreview',
   label: '图片预览',
   categoryId: 'view',

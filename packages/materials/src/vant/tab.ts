@@ -4,7 +4,7 @@ import type { MaterialDescription } from '@vtj/core';
 
 const Tab: MaterialDescription[] = [
   {
-    name: 'VantTabs',
+    name: 'VanTabs',
     alias: 'Tabs',
     label: '标签页',
     categoryId: 'nav',
@@ -152,14 +152,14 @@ const Tab: MaterialDescription[] = [
         active: 0
       },
       children: [
-        { name: 'VantTab', props: { title: '内容1' }, children: '标题1' },
-        { name: 'VantTab', props: { title: '内容2' }, children: '标题2' },
-        { name: 'VantTab', props: { title: '内容3' }, children: '标题3' }
+        { name: 'VanTab', props: { title: '内容1' }, children: '标题1' },
+        { name: 'VanTab', props: { title: '内容2' }, children: '标题2' },
+        { name: 'VanTab', props: { title: '内容3' }, children: '标题3' }
       ]
     }
   },
   {
-    name: 'VantTab',
+    name: 'VanTab',
     alias: 'Tab',
     label: '标签页项',
     categoryId: 'nav',

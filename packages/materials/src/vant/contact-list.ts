@@ -1,7 +1,7 @@
 import type { MaterialDescription } from '@vtj/core';
 
 const ContactList: MaterialDescription = {
-  name: 'VantContactList',
+  name: 'VanContactList',
   alias: 'ContactList',
   label: '联系人列表',
   categoryId: 'business',

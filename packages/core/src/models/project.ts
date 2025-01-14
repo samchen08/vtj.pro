@@ -6,7 +6,8 @@ import type {
   BlockFile,
   ApiSchema,
   MetaSchema,
-  ProjectConfig
+  ProjectConfig,
+  PlatformType
 } from '../protocols';
 import { emitter, type ModelEventType } from '../tools';
 import { BlockModel } from './block';
@@ -68,6 +69,7 @@ export const EVENT_PROJECT_GEN_SOURCE = 'EVENT_PROJECT_GEN_SOURCE';
 
 export class ProjectModel {
   id: string = '';
+  platform: PlatformType = 'web';
   name: string = '';
   description: string = '';
   homepage: string = '';
@@ -80,6 +82,7 @@ export class ProjectModel {
   config: ProjectConfig = {};
   __BASE_PATH__: string = '/';
   static attrs: string[] = [
+    'platform',
     'name',
     'homepage',
     'description',
@@ -153,7 +156,6 @@ export class ProjectModel {
     }
     return {
       __VTJ_PROJECT__: true,
-      // __VERSION__: version || timestamp().toString(),
       id,
       ...attrs
     } as ProjectSchema;

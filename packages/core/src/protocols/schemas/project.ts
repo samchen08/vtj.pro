@@ -1,11 +1,17 @@
 import type { PageFile, BlockFile } from './file';
 import type { Dependencie } from '../assets';
 import type { ApiSchema, MetaSchema } from './dataSource';
+import type { PlatformType } from '../shared';
 
 /**
  * 项目描述信息
  */
 export interface ProjectSchema {
+  /**
+   * 平台，默认 web
+   */
+  platform?: PlatformType;
+
   /**
    * 唯一标识
    */

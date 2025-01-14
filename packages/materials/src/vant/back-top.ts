@@ -1,7 +1,7 @@
 import type { MaterialDescription } from '@vtj/core';
 
 const BackTop: MaterialDescription = {
-  name: 'VantBackTop',
+  name: 'VanBackTop',
   alias: 'BackTop',
   label: '回到顶部',
   categoryId: 'nav',

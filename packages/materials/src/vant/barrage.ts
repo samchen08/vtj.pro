@@ -1,7 +1,7 @@
 import type { MaterialDescription } from '@vtj/core';
 
 const Barrage: MaterialDescription = {
-  name: 'VantBarrage',
+  name: 'VanBarrage',
   alias: 'Barrage',
   label: '弹幕',
   categoryId: 'feedback',

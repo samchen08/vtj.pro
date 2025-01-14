@@ -6,6 +6,7 @@
       </h1>
       <div class="vtj-startup__tagline">{{ props.tagline }}</div>
       <div class="vtj-startup__actions">
+        <span>设置项目主页后，将替换此页面显示</span>
         <button @click="onClick">{{ props.actionText }}</button>
       </div>
     </div>
@@ -90,10 +91,20 @@
     &__actions {
       display: flex;
       flex-wrap: wrap;
-      justify-content: flex-end;
+      justify-content: space-between;
+      align-items: center;
       border-top: 1px solid rgba(60, 60, 67, 0.08);
       padding: 20px 0 0 0;
       margin-top: 20px;
+
+      span {
+        color: #e6a23c;
+        @media (max-width: 768px) {
+          display: block;
+          text-align: center;
+          width: 100%;
+        }
+      }
 
       button {
         height: 40px;
@@ -107,6 +118,7 @@
 
         @media (max-width: 768px) {
           width: 100%;
+          margin-top: 20px;
         }
 
         &:hover {

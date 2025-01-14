@@ -2,7 +2,7 @@ import type { MaterialDescription } from '@vtj/core';
 
 const Checkbox: MaterialDescription[] = [
   {
-    name: 'VantCheckbox',
+    name: 'VanCheckbox',
     alias: 'Checkbox',
     label: '复选框',
     categoryId: 'form',
@@ -77,7 +77,7 @@ const Checkbox: MaterialDescription[] = [
     }
   },
   {
-    name: 'VantCheckboxGroup',
+    name: 'VanCheckboxGroup',
     alias: 'CheckboxGroup',
     label: '复选框组',
     categoryId: 'form',
@@ -135,14 +135,14 @@ const Checkbox: MaterialDescription[] = [
       },
       children: [
         {
-          name: 'VantCheckbox',
+          name: 'VanCheckbox',
           props: {
             name: 'a'
           },
           children: '复选框 a'
         },
         {
-          name: 'VantCheckbox',
+          name: 'VanCheckbox',
           props: {
             name: 'b'
           },

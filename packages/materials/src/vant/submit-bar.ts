@@ -1,7 +1,7 @@
 import type { MaterialDescription } from '@vtj/core';
 
 const SubmitBar: MaterialDescription = {
-  name: 'VantSubmitBar',
+  name: 'VanSubmitBar',
   alias: 'SubmitBar',
   label: '提交订单栏',
   categoryId: 'business',

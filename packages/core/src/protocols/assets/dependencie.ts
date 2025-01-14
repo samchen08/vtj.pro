@@ -1,3 +1,4 @@
+import type { PlatformType } from '../shared';
 /**
  * 依赖包
  */
@@ -6,6 +7,12 @@ export interface Dependencie {
    * 包名
    */
   package: string;
+
+  /**
+   * 支持平台
+   */
+  platform?: PlatformType | PlatformType[];
+
   /**
    * 版本号
    */

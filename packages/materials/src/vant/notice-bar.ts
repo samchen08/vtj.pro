@@ -1,7 +1,7 @@
 import type { MaterialDescription } from '@vtj/core';
 
 const NoticeBar: MaterialDescription = {
-  name: 'VantNoticeBar',
+  name: 'VanNoticeBar',
   alias: 'NoticeBar',
   label: '通知栏',
   categoryId: 'view',

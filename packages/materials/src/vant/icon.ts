@@ -1,7 +1,7 @@
 import type { MaterialDescription } from '@vtj/core';
 
 const Icon: MaterialDescription = {
-  name: 'VantIcon',
+  name: 'VanIcon',
   alias: 'Icon',
   label: '图标',
   categoryId: 'base',

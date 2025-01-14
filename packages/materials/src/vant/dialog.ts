@@ -1,7 +1,7 @@
 import type { MaterialDescription } from '@vtj/core';
 
 const Dialog: MaterialDescription = {
-  name: 'VantDialog',
+  name: 'VanDialog',
   alias: 'Dialog',
   label: '弹出框',
   categoryId: 'feedback',
@@ -175,7 +175,7 @@ const Dialog: MaterialDescription = {
     },
     children: [
       {
-        name: 'VantImage',
+        name: 'VanImage',
         props: {
           src: 'https://fastly.jsdelivr.net/npm/@vant/assets/apple-3.jpeg'
         }

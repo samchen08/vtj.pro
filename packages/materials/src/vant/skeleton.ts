@@ -2,7 +2,7 @@ import type { MaterialDescription } from '@vtj/core';
 
 const Skeleton: MaterialDescription[] = [
   {
-    name: 'VantSkeleton',
+    name: 'VanSkeleton',
     alias: 'Skeleton',
     label: '骨架屏',
     categoryId: 'view',
@@ -80,7 +80,7 @@ const Skeleton: MaterialDescription[] = [
     }
   },
   {
-    name: 'VantSkeletonParagraph',
+    name: 'VanSkeletonParagraph',
     alias: 'SkeletonParagraph',
     label: '骨架屏文本',
     categoryId: 'view',
@@ -101,7 +101,7 @@ const Skeleton: MaterialDescription[] = [
     ]
   },
   {
-    name: 'VantSkeletonTitle',
+    name: 'VanSkeletonTitle',
     alias: 'SkeletonTitle',
     label: '骨架屏标题',
     categoryId: 'view',
@@ -122,7 +122,7 @@ const Skeleton: MaterialDescription[] = [
     ]
   },
   {
-    name: 'VantSkeletonAvatar',
+    name: 'VanSkeletonAvatar',
     alias: 'SkeletonAvatar',
     label: '骨架屏头像',
     categoryId: 'view',
@@ -144,7 +144,7 @@ const Skeleton: MaterialDescription[] = [
     ]
   },
   {
-    name: 'VantSkeletonImage',
+    name: 'VanSkeletonImage',
     alias: 'SkeletonImage',
     label: '骨架屏图片',
     categoryId: 'view',

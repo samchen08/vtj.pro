@@ -1,7 +1,7 @@
 import type { MaterialDescription } from '@vtj/core';
 
 const Highlight: MaterialDescription = {
-  name: 'VantHighlight',
+  name: 'VanHighlight',
   alias: 'Highlight',
   label: '高亮文本',
   categoryId: 'view',
