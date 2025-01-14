@@ -5,7 +5,6 @@ const Image: MaterialDescription = {
 
   categoryId: 'data',
   doc: 'https://element-plus.org/zh-CN/component/image.html',
-  childIncludes: false,
   package: 'element-plus',
   props: [
     {

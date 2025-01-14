@@ -44,13 +44,21 @@ VTJ 是一款基于 Vue3 + Typescript 的低代码页面可视化设计器。内
 
 访问Vtj专属低代码开发平台，创建应用可以体验设计器和出码功能
 
-### 本地体验（推荐：功能更全， 性能最佳）
+### 离线本地体验（推荐：功能全， 性能最佳）
 
-可以使用VTJ提供的项目脚手架，可快速创建体验项目。 命令：
+使用VTJ提供的项目脚手架，可快速创建开发项目工程。 命令：
 
-```sh
-npm create vtj@latest --registry=https://registry.npmmirror.com -- -t app
-```
+1. Web应用(PC端)
+
+   ```sh
+   npm create vtj@latest --registry=https://registry.npmmirror.com -- -t app
+   ```
+
+1. H5应用(移动端)
+
+   ```sh
+   npm create vtj@latest --registry=https://registry.npmmirror.com -- -t h5
+   ```
 
 ## 贡献指南
 

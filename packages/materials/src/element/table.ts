@@ -292,7 +292,7 @@ const Table: MaterialDescription[] = [
 
     categoryId: 'data',
     package: 'element-plus',
-    parentIncludes: ['ElTable'],
+    // parentIncludes: ['ElTable'],
     props: [
       {
         name: 'type',

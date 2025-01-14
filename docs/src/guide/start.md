@@ -35,6 +35,22 @@ npm run setup && npm run dev
 
 ![startup](../assets//startup.png)
 
+:::info 使用VTJ提供的项目脚手架，可快速创建开发项目工程。 命令：
+
+1. Web应用(PC端)
+
+   ```sh
+   npm create vtj@latest --registry=https://registry.npmmirror.com -- -t app
+   ```
+
+1. H5应用(移动端)
+
+   ```sh
+   npm create vtj@latest --registry=https://registry.npmmirror.com -- -t h5
+   ```
+
+   :::
+
 ### 项目工程
 
 项目工程配置及说明请参考 [项目工程模板章节](./base/project-template.md)
