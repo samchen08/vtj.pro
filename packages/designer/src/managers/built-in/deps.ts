@@ -52,7 +52,8 @@ export const builtInDeps: Dependencie[] = [
     ],
     required: false,
     official: true,
-    enabled: true
+    enabled: true,
+    platform: ['web', 'h5']
   },
   {
     package: 'element-plus',
@@ -69,7 +70,8 @@ export const builtInDeps: Dependencie[] = [
     assetsLibrary: 'ElementPlusMaterial',
     required: false,
     official: true,
-    enabled: true
+    enabled: true,
+    platform: 'web'
   },
   {
     package: '@vtj/ui',
@@ -86,21 +88,8 @@ export const builtInDeps: Dependencie[] = [
     assetsLibrary: 'VtjUIMaterial',
     required: false,
     official: true,
-    enabled: true
-  },
-  {
-    package: '@vtj/charts',
-    version: 'latest',
-    library: 'VtjCharts',
-    urls: [
-      '@vtj/materials/deps/echarts/echarts.min.js',
-      '@vtj/materials/deps/@vtj/charts/index.umd.js'
-    ],
-    assetsUrl: '@vtj/materials/assets/charts/index.umd.js',
-    assetsLibrary: 'VtjChartsMaterial',
-    required: false,
-    official: true,
-    enabled: true
+    enabled: true,
+    platform: 'web'
   },
   {
     package: 'ant-design-vue',
@@ -122,7 +111,8 @@ export const builtInDeps: Dependencie[] = [
     assetsLibrary: 'AntdvMaterial',
     required: false,
     official: true,
-    enabled: false
+    enabled: false,
+    platform: ['web']
   },
   {
     package: 'vant',
@@ -136,6 +126,22 @@ export const builtInDeps: Dependencie[] = [
     assetsLibrary: 'VantMaterial',
     required: false,
     official: true,
-    enabled: false
+    enabled: true,
+    platform: ['h5', 'uniapp']
+  },
+  {
+    package: '@vtj/charts',
+    version: 'latest',
+    library: 'VtjCharts',
+    urls: [
+      '@vtj/materials/deps/echarts/echarts.min.js',
+      '@vtj/materials/deps/@vtj/charts/index.umd.js'
+    ],
+    assetsUrl: '@vtj/materials/assets/charts/index.umd.js',
+    assetsLibrary: 'VtjChartsMaterial',
+    required: false,
+    official: true,
+    enabled: true,
+    platform: ['web', 'h5']
   }
 ];

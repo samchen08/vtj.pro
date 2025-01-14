@@ -1,7 +1,7 @@
 import type { MaterialDescription } from '@vtj/core';
 
 const PasswordInput: MaterialDescription = {
-  name: 'VantPasswordInput',
+  name: 'VanPasswordInput',
   alias: 'PasswordInput',
   label: '密码输入框',
   categoryId: 'form',

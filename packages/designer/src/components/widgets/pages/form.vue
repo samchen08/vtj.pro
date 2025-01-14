@@ -46,7 +46,8 @@
       name="mask"
       label="包含母版"
       editor="switch"
-      tip="页面内嵌入框架"></XField>
+      tip="页面内嵌入框架, 仅Web平台有效"
+      :disabled="!isWebPlatform"></XField>
 
     <XField
       name="cache"
@@ -54,14 +55,16 @@
       inline
       label="开启缓存"
       editor="switch"
-      tip="开启路由 KeepAlive 缓存"></XField>
+      tip="开启路由 KeepAlive 缓存, 仅Web平台有效"
+      :disabled="!isWebPlatform"></XField>
 
     <XField
       name="hidden"
       inline
       label="隐藏菜单"
       editor="switch"
-      tip="系统菜单中不显示该项"></XField>
+      tip="系统菜单中不显示该项，仅Web平台有效"
+      :disabled="!isWebPlatform"></XField>
 
     <XField
       :visible="{ dir: false }"
@@ -69,7 +72,8 @@
       name="pure"
       label="纯净页面"
       editor="switch"
-      tip="页面默认不带背景和内边距"></XField>
+      tip="页面默认不带背景和内边距，仅Web平台有效"
+      :disabled="!isWebPlatform"></XField>
 
     <XField
       :visible="{ dir: false }"
@@ -118,6 +122,10 @@
   const { project, engine } = useProject();
   const { designer } = useSelected();
   const title = computed(() => (props.item ? '编辑页面' : '新增页面'));
+  const isWebPlatform = computed(() => {
+    const { platform = 'web' } = project.value || {};
+    return platform === 'web';
+  });
   const createEmptyModel = () => ({
     dir: false,
     name: '',
@@ -126,13 +134,11 @@
     mask: true,
     hidden: false,
     raw: false,
-    prue: false,
+    pure: true,
     meta: null,
     cache: false
   });
-
   const model = ref(props.item || createEmptyModel());
-
   const computedMeta = computed({
     get() {
       return JSON.stringify(model.value.meta || {}, null, 4);

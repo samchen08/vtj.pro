@@ -1,12 +1,10 @@
 <template>
-  <XMask>
-    <component v-if="renderer" :is="renderer"></component>
-  </XMask>
+  <component v-if="renderer" :is="renderer"></component>
 </template>
 <script lang="ts" setup>
   import { ref, getCurrentInstance } from 'vue';
   import { useRoute } from 'vue-router';
-  import { XMask } from '@vtj/ui';
+  // import { XMask } from '@vtj/ui';
   import { ACCESS_STORAGE_KEY } from '../contants';
   import {
     createProvider,

@@ -2,7 +2,7 @@ import type { MaterialDescription } from '@vtj/core';
 
 const Layout: MaterialDescription[] = [
   {
-    name: 'VantRow',
+    name: 'VanRow',
     alias: 'Row',
     label: '布局行',
     categoryId: 'base',
@@ -44,14 +44,14 @@ const Layout: MaterialDescription[] = [
     snippet: {
       children: [
         {
-          name: 'VantCol',
+          name: 'VanCol',
           children: 'span:8',
           props: {
             span: '8'
           }
         },
         {
-          name: 'VantCol',
+          name: 'VanCol',
           children: 'span:8',
           props: {
             span: '8'
@@ -61,7 +61,7 @@ const Layout: MaterialDescription[] = [
     }
   },
   {
-    name: 'VantCol',
+    name: 'VanCol',
     alias: 'Col',
     label: '布局列',
     categoryId: 'base',
@@ -86,7 +86,7 @@ const Layout: MaterialDescription[] = [
     ],
     events: ['click'],
     snippet: {
-      name: 'VantCol',
+      name: 'VanCol',
       children: 'span:8',
       props: {
         span: '8'

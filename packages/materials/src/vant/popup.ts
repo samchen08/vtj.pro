@@ -1,7 +1,7 @@
 import type { MaterialDescription } from '@vtj/core';
 
 const Popup: MaterialDescription = {
-  name: 'VantPopup',
+  name: 'VanPopup',
   alias: 'Popup',
   label: '弹出层',
   categoryId: 'base',

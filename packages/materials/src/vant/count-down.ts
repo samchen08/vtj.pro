@@ -1,7 +1,7 @@
 import type { MaterialDescription } from '@vtj/core';
 
 const CountDown: MaterialDescription = {
-  name: 'VantCountDown',
+  name: 'VanCountDown',
   alias: 'CountDown',
   label: '倒计时',
   categoryId: 'view',

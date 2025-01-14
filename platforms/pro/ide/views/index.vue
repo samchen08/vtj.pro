@@ -85,6 +85,7 @@
     container,
     service,
     materialPath: __BASE_PATH__,
+    pageBasePath: base === '/' ? '' : base,
     ...options,
     adapter: Object.assign(adapter, { access, remote }, options?.adapter || {})
   });

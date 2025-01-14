@@ -2,7 +2,7 @@ import type { MaterialDescription } from '@vtj/core';
 
 const IndexBar: MaterialDescription[] = [
   {
-    name: 'VantIndexBar',
+    name: 'VanIndexBar',
     alias: 'IndexBar',
     label: '索引栏',
     categoryId: 'nav',
@@ -49,19 +49,19 @@ const IndexBar: MaterialDescription[] = [
     ],
     snippet: {
       children: [
-        { name: 'VantIndexAnchor', props: { index: 'A' } },
-        { name: 'VantCell', props: { title: '文本' } },
-        { name: 'VantCell', props: { title: '文本' } },
-        { name: 'VantCell', props: { title: '文本' } },
-        { name: 'VantIndexAnchor', props: { index: 'B' } },
-        { name: 'VantCell', props: { title: '文本' } },
-        { name: 'VantCell', props: { title: '文本' } },
-        { name: 'VantCell', props: { title: '文本' } }
+        { name: 'VanIndexAnchor', props: { index: 'A' } },
+        { name: 'VanCell', props: { title: '文本' } },
+        { name: 'VanCell', props: { title: '文本' } },
+        { name: 'VanCell', props: { title: '文本' } },
+        { name: 'VanIndexAnchor', props: { index: 'B' } },
+        { name: 'VanCell', props: { title: '文本' } },
+        { name: 'VanCell', props: { title: '文本' } },
+        { name: 'VanCell', props: { title: '文本' } }
       ]
     }
   },
   {
-    name: 'VantIndexAnchor',
+    name: 'VanIndexAnchor',
     alias: 'IndexAnchor',
     label: '索引栏锚点',
     categoryId: 'nav',

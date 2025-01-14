@@ -1,7 +1,7 @@
 import type { MaterialDescription } from '@vtj/core';
 
 const Pagination: MaterialDescription = {
-  name: 'VantPagination',
+  name: 'VanPagination',
   alias: 'Pagination',
   label: '分页',
   categoryId: 'nav',

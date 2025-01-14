@@ -2,7 +2,7 @@ import type { MaterialDescription } from '@vtj/core';
 
 const Tabbar: MaterialDescription[] = [
   {
-    name: 'VantTabbar',
+    name: 'VanTabbar',
     alias: 'Tabbar',
     label: '标签栏',
     categoryId: 'nav',
@@ -75,28 +75,28 @@ const Tabbar: MaterialDescription[] = [
       },
       children: [
         {
-          name: 'VantTabbarItem',
+          name: 'VanTabbarItem',
           props: {
             icon: 'home-o'
           },
           children: 'home'
         },
         {
-          name: 'VantTabbarItem',
+          name: 'VanTabbarItem',
           props: {
             icon: 'search'
           },
           children: 'search'
         },
         {
-          name: 'VantTabbarItem',
+          name: 'VanTabbarItem',
           props: {
             icon: 'friends-o'
           },
           children: 'friends'
         },
         {
-          name: 'VantTabbarItem',
+          name: 'VanTabbarItem',
           props: {
             icon: 'setting-o'
           },
@@ -106,7 +106,7 @@ const Tabbar: MaterialDescription[] = [
     }
   },
   {
-    name: 'VantTabbarItem',
+    name: 'VanTabbarItem',
     alias: 'TabbarItem',
     label: '标签栏项',
     categoryId: 'nav',

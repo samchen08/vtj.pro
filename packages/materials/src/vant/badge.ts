@@ -1,7 +1,7 @@
 import type { MaterialDescription } from '@vtj/core';
 
 const Badge: MaterialDescription = {
-  name: 'VantBadge',
+  name: 'VanBadge',
   alias: 'Badge',
   label: '徽标',
   categoryId: 'view',

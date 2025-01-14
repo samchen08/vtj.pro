@@ -1,7 +1,7 @@
 import type { MaterialDescription } from '@vtj/core';
 
 const SwipeCell: MaterialDescription = {
-  name: 'VantSwipeCell',
+  name: 'VanSwipeCell',
   alias: 'SwipeCell',
   label: '滑动单元格',
   categoryId: 'feedback',
@@ -52,12 +52,12 @@ const SwipeCell: MaterialDescription = {
   snippet: {
     children: [
       {
-        name: 'VantButton',
+        name: 'VanButton',
         slot: 'left',
         props: { square: true, type: 'primary', text: '选择' }
       },
       {
-        name: 'VantCell',
+        name: 'VanCell',
         props: {
           border: false,
           title: '单元格',
@@ -69,11 +69,11 @@ const SwipeCell: MaterialDescription = {
         slot: 'right',
         children: [
           {
-            name: 'VantButton',
+            name: 'VanButton',
             props: { square: true, type: 'danger', text: '删除' }
           },
           {
-            name: 'VantButton',
+            name: 'VanButton',
             props: { square: true, type: 'primary', text: '收藏' }
           }
         ]

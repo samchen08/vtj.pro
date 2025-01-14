@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "composite": true,
+    "skipLibCheck": true,
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "allowSyntheticDefaultImports": true
+  },
+  "include": [
+    "vite.config.ts",
+    "proxy.config.ts",
+    "env.config.ts",
+    "node_modules/@vtj/pro/**/*",
+  ]
+}

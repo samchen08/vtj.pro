@@ -3,6 +3,53 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.9.20](https://gitee.com/newgateway/vtj/compare/@vtj/pro@0.9.19...@vtj/pro@0.9.20) (2025-01-14)
+
+
+### Bug Fixes
+
+* 🐛 engine pageBasePath ([c516c01](https://gitee.com/newgateway/vtj/commits/c516c01dd9bc97681250db80c80694baad837e9e))
+
+
+
+
+
+## [0.9.19](https://gitee.com/newgateway/vtj/compare/@vtj/pro@0.9.18...@vtj/pro@0.9.19) (2025-01-14)
+
+**Note:** Version bump only for package @vtj/pro
+
+
+
+
+
+## [0.9.18](https://gitee.com/newgateway/vtj/compare/@vtj/pro@0.9.17...@vtj/pro@0.9.18) (2025-01-14)
+
+**Note:** Version bump only for package @vtj/pro
+
+
+
+
+
+## [0.9.17](https://gitee.com/newgateway/vtj/compare/@vtj/pro@0.9.16...@vtj/pro@0.9.17) (2025-01-14)
+
+**Note:** Version bump only for package @vtj/pro
+
+
+
+
+
+## [0.9.16](https://gitee.com/newgateway/vtj/compare/@vtj/pro@0.9.15...@vtj/pro@0.9.16) (2025-01-13)
+
+
+### Features
+
+* ✨ h5平台 ([0497ccb](https://gitee.com/newgateway/vtj/commits/0497ccbb53f01a537176cae36f69b5d3019fc68e))
+* ✨ H5平台协议 ([51484a8](https://gitee.com/newgateway/vtj/commits/51484a8d0723897e462e1e2c37e16dbdf2546bea))
+
+
+
+
+
 ## [0.9.15](https://gitee.com/newgateway/vtj/compare/@vtj/pro@0.9.14...@vtj/pro@0.9.15) (2025-01-13)
 
 **Note:** Version bump only for package @vtj/pro

@@ -30,7 +30,7 @@ const material: Material = {
   version,
   label: '图表',
   library: 'VtjChartsMaterial',
-  order: 3,
+  order: 7,
   categories,
   components: setPackageName(components, name)
 };

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.9.7](https://gitee.com/newgateway/vtj/compare/@vtj/cli@0.9.6...@vtj/cli@0.9.7) (2025-01-14)
+
+
+### Bug Fixes
+
+* 🐛 cli loading ([ec7a59d](https://gitee.com/newgateway/vtj/commits/ec7a59deaeda7050973a1e4dcb9d102d52e04f50))
+
+
+
+
+
 ## [0.9.6](https://gitee.com/newgateway/vtj/compare/@vtj/cli@0.9.5...@vtj/cli@0.9.6) (2025-01-06)
 
 **Note:** Version bump only for package @vtj/cli

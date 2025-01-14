@@ -1,7 +1,7 @@
 import type { MaterialDescription } from '@vtj/core';
 
 const Space: MaterialDescription = {
-  name: 'VantSpace',
+  name: 'VanSpace',
   alias: 'Space',
   label: '间距',
   categoryId: 'base',
@@ -44,10 +44,10 @@ const Space: MaterialDescription = {
   snippet: {
     props: {},
     children: [
-      { name: 'VantButton', props: { type: 'primary' }, children: '按钮' },
-      { name: 'VantButton', props: { type: 'primary' }, children: '按钮' },
+      { name: 'VanButton', props: { type: 'primary' }, children: '按钮' },
+      { name: 'VanButton', props: { type: 'primary' }, children: '按钮' },
       {
-        name: 'VantButton',
+        name: 'VanButton',
         props: {
           type: 'primary',
           style: {

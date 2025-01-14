@@ -1,7 +1,7 @@
 import type { MaterialDescription } from '@vtj/core';
 
 const Form: MaterialDescription = {
-  name: 'VantForm',
+  name: 'VanForm',
   alias: 'Form',
   label: '表单',
   categoryId: 'form',
@@ -108,13 +108,13 @@ const Form: MaterialDescription = {
   snippet: {
     children: [
       {
-        name: 'VantCellGroup',
+        name: 'VanCellGroup',
         props: {
           inset: true
         },
         children: [
           {
-            name: 'VantField',
+            name: 'VanField',
             props: {
               modelValue: '用户名',
               name: '用户名',
@@ -123,7 +123,7 @@ const Form: MaterialDescription = {
             }
           },
           {
-            name: 'VantField',
+            name: 'VanField',
             props: {
               modelValue: '密码',
               name: '密码',

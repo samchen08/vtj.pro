@@ -2,7 +2,7 @@ import type { MaterialDescription } from '@vtj/core';
 
 const Grid: MaterialDescription[] = [
   {
-    name: 'VantGrid',
+    name: 'VanGrid',
     alias: 'Grid',
     label: '宫格',
     categoryId: 'nav',
@@ -67,7 +67,7 @@ const Grid: MaterialDescription[] = [
     snippet: {
       children: [
         {
-          name: 'VantGridItem',
+          name: 'VanGridItem',
           props: {
             icon: 'photo-o',
             text: '文字'
@@ -86,7 +86,7 @@ const Grid: MaterialDescription[] = [
     }
   },
   {
-    name: 'VantGridItem',
+    name: 'VanGridItem',
     alias: 'GridItem',
     label: '宫格项',
     categoryId: 'nav',

@@ -1,7 +1,7 @@
 import type { MaterialDescription } from '@vtj/core';
 
 const Tag: MaterialDescription = {
-  name: 'VantTag',
+  name: 'VanTag',
   alias: 'Tag',
   label: '标签',
   categoryId: 'view',

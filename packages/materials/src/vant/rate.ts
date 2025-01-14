@@ -1,7 +1,7 @@
 import type { MaterialDescription } from '@vtj/core';
 
 const Rate: MaterialDescription = {
-  name: 'VantRate',
+  name: 'VanRate',
   alias: 'Rate',
   label: '评分',
   categoryId: 'form',

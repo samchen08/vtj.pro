@@ -51,14 +51,15 @@ export function useDesigner(
 }
 
 function getPosition(rect: DOMRect, leftPriority: boolean = true) {
-  const { top, height, width, left } = rect || {};
-  if (height > 100 && width > 200) {
+  const { top, height, width, left, right } = rect || {};
+  const WIDTH = 250;
+  if (height > 100 && width > WIDTH) {
     return 'inner';
   }
-
   let h, v;
   v = top > 30 ? 'top' : 'bottom';
-  h = leftPriority ? 'left' : left < 300 && width < 300 ? 'left' : 'right';
+  h = leftPriority ? 'left' : left < WIDTH && width < WIDTH ? 'left' : 'right';
+  h = right > WIDTH ? 'right' : 'left';
 
   return [h, v].join('-');
 }

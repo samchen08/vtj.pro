@@ -2,7 +2,7 @@ import type { MaterialDescription } from '@vtj/core';
 
 const DropdownMenu: MaterialDescription[] = [
   {
-    name: 'VantDropdownMenu',
+    name: 'VanDropdownMenu',
     alias: 'DropdownMenu',
     label: '下拉菜单',
     categoryId: 'feedback',
@@ -67,7 +67,7 @@ const DropdownMenu: MaterialDescription[] = [
     snippet: {
       children: [
         {
-          name: 'VantDropdownItem',
+          name: 'VanDropdownItem',
           props: {
             modelValue: 0,
             options: [
@@ -78,7 +78,7 @@ const DropdownMenu: MaterialDescription[] = [
           }
         },
         {
-          name: 'VantDropdownItem',
+          name: 'VanDropdownItem',
           props: {
             modelValue: 'a',
             options: [
@@ -92,7 +92,7 @@ const DropdownMenu: MaterialDescription[] = [
     }
   },
   {
-    name: 'VantDropdownItem',
+    name: 'VanDropdownItem',
     alias: 'DropdownItem',
     label: '下拉菜单项',
     categoryId: 'feedback',

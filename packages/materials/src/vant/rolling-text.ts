@@ -1,7 +1,7 @@
 import type { MaterialDescription } from '@vtj/core';
 
 const RollingText: MaterialDescription = {
-  name: 'VantRollingText',
+  name: 'VanRollingText',
   alias: 'RollingText',
   label: '翻滚文本动效',
   categoryId: 'view',

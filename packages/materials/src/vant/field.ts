@@ -1,7 +1,7 @@
 import type { MaterialDescription } from '@vtj/core';
 
 const Field: MaterialDescription = {
-  name: 'VantField',
+  name: 'VanField',
   alias: 'Field',
   label: '输入框',
   categoryId: 'form',
