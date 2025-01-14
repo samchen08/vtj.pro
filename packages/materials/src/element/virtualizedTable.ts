@@ -111,13 +111,13 @@ const VirtualizedTable: MaterialDescription = {
       setters: 'BooleanSetter'
     },
     {
-      name: 'width *',
+      name: 'width',
       defaultValue: '',
       label: '表宽必填',
       setters: 'NumberSetter'
     },
     {
-      name: 'height *',
+      name: 'height',
       defaultValue: '',
       label: '表高必填',
       setters: 'NumberSetter'
@@ -167,7 +167,13 @@ const VirtualizedTable: MaterialDescription = {
     'scroll',
     'rows-rendered',
     'row-event-handlers'
-  ]
+  ],
+  snippet: {
+    props: {
+      width: 700,
+      height: 400
+    }
+  }
 };
 
 export default VirtualizedTable;
