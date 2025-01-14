@@ -1,7 +1,7 @@
 import type { MaterialDescription } from '@vtj/core';
 
 const Popover: MaterialDescription = {
-  name: 'VantPopover',
+  name: 'VanPopover',
   alias: 'Popover',
   label: '气泡弹出框',
   categoryId: 'view',
@@ -153,7 +153,7 @@ const Popover: MaterialDescription = {
     },
     children: [
       {
-        name: 'VantButton',
+        name: 'VanButton',
         slot: 'reference',
         props: { type: 'primary' },
         children: '浅色风格'

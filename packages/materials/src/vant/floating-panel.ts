@@ -1,7 +1,7 @@
 import type { MaterialDescription } from '@vtj/core';
 
 const FloatingPanel: MaterialDescription = {
-  name: 'VantFloatingPanel',
+  name: 'VanFloatingPanel',
   alias: 'FloatingPanel',
   label: '浮动面板',
   categoryId: 'feedback',
@@ -49,10 +49,10 @@ const FloatingPanel: MaterialDescription = {
   snippet: {
     children: [
       {
-        name: 'VantCellGroup',
+        name: 'VanCellGroup',
         children: [
           {
-            name: 'VantCell',
+            name: 'VanCell',
             props: {
               size: 'large',
               title: {

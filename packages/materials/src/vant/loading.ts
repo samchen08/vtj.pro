@@ -1,7 +1,7 @@
 import type { MaterialDescription } from '@vtj/core';
 
 const Loading: MaterialDescription = {
-  name: 'VantLoading',
+  name: 'VanLoading',
   alias: 'Loading',
   label: '加载',
   categoryId: 'feedback',

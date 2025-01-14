@@ -1,7 +1,7 @@
 import type { MaterialDescription } from '@vtj/core';
 
 const Calendar: MaterialDescription = {
-  name: 'VantCalendar',
+  name: 'VanCalendar',
   alias: 'Calendar',
   label: '日历',
   categoryId: 'form',

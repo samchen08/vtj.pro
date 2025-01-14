@@ -1,7 +1,7 @@
 import type { MaterialDescription } from '@vtj/core';
 
 const Divider: MaterialDescription = {
-  name: 'VantDivider',
+  name: 'VanDivider',
   alias: 'Divider',
   label: '分割线',
   categoryId: 'view',

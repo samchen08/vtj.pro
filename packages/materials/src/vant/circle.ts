@@ -1,7 +1,7 @@
 import type { MaterialDescription } from '@vtj/core';
 
 const Circle: MaterialDescription = {
-  name: 'VantCircle',
+  name: 'VanCircle',
   alias: 'Circle',
   label: '环形进度条',
   categoryId: 'view',

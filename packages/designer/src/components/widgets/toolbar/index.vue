@@ -49,7 +49,7 @@
   </div>
 </template>
 <script lang="ts" setup>
-  import { ref } from 'vue';
+  import { ref, computed, watch } from 'vue';
   import {
     ElButtonGroup,
     ElButton,
@@ -76,10 +76,18 @@
 
   const props = defineProps<Props>();
 
-  const { forward, backward, forwardDisabled, backwardDisabled } = useHistory();
+  const { forward, backward, forwardDisabled, backwardDisabled, engine } =
+    useHistory();
+  const isWebPlatform = computed(() => {
+    const { platform = 'web' } = engine.project.value || {};
+    return platform === 'web';
+  });
   const mode = ref('pc');
   const outline = ref(true);
 
+  watch(isWebPlatform, (v) => {
+    mode.value = v ? 'pc' : 'mobile';
+  });
   defineOptions({
     name: 'ToolbarWidget',
     inheritAttrs: false

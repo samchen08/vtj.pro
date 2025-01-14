@@ -1,7 +1,7 @@
 import type { MaterialDescription } from '@vtj/core';
 
 const Overlay: MaterialDescription = {
-  name: 'VantOverlay',
+  name: 'VanOverlay',
   alias: 'Overlay',
   label: '遮罩层',
   categoryId: 'feedback',

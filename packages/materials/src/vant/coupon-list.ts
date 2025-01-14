@@ -2,7 +2,7 @@ import type { MaterialDescription } from '@vtj/core';
 
 const Coupon: MaterialDescription[] = [
   {
-    name: 'VantCouponList',
+    name: 'VanCouponList',
     alias: 'CouponList',
     label: '优惠券列表',
     categoryId: 'business',
@@ -152,7 +152,7 @@ const Coupon: MaterialDescription[] = [
     }
   },
   {
-    name: 'VantCouponCell',
+    name: 'VanCouponCell',
     alias: 'CouponCell',
     label: '优惠券单元格',
     categoryId: 'business',

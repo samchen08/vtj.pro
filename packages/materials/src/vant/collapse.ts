@@ -2,7 +2,7 @@ import type { MaterialDescription } from '@vtj/core';
 
 const Collapse: MaterialDescription[] = [
   {
-    name: 'VantCollapse',
+    name: 'VanCollapse',
     alias: 'Collapse',
     label: '折叠面板',
     categoryId: 'view',
@@ -33,7 +33,7 @@ const Collapse: MaterialDescription[] = [
       },
       children: [
         {
-          name: 'VantCollapseItem',
+          name: 'VanCollapseItem',
           props: {
             title: '标题1',
             name: '1'
@@ -41,7 +41,7 @@ const Collapse: MaterialDescription[] = [
           children: '代码是写出来给人看的，附带能在机器上运行。'
         },
         {
-          name: 'VantCollapseItem',
+          name: 'VanCollapseItem',
           props: {
             title: '标题2',
             name: '2'
@@ -49,7 +49,7 @@ const Collapse: MaterialDescription[] = [
           children: '技术无非就是那些开发它的人的共同灵魂。。'
         },
         {
-          name: 'VantCollapseItem',
+          name: 'VanCollapseItem',
           props: {
             title: '标题3',
             name: '3'
@@ -60,7 +60,7 @@ const Collapse: MaterialDescription[] = [
     }
   },
   {
-    name: 'VantCollapseItem',
+    name: 'VanCollapseItem',
     alias: 'CollapseItem',
     label: '折叠面板',
     categoryId: 'view',

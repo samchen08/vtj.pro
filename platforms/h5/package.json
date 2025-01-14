@@ -1,0 +1,42 @@
+{
+  "name": "@vtj/h5",
+  "private": false,
+  "version": "0.9.20",
+  "type": "module",
+  "sideEffects": false,
+  "scripts": {
+    "check": "vue-tsc --noEmit",
+    "build": "npm run check"
+  },
+  "dependencies": {
+    "@vtj/core": "workspace:~",
+    "@vtj/icons": "workspace:~",
+    "@vtj/renderer": "workspace:~",
+    "@vtj/utils": "workspace:~",
+    "vant": "~4.9.10"
+  },
+  "devDependencies": {
+    "@vtj/cli": "workspace:~"
+  },
+  "exports": {
+    "./src/index.scss": "./src/index.scss",
+    ".": {
+      "types": "./src/index.ts",
+      "import": "./src/index.ts",
+      "require": "./src/index.ts"
+    },
+    "./*": [
+      "./*"
+    ]
+  },
+  "main": "./src/index.ts",
+  "module": "./src/index.ts",
+  "types": "./src/index.ts",
+  "files": [
+    "src"
+  ],
+  "gitHead": "d03843144f07c2d98c1e0c72c8c6eb1117c01722",
+  "publishConfig": {
+    "access": "public"
+  }
+}

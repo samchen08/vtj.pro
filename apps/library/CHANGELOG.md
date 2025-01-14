@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.9.7](https://gitee.com/newgateway/vtj/compare/vtj-project-library@0.9.6...vtj-project-library@0.9.7) (2025-01-14)
+
+**Note:** Version bump only for package vtj-project-library
+
+
+
+
+
 ## [0.9.6](https://gitee.com/newgateway/vtj/compare/vtj-project-library@0.9.5...vtj-project-library@0.9.6) (2025-01-06)
 
 **Note:** Version bump only for package vtj-project-library

@@ -1,7 +1,7 @@
 import type { MaterialDescription } from '@vtj/core';
 
 const List: MaterialDescription = {
-  name: 'VantList',
+  name: 'VanList',
   alias: 'List',
   label: '列表',
   categoryId: 'view',
@@ -87,7 +87,7 @@ const List: MaterialDescription = {
     },
     children: [
       {
-        name: 'VantCell',
+        name: 'VanCell',
         props: {
           key: {
             type: 'JSExpression',

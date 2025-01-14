@@ -1,7 +1,7 @@
 import type { MaterialDescription } from '@vtj/core';
 
 const Image: MaterialDescription = {
-  name: 'VantImage',
+  name: 'VanImage',
   alias: 'Image',
   label: '图片',
   categoryId: 'base',

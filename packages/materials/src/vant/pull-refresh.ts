@@ -1,7 +1,7 @@
 import type { MaterialDescription } from '@vtj/core';
 
 const PullRefresh: MaterialDescription = {
-  name: 'VantPullRefresh',
+  name: 'VanPullRefresh',
   alias: 'PullRefresh',
   label: '下拉刷新',
   categoryId: 'feedback',

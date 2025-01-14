@@ -1,7 +1,7 @@
 import type { MaterialDescription } from '@vtj/core';
 
 const Sticky: MaterialDescription = {
-  name: 'VantSticky',
+  name: 'VanSticky',
   alias: 'Sticky',
   label: '粘性布局',
   categoryId: 'view',
@@ -44,7 +44,7 @@ const Sticky: MaterialDescription = {
   ],
   snippet: {
     children: [
-      { name: 'VantButton', props: { type: 'primary' }, children: '基础用法' }
+      { name: 'VanButton', props: { type: 'primary' }, children: '基础用法' }
     ]
   }
 };

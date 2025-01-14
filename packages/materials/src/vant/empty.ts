@@ -1,7 +1,7 @@
 import type { MaterialDescription } from '@vtj/core';
 
 const Empty: MaterialDescription = {
-  name: 'VantEmpty',
+  name: 'VanEmpty',
   alias: 'Empty',
   label: '空状态',
   categoryId: 'view',

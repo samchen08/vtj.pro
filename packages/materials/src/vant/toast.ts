@@ -1,7 +1,7 @@
 import type { MaterialDescription } from '@vtj/core';
 
 const Toast: MaterialDescription = {
-  name: 'VantToast',
+  name: 'VanToast',
   alias: 'Toast',
   label: '轻提示',
   categoryId: 'base',
@@ -138,7 +138,7 @@ const Toast: MaterialDescription = {
     },
     children: [
       {
-        name: 'VantImage',
+        name: 'VanImage',
         slot: 'message',
         props: {
           src: 'https://fastly.jsdelivr.net/npm/@vant/assets/cat.jpeg',

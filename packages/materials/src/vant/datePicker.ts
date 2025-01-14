@@ -1,7 +1,7 @@
 import type { MaterialDescription } from '@vtj/core';
 
 const DatePicker: MaterialDescription = {
-  name: 'VantDatePicker',
+  name: 'VanDatePicker',
   alias: 'DatePicker',
   label: '日期选择',
   categoryId: 'form',

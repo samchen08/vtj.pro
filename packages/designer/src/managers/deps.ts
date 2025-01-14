@@ -1,8 +1,31 @@
-import type { Dependencie } from '@vtj/core';
+import type { Dependencie, PlatformType } from '@vtj/core';
+import { toArray } from '@vtj/utils';
 import { builtInDeps } from './built-in';
 
 class DepsManager {
   constructor(private deps: Dependencie[] = builtInDeps) {}
+
+  /**
+   * 匹配平台的依赖
+   * @param platform
+   * @returns
+   */
+  private matchDeps(platform?: PlatformType) {
+    if (!platform) return this.deps;
+    const result: Dependencie[] = [];
+    for (const dep of this.deps) {
+      if (!dep.platform) {
+        result.push(dep);
+      } else {
+        const array = toArray(dep.platform);
+        if (array.includes(platform)) {
+          result.push(dep);
+        }
+      }
+    }
+    return result;
+  }
+
   /**
    * 获取内置依赖
    * @returns
@@ -37,12 +60,14 @@ class DepsManager {
    * @param projectDeps
    * @returns
    */
-  merge(projectDeps: Dependencie[]) {
+  merge(projectDeps: Dependencie[], platform?: PlatformType) {
+    const matches = this.matchDeps(platform);
+
     const deps: Dependencie[] = [];
     /**
      * 遍历内置依赖，找到与项目依赖相同依赖名称的项进行合并
      */
-    for (const dep of this.deps) {
+    for (const dep of matches) {
       const userDep = projectDeps.find((n) => n.package === dep.package);
       deps.push(
         userDep
@@ -59,7 +84,7 @@ class DepsManager {
      * 内置依赖中没有项目依赖的项，取项目自己的项
      */
     for (const dep of projectDeps) {
-      const match = this.deps.find((n) => n.package === dep.package);
+      const match = matches.find((n) => n.package === dep.package);
       if (!match) {
         deps.push(dep);
       }

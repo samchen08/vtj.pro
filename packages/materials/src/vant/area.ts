@@ -1,7 +1,7 @@
 import type { MaterialDescription } from '@vtj/core';
 
 const Area: MaterialDescription = {
-  name: 'VantArea',
+  name: 'VanArea',
   alias: 'Area',
   label: '省市区选择',
   categoryId: 'business',
