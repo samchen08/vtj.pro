@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.9.22](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.9.21...@vtj/materials@0.9.22) (2025-01-16)
+
+
+### Bug Fixes
+
+* 🐛 物料 element ([c937dc1](https://gitee.com/newgateway/vtj/commits/c937dc17e8fb08b741326d0ac5d03d939246180c))
+* 🐛 物料 element ([15540c4](https://gitee.com/newgateway/vtj/commits/15540c46476b99732b5e0d2e149216f737de6ff3))
+* 🐛 物料 element ([afd28b2](https://gitee.com/newgateway/vtj/commits/afd28b208a41e633a04a7851a37c67da868f72cb))
+
+
+
+
+
 ## [0.9.21](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.9.20...@vtj/materials@0.9.21) (2025-01-14)
 
 
