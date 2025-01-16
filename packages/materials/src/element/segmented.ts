@@ -26,6 +26,11 @@ const Segmented: MaterialDescription[] = [
         setters: 'SelectSetter'
       },
       {
+        name: 'block',
+        defaultValue: false,
+        setters: 'BooleanSetter'
+      },
+      {
         name: 'disabled',
         defaultValue: false,
         setters: 'BooleanSetter'
