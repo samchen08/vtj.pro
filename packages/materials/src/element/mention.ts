@@ -89,11 +89,6 @@ const Mention: MaterialDescription = {
       setters: ['SelectSetter', 'InputSetter']
     },
     {
-      name: 'modelValue',
-      defaultValue: '',
-      setters: ['InputSetter', 'NumberSetter']
-    },
-    {
       name: 'maxlength',
       defaultValue: '',
       setters: ['InputSetter', 'NumberSetter']

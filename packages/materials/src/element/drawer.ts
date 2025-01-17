@@ -133,6 +133,9 @@ const components: MaterialDescription = {
     },
     {
       name: 'close-auto-focus'
+    },
+    {
+      name: 'update:modelValue'
     }
   ],
   slots: [
