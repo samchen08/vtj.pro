@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.9.23](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.9.22...@vtj/renderer@0.9.23) (2025-01-22)
+
+
+### Bug Fixes
+
+* 🐛 被引用的区块渲染时总是刷新的问题 ([3b7a4e0](https://gitee.com/newgateway/vtj/commits/3b7a4e06e94085d3b9613c30cfe1b75bbeaf1a84))
+
+
+
+
+
 ## [0.9.22](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.9.21...@vtj/renderer@0.9.22) (2025-01-16)
 
 **Note:** Version bump only for package @vtj/renderer
