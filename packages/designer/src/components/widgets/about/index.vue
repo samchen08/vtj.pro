@@ -2,10 +2,15 @@
   <div class="v-about-widget">
     <div class="v-about-widget__item">
       <div class="v-about-widget__logo">
-        <img :src="logo" />
+        <ElBadge :value="latest" title="最新版本" :hidden="latest === version"
+          ><img :src="logo"
+        /></ElBadge>
       </div>
       <div class="v-about-widget__name">VTJ.PRO</div>
-      <div class="v-about-widget__version">版本：{{ version }}</div>
+      <div class="v-about-widget__version">
+        版本：
+        <span>{{ version }}</span>
+      </div>
     </div>
     <ElDivider direction="vertical"></ElDivider>
     <div class="v-about-widget__item">
@@ -30,10 +35,11 @@
 </template>
 <script lang="ts" setup>
   import { computed } from 'vue';
-  import { ElDivider, ElAvatar, ElButton } from 'element-plus';
+  import { ElDivider, ElAvatar, ElButton, ElBadge } from 'element-plus';
   import { UserFilled } from '@vtj/icons';
   import logo from '../../../assets/logo.png';
   import { version } from '../../../version';
+  import { useCheckVersion } from '../../hooks';
 
   export interface Props {
     engine: any;
@@ -43,7 +49,7 @@
   const props = defineProps<Props>();
   const engine = props.engine;
   const { access } = engine.adapter || {};
-
+  const { latest } = useCheckVersion();
   const avatarSrc = computed(() => {
     const avatar = access?.getData()?.avatar || '';
     const remote = engine.adapter?.remote || '';

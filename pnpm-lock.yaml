@@ -59,6 +59,9 @@ importers:
 
   apps/app:
     dependencies:
+      '@vtj/example-ui':
+        specifier: ~0.1.0
+        version: 0.1.0
       '@vtj/plugin-ckeditor':
         specifier: ~0.2.1
         version: 0.2.5(typescript@5.7.3)(vue@3.5.13(typescript@5.7.3))
@@ -3749,18 +3752,22 @@ packages:
   '@vtj/base@0.9.5':
     resolution: {integrity: sha512-WsWB2baJg1q6/fehnO/w5v6f2DSvT7w6Bqq4sCnoP86Vhe29mj36h5MdIvlpBrghRyo+JWELj3aVsPtwz3L2Ng==}
 
-  '@vtj/icons@0.9.22':
-    resolution: {integrity: sha512-4bY/MUj1w3g7gjAwJSc6z3rPAhH1gi6UIR/jj8sjOlKHZKatNtTfxCJPMkmnZo1nxGQInsTRXXGTdjLuRbzXEA==}
+  '@vtj/example-ui@0.1.0':
+    resolution: {integrity: sha512-x4DZ6TihZgIC1WhDTdXaVKCvmsE+vDOrTEv4JiXqmw7GeHxIlPTsCBA/PkUIRopUfwoul4wvHEFbxhORngMUHg==}
+    engines: {node: '>=16.0.0'}
+
+  '@vtj/icons@0.9.23':
+    resolution: {integrity: sha512-Eh8b3SvZLrK/9FpeAbXTCCkD89ggizjiqpgEQrM7dvNOa6qB5jnQaK6/3whnS1Uvr/SytVheS/rJ1ZK5uxIeOQ==}
 
   '@vtj/plugin-ckeditor@0.2.5':
     resolution: {integrity: sha512-moAcU4LhruhiNnIuviK/QBfHPH+nyNHS4iDLQocOrVbFn8RWEj8C4nBESscFU1hOBLaeAAc7aYQJCBEkfOnyQA==}
 
-  '@vtj/ui@0.9.22':
-    resolution: {integrity: sha512-tDrjTbihC6CKD2f84SzdRn/PdFO01LuNJaZHb0ALIrRkdnVd+CJ8Z0C73E5CUdEv3WYItx+q+44lzCLQ3Vub4w==}
+  '@vtj/ui@0.9.23':
+    resolution: {integrity: sha512-8eYTg5CGxJ7YdsUUFtVFe6m96i+RAs91A8mCWajoIOjrplgoszKNfdCqqpAivY0zMScSJYRmI2+sES70rRQKkg==}
     engines: {node: '>=16.0.0'}
 
-  '@vtj/utils@0.9.22':
-    resolution: {integrity: sha512-xeLrh/9tzpd8e5fYUCDRWvu3aiqP7cy0/TVMGVepD5PllOmi5mE5qp2cmHaW9LgJ/a7QEVRbnGGt0CFXocLY5A==}
+  '@vtj/utils@0.9.23':
+    resolution: {integrity: sha512-09hMzNQwlmEc9GKeOPIVjb06WS2GfD0nLZ+gtfULmilnP6l/RWIvQXorWhmAa9nMGf2FfM+SqBPSeYydmDTjlA==}
 
   '@vue/babel-helper-vue-transform-on@1.2.5':
     resolution: {integrity: sha512-lOz4t39ZdmU4DJAa2hwPYmKc8EsuGa2U0L9KaZaOJUt0UwQNjNA3AZTq6uEivhOKhhG1Wvy96SvYBoFmCg3uuw==}
@@ -13010,7 +13017,9 @@ snapshots:
       '@types/numeral': 2.0.5
       reflect-metadata: 0.2.2
 
-  '@vtj/icons@0.9.22(vue@3.5.13(typescript@5.7.3))':
+  '@vtj/example-ui@0.1.0': {}
+
+  '@vtj/icons@0.9.23(vue@3.5.13(typescript@5.7.3))':
     dependencies:
       '@element-plus/icons-vue': 2.3.1(vue@3.5.13(typescript@5.7.3))
     transitivePeerDependencies:
@@ -13018,18 +13027,18 @@ snapshots:
 
   '@vtj/plugin-ckeditor@0.2.5(typescript@5.7.3)(vue@3.5.13(typescript@5.7.3))':
     dependencies:
-      '@vtj/icons': 0.9.22(vue@3.5.13(typescript@5.7.3))
-      '@vtj/ui': 0.9.22(typescript@5.7.3)(vue@3.5.13(typescript@5.7.3))
-      '@vtj/utils': 0.9.22
+      '@vtj/icons': 0.9.23(vue@3.5.13(typescript@5.7.3))
+      '@vtj/ui': 0.9.23(typescript@5.7.3)(vue@3.5.13(typescript@5.7.3))
+      '@vtj/utils': 0.9.23
     transitivePeerDependencies:
       - '@vue/composition-api'
       - typescript
       - vue
 
-  '@vtj/ui@0.9.22(typescript@5.7.3)(vue@3.5.13(typescript@5.7.3))':
+  '@vtj/ui@0.9.23(typescript@5.7.3)(vue@3.5.13(typescript@5.7.3))':
     dependencies:
-      '@vtj/icons': 0.9.22(vue@3.5.13(typescript@5.7.3))
-      '@vtj/utils': 0.9.22
+      '@vtj/icons': 0.9.23(vue@3.5.13(typescript@5.7.3))
+      '@vtj/utils': 0.9.23
       '@vueuse/core': 12.2.0(typescript@5.7.3)
       element-plus: 2.9.3(vue@3.5.13(typescript@5.7.3))
       sortablejs: 1.15.6
@@ -13040,7 +13049,7 @@ snapshots:
       - typescript
       - vue
 
-  '@vtj/utils@0.9.22':
+  '@vtj/utils@0.9.23':
     dependencies:
       '@vtj/base': 0.9.5
 
