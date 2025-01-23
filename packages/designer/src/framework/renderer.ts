@@ -12,7 +12,12 @@ import {
   EVENT_NODE_CHANGE
 } from '@vtj/core';
 import { type SimulatorEnv } from './simulator';
-import { Provider, type Context, ContextMode } from '@vtj/renderer';
+import {
+  Provider,
+  type Context,
+  ContextMode,
+  clearLoaderCache
+} from '@vtj/renderer';
 import { notify } from '../utils';
 import { type Designer } from './designer';
 
@@ -132,6 +137,7 @@ export class Renderer {
     this.dsl = null;
     this.context = null;
     this.file = null;
+    clearLoaderCache();
     emitter.off(EVENT_NODE_CHANGE, this.nodeChange as any);
     emitter.off(EVENT_BLOCK_CHANGE, this.blockChange as any);
   }

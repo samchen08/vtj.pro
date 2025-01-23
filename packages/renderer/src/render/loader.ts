@@ -142,3 +142,7 @@ export function createLoader(opts: CreateLoaderOptions): BlockLoader {
     return name;
   };
 }
+
+export function clearLoaderCache() {
+  __loaders__ = {};
+}
