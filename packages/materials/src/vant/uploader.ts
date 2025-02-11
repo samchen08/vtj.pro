@@ -155,7 +155,8 @@ const Uploader: MaterialDescription = {
     { name: 'click-preview' },
     { name: 'click-reupload' },
     { name: 'close-preview' },
-    { name: 'delete' }
+    { name: 'delete' },
+    { name: 'update:modelValue' }
   ],
   slots: ['default', 'preview-delete', 'preview-cover'],
   snippet: {}
