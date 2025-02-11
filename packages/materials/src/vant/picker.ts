@@ -111,6 +111,9 @@ const Picker: MaterialDescription = {
     {
       name: 'scroll-into',
       params: ['data']
+    },
+    {
+      name: 'update:modelValue'
     }
   ],
   slots: [

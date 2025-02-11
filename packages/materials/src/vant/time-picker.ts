@@ -134,7 +134,8 @@ const TimePicker: MaterialDescription = {
   events: [
     { name: 'confirm', params: ['data'] },
     { name: 'cancel', params: ['data'] },
-    { name: 'change', params: ['data'] }
+    { name: 'change', params: ['data'] },
+    { name: 'update:modelValue' }
   ],
   slots: [
     { name: 'toolbar' },

@@ -5,7 +5,6 @@ const TreeV2: MaterialDescription = {
 
   doc: 'https://element-plus.org/zh-CN/component/tree-v2.html',
   categoryId: 'data',
-  childIncludes: false,
   package: 'element-plus',
   props: [
     {

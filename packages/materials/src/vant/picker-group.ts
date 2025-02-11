@@ -50,6 +50,7 @@ const PickerGroup: MaterialDescription = {
       setters: 'StringSetter'
     }
   ],
+  events: ['confirm', 'cancel', 'update:active-tab'],
   slots: ['default', 'toolbar', 'title', 'confirm', 'cancel'],
   snippet: {
     props: {

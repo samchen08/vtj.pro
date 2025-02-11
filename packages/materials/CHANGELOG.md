@@ -3,6 +3,31 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.9.26](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.9.25...@vtj/materials@0.9.26) (2025-02-11)
+
+
+### Bug Fixes
+
+* 🐛 checkbox 增加双向绑定 ([2331353](https://gitee.com/newgateway/vtj/commits/23313534d5204e4a911f7125aecac622be1d9bba))
+* 🐛 treeV2 ([2f13e4e](https://gitee.com/newgateway/vtj/commits/2f13e4e3431361023b756ecb44328d5e58d3ef3f))
+* 🐛 Vant button ([e777c0c](https://gitee.com/newgateway/vtj/commits/e777c0c3e147215796f2b8b51cce151724e29698))
+* 🐛 vant-picker ([66284c5](https://gitee.com/newgateway/vtj/commits/66284c5994434d898889df068a9221a3c700b95a))
+
+
+### Features
+
+* ✨ 增加双向绑定 ([26b33b7](https://gitee.com/newgateway/vtj/commits/26b33b70bb3354443eafc72d4ab5945f9928ba6f))
+* ✨ 增加default 插槽 ([4095d2a](https://gitee.com/newgateway/vtj/commits/4095d2a620a802efa1779f38a119de1a4e14fbd5))
+* ✨ checkbox 双向绑定 ([5d0c7b7](https://gitee.com/newgateway/vtj/commits/5d0c7b7cd100f0e708f04dc21029b616c9388280))
+* ✨ picker-group 增加 update:active-tab ([73f5836](https://gitee.com/newgateway/vtj/commits/73f58364bde818112e3ac7636837a714e821212b))
+* ✨ time-picker 事件 增加update:modelValue ([7697fb6](https://gitee.com/newgateway/vtj/commits/7697fb67bd410ad4d8a2b61a8897f706d119742a))
+* ✨ vant field 增加 rows 属性 ([e2cd8f3](https://gitee.com/newgateway/vtj/commits/e2cd8f394ec8442936bd76c3309396058e0d3361))
+* ✨ vant uploader 事件增加 update:modelValue ([549723e](https://gitee.com/newgateway/vtj/commits/549723e606e2d5bd7d6f8b2906b6607872fe1e45))
+
+
+
+
+
 ## [0.9.25](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.9.24...@vtj/materials@0.9.25) (2025-01-23)
 
 **Note:** Version bump only for package @vtj/materials

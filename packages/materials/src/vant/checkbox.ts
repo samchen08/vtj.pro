@@ -70,7 +70,7 @@ const Checkbox: MaterialDescription[] = [
         setters: 'BooleanSetter'
       }
     ],
-    events: ['change', 'click'],
+    events: ['update:modelValue', 'change', 'click'],
     slots: ['default', 'icon'],
     snippet: {
       children: '复选框'
