@@ -101,6 +101,13 @@ const Button: MaterialDescription = {
       setters: 'StringSetter'
     },
     {
+      name: 'loading-type',
+      title: '加载图标类型',
+      setters: 'SelectSetter',
+      defaultValue: 'circular',
+      options: ['spinner', 'circular']
+    },
+    {
       name: 'loading-size',
       title: '加载图标大小，默认单位为 px',
       defaultValue: '20px',

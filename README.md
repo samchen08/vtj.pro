@@ -91,9 +91,3 @@ npm run setup && npm run build && npm run app:dev
 
 <table border="0">
 <tr><td><img src="./dingtalk.png" /></td><td><img src="./wechat.png" width="" /></td></tr></table>
-
-## 项目定制、集成
-
-如有项目合作或项目外包，扫码加我好友，请备注来意。
-
-<img src="./qrcode.png" width="400" />
