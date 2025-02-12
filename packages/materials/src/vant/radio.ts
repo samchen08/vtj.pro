@@ -2,7 +2,7 @@ import type { MaterialDescription } from '@vtj/core';
 
 const Radio: MaterialDescription[] = [
   {
-    name: 'VantRadio',
+    name: 'VanRadio',
     alias: 'Radio',
     label: '单选框',
     categoryId: 'form',
@@ -63,7 +63,7 @@ const Radio: MaterialDescription[] = [
     }
   },
   {
-    name: 'VantRadioGroup',
+    name: 'VanRadioGroup',
     alias: 'RadioGroup',
     label: '单选框组',
     categoryId: 'form',
@@ -116,8 +116,8 @@ const Radio: MaterialDescription[] = [
         modelValue: ['1', '2']
       },
       children: [
-        { name: 'VantRadio', props: { name: '1' }, children: '单选框 1' },
-        { name: 'VantRadio', props: { name: '2' }, children: '单选框 2' }
+        { name: 'VanRadio', props: { name: '1' }, children: '单选框 1' },
+        { name: 'VanRadio', props: { name: '2' }, children: '单选框 2' }
       ]
     }
   }

@@ -1,7 +1,7 @@
 import type { MaterialDescription } from '@vtj/core';
 
 const Picker: MaterialDescription = {
-  name: 'VantPicker',
+  name: 'VanPicker',
   alias: 'Picker',
   label: '选择器',
   categoryId: 'form',

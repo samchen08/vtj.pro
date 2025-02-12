@@ -1,7 +1,7 @@
 import type { MaterialDescription } from '@vtj/core';
 
 const NumberKeyboard: MaterialDescription = {
-  name: 'VantNumberKeyboard',
+  name: 'VanNumberKeyboard',
   alias: 'NumberKeyboard',
   label: '数字键盘',
   categoryId: 'form',

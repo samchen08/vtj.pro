@@ -3,6 +3,161 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.9.26](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.9.25...@vtj/core@0.9.26) (2025-02-11)
+
+**Note:** Version bump only for package @vtj/core
+
+
+
+
+
+## [0.9.25](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.9.24...@vtj/core@0.9.25) (2025-01-23)
+
+**Note:** Version bump only for package @vtj/core
+
+
+
+
+
+## [0.9.24](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.9.23...@vtj/core@0.9.24) (2025-01-22)
+
+**Note:** Version bump only for package @vtj/core
+
+
+
+
+
+## [0.9.23](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.9.22...@vtj/core@0.9.23) (2025-01-22)
+
+**Note:** Version bump only for package @vtj/core
+
+
+
+
+
+## [0.9.22](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.9.21...@vtj/core@0.9.22) (2025-01-16)
+
+**Note:** Version bump only for package @vtj/core
+
+
+
+
+
+## [0.9.21](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.9.20...@vtj/core@0.9.21) (2025-01-14)
+
+**Note:** Version bump only for package @vtj/core
+
+
+
+
+
+## [0.9.20](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.9.19...@vtj/core@0.9.20) (2025-01-14)
+
+**Note:** Version bump only for package @vtj/core
+
+
+
+
+
+## [0.9.19](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.9.18...@vtj/core@0.9.19) (2025-01-14)
+
+**Note:** Version bump only for package @vtj/core
+
+
+
+
+
+## [0.9.18](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.9.17...@vtj/core@0.9.18) (2025-01-14)
+
+**Note:** Version bump only for package @vtj/core
+
+
+
+
+
+## [0.9.17](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.9.16...@vtj/core@0.9.17) (2025-01-14)
+
+**Note:** Version bump only for package @vtj/core
+
+
+
+
+
+## [0.9.16](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.9.15...@vtj/core@0.9.16) (2025-01-13)
+
+
+### Features
+
+* ✨ H5平台协议 ([51484a8](https://gitee.com/newgateway/vtj/commits/51484a8d0723897e462e1e2c37e16dbdf2546bea))
+
+
+
+
+
+## [0.9.15](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.9.14...@vtj/core@0.9.15) (2025-01-13)
+
+**Note:** Version bump only for package @vtj/core
+
+
+
+
+
+## [0.9.14](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.9.13...@vtj/core@0.9.14) (2025-01-10)
+
+**Note:** Version bump only for package @vtj/core
+
+
+
+
+
+## [0.9.13](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.9.12...@vtj/core@0.9.13) (2025-01-10)
+
+**Note:** Version bump only for package @vtj/core
+
+
+
+
+
+## [0.9.12](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.9.11...@vtj/core@0.9.12) (2025-01-10)
+
+**Note:** Version bump only for package @vtj/core
+
+
+
+
+
+## [0.9.11](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.9.10...@vtj/core@0.9.11) (2025-01-09)
+
+**Note:** Version bump only for package @vtj/core
+
+
+
+
+
+## [0.9.10](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.9.9...@vtj/core@0.9.10) (2025-01-09)
+
+**Note:** Version bump only for package @vtj/core
+
+
+
+
+
+## [0.9.9](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.9.8...@vtj/core@0.9.9) (2025-01-08)
+
+**Note:** Version bump only for package @vtj/core
+
+
+
+
+
+## [0.9.8](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.9.7...@vtj/core@0.9.8) (2025-01-06)
+
+**Note:** Version bump only for package @vtj/core
+
+
+
+
+
 ## [0.9.7](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.9.6...@vtj/core@0.9.7) (2025-01-04)
 
 **Note:** Version bump only for package @vtj/core

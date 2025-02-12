@@ -14,7 +14,7 @@ import {
 } from '@vtj/utils';
 import { parseExpression, isJSFunction, parseFunction } from '../utils';
 import Mock from 'mockjs';
-import { type ProvideAdapter } from './provider';
+import { type ProvideAdapter } from './defaults';
 
 export function createSchemaApi(schema: ApiSchema, adapter: ProvideAdapter) {
   const { jsonp, request } = adapter;

@@ -1,7 +1,7 @@
 import type { MaterialDescription } from '@vtj/core';
 
 const Cascader: MaterialDescription = {
-  name: 'VantCascader',
+  name: 'VanCascader',
   alias: 'Cascader',
   label: '级联选择',
   categoryId: 'form',

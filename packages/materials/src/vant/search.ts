@@ -1,7 +1,7 @@
 import type { MaterialDescription } from '@vtj/core';
 
 const Search: MaterialDescription = {
-  name: 'VantSearch',
+  name: 'VanSearch',
   alias: 'Search',
   label: '搜索',
   categoryId: 'form',

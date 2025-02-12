@@ -1,7 +1,7 @@
 import type { MaterialDescription } from '@vtj/core';
 
 const Card: MaterialDescription = {
-  name: 'VantCard',
+  name: 'VanCard',
   alias: 'Card',
   label: '卡片',
   categoryId: 'business',

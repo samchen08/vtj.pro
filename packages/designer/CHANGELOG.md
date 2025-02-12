@@ -3,6 +3,183 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.9.26](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.9.25...@vtj/designer@0.9.26) (2025-02-11)
+
+**Note:** Version bump only for package @vtj/designer
+
+
+
+
+
+## [0.9.25](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.9.24...@vtj/designer@0.9.25) (2025-01-23)
+
+
+### Bug Fixes
+
+* 🐛 被引用的区块渲染时总是刷新的问题导致的报错问题 ([2258a55](https://gitee.com/newgateway/vtj/commits/2258a5521f10d3a2988ed1594dc0fd15d6b28838))
+
+
+
+
+
+## [0.9.24](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.9.23...@vtj/designer@0.9.24) (2025-01-22)
+
+
+### Features
+
+* ✨ 版本更新提示 ([570c449](https://gitee.com/newgateway/vtj/commits/570c449d2629ef6a5b79ac801c24ccb3b47364cf))
+
+
+
+
+
+## [0.9.23](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.9.22...@vtj/designer@0.9.23) (2025-01-22)
+
+**Note:** Version bump only for package @vtj/designer
+
+
+
+
+
+## [0.9.22](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.9.21...@vtj/designer@0.9.22) (2025-01-16)
+
+**Note:** Version bump only for package @vtj/designer
+
+
+
+
+
+## [0.9.21](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.9.20...@vtj/designer@0.9.21) (2025-01-14)
+
+**Note:** Version bump only for package @vtj/designer
+
+
+
+
+
+## [0.9.20](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.9.19...@vtj/designer@0.9.20) (2025-01-14)
+
+**Note:** Version bump only for package @vtj/designer
+
+
+
+
+
+## [0.9.19](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.9.18...@vtj/designer@0.9.19) (2025-01-14)
+
+**Note:** Version bump only for package @vtj/designer
+
+
+
+
+
+## [0.9.18](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.9.17...@vtj/designer@0.9.18) (2025-01-14)
+
+**Note:** Version bump only for package @vtj/designer
+
+
+
+
+
+## [0.9.17](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.9.16...@vtj/designer@0.9.17) (2025-01-14)
+
+**Note:** Version bump only for package @vtj/designer
+
+
+
+
+
+## [0.9.16](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.9.15...@vtj/designer@0.9.16) (2025-01-13)
+
+
+### Features
+
+* ✨ h5平台 ([0497ccb](https://gitee.com/newgateway/vtj/commits/0497ccbb53f01a537176cae36f69b5d3019fc68e))
+* ✨ H5平台协议 ([51484a8](https://gitee.com/newgateway/vtj/commits/51484a8d0723897e462e1e2c37e16dbdf2546bea))
+
+
+
+
+
+## [0.9.15](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.9.14...@vtj/designer@0.9.15) (2025-01-13)
+
+
+### Bug Fixes
+
+* 🐛 text node getBoundingClientRect is not a function ([a80cc00](https://gitee.com/newgateway/vtj/commits/a80cc00b1d8369c34218c4890320a94a191e70e0))
+
+
+
+
+
+## [0.9.14](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.9.13...@vtj/designer@0.9.14) (2025-01-10)
+
+
+### Bug Fixes
+
+* 🐛 设置器值数据类型匹配错误问题 ([ee37d88](https://gitee.com/newgateway/vtj/commits/ee37d8802e3412b4a68aea5140f895ca4812ce51))
+
+
+
+
+
+## [0.9.13](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.9.12...@vtj/designer@0.9.13) (2025-01-10)
+
+
+### Features
+
+* ✨ 优化辅助线渲染 ([d8e66f2](https://gitee.com/newgateway/vtj/commits/d8e66f2842b6017a8bb0e44dd4d4c66774c9a63a))
+
+
+
+
+
+## [0.9.12](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.9.11...@vtj/designer@0.9.12) (2025-01-10)
+
+
+### Features
+
+* ✨ 增加辅助线 ([eda8618](https://gitee.com/newgateway/vtj/commits/eda861845db182e0d270b24e9ed6a0835fcc5bee))
+
+
+
+
+
+## [0.9.11](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.9.10...@vtj/designer@0.9.11) (2025-01-09)
+
+**Note:** Version bump only for package @vtj/designer
+
+
+
+
+
+## [0.9.10](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.9.9...@vtj/designer@0.9.10) (2025-01-09)
+
+**Note:** Version bump only for package @vtj/designer
+
+
+
+
+
+## [0.9.9](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.9.8...@vtj/designer@0.9.9) (2025-01-08)
+
+**Note:** Version bump only for package @vtj/designer
+
+
+
+
+
+## [0.9.8](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.9.7...@vtj/designer@0.9.8) (2025-01-06)
+
+
+### Features
+
+* ✨ @vtj/renderer 与 element-plus 解耦 ([6e63fe8](https://gitee.com/newgateway/vtj/commits/6e63fe81bf5e7047f1c621277b9104d2b44b02bd))
+
+
+
+
+
 ## [0.9.7](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.9.6...@vtj/designer@0.9.7) (2025-01-04)
 
 

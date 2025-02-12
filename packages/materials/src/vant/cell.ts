@@ -2,7 +2,7 @@ import type { MaterialDescription } from '@vtj/core';
 
 const Cell: MaterialDescription[] = [
   {
-    name: 'VantCell',
+    name: 'VanCell',
     alias: 'Cell',
     label: '单元格',
     categoryId: 'base',
@@ -130,7 +130,7 @@ const Cell: MaterialDescription[] = [
     }
   },
   {
-    name: 'VantCellGroup',
+    name: 'VanCellGroup',
     alias: 'CellGroup',
     label: '单元格组',
     categoryId: 'base',
@@ -158,14 +158,14 @@ const Cell: MaterialDescription[] = [
     snippet: {
       children: [
         {
-          name: 'VantCell',
+          name: 'VanCell',
           props: {
             title: '单元格',
             value: '内容'
           }
         },
         {
-          name: 'VantCell',
+          name: 'VanCell',
           props: {
             title: '单元格',
             value: '内容',

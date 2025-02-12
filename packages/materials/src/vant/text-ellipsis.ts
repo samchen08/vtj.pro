@@ -1,7 +1,7 @@
 import type { MaterialDescription } from '@vtj/core';
 
 const TextEllipsis: MaterialDescription = {
-  name: 'VantTextEllipsis',
+  name: 'VanTextEllipsis',
   alias: 'TextEllipsis',
   label: '文本省略',
   categoryId: 'view',

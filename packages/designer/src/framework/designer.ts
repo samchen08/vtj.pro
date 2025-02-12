@@ -22,7 +22,7 @@ import {
   EVENT_PROJECT_ACTIVED,
   EVENT_NODE_CHANGE
 } from '@vtj/core';
-import { delay } from '@vtj/utils';
+import { delay, toArray } from '@vtj/utils';
 import { SlotsPicker } from '../components';
 import { type Engine } from './engine';
 import { type DevTools } from './devtools';
@@ -66,7 +66,8 @@ export class Designer {
   public selected: Ref<DesignHelper | null> = ref(null);
   public dragging: MaterialDescription | null = null;
   public draggingNode: NodeModel | null = null;
-
+  public lines: ShallowRef<DOMRect[]> = shallowRef([]);
+  public outlineEnabled: Ref<boolean> = ref(true);
   constructor(
     public engine: Engine,
     public contentWindow: Window,
@@ -125,6 +126,9 @@ export class Designer {
       },
       { immediate: true }
     );
+    watch(this.outlineEnabled, () => {
+      this.updateLines();
+    });
   }
 
   private unbindEvents(cw: Window, doc: Document) {
@@ -172,6 +176,7 @@ export class Designer {
   }
   private onViewChange() {
     this.updateRect();
+    this.updateLines();
   }
 
   private onLeave(_e: MouseEvent) {
@@ -464,6 +469,30 @@ export class Designer {
     }
   }
 
+  async updateLines() {
+    if (!this.outlineEnabled.value) {
+      this.lines.value = [];
+      return;
+    }
+    // 需要等待下一帧才能获取到HTML元素
+    await delay(0);
+    const refs = this.engine.simulator.renderer?.context?.__refs || {};
+    const lines: DOMRect[] = [];
+    const ids = Object.keys(NodeModel.nodes);
+    for (const id of ids) {
+      const instance = refs[id];
+      const instances = instance ? toArray(instance) : [];
+      instances.forEach((item) => {
+        const el = item?.$el || item;
+        if (el && el.getBoundingClientRect) {
+          const rect = el.getBoundingClientRect();
+          lines.push(rect);
+        }
+      });
+    }
+    this.lines.value = lines;
+  }
+
   setDragging(desc: MaterialDescription | null) {
     this.dragging = desc;
   }
@@ -577,6 +606,7 @@ export class Designer {
     this.setSelected(null);
     this.setHover(null);
     this.setDragging(null);
+    this.lines.value = [];
     if (cw && doc) {
       this.unbindEvents(cw, doc);
     }

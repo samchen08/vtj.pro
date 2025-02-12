@@ -2,7 +2,7 @@ import type { MaterialDescription } from '@vtj/core';
 
 const Steps: MaterialDescription[] = [
   {
-    name: 'VantSteps',
+    name: 'VanSteps',
     alias: 'Steps',
     label: '步骤条',
     categoryId: 'view',
@@ -62,15 +62,15 @@ const Steps: MaterialDescription[] = [
         active: 1
       },
       children: [
-        { name: 'VantStep', children: '买家下单' },
-        { name: 'VantStep', children: '商家接单' },
-        { name: 'VantStep', children: '买家提货' },
-        { name: 'VantStep', children: '交易完成' }
+        { name: 'VanStep', children: '买家下单' },
+        { name: 'VanStep', children: '商家接单' },
+        { name: 'VanStep', children: '买家提货' },
+        { name: 'VanStep', children: '交易完成' }
       ]
     }
   },
   {
-    name: 'VantStep',
+    name: 'VanStep',
     alias: 'Step',
     label: '步骤条项',
     categoryId: 'view',

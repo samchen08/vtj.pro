@@ -37,16 +37,27 @@
         <VtjIconRedo></VtjIconRedo>
       </ElButton>
     </ElButtonGroup>
+    <ElDivider direction="vertical"></ElDivider>
+    <ElSwitch
+      class="v-toolbar-widget__outline"
+      size="default"
+      inline-prompt
+      active-text="辅助线"
+      inactive-text="辅助线"
+      :disabled="!!props.preview"
+      v-model="outline"></ElSwitch>
   </div>
 </template>
 <script lang="ts" setup>
-  import { ref } from 'vue';
+  import { ref, computed, watch } from 'vue';
   import {
     ElButtonGroup,
     ElButton,
     ElRadioGroup,
     ElRadioButton,
-    ElInput
+    ElInput,
+    ElSwitch,
+    ElDivider
   } from 'element-plus';
   import {
     ZoomIn,
@@ -65,15 +76,25 @@
 
   const props = defineProps<Props>();
 
-  const { forward, backward, forwardDisabled, backwardDisabled } = useHistory();
+  const { forward, backward, forwardDisabled, backwardDisabled, engine } =
+    useHistory();
+  const isWebPlatform = computed(() => {
+    const { platform = 'web' } = engine.project.value || {};
+    return platform === 'web';
+  });
   const mode = ref('pc');
+  const outline = ref(true);
 
+  watch(isWebPlatform, (v) => {
+    mode.value = v ? 'pc' : 'mobile';
+  });
   defineOptions({
     name: 'ToolbarWidget',
     inheritAttrs: false
   });
 
   defineExpose({
-    mode
+    mode,
+    outline
   });
 </script>

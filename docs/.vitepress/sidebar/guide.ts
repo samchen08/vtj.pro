@@ -50,5 +50,10 @@ export default [
       { text: '自定义服务', link: '/service' },
       { text: '设计器扩展', link: '/extension' }
     ]
+  },
+  {
+    text: '集成',
+    base: '/guide/integration',
+    items: [{ text: 'vue-element-plus-admin', link: '/element-admin' }]
   }
 ];

@@ -71,6 +71,7 @@ export async function init(_body: any, opts: DevToolsOptions) {
   const id = vtj.id || pkg.name;
   const name = vtj.name || pkg.description || upperFirstCamelCase(id);
   const description = vtj.description || pkg.description || '';
+  const platform = vtj.platform || 'web';
 
   // 如果项目文件已经存在，则直接返回文件内容
   let dsl: ProjectSchema = repository.get(id);
@@ -78,7 +79,7 @@ export async function init(_body: any, opts: DevToolsOptions) {
   if (dsl) {
     const blocks = (dsl.blocks || []).filter((n) => !n.preset);
     dsl.blocks = plugins.concat(blocks);
-    Object.assign(dsl, { id, name, description });
+    Object.assign(dsl, { id, name, description, platform });
     if (!isInit) {
       isInit = true;
       repository.save(id, dsl);
@@ -90,6 +91,7 @@ export async function init(_body: any, opts: DevToolsOptions) {
       id,
       name,
       description,
+      platform,
       blocks: plugins
     });
     dsl = model.toDsl();

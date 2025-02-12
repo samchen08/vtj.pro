@@ -3,6 +3,173 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.9.26](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.9.25...@vtj/renderer@0.9.26) (2025-02-11)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
+## [0.9.25](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.9.24...@vtj/renderer@0.9.25) (2025-01-23)
+
+
+### Bug Fixes
+
+* 🐛 被引用的区块渲染时总是刷新的问题导致的报错问题 ([2258a55](https://gitee.com/newgateway/vtj/commits/2258a5521f10d3a2988ed1594dc0fd15d6b28838))
+
+
+
+
+
+## [0.9.24](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.9.23...@vtj/renderer@0.9.24) (2025-01-22)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
+## [0.9.23](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.9.22...@vtj/renderer@0.9.23) (2025-01-22)
+
+
+### Bug Fixes
+
+* 🐛 被引用的区块渲染时总是刷新的问题 ([3b7a4e0](https://gitee.com/newgateway/vtj/commits/3b7a4e06e94085d3b9613c30cfe1b75bbeaf1a84))
+
+
+
+
+
+## [0.9.22](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.9.21...@vtj/renderer@0.9.22) (2025-01-16)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
+## [0.9.21](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.9.20...@vtj/renderer@0.9.21) (2025-01-14)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
+## [0.9.20](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.9.19...@vtj/renderer@0.9.20) (2025-01-14)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
+## [0.9.19](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.9.18...@vtj/renderer@0.9.19) (2025-01-14)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
+## [0.9.18](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.9.17...@vtj/renderer@0.9.18) (2025-01-14)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
+## [0.9.17](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.9.16...@vtj/renderer@0.9.17) (2025-01-14)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
+## [0.9.16](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.9.15...@vtj/renderer@0.9.16) (2025-01-13)
+
+
+### Features
+
+* ✨ h5平台 ([0497ccb](https://gitee.com/newgateway/vtj/commits/0497ccbb53f01a537176cae36f69b5d3019fc68e))
+
+
+
+
+
+## [0.9.15](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.9.14...@vtj/renderer@0.9.15) (2025-01-13)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
+## [0.9.14](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.9.13...@vtj/renderer@0.9.14) (2025-01-10)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
+## [0.9.13](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.9.12...@vtj/renderer@0.9.13) (2025-01-10)
+
+
+### Features
+
+* ✨ 优化辅助线渲染 ([d8e66f2](https://gitee.com/newgateway/vtj/commits/d8e66f2842b6017a8bb0e44dd4d4c66774c9a63a))
+
+
+
+
+
+## [0.9.12](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.9.11...@vtj/renderer@0.9.12) (2025-01-10)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
+## [0.9.11](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.9.10...@vtj/renderer@0.9.11) (2025-01-09)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
+## [0.9.10](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.9.9...@vtj/renderer@0.9.10) (2025-01-09)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
+## [0.9.9](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.9.8...@vtj/renderer@0.9.9) (2025-01-08)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
+## [0.9.8](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.9.7...@vtj/renderer@0.9.8) (2025-01-06)
+
+
+### Features
+
+* ✨ @vtj/renderer 与 element-plus 解耦 ([6e63fe8](https://gitee.com/newgateway/vtj/commits/6e63fe81bf5e7047f1c621277b9104d2b44b02bd))
+
+
+
+
+
 ## [0.9.7](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.9.6...@vtj/renderer@0.9.7) (2025-01-04)
 
 **Note:** Version bump only for package @vtj/renderer

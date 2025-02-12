@@ -1,7 +1,7 @@
 import type { MaterialDescription } from '@vtj/core';
 
 const Progress: MaterialDescription = {
-  name: 'VantProgress',
+  name: 'VanProgress',
   alias: 'Progress',
   label: '进度条',
   categoryId: 'view',

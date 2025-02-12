@@ -1,7 +1,7 @@
 {
   "name": "vtj",
   "private": true,
-  "description": "VTJ 一款基于 Vue3 + Typescript 的低代码开发工具，内置了设计器引擎、渲染器和代码生成器。",
+  "description": "基于 Vue3 + Typescript 的低代码页面可视化设计器。内置低代码引擎、渲染器和代码生成器，面向前端开发者，开箱即用。 无缝嵌入本地开发工程，不改变前端开发流程和编码习惯。",
   "devDependencies": {
     "pnpm": "~9.15.0",
     "lerna": "~8.1.5",
@@ -87,6 +87,9 @@
     "app:dev": "cd apps/app && npm run dev",
     "app:build": "cd apps/app  && npm run build",
     "app:preview": "cd apps/app && npm run preview",
+    "h5:dev": "cd apps/h5 && npm run dev",
+    "h5:build": "cd apps/h5  && npm run build",
+    "h5:preview": "cd apps/h5 && npm run preview",
     "lcdp:dev": "cd lcdp && npm run dev",
     "lcdp:build": "cd lcdp  && npm run build",
     "lcdp:gitee": "cd lcdp  && npm run build:gitee",

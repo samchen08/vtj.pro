@@ -1,7 +1,7 @@
 import type { MaterialDescription } from '@vtj/core';
 
 const Watermark: MaterialDescription = {
-  name: 'VantWatermark',
+  name: 'VanWatermark',
   alias: 'Watermark',
   label: '水印',
   categoryId: 'view',

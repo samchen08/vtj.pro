@@ -1,7 +1,7 @@
 import type { MaterialDescription } from '@vtj/core';
 
 const FloatingBubble: MaterialDescription = {
-  name: 'VantFloatingBubble',
+  name: 'VanFloatingBubble',
   alias: 'FloatingBubble',
   label: '浮动气泡',
   categoryId: 'feedback',

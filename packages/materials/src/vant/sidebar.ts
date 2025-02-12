@@ -2,7 +2,7 @@ import type { MaterialDescription } from '@vtj/core';
 
 const Sidebar: MaterialDescription[] = [
   {
-    name: 'VantSidebar',
+    name: 'VanSidebar',
     alias: 'Sidebar',
     label: '侧边导航',
     categoryId: 'nav',
@@ -21,14 +21,14 @@ const Sidebar: MaterialDescription[] = [
         active: 0
       },
       children: [
-        { name: 'VantSidebarItem', props: { title: '标签名称' } },
-        { name: 'VantSidebarItem', props: { title: '标签名称' } },
-        { name: 'VantSidebarItem', props: { title: '标签名称' } }
+        { name: 'VanSidebarItem', props: { title: '标签名称' } },
+        { name: 'VanSidebarItem', props: { title: '标签名称' } },
+        { name: 'VanSidebarItem', props: { title: '标签名称' } }
       ]
     }
   },
   {
-    name: 'VantSidebarItem',
+    name: 'VanSidebarItem',
     alias: 'SidebarItem',
     label: '侧边导航项',
     categoryId: 'nav',

@@ -3,6 +3,47 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.9.9](https://gitee.com/newgateway/vtj/compare/create-vtj@0.9.8...create-vtj@0.9.9) (2025-01-14)
+
+**Note:** Version bump only for package create-vtj
+
+
+
+
+
+## [0.9.8](https://gitee.com/newgateway/vtj/compare/create-vtj@0.9.7...create-vtj@0.9.8) (2025-01-14)
+
+
+### Bug Fixes
+
+* 🐛 h5项目模版 ([eb22ff0](https://gitee.com/newgateway/vtj/commits/eb22ff065d2c16d3d6e5f7c150178007c535d51d))
+
+
+
+
+
+## [0.9.7](https://gitee.com/newgateway/vtj/compare/create-vtj@0.9.6...create-vtj@0.9.7) (2025-01-13)
+
+
+### Features
+
+* ✨ h5平台 ([0497ccb](https://gitee.com/newgateway/vtj/commits/0497ccbb53f01a537176cae36f69b5d3019fc68e))
+
+
+
+
+
+## [0.9.6](https://gitee.com/newgateway/vtj/compare/create-vtj@0.9.5...create-vtj@0.9.6) (2025-01-06)
+
+
+### Features
+
+* ✨ @vtj/renderer 与 element-plus 解耦 ([6e63fe8](https://gitee.com/newgateway/vtj/commits/6e63fe81bf5e7047f1c621277b9104d2b44b02bd))
+
+
+
+
+
 ## [0.9.5](https://gitee.com/newgateway/vtj/compare/create-vtj@0.9.4...create-vtj@0.9.5) (2025-01-04)
 
 **Note:** Version bump only for package create-vtj

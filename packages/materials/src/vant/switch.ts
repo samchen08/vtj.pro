@@ -1,7 +1,7 @@
 import type { MaterialDescription } from '@vtj/core';
 
 const Switch: MaterialDescription = {
-  name: 'VantSwitch',
+  name: 'VanSwitch',
   alias: 'Switch',
   label: '开关',
   categoryId: 'form',

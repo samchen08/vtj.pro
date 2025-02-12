@@ -77,10 +77,7 @@ export class Context {
       this.__cleanup();
     });
     Vue.onBeforeUpdate(() => {
-      this.__refs = {};
-      this.$refs = {};
-      this.__contextRefs = {};
-      this.context = {};
+      this.__reset();
     });
   }
   private __proxy() {
@@ -93,6 +90,13 @@ export class Context {
     CONTEXT_HOST.forEach((name) => {
       (this as any)[name] = null;
     });
+    this.__reset();
+  }
+  private __reset() {
+    this.__refs = {};
+    this.$refs = {};
+    this.__contextRefs = {};
+    this.context = {};
   }
   __parseFunction(code?: JSFunction) {
     if (!code) return;
@@ -155,24 +159,27 @@ export class Context {
       }
 
       if (id) {
-        this.__refs[id] = el;
+        this.__refs[id] = this.__getRefEl(this.__refs, id, el);
       }
 
       if (typeof ref === 'function') {
         ref(el);
       } else if (ref) {
-        const exist = this.$refs[ref];
-        if (exist && el !== exist) {
-          // 去重
-          const sets = new Set([].concat(exist, el));
-          this.$refs[ref] = Array.from(sets);
-        } else {
-          this.$refs[ref] = el;
-        }
+        this.$refs[ref] = this.__getRefEl(this.$refs, ref, el);
       }
 
       return el;
     };
+  }
+  __getRefEl(refs: Record<string, any>, key: string, el: any) {
+    const exist = refs[key];
+    if (exist && el !== exist) {
+      // 去重
+      const sets = new Set([].concat(exist, el));
+      return Array.from(sets);
+    } else {
+      return el;
+    }
   }
 
   __clone(context: Record<string, any> = {}) {

@@ -2,7 +2,7 @@ import fs from 'node:fs';
 import prompts from 'prompts';
 import { isValidPackageName, formatTargetDir, isEmpty } from './utils';
 
-import { cyan, green, magenta, red, reset, lightRed } from 'kolorist';
+import { cyan, green, magenta, red, reset, lightRed, yellow } from 'kolorist';
 
 export interface ITemplate {
   name: string;
@@ -15,6 +15,11 @@ export const templates: ITemplate[] = [
     name: 'app',
     display: 'Web应用( app )',
     color: green
+  },
+  {
+    name: 'h5',
+    display: 'H5应用( h5 )',
+    color: yellow
   },
   {
     name: 'plugin',

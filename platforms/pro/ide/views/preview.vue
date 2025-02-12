@@ -9,12 +9,16 @@
     LocalService,
     ContextMode,
     Extension,
-    Access
+    Access,
+    createAdapter,
+    createServiceRequest
   } from '../../src';
   import { ACCESS_STORAGE_KEY } from '../contants';
   import { IconsPlugin } from '@vtj/icons';
   import { ElMessageBox } from 'element-plus';
-  const service = new LocalService();
+  import { notify, loading } from '../utils';
+  const adapter = createAdapter({ loading, notify });
+  const service = new LocalService(createServiceRequest(notify));
   const config = await service.getExtension().catch(() => null);
   const { options, adapters } = config
     ? await new Extension(config).load()
@@ -34,7 +38,7 @@
     service,
     materialPath: __BASE_PATH__,
     ...(options || {}),
-    adapter: Object.assign({ access, remote }, options?.adapter || {}),
+    adapter: Object.assign(adapter, { access, remote }, options?.adapter || {}),
     dependencies: {
       Vue: () => import('vue'),
       VueRouter: () => import('vue-router')

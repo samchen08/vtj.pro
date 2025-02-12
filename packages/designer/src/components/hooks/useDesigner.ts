@@ -32,27 +32,34 @@ export function useDesigner(
     getComputedHelper('selected', designer.value?.selected.value)
   );
 
+  const lines = computed(() =>
+    getComputedLinesStyle(designer.value?.lines.value || [])
+  );
+
   watch(engine.changed, () => {
     designer.value?.updateRect();
+    designer.value?.updateLines();
   });
 
   return {
     designer,
     dropping,
     hover,
-    selected
+    selected,
+    lines
   };
 }
 
 function getPosition(rect: DOMRect, leftPriority: boolean = true) {
-  const { top, height, width, left } = rect || {};
-  if (height > 100 && width > 200) {
+  const { top, height, width, left, right } = rect || {};
+  const WIDTH = 250;
+  if (height > 100 && width > WIDTH) {
     return 'inner';
   }
-
   let h, v;
   v = top > 30 ? 'top' : 'bottom';
-  h = leftPriority ? 'left' : left < 300 && width < 300 ? 'left' : 'right';
+  h = leftPriority ? 'left' : left < WIDTH && width < WIDTH ? 'left' : 'right';
+  h = right > WIDTH ? 'right' : 'left';
 
   return [h, v].join('-');
 }
@@ -97,4 +104,16 @@ function getComputedHelper(name: string, helpr?: DesignHelper | null) {
     style,
     position: getPosition(helpr.rect, name !== 'selected')
   };
+}
+
+function getComputedLinesStyle(lines: DOMRect[]) {
+  return lines.map((rect) => {
+    const { width, height, left, top } = rect;
+    return {
+      width: `${width}px`,
+      height: `${height}px`,
+      left: `${left}px`,
+      top: `${top}px`
+    };
+  });
 }

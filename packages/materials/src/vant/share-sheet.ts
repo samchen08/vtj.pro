@@ -1,7 +1,7 @@
 import type { MaterialDescription } from '@vtj/core';
 
 const ShareSheet: MaterialDescription = {
-  name: 'VantShareSheet',
+  name: 'VanShareSheet',
   alias: 'ShareSheet',
   label: '分享面板',
   categoryId: 'feedback',

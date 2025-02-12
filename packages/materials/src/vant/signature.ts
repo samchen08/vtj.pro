@@ -1,7 +1,7 @@
 import type { MaterialDescription } from '@vtj/core';
 
 const Signature: MaterialDescription = {
-  name: 'VantSignature',
+  name: 'VanSignature',
   alias: 'Signature',
   label: '签名',
   categoryId: 'form',

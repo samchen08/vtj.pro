@@ -2,7 +2,7 @@ import type { MaterialDescription } from '@vtj/core';
 
 const ActionBar: MaterialDescription[] = [
   {
-    name: 'VantActionBar',
+    name: 'VanActionBar',
     alias: 'ActionBar',
     label: '动作栏',
     categoryId: 'nav',
@@ -24,28 +24,28 @@ const ActionBar: MaterialDescription[] = [
     snippet: {
       children: [
         {
-          name: 'VantActionBarIcon',
+          name: 'VanActionBarIcon',
           props: {
             icon: 'chat-o',
             text: '客服'
           }
         },
         {
-          name: 'VantActionBarIcon',
+          name: 'VanActionBarIcon',
           props: {
             icon: 'cart-o',
             text: '购物车'
           }
         },
         {
-          name: 'VantActionBarIcon',
+          name: 'VanActionBarIcon',
           props: {
             icon: 'shop-o',
             text: '店铺'
           }
         },
         {
-          name: 'VantActionBarButton',
+          name: 'VanActionBarButton',
           props: {
             type: 'danger',
             text: '立即购买'
@@ -55,7 +55,7 @@ const ActionBar: MaterialDescription[] = [
     }
   },
   {
-    name: 'VantActionBarIcon',
+    name: 'VanActionBarIcon',
     alias: 'ActionBarIcon',
     label: '动作栏图标',
     categoryId: 'nav',
@@ -130,7 +130,7 @@ const ActionBar: MaterialDescription[] = [
     }
   },
   {
-    name: 'VantActionBarButton',
+    name: 'VanActionBarButton',
     alias: 'ActionBarButton',
     label: '动作栏按钮',
     categoryId: 'nav',

@@ -104,3 +104,8 @@ export interface ExtensionConfig {
    */
   __adapters__: Record<string, any>;
 }
+
+/**
+ * 平台类型
+ */
+export type PlatformType = 'web' | 'h5' | 'uniapp';

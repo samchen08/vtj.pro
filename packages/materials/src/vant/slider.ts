@@ -1,7 +1,7 @@
 import type { MaterialDescription } from '@vtj/core';
 
 const Slider: MaterialDescription = {
-  name: 'VantSlider',
+  name: 'VanSlider',
   alias: 'Slider',
   label: '滑块',
   categoryId: 'form',

@@ -1,7 +1,7 @@
 import type { MaterialDescription } from '@vtj/core';
 
 const Lazyload: MaterialDescription = {
-  name: 'VantImageLazyload',
+  name: 'VanImageLazyload',
   alias: 'Lazyload',
   label: '懒加载',
   categoryId: 'view',

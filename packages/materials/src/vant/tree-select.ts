@@ -1,7 +1,7 @@
 import type { MaterialDescription } from '@vtj/core';
 
 const TreeSelect: MaterialDescription = {
-  name: 'VantTreeSelect',
+  name: 'VanTreeSelect',
   alias: 'TreeSelect',
   label: '分类选择',
   categoryId: 'nav',

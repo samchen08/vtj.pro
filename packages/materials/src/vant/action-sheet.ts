@@ -1,7 +1,7 @@
 import type { MaterialDescription } from '@vtj/core';
 
 const ActionSheet: MaterialDescription = {
-  name: 'VantActionSheet',
+  name: 'VanActionSheet',
   alias: 'ActionSheet',
   label: '动作面板',
   categoryId: 'feedback',

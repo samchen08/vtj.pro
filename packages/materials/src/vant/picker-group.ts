@@ -1,7 +1,7 @@
 import type { MaterialDescription } from '@vtj/core';
 
 const PickerGroup: MaterialDescription = {
-  name: 'VantPickerGroup',
+  name: 'VanPickerGroup',
   alias: 'PickerGroup',
   label: '选择器组',
   categoryId: 'form',
@@ -57,7 +57,7 @@ const PickerGroup: MaterialDescription = {
       title: '预约日期',
       tabs: ['选择日期', '选择时间']
     },
-    children: [{ name: 'VantDatePicker' }, { name: 'VantTimePicker' }]
+    children: [{ name: 'VanDatePicker' }, { name: 'VanTimePicker' }]
   }
 };
 

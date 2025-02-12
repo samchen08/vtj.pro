@@ -1,7 +1,7 @@
 import type { MaterialDescription } from '@vtj/core';
 
 const Uploader: MaterialDescription = {
-  name: 'VantUploader',
+  name: 'VanUploader',
   alias: 'Uploader',
   label: '文件上传',
   categoryId: 'form',
