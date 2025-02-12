@@ -28,7 +28,7 @@ const Circle: MaterialDescription = {
       name: 'color',
       title: '进度条颜色，传入对象格式可以定义渐变色',
       defaultValue: '#1989fa',
-      setters: ['StringSetter', 'ObjectSetter', 'StringSetter']
+      setters: ['ColorSetter', 'StringSetter', 'ObjectSetter']
     },
     {
       name: 'layer-color',

@@ -43,6 +43,7 @@ const Barrage: MaterialDescription = {
       setters: 'NumberSetter'
     }
   ],
+  events: [{ name: 'update:modelValue' }],
   slots: ['default'],
   snippet: {
     props: {

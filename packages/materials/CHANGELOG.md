@@ -3,6 +3,30 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.9.27](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.9.26...@vtj/materials@0.9.27) (2025-02-12)
+
+
+### Bug Fixes
+
+* 🐛 circle 设置器 ([320c8d9](https://gitee.com/newgateway/vtj/commits/320c8d9e10554568c3ea8a1a1a8e618a8f14ba21))
+* 🐛 collapse evnet增加update:modelValue ([d2f0996](https://gitee.com/newgateway/vtj/commits/d2f0996ca18f8c6842ed3cd394f3a4f3424464e5))
+* 🐛 max-size,max-count 配置 ([68d1008](https://gitee.com/newgateway/vtj/commits/68d100855a23b2ab0e0607ae3786e2b9e97a1da9))
+* 🐛 noticeBar 设置器改为 BooleanSetter ([f19e457](https://gitee.com/newgateway/vtj/commits/f19e4577418fb405af67a45c92e88a1690697c7f))
+* 🐛 timePicker snippet的props ([cc23ed5](https://gitee.com/newgateway/vtj/commits/cc23ed57314fbd9c197f5ef7c372c3ec87fdef08))
+
+
+### Features
+
+* ✨ 添加vanIconSetter ([cd5a97e](https://gitee.com/newgateway/vtj/commits/cd5a97ee1764af042de459ecabf90a828c2e3d55))
+* ✨ barrage event 增加 update:modelValue ([01efcb8](https://gitee.com/newgateway/vtj/commits/01efcb82c9d25d55ec53c8ac46c1b5c5bf2935c7))
+* ✨ event 增加 update:modelValue ([3f1e5a9](https://gitee.com/newgateway/vtj/commits/3f1e5a9d59103750a92e81c35555f5ae72831276))
+* ✨ vant notify event 增加 update:show ([2b79590](https://gitee.com/newgateway/vtj/commits/2b795908cc92f21a12c3b5865c04850832ef6e10))
+* ✨ vant物料icon 属性增加VanIconSetter ([db866df](https://gitee.com/newgateway/vtj/commits/db866df02b85e856a966826f2b37c03dc0783b27))
+
+
+
+
+
 ## [0.9.26](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.9.25...@vtj/materials@0.9.26) (2025-02-11)
 
 

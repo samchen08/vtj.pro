@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.9.27](https://gitee.com/newgateway/vtj/compare/dev-web@0.9.26...dev-web@0.9.27) (2025-02-12)
+
+
+### Features
+
+* ✨ 添加vanIconSetter ([cd5a97e](https://gitee.com/newgateway/vtj/commits/cd5a97ee1764af042de459ecabf90a828c2e3d55))
+
+
+
+
+
 ## [0.9.26](https://gitee.com/newgateway/vtj/compare/dev-web@0.9.25...dev-web@0.9.26) (2025-02-11)
 
 **Note:** Version bump only for package dev-web

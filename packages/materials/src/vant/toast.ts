@@ -44,7 +44,7 @@ const Toast: MaterialDescription = {
       name: 'icon',
       title:
         '自定义图标，支持传入图标名称或图片链接，等同于 Icon 组件的 name 属性',
-      setters: 'StringSetter'
+      setters: ['VanIconSetter', 'StringSetter']
     },
     {
       name: 'icon-size',

@@ -34,7 +34,7 @@ const Button: MaterialDescription = {
     {
       name: 'icon',
       title: '左侧图标名称或图片链接，等同于 Icon 组件的 name 属性',
-      setters: 'VanIconSetter'
+      setters: ['VanIconSetter', 'StringSetter']
     },
     {
       name: 'icon-prefix',

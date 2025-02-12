@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.9.27](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.9.26...@vtj/designer@0.9.27) (2025-02-12)
+
+
+### Bug Fixes
+
+* 🐛 去掉XIcon引入 ([20036f4](https://gitee.com/newgateway/vtj/commits/20036f48fd85108914c46dfdf08547871d32477f))
+* 🐛 使用HTML标签显示图标;颜色样式使用变量 ([4324b8f](https://gitee.com/newgateway/vtj/commits/4324b8fb71bb971708ff50dd93edb415c399fb0c))
+* 🐛 优化变量绑定器样式 ([9dc4d49](https://gitee.com/newgateway/vtj/commits/9dc4d493b1c65a9fde56ef8dc26c50afd2a25963))
+
+
+### Features
+
+* ✨ 变量绑定器高级选项卡的内容支持搜索功能 ([1dddb54](https://gitee.com/newgateway/vtj/commits/1dddb5466b87932ced2d133ad8fa43fdc9dc8000))
+* ✨ 添加vanIconSetter ([cd5a97e](https://gitee.com/newgateway/vtj/commits/cd5a97ee1764af042de459ecabf90a828c2e3d55))
+
+
+
+
+
 ## [0.9.26](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.9.25...@vtj/designer@0.9.26) (2025-02-11)
 
 **Note:** Version bump only for package @vtj/designer

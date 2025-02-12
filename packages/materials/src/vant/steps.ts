@@ -25,12 +25,12 @@ const Steps: MaterialDescription[] = [
         name: 'active-icon',
         title: '当前步骤对应的底部图标',
         defaultValue: 'checked',
-        setters: 'StringSetter'
+        setters: ['VanIconSetter', 'StringSetter']
       },
       {
         name: 'inactive-icon',
         title: '非当前步骤对应的底部图标',
-        setters: 'StringSetter'
+        setters: ['VanIconSetter', 'StringSetter']
       },
       {
         name: 'finish-icon',
