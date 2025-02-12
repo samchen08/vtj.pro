@@ -150,8 +150,7 @@ const TimePicker: MaterialDescription = {
   ],
   snippet: {
     props: {
-      title: '选择时间',
-      columnsType: ['hour', 'minute', 'second']
+      title: '选择时间'
     }
   }
 };

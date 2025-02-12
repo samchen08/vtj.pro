@@ -26,7 +26,7 @@ const Collapse: MaterialDescription[] = [
         setters: 'BooleanSetter'
       }
     ],
-    events: ['change'],
+    events: ['update:modelValue', 'change'],
     snippet: {
       props: {
         modelValue: ['1']
@@ -74,7 +74,7 @@ const Collapse: MaterialDescription[] = [
       {
         name: 'icon',
         title: '标题栏左侧图标名称或图片链接，等同于 Icon 组件的 name 属性',
-        setters: 'StringSetter'
+        setters: ['VanIconSetter', 'StringSetter']
       },
       {
         name: 'size',

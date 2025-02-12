@@ -10,7 +10,7 @@ const Icon: MaterialDescription = {
     {
       name: 'name',
       title: '图标名称或图片链接',
-      setters: 'StringSetter'
+      setters: ['VanIconSetter', 'StringSetter']
     },
     {
       name: 'dot',

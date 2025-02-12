@@ -74,13 +74,13 @@ const Image: MaterialDescription = {
       name: 'error-icon',
       title: '失败时提示的图标名称或图片链接，等同于 Icon 组件的 name 属性',
       defaultValue: 'photo-fail',
-      setters: 'StringSetter'
+      setters: ['VanIconSetter', 'StringSetter']
     },
     {
       name: 'loading-icon',
       title: '加载时提示的图标名称或图片链接，等同于 Icon 组件的 name 属性',
       defaultValue: 'photo',
-      setters: 'StringSetter'
+      setters: ['VanIconSetter', 'StringSetter']
     },
     {
       name: 'icon-size',

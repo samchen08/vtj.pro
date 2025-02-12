@@ -44,7 +44,7 @@ const ActionSheet: MaterialDescription = {
       name: 'close-icon',
       title: '关闭图标名称或图片链接，等同于 Icon 组件的 name 属性',
       defaultValue: 'cross',
-      setters: 'StringSetter'
+      setters: ['VanIconSetter', 'StringSetter']
     },
     {
       name: 'duration',

@@ -52,13 +52,13 @@ const Rate: MaterialDescription = {
       name: 'icon',
       title: '选中时的图标名称或图片链接，等同于 Icon 组件的 name 属性',
       defaultValue: 'start',
-      setters: 'StringSetter'
+      setters: ['VanIconSetter', 'StringSetter']
     },
     {
       name: 'void-icon',
       title: '未选中时的图标名称或图片链接，等同于 Icon 组件的 name 属性',
       defaultValue: 'star-o',
-      setters: 'StringSetter'
+      setters: ['VanIconSetter', 'StringSetter']
     },
     {
       name: 'icon-prefix',

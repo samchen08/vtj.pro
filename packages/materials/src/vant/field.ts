@@ -97,7 +97,7 @@ const Field: MaterialDescription = {
       name: 'clear-icon',
       title: '清除图标名称或图片链接，等同于 Icon 组件的 name 属性',
       defaultValue: 'clear',
-      setters: 'StringSetter'
+      setters: ['VanIconSetter', 'StringSetter']
     },
     {
       name: 'clear-trigger',
@@ -209,12 +209,12 @@ const Field: MaterialDescription = {
     {
       name: 'left-icon',
       title: '左侧图标名称或图片链接，等同于 Icon 组件的 name 属性',
-      setters: 'StringSetter'
+      setters: ['VanIconSetter', 'StringSetter']
     },
     {
       name: 'right-icon',
       title: '右侧图标名称或图片链接，等同于 Icon 组件的 name 属性',
-      setters: 'StringSetter'
+      setters: ['VanIconSetter', 'StringSetter']
     },
     {
       name: 'icon-prefix',
