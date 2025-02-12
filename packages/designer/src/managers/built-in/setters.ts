@@ -49,6 +49,11 @@ export const builtInSetters: Array<Setter> = [
     type: 'String'
   },
   {
+    name: 'VanIconSetter',
+    component: setters.VanIconSetter,
+    type: 'String'
+  },
+  {
     name: 'ObjectSetter',
     component: setters.JsonSetter,
     type: 'Object',

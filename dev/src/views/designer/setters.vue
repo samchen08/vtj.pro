@@ -62,6 +62,12 @@
         }"
         :variable="true"
         @change="onChange"></SetterWrapper>
+      <SetterWrapper
+        name="VanIconSetter"
+        label="VanIconSetter"
+        setters="VanIconSetter"
+        :variable="true"
+        @change="onChange"></SetterWrapper>
     </ElForm>
 
     <div
