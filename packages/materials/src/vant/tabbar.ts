@@ -68,7 +68,7 @@ const Tabbar: MaterialDescription[] = [
         setters: 'FunctionSetter'
       }
     ],
-    events: ['change'],
+    events: ['update:modelValue', 'change'],
     snippet: {
       props: {
         modelValue: 0
