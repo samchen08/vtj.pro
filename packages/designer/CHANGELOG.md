@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.9.29](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.9.28...@vtj/designer@0.9.29) (2025-02-13)
+
+
+### Bug Fixes
+
+* 🐛 根据 platform 动态设置pure默认值 ([109c3cf](https://gitee.com/newgateway/vtj/commits/109c3cf5e4191fbcdba866376791fd9fb363a71d))
+* 🐛 还原页面默认pure为true ([fbb94a4](https://gitee.com/newgateway/vtj/commits/fbb94a45fe87ed58f0a6335fb91bc7496463ed10))
+
+
+
+
+
 ## [0.9.28](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.9.27...@vtj/designer@0.9.28) (2025-02-13)
 
 

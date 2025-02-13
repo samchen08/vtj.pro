@@ -3759,18 +3759,18 @@ packages:
     resolution: {integrity: sha512-x4DZ6TihZgIC1WhDTdXaVKCvmsE+vDOrTEv4JiXqmw7GeHxIlPTsCBA/PkUIRopUfwoul4wvHEFbxhORngMUHg==}
     engines: {node: '>=16.0.0'}
 
-  '@vtj/icons@0.9.27':
-    resolution: {integrity: sha512-Mh1mM8+Xel7AXECaruZ6D1MQCmP8M3d6FiQZEAzpHdvbIMPb0biHJGBlXLPakKWs0pKJ34xMzYBFMXFOY1yDcw==}
+  '@vtj/icons@0.9.28':
+    resolution: {integrity: sha512-rwG6YabxcOPRs1ZAT7gaTTdDAwhBLzst/6epXtU7VfMl6CjOO9OXj95Reqx562TTncYkxQQNNVmGYZQXuyhPeg==}
 
   '@vtj/plugin-ckeditor@0.2.5':
     resolution: {integrity: sha512-moAcU4LhruhiNnIuviK/QBfHPH+nyNHS4iDLQocOrVbFn8RWEj8C4nBESscFU1hOBLaeAAc7aYQJCBEkfOnyQA==}
 
-  '@vtj/ui@0.9.27':
-    resolution: {integrity: sha512-axyGR3Urv8dk0nXFJVTObLFFtRGvOL8PiBqTIL9mqz6VDoSQYVNfKpvPMihUO/8tyk40aQiYRlbHRRGD1oyL4g==}
+  '@vtj/ui@0.9.28':
+    resolution: {integrity: sha512-J25SgvC1yhQaDbveXsumn9dSz/LD9qGxHSjsO+5JDXmyQXlXwqRBRlnw3DrAV09QP9VOj9x0sJVIL337WNJb2g==}
     engines: {node: '>=16.0.0'}
 
-  '@vtj/utils@0.9.27':
-    resolution: {integrity: sha512-f6qlKGVhES/LjX841/P4uEEDn7iFdTAlI3oH9bFyi+4LtjqX2H2+61a+sc14TItZr6kT207jHPd6mxS+iOlHRA==}
+  '@vtj/utils@0.9.28':
+    resolution: {integrity: sha512-JQUuXpqW804OsyYpa3yNn3ikHd1s7piuDyPbUh1uPPhtKCMAySA1hdMvZ01u0rWS55i8dyWnMWkS5Frqc4aJTw==}
 
   '@vue/babel-helper-vue-transform-on@1.2.5':
     resolution: {integrity: sha512-lOz4t39ZdmU4DJAa2hwPYmKc8EsuGa2U0L9KaZaOJUt0UwQNjNA3AZTq6uEivhOKhhG1Wvy96SvYBoFmCg3uuw==}
@@ -5082,8 +5082,8 @@ packages:
     engines: {node: '>=0.10.0'}
     hasBin: true
 
-  electron-to-chromium@1.5.97:
-    resolution: {integrity: sha512-HKLtaH02augM7ZOdYRuO19rWDeY+QSJ1VxnXFa/XDFLf07HvM90pALIJFgrO+UVaajI3+aJMMpojoUTLZyQ7JQ==}
+  electron-to-chromium@1.5.98:
+    resolution: {integrity: sha512-bI/LbtRBxU2GzK7KK5xxFd2y9Lf9XguHooPYbcXWy6wUoT8NMnffsvRhPmSeUHLSDKAEtKuTaEtK4Ms15zkIEA==}
 
   element-plus@2.9.4:
     resolution: {integrity: sha512-sGnW0wd9zf6lEGixXV2gfwx3X6VTMkP52qTkX7zbURJ2oariyslrKTBh2txt1sdn1pUvj2l0KY3OfSXoZGmDOw==}
@@ -13039,7 +13039,7 @@ snapshots:
 
   '@vtj/example-ui@0.1.0': {}
 
-  '@vtj/icons@0.9.27(vue@3.5.13(typescript@5.7.3))':
+  '@vtj/icons@0.9.28(vue@3.5.13(typescript@5.7.3))':
     dependencies:
       '@element-plus/icons-vue': 2.3.1(vue@3.5.13(typescript@5.7.3))
     transitivePeerDependencies:
@@ -13047,18 +13047,18 @@ snapshots:
 
   '@vtj/plugin-ckeditor@0.2.5(typescript@5.7.3)(vue@3.5.13(typescript@5.7.3))':
     dependencies:
-      '@vtj/icons': 0.9.27(vue@3.5.13(typescript@5.7.3))
-      '@vtj/ui': 0.9.27(typescript@5.7.3)(vue@3.5.13(typescript@5.7.3))
-      '@vtj/utils': 0.9.27
+      '@vtj/icons': 0.9.28(vue@3.5.13(typescript@5.7.3))
+      '@vtj/ui': 0.9.28(typescript@5.7.3)(vue@3.5.13(typescript@5.7.3))
+      '@vtj/utils': 0.9.28
     transitivePeerDependencies:
       - '@vue/composition-api'
       - typescript
       - vue
 
-  '@vtj/ui@0.9.27(typescript@5.7.3)(vue@3.5.13(typescript@5.7.3))':
+  '@vtj/ui@0.9.28(typescript@5.7.3)(vue@3.5.13(typescript@5.7.3))':
     dependencies:
-      '@vtj/icons': 0.9.27(vue@3.5.13(typescript@5.7.3))
-      '@vtj/utils': 0.9.27
+      '@vtj/icons': 0.9.28(vue@3.5.13(typescript@5.7.3))
+      '@vtj/utils': 0.9.28
       '@vueuse/core': 12.2.0(typescript@5.7.3)
       element-plus: 2.9.4(vue@3.5.13(typescript@5.7.3))
       sortablejs: 1.15.6
@@ -13069,7 +13069,7 @@ snapshots:
       - typescript
       - vue
 
-  '@vtj/utils@0.9.27':
+  '@vtj/utils@0.9.28':
     dependencies:
       '@vtj/base': 0.9.5
 
@@ -13794,7 +13794,7 @@ snapshots:
   browserslist@4.24.4:
     dependencies:
       caniuse-lite: 1.0.30001699
-      electron-to-chromium: 1.5.97
+      electron-to-chromium: 1.5.98
       node-releases: 2.0.19
       update-browserslist-db: 1.1.2(browserslist@4.24.4)
 
@@ -14561,7 +14561,7 @@ snapshots:
     dependencies:
       jake: 10.9.2
 
-  electron-to-chromium@1.5.97: {}
+  electron-to-chromium@1.5.98: {}
 
   element-plus@2.9.4(vue@3.5.13(typescript@5.7.3)):
     dependencies:

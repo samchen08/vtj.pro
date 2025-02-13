@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.9.29](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.9.28...@vtj/materials@0.9.29) (2025-02-13)
+
+
+### Bug Fixes
+
+* 🐛 事件增加 update:modelValue ([8134cee](https://gitee.com/newgateway/vtj/commits/8134ceee1c82b021441c64faa1a3b9a2f7a93adc))
+* 🐛 ContactEdit 名称 ([6a4f5e4](https://gitee.com/newgateway/vtj/commits/6a4f5e41bbe765ff62408e1a9511f14f19315507))
+* 🐛 submit-bar 增加 tip 属性 ([2eb0d3e](https://gitee.com/newgateway/vtj/commits/2eb0d3ef7878d9602f28112568684f89d1106f64))
+
+
+### Features
+
+* ✨ contact-list events add update:modelValue ([831507e](https://gitee.com/newgateway/vtj/commits/831507eb7439de0374abc94bb79fa8c74fda829b))
+
+
+
+
+
 ## [0.9.28](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.9.27...@vtj/materials@0.9.28) (2025-02-13)
 
 **Note:** Version bump only for package @vtj/materials
