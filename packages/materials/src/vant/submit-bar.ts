@@ -53,6 +53,11 @@ const SubmitBar: MaterialDescription = {
       setters: 'StringSetter'
     },
     {
+      name: 'tip',
+      title: '	在订单栏上方的提示文案',
+      setters: 'StringSetter'
+    },
+    {
       name: 'tip-icon',
       title: '提示文案左侧的图标名称或图片链接，等同于 Icon 组件的 name 属性',
       setters: ['VanIconSetter', 'StringSetter']
