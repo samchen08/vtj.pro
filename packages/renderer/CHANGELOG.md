@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.9.28](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.9.27...@vtj/renderer@0.9.28) (2025-02-13)
+
+
+### Features
+
+* ✨ 建议优化一下parseNodeProps 函数, 解决类似 表格组件columns字段深层次数组或者深层次对象 ([571e4b0](https://gitee.com/newgateway/vtj/commits/571e4b088e2b41e3afea8763e5f46b2b873aee6b))
+
+
+
+
+
 ## [0.9.27](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.9.26...@vtj/renderer@0.9.27) (2025-02-12)
 
 **Note:** Version bump only for package @vtj/renderer

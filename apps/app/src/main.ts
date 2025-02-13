@@ -8,7 +8,8 @@ import {
   notify,
   loading,
   createAdapter,
-  createServiceRequest
+  createServiceRequest,
+  IconsPlugin
 } from '@vtj/web';
 import { createApp } from 'vue';
 import router from './router';
@@ -38,6 +39,7 @@ const { provider, onReady } = createProvider({
 onReady(async () => {
   app.use(router);
   app.use(provider);
+  app.use(IconsPlugin);
   app.mount('#app');
 });
 
