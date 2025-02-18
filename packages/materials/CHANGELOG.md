@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.9.30](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.9.29...@vtj/materials@0.9.30) (2025-02-18)
+
+
+### Bug Fixes
+
+* 🐛 tabbarItem 插槽增加 default插槽 ([614b159](https://gitee.com/newgateway/vtj/commits/614b15961af155a34e11b95aae7d9d9a19ba3c1f))
+
+
+
+
+
 ## [0.9.29](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.9.28...@vtj/materials@0.9.29) (2025-02-13)
 
 

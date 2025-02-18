@@ -48,7 +48,7 @@
 
   const props = defineProps(headerProps);
   const icon = useIcon(toRef(props, 'icon'));
-  const attrs = useAttrs();
+  const attrs: Record<string, any> = useAttrs();
 
   const classes = computed(() => {
     return {

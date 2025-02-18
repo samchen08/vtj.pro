@@ -55,7 +55,7 @@
 
   const props = defineProps(pickerProps);
   const emit = defineEmits<PickerEmits>();
-  const attrs = useAttrs();
+  const attrs: Record<string, any> = useAttrs();
   const dialogVisible = ref(false);
   const selectRef = ref();
   const dialogRef = ref();

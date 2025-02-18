@@ -161,7 +161,7 @@ const Tabbar: MaterialDescription[] = [
         setters: 'BooleanSetter'
       }
     ],
-    slots: ['icon'],
+    slots: ['default', 'icon'],
     snippet: {
       props: {
         icon: 'home-o'
