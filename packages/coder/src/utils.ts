@@ -103,3 +103,10 @@ export function jsonToStyle(json: Record<string, any>) {
   }
   return cssString;
 }
+
+export function skipUniComponents(
+  components: string[] = [],
+  uniComponents: string[] = []
+) {
+  return components.filter((n) => !uniComponents.includes(n));
+}

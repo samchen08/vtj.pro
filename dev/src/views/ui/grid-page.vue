@@ -235,6 +235,7 @@
   //   return count;
   // };
 
+  //@ts-ignore
   const footerMethod = (e: any) => {
     const { columns, data } = e;
     return [

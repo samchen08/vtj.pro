@@ -70,21 +70,26 @@
     return `(共 ${pages.value.length} 项)`;
   });
 
+  const isUniapp = computed(() => {
+    const { platform = 'web' } = project.value || {};
+    return platform === 'uniapp';
+  });
+
   const createTextTags = (page: PageFile) => {
     const tags: string[] = [];
     if (project.value?.homepage === page.id) {
       tags.push('主');
     }
-    if (page.mask) {
+    if (!isUniapp.value && page.mask) {
       tags.push('母');
     }
-    if (page.cache) {
+    if (!isUniapp.value && page.cache) {
       tags.push('缓');
     }
-    if (page.hidden) {
+    if (!isUniapp.value && page.hidden) {
       tags.push('隐');
     }
-    if (page.pure) {
+    if (!isUniapp.value && page.pure) {
       tags.push('纯');
     }
     if (page.raw) {

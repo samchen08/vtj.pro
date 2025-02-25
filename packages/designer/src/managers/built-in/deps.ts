@@ -9,7 +9,19 @@ export const builtInDeps: Dependencie[] = [
     assetsLibrary: BUILT_IN_VUE,
     required: true,
     official: true,
-    enabled: true
+    enabled: true,
+    platform: ['web', 'h5']
+  },
+  {
+    package: 'vue',
+    version: 'latest',
+    library: 'Vue',
+    urls: ['@vtj/materials/deps/uni-h5-vue/index.umd.js'],
+    assetsLibrary: BUILT_IN_VUE,
+    required: true,
+    official: true,
+    enabled: true,
+    platform: 'uniapp'
   },
   {
     package: 'vue-router',
@@ -21,6 +33,46 @@ export const builtInDeps: Dependencie[] = [
     official: true,
     enabled: true
   },
+  {
+    package: 'uni-app',
+    version: 'latest',
+    library: 'UniApp',
+    urls: ['@vtj/materials/deps/uni-app/index.umd.js'],
+    required: true,
+    official: true,
+    enabled: true,
+    platform: 'uniapp'
+  },
+  {
+    package: 'uni-h5',
+    version: 'latest',
+    library: 'UniH5',
+    urls: [
+      '@vtj/materials/deps/uni-h5/style.css',
+      '@vtj/materials/deps/uni-h5/index.umd.js'
+    ],
+    required: true,
+    official: true,
+    enabled: true,
+    assetsUrl: '@vtj/materials/assets/uni-h5/index.umd.js',
+    assetsLibrary: 'UniH5Material',
+    platform: 'uniapp'
+  },
+  // {
+  //   package: 'uni-ui',
+  //   version: 'latest',
+  //   library: 'UniUI',
+  //   urls: [
+  //     '@vtj/materials/deps/uni-ui/style.css',
+  //     '@vtj/materials/deps/uni-ui/index.umd.js'
+  //   ],
+  //   required: true,
+  //   official: true,
+  //   enabled: true,
+  //   assetsUrl: '@vtj/materials/assets/uni-ui/index.umd.js',
+  //   assetsLibrary: 'UniUIMaterial',
+  //   platform: 'uniapp'
+  // },
   {
     package: '@vtj/utils',
     version: 'latest',
@@ -40,7 +92,8 @@ export const builtInDeps: Dependencie[] = [
     ],
     required: true,
     official: true,
-    enabled: true
+    enabled: true,
+    platform: ['web', 'h5']
   },
   {
     package: '@vueuse/core',
@@ -127,7 +180,7 @@ export const builtInDeps: Dependencie[] = [
     required: false,
     official: true,
     enabled: true,
-    platform: ['h5', 'uniapp']
+    platform: ['h5']
   },
   {
     package: '@vtj/charts',
@@ -143,5 +196,14 @@ export const builtInDeps: Dependencie[] = [
     official: true,
     enabled: true,
     platform: ['web', 'h5']
+  },
+  {
+    package: 'mockjs',
+    version: 'latest',
+    library: 'Mock',
+    urls: ['@vtj/materials/deps/mockjs/mock-min.js'],
+    required: false,
+    official: true,
+    enabled: true
   }
 ];

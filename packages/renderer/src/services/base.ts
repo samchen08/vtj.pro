@@ -33,11 +33,12 @@ const createApi = (
   request: IStaticRequest,
   url: string = '/__vtj__/api/:type.json'
 ) => {
-  return (type: string, data?: any) => {
+  return (type: string, data?: any, query?: any) => {
     return request.send({
       url,
       method: 'post',
       params: { type },
+      query,
       data: {
         type,
         data
@@ -95,7 +96,7 @@ export function createServiceRequest(notify?: (msg: string) => void) {
 }
 
 export class BaseService implements Service {
-  protected api: (type: string, data: any) => Promise<any>;
+  protected api: (type: string, data: any, query?: any) => Promise<any>;
   private pluginCaches: Record<string, any> = {};
   protected uploader: (
     file: File,
@@ -115,8 +116,10 @@ export class BaseService implements Service {
     return {} as ProjectSchema;
   }
 
-  async saveProject(project: ProjectSchema): Promise<boolean> {
-    const res = await this.api('saveProject', project).catch(() => false);
+  async saveProject(project: ProjectSchema, type?: string): Promise<boolean> {
+    const res = await this.api('saveProject', project, { type }).catch(
+      () => false
+    );
     return !!res;
   }
 

@@ -1,7 +1,21 @@
 import { createViteConfig } from '@vtj/cli';
 import { createDevTools } from '@vtj/local';
+import fs from 'fs-extra';
 import proxy from './proxy.config';
 const isExtension = !!process.env.Extension;
+const isUni = !!process.env.uni;
+
+const UniUI = {
+  name: 'transform-file',
+  load(id: string) {
+    if (id.includes('SubView.vue')) {
+      const content = fs.readFileSync(id, 'utf-8');
+      // console.log(content);
+
+      return content.replace('button', 'Button');
+    }
+  }
+};
 
 function creator() {
   if (isExtension) {
@@ -31,9 +45,19 @@ function creator() {
       }
     };
   }
+
   return {
     proxy,
     host: '0.0.0.0',
+    base: './',
+    emptyOutDir: isUni ? false : true,
+    pages: isUni
+      ? {
+          main: 'uni/index.html'
+        }
+      : {
+          main: 'index.html'
+        },
     https: false,
     legacy: false,
     elementPlus: false,
@@ -54,11 +78,15 @@ function creator() {
         copy: false,
         devMode: true,
         packagesDir: '../packages'
-      })
-    ]
-    // vueDevTools: {
-    //   componentInspector: false
-    // }
+      }),
+
+      isUni ? UniUI : undefined
+    ],
+    alias: isUni
+      ? {
+          vue: '@dcloudio/uni-h5-vue'
+        }
+      : undefined
   };
 }
 

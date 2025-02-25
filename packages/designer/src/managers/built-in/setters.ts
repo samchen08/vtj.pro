@@ -143,5 +143,10 @@ export const builtInSetters: Array<Setter> = [
     props: {
       multiple: true
     }
+  },
+  {
+    name: 'CssSetter',
+    component: setters.CssSetter,
+    type: 'String'
   }
 ];

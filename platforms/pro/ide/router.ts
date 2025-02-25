@@ -20,6 +20,14 @@ const routes = [
     }
   },
   {
+    path: '/pages/:id',
+    name: 'page',
+    component: () => import('./views/uni-page.vue'),
+    meta: {
+      pure: true
+    }
+  },
+  {
     path: '/auth',
     name: 'auth',
     component: () => import('./views/auth.vue')

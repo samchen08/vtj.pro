@@ -67,7 +67,6 @@ export function createLoader(opts: CreateLoaderOptions): BlockLoader {
 
   return (name: string, from?: NodeFrom, Vue: any = globalVue) => {
     if (!from || typeof from === 'string') return name;
-
     if (from.type === 'Schema' && from.id) {
       let cache = __loaders__[from.id];
       if (cache) {

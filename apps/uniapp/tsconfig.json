@@ -3,20 +3,10 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@/*": [
-        "./src/*"
-      ]
+      "@/*": ["./src/*"]
     },
-    "lib": [
-      "esnext"
-    ],
-    "types": [
-      "node",
-      "@dcloudio/types",
-      "miniprogram-api-typings",
-      "@uni-helper/uni-app-types",
-      "@uni-helper/uni-ui-types"
-    ]
+    "lib": ["esnext"],
+    "types": ["node", "@dcloudio/types"]
   },
   "include": [
     "shims-uni.d.ts",
@@ -25,11 +15,8 @@
     "src/**/*.tsx",
     "src/**/*.vue"
   ],
+  "exclude": [".vtj/**/*"],
   "vueCompilerOptions": {
-    "nativeTags": [
-      "component",
-      "template",
-      "slot"
-    ]
+    "nativeTags": ["component", "template", "slot"]
   }
 }

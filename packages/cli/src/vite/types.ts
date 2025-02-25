@@ -263,6 +263,11 @@ export interface CreateViteConfigOptions {
    * StyleBundler sassOptions
    */
   styleBundler?: boolean;
+
+  /**
+   * reload 插件
+   */
+  reload?: boolean;
 }
 
 export interface CreateUniappViteConfigOptions {

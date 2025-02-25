@@ -12,8 +12,12 @@ import {
   formDataToJson,
   logger
 } from '@vtj/utils';
-import { parseExpression, isJSFunction, parseFunction } from '../utils';
-import Mock from 'mockjs';
+import {
+  parseExpression,
+  isJSFunction,
+  parseFunction,
+  getMock
+} from '../utils';
 import { type ProvideAdapter } from './defaults';
 
 export function createSchemaApi(schema: ApiSchema, adapter: ProvideAdapter) {
@@ -71,19 +75,23 @@ export function createSchemaApis(
   return result;
 }
 
-export async function mockApis(schemas: ApiSchema[] = []) {
+export async function mockApis(
+  schemas: ApiSchema[] = [],
+  global: any = window
+) {
+  const Mock = getMock(global);
   if (Mock) {
-    mockCleanup();
+    mockCleanup(global);
     schemas.forEach((n) => mockApi(Mock, n));
   }
 }
 
-export function createMock(source: DataSourceSchema) {
+export function createMock(source: DataSourceSchema, global: any = window) {
   const mockTemplate =
     isJSFunction(source.mockTemplate) && source.mockTemplate.value
       ? parseFunction(source.mockTemplate, {}, true)
       : undefined;
-
+  const Mock = getMock(global);
   return async (...args: any[]) => {
     let template = {};
     if (mockTemplate) {
@@ -93,7 +101,7 @@ export function createMock(source: DataSourceSchema) {
         logger.warn('模拟数据模版异常', e);
       }
     }
-    return Mock.mock(template);
+    return Mock?.mock(template);
   };
 }
 
@@ -145,8 +153,9 @@ export function mockApi(Mock: any, schema: ApiSchema) {
   }
 }
 
-export function mockCleanup() {
+export function mockCleanup(global: any = window) {
   // 清除已设置的模拟数据配置
+  const Mock = getMock(global);
   if (Mock) {
     (Mock as any)._mocked = {};
   }

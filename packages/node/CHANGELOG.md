@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.10.1](https://gitee.com/newgateway/vtj/compare/@vtj/node@0.10.0...@vtj/node@0.10.1) (2025-02-25)
+
+**Note:** Version bump only for package @vtj/node
+
+
+
+
+
+# [0.10.0](https://gitee.com/newgateway/vtj/compare/@vtj/node@0.9.6...@vtj/node@0.10.0) (2025-02-19)
+
+
+### Features
+
+* ✨ @vtj/parser ([ebb0807](https://gitee.com/newgateway/vtj/commits/ebb08075377a7a0f960e2dabe1e014df37457d5d))
+* ✨ 更新依赖 ([096a58b](https://gitee.com/newgateway/vtj/commits/096a58bc912583b89967553fde05850332d4e984))
+
+
+
+
+
 ## [0.9.6](https://gitee.com/newgateway/vtj/compare/@vtj/node@0.9.5...@vtj/node@0.9.6) (2025-01-06)
 
 **Note:** Version bump only for package @vtj/node

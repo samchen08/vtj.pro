@@ -2,7 +2,8 @@ import {
   type BlockSchema,
   type MaterialDescription,
   type Dependencie,
-  type PageFile
+  type PageFile,
+  type PlatformType
 } from '@vtj/core';
 import { cloneDeep } from '@vtj/base';
 import {
@@ -27,10 +28,11 @@ export async function generator(
   dsl: BlockSchema,
   componentMap: Map<string, MaterialDescription> = new Map(),
   dependencies: Dependencie[] = [],
+  platform: PlatformType = 'web',
   formatterDisabled?: boolean
 ) {
   const collecter = new Collecter(cloneDeep(dsl), dependencies);
-  const token = parser(collecter, componentMap);
+  const token = parser(collecter, componentMap, platform);
   const script = scriptCompiled(token);
   const vue = vueCompiled({
     template: token.template,

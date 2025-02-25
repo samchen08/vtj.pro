@@ -68,8 +68,9 @@ export function useTemplates() {
   });
 
   const refreshTemplates = () => {
+    const project = engine.project.value;
     loading.value = true;
-    getTemplates()
+    getTemplates(project?.platform)
       .then((res) => {
         templates.value = res;
       })

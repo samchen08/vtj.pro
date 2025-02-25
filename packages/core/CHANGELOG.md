@@ -3,6 +3,99 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.10.1](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.10.1-alpha.7...@vtj/core@0.10.1) (2025-02-25)
+
+**Note:** Version bump only for package @vtj/core
+
+
+
+
+
+## [0.10.1-alpha.7](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.10.1-alpha.6...@vtj/core@0.10.1-alpha.7) (2025-02-25)
+
+**Note:** Version bump only for package @vtj/core
+
+
+
+
+
+## [0.10.1-alpha.6](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.10.1-alpha.5...@vtj/core@0.10.1-alpha.6) (2025-02-24)
+
+**Note:** Version bump only for package @vtj/core
+
+
+
+
+
+## [0.10.1-alpha.5](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.10.1-alpha.4...@vtj/core@0.10.1-alpha.5) (2025-02-24)
+
+**Note:** Version bump only for package @vtj/core
+
+
+
+
+
+## [0.10.1-alpha.4](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.10.1-alpha.3...@vtj/core@0.10.1-alpha.4) (2025-02-24)
+
+**Note:** Version bump only for package @vtj/core
+
+
+
+
+
+## [0.10.1-alpha.3](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.10.1-alpha.2...@vtj/core@0.10.1-alpha.3) (2025-02-22)
+
+**Note:** Version bump only for package @vtj/core
+
+
+
+
+
+## [0.10.1-alpha.2](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.10.1-alpha.1...@vtj/core@0.10.1-alpha.2) (2025-02-22)
+
+**Note:** Version bump only for package @vtj/core
+
+
+
+
+
+## [0.10.1-alpha.1](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.10.1-alpha.0...@vtj/core@0.10.1-alpha.1) (2025-02-20)
+
+**Note:** Version bump only for package @vtj/core
+
+
+
+
+
+## [0.10.1-alpha.0](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.10.0...@vtj/core@0.10.1-alpha.0) (2025-02-19)
+
+**Note:** Version bump only for package @vtj/core
+
+
+
+
+
+# [0.10.0](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.9.30...@vtj/core@0.10.0) (2025-02-19)
+
+
+### Bug Fixes
+
+* 🐛 uniapp saveProject update pages.json ([99844ad](https://gitee.com/newgateway/vtj/commits/99844ad6fd285c7424dd56eb7006e496cec09d92))
+
+
+### Features
+
+* ✨ local init uniapp project config ([63c665a](https://gitee.com/newgateway/vtj/commits/63c665a120fdfb5ccfd9df73356ec4d87dd001a3))
+* ✨ uni deps ([3c05124](https://gitee.com/newgateway/vtj/commits/3c0512437948a3d640503d15c90b83a471708ca2))
+* ✨ uniapp 支持全局css ([18fb654](https://gitee.com/newgateway/vtj/commits/18fb654e13691b7226b77b6b93379b876d2089a2))
+* ✨ uniapp page setting ([4946b16](https://gitee.com/newgateway/vtj/commits/4946b16a374781dd7af9c8aad8f64062c9e5425d))
+* ✨ uniapp project schema ([684a79b](https://gitee.com/newgateway/vtj/commits/684a79b8eb63aeef480538c0fe77e7b551684727))
+* ✨ uniapp uniconfig 协议 ([7f5790b](https://gitee.com/newgateway/vtj/commits/7f5790be80d840ef0735a45034b7edcd4265c76c))
+
+
+
+
+
 ## [0.9.30](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.9.29...@vtj/core@0.9.30) (2025-02-18)
 
 **Note:** Version bump only for package @vtj/core

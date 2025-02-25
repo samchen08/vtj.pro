@@ -1,6 +1,3 @@
 {
-  "recommendations": [
-    "vue.volar",
-    "uni-helper.uni-helper-vscode"
-  ]
+  "recommendations": ["vue.volar"]
 }

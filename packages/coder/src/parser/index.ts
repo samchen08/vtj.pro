@@ -1,4 +1,4 @@
-import { type MaterialDescription } from '@vtj/core';
+import { type MaterialDescription, type PlatformType } from '@vtj/core';
 import { Collecter } from '../collecter';
 import { parseState } from './state';
 import { parseInject } from './inject';
@@ -11,6 +11,7 @@ import { parseTemplate } from './template';
 import { parseImports } from './imports';
 import { parseStyle } from './style';
 import { parseBlockPlugins, parseUrlSchemas } from './defines';
+import { skipUniComponents } from '../utils';
 
 export interface Token {
   id: string;
@@ -34,10 +35,13 @@ export interface Token {
   urlSchemas: string;
   blockPlugins: string;
   asyncComponents: string;
+  uniComponents: string[];
 }
+
 export function parser(
   collecter: Collecter,
-  componentMap: Map<string, MaterialDescription>
+  componentMap: Map<string, MaterialDescription>,
+  platform: PlatformType = 'web'
 ): Token {
   const { dsl } = collecter;
   const computedKeys = Object.keys(dsl.computed || {});
@@ -67,11 +71,12 @@ export function parser(
     return `import ${n.name} from './${n.id}.vue';`;
   });
 
-  const imports = parseImports(
+  let { imports, uniComponents } = parseImports(
     componentMap,
     components,
     blocksImport,
-    collecter.imports
+    collecter.imports,
+    platform
   );
 
   const asyncComponents = Object.keys({
@@ -100,7 +105,7 @@ export function parser(
     computed: mergeComputed.join(','),
     methods: [...dataSources, ...mergeMethods].join(','),
     imports: '\n' + imports.join('\n'),
-    components: components.join(','),
+    components: skipUniComponents(components, uniComponents).join(','),
     directives: directives.join(','),
     returns: collecter.members.join(','),
     template: nodes.join('\n'),
@@ -108,6 +113,7 @@ export function parser(
     style: parseStyle(collecter.style),
     urlSchemas: urlSchemas.join('\n'),
     blockPlugins: blockPlugins.join('\n'),
-    asyncComponents: asyncComponents.join(',')
+    asyncComponents: asyncComponents.join(','),
+    uniComponents
   };
 }

@@ -1,6 +1,5 @@
 import {
   createApp,
-  onMounted,
   onUnmounted,
   unref,
   inject,
@@ -48,8 +47,9 @@ import {
   type ProvideAdapter
 } from '@vtj/renderer';
 import { logger } from '@vtj/utils';
+
 import { SkeletonWrapper, type SkeletonWrapperInstance } from '../wrappers';
-import { depsManager } from '../managers';
+import { depsManager, widgetManager } from '../managers';
 import { Simulator } from './simulator';
 import { Assets } from './assets';
 import { message } from '../utils';
@@ -68,6 +68,7 @@ export interface EngineOptions {
   adapter?: ProvideAdapter;
   install?: (app: App, engine?: Engine) => void;
   pageBasePath?: string;
+  pageRouteName?: string;
 }
 
 export const SAVE_BLOCK_FILE_FINISH = 'SAVE_BLOCK_FILE_FINISH';
@@ -101,6 +102,7 @@ export class Engine extends Base {
       dependencies,
       materials,
       materialPath = './',
+      pageRouteName,
       adapter,
       install
     } = this.options;
@@ -116,6 +118,7 @@ export class Engine extends Base {
       materials,
       materialPath,
       adapter,
+      pageRouteName,
       install
     });
     this.assets = new Assets(this.service, this.provider);
@@ -125,8 +128,7 @@ export class Engine extends Base {
     });
 
     this.bindEvents();
-    this.init(project as ProjectSchema);
-    onMounted(this.render.bind(this));
+    this.init(project as ProjectSchema).then(this.render.bind(this));
     onUnmounted(this.dispose.bind(this));
   }
   private async init(project: ProjectSchema) {
@@ -135,10 +137,13 @@ export class Engine extends Base {
       return null;
     });
     if (dsl) {
-      dsl.dependencies = depsManager.merge(
-        dsl.dependencies || [],
-        dsl.platform
-      );
+      const platform = dsl.platform || 'web';
+      if (platform === 'uniapp') {
+        widgetManager.set('UniConfig', {
+          invisible: false
+        });
+      }
+      dsl.dependencies = depsManager.merge(dsl.dependencies || [], platform);
       this.project.value = new ProjectModel(dsl);
       this.saveMaterials();
       this.triggerReady();
@@ -232,7 +237,7 @@ export class Engine extends Base {
   private async saveProject(e: ProjectModelEvent) {
     const project = e.model;
     const dsl = project.toDsl();
-    await this.service.saveProject(dsl);
+    await this.service.saveProject(dsl, e.type);
     triggerRef(this.project);
   }
 

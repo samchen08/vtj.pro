@@ -3,6 +3,90 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.10.1](https://gitee.com/newgateway/vtj/compare/@vtj/charts@0.10.1-alpha.7...@vtj/charts@0.10.1) (2025-02-25)
+
+**Note:** Version bump only for package @vtj/charts
+
+
+
+
+
+## [0.10.1-alpha.7](https://gitee.com/newgateway/vtj/compare/@vtj/charts@0.10.1-alpha.6...@vtj/charts@0.10.1-alpha.7) (2025-02-25)
+
+**Note:** Version bump only for package @vtj/charts
+
+
+
+
+
+## [0.10.1-alpha.6](https://gitee.com/newgateway/vtj/compare/@vtj/charts@0.10.1-alpha.5...@vtj/charts@0.10.1-alpha.6) (2025-02-24)
+
+**Note:** Version bump only for package @vtj/charts
+
+
+
+
+
+## [0.10.1-alpha.5](https://gitee.com/newgateway/vtj/compare/@vtj/charts@0.10.1-alpha.4...@vtj/charts@0.10.1-alpha.5) (2025-02-24)
+
+**Note:** Version bump only for package @vtj/charts
+
+
+
+
+
+## [0.10.1-alpha.4](https://gitee.com/newgateway/vtj/compare/@vtj/charts@0.10.1-alpha.3...@vtj/charts@0.10.1-alpha.4) (2025-02-24)
+
+**Note:** Version bump only for package @vtj/charts
+
+
+
+
+
+## [0.10.1-alpha.3](https://gitee.com/newgateway/vtj/compare/@vtj/charts@0.10.1-alpha.2...@vtj/charts@0.10.1-alpha.3) (2025-02-22)
+
+**Note:** Version bump only for package @vtj/charts
+
+
+
+
+
+## [0.10.1-alpha.2](https://gitee.com/newgateway/vtj/compare/@vtj/charts@0.10.1-alpha.1...@vtj/charts@0.10.1-alpha.2) (2025-02-22)
+
+**Note:** Version bump only for package @vtj/charts
+
+
+
+
+
+## [0.10.1-alpha.1](https://gitee.com/newgateway/vtj/compare/@vtj/charts@0.10.1-alpha.0...@vtj/charts@0.10.1-alpha.1) (2025-02-20)
+
+**Note:** Version bump only for package @vtj/charts
+
+
+
+
+
+## [0.10.1-alpha.0](https://gitee.com/newgateway/vtj/compare/@vtj/charts@0.10.0...@vtj/charts@0.10.1-alpha.0) (2025-02-19)
+
+**Note:** Version bump only for package @vtj/charts
+
+
+
+
+
+# [0.10.0](https://gitee.com/newgateway/vtj/compare/@vtj/charts@0.9.30...@vtj/charts@0.10.0) (2025-02-19)
+
+
+### Features
+
+* ✨ 更新依赖 ([096a58b](https://gitee.com/newgateway/vtj/commits/096a58bc912583b89967553fde05850332d4e984))
+* ✨ uniapp project schema ([684a79b](https://gitee.com/newgateway/vtj/commits/684a79b8eb63aeef480538c0fe77e7b551684727))
+
+
+
+
+
 ## [0.9.30](https://gitee.com/newgateway/vtj/compare/@vtj/charts@0.9.29...@vtj/charts@0.9.30) (2025-02-18)
 
 **Note:** Version bump only for package @vtj/charts

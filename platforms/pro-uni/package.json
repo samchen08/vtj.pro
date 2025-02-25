@@ -1,0 +1,29 @@
+{
+  "name": "@vtj/pro-uni",
+  "description": "VTJ.PRO",
+  "private": true,
+  "version": "0.10.1",
+  "type": "module",
+  "scripts": {
+    "dev": "cross-env ENV_TYPE=local vite",
+    "build": "vue-tsc && cross-env ENV_TYPE=live vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@vtj/uni-app": "workspace:~",
+    "@vtj/utils": "workspace:~"
+  },
+  "devDependencies": {
+    "@vtj/cli": "workspace:~",
+    "vue": "~3.5.5",
+    "vue-router": "~4.5.0"
+  },
+  "files": [
+    "dist",
+    "src"
+  ],
+  "gitHead": "d03843144f07c2d98c1e0c72c8c6eb1117c01722",
+  "publishConfig": {
+    "access": "public"
+  }
+}
