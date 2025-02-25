@@ -39,14 +39,20 @@ export class UniRepository {
       if (page.id === project.homepage) {
         json.unshift({
           path: `pages/${page.id}`,
-          style: page.style || {},
+          style: Object.assign(
+            { navigationBarTitleText: page.title },
+            page.style || {}
+          ),
           needLogin: page.needLogin,
           vtj: true
         });
       } else {
         json.push({
           path: `pages/${page.id}`,
-          style: page.style || {},
+          style: Object.assign(
+            { navigationBarTitleText: page.title },
+            page.style || {}
+          ),
           needLogin: page.needLogin,
           vtj: true
         });

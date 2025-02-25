@@ -1,8 +1,10 @@
 {
   "pages": [
     {
-      "path": "pages/45tgdx01t",
-      "style": {},
+      "path": "pages/45ti8unnk",
+      "style": {
+        "navigationBarTitleText": "我的标题"
+      },
       "needLogin": false,
       "vtj": true
     },

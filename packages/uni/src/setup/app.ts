@@ -25,6 +25,9 @@ export function setupUniApp(options: SetupUniAppOptions) {
     window,
     css = ''
   } = opts;
+  if (!UniH5) {
+    return Vue.createApp(App);
+  }
   const { plugin, setupApp } = UniH5;
   injectUniFeatures(opts, window);
   injectUniConfig(opts, window);

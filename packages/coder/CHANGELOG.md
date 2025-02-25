@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.10.2](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.10.1...@vtj/coder@0.10.2) (2025-02-25)
+
+
+### Bug Fixes
+
+* 🐛 修复 img input 无结束符的标签出码错误 ([10569c0](https://gitee.com/newgateway/vtj/commits/10569c0f09d22afd7b217911db48d2dcb1346460))
+
+
+
+
+
+## [0.10.1](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.10.1-alpha.7...@vtj/coder@0.10.1) (2025-02-25)
+
+**Note:** Version bump only for package @vtj/coder
+
+
+
+
+
 ## [0.10.1-alpha.7](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.10.1-alpha.6...@vtj/coder@0.10.1-alpha.7) (2025-02-25)
 
 **Note:** Version bump only for package @vtj/coder

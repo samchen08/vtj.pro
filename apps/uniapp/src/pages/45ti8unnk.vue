@@ -6,14 +6,9 @@
   export default defineComponent({
     name: 'Aaa',
     setup(props) {
-      const provider = useProvider({ id: '45tgdx01t', version: '1740378221433' });
+      const provider = useProvider({ id: '45ti8unnk', version: '1740490396480' });
       const state = reactive<Record<string, any>>({});
       return { state, props, provider };
-    },
-    onLoad() {
-      uni.showModal({
-        content: '提示内容'
-      });
     }
   });
 </script>

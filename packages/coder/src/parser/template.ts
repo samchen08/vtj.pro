@@ -25,6 +25,23 @@ import {
   isJSCode
 } from '../utils';
 
+export const NO_END_TAGS = [
+  'img',
+  'input',
+  'br',
+  'hr',
+  'area',
+  'base',
+  'col',
+  'embed',
+  'link',
+  'meta',
+  'param',
+  'source',
+  'track',
+  'wbr'
+];
+
 /**
  * 内置指令
  */
@@ -110,8 +127,8 @@ export function parseTemplate(
           ? 'component'
           : name;
       contents.push(
-        name === 'img'
-          ? `<${name} ${directives} ${props} ${events} />`
+        NO_END_TAGS.includes(tagName)
+          ? `<${tagName} ${directives} ${props} ${events} />`
           : `<${tagName} ${directives} ${props} ${events}>${childContent ? '\n' + childContent.trim() : ''}</${tagName}>`
       );
     }
