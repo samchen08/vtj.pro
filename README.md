@@ -93,7 +93,7 @@ npm run setup && npm run build && npm run app:dev
 
 ## 技术交流
 
-钉钉群、 微信群
+钉钉群、 微信群(加好友，拉进群，备注：vtj)
 
 <table border="0">
 <tr><td><img src="./dingtalk.png" /></td><td><img src="./wechat.png" width="" /></td></tr></table>
