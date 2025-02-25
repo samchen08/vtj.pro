@@ -6,6 +6,13 @@
   "description": "VTJ",
   "glyphs": [
     {
+      "icon_id": "38515399",
+      "name": "uniapp",
+      "font_class": "uniapp",
+      "unicode": "e6af",
+      "unicode_decimal": 59055
+    },
+    {
       "icon_id": "6815275",
       "name": "窗体-窗口化-细",
       "font_class": "window-max",

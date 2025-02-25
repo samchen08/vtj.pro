@@ -1,5 +1,5 @@
 import { jsonp } from '@vtj/utils';
-import type { BlockSchema } from '@vtj/core';
+import type { BlockSchema, PlatformType } from '@vtj/core';
 import { useEngine } from '../../framework';
 
 export interface PublishTemplateDto {
@@ -9,6 +9,7 @@ export interface PublishTemplateDto {
   cover: Blob;
   share: boolean;
   version: string;
+  platform: string;
   latest?: string;
   dsl: string;
   id?: string;
@@ -25,6 +26,7 @@ export interface TemplateDto {
   userId: string;
   category: string;
   latest: string;
+  platform: string;
 }
 
 export function useOpenApi() {
@@ -37,7 +39,12 @@ export function useOpenApi() {
       const { auth = '/auth.html' } = access.options;
       const { protocol, host, pathname } = location;
       const clientUrl = `${protocol}//${host}${pathname}#/auth?redirect=${redirect}`;
-      location.href = `${remote}${auth}?r=${encodeURIComponent(clientUrl)}`;
+      if (typeof auth === 'string') {
+        const href = auth.startsWith('/') ? `${remote}${auth}` : auth;
+        location.href = `${href}?r=${encodeURIComponent(clientUrl)}`;
+      } else {
+        auth(location.search);
+      }
     }
   };
 
@@ -54,10 +61,12 @@ export function useOpenApi() {
     return false;
   };
 
-  const getTemplates = async () => {
+  const getTemplates = async (platform: PlatformType = 'web') => {
     const api = `${remote}/api/open/templates`;
     const token = access?.getData()?.token;
-    const res = await jsonp(api, { query: token ? { token } : {} });
+    const res = await jsonp(api, {
+      query: token ? { platform, token } : { platform }
+    });
     return (res?.data || []) as TemplateDto[];
   };
 

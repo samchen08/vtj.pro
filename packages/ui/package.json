@@ -1,7 +1,7 @@
 {
   "name": "@vtj/ui",
   "private": false,
-  "version": "0.9.30",
+  "version": "0.10.1-alpha.7",
   "type": "module",
   "scripts": {
     "build": "vue-tsc && vite build && npm run build:umd",
@@ -16,7 +16,7 @@
   "dependencies": {
     "@vtj/icons": "workspace:~",
     "@vtj/utils": "workspace:~",
-    "@vueuse/core": "~12.2.0",
+    "@vueuse/core": "~12.5.0",
     "element-plus": "~2.9.1",
     "sortablejs": "~1.15.6",
     "vxe-table": "~4.6.17",

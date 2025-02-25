@@ -123,4 +123,14 @@ export interface PageFile extends BlockFile {
    * 路由元信息
    */
   meta?: Record<string, any>;
+
+  /**
+   * 是否需要登录才可访问, UniApp 专用
+   */
+  needLogin?: boolean;
+
+  /**
+   * 配置页面窗口表现，UniApp专用。 配置项参考下方 https://uniapp.dcloud.net.cn/collocation/pages.html#style
+   */
+  style?: Record<string, any>;
 }

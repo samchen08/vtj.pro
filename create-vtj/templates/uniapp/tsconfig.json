@@ -4,17 +4,12 @@
     "allowJs": true,
     "baseUrl": ".",
     "paths": {
-      "@/*": [
-        "./src/*"
-      ]
+      "@/*": ["./src/*"]
     },
-    "lib": [
-      "esnext"
-    ],
+    "lib": ["esnext"],
     "types": [
       "node",
       "@dcloudio/types",
-      "miniprogram-api-typings",
       "@uni-helper/uni-app-types",
       "@uni-helper/uni-ui-types"
     ]
@@ -27,10 +22,6 @@
     "src/**/*.vue"
   ],
   "vueCompilerOptions": {
-    "nativeTags": [
-      "component",
-      "template",
-      "slot"
-    ]
+    "nativeTags": ["component", "template", "slot"]
   }
 }

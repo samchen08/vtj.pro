@@ -97,3 +97,13 @@ export function isBuiltInTag(tag: string) {
 export function isNativeTag(tag: string) {
   return HTML_TAGS.includes(tag);
 }
+
+export function getMock(global: any = window) {
+  const cache = (window as any).Mock;
+  if (cache) return cache;
+  const Mock = global.Mock;
+  if (Mock) {
+    (window as any).Mock = Mock;
+    return Mock;
+  }
+}

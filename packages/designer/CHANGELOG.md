@@ -3,6 +3,130 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.10.1-alpha.7](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.10.1-alpha.6...@vtj/designer@0.10.1-alpha.7) (2025-02-25)
+
+
+### Bug Fixes
+
+* 🐛 uni-ui ([eb90a85](https://gitee.com/newgateway/vtj/commits/eb90a85ed74658162ddf1c08eca746663ee7793a))
+
+
+### Features
+
+* ✨ template 支持按platfrom查询 ([d48f7a6](https://gitee.com/newgateway/vtj/commits/d48f7a6274bfd4def7f7ef5d3575bdd46d4c8cee))
+
+
+
+
+
+## [0.10.1-alpha.6](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.10.1-alpha.5...@vtj/designer@0.10.1-alpha.6) (2025-02-24)
+
+**Note:** Version bump only for package @vtj/designer
+
+
+
+
+
+## [0.10.1-alpha.5](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.10.1-alpha.4...@vtj/designer@0.10.1-alpha.5) (2025-02-24)
+
+**Note:** Version bump only for package @vtj/designer
+
+
+
+
+
+## [0.10.1-alpha.4](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.10.1-alpha.3...@vtj/designer@0.10.1-alpha.4) (2025-02-24)
+
+
+### Bug Fixes
+
+* 🐛 uniapp mock ([1cf64a8](https://gitee.com/newgateway/vtj/commits/1cf64a88b69336c59db9233dbc24bf31ccdc4ecd))
+
+
+
+
+
+## [0.10.1-alpha.3](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.10.1-alpha.2...@vtj/designer@0.10.1-alpha.3) (2025-02-22)
+
+
+### Features
+
+* ✨ engine add pageRouteName option ([9c5aa80](https://gitee.com/newgateway/vtj/commits/9c5aa80b67bcd7127c9f5c569be49b00069b13b5))
+
+
+
+
+
+## [0.10.1-alpha.2](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.10.1-alpha.1...@vtj/designer@0.10.1-alpha.2) (2025-02-22)
+
+
+### Bug Fixes
+
+* 🐛 修复TS报错 ([e91fd22](https://gitee.com/newgateway/vtj/commits/e91fd2207c9e5fce9d70aff53aa960731c28d6fa))
+* 🐛 components group tab ([48b6529](https://gitee.com/newgateway/vtj/commits/48b65297ca1b78c6beac588bee036cac11444e66))
+* 🐛 ide access auth ([f259285](https://gitee.com/newgateway/vtj/commits/f25928584898144848f2781e6876a49b7a44c0d6))
+
+
+### Features
+
+* ✨ 模板管理添加tab ([8b0d71a](https://gitee.com/newgateway/vtj/commits/8b0d71ae78a24ce7d4f209a9665c11ace53bc668))
+* ✨ mock改为依赖控制开启 ([6d01e1a](https://gitee.com/newgateway/vtj/commits/6d01e1aa59c7a6b2b7127b136fd8fdd829e5f976))
+
+
+
+
+
+## [0.10.1-alpha.1](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.10.1-alpha.0...@vtj/designer@0.10.1-alpha.1) (2025-02-20)
+
+
+### Features
+
+* ✨ uni-ui 物料 ([a959e45](https://gitee.com/newgateway/vtj/commits/a959e4528930d3b9aa3cd8b2bbeb89c2527d9be2))
+* ✨ uniapp 支持 uni-ui ([1ee244c](https://gitee.com/newgateway/vtj/commits/1ee244cd04b300c2bd7e84579ea01e4ec98169b8))
+
+
+
+
+
+## [0.10.1-alpha.0](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.10.0...@vtj/designer@0.10.1-alpha.0) (2025-02-19)
+
+
+### Bug Fixes
+
+* 🐛 merge dependencies ([a014620](https://gitee.com/newgateway/vtj/commits/a014620aea23a0bcf8a5dca306dc6f799ef8396e))
+
+
+
+
+
+# [0.10.0](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.9.30...@vtj/designer@0.10.0) (2025-02-19)
+
+
+### Bug Fixes
+
+* 🐛 uniapp coder ([960bc99](https://gitee.com/newgateway/vtj/commits/960bc99553045131ce609293a66c799918e3c5bb))
+* 🐛 uniapp saveProject update pages.json ([99844ad](https://gitee.com/newgateway/vtj/commits/99844ad6fd285c7424dd56eb7006e496cec09d92))
+* 🐛 uniapp tabBar ([45a05d4](https://gitee.com/newgateway/vtj/commits/45a05d49d53645aaddb7a841b23b961e5337c3f9))
+
+
+### Features
+
+* ✨ 重构设计器刷新功能 ([e028015](https://gitee.com/newgateway/vtj/commits/e028015e192c34b4ef5013418509126b2e7c36a9))
+* ✨ local init uniapp project config ([63c665a](https://gitee.com/newgateway/vtj/commits/63c665a120fdfb5ccfd9df73356ec4d87dd001a3))
+* ✨ temp save ([0dd3c2e](https://gitee.com/newgateway/vtj/commits/0dd3c2e3fabf5f490ea3d01353cd9f185cce0455))
+* ✨ uni deps ([3c05124](https://gitee.com/newgateway/vtj/commits/3c0512437948a3d640503d15c90b83a471708ca2))
+* ✨ uni生命周期 ([b2e1f6a](https://gitee.com/newgateway/vtj/commits/b2e1f6a65d6e5a093f6836ce6b91759dcea73137))
+* ✨ uniapp 页面预览 ([16075f6](https://gitee.com/newgateway/vtj/commits/16075f6469f2e5790fe73ed7263b855fa8e4dd1d))
+* ✨ uniapp 预览工程 ([262e4e2](https://gitee.com/newgateway/vtj/commits/262e4e2080bd46945655148645eebb91f441b590))
+* ✨ uniapp 支持全局css ([18fb654](https://gitee.com/newgateway/vtj/commits/18fb654e13691b7226b77b6b93379b876d2089a2))
+* ✨ uniapp coder ([5e961d2](https://gitee.com/newgateway/vtj/commits/5e961d2154bcce1bfefef8d054878df13aa706c8))
+* ✨ uniapp page setting ([4946b16](https://gitee.com/newgateway/vtj/commits/4946b16a374781dd7af9c8aad8f64062c9e5425d))
+* ✨ uniapp uniconfig 协议 ([7f5790b](https://gitee.com/newgateway/vtj/commits/7f5790be80d840ef0735a45034b7edcd4265c76c))
+
+
+
+
+
 ## [0.9.30](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.9.29...@vtj/designer@0.9.30) (2025-02-18)
 
 **Note:** Version bump only for package @vtj/designer

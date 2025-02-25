@@ -1,7 +1,7 @@
 {
   "name": "@vtj/designer",
   "private": false,
-  "version": "0.9.30",
+  "version": "0.10.1-alpha.7",
   "type": "module",
   "scripts": {
     "build": "vue-tsc && vite build",
@@ -14,6 +14,7 @@
     "@vtj/icons": "workspace:~",
     "@vtj/renderer": "workspace:~",
     "@vtj/ui": "workspace:~",
+    "@vtj/uni": "workspace:~",
     "@vtj/utils": "workspace:~",
     "html2canvas": "~1.4.1",
     "mockjs": "~1.1.0",

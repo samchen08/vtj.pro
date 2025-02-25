@@ -99,13 +99,13 @@
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    font-size: 16px;
+    font-size: 14px;
     color: var(--el-text-color-placeholder);
     opacity: 0.6;
     pointer-events: none;
   }
 
-  @include e(outline-lines){
+  @include e(outline-lines) {
     pointer-events: none;
     > div {
       position: absolute;
@@ -114,8 +114,6 @@
     }
   }
 }
-
-
 
 @include b(actions) {
   position: absolute;

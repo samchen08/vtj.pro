@@ -1,7 +1,7 @@
 {
   "name": "@vtj/renderer",
   "private": false,
-  "version": "0.9.30",
+  "version": "0.10.1-alpha.7",
   "type": "module",
   "scripts": {
     "build": "vue-tsc && vite build",
@@ -11,8 +11,7 @@
   },
   "dependencies": {
     "@vtj/core": "workspace:~",
-    "@vtj/utils": "workspace:~",
-    "mockjs": "~1.1.0"
+    "@vtj/utils": "workspace:~"
   },
   "devDependencies": {
     "@vtj/cli": "workspace:~",

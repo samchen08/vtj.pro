@@ -102,7 +102,7 @@ export interface ExtensionConfig {
   /**
    * 适配类个性参数配置
    */
-  __adapters__: Record<string, any>;
+  __adapters__?: Record<string, any>;
 }
 
 /**

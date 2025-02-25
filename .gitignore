@@ -65,7 +65,17 @@ package-lock.json
 # pro
 /platforms/pro/public/@vtj
 /platforms/pro/public/extension
+/platforms/pro/src/vtj
+/platforms/pro/src/pages/*
+/platforms/pro/src/App.vue
+/platforms/pro/src/pages.json
+/platforms/pro/src/manifest.json
 
+# uniapp
+/apps/uniapp/src/vtj
 
 /scripts/ssh.mjs
 /pnpm-publish-summary.json
+
+# materials
+!/packages/materials/src/uni-ui/lib

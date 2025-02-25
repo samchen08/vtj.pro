@@ -113,7 +113,12 @@ export class Collecter {
 
   private getLibraryMember(components: string[] = []) {
     let array: string[] = [...components];
-    for (const set of Object.values(this.imports)) {
+    const imports = { ...this.imports };
+    delete imports['uni-h5'];
+    delete imports['@dcloudio/uni-h5'];
+    delete imports['uni-ui'];
+    delete imports['@dcloudio/uni-ui'];
+    for (const set of Object.values(imports)) {
       array = array.concat(Array.from(set));
     }
     return dedupArray(array);

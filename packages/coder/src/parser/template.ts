@@ -102,8 +102,13 @@ export function parseTemplate(
         importBlocks = importBlocks.concat(nodeChildren?.importBlocks || []);
       }
 
-      const tagName =
-        isFromUrlSchema(from) || isFromPlugin(from) ? 'component' : name;
+      const tagName = ['@dcloudio/uni-h5', '@dcloudio/uni-ui'].includes(
+        from as string
+      )
+        ? kebabCase(name)
+        : isFromUrlSchema(from) || isFromPlugin(from)
+          ? 'component'
+          : name;
       contents.push(
         name === 'img'
           ? `<${name} ${directives} ${props} ${events} />`

@@ -66,7 +66,9 @@ const script = `
     valueEl.style.width = (current * 100 / total) + '%';
     if(!total || current === total) {
       setTimeout(function() {
-         loading.parentNode.removeChild(loading);
+         if(loading.parentNode){
+           loading.parentNode.removeChild(loading);
+         }
          loading = null;
          countEl = null;
          valueEl = null;

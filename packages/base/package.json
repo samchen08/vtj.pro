@@ -1,7 +1,7 @@
 {
   "name": "@vtj/base",
   "private": false,
-  "version": "0.9.5",
+  "version": "0.10.0",
   "type": "module",
   "scripts": {
     "build": "unbuild && npm run dts",
@@ -25,8 +25,7 @@
     "mitt": "~3.0.1",
     "numeral": "~2.0.6",
     "path-to-regexp": "~6.2.1",
-    "unbuild": "~2.0.0",
-    "vitest": "~2.1.1"
+    "unbuild": "~2.0.0"
   },
   "exports": {
     ".": {

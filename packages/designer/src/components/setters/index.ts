@@ -15,6 +15,7 @@ import SectionSetter from './section.vue';
 import SliderSetter from './slider.vue';
 import FileSetter from './file.vue';
 import VanIconSetter from './vanIcon/index.vue';
+import CssSetter from './css.vue';
 
 export const setters = {
   StringSetter,
@@ -33,5 +34,6 @@ export const setters = {
   SectionSetter,
   SliderSetter,
   FileSetter,
-  VanIconSetter
+  VanIconSetter,
+  CssSetter
 };

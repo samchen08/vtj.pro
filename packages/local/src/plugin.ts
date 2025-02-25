@@ -170,6 +170,10 @@ const aliasPlugin = function (options: DevToolsOptions): Plugin {
                 packagesDir,
                 'designer/src/style/index.scss'
               ),
+              '@vtj/uni/dist/style.css': join(
+                packagesDir,
+                'uni/src/index.scss'
+              ),
               '@vtj/base': join(packagesDir, 'base/src'),
               '@vtj/utils': join(packagesDir, 'utils/src/index.ts'),
               '@vtj/icons/svg': join(packagesDir, 'icons/dist/svg.ts'),
@@ -179,7 +183,8 @@ const aliasPlugin = function (options: DevToolsOptions): Plugin {
               '@vtj/core': join(packagesDir, 'core/src'),
               '@vtj/designer': join(packagesDir, 'designer/src'),
               '@vtj/renderer': join(packagesDir, 'renderer/src'),
-              '@vtj/coder': join(packagesDir, 'coder/src')
+              '@vtj/coder': join(packagesDir, 'coder/src'),
+              '@vtj/uni': join(packagesDir, 'uni/src')
             }
           : {};
       if (config.resolve) {

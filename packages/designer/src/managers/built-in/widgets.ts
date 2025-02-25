@@ -19,7 +19,8 @@ import {
   VtjIconCategory,
   VtjIconSetting,
   HomeFilled,
-  VtjIconTemplate
+  VtjIconTemplate,
+  VtjIconUniapp
 } from '@vtj/icons';
 import { markRaw } from 'vue';
 
@@ -115,6 +116,16 @@ export const builtInWidgets: Array<AppWidget | TabWidget | Widget> = [
     openType: 'panel',
     icon: VtjIconCategory,
     label: '依赖管理'
+  },
+  {
+    name: 'UniConfig',
+    region: 'Apps',
+    component: widgets.UniConfig,
+    type: 'app',
+    openType: 'panel',
+    icon: VtjIconUniapp,
+    label: 'UniApp配置',
+    invisible: true
   },
   {
     name: 'ProjectConfig',

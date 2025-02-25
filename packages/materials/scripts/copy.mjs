@@ -10,7 +10,6 @@ const files = [
   [packages + 'ui/dist/index.umd.js', 'deps/@vtj/ui/index.umd.js'],
   [packages + 'ui/dist/style.css', 'deps/@vtj/ui/style.css'],
   [packages + 'charts/dist/index.umd.js', 'deps/@vtj/charts/index.umd.js'],
-
   [modules + 'vue/dist/vue.global.prod.js', 'deps/vue/vue.global.prod.js'],
   [modules + 'vue/dist/vue.global.js', 'deps/vue/vue.global.js'],
   [
@@ -74,18 +73,18 @@ const files = [
     modules + 'dayjs/plugin/quarterOfYear.js',
     'deps/ant-design-vue/dayjs/plugin/quarterOfYear.js'
   ],
-  [
-    modules + '@ckeditor/ckeditor5-build-classic/build/ckeditor.js',
-    'deps/@ckeditor/ckeditor5-build-classic/ckeditor.js'
-  ],
-  [
-    modules + '@ckeditor/ckeditor5-build-classic/build/translations/zh-cn.js',
-    'deps/@ckeditor/ckeditor5-build-classic/zh-cn.js'
-  ],
-  [
-    modules + '@ckeditor/ckeditor5-vue/dist/ckeditor.js',
-    'deps/@ckeditor/ckeditor5-vue/ckeditor.js'
-  ],
+  // [
+  //   modules + '@ckeditor/ckeditor5-build-classic/build/ckeditor.js',
+  //   'deps/@ckeditor/ckeditor5-build-classic/ckeditor.js'
+  // ],
+  // [
+  //   modules + '@ckeditor/ckeditor5-build-classic/build/translations/zh-cn.js',
+  //   'deps/@ckeditor/ckeditor5-build-classic/zh-cn.js'
+  // ],
+  // [
+  //   modules + '@ckeditor/ckeditor5-vue/dist/ckeditor.js',
+  //   'deps/@ckeditor/ckeditor5-vue/ckeditor.js'
+  // ],
   [
     modules + 'vxe-table/lib/index.umd.min.js',
     'deps/vxe-table/index.umd.min.js'
@@ -96,7 +95,8 @@ const files = [
     'deps/xe-utils/xe-utils.umd.min.js'
   ],
   [modules + 'vant/lib/vant.min.js', 'deps/vant/vant.min.js'],
-  [modules + 'vant/lib/index.css', 'deps/vant/index.css']
+  [modules + 'vant/lib/index.css', 'deps/vant/index.css'],
+  [modules + 'mockjs/dist/mock-min.js', 'deps/mockjs/mock-min.js']
 ];
 
 function doCopy() {

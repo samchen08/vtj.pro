@@ -7,6 +7,7 @@ import type {
   ApiSchema,
   MetaSchema,
   ProjectConfig,
+  UniConfig,
   PlatformType
 } from '../protocols';
 import { emitter, type ModelEventType } from '../tools';
@@ -80,6 +81,7 @@ export class ProjectModel {
   meta: MetaSchema[] = [];
   currentFile: PageFile | BlockFile | null = null;
   config: ProjectConfig = {};
+  uniConfig: UniConfig = {};
   __BASE_PATH__: string = '/';
   static attrs: string[] = [
     'platform',
@@ -92,6 +94,7 @@ export class ProjectModel {
     'apis',
     'meta',
     'config',
+    'uniConfig',
     '__BASE_PATH__'
   ];
   constructor(schema: ProjectSchema) {
@@ -734,6 +737,22 @@ export class ProjectModel {
         model: this,
         type: 'update',
         data: config
+      };
+      emitter.emit(EVENT_PROJECT_CHANGE, event);
+    }
+  }
+
+  setUniConfig(
+    key: keyof UniConfig,
+    value: Record<string, any>,
+    silent: boolean = false
+  ) {
+    this.uniConfig = Object.assign(this.uniConfig, { [key]: value });
+    if (!silent) {
+      const event: ProjectModelEvent = {
+        model: this,
+        type: 'update',
+        data: this.uniConfig
       };
       emitter.emit(EVENT_PROJECT_CHANGE, event);
     }

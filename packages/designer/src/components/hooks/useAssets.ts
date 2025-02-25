@@ -1,13 +1,30 @@
 import { computed, watchEffect, reactive, ref, watch } from 'vue';
+import { BUILT_IN_NAME } from '@vtj/core';
 import { useEngine, type AssetGroup } from '../../framework';
 
 const getDefaultModelValue = (categories: any[] = []) => {
   return categories.map((n) => n.name);
 };
 
+const mergeUniappToBuiltIn = (groups: AssetGroup[]) => {
+  const index = groups.findIndex((n) => n.name === BUILT_IN_NAME);
+  groups.splice(index, 1);
+};
+
 export function useAssets() {
   const engine = useEngine();
   const { components, groups, componentMap } = engine.assets;
+
+  watch(
+    groups,
+    () => {
+      const { platform = 'web' } = engine.project.value || {};
+      if (platform === 'uniapp') {
+        mergeUniappToBuiltIn(groups.value);
+      }
+    },
+    { immediate: true }
+  );
 
   const model = reactive({} as Record<string, any>);
 

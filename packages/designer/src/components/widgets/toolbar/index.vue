@@ -85,9 +85,15 @@
   const mode = ref('pc');
   const outline = ref(true);
 
-  watch(isWebPlatform, (v) => {
-    mode.value = v ? 'pc' : 'mobile';
-  });
+  watch(
+    isWebPlatform,
+    (v) => {
+      mode.value = v ? 'pc' : 'mobile';
+    },
+    {
+      immediate: true
+    }
+  );
   defineOptions({
     name: 'ToolbarWidget',
     inheritAttrs: false

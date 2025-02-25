@@ -72,6 +72,10 @@ export function expressionValidate(
 
 export function getClassProperties(obj: any) {
   return Object.keys(obj)
-    .concat(Object.getOwnPropertyNames(Object.getPrototypeOf(obj)))
+    .concat(
+      Object.getPrototypeOf(obj)
+        ? Object.getOwnPropertyNames(Object.getPrototypeOf(obj))
+        : []
+    )
     .filter((n) => !['constructor'].includes(n));
 }

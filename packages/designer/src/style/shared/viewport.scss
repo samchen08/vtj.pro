@@ -8,4 +8,12 @@
   top: 0;
   background-color: var(--el-fill-color-dark);
   overflow: hidden;
+  @include when(mobile) {
+    border: 10px solid #444;
+    border-radius: 10px;
+  }
+  @include when(pad) {
+    border: 10px solid #444;
+    border-radius: 10px;
+  }
 }

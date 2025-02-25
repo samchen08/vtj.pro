@@ -36,11 +36,14 @@ const createBabelPlugin = (targets: string[]) => {
 
 export const mergePlugins = (opts: CreateViteConfigOptions) => {
   const plugins: PluginOption[] = [
-    reloadPlugin(),
     envPlugin({ dir: opts.envPath }),
     vue(),
     vueJsx()
   ];
+
+  if (opts.reload) {
+    plugins.push(reloadPlugin());
+  }
 
   if (opts.version) {
     plugins.push(versionPlugin());
