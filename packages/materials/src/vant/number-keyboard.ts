@@ -111,7 +111,8 @@ const NumberKeyboard: MaterialDescription = {
     { name: 'close', params: ['key'] },
     { name: 'blur', params: ['key'] },
     { name: 'show', params: ['key'] },
-    { name: 'hide', params: ['key'] }
+    { name: 'hide', params: ['key'] },
+    { name: 'update:modelValue' }
   ],
   slots: ['delete', 'extra-key', 'title-left'],
   snippet: {

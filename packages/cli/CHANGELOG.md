@@ -3,6 +3,35 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.10.1](https://gitee.com/newgateway/vtj/compare/@vtj/cli@0.10.0...@vtj/cli@0.10.1) (2025-02-25)
+
+**Note:** Version bump only for package @vtj/cli
+
+
+
+
+
+# [0.10.0](https://gitee.com/newgateway/vtj/compare/@vtj/cli@0.9.8...@vtj/cli@0.10.0) (2025-02-19)
+
+
+### Features
+
+* ✨ 更新依赖 ([096a58b](https://gitee.com/newgateway/vtj/commits/096a58bc912583b89967553fde05850332d4e984))
+* ✨ uniapp ([c6718a1](https://gitee.com/newgateway/vtj/commits/c6718a17adf444edf9b29cc36b701ecf39fffd56))
+* ✨ uniapp 预览工程 ([262e4e2](https://gitee.com/newgateway/vtj/commits/262e4e2080bd46945655148645eebb91f441b590))
+
+
+
+
+
+## [0.9.8](https://gitee.com/newgateway/vtj/compare/@vtj/cli@0.9.7...@vtj/cli@0.9.8) (2025-01-14)
+
+**Note:** Version bump only for package @vtj/cli
+
+
+
+
+
 ## [0.9.7](https://gitee.com/newgateway/vtj/compare/@vtj/cli@0.9.6...@vtj/cli@0.9.7) (2025-01-14)
 
 

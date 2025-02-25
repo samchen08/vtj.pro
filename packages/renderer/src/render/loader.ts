@@ -14,6 +14,9 @@ import * as globalVue from 'vue';
 // 已注册的插件名称
 let __plugins__: string[] = [];
 
+// loader 结果缓存
+let __loaders__: Record<string | symbol, any> = {};
+
 export type BlockLoader = (
   name: string,
   from?: NodeFrom,
@@ -64,9 +67,12 @@ export function createLoader(opts: CreateLoaderOptions): BlockLoader {
 
   return (name: string, from?: NodeFrom, Vue: any = globalVue) => {
     if (!from || typeof from === 'string') return name;
-
     if (from.type === 'Schema' && from.id) {
-      return Vue.defineAsyncComponent(async () => {
+      let cache = __loaders__[from.id];
+      if (cache) {
+        return cache;
+      }
+      cache = __loaders__[from.id] = Vue.defineAsyncComponent(async () => {
         const dsl = await getDsl(from.id);
         if (dsl) {
           dsl.name = name;
@@ -81,10 +87,15 @@ export function createLoader(opts: CreateLoaderOptions): BlockLoader {
             }).renderer
           : null;
       });
+      return cache;
     }
 
     if (from.type === 'UrlSchema' && from.url) {
-      return Vue.defineAsyncComponent(async () => {
+      let cache = __loaders__[from.url];
+      if (cache) {
+        return cache;
+      }
+      cache = __loaders__[from.url] = Vue.defineAsyncComponent(async () => {
         const dsl = await getDslByUrl(from.url);
         if (dsl) {
           dsl.name = name;
@@ -99,24 +110,38 @@ export function createLoader(opts: CreateLoaderOptions): BlockLoader {
             }).renderer
           : null;
       });
+      return cache;
     }
 
     if (from.type === 'Plugin') {
+      let cache = from.library ? __loaders__[from.library] : null;
+      if (cache) {
+        return cache;
+      }
+
       // 记录插件名称
       if (from.library) {
         __plugins__.push(from.library);
       }
-      return Vue.defineAsyncComponent(async () => {
-        const plugin = await getPlugin(from, options.window);
-        if (plugin) {
-          return plugin;
-        } else {
-          console.warn('getPlugin result is null', from);
+      cache = __loaders__[from.library || Symbol()] = Vue.defineAsyncComponent(
+        async () => {
+          const plugin = await getPlugin(from, options.window);
+          if (plugin) {
+            return plugin;
+          } else {
+            console.warn('getPlugin result is null', from);
+          }
+          return null;
         }
-        return null;
-      });
+      );
+
+      return cache;
     }
 
     return name;
   };
+}
+
+export function clearLoaderCache() {
+  __loaders__ = {};
 }

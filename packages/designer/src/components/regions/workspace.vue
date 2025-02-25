@@ -12,6 +12,7 @@
       <WidgetWrapper
         ref="widgetsRef"
         v-if="currentTab === widget.name"
+        :key="computedDesignerKey"
         :region="region"
         :widget="{ ...widget, props: openWidgetProps }"></WidgetWrapper>
     </template>
@@ -31,6 +32,8 @@
   const props = defineProps<Props>();
 
   const { widgets, widgetsRef } = useRegion(props.region);
+
+  const designerKey = ref(Symbol());
 
   const items = reactive(
     (widgets.value as TabWidget[]).map((n) => {
@@ -60,6 +63,13 @@
   });
 
   const currentTab = ref(tabs.value[0]?.name);
+
+  const computedDesignerKey = computed(() => {
+    if (currentTab.value === 'Designer') {
+      return designerKey.value;
+    }
+    return;
+  });
 
   const openWidgetProps = computed(() => {
     const item = items.find((n) => n.name === currentTab.value);
@@ -109,6 +119,12 @@
     }
   };
 
+  const reload = () => {
+    if (currentTab.value === 'Designer') {
+      designerKey.value = Symbol();
+    }
+  };
+
   defineOptions({
     name: 'WorkspaceRegion'
   });
@@ -117,6 +133,7 @@
     currentTab,
     widgets,
     widgetsRef,
-    openTab
+    openTab,
+    reload
   });
 </script>

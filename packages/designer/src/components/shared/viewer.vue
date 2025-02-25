@@ -1,38 +1,59 @@
 <template>
   <div class="v-context-viewer">
-    <ElTree
-      v-if="context"
-      lazy
-      :load="load"
-      :expand-on-click-node="false"
-      :props="{ isLeaf }">
-      <template #default="{ data }">
-        <Item
-          :title="data.label"
-          :subtitle="data.type"
-          :subtitle-cls="data.type"
-          clickable
-          @click="onPick(data)"
-          background
-          :actions="['copy']"
-          @action="onCopy(data)"
-          grow
-          small>
-        </Item>
-      </template>
-    </ElTree>
+    <div class="v-context-viewer__body">
+      <ElInput
+        v-model="filterText"
+        size="small"
+        clearable
+        :prefix-icon="Search"
+        placeholder="筛选可用项"></ElInput>
+      <div class="v-context-viewer__tree">
+        <ElDivider border-style="dotted">可用项</ElDivider>
+        <ElTree
+          ref="treeRef"
+          v-if="context"
+          lazy
+          :load="load"
+          :expand-on-click-node="false"
+          :props="{ isLeaf }"
+          :filter-node-method="filterNode">
+          <template #default="{ data }">
+            <Item
+              :title="data.label"
+              :subtitle="data.type"
+              :subtitle-cls="data.type"
+              clickable
+              @click="onPick(data)"
+              background
+              :actions="['copy']"
+              @action="onCopy(data)"
+              grow
+              small>
+            </Item>
+          </template>
+          <template #empty>
+            <ElEmpty class="empty-wrapper"></ElEmpty>
+          </template>
+        </ElTree>
+      </div>
+    </div>
   </div>
 </template>
 <script lang="ts" setup>
-  import { toRaw } from 'vue';
-  import { ElTree } from 'element-plus';
+  import { toRaw, ref, watch } from 'vue';
+  import { ElTree, ElInput, ElEmpty, ElDivider } from 'element-plus';
   import { toRawType } from '@vtj/utils';
   import { type Context } from '@vtj/renderer';
   import Item from './item.vue';
   import { getClassProperties } from '../../utils';
+  import { Search } from '@vtj/icons';
 
   export interface Props {
     context: Context | null;
+  }
+
+  interface Tree {
+    [key: string]: any;
   }
 
   const props = defineProps<Props>();
@@ -42,6 +63,18 @@
   // const context = computed(() => project.current.value?.runtimeContext);
 
   const excludes = ['$provider', '$apis', '$components', 'context'];
+
+  const filterText = ref('');
+  const treeRef = ref<InstanceType<typeof ElTree>>();
+
+  watch(filterText, (val) => {
+    treeRef.value!.filter(val);
+  });
+
+  const filterNode = (value: string, data: Tree) => {
+    if (!value) return true;
+    return data.label.includes(value);
+  };
 
   const isLeaf = (data: any) => {
     const value = data.value;
@@ -104,3 +137,24 @@
     emit('pick', item.path);
   };
 </script>
+
+<style scoped lang="scss">
+  .v-context-viewer {
+    height: 100%;
+    .v-context-viewer__body {
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      height: 100%;
+      .v-context-viewer__tree {
+        flex-grow: 1;
+        overflow-y: scroll;
+        margin-top: 10px;
+        padding-right: 10px;
+      }
+    }
+  }
+  .empty-wrapper {
+    padding-left: 6px;
+  }
+</style>

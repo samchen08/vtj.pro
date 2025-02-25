@@ -12,17 +12,21 @@
       editor="radio"
       :options="typeOptions"
       :props="{ button: true, size: 'small' }"
-      :disabled="!!props.item"
+      :disabled="!!props.item || isUniapp"
+      inline
+      :tip="isUniapp ? `UniApp不支持目录类型` : undefined"
       required></XField>
     <XField v-if="!model.dir && !!props.item" label="路由" disabled>
       <template #editor>
         <ElAlert :closable="false">
-          {{ `${engine.options.pageBasePath || ''}/page/${(model as any).id}` }}
+          {{
+            `${engine.options.pageBasePath || ''}/${pageDir}/${(model as any).id}`
+          }}
           <XIcon
             :icon="CopyDocument"
             @click="
               onCopy(
-                `${engine.options.pageBasePath || ''}/page/${(model as any).id}`
+                `${engine.options.pageBasePath || ''}/${pageDir}/${(model as any).id}`
               )
             "></XIcon>
         </ElAlert>
@@ -33,14 +37,18 @@
       label="名称"
       required
       @change="onNameChange"
-      :rules="{ pattern: NAME_REGEX, message: '名称格式不正确' }"></XField>
+      :rules="{
+        pattern: NAME_REGEX,
+        message: '名称格式不正确，要求英文驼峰格式'
+      }"></XField>
     <XField name="title" label="标题" required></XField>
-    <XField name="icon" label="菜单图标" editor="none">
+    <XField v-if="!isUniapp" name="icon" label="菜单图标" editor="none">
       <template #editor>
         <IconSetter v-model="model.icon" size="default"></IconSetter>
       </template>
     </XField>
     <XField
+      v-if="!isUniapp"
       :visible="{ dir: false }"
       inline
       name="mask"
@@ -50,6 +58,7 @@
       :disabled="!isWebPlatform"></XField>
 
     <XField
+      v-if="!isUniapp"
       name="cache"
       :visible="{ dir: false }"
       inline
@@ -59,6 +68,7 @@
       :disabled="!isWebPlatform"></XField>
 
     <XField
+      v-if="!isUniapp"
       name="hidden"
       inline
       label="隐藏菜单"
@@ -67,6 +77,7 @@
       :disabled="!isWebPlatform"></XField>
 
     <XField
+      v-if="!isUniapp"
       :visible="{ dir: false }"
       inline
       name="pure"
@@ -85,12 +96,36 @@
       tip="页面是非低代码开发，不能在线编辑"></XField>
 
     <XField
+      v-if="!isUniapp"
       :visible="{ dir: false }"
       name="meta"
-      label="路由元信息"
-      label-width="100px">
+      label="路由Meta"
+      label-width="80px">
       <template #editor>
         <Editor dark height="100px" lang="json" v-model="computedMeta"></Editor>
+      </template>
+    </XField>
+
+    <XField
+      v-if="isUniapp"
+      inline
+      name="needLogin"
+      label="needLogin"
+      editor="switch"
+      tip="是否需要登录才可访问"></XField>
+
+    <XField
+      v-if="isUniapp"
+      name="style"
+      label="style"
+      label-width="80px"
+      tip="配置页面窗口表现，配置项参考: https://uniapp.dcloud.net.cn/collocation/pages.html#style">
+      <template #editor>
+        <Editor
+          dark
+          height="250px"
+          lang="json"
+          v-model="computedStyle"></Editor>
       </template>
     </XField>
   </XDialogForm>
@@ -126,6 +161,16 @@
     const { platform = 'web' } = project.value || {};
     return platform === 'web';
   });
+
+  const isUniapp = computed(() => {
+    const { platform = 'web' } = project.value || {};
+    return platform === 'uniapp';
+  });
+
+  const pageDir = computed(() => {
+    return engine.options.pageRouteName || (isUniapp.value ? 'pages' : 'page');
+  });
+
   const createEmptyModel = () => ({
     dir: false,
     name: '',
@@ -134,9 +179,11 @@
     mask: true,
     hidden: false,
     raw: false,
-    pure: true,
+    pure: !isWebPlatform.value,
     meta: null,
-    cache: false
+    cache: false,
+    needLogin: false,
+    style: null
   });
   const model = ref(props.item || createEmptyModel());
   const computedMeta = computed({
@@ -148,6 +195,19 @@
         model.value.meta = JSON.parse(v);
       } catch (e) {
         notify('路由元信息解析出错，必须是JSON格式数据', '运行时错误');
+      }
+    }
+  });
+
+  const computedStyle = computed({
+    get() {
+      return JSON.stringify(model.value.style || {}, null, 4);
+    },
+    set(v) {
+      try {
+        model.value.style = JSON.parse(v);
+      } catch (e) {
+        notify('页面窗口表现配置解析出错，必须是JSON格式数据', '运行时错误');
       }
     }
   });

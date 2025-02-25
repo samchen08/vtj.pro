@@ -33,7 +33,8 @@ const ContactList: MaterialDescription = {
   events: [
     { name: 'add' },
     { name: 'edit', params: ['contact', 'index'] },
-    { name: 'select', params: ['contact', 'index'] }
+    { name: 'select', params: ['contact', 'index'] },
+    { name: 'update:modelValue' }
   ],
   snippet: {
     props: {

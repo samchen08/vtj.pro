@@ -59,12 +59,13 @@
   widgetManager.set('Switcher', {
     props: {
       onClick: (project: ProjectModel) => {
+        const isUniapp = project.platform === 'uniapp';
         const pathname = location.pathname;
         let url =
           pathname === `${__BASE_PATH__}__vtj__/` ? __BASE_PATH__ : pathname;
         const file = project.currentFile;
         if (file && file.type === 'page' && project.homepage !== file.id) {
-          const pagePath = `${fillPrefix(base)}${pageRouteName}/${file.id}`;
+          const pagePath = `${fillPrefix(base)}${isUniapp ? 'pages' : pageRouteName}/${file.id}`;
           url = isHashRouter() ? `${url}#/${pagePath}` : `${url}${pagePath}`;
         }
         window.open(url, 'VTJProject');
@@ -74,8 +75,15 @@
 
   widgetManager.set('Previewer', {
     props: {
-      path: (block: any) => {
+      path: (block: any, project: ProjectModel) => {
         const pathname = location.pathname;
+        if (project.platform === 'uniapp') {
+          const host =
+            process.env.NODE_ENV === 'production'
+              ? ''
+              : 'http://localhost:8010';
+          return `${host}${pathname}uni/#/pages/${block.id}`;
+        }
         return `${pathname}#/preview/${block.id}`;
       }
     }

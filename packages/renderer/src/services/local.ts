@@ -22,8 +22,10 @@ export class LocalService extends BaseService {
     return (res || {}) as ProjectSchema;
   }
 
-  async saveProject(project: ProjectSchema): Promise<boolean> {
-    const res = await this.api('saveProject', project).catch(() => false);
+  async saveProject(project: ProjectSchema, type?: string): Promise<boolean> {
+    const res = await this.api('saveProject', project, { type }).catch(
+      () => false
+    );
     return !!res;
   }
 

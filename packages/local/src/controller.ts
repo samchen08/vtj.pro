@@ -25,7 +25,7 @@ const controller: Controller = {
   init: service.init,
   saveProject: async (req: ApiRequest) => {
     const project = req.data as ProjectSchema;
-    return service.saveProject(project);
+    return service.saveProject(project, req.query?.type);
   },
   saveFile: async (req: ApiRequest) => {
     const file = req.data as BlockSchema;
@@ -69,7 +69,11 @@ const controller: Controller = {
   },
   publishFile: async (req: ApiRequest) => {
     const { project, file } = req.data || {};
-    return service.publishFile(project, file);
+    const result = await service.publishFile(project, file);
+    if (project.platform === 'uniapp') {
+      await service.genUniConfig(project, true);
+    }
+    return result;
   },
   publish: async (req: ApiRequest) => {
     const project = req.data || {};
@@ -121,8 +125,37 @@ const controller: Controller = {
   }
 };
 
+export function parse(str: string, sep?: string, eq?: string) {
+  const obj: Record<string, any> = {};
+  str = str.replace(/^[^]*\?/, '');
+  sep = sep || '&';
+  eq = eq || '=';
+  let arr;
+  const reg = new RegExp(
+    '(?:^|\\' +
+      sep +
+      ')([^\\' +
+      eq +
+      '\\' +
+      sep +
+      ']+)(?:\\' +
+      eq +
+      '([^\\' +
+      sep +
+      ']*))?',
+    'g'
+  );
+  while ((arr = reg.exec(str)) !== null) {
+    if (arr[1] !== str) {
+      obj[decodeURIComponent(arr[1])] = decodeURIComponent(arr[2] || '');
+    }
+  }
+  return obj;
+}
+
 export const router = async (req: any, opts: DevToolsOptions) => {
   const body: ApiRequest = req.body || {};
+  body.query = parse(req.url);
   const reqUrl = req.url || '';
   const uploaderPath = `${opts.baseURL}${opts.uploader}`;
   const isUploader = reqUrl.startsWith(uploaderPath);

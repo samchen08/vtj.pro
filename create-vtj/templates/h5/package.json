@@ -6,6 +6,7 @@
   "type": "module",
   "scripts": {
     "setup": "pnpm install --unsafe-perm --registry=https://registry.npmmirror.com",
+    "clean": "vtj rm ./package-lock.json && vtj rm ./pnpm-lock.yaml && vtj rm ./dist && vtj rm ./node_modules",
     "dev": "cross-env ENV_TYPE=local vite",
     "build": "pnpm run build:prod",
     "build:dev": "vue-tsc && cross-env ENV_TYPE=dev vite build",

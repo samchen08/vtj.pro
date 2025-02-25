@@ -7,12 +7,12 @@
 </template>
 <script lang="ts" setup>
   import { ref, computed } from 'vue';
-  import { type BlockModel } from '@vtj/core';
+  import { type BlockModel, type ProjectModel } from '@vtj/core';
   import { useElementSize } from '@vueuse/core';
   import { Viewport } from '../../shared';
   import { useCurrent } from '../../hooks';
   export interface Props {
-    path?: (block: BlockModel) => string;
+    path?: (block: BlockModel, project: ProjectModel | null) => string;
   }
 
   const props = defineProps<Props>();
@@ -24,7 +24,9 @@
 
   const src = computed(() => {
     if (current.value) {
-      return props.path ? props.path(current.value) : null;
+      return props.path
+        ? props.path(current.value, engine.project.value)
+        : null;
     }
     return null;
   });

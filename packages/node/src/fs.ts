@@ -1,6 +1,6 @@
 import fs from 'fs-extra';
 export { fs };
-fs.readdirSync;
+
 export const copy = fs.copy;
 export const emptyDir = fs.emptyDir;
 export const ensureFile = fs.ensureFile;

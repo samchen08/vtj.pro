@@ -3,6 +3,177 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.10.2](https://gitee.com/newgateway/vtj/compare/@vtj/icons@0.10.1...@vtj/icons@0.10.2) (2025-02-25)
+
+**Note:** Version bump only for package @vtj/icons
+
+
+
+
+
+## [0.10.1](https://gitee.com/newgateway/vtj/compare/@vtj/icons@0.10.1-alpha.7...@vtj/icons@0.10.1) (2025-02-25)
+
+**Note:** Version bump only for package @vtj/icons
+
+
+
+
+
+## [0.10.1-alpha.7](https://gitee.com/newgateway/vtj/compare/@vtj/icons@0.10.1-alpha.6...@vtj/icons@0.10.1-alpha.7) (2025-02-25)
+
+**Note:** Version bump only for package @vtj/icons
+
+
+
+
+
+## [0.10.1-alpha.6](https://gitee.com/newgateway/vtj/compare/@vtj/icons@0.10.1-alpha.5...@vtj/icons@0.10.1-alpha.6) (2025-02-24)
+
+**Note:** Version bump only for package @vtj/icons
+
+
+
+
+
+## [0.10.1-alpha.5](https://gitee.com/newgateway/vtj/compare/@vtj/icons@0.10.1-alpha.4...@vtj/icons@0.10.1-alpha.5) (2025-02-24)
+
+**Note:** Version bump only for package @vtj/icons
+
+
+
+
+
+## [0.10.1-alpha.4](https://gitee.com/newgateway/vtj/compare/@vtj/icons@0.10.1-alpha.3...@vtj/icons@0.10.1-alpha.4) (2025-02-24)
+
+**Note:** Version bump only for package @vtj/icons
+
+
+
+
+
+## [0.10.1-alpha.3](https://gitee.com/newgateway/vtj/compare/@vtj/icons@0.10.1-alpha.2...@vtj/icons@0.10.1-alpha.3) (2025-02-22)
+
+**Note:** Version bump only for package @vtj/icons
+
+
+
+
+
+## [0.10.1-alpha.2](https://gitee.com/newgateway/vtj/compare/@vtj/icons@0.10.1-alpha.1...@vtj/icons@0.10.1-alpha.2) (2025-02-22)
+
+**Note:** Version bump only for package @vtj/icons
+
+
+
+
+
+## [0.10.1-alpha.1](https://gitee.com/newgateway/vtj/compare/@vtj/icons@0.10.1-alpha.0...@vtj/icons@0.10.1-alpha.1) (2025-02-20)
+
+**Note:** Version bump only for package @vtj/icons
+
+
+
+
+
+## [0.10.1-alpha.0](https://gitee.com/newgateway/vtj/compare/@vtj/icons@0.10.0...@vtj/icons@0.10.1-alpha.0) (2025-02-19)
+
+**Note:** Version bump only for package @vtj/icons
+
+
+
+
+
+# [0.10.0](https://gitee.com/newgateway/vtj/compare/@vtj/icons@0.9.30...@vtj/icons@0.10.0) (2025-02-19)
+
+
+### Features
+
+* ✨ 增加uniapp图标 ([4c622ba](https://gitee.com/newgateway/vtj/commits/4c622baa9287862b95b9ac2261d5e2da188bc7c3))
+
+
+
+
+
+## [0.9.30](https://gitee.com/newgateway/vtj/compare/@vtj/icons@0.9.29...@vtj/icons@0.9.30) (2025-02-18)
+
+**Note:** Version bump only for package @vtj/icons
+
+
+
+
+
+## [0.9.29](https://gitee.com/newgateway/vtj/compare/@vtj/icons@0.9.28...@vtj/icons@0.9.29) (2025-02-13)
+
+**Note:** Version bump only for package @vtj/icons
+
+
+
+
+
+## [0.9.28](https://gitee.com/newgateway/vtj/compare/@vtj/icons@0.9.27...@vtj/icons@0.9.28) (2025-02-13)
+
+**Note:** Version bump only for package @vtj/icons
+
+
+
+
+
+## [0.9.27](https://gitee.com/newgateway/vtj/compare/@vtj/icons@0.9.26...@vtj/icons@0.9.27) (2025-02-12)
+
+**Note:** Version bump only for package @vtj/icons
+
+
+
+
+
+## [0.9.26](https://gitee.com/newgateway/vtj/compare/@vtj/icons@0.9.25...@vtj/icons@0.9.26) (2025-02-11)
+
+**Note:** Version bump only for package @vtj/icons
+
+
+
+
+
+## [0.9.25](https://gitee.com/newgateway/vtj/compare/@vtj/icons@0.9.24...@vtj/icons@0.9.25) (2025-01-23)
+
+**Note:** Version bump only for package @vtj/icons
+
+
+
+
+
+## [0.9.24](https://gitee.com/newgateway/vtj/compare/@vtj/icons@0.9.23...@vtj/icons@0.9.24) (2025-01-22)
+
+**Note:** Version bump only for package @vtj/icons
+
+
+
+
+
+## [0.9.23](https://gitee.com/newgateway/vtj/compare/@vtj/icons@0.9.22...@vtj/icons@0.9.23) (2025-01-22)
+
+**Note:** Version bump only for package @vtj/icons
+
+
+
+
+
+## [0.9.22](https://gitee.com/newgateway/vtj/compare/@vtj/icons@0.9.21...@vtj/icons@0.9.22) (2025-01-16)
+
+**Note:** Version bump only for package @vtj/icons
+
+
+
+
+
+## [0.9.21](https://gitee.com/newgateway/vtj/compare/@vtj/icons@0.9.20...@vtj/icons@0.9.21) (2025-01-14)
+
+**Note:** Version bump only for package @vtj/icons
+
+
+
+
+
 ## [0.9.20](https://gitee.com/newgateway/vtj/compare/@vtj/icons@0.9.19...@vtj/icons@0.9.20) (2025-01-14)
 
 **Note:** Version bump only for package @vtj/icons

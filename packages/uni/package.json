@@ -1,0 +1,50 @@
+{
+  "name": "@vtj/uni",
+  "private": false,
+  "version": "0.10.2",
+  "type": "module",
+  "sideEffects": false,
+  "scripts": {
+    "version": "node ./scripts/compilerVersion.mjs",
+    "build": "npm run version && vue-tsc && vite build && npm run build:umd",
+    "build:umd": "cross-env UMD=true vite build",
+    "test": "vitest run",
+    "vitest": "vitest",
+    "coverage": "vitest run --coverage"
+  },
+  "dependencies": {
+    "@vtj/core": "workspace:~",
+    "@vtj/icons": "workspace:~",
+    "@vtj/renderer": "workspace:~",
+    "@vtj/utils": "workspace:~"
+  },
+  "devDependencies": {
+    "@dcloudio/uni-app": "3.0.0-4040520250104002",
+    "@dcloudio/uni-app-vue": "3.0.0-4040520250104002",
+    "@dcloudio/uni-components": "3.0.0-4040520250104002",
+    "@dcloudio/uni-h5": "3.0.0-4040520250104002",
+    "@dcloudio/vite-plugin-uni": "3.0.0-4040520250104002",
+    "@vtj/cli": "workspace:~"
+  },
+  "exports": {
+    ".": {
+      "types": "./types/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.mjs"
+    },
+    "./*": [
+      "./*"
+    ]
+  },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./types/index.d.ts",
+  "files": [
+    "dist",
+    "types"
+  ],
+  "gitHead": "d03843144f07c2d98c1e0c72c8c6eb1117c01722",
+  "publishConfig": {
+    "access": "public"
+  }
+}

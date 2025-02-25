@@ -3,6 +3,94 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.10.1](https://gitee.com/newgateway/vtj/compare/create-vtj@0.10.1-alpha.3...create-vtj@0.10.1) (2025-02-25)
+
+**Note:** Version bump only for package create-vtj
+
+
+
+
+
+## [0.10.1-alpha.3](https://gitee.com/newgateway/vtj/compare/create-vtj@0.10.1-alpha.2...create-vtj@0.10.1-alpha.3) (2025-02-25)
+
+**Note:** Version bump only for package create-vtj
+
+
+
+
+
+## [0.10.1-alpha.2](https://gitee.com/newgateway/vtj/compare/create-vtj@0.10.1-alpha.1...create-vtj@0.10.1-alpha.2) (2025-02-24)
+
+
+### Bug Fixes
+
+* 🐛 uniapp renderer ([717debf](https://gitee.com/newgateway/vtj/commits/717debf345cee5168f88124e351ca92aa70a3d0d))
+
+
+
+
+
+## [0.10.1-alpha.1](https://gitee.com/newgateway/vtj/compare/create-vtj@0.10.1-alpha.0...create-vtj@0.10.1-alpha.1) (2025-02-24)
+
+
+### Bug Fixes
+
+* 🐛 uniapp mock ([1cf64a8](https://gitee.com/newgateway/vtj/commits/1cf64a88b69336c59db9233dbc24bf31ccdc4ecd))
+
+
+
+
+
+## [0.10.1-alpha.0](https://gitee.com/newgateway/vtj/compare/create-vtj@0.10.0...create-vtj@0.10.1-alpha.0) (2025-02-20)
+
+
+### Features
+
+* ✨ uniapp 支持 uni-ui ([1ee244c](https://gitee.com/newgateway/vtj/commits/1ee244cd04b300c2bd7e84579ea01e4ec98169b8))
+
+
+
+
+
+# [0.10.0](https://gitee.com/newgateway/vtj/compare/create-vtj@0.9.11...create-vtj@0.10.0) (2025-02-19)
+
+
+### Features
+
+* ✨ 更新依赖 ([096a58b](https://gitee.com/newgateway/vtj/commits/096a58bc912583b89967553fde05850332d4e984))
+* ✨ uniapp 支持全局css ([18fb654](https://gitee.com/newgateway/vtj/commits/18fb654e13691b7226b77b6b93379b876d2089a2))
+
+
+
+
+
+## [0.9.11](https://gitee.com/newgateway/vtj/compare/create-vtj@0.9.10...create-vtj@0.9.11) (2025-02-13)
+
+**Note:** Version bump only for package create-vtj
+
+
+
+
+
+## [0.9.10](https://gitee.com/newgateway/vtj/compare/create-vtj@0.9.9...create-vtj@0.9.10) (2025-02-13)
+
+
+### Bug Fixes
+
+* 🐛 出码页面图标组件不显示 ([a94b50e](https://gitee.com/newgateway/vtj/commits/a94b50e00d189a81cc284e3e162f1714b821f1ed))
+
+
+
+
+
+## [0.9.9](https://gitee.com/newgateway/vtj/compare/create-vtj@0.9.8...create-vtj@0.9.9) (2025-01-14)
+
+**Note:** Version bump only for package create-vtj
+
+
+
+
+
 ## [0.9.8](https://gitee.com/newgateway/vtj/compare/create-vtj@0.9.7...create-vtj@0.9.8) (2025-01-14)
 
 

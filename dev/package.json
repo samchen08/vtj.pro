@@ -1,12 +1,14 @@
 {
   "name": "dev-web",
   "private": true,
-  "version": "0.9.20",
+  "version": "0.10.2",
   "type": "module",
   "scripts": {
-    "dev": "cross-env ENV_TYPE=local vite",
+    "dev": "cross-env ENV_TYPE=local vite --force",
+    "dev:uni": "cross-env uni=true vite --force",
     "build": "pnpm run build:prod",
     "build:dev": "vue-tsc && cross-env ENV_TYPE=dev vite build",
+    "build:uni": "vue-tsc && cross-env ENV_TYPE=dev uni=true vite build",
     "build:sit": "vue-tsc && cross-env ENV_TYPE=sit vite build",
     "build:uat": "vue-tsc && cross-env ENV_TYPE=uat vite build",
     "build:pre": "vue-tsc && cross-env ENV_TYPE=pre vite build",
@@ -18,10 +20,13 @@
     "node": ">=20.0.0"
   },
   "dependencies": {
+    "@vtj/core": "workspace:~",
     "@vtj/icons": "workspace:~",
     "@vtj/materials": "workspace:~",
     "@vtj/pro": "workspace:~",
+    "@vtj/renderer": "workspace:~",
     "@vtj/ui": "workspace:~",
+    "@vtj/uni": "workspace:~",
     "@vtj/utils": "workspace:~",
     "@vtj/web": "workspace:~",
     "vue": "~3.5.5",

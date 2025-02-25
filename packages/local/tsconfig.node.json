@@ -3,10 +3,8 @@
     "composite": true,
     "module": "ESNext",
     "moduleResolution": "Node",
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true
   },
-  "include": [
-    "build.config.ts",
-    "vitest.config.ts"
-  ]
+  "include": ["build.config.ts", "vitest.config.ts"]
 }

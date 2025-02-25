@@ -2,11 +2,12 @@
   "name": "@vtj/pro",
   "description": "VTJ.PRO",
   "private": false,
-  "version": "0.9.20",
+  "version": "0.10.2",
   "type": "module",
   "scripts": {
     "dev": "cross-env ENV_TYPE=local vite",
-    "build": "vue-tsc && cross-env ENV_TYPE=live vite build",
+    "build": "vue-tsc && cross-env ENV_TYPE=live vite build && npm run build:uni",
+    "build:uni": "cd ../pro-uni && npm run build",
     "preview": "vite preview"
   },
   "dependencies": {
@@ -14,7 +15,8 @@
     "@vtj/designer": "workspace:~",
     "@vtj/local": "workspace:~",
     "@vtj/materials": "workspace:~",
-    "@vtj/renderer": "workspace:~"
+    "@vtj/renderer": "workspace:~",
+    "@vtj/uni": "workspace:~"
   },
   "devDependencies": {
     "@vtj/charts": "workspace:~",
@@ -49,11 +51,11 @@
     "access": "public"
   },
   "vtj": {
-    "platform": "h5",
+    "platform": "uniapp",
     "adapters": {
       "remote": "https://lcdp.vtj.pro",
       "access": {
-        "auth": "/auth.html",
+        "auth": "https://lcdp.vtj.pro/auth.html",
         "privateKey": "MIIBOgIBAAJBAKoIzmn1FYQ1YOhOBw9EhABxZ+PySAIaydI+zdhoKflrdgJ4A5E4/5gbQmRpk09hPWG8nvX7h+l/QLU8kXxAIBECAwEAAQJAAlgpxQY6sByLsXqzJcthC8LSGsLf2JEJkHwlnpwFqlEV8UCkoINpuZ2Wzl+aftURu5rIfAzRCQBvHmeOTW9/zQIhAO5ufWDmnSLyfAAsNo5JRNpVuLFCFodR8Xm+ulDlosR/AiEAtpAltyP9wmCABKG/v/hrtTr3mcvFNGCjoGa9bUAok28CIHbrVs9w1ijrBlvTsXYwJw46uP539uKRRT4ymZzlm9QjAiB+1KH/G9f9pEEL9rtaSOG7JF5D0JcOjlze4MGVFs+ZrQIhALKOUFBNr2zEsyJIjw2PlvEucdlG77UniszjXTROHSPd"
       }
     }

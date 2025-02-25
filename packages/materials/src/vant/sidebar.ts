@@ -15,10 +15,10 @@ const Sidebar: MaterialDescription[] = [
         setters: ['NumberSetter', 'StringSetter']
       }
     ],
-    events: ['change'],
+    events: ['update:modelValue', 'change'],
     snippet: {
       props: {
-        active: 0
+        modelValue: 0
       },
       children: [
         { name: 'VanSidebarItem', props: { title: '标签名称' } },

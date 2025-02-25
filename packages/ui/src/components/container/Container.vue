@@ -25,7 +25,7 @@
   });
 
   const props = defineProps(containerProps);
-  const attrs = useAttrs();
+  const attrs: Record<string, any> = useAttrs();
   const instance = getCurrentInstance();
 
   const elRef = ref();

@@ -11,6 +11,7 @@ export default createViteConfig({
     'element-plus',
     '@element-plus/icons-vue',
     '@vtj/renderer',
+    '@vtj/uni',
     '@vtj/core',
     '@vtj/utils',
     '@vtj/icons',
@@ -18,13 +19,12 @@ export default createViteConfig({
     'element-plus/es/locale/lang/zh-cn',
     'html2canvas',
     'mockjs',
-    'monaco-editor',
+    'monaco-editor'
     // 'monaco-editor/esm/vs/editor/editor.worker?worker',
     // 'monaco-editor/esm/vs/language/json/json.worker?worker',
     // 'monaco-editor/esm/vs/language/css/css.worker?worker',
     // 'monaco-editor/esm/vs/language/html/html.worker?worker',
-    // 'monaco-editor/esm/vs/language/typescript/ts.worker?worker',
-    'mockjs'
+    // 'monaco-editor/esm/vs/language/typescript/ts.worker?worker'
   ],
   formats: ['es']
 });

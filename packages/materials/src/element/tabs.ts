@@ -3,7 +3,7 @@ import type { MaterialDescription } from '@vtj/core';
 const Tabs: MaterialDescription[] = [
   {
     name: 'ElTabs',
-    childIncludes: ['ElTabPane'],
+    // childIncludes: ['ElTabPane'],
     label: '标签页',
 
     doc: 'https://element-plus.org/zh-CN/component/tabs.html',

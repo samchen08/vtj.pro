@@ -6,10 +6,13 @@ import {
   ensureFileSync
 } from '@vtj/node';
 
+import type { PlatformType } from '@vtj/core';
+
 export class VueRepository {
   private path: string;
-  constructor() {
-    this.path = resolve('.vtj/vue');
+  constructor(platform: PlatformType = 'web') {
+    const dir = platform === 'uniapp' ? 'src/pages' : '.vtj/vue';
+    this.path = resolve(dir);
   }
   exist(name: string) {
     const filePath = join(this.path, `${name}.vue`);

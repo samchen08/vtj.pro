@@ -188,23 +188,36 @@ function createBuiltInComponent(context: Context, is?: string | JSExpression) {
   return isJSExpression(is) ? context.__parseExpression(is) : is;
 }
 
+//修改后
 function parseNodeProps(id: string | null, props: NodeProps, context: Context) {
-  const _props = Object.keys(props || {}).reduce(
-    (result, key: string) => {
-      let val = (props as any)[key];
-      if (isJSExpression(val)) {
-        val = context.__parseExpression(val);
-      } else if (isJSFunction(val)) {
-        val = context.__parseFunction(val);
-      }
-      result[key] = val;
-      return result;
-    },
-    {} as Record<string, any>
-  );
+  // 深度解析props
+  const _props = deepParseNodeProps(props, context);
   _props.ref = context.__ref(id, _props.ref);
-
   return _props;
+}
+
+// 深度解析props
+function deepParseNodeProps(props: any, context: Context): any {
+  if (isJSExpression(props)) {
+    return context.__parseExpression(props);
+  } else if (isJSFunction(props)) {
+    return context.__parseFunction(props);
+  } else if (Array.isArray(props)) {
+    return props.map((item: any) => {
+      return deepParseNodeProps(item, context);
+    });
+  } else if (typeof props === 'object') {
+    return Object.keys(props || {}).reduce(
+      (result, key: string) => {
+        let val = (props as any)[key];
+        result[key] = deepParseNodeProps(val, context);
+        return result;
+      },
+      {} as Record<string, any>
+    );
+  } else {
+    return props;
+  }
 }
 
 function parseNodeEvents(Vue: any, events: NodeEvents, context: Context) {

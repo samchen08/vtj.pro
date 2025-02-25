@@ -76,3 +76,5 @@ export const VUE_DEVTOOLS_PATH = '@id/virtual:vue-devtools-path:overlay.js';
  */
 export const VUE_DEVTOOLS_OVERLAY_PATH =
   '@id/virtual:vue-devtools-path:overlay/devtools-overlay.mjs';
+
+export const NPM_REGISTRY_URL = 'https://registry.npmmirror.com/@vtj/pro';

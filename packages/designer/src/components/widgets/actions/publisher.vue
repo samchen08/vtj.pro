@@ -120,12 +120,14 @@
       ).catch(() => false);
       templateId = ret ? id : undefined;
     }
+    const platform = engine.project.value?.platform || 'web';
     const dto: PublishTemplateDto = {
       id: templateId,
       dsl: JSON.stringify(dsl),
       cover,
       category: '',
       version: '',
+      platform,
       ...model
     };
     const ret = await publishTemplate(dto).catch((e: any) => {

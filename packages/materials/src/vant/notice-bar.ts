@@ -35,7 +35,7 @@ const NoticeBar: MaterialDescription = {
     {
       name: 'left-icon',
       title: '左侧图标名称或图片链接，等同于 Icon 组件的 name 属性',
-      setters: 'StringSetter'
+      setters: ['VanIconSetter', 'StringSetter']
     },
     {
       name: 'delay',
@@ -52,7 +52,7 @@ const NoticeBar: MaterialDescription = {
     {
       name: 'scrollable',
       title: '是否开启滚动播放，内容长度溢出时默认开启',
-      setters: 'SelectSetter'
+      setters: 'BooleanSetter'
     },
     {
       name: 'wrapable',

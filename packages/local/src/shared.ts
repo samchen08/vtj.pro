@@ -1,6 +1,7 @@
 export interface ApiRequest {
   type: string;
   data: any;
+  query: any;
 }
 
 export interface ApiResponse {

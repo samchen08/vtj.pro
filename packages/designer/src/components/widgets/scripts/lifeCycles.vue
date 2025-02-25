@@ -42,18 +42,24 @@
     JSCodeToString
   } from '@vtj/renderer';
   import { XField } from '@vtj/ui';
+  import { PAGE_LIFE_CYCLES_LIST } from '@vtj/uni';
   import Group from './group.vue';
   import { notify, expressionValidate } from '../../../utils';
+  import { useEngine } from '../../../framework';
   import Editor from '../../editor';
 
   export interface Props {
     context: Context | null;
     current: BlockModel | null;
   }
+  const engine = useEngine();
   const props = defineProps<Props>();
 
   const options = computed(() => {
-    return LIFE_CYCLES_LIST.map((name) => {
+    const { platform = 'web' } = engine.project.value || {};
+    const list =
+      platform === 'uniapp' ? PAGE_LIFE_CYCLES_LIST : LIFE_CYCLES_LIST;
+    return list.map((name) => {
       return {
         label: name,
         value: name

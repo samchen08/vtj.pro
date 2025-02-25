@@ -1,0 +1,43 @@
+{
+  "name": "@vtj/parser",
+  "private": false,
+  "version": "0.10.2",
+  "type": "module",
+  "scripts": {
+    "build": "vue-tsc && vite build",
+    "test": "vitest run",
+    "vitest": "vitest",
+    "coverage": "vitest run --coverage"
+  },
+  "dependencies": {
+    "@babel/generator": "~7.26.8",
+    "@babel/parser": "~7.26.8",
+    "@babel/traverse": "~7.26.8",
+    "@vtj/base": "workspace:~",
+    "@vtj/coder": "workspace:~",
+    "@vtj/core": "workspace:~",
+    "@vue/compiler-dom": "~3.5.13",
+    "@vue/compiler-sfc": "~3.5.13"
+  },
+  "devDependencies": {
+    "@vtj/cli": "workspace:~"
+  },
+  "exports": {
+    ".": {
+      "types": "./types/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./types/index.d.ts",
+  "files": [
+    "dist",
+    "types"
+  ],
+  "gitHead": "d03843144f07c2d98c1e0c72c8c6eb1117c01722",
+  "publishConfig": {
+    "access": "public"
+  }
+}

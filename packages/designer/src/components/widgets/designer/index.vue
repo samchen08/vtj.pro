@@ -62,13 +62,15 @@
   });
 
   const config = computed(() => engine.project.value?.config || {});
+  const uniConfig = computed(() => engine.project.value?.uniConfig || {});
 
   const { designer, hover, dropping, selected, lines } = useDesigner(
     iframe,
     dependencies,
     apis,
     meta,
-    config
+    config,
+    uniConfig
   );
 
   const onAction = (e: any) => {

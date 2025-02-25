@@ -134,7 +134,8 @@ const TimePicker: MaterialDescription = {
   events: [
     { name: 'confirm', params: ['data'] },
     { name: 'cancel', params: ['data'] },
-    { name: 'change', params: ['data'] }
+    { name: 'change', params: ['data'] },
+    { name: 'update:modelValue' }
   ],
   slots: [
     { name: 'toolbar' },
@@ -149,8 +150,7 @@ const TimePicker: MaterialDescription = {
   ],
   snippet: {
     props: {
-      title: '选择时间',
-      columnsType: ['hour', 'minute', 'second']
+      title: '选择时间'
     }
   }
 };

@@ -49,6 +49,11 @@ export const builtInSetters: Array<Setter> = [
     type: 'String'
   },
   {
+    name: 'VanIconSetter',
+    component: setters.VanIconSetter,
+    type: 'String'
+  },
+  {
     name: 'ObjectSetter',
     component: setters.JsonSetter,
     type: 'Object',
@@ -138,5 +143,10 @@ export const builtInSetters: Array<Setter> = [
     props: {
       multiple: true
     }
+  },
+  {
+    name: 'CssSetter',
+    component: setters.CssSetter,
+    type: 'String'
   }
 ];

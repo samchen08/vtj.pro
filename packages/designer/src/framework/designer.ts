@@ -475,7 +475,7 @@ export class Designer {
       return;
     }
     // 需要等待下一帧才能获取到HTML元素
-    await delay(0);
+    await delay(50);
     const refs = this.engine.simulator.renderer?.context?.__refs || {};
     const lines: DOMRect[] = [];
     const ids = Object.keys(NodeModel.nodes);

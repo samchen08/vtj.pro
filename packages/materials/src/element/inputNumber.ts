@@ -94,8 +94,8 @@ const InputNumber: MaterialDescription = {
     }
   ],
   slots: [
-    { name: 'decreaseIcon' },
-    { name: 'increaseIcon' },
+    { name: 'decrease-icon' },
+    { name: 'increase-icon' },
     { name: 'prefix' },
     { name: 'suffix' }
   ],

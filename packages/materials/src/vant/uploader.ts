@@ -114,14 +114,14 @@ const Uploader: MaterialDescription = {
     {
       name: 'max-size',
       title: '文件大小限制，单位为 byte',
-      defaultValue: 'Infinity',
-      setters: ['StringSetter', 'NumberSetter', 'FunctionSetter']
+      defaultValue: Infinity,
+      setters: ['NumberSetter', 'StringSetter', 'FunctionSetter']
     },
     {
       name: 'max-count',
       title: '文件上传数量限制',
-      defaultValue: 'Infinity',
-      setters: 'StringSetter'
+      defaultValue: Infinity,
+      setters: ['NumberSetter', 'StringSetter']
     },
     {
       name: 'result-type',
@@ -146,7 +146,7 @@ const Uploader: MaterialDescription = {
       name: 'upload-icon',
       title: '上传区域图标名称或图片链接，等同于 Icon 组件的 name 属性',
       defaultValue: 'photograph',
-      setters: 'StringSetter'
+      setters: ['VanIconSetter', 'StringSetter']
     }
   ],
   events: [
@@ -155,7 +155,8 @@ const Uploader: MaterialDescription = {
     { name: 'click-preview' },
     { name: 'click-reupload' },
     { name: 'close-preview' },
-    { name: 'delete' }
+    { name: 'delete' },
+    { name: 'update:modelValue' }
   ],
   slots: ['default', 'preview-delete', 'preview-cover'],
   snippet: {}

@@ -69,7 +69,8 @@ const Notify: MaterialDescription = {
   events: [
     { name: 'click', params: ['event'] },
     { name: 'close' },
-    { name: 'opened' }
+    { name: 'opened' },
+    { name: 'update:show' }
   ],
   slots: ['default'],
   snippet: {

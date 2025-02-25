@@ -97,7 +97,7 @@ const Field: MaterialDescription = {
       name: 'clear-icon',
       title: '清除图标名称或图片链接，等同于 Icon 组件的 name 属性',
       defaultValue: 'clear',
-      setters: 'StringSetter'
+      setters: ['VanIconSetter', 'StringSetter']
     },
     {
       name: 'clear-trigger',
@@ -201,14 +201,20 @@ const Field: MaterialDescription = {
       setters: ['BooleanSetter', 'ObjectSetter']
     },
     {
+      name: 'rows',
+      title: '输入框行数，仅 type 为 textarea 时有效',
+      defaultValue: '2',
+      setters: 'StringSetter'
+    },
+    {
       name: 'left-icon',
       title: '左侧图标名称或图片链接，等同于 Icon 组件的 name 属性',
-      setters: 'StringSetter'
+      setters: ['VanIconSetter', 'StringSetter']
     },
     {
       name: 'right-icon',
       title: '右侧图标名称或图片链接，等同于 Icon 组件的 name 属性',
-      setters: 'StringSetter'
+      setters: ['VanIconSetter', 'StringSetter']
     },
     {
       name: 'icon-prefix',
@@ -263,6 +269,7 @@ const Field: MaterialDescription = {
     'end-validate'
   ],
   slots: [
+    'default',
     'label',
     'input',
     'left-icon',

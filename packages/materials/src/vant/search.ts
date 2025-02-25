@@ -61,7 +61,7 @@ const Search: MaterialDescription = {
       name: 'clear-icon',
       title: '清除图标名称或图片链接，等同于 Icon 组件的 name 属性',
       defaultValue: 'clear',
-      setters: 'StringSetter'
+      setters: ['VanIconSetter', 'StringSetter']
     },
     {
       name: 'clear-trigger',
@@ -135,12 +135,12 @@ const Search: MaterialDescription = {
       name: 'left-icon',
       title: '输入框左侧图标名称或图片链接，等同于 Icon 组件的 name 属性',
       defaultValue: 'search',
-      setters: 'StringSetter'
+      setters: ['VanIconSetter', 'StringSetter']
     },
     {
       name: 'right-icon',
       title: '输入框右侧图标名称或图片链接，等同于 Icon 组件的 name 属性',
-      setters: 'StringSetter'
+      setters: ['VanIconSetter', 'StringSetter']
     },
     {
       name: 'autocomplete',

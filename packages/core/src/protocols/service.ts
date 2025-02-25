@@ -13,7 +13,10 @@ import type { StaticFileInfo, ExtensionConfig } from './shared';
 export abstract class Service {
   public abstract getExtension(): Promise<ExtensionConfig | undefined>;
   public abstract init(project: Partial<ProjectSchema>): Promise<ProjectSchema>;
-  public abstract saveProject(project: ProjectSchema): Promise<boolean>;
+  public abstract saveProject(
+    project: ProjectSchema,
+    type?: string
+  ): Promise<boolean>;
   public abstract saveMaterials(
     project: ProjectSchema,
     materials: Map<string, MaterialDescription>

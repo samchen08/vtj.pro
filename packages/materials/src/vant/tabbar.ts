@@ -68,7 +68,7 @@ const Tabbar: MaterialDescription[] = [
         setters: 'FunctionSetter'
       }
     ],
-    events: ['change'],
+    events: ['update:modelValue', 'change'],
     snippet: {
       props: {
         modelValue: 0
@@ -120,7 +120,7 @@ const Tabbar: MaterialDescription[] = [
       {
         name: 'icon',
         title: '图标名称或图片链接，等同于 Icon 组件的 name 属性',
-        setters: 'StringSetter'
+        setters: ['VanIconSetter', 'StringSetter']
       },
       {
         name: 'icon-prefix',
@@ -161,7 +161,7 @@ const Tabbar: MaterialDescription[] = [
         setters: 'BooleanSetter'
       }
     ],
-    slots: ['icon'],
+    slots: ['default', 'icon'],
     snippet: {
       props: {
         icon: 'home-o'

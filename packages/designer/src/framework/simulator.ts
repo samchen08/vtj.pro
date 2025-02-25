@@ -5,6 +5,8 @@ import {
   type ApiSchema,
   type MetaSchema,
   type ProjectConfig,
+  type PlatformType,
+  type UniConfig,
   Base,
   BUILT_IN_NAME,
   BUILT_IN_LIBRARAY_MAP
@@ -24,6 +26,7 @@ import { Renderer } from './renderer';
 import { Designer } from './designer';
 import { type Engine } from './engine';
 import { DevTools } from './devtools';
+import Mock from 'mockjs';
 
 declare global {
   interface Window {
@@ -67,6 +70,8 @@ export class Simulator extends Base {
     this.engine = engine;
     this.materialPath = materialPath;
 
+    (window as any).Mock = Mock;
+
     watch(this.engine.current, () => {
       this.refresh();
     });
@@ -77,10 +82,11 @@ export class Simulator extends Base {
     deps: Ref<Dependencie[]>,
     apis: Ref<ApiSchema[]>,
     meta: Ref<MetaSchema[]>,
-    config: Ref<ProjectConfig>
+    config: Ref<ProjectConfig>,
+    uniConfig: Ref<UniConfig>
   ) {
     watch(
-      [iframe, deps, apis, meta, config],
+      [iframe, deps, apis, meta, config, uniConfig],
       () => {
         if (iframe.value && deps.value.length) {
           this.resetReady();
@@ -102,33 +108,11 @@ export class Simulator extends Base {
     );
   }
 
-  private setup(iframe: HTMLIFrameElement, deps: Dependencie[]) {
-    const cw = iframe.contentWindow;
-    if (!cw) {
-      logger.warn('Simulator contentWindow is null');
-      return;
-    }
-    cw.__simulator__ = this;
-    const doc = cw.document;
-    this.contentWindow = cw;
-    const {
-      scripts,
-      css,
-      materials,
-      libraryExports,
-      materialExports,
-      materialMapLibrary,
-      libraryLocaleMap
-    } = parseDeps(deps, this.materialPath, true);
-    doc.open();
-    doc.write(`
-     <!DOCTYPE html>
-     <html lang="zh-CN">
-       <head>
-       <meta charset="utf-8">
-       <meta name="viewport"
-             content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0,viewport-fit=cover"/>
-         <style>
+  private createGlobalCss(platform: PlatformType = 'web') {
+    return platform === 'uniapp'
+      ? ''
+      : `
+        <style>
           html,
           body,
           #app {
@@ -149,8 +133,49 @@ export class Simulator extends Base {
              background-color: var(--el-fill-color-light, #f5f7fa);
              padding: 0;
           }
+         </style>`;
+  }
+  private initUniFeatures(platform: PlatformType = 'web') {
+    return platform === 'uniapp'
+      ? ''
+      : `
+    <script>
+      window.__UNI_FEATURE_UNI_CLOUD__ = false;
+      window.__UNI_FEATURE_WX__ = false;
+      window.__UNI_FEATURE_WXS__ = false;
+      window.__UNI_FEATURE_PAGES__ = false;
+    </script>
+    `;
+  }
 
-         </style>
+  private setup(iframe: HTMLIFrameElement, deps: Dependencie[]) {
+    const cw = iframe.contentWindow;
+    if (!cw) {
+      logger.warn('Simulator contentWindow is null');
+      return;
+    }
+    cw.__simulator__ = this;
+    const doc = cw.document;
+    this.contentWindow = cw;
+    const {
+      scripts,
+      css,
+      materials,
+      libraryExports,
+      materialExports,
+      materialMapLibrary,
+      libraryLocaleMap
+    } = parseDeps(deps, this.materialPath, true);
+    const { platform = 'web' } = this.engine.project.value || {};
+    doc.open();
+    doc.write(`
+     <!DOCTYPE html>
+     <html lang="zh-CN">
+       <head>
+       <meta charset="utf-8">
+       <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0,viewport-fit=cover"/>
+       ${this.initUniFeatures()}
+       ${this.createGlobalCss(platform)}
        ${createAssetsCss(css)}
        </head>
        <body> 
@@ -195,7 +220,13 @@ export class Simulator extends Base {
       libraryLocaleMap
     );
     this.devtools.init(cw, this.engine);
-    this.renderer = new Renderer(env, service, provider, this.designer.value);
+    this.renderer = new Renderer(
+      env,
+      service,
+      provider,
+      project.value,
+      this.designer.value
+    );
     if (current.value) {
       this.renderer.render(current.value, project.value?.currentFile);
       this.rendered.value = Symbol();
@@ -254,6 +285,7 @@ export class Simulator extends Base {
       }
     }
     const { adapter, globals } = provider;
+    provider.initMock();
     const apis = createSchemaApis(
       project.value?.apis,
       project.value?.meta,
@@ -278,12 +310,9 @@ export class Simulator extends Base {
   }
 
   refresh() {
-    this.renderer?.dispose();
-    const current = this.engine.current.value;
-    if (current) {
-      this.renderer?.render(current, this.engine.project.value?.currentFile);
-      this.rendered.value = Symbol();
-    }
+    const { skeleton } = this.engine;
+    const regionRef = skeleton?.getRegion('Workspace')?.regionRef;
+    regionRef?.reload();
   }
 
   capture() {

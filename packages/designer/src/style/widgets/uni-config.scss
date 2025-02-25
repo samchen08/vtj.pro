@@ -1,0 +1,26 @@
+@use '../core' as *;
+
+@include b(uni-config-widget) {
+  .v-json-setter,
+  .v-function-setter {
+    width: 100%;
+  }
+  .el-form-item--small {
+    margin-bottom: 10px;
+  }
+  .el-form {
+    padding-bottom: 1px;
+  }
+  .el-divider {
+    margin: 20px 0;
+  }
+  .el-form-item__label {
+    margin-bottom: 0;
+  }
+  .el-divider__text {
+    font-size: 14px;
+    background-color: var(--el-fill-color-light);
+    padding: 5px 10px;
+    border-radius: 4px;
+  }
+}
