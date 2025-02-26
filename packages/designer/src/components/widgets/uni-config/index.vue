@@ -32,6 +32,7 @@
         :key="name">
         <FunctionSetter
           :model-value="getValue(name)"
+          :default-code="defaultCode"
           @change="onChange(name, $event)"></FunctionSetter>
       </ElFormItem>
     </ElForm>
@@ -59,6 +60,10 @@
     const uniConfig: UniConfig = project.value?.uniConfig || {};
     return uniConfig[name as keyof UniConfig] as any;
   };
+
+  const defaultCode = `() => { 
+
+}`;
 
   const onChange = (name: string, value: any) => {
     console.log('change', project.value, name, value);

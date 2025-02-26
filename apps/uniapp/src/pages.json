@@ -1,8 +1,10 @@
 {
   "pages": [
     {
-      "path": "pages/45tgdx01t",
-      "style": {},
+      "path": "pages/45tiwi8z7",
+      "style": {
+        "navigationBarTitleText": "Title"
+      },
       "needLogin": false,
       "vtj": true
     },

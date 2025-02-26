@@ -154,7 +154,9 @@ export class Provider extends Base {
   }
 
   async load(project: ProjectSchema) {
-    const module = this.modules[`.vtj/projects/${project.id}.json`];
+    const module =
+      this.modules[`.vtj/projects/${project.id}.json`] ||
+      this.modules[`/src/.vtj/projects/${project.id}.json`];
     this.project = module ? await module() : await this.service.init(project);
     if (!this.project) {
       throw new Error('project is null');
@@ -376,7 +378,9 @@ export class Provider extends Base {
     return this.getPage(homepage);
   }
   async getDsl(id: string): Promise<BlockSchema | null> {
-    const module = this.modules[`.vtj/files/${id}.json`];
+    const module =
+      this.modules[`.vtj/files/${id}.json`] ||
+      this.modules[`/src/.vtj/files/${id}.json`];
     return module
       ? await module()
       : this.service.getFile(id, this.project || undefined).catch(() => null);
@@ -443,7 +447,8 @@ export class Provider extends Base {
       output(file);
     }
     const rawPath = `.vtj/vue/${id}.vue`;
-    const rawModule = this.modules[rawPath];
+    const rawModule =
+      this.modules[rawPath] || this.modules[`/src/pages/${id}.vue`];
     if (rawModule) {
       return (await rawModule())?.default;
     }

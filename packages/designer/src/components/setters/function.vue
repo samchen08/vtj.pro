@@ -21,7 +21,7 @@
       <Editor
         ref="codeEditor"
         height="100%"
-        :model-value="textValue"
+        :model-value="textValue || defaultCode"
         dark></Editor>
       <template #extra>
         <ElButton type="warning" @click="handleClear" size="default">
@@ -42,13 +42,15 @@
 
   export interface Props {
     modelValue?: JSFunction;
+    defaultCode?: string;
   }
 
   const props = withDefaults(defineProps<Props>(), {
     modelValue: () => ({
       type: 'JSFunction',
       value: ''
-    })
+    }),
+    defaultCode: ''
   });
 
   const codeEditor = ref();
@@ -80,6 +82,9 @@
     dialogVisible.value = false;
   };
   const openDialog = () => {
+    // if (!textValue.value) {
+    //   textValue.value = props.defaultCode;
+    // }
     dialogVisible.value = true;
   };
 
