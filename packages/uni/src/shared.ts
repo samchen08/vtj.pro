@@ -5,7 +5,7 @@ declare global {
 }
 
 export function loading() {
-  if (!window.uni) return;
+  if (!window.uni?.showLoading) return;
 
   window.uni.showLoading({
     title: '加载中...',
@@ -14,7 +14,7 @@ export function loading() {
 
   return {
     close: () => {
-      window.uni.hideLoading();
+      window.uni?.hideLoading && window.uni.hideLoading();
     }
   };
 }
@@ -24,7 +24,7 @@ export function notify(
   title: string = '',
   _type: 'primary' | 'warning' | 'danger' | 'success' = 'warning'
 ) {
-  if (!window.uni) return;
+  if (!window.uni?.showModal) return;
   window.uni.showModal({
     title,
     content: message,

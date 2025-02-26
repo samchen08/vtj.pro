@@ -31,5 +31,5 @@ dist-ssr
 *.local
 .vtj/logs
 .vtj/histories
-/src/pages/vtj/histories
-/src/pages/vtj/logs
+src/.vtj/logs
+src/.vtj/histories

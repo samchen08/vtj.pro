@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.10.4](https://gitee.com/newgateway/vtj/compare/@vtj/uni@0.10.3...@vtj/uni@0.10.4) (2025-02-26)
+
+
+### Bug Fixes
+
+* 🐛 window.uni undefined ([e5d2a8b](https://gitee.com/newgateway/vtj/commits/e5d2a8bea21021d27dafb207c663dbb3523ee56f))
+
+
+
+
+
+## [0.10.3](https://gitee.com/newgateway/vtj/compare/@vtj/uni@0.10.2...@vtj/uni@0.10.3) (2025-02-26)
+
+**Note:** Version bump only for package @vtj/uni
+
+
+
+
+
 ## [0.10.2](https://gitee.com/newgateway/vtj/compare/@vtj/uni@0.10.1...@vtj/uni@0.10.2) (2025-02-25)
 
 
