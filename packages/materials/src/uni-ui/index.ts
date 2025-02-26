@@ -57,7 +57,6 @@ import UniPagination from '@dcloudio/uni-ui/lib/uni-pagination/uni-pagination.vu
 // import UniPopup from '@dcloudio/uni-ui/lib/uni-popup/uni-popup.vue';
 import UniPopup from './lib/uni-popup/uni-popup.vue';
 import UniPopupMessage from '@dcloudio/uni-ui/lib/uni-popup-message/uni-popup-message.vue';
-import UniPopupDialog from '@dcloudio/uni-ui/lib/uni-popup-dialog/uni-popup-dialog.vue';
 import UniPopupShare from '@dcloudio/uni-ui/lib/uni-popup-share/uni-popup-share.vue';
 // import UniRate from '@dcloudio/uni-ui/lib/uni-rate/uni-rate.vue';
 import UniRate from './lib/uni-rate/uni-rate.vue';
@@ -88,7 +87,7 @@ import UniTitle from '@dcloudio/uni-ui/lib/uni-title/uni-title.vue';
 import UniTooltip from '@dcloudio/uni-ui/lib/uni-tooltip/uni-tooltip.vue';
 import UniTransition from '@dcloudio/uni-ui/lib/uni-transition/uni-transition.vue';
 
-import UniuniPopupDialog from './lib/uni-popup-dialog/uni-popup-dialog.vue';
+import UniPopupDialog from './lib/uni-popup-dialog/uni-popup-dialog.vue';
 
 // 62
 const components = {
@@ -153,8 +152,7 @@ const components = {
   UniTag,
   UniTitle,
   UniTooltip,
-  UniTransition,
-  UniuniPopupDialog
+  UniTransition
 };
 
 export {
@@ -219,8 +217,7 @@ export {
   UniTag,
   UniTitle,
   UniTooltip,
-  UniTransition,
-  UniuniPopupDialog
+  UniTransition
 };
 
 export function install(app: App) {
