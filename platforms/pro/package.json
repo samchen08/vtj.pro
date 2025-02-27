@@ -2,7 +2,7 @@
   "name": "@vtj/pro",
   "description": "VTJ.PRO",
   "private": false,
-  "version": "0.10.4",
+  "version": "0.10.5",
   "type": "module",
   "scripts": {
     "dev": "cross-env ENV_TYPE=local vite",

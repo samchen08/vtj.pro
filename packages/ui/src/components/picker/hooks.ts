@@ -1,5 +1,5 @@
 import { computed, ref, watch, toRaw } from 'vue';
-import { toArray, isEqual, dedupArray } from '@vtj/utils';
+import { toArray, isEqual, dedupArray, delay } from '@vtj/utils';
 import type { Emits } from '../shared';
 import type {
   PickerProps,
@@ -65,11 +65,15 @@ export function useOptions(props: PickerProps, emit: Emits<PickerEmits>) {
 
   watch(
     () => props.modelValue,
-    (v) => {
+    async (v) => {
       const val = formatter ? formatter(v) : v;
       if (val) {
         const rawData = getRawData(val);
         setOptions(rawData.length ? rawData : val);
+        if (!props.multiple) {
+          await delay(0);
+          options.value = [];
+        }
       } else {
         setOptions([]);
       }
