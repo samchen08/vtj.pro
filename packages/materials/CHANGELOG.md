@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.10.5](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.10.4...@vtj/materials@0.10.5) (2025-02-27)
+
+
+### Bug Fixes
+
+* 🐛 uni-ui 文件编译报错 ([efee2d6](https://gitee.com/newgateway/vtj/commits/efee2d60984f7892d7be0fa797293d30303479f9))
+
+
+
+
+
 ## [0.10.4](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.10.3...@vtj/materials@0.10.4) (2025-02-26)
 
 **Note:** Version bump only for package @vtj/materials

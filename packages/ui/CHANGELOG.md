@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.10.5](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.10.4...@vtj/ui@0.10.5) (2025-02-27)
+
+
+### Bug Fixes
+
+* 🐛 ui picker 动态双向绑定不更新问题 ([1b7a16b](https://gitee.com/newgateway/vtj/commits/1b7a16b1cf82724aef0b2574125662655d0cc2d7))
+
+
+
+
+
 ## [0.10.4](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.10.3...@vtj/ui@0.10.4) (2025-02-26)
 
 **Note:** Version bump only for package @vtj/ui
