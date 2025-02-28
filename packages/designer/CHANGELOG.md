@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.10.6](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.10.5...@vtj/designer@0.10.6) (2025-02-28)
+
+
+### Bug Fixes
+
+* 🐛 关闭了辅助线。在页面切换之后，辅助线还是会显示出来 ([c436f6d](https://gitee.com/newgateway/vtj/commits/c436f6d0e5df42b957d00d8534983d3844301aab))
+
+
+
+
+
 ## [0.10.5](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.10.4...@vtj/designer@0.10.5) (2025-02-27)
 
 **Note:** Version bump only for package @vtj/designer
