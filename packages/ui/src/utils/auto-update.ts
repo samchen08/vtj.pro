@@ -4,7 +4,7 @@ let lastSrcs: string[];
 
 const scriptReg = /\<script.*src=["'](?<src>[^"']+)/gm;
 
-let duration = 10000;
+let duration = 60 * 1000;
 
 async function extractNewScripts() {
   const html = await fetch('?t=' + Date.now()).then((resp) => resp.text());
@@ -54,16 +54,16 @@ async function refresh() {
   }
 }
 
-function autoRefresh() {
+function autoRefresh(time?: number) {
   setTimeout(async () => {
     const willUpdate = await needUpdate();
     if (willUpdate) {
       await refresh();
     }
     autoRefresh();
-  }, duration);
+  }, time || duration);
 }
 
-export function autoUpdate() {
-  autoRefresh();
+export function autoUpdate(time?: number) {
+  autoRefresh(time);
 }
