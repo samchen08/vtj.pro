@@ -25,7 +25,9 @@
       </div>
       <ElEmpty v-if="!current" description="请新建或打开文件"></ElEmpty>
 
-      <div class="v-designer__outline-lines" v-if="lines.length">
+      <div
+        class="v-designer__outline-lines"
+        v-if="outlineEnabled && lines.length">
         <div v-for="line in lines" :style="line"></div>
       </div>
 
