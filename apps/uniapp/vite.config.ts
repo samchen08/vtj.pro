@@ -9,12 +9,13 @@ export default createUniappViteConfig({
   plugins: [
     createDevTools({
       // staticBase: basePath,
-      devMode: false,
+      devMode: true,
       pluginNodeModulesDir: '../../node_modules'
     }),
     !process.env.PREVIEW ? uni() : undefined
   ],
   alias: {
+    '@vtj/uni-app': resolve('../../platforms/uni-app/src/index.ts'),
     'axios/lib/core/settle': resolve(
       '../../node_modules/axios/lib/core/settle'
     ),

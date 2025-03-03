@@ -80,6 +80,7 @@
     <div>modelValue2: {{ modelValue2 }}</div>
     <div>modelValue3: {{ modelValue3 }}</div>
     <div>modelValue4: {{ modelValue4 }}</div>
+    <button @click="changeModelValue">Change modelValue1</button>
   </div>
 </template>
 <script lang="ts" setup>
@@ -101,6 +102,17 @@
     }
   ]);
   const modelValue4 = ref('530000198609055651,650000201712031238');
+
+  // setTimeout(() => {
+  //   modelValue1.value = '540000197809023360';
+  // }, 10000);
+
+  const changeModelValue = () => {
+    // modelValue1.value = '540000197809023360';
+    modelValue4.value = 'aaa,bbb';
+
+    modelValue1.value = { id: '223243', name: 'ABC' };
+  };
 
   const formatter = (val: any = '') => {
     // console.trace('formatter', val);

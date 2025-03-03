@@ -35,7 +35,9 @@ export function useDesigner(
   );
 
   const lines = computed(() =>
-    getComputedLinesStyle(designer.value?.lines.value || [])
+    designer.value?.outlineEnabled.value
+      ? getComputedLinesStyle(designer.value?.lines.value || [])
+      : []
   );
 
   watch(engine.changed, () => {
