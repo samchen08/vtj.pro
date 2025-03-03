@@ -257,7 +257,7 @@ const desc: MaterialDescription = {
       'enable-danmu': true,
       'danmu-btn': true,
       controls: true,
-      danmuList: [
+      'danmu-list': [
         {
           text: '第 1s 出现的弹幕',
           color: '#ff0000',

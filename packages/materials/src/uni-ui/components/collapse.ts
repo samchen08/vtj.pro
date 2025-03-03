@@ -22,22 +22,30 @@ const desc: MaterialDescription[] = [
     events: ['change', 'update:modelValue'],
     snippet: {
       props: {
-        accordion: true
+        modelValue: ['0']
       },
       children: [
         {
           name: 'UniCollapseItem',
-          props: { title: '手风琴效果' },
-          children: [{ name: 'Text', children: '折叠内容' }]
-          // directives: [
-          //   {
-          //     name: 'vFor',
-          //     value: {
-          //       type: 'JSExpression',
-          //       value: '4'
-          //     }
-          //   }
-          // ]
+          props: { title: '默认开启"' },
+          children: [
+            {
+              name: 'Text',
+              children:
+                '折叠内容主体，这是一段比较长内容。默认折叠主要内容，只显示当前项标题。点击标题展开，才能看到这段文字。再次点击标题，折叠内容。'
+            }
+          ]
+        },
+        {
+          name: 'UniCollapseItem',
+          props: { title: '折叠内容' },
+          children: [
+            {
+              name: 'Text',
+              children:
+                '折叠内容主体，这是一段比较长内容。默认折叠主要内容，只显示当前项标题。点击标题展开，才能看到这段文字。再次点击标题，折叠内容。'
+            }
+          ]
         }
       ]
     }
@@ -100,17 +108,8 @@ const desc: MaterialDescription[] = [
     ],
     slots: ['default', 'title'],
     snippet: {
-      props: { title: '手风琴效果' },
-      children: [{ name: 'Text', children: '折叠内容' }],
-      directives: [
-        {
-          name: 'vFor',
-          value: {
-            type: 'JSExpression',
-            value: '2'
-          }
-        }
-      ]
+      props: { title: '基本使用' },
+      children: [{ name: 'Text', children: '折叠内容' }]
     }
   }
 ];

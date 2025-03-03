@@ -124,7 +124,7 @@ const desc: MaterialDescription = {
     },
     children: [
       {
-        name: 'view',
+        name: 'View',
         props: {
           id: 'demo1',
           class: 'scroll-view-item uni-bg-red',
@@ -133,7 +133,7 @@ const desc: MaterialDescription = {
         children: 'A'
       },
       {
-        name: 'view',
+        name: 'View',
         props: {
           id: 'demo2',
           class: 'scroll-view-item uni-bg-green',
@@ -142,7 +142,7 @@ const desc: MaterialDescription = {
         children: 'B'
       },
       {
-        name: 'view',
+        name: 'View',
         props: {
           id: 'demo3',
           class: 'scroll-view-item uni-bg-blue',
