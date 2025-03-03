@@ -1,7 +1,7 @@
 {
   "name": "@vtj/web",
   "private": false,
-  "version": "0.10.5",
+  "version": "0.10.6",
   "type": "module",
   "sideEffects": false,
   "scripts": {
@@ -15,7 +15,7 @@
     "@vtj/renderer": "workspace:~",
     "@vtj/ui": "workspace:~",
     "@vtj/utils": "workspace:~",
-    "core-js": "~3.40.0",
+    "core-js": "~3.41.0",
     "regenerator-runtime": "~0.14.1"
   },
   "devDependencies": {

@@ -36,18 +36,20 @@ const init = async (provider: Provider) => {
   const project = provider.project;
   if (!project) return;
 
-  const App = createUniAppComponent(project.uniConfig || {}, (script) =>
+  const uniConfig = project.uniConfig || {};
+  const App = createUniAppComponent(uniConfig, (script) =>
     parseFunction(script, window, false, true)
   );
-  const css = project.uniConfig?.css || '';
+  const { manifestJson, pagesJson, css } = uniConfig;
   const routes = await createUniRoutes(provider, true);
-
   const app = setupUniApp({
     Vue,
     App,
     UniH5,
     routes,
-    css
+    css,
+    manifestJson,
+    pagesJson
   });
 
   app.use(provider);
