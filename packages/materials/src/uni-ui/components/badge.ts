@@ -65,11 +65,7 @@ const desc: MaterialDescription = {
   events: ['click'],
   snippet: {
     props: {
-      text: '1',
-      style: {
-        width: '20px',
-        height: '20px'
-      }
+      text: '1'
     }
   }
 };

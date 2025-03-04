@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.10.7](https://gitee.com/newgateway/vtj/compare/@vtj/uni@0.10.5...@vtj/uni@0.10.7) (2025-03-04)
+
+
+### Bug Fixes
+
+* 🐛 uniapp tabbar 预览不生效问题 ([5c8a75f](https://gitee.com/newgateway/vtj/commits/5c8a75fdefb6ee59e91fffc29beac64b3b73f33a))
+
+
+
+
+
 ## [0.10.6](https://gitee.com/newgateway/vtj/compare/@vtj/uni@0.10.5...@vtj/uni@0.10.6) (2025-02-28)
 
 

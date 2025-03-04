@@ -56,7 +56,7 @@
     },
     options: {
       // #ifdef MP-TOUTIAO
-      virtualHost: false,
+      // virtualHost: false,
       // #endif
       // #ifndef MP-TOUTIAO
       virtualHost: true
@@ -100,11 +100,11 @@
       }
     },
     // #ifndef VUE3
-    destroyed() {
-      const index = this.root.trChildren.findIndex((i) => i === this);
-      this.root.trChildren.splice(index, 1);
-      this.root.isNodata();
-    },
+    // destroyed() {
+    //   const index = this.root.trChildren.findIndex((i) => i === this);
+    //   this.root.trChildren.splice(index, 1);
+    //   this.root.isNodata();
+    // },
     // #endif
     // #ifdef VUE3
     unmounted() {

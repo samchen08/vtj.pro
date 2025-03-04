@@ -66,7 +66,9 @@ const desc: MaterialDescription[] = [
       }
     ],
     events: ['change', 'maskClick'],
-    snippet: {}
+    snippet: {
+      children: [{ name: 'View', children: 'popup 内容' }]
+    }
   },
   {
     name: 'UniPopupMessage',
@@ -95,7 +97,13 @@ const desc: MaterialDescription[] = [
       }
     ],
     slots: ['default'],
-    snippet: {}
+    snippet: {
+      props: {
+        type: 'success',
+        message: '这是一条成功提示',
+        duration: '2000'
+      }
+    }
   },
   {
     name: 'UniPopupDialog',

@@ -15,7 +15,16 @@ const desc: MaterialDescription = {
       name: 'mode-class',
       title: '内置过渡动画类型',
       defaultValue: '',
-      setters: ['ArraySetter', 'StringSetter']
+      setters: ['SelectSetter', 'ArraySetter', 'StringSetter'],
+      options: [
+        'fade',
+        'slide-top',
+        'slide-right',
+        'slide-bottom',
+        'slide-left',
+        'zoom-in',
+        'zoom-out'
+      ]
     },
     {
       name: 'custom-class',

@@ -94,14 +94,28 @@ const desc: MaterialDescription = {
                   }
                 ]
               }
-            ],
-            directives: [
+            ]
+          },
+          {
+            name: 'SwiperItem',
+            children: [
               {
-                name: 'vFor',
-                value: {
-                  type: 'JSExpression',
-                  value: '4'
-                }
+                name: 'View',
+                children: [
+                  {
+                    name: 'Text',
+                    props: {
+                      style: {
+                        color: '#fff',
+                        fontSize: '32px'
+                      }
+                    },
+                    children: {
+                      type: 'JSExpression',
+                      value: 'this.context.item.name'
+                    }
+                  }
+                ]
               }
             ]
           }

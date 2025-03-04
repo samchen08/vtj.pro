@@ -135,13 +135,20 @@
       width: 50
     },
     {
-      field: 'input',
-      title: 'Input'
+      field: 'group',
+      title: 'Group',
+      children: [
+        {
+          field: 'input',
+          title: 'Input'
+        },
+        {
+          field: 'number',
+          title: 'Number'
+        }
+      ]
     },
-    {
-      field: 'number',
-      title: 'Number'
-    },
+
     {
       field: 'select',
       title: 'Select'
