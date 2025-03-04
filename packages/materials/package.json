@@ -1,7 +1,7 @@
 {
   "name": "@vtj/materials",
   "private": false,
-  "version": "0.10.7",
+  "version": "0.10.8",
   "type": "module",
   "scripts": {
     "build": "npm run remove && npm run build:ui && npm run build:charts && npm run build:element && npm run build:antdv && npm run build:vant && npm run build:uniApp && npm run build:uniH5 && npm run build:uniH5Vue && npm run build:uniH5C && npm run build:uniUI && npm run build:uniUIC  && npm run copy",

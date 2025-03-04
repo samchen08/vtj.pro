@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.10.8](https://gitee.com/newgateway/vtj/compare/dev-web@0.10.7...dev-web@0.10.8) (2025-03-04)
+
+
+### Features
+
+* ✨ 优化uniapp页面加载 ([f599e2f](https://gitee.com/newgateway/vtj/commits/f599e2f8879bfb094748f1e2a26a739a22e9fba7))
+
+
+
+
+
 ## [0.10.7](https://gitee.com/newgateway/vtj/compare/dev-web@0.10.5...dev-web@0.10.7) (2025-03-04)
 
 

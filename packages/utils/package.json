@@ -1,7 +1,7 @@
 {
   "name": "@vtj/utils",
   "private": false,
-  "version": "0.10.7",
+  "version": "0.10.8",
   "type": "module",
   "scripts": {
     "build": "vue-tsc && vite build && npm run build:umd",
