@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.10.9](https://gitee.com/newgateway/vtj/compare/dev-web@0.10.8...dev-web@0.10.9) (2025-03-04)
+
+
+### Bug Fixes
+
+* 🐛 pathToRegexpCompile 绝对地址解析错误 ([7ba2bcc](https://gitee.com/newgateway/vtj/commits/7ba2bccb17379ceca49cad6fca8f764e752f6cc0))
+
+
+
+
+
 ## [0.10.8](https://gitee.com/newgateway/vtj/compare/dev-web@0.10.7...dev-web@0.10.8) (2025-03-04)
 
 

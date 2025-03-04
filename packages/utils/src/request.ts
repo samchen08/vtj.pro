@@ -15,7 +15,8 @@ import {
   debounce,
   throttle,
   uuid,
-  pathToRegexpCompile
+  pathToRegexpCompile,
+  isUrl
 } from '@vtj/base';
 
 const TYPES = {
@@ -301,9 +302,13 @@ export class Request {
   private createUrl(config: AxiosRequestConfig) {
     let { url, params } = config;
     if (url) {
+      let origin = isUrl(url) ? new URL(url).origin : '';
+      const path = origin ? url.replace(origin, '') : url;
       try {
-        const toPath = pathToRegexpCompile(url, { encode: encodeURIComponent });
-        return toPath(params || {});
+        const toPath = pathToRegexpCompile(path, {
+          encode: encodeURIComponent
+        });
+        return origin + toPath(params || {});
       } catch (e) {
         console.warn('createUrl', 'pathToRegexpCompile error', url);
       }
