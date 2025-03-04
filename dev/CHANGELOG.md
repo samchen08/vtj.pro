@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.10.7](https://gitee.com/newgateway/vtj/compare/dev-web@0.10.5...dev-web@0.10.7) (2025-03-04)
+
+
+### Bug Fixes
+
+* 🐛 XGrid 子column 设置editRenders无效 ([4b0f12b](https://gitee.com/newgateway/vtj/commits/4b0f12bbb65b246510665f39f1e81e74582c541a))
+
+
+
+
+
 ## [0.10.6](https://gitee.com/newgateway/vtj/compare/dev-web@0.10.5...dev-web@0.10.6) (2025-02-28)
 
 **Note:** Version bump only for package dev-web

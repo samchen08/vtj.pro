@@ -50,7 +50,8 @@ function createColumns(props: GridProps) {
         columns: col.children,
         cellRenders,
         editRenders,
-        filterRenders
+        filterRenders,
+        editable
       });
     }
   }

@@ -256,7 +256,7 @@
 
     options: {
       // #ifdef MP-TOUTIAO
-      virtualHost: false,
+      // virtualHost: false,
       // #endif
       // #ifndef MP-TOUTIAO
       virtualHost: true
@@ -382,16 +382,16 @@
         }
       },
       // #ifndef VUE3
-      value: {
-        immediate: true,
-        handler(newVal) {
-          if (this.isEmitValue) {
-            this.isEmitValue = false;
-            return;
-          }
-          this.initPicker(newVal);
-        }
-      },
+      // value: {
+      //   immediate: true,
+      //   handler(newVal) {
+      //     if (this.isEmitValue) {
+      //       this.isEmitValue = false;
+      //       return;
+      //     }
+      //     this.initPicker(newVal);
+      //   }
+      // },
       // #endif
       // #ifdef VUE3
       modelValue: {
@@ -612,13 +612,11 @@
           return;
         }
         // #ifdef MP-WEIXIN
-        const { windowWidth } = uni.getWindowInfo();
+        // const { windowWidth } = uni.getWindowInfo();
         // #endif
-        // // #ifndef MP-WEIXIN
-        // const {
-        // 	windowWidth
-        // } = uni.getSystemInfoSync()
-        // // #endif
+        // #ifndef MP-WEIXIN
+        const { windowWidth } = uni.getSystemInfoSync();
+        // #endif
         this.isPhone = windowWidth <= 500;
         this.windowWidth = windowWidth;
       },

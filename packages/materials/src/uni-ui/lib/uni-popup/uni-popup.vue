@@ -239,7 +239,7 @@
         // TODO fix by mehaotian 是否适配底部安全区 ,目前微信ios 、和 app ios 计算有差异，需要框架修复
         if (safeArea && this.safeArea) {
           // #ifdef MP-WEIXIN
-          this.safeAreaInsets = screenHeight - safeArea.bottom;
+          // this.safeAreaInsets = screenHeight - safeArea.bottom;
           // #endif
           // #ifndef MP-WEIXIN
           this.safeAreaInsets = safeAreaInsets.bottom;
@@ -258,9 +258,9 @@
     },
     // #ifndef VUE3
     // TODO vue2
-    destroyed() {
-      this.setH5Visible();
-    },
+    // destroyed() {
+    //   this.setH5Visible();
+    // },
     // #endif
     // #ifdef VUE3
     // TODO vue3

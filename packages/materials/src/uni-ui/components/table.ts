@@ -71,7 +71,9 @@ const desc: MaterialDescription[] = [
     childIncludes: ['UniTh', 'UniTd'],
     categoryId: 'ext',
     props: [],
-    snippet: {}
+    snippet: {
+      children: 'tr'
+    }
   },
   {
     name: 'UniTh',
@@ -110,7 +112,9 @@ const desc: MaterialDescription[] = [
       }
     ],
     events: ['sort-change', 'filter-change'],
-    snippet: {}
+    snippet: {
+      children: 'th'
+    }
   },
   {
     name: 'UniTd',
@@ -125,7 +129,9 @@ const desc: MaterialDescription[] = [
         options: ['left', 'center', 'right']
       }
     ],
-    snippet: {}
+    snippet: {
+      children: 'td'
+    }
   }
 ];
 

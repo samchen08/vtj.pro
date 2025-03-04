@@ -3,6 +3,32 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.10.7](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.10.5...@vtj/materials@0.10.7) (2025-03-04)
+
+
+### Bug Fixes
+
+* 🐛 修改 scrllView snippet中的name ([dbce8a2](https://gitee.com/newgateway/vtj/commits/dbce8a2395c18752f54616ed87449d8728e63fa1))
+* 🐛 隐藏 组件 ([fe7cb56](https://gitee.com/newgateway/vtj/commits/fe7cb56fd791649a7882d58ba0a247315c28187a))
+* 🐛 uniapp video ([2b9fd5c](https://gitee.com/newgateway/vtj/commits/2b9fd5cee8b3b8d0b14692497b8a0c80a13a5c80))
+
+
+### Features
+
+* ✨ 处理 data-picker 样式 ([cafddf4](https://gitee.com/newgateway/vtj/commits/cafddf4fbeb8208d62ec5b2059bfd27eecd2e315))
+* ✨ transition 组件 ([e5ab55a](https://gitee.com/newgateway/vtj/commits/e5ab55ac6a4a2275ee8726325a2f6d6b15b604b1))
+* ✨ uniapp 拓展组件 ([a273383](https://gitee.com/newgateway/vtj/commits/a273383f7a7101d0e80ba9861cf1b129b0652660))
+* ✨ uniapp 拓展组件 ([5b206fa](https://gitee.com/newgateway/vtj/commits/5b206fa8891453ef2c3856635800157164a0b6cb))
+* ✨ uniapp 拓展组件 ([0c8948c](https://gitee.com/newgateway/vtj/commits/0c8948c25c338725c69e13869fbc7bbac8c05b45))
+* ✨ uniapp 拓展组件 ([0c8a26b](https://gitee.com/newgateway/vtj/commits/0c8a26bc8886d01b27ddf2fc1fe57ce31f0047d1))
+* ✨ uniapp 拓展组件 ([c9c305a](https://gitee.com/newgateway/vtj/commits/c9c305ac9a7e7e6bb90e35afb21ff1ef1bdbc4a8))
+* ✨ uniapp 拓展组件 ([520d490](https://gitee.com/newgateway/vtj/commits/520d490e7638e50682fc630e8151c9913f2c188c))
+* ✨ uniapp input的值 双向绑定 ([59f8b0a](https://gitee.com/newgateway/vtj/commits/59f8b0af59a690e5df8a51c1b5b83f6c345354ea))
+
+
+
+
+
 ## [0.10.6](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.10.5...@vtj/materials@0.10.6) (2025-02-28)
 
 **Note:** Version bump only for package @vtj/materials

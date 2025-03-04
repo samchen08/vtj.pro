@@ -2,7 +2,7 @@
   "name": "@vtj/pro",
   "description": "VTJ.PRO",
   "private": false,
-  "version": "0.10.6",
+  "version": "0.10.7",
   "type": "module",
   "scripts": {
     "dev": "cross-env ENV_TYPE=local vite",
@@ -51,7 +51,7 @@
     "access": "public"
   },
   "vtj": {
-    "platform": "uniapp",
+    "platform": "web",
     "adapters": {
       "remote": "https://lcdp.vtj.pro",
       "access": {
