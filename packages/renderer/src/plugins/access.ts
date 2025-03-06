@@ -343,7 +343,7 @@ export class Access {
   private isUnauthorized(res: any) {
     const { unauthorizedCode = 401 } = this.options;
     return (
-      res.status === unauthorizedCode || res.data.code === unauthorizedCode
+      res.status === unauthorizedCode || res.data?.code === unauthorizedCode
     );
   }
 
