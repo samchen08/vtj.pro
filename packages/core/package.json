@@ -1,7 +1,7 @@
 {
   "name": "@vtj/core",
   "private": false,
-  "version": "0.10.9",
+  "version": "0.10.10",
   "type": "module",
   "scripts": {
     "build": "vue-tsc && vite build",

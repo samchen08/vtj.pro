@@ -36,7 +36,7 @@
     zoom: 0.7;
   }
 
-  @include e(tags){
+  @include e(tags) {
     position: absolute;
     right: 30px;
     font-size: 12px;
@@ -45,11 +45,19 @@
       zoom: 0.9;
       color: var(--el-color-info);
       opacity: 0.8;
-
     }
   }
 
+  @include e(title-wrapper) {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 1px;
+    flex-grow: 1;
+  }
+
   @include e(title) {
+    flex-grow: 1;
     > .x-icon {
       margin-right: 3px;
     }
@@ -87,6 +95,4 @@
       }
     }
   }
-
-
 }
