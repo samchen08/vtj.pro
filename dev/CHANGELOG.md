@@ -3,6 +3,63 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.10.12](https://gitee.com/newgateway/vtj/compare/dev-web@0.10.11...dev-web@0.10.12) (2025-03-11)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
+## [0.10.11](https://gitee.com/newgateway/vtj/compare/dev-web@0.10.10...dev-web@0.10.11) (2025-03-11)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
+## [0.10.10](https://gitee.com/newgateway/vtj/compare/dev-web@0.10.9...dev-web@0.10.10) (2025-03-07)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
+## [0.10.9](https://gitee.com/newgateway/vtj/compare/dev-web@0.10.8...dev-web@0.10.9) (2025-03-04)
+
+
+### Bug Fixes
+
+* 🐛 pathToRegexpCompile 绝对地址解析错误 ([7ba2bcc](https://gitee.com/newgateway/vtj/commits/7ba2bccb17379ceca49cad6fca8f764e752f6cc0))
+
+
+
+
+
+## [0.10.8](https://gitee.com/newgateway/vtj/compare/dev-web@0.10.7...dev-web@0.10.8) (2025-03-04)
+
+
+### Features
+
+* ✨ 优化uniapp页面加载 ([f599e2f](https://gitee.com/newgateway/vtj/commits/f599e2f8879bfb094748f1e2a26a739a22e9fba7))
+
+
+
+
+
+## [0.10.7](https://gitee.com/newgateway/vtj/compare/dev-web@0.10.5...dev-web@0.10.7) (2025-03-04)
+
+
+### Bug Fixes
+
+* 🐛 XGrid 子column 设置editRenders无效 ([4b0f12b](https://gitee.com/newgateway/vtj/commits/4b0f12bbb65b246510665f39f1e81e74582c541a))
+
+
+
+
+
 ## [0.10.6](https://gitee.com/newgateway/vtj/compare/dev-web@0.10.5...dev-web@0.10.6) (2025-02-28)
 
 **Note:** Version bump only for package dev-web

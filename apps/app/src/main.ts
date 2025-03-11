@@ -9,7 +9,8 @@ import {
   loading,
   createAdapter,
   createServiceRequest,
-  IconsPlugin
+  IconsPlugin,
+  Startup
 } from '@vtj/web';
 import { createApp } from 'vue';
 import router from './router';
@@ -18,7 +19,7 @@ import { name } from '../package.json';
 import './style/index.scss';
 
 const app = createApp(App);
-const adapter = createAdapter({ loading, notify });
+const adapter = createAdapter({ loading, notify, Startup });
 const service = new LocalService(createServiceRequest(notify));
 const { provider, onReady } = createProvider({
   nodeEnv: process.env.NODE_ENV as NodeEnv,

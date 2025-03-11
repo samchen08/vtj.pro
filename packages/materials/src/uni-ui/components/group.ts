@@ -32,16 +32,7 @@ const desc: MaterialDescription = {
     children: [
       {
         name: 'View',
-        children: ' 分组内容 ',
-        directives: [
-          {
-            name: 'vFor',
-            value: {
-              type: 'JSExpression',
-              value: '4'
-            }
-          }
-        ]
+        children: ' 分组内容 '
       }
     ]
   }

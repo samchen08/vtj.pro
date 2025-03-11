@@ -3,6 +3,62 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.10.12](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.10.11...@vtj/ui@0.10.12) (2025-03-11)
+
+**Note:** Version bump only for package @vtj/ui
+
+
+
+
+
+## [0.10.11](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.10.10...@vtj/ui@0.10.11) (2025-03-11)
+
+**Note:** Version bump only for package @vtj/ui
+
+
+
+
+
+## [0.10.10](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.10.9...@vtj/ui@0.10.10) (2025-03-07)
+
+**Note:** Version bump only for package @vtj/ui
+
+
+
+
+
+## [0.10.9](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.10.8...@vtj/ui@0.10.9) (2025-03-04)
+
+**Note:** Version bump only for package @vtj/ui
+
+
+
+
+
+## [0.10.8](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.10.7...@vtj/ui@0.10.8) (2025-03-04)
+
+**Note:** Version bump only for package @vtj/ui
+
+
+
+
+
+## [0.10.7](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.10.5...@vtj/ui@0.10.7) (2025-03-04)
+
+
+### Bug Fixes
+
+* 🐛 XGrid 子column 设置editRenders无效 ([4b0f12b](https://gitee.com/newgateway/vtj/commits/4b0f12bbb65b246510665f39f1e81e74582c541a))
+
+
+### Features
+
+* ✨ autoUpdate 支持时间参数 ([6f500c8](https://gitee.com/newgateway/vtj/commits/6f500c869960b43183dffb98a6b7c9626de80bb3))
+
+
+
+
+
 ## [0.10.6](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.10.5...@vtj/ui@0.10.6) (2025-02-28)
 
 **Note:** Version bump only for package @vtj/ui

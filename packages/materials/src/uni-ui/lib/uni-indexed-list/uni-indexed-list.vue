@@ -1,24 +1,24 @@
 <template>
   <view class="uni-indexed-list" ref="list" id="list">
     <!-- #ifdef APP-NVUE -->
-    <list
+    <!-- <list
       class="uni-indexed-list__scroll"
       scrollable="true"
       show-scrollbar="false">
       <cell
         v-for="(list, idx) in lists"
         :key="idx"
-        :ref="'uni-indexed-list-' + idx">
-        <!-- #endif -->
-        <!-- #ifndef APP-NVUE -->
-        <!-- <scroll-view
-          :scroll-into-view="scrollViewId"
-          class="uni-indexed-list__scroll"
-          scroll-y>
-          <view
-            v-for="(list, idx) in lists"
-            :key="idx"
-            :id="'uni-indexed-list-' + idx"> -->
+        :ref="'uni-indexed-list-' + idx"> -->
+    <!-- #endif -->
+    <!-- #ifndef APP-NVUE -->
+    <scroll-view
+      :scroll-into-view="scrollViewId"
+      class="uni-indexed-list__scroll"
+      scroll-y>
+      <view
+        v-for="(list, idx) in lists"
+        :key="idx"
+        :id="'uni-indexed-list-' + idx">
         <!-- #endif -->
         <indexed-list-item
           :list="list"
@@ -27,12 +27,12 @@
           :showSelect="showSelect"
           @itemClick="onClick"></indexed-list-item>
         <!-- #ifndef APP-NVUE -->
-        <!-- </view>
-        </scroll-view> -->
-        <!-- #endif -->
-        <!-- #ifdef APP-NVUE -->
-      </cell>
-    </list>
+      </view>
+    </scroll-view>
+    <!-- #endif -->
+    <!-- #ifdef APP-NVUE -->
+    <!-- </cell>
+    </list> -->
     <!-- #endif -->
     <view
       class="uni-indexed-list__menu"
@@ -66,21 +66,21 @@
 <script>
   import indexedListItem from './uni-indexed-list-item.vue';
   // #ifdef APP-NVUE
-  const dom = weex.requireModule('dom');
+  // const dom = weex.requireModule('dom');
   // #endif
   // #ifdef APP-PLUS
-  function throttle(func, delay) {
-    var prev = Date.now();
-    return function () {
-      var context = this;
-      var args = arguments;
-      var now = Date.now();
-      if (now - prev >= delay) {
-        func.apply(context, args);
-        prev = Date.now();
-      }
-    };
-  }
+  // function throttle(func, delay) {
+  //   var prev = Date.now();
+  //   return function () {
+  //     var context = this;
+  //     var args = arguments;
+  //     var now = Date.now();
+  //     if (now - prev >= delay) {
+  //       func.apply(context, args);
+  //       prev = Date.now();
+  //     }
+  //   };
+  // }
 
   function touchMove(e) {
     let pageY = e.touches[0].pageY;
@@ -95,14 +95,14 @@
       this.touchmoveIndex = index;
       // #endif
       // #ifdef APP-NVUE
-      dom.scrollToElement(this.$refs['uni-indexed-list-' + index][0], {
-        animated: false
-      });
-      this.touchmoveIndex = index;
+      // dom.scrollToElement(this.$refs['uni-indexed-list-' + index][0], {
+      //   animated: false
+      // });
+      // this.touchmoveIndex = index;
       // #endif
     }
   }
-  const throttleTouchMove = throttle(touchMove, 40);
+  // const throttleTouchMove = throttle(touchMove, 40);
   // #endif
 
   /**
@@ -205,11 +205,11 @@
           });
         // #endif
         // #ifdef APP-NVUE
-        dom.getComponentRect(this.$refs['list'], (res) => {
-          this.winOffsetY = res.size.top;
-          this.winHeight = res.size.height;
-          this.itemHeight = this.winHeight / this.lists.length;
-        });
+        // dom.getComponentRect(this.$refs['list'], (res) => {
+        //   this.winOffsetY = res.size.top;
+        //   this.winHeight = res.size.height;
+        //   this.itemHeight = this.winHeight / this.lists.length;
+        // });
         // #endif
       },
       touchStart(e) {
@@ -221,9 +221,9 @@
           this.scrollViewId = 'uni-indexed-list-' + index;
           this.touchmoveIndex = index;
           // #ifdef APP-NVUE
-          dom.scrollToElement(this.$refs['uni-indexed-list-' + index][0], {
-            animated: false
-          });
+          // dom.scrollToElement(this.$refs['uni-indexed-list-' + index][0], {
+          //   animated: false
+          // });
           // #endif
         }
       },
@@ -241,7 +241,7 @@
         }
         // #endif
         // #ifdef APP-PLUS
-        throttleTouchMove.call(this, e);
+        // throttleTouchMove.call(this, e);
         // #endif
       },
       touchEnd() {
@@ -361,12 +361,12 @@
     color: #aaa;
   }
 
-  .uni-indexed-list__menu--active {
-    // background-color: rgb(200, 200, 200);
-  }
+  // .uni-indexed-list__menu--active {
+  //   // background-color: rgb(200, 200, 200);
+  // }
 
-  .uni-indexed-list__menu--active {
-  }
+  // .uni-indexed-list__menu--active {
+  // }
 
   .uni-indexed-list__menu-text--active {
     border-radius: 16px;

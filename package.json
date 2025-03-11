@@ -103,6 +103,7 @@
     "lcdp:gitee": "cd lcdp  && npm run build:gitee",
     "lcdp:preview": "cd lcdp && npm run preview",
     "uniapp:dev": "cd apps/uniapp && npm run dev:h5",
+    "uniapp:mp": "cd apps/uniapp && npm run dev:mp-weixin",
     "uniapp:build": "cd apps/uniapp && npm run build:h5",
     "uniapp:preview": "cd apps/uniapp && npm run preview:h5",
     "plugin:dev": "cd apps/plugin && npm run dev",

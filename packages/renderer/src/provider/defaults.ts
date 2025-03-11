@@ -1,3 +1,4 @@
+import type { MaybeRef, Ref } from 'vue';
 import {
   createRequest,
   jsonp,
@@ -8,10 +9,16 @@ import {
 
 import { Access } from '../plugins';
 
+export type UseTitle = (
+  newTitle?: MaybeRef<string | null | undefined>,
+  options?: Record<string, any>
+) => Ref<string | null | undefined>;
+
 export interface CreateAdapterOptions {
   notify?: (msg: string) => void;
   loading?: () => any;
   settings?: IRequestSettings;
+  Startup?: any;
 }
 
 export interface ProvideAdapter {
@@ -24,11 +31,12 @@ export interface ProvideAdapter {
    * 远程服务 host
    */
   remote?: string;
+  useTitle?: UseTitle;
   [index: string]: any;
 }
 
 export function createAdapter(options: CreateAdapterOptions = {}) {
-  const { notify, loading, settings = {} } = options;
+  const { notify, loading, settings = {}, Startup } = options;
   let _loading: any = null;
   const request = createRequest({
     settings: {
@@ -66,6 +74,7 @@ export function createAdapter(options: CreateAdapterOptions = {}) {
     request,
     jsonp,
     notify,
-    loading
+    loading,
+    startupComponent: Startup
   } as ProvideAdapter;
 }

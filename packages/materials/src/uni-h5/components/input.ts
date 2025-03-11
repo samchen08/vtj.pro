@@ -6,7 +6,7 @@ const desc: MaterialDescription = {
   categoryId: 'form',
   props: [
     {
-      name: 'value',
+      name: 'modelValue',
       title: '输入框的初始内容',
       setters: 'StringSetter'
     },
@@ -209,7 +209,7 @@ const desc: MaterialDescription = {
       ]
     }
   ],
-  events: ['input', 'focus', 'blur', 'confirm'],
+  events: ['input', 'focus', 'blur', 'confirm', 'update:modelValue'],
   snippet: {
     props: {
       placeholder: '这个是一个输入框'

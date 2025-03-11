@@ -3,6 +3,63 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.10.12](https://gitee.com/newgateway/vtj/compare/@vtj/uni@0.10.11...@vtj/uni@0.10.12) (2025-03-11)
+
+**Note:** Version bump only for package @vtj/uni
+
+
+
+
+
+## [0.10.11](https://gitee.com/newgateway/vtj/compare/@vtj/uni@0.10.10...@vtj/uni@0.10.11) (2025-03-11)
+
+
+### Bug Fixes
+
+* 🐛 更新uniapp依赖, 优化renderer ([463b1f7](https://gitee.com/newgateway/vtj/commits/463b1f7419b5373c514eaaf285a989c5220f7934))
+
+
+
+
+
+## [0.10.10](https://gitee.com/newgateway/vtj/compare/@vtj/uni@0.10.9...@vtj/uni@0.10.10) (2025-03-07)
+
+**Note:** Version bump only for package @vtj/uni
+
+
+
+
+
+## [0.10.9](https://gitee.com/newgateway/vtj/compare/@vtj/uni@0.10.8...@vtj/uni@0.10.9) (2025-03-04)
+
+**Note:** Version bump only for package @vtj/uni
+
+
+
+
+
+## [0.10.8](https://gitee.com/newgateway/vtj/compare/@vtj/uni@0.10.7...@vtj/uni@0.10.8) (2025-03-04)
+
+
+### Features
+
+* ✨ 优化uniapp页面加载 ([f599e2f](https://gitee.com/newgateway/vtj/commits/f599e2f8879bfb094748f1e2a26a739a22e9fba7))
+
+
+
+
+
+## [0.10.7](https://gitee.com/newgateway/vtj/compare/@vtj/uni@0.10.5...@vtj/uni@0.10.7) (2025-03-04)
+
+
+### Bug Fixes
+
+* 🐛 uniapp tabbar 预览不生效问题 ([5c8a75f](https://gitee.com/newgateway/vtj/commits/5c8a75fdefb6ee59e91fffc29beac64b3b73f33a))
+
+
+
+
+
 ## [0.10.6](https://gitee.com/newgateway/vtj/compare/@vtj/uni@0.10.5...@vtj/uni@0.10.6) (2025-02-28)
 
 
