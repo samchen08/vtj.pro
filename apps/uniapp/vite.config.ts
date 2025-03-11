@@ -9,7 +9,7 @@ export default createUniappViteConfig({
   plugins: [
     createDevTools({
       // staticBase: basePath,
-      devMode: true,
+      devMode: false,
       pluginNodeModulesDir: '../../node_modules'
     }),
     !process.env.PREVIEW ? uni() : undefined

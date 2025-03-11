@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.10.12](https://gitee.com/newgateway/vtj/compare/vtj-project-app@0.10.11...vtj-project-app@0.10.12) (2025-03-11)
+
+**Note:** Version bump only for package vtj-project-app
+
+
+
+
+
+## [0.10.11](https://gitee.com/newgateway/vtj/compare/vtj-project-app@0.10.10...vtj-project-app@0.10.11) (2025-03-11)
+
+
+### Features
+
+* ✨ uniapp 支持微信小程序 ([ca67024](https://gitee.com/newgateway/vtj/commits/ca6702490867df9badb5f045aee76c2df14f2052))
+
+
+
+
+
 ## [0.10.10](https://gitee.com/newgateway/vtj/compare/vtj-project-app@0.10.9...vtj-project-app@0.10.10) (2025-03-07)
 
 **Note:** Version bump only for package vtj-project-app

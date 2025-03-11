@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.10.12](https://gitee.com/newgateway/vtj/compare/@vtj/uni@0.10.11...@vtj/uni@0.10.12) (2025-03-11)
+
+**Note:** Version bump only for package @vtj/uni
+
+
+
+
+
+## [0.10.11](https://gitee.com/newgateway/vtj/compare/@vtj/uni@0.10.10...@vtj/uni@0.10.11) (2025-03-11)
+
+
+### Bug Fixes
+
+* 🐛 更新uniapp依赖, 优化renderer ([463b1f7](https://gitee.com/newgateway/vtj/commits/463b1f7419b5373c514eaaf285a989c5220f7934))
+
+
+
+
+
 ## [0.10.10](https://gitee.com/newgateway/vtj/compare/@vtj/uni@0.10.9...@vtj/uni@0.10.10) (2025-03-07)
 
 **Note:** Version bump only for package @vtj/uni

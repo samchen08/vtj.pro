@@ -1,14 +1,6 @@
 {
   "pages": [
     {
-      "path": "pages/45tiwi8z7",
-      "style": {
-        "navigationBarTitleText": "Title"
-      },
-      "needLogin": false,
-      "vtj": true
-    },
-    {
       "path": "pages/startup"
     }
   ],

@@ -3,6 +3,30 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.10.12](https://gitee.com/newgateway/vtj/compare/@vtj/uni-app@0.10.11...@vtj/uni-app@0.10.12) (2025-03-11)
+
+**Note:** Version bump only for package @vtj/uni-app
+
+
+
+
+
+## [0.10.11](https://gitee.com/newgateway/vtj/compare/@vtj/uni-app@0.10.10...@vtj/uni-app@0.10.11) (2025-03-11)
+
+
+### Bug Fixes
+
+* 🐛 更新uniapp依赖, 优化renderer ([463b1f7](https://gitee.com/newgateway/vtj/commits/463b1f7419b5373c514eaaf285a989c5220f7934))
+
+
+### Features
+
+* ✨ uniapp 支持微信小程序 ([ca67024](https://gitee.com/newgateway/vtj/commits/ca6702490867df9badb5f045aee76c2df14f2052))
+
+
+
+
+
 ## [0.10.10](https://gitee.com/newgateway/vtj/compare/@vtj/uni-app@0.10.9...@vtj/uni-app@0.10.10) (2025-03-07)
 
 **Note:** Version bump only for package @vtj/uni-app

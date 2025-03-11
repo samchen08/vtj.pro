@@ -99,10 +99,10 @@ export function isNativeTag(tag: string) {
 }
 
 export function getMock(global: any = window) {
-  const cache = (window as any).Mock;
+  const cache = (window as any)?.Mock;
   if (cache) return cache;
-  const Mock = global.Mock;
-  if (Mock) {
+  const Mock = global?.Mock;
+  if (Mock && window) {
     (window as any).Mock = Mock;
     return Mock;
   }
