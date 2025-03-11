@@ -163,8 +163,10 @@ export class Provider extends Base {
     }
     const { apis = [], meta = [] } = this.project as ProjectSchema;
     const _window = window as any;
-    // 解决CkEditor错误提示问题
-    _window.CKEDITOR_VERSION = undefined;
+    if (_window) {
+      // 解决CkEditor错误提示问题
+      _window.CKEDITOR_VERSION = undefined;
+    }
 
     /**
      * 源码模式只加载原生代码依赖
@@ -389,6 +391,7 @@ export class Provider extends Base {
   async getDslByUrl(url: string): Promise<BlockSchema | null> {
     const cache = this.urlDslCaches[url];
     if (cache) return cache;
+    if (!this.adapter.request) return null;
     return (this.urlDslCaches[url] = this.adapter.request
       .send({
         url,

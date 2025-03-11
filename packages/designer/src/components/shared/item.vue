@@ -18,13 +18,15 @@
         <span v-if="index !== undefined" class="v-item__index">
           # {{ index }}
         </span>
-        <span class="v-item__content">{{ title }}</span>
-        <span
-          v-if="subtitle"
-          class="v-item__subtitle"
-          :class="props.subtitleCls">
-          {{ subtitle }}
-        </span>
+        <div class="v-item__title-wrapper">
+          <span class="v-item__content">{{ title }}</span>
+          <span
+            v-if="subtitle"
+            class="v-item__subtitle"
+            :class="props.subtitleCls">
+            {{ subtitle }}
+          </span>
+        </div>
         <div v-if="props.textTags" class="v-item__tags">
           <span v-for="item in props.textTags">{{ item }}</span>
         </div>

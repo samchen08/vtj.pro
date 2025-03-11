@@ -3,6 +3,36 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.10.12](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.10.11...@vtj/coder@0.10.12) (2025-03-11)
+
+
+### Bug Fixes
+
+* 🐛 coder uniapp packagename ([3385d01](https://gitee.com/newgateway/vtj/commits/3385d0154862808415490051a460ec0b1d4542ab))
+
+
+
+
+
+## [0.10.11](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.10.10...@vtj/coder@0.10.11) (2025-03-11)
+
+
+### Features
+
+* ✨ uniapp 支持微信小程序 ([ca67024](https://gitee.com/newgateway/vtj/commits/ca6702490867df9badb5f045aee76c2df14f2052))
+
+
+
+
+
+## [0.10.10](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.10.9...@vtj/coder@0.10.10) (2025-03-07)
+
+**Note:** Version bump only for package @vtj/coder
+
+
+
+
+
 ## [0.10.9](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.10.8...@vtj/coder@0.10.9) (2025-03-04)
 
 **Note:** Version bump only for package @vtj/coder

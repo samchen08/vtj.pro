@@ -320,7 +320,8 @@ export class Simulator extends Base {
       if (!this.contentWindow) return reject(null);
       const body = this.contentWindow.document.body;
       html2canvas(body, {
-        allowTaint: true
+        allowTaint: true,
+        useCORS: true
       })
         .then((canvas) => {
           resolve(canvas);

@@ -49,7 +49,16 @@
     }
   }
 
+  @include e(title-wrapper) {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 1px;
+    flex-grow: 1;
+  }
+
   @include e(title) {
+    flex-grow: 1;
     > .x-icon {
       margin-right: 3px;
     }

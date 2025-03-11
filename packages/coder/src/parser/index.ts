@@ -36,6 +36,7 @@ export interface Token {
   blockPlugins: string;
   asyncComponents: string;
   uniComponents: string[];
+  renderer: string;
 }
 
 export function parser(
@@ -114,6 +115,7 @@ export function parser(
     urlSchemas: urlSchemas.join('\n'),
     blockPlugins: blockPlugins.join('\n'),
     asyncComponents: asyncComponents.join(','),
-    uniComponents
+    uniComponents,
+    renderer: platform === 'uniapp' ? '@vtj/uni-app' : '@vtj/renderer'
   };
 }
