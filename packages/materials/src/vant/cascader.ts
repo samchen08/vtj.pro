@@ -66,7 +66,7 @@ const Cascader: MaterialDescription = {
       setters: 'ObjectSetter'
     }
   ],
-  events: ['update:modelValue', 'change', 'finish', 'close', 'click-tab'],
+  events: ['update:modelValue', 'change', 'finish', 'close', 'clickTab'],
   slots: ['title', 'option', 'options-top', 'options-bottom'],
   snippet: {
     props: {

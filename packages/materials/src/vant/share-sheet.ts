@@ -118,7 +118,7 @@ const ShareSheet: MaterialDescription = {
     { name: 'close' },
     { name: 'opened' },
     { name: 'closed' },
-    { name: 'click-overlay' }
+    { name: 'clickOverlay' }
   ],
   slots: ['title', 'description', 'cancel'],
   snippet: {

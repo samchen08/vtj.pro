@@ -51,7 +51,7 @@ const ContactEdit: MaterialDescription = {
   events: [
     { name: 'save', params: ['content'] },
     { name: 'delete', params: ['content'] },
-    { name: 'change-default', params: ['checked'] }
+    { name: 'changeDefault', params: ['checked'] }
   ],
   snippet: {
     props: {

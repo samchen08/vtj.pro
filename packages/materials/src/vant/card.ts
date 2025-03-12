@@ -68,7 +68,7 @@ const Card: MaterialDescription = {
   ],
   events: [
     { name: 'click', params: ['event'] },
-    { name: 'click-thumb', params: ['event'] }
+    { name: 'clickThumb', params: ['event'] }
   ],
   slots: [
     'title',

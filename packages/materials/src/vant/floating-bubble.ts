@@ -46,7 +46,7 @@ const FloatingBubble: MaterialDescription = {
   events: [
     { name: 'update:offset' },
     { name: 'click', params: ['event'] },
-    { name: 'offset-change', params: ['data'] }
+    { name: 'offsetChange', params: ['data'] }
   ],
   slots: ['default'],
   snippet: {

@@ -153,9 +153,9 @@ const Search: MaterialDescription = {
     { name: 'update:modelValue', params: ['value'] },
     { name: 'focus', params: ['event'] },
     { name: 'blur', params: ['event'] },
-    { name: 'click-input', params: ['event'] },
-    { name: 'click-left-icon', params: ['event'] },
-    { name: 'click-right-icon', params: ['event'] },
+    { name: 'clickInput', params: ['event'] },
+    { name: 'clickLeftIcon', params: ['event'] },
+    { name: 'clickRightIcon', params: ['event'] },
     { name: 'clear', params: ['event'] },
     { name: 'cancel' }
   ],
