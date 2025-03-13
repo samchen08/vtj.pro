@@ -66,6 +66,12 @@ VTJ 是一款基于 Vue3 + Typescript 的低代码页面可视化设计器。内
    npm create vtj@latest --registry=https://registry.npmmirror.com -- -t uniapp
    ```
 
+1. 物料开发项目
+
+   ```sh
+   npm create vtj@latest --registry=https://registry.npmmirror.com -- -t material
+   ```
+
 ## 贡献指南
 
 ### 开发环境要求

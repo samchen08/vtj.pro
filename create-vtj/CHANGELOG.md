@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.10.6](https://gitee.com/newgateway/vtj/compare/create-vtj@0.10.5...create-vtj@0.10.6) (2025-03-13)
+
+
+### Features
+
+* ✨ 物料开发工程模版 ([b1e88e8](https://gitee.com/newgateway/vtj/commits/b1e88e852df84586600a5a0ef00a89bed55bc8b6))
+
+
+
+
+
 ## [0.10.5](https://gitee.com/newgateway/vtj/compare/create-vtj@0.10.4...create-vtj@0.10.5) (2025-03-11)
 
 

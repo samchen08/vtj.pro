@@ -44,7 +44,7 @@ const FloatingPanel: MaterialDescription = {
       setters: 'BooleanSetter'
     }
   ],
-  events: [{ name: 'height-change', params: ['height'] }],
+  events: [{ name: 'heightChange', params: ['height'] }],
   slots: ['default', 'header'],
   snippet: {
     children: [

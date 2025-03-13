@@ -45,10 +45,10 @@ const TreeSelect: MaterialDescription = {
     }
   ],
   events: [
-    { name: 'update:main-active-index' },
-    { name: 'update:active-id' },
-    { name: 'click-nav', params: ['index'] },
-    { name: 'click-item', params: ['item'] }
+    { name: 'update:mainActiveIndex' },
+    { name: 'update:activeId' },
+    { name: 'clickNav', params: ['index'] },
+    { name: 'clickItem', params: ['item'] }
   ],
   slots: ['nav-text', 'content'],
   snippet: {

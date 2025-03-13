@@ -81,8 +81,8 @@ const NavBar: MaterialDescription = {
     }
   ],
   events: [
-    { name: 'click-left', params: ['event'] },
-    { name: 'click-right', params: ['event'] }
+    { name: 'clickLeft', params: ['event'] },
+    { name: 'clickRight', params: ['event'] }
   ],
   slots: ['title', 'left', 'right'],
   snippet: {

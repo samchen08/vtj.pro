@@ -65,7 +65,7 @@ export interface EngineOptions {
   materials?: Record<string, () => Promise<any>>;
   materialPath?: string;
   globals?: Record<string, any>;
-  adapter?: ProvideAdapter;
+  adapter?: Partial<ProvideAdapter>;
   install?: (app: App, engine?: Engine) => void;
   pageBasePath?: string;
   pageRouteName?: string;
@@ -87,7 +87,7 @@ export class Engine extends Base {
   public isEmptyCurrent: Ref<boolean> = ref(false);
   public history: Ref<HistoryModel | null> = ref(null);
   public provider: Provider;
-  public adapter?: ProvideAdapter;
+  public adapter?: Partial<ProvideAdapter>;
   /**
    * 当current变化时，更新该值，用于通知组件更新
    */

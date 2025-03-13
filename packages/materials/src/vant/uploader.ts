@@ -151,10 +151,10 @@ const Uploader: MaterialDescription = {
   ],
   events: [
     { name: 'oversize' },
-    { name: 'click-upload', params: ['event'] },
-    { name: 'click-preview' },
-    { name: 'click-reupload' },
-    { name: 'close-preview' },
+    { name: 'clickUpload', params: ['event'] },
+    { name: 'clickPreview' },
+    { name: 'clickReupload' },
+    { name: 'closePreview' },
     { name: 'delete' },
     { name: 'update:modelValue' }
   ],

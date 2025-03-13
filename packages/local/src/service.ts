@@ -287,7 +287,7 @@ export async function genVueContent(project: ProjectSchema, dsl: BlockSchema) {
   const materialsRepository = new JsonRepository('materials', project.platform);
   const materials = materialsRepository.get(project.id as string);
   const componentMap = new Map<string, MaterialDescription>(
-    Object.entries(materials)
+    Object.entries(materials || {})
   );
 
   const content = await generator(

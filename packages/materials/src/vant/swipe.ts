@@ -82,8 +82,8 @@ const Swipe: MaterialDescription[] = [
     ],
     events: [
       { name: 'change', params: ['index'] },
-      { name: 'drag-start', params: ['data'] },
-      { name: 'drag-end', params: ['data'] }
+      { name: 'dragStart', params: ['data'] },
+      { name: 'dragEnd', params: ['data'] }
     ],
     snippet: {
       props: {

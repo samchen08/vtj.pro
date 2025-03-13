@@ -56,7 +56,7 @@ const Steps: MaterialDescription[] = [
         setters: 'StringSetter'
       }
     ],
-    events: [{ name: 'click-step', params: ['index'] }],
+    events: [{ name: 'clickStep', params: ['index'] }],
     snippet: {
       props: {
         active: 1

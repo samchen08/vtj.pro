@@ -1,0 +1,44 @@
+{
+  "name": "vtj-material",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "setup": "pnpm install --unsafe-perm --registry=https://registry.npmmirror.com",
+    "dev": "vite --config vite.dev.config.ts",
+    "build": "npm run build:library && npm run build:material",
+    "build:library": "vue-tsc && vite build && cross-env UMD=true vite build",
+    "build:material": "vue-tsc && vite build --config vite.material.config.ts"
+  },
+  "dependencies": {
+    "element-plus": "~2.9.1"
+  },
+  "devDependencies": {
+    "@vtj/cli": "latest",
+    "@vtj/pro": "latest",
+    "@vtj/web": "latest",
+    "@vtj/core": "latest",
+    "vue": "~3.5.5",
+    "vue-router": "~4.5.0"
+  },
+  "files": [
+    "dist",
+    "types"
+  ],
+  "main": "dist/index.umd.js",
+  "module": "dist/index.mjs",
+  "types": "types/index.d.ts",
+  "exports": {
+    "./dist/style.css": "./dist/style.css",
+    ".": {
+      "types": "./types/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/ndex.umd.js"
+    },
+    "./*": "./*"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "gitHead": "d03843144f07c2d98c1e0c72c8c6eb1117c01722"
+}

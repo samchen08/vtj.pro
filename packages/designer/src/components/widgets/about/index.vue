@@ -65,7 +65,7 @@
   });
 
   const isLogined = computed(() => {
-    return access.isLogined();
+    return access?.isLogined();
   });
 
   const logout = () => {
