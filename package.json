@@ -108,7 +108,8 @@
     "uniapp:preview": "cd apps/uniapp && npm run preview:h5",
     "plugin:dev": "cd apps/plugin && npm run dev",
     "plugin:test": "cd apps/plugin && npm run test",
-    "plugin:build": "cd apps/plugin && npm run build"
+    "plugin:build": "cd apps/plugin && npm run build",
+    "mate:dev": "cd apps/material && npm run dev"
   },
   "engines": {
     "node": ">=20.0.0",

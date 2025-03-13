@@ -1,7 +1,7 @@
 {
   "name": "create-vtj",
   "private": false,
-  "version": "0.10.5",
+  "version": "0.10.6",
   "type": "module",
   "scripts": {
     "build": "unbuild"

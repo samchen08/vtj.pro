@@ -11,7 +11,8 @@
     Extension,
     Access,
     createAdapter,
-    createServiceRequest
+    createServiceRequest,
+    setupPageSetting
   } from '../../src';
   import { ACCESS_STORAGE_KEY } from '../contants';
   import { IconsPlugin } from '@vtj/icons';
@@ -53,21 +54,12 @@
     if (app) {
       app.use(IconsPlugin);
       app.use(provider);
+      renderer.value = await provider.getRenderComponent(
+        route.params.id.toString(),
+        (file: any) => {
+          setupPageSetting(app, route, file);
+        }
+      );
     }
-
-    renderer.value = await provider.getRenderComponent(
-      route.params.id.toString(),
-      (file: any) => {
-        Object.assign(route.meta, file.meta);
-        const el = app?._container;
-        if (file?.type === 'page') {
-          el.classList.add('is-page');
-        }
-        const isPure = file?.pure;
-        if (isPure) {
-          el.classList.add('is-pure');
-        }
-      }
-    );
   });
 </script>

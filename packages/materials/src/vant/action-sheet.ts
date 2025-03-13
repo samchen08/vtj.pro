@@ -135,7 +135,7 @@ const ActionSheet: MaterialDescription = {
     { name: 'close' },
     { name: 'opened' },
     { name: 'closed' },
-    { name: 'click-overlay', params: ['event'] }
+    { name: 'clickOverlay', params: ['event'] }
   ],
   slots: ['default', 'description', 'cancel', 'action'],
   snippet: {

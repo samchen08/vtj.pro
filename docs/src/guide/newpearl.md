@@ -82,7 +82,7 @@ export type MetaModelSourceFrom = 'dict' | 'meta' | 'parent';
 ### 模型管理演示
 
 :::info 数据模型管理sit环境链接
-[https://sys-sit.newpearl.com/#/lowcode/22nhu3xrdsm?label=%E6%A8%A1%E5%9E%8B%E7%AE%A1%E7%90%86](https://sys-sit.newpearl.com/#/lowcode/22nhu3xrdsm?label=%E6%A8%A1%E5%9E%8B%E7%AE%A1%E7%90%86)
+[https://xxxx.com/#/lowcode/22nhu3xrdsm?label=%E6%A8%A1%E5%9E%8B%E7%AE%A1%E7%90%86](https://xxx.com/#/lowcode/22nhu3xrdsm?label=%E6%A8%A1%E5%9E%8B%E7%AE%A1%E7%90%86)
 :::
 
 ## 低代码开发
@@ -102,7 +102,7 @@ Node 版本必须是 v20+， 建议使用 nvm 切换 Node 版本。
 以 `@newpearl/`前缀的依赖包需要从npm私库获取，首次使用需要登录私库
 
 ```sh
-npm login --registry=https://nexus.newpearl.com/repository/frontend-public
+npm login --registry=https://xxxx.com/repository/frontend-public
 # username：dev
 # password：newpearl
 ```

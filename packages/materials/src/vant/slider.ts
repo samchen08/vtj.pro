@@ -89,8 +89,8 @@ const Slider: MaterialDescription = {
   events: [
     { name: 'update:modelValue', params: ['value'] },
     { name: 'change', params: ['value'] },
-    { name: 'drag-start', params: ['event'] },
-    { name: 'drag-end', params: ['event'] }
+    { name: 'dragStart', params: ['event'] },
+    { name: 'dragEnd', params: ['event'] }
   ],
   slots: ['button', 'left-button', 'right-button'],
   snippet: {

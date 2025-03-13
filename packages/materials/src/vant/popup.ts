@@ -140,8 +140,8 @@ const Popup: MaterialDescription = {
   events: [
     'update:show',
     'click',
-    'click-overlay',
-    'click-close-icon',
+    'clickOverlay',
+    'clickCloseIcon',
     'open',
     'close',
     'opened',
