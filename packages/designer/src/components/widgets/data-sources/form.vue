@@ -141,7 +141,9 @@
     // }
   ];
 
-  const { apis, meta } = useDataSources();
+  const { apis, meta, engine } = useDataSources();
+
+  const { access } = engine.adapter || {};
 
   const createEmtpyModel = () => {
     return {
@@ -322,8 +324,10 @@
 
     loading.value = true;
     try {
+      access?.disableIntercept();
       const result = await run();
       runResult.value = JSON.stringify(await transform(result), null, 2);
+      access?.enableIntercept();
     } catch (e) {
       logger.error(e);
     }

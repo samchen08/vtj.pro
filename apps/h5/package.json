@@ -2,7 +2,7 @@
   "name": "vtj-project-h5",
   "description": "H5项目示例",
   "private": true,
-  "version": "0.10.14",
+  "version": "0.10.15",
   "type": "module",
   "scripts": {
     "setup": "pnpm install --unsafe-perm --registry=https://registry.npmmirror.com",

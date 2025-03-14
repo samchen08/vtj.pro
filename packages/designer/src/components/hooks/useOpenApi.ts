@@ -31,7 +31,8 @@ export interface TemplateDto {
 
 export function useOpenApi() {
   const engine = useEngine();
-  const { access, remote } = engine.adapter || {};
+  const { access, adapter } = engine || {};
+  const { remote } = adapter || {};
 
   const toRemoteAuth = () => {
     if (remote && access) {

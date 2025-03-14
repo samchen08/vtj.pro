@@ -44,7 +44,10 @@ import {
   type Context,
   ContextMode,
   Provider,
-  type ProvideAdapter
+  Access,
+  createAccess,
+  type ProvideAdapter,
+  type AccessOptions
 } from '@vtj/renderer';
 import { logger } from '@vtj/utils';
 
@@ -69,6 +72,10 @@ export interface EngineOptions {
   install?: (app: App, engine?: Engine) => void;
   pageBasePath?: string;
   pageRouteName?: string;
+  /**
+   * 这个是引擎自己的Access，不是业务应用，应用的在 adapter 中设置
+   */
+  access?: Partial<AccessOptions>;
 }
 
 export const SAVE_BLOCK_FILE_FINISH = 'SAVE_BLOCK_FILE_FINISH';
@@ -92,6 +99,7 @@ export class Engine extends Base {
    * 当current变化时，更新该值，用于通知组件更新
    */
   public changed: Ref<symbol> = ref(Symbol());
+  public access?: Access;
   constructor(public options: EngineOptions) {
     super();
     const {
@@ -104,7 +112,8 @@ export class Engine extends Base {
       materialPath = './',
       pageRouteName,
       adapter,
-      install
+      install,
+      access
     } = this.options;
     this.container = container;
     this.service = service;
@@ -126,6 +135,9 @@ export class Engine extends Base {
       engine: this,
       materialPath
     });
+    if (access) {
+      this.access = createAccess(access);
+    }
 
     this.bindEvents();
     this.init(project as ProjectSchema).then(this.render.bind(this));

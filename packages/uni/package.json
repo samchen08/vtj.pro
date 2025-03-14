@@ -1,9 +1,26 @@
 {
   "name": "@vtj/uni",
   "private": false,
-  "version": "0.10.14",
+  "version": "0.10.15",
   "type": "module",
   "sideEffects": false,
+  "keywords": [
+    "低代码引擎",
+    "LowCode Engine",
+    "Vue3低代码",
+    "低代码渲染器",
+    "低代码设计器",
+    "代码生成器",
+    "代码可视化"
+  ],
+  "description": "VTJ 是一款基于 Vue3 + Typescript 的低代码页面可视化设计器。内置低代码引擎、渲染器和代码生成器，面向前端开发者，开箱即用。 无缝嵌入本地开发工程，不改变前端开发流程和编码习惯。",
+  "repository": {
+    "type": "git",
+    "url": "https://gitee.com/newgateway/vtj.git"
+  },
+  "homepage": "https://gitee.com/newgateway/vtj",
+  "author": "chenhuachun",
+  "license": "MIT",
   "scripts": {
     "version": "node ./scripts/compilerVersion.mjs",
     "build": "npm run version && vue-tsc && vite build && npm run build:umd",

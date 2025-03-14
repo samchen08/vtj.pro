@@ -342,7 +342,7 @@ export class Request {
   private _showError(settings: IRequestSettings, e: any) {
     const { failMessage, showError } = settings;
     if (failMessage && showError) {
-      const data = e.response?.data;
+      const data = e?.response?.data;
       const msg =
         data?.message || data?.msg || e?.message || e?.msg || '未知错误';
       showError(msg, e);

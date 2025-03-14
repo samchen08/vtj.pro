@@ -5,7 +5,7 @@
   import { ref, watch } from 'vue';
   import { useRoute } from 'vue-router';
   import { ElMessageBox } from 'element-plus';
-  import { ACCESS_STORAGE_KEY } from '../contants';
+  // import { ACCESS_STORAGE_KEY } from '../contants';
   import {
     Engine,
     widgetManager,
@@ -37,7 +37,7 @@
   const access = accessOptions
     ? new Access({
         alert: ElMessageBox.alert,
-        storageKey: ACCESS_STORAGE_KEY,
+        // storageKey: ACCESS_STORAGE_KEY,
         ...accessOptions
       })
     : undefined;
@@ -95,7 +95,10 @@
     materialPath: __BASE_PATH__,
     pageBasePath: base === '/' ? '' : base,
     ...options,
-    adapter: Object.assign(adapter, { access, remote }, options?.adapter || {})
+    adapter: Object.assign(adapter, { access, remote }, options?.adapter || {}),
+    access: {
+      alert: ElMessageBox.alert
+    }
   });
 
   engine.ready(() => {

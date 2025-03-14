@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.10.15](https://gitee.com/newgateway/vtj/compare/@vtj/uni-app@0.10.14...@vtj/uni-app@0.10.15) (2025-03-14)
+
+**Note:** Version bump only for package @vtj/uni-app
+
+
+
+
+
 ## [0.10.14](https://gitee.com/newgateway/vtj/compare/@vtj/uni-app@0.10.13...@vtj/uni-app@0.10.14) (2025-03-14)
 
 **Note:** Version bump only for package @vtj/uni-app

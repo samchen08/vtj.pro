@@ -5,22 +5,16 @@
   import { useRoute } from 'vue-router';
   import { jsonp } from '@vtj/utils';
   import { ElMessageBox } from 'element-plus';
-  import { LocalService, Extension, Access } from '../../src';
-  import { ACCESS_STORAGE_KEY } from '../contants';
+  import { LocalService, Extension, createAccess } from '../../src';
+  // import { ACCESS_STORAGE_KEY } from '../contants';
   const route = useRoute();
   const service = new LocalService();
   const config = await service.getExtension().catch(() => null);
   const { adapters } = config ? await new Extension(config).load() : {};
   // const { __BASE_PATH__ = '/' } = config || {};
-  const accessOptions = adapters?.access;
+  // const accessOptions = adapters?.access;
   const remote = adapters?.remote;
-  const access = accessOptions
-    ? new Access({
-        ...accessOptions,
-        alert: ElMessageBox.alert,
-        storageKey: ACCESS_STORAGE_KEY
-      })
-    : undefined;
+  const access = createAccess({});
 
   const getLoginInfo = async (token: string) => {
     const api = `${remote}/api/open/user/${token}`;

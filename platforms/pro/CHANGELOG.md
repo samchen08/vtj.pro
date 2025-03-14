@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.10.15](https://gitee.com/newgateway/vtj/compare/@vtj/pro@0.10.14...@vtj/pro@0.10.15) (2025-03-14)
+
+
+### Bug Fixes
+
+* 🐛 解决设计器request被污染的问题 ([338a3ba](https://gitee.com/newgateway/vtj/commits/338a3baedbb21ae41c489b4932b9004da80c36cc))
+
+
+
+
+
 ## [0.10.14](https://gitee.com/newgateway/vtj/compare/@vtj/pro@0.10.13...@vtj/pro@0.10.14) (2025-03-14)
 
 **Note:** Version bump only for package @vtj/pro
