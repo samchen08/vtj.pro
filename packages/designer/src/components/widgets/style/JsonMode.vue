@@ -21,12 +21,12 @@
   import { Panel } from '../../shared';
   import Editor from '../../editor';
   import { useSelected } from '../../hooks';
-  import { message, notify } from '../../../utils';
+  import { message, notify, normalizedStyle } from '../../../utils';
 
   defineOptions({
     name: 'StyleWidget'
   });
-  
+
   const { selected } = useSelected();
 
   const editorRef = ref();
@@ -37,12 +37,16 @@
   });
 
   const style = computed(() =>
-    JSON.stringify(node.value?.getPropValue('style') || {}, null, 2)
+    JSON.stringify(
+      normalizedStyle((node.value?.getPropValue('style') as any) || {}),
+      null,
+      2
+    )
   );
 
   const saveStyle = (value: string) => {
     try {
-      const json = JSON.parse(value);
+      const json = normalizedStyle(JSON.parse(value));
       node.value?.setProp('style', json);
     } catch (e) {
       notify('JSON格式错误');

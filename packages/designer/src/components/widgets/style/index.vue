@@ -54,6 +54,7 @@
   import Backgound from './backgound.vue';
   import Border from './border.vue';
   import Effect from './effect.vue';
+  import { normalizedStyle } from '../../../utils';
 
   export interface Props {
     isStyleCodeMode: boolean;
@@ -67,8 +68,8 @@
     return isBlock(model) ? null : model;
   });
 
-  const styleJson = computed(
-    () => (node.value?.getPropValue('style') || {}) as Record<string, any>
+  const styleJson = computed(() =>
+    normalizedStyle((node.value?.getPropValue('style') as any) || {})
   );
 
   const setStyle = (name: string, value?: any) => {

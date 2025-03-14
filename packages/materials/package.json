@@ -1,7 +1,7 @@
 {
   "name": "@vtj/materials",
   "private": false,
-  "version": "0.10.13",
+  "version": "0.10.14",
   "type": "module",
   "scripts": {
     "build": "npm run remove && npm run build:ui && npm run build:charts && npm run build:element && npm run build:antdv && npm run build:vant && npm run build:uniApp && npm run build:uniH5 && npm run build:uniH5Vue && npm run build:uniH5C && npm run build:uniUI && npm run build:uniUIC  && npm run copy",
@@ -20,16 +20,16 @@
     "copy": "node scripts/copy.mjs"
   },
   "devDependencies": {
-    "@dcloudio/uni-app": "3.0.0-4050420250307001",
-    "@dcloudio/uni-h5": "3.0.0-4050420250307001",
-    "@dcloudio/uni-h5-vue": "3.0.0-4050420250307001",
+    "@dcloudio/uni-app": "3.0.0-4050620250312001",
+    "@dcloudio/uni-h5": "3.0.0-4050620250312001",
+    "@dcloudio/uni-h5-vue": "3.0.0-4050620250312001",
     "@dcloudio/uni-ui": "~1.5.3",
     "@vtj/charts": "workspace:~",
     "@vtj/cli": "workspace:~",
     "@vtj/core": "workspace:~",
     "@vtj/ui": "workspace:~",
     "@vtj/utils": "workspace:~",
-    "@vueuse/core": "~12.7.0",
+    "@vueuse/core": "~13.0.0",
     "ant-design-vue": "~4.2.0",
     "echarts": "~5.6.0",
     "element-plus": "~2.9.1",

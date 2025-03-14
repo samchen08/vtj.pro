@@ -7,12 +7,9 @@
         content="组件测试"
         @back="back"></ElPageHeader>
 
-      <RouterLink
-        class="menu-item"
-        v-for="item of routes"
-        :to="`/view/${item.path}`"
-        >{{ item.path }}</RouterLink
-      >
+      <RouterLink class="menu-item" v-for="item of list" :to="`/${item.path}`">
+        {{ item.name }}
+      </RouterLink>
     </ElAside>
     <ElMain>
       <RouterView></RouterView>
@@ -20,12 +17,23 @@
   </ElContainer>
 </template>
 <script lang="ts" setup>
+  import { computed } from 'vue';
   import { RouterView, RouterLink } from 'vue-router';
   import { ElContainer, ElMain, ElAside, ElPageHeader } from 'element-plus';
   import { routes } from '../router/modules';
 
+  const list = computed(() => {
+    return routes.value
+      .filter((n) => n.path !== '')
+      .map((n) => {
+        return {
+          name: n.path.replace('views/', ''),
+          path: n.path
+        };
+      });
+  });
   const back = () => {
-    location.href = '/';
+    location.href = '/#/designer';
   };
 </script>
 

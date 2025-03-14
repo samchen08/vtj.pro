@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.10.7](https://gitee.com/newgateway/vtj/compare/create-vtj@0.10.6...create-vtj@0.10.7) (2025-03-14)
+
+
+### Bug Fixes
+
+* 🐛 normalizedStyle ([b649f10](https://gitee.com/newgateway/vtj/commits/b649f109af7b11f29fcc51b523185c3302706d9a))
+
+
+
+
+
 ## [0.10.6](https://gitee.com/newgateway/vtj/compare/create-vtj@0.10.5...create-vtj@0.10.6) (2025-03-13)
 
 

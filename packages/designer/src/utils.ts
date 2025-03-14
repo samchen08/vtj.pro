@@ -1,5 +1,6 @@
 import { type JSExpression, type JSFunction } from '@vtj/core';
 import { parseExpression, parseFunction } from '@vtj/renderer';
+import { kebabCase } from '@vtj/utils';
 import { ElNotification, ElMessageBox, ElMessage } from 'element-plus';
 
 export function notify(message: string, title: string = '提示') {
@@ -78,4 +79,12 @@ export function getClassProperties(obj: any) {
         : []
     )
     .filter((n) => !['constructor'].includes(n));
+}
+
+export function normalizedStyle(style: Record<string, any> = {}) {
+  const result: Record<string, any> = {};
+  for (const [key, value] of Object.entries(style)) {
+    result[kebabCase(key)] = value;
+  }
+  return result;
 }

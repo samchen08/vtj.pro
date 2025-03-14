@@ -6,9 +6,9 @@ export const routes = computed(() => {
   const files = Object.keys(modules);
   const items: any[] = [];
   for (let key of files) {
-    const path = key.replace('.vue', '').replace('/dev/views/', '');
+    const path = key.replace('.vue', '').replace('/dev/', '');
     items.push({
-      path: path === 'index' ? '' : path,
+      path: path === 'views/index' ? '' : path,
       component: modules[key]
     });
   }

@@ -12,7 +12,15 @@
     type BlockFile
   } from '@vtj/pro';
   import { ElMessageBox } from 'element-plus';
-  import { project, name, version, library, material } from '../../vtj.config';
+  import {
+    project,
+    name,
+    version,
+    library,
+    material,
+    outputLibrary,
+    outputMaterial
+  } from '../../vtj.config';
 
   widgetManager.set('Previewer', {
     props: {
@@ -25,7 +33,7 @@
   widgetManager.set('Switcher', {
     props: {
       onClick() {
-        location.href = '/#/view';
+        location.href = '/#/';
       }
     }
   });
@@ -35,8 +43,8 @@
     platform: project.platform,
     version,
     library,
-    urls: ['dist/style.css', 'dist/index.umd.js'],
-    assetsUrl: 'dist/material.umd.js',
+    urls: outputLibrary,
+    assetsUrl: outputMaterial,
     assetsLibrary: material,
     enabled: true
   });

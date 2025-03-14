@@ -1,7 +1,7 @@
 {
   "name": "@vtj/icons",
   "private": false,
-  "version": "0.10.13",
+  "version": "0.10.14",
   "type": "module",
   "scripts": {
     "svg2vue": "node scripts/svg.mjs",

@@ -3,6 +3,9 @@ import { setPackageName } from '../shared';
 import { name, version, material, label } from '../../vtj.config';
 import { descriptions } from './description';
 
+/**
+ * 组件分组
+ */
 const categories: MaterialCategory[] = [
   {
     id: 'base',
@@ -15,7 +18,7 @@ export default {
   version,
   label,
   library: material,
-  order: 0,
+  order: 1,
   categories,
   components: setPackageName(descriptions, name)
 } as Material;

@@ -260,11 +260,6 @@ export interface CreateViteConfigOptions {
   cdn?: CdnPluginOptions;
 
   /**
-   * StyleBundler sassOptions
-   */
-  styleBundler?: boolean;
-
-  /**
    * reload 插件
    */
   reload?: boolean;
