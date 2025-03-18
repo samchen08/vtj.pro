@@ -9,8 +9,11 @@
     createAdapter,
     widgetManager,
     depsManager,
+    createAccess,
     type BlockFile
   } from '@vtj/pro';
+  import { notify, loading, Startup } from '@vtj/web';
+  import { useTitle } from '@vueuse/core';
   import { ElMessageBox } from 'element-plus';
   import {
     project,
@@ -51,16 +54,14 @@
 
   const container = ref();
   const service = new StorageService();
-  const adapter = createAdapter({
-    access: {
-      alert: ElMessageBox.alert
-    }
-  });
+  const adapter = createAdapter({ loading, notify, Startup, useTitle });
+  const access = createAccess({ alert: ElMessageBox.alert });
   const engine = new Engine({
     container,
     service,
     adapter,
     project,
+    access,
     materials: {
       [material]: () => import('../../src/material/index')
     }

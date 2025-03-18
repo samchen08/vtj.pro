@@ -74,7 +74,7 @@ export interface AccessOptions {
    * @param message
    * @returns
    */
-  alert?: (message: string, options: Record<string, any>) => Promise<any>;
+  alert?: (message: string, options?: Record<string, any>) => Promise<any>;
 
   /**
    * 未登录提示文本
@@ -263,7 +263,11 @@ export class Access {
     const { privateKey } = this.options;
     if (Array.isArray(data) && privateKey) {
       const contents = data.map((n) => unRSA(n, privateKey));
-      this.data = JSON.parse(contents.join(''));
+      try {
+        this.data = JSON.parse(contents.join(''));
+      } catch (e) {
+        console.warn(e);
+      }
       return;
     }
     if (typeof data === 'string') {

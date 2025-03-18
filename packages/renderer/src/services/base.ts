@@ -9,7 +9,7 @@ import {
   type Service,
   type StaticFileInfo,
   type NodeFromPlugin,
-  type ExtensionConfig
+  type VTJConfig
 } from '@vtj/core';
 import {
   type IStaticRequest,
@@ -106,7 +106,7 @@ export class BaseService implements Service {
     this.api = createApi(req);
     this.uploader = createUploader(req);
   }
-  async getExtension(): Promise<ExtensionConfig | undefined> {
+  async getExtension(): Promise<VTJConfig | undefined> {
     console.log('BaseService.getExtension');
     return undefined;
   }

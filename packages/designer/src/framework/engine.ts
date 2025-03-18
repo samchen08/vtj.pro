@@ -45,9 +45,7 @@ import {
   ContextMode,
   Provider,
   Access,
-  createAccess,
-  type ProvideAdapter,
-  type AccessOptions
+  type ProvideAdapter
 } from '@vtj/renderer';
 import { logger } from '@vtj/utils';
 
@@ -75,7 +73,11 @@ export interface EngineOptions {
   /**
    * 这个是引擎自己的Access，不是业务应用，应用的在 adapter 中设置
    */
-  access?: Partial<AccessOptions>;
+  access?: Access;
+  /**
+   * 远程服务host
+   */
+  remote?: string;
 }
 
 export const SAVE_BLOCK_FILE_FINISH = 'SAVE_BLOCK_FILE_FINISH';
@@ -100,6 +102,7 @@ export class Engine extends Base {
    */
   public changed: Ref<symbol> = ref(Symbol());
   public access?: Access;
+  public remote;
   constructor(public options: EngineOptions) {
     super();
     const {
@@ -113,7 +116,8 @@ export class Engine extends Base {
       pageRouteName,
       adapter,
       install,
-      access
+      access,
+      remote = 'https://lcdp.vtj.pro'
     } = this.options;
     this.container = container;
     this.service = service;
@@ -136,8 +140,9 @@ export class Engine extends Base {
       materialPath
     });
     if (access) {
-      this.access = createAccess(access);
+      this.access = access;
     }
+    this.remote = remote;
 
     this.bindEvents();
     this.init(project as ProjectSchema).then(this.render.bind(this));

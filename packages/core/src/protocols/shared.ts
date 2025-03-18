@@ -60,9 +60,6 @@ export interface StaticFileInfo {
   filepath: string;
 }
 
-/**
- * 扩展配置
- */
 export interface ExtensionConfig {
   /**
    * 扩展资源文件路径：js、css文件，js文件要求 umd 格式
@@ -77,6 +74,16 @@ export interface ExtensionConfig {
    * 附加参数/数据，用作个性需求
    */
   params?: Array<Record<string, any>>;
+}
+
+/**
+ * 扩展配置
+ */
+export interface VTJConfig {
+  /**
+   * 扩展配置
+   */
+  extension: ExtensionConfig;
 
   /**
    * 路由History模式
@@ -100,9 +107,24 @@ export interface ExtensionConfig {
   __BASE_PATH__?: string;
 
   /**
-   * 适配类个性参数配置
+   * 远程服务host
    */
-  __adapters__?: Record<string, any>;
+  remote?: string;
+
+  /**
+   * 平台
+   */
+  platform?: PlatformType;
+
+  /**
+   *  应用 Access 配置
+   */
+  access?: Record<string, any>;
+
+  /**
+   * 设计器是由Access 配置
+   */
+  __ACCESS__?: Record<string, any>;
 }
 
 /**

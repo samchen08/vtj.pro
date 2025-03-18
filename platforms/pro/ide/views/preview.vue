@@ -9,37 +9,33 @@
     LocalService,
     ContextMode,
     Extension,
-    Access,
     createAdapter,
     createServiceRequest,
     setupPageSetting
   } from '../../src';
-  import { ACCESS_STORAGE_KEY } from '../contants';
   import { IconsPlugin } from '@vtj/icons';
-  import { ElMessageBox } from 'element-plus';
-  import { notify, loading } from '../utils';
-  const adapter = createAdapter({ loading, notify });
+  import { useTitle } from '@vueuse/core';
+  import { notify, loading, alert } from '../utils';
+
   const service = new LocalService(createServiceRequest(notify));
   const config = await service.getExtension().catch(() => null);
-  const { options, adapters } = config
-    ? await new Extension(config).load()
-    : {};
+  const adapter = createAdapter({
+    loading,
+    notify,
+    useTitle,
+    alert,
+    access: config?.access
+  });
+  const options = config ? await new Extension(config).load() : {};
   const { __BASE_PATH__ = '/' } = config || {};
-  const accessOptions = adapters?.access;
-  const remote = adapters?.remote;
-  const access = accessOptions
-    ? new Access({
-        alert: ElMessageBox.alert,
-        storageKey: ACCESS_STORAGE_KEY,
-        ...accessOptions
-      })
-    : undefined;
   const { provider, onReady } = createProvider({
     mode: ContextMode.Runtime,
     service,
     materialPath: __BASE_PATH__,
-    ...(options || {}),
-    adapter: Object.assign(adapter, { access, remote }, options?.adapter || {}),
+    adapter: {
+      ...adapter,
+      ...options.adapter
+    },
     dependencies: {
       Vue: () => import('vue'),
       VueRouter: () => import('vue-router')

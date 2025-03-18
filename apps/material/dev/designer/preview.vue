@@ -11,18 +11,15 @@
     createAdapter,
     setupPageSetting
   } from '@vtj/pro';
-  import { ElMessageBox } from 'element-plus';
+  import { notify, loading, Startup } from '@vtj/web';
+  import { useTitle } from '@vueuse/core';
   import { project } from '../../vtj.config';
 
   const route = useRoute();
   const renderer = ref();
   const instance = getCurrentInstance();
   const service = new StorageService();
-  const adapter = createAdapter({
-    access: {
-      alert: ElMessageBox.alert
-    }
-  });
+  const adapter = createAdapter({ loading, notify, Startup, useTitle });
 
   const { provider, onReady } = createProvider({
     mode: ContextMode.Runtime,
