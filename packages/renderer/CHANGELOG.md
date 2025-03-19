@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.11.2](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.11.1...@vtj/renderer@0.11.2) (2025-03-19)
+
+
+### Bug Fixes
+
+* 🐛 一个页面多次引用某个区块，并给区块传递props时，这些区块所实际接收到的props值存在问题。 ([12c354e](https://gitee.com/newgateway/vtj/commits/12c354ef592834d0414504fe266278cb6372ebd2))
+
+
+
+
+
 ## [0.11.1](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.11.1-alpha.1...@vtj/renderer@0.11.1) (2025-03-18)
 
 **Note:** Version bump only for package @vtj/renderer

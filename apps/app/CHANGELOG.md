@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.11.2](https://gitee.com/newgateway/vtj/compare/vtj-project-app@0.11.1...vtj-project-app@0.11.2) (2025-03-19)
+
+
+### Features
+
+* ✨ style支持变量绑定 ([3b81457](https://gitee.com/newgateway/vtj/commits/3b81457159ce88eb09a5286800d3c302bb7fe28d))
+
+
+
+
+
 ## [0.11.1](https://gitee.com/newgateway/vtj/compare/vtj-project-app@0.11.1-alpha.1...vtj-project-app@0.11.1) (2025-03-18)
 
 **Note:** Version bump only for package vtj-project-app
