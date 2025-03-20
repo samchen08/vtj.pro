@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.11.2](https://gitee.com/newgateway/vtj/compare/@vtj/cli@0.11.1...@vtj/cli@0.11.2) (2025-03-20)
+
+
+### Features
+
+* ✨ cli open 参数默认true ([d8cfcbf](https://gitee.com/newgateway/vtj/commits/d8cfcbf6a4c6c315a0c16a0866a57733d1c4b0ee))
+* 使用@vtj/cli的createViteConfig可以设置是否自动打开浏览器 ([f68f19a](https://gitee.com/newgateway/vtj/commits/f68f19af04e28615fce935f117bd489b07cfffa0))
+
+
+
+
+
 ## [0.11.1](https://gitee.com/newgateway/vtj/compare/@vtj/cli@0.11.1-alpha.1...@vtj/cli@0.11.1) (2025-03-18)
 
 **Note:** Version bump only for package @vtj/cli
