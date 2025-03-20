@@ -53,7 +53,8 @@ import { SkeletonWrapper, type SkeletonWrapperInstance } from '../wrappers';
 import { depsManager, widgetManager } from '../managers';
 import { Simulator } from './simulator';
 import { Assets } from './assets';
-import { message } from '../utils';
+import { message, alert } from '../utils';
+import { ACCESS } from '../constants';
 
 export const engineKey: InjectionKey<ShallowReactive<Engine>> =
   Symbol('VtjEngine');
@@ -139,9 +140,7 @@ export class Engine extends Base {
       engine: this,
       materialPath
     });
-    if (access) {
-      this.access = access;
-    }
+    this.access = access || new Access({ alert, ...ACCESS });
     this.remote = remote;
 
     this.bindEvents();

@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.11.4](https://gitee.com/newgateway/vtj/compare/vtj-material@0.11.3...vtj-material@0.11.4) (2025-03-19)
+
+
+### Bug Fixes
+
+* 🐛 auth bug ([4942614](https://gitee.com/newgateway/vtj/commits/49426148028548d19df609f3522fbfb80a8c4643))
+
+
+
+
+
+## [0.11.3](https://gitee.com/newgateway/vtj/compare/vtj-material@0.11.2...vtj-material@0.11.3) (2025-03-19)
+
+**Note:** Version bump only for package vtj-material
+
+
+
+
+
 ## [0.11.2](https://gitee.com/newgateway/vtj/compare/vtj-material@0.11.1...vtj-material@0.11.2) (2025-03-19)
 
 **Note:** Version bump only for package vtj-material

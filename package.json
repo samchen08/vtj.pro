@@ -32,6 +32,7 @@
     "outdate": "pnpm outdated -r",
     "update": "pnpm up -r --unsafe-perm --registry=https://registry.npmmirror.com",
     "sync": "node scripts/sync.mjs",
+    "downloads": "node scripts/downloads.mjs",
     "test": "lerna run --no-private test",
     "build": "lerna run --no-private build",
     "coverage": "lerna run --no-private coverage",

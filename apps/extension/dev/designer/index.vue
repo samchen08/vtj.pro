@@ -8,8 +8,6 @@
     StorageService,
     createAdapter,
     widgetManager,
-    depsManager,
-    createAccess,
     type BlockFile
   } from '@vtj/pro';
   import { notify, loading, Startup } from '@vtj/web';
@@ -44,13 +42,11 @@
   const container = ref();
   const service = new StorageService();
   const adapter = createAdapter({ loading, notify, Startup, useTitle });
-  const access = createAccess({ alert: ElMessageBox.alert });
   const engine = new Engine({
     container,
     service,
     adapter,
     project,
-    access,
     ...engineOptions
   });
 

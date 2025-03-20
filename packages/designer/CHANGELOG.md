@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.11.4](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.11.3...@vtj/designer@0.11.4) (2025-03-19)
+
+**Note:** Version bump only for package @vtj/designer
+
+
+
+
+
+## [0.11.3](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.11.2...@vtj/designer@0.11.3) (2025-03-19)
+
+
+### Bug Fixes
+
+* 🐛 增加默认access ([4871251](https://gitee.com/newgateway/vtj/commits/4871251e7a79566f2d6a499f40f26f197f38d2dc))
+* 🐛 remote config url ([e663bfd](https://gitee.com/newgateway/vtj/commits/e663bfdd254641dbc9a088e34ee5b4df2dc091eb))
+
+
+
+
+
 ## [0.11.2](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.11.1...@vtj/designer@0.11.2) (2025-03-19)
 
 
