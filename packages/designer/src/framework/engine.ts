@@ -44,6 +44,7 @@ import {
   type Context,
   ContextMode,
   Provider,
+  Access,
   type ProvideAdapter
 } from '@vtj/renderer';
 import { logger } from '@vtj/utils';
@@ -52,7 +53,8 @@ import { SkeletonWrapper, type SkeletonWrapperInstance } from '../wrappers';
 import { depsManager, widgetManager } from '../managers';
 import { Simulator } from './simulator';
 import { Assets } from './assets';
-import { message } from '../utils';
+import { message, alert } from '../utils';
+import { ACCESS } from '../constants';
 
 export const engineKey: InjectionKey<ShallowReactive<Engine>> =
   Symbol('VtjEngine');
@@ -69,6 +71,14 @@ export interface EngineOptions {
   install?: (app: App, engine?: Engine) => void;
   pageBasePath?: string;
   pageRouteName?: string;
+  /**
+   * 这个是引擎自己的Access，不是业务应用，应用的在 adapter 中设置
+   */
+  access?: Access;
+  /**
+   * 远程服务host
+   */
+  remote?: string;
 }
 
 export const SAVE_BLOCK_FILE_FINISH = 'SAVE_BLOCK_FILE_FINISH';
@@ -92,6 +102,8 @@ export class Engine extends Base {
    * 当current变化时，更新该值，用于通知组件更新
    */
   public changed: Ref<symbol> = ref(Symbol());
+  public access?: Access;
+  public remote;
   constructor(public options: EngineOptions) {
     super();
     const {
@@ -104,7 +116,9 @@ export class Engine extends Base {
       materialPath = './',
       pageRouteName,
       adapter,
-      install
+      install,
+      access,
+      remote = 'https://lcdp.vtj.pro'
     } = this.options;
     this.container = container;
     this.service = service;
@@ -126,6 +140,8 @@ export class Engine extends Base {
       engine: this,
       materialPath
     });
+    this.access = access || new Access({ alert, ...ACCESS });
+    this.remote = remote;
 
     this.bindEvents();
     this.init(project as ProjectSchema).then(this.render.bind(this));

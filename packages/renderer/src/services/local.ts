@@ -4,7 +4,7 @@ import {
   type HistorySchema,
   type HistoryItem,
   type MaterialDescription,
-  type ExtensionConfig
+  type VTJConfig
 } from '@vtj/core';
 import { mapToObject } from '@vtj/utils';
 import { BaseService } from './base';
@@ -12,9 +12,9 @@ import { BaseService } from './base';
 export class LocalService extends BaseService {
   private getFileCaches: Record<string, any> = {};
 
-  async getExtension(): Promise<ExtensionConfig | undefined> {
+  async getExtension(): Promise<VTJConfig | undefined> {
     const res = await this.api('getExtension', {}).catch(() => undefined);
-    return res as ExtensionConfig;
+    return res as VTJConfig;
   }
 
   async init(project: ProjectSchema): Promise<ProjectSchema> {

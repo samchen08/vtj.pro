@@ -8,10 +8,10 @@ import type {
   NodeFromPlugin
 } from './schemas';
 import type { MaterialDescription } from './assets';
-import type { StaticFileInfo, ExtensionConfig } from './shared';
+import type { StaticFileInfo, VTJConfig } from './shared';
 
 export abstract class Service {
-  public abstract getExtension(): Promise<ExtensionConfig | undefined>;
+  public abstract getExtension(): Promise<VTJConfig | undefined>;
   public abstract init(project: Partial<ProjectSchema>): Promise<ProjectSchema>;
   public abstract saveProject(
     project: ProjectSchema,

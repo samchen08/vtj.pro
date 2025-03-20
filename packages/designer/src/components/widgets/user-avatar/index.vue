@@ -14,7 +14,7 @@
   import { notify } from '../../../utils';
 
   const engine = useEngine();
-  const { access } = engine.adapter || {};
+  const { access } = engine || {};
 
   useCheckVersion((version) => {
     notify(

@@ -1,8 +1,25 @@
 {
   "name": "@vtj/materials",
   "private": false,
-  "version": "0.10.13",
+  "version": "0.11.5",
   "type": "module",
+  "keywords": [
+    "低代码引擎",
+    "LowCode Engine",
+    "Vue3低代码",
+    "低代码渲染器",
+    "低代码设计器",
+    "代码生成器",
+    "代码可视化"
+  ],
+  "description": "VTJ 是一款基于 Vue3 + Typescript 的低代码页面可视化设计器。内置低代码引擎、渲染器和代码生成器，面向前端开发者，开箱即用。 无缝嵌入本地开发工程，不改变前端开发流程和编码习惯。",
+  "repository": {
+    "type": "git",
+    "url": "https://gitee.com/newgateway/vtj.git"
+  },
+  "homepage": "https://gitee.com/newgateway/vtj",
+  "author": "chenhuachun",
+  "license": "MIT",
   "scripts": {
     "build": "npm run remove && npm run build:ui && npm run build:charts && npm run build:element && npm run build:antdv && npm run build:vant && npm run build:uniApp && npm run build:uniH5 && npm run build:uniH5Vue && npm run build:uniH5C && npm run build:uniUI && npm run build:uniUIC  && npm run copy",
     "build:ui": "vue-tsc && cross-env BUILD_TYPE=ui vite build",
@@ -20,16 +37,16 @@
     "copy": "node scripts/copy.mjs"
   },
   "devDependencies": {
-    "@dcloudio/uni-app": "3.0.0-4050420250307001",
-    "@dcloudio/uni-h5": "3.0.0-4050420250307001",
-    "@dcloudio/uni-h5-vue": "3.0.0-4050420250307001",
+    "@dcloudio/uni-app": "3.0.0-4050620250312001",
+    "@dcloudio/uni-h5": "3.0.0-4050620250312001",
+    "@dcloudio/uni-h5-vue": "3.0.0-4050620250312001",
     "@dcloudio/uni-ui": "~1.5.3",
     "@vtj/charts": "workspace:~",
     "@vtj/cli": "workspace:~",
     "@vtj/core": "workspace:~",
     "@vtj/ui": "workspace:~",
     "@vtj/utils": "workspace:~",
-    "@vueuse/core": "~12.7.0",
+    "@vueuse/core": "~13.0.0",
     "ant-design-vue": "~4.2.0",
     "echarts": "~5.6.0",
     "element-plus": "~2.9.1",

@@ -1,0 +1,53 @@
+{
+  "name": "vtj-extension",
+  "private": true,
+  "version": "0.11.5",
+  "type": "module",
+  "scripts": {
+    "setup": "pnpm install --unsafe-perm --registry=https://registry.npmmirror.com",
+    "dev": "vite --config vite.dev.config.ts",
+    "build": "vue-tsc && vite build"
+  },
+  "dependencies": {
+    "@vueuse/core": "~13.0.0",
+    "element-plus": "~2.9.1"
+  },
+  "devDependencies": {
+    "@vtj/cli": "workspace:~",
+    "@vtj/core": "workspace:~",
+    "@vtj/pro": "workspace:~",
+    "@vtj/web": "workspace:~",
+    "vue": "~3.5.5",
+    "vue-router": "~4.5.0"
+  },
+  "files": [
+    "dist",
+    "types"
+  ],
+  "main": "dist/index.umd.js",
+  "module": "dist/index.umd.js",
+  "types": "types/index.d.ts",
+  "exports": {
+    "./dist/style.css": "./dist/style.css",
+    ".": {
+      "types": "./types/index.d.ts",
+      "import": "./dist/index.umd.js",
+      "require": "./dist/ndex.umd.js"
+    },
+    "./*": "./*"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "gitHead": "d03843144f07c2d98c1e0c72c8c6eb1117c01722",
+  "vtj": {
+    "extension": {
+      "urls": [
+        "@vtj/extension/style.css",
+        "@vtj/extension/index.umd.js"
+      ],
+      "library": "VtjExtension",
+      "params": []
+    }
+  }
+}

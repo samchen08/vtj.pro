@@ -11,7 +11,8 @@
     depsManager,
     type BlockFile
   } from '@vtj/pro';
-  import { ElMessageBox } from 'element-plus';
+  import { notify, loading, Startup } from '@vtj/web';
+  import { useTitle } from '@vueuse/core';
   import {
     project,
     name,
@@ -51,11 +52,7 @@
 
   const container = ref();
   const service = new StorageService();
-  const adapter = createAdapter({
-    access: {
-      alert: ElMessageBox.alert
-    }
-  });
+  const adapter = createAdapter({ loading, notify, Startup, useTitle });
   const engine = new Engine({
     container,
     service,
