@@ -64,9 +64,9 @@ const AddressList: MaterialDescription = {
     { name: 'add', params: ['item', 'index'] },
     { name: 'edit', params: ['item', 'index'] },
     { name: 'select', params: ['item', 'index'] },
-    { name: 'edit-disabled', params: ['item', 'index'] },
-    { name: 'select-disabled', params: ['item', 'index'] },
-    { name: 'click-item', params: ['item', 'index', 'data'] }
+    { name: 'editDisabled', params: ['item', 'index'] },
+    { name: 'selectDisabled', params: ['item', 'index'] },
+    { name: 'clickItem', params: ['item', 'index', 'data'] }
   ],
   slots: ['default', 'top', 'item-bottom', 'tag'],
   snippet: {

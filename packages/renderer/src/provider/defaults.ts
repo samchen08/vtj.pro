@@ -7,7 +7,7 @@ import {
   type Jsonp
 } from '@vtj/utils';
 
-import { Access } from '../plugins';
+import { Access, type AccessOptions } from '../plugins';
 
 export type UseTitle = (
   newTitle?: MaybeRef<string | null | undefined>,
@@ -19,6 +19,9 @@ export interface CreateAdapterOptions {
   loading?: () => any;
   settings?: IRequestSettings;
   Startup?: any;
+  access?: Partial<AccessOptions>;
+  useTitle?: UseTitle;
+  alert?: (msg: string, opt?: any) => any;
 }
 
 export interface ProvideAdapter {
@@ -27,16 +30,20 @@ export interface ProvideAdapter {
   metaQuery?: (...args: any[]) => Promise<any>;
   access?: Access;
   startupComponent?: any;
-  /**
-   * 远程服务 host
-   */
-  remote?: string;
   useTitle?: UseTitle;
   [index: string]: any;
 }
 
 export function createAdapter(options: CreateAdapterOptions = {}) {
-  const { notify, loading, settings = {}, Startup } = options;
+  const {
+    notify,
+    loading,
+    settings = {},
+    Startup,
+    access,
+    useTitle,
+    alert
+  } = options;
   let _loading: any = null;
   const request = createRequest({
     settings: {
@@ -75,6 +82,12 @@ export function createAdapter(options: CreateAdapterOptions = {}) {
     jsonp,
     notify,
     loading,
-    startupComponent: Startup
+    useTitle,
+    startupComponent: Startup,
+    access: access ? new Access({ alert, ...access }) : undefined
   } as ProvideAdapter;
+}
+
+export function createAccess(options: Partial<AccessOptions> = {}) {
+  return new Access(options);
 }

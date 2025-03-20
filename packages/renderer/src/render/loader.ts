@@ -8,6 +8,7 @@ import type {
 import { createRenderer, type CreateRendererOptions } from './block';
 import { ContextMode } from '../constants';
 import { loadCssUrl, loadScriptUrl, isJSUrl, isCSSUrl } from '../utils';
+import { cloneDeep } from '@vtj/utils';
 
 import * as globalVue from 'vue';
 
@@ -70,7 +71,7 @@ export function createLoader(opts: CreateLoaderOptions): BlockLoader {
     if (from.type === 'Schema' && from.id) {
       let cache = __loaders__[from.id];
       if (cache) {
-        return cache;
+        return cloneDeep(cache);
       }
       cache = __loaders__[from.id] = Vue.defineAsyncComponent(async () => {
         const dsl = await getDsl(from.id);

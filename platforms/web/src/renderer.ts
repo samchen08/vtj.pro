@@ -1,5 +1,7 @@
 import { createAdapter } from '@vtj/renderer';
+import { useTitle } from '@vueuse/core';
 import { ElNotification, ElLoading } from 'element-plus';
+import { Startup } from './components';
 
 export function loading() {
   return ElLoading.service({
@@ -23,4 +25,4 @@ export function notify(
 
 export * from '@vtj/renderer';
 
-export const adapter = createAdapter({ loading, notify });
+export const adapter = createAdapter({ loading, notify, Startup, useTitle });

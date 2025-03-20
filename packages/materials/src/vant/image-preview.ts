@@ -148,7 +148,7 @@ const ImagePreview: MaterialDescription = {
     { name: 'closed' },
     { name: 'change', params: ['index'] },
     { name: 'scale', params: ['data'] },
-    { name: 'long-press', params: ['data'] }
+    { name: 'longPress', params: ['data'] }
   ],
   slots: ['index', 'cover', 'image'],
   snippet: {

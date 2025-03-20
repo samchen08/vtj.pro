@@ -1,10 +1,4 @@
-import {
-  type App,
-  type InjectionKey,
-  inject,
-  defineAsyncComponent,
-  version
-} from 'vue';
+import { type App, type InjectionKey, inject, defineAsyncComponent } from 'vue';
 import type {
   Router,
   RouteRecordName,
@@ -52,6 +46,7 @@ import {
 import { PageContainer } from './page';
 import { StartupContainer } from './startup';
 import { type ProvideAdapter } from './defaults';
+import { version } from '../version';
 
 export const providerKey: InjectionKey<Provider> = Symbol('Provider');
 
@@ -60,7 +55,7 @@ export interface ProviderOptions {
   project?: Partial<ProjectSchema>;
   modules?: Record<string, () => Promise<any>>;
   mode?: ContextMode;
-  adapter?: ProvideAdapter;
+  adapter?: Partial<ProvideAdapter>;
   router?: Router;
   dependencies?: Record<string, () => Promise<any>>;
   materials?: Record<string, () => Promise<any>>;

@@ -141,7 +141,7 @@ const Tab: MaterialDescription[] = [
     ],
     events: [
       { name: 'update:active' },
-      { name: 'click-tab', params: ['data'] },
+      { name: 'clickTab', params: ['data'] },
       { name: 'change', params: ['name', 'title'] },
       { name: 'rendered', params: ['name', 'title'] },
       { name: 'scroll', params: ['data'] }

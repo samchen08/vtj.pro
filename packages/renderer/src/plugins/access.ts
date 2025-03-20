@@ -74,7 +74,7 @@ export interface AccessOptions {
    * @param message
    * @returns
    */
-  alert?: (message: string, options: Record<string, any>) => Promise<any>;
+  alert?: (message: string, options?: Record<string, any>) => Promise<any>;
 
   /**
    * 未登录提示文本
@@ -139,9 +139,17 @@ export class Access {
   public options: AccessOptions;
   private data: AccessData | null = null;
   private mode?: ContextMode = ContextMode.Raw;
+  private interceptResponse: boolean = true;
   constructor(options: Partial<AccessOptions>) {
     this.options = Object.assign({}, defaults, options);
     this.loadData();
+  }
+
+  enableIntercept() {
+    this.interceptResponse = true;
+  }
+  disableIntercept() {
+    this.interceptResponse = false;
   }
 
   connect(params: AccessConnectParams) {
@@ -255,7 +263,11 @@ export class Access {
     const { privateKey } = this.options;
     if (Array.isArray(data) && privateKey) {
       const contents = data.map((n) => unRSA(n, privateKey));
-      this.data = JSON.parse(contents.join(''));
+      try {
+        this.data = JSON.parse(contents.join(''));
+      } catch (e) {
+        console.warn(e);
+      }
       return;
     }
     if (typeof data === 'string') {
@@ -378,10 +390,12 @@ export class Access {
     });
     request.useResponse(
       async (res) => {
+        if (!this.interceptResponse) return res;
         await this.showUnauthorizedAlert(res);
         return res;
       },
       async (err) => {
+        if (!this.interceptResponse) return Promise.reject(err);
         const res = err.response || err || {};
         await this.showUnauthorizedAlert(res);
         return Promise.reject(err);
