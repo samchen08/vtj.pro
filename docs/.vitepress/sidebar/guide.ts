@@ -6,11 +6,11 @@ export default [
       { text: '简介', link: '/' },
       { text: '快速上手', link: '/start' },
       { text: '项目集成', link: '/integration' },
-      { text: '功能扩展', link: '/extension' },
-      {
-        text: '打造专属低代码平台(案例)',
-        link: '/newpearl'
-      }
+      { text: '功能扩展', link: '/extension' }
+      // {
+      //   text: '打造专属低代码平台(案例)',
+      //   link: '/newpearl'
+      // }
       // { text: '开发示例', link: '/newpearl' }
     ]
   },

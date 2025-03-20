@@ -3,6 +3,166 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.11.5](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.11.4...@vtj/designer@0.11.5) (2025-03-20)
+
+**Note:** Version bump only for package @vtj/designer
+
+
+
+
+
+## [0.11.4](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.11.3...@vtj/designer@0.11.4) (2025-03-19)
+
+**Note:** Version bump only for package @vtj/designer
+
+
+
+
+
+## [0.11.3](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.11.2...@vtj/designer@0.11.3) (2025-03-19)
+
+
+### Bug Fixes
+
+* 🐛 增加默认access ([4871251](https://gitee.com/newgateway/vtj/commits/4871251e7a79566f2d6a499f40f26f197f38d2dc))
+* 🐛 remote config url ([e663bfd](https://gitee.com/newgateway/vtj/commits/e663bfdd254641dbc9a088e34ee5b4df2dc091eb))
+
+
+
+
+
+## [0.11.2](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.11.1...@vtj/designer@0.11.2) (2025-03-19)
+
+
+### Features
+
+* ✨ style支持变量绑定 ([3b81457](https://gitee.com/newgateway/vtj/commits/3b81457159ce88eb09a5286800d3c302bb7fe28d))
+
+
+
+
+
+## [0.11.1](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.11.1-alpha.1...@vtj/designer@0.11.1) (2025-03-18)
+
+**Note:** Version bump only for package @vtj/designer
+
+
+
+
+
+## [0.11.1-alpha.1](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.11.1-alpha.0...@vtj/designer@0.11.1-alpha.1) (2025-03-18)
+
+**Note:** Version bump only for package @vtj/designer
+
+
+
+
+
+## [0.11.1-alpha.0](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.11.0...@vtj/designer@0.11.1-alpha.0) (2025-03-18)
+
+**Note:** Version bump only for package @vtj/designer
+
+
+
+
+
+# [0.11.0](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.10.15...@vtj/designer@0.11.0) (2025-03-17)
+
+**Note:** Version bump only for package @vtj/designer
+
+
+
+
+
+## [0.10.15](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.10.14...@vtj/designer@0.10.15) (2025-03-14)
+
+
+### Bug Fixes
+
+* 🐛 解决设计器request被污染的问题 ([338a3ba](https://gitee.com/newgateway/vtj/commits/338a3baedbb21ae41c489b4932b9004da80c36cc))
+
+
+
+
+
+## [0.10.14](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.10.13...@vtj/designer@0.10.14) (2025-03-14)
+
+
+### Bug Fixes
+
+* 🐛 normalizedStyle ([b649f10](https://gitee.com/newgateway/vtj/commits/b649f109af7b11f29fcc51b523185c3302706d9a))
+
+
+
+
+
+## [0.10.13](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.10.12...@vtj/designer@0.10.13) (2025-03-13)
+
+
+### Features
+
+* ✨ 物料开发示例工程 ([936fc1f](https://gitee.com/newgateway/vtj/commits/936fc1fe6afcd22cee0c988a88cba389bd583439))
+
+
+
+
+
+## [0.10.12](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.10.11...@vtj/designer@0.10.12) (2025-03-11)
+
+**Note:** Version bump only for package @vtj/designer
+
+
+
+
+
+## [0.10.11](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.10.10...@vtj/designer@0.10.11) (2025-03-11)
+
+**Note:** Version bump only for package @vtj/designer
+
+
+
+
+
+## [0.10.10](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.10.9...@vtj/designer@0.10.10) (2025-03-07)
+
+
+### Bug Fixes
+
+* 🐛 html2canvas useCORS ([88d9244](https://gitee.com/newgateway/vtj/commits/88d9244f4ff4365b4b8c5b9c4db60fb10c91b1ea))
+* 🐛 v-item 内容过长导致的样式问题 ([1a5d378](https://gitee.com/newgateway/vtj/commits/1a5d378677e767289f1f91ee720881b86c2825da))
+
+
+
+
+
+## [0.10.9](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.10.8...@vtj/designer@0.10.9) (2025-03-04)
+
+**Note:** Version bump only for package @vtj/designer
+
+
+
+
+
+## [0.10.8](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.10.7...@vtj/designer@0.10.8) (2025-03-04)
+
+**Note:** Version bump only for package @vtj/designer
+
+
+
+
+
+## [0.10.7](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.10.5...@vtj/designer@0.10.7) (2025-03-04)
+
+
+### Bug Fixes
+
+* 🐛 关闭了辅助线。在页面切换之后，辅助线还是会显示出来 ([c436f6d](https://gitee.com/newgateway/vtj/commits/c436f6d0e5df42b957d00d8534983d3844301aab))
+* 🐛 组件库筛选结果出现重复 ([564c11c](https://gitee.com/newgateway/vtj/commits/564c11c0c1c1cf7ace9bd7f395b7acce242b8fd8))
+
+
+
+
+
 ## [0.10.6](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.10.5...@vtj/designer@0.10.6) (2025-02-28)
 
 

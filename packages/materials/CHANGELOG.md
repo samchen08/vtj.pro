@@ -3,6 +3,169 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.11.5](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.11.4...@vtj/materials@0.11.5) (2025-03-20)
+
+**Note:** Version bump only for package @vtj/materials
+
+
+
+
+
+## [0.11.4](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.11.3...@vtj/materials@0.11.4) (2025-03-19)
+
+**Note:** Version bump only for package @vtj/materials
+
+
+
+
+
+## [0.11.3](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.11.2...@vtj/materials@0.11.3) (2025-03-19)
+
+**Note:** Version bump only for package @vtj/materials
+
+
+
+
+
+## [0.11.2](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.11.1...@vtj/materials@0.11.2) (2025-03-19)
+
+**Note:** Version bump only for package @vtj/materials
+
+
+
+
+
+## [0.11.1](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.11.1-alpha.1...@vtj/materials@0.11.1) (2025-03-18)
+
+**Note:** Version bump only for package @vtj/materials
+
+
+
+
+
+## [0.11.1-alpha.1](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.11.1-alpha.0...@vtj/materials@0.11.1-alpha.1) (2025-03-18)
+
+**Note:** Version bump only for package @vtj/materials
+
+
+
+
+
+## [0.11.1-alpha.0](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.11.0...@vtj/materials@0.11.1-alpha.0) (2025-03-18)
+
+**Note:** Version bump only for package @vtj/materials
+
+
+
+
+
+# [0.11.0](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.10.15...@vtj/materials@0.11.0) (2025-03-17)
+
+**Note:** Version bump only for package @vtj/materials
+
+
+
+
+
+## [0.10.15](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.10.14...@vtj/materials@0.10.15) (2025-03-14)
+
+**Note:** Version bump only for package @vtj/materials
+
+
+
+
+
+## [0.10.14](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.10.13...@vtj/materials@0.10.14) (2025-03-14)
+
+
+### Bug Fixes
+
+* 🐛 normalizedStyle ([b649f10](https://gitee.com/newgateway/vtj/commits/b649f109af7b11f29fcc51b523185c3302706d9a))
+
+
+
+
+
+## [0.10.13](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.10.12...@vtj/materials@0.10.13) (2025-03-13)
+
+
+### Bug Fixes
+
+* 🐛 Vant 组件事件写法改为驼峰式 ([6e17a06](https://gitee.com/newgateway/vtj/commits/6e17a0651c268369d21a05f3c7bea3548e3f7ccb))
+
+
+
+
+
+## [0.10.12](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.10.11...@vtj/materials@0.10.12) (2025-03-11)
+
+**Note:** Version bump only for package @vtj/materials
+
+
+
+
+
+## [0.10.11](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.10.10...@vtj/materials@0.10.11) (2025-03-11)
+
+
+### Bug Fixes
+
+* 🐛 更新uniapp依赖, 优化renderer ([463b1f7](https://gitee.com/newgateway/vtj/commits/463b1f7419b5373c514eaaf285a989c5220f7934))
+
+
+
+
+
+## [0.10.10](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.10.9...@vtj/materials@0.10.10) (2025-03-07)
+
+**Note:** Version bump only for package @vtj/materials
+
+
+
+
+
+## [0.10.9](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.10.8...@vtj/materials@0.10.9) (2025-03-04)
+
+**Note:** Version bump only for package @vtj/materials
+
+
+
+
+
+## [0.10.8](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.10.7...@vtj/materials@0.10.8) (2025-03-04)
+
+**Note:** Version bump only for package @vtj/materials
+
+
+
+
+
+## [0.10.7](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.10.5...@vtj/materials@0.10.7) (2025-03-04)
+
+
+### Bug Fixes
+
+* 🐛 修改 scrllView snippet中的name ([dbce8a2](https://gitee.com/newgateway/vtj/commits/dbce8a2395c18752f54616ed87449d8728e63fa1))
+* 🐛 隐藏 组件 ([fe7cb56](https://gitee.com/newgateway/vtj/commits/fe7cb56fd791649a7882d58ba0a247315c28187a))
+* 🐛 uniapp video ([2b9fd5c](https://gitee.com/newgateway/vtj/commits/2b9fd5cee8b3b8d0b14692497b8a0c80a13a5c80))
+
+
+### Features
+
+* ✨ 处理 data-picker 样式 ([cafddf4](https://gitee.com/newgateway/vtj/commits/cafddf4fbeb8208d62ec5b2059bfd27eecd2e315))
+* ✨ transition 组件 ([e5ab55a](https://gitee.com/newgateway/vtj/commits/e5ab55ac6a4a2275ee8726325a2f6d6b15b604b1))
+* ✨ uniapp 拓展组件 ([a273383](https://gitee.com/newgateway/vtj/commits/a273383f7a7101d0e80ba9861cf1b129b0652660))
+* ✨ uniapp 拓展组件 ([5b206fa](https://gitee.com/newgateway/vtj/commits/5b206fa8891453ef2c3856635800157164a0b6cb))
+* ✨ uniapp 拓展组件 ([0c8948c](https://gitee.com/newgateway/vtj/commits/0c8948c25c338725c69e13869fbc7bbac8c05b45))
+* ✨ uniapp 拓展组件 ([0c8a26b](https://gitee.com/newgateway/vtj/commits/0c8a26bc8886d01b27ddf2fc1fe57ce31f0047d1))
+* ✨ uniapp 拓展组件 ([c9c305a](https://gitee.com/newgateway/vtj/commits/c9c305ac9a7e7e6bb90e35afb21ff1ef1bdbc4a8))
+* ✨ uniapp 拓展组件 ([520d490](https://gitee.com/newgateway/vtj/commits/520d490e7638e50682fc630e8151c9913f2c188c))
+* ✨ uniapp input的值 双向绑定 ([59f8b0a](https://gitee.com/newgateway/vtj/commits/59f8b0af59a690e5df8a51c1b5b83f6c345354ea))
+
+
+
+
+
 ## [0.10.6](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.10.5...@vtj/materials@0.10.6) (2025-02-28)
 
 **Note:** Version bump only for package @vtj/materials

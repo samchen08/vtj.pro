@@ -80,7 +80,8 @@
 
   // const url = '/api/test/user/${id}';
   // const url = '/api/scm/auth/scm/scmPurchaseApplyH/waitList.do';
-  const url = '/mock/api/:id.json';
+  // const url = '/mock/api/:id.json';
+  const url = 'https://127.0.0.1:9527/mock/api/:id.json';
 
   const execApi1 = () => {
     // console.log(request);

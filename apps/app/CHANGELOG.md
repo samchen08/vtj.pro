@@ -3,6 +3,151 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.11.5](https://gitee.com/newgateway/vtj/compare/vtj-project-app@0.11.4...vtj-project-app@0.11.5) (2025-03-20)
+
+**Note:** Version bump only for package vtj-project-app
+
+
+
+
+
+## [0.11.4](https://gitee.com/newgateway/vtj/compare/vtj-project-app@0.11.3...vtj-project-app@0.11.4) (2025-03-19)
+
+**Note:** Version bump only for package vtj-project-app
+
+
+
+
+
+## [0.11.3](https://gitee.com/newgateway/vtj/compare/vtj-project-app@0.11.2...vtj-project-app@0.11.3) (2025-03-19)
+
+**Note:** Version bump only for package vtj-project-app
+
+
+
+
+
+## [0.11.2](https://gitee.com/newgateway/vtj/compare/vtj-project-app@0.11.1...vtj-project-app@0.11.2) (2025-03-19)
+
+
+### Features
+
+* ✨ style支持变量绑定 ([3b81457](https://gitee.com/newgateway/vtj/commits/3b81457159ce88eb09a5286800d3c302bb7fe28d))
+
+
+
+
+
+## [0.11.1](https://gitee.com/newgateway/vtj/compare/vtj-project-app@0.11.1-alpha.1...vtj-project-app@0.11.1) (2025-03-18)
+
+**Note:** Version bump only for package vtj-project-app
+
+
+
+
+
+## [0.11.1-alpha.1](https://gitee.com/newgateway/vtj/compare/vtj-project-app@0.11.1-alpha.0...vtj-project-app@0.11.1-alpha.1) (2025-03-18)
+
+**Note:** Version bump only for package vtj-project-app
+
+
+
+
+
+## [0.11.1-alpha.0](https://gitee.com/newgateway/vtj/compare/vtj-project-app@0.11.0...vtj-project-app@0.11.1-alpha.0) (2025-03-18)
+
+
+### Bug Fixes
+
+* 🐛 __access__ ([39a0ce2](https://gitee.com/newgateway/vtj/commits/39a0ce264f5993883b44c3f6e9016e862da9a0cd))
+
+
+
+
+
+# [0.11.0](https://gitee.com/newgateway/vtj/compare/vtj-project-app@0.10.15...vtj-project-app@0.11.0) (2025-03-17)
+
+**Note:** Version bump only for package vtj-project-app
+
+
+
+
+
+## [0.10.15](https://gitee.com/newgateway/vtj/compare/vtj-project-app@0.10.14...vtj-project-app@0.10.15) (2025-03-14)
+
+**Note:** Version bump only for package vtj-project-app
+
+
+
+
+
+## [0.10.14](https://gitee.com/newgateway/vtj/compare/vtj-project-app@0.10.13...vtj-project-app@0.10.14) (2025-03-14)
+
+**Note:** Version bump only for package vtj-project-app
+
+
+
+
+
+## [0.10.13](https://gitee.com/newgateway/vtj/compare/vtj-project-app@0.10.12...vtj-project-app@0.10.13) (2025-03-13)
+
+**Note:** Version bump only for package vtj-project-app
+
+
+
+
+
+## [0.10.12](https://gitee.com/newgateway/vtj/compare/vtj-project-app@0.10.11...vtj-project-app@0.10.12) (2025-03-11)
+
+**Note:** Version bump only for package vtj-project-app
+
+
+
+
+
+## [0.10.11](https://gitee.com/newgateway/vtj/compare/vtj-project-app@0.10.10...vtj-project-app@0.10.11) (2025-03-11)
+
+
+### Features
+
+* ✨ uniapp 支持微信小程序 ([ca67024](https://gitee.com/newgateway/vtj/commits/ca6702490867df9badb5f045aee76c2df14f2052))
+
+
+
+
+
+## [0.10.10](https://gitee.com/newgateway/vtj/compare/vtj-project-app@0.10.9...vtj-project-app@0.10.10) (2025-03-07)
+
+**Note:** Version bump only for package vtj-project-app
+
+
+
+
+
+## [0.10.9](https://gitee.com/newgateway/vtj/compare/vtj-project-app@0.10.8...vtj-project-app@0.10.9) (2025-03-04)
+
+**Note:** Version bump only for package vtj-project-app
+
+
+
+
+
+## [0.10.8](https://gitee.com/newgateway/vtj/compare/vtj-project-app@0.10.7...vtj-project-app@0.10.8) (2025-03-04)
+
+**Note:** Version bump only for package vtj-project-app
+
+
+
+
+
+## [0.10.7](https://gitee.com/newgateway/vtj/compare/vtj-project-app@0.10.5...vtj-project-app@0.10.7) (2025-03-04)
+
+**Note:** Version bump only for package vtj-project-app
+
+
+
+
+
 ## [0.10.6](https://gitee.com/newgateway/vtj/compare/vtj-project-app@0.10.5...vtj-project-app@0.10.6) (2025-02-28)
 
 **Note:** Version bump only for package vtj-project-app

@@ -1,0 +1,9 @@
+[*.{js, jsx, ts, tsx, vue, mjs}]
+indent_style = space
+indent_size = 2
+trim_trailing_whitespace = true
+insert_final_newline = true
+ij_javascript_spaces_within_imports = true
+ij_html_do_not_indent_children_of_tags = html, body, thead, tbody, tfoot, script
+ij_javascript_space_before_function_left_parenth = true
+ij_javascript_use_semicolon_after_statement = true

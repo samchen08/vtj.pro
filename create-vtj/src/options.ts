@@ -31,6 +31,16 @@ export const templates: ITemplate[] = [
     display: '移动端应用( uniapp )',
     color: cyan
   },
+  {
+    name: 'material',
+    display: '物料开发项目( material )',
+    color: lightRed
+  },
+  {
+    name: 'extension',
+    display: '设计器扩展开发项目( extension )',
+    color: lightRed
+  },
   // {
   //   name: 'nest',
   //   display: '服务端应用( nest )',

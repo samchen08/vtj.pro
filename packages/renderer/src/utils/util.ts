@@ -1,4 +1,6 @@
-import type { Plugin } from 'vue';
+import type { Plugin, App } from 'vue';
+import type { PageFile, BlockFile } from '@vtj/core';
+import type { RouteLocationNormalizedGeneric } from 'vue-router';
 import { isFunction, isString } from '@vtj/utils';
 import { HTML_TAGS, BUILD_IN_TAGS } from '../constants';
 export function toString(value: any) {
@@ -99,11 +101,27 @@ export function isNativeTag(tag: string) {
 }
 
 export function getMock(global: any = window) {
-  const cache = (window as any).Mock;
+  const cache = (window as any)?.Mock;
   if (cache) return cache;
-  const Mock = global.Mock;
-  if (Mock) {
+  const Mock = global?.Mock;
+  if (Mock && window) {
     (window as any).Mock = Mock;
     return Mock;
+  }
+}
+
+export function setupPageSetting(
+  app: App,
+  route: RouteLocationNormalizedGeneric,
+  file: PageFile | BlockFile
+) {
+  Object.assign(route.meta, (file as PageFile).meta);
+  const el = app?._container;
+  if (file?.type === 'page') {
+    el.classList.add('is-page');
+  }
+  const isPure = (file as PageFile)?.pure;
+  if (isPure) {
+    el.classList.add('is-pure');
   }
 }

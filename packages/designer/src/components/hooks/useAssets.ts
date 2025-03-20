@@ -1,4 +1,4 @@
-import { computed, watchEffect, reactive, ref, watch } from 'vue';
+import { computed, reactive, ref, watch } from 'vue';
 import { BUILT_IN_NAME } from '@vtj/core';
 import { useEngine, type AssetGroup } from '../../framework';
 
@@ -55,18 +55,22 @@ export function useAssets() {
     return groupMap.value[currentTab.value];
   });
 
-  watchEffect(() => {
-    const result = tabs.value.reduce(
-      (res, current) => {
-        res[current.name] = getDefaultModelValue(
-          groupMap.value[current.name].children
-        );
-        return res;
-      },
-      {} as Record<string, any>
-    );
-    Object.assign(model, result);
-  });
+  watch(
+    tabs,
+    (value) => {
+      const result = value.reduce(
+        (res, current) => {
+          res[current.name] = getDefaultModelValue(
+            groupMap.value[current.name].children
+          );
+          return res;
+        },
+        {} as Record<string, any>
+      );
+      Object.assign(model, result);
+    },
+    { immediate: true }
+  );
 
   watch(
     tabs,

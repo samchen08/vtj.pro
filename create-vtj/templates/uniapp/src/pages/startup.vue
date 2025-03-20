@@ -4,7 +4,8 @@
   </view>
 </template>
 <script lang="ts" setup>
-  import { Startup, useProvider } from '@vtj/uni-app';
+  import { useProvider } from '@vtj/uni-app';
+  import Startup from '../components/startup.vue';
   const provider = useProvider();
 
   console.log(provider);

@@ -91,6 +91,11 @@ export interface CreateViteConfigOptions {
   proxy?: ProxyConfig;
 
   /**
+   * 打开浏览器
+   */
+  open?: boolean;
+
+  /**
    * Vite 服务器默认会忽略对 .git/ 和 node_modules/ 目录的监听。如果你需要对 node_modules/ 内的包进行监听
    */
   watchModules?: string[];
@@ -260,11 +265,6 @@ export interface CreateViteConfigOptions {
   cdn?: CdnPluginOptions;
 
   /**
-   * StyleBundler sassOptions
-   */
-  styleBundler?: boolean;
-
-  /**
    * reload 插件
    */
   reload?: boolean;
@@ -305,6 +305,11 @@ export interface CreateUniappViteConfigOptions {
    * 开启https
    */
   https?: boolean;
+
+  /**
+   * 打开浏览器
+   */
+  open?: boolean;
 
   /**
    * 代理

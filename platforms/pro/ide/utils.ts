@@ -1,4 +1,4 @@
-import { ElLoading, ElNotification } from 'element-plus';
+import { ElLoading, ElNotification, ElMessageBox } from 'element-plus';
 
 export function loading() {
   return ElLoading.service({
@@ -18,4 +18,11 @@ export function notify(
     message,
     type
   });
+}
+
+export function alert(
+  message: string,
+  options?: Record<string, any>
+): Promise<any> {
+  return ElMessageBox.alert(message, options);
 }
