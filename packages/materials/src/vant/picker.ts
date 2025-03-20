@@ -105,11 +105,11 @@ const Picker: MaterialDescription = {
       params: ['data']
     },
     {
-      name: 'click-option',
+      name: 'clickOption',
       params: ['data']
     },
     {
-      name: 'scroll-into',
+      name: 'scrollInto',
       params: ['data']
     },
     {

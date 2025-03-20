@@ -1,32 +1,38 @@
 <template>
-  <Panel
-    class="v-css-widget v-sub-panel"
-    title="JSON"
-    size="small"
-    fit
-    save
-    @save="onSave">
-    <Editor
-      ref="editorRef"
-      :model-value="style"
-      height="100%"
-      lang="json"
-      dark
-      @blur="saveStyle"></Editor>
-  </Panel>
+  <XContainer direction="column" fit>
+    <Panel
+      class="v-css-widget v-sub-panel"
+      title="JSON"
+      size="small"
+      :fit="true"
+      save
+      grow
+      @save="onSave">
+      <Editor
+        readonly
+        ref="editorRef"
+        :model-value="style"
+        height="100%"
+        lang="json"
+        dark
+        @blur="saveStyle"></Editor>
+    </Panel>
+  </XContainer>
 </template>
 <script lang="ts" setup>
+  import { XContainer } from '@vtj/ui';
   import { ref, computed } from 'vue';
   import { isBlock } from '@vtj/core';
+  import { isJSExpression } from '@vtj/renderer';
   import { Panel } from '../../shared';
   import Editor from '../../editor';
   import { useSelected } from '../../hooks';
-  import { message, notify } from '../../../utils';
+  import { message, notify, normalizedStyle } from '../../../utils';
 
   defineOptions({
     name: 'StyleWidget'
   });
-  
+
   const { selected } = useSelected();
 
   const editorRef = ref();
@@ -36,13 +42,21 @@
     return isBlock(model) ? null : model;
   });
 
-  const style = computed(() =>
-    JSON.stringify(node.value?.getPropValue('style') || {}, null, 2)
-  );
+  const oStyle = computed(() => {
+    return (node.value?.getPropValue('style') as any) || {};
+  });
+
+  const style = computed(() => {
+    if (isJSExpression(oStyle.value)) {
+      return JSON.stringify({});
+    } else {
+      return JSON.stringify(normalizedStyle(oStyle.value), null, 2);
+    }
+  });
 
   const saveStyle = (value: string) => {
     try {
-      const json = JSON.parse(value);
+      const json = normalizedStyle(JSON.parse(value));
       node.value?.setProp('style', json);
     } catch (e) {
       notify('JSON格式错误');

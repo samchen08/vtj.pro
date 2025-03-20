@@ -2,7 +2,7 @@
 
 [![star](https://gitee.com/newgateway/vtj/badge/star.svg?theme=gvp)](https://gitee.com/newgateway/vtj)
 [![npm version](https://img.shields.io/npm/v/@vtj/pro.svg?style=flat-square)](https://www.npmjs.com/package/@vtj/pro)
-[![npm downloads](https://img.shields.io/npm/dt/@vtj/pro.svg?style=flat-square)](https://npm-stat.com/charts.html?package=@vtj/pro)
+[![npm downloads](https://img.shields.io/npm/dt/@vtj/core.svg?style=flat-square)](https://npm-stat.com/charts.html?package=@vtj/core)
 [![npm license](https://img.shields.io/github/license/mashape/apistatus.svg)](LICENSE)
 
 </div>
@@ -64,6 +64,12 @@ VTJ 是一款基于 Vue3 + Typescript 的低代码页面可视化设计器。内
 
    ```sh
    npm create vtj@latest --registry=https://registry.npmmirror.com -- -t uniapp
+   ```
+
+1. 物料开发项目
+
+   ```sh
+   npm create vtj@latest --registry=https://registry.npmmirror.com -- -t material
    ```
 
 ## 贡献指南

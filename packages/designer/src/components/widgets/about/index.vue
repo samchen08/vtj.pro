@@ -48,7 +48,7 @@
   }
   const props = defineProps<Props>();
   const engine = props.engine;
-  const { access } = engine.adapter || {};
+  const { access } = engine || {};
   const { latest } = useCheckVersion();
   const avatarSrc = computed(() => {
     const avatar = access?.getData()?.avatar || '';
@@ -65,7 +65,7 @@
   });
 
   const isLogined = computed(() => {
-    return access.isLogined();
+    return access?.isLogined();
   });
 
   const logout = () => {

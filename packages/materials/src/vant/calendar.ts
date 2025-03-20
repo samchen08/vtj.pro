@@ -238,11 +238,11 @@ const Calendar: MaterialDescription = {
     'opened',
     'closed',
     'unselect',
-    'month-show',
-    'over-range',
-    'click-subtitle',
-    'click-disabled-date',
-    'panel-change'
+    'monthShow',
+    'overRange',
+    'clickSubtitle',
+    'clickDisabledDate',
+    'panelChange'
   ],
   slots: [
     'title',

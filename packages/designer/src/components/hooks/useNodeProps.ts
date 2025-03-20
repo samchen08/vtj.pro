@@ -63,6 +63,22 @@ export function useNodeProps(
         value: node.value.getPropValue('class')
       },
       {
+        name: 'style',
+        label: 'style',
+        setters: [
+          {
+            name: 'ExpressionSetter',
+            label: '表达式'
+          },
+          {
+            name: 'JSONSetter',
+            label: 'JSON'
+          }
+        ],
+        value: node.value.getPropValue('style'),
+        switchDisabled: true
+      },
+      {
         name: 'children',
         label: '文本',
         title: '如设置组件文本，将清空子组件',

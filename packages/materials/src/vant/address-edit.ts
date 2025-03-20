@@ -129,11 +129,11 @@ const AddressEdit: MaterialDescription = {
     { name: 'focus', params: ['key'] },
     { name: 'change', params: ['data'] },
     { name: 'delete', params: ['info'] },
-    { name: 'select-search', params: ['value'] },
-    { name: 'click-area' },
-    { name: 'change-area', params: ['selectedOptions'] },
-    { name: 'change-detail', params: ['value'] },
-    { name: 'change-default', params: ['checked'] }
+    { name: 'selectSearch', params: ['value'] },
+    { name: 'clickArea' },
+    { name: 'changeArea', params: ['selectedOptions'] },
+    { name: 'changeDetail', params: ['value'] },
+    { name: 'changeDefault', params: ['checked'] }
   ],
   slots: ['default'],
   snippet: {

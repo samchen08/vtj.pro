@@ -4,42 +4,38 @@
 <script lang="ts" setup>
   import { ref, getCurrentInstance } from 'vue';
   import { useRoute } from 'vue-router';
-  // import { XMask } from '@vtj/ui';
-  import { ACCESS_STORAGE_KEY } from '../contants';
   import {
     createProvider,
     LocalService,
     ContextMode,
     Extension,
-    Access,
     createAdapter,
-    createServiceRequest
+    createServiceRequest,
+    setupPageSetting
   } from '../../src';
   import { IconsPlugin } from '@vtj/icons';
-  import { ElMessageBox } from 'element-plus';
-  import { notify, loading } from '../utils';
-  const adapter = createAdapter({ loading, notify });
+  import { useTitle } from '@vueuse/core';
+  import { notify, loading, alert } from '../utils';
+
   const service = new LocalService(createServiceRequest(notify));
   const config = await service.getExtension().catch(() => null);
-  const { options, adapters } = config
-    ? await new Extension(config).load()
-    : {};
+  const adapter = createAdapter({
+    loading,
+    notify,
+    useTitle,
+    alert,
+    access: config?.access
+  });
+  const options = config ? await new Extension(config).load() : {};
   const { __BASE_PATH__ = '/' } = config || {};
-  const accessOptions = adapters?.access;
-  const remote = adapters?.remote;
-  const access = accessOptions
-    ? new Access({
-        ...accessOptions,
-        alert: ElMessageBox.alert,
-        storageKey: ACCESS_STORAGE_KEY
-      })
-    : undefined;
   const { provider, onReady } = createProvider({
     mode: ContextMode.Runtime,
     service,
     materialPath: __BASE_PATH__,
-    adapter: Object.assign(adapter, { access, remote }, options?.adapter || {}),
-    ...(options || {}),
+    adapter: {
+      ...adapter,
+      ...options.adapter
+    },
     dependencies: {
       Vue: () => import('vue'),
       VueRouter: () => import('vue-router')
@@ -54,21 +50,12 @@
     if (app) {
       app.use(IconsPlugin);
       app.use(provider);
+      renderer.value = await provider.getRenderComponent(
+        route.params.id.toString(),
+        (file: any) => {
+          setupPageSetting(app, route, file);
+        }
+      );
     }
-
-    renderer.value = await provider.getRenderComponent(
-      route.params.id.toString(),
-      (file: any) => {
-        Object.assign(route.meta, file.meta);
-        const el = app?._container;
-        if (file?.type === 'page') {
-          el.classList.add('is-page');
-        }
-        const isPure = file?.pure;
-        if (isPure) {
-          el.classList.add('is-pure');
-        }
-      }
-    );
   });
 </script>
