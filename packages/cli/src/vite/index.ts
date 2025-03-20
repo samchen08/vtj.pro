@@ -26,10 +26,11 @@ const createServer = (
   port: number = 9527,
   proxy?: ProxyConfig,
   https?: boolean,
-  host?: string
+  host?: string,
+  open?: boolean
 ) => {
   return {
-    open: true,
+    open: open,
     cors: true,
     port,
     host: host || '0.0.0.0',
@@ -58,7 +59,8 @@ export function createViteConfig(
     opts.port as number,
     opts.proxy,
     opts.https,
-    opts.host
+    opts.host,
+    opts.open
   );
 
   if (opts.watchModules) {
@@ -71,7 +73,8 @@ export function createViteConfig(
     opts.previewPort as number,
     opts.proxy,
     opts.https,
-    opts.host
+    opts.host,
+    opts.open
   );
 
   const plugins = mergePlugins(opts);
@@ -134,14 +137,16 @@ export function createUniappViteConfig(
     opts.port as number,
     opts.proxy,
     opts.https,
-    opts.host
+    opts.host,
+    opts.open
   );
 
   const preview = createServer(
     opts.previewPort as number,
     opts.proxy,
     opts.https,
-    opts.host
+    opts.host,
+    opts.open
   );
 
   const plugins: PluginOption[] = [envPlugin({ dir: opts.envPath })];
