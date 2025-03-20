@@ -3,6 +3,145 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.11.5](https://gitee.com/newgateway/vtj/compare/@vtj/web@0.11.4...@vtj/web@0.11.5) (2025-03-20)
+
+**Note:** Version bump only for package @vtj/web
+
+
+
+
+
+## [0.11.4](https://gitee.com/newgateway/vtj/compare/@vtj/web@0.11.3...@vtj/web@0.11.4) (2025-03-19)
+
+**Note:** Version bump only for package @vtj/web
+
+
+
+
+
+## [0.11.3](https://gitee.com/newgateway/vtj/compare/@vtj/web@0.11.2...@vtj/web@0.11.3) (2025-03-19)
+
+**Note:** Version bump only for package @vtj/web
+
+
+
+
+
+## [0.11.2](https://gitee.com/newgateway/vtj/compare/@vtj/web@0.11.1...@vtj/web@0.11.2) (2025-03-19)
+
+**Note:** Version bump only for package @vtj/web
+
+
+
+
+
+## [0.11.1](https://gitee.com/newgateway/vtj/compare/@vtj/web@0.11.1-alpha.1...@vtj/web@0.11.1) (2025-03-18)
+
+**Note:** Version bump only for package @vtj/web
+
+
+
+
+
+## [0.11.1-alpha.1](https://gitee.com/newgateway/vtj/compare/@vtj/web@0.11.1-alpha.0...@vtj/web@0.11.1-alpha.1) (2025-03-18)
+
+**Note:** Version bump only for package @vtj/web
+
+
+
+
+
+## [0.11.1-alpha.0](https://gitee.com/newgateway/vtj/compare/@vtj/web@0.11.0...@vtj/web@0.11.1-alpha.0) (2025-03-18)
+
+**Note:** Version bump only for package @vtj/web
+
+
+
+
+
+# [0.11.0](https://gitee.com/newgateway/vtj/compare/@vtj/web@0.10.15...@vtj/web@0.11.0) (2025-03-17)
+
+**Note:** Version bump only for package @vtj/web
+
+
+
+
+
+## [0.10.15](https://gitee.com/newgateway/vtj/compare/@vtj/web@0.10.14...@vtj/web@0.10.15) (2025-03-14)
+
+**Note:** Version bump only for package @vtj/web
+
+
+
+
+
+## [0.10.14](https://gitee.com/newgateway/vtj/compare/@vtj/web@0.10.13...@vtj/web@0.10.14) (2025-03-14)
+
+**Note:** Version bump only for package @vtj/web
+
+
+
+
+
+## [0.10.13](https://gitee.com/newgateway/vtj/compare/@vtj/web@0.10.12...@vtj/web@0.10.13) (2025-03-13)
+
+**Note:** Version bump only for package @vtj/web
+
+
+
+
+
+## [0.10.12](https://gitee.com/newgateway/vtj/compare/@vtj/web@0.10.11...@vtj/web@0.10.12) (2025-03-11)
+
+**Note:** Version bump only for package @vtj/web
+
+
+
+
+
+## [0.10.11](https://gitee.com/newgateway/vtj/compare/@vtj/web@0.10.10...@vtj/web@0.10.11) (2025-03-11)
+
+
+### Features
+
+* ✨ uniapp 支持微信小程序 ([ca67024](https://gitee.com/newgateway/vtj/commits/ca6702490867df9badb5f045aee76c2df14f2052))
+
+
+
+
+
+## [0.10.10](https://gitee.com/newgateway/vtj/compare/@vtj/web@0.10.9...@vtj/web@0.10.10) (2025-03-07)
+
+**Note:** Version bump only for package @vtj/web
+
+
+
+
+
+## [0.10.9](https://gitee.com/newgateway/vtj/compare/@vtj/web@0.10.8...@vtj/web@0.10.9) (2025-03-04)
+
+**Note:** Version bump only for package @vtj/web
+
+
+
+
+
+## [0.10.8](https://gitee.com/newgateway/vtj/compare/@vtj/web@0.10.7...@vtj/web@0.10.8) (2025-03-04)
+
+**Note:** Version bump only for package @vtj/web
+
+
+
+
+
+## [0.10.7](https://gitee.com/newgateway/vtj/compare/@vtj/web@0.10.5...@vtj/web@0.10.7) (2025-03-04)
+
+**Note:** Version bump only for package @vtj/web
+
+
+
+
+
 ## [0.10.6](https://gitee.com/newgateway/vtj/compare/@vtj/web@0.10.5...@vtj/web@0.10.6) (2025-02-28)
 
 **Note:** Version bump only for package @vtj/web

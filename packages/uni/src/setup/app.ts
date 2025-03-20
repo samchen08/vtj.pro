@@ -53,6 +53,17 @@ export function createUniAppComponent(
   return comp;
 }
 
+export function createUniLoader(provider: Provider, id: string) {
+  return async () => {
+    const dsl = await provider.getDsl(id);
+    if (dsl) {
+      const { renderer } = provider.createDslRenderer(dsl);
+      return renderer;
+    }
+    return null;
+  };
+}
+
 export async function createUniRoutes(
   provider: Provider,
   includeBlock: boolean = false,
@@ -61,14 +72,11 @@ export async function createUniRoutes(
   const pages = provider.project?.pages || [];
   const routes: UniRoute[] = [];
   for (const page of pages) {
-    const dsl = await provider.getDsl(page.id);
-    if (!dsl) continue;
-    const { renderer } = provider.createDslRenderer(dsl);
     const home = provider.project?.homepage === page.id;
     routes.push({
       id: page.id,
       path: `${basePath}/${page.id}`,
-      component: renderer,
+      loader: createUniLoader(provider, page.id),
       style: {
         navigationBarTitleText: page.title,
         ...page.style
@@ -90,13 +98,10 @@ export async function createUniRoutes(
   if (includeBlock) {
     const blocks = provider.project?.blocks || [];
     for (const block of blocks) {
-      const dsl = await provider.getDsl(block.id);
-      if (!dsl) continue;
-      const { renderer } = provider.createDslRenderer(dsl);
       routes.push({
         id: block.id,
         path: `${basePath}/${block.id}`,
-        component: renderer,
+        loader: createUniLoader(provider, block.id),
         style: {
           navigationStyle: 'custom'
         }

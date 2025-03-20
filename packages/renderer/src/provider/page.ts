@@ -1,6 +1,5 @@
 import { defineComponent, h, ref } from 'vue';
 import { useRoute } from 'vue-router';
-import { useTitle } from '@vueuse/core';
 import { useProvider } from './provider';
 export const PageContainer = defineComponent({
   name: 'VtjPageContainer',
@@ -13,7 +12,10 @@ export const PageContainer = defineComponent({
     const sid = ref(Symbol());
     if (file) {
       Object.assign(route.meta, file.meta || {}, { cache: file.cache });
-      useTitle(file.title || 'VTJ');
+      const { useTitle } = provider?.adapter;
+      if (useTitle) {
+        useTitle(file.title || 'VTJ');
+      }
     }
     return {
       provider,

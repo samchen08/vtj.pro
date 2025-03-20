@@ -4,43 +4,42 @@
 <script lang="ts" setup>
   import { ref, watch } from 'vue';
   import { useRoute } from 'vue-router';
-  import { ElMessageBox } from 'element-plus';
-  import { ACCESS_STORAGE_KEY } from '../contants';
+  import { useTitle } from '@vueuse/core';
   import {
     Engine,
     widgetManager,
     LocalService,
     ProjectModel,
     Extension,
-    Access,
     createAdapter,
-    createServiceRequest
+    createServiceRequest,
+    createAccess
   } from '../../src';
+  import { notify, loading, alert } from '../utils';
 
-  import { notify, loading } from '../utils';
-  const adapter = createAdapter({ loading, notify });
   const route = useRoute();
   const container = ref();
   const service = new LocalService(createServiceRequest(notify));
   const config = await service.getExtension().catch(() => null);
-  const { options, adapters } = config
-    ? await new Extension(config).load()
-    : {};
+  const adapter = createAdapter({
+    loading,
+    notify,
+    useTitle,
+    alert,
+    access: config?.access
+  });
+  const __ACCESS__ = createAccess({
+    alert,
+    ...config?.__ACCESS__
+  });
+  const options = config ? await new Extension(config).load() : {};
   const {
     __BASE_PATH__ = '/',
     history = 'hash',
     base = '/',
-    pageRouteName = 'page'
+    pageRouteName = 'page',
+    remote
   } = config || {};
-  const accessOptions = adapters?.access;
-  const remote = adapters?.remote;
-  const access = accessOptions
-    ? new Access({
-        alert: ElMessageBox.alert,
-        storageKey: ACCESS_STORAGE_KEY,
-        ...accessOptions
-      })
-    : undefined;
 
   const isHashRouter = () => history === 'hash';
 
@@ -94,8 +93,10 @@
     service,
     materialPath: __BASE_PATH__,
     pageBasePath: base === '/' ? '' : base,
-    ...options,
-    adapter: Object.assign(adapter, { access, remote }, options?.adapter || {})
+    adapter,
+    access: __ACCESS__,
+    remote,
+    ...options
   });
 
   engine.ready(() => {

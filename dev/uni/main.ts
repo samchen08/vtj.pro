@@ -101,7 +101,10 @@ const app = setupUniApp({
     {
       id: 'a',
       path: '/',
-      component: renderer,
+      // component: renderer,
+      loader: async () => {
+        return renderer;
+      },
       style: {
         navigationBarTitleText: 'Page 1'
       },

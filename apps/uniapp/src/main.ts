@@ -17,6 +17,7 @@ import { name } from '../package.json';
 const adapter = createAdapter({ loading, notify });
 const service = new LocalService(createServiceRequest(notify));
 const modules = createModules();
+
 const { provider } = createProvider({
   nodeEnv: process.env.NODE_ENV as NodeEnv,
   mode: ContextMode.Raw,

@@ -39,7 +39,7 @@
           title="绑定变量"></VtjIconVars>
         <ElDropdown
           v-if="props.setters.length > 1"
-          :disabled="isBinding"
+          :disabled="isBinding || switchDisabled"
           size="small"
           popper-class="v-setter-switch"
           @command="changeSetter">
@@ -110,6 +110,7 @@
     options?: any[];
     defaultSetter?: string;
     removable?: boolean;
+    switchDisabled?: boolean;
   }
 
   const props = withDefaults(defineProps<Props>(), {
