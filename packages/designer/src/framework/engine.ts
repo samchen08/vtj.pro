@@ -54,7 +54,7 @@ import { depsManager, widgetManager } from '../managers';
 import { Simulator } from './simulator';
 import { Assets } from './assets';
 import { message, alert } from '../utils';
-import { ACCESS } from '../constants';
+import { ACCESS, REMOTE } from '../constants';
 
 export const engineKey: InjectionKey<ShallowReactive<Engine>> =
   Symbol('VtjEngine');
@@ -118,7 +118,7 @@ export class Engine extends Base {
       adapter,
       install,
       access,
-      remote = 'https://lcdp.vtj.pro'
+      remote = REMOTE
     } = this.options;
     this.container = container;
     this.service = service;

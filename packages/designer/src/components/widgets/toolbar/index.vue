@@ -10,7 +10,12 @@
       <ElRadioButton label="pad" value="pad">
         <VtjIconPad></VtjIconPad>
       </ElRadioButton>
+      <ElRadioButton label="custom" value="custom">
+        <VtjIconEdit></VtjIconEdit>
+      </ElRadioButton>
     </ElRadioGroup>
+
+    <ScreenSize v-if="mode === 'custom'" v-model="customSize"></ScreenSize>
 
     <ElInput v-if="false" class="v-toolbar-widget__zoomer" size="small">
       <template #prepend>
@@ -50,6 +55,7 @@
 </template>
 <script lang="ts" setup>
   import { ref, computed, watch } from 'vue';
+  import ScreenSize from './ScreenSize.vue';
   import {
     ElButtonGroup,
     ElButton,
@@ -66,7 +72,8 @@
     VtjIconPad,
     VtjIconPhone,
     VtjIconUndo,
-    VtjIconRedo
+    VtjIconRedo,
+    VtjIconEdit
   } from '@vtj/icons';
   import { useHistory } from '../../hooks';
 
@@ -85,6 +92,11 @@
   const mode = ref('pc');
   const outline = ref(true);
 
+  const customSize = ref({
+    width: 1920,
+    height: 1080
+  });
+
   watch(
     isWebPlatform,
     (v) => {
@@ -101,6 +113,7 @@
 
   defineExpose({
     mode,
-    outline
+    outline,
+    customSize
   });
 </script>

@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.11.6](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.11.5...@vtj/designer@0.11.6) (2025-03-21)
+
+
+### Bug Fixes
+
+* 🐛 更换自定义视图图标 ([0e11709](https://gitee.com/newgateway/vtj/commits/0e1170980a7f404c76853d3da24772dd2d6972e4))
+* 🐛 remote改为常量 ([84fc4e9](https://gitee.com/newgateway/vtj/commits/84fc4e9634045ca69206d1facdbfffd8c17e73cb))
+
+
+
+
+
 ## [0.11.5](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.11.4...@vtj/designer@0.11.5) (2025-03-20)
 
 **Note:** Version bump only for package @vtj/designer
