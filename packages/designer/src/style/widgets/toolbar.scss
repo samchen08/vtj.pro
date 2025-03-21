@@ -1,9 +1,10 @@
 @use '../core' as *;
 
 @include b(toolbar-widget) {
-  width: 200px;
   text-align: center;
   white-space: nowrap;
+  display: flex;
+  align-items: center;
   .el-radio-group {
     display: inline-block;
     vertical-align: middle;

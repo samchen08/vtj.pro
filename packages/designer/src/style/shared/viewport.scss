@@ -16,4 +16,8 @@
     border: 10px solid #444;
     border-radius: 10px;
   }
+  @include when(custom) {
+    border: 10px solid #444;
+    border-radius: 10px;
+  }
 }
