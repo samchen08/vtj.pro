@@ -1,5 +1,9 @@
 <template>
-  <XContainer class="v-style-widget__wrapper" direction="column" fit>
+  <XContainer
+    class="v-style-widget__wrapper"
+    direction="column"
+    fit
+    overflow="auto">
     <JsonMode v-if="props.isStyleCodeMode"></JsonMode>
     <XContainer
       v-else

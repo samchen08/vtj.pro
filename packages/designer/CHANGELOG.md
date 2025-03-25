@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.11.7](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.11.6...@vtj/designer@0.11.7) (2025-03-25)
+
+
+### Bug Fixes
+
+* 🐛 样式设置面板滚动条丢失 ([130ee15](https://gitee.com/newgateway/vtj/commits/130ee15a792eecfcce05ca8957772287707c9d6d))
+* 🐛 style expression binder ([b6965fb](https://gitee.com/newgateway/vtj/commits/b6965fb7b04df522fe4651fb75a604b2064bd877))
+
+
+
+
+
 ## [0.11.6](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.11.5...@vtj/designer@0.11.6) (2025-03-21)
 
 

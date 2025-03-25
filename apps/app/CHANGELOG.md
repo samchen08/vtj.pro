@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.11.7](https://gitee.com/newgateway/vtj/compare/vtj-project-app@0.11.6...vtj-project-app@0.11.7) (2025-03-25)
+
+**Note:** Version bump only for package vtj-project-app
+
+
+
+
+
 ## [0.11.6](https://gitee.com/newgateway/vtj/compare/vtj-project-app@0.11.5...vtj-project-app@0.11.6) (2025-03-21)
 
 **Note:** Version bump only for package vtj-project-app
