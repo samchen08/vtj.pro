@@ -1,6 +1,10 @@
 <template>
   <div ref="container" class="v-designer">
-    <Viewport :mode="mode" :width="width" :height="height" :customSize="customSize">
+    <Viewport
+      :mode="mode"
+      :width="width"
+      :height="height"
+      :customSize="customSize">
       <div
         v-if="dropping"
         class="v-designer__dropping"
@@ -60,10 +64,8 @@
 
   const customSize = computed(() => {
     const widget = engine.skeleton?.getWidget('Toolbar');
-    return widget?.widgetRef.customSize as {width:number,height:number};
+    return widget?.widgetRef.customSize as { width: number; height: number };
   });
-
-  
 
   const outlineEnabled = computed(() => {
     const widget = engine.skeleton?.getWidget('Toolbar');

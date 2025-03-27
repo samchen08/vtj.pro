@@ -34,7 +34,12 @@ export class Report {
     this.api = this.remote + REPORT_API;
     this.online();
     window.addEventListener('error', (e) => {
-      this.error(e.error);
+      const evt = e.error || e;
+      this.error(evt, {
+        type: 'window.error',
+        event: evt,
+        eventString: evt.toString()
+      });
     });
     if (this.service) {
       const request = (this.service as BaseService).req;
@@ -53,7 +58,11 @@ export class Report {
             return res;
           },
           (e) => {
-            this.error(e);
+            this.error(e, {
+              type: 'request.error',
+              event: e,
+              eventString: e.toString()
+            });
           }
         );
       }
@@ -118,7 +127,7 @@ export class Report {
     const { message, stack, msg } = e || {};
     this.send({
       type: 'error',
-      message: message || msg || JSON.stringify(e) || 'unknown error',
+      message: message || msg || (e ? JSON.stringify(e) : 'unknown error'),
       stack,
       source: source ? JSON.stringify(source) : undefined
     });
