@@ -53,6 +53,7 @@ import { SkeletonWrapper, type SkeletonWrapperInstance } from '../wrappers';
 import { depsManager, widgetManager } from '../managers';
 import { Simulator } from './simulator';
 import { Assets } from './assets';
+import { Report } from './report';
 import { message, alert } from '../utils';
 import { ACCESS, REMOTE } from '../constants';
 
@@ -104,6 +105,7 @@ export class Engine extends Base {
   public changed: Ref<symbol> = ref(Symbol());
   public access?: Access;
   public remote;
+  public report: Report;
   constructor(public options: EngineOptions) {
     super();
     const {
@@ -142,7 +144,7 @@ export class Engine extends Base {
     });
     this.access = access || new Access({ alert, ...ACCESS });
     this.remote = remote;
-
+    this.report = new Report(remote, this.access, this.service);
     this.bindEvents();
     this.init(project as ProjectSchema).then(this.render.bind(this));
     onUnmounted(this.dispose.bind(this));
@@ -163,6 +165,7 @@ export class Engine extends Base {
       this.project.value = new ProjectModel(dsl);
       this.saveMaterials();
       this.triggerReady();
+      this.report.init();
     }
   }
   private render() {
@@ -433,6 +436,7 @@ export class Engine extends Base {
         ...project.toDsl(),
         pages: project.getPages()
       };
+
       const ret = await this.service.publishFile(dsl, current);
       if (ret) {
         message('发布成功', 'success');

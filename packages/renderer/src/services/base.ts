@@ -102,7 +102,7 @@ export class BaseService implements Service {
     file: File,
     projectId: string
   ) => Promise<StaticFileInfo>;
-  constructor(req: IStaticRequest = request) {
+  constructor(public req: IStaticRequest = request) {
     this.api = createApi(req);
     this.uploader = createUploader(req);
   }

@@ -206,7 +206,12 @@ function isFromPlugin(from?: NodeFrom): from is NodeFromPlugin {
 
 function bindProp(name: string, value: unknown, computedKeys: string[] = []) {
   if (name === 'style') {
-    return '';
+    return isJSCode(value)
+      ? `:style="${parseValue({
+          ...value,
+          value: replaceComputedValue(value.value, computedKeys)
+        })}"`
+      : '';
   }
   if (name === '__class' && isJSCode(value)) {
     return `:class="${parseValue({
@@ -248,6 +253,8 @@ function bindNodeProps(
       }
     } else {
       props.class = className;
+    }
+    if (!isJSCode(props.style)) {
       delete props.style;
     }
   }

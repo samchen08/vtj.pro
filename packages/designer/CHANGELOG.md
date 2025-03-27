@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.11.8](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.11.7...@vtj/designer@0.11.8) (2025-03-27)
+
+
+### Features
+
+* ✨ report 模块,修复access和style出码bug ([db401ee](https://gitee.com/newgateway/vtj/commits/db401ee22a2c2fb85f4867755047966164b8e9f8))
+
+
+
+
+
 ## [0.11.7](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.11.6...@vtj/designer@0.11.7) (2025-03-25)
 
 

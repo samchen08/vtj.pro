@@ -227,10 +227,8 @@ export class Access {
   }
 
   install(app: App) {
-    if (!app.config.globalProperties.$access) {
-      app.config.globalProperties.$access = this;
-      app.provide(ACCESS_KEY, this);
-    }
+    app.config.globalProperties.$access = this;
+    app.provide(ACCESS_KEY, this);
   }
 
   private isAuthPath(to: RouteLocationNormalized) {
