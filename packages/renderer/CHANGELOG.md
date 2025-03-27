@@ -3,6 +3,52 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.11.10](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.11.9...@vtj/renderer@0.11.10) (2025-03-27)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
+## [0.11.9](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.11.8...@vtj/renderer@0.11.9) (2025-03-27)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
+## [0.11.8](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.11.7...@vtj/renderer@0.11.8) (2025-03-27)
+
+
+### Features
+
+* ✨ report 模块,修复access和style出码bug ([db401ee](https://gitee.com/newgateway/vtj/commits/db401ee22a2c2fb85f4867755047966164b8e9f8))
+
+
+
+
+
+## [0.11.7](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.11.6...@vtj/renderer@0.11.7) (2025-03-25)
+
+
+### Bug Fixes
+
+* 🐛 一个页面多次引用某个区块，并给区块传递props时，这些区块所实际接收到的props值存在问题。 ([e3ffc5d](https://gitee.com/newgateway/vtj/commits/e3ffc5de136633ef81f44db7ed9889e0338d78d9))
+
+
+
+
+
+## [0.11.6](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.11.5...@vtj/renderer@0.11.6) (2025-03-21)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
 ## [0.11.5](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.11.4...@vtj/renderer@0.11.5) (2025-03-20)
 
 **Note:** Version bump only for package @vtj/renderer

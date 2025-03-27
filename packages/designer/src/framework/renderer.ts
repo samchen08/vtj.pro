@@ -23,6 +23,7 @@ import {
 } from '@vtj/renderer';
 import { notify } from '../utils';
 import { type Designer } from './designer';
+import { Report } from './report';
 import { setupUniApp, createUniAppComponent } from '@vtj/uni';
 
 export class Renderer {
@@ -36,6 +37,7 @@ export class Renderer {
     public env: SimulatorEnv,
     public service: Service,
     public provider: Provider,
+    private report: Report,
     public project: ProjectModel | null = null,
     public designer: Designer | null = null
   ) {
@@ -171,6 +173,10 @@ export class Renderer {
     } catch (e: any) {
       notify(e.message || '未知错误', '运行时错误');
       console.error(e);
+      this.report.error(e, {
+        project: this.project?.toDsl(),
+        file: block.toDsl()
+      });
     }
     this.context = context;
     emitter.on(EVENT_NODE_CHANGE, this.nodeChange as any);

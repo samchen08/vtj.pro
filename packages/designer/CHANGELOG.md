@@ -3,6 +3,63 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.11.10](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.11.9...@vtj/designer@0.11.10) (2025-03-27)
+
+
+### Bug Fixes
+
+* 🐛 report error ([bba69ed](https://gitee.com/newgateway/vtj/commits/bba69ed4ea1c02e04bdc0405ab1d3d910015abc0))
+
+
+
+
+
+## [0.11.9](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.11.8...@vtj/designer@0.11.9) (2025-03-27)
+
+
+### Bug Fixes
+
+* 🐛 report error message is null ([663fd1c](https://gitee.com/newgateway/vtj/commits/663fd1c0c00b82d449abfd71413a52303b598d6e))
+
+
+
+
+
+## [0.11.8](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.11.7...@vtj/designer@0.11.8) (2025-03-27)
+
+
+### Features
+
+* ✨ report 模块,修复access和style出码bug ([db401ee](https://gitee.com/newgateway/vtj/commits/db401ee22a2c2fb85f4867755047966164b8e9f8))
+
+
+
+
+
+## [0.11.7](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.11.6...@vtj/designer@0.11.7) (2025-03-25)
+
+
+### Bug Fixes
+
+* 🐛 样式设置面板滚动条丢失 ([130ee15](https://gitee.com/newgateway/vtj/commits/130ee15a792eecfcce05ca8957772287707c9d6d))
+* 🐛 style expression binder ([b6965fb](https://gitee.com/newgateway/vtj/commits/b6965fb7b04df522fe4651fb75a604b2064bd877))
+
+
+
+
+
+## [0.11.6](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.11.5...@vtj/designer@0.11.6) (2025-03-21)
+
+
+### Bug Fixes
+
+* 🐛 更换自定义视图图标 ([0e11709](https://gitee.com/newgateway/vtj/commits/0e1170980a7f404c76853d3da24772dd2d6972e4))
+* 🐛 remote改为常量 ([84fc4e9](https://gitee.com/newgateway/vtj/commits/84fc4e9634045ca69206d1facdbfffd8c17e73cb))
+
+
+
+
+
 ## [0.11.5](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.11.4...@vtj/designer@0.11.5) (2025-03-20)
 
 **Note:** Version bump only for package @vtj/designer

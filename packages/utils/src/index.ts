@@ -11,3 +11,4 @@ export * from './logger';
 export * as cookie from './cookie';
 export * as url from './url';
 export * from './download';
+export * from './client';

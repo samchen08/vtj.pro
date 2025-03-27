@@ -3,6 +3,49 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.11.10](https://gitee.com/newgateway/vtj/compare/@vtj/utils@0.11.9...@vtj/utils@0.11.10) (2025-03-27)
+
+**Note:** Version bump only for package @vtj/utils
+
+
+
+
+
+## [0.11.9](https://gitee.com/newgateway/vtj/compare/@vtj/utils@0.11.8...@vtj/utils@0.11.9) (2025-03-27)
+
+**Note:** Version bump only for package @vtj/utils
+
+
+
+
+
+## [0.11.8](https://gitee.com/newgateway/vtj/compare/@vtj/utils@0.11.7...@vtj/utils@0.11.8) (2025-03-27)
+
+**Note:** Version bump only for package @vtj/utils
+
+
+
+
+
+## [0.11.7](https://gitee.com/newgateway/vtj/compare/@vtj/utils@0.11.6...@vtj/utils@0.11.7) (2025-03-25)
+
+**Note:** Version bump only for package @vtj/utils
+
+
+
+
+
+## [0.11.6](https://gitee.com/newgateway/vtj/compare/@vtj/utils@0.11.5...@vtj/utils@0.11.6) (2025-03-21)
+
+
+### Features
+
+* ✨ utils 增加客户端信息获取工具 ([7a5527d](https://gitee.com/newgateway/vtj/commits/7a5527d049a95af7cb3648be9fa197d6d895a3a5))
+
+
+
+
+
 ## [0.11.5](https://gitee.com/newgateway/vtj/compare/@vtj/utils@0.11.4...@vtj/utils@0.11.5) (2025-03-20)
 
 **Note:** Version bump only for package @vtj/utils
