@@ -1,10 +1,21 @@
-import { base64, storage, uuid, getClientInfo, delay } from '@vtj/utils';
+import {
+  base64,
+  storage,
+  uuid,
+  getClientInfo,
+  delay,
+  debounce
+} from '@vtj/utils';
 import type { Access, BaseService } from '@vtj/renderer';
 import type { Service } from '@vtj/core';
 import { REPORT_API, SESSION_ID_KEY } from '../constants';
 import { version } from '../version';
 
 export type ReportType = 'init' | 'online' | 'event' | 'error';
+
+export const excludeErrors = [
+  'ResizeObserver loop completed with undelivered notifications.'
+];
 
 export interface ReportData {
   sessionId?: string;
@@ -26,15 +37,18 @@ export interface ReportData {
 
 export class Report {
   private api: string;
+  private debounceSend: (data: ReportData) => void;
   constructor(
     private remote: string,
     private access: Access,
     private service?: Service
   ) {
     this.api = this.remote + REPORT_API;
+    this.debounceSend = debounce(this.send.bind(this), 500);
     this.online();
     window.addEventListener('error', (e) => {
       const evt = e.error || e;
+      if (excludeErrors.includes(evt.message)) return;
       this.error(evt, {
         type: 'window.error',
         event: evt,
@@ -106,30 +120,31 @@ export class Report {
   }
 
   async init() {
-    this.send({
+    this.debounceSend({
       type: 'init'
     });
   }
   async online() {
     await delay(5 * 60 * 1000);
-    this.send({
+    this.debounceSend({
       type: 'online'
     });
     this.online();
   }
   event(message: string) {
-    this.send({
+    this.debounceSend({
       type: 'event',
       message
     });
   }
   error(e: any, source?: any) {
     const { message, stack, msg } = e || {};
-    this.send({
+    this.debounceSend({
       type: 'error',
       message: message || msg || (e ? JSON.stringify(e) : 'unknown error'),
       stack,
       source: source ? JSON.stringify(source) : undefined
     });
+    console.error(e);
   }
 }
