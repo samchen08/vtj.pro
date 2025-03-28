@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.11.12](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.11.11...@vtj/designer@0.11.12) (2025-03-28)
+
+
+### Bug Fixes
+
+* 🐛 Failed to read the 'state' property from 'History' ([74a60bb](https://gitee.com/newgateway/vtj/commits/74a60bbd54e014cf81da1c8687bfe0b4bc38f97a))
+* 🐛 ResizeObserver loop completed with undelivered notificat ([4c194a8](https://gitee.com/newgateway/vtj/commits/4c194a88e96a83075de7b629ffa708ce514dacf6))
+
+
+
+
+
 ## [0.11.11](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.11.10...@vtj/designer@0.11.11) (2025-03-28)
 
 **Note:** Version bump only for package @vtj/designer

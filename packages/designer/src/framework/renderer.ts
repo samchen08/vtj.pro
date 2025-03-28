@@ -230,6 +230,10 @@ export class Renderer {
     }
   }
   private __onBlockChange(block: BlockModel) {
+    // 当前的应用已经销毁，不做任何处理
+    if (this.app?._container) {
+      return;
+    }
     const file = this.file;
     this.dispose();
     this.render(block, file);
