@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.11.11](https://gitee.com/newgateway/vtj/compare/@vtj/pro@0.11.10...@vtj/pro@0.11.11) (2025-03-28)
+
+
+### Bug Fixes
+
+* 🐛 预览扩展install没执行 ([07cac1f](https://gitee.com/newgateway/vtj/commits/07cac1fd47632acb932d8051b1de94d2298b2821))
+
+
+
+
+
 ## [0.11.10](https://gitee.com/newgateway/vtj/compare/@vtj/pro@0.11.9...@vtj/pro@0.11.10) (2025-03-27)
 
 **Note:** Version bump only for package @vtj/pro

@@ -48,6 +48,9 @@
   onReady(async () => {
     const app = instance?.appContext.app;
     if (app) {
+      if (options.install) {
+        options.install(app);
+      }
       app.use(IconsPlugin);
       app.use(provider);
       renderer.value = await provider.getRenderComponent(
