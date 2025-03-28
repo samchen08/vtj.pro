@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.11.12](https://gitee.com/newgateway/vtj/compare/dev-web@0.11.11...dev-web@0.11.12) (2025-03-28)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
 ## [0.11.11](https://gitee.com/newgateway/vtj/compare/dev-web@0.11.10...dev-web@0.11.11) (2025-03-28)
 
 **Note:** Version bump only for package dev-web
