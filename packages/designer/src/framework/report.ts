@@ -14,7 +14,8 @@ import { version } from '../version';
 export type ReportType = 'init' | 'online' | 'event' | 'error';
 
 export const excludeErrors = [
-  'ResizeObserver loop completed with undelivered notifications.'
+  'ResizeObserver loop completed with undelivered notifications.',
+  'ResizeObserver loop limit exceeded'
 ];
 
 export interface ReportData {
@@ -46,6 +47,41 @@ export class Report {
     this.api = this.remote + REPORT_API;
     this.debounceSend = debounce(this.send.bind(this), 500);
     this.online();
+    this.bindGlobalError();
+    if (this.service) {
+      this.bindServerError(this.service as BaseService);
+    }
+  }
+
+  private bindServerError(service: BaseService) {
+    const request = service.req;
+    if (request) {
+      request.useResponse(
+        (res) => {
+          if (res && res.data && res.data.code !== 0) {
+            const { url, data, params, headers } = res.config;
+            this.error(res.data, {
+              url,
+              data,
+              params,
+              headers
+            });
+          }
+          return res;
+        },
+        (e) => {
+          this.error(e, {
+            type: 'request.error',
+            event: e,
+            eventString: e.toString()
+          });
+          return e;
+        }
+      );
+    }
+  }
+
+  private bindGlobalError() {
     window.addEventListener('error', (e) => {
       const evt = e.error || e;
       if (excludeErrors.includes(evt.message)) return;
@@ -55,32 +91,6 @@ export class Report {
         eventString: evt.toString()
       });
     });
-    if (this.service) {
-      const request = (this.service as BaseService).req;
-      if (request) {
-        request.useResponse(
-          (res) => {
-            if (res && res.data && res.data.code !== 0) {
-              const { url, data, params, headers } = res.config;
-              this.error(res.data, {
-                url,
-                data,
-                params,
-                headers
-              });
-            }
-            return res;
-          },
-          (e) => {
-            this.error(e, {
-              type: 'request.error',
-              event: e,
-              eventString: e.toString()
-            });
-          }
-        );
-      }
-    }
   }
 
   private getSessionId() {
@@ -94,14 +104,13 @@ export class Report {
   private send(data: ReportData) {
     const user = this.access.getData();
     const client = getClientInfo();
-    const url = location.href;
-    const host = location.protocol + '//' + location.host;
+    const { href, protocol, host } = location;
     const referrer = document.referrer;
     const postData = Object.assign(
       {
         ...client,
-        url,
-        host,
+        url: href,
+        host: protocol + '//' + host,
         referrer,
         sessionId: this.getSessionId(),
         userId: user?.id,
