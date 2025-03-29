@@ -28,6 +28,16 @@ export interface ProjectSchema {
   description?: string;
 
   /**
+   * 是否将生成的文件保存到自定义项目中
+   */
+  saveToProject?: boolean;
+
+  /**
+   * 自定义项目保存路径
+   */
+  projectSavePath?: string;
+
+  /**
    * 项目页面
    */
   pages?: PageFile[];

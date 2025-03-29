@@ -83,6 +83,8 @@ export class ProjectModel {
   config: ProjectConfig = {};
   uniConfig: UniConfig = {};
   __BASE_PATH__: string = '/';
+  saveToProject?: boolean;
+  projectSavePath?: string;
   static attrs: string[] = [
     'platform',
     'name',
@@ -95,7 +97,9 @@ export class ProjectModel {
     'meta',
     'config',
     'uniConfig',
-    '__BASE_PATH__'
+    '__BASE_PATH__',
+    'saveToProject', // 添加
+    'projectSavePath' // 添加
   ];
   constructor(schema: ProjectSchema) {
     const { id } = schema;
