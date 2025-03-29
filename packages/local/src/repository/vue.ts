@@ -72,38 +72,16 @@ export class VueRepository {
     // 尝试从vtj-project-app.json文件中读取完整的项目结构
     // 如果forceRefresh为true，则强制重新读取文件
     try {
-      // 首先检查是否有自定义配置路径
-      let possiblePaths: string[] = [];
+      // 使用固定的配置路径
+      const configPath = resolve('./.vtj/projects/vtj-project-app.json');
       
-      if (this.projectConfig.configPath) {
-        // 如果提供了自定义配置路径，优先使用
-        possiblePaths.push(resolve(this.projectConfig.configPath));
-      } else {
-        // 否则尝试多个可能的路径
-        possiblePaths = [
-          resolve('./.vtj/projects/vtj-project-app.json'),
-          resolve('./apps/app/.vtj/projects/vtj-project-app.json'),
-          resolve('../app/.vtj/projects/vtj-project-app.json'),
-          resolve('../../app/.vtj/projects/vtj-project-app.json'),
-          resolve('../../../app/.vtj/projects/vtj-project-app.json'),
-          resolve('e:/gitee项目/vtj-dev/apps/app/.vtj/projects/vtj-project-app.json') // 绝对路径
-        ];
-      }
-      
-      let projectJsonPath = '';
-      let projectJsonContent = '';
-      
-      for (const path of possiblePaths) {
-        if (pathExistsSync(path)) {
-          projectJsonPath = path;
-          projectJsonContent = fs.readFileSync(path, 'utf8');
-          break;
-        }
-      }
-      
-      if (!projectJsonPath) {
+      // 检查配置文件是否存在
+      if (!pathExistsSync(configPath)) {
         throw new Error('未找到项目配置文件');
       }
+      
+      // 读取配置文件内容
+      const projectJsonContent = fs.readFileSync(configPath, 'utf8');
       
       // 解析JSON内容
       const projectJson = JSON.parse(projectJsonContent);
