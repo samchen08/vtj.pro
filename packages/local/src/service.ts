@@ -224,6 +224,11 @@ export async function publishFile(
 ) {
   // 发布文件
   
+  // 读取package.json中的vtj配置
+  const root = resolve('./');
+  const pkg = readJsonSync(resolve(root, 'package.json'));
+  const { vtj = {} } = pkg || {}; // 读取 vtj 配置
+  
   const materialsRepository = new JsonRepository('materials', project.platform);
   const materials = materialsRepository.get(project.id as string);
   componentMap =
@@ -252,7 +257,7 @@ export async function publishFile(
     const vueRepository = new VueRepository(project.platform, {
       enabled: project.saveToProject || false,
       path: project.projectSavePath || './src/views',
-      configPath: './.vtj/projects/vtj-project-app.json' // 使用固定路径或从package.json中读取
+      configPath: vtj.configPath || './.vtj/projects/vtj-project-app.json' // 从package.json中读取，如果未配置则使用默认路径
     });
     vueRepository.save(file.id as string, content, project);
     return success(true);
@@ -323,11 +328,16 @@ export async function createRawPage(file: PageFile) {
   const projectRepository = new JsonRepository('projects', _platform);
   const project = projectRepository.get(projectId);
   
+  // 读取package.json中的vtj配置
+  const root = resolve('./');
+  const pkg = readJsonSync(resolve(root, 'package.json'));
+  const { vtj = {} } = pkg || {}; // 读取 vtj 配置
+  
   // 创建 VueRepository 实例，传入项目配置
   const repository = new VueRepository(_platform, project ? {
     enabled: project.saveToProject || false,
     path: project.projectSavePath || './src/views',
-    configPath: './.vtj/projects/vtj-project-app.json' // 使用固定路径或从package.json中读取
+    configPath: vtj.configPath || './.vtj/projects/vtj-project-app.json' // 从package.json中读取，如果未配置则使用默认路径
   } : undefined);
   
   const page = await createEmptyPage(file);

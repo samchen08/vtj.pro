@@ -38,6 +38,11 @@ export interface ProjectSchema {
   projectSavePath?: string;
 
   /**
+   * 配置文件路径，用于分析项目文件层级结构
+   */
+  configPath?: string;
+
+  /**
    * 项目页面
    */
   pages?: PageFile[];

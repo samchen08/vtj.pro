@@ -15,6 +15,11 @@
     "build:prod": "vue-tsc && cross-env ENV_TYPE=live vite build",
     "preview": "vite preview"
   },
+  "vtj": {
+    "saveToProject": false,
+    "projectSavePath": "./src/views",
+    "configPath": ""
+  },
   "dependencies": {
     "@vtj/example-ui": "~0.2.0",
     "@vtj/plugin-ckeditor": "~0.2.1",

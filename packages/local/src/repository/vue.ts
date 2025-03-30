@@ -72,8 +72,8 @@ export class VueRepository {
     // 尝试从vtj-project-app.json文件中读取完整的项目结构
     // 如果forceRefresh为true，则强制重新读取文件
     try {
-      // 使用固定的配置路径
-      const configPath = resolve('./.vtj/projects/vtj-project-app.json');
+      // 使用配置路径，如果未配置则使用默认路径
+      const configPath = resolve(this.projectConfig.configPath || './.vtj/projects/vtj-project-app.json');
       
       // 检查配置文件是否存在
       if (!pathExistsSync(configPath)) {
