@@ -78,6 +78,7 @@ export class Assets {
   load(materials: Material[]) {
     const packages = [...builtInMaterials, ...materials].filter((n) => !!n);
     packages.sort((a, b) => a.order - b.order);
+    this.components = [];
     for (let pkg of packages) {
       if (pkg.components) {
         this.components = this.components.concat(pkg.components);
