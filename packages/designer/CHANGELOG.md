@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.11.15](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.11.14...@vtj/designer@0.11.15) (2025-04-09)
+
+
+### Bug Fixes
+
+* 🐛 优化api管理列表展示 ([6f25806](https://gitee.com/newgateway/vtj/commits/6f25806e81a7a6cecc88c5e42a3fa7a22ce7836a))
+* 🐛 report add isVtjUrl ([e10fc5c](https://gitee.com/newgateway/vtj/commits/e10fc5c065342e8051c538defdfee3fe6bc69d57))
+
+
+
+
+
 ## [0.11.14](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.11.13...@vtj/designer@0.11.14) (2025-04-07)
 
 

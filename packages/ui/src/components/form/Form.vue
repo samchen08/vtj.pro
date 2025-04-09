@@ -2,13 +2,19 @@
   <ElForm
     ref="formRef"
     class="x-form"
+    :class="classes"
     :inline="props.inline"
     :model="model"
     @keyup.enter="onEnter"
     @submit.stop.prevent
     v-bind="$attrs">
     <slot></slot>
-    <XField v-if="props.footer" editor="none" class="x-form__footer" label=" ">
+    <XField
+      v-if="props.footer"
+      editor="none"
+      class="x-form__footer"
+      :class="footerClasses"
+      label=" ">
       <template #editor>
         <slot name="footer">
           <ElButton
@@ -37,7 +43,8 @@
     watch,
     ref,
     reactive,
-    toRaw
+    toRaw,
+    computed
   } from 'vue';
   import { ElForm, ElButton } from 'element-plus';
   import {
@@ -60,6 +67,17 @@
   const formRef = ref();
   const model = reactive<FormModel>(props.model || {});
   const loading = ref(false);
+  const classes = computed(() => {
+    return {
+      'is-sticky': !!props.sticky
+    };
+  });
+
+  const footerClasses = computed(() => {
+    return {
+      [`is-algin-${props.footerAlign}`]: true
+    };
+  });
 
   provide(formInstanceKey, instance);
   provide(formModelKey, model);

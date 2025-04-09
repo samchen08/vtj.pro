@@ -66,6 +66,21 @@ export const formProps = {
   enterSubmit: {
     type: Boolean,
     default: true
+  },
+
+  /**
+   * 开启 sticky
+   */
+  sticky: {
+    type: Boolean,
+    default: false
+  },
+  /**
+   * 底部按钮对齐方式
+   */
+  footerAlign: {
+    type: String as PropType<'left' | 'center' | 'right'>,
+    default: 'left'
   }
 };
 
