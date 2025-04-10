@@ -230,8 +230,7 @@ export class Renderer {
     }
   }
   private __onBlockChange(block: BlockModel) {
-    // 当前的应用已经销毁，不做任何处理
-    if (this.app?._container) {
+    if (!this.app?._container || !this.isDesignerActive()) {
       return;
     }
     const file = this.file;
@@ -241,5 +240,15 @@ export class Renderer {
     if (this.designer?.selected.value) {
       this.designer.setSelected(block);
     }
+  }
+
+  private isDesignerActive() {
+    if (this.designer?.engine) {
+      const region = this.designer.engine.skeleton?.getRegion('Workspace');
+      if (region) {
+        return region.regionRef.isDesignerActive();
+      }
+    }
+    return false;
   }
 }

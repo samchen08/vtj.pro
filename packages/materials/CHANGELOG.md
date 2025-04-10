@@ -3,6 +3,31 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.11.16](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.11.15...@vtj/materials@0.11.16) (2025-04-10)
+
+**Note:** Version bump only for package @vtj/materials
+
+
+
+
+
+## [0.11.15](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.11.14...@vtj/materials@0.11.15) (2025-04-09)
+
+
+### Bug Fixes
+
+* 🐛 删除el物料的 row col 预设 ([30cb55c](https://gitee.com/newgateway/vtj/commits/30cb55c8bc2182b525d71d9939c32a9a4e1e92b4))
+* 🐛 form add prop footerAlign ([dd1a368](https://gitee.com/newgateway/vtj/commits/dd1a368471f9a8434ae639f6923d48e39e279833))
+
+
+### Features
+
+* ✨ form add sticky prop ([b9ff2d8](https://gitee.com/newgateway/vtj/commits/b9ff2d8ba747d512a0da559c30f7a5502a6d3860))
+
+
+
+
+
 ## [0.11.14](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.11.13...@vtj/materials@0.11.14) (2025-04-07)
 
 **Note:** Version bump only for package @vtj/materials

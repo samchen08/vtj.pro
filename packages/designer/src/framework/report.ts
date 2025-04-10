@@ -55,16 +55,20 @@ export class Report {
     }
   }
 
+  private isVtjUrl(config: any) {
+    const { url } = config || {};
+    const urls = ['/__vtj__/', 'lcdp.vtj.pro'];
+    return urls.some((n) => url?.includes(n));
+  }
+
   private bindServerError(service: BaseService) {
     const request = service.req;
     if (request) {
       request.useResponse(
         (res) => {
           if (res && res.data && res.data.code !== 0) {
-            const { url, data, params, headers } = res.config;
-            const urls = ['/__vtj__/', 'lcdp.vtj.pro'];
-            const isVtj = urls.some((n) => url?.includes(n));
-            if (isVtj) {
+            if (this.isVtjUrl(res.config)) {
+              const { url, data, params, headers } = res.config;
               this.error(res.data, {
                 url,
                 data,
@@ -76,11 +80,13 @@ export class Report {
           return res;
         },
         (e) => {
-          this.error(e, {
-            type: 'request.error',
-            event: e,
-            eventString: e.toString()
-          });
+          if (this.isVtjUrl(e?.config)) {
+            this.error(e, {
+              type: 'request.error',
+              event: e,
+              eventString: e.toString()
+            });
+          }
           return Promise.reject(e);
         }
       );

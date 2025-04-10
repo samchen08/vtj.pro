@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.11.3](https://gitee.com/newgateway/vtj/compare/create-vtj@0.11.2...create-vtj@0.11.3) (2025-04-09)
+
+
+### Bug Fixes
+
+* 🐛 物料项目工程模版缺少默认配置 ([905a137](https://gitee.com/newgateway/vtj/commits/905a13798821754f72d9fd23fc59ef1f5aefbc50))
+
+
+
+
+
 ## [0.11.2](https://gitee.com/newgateway/vtj/compare/create-vtj@0.11.1...create-vtj@0.11.2) (2025-03-20)
 
 **Note:** Version bump only for package create-vtj

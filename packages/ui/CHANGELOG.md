@@ -3,6 +3,32 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.11.16](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.11.15...@vtj/ui@0.11.16) (2025-04-10)
+
+**Note:** Version bump only for package @vtj/ui
+
+
+
+
+
+## [0.11.15](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.11.14...@vtj/ui@0.11.15) (2025-04-09)
+
+
+### Bug Fixes
+
+* 🐛 form add prop footerAlign ([dd1a368](https://gitee.com/newgateway/vtj/commits/dd1a368471f9a8434ae639f6923d48e39e279833))
+* 🐛 form style ([1dfcba1](https://gitee.com/newgateway/vtj/commits/1dfcba1c5d4c465b8137df6eb895a1c8e8761861))
+* 🐛 panel style ([17ae9ae](https://gitee.com/newgateway/vtj/commits/17ae9aef67c95cbccfbecd33d99fbd0591440e7b))
+
+
+### Features
+
+* ✨ form add sticky prop ([b9ff2d8](https://gitee.com/newgateway/vtj/commits/b9ff2d8ba747d512a0da559c30f7a5502a6d3860))
+
+
+
+
+
 ## [0.11.14](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.11.13...@vtj/ui@0.11.14) (2025-04-07)
 
 **Note:** Version bump only for package @vtj/ui

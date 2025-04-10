@@ -1,6 +1,7 @@
 @use 'core' as *;
 
 @include b(panel) {
+  background-color: var(--el-bg-color);
   @include m(default) {
     @include when(radius) {
       border-radius: getCssVar('border-radius-base');
@@ -8,6 +9,7 @@
 
     @include e(header) {
       padding: 0;
+      border-radius: getCssVar('border-radius-base');
     }
     @include when(border) {
       & > {

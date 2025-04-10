@@ -3,6 +3,30 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.11.16](https://gitee.com/newgateway/vtj/compare/dev-web@0.11.15...dev-web@0.11.16) (2025-04-10)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
+## [0.11.15](https://gitee.com/newgateway/vtj/compare/dev-web@0.11.14...dev-web@0.11.15) (2025-04-09)
+
+
+### Bug Fixes
+
+* 🐛 panel style ([17ae9ae](https://gitee.com/newgateway/vtj/commits/17ae9aef67c95cbccfbecd33d99fbd0591440e7b))
+
+
+### Features
+
+* ✨ form add sticky prop ([b9ff2d8](https://gitee.com/newgateway/vtj/commits/b9ff2d8ba747d512a0da559c30f7a5502a6d3860))
+
+
+
+
+
 ## [0.11.14](https://gitee.com/newgateway/vtj/compare/dev-web@0.11.13...dev-web@0.11.14) (2025-04-07)
 
 **Note:** Version bump only for package dev-web

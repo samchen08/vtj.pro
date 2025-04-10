@@ -6,4 +6,31 @@
       margin-right: 0;
     }
   }
+  @include when(sticky) {
+    position: relative;
+    height: 100%;
+    overflow: auto;
+
+    @include e(footer) {
+      position: sticky;
+      bottom: 0;
+      width: 100%;
+      margin-bottom: 0;
+      padding: 10px 0;
+      background-color: var(--el-mask-color);
+      border-top: 1px solid var(--el-border-color-lighter);
+    }
+  }
+  @include e(footer) {
+    @include when(algin-center) {
+      .el-form-item__content {
+        text-align: center;
+      }
+    }
+    @include when(algin-right) {
+      .el-form-item__content {
+        text-align: right;
+      }
+    }
+  }
 }
