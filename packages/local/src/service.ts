@@ -71,7 +71,7 @@ export async function init(_body: any, opts: DevToolsOptions) {
   const pkg = readJsonSync(resolve(root, 'package.json'));
   const pluginPepository = new PluginRepository(pkg, opts);
   // 从项目的 package.json 中读取项目信息
-  const { vtj = {} } = pkg || {};
+  const { vtj = {} } = pkg || {}; // 读取 vtj 配置
   const id = vtj.id || pkg.name;
   const name = vtj.name || pkg.description || upperFirstCamelCase(id);
   const description = vtj.description || pkg.description || '';
@@ -81,33 +81,43 @@ export async function init(_body: any, opts: DevToolsOptions) {
   // 如果项目文件已经存在，则直接返回文件内容
   let dsl: ProjectSchema = repository.get(id);
   const plugins = pluginPepository.getPlugins();
-  if (dsl) {
+  if (dsl) { // 处理已存在项目
     const blocks = (dsl.blocks || []).filter((n) => !n.preset);
     dsl.blocks = plugins.concat(blocks);
-    Object.assign(dsl, { id, name, description, platform });
+    // 使用 package.json 中的 vtj 配置更新 dsl
+    Object.assign(dsl, {
+      id,
+      name,
+      description,
+      platform,
+      saveToProject: vtj.saveToProject, // 更新 saveToProject
+      projectSavePath: vtj.projectSavePath // 更新 projectSavePath
+    });
 
     if (platform === 'uniapp') {
       dsl.uniConfig = await getUniConfig(dsl);
     }
     if (!isInit) {
       isInit = true;
-      repository.save(id, dsl);
+      repository.save(id, dsl); // 保存更新后的 dsl
     }
     dsl.__BASE_PATH__ = opts.staticBase;
     return success(dsl);
-  } else {
+  } else { // 处理新项目
     const model = new ProjectModel({
       id,
       name,
       description,
       platform,
-      blocks: plugins
+      blocks: plugins,
+      saveToProject: vtj.saveToProject, // 从 vtj 配置传递
+      projectSavePath: vtj.projectSavePath // 从 vtj 配置传递
     });
     dsl = model.toDsl();
     if (platform === 'uniapp') {
       dsl.uniConfig = await getUniConfig(dsl);
     }
-    repository.save(id, dsl);
+    repository.save(id, dsl); // 保存包含新属性的 dsl
     dsl.__BASE_PATH__ = opts.staticBase;
     return success(dsl);
   }
@@ -212,6 +222,13 @@ export async function publishFile(
   file: PageFile | BlockFile,
   componentMap?: Map<string, MaterialDescription>
 ) {
+  // 发布文件
+  
+  // 读取package.json中的vtj配置
+  const root = resolve('./');
+  const pkg = readJsonSync(resolve(root, 'package.json'));
+  const { vtj = {} } = pkg || {}; // 读取 vtj 配置
+  
   const materialsRepository = new JsonRepository('materials', project.platform);
   const materials = materialsRepository.get(project.id as string);
   componentMap =
@@ -237,8 +254,12 @@ export async function publishFile(
       } catch (e) {}
       throw e;
     });
-    const vueRepository = new VueRepository(_platform);
-    vueRepository.save(file.id as string, content);
+    const vueRepository = new VueRepository(project.platform, {
+      enabled: project.saveToProject || false,
+      path: project.projectSavePath || './src/views',
+      configPath: vtj.configPath || './.vtj/projects/vtj-project-app.json' // 从package.json中读取，如果未配置则使用默认路径
+    });
+    vueRepository.save(file.id as string, content, project);
     return success(true);
   } else {
     return fail('文件不存在');
@@ -302,9 +323,25 @@ export async function genVueContent(project: ProjectSchema, dsl: BlockSchema) {
 }
 
 export async function createRawPage(file: PageFile) {
-  const repository = new VueRepository(_platform);
+  // 尝试获取默认项目信息
+  const projectId = 'vtj-project-app'; // 默认项目ID
+  const projectRepository = new JsonRepository('projects', _platform);
+  const project = projectRepository.get(projectId);
+  
+  // 读取package.json中的vtj配置
+  const root = resolve('./');
+  const pkg = readJsonSync(resolve(root, 'package.json'));
+  const { vtj = {} } = pkg || {}; // 读取 vtj 配置
+  
+  // 创建 VueRepository 实例，传入项目配置
+  const repository = new VueRepository(_platform, project ? {
+    enabled: project.saveToProject || false,
+    path: project.projectSavePath || './src/views',
+    configPath: vtj.configPath || './.vtj/projects/vtj-project-app.json' // 从package.json中读取，如果未配置则使用默认路径
+  } : undefined);
+  
   const page = await createEmptyPage(file);
-  repository.save(file.id as string, page);
+  repository.save(file.id as string, page, project || undefined);
   return success(true);
 }
 
