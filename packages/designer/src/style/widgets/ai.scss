@@ -1,0 +1,215 @@
+@use '../core' as *;
+
+@include b(ai-widget) {
+  > .x-panel__body {
+    position: relative;
+  }
+  .footer {
+    text-align: center;
+    font-size: 12px;
+    opacity: 0.7;
+    border-top: 1px solid var(--el-border-color-lighter);
+    padding-top: 10px;
+  }
+  @include e(drawer-modal) {
+    position: absolute !important;
+    width: 100%;
+    height: 100%;
+  }
+  @include e(drawer) {
+    box-shadow: none;
+    --el-drawer-padding-primary: 0;
+  }
+
+  @include e(bubble-list) {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  @include e(input) {
+    text-align: center;
+    .new-btn {
+      margin-bottom: 10px;
+    }
+  }
+
+  @include e(mask) {
+    position: absolute;
+    inset: 0;
+    background-color: var(--el-mask-color-extra-light);
+    z-index: 10;
+  }
+  @include e(wrapper) {
+    position: relative;
+  }
+}
+
+@include b(ai-widget-record) {
+  .new-btn {
+    width: 100%;
+  }
+
+  @include e(list) {
+    .v-item {
+      margin-bottom: 10px;
+    }
+    .v-item__title {
+      flex-shrink: 1;
+    }
+    .v-item__content {
+      line-height: 1.5em;
+      font-size: 12px;
+    }
+  }
+}
+
+@include b(ai-widget-input) {
+  position: relative;
+
+  .el-textarea__inner {
+    padding-bottom: 45px;
+  }
+
+  @include e(footer) {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    padding: 5px;
+    border-top: 1px solid var(--el-border-color-lighter);
+    .el-select {
+      width: 120px;
+    }
+    .el-select__wrapper:not(.is-disabled) {
+      box-shadow: 0 0 0 1px var(--el-color-primary) inset !important;
+      color: var(--el-color-primary);
+    }
+    .el-select__input,
+    .el-select__placeholder {
+      color: var(--el-color-primary);
+    }
+    .el-button {
+      margin-left: auto;
+    }
+  }
+}
+
+@include b(ai-widget-bubble) {
+  display: flex;
+  column-gap: 8px;
+  pre {
+    white-space: pre-wrap;
+  }
+  @include e(avatar) {
+    flex-shrink: 0;
+  }
+  @include e(main) {
+    font-size: 12px;
+    line-height: 1.5em;
+    > div {
+      margin-bottom: 4px;
+    }
+  }
+  @include e(content) {
+    padding: 8px;
+    font-size: 12px;
+    line-height: 1.5em;
+    background-color: var(--el-color-primary-light-9);
+    border-radius: 4px;
+    position: relative;
+    min-height: 32px;
+    & > div.is-collapsed {
+      height: 40px;
+      overflow: hidden;
+    }
+  }
+
+  @include when(user) {
+    justify-content: end;
+    flex-direction: row-reverse;
+  }
+
+  @include when(ai) {
+    @include e(content) {
+      background-color: var(--el-color-info-light-9);
+      @include when(Failed) {
+        background-color: var(--el-color-error-light-9);
+      }
+    }
+    @include e(main) {
+      width: 100%;
+      word-break: break-all;
+    }
+  }
+
+  @include e(message) {
+    width: 100%;
+    margin-top: 10px;
+    background-color: var(--el-color-error-light-9);
+    border-radius: 4px;
+    padding: 10px;
+    color: var(--el-color-error);
+    text-align: right;
+    > div {
+      text-align: left;
+      margin-bottom: 5px;
+    }
+  }
+
+  @include e(avatar) {
+    background: var(--el-color-primary-light-5);
+  }
+
+  @include e(tools) {
+    justify-content: flex-end;
+    display: flex;
+    margin-bottom: 4px;
+  }
+
+  @include e(loading) {
+    position: absolute !important;
+    left: -10px;
+    bottom: -25px;
+  }
+
+  @include e(reasoning) {
+    border-left: 3px solid var(--el-border-color-light);
+    padding-left: 5px;
+    margin-bottom: 5px;
+  }
+  @include e(toggle) {
+    cursor: pointer;
+    margin-bottom: 5px;
+  }
+}
+
+@include b(ai-widget-new-chat) {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  @include e(welcome) {
+    text-align: center;
+    line-height: 1.5em;
+    padding: 20px 0;
+    > div {
+      font-size: 12px;
+      margin-top: 10px;
+      color: var(--el-text-color-placeholder);
+    }
+  }
+
+  @include e(options) {
+    margin-bottom: 8px;
+  }
+}
+
+.llm-popper {
+  .el-select-dropdown__item {
+    height: 26px;
+    line-height: 26px;
+  }
+}

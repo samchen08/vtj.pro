@@ -134,7 +134,7 @@ export class Collecter {
       nodeContext = new Set([item, index, ...Array.from(nodeContext)]);
     }
 
-    // 插槽上下文s
+    // 插槽上下文
     const slot = node.slot;
     if (slot) {
       const params = typeof slot === 'string' ? [] : slot.params || [];

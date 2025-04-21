@@ -3,8 +3,12 @@ import { parseExpression, parseFunction } from '@vtj/renderer';
 import { kebabCase } from '@vtj/utils';
 import { ElNotification, ElMessageBox, ElMessage } from 'element-plus';
 
-export function alert(message: string) {
-  return ElMessageBox.alert(message, { title: '提示', type: 'warning' });
+export function alert(message: string, options?: any) {
+  return ElMessageBox.alert(message, {
+    title: '提示',
+    type: 'warning',
+    ...options
+  });
 }
 
 export function notify(message: string, title: string = '提示') {
@@ -14,10 +18,11 @@ export function notify(message: string, title: string = '提示') {
   });
 }
 
-export async function confirm(message: string) {
-  return await ElMessageBox.confirm(message, '提示', { type: 'warning' }).catch(
-    () => false
-  );
+export async function confirm(message: string, options?: any) {
+  return await ElMessageBox.confirm(message, '提示', {
+    type: 'warning',
+    ...options
+  }).catch(() => false);
 }
 
 export function message(

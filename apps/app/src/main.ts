@@ -21,6 +21,11 @@ import './style/index.scss';
 
 const app = createApp(App);
 const adapter = createAdapter({ loading, notify, Startup, useTitle });
+adapter.request.useRequest((config) => {
+  config.headers.Token = 'abc';
+  return config;
+});
+alert(1);
 const service = new LocalService(createServiceRequest(notify));
 const { provider, onReady } = createProvider({
   nodeEnv: process.env.NODE_ENV as NodeEnv,

@@ -150,10 +150,12 @@
     small?: boolean;
     actionInMore?: boolean;
     textTags?: string[];
+    nowrap?: boolean;
   }
 
   const props = withDefaults(defineProps<Props>(), {
-    actions: () => []
+    actions: () => [],
+    nowrap: true
   });
   const emits = defineEmits(['click', 'action', 'update:modelValue', 'switch']);
 
@@ -187,7 +189,8 @@
       'is-border': props.border,
       'is-active': props.active,
       'is-hover': props.hover,
-      'is-small': props.small
+      'is-small': props.small,
+      'is-nowrap': props.nowrap
     };
   });
 

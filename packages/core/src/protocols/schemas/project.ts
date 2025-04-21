@@ -82,6 +82,11 @@ export interface ProjectSchema {
    * 项目部署目录
    */
   __BASE_PATH__?: string;
+
+  /**
+   * 全局项目标识
+   */
+  __UID__?: string;
 }
 
 /**

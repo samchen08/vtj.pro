@@ -22,6 +22,9 @@
 }
 
 @include b(sub-panel) {
+  > .x-panel__header {
+    background-color: var(--el-fill-color-lighter);
+  }
   > .x-panel__body {
     background-color: var(--el-bg-color);
   }
@@ -29,6 +32,7 @@
     color: var(--el-text-color-regular);
     font-weight: normal;
   }
+
   .el-form-item {
     margin-bottom: 10px;
     &:last-child {

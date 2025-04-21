@@ -35,7 +35,9 @@
     "@vtj/utils": "workspace:~",
     "html2canvas": "~1.4.1",
     "mockjs": "~1.1.0",
-    "monaco-editor": "~0.52.0"
+    "monaco-editor": "~0.52.0",
+    "marked": "~15.0.8",
+    "highlight.js": "~11.11.1"
   },
   "devDependencies": {
     "@types/mockjs": "~1.0.10",

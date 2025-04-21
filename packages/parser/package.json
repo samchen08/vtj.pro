@@ -27,14 +27,15 @@
     "coverage": "vitest run --coverage"
   },
   "dependencies": {
-    "@babel/generator": "~7.26.8",
-    "@babel/parser": "~7.26.8",
-    "@babel/traverse": "~7.26.8",
+    "@babel/generator": "~7.26.0",
+    "@babel/parser": "~7.26.0",
+    "@babel/traverse": "~7.26.0",
     "@vtj/base": "workspace:~",
     "@vtj/coder": "workspace:~",
     "@vtj/core": "workspace:~",
     "@vue/compiler-dom": "~3.5.13",
-    "@vue/compiler-sfc": "~3.5.13"
+    "@vue/compiler-sfc": "~3.5.13",
+    "postcss": "~8.5.0"
   },
   "devDependencies": {
     "@vtj/cli": "workspace:~"

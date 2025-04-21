@@ -29,6 +29,7 @@
     "@vtj/uni": "workspace:~",
     "@vtj/utils": "workspace:~",
     "@vtj/web": "workspace:~",
+    "@vtj/parser": "workspace:~",
     "vue": "~3.5.5",
     "vue-router": "~4.5.0"
   },

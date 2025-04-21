@@ -62,6 +62,8 @@ export function useEditor(
     }
   );
 
+  const inputProps = props.props || {};
+
   const editor = computed(() => {
     const {
       editor = 'text',
@@ -71,7 +73,7 @@ export function useEditor(
       readonly
     } = props;
     const editorProps: FieldEditorProps = {
-      ...props.props,
+      ...inputProps,
       placeholder:
         placeholder || (placeholder === null ? undefined : `请输入${label}`),
       disabled,

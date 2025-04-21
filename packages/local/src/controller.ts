@@ -83,6 +83,15 @@ const controller: Controller = {
     const { project, dsl } = req.data || {};
     return service.genVueContent(project, dsl);
   },
+  parseVue: async (req: ApiRequest) => {
+    const { id, name, source, project } = req.data || {};
+    return service.parseVue({
+      id,
+      name,
+      source,
+      project
+    });
+  },
   createRawPage: async (req: ApiRequest) => {
     const file = req.data as PageFile;
     return service.createRawPage(file);

@@ -7,8 +7,13 @@ export default createViteConfig({
   external: [
     '@vtj/base',
     '@vtj/core',
+    '@vtj/coder',
     '@vue/compiler-sfc',
     '@vue/compiler-dom',
-    '@babel/parser'
+    '@vue/compiler-core',
+    '@babel/parser',
+    '@babel/traverse',
+    '@babel/generator',
+    'postcss'
   ]
 });

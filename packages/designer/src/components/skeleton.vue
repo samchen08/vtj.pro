@@ -50,7 +50,7 @@
   </ElConfigProvider>
 </template>
 <script lang="ts" setup>
-  import { ref } from 'vue';
+  import { ref, onMounted } from 'vue';
   import {
     ElContainer,
     ElHeader,
@@ -62,6 +62,8 @@
   import zhCn from 'element-plus/es/locale/lang/zh-cn';
   import { vResizable, type ResizableOptions } from '@vtj/ui';
   import { RegionWrapper } from '../wrappers';
+  import { useCheckVersion, useOpenApi } from './hooks';
+  import { notify } from '../utils';
 
   export interface Props {
     headerHeight?: string;
@@ -76,10 +78,22 @@
     rightWidth: '350px',
     footerHeight: '20px'
   });
+  const { engine, loginBySign } = useOpenApi();
 
   const isPreview = ref(false);
   const leftWidth = ref(parseInt(props.leftWidth));
   const rightWidth = ref(parseInt(props.rightWidth));
+
+  const checkVersion = () => {
+    if (engine.checkVersion) {
+      useCheckVersion((version) => {
+        notify(
+          `VTJ 发布了版本 ${version}，您可以通过重新安装依赖更新到最新版本`,
+          '版本更新'
+        );
+      });
+    }
+  };
 
   const leftResizable: ResizableOptions = {
     dirs: ['e'],
@@ -115,6 +129,11 @@
   const preview = ref();
   const collapsed = ref(false);
   const settable = ref(false);
+
+  onMounted(() => {
+    checkVersion();
+    loginBySign();
+  });
 
   defineOptions({
     name: 'Skeletion'
