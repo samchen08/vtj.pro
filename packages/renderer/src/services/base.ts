@@ -9,7 +9,8 @@ import {
   type Service,
   type StaticFileInfo,
   type NodeFromPlugin,
-  type VTJConfig
+  type VTJConfig,
+  type ParseVueOptions
 } from '@vtj/core';
 import {
   type IStaticRequest,
@@ -102,7 +103,7 @@ export class BaseService implements Service {
     file: File,
     projectId: string
   ) => Promise<StaticFileInfo>;
-  constructor(req: IStaticRequest = request) {
+  constructor(public req: IStaticRequest = request) {
     this.api = createApi(req);
     this.uploader = createUploader(req);
   }
@@ -193,6 +194,16 @@ export class BaseService implements Service {
     dsl: BlockSchema
   ): Promise<string> {
     return await this.api('genVueContent', { project, dsl }).catch(() => '');
+  }
+
+  async parseVue(
+    project: ProjectSchema,
+    options: ParseVueOptions
+  ): Promise<BlockSchema> {
+    return await this.api('parseVue', {
+      project,
+      ...options
+    });
   }
 
   async createRawPage(file: PageFile): Promise<boolean> {

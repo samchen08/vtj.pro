@@ -5,3 +5,4 @@ export * from './simulator';
 export * from './renderer';
 export * from './designer';
 export * from './devtools';
+export * from './openapi';

@@ -67,16 +67,15 @@ export function useNodeProps(
         label: 'style',
         setters: [
           {
-            name: 'ExpressionSetter',
-            label: '表达式'
-          },
-          {
             name: 'JSONSetter',
             label: 'JSON'
+          },
+          {
+            name: 'ExpressionSetter',
+            label: '表达式'
           }
         ],
-        value: node.value.getPropValue('style'),
-        switchDisabled: true
+        value: node.value.getPropValue('style')
       },
       {
         name: 'children',

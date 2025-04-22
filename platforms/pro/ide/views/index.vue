@@ -38,7 +38,9 @@
     history = 'hash',
     base = '/',
     pageRouteName = 'page',
-    remote
+    remote,
+    auth,
+    checkVersion = true
   } = config || {};
 
   const isHashRouter = () => history === 'hash';
@@ -96,6 +98,8 @@
     adapter,
     access: __ACCESS__,
     remote,
+    auth,
+    checkVersion,
     ...options
   });
 

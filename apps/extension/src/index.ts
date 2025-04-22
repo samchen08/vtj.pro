@@ -2,9 +2,9 @@ import type { App } from 'vue';
 import type { ExtensionOutput, VTJConfig, Engine } from '@vtj/pro';
 import * as __VTJ_PRO__ from '@vtj/pro';
 
-const { widgetManager, LocalService } = __VTJ_PRO__;
+const { widgetManager, StorageService } = __VTJ_PRO__;
 
-class RemoteService extends LocalService {
+class RemoteService extends StorageService {
   //
 }
 

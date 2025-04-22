@@ -3,6 +3,157 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.2](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.12.1...@vtj/coder@0.12.2) (2025-04-22)
+
+**Note:** Version bump only for package @vtj/coder
+
+
+
+
+
+## [0.12.1](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.12.0...@vtj/coder@0.12.1) (2025-04-22)
+
+**Note:** Version bump only for package @vtj/coder
+
+
+
+
+
+# [0.12.0](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.12.0-alpha.2...@vtj/coder@0.12.0) (2025-04-22)
+
+**Note:** Version bump only for package @vtj/coder
+
+
+
+
+
+# [0.12.0-alpha.2](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.12.0-alpha.1...@vtj/coder@0.12.0-alpha.2) (2025-04-22)
+
+**Note:** Version bump only for package @vtj/coder
+
+
+
+
+
+# [0.12.0-alpha.1](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.12.0-alpha.0...@vtj/coder@0.12.0-alpha.1) (2025-04-22)
+
+
+### Features
+
+* ✨ openapi ([d38d478](https://gitee.com/newgateway/vtj/commits/d38d478b5e82b1648363c139112ea954dfb511ca))
+
+
+
+
+
+# [0.12.0-alpha.0](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.11.16...@vtj/coder@0.12.0-alpha.0) (2025-04-21)
+
+
+### Bug Fixes
+
+* 🐛 处理出码表达式双引号导致的报错 ([4a95d83](https://gitee.com/newgateway/vtj/commits/4a95d8328d40337c382f00275f5bf1fbb608ae5c))
+
+
+### Features
+
+* ✨ 节点/事件解析 ([27670e2](https://gitee.com/newgateway/vtj/commits/27670e2e7d52c1d76a2f278819b0d4beefa8e735))
+* ✨ parser ([a8f8cad](https://gitee.com/newgateway/vtj/commits/a8f8cad6c156a670417537154ee3b5ad8745b349))
+
+
+
+
+
+## [0.11.16](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.11.15...@vtj/coder@0.11.16) (2025-04-10)
+
+**Note:** Version bump only for package @vtj/coder
+
+
+
+
+
+## [0.11.15](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.11.14...@vtj/coder@0.11.15) (2025-04-09)
+
+**Note:** Version bump only for package @vtj/coder
+
+
+
+
+
+## [0.11.14](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.11.13...@vtj/coder@0.11.14) (2025-04-07)
+
+**Note:** Version bump only for package @vtj/coder
+
+
+
+
+
+## [0.11.13](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.11.12...@vtj/coder@0.11.13) (2025-04-02)
+
+**Note:** Version bump only for package @vtj/coder
+
+
+
+
+
+## [0.11.12](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.11.11...@vtj/coder@0.11.12) (2025-03-28)
+
+**Note:** Version bump only for package @vtj/coder
+
+
+
+
+
+## [0.11.11](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.11.10...@vtj/coder@0.11.11) (2025-03-28)
+
+**Note:** Version bump only for package @vtj/coder
+
+
+
+
+
+## [0.11.10](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.11.9...@vtj/coder@0.11.10) (2025-03-27)
+
+**Note:** Version bump only for package @vtj/coder
+
+
+
+
+
+## [0.11.9](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.11.8...@vtj/coder@0.11.9) (2025-03-27)
+
+**Note:** Version bump only for package @vtj/coder
+
+
+
+
+
+## [0.11.8](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.11.7...@vtj/coder@0.11.8) (2025-03-27)
+
+
+### Features
+
+* ✨ report 模块,修复access和style出码bug ([db401ee](https://gitee.com/newgateway/vtj/commits/db401ee22a2c2fb85f4867755047966164b8e9f8))
+
+
+
+
+
+## [0.11.7](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.11.6...@vtj/coder@0.11.7) (2025-03-25)
+
+**Note:** Version bump only for package @vtj/coder
+
+
+
+
+
+## [0.11.6](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.11.5...@vtj/coder@0.11.6) (2025-03-21)
+
+**Note:** Version bump only for package @vtj/coder
+
+
+
+
+
 ## [0.11.5](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.11.4...@vtj/coder@0.11.5) (2025-03-20)
 
 **Note:** Version bump only for package @vtj/coder

@@ -3,6 +3,152 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.2](https://gitee.com/newgateway/vtj/compare/@vtj/local@0.12.1...@vtj/local@0.12.2) (2025-04-22)
+
+**Note:** Version bump only for package @vtj/local
+
+
+
+
+
+## [0.12.1](https://gitee.com/newgateway/vtj/compare/@vtj/local@0.12.0...@vtj/local@0.12.1) (2025-04-22)
+
+**Note:** Version bump only for package @vtj/local
+
+
+
+
+
+# [0.12.0](https://gitee.com/newgateway/vtj/compare/@vtj/local@0.12.0-alpha.2...@vtj/local@0.12.0) (2025-04-22)
+
+**Note:** Version bump only for package @vtj/local
+
+
+
+
+
+# [0.12.0-alpha.2](https://gitee.com/newgateway/vtj/compare/@vtj/local@0.12.0-alpha.1...@vtj/local@0.12.0-alpha.2) (2025-04-22)
+
+**Note:** Version bump only for package @vtj/local
+
+
+
+
+
+# [0.12.0-alpha.1](https://gitee.com/newgateway/vtj/compare/@vtj/local@0.12.0-alpha.0...@vtj/local@0.12.0-alpha.1) (2025-04-22)
+
+**Note:** Version bump only for package @vtj/local
+
+
+
+
+
+# [0.12.0-alpha.0](https://gitee.com/newgateway/vtj/compare/@vtj/local@0.11.16...@vtj/local@0.12.0-alpha.0) (2025-04-21)
+
+
+### Bug Fixes
+
+* 🐛 parseVue ([1f40a4c](https://gitee.com/newgateway/vtj/commits/1f40a4cce6f9849126b417611c59438a06ab47a2))
+
+
+### Features
+
+* ✨ AI Widget ([e758a1b](https://gitee.com/newgateway/vtj/commits/e758a1b1e00496a20444d42c427288984a5766a5))
+* ✨ AI助手 ([702d912](https://gitee.com/newgateway/vtj/commits/702d91255d2860ee899f06f598d8043e6db9620d))
+* ✨ project add __UID__ ([b3315ce](https://gitee.com/newgateway/vtj/commits/b3315cee0c40de4f2591006a5ad56a2d1e92f318))
+
+
+
+
+
+## [0.11.16](https://gitee.com/newgateway/vtj/compare/@vtj/local@0.11.15...@vtj/local@0.11.16) (2025-04-10)
+
+**Note:** Version bump only for package @vtj/local
+
+
+
+
+
+## [0.11.15](https://gitee.com/newgateway/vtj/compare/@vtj/local@0.11.14...@vtj/local@0.11.15) (2025-04-09)
+
+**Note:** Version bump only for package @vtj/local
+
+
+
+
+
+## [0.11.14](https://gitee.com/newgateway/vtj/compare/@vtj/local@0.11.13...@vtj/local@0.11.14) (2025-04-07)
+
+**Note:** Version bump only for package @vtj/local
+
+
+
+
+
+## [0.11.13](https://gitee.com/newgateway/vtj/compare/@vtj/local@0.11.12...@vtj/local@0.11.13) (2025-04-02)
+
+**Note:** Version bump only for package @vtj/local
+
+
+
+
+
+## [0.11.12](https://gitee.com/newgateway/vtj/compare/@vtj/local@0.11.11...@vtj/local@0.11.12) (2025-03-28)
+
+**Note:** Version bump only for package @vtj/local
+
+
+
+
+
+## [0.11.11](https://gitee.com/newgateway/vtj/compare/@vtj/local@0.11.10...@vtj/local@0.11.11) (2025-03-28)
+
+**Note:** Version bump only for package @vtj/local
+
+
+
+
+
+## [0.11.10](https://gitee.com/newgateway/vtj/compare/@vtj/local@0.11.9...@vtj/local@0.11.10) (2025-03-27)
+
+**Note:** Version bump only for package @vtj/local
+
+
+
+
+
+## [0.11.9](https://gitee.com/newgateway/vtj/compare/@vtj/local@0.11.8...@vtj/local@0.11.9) (2025-03-27)
+
+**Note:** Version bump only for package @vtj/local
+
+
+
+
+
+## [0.11.8](https://gitee.com/newgateway/vtj/compare/@vtj/local@0.11.7...@vtj/local@0.11.8) (2025-03-27)
+
+**Note:** Version bump only for package @vtj/local
+
+
+
+
+
+## [0.11.7](https://gitee.com/newgateway/vtj/compare/@vtj/local@0.11.6...@vtj/local@0.11.7) (2025-03-25)
+
+**Note:** Version bump only for package @vtj/local
+
+
+
+
+
+## [0.11.6](https://gitee.com/newgateway/vtj/compare/@vtj/local@0.11.5...@vtj/local@0.11.6) (2025-03-21)
+
+**Note:** Version bump only for package @vtj/local
+
+
+
+
+
 ## [0.11.5](https://gitee.com/newgateway/vtj/compare/@vtj/local@0.11.4...@vtj/local@0.11.5) (2025-03-20)
 
 **Note:** Version bump only for package @vtj/local

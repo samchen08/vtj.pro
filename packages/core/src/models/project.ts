@@ -1,4 +1,11 @@
-import { uid, merge, upperFirstCamelCase, delay, cloneDeep } from '@vtj/base';
+import {
+  uid,
+  merge,
+  upperFirstCamelCase,
+  delay,
+  cloneDeep,
+  uuid
+} from '@vtj/base';
 import type {
   ProjectSchema,
   Dependencie,
@@ -83,6 +90,7 @@ export class ProjectModel {
   config: ProjectConfig = {};
   uniConfig: UniConfig = {};
   __BASE_PATH__: string = '/';
+  __UID__: string = uuid(true);
   static attrs: string[] = [
     'platform',
     'name',
@@ -95,11 +103,13 @@ export class ProjectModel {
     'meta',
     'config',
     'uniConfig',
-    '__BASE_PATH__'
+    '__BASE_PATH__',
+    '__UID__'
   ];
   constructor(schema: ProjectSchema) {
-    const { id } = schema;
+    const { id, __UID__ } = schema;
     this.id = id || uid();
+    this.__UID__ = __UID__ || uuid(true);
     this.update(schema, true);
   }
 

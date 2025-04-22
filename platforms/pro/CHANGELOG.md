@@ -3,6 +3,155 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.2](https://gitee.com/newgateway/vtj/compare/@vtj/pro@0.12.1...@vtj/pro@0.12.2) (2025-04-22)
+
+**Note:** Version bump only for package @vtj/pro
+
+
+
+
+
+## [0.12.1](https://gitee.com/newgateway/vtj/compare/@vtj/pro@0.12.0...@vtj/pro@0.12.1) (2025-04-22)
+
+
+### Bug Fixes
+
+* 🐛 修复样式 ([b20f724](https://gitee.com/newgateway/vtj/commits/b20f7243d77ddcab70ee2fbdc4de93b33d99f22f))
+
+
+
+
+
+# [0.12.0](https://gitee.com/newgateway/vtj/compare/@vtj/pro@0.12.0-alpha.2...@vtj/pro@0.12.0) (2025-04-22)
+
+**Note:** Version bump only for package @vtj/pro
+
+
+
+
+
+# [0.12.0-alpha.2](https://gitee.com/newgateway/vtj/compare/@vtj/pro@0.12.0-alpha.1...@vtj/pro@0.12.0-alpha.2) (2025-04-22)
+
+**Note:** Version bump only for package @vtj/pro
+
+
+
+
+
+# [0.12.0-alpha.1](https://gitee.com/newgateway/vtj/compare/@vtj/pro@0.12.0-alpha.0...@vtj/pro@0.12.0-alpha.1) (2025-04-22)
+
+**Note:** Version bump only for package @vtj/pro
+
+
+
+
+
+# [0.12.0-alpha.0](https://gitee.com/newgateway/vtj/compare/@vtj/pro@0.11.16...@vtj/pro@0.12.0-alpha.0) (2025-04-21)
+
+
+### Features
+
+* ✨ 支持用签名自动授权登录 ([cd273e4](https://gitee.com/newgateway/vtj/commits/cd273e415eb4a5dadf741e8cd1d25505ab5fedfa))
+* ✨ AI助手 ([702d912](https://gitee.com/newgateway/vtj/commits/702d91255d2860ee899f06f598d8043e6db9620d))
+
+
+
+
+
+## [0.11.16](https://gitee.com/newgateway/vtj/compare/@vtj/pro@0.11.15...@vtj/pro@0.11.16) (2025-04-10)
+
+**Note:** Version bump only for package @vtj/pro
+
+
+
+
+
+## [0.11.15](https://gitee.com/newgateway/vtj/compare/@vtj/pro@0.11.14...@vtj/pro@0.11.15) (2025-04-09)
+
+**Note:** Version bump only for package @vtj/pro
+
+
+
+
+
+## [0.11.14](https://gitee.com/newgateway/vtj/compare/@vtj/pro@0.11.13...@vtj/pro@0.11.14) (2025-04-07)
+
+**Note:** Version bump only for package @vtj/pro
+
+
+
+
+
+## [0.11.13](https://gitee.com/newgateway/vtj/compare/@vtj/pro@0.11.12...@vtj/pro@0.11.13) (2025-04-02)
+
+**Note:** Version bump only for package @vtj/pro
+
+
+
+
+
+## [0.11.12](https://gitee.com/newgateway/vtj/compare/@vtj/pro@0.11.11...@vtj/pro@0.11.12) (2025-03-28)
+
+**Note:** Version bump only for package @vtj/pro
+
+
+
+
+
+## [0.11.11](https://gitee.com/newgateway/vtj/compare/@vtj/pro@0.11.10...@vtj/pro@0.11.11) (2025-03-28)
+
+
+### Bug Fixes
+
+* 🐛 预览扩展install没执行 ([07cac1f](https://gitee.com/newgateway/vtj/commits/07cac1fd47632acb932d8051b1de94d2298b2821))
+
+
+
+
+
+## [0.11.10](https://gitee.com/newgateway/vtj/compare/@vtj/pro@0.11.9...@vtj/pro@0.11.10) (2025-03-27)
+
+**Note:** Version bump only for package @vtj/pro
+
+
+
+
+
+## [0.11.9](https://gitee.com/newgateway/vtj/compare/@vtj/pro@0.11.8...@vtj/pro@0.11.9) (2025-03-27)
+
+**Note:** Version bump only for package @vtj/pro
+
+
+
+
+
+## [0.11.8](https://gitee.com/newgateway/vtj/compare/@vtj/pro@0.11.7...@vtj/pro@0.11.8) (2025-03-27)
+
+
+### Features
+
+* ✨ report 模块,修复access和style出码bug ([db401ee](https://gitee.com/newgateway/vtj/commits/db401ee22a2c2fb85f4867755047966164b8e9f8))
+
+
+
+
+
+## [0.11.7](https://gitee.com/newgateway/vtj/compare/@vtj/pro@0.11.6...@vtj/pro@0.11.7) (2025-03-25)
+
+**Note:** Version bump only for package @vtj/pro
+
+
+
+
+
+## [0.11.6](https://gitee.com/newgateway/vtj/compare/@vtj/pro@0.11.5...@vtj/pro@0.11.6) (2025-03-21)
+
+**Note:** Version bump only for package @vtj/pro
+
+
+
+
+
 ## [0.11.5](https://gitee.com/newgateway/vtj/compare/@vtj/pro@0.11.4...@vtj/pro@0.11.5) (2025-03-20)
 
 **Note:** Version bump only for package @vtj/pro

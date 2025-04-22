@@ -3,6 +3,159 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.2](https://gitee.com/newgateway/vtj/compare/dev-web@0.12.1...dev-web@0.12.2) (2025-04-22)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
+## [0.12.1](https://gitee.com/newgateway/vtj/compare/dev-web@0.12.0...dev-web@0.12.1) (2025-04-22)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
+# [0.12.0](https://gitee.com/newgateway/vtj/compare/dev-web@0.12.0-alpha.2...dev-web@0.12.0) (2025-04-22)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
+# [0.12.0-alpha.2](https://gitee.com/newgateway/vtj/compare/dev-web@0.12.0-alpha.1...dev-web@0.12.0-alpha.2) (2025-04-22)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
+# [0.12.0-alpha.1](https://gitee.com/newgateway/vtj/compare/dev-web@0.12.0-alpha.0...dev-web@0.12.0-alpha.1) (2025-04-22)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
+# [0.12.0-alpha.0](https://gitee.com/newgateway/vtj/compare/dev-web@0.11.16...dev-web@0.12.0-alpha.0) (2025-04-21)
+
+
+### Features
+
+* ✨ AI 对话ui ([53b8461](https://gitee.com/newgateway/vtj/commits/53b8461d0511e85a2d37bc85128163113f2d22d9))
+* ✨ parseVue ([ad40b5b](https://gitee.com/newgateway/vtj/commits/ad40b5be0314eeae722f65915bcb8412815d4591))
+* ✨ project add __UID__ ([b3315ce](https://gitee.com/newgateway/vtj/commits/b3315cee0c40de4f2591006a5ad56a2d1e92f318))
+* ✨ test api ([1c907f5](https://gitee.com/newgateway/vtj/commits/1c907f54f00c9fc10e6afffbe79154fbb4087bec))
+
+
+
+
+
+## [0.11.16](https://gitee.com/newgateway/vtj/compare/dev-web@0.11.15...dev-web@0.11.16) (2025-04-10)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
+## [0.11.15](https://gitee.com/newgateway/vtj/compare/dev-web@0.11.14...dev-web@0.11.15) (2025-04-09)
+
+
+### Bug Fixes
+
+* 🐛 panel style ([17ae9ae](https://gitee.com/newgateway/vtj/commits/17ae9aef67c95cbccfbecd33d99fbd0591440e7b))
+
+
+### Features
+
+* ✨ form add sticky prop ([b9ff2d8](https://gitee.com/newgateway/vtj/commits/b9ff2d8ba747d512a0da559c30f7a5502a6d3860))
+
+
+
+
+
+## [0.11.14](https://gitee.com/newgateway/vtj/compare/dev-web@0.11.13...dev-web@0.11.14) (2025-04-07)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
+## [0.11.13](https://gitee.com/newgateway/vtj/compare/dev-web@0.11.12...dev-web@0.11.13) (2025-04-02)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
+## [0.11.12](https://gitee.com/newgateway/vtj/compare/dev-web@0.11.11...dev-web@0.11.12) (2025-03-28)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
+## [0.11.11](https://gitee.com/newgateway/vtj/compare/dev-web@0.11.10...dev-web@0.11.11) (2025-03-28)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
+## [0.11.10](https://gitee.com/newgateway/vtj/compare/dev-web@0.11.9...dev-web@0.11.10) (2025-03-27)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
+## [0.11.9](https://gitee.com/newgateway/vtj/compare/dev-web@0.11.8...dev-web@0.11.9) (2025-03-27)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
+## [0.11.8](https://gitee.com/newgateway/vtj/compare/dev-web@0.11.7...dev-web@0.11.8) (2025-03-27)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
+## [0.11.7](https://gitee.com/newgateway/vtj/compare/dev-web@0.11.6...dev-web@0.11.7) (2025-03-25)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
+## [0.11.6](https://gitee.com/newgateway/vtj/compare/dev-web@0.11.5...dev-web@0.11.6) (2025-03-21)
+
+
+### Features
+
+* ✨ utils 增加客户端信息获取工具 ([7a5527d](https://gitee.com/newgateway/vtj/commits/7a5527d049a95af7cb3648be9fa197d6d895a3a5))
+
+
+
+
+
 ## [0.11.5](https://gitee.com/newgateway/vtj/compare/dev-web@0.11.4...dev-web@0.11.5) (2025-03-20)
 
 **Note:** Version bump only for package dev-web

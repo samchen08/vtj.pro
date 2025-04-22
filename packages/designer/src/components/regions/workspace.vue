@@ -125,6 +125,10 @@
     }
   };
 
+  const isDesignerActive = () => {
+    return currentTab.value === 'Designer';
+  };
+
   defineOptions({
     name: 'WorkspaceRegion'
   });
@@ -134,6 +138,7 @@
     widgets,
     widgetsRef,
     openTab,
-    reload
+    reload,
+    isDesignerActive
   });
 </script>

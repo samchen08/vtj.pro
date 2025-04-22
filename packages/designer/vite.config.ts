@@ -19,7 +19,9 @@ export default createViteConfig({
     'element-plus/es/locale/lang/zh-cn',
     'html2canvas',
     'mockjs',
-    'monaco-editor'
+    'monaco-editor',
+    'marked',
+    'highlight.js'
     // 'monaco-editor/esm/vs/editor/editor.worker?worker',
     // 'monaco-editor/esm/vs/language/json/json.worker?worker',
     // 'monaco-editor/esm/vs/language/css/css.worker?worker',

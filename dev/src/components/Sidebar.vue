@@ -9,9 +9,11 @@
         <ElOption label="@vtj/ui" value="ui"></ElOption>
         <ElOption label="@vtj/charts" value="charts"></ElOption>
         <ElOption label="@vtj/core" value="core"></ElOption>
+        <ElOption label="@vtj/renderer" value="renderer"></ElOption>
         <ElOption label="@vtj/designer" value="designer"></ElOption>
         <ElOption label="@vtj/materials" value="materials"></ElOption>
         <ElOption label="debug" value="debug"></ElOption>
+        <ElOption label="ai" value="ai"></ElOption>
       </ElSelect>
     </div>
     <Menus :title="`@vtj/${current}`" :items="list"></Menus>

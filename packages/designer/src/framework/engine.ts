@@ -38,7 +38,8 @@ import {
   type ProjectModelEvent,
   type PageFile,
   type HistoryItem,
-  type HistoryModelEvent
+  type HistoryModelEvent,
+  type BlockSchema
 } from '@vtj/core';
 import {
   type Context,
@@ -53,23 +54,60 @@ import { SkeletonWrapper, type SkeletonWrapperInstance } from '../wrappers';
 import { depsManager, widgetManager } from '../managers';
 import { Simulator } from './simulator';
 import { Assets } from './assets';
+import { Report } from './report';
+import { OpenApi } from './openapi';
 import { message, alert } from '../utils';
-import { ACCESS } from '../constants';
+import { ACCESS, REMOTE } from '../constants';
 
 export const engineKey: InjectionKey<ShallowReactive<Engine>> =
   Symbol('VtjEngine');
 
 export interface EngineOptions {
+  /**
+   * 设计器渲染容器
+   */
   container: MaybeRef<HTMLElement | undefined>;
+  /**
+   * 设计器文件服务
+   */
   service: Service;
+  /**
+   * 当前加载的项目信息
+   */
   project?: Partial<ProjectSchema>;
+  /**
+   * 项目依赖，优先于 project 的 dependencies
+   */
   dependencies?: Record<string, () => Promise<any>>;
+  /**
+   * 项目物料，优先于 project 的 dependencies
+   */
   materials?: Record<string, () => Promise<any>>;
+  /**
+   * 内置物料路径 BasePath
+   */
   materialPath?: string;
+  /**
+   * 全局变量
+   */
   globals?: Record<string, any>;
+  /**
+   * 设计器画布适配
+   */
   adapter?: Partial<ProvideAdapter>;
+  /**
+   * 设计器初始化后执行的回调
+   */
   install?: (app: App, engine?: Engine) => void;
+
+  /**
+   * 页面路由 base
+   */
   pageBasePath?: string;
+
+  /**
+   * 页面路由名称
+   */
   pageRouteName?: string;
   /**
    * 这个是引擎自己的Access，不是业务应用，应用的在 adapter 中设置
@@ -79,6 +117,21 @@ export interface EngineOptions {
    * 远程服务host
    */
   remote?: string;
+
+  /**
+   * 授权登录
+   */
+  auth?: string | (() => Promise<any>);
+
+  /**
+   * 开启版本检查
+   */
+  checkVersion?: boolean;
+
+  /**
+   * 适配远程接口
+   */
+  openApi?: OpenApi;
 }
 
 export const SAVE_BLOCK_FILE_FINISH = 'SAVE_BLOCK_FILE_FINISH';
@@ -104,6 +157,9 @@ export class Engine extends Base {
   public changed: Ref<symbol> = ref(Symbol());
   public access?: Access;
   public remote;
+  public report: Report;
+  public checkVersion: boolean = true;
+  public openApi?: OpenApi;
   constructor(public options: EngineOptions) {
     super();
     const {
@@ -118,10 +174,13 @@ export class Engine extends Base {
       adapter,
       install,
       access,
-      remote = 'https://lcdp.vtj.pro'
+      remote = REMOTE,
+      checkVersion = true,
+      openApi
     } = this.options;
     this.container = container;
     this.service = service;
+    this.openApi = openApi;
     this.adapter = adapter;
     this.provider = new Provider({
       mode: ContextMode.Design,
@@ -142,7 +201,8 @@ export class Engine extends Base {
     });
     this.access = access || new Access({ alert, ...ACCESS });
     this.remote = remote;
-
+    this.report = new Report(remote, this.access, this.service);
+    this.checkVersion = checkVersion;
     this.bindEvents();
     this.init(project as ProjectSchema).then(this.render.bind(this));
     onUnmounted(this.dispose.bind(this));
@@ -163,8 +223,10 @@ export class Engine extends Base {
       this.project.value = new ProjectModel(dsl);
       this.saveMaterials();
       this.triggerReady();
+      this.report.init();
     }
   }
+
   private render() {
     const container = unref(this.container);
     if (container) {
@@ -425,6 +487,11 @@ export class Engine extends Base {
     }
   }
 
+  public async applyAI(dsl: BlockSchema) {
+    const block = new BlockModel(dsl);
+    block.update(dsl);
+  }
+
   private async publishCurrent() {
     const project = this.project.value;
     const current = project?.currentFile;
@@ -433,6 +500,7 @@ export class Engine extends Base {
         ...project.toDsl(),
         pages: project.getPages()
       };
+
       const ret = await this.service.publishFile(dsl, current);
       if (ret) {
         message('发布成功', 'success');

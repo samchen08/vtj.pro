@@ -69,49 +69,41 @@ export function createLoader(opts: CreateLoaderOptions): BlockLoader {
   return (name: string, from?: NodeFrom, Vue: any = globalVue) => {
     if (!from || typeof from === 'string') return name;
     if (from.type === 'Schema' && from.id) {
-      let cache = __loaders__[from.id];
-      if (cache) {
-        return cloneDeep(cache);
-      }
-      cache = __loaders__[from.id] = Vue.defineAsyncComponent(async () => {
-        const dsl = await getDsl(from.id);
+      return Vue.defineAsyncComponent(async () => {
+        const dsl = __loaders__[from.id] || (await getDsl(from.id));
         if (dsl) {
           dsl.name = name;
+          __loaders__[from.id] = dsl;
         }
         return dsl
           ? createRenderer({
               ...options,
               Vue,
-              dsl,
+              dsl: cloneDeep(dsl),
               mode: ContextMode.Runtime,
               loader: createLoader(opts)
             }).renderer
           : null;
       });
-      return cache;
     }
 
     if (from.type === 'UrlSchema' && from.url) {
-      let cache = __loaders__[from.url];
-      if (cache) {
-        return cache;
-      }
-      cache = __loaders__[from.url] = Vue.defineAsyncComponent(async () => {
-        const dsl = await getDslByUrl(from.url);
+      return Vue.defineAsyncComponent(async () => {
+        const dsl = __loaders__[from.url] || (await getDslByUrl(from.url));
         if (dsl) {
           dsl.name = name;
+          __loaders__[from.url] = dsl;
         }
         return dsl
           ? createRenderer({
               ...options,
               Vue,
-              dsl,
+              dsl: cloneDeep(dsl),
               mode: ContextMode.Runtime,
               loader: createLoader(opts)
             }).renderer
           : null;
       });
-      return cache;
     }
 
     if (from.type === 'Plugin') {

@@ -29,6 +29,7 @@
     color: var(--el-text-color-secondary);
     display: inline-block;
     width: 30px;
+    flex-shrink: 0;
   }
 
   @include e(tag) {
@@ -51,9 +52,14 @@
   @include e(title-wrapper) {
     overflow: hidden;
     text-overflow: ellipsis;
-    white-space: nowrap;
     width: 1px;
     flex-grow: 1;
+  }
+
+  @include when(nowrap) {
+    @include e(title-wrapper) {
+      white-space: nowrap;
+    }
   }
 
   @include e(title) {

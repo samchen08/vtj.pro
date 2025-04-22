@@ -11,8 +11,9 @@ import {
   type VTJConfig
 } from '@vtj/core';
 import { resolve } from 'path';
-import { readJsonSync, upperFirstCamelCase, timestamp } from '@vtj/node';
+import { readJsonSync, upperFirstCamelCase, timestamp, uuid } from '@vtj/node';
 import { generator, createEmptyPage } from '@vtj/coder';
+import { parseVue as vue2Dsl, type IParseVueOptions } from '@vtj/parser';
 import formidable from 'formidable';
 import { fail, success, type ApiRequest } from './shared';
 import {
@@ -94,6 +95,9 @@ export async function init(_body: any, opts: DevToolsOptions) {
       repository.save(id, dsl);
     }
     dsl.__BASE_PATH__ = opts.staticBase;
+    if (!dsl.__UID__) {
+      dsl.__UID__ = uuid(true);
+    }
     return success(dsl);
   } else {
     const model = new ProjectModel({
@@ -299,6 +303,16 @@ export async function genVueContent(project: ProjectSchema, dsl: BlockSchema) {
     throw e;
   });
   return success(content);
+}
+
+export async function parseVue(options: IParseVueOptions) {
+  let errors: any = null;
+  const dsl = await vue2Dsl(options).catch((e: any) => {
+    errors = e;
+    return null;
+  });
+
+  return success(errors ? errors : dsl);
 }
 
 export async function createRawPage(file: PageFile) {

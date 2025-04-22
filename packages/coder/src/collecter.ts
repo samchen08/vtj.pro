@@ -134,7 +134,7 @@ export class Collecter {
       nodeContext = new Set([item, index, ...Array.from(nodeContext)]);
     }
 
-    // 插槽上下文s
+    // 插槽上下文
     const slot = node.slot;
     if (slot) {
       const params = typeof slot === 'string' ? [] : slot.params || [];
@@ -147,7 +147,7 @@ export class Collecter {
   private collectStyle(node: NodeSchema) {
     if (node.id && node.props?.style) {
       const hasStyle = !!Object.keys(node.props.style).length;
-      if (hasStyle) {
+      if (hasStyle && !isJSCode(node.props.style)) {
         this.style[`.${node.name}_${node.id}`] = node.props.style;
       }
     }

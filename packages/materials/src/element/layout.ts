@@ -46,37 +46,7 @@ const components: MaterialDescription[] = [
     snippet: {
       props: {
         gutter: 10
-      },
-      children: [
-        {
-          name: 'ElCol',
-
-          props: {
-            span: 6
-          },
-          children: [
-            {
-              name: 'component',
-              props: {
-                is: 'div',
-                style: {
-                  height: '50px',
-                  background: '#ecf5ff'
-                }
-              }
-            }
-          ],
-          directives: [
-            {
-              name: 'vFor',
-              value: {
-                type: 'JSExpression',
-                value: '4'
-              }
-            }
-          ]
-        }
-      ]
+      }
     }
   },
   {
@@ -143,20 +113,7 @@ const components: MaterialDescription[] = [
     snippet: {
       props: {
         span: 6
-      },
-      children: [
-        {
-          name: 'component',
-          props: {
-            is: 'div',
-            style: {
-              height: '50px',
-              background: '#ecf5ff'
-            }
-          },
-          children: 'Col'
-        }
-      ]
+      }
     }
   }
 ];

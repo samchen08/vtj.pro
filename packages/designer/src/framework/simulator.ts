@@ -203,7 +203,7 @@ export class Simulator extends Base {
     this.renderer?.dispose();
     this.renderer = null;
     const cw = this.contentWindow as any;
-    const { assets, service, current, provider, project } = this.engine;
+    const { assets, service, current, provider, project, report } = this.engine;
     const materialMap = provider.materials || {};
     const materials: Material[] = [];
     for (const name of materialExports) {
@@ -224,6 +224,7 @@ export class Simulator extends Base {
       env,
       service,
       provider,
+      report,
       project.value,
       this.designer.value
     );

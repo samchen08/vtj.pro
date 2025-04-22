@@ -8,11 +8,11 @@ import {
   storage,
   cookie,
   toArray,
-  Request,
   delay,
   unRSA,
   isFunction,
-  isString
+  isString,
+  type Request
 } from '@vtj/utils';
 import { ContextMode, PAGE_ROUTE_NAME } from '../constants';
 
@@ -95,6 +95,11 @@ export interface AccessOptions {
    * 应用编码
    */
   appName?: string;
+
+  /**
+   * 请求响应数据状态的key
+   */
+  statusKey?: string;
 }
 
 export interface AccessData {
@@ -130,7 +135,8 @@ const defaults: AccessOptions = {
   unauthorizedCode: 401,
   unauthorizedMessage: '登录已经失效，请重新登录！',
   noPermissionMessage: '无权限访问该页面',
-  appName: ''
+  appName: '',
+  statusKey: 'code'
 };
 
 export const ACCESS_KEY: InjectionKey<Access> = Symbol('access');
@@ -227,10 +233,8 @@ export class Access {
   }
 
   install(app: App) {
-    if (!app.config.globalProperties.$access) {
-      app.config.globalProperties.$access = this;
-      app.provide(ACCESS_KEY, this);
-    }
+    app.config.globalProperties.$access = this;
+    app.provide(ACCESS_KEY, this);
   }
 
   private isAuthPath(to: RouteLocationNormalized) {
@@ -353,9 +357,10 @@ export class Access {
   }
 
   private isUnauthorized(res: any) {
-    const { unauthorizedCode = 401 } = this.options;
+    const { unauthorizedCode = 401, statusKey = 'code' } = this.options;
     return (
-      res.status === unauthorizedCode || res.data?.code === unauthorizedCode
+      res.status === unauthorizedCode ||
+      res.data?.[statusKey] === unauthorizedCode
     );
   }
 
