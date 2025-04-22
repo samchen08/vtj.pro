@@ -8,7 +8,7 @@ import type {
   NodeFromPlugin
 } from './schemas';
 import type { MaterialDescription } from './assets';
-import type { StaticFileInfo, VTJConfig } from './shared';
+import type { StaticFileInfo, VTJConfig, ParseVueOptions } from './shared';
 
 export abstract class Service {
   public abstract getExtension(): Promise<VTJConfig | undefined>;
@@ -65,10 +65,16 @@ export abstract class Service {
     project: ProjectSchema,
     file: PageFile | BlockFile
   ): Promise<boolean>;
+
   public abstract genVueContent(
     project: ProjectSchema,
     dsl: BlockSchema
   ): Promise<string>;
+
+  public abstract parseVue(
+    project: ProjectSchema,
+    options: ParseVueOptions
+  ): Promise<BlockSchema>;
 
   public abstract createRawPage(
     file: PageFile,

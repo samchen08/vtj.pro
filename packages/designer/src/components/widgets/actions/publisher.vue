@@ -55,7 +55,8 @@
   import { ElImage, ElMessage, ElMessageBox } from 'element-plus';
   import { VtjIconTemplate } from '@vtj/icons';
   import { dataURLtoBlob } from '@vtj/utils';
-  import { useOpenApi, type PublishTemplateDto } from '../../hooks';
+  import { useOpenApi } from '../../hooks';
+  import { type PublishTemplateDto } from '../../../framework';
   import { NAME_REGEX, VERSION_REGEX } from '../../../constants';
   export interface Props {
     id?: string;

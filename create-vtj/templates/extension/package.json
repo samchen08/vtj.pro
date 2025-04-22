@@ -9,7 +9,7 @@
     "build": "vue-tsc && vite build"
   },
   "dependencies": {
-    "@vueuse/core": "~13.0.0",
+    "@vueuse/core": "~13.1.0",
     "element-plus": "~2.9.1"
   },
   "devDependencies": {

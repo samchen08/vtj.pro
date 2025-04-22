@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>VTJ低代码引擎 - 极速应用开发平台</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Segoe UI', system-ui, sans-serif;
+      }
+
+      :root {
+        --primary: #2563eb;
+        --secondary: #1e40af;
+        --dark: #1e293b;
+        --light: #f8fafc;
+      }
+
+      body {
+        background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+      }
+
+      /* 导航栏 */
+      .navbar {
+        padding: 1rem 5%;
+        background: rgba(255, 255, 255, 0.95);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .logo {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: var(--primary);
+      }
+
+      /* 主视觉区域 */
+      .hero {
+        padding: 6rem 5%;
+        text-align: center;
+        background: linear-gradient(45deg, var(--primary), var(--secondary));
+        color: white;
+        clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+      }
+
+      .hero h1 {
+        font-size: 3.5rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .cta-button {
+        display: inline-block;
+        padding: 1rem 2rem;
+        background: white;
+        color: var(--primary);
+        border-radius: 50px;
+        text-decoration: none;
+        font-weight: bold;
+        transition: transform 0.3s ease;
+      }
+
+      .cta-button:hover {
+        transform: translateY(-3px);
+      }
+
+      /* 功能特性 */
+      .features {
+        padding: 5rem 5%;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 2rem;
+      }
+
+      .feature-card {
+        padding: 2rem;
+        background: white;
+        border-radius: 1rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
+      }
+
+      .feature-card:hover {
+        transform: translateY(-5px);
+      }
+
+      .feature-icon {
+        font-size: 2.5rem;
+        color: var(--primary);
+        margin-bottom: 1rem;
+      }
+
+      /* 响应式设计 */
+      @media (max-width: 768px) {
+        .hero h1 {
+          font-size: 2.5rem;
+        }
+
+        .nav-links {
+          display: none;
+        }
+      }
+
+      .animate-fade-in {
+        animation: fadeIn 1s ease-in;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+      <div class="logo">VTJ Engine</div>
+      <div class="nav-links">
+        <a href="#features" class="nav-link">功能特性</a>
+        <a href="#docs" class="nav-link">文档</a>
+        <a href="#pricing" class="nav-link">定价</a>
+      </div>
+    </nav>
+
+    <!-- 主视觉区域 -->
+    <section class="hero animate-fade-in">
+      <h1>可视化低代码开发引擎</h1>
+      <p class="subtitle">通过可视化拖拽快速构建企业级应用</p>
+      <a href="#start" class="cta-button">立即免费试用 →</a>
+    </section>
+
+    <!-- 功能特性 -->
+    <section class="features" id="features">
+      <div class="feature-card">
+        <i class="fas fa-magic feature-icon"></i>
+        <h3>可视化搭建</h3>
+        <p>拖拽组件即可完成界面设计，实时预览效果</p>
+      </div>
+      <div class="feature-card">
+        <i class="fas fa-bolt feature-icon"></i>
+        <h3>快速集成</h3>
+        <p>轻松对接主流数据库和API接口</p>
+      </div>
+      <div class="feature-card">
+        <i class="fas fa-shield-alt feature-icon"></i>
+        <h3>企业级安全</h3>
+        <p>完善的权限管理和数据加密机制</p>
+      </div>
+    </section>
+
+    <!-- 产品优势 -->
+    <section class="advantages">
+      <div class="advantage-card">
+        <h2>开发效率提升300%</h2>
+        <p>通过可视化开发模式和丰富的预制模板</p>
+      </div>
+      <div class="advantage-card">
+        <h2>50+ 预制组件</h2>
+        <p>覆盖表单、图表、工作流等常见业务场景</p>
+      </div>
+    </section>
+  </body>
+</html>

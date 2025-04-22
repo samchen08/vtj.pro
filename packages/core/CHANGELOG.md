@@ -3,6 +3,52 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.1](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.12.0...@vtj/core@0.12.1) (2025-04-22)
+
+**Note:** Version bump only for package @vtj/core
+
+
+
+
+
+# [0.12.0](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.12.0-alpha.2...@vtj/core@0.12.0) (2025-04-22)
+
+**Note:** Version bump only for package @vtj/core
+
+
+
+
+
+# [0.12.0-alpha.2](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.12.0-alpha.1...@vtj/core@0.12.0-alpha.2) (2025-04-22)
+
+**Note:** Version bump only for package @vtj/core
+
+
+
+
+
+# [0.12.0-alpha.1](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.12.0-alpha.0...@vtj/core@0.12.0-alpha.1) (2025-04-22)
+
+**Note:** Version bump only for package @vtj/core
+
+
+
+
+
+# [0.12.0-alpha.0](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.11.16...@vtj/core@0.12.0-alpha.0) (2025-04-21)
+
+
+### Features
+
+* ✨ 支持用签名自动授权登录 ([cd273e4](https://gitee.com/newgateway/vtj/commits/cd273e415eb4a5dadf741e8cd1d25505ab5fedfa))
+* ✨ AI Widget ([e758a1b](https://gitee.com/newgateway/vtj/commits/e758a1b1e00496a20444d42c427288984a5766a5))
+* ✨ AI助手 ([702d912](https://gitee.com/newgateway/vtj/commits/702d91255d2860ee899f06f598d8043e6db9620d))
+* ✨ project add __UID__ ([b3315ce](https://gitee.com/newgateway/vtj/commits/b3315cee0c40de4f2591006a5ad56a2d1e92f318))
+
+
+
+
+
 ## [0.11.16](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.11.15...@vtj/core@0.11.16) (2025-04-10)
 
 **Note:** Version bump only for package @vtj/core

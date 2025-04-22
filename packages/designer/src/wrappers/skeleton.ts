@@ -12,6 +12,9 @@ export const SkeletonWrapper = defineComponent({
     const skeletonRef = ref();
     const engine = useEngine();
     const widgets = ref<Record<string, WidgetWrapperInstance>>({});
+    if (!engine?.remote) {
+      widgetManager.removeRemoteWidgets();
+    }
     return {
       skeletonRef,
       engine,

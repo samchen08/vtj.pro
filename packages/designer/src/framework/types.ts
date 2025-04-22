@@ -71,6 +71,11 @@ export interface Widget {
    * 排序
    */
   order?: number;
+
+  /**
+   * 需要remote支持
+   */
+  remote?: boolean;
 }
 
 /**

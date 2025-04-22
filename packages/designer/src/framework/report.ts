@@ -4,7 +4,8 @@ import {
   uuid,
   getClientInfo,
   delay,
-  debounce
+  debounce,
+  jsonp
 } from '@vtj/utils';
 import type { Access, BaseService } from '@vtj/renderer';
 import type { Service } from '@vtj/core';
@@ -14,6 +15,7 @@ import { version } from '../version';
 export type ReportType = 'init' | 'online' | 'event' | 'error';
 
 export const excludeErrors = [
+  '"ResizeObserver loop completed with undelivered notifications."',
   'ResizeObserver loop completed with undelivered notifications.',
   '"ResizeObserver loop completed with undelivered notifications."',
   'ResizeObserver loop limit exceeded'
@@ -39,12 +41,14 @@ export interface ReportData {
 
 export class Report {
   private api: string;
+  private remote: string;
   private debounceSend: (data: ReportData) => void;
   constructor(
-    private remote: string,
+    remote: string,
     private access: Access,
     private service?: Service
   ) {
+    this.remote = remote || 'https://lcdp.vtj.pro';
     this.api = this.remote + REPORT_API;
     this.debounceSend = debounce(this.send.bind(this), 500);
     this.online();
@@ -131,12 +135,20 @@ export class Report {
       data
     );
     const content = base64(JSON.stringify(postData));
-    const body = new URLSearchParams();
-    body.append('data', content);
-    window.fetch(this.api, {
-      method: 'post',
-      body
-    });
+    if (content.length > 1000) {
+      const body = new URLSearchParams();
+      body.append('data', content);
+      window
+        .fetch(this.api, {
+          method: 'post',
+          body
+        })
+        .catch(() => null);
+    } else {
+      jsonp(this.api, {
+        query: { data: content }
+      }).catch(() => null);
+    }
   }
 
   async init() {

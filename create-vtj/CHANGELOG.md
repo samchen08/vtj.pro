@@ -3,6 +3,30 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.12.0](https://gitee.com/newgateway/vtj/compare/create-vtj@0.12.0-alpha.1...create-vtj@0.12.0) (2025-04-22)
+
+**Note:** Version bump only for package create-vtj
+
+
+
+
+
+# [0.12.0-alpha.1](https://gitee.com/newgateway/vtj/compare/create-vtj@0.12.0-alpha.0...create-vtj@0.12.0-alpha.1) (2025-04-22)
+
+**Note:** Version bump only for package create-vtj
+
+
+
+
+
+# [0.12.0-alpha.0](https://gitee.com/newgateway/vtj/compare/create-vtj@0.11.3...create-vtj@0.12.0-alpha.0) (2025-04-21)
+
+**Note:** Version bump only for package create-vtj
+
+
+
+
+
 ## [0.11.3](https://gitee.com/newgateway/vtj/compare/create-vtj@0.11.2...create-vtj@0.11.3) (2025-04-09)
 
 

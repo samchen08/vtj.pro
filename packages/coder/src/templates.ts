@@ -17,7 +17,7 @@ export default defineComponent({
       id: '<%= id %>',
       version: '<%= version %>'
     });
-    const state = reactive<Record<string, any>>({ <%= state %> });
+    const state = reactive({ <%= state %> });
     <%= urlSchemas %>
     <%= blockPlugins %>
     return {

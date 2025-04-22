@@ -3,6 +3,49 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.1](https://gitee.com/newgateway/vtj/compare/vtj-extension@0.12.0...vtj-extension@0.12.1) (2025-04-22)
+
+**Note:** Version bump only for package vtj-extension
+
+
+
+
+
+# [0.12.0](https://gitee.com/newgateway/vtj/compare/vtj-extension@0.12.0-alpha.2...vtj-extension@0.12.0) (2025-04-22)
+
+**Note:** Version bump only for package vtj-extension
+
+
+
+
+
+# [0.12.0-alpha.2](https://gitee.com/newgateway/vtj/compare/vtj-extension@0.12.0-alpha.1...vtj-extension@0.12.0-alpha.2) (2025-04-22)
+
+**Note:** Version bump only for package vtj-extension
+
+
+
+
+
+# [0.12.0-alpha.1](https://gitee.com/newgateway/vtj/compare/vtj-extension@0.12.0-alpha.0...vtj-extension@0.12.0-alpha.1) (2025-04-22)
+
+
+### Features
+
+* ✨ openapi ([d38d478](https://gitee.com/newgateway/vtj/commits/d38d478b5e82b1648363c139112ea954dfb511ca))
+
+
+
+
+
+# [0.12.0-alpha.0](https://gitee.com/newgateway/vtj/compare/vtj-extension@0.11.16...vtj-extension@0.12.0-alpha.0) (2025-04-21)
+
+**Note:** Version bump only for package vtj-extension
+
+
+
+
+
 ## [0.11.16](https://gitee.com/newgateway/vtj/compare/vtj-extension@0.11.15...vtj-extension@0.11.16) (2025-04-10)
 
 **Note:** Version bump only for package vtj-extension

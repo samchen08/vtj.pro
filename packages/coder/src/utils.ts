@@ -34,7 +34,11 @@ export function parseValue(
   noThis: boolean = true,
   computedKeys: string[] = []
 ) {
-  let value = isJSCode(val) ? val.value : stringify ? JSON.stringify(val) : val;
+  let value = isJSCode(val)
+    ? val.value.trim().replace(/\"/g, "'").replace(/;$/, '')
+    : stringify
+      ? JSON.stringify(val)
+      : val;
   value = replaceComputedValue(value as string, computedKeys);
   return noThis
     ? replaceThis(replaceContext(value as string))
@@ -53,7 +57,7 @@ export function replaceComputedValue(content: string, keys: string[] = []) {
 }
 
 export function replaceFunctionTag(content: string) {
-  let handler: string = content.trim();
+  let handler: string = content.trim().replace(/;$/, '');
   // 匹配格式： ( async function() {} ) 或  ( function() {} ) 或 (()=>{})
   const bracketRegex = /^\((\(|async|function)/;
   const isBracket = bracketRegex.test(handler);

@@ -3,6 +3,52 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.1](https://gitee.com/newgateway/vtj/compare/dev-web@0.12.0...dev-web@0.12.1) (2025-04-22)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
+# [0.12.0](https://gitee.com/newgateway/vtj/compare/dev-web@0.12.0-alpha.2...dev-web@0.12.0) (2025-04-22)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
+# [0.12.0-alpha.2](https://gitee.com/newgateway/vtj/compare/dev-web@0.12.0-alpha.1...dev-web@0.12.0-alpha.2) (2025-04-22)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
+# [0.12.0-alpha.1](https://gitee.com/newgateway/vtj/compare/dev-web@0.12.0-alpha.0...dev-web@0.12.0-alpha.1) (2025-04-22)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
+# [0.12.0-alpha.0](https://gitee.com/newgateway/vtj/compare/dev-web@0.11.16...dev-web@0.12.0-alpha.0) (2025-04-21)
+
+
+### Features
+
+* ✨ AI 对话ui ([53b8461](https://gitee.com/newgateway/vtj/commits/53b8461d0511e85a2d37bc85128163113f2d22d9))
+* ✨ parseVue ([ad40b5b](https://gitee.com/newgateway/vtj/commits/ad40b5be0314eeae722f65915bcb8412815d4591))
+* ✨ project add __UID__ ([b3315ce](https://gitee.com/newgateway/vtj/commits/b3315cee0c40de4f2591006a5ad56a2d1e92f318))
+* ✨ test api ([1c907f5](https://gitee.com/newgateway/vtj/commits/1c907f54f00c9fc10e6afffbe79154fbb4087bec))
+
+
+
+
+
 ## [0.11.16](https://gitee.com/newgateway/vtj/compare/dev-web@0.11.15...dev-web@0.11.16) (2025-04-10)
 
 **Note:** Version bump only for package dev-web

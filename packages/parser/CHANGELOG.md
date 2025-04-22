@@ -3,6 +3,64 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.1](https://gitee.com/newgateway/vtj/compare/@vtj/parser@0.12.0...@vtj/parser@0.12.1) (2025-04-22)
+
+**Note:** Version bump only for package @vtj/parser
+
+
+
+
+
+# [0.12.0](https://gitee.com/newgateway/vtj/compare/@vtj/parser@0.12.0-alpha.2...@vtj/parser@0.12.0) (2025-04-22)
+
+**Note:** Version bump only for package @vtj/parser
+
+
+
+
+
+# [0.12.0-alpha.2](https://gitee.com/newgateway/vtj/compare/@vtj/parser@0.12.0-alpha.1...@vtj/parser@0.12.0-alpha.2) (2025-04-22)
+
+**Note:** Version bump only for package @vtj/parser
+
+
+
+
+
+# [0.12.0-alpha.1](https://gitee.com/newgateway/vtj/compare/@vtj/parser@0.12.0-alpha.0...@vtj/parser@0.12.0-alpha.1) (2025-04-22)
+
+**Note:** Version bump only for package @vtj/parser
+
+
+
+
+
+# [0.12.0-alpha.0](https://gitee.com/newgateway/vtj/compare/@vtj/parser@0.11.16...@vtj/parser@0.12.0-alpha.0) (2025-04-21)
+
+
+### Bug Fixes
+
+* 🐛 统一 [@babel](https://gitee.com/babel) 依赖版本 ([bdf967a](https://gitee.com/newgateway/vtj/commits/bdf967a061562deb95898163c113017abae015f4))
+* 🐛 parseVue ([1f40a4c](https://gitee.com/newgateway/vtj/commits/1f40a4cce6f9849126b417611c59438a06ab47a2))
+* 🐛 replacer ([2811a20](https://gitee.com/newgateway/vtj/commits/2811a20110e14129fe29722cca15e9e5ea16cf08))
+* 🐛 transformChildren ([0fa144e](https://gitee.com/newgateway/vtj/commits/0fa144e104e1218f757e7cbed63a07f0dd69e11d))
+
+
+### Features
+
+* ✨ 节点/事件解析 ([27670e2](https://gitee.com/newgateway/vtj/commits/27670e2e7d52c1d76a2f278819b0d4beefa8e735))
+* ✨ AI Widget ([e758a1b](https://gitee.com/newgateway/vtj/commits/e758a1b1e00496a20444d42c427288984a5766a5))
+* ✨ AI助手 ([702d912](https://gitee.com/newgateway/vtj/commits/702d91255d2860ee899f06f598d8043e6db9620d))
+* ✨ parser ([a8f8cad](https://gitee.com/newgateway/vtj/commits/a8f8cad6c156a670417537154ee3b5ad8745b349))
+* ✨ parser style ([4e22bc8](https://gitee.com/newgateway/vtj/commits/4e22bc8aa2b94dea68b5e4b4c8ec32bb051b60dc))
+* ✨ parser v-model ([ef2aa04](https://gitee.com/newgateway/vtj/commits/ef2aa04c050540609e7f23c15d2a9a2cfedb2dec))
+* ✨ parseVue ([ad40b5b](https://gitee.com/newgateway/vtj/commits/ad40b5be0314eeae722f65915bcb8412815d4591))
+* ✨ project add __UID__ ([b3315ce](https://gitee.com/newgateway/vtj/commits/b3315cee0c40de4f2591006a5ad56a2d1e92f318))
+
+
+
+
+
 ## [0.11.16](https://gitee.com/newgateway/vtj/compare/@vtj/parser@0.11.15...@vtj/parser@0.11.16) (2025-04-10)
 
 **Note:** Version bump only for package @vtj/parser

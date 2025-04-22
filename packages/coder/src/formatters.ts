@@ -56,11 +56,17 @@ export async function htmlFormatter(content: string, disabled?: boolean) {
  */
 export async function tsFormatter(content: string, disabled?: boolean) {
   if (disabled) return content;
-  return await format(content, {
-    parser: 'babel-ts',
-    ...prettierOptions,
-    plugins: [babelParser, estree as any]
-  });
+  try {
+    const code = await format(content, {
+      parser: 'babel-ts',
+      ...prettierOptions,
+      plugins: [babelParser, estree as any]
+    });
+    return code.replace(/;\n$/gi, '');
+  } catch (e) {
+    console.warn(e);
+    return content;
+  }
 }
 
 /**

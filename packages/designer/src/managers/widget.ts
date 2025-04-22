@@ -54,6 +54,14 @@ class WidgetManager {
       match.component = widget.component;
     }
   }
+
+  /**
+   * 删除器件
+   * @param name
+   */
+  unregister(name: string) {
+    delete this.widgets[name];
+  }
   /**
    * 根据区域名称获取区域内的器件配置
    * @param region
@@ -74,6 +82,20 @@ class WidgetManager {
         .sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
     }
     return widgets;
+  }
+
+  /**
+   * 获取支持Remote器件
+   * @returns
+   */
+  getRemoteWidgets() {
+    const widgets = this.getWidgets();
+    return widgets.filter((n) => !!n.remote);
+  }
+
+  removeRemoteWidgets() {
+    const widgets = this.getRemoteWidgets();
+    widgets.forEach((n) => this.unregister(n.name));
   }
 }
 

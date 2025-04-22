@@ -3,6 +3,49 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.1](https://gitee.com/newgateway/vtj/compare/vtj-project-app@0.12.0...vtj-project-app@0.12.1) (2025-04-22)
+
+**Note:** Version bump only for package vtj-project-app
+
+
+
+
+
+# [0.12.0](https://gitee.com/newgateway/vtj/compare/vtj-project-app@0.12.0-alpha.2...vtj-project-app@0.12.0) (2025-04-22)
+
+**Note:** Version bump only for package vtj-project-app
+
+
+
+
+
+# [0.12.0-alpha.2](https://gitee.com/newgateway/vtj/compare/vtj-project-app@0.12.0-alpha.1...vtj-project-app@0.12.0-alpha.2) (2025-04-22)
+
+**Note:** Version bump only for package vtj-project-app
+
+
+
+
+
+# [0.12.0-alpha.1](https://gitee.com/newgateway/vtj/compare/vtj-project-app@0.12.0-alpha.0...vtj-project-app@0.12.0-alpha.1) (2025-04-22)
+
+**Note:** Version bump only for package vtj-project-app
+
+
+
+
+
+# [0.12.0-alpha.0](https://gitee.com/newgateway/vtj/compare/vtj-project-app@0.11.16...vtj-project-app@0.12.0-alpha.0) (2025-04-21)
+
+
+### Features
+
+* ✨ ai ui ([0c19328](https://gitee.com/newgateway/vtj/commits/0c1932841926f5ce643bfce4725a786d5a46a34b))
+
+
+
+
+
 ## [0.11.16](https://gitee.com/newgateway/vtj/compare/vtj-project-app@0.11.15...vtj-project-app@0.11.16) (2025-04-10)
 
 **Note:** Version bump only for package vtj-project-app

@@ -3,6 +3,53 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.1](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.12.0...@vtj/renderer@0.12.1) (2025-04-22)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
+# [0.12.0](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.12.0-alpha.2...@vtj/renderer@0.12.0) (2025-04-22)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
+# [0.12.0-alpha.2](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.12.0-alpha.1...@vtj/renderer@0.12.0-alpha.2) (2025-04-22)
+
+
+### Bug Fixes
+
+* 🐛 ai style ([1e4e3a4](https://gitee.com/newgateway/vtj/commits/1e4e3a41341a47677264745a8e9a3a52902a411d))
+
+
+
+
+
+# [0.12.0-alpha.1](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.12.0-alpha.0...@vtj/renderer@0.12.0-alpha.1) (2025-04-22)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
+# [0.12.0-alpha.0](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.11.16...@vtj/renderer@0.12.0-alpha.0) (2025-04-21)
+
+
+### Features
+
+* ✨ AI Widget ([e758a1b](https://gitee.com/newgateway/vtj/commits/e758a1b1e00496a20444d42c427288984a5766a5))
+* ✨ AI助手 ([702d912](https://gitee.com/newgateway/vtj/commits/702d91255d2860ee899f06f598d8043e6db9620d))
+
+
+
+
+
 ## [0.11.16](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.11.15...@vtj/renderer@0.11.16) (2025-04-10)
 
 **Note:** Version bump only for package @vtj/renderer

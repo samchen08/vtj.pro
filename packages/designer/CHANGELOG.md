@@ -3,6 +3,71 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.1](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.12.0...@vtj/designer@0.12.1) (2025-04-22)
+
+
+### Bug Fixes
+
+* 🐛 修复样式 ([b20f724](https://gitee.com/newgateway/vtj/commits/b20f7243d77ddcab70ee2fbdc4de93b33d99f22f))
+
+
+
+
+
+# [0.12.0](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.12.0-alpha.2...@vtj/designer@0.12.0) (2025-04-22)
+
+**Note:** Version bump only for package @vtj/designer
+
+
+
+
+
+# [0.12.0-alpha.2](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.12.0-alpha.1...@vtj/designer@0.12.0-alpha.2) (2025-04-22)
+
+
+### Bug Fixes
+
+* 🐛 ai style ([1e4e3a4](https://gitee.com/newgateway/vtj/commits/1e4e3a41341a47677264745a8e9a3a52902a411d))
+
+
+
+
+
+# [0.12.0-alpha.1](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.12.0-alpha.0...@vtj/designer@0.12.0-alpha.1) (2025-04-22)
+
+
+### Features
+
+* ✨ openapi ([d38d478](https://gitee.com/newgateway/vtj/commits/d38d478b5e82b1648363c139112ea954dfb511ca))
+
+
+
+
+
+# [0.12.0-alpha.0](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.11.16...@vtj/designer@0.12.0-alpha.0) (2025-04-21)
+
+
+### Bug Fixes
+
+* 🐛 parseVue ([1f40a4c](https://gitee.com/newgateway/vtj/commits/1f40a4cce6f9849126b417611c59438a06ab47a2))
+* 🐛 replacer ([2811a20](https://gitee.com/newgateway/vtj/commits/2811a20110e14129fe29722cca15e9e5ea16cf08))
+
+
+### Features
+
+* ✨ 节点/事件解析 ([27670e2](https://gitee.com/newgateway/vtj/commits/27670e2e7d52c1d76a2f278819b0d4beefa8e735))
+* ✨ 支持用签名自动授权登录 ([cd273e4](https://gitee.com/newgateway/vtj/commits/cd273e415eb4a5dadf741e8cd1d25505ab5fedfa))
+* ✨ AI 对话ui ([53b8461](https://gitee.com/newgateway/vtj/commits/53b8461d0511e85a2d37bc85128163113f2d22d9))
+* ✨ ai ui ([0c19328](https://gitee.com/newgateway/vtj/commits/0c1932841926f5ce643bfce4725a786d5a46a34b))
+* ✨ AI Widget ([e758a1b](https://gitee.com/newgateway/vtj/commits/e758a1b1e00496a20444d42c427288984a5766a5))
+* ✨ AI助手 ([72771d2](https://gitee.com/newgateway/vtj/commits/72771d20cf2a83b644adc776814c160758475504))
+* ✨ AI助手 ([702d912](https://gitee.com/newgateway/vtj/commits/702d91255d2860ee899f06f598d8043e6db9620d))
+* ✨ openapi ([8a0f413](https://gitee.com/newgateway/vtj/commits/8a0f413d3edc0ba6117ade47a871c69ac40cfe39))
+
+
+
+
+
 ## [0.11.16](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.11.15...@vtj/designer@0.11.16) (2025-04-10)
 
 

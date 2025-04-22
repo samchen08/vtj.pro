@@ -6,6 +6,27 @@
   "description": "VTJ",
   "glyphs": [
     {
+      "icon_id": "40449436",
+      "name": "历史对话",
+      "font_class": "chat-record",
+      "unicode": "e602",
+      "unicode_decimal": 58882
+    },
+    {
+      "icon_id": "42370003",
+      "name": "新对话",
+      "font_class": "new-chat",
+      "unicode": "e7ae",
+      "unicode_decimal": 59310
+    },
+    {
+      "icon_id": "43310527",
+      "name": "ai",
+      "font_class": "ai",
+      "unicode": "e601",
+      "unicode_decimal": 58881
+    },
+    {
       "icon_id": "38515399",
       "name": "uniapp",
       "font_class": "uniapp",

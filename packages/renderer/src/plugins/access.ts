@@ -8,11 +8,11 @@ import {
   storage,
   cookie,
   toArray,
-  Request,
   delay,
   unRSA,
   isFunction,
-  isString
+  isString,
+  type Request
 } from '@vtj/utils';
 import { ContextMode, PAGE_ROUTE_NAME } from '../constants';
 

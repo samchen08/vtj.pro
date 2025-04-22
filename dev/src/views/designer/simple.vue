@@ -6,7 +6,19 @@
   import { Engine, MemoryService, widgetManager } from '@vtj/pro';
   import { ElButton } from 'element-plus';
 
-  widgetManager.set('Logo', {
+  // widgetManager.set('Templates', {
+  //   component: {
+  //     render() {
+  //       return h('div', 'Text');
+  //     }
+  //   }
+  // });
+
+  // widgetManager.set('Templates', {
+  //   invisible: true
+  // });
+
+  widgetManager.set('', {
     props: {
       icon: '/vite.svg'
     }
