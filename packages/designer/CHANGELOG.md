@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.2](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.12.1...@vtj/designer@0.12.2) (2025-04-22)
+
+
+### Bug Fixes
+
+* 🐛 修复chat dsl保存了错误信息问题 ([07120ce](https://gitee.com/newgateway/vtj/commits/07120ceb8697e9e3ef6c9af5443ffdfe391d4dc7))
+
+
+
+
+
 ## [0.12.1](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.12.0...@vtj/designer@0.12.1) (2025-04-22)
 
 

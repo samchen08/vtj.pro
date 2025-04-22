@@ -249,7 +249,12 @@ export function useAI() {
             return null;
           });
           if (dsl) {
-            chat.dsl = dsl;
+            try {
+              chat.dsl = dsl;
+            } catch (err: any) {
+              chat.status = 'Error';
+              chat.message = err?.message;
+            }
           }
           await saveChat(chat);
           complete && complete(chat);
