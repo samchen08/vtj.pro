@@ -48,7 +48,9 @@ export function parseTemplate(
   const result = compileTemplate({
     id,
     filename: name,
-    source: content
+    source: content,
+    isProd: true,
+    slotted: true
   });
   const children = result.ast?.children || [];
   const nodes = children.map((child) => transformNode(child)) as NodeSchema[];
@@ -395,8 +397,20 @@ function transformChildren(
   const nodes: Array<NodeSchema | JSExpression | string> = [];
 
   for (const childNode of childNodes) {
-    // 处理 template 标签
-    if (childNode.type === NodeTypes.ELEMENT && childNode.tag === 'template') {
+    if (
+      childNode.type === NodeTypes.ELEMENT &&
+      (childNode as any).codegenNode?.value?.arguments
+    ) {
+      const html = (childNode as any).codegenNode.value.arguments[0];
+      if (html) {
+        const ret = htmlToNodes(html);
+        nodes.push(...ret);
+      }
+      // 处理 template 标签
+    } else if (
+      childNode.type === NodeTypes.ELEMENT &&
+      childNode.tag === 'template'
+    ) {
       const slot = childNode.props.find((n) => n.name === 'slot');
       for (const child of childNode.children) {
         const node =
