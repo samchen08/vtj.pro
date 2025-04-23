@@ -242,6 +242,32 @@ export const project: any = {
   ],
   apis: [
     {
+      id: '45tjf42g7',
+      url: '/api/user',
+      mock: true,
+      name: 'getUser',
+      label: '获取用户',
+      method: 'get',
+      headers: {
+        type: 'JSExpression',
+        value: '({})'
+      },
+      settings: {
+        type: 'form',
+        loading: true,
+        failMessage: true,
+        validSuccess: true,
+        injectHeaders: false,
+        originResponse: false
+      },
+      jsonpOptions: {},
+      mockTemplate: {
+        type: 'JSFunction',
+        value:
+          "(req) => {\n  return {\n    code: 0,\n    data: {\n      id: '@guid'\n    }\n  }\n}"
+      }
+    },
+    {
       id: '23ju3bbp',
       method: 'post',
       name: 'test',

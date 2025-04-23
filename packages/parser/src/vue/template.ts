@@ -22,6 +22,7 @@ import { uid } from '@vtj/base';
 import { isJSExpression, isNodeSchema } from '../shared';
 import { getJSExpression, getJSFunction, formatTagName } from './utils';
 import type { CSSRules } from './style';
+import { htmlToNodes } from './html';
 
 let __slots: BlockSlot[] = [];
 let __context: Record<string, Set<string>> = {};
@@ -165,6 +166,7 @@ function getEvents(
         const regex = new RegExp(`${item.arg.content}_\[\\w\]\{5\,\}`);
         const name = code.match(regex)?.[0] || '';
         const handler = handlers[name];
+
         if (name && handler) {
           events[item.arg.content] = {
             name: item.arg.content,
@@ -172,9 +174,10 @@ function getEvents(
             modifiers
           };
         } else {
+          const exp = (item.exp as any)?.ast?.type === 'AssignmentExpression';
           events[item.arg.content] = {
             name: item.arg.content,
-            handler: getJSFunction(`(${code})`),
+            handler: getJSFunction(exp ? `()=> {${code}}` : `(${code})`),
             modifiers
           };
         }
@@ -390,12 +393,11 @@ function transformChildren(
   childNodes: TemplateChildNode[] = []
 ) {
   const nodes: Array<NodeSchema | JSExpression | string> = [];
+
   for (const childNode of childNodes) {
     // 处理 template 标签
     if (childNode.type === NodeTypes.ELEMENT && childNode.tag === 'template') {
       const slot = childNode.props.find((n) => n.name === 'slot');
-      // console.log('transformChildren slot ---', slot);
-      // createSlotTextNodeSchema(childNode);
       for (const child of childNode.children) {
         const node =
           child.type === NodeTypes.TEXT || child.type === NodeTypes.TEXT_CALL
@@ -419,6 +421,17 @@ function transformChildren(
           nodes.push(node);
         }
       }
+    } else if ((childNode as any).type === NodeTypes.JS_CALL_EXPRESSION) {
+      const content = (childNode as any).arguments?.[0];
+      if (content) {
+        const children = htmlToNodes(content) as any;
+        nodes.push(...children);
+      }
+    } else if (childNode.type === NodeTypes.TEXT_CALL) {
+      const node = transformNode(childNode, el);
+      if (node) {
+        nodes.push(node);
+      }
     } else {
       const node = transformNode(childNode, el);
       if (node) {
@@ -433,7 +446,9 @@ function transformChildren(
     el.children =
       typeof first === 'string' || isJSExpression(first) ? first : [first];
   } else {
-    el.children = nodes as NodeSchema[];
+    el.children = nodes.map((n) => {
+      return typeof n === 'string' ? { name: 'span', children: n } : n;
+    }) as NodeSchema[];
   }
 
   return el;

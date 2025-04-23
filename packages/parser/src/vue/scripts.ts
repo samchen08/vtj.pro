@@ -15,7 +15,9 @@ import type {
   BlockWatch,
   BlockProp,
   BlockEmit,
-  BlockInject
+  BlockInject,
+  DataSourceSchema,
+  ProjectSchema
 } from '@vtj/core';
 import { getJSExpression, getJSFunction, LIFE_CYCLES_LIST } from './utils';
 
@@ -37,10 +39,11 @@ export interface ParseScriptsResult {
   emits?: BlockEmit[];
   inject?: BlockInject[];
   handlers?: Record<string, JSFunction>;
+  dataSources?: Record<string, DataSourceSchema>;
   errors: string[];
 }
 
-export function parseScripts(content: string) {
+export function parseScripts(content: string, project: ProjectSchema) {
   const imports = parseImports(content);
   const result: ParseScriptsResult = {
     imports,
@@ -79,6 +82,10 @@ export function parseScripts(content: string) {
           case 'methods':
             result.handlers = getEventHandlers(item.value as ObjectExpression);
             result.methods = getDefineMethods(item.value as ObjectExpression);
+            result.dataSources = getDataSources(
+              item.value as ObjectExpression,
+              project
+            );
             break;
           case 'watch':
             result.watch = getWatches(
@@ -204,11 +211,49 @@ function getMethods(expression: ObjectExpression) {
   const methods: Record<string, JSFunction> = {};
   for (const item of expression.properties) {
     const method = getFunction(item as ObjectMethod);
-    if (method && !method.watcher) {
+    if (
+      method &&
+      !method.watcher &&
+      !method.exp.value.includes('provider.apis')
+    ) {
       methods[method.name] = method.exp;
     }
   }
   return methods;
+}
+
+function getDataSources(expression: ObjectExpression, project: ProjectSchema) {
+  if (!expression) return {};
+  const sources: Record<string, DataSourceSchema> = {};
+  const idRegex = /apis\[\'([\w]*)\'\]/;
+  const thenRegex = /\.then\(([\w\W]*)\)/;
+  for (const item of expression.properties) {
+    const method = getFunction(item as ObjectMethod);
+    if (method && method.exp.value.includes('provider.apis')) {
+      const matches = method.exp.value.match(idRegex) || [];
+      const id = matches[1];
+      if (!id) continue;
+      const api = findApi(project, id);
+      if (!api) continue;
+      const transform = method.exp.value.match(thenRegex)?.[1];
+      sources[method.name] = {
+        ref: id,
+        name: api.name,
+        test: {
+          type: 'JSFunction',
+          value: '() => this.runApi({\n    /* 在这里可输入接口参数  */\n})'
+        },
+        type: 'api',
+        label: api.label,
+        transform: {
+          type: 'JSFunction',
+          value: transform || '(res) => {\n    return res;\n}'
+        },
+        mockTemplate: api.mockTemplate
+      };
+    }
+  }
+  return sources;
 }
 
 function getDefineMethods(expression: ObjectExpression) {
@@ -431,4 +476,8 @@ function processInject(
   }
   // console.log(expression);
   return inject;
+}
+
+function findApi(project: ProjectSchema, id: string) {
+  return (project.apis || []).find((n) => n.id === id);
 }

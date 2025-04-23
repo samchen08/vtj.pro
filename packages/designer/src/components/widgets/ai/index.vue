@@ -83,6 +83,7 @@
             @apply="onApply(chat)"
             @fix="onFix(chat)"></Bubble>
         </template>
+        <ElEmpty v-if="!chats.length"></ElEmpty>
       </div>
 
       <template v-if="!isNewChat" #footer>
@@ -173,7 +174,7 @@
     Hide
   } from '@vtj/icons';
   import { XAction, XContainer } from '@vtj/ui';
-  import { ElDrawer, ElButton, ElDivider } from 'element-plus';
+  import { ElDrawer, ElButton, ElDivider, ElEmpty } from 'element-plus';
   import { useAI, type AITopic, type AIChat } from '../../hooks';
   import { Panel } from '../../shared';
   import { message } from '../../../utils';

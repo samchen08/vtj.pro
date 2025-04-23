@@ -837,6 +837,9 @@ importers:
       '@vue/compiler-sfc':
         specifier: ~3.5.13
         version: 3.5.13
+      htmlparser2:
+        specifier: ~10.0.0
+        version: 10.0.0
       postcss:
         specifier: ~8.5.0
         version: 8.5.3
@@ -4019,18 +4022,18 @@ packages:
     resolution: {integrity: sha512-51LsGrfxTm/KKzKRIKuIPj5qaqs7P3KcMiGNzvbXxFkhbxZWAzsk39eNQ5o5a2FVq7SmZ66OXBefbBpy61gzgQ==}
     engines: {node: '>=16.0.0'}
 
-  '@vtj/icons@0.12.1':
-    resolution: {integrity: sha512-uxEXIMAPm08Bmn7iz55S2IhInoRoKNpNiLHVL9ya4z5KQQLh4DfjzmHiDthOvwx4+fscsD7VChVqAg3zmvxN3g==}
+  '@vtj/icons@0.12.2':
+    resolution: {integrity: sha512-vDNG19t4cTUBbfIXakDnPbl32/DUn12+PXwFi8ZMTN9mjJxS+vH+uE9ooIU8G59AW3v9npDDTW0jopCxH4xtUw==}
 
   '@vtj/plugin-ckeditor@0.2.5':
     resolution: {integrity: sha512-moAcU4LhruhiNnIuviK/QBfHPH+nyNHS4iDLQocOrVbFn8RWEj8C4nBESscFU1hOBLaeAAc7aYQJCBEkfOnyQA==}
 
-  '@vtj/ui@0.12.1':
-    resolution: {integrity: sha512-JiNSdVtUcfztPq5Kzt46dt/XmQjEsZfnB+xJpALDTEgJYQKfqn18yIsLMji/kAnj1HT9el7S0nHZAynLhwXGaA==}
+  '@vtj/ui@0.12.2':
+    resolution: {integrity: sha512-e837o72Uk/pxBs65ykEJpXRX410LDReyHfaAxvj4Yc1mzeAzuybyO793r1ibIFyo8JSbLqCHUYp2+qIavXSV+g==}
     engines: {node: '>=16.0.0'}
 
-  '@vtj/utils@0.12.1':
-    resolution: {integrity: sha512-Ion2Ed5S5rd7yxbMhp39yDJ5kpi0OLBFm3NaJXP3Y3ncm2D7zF/YZkIhTt6C482gOx0Pmk9FVAjJICVGL0nRLQ==}
+  '@vtj/utils@0.12.2':
+    resolution: {integrity: sha512-Tt5oqhp8afAEeX8La+7e7VJIrmBMCkmQ6TsqN0bnaLrlw5cARSENP74Qr2ysFPkN3Z+nQ24kQy/n2zQ42cuQcQ==}
 
   '@vue/babel-helper-vue-transform-on@1.4.0':
     resolution: {integrity: sha512-mCokbouEQ/ocRce/FpKCRItGo+013tHg7tixg3DUNS+6bmIchPt66012kBMm476vyEIJPafrvOf4E5OYj3shSw==}
@@ -5358,6 +5361,10 @@ packages:
     resolution: {integrity: sha512-V0hjH4dGPh9Ao5p0MoRY6BVqtwCjhz6vI5LT8AJ55H+4g9/4vbHx1I54fS0XuclLhDHArPQCiMjDxjaL8fPxhw==}
     engines: {node: '>=0.12'}
 
+  entities@6.0.0:
+    resolution: {integrity: sha512-aKstq2TDOndCn4diEyp9Uq/Flu2i1GlLkc6XIDQSDMuaFE3OPW5OphLCyQ5SpSJZTb4reN+kTcYru5yIfXoRPw==}
+    engines: {node: '>=0.12'}
+
   env-paths@2.2.1:
     resolution: {integrity: sha512-+h1lkLKhZMTYjog1VEpJNG7NZJWcuc2DDk/qsqSTRRCOXiLjeQ1d1/udrUGhqMxUgAlwKNZ0cf2uqan5GLuS2A==}
     engines: {node: '>=6'}
@@ -5889,6 +5896,9 @@ packages:
   html2canvas@1.4.1:
     resolution: {integrity: sha512-fPU6BHNpsyIhr8yyMpTLLxAbkaK8ArIBcmZIRiBLiDhjeqvXolaEmDGmELFuX9I4xDcaKKcJl+TKZLqruBbmWA==}
     engines: {node: '>=8.0.0'}
+
+  htmlparser2@10.0.0:
+    resolution: {integrity: sha512-TwAZM+zE5Tq3lrEHvOlvwgj1XLWQCtaaibSN11Q+gGBAS7Y1uZSWwXXRe4iF6OXnaq1riyQAPFOBtYc77Mxq0g==}
 
   http-cache-semantics@4.1.1:
     resolution: {integrity: sha512-er295DKPVsV82j5kw1Gjt+ADA/XYHsajl82cGNQG2eyoPkvgUhX+nDIyelzhIWbbsXP39EHcI6l5tYs2FYqYXQ==}
@@ -13090,7 +13100,7 @@ snapshots:
 
   '@vtj/example-ui@0.2.0': {}
 
-  '@vtj/icons@0.12.1(vue@3.5.13(typescript@5.8.3))':
+  '@vtj/icons@0.12.2(vue@3.5.13(typescript@5.8.3))':
     dependencies:
       '@element-plus/icons-vue': 2.3.1(vue@3.5.13(typescript@5.8.3))
     transitivePeerDependencies:
@@ -13098,17 +13108,17 @@ snapshots:
 
   '@vtj/plugin-ckeditor@0.2.5(vue@3.5.13(typescript@5.8.3))':
     dependencies:
-      '@vtj/icons': 0.12.1(vue@3.5.13(typescript@5.8.3))
-      '@vtj/ui': 0.12.1(vue@3.5.13(typescript@5.8.3))
-      '@vtj/utils': 0.12.1
+      '@vtj/icons': 0.12.2(vue@3.5.13(typescript@5.8.3))
+      '@vtj/ui': 0.12.2(vue@3.5.13(typescript@5.8.3))
+      '@vtj/utils': 0.12.2
     transitivePeerDependencies:
       - '@vue/composition-api'
       - vue
 
-  '@vtj/ui@0.12.1(vue@3.5.13(typescript@5.8.3))':
+  '@vtj/ui@0.12.2(vue@3.5.13(typescript@5.8.3))':
     dependencies:
-      '@vtj/icons': 0.12.1(vue@3.5.13(typescript@5.8.3))
-      '@vtj/utils': 0.12.1
+      '@vtj/icons': 0.12.2(vue@3.5.13(typescript@5.8.3))
+      '@vtj/utils': 0.12.2
       '@vueuse/core': 13.1.0(vue@3.5.13(typescript@5.8.3))
       element-plus: 2.9.8(vue@3.5.13(typescript@5.8.3))
       sortablejs: 1.15.6
@@ -13118,7 +13128,7 @@ snapshots:
       - '@vue/composition-api'
       - vue
 
-  '@vtj/utils@0.12.1':
+  '@vtj/utils@0.12.2':
     dependencies:
       '@vtj/base': 0.12.0
 
@@ -14620,6 +14630,8 @@ snapshots:
 
   entities@4.5.0: {}
 
+  entities@6.0.0: {}
+
   env-paths@2.2.1: {}
 
   envinfo@7.13.0: {}
@@ -15333,6 +15345,13 @@ snapshots:
     dependencies:
       css-line-break: 2.1.0
       text-segmentation: 1.0.3
+
+  htmlparser2@10.0.0:
+    dependencies:
+      domelementtype: 2.3.0
+      domhandler: 5.0.3
+      domutils: 3.2.2
+      entities: 6.0.0
 
   http-cache-semantics@4.1.1: {}
 

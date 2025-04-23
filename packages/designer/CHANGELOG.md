@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.3](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.12.2...@vtj/designer@0.12.3) (2025-04-23)
+
+
+### Bug Fixes
+
+* 🐛 修复parser已知问题 ([c86b738](https://gitee.com/newgateway/vtj/commits/c86b738a2ed95eb02c1f4070c4b2a57c247d36e1))
+
+
+### Features
+
+* ✨ report timer ([2113599](https://gitee.com/newgateway/vtj/commits/2113599a2cb649fe34bf42d57177b7ae2aa1b8de))
+
+
+
+
+
 ## [0.12.2](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.12.1...@vtj/designer@0.12.2) (2025-04-22)
 
 

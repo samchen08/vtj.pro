@@ -13,11 +13,12 @@ import { parseSFC, isJSCode } from '../shared';
 import { parseTemplate } from './template';
 import { parseScripts, type ImportStatement } from './scripts';
 import { parseStyle } from './style';
+import { htmlToNodes } from './html';
 import { patchCode, replacer, isScss } from './utils';
 
 export type IParseVueOptions = ParseVueOptions & { project: ProjectSchema };
 
-export { patchCode, replacer };
+export { patchCode, replacer, htmlToNodes };
 
 export async function parseVue(options: IParseVueOptions) {
   const __errors: string[] = [];
@@ -43,8 +44,9 @@ export async function parseVue(options: IParseVueOptions) {
     emits,
     inject,
     handlers,
-    imports
-  } = parseScripts(sfc.script);
+    imports,
+    dataSources
+  } = parseScripts(sfc.script, project);
   const { nodes, slots, context } = parseTemplate(id, name, sfc.template, {
     handlers,
     styles
@@ -60,6 +62,7 @@ export async function parseVue(options: IParseVueOptions) {
     lifeCycles,
     computed,
     methods,
+    dataSources,
     slots,
     emits,
     nodes,
