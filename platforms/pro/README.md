@@ -1,15 +1,15 @@
-<div align="center"> <a href="https://gitee.com/newgateway/vtj"> <img width="100" src="https://gitee.com/newgateway/vtj/raw/master/platforms/pro/public/logo.svg"> </a> <br> <br>
+<div align="center"> <a href="https://gitee.com/newgateway/vtj"> <img width="100" src="./platforms/pro/public/logo.svg"> </a> <br> <br>
 
 [![star](https://gitee.com/newgateway/vtj/badge/star.svg?theme=gvp)](https://gitee.com/newgateway/vtj)
 [![npm version](https://img.shields.io/npm/v/@vtj/pro.svg?style=flat-square)](https://www.npmjs.com/package/@vtj/pro)
-[![npm downloads](https://img.shields.io/npm/dt/@vtj/pro.svg?style=flat-square)](https://npm-stat.com/charts.html?package=@vtj/pro)
+[![npm downloads](https://img.shields.io/npm/dt/@vtj/core.svg?style=flat-square)](https://npm-stat.com/charts.html?package=@vtj/core)
 [![npm license](https://img.shields.io/github/license/mashape/apistatus.svg)](LICENSE)
 
 </div>
 
-# VTJ.PRO
+# VTJ.PRO （ AI + 低代码 ）
 
-VTJ 是一款基于 Vue3 + Typescript 的低代码页面可视化设计器。内置低代码引擎、渲染器和代码生成器，面向前端开发者，开箱即用。 无缝嵌入本地开发工程，不改变前端开发流程和编码习惯。
+VTJ 是一款以AI驱动的Vue3前端低代码开发工具。内置低代码引擎、渲染器和代码生成器，支持Vue源码与低代码DSL双向转换，面向前端开发者，开箱即用。 无缝嵌入本地开发工程，不改变前端开发流程和编码习惯。
 
 - **官方文档**：[https://vtj.pro](https://vtj.pro)
 - **在线应用开发平台**：[https://lcdp.vtj.pro](https://lcdp.vtj.pro)
@@ -30,11 +30,13 @@ VTJ 是一款基于 Vue3 + Typescript 的低代码页面可视化设计器。内
 
 ## 预览
 
-![输入图片说明](https://gitee.com/newgateway/vtj/raw/master/dev/public/preview/p1.png)
+![输入图片说明](dev/public/preview/p4.jpg)
 
-![输入图片说明](https://gitee.com/newgateway/vtj/raw/master/dev/public/preview/p2.png)
+![输入图片说明](dev/public/preview/p1.png)
 
-![输入图片说明](https://gitee.com/newgateway/vtj/raw/master/dev/public/preview/p3.png)
+![输入图片说明](dev/public/preview/p2.png)
+
+![输入图片说明](dev/public/preview/p3.png)
 
 ## 体验
 
@@ -102,4 +104,4 @@ npm run setup && npm run build && npm run app:dev
 钉钉群、 微信群(加好友，拉进群，备注：vtj)
 
 <table border="0">
-<tr><td><img src="https://gitee.com/newgateway/vtj/raw/master/dingtalk.png" /></td><td><img src="https://gitee.com/newgateway/vtj/raw/master/wechat.png" width="" /></td></tr></table>
+<tr><td><img src="./dingtalk.png" /></td><td><img src="./wechat.png" width="" /></td></tr></table>

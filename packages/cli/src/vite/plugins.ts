@@ -2,6 +2,7 @@ import type { CreateViteConfigOptions } from './types';
 import { type PluginOption } from 'vite';
 import vue from '@vitejs/plugin-vue';
 import vueJsx from '@vitejs/plugin-vue-jsx';
+//@ts-ignore
 import legacy from '@vitejs/plugin-legacy';
 import basicSsl from '@vitejs/plugin-basic-ssl';
 import dts from 'vite-plugin-dts';

@@ -3,7 +3,6 @@ import {
   storage,
   uuid,
   getClientInfo,
-  delay,
   debounce,
   jsonp
 } from '@vtj/utils';
@@ -43,6 +42,7 @@ export class Report {
   private api: string;
   private remote: string;
   private debounceSend: (data: ReportData) => void;
+  private timer: any = null;
   constructor(
     remote: string,
     private access: Access,
@@ -157,11 +157,16 @@ export class Report {
     });
   }
   async online() {
-    await delay(5 * 60 * 1000);
+    clearTimeout(this.timer);
+    this.timer = setTimeout(
+      () => {
+        this.online();
+      },
+      5 * 60 * 1000
+    );
     this.debounceSend({
       type: 'online'
     });
-    this.online();
   }
   event(message: string) {
     this.debounceSend({
