@@ -30,10 +30,10 @@
             </div>
           </div>
           <div v-if="props.data.message" class="v-ai-widget-bubble__message">
-            <pre>
-              {{ props.data.message }}
-            </pre>
-            <ElButton size="small" round @click="onFix">纠正错误</ElButton>
+            {{ props.data.message }}
+            <ElButton v-if="isError" size="small" round @click="onFix">
+              纠正错误
+            </ElButton>
           </div>
           <ElButton
             v-if="isPending"
@@ -89,6 +89,7 @@
   const isAi = computed(() => props.type === 'ai');
   const isCompleted = computed(() => props.data.status === 'Success');
   const isPending = computed(() => props.data.status === 'Pending');
+  const isError = computed(() => props.data.status === 'Error');
   const collasped = ref(props.data.collapsed);
   const collaspedIcon = computed(() =>
     collasped.value ? ArrowDownBold : ArrowUpBold

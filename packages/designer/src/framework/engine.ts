@@ -116,7 +116,7 @@ export interface EngineOptions {
   /**
    * 远程服务host
    */
-  remote?: string;
+  remote?: string | null;
 
   /**
    * 授权登录
@@ -156,7 +156,7 @@ export class Engine extends Base {
    */
   public changed: Ref<symbol> = ref(Symbol());
   public access?: Access;
-  public remote;
+  public remote?: string | null = null;
   public report: Report;
   public checkVersion: boolean = true;
   public openApi?: OpenApi;
@@ -201,7 +201,7 @@ export class Engine extends Base {
     });
     this.access = access || new Access({ alert, ...ACCESS });
     this.remote = remote;
-    this.report = new Report(remote, this.access, this.service);
+    this.report = new Report(this.remote, this.access, this.service);
     this.checkVersion = checkVersion;
     this.bindEvents();
     this.init(project as ProjectSchema).then(this.render.bind(this));

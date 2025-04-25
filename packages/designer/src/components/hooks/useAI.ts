@@ -68,7 +68,8 @@ export function useAI() {
     getSettins,
     createOrder,
     cancelOrder,
-    getOrder
+    getOrder,
+    getImage
   } = useOpenApi();
   const hideCodeCacheKey = 'CHAT_HIDE_CODE';
   const region = engine.skeleton?.getRegion('Apps').regionRef;
@@ -430,6 +431,7 @@ export function useAI() {
     createOrder,
     cancelOrder,
     getOrder,
-    updateChatDsl
+    updateChatDsl,
+    getImage
   };
 }

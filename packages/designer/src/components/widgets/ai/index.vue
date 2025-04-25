@@ -150,11 +150,11 @@
     <InviteTip
       v-if="settings"
       :settings="settings"
-      :remote="engine.remote"></InviteTip>
+      :get-image="getImage"></InviteTip>
     <PayTip
       v-if="settings"
       :settings="settings"
-      :remote="engine.remote"
+      :get-image="getImage"
       :create-order="createOrder"
       :cancel-order="cancelOrder"
       :get-order="getOrder"></PayTip>
@@ -223,7 +223,8 @@
     createOrder,
     cancelOrder,
     getOrder,
-    updateChatDsl
+    updateChatDsl,
+    getImage
   } = useAI();
 
   const logined = ref(true);

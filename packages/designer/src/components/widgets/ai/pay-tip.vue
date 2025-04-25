@@ -36,7 +36,10 @@
         <template #description>
           <div>微信扫码完成支付</div>
           <div class="pay-steps__content">
-            <img width="200" :src="getImage(props.settings?.payQr)" draggable />
+            <img
+              width="200"
+              :src="props.getImage(props.settings?.payQr)"
+              draggable />
           </div>
         </template>
       </ElStep>
@@ -46,7 +49,7 @@
           <div class="pay-steps__content">
             <img
               width="200"
-              :src="getImage(props.settings?.contactQr)"
+              :src="props.getImage(props.settings?.contactQr)"
               draggable />
           </div>
         </template>
@@ -105,6 +108,7 @@
     createOrder: any;
     cancelOrder: any;
     getOrder: any;
+    getImage: (path?: string) => string | undefined;
   }
 
   const props = defineProps<Props>();
@@ -128,10 +132,6 @@
       immediate: true
     }
   );
-
-  const getImage = (path?: string) => {
-    return path ? `${props.remote}/api/oss/file/${path}` : undefined;
-  };
 
   const { copy } = useClipboard({});
 

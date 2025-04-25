@@ -38,7 +38,8 @@ export default [
           { text: '区块管理', link: '/designer/12' },
           { text: '预览、调试和发布', link: '/designer/13' }
         ]
-      }
+      },
+      { text: '设计器接入指南', link: '/base/access' }
     ]
   },
   {

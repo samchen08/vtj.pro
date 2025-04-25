@@ -11,7 +11,7 @@
     <div class="limit-tip__content">
       <img
         class="limit-tip__qr"
-        :src="getImage(props.settings?.contactQr)"
+        :src="props.getImage(props.settings?.contactQr)"
         draggable="false" />
     </div>
   </div>
@@ -23,7 +23,7 @@
 
   export interface Props {
     settings?: Settings;
-    remote?: string;
+    getImage: (path?: string) => string | undefined;
   }
 
   const props = defineProps<Props>();
@@ -31,10 +31,6 @@
   const showInviteTip = computed(() => {
     return props.settings?.mode === 2 && !props.settings?.invited;
   });
-
-  const getImage = (path?: string) => {
-    return path ? `${props.remote}/api/oss/file/${path}` : undefined;
-  };
 </script>
 
 <style lang="scss" scoped>

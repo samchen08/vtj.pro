@@ -16,6 +16,13 @@ export function useOpenApi() {
   const engine = useEngine();
   const { access, remote, openApi } = engine || {};
 
+  const getImage = (path?: string) => {
+    if (openApi?.getImage) {
+      return openApi?.getImage(path);
+    }
+    return path ? `${remote}/api/oss/file/${path}` : undefined;
+  };
+
   const loginBySign = async () => {
     const { auth } = engine.options;
     if (!access) return;
@@ -393,6 +400,7 @@ export function useOpenApi() {
     getSettins,
     createOrder,
     cancelOrder,
-    getOrder
+    getOrder,
+    getImage
   };
 }

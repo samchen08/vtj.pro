@@ -1,9 +1,11 @@
 import { defineConfig } from 'vitepress';
 // import { nodePolyfills } from 'vite-plugin-node-polyfills';
 import { resolve } from 'path';
+
 import {
   containerPreview,
   componentPreview
+  //@ts-ignore
 } from '@vitepress-demo-preview/plugin';
 import nav from './nav';
 import sidebar from './sidebar';

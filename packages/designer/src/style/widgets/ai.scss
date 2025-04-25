@@ -142,6 +142,9 @@
       @include when(Failed) {
         background-color: var(--el-color-error-light-9);
       }
+      @include when(Error) {
+        background-color: var(--el-color-error-light-9);
+      }
     }
     @include e(main) {
       width: 100%;

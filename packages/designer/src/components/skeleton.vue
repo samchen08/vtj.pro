@@ -131,9 +131,11 @@
   const settable = ref(false);
 
   const init = async () => {
-    const logined = await isLogined();
-    if (!logined) {
-      await loginBySign();
+    if (engine.remote) {
+      const logined = await isLogined();
+      if (!logined) {
+        await loginBySign();
+      }
     }
     checkVersion();
   };

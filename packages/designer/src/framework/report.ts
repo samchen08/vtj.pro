@@ -44,7 +44,7 @@ export class Report {
   private debounceSend: (data: ReportData) => void;
   private timer: any = null;
   constructor(
-    remote: string,
+    remote: string | null,
     private access: Access,
     private service?: Service
   ) {
