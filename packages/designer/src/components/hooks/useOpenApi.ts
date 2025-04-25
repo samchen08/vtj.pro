@@ -299,6 +299,7 @@ export function useOpenApi() {
               } catch (e) {
                 const msg = line.slice(6);
                 error && error(msg ? new Error(msg) : e);
+                controller.abort();
                 break;
               }
             }

@@ -16,7 +16,8 @@ import {
   type ElementNode,
   type IfNode,
   type ForNode,
-  type IfConditionalExpression
+  type IfConditionalExpression,
+  type CompoundExpressionNode
 } from '@vue/compiler-core';
 import { uid } from '@vtj/base';
 import { isJSExpression, isNodeSchema } from '../shared';
@@ -382,12 +383,31 @@ function transformNode(
 
   // 文本和表达式合成
   if (node.type === NodeTypes.COMPOUND_EXPRESSION) {
-    // 暂不处理这种情况
-    console.warn('未处理节点', node);
+    return transformCompoundExpression(
+      node.children as CompoundExpressionNode[]
+    );
   }
 
   console.warn('未处理', node.type);
   return null;
+}
+
+function transformCompoundExpression(children: CompoundExpressionNode[] = []) {
+  const nodes = children.filter((n) => typeof n !== 'string');
+  const result: NodeSchema[] = [];
+  for (const node of nodes) {
+    result.push({
+      name: 'span',
+      children:
+        (node as any).type === NodeTypes.TEXT
+          ? node.loc.source
+          : getJSExpression((node as any).content?.loc.source)
+    });
+  }
+  return {
+    name: 'span',
+    children: result
+  };
 }
 
 function transformChildren(

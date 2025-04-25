@@ -173,7 +173,7 @@ const engine = new Engine({
 如果你的设计器是对外开放的，设置字符串的方式会泄露你的用户签名， 存在安全隐患。 强烈建议你改为以下方式。
 :::
 
-`auth` 也可以设置为函数，通过调用您的后端接口，又你的后端去调用 `https://lcdp.vtj.pro` 的登录接口，避免用户签名的泄露。
+`auth` 也可以设置为函数，通过调用您的后端接口，由你的后端去调用 `https://lcdp.vtj.pro` 的登录接口，避免用户签名的泄露。
 
 ```ts
 const engine = new Engine({
@@ -209,7 +209,7 @@ return axios
 OpenApi 是一个抽象类， 你需要实现这个类并把这个类的实例传递给引擎，例如：
 
 ```ts
-import { Engine, OpenApi } from '@vtj/engine';
+import { Engine, OpenApi } from '@vtj/pro';
 
 // 实现OpenApi类
 class CustomOpenApi implements OpenApi {

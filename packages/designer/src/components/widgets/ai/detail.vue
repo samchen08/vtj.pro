@@ -56,6 +56,7 @@
   const onRestDsl = async () => {
     const editor = editorRef.value.getEditor();
     const code = editor.getValue();
+    if (!code) return;
     const dsl = await props.updateChatDsl(code).catch((e: any) => {
       if (Array.isArray(e)) {
         notify(e.join(','));

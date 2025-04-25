@@ -125,6 +125,9 @@
     & > div.is-collapsed {
       height: 40px;
       overflow: hidden;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
     }
     p {
       margin: 0;
@@ -156,9 +159,9 @@
     width: 100%;
     margin-top: 10px;
     background-color: var(--el-color-error-light-9);
-    border-radius: 4px;
     padding: 10px;
     color: var(--el-color-error);
+    border-top: 1px solid var(--el-color-error);
     text-align: right;
     > div {
       text-align: left;

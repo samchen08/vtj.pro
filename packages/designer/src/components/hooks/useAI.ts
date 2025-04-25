@@ -254,6 +254,7 @@ export function useAI() {
             try {
               chat.dsl = typeof dsl === 'object' ? dsl : JSON.parse(dsl);
             } catch (err: any) {
+              chat.dsl = null;
               chat.status = 'Error';
               chat.message = err?.message;
             }
@@ -264,8 +265,13 @@ export function useAI() {
       },
       async (err: any) => {
         const message = err.message || err.name || '未知错误';
-        chat.message = message;
+        if (message === 'network error') {
+          chat.message = '网络异常，请稍后再试';
+        } else {
+          chat.message = '请求失败，请稍后再试';
+        }
         chat.status = 'Failed';
+        console.warn('completions error', err);
         await saveChat(chat);
         complete && complete(chat);
       }
@@ -279,7 +285,7 @@ export function useAI() {
   };
 
   const updateChatDsl = async (source: string) => {
-    if (!currentTopic.value || !currentChat.value) return;
+    if (!currentTopic.value || !currentChat.value || !source) return;
     const id = currentTopic.value?.fileId as string;
     const project = engine.project.value?.toDsl() as ProjectSchema;
     const { name = '' } = engine.current.value || {};
@@ -295,7 +301,11 @@ export function useAI() {
     if (Array.isArray(dsl)) {
       return Promise.reject(dsl);
     } else {
-      currentChat.value.dsl = dsl;
+      try {
+        currentChat.value.dsl = typeof dsl === 'object' ? dsl : JSON.parse(dsl);
+      } catch (e) {
+        currentChat.value.dsl = null;
+      }
       await saveChat(currentChat.value);
       return dsl;
     }
