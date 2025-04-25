@@ -14,9 +14,19 @@ export const test_9 = `
 </template>
 
 
+<script>
+import {defineComponent} from 'vue'
+import {ElMessage} from 'element-plus'
+
+export default defineComponent({
+  mounted() {
+    ElMessage.success('ABC')
+  }
+})
 </script>
 
 <style lang="css" scoped>
+
 
 </style>
 `;

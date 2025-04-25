@@ -197,6 +197,7 @@ export function useAI() {
     const project = engine.project.value?.toDsl() as ProjectSchema;
     const { name = '' } = engine.current.value || {};
     const source = getVueCode(chat.content);
+    if (!source) return;
     return await engine.service.parseVue(project, {
       id,
       name,
@@ -251,7 +252,7 @@ export function useAI() {
           });
           if (dsl) {
             try {
-              chat.dsl = dsl;
+              chat.dsl = typeof dsl === 'object' ? dsl : JSON.parse(dsl);
             } catch (err: any) {
               chat.status = 'Error';
               chat.message = err?.message;

@@ -13,7 +13,8 @@ export function replacer(content: string, key: string, to: string) {
   const r2 = /(\@\_|\$|\.|\,|\w)$/;
   // 关键字后的字符
   const r3 = /^\w/;
-  return content.replace(r1, (str, index, source) => {
+  const r4 = new RegExp(`^this\.${key}$`, 'g');
+  const result = content.replace(r1, (str, index, source) => {
     const start = source.substring(0, index);
     const end = source.substring(index + key.length);
     // 前后字符符合正则的不替换
@@ -22,6 +23,10 @@ export function replacer(content: string, key: string, to: string) {
     }
     return to;
   });
+
+  return result.replace(r4, to);
+
+  return result;
 }
 
 export function patchCode(

@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.5](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.12.4...@vtj/designer@0.12.5) (2025-04-25)
+
+
+### Bug Fixes
+
+* 🐛 设计器接入指南 ([bd08152](https://gitee.com/newgateway/vtj/commits/bd081521d049176dfc334305a7829780363b0d81))
+* 🐛 优化样式 ([62895ec](https://gitee.com/newgateway/vtj/commits/62895ecc2f7bf11e342b7ae26ecb2d747263d1ea))
+* 🐛 vue2Dsl未处理异常 ([f323395](https://gitee.com/newgateway/vtj/commits/f3233951ae218817a6434f86a853039fe838532e))
+
+
+
+
+
 ## [0.12.4](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.12.3...@vtj/designer@0.12.4) (2025-04-23)
 
 **Note:** Version bump only for package @vtj/designer

@@ -2,12 +2,29 @@ import { type NodeSchema } from '@vtj/core';
 import { Parser } from 'htmlparser2';
 
 export function htmlToNodes(html: string): NodeSchema[] {
-  let root: NodeSchema = { name: '', children: [] };
+  const root: NodeSchema = { name: '', children: [] };
   const stack: NodeSchema[] = [root];
+  let currentText = '';
 
   const parser = new Parser(
     {
-      onopentag: (name, attrs) => {
+      onopentag: (name, attrs, isSelfClosing) => {
+        const parent = stack[stack.length - 1];
+
+        // 将之前累积的文本存入父节点
+        if (currentText.trim()) {
+          if (Array.isArray(parent.children)) {
+            parent.children.push({
+              name: 'text',
+              children: currentText.trim()
+            });
+          } else {
+            parent.children = currentText.trim();
+          }
+
+          currentText = '';
+        }
+
         const props = Object.entries(attrs || {}).reduce(
           (pre, cur) => {
             let [key = '', value = ''] = cur;
@@ -20,51 +37,58 @@ export function htmlToNodes(html: string): NodeSchema[] {
           },
           {} as Record<string, any>
         );
-        const currentNode: NodeSchema = {
-          name: name,
-          props: props,
-          children: ''
+
+        // 创建新节点
+        const node: NodeSchema = {
+          name,
+          props
         };
 
-        // 将当前节点添加到父节点的子数组中
-        const parent = stack[stack.length - 1];
-        if (!parent.children) {
-          parent.children = [];
-        }
+        // 添加到父节点的子元素
         if (Array.isArray(parent.children)) {
-          parent.children.push(currentNode);
+          parent.children.push(node);
+        } else {
+          parent.children = [
+            {
+              name: 'span',
+              children: parent.children
+            },
+            node
+          ];
         }
 
-        // 将当前节点推入栈
-        stack.push(currentNode);
+        // 非自闭合标签才入栈
+        if (!isSelfClosing) {
+          stack.push(node);
+        }
       },
       ontext: (text) => {
         const trimmedText = text.trim();
         if (trimmedText && trimmedText !== '"') {
-          const parent = stack[stack.length - 1];
-
-          if (!parent.children) {
-            parent.children = trimmedText;
-          } else {
-            parent.children = [
-              {
-                name: 'span',
-                children: parent.children
-              }
-            ];
-            parent.children.push({
-              name: 'span',
-              children: trimmedText
-            });
-          }
+          currentText += trimmedText;
         }
       },
       onclosetag: () => {
-        // 弹出当前节点（仅当非自闭合标签时）
-        stack.pop();
+        const node = stack.pop();
+
+        // 关闭标签前处理累积的文本
+        if (currentText.trim()) {
+          if (Array.isArray(node?.children)) {
+            node.children.push({
+              name: 'span',
+              children: currentText.trim()
+            });
+          } else {
+            if (node) {
+              node.children = currentText.trim();
+            }
+          }
+
+          currentText = '';
+        }
       }
     },
-    { recognizeSelfClosing: true }
+    { decodeEntities: true }
   );
 
   parser.write(html);
