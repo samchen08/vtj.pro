@@ -1,7 +1,7 @@
 {
   "name": "@vtj/materials",
   "private": false,
-  "version": "0.12.6",
+  "version": "0.12.7",
   "type": "module",
   "keywords": [
     "低代码引擎",

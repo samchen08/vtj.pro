@@ -79,6 +79,7 @@ export function parseTemplate(
       if (component) {
         components.push(component);
       }
+
       // 收集引用区块
       if (isFromSchema(from)) {
         importBlocks.push({ id: from.id, name });
@@ -118,9 +119,8 @@ export function parseTemplate(
         components = components.concat(nodeChildren?.components || []);
         importBlocks = importBlocks.concat(nodeChildren?.importBlocks || []);
       }
-
       const tagName = ['@dcloudio/uni-h5', '@dcloudio/uni-ui'].includes(
-        from as string
+        (from || componentMap.get(name)?.package) as string
       )
         ? kebabCase(name)
         : isFromUrlSchema(from) || isFromPlugin(from)

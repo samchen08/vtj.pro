@@ -2,7 +2,7 @@
   "name": "lcdp",
   "description": "在线演示",
   "private": true,
-  "version": "0.12.6",
+  "version": "0.12.7",
   "type": "module",
   "scripts": {
     "setup": "npm install --unsafe-perm --registry=https://registry.npmmirror.com",

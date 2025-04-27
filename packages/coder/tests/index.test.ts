@@ -24,9 +24,9 @@ test('index', async () => {
       'uniapp',
       false
     );
-    console.log(content);
+    // console.log(content);
   } catch (e) {
-    console.log('error----------------', e.codeFrame);
+    // console.log('error----------------', e.codeFrame);
   }
   expect(!!generator).toBeTruthy();
 });

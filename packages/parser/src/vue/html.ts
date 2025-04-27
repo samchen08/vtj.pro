@@ -47,7 +47,7 @@ export function htmlToNodes(html: string): NodeSchema[] {
         // 添加到父节点的子元素
         if (Array.isArray(parent.children)) {
           parent.children.push(node);
-        } else {
+        } else if (parent.children) {
           parent.children = [
             {
               name: 'span',
@@ -55,6 +55,8 @@ export function htmlToNodes(html: string): NodeSchema[] {
             },
             node
           ];
+        } else {
+          parent.children = [node];
         }
 
         // 非自闭合标签才入栈

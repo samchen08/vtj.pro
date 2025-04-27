@@ -1,6 +1,22 @@
 {
   "pages": [
     {
+      "path": "pages/45u0kfarj",
+      "style": {
+        "navigationBarTitleText": "test"
+      },
+      "needLogin": false,
+      "vtj": true
+    },
+    {
+      "path": "pages/14ktqdut",
+      "style": {
+        "navigationBarTitleText": "bbb"
+      },
+      "needLogin": false,
+      "vtj": true
+    },
+    {
       "path": "pages/startup"
     }
   ],
