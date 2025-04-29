@@ -27,7 +27,7 @@ export async function parseVue(options: IParseVueOptions) {
     __errors.push(`style的lang不能是scss, 请改为css`);
     return Promise.reject(__errors);
   }
-  const { dependencies = [] } = project || {};
+  const { dependencies = [], platform = 'web' } = project || {};
   const sfc = parseSFC(source);
   const {
     styles,
@@ -48,6 +48,7 @@ export async function parseVue(options: IParseVueOptions) {
     dataSources
   } = parseScripts(sfc.script, project);
   const { nodes, slots, context } = parseTemplate(id, name, sfc.template, {
+    platform,
     handlers,
     styles
   });
@@ -90,6 +91,7 @@ export async function parseVue(options: IParseVueOptions) {
   ];
   const { libs } = parseDeps(imports, dependencies);
   const patchCodeOpt = {
+    platform,
     context,
     computed: computedKeys,
     libs,

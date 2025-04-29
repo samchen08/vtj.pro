@@ -102,9 +102,7 @@
   watch(auto, (v) => {
     storage.save(autoCacheKey, v, { type: 'local' });
     ElMessage.success({
-      message: v
-        ? '您已开启自动应用到页面功能，当AI生成代码后将会自动更改当前低代码页面。'
-        : '您已经关闭自动应用到页面功能，您可以通过手动的方式更改当前低代码页面'
+      message: v ? '已开启自动应用到页面功能' : '已经关闭自动应用到页面功能'
     });
   });
 

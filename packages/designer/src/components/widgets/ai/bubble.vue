@@ -44,7 +44,8 @@
             circle></ElButton>
         </template>
         <div v-else>
-          <pre>{{ props.data.prompt }}</pre>
+          <ElImage v-if="props.data.image" :src="props.data.image"></ElImage>
+          <pre v-else>{{ props.data.prompt }}</pre>
         </div>
       </div>
       <div v-if="isAi" class="v-ai-widget-bubble__tools">
@@ -61,7 +62,7 @@
 </template>
 <script setup lang="ts">
   import { computed, ref, watch } from 'vue';
-  import { ElAvatar, ElButton, ElTag } from 'element-plus';
+  import { ElAvatar, ElButton, ElTag, ElImage } from 'element-plus';
   import Avatar from './avatar.vue';
   import {
     VtjIconAi,

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.8](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.12.7...@vtj/designer@0.12.8) (2025-04-29)
+
+
+### Features
+
+* ✨ AI 图生代码 ([dd7fee5](https://gitee.com/newgateway/vtj/commits/dd7fee5c281ed9fce05cad14ae8ec2c37b9f0b0c))
+
+
+
+
+
 ## [0.12.7](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.12.6...@vtj/designer@0.12.7) (2025-04-27)
 
 **Note:** Version bump only for package @vtj/designer

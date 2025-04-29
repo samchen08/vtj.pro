@@ -1,5 +1,6 @@
 import { type NodeSchema } from '@vtj/core';
 import { Parser } from 'htmlparser2';
+import { styleToJson } from './utils';
 
 export function htmlToNodes(html: string): NodeSchema[] {
   const root: NodeSchema = { name: '', children: [] };
@@ -37,6 +38,10 @@ export function htmlToNodes(html: string): NodeSchema[] {
           },
           {} as Record<string, any>
         );
+
+        if (props.style) {
+          props.style = styleToJson(props.style);
+        }
 
         // 创建新节点
         const node: NodeSchema = {

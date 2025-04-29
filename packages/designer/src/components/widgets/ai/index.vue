@@ -69,7 +69,8 @@
         :model-value="promptText"
         :disabled="inputDisabled"
         :fillPromptInput="fillPromptInput"
-        @send="onPostTopic"></NewTopic>
+        @send="onPostTopic"
+        @image-send="onPostImageTopic"></NewTopic>
 
       <div v-if="!isNewChat" ref="listRef" class="v-ai-widget__bubble-list">
         <template v-for="chat of chats" :key="chat.id">
@@ -224,7 +225,8 @@
     cancelOrder,
     getOrder,
     updateChatDsl,
-    getImage
+    getImage,
+    onPostImageTopic
   } = useAI();
 
   const logined = ref(true);

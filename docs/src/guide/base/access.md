@@ -221,7 +221,7 @@ class CustomOpenApi implements OpenApi {
 
 const engine = new Engine({
   container,
-  openApi: new CustomService(),
+  openApi: new CustomOpenApi(),
   project: {
     id: 'my-project-id'
   }

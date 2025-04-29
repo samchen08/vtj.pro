@@ -177,6 +177,29 @@ export function useOpenApi() {
     return res;
   };
 
+  const postImageTopic = async (dto: TopicDto) => {
+    if (openApi?.postImageTopic) {
+      return await openApi?.postImageTopic(dto);
+    }
+    const token = access?.getData()?.token;
+    const api = `${remote}/api/open/topic/image/${token}`;
+    const data = new FormData();
+    Object.entries(dto).forEach(([name, value]) => {
+      data.append(name, value);
+    });
+    const res = await window
+      .fetch(api, {
+        method: 'post',
+        body: data
+      })
+      .then((res) => res.json())
+      .catch((e) => e);
+    if (!res?.success) {
+      await alert(res.message || '未知错误');
+    }
+    return res;
+  };
+
   const getChats = async (topicId: string) => {
     if (openApi?.getChats) {
       return await openApi?.getChats(topicId);
@@ -376,6 +399,26 @@ export function useOpenApi() {
       .catch(() => null);
   };
 
+  // const uploader = async (file: File) => {
+  //   if (openApi?.uploader) {
+  //     return await openApi?.uploader(file);
+  //   }
+  //   const token = access?.getData()?.token;
+  //   const api = `${remote}/api/open/upload/${token}`;
+  //   const data = new FormData();
+  //   data.append('file', file);
+  //   return await window
+  //     .fetch(api, {
+  //       method: 'post',
+  //       body: data
+  //     })
+  //     .then((res) => res.json())
+  //     .catch(async (e) => {
+  //       await alert(e.message || '上传失败');
+  //       return null;
+  //     });
+  // };
+
   return {
     engine,
     access,
@@ -402,6 +445,7 @@ export function useOpenApi() {
     createOrder,
     cancelOrder,
     getOrder,
-    getImage
+    getImage,
+    postImageTopic
   };
 }

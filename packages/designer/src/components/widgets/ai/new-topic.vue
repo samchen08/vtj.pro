@@ -4,13 +4,25 @@
       <h3>嗨！我是您的智能助手</h3>
       <div>我可以帮你开发低代码页面，请把你的任务交给我吧~</div>
     </div>
+    <div class="v-ai-widget-new-chat__input-type">
+      <ElSegmented
+        :options="inputOptions"
+        :disabled="props.loading"
+        v-model="currentOption"
+        size="small"></ElSegmented>
+    </div>
     <ChatInput
-      :min-rows="5"
+      v-if="isTextInput"
+      :min-rows="8"
       :models="props.models"
       :loading="props.loading"
       :disabled="props.disabled"
       :model-value="props.modelValue"
       @send="onSend"></ChatInput>
+    <ImageInput
+      v-else
+      :loading="props.loading"
+      @send="onImageSend"></ImageInput>
     <template v-if="hotTopics.length">
       <ElDivider content-position="left">热门需求</ElDivider>
       <div>
@@ -28,14 +40,16 @@
   </div>
 </template>
 <script lang="ts" setup>
-  import { ref, onMounted } from 'vue';
-  import { ElDivider } from 'element-plus';
+  import { ref, onMounted, computed } from 'vue';
+  import { ElDivider, ElSegmented } from 'element-plus';
   import ChatInput from './chat-input.vue';
+  import ImageInput from './image-input.vue';
   import { Item } from '../../shared';
   import {
     useOpenApi,
     type Dict,
     type AISendData,
+    type AISendImageData,
     type AITopic
   } from '../../hooks';
 
@@ -45,6 +59,7 @@
     modelValue?: string;
     fillPromptInput: any;
     disabled?: boolean;
+    uploader?: (file: File) => Promise<any>;
   }
 
   const props = withDefaults(defineProps<Props>(), {
@@ -53,20 +68,38 @@
 
   const emit = defineEmits<{
     send: [data: AISendData];
+    imageSend: [data: AISendImageData];
   }>();
 
   const { getHotTopics } = useOpenApi();
 
   const hotTopics = ref<AITopic[]>([]);
 
-  const currentOption = ref('New');
+  const inputOptions = [
+    {
+      label: '文字',
+      value: 'text'
+    },
+    {
+      label: '图片',
+      value: 'image'
+    }
+  ];
+  const currentOption = ref('text');
+
+  const isTextInput = computed(() => currentOption.value === 'text');
 
   const onTopicClick = (topic: AITopic) => {
     props.fillPromptInput(topic.prompt);
   };
 
   const onSend = (data: AISendData) => {
-    emit('send', { type: currentOption.value, ...data } as AISendData);
+    emit('send', { ...data } as AISendData);
+  };
+
+  const onImageSend = (file: File, auto: boolean) => {
+    const model = props.models[0].value;
+    emit('imageSend', { file, auto, model } as AISendImageData);
   };
 
   onMounted(async () => {

@@ -72,6 +72,11 @@
     return !!widget?.widgetRef.outline;
   });
 
+  const activeEvent = computed(() => {
+    const widget = engine.skeleton?.getWidget('Toolbar');
+    return !!widget?.widgetRef.activeEvent;
+  });
+
   const config = computed(() => engine.project.value?.config || {});
   const uniConfig = computed(() => engine.project.value?.uniConfig || {});
 
@@ -135,6 +140,12 @@
   watch(outlineEnabled, (v) => {
     if (designer.value) {
       designer.value.outlineEnabled.value = v;
+    }
+  });
+
+  watch(activeEvent, (v) => {
+    if (designer.value) {
+      designer.value.activeEvent.value = v;
     }
   });
 

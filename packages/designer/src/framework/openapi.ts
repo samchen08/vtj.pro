@@ -36,7 +36,8 @@ export interface TopicDto {
   project: string;
   dsl: string;
   source: string;
-  prompt: string;
+  prompt?: string;
+  file?: File;
 }
 
 export interface AITopic {
@@ -52,6 +53,7 @@ export interface AITopic {
   prompt: string;
   dependencies: string;
   dsl: any;
+  image?: string;
 }
 
 export interface AIChat {
@@ -70,6 +72,7 @@ export interface AIChat {
   thinking: number;
   vue: string;
   collapsed?: boolean;
+  image?: string;
 }
 
 export interface ChatDto {
@@ -91,6 +94,7 @@ export interface Settings {
   price: number;
   payQr: string;
   contactQr: string;
+  groupQr: string;
   invited: boolean;
   paid: boolean;
   free: boolean;
@@ -137,6 +141,13 @@ export abstract class OpenApi {
    * 发送AI话题
    */
   public abstract postTopic?: (
+    dto: TopicDto
+  ) => Promise<ResponseWrapper<{ topic: AITopic; chat: AIChat }>>;
+
+  /**
+   * 发送图片AI话题
+   */
+  public abstract postImageTopic?: (
     dto: TopicDto
   ) => Promise<ResponseWrapper<{ topic: AITopic; chat: AIChat }>>;
 

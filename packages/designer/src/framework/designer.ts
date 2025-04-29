@@ -68,6 +68,7 @@ export class Designer {
   public draggingNode: NodeModel | null = null;
   public lines: ShallowRef<DOMRect[]> = shallowRef([]);
   public outlineEnabled: Ref<boolean> = ref(true);
+  public activeEvent: Ref<boolean> = ref(true);
   constructor(
     public engine: Engine,
     public contentWindow: Window,
@@ -300,7 +301,10 @@ export class Designer {
   private onSelected(e: MouseEvent) {
     if (this.devtools.isOpen.value) return;
     // 与 vue-devtools 冲突，不能阻止冒泡
-    // e.stopPropagation();
+    if (!this.activeEvent.value) {
+      e.stopPropagation();
+    }
+
     this.setHover(null);
     this.selected.value = this.getHelper(e);
   }

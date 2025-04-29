@@ -1,12 +1,12 @@
 import { expect, test } from 'vitest';
 import { parseVue, htmlToNodes } from '../src';
 
-import { project } from './sources/project';
-import { test_14 as source } from './sources/test_14';
+import { uniProject } from './sources/uni';
+import { uni_13 as source } from './sources/uni_13';
 
 test('test_1', async () => {
   const result = await parseVue({
-    project,
+    project: uniProject as any,
     id: '235w0t1w',
     name: 'Bbb',
     source
@@ -14,7 +14,7 @@ test('test_1', async () => {
     console.error('error', errors);
   });
 
-  console.log(JSON.stringify(result, null, 2));
+  // console.log(JSON.stringify(result, null, 2));
 
   expect(true).toBeTruthy();
 });

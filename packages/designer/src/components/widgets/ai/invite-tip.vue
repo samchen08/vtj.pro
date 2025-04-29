@@ -11,7 +11,7 @@
     <div class="limit-tip__content">
       <img
         class="limit-tip__qr"
-        :src="props.getImage(props.settings?.contactQr)"
+        :src="props.getImage(props.settings?.groupQr)"
         draggable="false" />
     </div>
   </div>
