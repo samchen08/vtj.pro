@@ -150,3 +150,38 @@ export function styleToJson(style: string) {
     return acc;
   }, {});
 }
+
+export function validate(content: string) {
+  const errors: string[] = [];
+  const r1 = /保持不变/g;
+
+  if (r1.test(content)) {
+    errors.push('部分保持不变的代码需要完整输出');
+  }
+
+  return errors;
+}
+
+export function mergeClass(
+  staticClass: string,
+  expSource: string,
+  type: 'ObjectExpression' | 'ArrayExpression'
+) {
+  if (type === 'ObjectExpression') {
+    const staticStr = staticClass
+      .split(' ')
+      .map((item) => {
+        return `'${item}': true`;
+      })
+      .join(',');
+    return `(Object.assign({${staticStr}}, ${expSource}))`;
+  } else if (type === 'ArrayExpression') {
+    const staticStr = staticClass
+      .split(' ')
+      .map((item) => {
+        return `'${item}'`;
+      })
+      .join(',');
+    return `([${staticStr}].concat(${expSource}))`;
+  }
+}

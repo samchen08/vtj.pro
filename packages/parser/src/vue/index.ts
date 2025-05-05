@@ -14,20 +14,19 @@ import { parseTemplate } from './template';
 import { parseScripts, type ImportStatement } from './scripts';
 import { parseStyle } from './style';
 import { htmlToNodes } from './html';
-import { patchCode, replacer, isScss } from './utils';
+import { patchCode, replacer, validate } from './utils';
 
 export type IParseVueOptions = ParseVueOptions & { project: ProjectSchema };
 
 export { patchCode, replacer, htmlToNodes };
 
 export async function parseVue(options: IParseVueOptions) {
-  const __errors: string[] = [];
   const { id, name, source, project } = options;
-  if (isScss(source)) {
-    __errors.push(`style的lang不能是scss, 请改为css`);
+  const { dependencies = [], platform = 'web' } = project || {};
+  const __errors = validate(source);
+  if (__errors.length) {
     return Promise.reject(__errors);
   }
-  const { dependencies = [], platform = 'web' } = project || {};
   const sfc = parseSFC(source);
   const {
     styles,

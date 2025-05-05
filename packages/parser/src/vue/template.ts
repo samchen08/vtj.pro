@@ -17,7 +17,6 @@ import {
   type ElementNode,
   type IfNode,
   type ForNode,
-  type IfConditionalExpression,
   type CompoundExpressionNode
 } from '@vue/compiler-core';
 import { uid } from '@vtj/base';
@@ -26,7 +25,8 @@ import {
   getJSExpression,
   getJSFunction,
   formatTagName,
-  styleToJson
+  styleToJson,
+  mergeClass
 } from './utils';
 import type { CSSRules } from './style';
 import { htmlToNodes } from './html';
@@ -129,7 +129,21 @@ function getProps(nodes: Array<AttributeNode | DirectiveNode>) {
           item.exp?.type === NodeTypes.COMPOUND_EXPRESSION &&
           item.arg?.type === NodeTypes.SIMPLE_EXPRESSION
         ) {
-          props[item.arg.content] = getJSExpression(`(${item.exp.loc.source})`);
+          if (item.arg.content === 'class' && props.class) {
+            const astType = (item.exp.ast as any).type;
+            const mergeResult = mergeClass(
+              props.class as string,
+              item.exp.loc.source as string,
+              astType
+            );
+            if (mergeResult) {
+              props[item.arg.content] = getJSExpression(mergeResult);
+            }
+          } else {
+            props[item.arg.content] = getJSExpression(
+              `(${item.exp.loc.source})`
+            );
+          }
         }
       }
     }
@@ -161,7 +175,7 @@ function getEvents(
         let code = item.exp?.loc.source || '';
         const endRegex = /\)$/;
         if (endRegex.test(code)) {
-          code = `($event) => ${code}`;
+          code = `($event) => { ${code} } `;
         }
         const regex = new RegExp(`${item.arg.content}_\[\\w\]\{5\,\}`);
         const name = code.match(regex)?.[0] || '';
@@ -187,17 +201,21 @@ function getEvents(
   return events;
 }
 
-function getDirectives(node: IfNode | ForNode | ElementNode) {
+function getDirectives(node: IfNode | ForNode | ElementNode, branches?: any[]) {
   const directives: NodeDirective[] = [];
   // v-if
-  if (node.type === NodeTypes.IF) {
-    const test = (node.codegenNode as IfConditionalExpression)?.test;
-    if (test) {
-      directives.push({
-        name: 'vIf',
-        value: getJSExpression(test.loc.source)
-      });
-    }
+  if (branches && (node as any).type === NodeTypes.IF_BRANCH) {
+    branches.forEach((branch, index) => {
+      if (node === branch) {
+        const name =
+          index === 0 ? 'vIf' : branch.condition ? 'vElseIf' : 'vElse';
+        const value = branch.condition?.loc.source || '';
+        directives.push({
+          name: name,
+          value: name === 'vElse' ? true : getJSExpression(value)
+        } as any);
+      }
+    });
   }
 
   // v-for
@@ -307,13 +325,14 @@ function pickContext(el: NodeSchema, parent?: NodeSchema) {
 function createNodeSchema(
   node: ElementNode,
   parent?: NodeSchema,
-  scope?: IfNode | ForNode
+  scope?: IfNode | ForNode,
+  branches?: any[]
 ) {
   const dsl: NodeSchema = {
     name: formatTagName(node.tag, __platform),
     props: getProps(node.props),
     events: getEvents(node.props, __handlers),
-    directives: getDirectives(scope || node)
+    directives: getDirectives(scope || node, branches)
   };
 
   dsl.id = getNodeId(dsl);
@@ -326,21 +345,32 @@ function createNodeSchema(
   return el;
 }
 
+function transformBranches(branches: any[], parent?: NodeSchema) {
+  return branches.map((n) => {
+    return transformNode(n, parent, branches) as NodeSchema;
+  });
+}
+
 function transformNode(
   node: TemplateChildNode,
-  parent?: NodeSchema
-): NodeSchema | JSExpression | string | null {
+  parent?: NodeSchema,
+  branches?: any[]
+): NodeSchema | NodeSchema[] | JSExpression | string | null {
   // 处理元素节点
   if (node.type === NodeTypes.ELEMENT) {
     return createNodeSchema(node, parent);
   }
 
   // 处理 v-if 节点
-  if (node.type === NodeTypes.IF) {
-    const el = node.branches[0].children[0];
+  if (!branches && node.type === NodeTypes.IF) {
+    return transformBranches(node.branches);
+  }
+
+  if (branches && node.type === NodeTypes.IF_BRANCH) {
+    const el = node.children[0];
     if (el) {
       if (el.type === NodeTypes.ELEMENT) {
-        return createNodeSchema(el, parent, node);
+        return createNodeSchema(el, parent, node as any, branches);
       }
     }
   }
@@ -444,17 +474,19 @@ function transformChildren(
             : transformNode(child, el);
 
         if (node) {
-          // 补充插槽指令
-          if (isNodeSchema(node) && slot?.type === NodeTypes.DIRECTIVE) {
-            node.id = getNodeId(node);
-            node.slot = {
-              name: (slot.arg as any)?.content || 'default',
-              params: slot.exp?.identifiers || []
-            };
-            pickContext(node, el);
-          }
-
-          nodes.push(node);
+          const __nodes = Array.isArray(node) ? node : [node];
+          __nodes.forEach((node) => {
+            // 补充插槽指令
+            if (isNodeSchema(node) && slot?.type === NodeTypes.DIRECTIVE) {
+              node.id = getNodeId(node);
+              node.slot = {
+                name: (slot.arg as any)?.content || 'default',
+                params: slot.exp?.identifiers || []
+              };
+              pickContext(node, el);
+            }
+            nodes.push(node);
+          });
         }
       }
     } else if ((childNode as any).type === NodeTypes.JS_CALL_EXPRESSION) {
@@ -466,12 +498,20 @@ function transformChildren(
     } else if (childNode.type === NodeTypes.TEXT_CALL) {
       const node = transformNode(childNode, el);
       if (node) {
-        nodes.push(node);
+        if (Array.isArray(node)) {
+          nodes.push(...node);
+        } else {
+          nodes.push(node);
+        }
       }
     } else {
       const node = transformNode(childNode, el);
       if (node) {
-        nodes.push(node);
+        if (Array.isArray(node)) {
+          nodes.push(...node);
+        } else {
+          nodes.push(node);
+        }
       }
     }
   }

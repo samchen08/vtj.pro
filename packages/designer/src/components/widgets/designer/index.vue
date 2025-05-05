@@ -46,6 +46,7 @@
   import { computed, ref, watch } from 'vue';
   import { useElementSize } from '@vueuse/core';
   import { NodeModel } from '@vtj/core';
+  import { delay } from '@vtj/utils';
   import { ElEmpty } from 'element-plus';
   import Actions from './actions.vue';
   import { Viewport } from '../../shared';
@@ -137,17 +138,27 @@
     }
   };
 
-  watch(outlineEnabled, (v) => {
-    if (designer.value) {
-      designer.value.outlineEnabled.value = v;
-    }
-  });
+  watch(
+    outlineEnabled,
+    async (v) => {
+      if (designer.value) {
+        await delay(100);
+        designer.value.outlineEnabled.value = v;
+      }
+    },
+    { immediate: true }
+  );
 
-  watch(activeEvent, (v) => {
-    if (designer.value) {
-      designer.value.activeEvent.value = v;
-    }
-  });
+  watch(
+    activeEvent,
+    async (v) => {
+      if (designer.value) {
+        await delay(100);
+        designer.value.activeEvent.value = v;
+      }
+    },
+    { immediate: true }
+  );
 
   defineExpose({
     designer,

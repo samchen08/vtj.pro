@@ -100,9 +100,11 @@ export function createRenderer(options: CreateRendererOptions) {
       if (!dsl.value.nodes) return null;
       const nodes: NodeSchema[] = dsl.value.nodes || [];
       if (nodes.length === 1) {
-        return nodeRender(nodes[0], context, Vue, loader);
+        return nodeRender(nodes[0], context, Vue, loader, nodes);
       } else {
-        return nodes.map((child) => nodeRender(child, context, Vue, loader));
+        return nodes.map((child) =>
+          nodeRender(child, context, Vue, loader, nodes)
+        );
       }
     },
     ...createLifeCycles(dsl.value.lifeCycles ?? {}, context)

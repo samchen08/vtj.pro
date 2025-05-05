@@ -56,6 +56,14 @@
           mode="icon"
           type="primary"
           @click="onActionClick"></XActionBar>
+        <XAction
+          v-if="isPending"
+          :icon="VtjIconNpCancel"
+          size="small"
+          tooltip="取消对话"
+          mode="icon"
+          type="danger"
+          @click="onCancel"></XAction>
       </div>
     </div>
   </div>
@@ -70,9 +78,10 @@
     View,
     Download,
     ArrowUpBold,
-    ArrowDownBold
+    ArrowDownBold,
+    VtjIconNpCancel
   } from '@vtj/icons';
-  import { XActionBar, XIcon, type ActionBarItems } from '@vtj/ui';
+  import { XActionBar, XAction, XIcon, type ActionBarItems } from '@vtj/ui';
   import StreamMarkdown from './stream-markdown.vue';
   import { type AIChat } from '../../hooks';
   export interface Props {
@@ -86,7 +95,7 @@
     code: true
   });
 
-  const emit = defineEmits(['refresh', 'view', 'download', 'fix']);
+  const emit = defineEmits(['refresh', 'view', 'download', 'fix', 'cancel']);
   const isAi = computed(() => props.type === 'ai');
   const isCompleted = computed(() => props.data.status === 'Success');
   const isPending = computed(() => props.data.status === 'Pending');
@@ -152,6 +161,10 @@
 
   const onClickCode = () => {
     emit('view', props.data);
+  };
+
+  const onCancel = () => {
+    emit('cancel', props.data);
   };
 
   watch(

@@ -12,6 +12,27 @@
           @change="onValueChange">
         </SetterWrapper>
         <SetterWrapper
+          v-if="branchVisiable"
+          name="vElseIf"
+          label="v-else-if"
+          setters="ExpressionSetter"
+          :current="current"
+          :context="context"
+          :value="vElseIf.value"
+          @change="onValueChange">
+        </SetterWrapper>
+        <SetterWrapper
+          v-if="branchVisiable"
+          name="vElse"
+          label="v-else"
+          setters="BooleanSetter"
+          :current="current"
+          :context="context"
+          :value="!!vElse.value"
+          @change="onValueChange">
+        </SetterWrapper>
+
+        <SetterWrapper
           name="vShow"
           label="v-show"
           setters="ExpressionSetter"
@@ -185,6 +206,8 @@
   const { selected } = useSelected();
   const {
     vIf,
+    vElseIf,
+    vElse,
     vShow,
     vBind,
     vFor,
@@ -196,7 +219,8 @@
     onModelChange,
     onAddCustom,
     onRemoveCustom,
-    onCustomChange
+    onCustomChange,
+    branchVisiable
   } = useDirectives(selected);
 
   const getModelArgName = (vModel: DirectiveModel) => {

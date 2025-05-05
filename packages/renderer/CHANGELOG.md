@@ -3,6 +3,33 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.11](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.12.10...@vtj/renderer@0.12.11) (2025-05-05)
+
+
+### Features
+
+* ✨ 支持v-else-if 和 v-else 代码分支 ([6965137](https://gitee.com/newgateway/vtj/commits/69651374b83bffd4bb65f4e8d7de82eb4dc87e7d))
+
+
+
+
+
+## [0.12.10](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.12.9...@vtj/renderer@0.12.10) (2025-04-30)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
+## [0.12.9](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.12.8...@vtj/renderer@0.12.9) (2025-04-29)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
 ## [0.12.8](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.12.7...@vtj/renderer@0.12.8) (2025-04-29)
 
 **Note:** Version bump only for package @vtj/renderer

@@ -262,6 +262,18 @@ export function useOpenApi() {
     return await res.json();
   };
 
+  const cancelChat = async (chat: any) => {
+    if (openApi?.cancelChat) {
+      return await openApi.cancelChat(chat);
+    }
+    const token = access?.getData()?.token;
+    const api = `${remote}/api/open/chat/cancel/${token}?id=${chat.id}`;
+    const res = await window.fetch(api, {
+      method: 'get'
+    });
+    return await res.json();
+  };
+
   const removeTopic = async (topicId: string) => {
     if (openApi?.removeTopic) {
       return await openApi?.removeTopic(topicId);
@@ -446,6 +458,7 @@ export function useOpenApi() {
     cancelOrder,
     getOrder,
     getImage,
-    postImageTopic
+    postImageTopic,
+    cancelChat
   };
 }

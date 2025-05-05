@@ -10,6 +10,17 @@
       <template #editor>
         <div class="v-actions-widget__cover">
           <ElImage :src="imageDataUrl" fit="contain"></ElImage>
+          <ElUpload
+            class="v-actions-widget__upload"
+            @change="onFileChange"
+            :auto-upload="false"
+            :show-file-list="false">
+            <template #trigger>
+              <ElButton round :icon="Upload" type="warning" size="small"
+                >更换图片</ElButton
+              >
+            </template>
+          </ElUpload>
         </div>
       </template>
     </XField>
@@ -52,9 +63,16 @@
 <script lang="ts" setup>
   import { computed, reactive, ref } from 'vue';
   import { XDialogForm, XField } from '@vtj/ui';
-  import { ElImage, ElMessage, ElMessageBox } from 'element-plus';
-  import { VtjIconTemplate } from '@vtj/icons';
-  import { dataURLtoBlob } from '@vtj/utils';
+  import {
+    ElImage,
+    ElMessage,
+    ElMessageBox,
+    ElButton,
+    ElUpload,
+    type UploadFile
+  } from 'element-plus';
+  import { VtjIconTemplate, Upload } from '@vtj/icons';
+  import { dataURLtoBlob, fileToBase64 } from '@vtj/utils';
   import { useOpenApi } from '../../hooks';
   import { type PublishTemplateDto } from '../../../framework';
   import { NAME_REGEX, VERSION_REGEX } from '../../../constants';
@@ -77,6 +95,7 @@
   });
 
   const isOwner = ref(false);
+  const userFile = ref();
 
   if (props.id) {
     getTemplateById(props.id).then((res) => {
@@ -91,6 +110,9 @@
   }
 
   const imageDataUrl = computed(() => {
+    if (userFile.value) {
+      return userFile.value;
+    }
     if (props.canvas) {
       return props.canvas.toDataURL('image/png');
     }
@@ -147,10 +169,19 @@
     }
     return !!ret;
   };
+
+  const onFileChange = async (uploadFile: UploadFile) => {
+    if (uploadFile.raw) {
+      userFile.value = await fileToBase64(uploadFile.raw);
+    } else {
+      userFile.value = '';
+    }
+  };
 </script>
 
 <style lang="scss" scoped>
   .v-actions-widget__cover {
+    position: relative;
     width: 100%;
     height: 300px;
     background-color: var(--el-fill-color-dark);
@@ -159,5 +190,10 @@
       width: 100%;
       height: 100%;
     }
+  }
+  .v-actions-widget__upload {
+    position: absolute;
+    right: 10px;
+    top: 10px;
   }
 </style>

@@ -1,7 +1,7 @@
 {
   "name": "@vtj/cli",
   "private": false,
-  "version": "0.12.1",
+  "version": "0.12.2",
   "type": "module",
   "keywords": [
     "AI+低代码",
@@ -34,13 +34,13 @@
     "node": ">=20.0.0"
   },
   "dependencies": {
-    "@babel/core": "~7.26.0",
-    "@babel/preset-env": "~7.26.0",
+    "@babel/core": "~7.27.0",
+    "@babel/preset-env": "~7.27.0",
     "@babel/types": "~7.27.0",
     "@rollup/plugin-babel": "~6.0.4",
     "@types/babel__core": "~7.20.5",
     "@types/body-parser": "~1.19.5",
-    "@types/node": "~22.14.0",
+    "@types/node": "~22.15.0",
     "@types/serve-static": "~1.15.5",
     "@vitejs/plugin-basic-ssl": "~2.0.0",
     "@vitejs/plugin-legacy": "~6.1.0",

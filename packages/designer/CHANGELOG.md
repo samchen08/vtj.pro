@@ -3,6 +3,47 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.11](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.12.10...@vtj/designer@0.12.11) (2025-05-05)
+
+
+### Features
+
+* ✨ 源码视图支持编辑 ([8d794df](https://gitee.com/newgateway/vtj/commits/8d794df79f76e919a566d55310ff533c63a844b3))
+* ✨ 支持v-else-if 和 v-else 代码分支 ([6965137](https://gitee.com/newgateway/vtj/commits/69651374b83bffd4bb65f4e8d7de82eb4dc87e7d))
+
+
+
+
+
+## [0.12.10](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.12.9...@vtj/designer@0.12.10) (2025-04-30)
+
+
+### Bug Fixes
+
+* 🐛 对话取消 ([e7737df](https://gitee.com/newgateway/vtj/commits/e7737dfd1074bbfa3674ea7000e07bbeafa74588))
+* 🐛 检查AI是否有省略代码 ([3852e4b](https://gitee.com/newgateway/vtj/commits/3852e4b3725593423a99179804fb84573f1bbe69))
+
+
+### Features
+
+* ✨ 发布模版支持更换截图 ([f570adc](https://gitee.com/newgateway/vtj/commits/f570adcd1c04bee9bd33ff743b835dbf698bd162))
+* ✨ 支持取消AI对话 ([87addc7](https://gitee.com/newgateway/vtj/commits/87addc7512c33a1738a5808a12f9d9367fb2e260))
+
+
+
+
+
+## [0.12.9](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.12.8...@vtj/designer@0.12.9) (2025-04-29)
+
+
+### Bug Fixes
+
+* 🐛 响应事件bug ([ef4db67](https://gitee.com/newgateway/vtj/commits/ef4db6735258d4d1e87749412046661090b28ba1))
+
+
+
+
+
 ## [0.12.8](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.12.7...@vtj/designer@0.12.8) (2025-04-29)
 
 

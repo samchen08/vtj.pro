@@ -82,7 +82,8 @@
             @view="onView(chat)"
             @refresh="onRefresh(chat)"
             @apply="onApply(chat)"
-            @fix="onFix(chat)"></Bubble>
+            @fix="onFix(chat)"
+            @cancel="onCancelChat(chat)"></Bubble>
         </template>
         <ElEmpty v-if="!chats.length"></ElEmpty>
       </div>
@@ -226,7 +227,8 @@
     getOrder,
     updateChatDsl,
     getImage,
-    onPostImageTopic
+    onPostImageTopic,
+    onCancelChat
   } = useAI();
 
   const logined = ref(true);
@@ -274,7 +276,10 @@
   };
 
   const onNewChat = () => {
-    if (isPending.value) return;
+    if (isPending.value) {
+      message('当前有对话未结束，不能开启新对话', 'warning');
+      return;
+    }
     isNewChat.value = true;
     showDrawer.value = false;
   };

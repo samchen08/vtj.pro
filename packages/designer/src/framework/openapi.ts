@@ -64,7 +64,7 @@ export interface AIChat {
   message: string;
   prompt: string;
   reasoning: string;
-  status: string;
+  status: 'Pending' | 'Success' | 'Failed' | 'Error' | 'Canceled';
   tokens: number;
   topicId: string;
   userId: string;
@@ -169,6 +169,13 @@ export abstract class OpenApi {
    * 发送对话
    */
   public abstract postChat?: (dto: ChatDto) => Promise<ResponseWrapper<AIChat>>;
+
+  /**
+   * 取消对话
+   */
+  public abstract cancelChat?: (
+    chat: AIChat
+  ) => Promise<ResponseWrapper<AIChat>>;
 
   /**
    *  保存对话

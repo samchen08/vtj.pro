@@ -61,6 +61,8 @@ export const LIFE_CYCLES_LIST = [
  */
 export const BUILT_IN_DIRECTIVES = [
   'vIf',
+  'vElseIf',
+  'vElse',
   'vShow',
   'vModel',
   'vFor',

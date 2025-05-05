@@ -3,6 +3,42 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.11](https://gitee.com/newgateway/vtj/compare/@vtj/parser@0.12.10...@vtj/parser@0.12.11) (2025-05-05)
+
+
+### Features
+
+* ✨ 源码视图支持编辑 ([8d794df](https://gitee.com/newgateway/vtj/commits/8d794df79f76e919a566d55310ff533c63a844b3))
+* ✨ 支持v-else-if 和 v-else 代码分支 ([6965137](https://gitee.com/newgateway/vtj/commits/69651374b83bffd4bb65f4e8d7de82eb4dc87e7d))
+
+
+
+
+
+## [0.12.10](https://gitee.com/newgateway/vtj/compare/@vtj/parser@0.12.9...@vtj/parser@0.12.10) (2025-04-30)
+
+
+### Bug Fixes
+
+* 🐛 检查AI是否有省略代码 ([3852e4b](https://gitee.com/newgateway/vtj/commits/3852e4b3725593423a99179804fb84573f1bbe69))
+* 🐛 parser class merge ([4bd398c](https://gitee.com/newgateway/vtj/commits/4bd398c62c2c70cb72fe408b8e3eff29e8f4f180))
+
+
+
+
+
+## [0.12.9](https://gitee.com/newgateway/vtj/compare/@vtj/parser@0.12.8...@vtj/parser@0.12.9) (2025-04-29)
+
+
+### Bug Fixes
+
+* 🐛 不校验scss ([4f7f427](https://gitee.com/newgateway/vtj/commits/4f7f42773bfdae2d41457417bcdc0e068adbd82a))
+* 🐛 优化提示词 ([f226a42](https://gitee.com/newgateway/vtj/commits/f226a42d0d45ab749a8fa4923819b5b6ebe05baa))
+
+
+
+
+
 ## [0.12.8](https://gitee.com/newgateway/vtj/compare/@vtj/parser@0.12.7...@vtj/parser@0.12.8) (2025-04-29)
 
 

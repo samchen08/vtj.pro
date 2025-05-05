@@ -3,6 +3,36 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.11](https://gitee.com/newgateway/vtj/compare/@vtj/pro@0.12.10...@vtj/pro@0.12.11) (2025-05-05)
+
+**Note:** Version bump only for package @vtj/pro
+
+
+
+
+
+## [0.12.10](https://gitee.com/newgateway/vtj/compare/@vtj/pro@0.12.9...@vtj/pro@0.12.10) (2025-04-30)
+
+
+### Features
+
+* ✨ 支持取消AI对话 ([87addc7](https://gitee.com/newgateway/vtj/commits/87addc7512c33a1738a5808a12f9d9367fb2e260))
+
+
+
+
+
+## [0.12.9](https://gitee.com/newgateway/vtj/compare/@vtj/pro@0.12.8...@vtj/pro@0.12.9) (2025-04-29)
+
+
+### Bug Fixes
+
+* 🐛 响应事件bug ([ef4db67](https://gitee.com/newgateway/vtj/commits/ef4db6735258d4d1e87749412046661090b28ba1))
+
+
+
+
+
 ## [0.12.8](https://gitee.com/newgateway/vtj/compare/@vtj/pro@0.12.7...@vtj/pro@0.12.8) (2025-04-29)
 
 

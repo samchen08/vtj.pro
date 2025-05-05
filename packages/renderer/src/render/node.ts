@@ -27,7 +27,9 @@ export function nodeRender(
   dsl: NodeSchema,
   context: Context,
   Vue: any = globalVue,
-  loader: BlockLoader = defaultLoader
+  loader: BlockLoader = defaultLoader,
+  brothers: NodeSchema[] = [],
+  isBranch: boolean = false
 ): VNode | VNode[] | null {
   if (!dsl || !dsl.name || dsl.invisible) return null;
 
@@ -35,12 +37,15 @@ export function nodeRender(
 
   const { id = null, directives = [] } = dsl;
 
-  const { vIf, vFor, vShow, vModels, vBind, vHtml, others } =
+  const { vIf, vElseIf, vElse, vFor, vShow, vModels, vBind, vHtml, others } =
     getDiretives(directives);
+  if (!isBranch && (vElseIf || vElse)) {
+    return null;
+  }
 
   // v-if
   if (vIf && !vIfRender(vIf, context)) {
-    return null;
+    return branchRender(dsl, context, Vue, loader, brothers);
   }
 
   const render = (context: Context) => {
@@ -157,6 +162,10 @@ function createWithDirectives(
 
 function getDiretives(directives: NodeDirective[] = []) {
   const vIf = directives.find((n) => camelCase(n.name as string) === 'vIf');
+  const vElseIf = directives.find(
+    (n) => camelCase(n.name as string) === 'vElseIf'
+  );
+  const vElse = directives.find((n) => camelCase(n.name as string) === 'vElse');
   const vFor = directives.find((n) => camelCase(n.name as string) === 'vFor');
   const vShow = directives.find((n) => camelCase(n.name as string) === 'vShow');
   const vBind = directives.find((n) => camelCase(n.name as string) === 'vBind');
@@ -169,6 +178,8 @@ function getDiretives(directives: NodeDirective[] = []) {
   );
   return {
     vIf,
+    vElseIf,
+    vElse,
     vFor,
     vShow,
     vModels,
@@ -245,6 +256,33 @@ function parseNodeEvents(Vue: any, events: NodeEvents, context: Context) {
   );
 }
 
+function branchRender(
+  dsl: NodeSchema,
+  context: Context,
+  Vue: any,
+  loader: BlockLoader,
+  brothers: NodeSchema[] = []
+) {
+  let index = brothers.findIndex((n) => n.id === dsl.id);
+  for (let i = ++index; i < brothers.length; i++) {
+    const { directives = [] } = brothers[i];
+    const { vElseIf, vElse } = getDiretives(directives);
+    console.log(directives);
+    if (vElseIf) {
+      if (!!context.__parseExpression(vElseIf.value)) {
+        return nodeRender(brothers[i], context, Vue, loader, brothers, true);
+      } else {
+        continue;
+      }
+    }
+
+    if (vElse) {
+      return nodeRender(brothers[i], context, Vue, loader, brothers, true);
+    }
+  }
+  return null;
+}
+
 export function getModifiers(
   modifiers: NodeModifiers = {},
   isToString: boolean = false
@@ -280,7 +318,7 @@ function renderSlot(
 
     if (Array.isArray(children)) {
       return children.map((n) =>
-        nodeRender(n, context, Vue, loader)
+        nodeRender(n, context, Vue, loader, children)
       ) as VNode[];
     }
     return null;
@@ -374,7 +412,7 @@ function childrenToSlots(
           : getScope(scope);
 
         return nodes.map((node) =>
-          nodeRender(node, context.__clone(props), Vue, loader)
+          nodeRender(node, context.__clone(props), Vue, loader, nodes)
         );
       };
       return result;

@@ -28,6 +28,8 @@ export interface AISendImageData {
   file: File;
 }
 
+let __currentCompletions: any = null;
+
 function useDict(code: string, getDictOptions: (code: string) => Promise<any>) {
   const result: Ref<DictOption[]> = ref([]);
   if (getDictOptions) {
@@ -101,7 +103,8 @@ export function useAI() {
     cancelOrder,
     getOrder,
     getImage,
-    postImageTopic
+    postImageTopic,
+    cancelChat
   } = useOpenApi();
   const hideCodeCacheKey = 'CHAT_HIDE_CODE';
   const region = engine.skeleton?.getRegion('Apps').regionRef;
@@ -272,7 +275,10 @@ export function useAI() {
     });
   };
 
-  const completions = (chat: AIChat, complete?: (chat: AIChat) => void) => {
+  const completions = async (
+    chat: AIChat,
+    complete?: (chat: AIChat) => void
+  ) => {
     promptText.value = '';
     chat.content = '';
     chat.reasoning = '';
@@ -281,7 +287,7 @@ export function useAI() {
     chat.message = '';
     let thinking: number = 0;
     const now = Date.now();
-    return chatCompletions(
+    __currentCompletions = await chatCompletions(
       chat.topicId,
       chat.id,
       async (data, done) => {
@@ -311,8 +317,8 @@ export function useAI() {
             } else {
               const messages = e?.data || e?.message;
               chat.message = Array.isArray(messages)
-                ? messages.join('\n')
-                : '代码有错误。';
+                ? messages.join('，')
+                : '代码有错误';
             }
             chat.status = 'Error';
             return null;
@@ -343,6 +349,8 @@ export function useAI() {
         complete && complete(chat);
       }
     );
+
+    return __currentCompletions;
   };
 
   const getVueCode = (content: string) => {
@@ -431,6 +439,18 @@ export function useAI() {
     fillPromptInput(prompt);
   };
 
+  const onCancelChat = async (chat: AIChat) => {
+    if (!currentTopic.value) return;
+    if (__currentCompletions && typeof __currentCompletions === 'function') {
+      __currentCompletions();
+    }
+    chat.status = 'Canceled';
+    const res = await cancelChat(chat);
+    if (res && res.data) {
+      Object.assign(chat, res.data);
+    }
+  };
+
   const fillPromptInput = (content: string, isNew?: boolean) => {
     promptText.value = content;
     if (isNew) {
@@ -444,19 +464,6 @@ export function useAI() {
       storage.save(hideCodeCacheKey, isHideCode.value, { type: 'local' });
     }
   };
-
-  // const uploadImage = async (file: File) => {
-  //   const res = await uploader(file);
-  //   return res?.data;
-  // };
-
-  // const postImageTopic = async (data: AISendImageData) => {
-  //   const { file } = data;
-  //   loading.value = true;
-  //   const url = await uploadImage(file);
-
-  //   console.log(url);
-  // };
 
   watch(
     () => region?.active,
@@ -524,6 +531,7 @@ export function useAI() {
     getOrder,
     updateChatDsl,
     getImage,
-    onPostImageTopic
+    onPostImageTopic,
+    onCancelChat
   };
 }
