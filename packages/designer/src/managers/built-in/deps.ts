@@ -93,6 +93,8 @@ export const builtInDeps: Dependencie[] = [
     required: true,
     official: true,
     enabled: true,
+    assetsUrl: '@vtj/materials/assets/icons/index.umd.js',
+    assetsLibrary: 'VtjIconsMaterial',
     platform: ['web', 'h5']
   },
   {

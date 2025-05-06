@@ -9,6 +9,11 @@ const materials = {
     library: 'VtjUIMaterial',
     outDir: 'dist/assets/ui'
   },
+  icons: {
+    entry: 'src/icons/index.ts',
+    library: 'VtjIconsMaterial',
+    outDir: 'dist/assets/icons'
+  },
   element: {
     entry: 'src/element/index.ts',
     library: 'ElementPlusMaterial',

@@ -1,7 +1,7 @@
 {
   "name": "@vtj/materials",
   "private": false,
-  "version": "0.12.11",
+  "version": "0.12.12",
   "type": "module",
   "keywords": [
     "低代码引擎",
@@ -21,8 +21,9 @@
   "author": "chenhuachun",
   "license": "MIT",
   "scripts": {
-    "build": "npm run remove && npm run build:ui && npm run build:charts && npm run build:element && npm run build:antdv && npm run build:vant && npm run build:uniApp && npm run build:uniH5 && npm run build:uniH5Vue && npm run build:uniH5C && npm run build:uniUI && npm run build:uniUIC  && npm run copy",
+    "build": "npm run remove && npm run build:ui && npm run build:icons && npm run build:charts && npm run build:element && npm run build:antdv && npm run build:vant && npm run build:uniApp && npm run build:uniH5 && npm run build:uniH5Vue && npm run build:uniH5C && npm run build:uniUI && npm run build:uniUIC  && npm run copy",
     "build:ui": "vue-tsc && cross-env BUILD_TYPE=ui vite build",
+    "build:icons": "vue-tsc && cross-env BUILD_TYPE=icons vite build",
     "build:element": "vue-tsc && cross-env BUILD_TYPE=element vite build",
     "build:antdv": "vue-tsc && cross-env BUILD_TYPE=antdv vite build",
     "build:charts": "vue-tsc && cross-env BUILD_TYPE=charts vite build",
@@ -44,6 +45,7 @@
     "@vtj/charts": "workspace:~",
     "@vtj/cli": "workspace:~",
     "@vtj/core": "workspace:~",
+    "@vtj/icons": "workspace:~",
     "@vtj/ui": "workspace:~",
     "@vtj/utils": "workspace:~",
     "@vueuse/core": "~13.1.0",

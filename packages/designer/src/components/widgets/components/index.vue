@@ -21,6 +21,7 @@
           <Box
             :name="desc.name"
             :title="desc.label || desc.name"
+            :icon="desc.icon"
             draggable
             @dragstart="onDragStart(desc)"
             @dragend="onDragEnd"></Box>
@@ -45,6 +46,7 @@
                   <Box
                     :name="desc.name"
                     :title="desc.label || desc.name"
+                    :icon="desc.icon"
                     draggable
                     @dragstart="onDragStart(desc)"
                     @dragend="onDragEnd"></Box>

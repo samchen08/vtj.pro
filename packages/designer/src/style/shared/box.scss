@@ -17,6 +17,9 @@
       opacity: 1;
     }
   }
+  @include e(icon) {
+    margin-bottom: 8px;
+  }
 
   @include when(active) {
     background-color: var(--el-color-primary-light-9);

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.12](https://gitee.com/newgateway/vtj/compare/@vtj/parser@0.12.11...@vtj/parser@0.12.12) (2025-05-06)
+
+
+### Features
+
+* ✨ 支持图标组件物料 ([62a22fd](https://gitee.com/newgateway/vtj/commits/62a22fd139a70107668bac46a025797855e36703))
+
+
+
+
+
 ## [0.12.11](https://gitee.com/newgateway/vtj/compare/@vtj/parser@0.12.10...@vtj/parser@0.12.11) (2025-05-05)
 
 

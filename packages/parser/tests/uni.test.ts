@@ -14,7 +14,7 @@ test('test_1', async () => {
     console.error('error', errors);
   });
 
-  // console.log(JSON.stringify(result, null, 2));
+  console.log(JSON.stringify(result, null, 2));
 
   expect(true).toBeTruthy();
 });

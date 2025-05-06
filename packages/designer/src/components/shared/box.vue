@@ -7,7 +7,12 @@
     @dragend="onDragEnd">
     <XContainer direction="column" justify="center" align="center">
       <slot>
-        <span class="v-box__name">{{ props.name }}</span>
+        <XIcon
+          v-if="props.icon"
+          class="v-box__icon"
+          :icon="getIcon(props.icon)"
+          :size="24"></XIcon>
+        <span v-else class="v-box__name">{{ props.name }}</span>
         <span class="v-box__label">{{ props.title }}</span>
       </slot>
     </XContainer>
@@ -36,17 +41,19 @@
 </template>
 <script lang="ts" setup>
   import { computed } from 'vue';
-  import { XContainer, XAction } from '@vtj/ui';
+  import { XContainer, XAction, XIcon } from '@vtj/ui';
   import {
     VtjIconEdit,
     VtjIconRemove,
     MoreFilled,
     VtjIconCopy
   } from '@vtj/icons';
+  import * as VtjIcons from '@vtj/icons';
   import { ElMessageBox } from 'element-plus';
 
   export interface Props {
     name: string;
+    icon?: string;
     title: string;
     editable?: boolean;
     active?: boolean;
@@ -57,6 +64,10 @@
 
   const props = defineProps<Props>();
   const emits = defineEmits(['copy', 'edit', 'remove', 'dragstart', 'dragend']);
+
+  const getIcon = (icon?: string) => {
+    return icon ? (VtjIcons as any)[icon] : null;
+  };
 
   const menus = [
     {
