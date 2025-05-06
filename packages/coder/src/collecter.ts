@@ -73,6 +73,7 @@ export class Collecter {
 
   // 代码中包含依赖库的引用，需要从代码中移除
   private replaceLibraryPath(code: JSExpression | JSFunction) {
+    console.log('replaceLibraryPath', code);
     const { libraryRegex } = this;
     let result = code.value;
     for (const regex of libraryRegex) {

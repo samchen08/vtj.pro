@@ -130,11 +130,11 @@ export function parseScripts(content: string, project: ProjectSchema) {
   return result;
 }
 
-function parseImports(script: string) {
+function parseImports(_script: string) {
   const importRegex = /import\s+{(.+?)}\s+from\s+['"](.+?)['"]/g;
   const imports: ImportStatement[] = [];
   let match;
-
+  const script = _script.replace(/\n/g, ' ');
   while ((match = importRegex.exec(script)) !== null) {
     const from =
       match[2] === '@element-plus/icons-vue' ? '@vtj/icons' : match[2];
@@ -143,7 +143,6 @@ function parseImports(script: string) {
       imports: match[1].split(',').map((s) => s.trim())
     });
   }
-
   return imports;
 }
 

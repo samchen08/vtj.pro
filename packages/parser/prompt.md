@@ -57,7 +57,7 @@ VtjIconChatRecord, VtjIconNewChat, VtjIconAi, VtjIconUniapp, VtjIconWindowMax, V
 
 ```vue
 <template>
-  <XIcon :icon="VtjIconChatRecord"></XIcon>
+  <XIcon :icon="VtjIconChatRecord" :size="20" color="#666666"></XIcon>
 </template>
 <script>
   import { defineComponent, reactive } from 'vue';

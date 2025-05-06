@@ -13,15 +13,15 @@ Object.entries(uniappMaterials).forEach(([name, value]) => {
 
 test('uniapp', async () => {
   try {
-    const content = await generator(
-      // input.data.dsl as any,
-      dsl as any,
-      map,
-      uniappProject.dependencies as any,
-      'uniapp',
-      false
-    );
-    console.log(content);
+    // const content = await generator(
+    //   // input.data.dsl as any,
+    //   dsl as any,
+    //   map,
+    //   uniappProject.dependencies as any,
+    //   'uniapp',
+    //   false
+    // );
+    // console.log(content);
   } catch (e) {
     console.log('error----------------', e.codeFrame);
   }

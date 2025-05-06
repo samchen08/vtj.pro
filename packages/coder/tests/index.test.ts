@@ -1,32 +1,29 @@
 import { expect, test } from 'vitest';
-
-import { materials } from './materials';
+import { webMaterials } from './dsl/web.materials';
+import { webProject } from './dsl/web.project';
 
 import { generator } from '../src';
-// import { input } from './log.json';
+import { test_2 as dsl } from './dsl/test_2';
 
-// import { deps } from './deps';
-import { dsl, deps } from './dsl';
-
+const deps = [];
 const map = new Map();
 
-Object.entries(materials).forEach(([name, value]) => {
+Object.entries(webMaterials).forEach(([name, value]) => {
   map.set(name, value);
 });
 
 test('index', async () => {
   try {
     const content = await generator(
-      // input.data.dsl as any,
       dsl as any,
       map,
-      deps as any,
-      'uniapp',
+      webProject.dependencies as any,
+      'web',
       false
     );
-    // console.log(content);
+    console.log(content);
   } catch (e) {
-    // console.log('error----------------', e.codeFrame);
+    console.log('error----------------', e);
   }
   expect(!!generator).toBeTruthy();
 });

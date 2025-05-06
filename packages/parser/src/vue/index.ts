@@ -46,6 +46,7 @@ export async function parseVue(options: IParseVueOptions) {
     imports,
     dataSources
   } = parseScripts(sfc.script, project);
+
   const { nodes, slots, context } = parseTemplate(id, name, sfc.template, {
     platform,
     handlers,
