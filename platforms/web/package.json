@@ -1,7 +1,7 @@
 {
   "name": "@vtj/web",
   "private": false,
-  "version": "0.12.13",
+  "version": "0.12.14",
   "type": "module",
   "sideEffects": false,
   "keywords": [

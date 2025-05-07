@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.14](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.12.13...@vtj/coder@0.12.14) (2025-05-07)
+
+
+### Bug Fixes
+
+* 🐛 icons import miss ([b3469b0](https://gitee.com/newgateway/vtj/commits/b3469b089c84d5bcbd6b6d90dccf85f2db147d23))
+
+
+
+
+
 ## [0.12.13](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.12.12...@vtj/coder@0.12.13) (2025-05-06)
 
 
