@@ -1,8 +1,11 @@
-import { type NodeSchema } from '@vtj/core';
+import { type NodeSchema, type PlatformType } from '@vtj/core';
 import { Parser } from 'htmlparser2';
-import { styleToJson } from './utils';
+import { styleToJson, formatTagName } from './utils';
 
-export function htmlToNodes(html: string): NodeSchema[] {
+export function htmlToNodes(
+  html: string,
+  platform: PlatformType = 'web'
+): NodeSchema[] {
   const root: NodeSchema = { name: '', children: [] };
   const stack: NodeSchema[] = [root];
   let currentText = '';
@@ -16,7 +19,7 @@ export function htmlToNodes(html: string): NodeSchema[] {
         if (currentText.trim()) {
           if (Array.isArray(parent.children)) {
             parent.children.push({
-              name: 'text',
+              name: 'span',
               children: currentText.trim()
             });
           } else {
@@ -25,12 +28,9 @@ export function htmlToNodes(html: string): NodeSchema[] {
 
           currentText = '';
         }
-
         const props = Object.entries(attrs || {}).reduce(
           (pre, cur) => {
             let [key = '', value = ''] = cur;
-            key = key.replace(/\\\"/g, '');
-            value = value.replace(/\\\"/g, '');
             if (key) {
               pre[key] = value;
             }
@@ -45,7 +45,7 @@ export function htmlToNodes(html: string): NodeSchema[] {
 
         // 创建新节点
         const node: NodeSchema = {
-          name,
+          name: formatTagName(name, platform),
           props
         };
 
@@ -98,7 +98,7 @@ export function htmlToNodes(html: string): NodeSchema[] {
     { decodeEntities: true }
   );
 
-  parser.write(html);
+  parser.write(html.replace(/\\"/g, '"'));
   parser.end();
 
   // 返回第一个有效子节点（跳过根容器）

@@ -1,7 +1,7 @@
 {
   "name": "@vtj/core",
   "private": false,
-  "version": "0.12.14",
+  "version": "0.12.15",
   "type": "module",
   "keywords": [
     "低代码引擎",

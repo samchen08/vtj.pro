@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.15](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.12.14...@vtj/core@0.12.15) (2025-05-07)
+
+
+### Bug Fixes
+
+* 🐛 修改也信息导致dsl偶发丢失 ([96accbc](https://gitee.com/newgateway/vtj/commits/96accbcf83792d20a00770c9b1cf4cbbb637da9a))
+
+
+
+
+
 ## [0.12.14](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.12.13...@vtj/core@0.12.14) (2025-05-07)
 
 **Note:** Version bump only for package @vtj/core

@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.15](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.12.14...@vtj/designer@0.12.15) (2025-05-07)
+
+
+### Bug Fixes
+
+* 🐛 AI图片上传样式 ([cea81a4](https://gitee.com/newgateway/vtj/commits/cea81a466f8146aae165055010ca5a7b7166151b))
+* 🐛 parser错误提示 ([0ad49d6](https://gitee.com/newgateway/vtj/commits/0ad49d6e034f8e68949e1774d72a4610e799cc67))
+
+
+
+
+
 ## [0.12.14](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.12.13...@vtj/designer@0.12.14) (2025-05-07)
 
 **Note:** Version bump only for package @vtj/designer

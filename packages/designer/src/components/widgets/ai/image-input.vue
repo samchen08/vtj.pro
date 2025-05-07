@@ -23,7 +23,7 @@
       class="v-ai-widget-image-input__preview"
       v-loading="props.loading"
       element-loading-text="正在分析...">
-      <ElImage :src="blobUrl" fit="fill"></ElImage>
+      <ElImage :src="blobUrl" fit="cover"></ElImage>
       <ElButton
         class="v-ai-widget-image-input__remove"
         type="danger"

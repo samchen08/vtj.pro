@@ -455,7 +455,7 @@ function transformChildren(
     ) {
       const html = (childNode as any).codegenNode.value.arguments[0];
       if (html) {
-        const ret = htmlToNodes(html);
+        const ret = htmlToNodes(html, __platform);
         nodes.push(...ret);
       }
       // 处理 template 标签
@@ -492,7 +492,7 @@ function transformChildren(
     } else if ((childNode as any).type === NodeTypes.JS_CALL_EXPRESSION) {
       const content = (childNode as any).arguments?.[0];
       if (content) {
-        const children = htmlToNodes(content) as any;
+        const children = htmlToNodes(content, __platform) as any;
         nodes.push(...children);
       }
     } else if (childNode.type === NodeTypes.TEXT_CALL) {

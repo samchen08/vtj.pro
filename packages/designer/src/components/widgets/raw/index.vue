@@ -53,8 +53,12 @@
             return null;
           });
         if (schema) {
-          current.value?.update(schema);
-          message('保存成功');
+          if (Array.isArray(schema)) {
+            notify(schema.join(','), '提示');
+          } else {
+            current.value?.update(schema);
+            message('保存成功');
+          }
         }
       }
     }

@@ -42,8 +42,13 @@
 10. 组件内可以直接使用 this.$router 和 this.$route, 不需要引用 vue-router。
 11. 如果组件需要用到图片，可以使用 picsum.photos 提供的服务来模拟数据，例如：https://picsum.photos/200/200?random=0
 12. 输出代码要复查是否有错误，别忘了state的正确调用方式。
-13. 在web平台可以使用`@vtj/icons`依赖中的图标组件，用法参考可用的图标
-14. echart图表可以使用`@vtj/charts`依赖中的图表组件，用法参考ECharts组件
+13. 在web平台可以使用`@vtj/icons`依赖中的图标组件，用法参考可用的图标，不能使用在图标列表不存在的图标。
+14. 图表可以使用`@vtj/charts`依赖中的图表组件，用法参考ECharts组件。
+
+### 需要注意的问题：
+
+1. 在template中使用state，需要加上前缀`state.`
+2. 每轮对话给出的代码必须是完整的，不能省略掉不变的代码。
 
 ### web平台可用的图标
 
@@ -100,7 +105,7 @@ echarts组件可以用`@vtj/charts`依赖中导出，用法如下：
 <script>
   import { defineComponent, reactive } from 'vue';
   import { useProvider } from '@vtj/renderer';
-  import { XChart } from '@vtj/icons';
+  import { XChart } from '@vtj/charts';
   export default defineComponent({
     name: 'charts',
     components: {

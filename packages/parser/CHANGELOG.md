@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.15](https://gitee.com/newgateway/vtj/compare/@vtj/parser@0.12.14...@vtj/parser@0.12.15) (2025-05-07)
+
+
+### Bug Fixes
+
+* 🐛 优化提示词 ([f893c9d](https://gitee.com/newgateway/vtj/commits/f893c9df00f591a0a54a47c09e72b2fad0fa74e9))
+* 🐛 html解析class错误问题 ([f60e663](https://gitee.com/newgateway/vtj/commits/f60e663f075a7560be8d0126813a9bab9ac44eb2))
+* 🐛 parser  uniapp html tag error ([05769ce](https://gitee.com/newgateway/vtj/commits/05769ceb92d401cef667bd64778a6b767303e328))
+
+
+
+
+
 ## [0.12.14](https://gitee.com/newgateway/vtj/compare/@vtj/parser@0.12.13...@vtj/parser@0.12.14) (2025-05-07)
 
 **Note:** Version bump only for package @vtj/parser

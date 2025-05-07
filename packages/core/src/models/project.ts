@@ -362,6 +362,7 @@ export class ProjectModel {
    */
   updatePage(page: PageFile, silent: boolean = false) {
     const match = this.getPage(page.id);
+    delete page.dsl;
     if (match) {
       Object.assign(match, page);
     } else {

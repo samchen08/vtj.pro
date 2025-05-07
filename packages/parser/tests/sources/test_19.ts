@@ -1,6 +1,6 @@
 export const test_19 = `
 <template>
-  <div class="landing-page">
+  <div class="landing-page page1">
     <!-- 导航栏 -->
     <header class="header">
       <div class="logo">
