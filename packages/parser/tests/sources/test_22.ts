@@ -1,37 +1,38 @@
 export const test_22 = `
 <template>
-  <AButton type="primary" @click="handleCheck">检查用户</AButton>
+  <div>
+    <el-button type="primary" @click="handleClick">检查用户</el-button>
+  </div>
 </template>
 <script lang="ts">
   // @ts-nocheck
   import { defineComponent, reactive } from 'vue';
   import { useProvider } from '@vtj/renderer';
-  import { Button } from 'ant-design-vue';
-  import { axios } from '@vtj/utils';
-  import { debounce } from '@vtj/utils';
+  import { ElButton } from 'element-plus';
+  import { axios, debounce } from '@vtj/utils';
   
   export default defineComponent({
-    name: 'Page12',
+    name: 'Page13',
     components: {
-      AButton: Button
+      ElButton
     },
     setup(props) {
-      const provider = useProvider({ id: '157uaci8', version: '1747018851963' });
+      const provider = useProvider({ id: '1585368j', version: '1747036992813' });
       const state = reactive({});
       return { state, props, provider };
     },
     methods: {
-      handleCheck() {
-        axios.get('/api/user/check')
-          .then(response => {
-            console.log('请求成功', response.data);
-          })
-          .catch(error => {
-            console.error('请求失败', error);
-          });
-      },
-      debounceHandleCheck(){
-         
+      handleClick() {
+      console.log( {debounce, aa });
+        return debounce(() => {
+          axios.get('/api/user/check')
+            .then(response => {
+              console.log('请求成功', response.data);
+            })
+            .catch(error => {
+              console.error('请求失败', error);
+            });
+        }, 300)();
       }
     }
   });

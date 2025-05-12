@@ -267,7 +267,6 @@ function branchRender(
   for (let i = ++index; i < brothers.length; i++) {
     const { directives = [] } = brothers[i];
     const { vElseIf, vElse } = getDiretives(directives);
-    console.log(directives);
     if (vElseIf) {
       if (!!context.__parseExpression(vElseIf.value)) {
         return nodeRender(brothers[i], context, Vue, loader, brothers, true);

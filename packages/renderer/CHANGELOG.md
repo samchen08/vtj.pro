@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.18](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.12.17...@vtj/renderer@0.12.18) (2025-05-12)
+
+
+### Bug Fixes
+
+* 🐛 parser utils ([03abd89](https://gitee.com/newgateway/vtj/commits/03abd89054d2daa55345024669a859f8585f8980))
+
+
+
+
+
 ## [0.12.17](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.12.16...@vtj/renderer@0.12.17) (2025-05-12)
 
 **Note:** Version bump only for package @vtj/renderer
