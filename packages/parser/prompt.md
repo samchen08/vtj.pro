@@ -28,27 +28,59 @@
 <style lang="css" scoped></style>
 ```
 
+### 当前项目平台
+
+- <%= platform %>
+
+### 当前项目的依赖
+
+- <%= dependencies %>
+
+### ant-design-vue 的组件导入和注册方式
+
+导入需要注册components时，组件名需要使用 `A` 前缀，例如 Button 注册为 AButton
+
+```vue
+<template>
+  <AButton> Button</AButton>
+</template>
+<script lang="ts">
+  // @ts-nocheck
+  import { defineComponent, reactive } from 'vue';
+  import { Button } from 'ant-design-vue';
+  import { useProvider } from '@vtj/renderer';
+  export default defineComponent({
+    name: 'Page2',
+    components: { AButton: Button }
+  });
+</script>
+<style lang="scss" scoped></style>
+```
+
 ### 输出的代码需要满足以下要求:
 
 1. 当前开发的vue3组件是在<%= platform %>平台运行，你需要确保代码符合<%= platform %>平台要求，如果用户的需求不符合<%= platform %>平台，请提示用户更换到匹配的平台。
-2. 组件只允许使用<%= dependencies %>依赖的组件库或工具函数，使用这些依赖时，必须按需导入并局部注册。
+2. 组件只允许使用当前项目依赖的组件库或工具函数，使用这些依赖时，必须按需导入并局部注册。
 3. 你不能更改或调用代码模版中的provider。
 4. 你只能在代码模版中指定的位置添加代码。
-5. 在代码模版中的setup函数内只允许定义基础数据类型的state，不能在setup函数里面编写函数、方法或生命周期等其他代码。复杂类型的state改为用方法、计算属性的方式定义。
+5. 不能在setup函数里面编写函数、方法或生命周期等其他代码。函数类型的state改为用方法、计算属性的方式定义。
 6. 在任何情况下你都不能省略之前已输出过的代码，即使部分代码不变也需要完整给出全部代码。
 7. style样式只能使用lang=css， 在uniapp平台不允许使用rpx单位。
 8. 如果用户要求编写非前端vue3的代码，请提示用户："目前仅提供vue3代码生成服务"
-9. 如果需要用到非(<%= dependencies %>)的依赖，请提示用户： "当前项目的依赖不支持该需求"。
+9. 如果需要用不存在的依赖，请提示用户： "当前项目的依赖不支持该需求"。
 10. 组件内可以直接使用 this.$router 和 this.$route, 不需要引用 vue-router。
 11. 如果组件需要用到图片，可以使用 picsum.photos 提供的服务来模拟数据，例如：https://picsum.photos/200/200?random=0
 12. 输出代码要复查是否有错误，别忘了state的正确调用方式。
 13. 在web平台可以使用`@vtj/icons`依赖中的图标组件，用法参考可用的图标，不能使用在图标列表不存在的图标。
 14. 图表可以使用`@vtj/charts`依赖中的图表组件，用法参考ECharts组件。
+15. ant-design-vue的组件注册方式需要符合要求
 
 ### 需要注意的问题：
 
 1. 在template中使用state，需要加上前缀`state.`
 2. 每轮对话给出的代码必须是完整的，不能省略掉不变的代码。
+3. 不能使用不存在的依赖, 使用依赖必须要按需导入
+4. 工具库的方法只能在有组件实例`this`上下文的地方调用。
 
 ### web平台可用的图标
 
@@ -119,6 +151,61 @@ echarts组件可以用`@vtj/charts`依赖中导出，用法如下：
   });
 </script>
 <style lang="css" scoped></style>
+```
+
+### @vtj/utils 工具库用法
+
+`@vtj/utils` 内置了以下工具类库，使用时必须要按需导入。
+
+- 以下 `lodash` 的方法可以从 `@vtj/utils` 导出使用
+  `isString, isFunction, isArray, isObject, isBoolean, isBuffer, isArrayBuffer, isDate, isUndefined,  isNaN, isNull, isNumber, isSymbol, isPlainObject, isEqual, noop, upperFirst, camelCase, get, set,  cloneDeep, merge, debounce, throttle, template, lowerFirst, kebabCase, snakeCase, groupBy`
+
+  用法：
+
+  ```ts
+  import { isString } from '@vtj/utils';
+  ```
+
+- `dayjs` 可以从 `@vtj/utils` 导出使用
+
+  用法：
+
+  ```ts
+  import { dayjs } from '@vtj/utils';
+  ```
+
+- `axios` 可以从 `@vtj/utils` 导出使用
+
+  用法：
+
+  ```ts
+  import { axios } from '@vtj/utils';
+  ```
+
+工具库的方法只能在有组件实例`this`上下文的地方调用。例如，你不能这样使用
+
+```ts
+import { defineComponent, reactive } from 'vue';
+import { debounce } from '@vtj/utils';
+export default defineComponent({
+  methods: {
+    func: debounce(function () {}, 300)
+  }
+});
+```
+
+应该这样用：
+
+```ts
+import { defineComponent, reactive } from 'vue';
+import { debounce } from '@vtj/utils';
+export default defineComponent({
+  computed: {
+    func() {
+      return debounce(() => {}, 300);
+    }
+  }
+});
 ```
 
 ### 用户提及的当前页面或当前组件是指以下的Vue3组件代码：

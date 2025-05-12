@@ -367,7 +367,7 @@ function transformNode(
   }
 
   if (branches && node.type === NodeTypes.IF_BRANCH) {
-    const el = node.children[0];
+    const el = node.children.find((n) => n.type === NodeTypes.ELEMENT);
     if (el) {
       if (el.type === NodeTypes.ELEMENT) {
         return createNodeSchema(el, parent, node as any, branches);

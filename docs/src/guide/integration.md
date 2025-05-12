@@ -59,7 +59,7 @@ export default defineConfig({
 ```js
 import { createApp } from 'vue';
 // 1、引入 VTJ 相关功能
-import { createProvider, LocalService, createModules } from '@vtj/web';
+import { createProvider, LocalService, createModules, NodeEnv } from '@vtj/web';
 // 2、引用组件样式
 import '@vtj/web/src/index.scss';
 
@@ -75,7 +75,7 @@ const service = new LocalService();
 
 // 4、创建低代码提供者实例
 const { provider, onReady } = createProvider({
-  nodeEnv: process.env.NODE_ENV as 'development' | 'production',
+  nodeEnv: process.env.NODE_ENV as NodeEnv,
   modules: createModules(),
   service,
   router

@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.17](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.12.16...@vtj/designer@0.12.17) (2025-05-12)
+
+
+### Bug Fixes
+
+* 🐛 升级 element-plus 导致api管理面板折叠失效问题 ([130fa7b](https://gitee.com/newgateway/vtj/commits/130fa7b6399ff366f8a9e64fa240d3137391d446))
+
+
+
+
+
+## [0.12.16](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.12.15...@vtj/designer@0.12.16) (2025-05-12)
+
+**Note:** Version bump only for package @vtj/designer
+
+
+
+
+
 ## [0.12.15](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.12.14...@vtj/designer@0.12.15) (2025-05-07)
 
 

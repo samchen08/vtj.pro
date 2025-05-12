@@ -8,7 +8,7 @@
         placeholder="搜索API"
         clearable></ElInput>
     </div>
-    <ElCollapse :model-value="defaultCollapseValue">
+    <ElCollapse v-model="collapseValue">
       <ElCollapseItem
         v-for="(items, name) in groups"
         :name="name"
@@ -76,6 +76,7 @@
   const categories = computed(() => Object.keys(groups.value));
 
   const defaultCollapseValue = computed(() => categories.value[0]);
+  const collapseValue = ref(defaultCollapseValue.value);
 
   const createEmptyFormModel = () => {
     return {

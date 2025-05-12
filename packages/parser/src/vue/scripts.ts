@@ -178,6 +178,8 @@ function getState(block: BlockStatement) {
 
 function getFunction(item: ObjectMethod) {
   const { key, async, params, body } = item;
+
+  console.log('getFunction--', item, key, async, params, body);
   const paramsStr = params
     .map((n: any) => {
       if (n.type === 'ObjectPattern') {
