@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.20](https://gitee.com/newgateway/vtj/compare/@vtj/parser@0.12.19...@vtj/parser@0.12.20) (2025-05-15)
+
+**Note:** Version bump only for package @vtj/parser
+
+
+
+
+
+## [0.12.19](https://gitee.com/newgateway/vtj/compare/@vtj/parser@0.12.18...@vtj/parser@0.12.19) (2025-05-12)
+
+
+### Bug Fixes
+
+* 🐛 parser block schema miss ([596df07](https://gitee.com/newgateway/vtj/commits/596df07e4fdb42d35cdbde5b9aeeef564ce12bdb))
+
+
+
+
+
 ## [0.12.18](https://gitee.com/newgateway/vtj/compare/@vtj/parser@0.12.17...@vtj/parser@0.12.18) (2025-05-12)
 
 

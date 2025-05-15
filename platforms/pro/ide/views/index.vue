@@ -13,14 +13,16 @@
     Extension,
     createAdapter,
     createServiceRequest,
-    createAccess
+    createAccess,
+    type VTJConfig
   } from '../../src';
   import { notify, loading, alert } from '../utils';
 
   const route = useRoute();
   const container = ref();
   const service = new LocalService(createServiceRequest(notify));
-  const config = await service.getExtension().catch(() => null);
+  const config: VTJConfig =
+    (await service.getExtension().catch(() => null)) || {};
   const adapter = createAdapter({
     loading,
     notify,
@@ -40,7 +42,8 @@
     pageRouteName = 'page',
     remote,
     auth,
-    checkVersion = true
+    checkVersion = true,
+    enhance
   } = config || {};
 
   const isHashRouter = () => history === 'hash';
@@ -100,6 +103,7 @@
     remote,
     auth,
     checkVersion,
+    enhance,
     ...options
   });
 

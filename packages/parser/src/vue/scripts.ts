@@ -23,7 +23,7 @@ import { getJSExpression, getJSFunction, LIFE_CYCLES_LIST } from './utils';
 
 export interface ImportStatement {
   from: string;
-  imports: string[];
+  imports: string[] | string;
 }
 
 export interface ParseScriptsResult {
@@ -132,6 +132,8 @@ export function parseScripts(content: string, project: ProjectSchema) {
 
 function parseImports(_script: string) {
   const importRegex = /import\s+{(.+?)}\s+from\s+['"](.+?)['"]/g;
+  const importDefaultRegex = /import\s+(.+?)\s+from\s+['"](.+?)['"]/g;
+  const blockRegex = /^{(.+?)}$/;
   const imports: ImportStatement[] = [];
   let match;
   const script = _script.replace(/\n/g, ' ');
@@ -143,6 +145,18 @@ function parseImports(_script: string) {
       imports: match[1].split(',').map((s) => s.trim())
     });
   }
+
+  while ((match = importDefaultRegex.exec(script)) !== null) {
+    const defaults = match[1];
+    const from = match[2];
+    if (defaults && !blockRegex.test(defaults)) {
+      imports.push({
+        from,
+        imports: defaults
+      });
+    }
+  }
+
   return imports;
 }
 

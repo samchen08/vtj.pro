@@ -76,14 +76,23 @@ export interface ExtensionConfig {
   params?: Array<Record<string, any>>;
 }
 
+export interface EnhanceConfig {
+  name: string;
+  urls: string[];
+}
+
 /**
  * 扩展配置
  */
 export interface VTJConfig {
   /**
+   * 应用增强配置
+   */
+  enhance?: boolean | EnhanceConfig;
+  /**
    * 扩展配置
    */
-  extension: ExtensionConfig;
+  extension?: ExtensionConfig;
 
   /**
    * 路由History模式

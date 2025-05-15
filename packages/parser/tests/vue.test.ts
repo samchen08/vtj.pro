@@ -2,7 +2,7 @@ import { expect, test } from 'vitest';
 import { parseVue, htmlToNodes } from '../src';
 
 import { project } from './sources/project';
-import { test_22 as source } from './sources/test_22';
+import { test_23 as source } from './sources/test_23';
 
 test('test_1', async () => {
   const result = await parseVue({

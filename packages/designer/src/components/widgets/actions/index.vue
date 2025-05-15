@@ -7,6 +7,14 @@
     <ElDivider v-if="false" direction="vertical"></ElDivider>
 
     <ElButton
+      :type="locked ? 'warning' : 'default'"
+      size="small"
+      title="锁定"
+      @click="onToggleLock">
+      <XIcon :icon="Lock"></XIcon>
+    </ElButton>
+
+    <ElButton
       @click="onPreview"
       :type="isPreview ? 'warning' : 'default'"
       size="small"
@@ -90,7 +98,7 @@
   </div>
 </template>
 <script lang="ts" setup>
-  import { ref, h } from 'vue';
+  import { ref, h, computed } from 'vue';
   import {
     ElButton,
     ElDivider,
@@ -109,9 +117,10 @@
     VtjIconPublish,
     VtjIconProject,
     Download,
-    VtjIconAi
+    VtjIconAi,
+    Lock
   } from '@vtj/icons';
-  import { XAction, createDialog } from '@vtj/ui';
+  import { XAction, createDialog, XIcon } from '@vtj/ui';
   import { delay } from '@vtj/utils';
   import Publisher from './publisher.vue';
   import Coder from './coder.vue';
@@ -259,6 +268,43 @@
     const region = engine.skeleton?.getRegion('Apps');
     if (region) {
       region.regionRef.setActive('AI');
+    }
+  };
+
+  const locked = computed(() => {
+    return !!engine.project.value?.locked;
+  });
+
+  const onToggleLock = async () => {
+    const lockedBy = engine.project.value?.locked;
+    const isLocked = !!lockedBy;
+    if (await isLogined()) {
+      const info = engine.access?.getData();
+      if (isLocked) {
+        if (info?.name && info.name === lockedBy) {
+          engine.project.value?.unlock(info.name);
+          message('项目已解除锁定');
+        } else {
+          alert(`项目已被[ ${lockedBy} ]锁定`);
+        }
+      } else {
+        if (info?.name) {
+          engine.project.value?.lock(info.name);
+          message('项目已锁定，只有你才能更改项目');
+        }
+      }
+    } else {
+      const ret = await ElMessageBox.confirm(
+        `${isLocked ? '解锁' : '锁定'}项目需要登录，您还没登录或已过期，请重新登录！`,
+        '提示',
+        {
+          type: 'info',
+          confirmButtonText: '立即登录'
+        }
+      ).catch(() => false);
+      if (ret) {
+        toRemoteAuth();
+      }
     }
   };
 

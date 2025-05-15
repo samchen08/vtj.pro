@@ -12,7 +12,10 @@ import {
   notify,
   loading,
   createModules,
-  type Provider
+  loadEnhance,
+  type Provider,
+  type VTJConfig,
+  type EnhanceConfig
 } from '@vtj/uni-app';
 
 const adapter = createAdapter({ loading, notify });
@@ -32,6 +35,13 @@ const { provider, onReady } = createProvider({
 });
 
 const init = async (provider: Provider) => {
+  const config: VTJConfig =
+    (await service.getExtension().catch(() => null)) || {};
+  const win = (top || window) as Window;
+  const enhance = await loadEnhance(
+    config.enhance as EnhanceConfig,
+    win.location.pathname
+  );
   const { Vue, UniH5 } = window as any;
   const project = provider.project;
   if (!project) return;
@@ -53,6 +63,9 @@ const init = async (provider: Provider) => {
   });
 
   app.use(provider);
+  if (enhance) {
+    app.use(enhance, provider);
+  }
   app.mount(document.body);
 };
 

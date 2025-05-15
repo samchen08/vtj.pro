@@ -105,3 +105,12 @@ export function getRawComponent(desc: MaterialDescription, lib: any) {
   const { name, parent, alias } = desc;
   return parent ? lib[parent]?.[alias || name] : lib[alias || name];
 }
+
+export function parseUrls(urls: string[] = []) {
+  const css = urls.filter((n) => isCSSUrl(n));
+  const js = urls.filter((n) => isJSUrl(n));
+  return {
+    css,
+    js
+  };
+}

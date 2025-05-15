@@ -46,7 +46,10 @@ export default defineBuildConfig([
       '@vtj/core',
       '@vtj/node',
       'serve-static',
-      'body-parser'
+      'body-parser',
+      'fs',
+      'sass',
+      'esbuild'
     ]
   }
 ]);

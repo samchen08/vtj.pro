@@ -39,10 +39,12 @@ export class Extension {
     }
     const { extension, __BASE_PATH__ = '/' } = config || {};
     const { urls = [], library, params = [] } = extension || {};
-    this.urls = urls;
-    this.library = library;
-    this.params = params;
-    this.__BASE_PATH__ = __BASE_PATH__;
+    if (library) {
+      this.urls = urls;
+      this.library = library;
+      this.params = params;
+      this.__BASE_PATH__ = __BASE_PATH__;
+    }
   }
   async load(): Promise<ExtensionOutput> {
     let options: Partial<EngineOptions> = {};

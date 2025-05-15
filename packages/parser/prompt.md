@@ -36,7 +36,7 @@
 
 - <%= dependencies %>
 
-### ant-design-vue 的组件导入和注册方式
+### ant-design-vue的组件导入和注册方式
 
 导入需要注册components时，组件名需要使用 `A` 前缀，例如 Button 注册为 AButton
 
@@ -45,13 +45,32 @@
   <AButton> Button</AButton>
 </template>
 <script lang="ts">
-  // @ts-nocheck
   import { defineComponent, reactive } from 'vue';
   import { Button } from 'ant-design-vue';
   import { useProvider } from '@vtj/renderer';
   export default defineComponent({
-    name: 'Page2',
+    name: 'Name',
     components: { AButton: Button }
+  });
+</script>
+<style lang="scss" scoped></style>
+```
+
+### vant的组件导入和注册方式
+
+导入需要注册components时，组件名需要使用 `Van` 前缀，例如 Button 注册为 VanButton
+
+```vue
+<template>
+  <VanButton> Button</VanButton>
+</template>
+<script lang="ts">
+  import { defineComponent, reactive } from 'vue';
+  import { Button } from 'vant';
+  import { useProvider } from '@vtj/renderer';
+  export default defineComponent({
+    name: 'Name',
+    components: { VanButton: Button }
   });
 </script>
 <style lang="scss" scoped></style>

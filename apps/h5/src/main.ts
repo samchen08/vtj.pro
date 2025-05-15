@@ -1,3 +1,4 @@
+import './style/index.scss';
 import {
   createProvider,
   LocalService,
@@ -15,7 +16,7 @@ import { createApp } from 'vue';
 import router from './router';
 import App from './App.vue';
 import { name } from '../package.json';
-import './style/index.scss';
+import enhance from './enhance';
 
 const app = createApp(App);
 const adapter = createAdapter({ loading, notify, Startup });
@@ -27,6 +28,7 @@ const { provider, onReady } = createProvider({
   adapter,
   service,
   router,
+  enhance,
   dependencies: {
     Vue: () => import('vue'),
     VueRouter: () => import('vue-router')

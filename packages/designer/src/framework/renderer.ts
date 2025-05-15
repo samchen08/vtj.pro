@@ -59,7 +59,9 @@ export class Renderer {
       app.use(router);
     }
     app.use(this.provider);
-
+    if (this.env.enhance) {
+      app.use(this.env.enhance, this.provider);
+    }
     const plugins = Object.entries(library);
     Object.assign(app.config.globalProperties, globals);
     plugins.forEach(([name, plugin]) => {
@@ -181,6 +183,7 @@ export class Renderer {
     this.context = context;
     emitter.on(EVENT_NODE_CHANGE, this.nodeChange as any);
     emitter.on(EVENT_BLOCK_CHANGE, this.blockChange as any);
+    return this.app;
   }
 
   dispose() {

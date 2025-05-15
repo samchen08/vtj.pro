@@ -2,7 +2,8 @@ import {
   type Plugin,
   type ResolvedConfig,
   type ViteDevServer,
-  type PreviewServer
+  type PreviewServer,
+  build
 } from 'vite';
 import {
   copyPlugin,
@@ -35,6 +36,16 @@ export interface DevToolsOptions {
   extensionDir: string;
   materialDirs: string[];
   hm?: string;
+  enhance?: boolean | EnhanceOptions;
+}
+
+export interface EnhanceOptions {
+  entry?: string;
+  name?: string;
+  fileName?: string;
+  external?: string[];
+  globals?: Record<string, string>;
+  outDir?: string;
 }
 
 export interface LinkOptions {
@@ -219,6 +230,73 @@ const aliasPlugin = function (options: DevToolsOptions): Plugin {
   };
 };
 
+const umdBuildPlugin = function (options: DevToolsOptions): Plugin {
+  const {
+    entry = 'src/enhance.ts',
+    name = 'VTJEnhance',
+    fileName = 'enhance',
+    external = [],
+    globals = {},
+    outDir = 'enhance'
+  } = typeof options.enhance === 'boolean' ? {} : options.enhance || {};
+  const outputDir = `${options.nodeModulesDir}/${options.packageName}/dist/${outDir}`;
+  return {
+    name: 'vtj-umd-build-plugin',
+    configureServer(server) {
+      const buildUmd = async () => {
+        await build({
+          configFile: false,
+          build: {
+            outDir: outputDir,
+            emptyOutDir: false,
+            copyPublicDir: false,
+            lib: {
+              entry,
+              name,
+              formats: ['umd'],
+              cssFileName: fileName,
+              fileName: () => {
+                return `${fileName}.umd.js`;
+              }
+            },
+            watch: {},
+            minify: false,
+            rollupOptions: {
+              external: [
+                'vue',
+                'vue-router',
+                '@vtj/icons',
+                '@vtj/utils',
+                'uni-app',
+                'uni-h5',
+                ...external
+              ],
+              output: {
+                exports: 'auto',
+                globals: {
+                  vue: 'Vue',
+                  'vue-router': 'VueRouter',
+                  '@vtj/icons': 'VtjIcons',
+                  '@vtj/utils': 'VtjUtils',
+                  'uni-app': 'UniApp',
+                  'uni-h5': 'UniH5',
+                  ...globals
+                }
+              }
+            }
+          }
+        });
+      };
+      buildUmd();
+      server.watcher.on('change', async (path) => {
+        if (path.endsWith('src/enhance.ts')) {
+          await buildUmd();
+        }
+      });
+    }
+  };
+};
+
 export function parsePresetPlugins(options: DevToolsOptions) {
   const {
     presetPlugins = [],
@@ -272,6 +350,7 @@ export function createDevTools(options: Partial<DevToolsOptions> = {}) {
     extensionDir: '',
     materialDirs: [],
     hm: '42f2469b4aa27c3f8978f634c0c19d24',
+    enhance: false,
     ...options
   };
   const plugins: Plugin[] = [aliasPlugin(opts)];
@@ -390,6 +469,10 @@ export function createDevTools(options: Partial<DevToolsOptions> = {}) {
 
   if (opts.hm) {
     plugins.push(hmPlugin(opts));
+  }
+
+  if (opts.enhance) {
+    plugins.push(umdBuildPlugin(opts));
   }
   return plugins;
 }

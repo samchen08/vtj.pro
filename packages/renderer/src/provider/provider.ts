@@ -66,6 +66,7 @@ export interface ProviderOptions {
   routeAppendTo?: RouteRecordName;
   pageRouteName?: string;
   routeMeta?: RouteMeta;
+  enhance?: (app: App, provider: Provider) => void;
 }
 
 export enum NodeEnv {
@@ -341,6 +342,10 @@ export class Provider extends Base {
           this.adapter.notify(message, '组件渲染错误', 'error');
         }
       };
+    }
+
+    if (this.options.enhance) {
+      app.use(this.options.enhance, this);
     }
   }
 

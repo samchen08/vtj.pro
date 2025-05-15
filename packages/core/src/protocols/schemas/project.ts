@@ -8,6 +8,10 @@ import type { PlatformType, JSFunction } from '../shared';
  */
 export interface ProjectSchema {
   /**
+   * 被锁定
+   */
+  locked?: string;
+  /**
    * 平台，默认 web
    */
   platform?: PlatformType;

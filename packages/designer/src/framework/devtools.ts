@@ -24,6 +24,7 @@ export class DevTools {
   private isInited: boolean = false;
   private proxyLoad: any;
   constructor() {
+    localStorage.removeItem(VUE_DEVTOOLS_FRAME_STATE_KEY);
     this.proxyUpdateState = this.updateState.bind(this);
     this.proxyLoad = debounce(this.load, 500);
   }

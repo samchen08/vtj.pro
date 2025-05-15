@@ -10,6 +10,6 @@
     "vite.config.ts",
     "proxy.config.ts",
     "env.config.ts",
-    "node_modules/@vtj/pro/**/*",
+    "node_modules/@vtj/pro/**/*"
   ]
 }

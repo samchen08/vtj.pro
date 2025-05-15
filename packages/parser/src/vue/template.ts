@@ -6,7 +6,8 @@ import {
   type NodeDirective,
   type BlockSlot,
   type JSFunction,
-  type PlatformType
+  type PlatformType,
+  type NodeFrom
 } from '@vtj/core';
 import { compileTemplate } from '@vue/compiler-sfc';
 import {
@@ -30,15 +31,18 @@ import {
 } from './utils';
 import type { CSSRules } from './style';
 import { htmlToNodes } from './html';
+import { type ImportStatement } from './scripts';
 
 let __slots: BlockSlot[] = [];
 let __context: Record<string, Set<string>> = {};
 let __handlers: Record<string, JSFunction> = {};
 let __styles: CSSRules = {};
 let __platform: PlatformType = 'web';
+let __imports: ImportStatement[] = [];
 
 export interface ParseTemplateOptions {
   platform: PlatformType;
+  imports?: ImportStatement[];
   handlers?: Record<string, JSFunction>;
   styles?: CSSRules;
 }
@@ -54,6 +58,8 @@ export function parseTemplate(
   __handlers = options?.handlers || {};
   __styles = options?.styles || {};
   __platform = options?.platform || 'web';
+  __imports = options?.imports || [];
+
   const result = compileTemplate({
     id,
     filename: name,
@@ -301,6 +307,24 @@ function getNodeId(el: NodeSchema) {
   return id || uid();
 }
 
+function getForm(name: string): NodeFrom | undefined {
+  const fromRegex = /\.\/(.+?)\.vue/;
+  for (const { from, imports } of __imports) {
+    if (Array.isArray(imports) && imports.includes(name)) {
+      return from;
+    }
+    if (imports === name) {
+      const id = from.match(fromRegex)?.[1];
+      if (id) {
+        return {
+          type: 'Schema',
+          id
+        };
+      }
+    }
+  }
+}
+
 function pickContext(el: NodeSchema, parent?: NodeSchema) {
   const parentContext = new Set(parent?.id ? __context[parent.id] : []);
 
@@ -330,6 +354,7 @@ function createNodeSchema(
 ) {
   const dsl: NodeSchema = {
     name: formatTagName(node.tag, __platform),
+    from: getForm(node.tag),
     props: getProps(node.props),
     events: getEvents(node.props, __handlers),
     directives: getDirectives(scope || node, branches)

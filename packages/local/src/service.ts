@@ -8,10 +8,18 @@ import {
   type PageFile,
   type BlockFile,
   type PlatformType,
-  type VTJConfig
+  type VTJConfig,
+  type EnhanceConfig
 } from '@vtj/core';
 import { resolve } from 'path';
-import { readJsonSync, upperFirstCamelCase, timestamp, uuid } from '@vtj/node';
+import {
+  readJsonSync,
+  upperFirstCamelCase,
+  timestamp,
+  uuid,
+  readdirSync,
+  pathExistsSync
+} from '@vtj/node';
 import { generator, createEmptyPage } from '@vtj/coder';
 import { parseVue as vue2Dsl, type IParseVueOptions } from '@vtj/parser';
 import formidable from 'formidable';
@@ -44,6 +52,21 @@ export async function saveLogs(e: any) {
 export async function getExtension(_body: any, opts: DevToolsOptions) {
   const root = resolve('./');
   const pkg = readJsonSync(resolve(root, 'package.json'));
+  const { name = 'VTJEnhance', outDir = 'enhance' } =
+    typeof opts.enhance === 'boolean' ? {} : opts.enhance || {};
+  const outputDir = `${opts.nodeModulesDir}/${opts.packageName}/dist/${outDir}`;
+
+  const enhance: EnhanceConfig = {
+    name: name,
+    urls: []
+  };
+
+  const enhanceDir = resolve(root, outputDir);
+  if (pathExistsSync(enhanceDir)) {
+    const files = readdirSync(enhanceDir) || [];
+    enhance.urls = files.map((n) => `${outDir}/${n}`);
+  }
+
   const { vtj = {} } = pkg || {};
 
   const __ACCESS__ = {
@@ -55,6 +78,7 @@ export async function getExtension(_body: any, opts: DevToolsOptions) {
 
   const config: VTJConfig = {
     remote: 'https://lcdp.vtj.pro',
+    enhance,
     ...vtj,
     history: vtj.history || 'hash',
     base: vtj.base || '/',
