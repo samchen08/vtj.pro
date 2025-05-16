@@ -156,7 +156,7 @@ export default defineConfig({
 const { provider, onReady } = createProvider({
   // 设置物料路径
   materialPath: '/',
-  nodeEnv: process.env.NODE_ENV as 'development' | 'production',
+  nodeEnv: process.env.NODE_ENV as NodeEnv,
   modules: createModules(),
   service,
   router

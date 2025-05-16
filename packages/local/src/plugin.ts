@@ -246,6 +246,10 @@ const umdBuildPlugin = function (options: DevToolsOptions): Plugin {
       const buildUmd = async () => {
         await build({
           configFile: false,
+          mode: 'production',
+          define: {
+            'process.env.NODE_ENV': JSON.stringify('production')
+          },
           build: {
             outDir: outputDir,
             emptyOutDir: false,
@@ -260,7 +264,7 @@ const umdBuildPlugin = function (options: DevToolsOptions): Plugin {
               }
             },
             watch: {},
-            minify: false,
+            minify: true,
             rollupOptions: {
               external: [
                 'vue',

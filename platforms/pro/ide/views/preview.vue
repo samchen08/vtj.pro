@@ -23,7 +23,6 @@
   const service = new LocalService(createServiceRequest(notify));
   const config: VTJConfig =
     (await service.getExtension().catch(() => null)) || {};
-  const enhance = await loadEnhance(config.enhance as EnhanceConfig);
   const adapter = createAdapter({
     loading,
     notify,
@@ -37,7 +36,6 @@
   const { provider, onReady } = createProvider({
     mode: ContextMode.Runtime,
     service,
-    enhance,
     materialPath: __BASE_PATH__,
     adapter: {
       ...adapter,
@@ -53,13 +51,18 @@
   const instance = getCurrentInstance();
 
   onReady(async () => {
+    const enhance = await loadEnhance(config.enhance as EnhanceConfig);
     const app = instance?.appContext.app;
     if (app) {
       if (options.install) {
         options.install(app);
       }
+      if (enhance) {
+        app.use(enhance, provider);
+      }
       app.use(IconsPlugin);
       app.use(provider);
+
       renderer.value = await provider.getRenderComponent(
         route.params.id.toString(),
         (file: any) => {

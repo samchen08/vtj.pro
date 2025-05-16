@@ -9,7 +9,6 @@
       grow
       @save="onSave">
       <Editor
-        readonly
         ref="editorRef"
         :model-value="style"
         height="100%"

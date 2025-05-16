@@ -1,10 +1,13 @@
+// Vue 相关依赖
 import { type App, type InjectionKey, inject, defineAsyncComponent } from 'vue';
+// 路由相关类型
 import type {
   Router,
   RouteRecordName,
   RouteRecordRaw,
   RouteMeta
 } from 'vue-router';
+// 核心类型和工具
 import {
   type ProjectSchema,
   type PageFile,
@@ -16,6 +19,7 @@ import {
   Base,
   BUILT_IN_COMPONENTS
 } from '@vtj/core';
+// 工具函数
 import {
   jsonp,
   loadScript,
@@ -23,6 +27,7 @@ import {
   request,
   url as urlUtils
 } from '@vtj/utils';
+// 本地模块
 import { createSchemaApis, mockApis, mockCleanup } from './apis';
 import { isVuePlugin, getMock } from '../utils';
 import {
@@ -32,20 +37,25 @@ import {
   loadCss,
   getRawComponent
 } from '../utils';
+// 常量定义
 import {
   ContextMode,
   PAGE_ROUTE_NAME,
   HOMEPAGE_ROUTE_NAME
 } from '../constants';
+// 渲染相关
 import {
   createRenderer,
   createLoader,
   getPlugin,
   type CreateRendererOptions
 } from '../render';
+// 页面容器组件
 import { PageContainer } from './page';
 import { StartupContainer } from './startup';
+// 适配器类型
 import { type ProvideAdapter } from './defaults';
+// 版本信息
 import { version } from '../version';
 
 export const providerKey: InjectionKey<Provider> = Symbol('Provider');
@@ -74,22 +84,34 @@ export enum NodeEnv {
   Development = 'development'
 }
 
+/**
+ * Provider 类是应用的核心提供者，负责:
+ * - 管理项目配置和状态
+ * - 加载依赖和资源
+ * - 初始化路由
+ * - 提供全局API和服务
+ */
 export class Provider extends Base {
-  public mode: ContextMode;
-  public globals: Record<string, any> = {};
-  public modules: Record<string, () => Promise<any>> = {};
-  public adapter: ProvideAdapter = { request, jsonp };
-  public apis: Record<string, (...args: any[]) => Promise<any>> = {};
-  public dependencies: Record<string, () => Promise<any>> = {};
-  public materials: Record<string, () => Promise<any>> = {};
-  public library: Record<string, any> = {};
-  public service: Service;
-  public project: ProjectSchema | null = null;
-  public components: Record<string, any> = {};
-  public nodeEnv: NodeEnv = NodeEnv.Development;
-  private router: Router | null = null;
-  private materialPath: string = './';
-  private urlDslCaches: Record<string, any> = {};
+  public mode: ContextMode; // 当前运行模式(设计/源码/预览等)
+  public globals: Record<string, any> = {}; // 全局变量
+  public modules: Record<string, () => Promise<any>> = {}; // 异步模块加载器
+  public adapter: ProvideAdapter = { request, jsonp }; // 适配器接口
+  public apis: Record<string, (...args: any[]) => Promise<any>> = {}; // API集合
+  public dependencies: Record<string, () => Promise<any>> = {}; // 依赖项
+  public materials: Record<string, () => Promise<any>> = {}; // 物料资源
+  public library: Record<string, any> = {}; // 第三方库
+  public service: Service; // 核心服务
+  public project: ProjectSchema | null = null; // 当前项目配置
+  public components: Record<string, any> = {}; // 组件集合
+  public nodeEnv: NodeEnv = NodeEnv.Development; // 运行环境
+  private router: Router | null = null; // 路由实例
+  private materialPath: string = './'; // 物料路径
+  private urlDslCaches: Record<string, any> = {}; // DSL缓存
+
+  /**
+   * 创建Provider实例
+   * @param options 配置选项
+   */
   constructor(public options: ProviderOptions) {
     super();
     const {
@@ -149,7 +171,17 @@ export class Provider extends Base {
     };
   }
 
+  /**
+   * 加载项目配置并初始化
+   * 1. 从模块或服务加载项目配置
+   * 2. 根据运行模式加载依赖或资源
+   * 3. 初始化Mock数据
+   * 4. 创建API接口
+   * 5. 初始化路由(非uniapp平台)
+   * @param project 项目配置
+   */
   async load(project: ProjectSchema) {
+    // 尝试从模块缓存加载项目配置，否则从服务初始化
     const module =
       this.modules[`.vtj/projects/${project.id}.json`] ||
       this.modules[`/src/.vtj/projects/${project.id}.json`];
@@ -166,19 +198,28 @@ export class Provider extends Base {
 
     /**
      * 源码模式只加载原生代码依赖
+     * 其他模式加载完整资源(包括物料等)
      */
     if (this.mode === ContextMode.Raw) {
       await this.loadDependencies(_window);
     } else {
       await this.loadAssets(_window);
     }
+
+    // 初始化Mock配置
     this.initMock(_window);
+    // 创建API接口
     this.apis = createSchemaApis(apis, meta, this.adapter);
+    // 清理并设置Mock API
     mockCleanup(_window);
     mockApis(apis, _window);
+
+    // 非uniapp平台需要初始化路由
     if (project.platform !== 'uniapp') {
       this.initRouter();
     }
+
+    // 触发就绪事件
     this.triggerReady();
   }
 
@@ -303,23 +344,44 @@ export class Provider extends Base {
     }
   }
 
+  /**
+   * Vue 插件安装方法
+   * 1. 安装所有第三方库插件
+   * 2. 执行自定义安装函数(如果提供)
+   * 3. 安装访问适配器
+   * 4. 提供全局 Provider 实例
+   * 5. 设计模式下设置错误处理器
+   * 6. 执行增强函数(如果提供)
+   * @param app Vue 应用实例
+   */
   install(app: App) {
+    // 记录已安装的插件
     const installed = app.config.globalProperties.installed || {};
+
+    // 安装所有第三方库插件
     for (const [name, library] of Object.entries(this.library)) {
       if (!installed[name] && isVuePlugin(library)) {
         app.use(library);
         installed[name] = true;
       }
     }
+
+    // 执行自定义安装函数
     if (this.options.install) {
       app.use(this.options.install);
     }
+
+    // 安装访问适配器
     if (this.adapter.access) {
       app.use(this.adapter.access);
     }
+
+    // 提供全局 Provider 实例
     app.provide(providerKey, this);
     app.config.globalProperties.$provider = this;
     app.config.globalProperties.installed = installed;
+
+    // 设计模式下设置错误处理器
     if (this.mode === ContextMode.Design) {
       app.config.errorHandler = (err: any, instance, info) => {
         const name = instance?.$options.name;
@@ -344,6 +406,7 @@ export class Provider extends Base {
       };
     }
 
+    // 执行增强函数
     if (this.options.enhance) {
       app.use(this.options.enhance, this);
     }
@@ -405,10 +468,20 @@ export class Provider extends Base {
       .catch(() => null));
   }
 
+  /**
+   * 创建 DSL 渲染器
+   * 1. 合并默认选项和自定义选项
+   * 2. 创建 DSL 加载器
+   * 3. 返回渲染器实例
+   * @param dsl 区块 DSL 配置
+   * @param opts 渲染选项
+   * @returns 渲染器实例
+   */
   createDslRenderer(
     dsl: BlockSchema,
     opts: Partial<CreateRendererOptions> = {}
   ) {
+    // 合并默认渲染选项
     const { library, components, mode, apis } = this;
     const options = {
       mode,
@@ -420,6 +493,7 @@ export class Provider extends Base {
       ...opts
     };
 
+    // 创建 DSL 加载器，用于动态加载依赖的 DSL
     const loader = createLoader({
       getDsl: async (id: string) => {
         return (await this.getDsl(id)) || null;
@@ -430,6 +504,7 @@ export class Provider extends Base {
       options
     });
 
+    // 创建并返回渲染器实例
     return createRenderer({
       ...options,
       dsl,
@@ -437,18 +512,33 @@ export class Provider extends Base {
     });
   }
 
+  /**
+   * 获取渲染组件
+   * 1. 根据ID查找文件(页面或区块)
+   * 2. 如果找到文件且提供了output回调，则调用它
+   * 3. 尝试从模块缓存加载原始Vue组件
+   * 4. 如果找不到原始组件，则获取DSL并创建渲染器
+   * @param id 文件ID
+   * @param output 找到文件时的回调函数
+   * @returns Promise<Vue组件>
+   */
   async getRenderComponent(
     id: string,
     output?: (file: BlockFile | PageFile) => void
   ) {
+    // 根据ID查找文件
     const file = this.getFile(id);
     if (!file) {
       logger.warn(`Can not find file: ${id}`);
       return null;
     }
+
+    // 调用输出回调(如果提供)
     if (output) {
       output(file);
     }
+
+    // 尝试从模块缓存加载原始Vue组件
     const rawPath = `.vtj/vue/${id}.vue`;
     const rawModule =
       this.modules[rawPath] || this.modules[`/src/pages/${id}.vue`];
@@ -456,14 +546,25 @@ export class Provider extends Base {
       return (await rawModule())?.default;
     }
 
+    // 获取DSL配置并创建渲染器
     const dsl = await this.getDsl(file.id);
     if (!dsl) {
       logger.warn(`Can not find dsl: ${id}`);
       return null;
     }
+
     return this.createDslRenderer(dsl).renderer;
   }
 
+  /**
+   * 定义基于URL的异步组件
+   * 1. 根据URL获取DSL配置
+   * 2. 如果获取成功，设置组件名称
+   * 3. 创建并返回DSL渲染器
+   * @param url DSL配置URL
+   * @param name 可选的自定义组件名称
+   * @returns Vue异步组件
+   */
   defineUrlSchemaComponent(url: string, name?: string) {
     return defineAsyncComponent(async () => {
       const dsl = await this.getDslByUrl(url);
@@ -475,6 +576,13 @@ export class Provider extends Base {
     });
   }
 
+  /**
+   * 定义基于插件的异步组件
+   * 1. 根据插件来源获取插件实例
+   * 2. 返回插件组件
+   * @param from 插件来源配置
+   * @returns Vue异步组件
+   */
   definePluginComponent(from: NodeFromPlugin) {
     return defineAsyncComponent(async () => {
       return (await getPlugin(from, window)) as any;
@@ -482,6 +590,11 @@ export class Provider extends Base {
   }
 }
 
+/**
+ * 创建 Provider 实例
+ * @param options Provider 配置选项
+ * @returns 包含 provider 实例和 onReady 回调的对象
+ */
 export function createProvider(options: ProviderOptions) {
   const provider = new Provider(options);
   const onReady = (callback: () => void) => provider.ready(callback);
@@ -492,10 +605,18 @@ export function createProvider(options: ProviderOptions) {
 }
 
 export interface UseProviderOptions {
-  id?: string;
-  version?: string;
+  id?: string; // 组件ID
+  version?: string; // 组件版本
 }
 
+/**
+ * 在组件中使用 Provider 实例
+ * 1. 从Vue上下文中获取注入的Provider
+ * 2. 开发环境下检查组件版本一致性
+ * @param options 使用选项
+ * @returns Provider 实例
+ * @throws 如果找不到Provider会抛出错误
+ */
 export function useProvider(options: UseProviderOptions = {}): Provider {
   const provider = inject(providerKey, null);
   if (!provider) {

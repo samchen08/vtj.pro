@@ -77,6 +77,9 @@ export function createRenderer(options: CreateRendererOptions) {
       const computed = createComputed(Vue, dsl.value.computed ?? {}, context);
       const methods = createMethods(dsl.value.methods ?? {}, context);
       const injects = createInject(Vue, dsl.value.inject, context);
+      for (const [key, value] of Object.entries(injects || {})) {
+        injects[key] = Vue.inject(key, value);
+      }
       const dataSources = createDataSources(
         dsl.value.dataSources || {},
         context

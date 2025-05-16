@@ -125,7 +125,7 @@
   import Publisher from './publisher.vue';
   import Coder from './coder.vue';
   import { useSelected, useOpenApi } from '../../hooks';
-  import { message } from '../../../utils';
+  import { message, alert } from '../../../utils';
 
   export interface Props {
     onlyPublishTemplate?: boolean;

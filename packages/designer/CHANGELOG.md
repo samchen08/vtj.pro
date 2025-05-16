@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.21](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.12.20...@vtj/designer@0.12.21) (2025-05-16)
+
+
+### Bug Fixes
+
+* 🐛 actions alert ([da525fa](https://gitee.com/newgateway/vtj/commits/da525fa4a0e4d450ed490b841c533263afe08d08))
+* 🐛 renderer injects 失效问题 ([5f50c7e](https://gitee.com/newgateway/vtj/commits/5f50c7e1e7fabd59b36571dad2fb076417283341))
+
+
+
+
+
 ## [0.12.20](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.12.19...@vtj/designer@0.12.20) (2025-05-15)
 
 
