@@ -1,7 +1,7 @@
 import type { App } from 'vue';
 import type { Provider } from '@vtj/renderer';
 import { createPinia, defineStore } from 'pinia';
-
+import './style/global.scss';
 const pinia = createPinia();
 const useCounterStore = defineStore('counter', {
   state: () => ({

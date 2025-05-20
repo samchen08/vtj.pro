@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.22](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.12.21...@vtj/materials@0.12.22) (2025-05-20)
+
+
+### Features
+
+* ✨ charts支持geo地图 ([bf42003](https://gitee.com/newgateway/vtj/commits/bf42003b73747b4a64de8f546f790bd8e6435da5))
+
+
+
+
+
 ## [0.12.21](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.12.20...@vtj/materials@0.12.21) (2025-05-16)
 
 **Note:** Version bump only for package @vtj/materials

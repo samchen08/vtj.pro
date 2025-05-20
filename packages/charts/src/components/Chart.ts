@@ -8,7 +8,6 @@ import {
   type ComputedRef
 } from 'vue';
 import type { EChartsOption, ECharts } from 'echarts';
-import * as echarts from 'echarts';
 import { useChart } from '../hooks';
 
 export type ChartOption = EChartsOption;
@@ -29,9 +28,9 @@ export default defineComponent({
       type: Object as PropType<ChartOption>
     }
   },
-  setup(props) {
+  setup(props, { expose, attrs }) {
     const { width, height, option } = toRefs(props);
-    const chartRef = ref();
+    const elRef = ref();
 
     const styles: ComputedRef<Record<string, any>> = computed(() => {
       return {
@@ -39,17 +38,24 @@ export default defineComponent({
         height: height.value
       };
     });
-    const { echartsInstance } = useChart(echarts, chartRef, option);
+    const { instance, getEChart } = useChart(elRef, option, attrs);
+
+    expose({
+      elRef,
+      option,
+      instance,
+      getEChart
+    });
+
     return {
-      chartRef,
+      elRef,
       option,
       styles,
-      echartsInstance
+      instance,
+      getEChart
     };
   },
   render() {
-    const { styles } = this as any;
-    return h('div', { class: 'x-chart', ref: 'chartRef', style: styles });
-  },
-  expose: ['chartRef', 'option', 'echartsInstance']
+    return h('div', { class: 'x-chart', ref: 'elRef', style: this.styles });
+  }
 });
