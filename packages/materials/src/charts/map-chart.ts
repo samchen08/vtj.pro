@@ -28,7 +28,7 @@ const desc: MaterialDescription = {
       setters: ['StringSetter']
     },
     {
-      name: 'geoJson',
+      name: 'geo-json',
       title: '文件路径或GeoJSON对象',
       defaultValue:
         'https://unpkg.com/vtj-geojson@0.1.3/geo/100000/100000.geoJson',
