@@ -28,27 +28,34 @@ VTJ 是一款以AI驱动的Vue3前端低代码开发工具。内置低代码引�
 
 - ✨ **物料丰富**： 此外，还内置了多款常用、功能强大的组件库以及丰富的页面模板，不仅支持高度定制，还提供了可复用的区块组件，助您高效构建出色的应用。
 
-## 预览
+## 设计器预览
 
-![输入图片说明](dev/public/preview/p4.jpg)
+<table border="0">
+  <tr>
+    <td><img src="dev/public/preview/p5.jpg" /></td>
+    <td><img src="dev/public/preview/p4.jpg" /></td>
+  </tr>
+  <tr>
+    <td><img src="dev/public/preview/p1.png" /></td>
+    <td><img src="dev/public/preview/p2.png" /></td>
+  </tr>
+  <tr>
+    <td><img src="dev/public/preview/p3.png" /></td>
+    <td><img src="dev/public/preview/p6.png" /></td>
+  </tr>
+</table>
 
-![输入图片说明](dev/public/preview/p1.png)
+## 试用体验
 
-![输入图片说明](dev/public/preview/p2.png)
-
-![输入图片说明](dev/public/preview/p3.png)
-
-## 体验
-
-### 在线体验
+### 一、在线体验
 
 - [https://lcdp.vtj.pro](https://lcdp.vtj.pro)
 
-访问Vtj专属低代码开发平台，创建应用可以体验设计器和出码功能
+访问VTJ专属低代码开发平台，创建应用可以体验设计器和出码功能。
 
-### 离线本地体验（推荐：功能全， 性能最佳）
+### 二、本地体验 <span style="color:red">（强烈推荐：功能全， 性能最佳）</span>
 
-使用VTJ提供的项目脚手架，可快速创建开发项目工程。 命令：
+VTJ支持开发多种平台应用开发，可以使用脚手架搭建响应平台的项目工程。命令：
 
 1. Web应用(PC端)
 
@@ -75,6 +82,8 @@ VTJ 是一款以AI驱动的Vue3前端低代码开发工具。内置低代码引�
    ```
 
 ## 贡献指南
+
+VTJ支持多种方式对设计器进行扩展，通常情况下你不需要用到源码，如果需要深度定制或与业务捆绑时才有可能需要用源码进行二开，欢迎各位喜欢VTJ的开发者贡献代码。
 
 ### 开发环境要求
 
@@ -105,3 +114,31 @@ npm run setup && npm run build && npm run app:dev
 
 <table border="0">
 <tr><td><img src="./dingtalk.png" /></td><td><img src="./wechat.png" width="" /></td></tr></table>
+
+## ⭐ 优秀案例
+
+### 悦码低代码平台
+
+悦码是**诗悦网络**采用`VTJ`搭建低代码平台，已上线投产。
+
+特点：
+
+1. 通过无界渲染器可跨技术栈引入低代码页面，实现低代码页面跨技术栈复用，包括：`react` `next.js` `vue` `svelte`
+2. 多应用独立设计器
+
+<table border="0">
+<tr>
+<td>多应用独立设计器</td>
+<td>用户生命周期</td>
+<td>静态资源管理</td>
+</tr>
+  <tr>
+    <td>
+    <img src="https://cms-ycode.shiyue.com/y-code/20250521/案例-低代码项目列表.png" />
+    </td>
+    <td>
+    <img src="https://cms-ycode.shiyue.com/y-code/20250521/案例-用户生命周期.png" /></td>
+   <td>
+   <img src="https://cms-ycode.shiyue.com/y-code/20250521/案例-资源管理.png" /></td>
+  </tr>
+</table>
