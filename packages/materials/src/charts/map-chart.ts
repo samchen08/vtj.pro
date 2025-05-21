@@ -35,7 +35,7 @@ const desc: MaterialDescription = {
       setters: ['StringSetter', 'ObjectSetter']
     }
   ],
-  events: [...(Chart.events || [])],
+  events: ['ready', ...(Chart.events || [])],
   snippet: {
     props: {
       width: '100%',

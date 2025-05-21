@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.23](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.12.22...@vtj/designer@0.12.23) (2025-05-21)
+
+
+### Bug Fixes
+
+* 🐛 改小新增页面弹窗高度 ([71e99a3](https://gitee.com/newgateway/vtj/commits/71e99a352c3de9ad690547939bbf89a818473986))
+* 🐛 优化提示词 ([04472da](https://gitee.com/newgateway/vtj/commits/04472dacc78aea5606ab62c795d359ca2edb2ddc))
+
+
+
+
+
 ## [0.12.22](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.12.21...@vtj/designer@0.12.22) (2025-05-20)
 
 **Note:** Version bump only for package @vtj/designer

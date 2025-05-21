@@ -2,7 +2,7 @@
   <XDialogForm
     :title="title"
     width="800px"
-    height="700px"
+    height="650px"
     :form-props="{ tooltipMessage: false }"
     :model="model"
     :submit-method="submit">

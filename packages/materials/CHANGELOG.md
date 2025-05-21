@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.23](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.12.22...@vtj/materials@0.12.23) (2025-05-21)
+
+
+### Bug Fixes
+
+* 🐛 map-chart add ready 事件 ([f424142](https://gitee.com/newgateway/vtj/commits/f424142b8b8fb46d7eb63fa8f55ed7204c0407dd))
+
+
+
+
+
 ## [0.12.22](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.12.21...@vtj/materials@0.12.22) (2025-05-20)
 
 

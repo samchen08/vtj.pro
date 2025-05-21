@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.23](https://gitee.com/newgateway/vtj/compare/@vtj/charts@0.12.22...@vtj/charts@0.12.23) (2025-05-21)
+
+
+### Bug Fixes
+
+* 🐛 map-chart ready bug ([ede55d4](https://gitee.com/newgateway/vtj/commits/ede55d4ae8c7c91af2d82143fe281a5f6c475c4b))
+* 🐛 ready等待dom渲染 ([5f7384a](https://gitee.com/newgateway/vtj/commits/5f7384a30bd6093f79f5e231e05bf32879ea6641))
+
+
+
+
+
 ## [0.12.22](https://gitee.com/newgateway/vtj/compare/@vtj/charts@0.12.21...@vtj/charts@0.12.22) (2025-05-20)
 
 

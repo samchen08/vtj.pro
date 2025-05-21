@@ -1,4 +1,4 @@
-import { defineComponent, h, computed, toRefs, onMounted } from 'vue';
+import { defineComponent, h, computed, toRefs, watch } from 'vue';
 import XChart from './Chart';
 import { useMapChart } from '../hooks';
 
@@ -21,8 +21,11 @@ export default defineComponent({
     const { chartRef, geoJSON, option } = useMapChart(name, geoJson, attrs);
 
     const instance = computed(() => chartRef.value?.instance);
-    onMounted(() => {
-      emit('ready', instance.value);
+
+    watch(geoJSON, async (v) => {
+      if (v) {
+        emit('ready', v);
+      }
     });
 
     return {

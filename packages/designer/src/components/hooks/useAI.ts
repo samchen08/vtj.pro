@@ -326,6 +326,11 @@ export function useAI() {
           if (dsl) {
             try {
               chat.dsl = typeof dsl === 'object' ? dsl : JSON.parse(dsl);
+              if (Array.isArray(chat.dsl)) {
+                chat.dsl = null;
+                chat.status = 'Error';
+                chat.message = chat.dsl.join(', ');
+              }
             } catch (err: any) {
               chat.dsl = null;
               chat.status = 'Error';
@@ -354,7 +359,7 @@ export function useAI() {
   };
 
   const getVueCode = (content: string) => {
-    const regex = /```vue\n([\w\W]*)```/;
+    const regex = /```vue\n([\s\S]*?)\n```/;
     const matches = content.match(regex);
     return matches?.[1] ?? '';
   };

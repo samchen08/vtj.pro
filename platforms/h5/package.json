@@ -1,7 +1,7 @@
 {
   "name": "@vtj/h5",
   "private": false,
-  "version": "0.12.22",
+  "version": "0.12.23",
   "type": "module",
   "sideEffects": false,
   "keywords": [

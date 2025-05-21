@@ -7,7 +7,8 @@
       :name="currentName"
       ref="chart"
       height="100%"
-      @click="onClick"></XMapChart>
+      @click="onClick"
+      @ready="onReady"></XMapChart>
   </XContainer>
 </template>
 <script lang="ts" setup>
@@ -25,9 +26,11 @@
   const option: any = reactive({
     series: [
       {
-        type: 'map'
+        type: 'map',
+        data: []
       }
-    ]
+    ],
+    visualMap: {}
   });
   const chart = ref<InstanceType<typeof XMapChart>>();
 
@@ -49,5 +52,15 @@
 
   const onBack = () => {
     currentName.value = '100000';
+  };
+
+  const onReady = (getJSON) => {
+    const features = getJSON.features || [];
+    option.series[0].data = features.map((n) => {
+      return {
+        name: n.properties.name,
+        value: Math.random() * 100
+      };
+    });
   };
 </script>
