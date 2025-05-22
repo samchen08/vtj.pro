@@ -15,9 +15,9 @@
         placeholder="搜索模板"
         clearable></ElInput>
     </div>
-    <XTabs :items="tabs" v-model="currentTab" class='v-templates-widgets__tab'>
+    <XTabs :items="tabs" v-model="currentTab" class="v-templates-widgets__tab">
       <template #default>
-        <ElCollapse v-if='categories.length' :model-value="categories">
+        <ElCollapse v-if="categories.length" v-model="categoriesValue">
           <ElCollapseItem
             v-for="(items, name) in tabModel"
             :name="name"
@@ -71,7 +71,7 @@
   </Panel>
 </template>
 <script lang="ts" setup>
-  import { ref, computed, type ComputedRef } from 'vue';
+  import { ref, computed, watch, type ComputedRef } from 'vue';
   import {
     ElRow,
     ElCol,
@@ -132,23 +132,32 @@
     });
     // '我的'在第一位
     const tabList = [
-      {label: '我的', model: {}},
-      {label: '共享', model: {}}
+      { label: '我的', model: {} },
+      { label: '共享', model: {} }
     ];
-    tabList.forEach(i => {
-      i.model = groupBy(groups[i.label], (template: TemplateDto) => template.category)
+    tabList.forEach((i) => {
+      i.model = groupBy(
+        groups[i.label],
+        (template: TemplateDto) => template.category
+      );
     });
     return tabList;
   });
+
+  const categoriesValue = ref<string[]>([]);
 
   const categories: ComputedRef<string[]> = computed(() => {
     const current = Number(currentTab.value);
     return Object.keys(tabs.value[current].model) || [];
   });
 
+  watch(categories, (val) => {
+    categoriesValue.value = val;
+  });
+
   const tabModel: ComputedRef<Model> = computed(() => {
     const current = Number(currentTab.value);
-    return tabs.value[current].model
+    return tabs.value[current].model;
   });
 
   const subtitle = computed(() => {
@@ -200,7 +209,8 @@
 </script>
 <style scoped>
   .v-templates-widgets__tab {
-    height: 100%;
+    height: 1px;
+    flex-grow: 1;
   }
   :deep(.x-container) {
     overflow-y: hidden;

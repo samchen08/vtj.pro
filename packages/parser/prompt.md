@@ -16,25 +16,29 @@
 ```vue
 <template></template>
 <script>
-  import { defineComponent, reactive } from 'vue';
-  import { useProvider } from '@vtj/renderer';
-  export default defineComponent({
-    name: '<%= fileName %>',
-    setup(props) {
-      const provider = useProvider({ id: '<%= fileId %>', version: '' });
-      const state = reactive({
-        // 在此处添加状态、变量或数据
-      });
-      return { state, props, provider };
-    },
-    methods: {
-      // 在此处添加方法
-    },
-    computed: {
-      // 在此处添加计算属性
-    }
-    // 在此处添加生命周期钩子
-  });
+    import { defineComponent, reactive } from 'vue';
+  <% if(platform == 'uniapp') { %>
+    import { useProvider } from '@vtj/uni-app';
+  <% } else { %>
+   import { useProvider } from '@vtj/renderer';
+  <% } %>
+    export default defineComponent({
+      name: '<%= fileName %>',
+      setup(props) {
+        const provider = useProvider({ id: '<%= fileId %>', version: '' });
+        const state = reactive({
+          // 在此处添加状态、变量或数据
+        });
+        return { state, props, provider };
+      },
+      methods: {
+        // 在此处添加方法
+      },
+      computed: {
+        // 在此处添加计算属性
+      }
+      // 在此处添加生命周期钩子
+    });
 </script>
 <style lang="css" scoped></style>
 ```
