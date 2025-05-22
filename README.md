@@ -156,7 +156,7 @@ npm run setup && npm run build && npm run app:dev
 <td>
 悦码是<strong>诗悦网络</strong>采用<code>VTJ</code>搭建低代码平台，已上线投产。
 特点：<br />
-1. 通过无界渲染器可跨技术栈引入低代码页面，实现低代码页面跨技术栈复用，包括：`react` `next.js` `vue` `svelte` ：<br />
+1. 通过无界渲染器可跨技术栈引入低代码页面，实现低代码页面跨技术栈复用，包括：<code>react</code> <code>next.js</code> <code>vue</code> <code>svelte</code> ：<br />
 2. 多应用独立设计器
 </td>
 </tr>
