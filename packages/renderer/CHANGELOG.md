@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.29](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.12.28...@vtj/renderer@0.12.29) (2025-05-23)
+
+
+### Bug Fixes
+
+* 🐛 renderer css scoped ([1d2b741](https://gitee.com/newgateway/vtj/commits/1d2b741b735616197e776ceb7cc845779a161164))
+
+
+
+
+
+## [0.12.28](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.12.27...@vtj/renderer@0.12.28) (2025-05-23)
+
+
+### Bug Fixes
+
+* 🐛 render scoped css ([69d0c34](https://gitee.com/newgateway/vtj/commits/69d0c34b1b0836818bc6c6899981dd1092e28b29))
+
+
+
+
+
 ## [0.12.27](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.12.26...@vtj/renderer@0.12.27) (2025-05-23)
 
 **Note:** Version bump only for package @vtj/renderer

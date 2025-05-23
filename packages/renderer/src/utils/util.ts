@@ -3,35 +3,10 @@ import type { PageFile, BlockFile } from '@vtj/core';
 import type { RouteLocationNormalizedGeneric } from 'vue-router';
 import { isFunction, isString } from '@vtj/utils';
 import { HTML_TAGS, BUILD_IN_TAGS } from '../constants';
+import { compileScopedCSS } from './compileScoped';
 
 export function toString(value: any) {
   return isString(value) ? value : JSON.stringify(value);
-}
-
-export function compileScopedCSS(cssContent: string, scopeId: string): string {
-  // 第一步：处理 :deep() 语法
-  const deepProcessed = cssContent
-    .replace(/::v-deep\(/g, ':deep(') // 兼容旧语法
-    .replace(/(\s*)>>>(\s*)/g, '$1:deep($2)') // 兼容旧语法
-    .replace(
-      /([\w-.:\s[\]>+~]+?):deep\(([^)]+)\)/g,
-      (_, parent, child) =>
-        `${parent.replace(/(\s*)$/, `[${scopeId}]$1`)} ${child}`
-    );
-
-  // 第二步：处理普通选择器
-  return deepProcessed.replace(/([^{}]+)(?=\s*{)/g, (selectors) => {
-    return selectors
-      .split(',')
-      .map((selector) => {
-        // 跳过已处理的选择器
-        if (selector.includes(`[${scopeId}]`)) return selector.trim();
-
-        // 添加作用域到最后一个简单选择器
-        return selector.trim().replace(/(.*?)([^\s>+~]+)$/, `$1$2[${scopeId}]`);
-      })
-      .join(', ');
-  });
 }
 
 export function adoptedStyleSheets(

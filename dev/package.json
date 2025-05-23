@@ -1,7 +1,7 @@
 {
   "name": "dev-web",
   "private": true,
-  "version": "0.12.27",
+  "version": "0.12.29",
   "type": "module",
   "scripts": {
     "dev": "cross-env ENV_TYPE=local vite --force",
