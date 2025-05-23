@@ -1,7 +1,7 @@
 {
   "name": "@vtj/cli",
   "private": false,
-  "version": "0.12.2",
+  "version": "0.12.3",
   "type": "module",
   "keywords": [
     "AI+低代码",
@@ -55,7 +55,7 @@
     "memfs": "~4.17.0",
     "rollup-plugin-external-globals": "~0.13.0",
     "rollup-plugin-visualizer": "~5.14.0",
-    "sass": "~1.87.0",
+    "sass": "~1.89.0",
     "serve-static": "~1.16.0",
     "terser": "~5.39.0",
     "typescript": "~5.8.2",

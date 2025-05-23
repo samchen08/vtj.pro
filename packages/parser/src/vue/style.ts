@@ -1,5 +1,5 @@
 import postcss from 'postcss';
-
+import * as sass from 'sass';
 export type CSSRules = Record<string, Record<string, string>>;
 
 export interface ParseStyleResult {
@@ -12,7 +12,8 @@ export function parseStyle(content: string) {
   const css: string[] = [];
 
   try {
-    const root = postcss.parse(content);
+    const cssContent = sass.compileString(content)?.css || '';
+    const root = postcss.parse(cssContent);
     const classRegex = /^.[\w]+_[\w]{5,}/;
     for (const rule of root.nodes) {
       if (rule.type === 'rule') {

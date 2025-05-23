@@ -14,6 +14,7 @@ export default createViteConfig({
     '@babel/parser',
     '@babel/traverse',
     '@babel/generator',
-    'postcss'
+    'postcss',
+    'sass'
   ]
 });

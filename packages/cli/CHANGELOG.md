@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.3](https://gitee.com/newgateway/vtj/compare/@vtj/cli@0.12.2...@vtj/cli@0.12.3) (2025-05-23)
+
+
+### Bug Fixes
+
+* 🐛 parser支持解析scss ([328b430](https://gitee.com/newgateway/vtj/commits/328b43008280ceb4ca4bfc5d5857bd804ac61278))
+
+
+
+
+
 ## [0.12.2](https://gitee.com/newgateway/vtj/compare/@vtj/cli@0.12.1...@vtj/cli@0.12.2) (2025-05-05)
 
 **Note:** Version bump only for package @vtj/cli
