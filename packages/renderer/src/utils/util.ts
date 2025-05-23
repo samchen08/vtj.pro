@@ -3,17 +3,53 @@ import type { PageFile, BlockFile } from '@vtj/core';
 import type { RouteLocationNormalizedGeneric } from 'vue-router';
 import { isFunction, isString } from '@vtj/utils';
 import { HTML_TAGS, BUILD_IN_TAGS } from '../constants';
+
 export function toString(value: any) {
   return isString(value) ? value : JSON.stringify(value);
 }
 
-export function adoptedStyleSheets(global: Window, id: string, css: string) {
+export function compileScopedCSS(cssContent: string, scopeId: string): string {
+  // 第一步：处理 :deep() 语法
+  const deepProcessed = cssContent
+    .replace(/::v-deep\(/g, ':deep(') // 兼容旧语法
+    .replace(/(\s*)>>>(\s*)/g, '$1:deep($2)') // 兼容旧语法
+    .replace(
+      /([\w-.:\s[\]>+~]+?):deep\(([^)]+)\)/g,
+      (_, parent, child) =>
+        `${parent.replace(/(\s*)$/, `[${scopeId}]$1`)} ${child}`
+    );
+
+  // 第二步：处理普通选择器
+  return deepProcessed.replace(/([^{}]+)(?=\s*{)/g, (selectors) => {
+    return selectors
+      .split(',')
+      .map((selector) => {
+        // 跳过已处理的选择器
+        if (selector.includes(`[${scopeId}]`)) return selector.trim();
+
+        // 添加作用域到最后一个简单选择器
+        return selector.trim().replace(/(.*?)([^\s>+~]+)$/, `$1$2[${scopeId}]`);
+      })
+      .join(', ');
+  });
+}
+
+export function adoptedStyleSheets(
+  global: Window,
+  id: string,
+  css: string,
+  scoped: boolean = false
+) {
   const CSSStyleSheet = (global as any).CSSStyleSheet;
+
+  const scopedId = scoped ? `data-v-${id}` : id;
+  const scopedCSS = scoped ? compileScopedCSS(css, scopedId) : css;
+
   // chrome > 71 才支持 replaceSync
   if (CSSStyleSheet.prototype.replaceSync) {
     const styleSheet = new CSSStyleSheet();
     styleSheet.id = id;
-    styleSheet.replaceSync(css);
+    styleSheet.replaceSync(scopedCSS);
     const doc: any = global.document;
     const adoptedStyleSheets = doc.adoptedStyleSheets;
     const sheets = Array.from(adoptedStyleSheets).filter(
@@ -24,11 +60,11 @@ export function adoptedStyleSheets(global: Window, id: string, css: string) {
     const doc = global.document;
     let styleSheet = doc.getElementById(id);
     if (styleSheet) {
-      styleSheet.innerHTML = css;
+      styleSheet.innerHTML = scopedCSS;
     } else {
       styleSheet = doc.createElement('style');
       styleSheet.id = id;
-      styleSheet.innerHTML = css;
+      styleSheet.innerHTML = scopedCSS;
       doc.head.appendChild(styleSheet);
     }
   }

@@ -13,6 +13,8 @@
     type NodeDirective
   } from '@vtj/pro';
   import { XAction } from '@vtj/web';
+  import { uid } from '@vtj/utils';
+
   const vPin = {
     mounted(el: any, binding: any) {
       el.innerHTML = JSON.stringify(binding);
@@ -26,6 +28,7 @@
 
   const dsl: BlockSchema = reactive({
     name: 'Test',
+    id: uid(),
     props: [
       {
         name: 'title',
@@ -72,7 +75,19 @@
           }
         ] as NodeDirective[]
       }
-    ]
+    ],
+    css: `
+    
+    .x-action {
+      background:red;
+      padding:20px;
+    }
+
+    .x-action :deep(.el-button) {
+      background:blue;
+      padding:20px;
+    }
+    `
   });
 
   const { renderer } = createRenderer({ dsl, components: { XAction } });

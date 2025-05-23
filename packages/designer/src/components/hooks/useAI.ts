@@ -327,9 +327,9 @@ export function useAI() {
             try {
               chat.dsl = typeof dsl === 'object' ? dsl : JSON.parse(dsl);
               if (Array.isArray(chat.dsl)) {
-                chat.dsl = null;
                 chat.status = 'Error';
                 chat.message = chat.dsl.join(', ');
+                chat.dsl = null;
               }
             } catch (err: any) {
               chat.dsl = null;

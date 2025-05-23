@@ -59,6 +59,7 @@ export function createRenderer(options: CreateRendererOptions) {
 
   const renderer: DefineComponent<any, any, any, any> = Vue.defineComponent({
     name: dsl.value.name,
+    __scopeId: dsl.value.id ? `data-v-${dsl.value.id}` : undefined,
     props: {
       ...createProps(dsl.value.props ?? [], context)
     },
@@ -69,7 +70,8 @@ export function createRenderer(options: CreateRendererOptions) {
         adoptedStyleSheets(
           options.window || window,
           dsl.value.id,
-          dsl.value.css || ''
+          dsl.value.css || '',
+          true
         );
       }
 

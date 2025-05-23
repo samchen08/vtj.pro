@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.26](https://gitee.com/newgateway/vtj/compare/@vtj/parser@0.12.25...@vtj/parser@0.12.26) (2025-05-23)
+
+
+### Bug Fixes
+
+* 🐛 ai dsl error ([5b1ae66](https://gitee.com/newgateway/vtj/commits/5b1ae66f0ba5215bf677e0a3cc4fdeac3101c6a3))
+
+
+
+
+
 ## [0.12.25](https://gitee.com/newgateway/vtj/compare/@vtj/parser@0.12.24...@vtj/parser@0.12.25) (2025-05-22)
 
 
