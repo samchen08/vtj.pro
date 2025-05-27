@@ -57,6 +57,7 @@ const components: MaterialDescription[] = [
     ],
     events: ['change', 'panelChange', 'select', 'update:value'],
     slots: [
+      'default',
       'dateCellRender',
       'dateFullCellRender',
       'headerRender',

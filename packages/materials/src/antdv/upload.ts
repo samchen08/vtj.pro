@@ -157,6 +157,7 @@ const components: MaterialDescription[] = [
     ],
     events: ['change', 'download', 'drop', 'preview', 'reject', 'remove'],
     slots: [
+      'default',
       'downloadIcon',
       'iconRender',
       'itemRender',

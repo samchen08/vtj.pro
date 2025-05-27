@@ -165,7 +165,7 @@ const components: MaterialDescription[] = [
       }
     ],
     events: ['cancel', 'ok', 'update:open'],
-    slots: ['cancelText', 'closeIcon', 'footer', 'okText', 'title'],
+    slots: ['default', 'cancelText', 'closeIcon', 'footer', 'okText', 'title'],
     snippet: {
       props: {
         open: true,

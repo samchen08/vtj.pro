@@ -118,7 +118,7 @@ const components: MaterialDescription[] = [
         setters: 'ObjectSetter' //?? 	{ disabled?: boolean }
       }
     ],
-    slots: ['renderEmpty']
+    slots: ['default', 'renderEmpty']
   }
 ];
 export default components;

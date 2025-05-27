@@ -253,6 +253,7 @@ const components: MaterialDescription[] = [
       'update:expandedRowKeys'
     ],
     slots: [
+      { name: 'default' },
       { name: 'bodyCell', params: ['text', 'record', 'index', 'column'] },
       { name: 'customFilterDropdown' },
       { name: 'customFilterIcon', params: ['filtered', 'column'] },

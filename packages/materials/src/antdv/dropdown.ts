@@ -39,7 +39,11 @@ const components: MaterialDescription[] = [
         label: 'getPopupContainer',
         title:
           '菜单渲染父节点。默认渲染到 body 上，如果你遇到菜单滚动定位问题，试试修改为滚动的区域，并相对其定位',
-        setters: 'FunctionSetter'
+        setters: 'FunctionSetter',
+        defaultValue: {
+          type: 'Function',
+          value: '() => document.body'
+        }
       },
       {
         name: 'overlayClassName',
@@ -83,7 +87,7 @@ const components: MaterialDescription[] = [
       }
     ],
     events: ['openChange', 'update:open'],
-    slots: ['overlay'],
+    slots: ['default', 'overlay'],
     snippet: {
       name: 'ADropdownButton',
       children: [
@@ -192,7 +196,7 @@ const components: MaterialDescription[] = [
       }
     ],
     events: ['click', 'openChange', 'update:open'],
-    slots: ['icon', 'overlay'],
+    slots: ['default', 'icon', 'overlay'],
     snippet: {
       name: 'button',
       children: [

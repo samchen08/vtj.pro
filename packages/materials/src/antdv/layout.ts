@@ -185,7 +185,7 @@ const components: MaterialDescription[] = [
       }
     ],
     events: ['breakpoint', 'collapse', 'update:collapsed'],
-    slots: ['trigger'],
+    slots: ['default', 'trigger'],
     snippet: {
       children: 'sider',
       props: { style: { ...siderStyle } }

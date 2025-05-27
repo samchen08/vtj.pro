@@ -30,9 +30,14 @@ const components: MaterialDescription[] = [
       }
     ],
     events: ['change'],
+    slots: ['default'],
     snippet: {
       props: {
-        offsetTop: '30'
+        offsetTop: '30',
+        target: {
+          type: 'JSFunction',
+          value: '() => window'
+        }
       },
       children: [
         {

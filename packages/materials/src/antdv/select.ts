@@ -134,6 +134,13 @@ const components: MaterialDescription[] = [
         defaultValue: 256
       },
       {
+        name: 'loading',
+        label: 'loading',
+        title: '是否显示加载中状态',
+        setters: 'BooleanSetter',
+        defaultValue: false
+      },
+      {
         name: 'maxTagCount',
         label: 'maxTagCount',
         title: '最多显示多少个 tag',
@@ -294,6 +301,7 @@ const components: MaterialDescription[] = [
     //   'tagRender'
     // ],
     slots: [
+      { name: 'default' },
       { name: 'clearIcon' },
       { name: 'maxTagPlaceholder' },
       { name: 'menuItemSelectedIcon' },

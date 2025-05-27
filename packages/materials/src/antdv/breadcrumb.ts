@@ -34,6 +34,7 @@ const components: MaterialDescription[] = [
         defaultValue: '/'
       }
     ],
+    slots: ['default', 'separator'],
     snippet: {
       children: [
         { name: 'BreadcrumbItem', children: 'Home' },

@@ -85,7 +85,7 @@ const components: MaterialDescription[] = [
       }
     ],
     events: ['change', 'update:current'],
-    slots: ['progressDot'],
+    slots: ['default', 'progressDot'],
     snippet: {
       props: {
         current: 1,

@@ -47,7 +47,7 @@ const components: MaterialDescription[] = [
         setters: 'StringSetter'
       }
     ],
-    slots: ['indicator', 'tip']
+    slots: ['default', 'indicator', 'tip']
   }
 ];
 export default components;

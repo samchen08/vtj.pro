@@ -197,6 +197,7 @@ const components: MaterialDescription[] = [
     ],
     events: ['openChange', 'panelChange', 'change', 'ok', 'update:value'],
     slots: [
+      'default',
       'dateRender',
       'nextIcon',
       'prevIcon',
@@ -436,6 +437,7 @@ const components: MaterialDescription[] = [
       'update:value'
     ],
     slots: [
+      'default',
       'dateRender',
       'nextIcon',
       'prevIcon',

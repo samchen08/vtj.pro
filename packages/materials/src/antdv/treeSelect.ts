@@ -295,6 +295,7 @@ const components: MaterialDescription[] = [
       'update:value'
     ],
     slots: [
+      'default',
       'maxTagPlaceholder',
       'notFoundContent',
       'placeholder',

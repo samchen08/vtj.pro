@@ -64,7 +64,7 @@ const components: MaterialDescription[] = [
         setters: 'ObjectSetter'
       }
     ],
-    slots: ['formatter', 'prefix', 'suffix', 'title'],
+    slots: ['default', 'formatter', 'prefix', 'suffix', 'title'],
     snippet: {
       props: {
         title: 'Active Users',
@@ -119,7 +119,7 @@ const components: MaterialDescription[] = [
       }
     ],
     events: ['finish'],
-    slots: ['prefix', 'suffix', 'title'],
+    slots: ['default', 'prefix', 'suffix', 'title'],
     snippet: {
       props: {
         title: 'countDown',

@@ -88,14 +88,27 @@ const components: MaterialDescription[] = [
         setters: 'ObjectSetter', //?? Options
         defaultValue: []
       },
+      // {
+      //   name: 'option',
+      //   label: 'option',
+      //   title: '通过 option 插槽，自定义节点'
+      // },
       {
-        name: 'option',
-        label: 'option',
-        title: '通过 option 插槽，自定义节点'
+        name: 'placeholder',
+        label: 'placeholder',
+        title: '输入框的提示文字',
+        setters: 'StringSetter'
+      },
+      {
+        name: 'loading',
+        label: 'loading',
+        title: '是否加载中',
+        setters: 'BoolSetter'
       }
     ],
     events: ['blur', 'change', 'focus', 'search', 'select', 'update:value'],
     slots: [
+      { name: 'default' },
       { name: 'notFoundContent' },
       { name: 'option', params: ['object'] }
     ],
@@ -118,54 +131,24 @@ const components: MaterialDescription[] = [
         ]
       }
     }
+  },
+  {
+    name: 'AMentionOption',
+    alias: 'MentionOption',
+    parent: 'Mention',
+    label: '提及项',
+    categoryId: 'input',
+    doc: 'https://www.antdv.com/components/mentions-cn',
+    props: [
+      {
+        name: 'value',
+        label: 'value',
+        title: '选择时填充的值',
+        setters: 'StringSetter',
+        defaultValue: ''
+      }
+    ],
+    slots: ['label']
   }
-  // {
-  //   name: 'AMentionOption',
-  //   alias: 'Option',
-  //   parent: 'Mention',
-  //   label: '提及项',
-  //   categoryId: 'input',
-  //   doc: 'https://www.antdv.com/components/mentions-cn',
-  //   props: [
-  //     {
-  //       name: 'value',
-  //       label: 'value',
-  //       title: '选择时填充的值',
-  //       setters: 'StringSetter',
-  //       defaultValue: 'number'
-  //     },
-  //     {
-  //       name: 'label',
-  //       label: 'label',
-  //       title: '选项的标题',
-  //       setters: 'FunctionSetter'
-  //     },
-  //     {
-  //       name: 'disabled',
-  //       label: 'disabled',
-  //       title: '是否可选',
-  //       setters: 'BooleanSetter'
-  //     },
-  //     {
-  //       name: 'class',
-  //       label: 'class',
-  //       title: 'css 类名',
-  //       setters: 'StringSetter'
-  //     },
-  //     {
-  //       name: 'style',
-  //       label: 'style',
-  //       title: '选项样式',
-  //       setters: 'ObjectSetter'
-  //     },
-  //     {
-  //       name: 'payload',
-  //       label: 'payload',
-  //       title: '其它数据',
-  //       setters: 'ObjectSetter'
-  //     }
-  //   ],
-  //   slots: ['label']
-  // }
 ];
 export default components;

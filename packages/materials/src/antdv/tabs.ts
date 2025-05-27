@@ -82,7 +82,14 @@ const components: MaterialDescription[] = [
       }
     ],
     events: ['change', 'edit', 'tabClick', 'tabScroll', 'update:activeKey'],
-    slots: ['addIcon', 'leftExtra', 'moreIcon', 'renderTabBar', 'rightExtra'],
+    slots: [
+      'default',
+      'addIcon',
+      'leftExtra',
+      'moreIcon',
+      'renderTabBar',
+      'rightExtra'
+    ],
     snippet: {
       props: {
         activeKey: '1',
@@ -144,7 +151,7 @@ const components: MaterialDescription[] = [
         setters: 'StringSetter'
       }
     ],
-    slots: ['closeIcon', 'tab'],
+    slots: ['default', 'closeIcon', 'tab'],
     snippet: {
       props: {
         key: '1',
