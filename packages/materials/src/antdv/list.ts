@@ -102,6 +102,9 @@ const components: MaterialDescription[] = [
     ],
     slots: [
       {
+        name: 'default'
+      },
+      {
         name: 'footer'
       },
       {
@@ -190,7 +193,7 @@ const components: MaterialDescription[] = [
         setters: 'StringSetter'
       }
     ],
-    slots: ['actions', 'extra'],
+    slots: ['default', 'actions', 'extra'],
     snippet: {
       children: [
         {
@@ -243,7 +246,7 @@ const components: MaterialDescription[] = [
         setters: 'StringSetter'
       }
     ],
-    slots: ['avatar', 'description', 'title'],
+    slots: ['default', 'avatar', 'description', 'title'],
     snippet: {
       props: {
         description:

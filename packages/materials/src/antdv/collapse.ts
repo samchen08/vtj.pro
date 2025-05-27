@@ -64,7 +64,7 @@ const components: MaterialDescription[] = [
       }
     ],
     events: ['change', 'update:activeKey'],
-    slots: ['expandIcon'],
+    slots: ['default', 'expandIcon'],
     snippet: {
       props: {
         activeKey: '1'
@@ -148,7 +148,7 @@ const components: MaterialDescription[] = [
         defaultValue: true
       }
     ],
-    slots: ['extra', 'header'],
+    slots: ['default', 'extra', 'header'],
     snippet: {
       props: {
         header: 'This is panel header'

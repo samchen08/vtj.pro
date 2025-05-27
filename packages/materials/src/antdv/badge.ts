@@ -78,7 +78,7 @@ const components: MaterialDescription[] = [
         defaultValue: 'count'
       }
     ],
-    slots: ['count'],
+    slots: ['default', 'count'],
     snippet: {
       props: { count: 5 },
       children: [{ name: 'AAvatar', props: { shape: 'square', size: 'large' } }]
@@ -113,7 +113,7 @@ const components: MaterialDescription[] = [
         setters: 'StringSetter'
       }
     ],
-    slots: ['text'],
+    slots: ['default', 'text'],
     snippet: {
       props: { text: 'Hippies' },
       children: [

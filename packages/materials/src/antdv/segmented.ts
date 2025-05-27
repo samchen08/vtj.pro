@@ -43,7 +43,7 @@ const components: MaterialDescription[] = [
       }
     ],
     events: ['change'],
-    slots: ['label'],
+    slots: ['default', 'label'],
     snippet: {
       props: {
         value: 'Daily',

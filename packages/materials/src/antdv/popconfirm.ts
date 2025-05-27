@@ -184,6 +184,7 @@ const components: MaterialDescription[] = [
     ],
     events: ['cancel', 'confirm', 'openChange', 'update:open'],
     slots: [
+      'default',
       'cancelButton',
       'cancelText',
       'icon',

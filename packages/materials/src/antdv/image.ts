@@ -59,7 +59,7 @@ const components: MaterialDescription[] = [
       }
     ],
     events: ['error'],
-    slots: ['placeholder', 'previewMask'],
+    slots: ['default', 'placeholder', 'previewMask'],
     snippet: {
       props: {
         width: '200px',

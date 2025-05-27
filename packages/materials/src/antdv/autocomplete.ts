@@ -122,6 +122,7 @@ const components: MaterialDescription[] = [
     ],
     // slots: ['clearIcon', 'default', 'option', 'placeholder'],
     slots: [
+      { name: 'default' },
       { name: 'clearIcon' },
       { name: 'default' },
       { name: 'option', params: ['value', 'label', 'array'] }, //?? value, label, [disabled, key, title]

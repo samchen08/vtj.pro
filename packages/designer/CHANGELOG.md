@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.30](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.12.29...@vtj/designer@0.12.30) (2025-05-27)
+
+
+### Bug Fixes
+
+* 🐛 更换登录地址 ([ccac53e](https://gitee.com/newgateway/vtj/commits/ccac53ed6367543992322afcd90c90130695949d))
+* 🐛 支付提示 ([15dfff3](https://gitee.com/newgateway/vtj/commits/15dfff35e55a4c50774ec93d403557a432179386))
+
+
+
+
+
 ## [0.12.29](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.12.28...@vtj/designer@0.12.29) (2025-05-23)
 
 **Note:** Version bump only for package @vtj/designer

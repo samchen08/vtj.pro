@@ -178,7 +178,7 @@ const components: MaterialDescription[] = [
       'update:expandedKeys',
       'update:selectedKeys'
     ],
-    slots: ['switcherIcon', 'title'],
+    slots: ['default', 'switcherIcon', 'title'],
     snippet: {
       props: {
         expandedKeys: ['0-0-0', '0-0-1'],

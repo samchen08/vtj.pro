@@ -124,7 +124,7 @@ const components: MaterialDescription[] = [
       }
     ],
     events: ['change', 'afterChange', 'update:value'],
-    slots: ['mark']
+    slots: ['default', 'mark']
   }
 ];
 export default components;

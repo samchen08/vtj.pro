@@ -63,6 +63,7 @@ const components: MaterialDescription[] = [
     ],
     events: ['close'],
     slots: [
+      'default',
       'action',
       'closeIcon',
       'closeText',

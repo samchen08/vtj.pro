@@ -166,7 +166,7 @@ const components: MaterialDescription[] = [
       }
     ],
     events: ['change', 'openChange', 'update:open', 'update:value'],
-    slots: ['clearIcon', 'renderExtraFooter', 'suffixIcon']
+    slots: ['default', 'clearIcon', 'renderExtraFooter', 'suffixIcon']
   },
   {
     name: 'ATimeRangePicker',
@@ -332,6 +332,7 @@ const components: MaterialDescription[] = [
     ],
     events: ['change', 'openChange'],
     slots: [
+      'default',
       'dateRender',
       'nextIcon',
       'prevIcon',

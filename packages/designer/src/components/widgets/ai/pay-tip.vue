@@ -7,7 +7,7 @@
     </ElAlert>
     <div class="limit-tip__content">
       <ElButton :icon="ShoppingCart" type="primary" round @click="onOrder">
-        立即开通 <span class="price">99元/月</span>
+        立即开通 <span class="price">{{ props.settings?.price }}元/月</span>
       </ElButton>
       <ElButton
         class="limit-tip__close"
@@ -73,7 +73,9 @@
     </ElSteps>
     <div class="pay-tip">
       <strong>提示：</strong>
-      订阅成功后您将拥有VTJ.PRO全功能权限，并赠送DeepSeek官方5百万tokens使用量。
+      订阅成功后您将拥有VTJ.PRO全功能权限，并赠送DeepSeek官方{{
+        parseInt(String(props.settings?.max || 0), 10)
+      }}百万tokens使用量。
     </div>
     <template #footer>
       <ElButton

@@ -25,7 +25,11 @@ const components: MaterialDescription[] = [
         name: 'getContainer',
         label: 'getContainer',
         title: '指定滚动的容器',
-        setters: 'FunctionSetter'
+        setters: 'FunctionSetter',
+        defaultValue: {
+          type: 'Function',
+          value: '() => window'
+        }
       },
       {
         name: 'getCurrentAnchor',
@@ -56,8 +60,7 @@ const components: MaterialDescription[] = [
         name: 'targetOffset',
         label: 'targetOffset',
         title: '锚点滚动偏移量，默认与 offsetTop 相同',
-        setters: 'NumberSetter',
-        defaultValue: 'offsetTop'
+        setters: 'NumberSetter'
       },
       {
         name: 'wrapperClass',
@@ -86,7 +89,7 @@ const components: MaterialDescription[] = [
         defaultValue: 'vertical'
       }
     ],
-    slots: ['customTitle'],
+    slots: ['default', 'customTitle'],
     snippet: {
       props: {
         direction: 'horizontal',

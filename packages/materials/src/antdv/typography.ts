@@ -5,7 +5,11 @@ const components: MaterialDescription[] = [
     name: 'ATypography',
     alias: 'Typography',
     label: '排版',
-    childIncludes: ['ATypographyText', 'ATypographyTitle,ATypographyParagraph'],
+    childIncludes: [
+      'ATypographyText',
+      'ATypographyTitle',
+      'ATypographyParagraph'
+    ],
     categoryId: 'base',
     doc: 'https://www.antdv.com/components/typography-cn',
     slots: [
@@ -347,6 +351,28 @@ const components: MaterialDescription[] = [
       'ellipsisSymbol',
       'ellipsisTooltip',
       'enterEnterIcon'
+    ]
+  },
+  {
+    name: 'ATypographyLink',
+    alias: 'Paragraph',
+    parent: 'Typography',
+    label: '超链接',
+    categoryId: 'base',
+    doc: 'https://www.antdv.com/components/button-cn',
+    props: [
+      {
+        name: 'href',
+        label: '超链接',
+        setters: 'string',
+        defaultValue: ''
+      },
+      {
+        name: 'target',
+        label: '目标',
+        setters: 'string',
+        defaultValue: ''
+      }
     ]
   }
 ];

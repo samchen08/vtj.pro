@@ -30,7 +30,7 @@ const components: MaterialDescription[] = [
       }
     ],
     events: ['close'],
-    slots: ['closeIcon', 'icon'],
+    slots: ['default', 'closeIcon', 'icon'],
     snippet: {
       children: 'Tag'
     }

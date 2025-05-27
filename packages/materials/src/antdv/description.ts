@@ -72,7 +72,7 @@ const components: MaterialDescription[] = [
         setters: 'StringSetter' //?? 	string | VNode | slot
       }
     ],
-    slots: ['extra', 'title'],
+    slots: ['default', 'extra', 'title'],
     snippet: {
       props: {
         title: 'User Info'
@@ -141,7 +141,7 @@ const components: MaterialDescription[] = [
         defaultValue: 1
       }
     ],
-    slots: ['label'],
+    slots: ['default', 'label'],
     snippet: {
       props: {
         label: 'Address'

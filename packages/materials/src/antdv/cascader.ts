@@ -204,6 +204,7 @@ const components: MaterialDescription[] = [
     ],
     events: ['change', 'dropdownVisibleChange', 'search', 'update:value'],
     slots: [
+      'default',
       'clearIcon',
       'expandIcon',
       'maxTagPlaceholder',

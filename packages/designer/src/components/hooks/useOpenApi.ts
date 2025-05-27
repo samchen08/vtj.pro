@@ -50,7 +50,7 @@ export function useOpenApi() {
   const toRemoteAuth = () => {
     if (remote && access) {
       const redirect = encodeURIComponent(location.href);
-      const { auth = '/auth.html' } = access.options;
+      const { auth = '/login' } = access.options;
       const { protocol, host, pathname } = location;
       const clientUrl = `${protocol}//${host}${pathname}#/auth?redirect=${redirect}`;
       if (typeof auth === 'string') {

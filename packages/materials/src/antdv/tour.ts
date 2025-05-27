@@ -81,7 +81,7 @@ const components: MaterialDescription[] = [
       }
     ],
     events: ['close', 'finish', 'change', 'update:current'],
-    slots: ['indicatorsRender'],
+    slots: ['default', 'indicatorsRender'],
     snippet: {
       props: {
         open: true,
@@ -186,7 +186,7 @@ const components: MaterialDescription[] = [
       }
     ],
     events: ['close'],
-    slots: ['cover', 'title', 'description']
+    slots: ['default', 'cover', 'title', 'description']
   }
 ];
 export default components;

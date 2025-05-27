@@ -77,9 +77,7 @@ const components: MaterialDescription[] = [
     events: ['update:checked'],
     snippet: {
       props: {
-        size: 'large',
-        value: 'value1',
-        style: { border: '1px solid red' }
+        value: 'value1'
       },
       children: 'Hangzhou'
     }
