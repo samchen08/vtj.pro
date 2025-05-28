@@ -104,7 +104,7 @@ Node 版本必须是 v20+， 建议使用 nvm 切换 Node 版本。
 ```sh
 npm login --registry=https://xxxx.com/repository/frontend-public
 # username：dev
-# password：newpearl
+# password：ne****l
 ```
 
 #### 内置命令
