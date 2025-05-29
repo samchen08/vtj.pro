@@ -11,6 +11,17 @@ export const APP_LIFE_CYCLE = [
   'onExit'
 ];
 
+export const COMPONENT_LIFE_CYCLES_LIST = [
+  'beforeCreate',
+  'created',
+  'beforeMount',
+  'mounted',
+  'beforeUpdate',
+  'updated',
+  'beforeUnmount',
+  'unmounted'
+];
+
 export const PAGE_LIFE_CYCLES_LIST = [
   'onLoad',
   'onShow',
@@ -30,14 +41,7 @@ export const PAGE_LIFE_CYCLES_LIST = [
   'onNavigationBarSearchInputClicked',
   'onShareTimeline',
   'onAddToFavorites',
-  'beforeCreate',
-  'created',
-  'beforeMount',
-  'mounted',
-  'beforeUpdate',
-  'updated',
-  'beforeUnmount',
-  'unmounted'
+  ...COMPONENT_LIFE_CYCLES_LIST
 ];
 
 export const ROUTE_PAGE_BASE_PATH = '/pages';

@@ -50,7 +50,7 @@
       active-text="辅助线"
       inactive-text="辅助线"
       :disabled="!!props.preview"
-      v-model="outline"></ElSwitch>
+      v-model="engine.state.outlineEnabled"></ElSwitch>
     <ElSwitch
       class="v-toolbar-widget__active-event"
       size="default"
@@ -58,7 +58,7 @@
       active-text="响应事件"
       inactive-text="响应事件"
       :disabled="!!props.preview"
-      v-model="activeEvent"></ElSwitch>
+      v-model="engine.state.activeEvent"></ElSwitch>
   </div>
 </template>
 <script lang="ts" setup>
@@ -98,8 +98,6 @@
     return platform === 'web';
   });
   const mode = ref('pc');
-  const outline = ref(true);
-  const activeEvent = ref(true);
 
   const customSize = ref({
     width: 1920,
@@ -122,8 +120,6 @@
 
   defineExpose({
     mode,
-    outline,
-    customSize,
-    activeEvent
+    customSize
   });
 </script>

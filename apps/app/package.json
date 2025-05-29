@@ -2,7 +2,7 @@
   "name": "vtj-project-app",
   "description": "项目示例",
   "private": true,
-  "version": "0.12.30",
+  "version": "0.12.31",
   "type": "module",
   "scripts": {
     "setup": "pnpm install --unsafe-perm --registry=https://registry.npmmirror.com",

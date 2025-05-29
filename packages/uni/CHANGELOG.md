@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.31](https://gitee.com/newgateway/vtj/compare/@vtj/uni@0.12.30...@vtj/uni@0.12.31) (2025-05-29)
+
+
+### Bug Fixes
+
+* 🐛 uniapp 平台没有区分页面和区块的生命周期下拉选项 ([2080000](https://gitee.com/newgateway/vtj/commits/20800007f3f315e33a0dd6ec0e78aeb38fc0f252))
+
+
+
+
+
 ## [0.12.30](https://gitee.com/newgateway/vtj/compare/@vtj/uni@0.12.29...@vtj/uni@0.12.30) (2025-05-27)
 
 **Note:** Version bump only for package @vtj/uni

@@ -37,7 +37,7 @@
           label="自动"
           border
           :disabled="props.loading"
-          v-model="auto"></ElCheckbox>
+          v-model="engine.state.autoApply"></ElCheckbox>
         <ElButton
           :icon="Promotion"
           type="primary"
@@ -63,7 +63,7 @@
     type UploadFile
   } from 'element-plus';
   import { UploadFilled, CloseBold, Promotion } from '@vtj/icons';
-  import { storage } from '@vtj/utils';
+  import { useEngine } from '../../../framework';
 
   export interface Props {
     loading?: boolean;
@@ -73,10 +73,9 @@
   const emit = defineEmits<{
     send: [file: File, auto: boolean];
   }>();
+  const engine = useEngine();
   const blobUrl = ref<string | null>(null);
-  const autoCacheKey = 'CHAT_INPUT_AUTO';
-  const autoCache = storage.get(autoCacheKey, { type: 'local' }) ?? true;
-  const auto = ref<boolean>(autoCache);
+
   const uploadRef = ref();
 
   const onChange = (file: UploadFile) => {
@@ -89,16 +88,18 @@
     blobUrl.value = null;
   };
 
-  watch(auto, (v) => {
-    storage.save(autoCacheKey, v, { type: 'local' });
-    ElMessage.success({
-      message: v ? '已开启自动应用到页面功能' : '已经关闭自动应用到页面功能'
-    });
-  });
+  watch(
+    () => engine.state.autoApply,
+    (v) => {
+      ElMessage.success({
+        message: v ? '已开启自动应用到页面功能' : '已经关闭自动应用到页面功能'
+      });
+    }
+  );
 
   const upload = async (options: any) => {
     if (options.file) {
-      emit('send', options.file, auto.value);
+      emit('send', options.file, engine.state.autoApply);
     }
   };
 

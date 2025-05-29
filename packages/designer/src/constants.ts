@@ -225,3 +225,5 @@ export const REPORT_API = [
 ].join('');
 
 export const SESSION_ID_KEY = 'SESSION_ID__';
+
+export const STATE_KEY = 'ENGINE_STATE__';

@@ -31,7 +31,7 @@
 
       <div
         class="v-designer__outline-lines"
-        v-if="outlineEnabled && lines.length">
+        v-if="engine.state.outlineEnabled && lines.length">
         <div v-for="line in lines" :style="line"></div>
       </div>
 
@@ -43,10 +43,9 @@
   </div>
 </template>
 <script lang="ts" setup>
-  import { computed, ref, watch } from 'vue';
+  import { computed, ref } from 'vue';
   import { useElementSize } from '@vueuse/core';
   import { NodeModel } from '@vtj/core';
-  import { delay } from '@vtj/utils';
   import { ElEmpty } from 'element-plus';
   import Actions from './actions.vue';
   import { Viewport } from '../../shared';
@@ -66,16 +65,6 @@
   const customSize = computed(() => {
     const widget = engine.skeleton?.getWidget('Toolbar');
     return widget?.widgetRef.customSize as { width: number; height: number };
-  });
-
-  const outlineEnabled = computed(() => {
-    const widget = engine.skeleton?.getWidget('Toolbar');
-    return !!widget?.widgetRef.outline;
-  });
-
-  const activeEvent = computed(() => {
-    const widget = engine.skeleton?.getWidget('Toolbar');
-    return !!widget?.widgetRef.activeEvent;
   });
 
   const config = computed(() => engine.project.value?.config || {});
@@ -137,28 +126,6 @@
       designer.value.setDragging(null);
     }
   };
-
-  watch(
-    outlineEnabled,
-    async (v) => {
-      if (designer.value) {
-        await delay(100);
-        designer.value.outlineEnabled.value = v;
-      }
-    },
-    { immediate: true }
-  );
-
-  watch(
-    activeEvent,
-    async (v) => {
-      if (designer.value) {
-        await delay(100);
-        designer.value.activeEvent.value = v;
-      }
-    },
-    { immediate: true }
-  );
 
   defineExpose({
     designer,

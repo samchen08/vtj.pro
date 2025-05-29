@@ -42,7 +42,7 @@
     JSCodeToString
   } from '@vtj/renderer';
   import { XField } from '@vtj/ui';
-  import { PAGE_LIFE_CYCLES_LIST } from '@vtj/uni';
+  import { PAGE_LIFE_CYCLES_LIST, COMPONENT_LIFE_CYCLES_LIST } from '@vtj/uni';
   import Group from './group.vue';
   import { notify, expressionValidate } from '../../../utils';
   import { useEngine } from '../../../framework';
@@ -56,9 +56,14 @@
   const props = defineProps<Props>();
 
   const options = computed(() => {
-    const { platform = 'web' } = engine.project.value || {};
+    const { platform = 'web', currentFile } = engine.project.value || {};
+    const isPage = currentFile?.type === 'page';
     const list =
-      platform === 'uniapp' ? PAGE_LIFE_CYCLES_LIST : LIFE_CYCLES_LIST;
+      platform === 'uniapp'
+        ? isPage
+          ? PAGE_LIFE_CYCLES_LIST
+          : COMPONENT_LIFE_CYCLES_LIST
+        : LIFE_CYCLES_LIST;
     return list.map((name) => {
       return {
         label: name,

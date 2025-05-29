@@ -23,7 +23,7 @@
         label="自动"
         border
         :disabled="props.loading"
-        v-model="auto"></ElCheckbox>
+        v-model="engine.state.autoApply"></ElCheckbox>
       <ElButton
         :icon="Promotion"
         type="primary"
@@ -48,8 +48,8 @@
     ElMessage
   } from 'element-plus';
   import { Promotion } from '@vtj/icons';
-  import { storage } from '@vtj/utils';
   import { type Dict, type AISendData } from '../../hooks';
+  import { useEngine } from '../../../framework';
   import { message } from '../../../utils';
 
   export interface Props {
@@ -74,17 +74,14 @@
     send: [value: AISendData];
   }>();
 
-  const autoCacheKey = 'CHAT_INPUT_AUTO';
-  const autoCache = storage.get(autoCacheKey, { type: 'local' }) ?? true;
+  const engine = useEngine();
   const value = ref('');
-  const auto = ref<boolean>(autoCache);
-
-  const currentModel = ref(props.model || '');
+  const currentModel = ref(props.model || engine.state.llm);
 
   watch(
     () => props.models,
     (v) => {
-      currentModel.value = props.model || v?.[0]?.value;
+      currentModel.value = props.model || engine.state.llm || v?.[0]?.value;
     },
     { immediate: true }
   );
@@ -99,11 +96,17 @@
     }
   );
 
-  watch(auto, (v) => {
-    storage.save(autoCacheKey, v, { type: 'local' });
-    ElMessage.success({
-      message: v ? '已开启自动应用到页面功能' : '已经关闭自动应用到页面功能'
-    });
+  watch(
+    () => engine.state.autoApply,
+    (v) => {
+      ElMessage.success({
+        message: v ? '已开启自动应用到页面功能' : '已经关闭自动应用到页面功能'
+      });
+    }
+  );
+
+  watch(currentModel, (v) => {
+    engine.state.llm = v;
   });
 
   const onChange = (v: string) => {
@@ -116,7 +119,7 @@
       return;
     }
     emit('send', {
-      auto: auto.value,
+      auto: engine.state.autoApply,
       prompt: value.value.trim(),
       model: currentModel.value
     });
@@ -124,7 +127,6 @@
   };
 
   defineExpose({
-    auto,
     currentModel
   });
 </script>

@@ -67,8 +67,6 @@ export class Designer {
   public dragging: MaterialDescription | null = null;
   public draggingNode: NodeModel | null = null;
   public lines: ShallowRef<DOMRect[]> = shallowRef([]);
-  public outlineEnabled: Ref<boolean> = ref(true);
-  public activeEvent: Ref<boolean> = ref(true);
   constructor(
     public engine: Engine,
     public contentWindow: Window,
@@ -127,9 +125,12 @@ export class Designer {
       },
       { immediate: true }
     );
-    watch(this.outlineEnabled, () => {
-      this.updateLines();
-    });
+    watch(
+      () => this.engine.state.outlineEnabled,
+      () => {
+        this.updateLines();
+      }
+    );
   }
 
   private unbindEvents(cw: Window, doc: Document) {
@@ -301,7 +302,7 @@ export class Designer {
   private onSelected(e: MouseEvent) {
     if (this.devtools.isOpen.value) return;
     // 与 vue-devtools 冲突，不能阻止冒泡
-    if (!this.activeEvent.value) {
+    if (!this.engine.state.activeEvent) {
       e.stopPropagation();
     }
 
@@ -474,12 +475,12 @@ export class Designer {
   }
 
   async updateLines() {
-    if (!this.outlineEnabled.value) {
+    if (!this.engine.state.outlineEnabled) {
       this.lines.value = [];
       return;
     }
     // 需要等待下一帧才能获取到HTML元素
-    await delay(50);
+    await delay(100);
     const refs = this.engine.simulator.renderer?.context?.__refs || {};
     const lines: DOMRect[] = [];
     const ids = Object.keys(NodeModel.nodes);

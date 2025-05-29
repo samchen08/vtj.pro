@@ -57,6 +57,7 @@ import { Simulator } from './simulator';
 import { Assets } from './assets';
 import { Report } from './report';
 import { OpenApi } from './openapi';
+import { State } from './state';
 import { message, alert } from '../utils';
 import { ACCESS, REMOTE } from '../constants';
 
@@ -173,6 +174,7 @@ export class Engine extends Base {
   public report: Report; // 报告服务
   public checkVersion: boolean = true; // 是否检查版本
   public openApi?: OpenApi; // OpenAPI服务
+  public state = new State(); // 引擎状态
   constructor(public options: EngineOptions) {
     super();
     const {

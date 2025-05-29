@@ -71,7 +71,7 @@
     imageSend: [data: AISendImageData];
   }>();
 
-  const { getHotTopics } = useOpenApi();
+  const { getHotTopics, engine } = useOpenApi();
 
   const hotTopics = ref<AITopic[]>([]);
 
@@ -98,7 +98,7 @@
   };
 
   const onImageSend = (file: File, auto: boolean) => {
-    const model = props.models[0].value;
+    const model = engine.state.llm || props.models[0].value;
     emit('imageSend', { file, auto, model } as AISendImageData);
   };
 

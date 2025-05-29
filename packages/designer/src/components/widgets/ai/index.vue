@@ -155,6 +155,7 @@
       :get-image="getImage"></InviteTip>
     <PayTip
       v-if="settings"
+      :remote="engine.remote"
       :settings="settings"
       :get-image="getImage"
       :create-order="createOrder"
