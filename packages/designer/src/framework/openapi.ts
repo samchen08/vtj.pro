@@ -40,6 +40,10 @@ export interface TopicDto {
   file?: File;
 }
 
+export type TopicType = 'text' | 'image' | 'json';
+
+export type TopicDataType = 'sketch' | 'figma' | 'unknown';
+
 export interface AITopic {
   id: string;
   appId: string;
@@ -54,6 +58,9 @@ export interface AITopic {
   dependencies: string;
   dsl: any;
   image?: string;
+  json?: string;
+  type?: TopicType;
+  dataType?: TopicDataType;
 }
 
 export interface AIChat {
@@ -73,6 +80,9 @@ export interface AIChat {
   vue: string;
   collapsed?: boolean;
   image?: string;
+  json?: string;
+  type?: TopicType;
+  dataType?: TopicDataType;
 }
 
 export interface ChatDto {
@@ -148,6 +158,13 @@ export abstract class OpenApi {
    * 发送图片AI话题
    */
   public abstract postImageTopic?: (
+    dto: TopicDto
+  ) => Promise<ResponseWrapper<{ topic: AITopic; chat: AIChat }>>;
+
+  /**
+   * 发送元数据AI话题
+   */
+  public abstract postJsonTopic?: (
     dto: TopicDto
   ) => Promise<ResponseWrapper<{ topic: AITopic; chat: AIChat }>>;
 
@@ -228,4 +245,9 @@ export abstract class OpenApi {
    * 获取图片url
    */
   public abstract getImage?: (path?: string) => string | undefined;
+
+  /**
+   * 获取文件url
+   */
+  public abstract getOssFile?: (path?: string) => string | undefined;
 }

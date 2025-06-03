@@ -97,3 +97,42 @@ export function normalizedStyle(style: Record<string, any> = {}) {
   }
   return result;
 }
+
+export function readJsonFile(file: File): Promise<any> {
+  return new Promise((resolve, reject) => {
+    // 1. 创建FileReader实例
+    const reader = new FileReader();
+
+    // 2. 设置成功读取回调
+    reader.onload = (event: ProgressEvent<FileReader>) => {
+      try {
+        // 3. 获取读取结果（字符串格式）
+        const result = event.target?.result;
+        if (typeof result !== 'string') {
+          reject(new Error('无法读取文件内容'));
+          return;
+        }
+
+        // 4. 解析JSON字符串
+        const jsonData = JSON.parse(result);
+        resolve(jsonData);
+      } catch (error) {
+        // 5. 捕获JSON解析错误
+        reject(
+          new Error(
+            '解析JSON失败: ' +
+              (error instanceof Error ? error.message : String(error))
+          )
+        );
+      }
+    };
+
+    // 6. 设置错误处理回调
+    reader.onerror = () => {
+      reject(new Error(`文件读取错误: ${reader.error?.message || '未知错误'}`));
+    };
+
+    // 7. 开始读取文件（作为文本）
+    reader.readAsText(file);
+  });
+}

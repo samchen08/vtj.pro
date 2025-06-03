@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.32](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.12.31...@vtj/designer@0.12.32) (2025-06-03)
+
+
+### Features
+
+* ✨ AI支持sketch figma 元数据文件识别 ([77adea0](https://gitee.com/newgateway/vtj/commits/77adea04e80aa0d4b100eececb311a9dffaae222))
+
+
+
+
+
 ## [0.12.31](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.12.30...@vtj/designer@0.12.31) (2025-05-29)
 
 

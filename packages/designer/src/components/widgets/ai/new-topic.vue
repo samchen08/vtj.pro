@@ -12,7 +12,7 @@
         size="small"></ElSegmented>
     </div>
     <ChatInput
-      v-if="isTextInput"
+      v-if="currentOption === 'text'"
       :min-rows="8"
       :models="props.models"
       :loading="props.loading"
@@ -20,9 +20,13 @@
       :model-value="props.modelValue"
       @send="onSend"></ChatInput>
     <ImageInput
-      v-else
+      v-if="currentOption === 'image'"
       :loading="props.loading"
       @send="onImageSend"></ImageInput>
+    <JsonInput
+      v-if="currentOption === 'json'"
+      :loading="props.loading"
+      @send="onJsonSend"></JsonInput>
     <template v-if="hotTopics.length">
       <ElDivider content-position="left">热门需求</ElDivider>
       <div>
@@ -40,16 +44,18 @@
   </div>
 </template>
 <script lang="ts" setup>
-  import { ref, onMounted, computed } from 'vue';
+  import { ref, onMounted } from 'vue';
   import { ElDivider, ElSegmented } from 'element-plus';
   import ChatInput from './chat-input.vue';
   import ImageInput from './image-input.vue';
+  import JsonInput from './json-input.vue';
   import { Item } from '../../shared';
   import {
     useOpenApi,
     type Dict,
     type AISendData,
     type AISendImageData,
+    type AISendJsonData,
     type AITopic
   } from '../../hooks';
 
@@ -69,6 +75,7 @@
   const emit = defineEmits<{
     send: [data: AISendData];
     imageSend: [data: AISendImageData];
+    jsonSend: [data: AISendJsonData];
   }>();
 
   const { getHotTopics, engine } = useOpenApi();
@@ -83,11 +90,13 @@
     {
       label: '图片',
       value: 'image'
+    },
+    {
+      label: '元数据',
+      value: 'json'
     }
   ];
   const currentOption = ref('text');
-
-  const isTextInput = computed(() => currentOption.value === 'text');
 
   const onTopicClick = (topic: AITopic) => {
     props.fillPromptInput(topic.prompt);
@@ -100,6 +109,11 @@
   const onImageSend = (file: File, auto: boolean) => {
     const model = engine.state.llm || props.models[0].value;
     emit('imageSend', { file, auto, model } as AISendImageData);
+  };
+
+  const onJsonSend = async (file: File, auto: boolean, content: any) => {
+    const model = engine.state.llm || props.models[0].value;
+    emit('jsonSend', { file, auto, model, content } as AISendJsonData);
   };
 
   onMounted(async () => {

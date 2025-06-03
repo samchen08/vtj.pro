@@ -44,7 +44,15 @@
             circle></ElButton>
         </template>
         <div v-else>
-          <ElImage v-if="props.data.image" :src="props.data.image"></ElImage>
+          <div v-if="props.data.image || props.data.json">
+            <ElImage :src="getCover(props.data)"></ElImage>
+            <div
+              title="下载文件"
+              class="v-ai-widget-bubble__filename"
+              @click="showFile(props.data.image || props.data.json)">
+              {{ getFileName(props.data.image || props.data.json) }}
+            </div>
+          </div>
           <pre v-else>{{ props.data.prompt }}</pre>
         </div>
       </div>
@@ -84,6 +92,10 @@
   import { XActionBar, XAction, XIcon, type ActionBarItems } from '@vtj/ui';
   import StreamMarkdown from './stream-markdown.vue';
   import { type AIChat } from '../../hooks';
+  import figma from '../../../assets/figma.png';
+  import sketch from '../../../assets/sketch.png';
+  import other from '../../../assets/json.png';
+
   export interface Props {
     type: 'user' | 'ai';
     data: AIChat;
@@ -96,6 +108,7 @@
   });
 
   const emit = defineEmits(['refresh', 'view', 'download', 'fix', 'cancel']);
+  const coverMap = { figma, sketch, other, unknown: other };
   const isAi = computed(() => props.type === 'ai');
   const isCompleted = computed(() => props.data.status === 'Success');
   const isPending = computed(() => props.data.status === 'Pending');
@@ -146,6 +159,36 @@
         ? '展开'
         : '收起';
   });
+
+  const getCover = (chat: AIChat) => {
+    const type = chat.type;
+    if (type === 'json' && chat.json) {
+      if (chat.dataType) {
+        return coverMap[chat.dataType] || coverMap.other;
+      }
+      if (chat.json.includes('/sketch/')) {
+        return coverMap.sketch;
+      } else if (chat.json.includes('/figma/')) {
+        return coverMap.figma;
+      }
+      return coverMap.other;
+    }
+    if (chat.image) {
+      return chat.image;
+    }
+    return '';
+  };
+
+  const getFileName = (fileUrl: string = '') => {
+    const arr = fileUrl.split('/');
+    return arr.length > 6 ? arr.slice(6).join('/') : fileUrl;
+  };
+
+  const showFile = (url?: string) => {
+    if (url) {
+      window.open(url);
+    }
+  };
 
   const onActionClick = (e: any) => {
     emit(e.name, e);

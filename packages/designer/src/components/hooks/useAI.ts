@@ -28,6 +28,13 @@ export interface AISendImageData {
   file: File;
 }
 
+export interface AISendJsonData {
+  model: string;
+  auto: boolean;
+  file: File;
+  content: any;
+}
+
 let __currentCompletions: any = null;
 
 function useDict(code: string, getDictOptions: (code: string) => Promise<any>) {
@@ -103,7 +110,9 @@ export function useAI() {
     cancelOrder,
     getOrder,
     getImage,
+    getOssFile,
     postImageTopic,
+    postJsonTopic,
     cancelChat
   } = useOpenApi();
   const hideCodeCacheKey = 'CHAT_HIDE_CODE';
@@ -135,8 +144,19 @@ export function useAI() {
     const res = await getChats(topicId);
     if (res && res.success) {
       const data = res.data || [];
-      if (data[0] && currentTopic.value?.image) {
-        data[0].image = getImage(currentTopic.value.image);
+      if (data[0] && currentTopic.value) {
+        if (currentTopic.value.image) {
+          data[0].image = getImage(currentTopic.value.image);
+        }
+        if (currentTopic.value.json) {
+          data[0].json = getOssFile(currentTopic.value.json);
+        }
+        if (currentTopic.value.type) {
+          data[0].type = currentTopic.value.type;
+        }
+        if (currentTopic.value.dataType) {
+          data[0].type = currentTopic.value.dataType;
+        }
       }
       chats.value = res.data;
     }
@@ -169,6 +189,7 @@ export function useAI() {
     loading.value = false;
     if (res && res.success) {
       const { topic, chat } = res.data;
+      chat.type = topic.type;
       chats.value = [];
       topics.value.unshift(topic);
       isNewChat.value = false;
@@ -204,6 +225,43 @@ export function useAI() {
       if (topic.image) {
         chat.image = getImage(topic.image);
       }
+      chat.type = topic.type;
+      const rChat = reactive(chat);
+      chats.value.push(rChat);
+      completions(rChat, (c) => {
+        if (data.auto) {
+          onApply(c);
+        }
+      });
+      await delay(0);
+      if (panelRef.value) {
+        panelRef.value.scrollToBottom();
+      }
+    } else {
+      await init(null);
+    }
+    return res;
+  };
+
+  const onPostJsonTopic = async (data: AISendJsonData) => {
+    loading.value = true;
+    const dto = await createImageTopicDto(data, engine);
+    const res = await postJsonTopic(dto);
+    loading.value = false;
+    if (res && res.success) {
+      const { topic, chat } = res.data;
+      chats.value = [];
+      topics.value.unshift(topic);
+      isNewChat.value = false;
+      currentTopic.value = topic;
+      if (topic.image) {
+        chat.image = getImage(topic.image);
+      }
+      if (topic.json) {
+        chat.json = getOssFile(topic.json);
+      }
+      chat.type = topic.type;
+      chat.dataType = topic.dataType;
       const rChat = reactive(chat);
       chats.value.push(rChat);
       completions(rChat, (c) => {
@@ -537,6 +595,7 @@ export function useAI() {
     updateChatDsl,
     getImage,
     onPostImageTopic,
+    onPostJsonTopic,
     onCancelChat
   };
 }

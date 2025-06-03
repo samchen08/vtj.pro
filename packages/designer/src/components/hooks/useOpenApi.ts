@@ -23,6 +23,13 @@ export function useOpenApi() {
     return path ? `${remote}/api/oss/file/${path}` : undefined;
   };
 
+  const getOssFile = (path?: string) => {
+    if (openApi?.getOssFile) {
+      return openApi?.getOssFile(path);
+    }
+    return path ? `${remote}/api/oss/file/${path}` : undefined;
+  };
+
   const loginBySign = async () => {
     const { auth } = engine.options;
     if (!access) return;
@@ -183,6 +190,29 @@ export function useOpenApi() {
     }
     const token = access?.getData()?.token;
     const api = `${remote}/api/open/topic/image/${token}`;
+    const data = new FormData();
+    Object.entries(dto).forEach(([name, value]) => {
+      data.append(name, value);
+    });
+    const res = await window
+      .fetch(api, {
+        method: 'post',
+        body: data
+      })
+      .then((res) => res.json())
+      .catch((e) => e);
+    if (!res?.success) {
+      await alert(res.message || '未知错误');
+    }
+    return res;
+  };
+
+  const postJsonTopic = async (dto: TopicDto) => {
+    if (openApi?.postJsonTopic) {
+      return await openApi?.postJsonTopic(dto);
+    }
+    const token = access?.getData()?.token;
+    const api = `${remote}/api/open/topic/json/${token}`;
     const data = new FormData();
     Object.entries(dto).forEach(([name, value]) => {
       data.append(name, value);
@@ -458,7 +488,9 @@ export function useOpenApi() {
     cancelOrder,
     getOrder,
     getImage,
+    getOssFile,
     postImageTopic,
+    postJsonTopic,
     cancelChat
   };
 }

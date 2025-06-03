@@ -1,12 +1,12 @@
 <template>
-  <div class="v-ai-widget-image-input">
+  <div class="v-ai-widget-image-input v-ai-widget-json-input">
     <ElUpload
       ref="uploadRef"
       drag
       :auto-upload="false"
       :multiple="false"
       :show-file-list="false"
-      accept=".png,.jpg,.jpeg"
+      accept=".json"
       :on-change="onChange"
       :http-request="upload">
       <XIcon
@@ -14,16 +14,26 @@
         :size="60"
         color="var(--el-text-color-secondary)">
       </XIcon>
-      <div class="el-upload__text">拖放设计稿、网页截图</div>
+
+      <div class="el-upload__text">拖放 Sketch、Figma 元数据文件(.json)</div>
       <div class="or">或</div>
-      <ElButton size="default">选择图片</ElButton>
+      <ElButton size="default">选择文件</ElButton>
+      <ElLink
+        class="help-link"
+        type="primary"
+        href="https://vtj.pro/guide/meta.html"
+        target="_blank"
+        @click.stop>
+        如何生成元数据文件？
+      </ElLink>
     </ElUpload>
     <div
-      v-if="blobUrl"
+      v-if="fileName"
       class="v-ai-widget-image-input__preview"
       v-loading="props.loading"
       element-loading-text="正在分析...">
-      <ElImage :src="blobUrl" fit="cover"></ElImage>
+      <ElImage :src="cover" fit="cover"> </ElImage>
+      <div class="json-name">{{ fileName }}</div>
       <ElButton
         class="v-ai-widget-image-input__remove"
         type="danger"
@@ -51,7 +61,7 @@
   </div>
 </template>
 <script lang="ts" setup>
-  import { ref, watch } from 'vue';
+  import { ref, shallowRef, watch, computed } from 'vue';
   import { XIcon } from '@vtj/ui';
   import {
     ElUpload,
@@ -60,10 +70,15 @@
     ElCheckbox,
     vLoading,
     ElMessage,
+    ElLink,
     type UploadFile
   } from 'element-plus';
   import { UploadFilled, CloseBold, Promotion } from '@vtj/icons';
   import { useEngine } from '../../../framework';
+  import { readJsonFile, alert } from '../../../utils';
+  import other from '../../../assets/json.png';
+  import figma from '../../../assets/figma.png';
+  import sketch from '../../../assets/sketch.png';
 
   export interface Props {
     loading?: boolean;
@@ -71,21 +86,45 @@
 
   const props = defineProps<Props>();
   const emit = defineEmits<{
-    send: [file: File, auto: boolean];
+    send: [file: File, auto: boolean, content: any];
   }>();
   const engine = useEngine();
-  const blobUrl = ref<string | null>(null);
-
+  const fileName = ref<string | null>(null);
+  const fileType = ref<string | null>(null);
+  const cover = computed(() => {
+    const map: Record<string, string> = {
+      figma,
+      sketch,
+      other
+    };
+    if (fileType.value) {
+      return map[fileType.value.toLowerCase()] || other;
+    }
+    return other;
+  });
   const uploadRef = ref();
+  const content = shallowRef<any>(null);
 
-  const onChange = (file: UploadFile) => {
+  const onChange = async (file: UploadFile) => {
     if (file.status === 'ready' && file.raw) {
-      blobUrl.value = URL.createObjectURL(file.raw);
+      const json = await readJsonFile(file.raw);
+      if (json && json.type) {
+        fileType.value = json.type;
+        fileName.value = file.raw.name;
+        content.value = json;
+      } else {
+        await alert('无法识别文件, 只支持Sketch/Figma插件导出数据文件', {
+          type: 'warning'
+        });
+        fileType.value = null;
+        fileName.value = null;
+        content.value = null;
+      }
     }
   };
 
   const onRemove = () => {
-    blobUrl.value = null;
+    fileName.value = null;
   };
 
   watch(
@@ -99,7 +138,7 @@
 
   const upload = async (options: any) => {
     if (options.file) {
-      emit('send', options.file, engine.state.autoApply);
+      emit('send', options.file, engine.state.autoApply, content.value);
     }
   };
 
