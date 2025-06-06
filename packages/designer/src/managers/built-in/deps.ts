@@ -78,7 +78,7 @@ export const builtInDeps: Dependencie[] = [
     version: 'latest',
     library: 'VtjUtils',
     urls: ['@vtj/materials/deps/@vtj/utils/index.umd.js'],
-    required: true,
+    required: false,
     official: true,
     enabled: true
   },
@@ -90,7 +90,7 @@ export const builtInDeps: Dependencie[] = [
       '@vtj/materials/deps/@vtj/icons/style.css',
       '@vtj/materials/deps/@vtj/icons/index.umd.js'
     ],
-    required: true,
+    required: false,
     official: true,
     enabled: true,
     assetsUrl: '@vtj/materials/assets/icons/index.umd.js',

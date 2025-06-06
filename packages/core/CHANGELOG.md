@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.34](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.12.33...@vtj/core@0.12.34) (2025-06-06)
+
+
+### Features
+
+* ✨ 支持设置物料是否显示到组件库面板, utils 和 icons 依赖改为可选 ([747fda3](https://gitee.com/newgateway/vtj/commits/747fda31e72b211d9dff63953f4c095ea41d7368))
+
+
+
+
+
 ## [0.12.33](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.12.32...@vtj/core@0.12.33) (2025-06-04)
 
 **Note:** Version bump only for package @vtj/core

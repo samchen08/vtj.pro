@@ -49,7 +49,8 @@ const material: Material = {
   library: 'VtjIconsMaterial',
   order: 5,
   categories,
-  components: setPackageName(components, name)
+  components: setPackageName(components, name),
+  hidden: true
 };
 
 export default material;

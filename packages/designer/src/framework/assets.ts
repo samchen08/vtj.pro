@@ -20,6 +20,7 @@ export interface AssetGroup {
   names?: string[];
   components?: MaterialDescription[];
   children?: AssetGroup[];
+  hidden?: boolean;
 }
 
 export class Assets {
@@ -50,8 +51,8 @@ export class Assets {
   private parseGroups(materials: Material[]) {
     const result: AssetGroup[] = [];
     for (let pkg of materials) {
-      const { categories, components, label, name, library } = pkg;
-      if (!categories || !components) {
+      const { categories, components, label, name, library, hidden } = pkg;
+      if (!categories || !components || hidden) {
         continue;
       }
       const names = components.filter((n) => !!n.package).map((n) => n.name);
@@ -68,7 +69,8 @@ export class Assets {
         count: total,
         names,
         library,
-        children
+        children,
+        hidden
       };
       result.push(group);
     }
