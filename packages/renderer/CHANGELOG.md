@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.35](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.12.34...@vtj/renderer@0.12.35) (2025-06-06)
+
+
+### Bug Fixes
+
+* 🐛 renderer default slots bug ([6b14e59](https://gitee.com/newgateway/vtj/commits/6b14e59ca133d034553493857b82f5ab269f29a2))
+
+
+
+
+
 ## [0.12.34](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.12.33...@vtj/renderer@0.12.34) (2025-06-06)
 
 **Note:** Version bump only for package @vtj/renderer
