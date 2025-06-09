@@ -10,7 +10,7 @@ import {
   type NodeSchema,
   type BlockEmit
 } from '@vtj/core';
-import { isString } from '@vtj/utils';
+import { isString, delay, isFunction } from '@vtj/utils';
 import { ContextMode, DATA_TYPES } from '../constants';
 import { Context } from './context';
 import { adoptedStyleSheets, isJSExpression, isJSFunction } from '../utils';
@@ -272,7 +272,13 @@ function createLifeCycles(
 ) {
   return Object.entries(lifeCycle ?? {}).reduce(
     (result, [k, v]) => {
-      result[k] = context.__parseFunction(v);
+      const func = context.__parseFunction(v);
+      result[k] = async () => {
+        await delay(0);
+        if (isFunction(func)) {
+          func();
+        }
+      };
       return result;
     },
     {} as Record<string, any>

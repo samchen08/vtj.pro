@@ -1,7 +1,7 @@
 {
   "name": "@vtj/uni",
   "private": false,
-  "version": "0.12.36",
+  "version": "0.12.37",
   "type": "module",
   "sideEffects": false,
   "keywords": [

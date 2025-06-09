@@ -5,7 +5,6 @@ const Scrollbar: MaterialDescription = {
 
   categoryId: 'base',
   doc: 'https://element-plus.org/zh-CN/component/scrollbar.html',
-  childIncludes: false,
   package: 'element-plus',
   props: [
     {

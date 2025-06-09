@@ -3,13 +3,7 @@
 </template>
 <script lang="ts" setup>
   import { ref } from 'vue';
-  import {
-    MemoryService,
-    Engine,
-    OpenApi,
-    type ProjectSchema,
-    type Settings
-  } from '@vtj/pro';
+  import { MemoryService, Engine, OpenApi, type ProjectSchema } from '@vtj/pro';
 
   class CustomService extends MemoryService {
     async init(project: ProjectSchema) {

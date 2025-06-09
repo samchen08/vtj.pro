@@ -424,6 +424,7 @@ export class ProjectModel {
     const name = page.name;
     const title = page.title;
     const dsl = new BlockModel({
+      ...page.dsl,
       id,
       name
     }).toDsl();

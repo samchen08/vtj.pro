@@ -111,9 +111,11 @@ export function nodeRender(
       dsl
     );
 
+    const __scopeId = context?.__id ? `data-v-${context.__id}` : undefined;
+    const styleScope = __scopeId ? { [__scopeId]: '' } : {};
     let vnode = Vue.createVNode(
       component,
-      { key: `${id}_${seq}`, ...props, ...events },
+      { key: `${id}_${seq}`, ...styleScope, ...props, ...events },
       slots
     );
 

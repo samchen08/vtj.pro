@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.37](https://gitee.com/newgateway/vtj/compare/dev-web@0.12.36...dev-web@0.12.37) (2025-06-09)
+
+
+### Bug Fixes
+
+* 🐛 页面mounted拿不到$refs ([01da7c8](https://gitee.com/newgateway/vtj/commits/01da7c8d2b8ff16f138f2ed96e4f03aa0938d8bb))
+
+
+
+
+
 ## [0.12.36](https://gitee.com/newgateway/vtj/compare/dev-web@0.12.35...dev-web@0.12.36) (2025-06-09)
 
 **Note:** Version bump only for package dev-web

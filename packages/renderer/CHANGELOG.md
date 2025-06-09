@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.37](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.12.36...@vtj/renderer@0.12.37) (2025-06-09)
+
+
+### Bug Fixes
+
+* 🐛 页面mounted拿不到$refs ([01da7c8](https://gitee.com/newgateway/vtj/commits/01da7c8d2b8ff16f138f2ed96e4f03aa0938d8bb))
+* 🐛 slots style scoped ([2ddf696](https://gitee.com/newgateway/vtj/commits/2ddf69670b5e818c6e14bc9ac52bd396f9d26a70))
+
+
+
+
+
 ## [0.12.36](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.12.35...@vtj/renderer@0.12.36) (2025-06-09)
 
 

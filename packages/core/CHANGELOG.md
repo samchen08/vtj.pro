@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.37](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.12.36...@vtj/core@0.12.37) (2025-06-09)
+
+
+### Bug Fixes
+
+* 🐛 页面另存为区块时，css样式没有带过去 ([144cddc](https://gitee.com/newgateway/vtj/commits/144cddc030cdfd7023e39a77de453d471ff47eea))
+
+
+
+
+
 ## [0.12.36](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.12.35...@vtj/core@0.12.36) (2025-06-09)
 
 **Note:** Version bump only for package @vtj/core

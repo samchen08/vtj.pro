@@ -7,13 +7,8 @@
 <script lang="ts" setup>
   import { reactive, ref } from 'vue';
 
-  import {
-    createRenderer,
-    type BlockSchema,
-    type NodeDirective
-  } from '@vtj/pro';
+  import { createRenderer, type BlockSchema } from '@vtj/pro';
   import { XAction } from '@vtj/web';
-  import { uid } from '@vtj/utils';
 
   const vPin = {
     mounted(el: any, binding: any) {
