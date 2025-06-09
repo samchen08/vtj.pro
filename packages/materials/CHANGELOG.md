@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.36](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.12.35...@vtj/materials@0.12.36) (2025-06-09)
+
+
+### Bug Fixes
+
+* 🐛 vant 物料 ([9fa2afc](https://gitee.com/newgateway/vtj/commits/9fa2afce43c356d16fec6b1b08b18b5f12a971f6))
+* 🐛 vant cell setters ([ef30c0d](https://gitee.com/newgateway/vtj/commits/ef30c0d08355485d78df841cd9b8e8cdb5738737))
+
+
+
+
+
 ## [0.12.35](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.12.34...@vtj/materials@0.12.35) (2025-06-06)
 
 **Note:** Version bump only for package @vtj/materials

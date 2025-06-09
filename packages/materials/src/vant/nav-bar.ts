@@ -10,19 +10,19 @@ const NavBar: MaterialDescription = {
     {
       name: 'title',
       title: '标题',
-      defaultValue: '""',
+      defaultValue: '',
       setters: 'StringSetter'
     },
     {
       name: 'left-text',
       title: '左侧文案',
-      defaultValue: '""',
+      defaultValue: '',
       setters: 'StringSetter'
     },
     {
       name: 'right-text',
       title: '右侧文案',
-      defaultValue: '""',
+      defaultValue: '',
       setters: 'StringSetter'
     },
     {

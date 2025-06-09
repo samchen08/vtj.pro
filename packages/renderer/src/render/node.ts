@@ -48,7 +48,7 @@ export function nodeRender(
     return branchRender(dsl, context, Vue, loader, brothers);
   }
 
-  const render = (context: Context) => {
+  const render = (context: Context, seq: number = 0) => {
     const $components = context.$components;
 
     const component = (() => {
@@ -111,7 +111,11 @@ export function nodeRender(
       dsl
     );
 
-    let vnode = Vue.createVNode(component, { ...props, ...events }, slots);
+    let vnode = Vue.createVNode(
+      component,
+      { key: `${id}_${seq}`, ...props, ...events },
+      slots
+    );
 
     // v-others 绑定其他指令
     const withDirectives = appContext
@@ -445,7 +449,10 @@ function parseSlot(slot: string | NodeSlot = 'default') {
 
 function vForRender(
   directive: NodeDirective,
-  render: (context: Context) => VNode | Array<VNode | null> | null,
+  render: (
+    context: Context,
+    seq?: number
+  ) => VNode | Array<VNode | null> | null,
   context: Context
 ) {
   const { value, iterator } = directive;
@@ -460,6 +467,6 @@ function vForRender(
     return [] as any;
   }
   return items.map((_item: any, _index: number) => {
-    return render(context.__clone({ [item]: _item, [index]: _index }));
+    return render(context.__clone({ [item]: _item, [index]: _index }), _index);
   });
 }

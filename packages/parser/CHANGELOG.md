@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.36](https://gitee.com/newgateway/vtj/compare/@vtj/parser@0.12.35...@vtj/parser@0.12.36) (2025-06-09)
+
+
+### Bug Fixes
+
+* 🐛 compileScopedCSS ([84689ea](https://gitee.com/newgateway/vtj/commits/84689eae582dd0a97fc17dff1516bbc01e94bae1))
+* 🐛 parser css 丢失媒体查询 ([378acab](https://gitee.com/newgateway/vtj/commits/378acab6283390bdb826beda3471c819ca7b900d))
+
+
+
+
+
 ## [0.12.35](https://gitee.com/newgateway/vtj/compare/@vtj/parser@0.12.34...@vtj/parser@0.12.35) (2025-06-06)
 
 **Note:** Version bump only for package @vtj/parser

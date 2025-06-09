@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.36](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.12.35...@vtj/designer@0.12.36) (2025-06-09)
+
+
+### Bug Fixes
+
+* 🐛 normalizedStyle ([1efe6ad](https://gitee.com/newgateway/vtj/commits/1efe6adcef2859acfb7733659cc8329587505342))
+
+
+### Features
+
+* ✨ RouterView ([112b021](https://gitee.com/newgateway/vtj/commits/112b0217ea408074cd6eeda0ae1e8e1f8206498e))
+
+
+
+
+
 ## [0.12.35](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.12.34...@vtj/designer@0.12.35) (2025-06-06)
 
 **Note:** Version bump only for package @vtj/designer

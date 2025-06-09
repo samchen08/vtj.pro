@@ -93,7 +93,7 @@ export function getClassProperties(obj: any) {
 export function normalizedStyle(style: Record<string, any> = {}) {
   const result: Record<string, any> = {};
   for (const [key, value] of Object.entries(style)) {
-    result[kebabCase(key)] = value;
+    result[key.startsWith('-') ? key : kebabCase(key)] = value;
   }
   return result;
 }

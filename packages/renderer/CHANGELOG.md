@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.36](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.12.35...@vtj/renderer@0.12.36) (2025-06-09)
+
+
+### Bug Fixes
+
+* 🐛 修复多个区块排序错乱问题 ([bf21513](https://gitee.com/newgateway/vtj/commits/bf21513140f2bfd830c7295425cc153b399a0abf))
+* 🐛 compileScopedCSS ([84689ea](https://gitee.com/newgateway/vtj/commits/84689eae582dd0a97fc17dff1516bbc01e94bae1))
+
+
+
+
+
 ## [0.12.35](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.12.34...@vtj/renderer@0.12.35) (2025-06-06)
 
 
