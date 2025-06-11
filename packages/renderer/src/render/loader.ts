@@ -143,4 +143,5 @@ export function createLoader(opts: CreateLoaderOptions): BlockLoader {
 
 export function clearLoaderCache() {
   __loaders__ = {};
+  __queue__.clearAllCache();
 }

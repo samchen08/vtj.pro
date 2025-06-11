@@ -155,6 +155,7 @@ export class Renderer {
 
   render(block: BlockModel, file?: PageFile | BlockFile | null) {
     if (!file) return;
+    clearLoaderCache();
     this.file = file;
     const { window, library, Vue, components, apis } = this.env;
     this.dsl = Vue.reactive(block.toDsl()) as BlockSchema;

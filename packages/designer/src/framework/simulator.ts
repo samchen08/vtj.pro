@@ -228,6 +228,7 @@ export class Simulator extends Base {
         : cw[name];
       materials.push(material);
     }
+    assets.clearCaches();
     assets.load(materials);
     const env = this.createEnv(
       libraryExports,

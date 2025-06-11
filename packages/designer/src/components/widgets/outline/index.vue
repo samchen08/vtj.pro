@@ -58,6 +58,7 @@
     type NodeModel,
     type BlockModel,
     type DropPosition,
+    type MaterialDescription,
     isBlock
   } from '@vtj/core';
   import { VtjIconLock, VtjIconInvisible } from '@vtj/icons';
@@ -183,7 +184,7 @@
     return selected.value?.model.id;
   });
 
-  const allowDrag = (node: any) => {
+  const allowDrag = async (node: any) => {
     const item: TreeRootData | TreeNodeData = node.data;
     if (item.type === 'slot') return false;
     // 页面不能拖
@@ -195,7 +196,14 @@
       return false;
     }
 
-    const desc = engine.assets.componentMap.get(item.model.name);
+    let desc = engine.assets.componentMap.get(item.model.name);
+    const from = (item.model as NodeModel).from;
+    if (!desc && from) {
+      desc = (await engine.assets.getBlockMaterial(
+        from
+      )) as MaterialDescription;
+    }
+
     if (desc) {
       designer.value?.setDragging(desc);
       return true;
@@ -264,7 +272,7 @@
       designer.value?.setDragging(null);
       return;
     }
-    
+
     const slot = await designer.value?.getDropSlot(
       type === 'inner' ? targetNode : targetNode.parent
     );
