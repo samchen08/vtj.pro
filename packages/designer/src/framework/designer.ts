@@ -312,6 +312,7 @@ export class Designer {
 
   private async onDragOver(e: DragEvent) {
     const helper = this.getHelper(e);
+
     if (!helper) return;
     const { model, type } = helper;
     if (model && (await this.allowDrop(model, type))) {
@@ -322,11 +323,17 @@ export class Designer {
     }
   }
 
-  private onDragStart(e: DragEvent) {
+  private async onDragStart(e: DragEvent) {
     const helper = this.getHelper(e);
     if (!helper) return;
     const { model } = helper;
-    const desc = this.engine.assets.componentMap.get(model.name);
+    let desc = this.engine.assets.componentMap.get(model.name);
+    const from = (model as NodeModel).from;
+    if (!desc && from) {
+      desc = (await this.engine.assets.getBlockMaterial(
+        from
+      )) as MaterialDescription;
+    }
     if (desc) {
       this.setDragging(desc);
     }

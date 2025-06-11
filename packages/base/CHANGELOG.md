@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.1](https://gitee.com/newgateway/vtj/compare/@vtj/base@0.12.0...@vtj/base@0.12.1) (2025-06-11)
+
+
+### Features
+
+* ✨ 加载区块组件增加队列缓存 ([d681d57](https://gitee.com/newgateway/vtj/commits/d681d575706d4f3f819323d5490339776a1032d0))
+
+
+
+
+
 # [0.12.0](https://gitee.com/newgateway/vtj/compare/@vtj/base@0.12.0-alpha.1...@vtj/base@0.12.0) (2025-04-22)
 
 **Note:** Version bump only for package @vtj/base

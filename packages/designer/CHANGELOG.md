@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.38](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.12.37...@vtj/designer@0.12.38) (2025-06-11)
+
+
+### Bug Fixes
+
+* 🐛 区块首次拖进页面无法再拖拽放置问题 ([65df49a](https://gitee.com/newgateway/vtj/commits/65df49a277267913f4dd8e291bf14b9e095b9eaa))
+
+
+
+
+
 ## [0.12.37](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.12.36...@vtj/designer@0.12.37) (2025-06-09)
 
 

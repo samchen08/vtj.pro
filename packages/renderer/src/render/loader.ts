@@ -8,9 +8,11 @@ import type {
 import { createRenderer, type CreateRendererOptions } from './block';
 import { ContextMode } from '../constants';
 import { loadCssUrl, loadScriptUrl, isJSUrl, isCSSUrl } from '../utils';
-import { cloneDeep } from '@vtj/utils';
+import { cloneDeep, Queue } from '@vtj/utils';
 
 import * as globalVue from 'vue';
+
+const __queue__ = new Queue();
 
 // 已注册的插件名称
 let __plugins__: string[] = [];
@@ -70,7 +72,11 @@ export function createLoader(opts: CreateLoaderOptions): BlockLoader {
     if (!from || typeof from === 'string') return name;
     if (from.type === 'Schema' && from.id) {
       return Vue.defineAsyncComponent(async () => {
-        const dsl = __loaders__[from.id] || (await getDsl(from.id));
+        const dsl =
+          __loaders__[from.id] ||
+          (await __queue__.add<BlockSchema | null>(from.id, () =>
+            getDsl(from.id)
+          ));
         if (dsl) {
           dsl.name = name;
           __loaders__[from.id] = dsl;

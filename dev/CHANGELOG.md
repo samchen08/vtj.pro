@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.38](https://gitee.com/newgateway/vtj/compare/dev-web@0.12.37...dev-web@0.12.38) (2025-06-11)
+
+
+### Features
+
+* ✨ 加载区块组件增加队列缓存 ([d681d57](https://gitee.com/newgateway/vtj/commits/d681d575706d4f3f819323d5490339776a1032d0))
+
+
+
+
+
 ## [0.12.37](https://gitee.com/newgateway/vtj/compare/dev-web@0.12.36...dev-web@0.12.37) (2025-06-09)
 
 
