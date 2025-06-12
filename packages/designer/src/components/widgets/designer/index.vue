@@ -107,6 +107,20 @@
       case 'selected':
         designer.value?.setSelected(model);
         break;
+      case 'open':
+        const from = model.from;
+        console.log('open', from);
+        if (typeof from === 'object' && from.type === 'Schema') {
+          const block = engine.project.value?.getBlock(from.id);
+          if (block) {
+            const region = engine.skeleton?.getRegion('Apps').regionRef;
+            if (region) {
+              region.setActive('Blocks');
+            }
+            engine.project.value?.active(block);
+          }
+        }
+        break;
     }
   };
 

@@ -56,7 +56,7 @@
       {
         default: {
           type: 'JSExpression',
-          value: ''
+          value: 'null'
         }
       },
       props.item
@@ -66,6 +66,7 @@
   const submit = async (data: any) => {
     const defaults = data.default as JSExpression;
     if (defaults) {
+      defaults.value = defaults.value || 'null';
       const ret = expressionValidate(defaults, props.context, true);
       if (!ret) {
         return false;

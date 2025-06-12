@@ -8,7 +8,7 @@ import {
   createApp,
   watch
 } from 'vue';
-import { type Context } from '@vtj/renderer';
+import { type Context, HTML_TAGS } from '@vtj/renderer';
 import {
   type Dependencie,
   type DropPosition,
@@ -592,6 +592,10 @@ export class Designer {
     if (draggingNode && draggingNode.isChild(target)) {
       return false;
     }
+    if (type === 'inner' && HTML_TAGS.includes(target.name)) {
+      return true;
+    }
+
     const componentMap = engine.assets.componentMap;
     const node = type !== 'inner' ? target.parent || target : target;
     const targetDesc =

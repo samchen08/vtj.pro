@@ -341,8 +341,10 @@ export function useOpenApi() {
     const token = access?.getData()?.token;
     const api = `${remote}/api/open/completions/${token}?tid=${topicId}&id=${chatId}`;
     const controller = new AbortController();
+    const signal = controller.signal;
     fetch(api, {
-      method: 'get'
+      method: 'get',
+      signal
     })
       .then(async (res) => {
         const reader = res.body?.getReader();

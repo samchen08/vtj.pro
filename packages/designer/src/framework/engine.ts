@@ -244,6 +244,7 @@ export class Engine extends Base {
       this.project.value = new ProjectModel(dsl);
       this.saveMaterials();
       this.triggerReady();
+      this.report.setProject(this.project.value);
       this.report.init();
     }
   }

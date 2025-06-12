@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.40](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.12.39...@vtj/renderer@0.12.40) (2025-06-12)
+
+
+### Bug Fixes
+
+* 🐛 可拖拽不在组件列表的不同html元素 ([cb3c2c7](https://gitee.com/newgateway/vtj/commits/cb3c2c77e16b4e94e96a87b8653ed21dd2860040))
+
+
+
+
+
 ## [0.12.39](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.12.38...@vtj/renderer@0.12.39) (2025-06-11)
 
 

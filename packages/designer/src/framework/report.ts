@@ -7,7 +7,7 @@ import {
   jsonp
 } from '@vtj/utils';
 import type { Access, BaseService } from '@vtj/renderer';
-import type { Service } from '@vtj/core';
+import type { Service, ProjectModel } from '@vtj/core';
 import { REPORT_API, SESSION_ID_KEY } from '../constants';
 import { version } from '../version';
 
@@ -21,6 +21,8 @@ export const excludeErrors = [
 ];
 
 export interface ReportData {
+  projectId?: string;
+  projectUid?: string;
   sessionId?: string;
   userId?: string;
   userName?: string;
@@ -43,6 +45,7 @@ export class Report {
   private remote: string;
   private debounceSend: (data: ReportData) => void;
   private timer: any = null;
+  private project?: ProjectModel;
   constructor(
     remote: string | null,
     private access: Access,
@@ -56,6 +59,10 @@ export class Report {
     if (this.service) {
       this.bindServerError(this.service as BaseService);
     }
+  }
+
+  setProject(project: ProjectModel) {
+    this.project = project;
   }
 
   private isVtjUrl(config: any) {
@@ -121,9 +128,12 @@ export class Report {
     const client = getClientInfo();
     const { href, protocol, host } = location;
     const referrer = document.referrer;
+    const { __UID__, id } = this.project || {};
     const postData = Object.assign(
       {
         ...client,
+        projectId: id,
+        projectUid: __UID__,
         url: href,
         host: protocol + '//' + host,
         referrer,

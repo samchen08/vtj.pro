@@ -9,7 +9,15 @@
   const service = new MemoryService();
   const { provider, onReady } = createProvider({
     service,
-    mode: ContextMode.Runtime
+    mode: ContextMode.Runtime,
+    project: {
+      id: '项目id'
+    }
+    // dependencies: {
+    //   Vue: () => import('vue'),
+    //   VueRouter: () => import('vue-router'),
+    //   ElementPlus: () => import('element-plus')
+    // }
   });
 
   onReady(async () => {

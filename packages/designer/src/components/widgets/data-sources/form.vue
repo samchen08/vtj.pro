@@ -104,6 +104,7 @@
   import { NAME_REGEX } from '../../../constants';
   import { expressionValidate, notify } from '../../../utils';
   import { useDataSources } from '../../hooks';
+  import { widgetManager } from '../../../managers';
 
   export interface Props {
     context: Context | null;
@@ -117,29 +118,29 @@
 
   const props = defineProps<Props>();
 
-  const typeOptions = [
-    {
-      label: 'API',
-      value: 'api',
-      border: true
-    },
-    {
-      label: '数据配置',
-      value: 'meta',
-      border: true
-    },
-    {
-      label: '模拟数据',
-      value: 'mock',
-      border: true
+  const typeOptions = computed(() => {
+    const hasMeta = !!widgetManager.get('Meta');
+    const options = [
+      {
+        label: 'API',
+        value: 'api',
+        border: true
+      },
+      {
+        label: '模拟数据',
+        value: 'mock',
+        border: true
+      }
+    ];
+    if (hasMeta) {
+      options.splice(1, 0, {
+        label: '数据配置',
+        value: 'meta',
+        border: true
+      });
     }
-    // {
-    //   label: '数据魔方',
-    //   value: 'cube',
-    //   disabled: true,
-    //   border: true
-    // }
-  ];
+    return options;
+  });
 
   const { apis, meta, engine } = useDataSources();
 

@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.40](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.12.39...@vtj/designer@0.12.40) (2025-06-12)
+
+
+### Bug Fixes
+
+* 🐛 根据条件自动判断开启数据配置项 ([f7f1f1f](https://gitee.com/newgateway/vtj/commits/f7f1f1f5fddabe3f014de10de6d3843676fab232))
+* 🐛 可拖拽不在组件列表的不同html元素 ([cb3c2c7](https://gitee.com/newgateway/vtj/commits/cb3c2c77e16b4e94e96a87b8653ed21dd2860040))
+* 🐛 ai对话错误时取消请求 ([15d3193](https://gitee.com/newgateway/vtj/commits/15d319366144d094d35eb027ed399ea651763af9))
+* 🐛 inject增加默认值null ([2e0e638](https://gitee.com/newgateway/vtj/commits/2e0e638f049203f8ed389aae46c8248a774f2907))
+
+
+### Features
+
+* ✨ 页面引入的区块支持快捷方式打开 ([4cc9288](https://gitee.com/newgateway/vtj/commits/4cc92889245c2e32993cf00d6ceb8c26dec6c7e7))
+* ✨ report collect project uid ([8fa2a88](https://gitee.com/newgateway/vtj/commits/8fa2a884d883883cc9d6fd9bbbfd3579882d58a2))
+
+
+
+
+
 ## [0.12.39](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.12.38...@vtj/designer@0.12.39) (2025-06-11)
 
 
