@@ -9,6 +9,7 @@
         v-for="item in setters"
         :name="item.name"
         :label="item.label"
+        :wheellInput="item.wheellInput"
         :setters="{ name: item.setter }"
         :options="item.options"
         :variable="false"
@@ -48,32 +49,38 @@
     {
       name: 'width',
       label: '宽(W)',
-      setter: 'SizeSetter'
+      setter: 'SizeSetter',
+      wheellInput: true
     },
     {
       name: 'height',
       label: '高(H)',
-      setter: 'SizeSetter'
+      setter: 'SizeSetter',
+      wheellInput: true
     },
     {
       name: 'min-width',
       label: '最小宽',
-      setter: 'SizeSetter'
+      setter: 'SizeSetter',
+      wheellInput: true
     },
     {
       name: 'min-height',
       label: '最小高',
-      setter: 'SizeSetter'
+      setter: 'SizeSetter',
+      wheellInput: true
     },
     {
       name: 'max-width',
       label: '最大宽',
-      setter: 'SizeSetter'
+      setter: 'SizeSetter',
+      wheellInput: true
     },
     {
       name: 'max-height',
       label: '最大高',
-      setter: 'SizeSetter'
+      setter: 'SizeSetter',
+      wheellInput: true
     },
     {
       name: 'overflow',
