@@ -36,6 +36,7 @@
       <SetterWrapper
         name="background-position"
         label="位置"
+        :wheellInput="true"
         :setters="{ name: 'SectionSetter', props: { sections: 2 } }"
         :variable="false"
         :value="props.styleJson['background-position']"

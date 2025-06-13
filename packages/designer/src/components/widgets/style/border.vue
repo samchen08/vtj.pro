@@ -4,6 +4,7 @@
       <SetterWrapper
         name="border-radius"
         label="圆角"
+        :wheellInput="true"
         :setters="{ name: 'SectionSetter', props: { sections: 4 } }"
         :variable="false"
         :value="props.styleJson['border-radius']"
@@ -22,6 +23,7 @@
           :name="`${current}-width`"
           :key="`${current}-width`"
           label="宽度"
+          :wheellInput="true"
           :setters="{ name: 'SizeSetter' }"
           :variable="false"
           :value="props.styleJson[`${current}-width`]"

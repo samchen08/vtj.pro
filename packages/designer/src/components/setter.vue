@@ -10,7 +10,13 @@
       <span v-else :title="props.name">{{ props.label || props.name }}</span>
     </template>
     <div class="v-setter__content">
-      <div v-if="currentSetter" class="v-setter__input">
+      <div
+        v-if="currentSetter"
+        class="v-setter__input"
+        v-wheelinput="{
+          min: 0,
+          status: props.wheellInput
+        }">
         <component
           v-if="!isBinding"
           :current="props.current"
@@ -97,12 +103,14 @@
   import { BlockModel } from '@vtj/core';
   import { VariableBinder } from './binders';
   import { expressionValidate, confirm } from '../utils';
+  import { vWheelinput } from '@vtj/ui';
 
   export interface Props {
     context: Context | null;
     current: BlockModel | null;
     name: string;
     label?: string;
+    wheellInput?: boolean;
     title?: string;
     setters: MaterialSetter[];
     variable?: boolean;
