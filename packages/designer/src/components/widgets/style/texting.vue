@@ -9,6 +9,7 @@
         v-for="item in setters"
         :name="item.name"
         :label="item.label"
+        :wheellInput="item.wheellInput"
         :setters="{ name: item.setter }"
         :options="item.options"
         :variable="false"
@@ -78,7 +79,8 @@
     {
       name: 'font-size',
       label: '字号',
-      setter: 'SizeSetter'
+      setter: 'SizeSetter',
+      wheellInput: true
     },
     {
       name: 'font-family',
@@ -109,7 +111,8 @@
     {
       name: 'line-height',
       label: '行高',
-      setter: 'SizeSetter'
+      setter: 'SizeSetter',
+      wheellInput: true
     },
     {
       name: 'font-weight',

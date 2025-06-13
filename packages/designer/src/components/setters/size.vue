@@ -5,6 +5,7 @@
     :with-unit="!!unit"
     v-model="modelValue"
     @change="onChange"
+    @blur="onBlur"
     v-bind="$attrs">
   </XInputUnit>
 </template>
@@ -25,6 +26,13 @@
 
   const onChange = (val: any) => {
     isPx.value = !!Number(val);
+  };
+
+  const onBlur = (e: FocusEvent) => {
+    const value = (e.target as HTMLInputElement).value;
+    isPx.value = !!Number(value);
+    const val = value ? value + unit.value : value;
+    emit('change', val);
   };
 
   watch(modelValue, (v: any) => {

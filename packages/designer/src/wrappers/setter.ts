@@ -19,6 +19,10 @@ export const SetterWrapper = defineComponent({
     },
     name: String,
     label: String,
+    wheellInput: {
+      type: Boolean,
+      default: false
+    },
     title: String,
     value: {
       type: [String, Object, Array, Number, Boolean],
@@ -115,6 +119,7 @@ export const SetterWrapper = defineComponent({
       current,
       name,
       label,
+      wheellInput,
       title,
       value,
       computedSetters,
@@ -130,6 +135,7 @@ export const SetterWrapper = defineComponent({
       current,
       name,
       label,
+      wheellInput,
       title,
       setters: computedSetters,
       defaultSetter: defaultSetter,

@@ -10,6 +10,11 @@
           <XInputUnit
             v-model="currentValue"
             size="small"
+            clearable
+            v-wheelinput="{
+              min: 0,
+              status: true
+            }"
             :with-unit="!!unit"
             :unit="unit"
             :format="unit ? '0' : undefined"
@@ -50,6 +55,7 @@
   import { onClickOutside } from '@vueuse/core';
   import { ElButton } from 'element-plus';
   import { notify } from '../../../utils';
+  import { vWheelinput } from '@vtj/ui';
 
   export interface Props {
     name: string;
