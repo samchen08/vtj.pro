@@ -11,7 +11,7 @@
     "build:material": "vue-tsc && vite build --config vite.material.config.ts"
   },
   "dependencies": {
-    "element-plus": "~2.9.1"
+    "element-plus": "~2.10.0"
   },
   "devDependencies": {
     "@vtj/cli": "latest",

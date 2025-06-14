@@ -33,7 +33,7 @@
   "dependencies": {
     "@vtj/icons": "workspace:~",
     "@vtj/utils": "workspace:~",
-    "@vueuse/core": "~13.1.0",
+    "@vueuse/core": "~13.3.0",
     "echarts": "~5.6.0"
   },
   "devDependencies": {

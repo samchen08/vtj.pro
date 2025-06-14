@@ -45,8 +45,8 @@
     "@vitejs/plugin-basic-ssl": "~2.0.0",
     "@vitejs/plugin-legacy": "~6.1.0",
     "@vitejs/plugin-vue": "~5.2.0",
-    "@vitejs/plugin-vue-jsx": "~4.1.0",
-    "@vitest/coverage-v8": "~3.1.0",
+    "@vitejs/plugin-vue-jsx": "~4.2.0",
+    "@vitest/coverage-v8": "~3.2.0",
     "@vtj/node": "workspace:~",
     "@vue/test-utils": "~2.4.5",
     "body-parser": "~1.20.2",
@@ -57,7 +57,7 @@
     "rollup-plugin-visualizer": "~5.14.0",
     "sass": "~1.89.0",
     "serve-static": "~1.16.0",
-    "terser": "~5.39.0",
+    "terser": "~5.42.0",
     "typescript": "~5.8.2",
     "unbuild": "~2.0.0",
     "unplugin-element-plus": "~0.9.0",
@@ -66,7 +66,7 @@
     "vite-plugin-dts": "~4.5.0",
     "vite-plugin-node-polyfills": "~0.23.0",
     "vite-plugin-vue-devtools": "~7.7.0",
-    "vitest": "~3.1.2",
+    "vitest": "~3.2.3",
     "vue-tsc": "~2.2.0"
   },
   "exports": {

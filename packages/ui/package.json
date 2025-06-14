@@ -33,8 +33,8 @@
   "dependencies": {
     "@vtj/icons": "workspace:~",
     "@vtj/utils": "workspace:~",
-    "@vueuse/core": "~13.1.0",
-    "element-plus": "~2.9.1",
+    "@vueuse/core": "~13.3.0",
+    "element-plus": "~2.10.0",
     "sortablejs": "~1.15.6",
     "vxe-table": "~4.6.17",
     "vxe-table-plugin-menus": "~4.0.3"
