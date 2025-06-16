@@ -36,7 +36,9 @@ export const vWheelNumber: Directive = {
     }
 
     const targetElement = input || el;
-
+    let timer: NodeJS.Timeout | null = null
+    let lastScrollTime = 0;
+    let isFastScroll = false;
     // 处理滚轮事件
     const handleWheel = (e: WheelEvent) => {
       // 如果事件发生在忽略类元素上，则跳过
@@ -45,7 +47,12 @@ export const vWheelNumber: Directive = {
       }
 
       e.preventDefault();
-
+      const now = Date.now();
+      const timeDiff = now - lastScrollTime;
+      lastScrollTime = now;
+      
+      // 检测是否为快速滚动（两次滚动间隔小于100ms）
+      isFastScroll = timeDiff > 0 && timeDiff < 100;
       // 获取当前值
       let currentValue: number;
       if (input) {
@@ -55,10 +62,19 @@ export const vWheelNumber: Directive = {
       }
 
       if (isNaN(currentValue)) currentValue = 0;
-
+       
+      // 基础变化量总是1
+      let change = step;
+            
+      // 只有确认为快速滚动时才增加变化量
+      if (isFastScroll) {
+          // 计算额外变化量
+          const speedFactor = Math.min(1, 100 / timeDiff);
+          change += Math.floor(speedFactor * (step * 5));
+      }
+            
       // 根据滚轮方向计算新值
-      const direction = e.deltaY > 0 ? -1 : 1;
-      let newValue = currentValue + direction * step;
+      let newValue = currentValue + (e.deltaY < 0 ? change : -change);
 
       // 应用边界限制
       if (newValue < min) newValue = min;
@@ -70,8 +86,11 @@ export const vWheelNumber: Directive = {
       // 更新值
       if (input) {
         input.value = newValue.toString();
-        input.dispatchEvent(new Event('input'));
-        input.dispatchEvent(new Event('change'));
+        timer && clearTimeout(timer)
+        timer = setTimeout(() => {
+          input.dispatchEvent(new Event('input'));
+          input.dispatchEvent(new Event('change'));
+        }, 500)
       } else {
         el.textContent = newValue.toString();
       }
