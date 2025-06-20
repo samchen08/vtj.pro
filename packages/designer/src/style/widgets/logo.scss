@@ -7,6 +7,9 @@
   width: 50px;
   text-align: center;
   text-shadow: 0 0 1px getCssVar('border-color');
+  &.is-pointer {
+    cursor: pointer;
+  }
 
   @include e(icon) {
     width: 24px;

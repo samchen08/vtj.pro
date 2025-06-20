@@ -3,6 +3,37 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.44](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.12.43...@vtj/designer@0.12.44) (2025-06-20)
+
+
+### Bug Fixes
+
+* 🐛 迁移常量定义 ([d448277](https://gitee.com/newgateway/vtj/commits/d4482775f9626178c0878d42318a89dad0d32f48))
+* 🐛 AI  CompletionChunk type ([187c6cd](https://gitee.com/newgateway/vtj/commits/187c6cda0d3dd5ced313427b964b5c96bf617d18))
+* 🐛 logo add pointer ([fe500b2](https://gitee.com/newgateway/vtj/commits/fe500b28710b0b28faba50d975833c3ab5c223fb))
+* 🐛 openApi ([d29d618](https://gitee.com/newgateway/vtj/commits/d29d618dc071f21ac3042b6b0ba305ac68fffc55))
+* 🐛 provider load project ([854b140](https://gitee.com/newgateway/vtj/commits/854b1403d7f8a62c4c9b58751f91e5fdc8cee675))
+
+
+
+
+
+## [0.12.43](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.12.42...@vtj/designer@0.12.43) (2025-06-17)
+
+**Note:** Version bump only for package @vtj/designer
+
+
+
+
+
+## [0.12.42](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.12.41...@vtj/designer@0.12.42) (2025-06-17)
+
+**Note:** Version bump only for package @vtj/designer
+
+
+
+
+
 ## [0.12.41](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.12.40...@vtj/designer@0.12.41) (2025-06-16)
 
 

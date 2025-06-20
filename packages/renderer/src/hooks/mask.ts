@@ -12,7 +12,7 @@ export interface UseMaskOptions {
   disableMenusFilter?: boolean;
 }
 
-function createMenus(
+export function createMenus(
   menuPathPrefix: string,
   pageRouteName: string,
   pages: PageFile[] = []
@@ -34,7 +34,10 @@ function createMenus(
   });
 }
 
-function menusFilter(menus: MenuDataItem[], access?: Access): MenuDataItem[] {
+export function menusFilter(
+  menus: MenuDataItem[],
+  access?: Access
+): MenuDataItem[] {
   if (!access) return menus;
   let result: MenuDataItem[] = [];
 

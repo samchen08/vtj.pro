@@ -110,11 +110,53 @@ export interface Settings {
   free: boolean;
 }
 
+export interface CompletionChunk {
+  id: string;
+  choices: Array<CompletionChoice>;
+  created: number;
+  model: string;
+  object: 'chat.completion.chunk';
+  service_tier?: 'scale' | 'default' | null;
+  system_fingerprint?: string;
+  usage?: CompletionUsage | null;
+}
+
+export interface CompletionChoice {
+  delta: CompletionDelta;
+  finish_reason:
+    | 'stop'
+    | 'length'
+    | 'tool_calls'
+    | 'content_filter'
+    | 'function_call'
+    | null;
+  index: number;
+  logprobs: any;
+}
+
+export interface CompletionDelta {
+  content?: string | null;
+  reasoning_content?: string | null;
+  role?: 'developer' | 'system' | 'user' | 'assistant' | 'tool';
+  refusal?: string | null;
+  tool_calls?: any[];
+}
+
+export interface CompletionUsage {
+  completion_tokens: number;
+  prompt_cache_hit_tokens: number;
+  prompt_cache_miss_tokens: number;
+  prompt_tokens: number;
+  total_tokens: number;
+}
+
 export abstract class OpenApi {
   /**
    * 签名登录
    */
-  public abstract loginBySign?: () => Promise<string[]>;
+  public abstract loginBySign?: (
+    auth?: string | (() => Promise<any>)
+  ) => Promise<string[]>;
   /**
    * 判断用户是否登录
    */
@@ -219,8 +261,8 @@ export abstract class OpenApi {
   public abstract chatCompletions?: (
     topicId: string,
     chatId: string,
-    callback?: (data: any, done?: boolean) => void,
-    error?: (err: any, cancel?: boolean) => void
+    callback?: (data: CompletionChunk, done?: boolean) => void,
+    error?: (err: Error, cancel?: boolean) => void
   ) => Promise<() => void>;
 
   /**

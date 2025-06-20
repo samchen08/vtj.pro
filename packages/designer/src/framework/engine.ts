@@ -47,10 +47,11 @@ import {
   ContextMode,
   Provider,
   Access,
+  REMOTE,
+  ACCESS,
   type ProvideAdapter
 } from '@vtj/renderer';
 import { logger, isBoolean } from '@vtj/utils';
-
 import { SkeletonWrapper, type SkeletonWrapperInstance } from '../wrappers';
 import { depsManager, widgetManager } from '../managers';
 import { Simulator } from './simulator';
@@ -59,7 +60,6 @@ import { Report } from './report';
 import { OpenApi } from './openapi';
 import { State } from './state';
 import { message, alert } from '../utils';
-import { ACCESS, REMOTE } from '../constants';
 
 export const engineKey: InjectionKey<ShallowReactive<Engine>> =
   Symbol('VtjEngine');
@@ -142,6 +142,11 @@ export interface EngineOptions {
    * 开启应用整强
    */
   enhance?: boolean | EnhanceConfig;
+
+  /**
+   * 关闭页面内嵌到母版功能
+   */
+  noMask?: boolean;
 }
 
 export const SAVE_BLOCK_FILE_FINISH = 'SAVE_BLOCK_FILE_FINISH';
@@ -242,6 +247,7 @@ export class Engine extends Base {
       }
       dsl.dependencies = depsManager.merge(dsl.dependencies || [], platform);
       this.project.value = new ProjectModel(dsl);
+      this.provider.project = this.project.value;
       this.saveMaterials();
       this.triggerReady();
       this.report.setProject(this.project.value);

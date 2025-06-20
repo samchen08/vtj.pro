@@ -58,6 +58,8 @@ import { type ProvideAdapter } from './defaults';
 // 版本信息
 import { version } from '../version';
 
+import { createMenus } from '../hooks';
+
 export const providerKey: InjectionKey<Provider> = Symbol('Provider');
 
 export interface ProviderOptions {
@@ -436,6 +438,9 @@ export class Provider extends Base {
       }
     };
     return finder(id, pages) || null;
+  }
+  getMenus(name: string = 'page', prefix: string = '') {
+    return createMenus(prefix, name, this.project?.pages || []);
   }
   getHomepage(): PageFile | null {
     const { homepage } = this.project || {};
