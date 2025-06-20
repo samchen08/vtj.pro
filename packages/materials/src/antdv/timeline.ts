@@ -64,7 +64,7 @@ const components: MaterialDescription[] = [
         name: 'color',
         label: 'color',
         title: '指定圆圈颜色 blue, red, green，或自定义的色值',
-        setters: 'StringSetter',
+        setters: ['StringSetter', 'ColorSetter'],
         defaultValue: 'blue'
       },
       {

@@ -175,9 +175,56 @@ const components: MaterialDescription[] = [
         label: 'value',
         title: '输入框内容',
         setters: 'StringSetter'
+      },
+      {
+        name: 'disabled',
+        label: 'disabled',
+        title: '是否禁用状态',
+        setters: 'BooleanSetter',
+        defaultValue: false
+      },
+      {
+        name: 'rows',
+        label: 'rows',
+        title: '指定输入框的行数',
+        setters: 'NumberSetter',
+        defaultValue: 2
+      },
+      {
+        name: 'maxlength',
+        label: 'maxlength',
+        title: '最大长度',
+        setters: 'NumberSetter'
+      },
+      {
+        name: 'minlength',
+        label: 'minlength',
+        title: '最小长度',
+        setters: 'NumberSetter'
+      },
+      {
+        name: 'placeholder',
+        label: 'placeholder',
+        title: '输入框的提示文字',
+        setters: 'StringSetter'
+      },
+      {
+        name: 'readonly',
+        label: 'readonly',
+        title: '是否只读',
+        setters: 'BooleanSetter',
+        defaultValue: false
+      },
+      {
+        name: 'wrap',
+        label: 'wrap',
+        title: '文本域的文本换行方式',
+        setters: 'SelectSetter',
+        options: ['soft', 'hard', 'off'],
+        defaultValue: 'soft'
       }
     ],
-    events: ['pressEnter']
+    events: ['pressEnter', 'update:value']
   },
   {
     name: 'AInputSearch',

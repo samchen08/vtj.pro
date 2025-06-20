@@ -68,7 +68,7 @@ const components: MaterialDescription[] = [
     snippet: {
       props: {
         title: 'Active Users',
-        value: '112893'
+        value: Date.now() + 1000 * 60 * 60 * 20 * 2
       }
     }
   },
@@ -123,7 +123,7 @@ const components: MaterialDescription[] = [
     snippet: {
       props: {
         title: 'countDown',
-        value: 1791998311585
+        value: Date.now() + 1000 * 60 * 60 * 20 * 2
       }
     }
   }

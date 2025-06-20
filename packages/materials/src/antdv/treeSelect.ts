@@ -295,19 +295,17 @@ const components: MaterialDescription[] = [
       'update:value'
     ],
     slots: [
-      'default',
-      'maxTagPlaceholder',
-      'notFoundContent',
-      'placeholder',
-      'searchPlaceholder',
-      'suffixIcon',
-      'tagRender',
-      'title'
+      { name: 'default' },
+      { name: 'maxTagPlaceholder' },
+      { name: 'notFoundContent' },
+      { name: 'placeholder' },
+      { name: 'searchPlaceholder' },
+      { name: 'suffixIcon' },
+      { name: 'tagRender' },
+      { name: 'title' }
     ],
     snippet: {
-      //  ! 选中没值
       props: {
-        value: '',
         showSearch: true,
         dropdownStyle: { maxHeight: '400px', overflow: 'auto' },
         placeholder: 'please select',

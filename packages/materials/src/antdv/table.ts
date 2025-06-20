@@ -236,13 +236,6 @@ const components: MaterialDescription[] = [
         title:
           '数据渲染前可以再次改变，一般用于空数据的默认配置，可以通过 ConfigProvider 全局统一配置',
         setters: 'FunctionSetter' //?? Function({ text, column, record, index }) => any，此处的 text 是经过其它定义单元格 api 处理后的数据，有可能是 VNode | string | number 类型
-      },
-      {
-        name: 'transformCellText',
-        label: 'transformCellText',
-        title:
-          '数据渲染前可以再次改变，一般用于空数据的默认配置，可以通过 ConfigProvider 全局统一配置',
-        setters: 'FunctionSetter' //??Function({ text, column, record, index }) => any，此处的 text 是经过其它定义单元格 api 处理后的数据，有可能是 VNode | string | number 类型
       }
     ],
     events: [
@@ -274,7 +267,8 @@ const components: MaterialDescription[] = [
       {
         name: 'summary'
       },
-      { name: 'title', params: ['currentPageData'] }
+      { name: 'title', params: ['currentPageData'] },
+      { name: 'transformCellText' }
     ],
     snippet: {
       props: {
