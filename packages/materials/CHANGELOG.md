@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.46](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.12.45...@vtj/materials@0.12.46) (2025-06-23)
+
+**Note:** Version bump only for package @vtj/materials
+
+
+
+
+
+## [0.12.45](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.12.44...@vtj/materials@0.12.45) (2025-06-23)
+
+
+### Bug Fixes
+
+* 🐛 ASelect ([2755a36](https://gitee.com/newgateway/vtj/commits/2755a36a85242c60cd3a99303626a46c0b7d30c3))
+
+
+
+
+
 ## [0.12.44](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.12.43...@vtj/materials@0.12.44) (2025-06-20)
 
 **Note:** Version bump only for package @vtj/materials

@@ -111,6 +111,11 @@ export interface VTJConfig {
   pageRouteName?: string;
 
   /**
+   * 页面路由前缀，默认：''
+   */
+  pageBasePath?: string;
+
+  /**
    * 项目部署目录
    */
   __BASE_PATH__?: string;

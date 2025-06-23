@@ -80,7 +80,8 @@
 - ~~页面另存为区块时，css样式没有带过去~~
 - ~~页面mounted拿不到$refs~~
 - ~~区块第一次拖进页面后，无法再拖到，需要刷新才可以~~
-- vue代码 v-if v-for template标签内无子标签或多个子标签，parser异常
+- ~~vue代码 v-if v-for template标签内无子标签或多个子标签，parser异常~~
+- pro engine 处理跳转链接需要适配 设置了 pageRouteName 的情况
 
 ## 版本规划
 

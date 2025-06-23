@@ -56,13 +56,33 @@ const components: MaterialDescription[] = [
         name: 'afterChange',
         label: 'afterChange',
         title: '切换面板的回调',
-        setters: 'FunctionSetter' //?? function(current)
+        setters: 'FunctionSetter'
       },
       {
         name: 'beforeChange',
         label: 'beforeChange',
         title: '切换面板的回调',
-        setters: 'FunctionSetter' //?? function(current)
+        setters: 'FunctionSetter'
+      },
+      {
+        name: 'arrows',
+        label: 'arrows',
+        setters: 'BooleanSetter',
+        defaultValue: false
+      }
+    ],
+    slots: [
+      {
+        name: 'default'
+      },
+      {
+        name: 'customPaging'
+      },
+      {
+        name: 'prevArrow'
+      },
+      {
+        name: 'nextArrow'
       }
     ],
     snippet: {

@@ -234,7 +234,7 @@ export class Engine extends Base {
    * @param project 项目Schema
    */
   private async init(project: ProjectSchema) {
-    const dsl = await this.service.init(project).catch((e) => {
+    const dsl = await this.service.init(project, true).catch((e) => {
       logger.warn('VTJEngine service init fail.', e);
       return null;
     });

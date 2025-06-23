@@ -3,7 +3,7 @@ import { resolve } from 'path';
 import { pathExistsSync, readJsonSync } from '@vtj/node';
 import { type EnvType, type EnvConfig } from '../../vite/types';
 
-function getConfig(envPath: string, type: string): Record<string, any> {
+export function getConfig(envPath: string, type: string): Record<string, any> {
   const defaults = resolve(envPath, 'env.json');
   const env = resolve(envPath, `env.${type}.json`);
   const defaultConfig = pathExistsSync(defaults) ? readJsonSync(defaults) : {};

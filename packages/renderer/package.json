@@ -1,7 +1,7 @@
 {
   "name": "@vtj/renderer",
   "private": false,
-  "version": "0.12.44",
+  "version": "0.12.46",
   "type": "module",
   "keywords": [
     "低代码引擎",

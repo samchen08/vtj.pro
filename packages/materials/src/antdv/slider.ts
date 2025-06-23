@@ -100,7 +100,7 @@ const components: MaterialDescription[] = [
         label: 'tipFormatter',
         title:
           'Slider 会把当前值传给 tipFormatter，并在 Tooltip 中显示 tipFormatter 的返回值，若为 null，则隐藏 Tooltip',
-        setters: ['ObjectSetter', 'FunctionSetter'] //??  Function|null
+        setters: 'FunctionSetter' //??  Function|null
         // defaultValue: '' //?? IDENTITY
       },
       {
@@ -120,7 +120,11 @@ const components: MaterialDescription[] = [
         name: 'getTooltipPopupContainer',
         label: 'getTooltipPopupContainer',
         title: 'Tooltip 渲染父节点，默认渲染到 body 上',
-        setters: 'FunctionSetter'
+        setters: 'FunctionSetter',
+        defaultValue: {
+          type: 'Function',
+          value: '() => document.body	'
+        }
       }
     ],
     events: ['change', 'afterChange', 'update:value'],

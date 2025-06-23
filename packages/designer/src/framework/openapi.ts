@@ -261,7 +261,7 @@ export abstract class OpenApi {
   public abstract chatCompletions?: (
     topicId: string,
     chatId: string,
-    callback?: (data: CompletionChunk, done?: boolean) => void,
+    callback?: (data: CompletionChunk | null, done?: boolean) => void,
     error?: (err: Error, cancel?: boolean) => void
   ) => Promise<() => void>;
 

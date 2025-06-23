@@ -5,6 +5,7 @@ export default [
   { text: 'UI库', link: '/ui/' },
   // { text: '图表库', link: '/icons/' },
   { text: 'API', link: '/typedoc/modules.html' },
+  { text: '🔥 高级服务', link: '/service/' },
   {
     text: '相关链接',
     items: [

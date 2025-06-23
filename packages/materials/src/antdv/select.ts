@@ -4,7 +4,6 @@ const components: MaterialDescription[] = [
   {
     name: 'ASelect',
     alias: 'Select',
-    childIncludes: ['ASelectOption', 'ASelectOptGroup'],
     label: '选择器',
     categoryId: 'input',
     doc: 'https://www.antdv.com/components/select-cn',

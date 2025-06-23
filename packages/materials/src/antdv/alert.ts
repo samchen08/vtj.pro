@@ -58,7 +58,7 @@ const components: MaterialDescription[] = [
         title: '指定警告提示的样式，有四种选择 success、info、warning、error',
         setters: 'SelectSetter',
         options: ['success', 'info', 'warning', 'error'],
-        defaultValue: 'info'
+        defaultValue: ''
       }
     ],
     events: ['close'],

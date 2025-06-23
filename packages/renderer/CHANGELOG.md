@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.46](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.12.45...@vtj/renderer@0.12.46) (2025-06-23)
+
+
+### Bug Fixes
+
+* 🐛 uni alert ([2d23811](https://gitee.com/newgateway/vtj/commits/2d23811a22abca567443db14bc45f37c455a71cb))
+
+
+
+
+
+## [0.12.45](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.12.44...@vtj/renderer@0.12.45) (2025-06-23)
+
+
+### Bug Fixes
+
+* 🐛 access ([85a1091](https://gitee.com/newgateway/vtj/commits/85a1091c8ed4c898e1830fff02fcd12350c5cd72))
+
+
+
+
+
 ## [0.12.44](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.12.43...@vtj/renderer@0.12.44) (2025-06-20)
 
 

@@ -454,7 +454,7 @@ function transformNode(
 
   // 注释，忽略
   if (node.type === NodeTypes.COMMENT) {
-    // return null;
+    return;
   }
 
   console.warn('未处理', node.type);

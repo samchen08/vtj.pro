@@ -183,7 +183,7 @@ export function useTabs(
   };
 
   watch(menus, init);
-  watch(route, init);
+  watch(route, init, { immediate: true });
   provide(TAB_CREATORS_KEY, tabCreators);
 
   return {

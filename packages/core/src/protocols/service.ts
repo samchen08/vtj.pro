@@ -20,7 +20,10 @@ export abstract class Service {
    * 获取完整的项目信息
    * @param project
    */
-  public abstract init(project: Partial<ProjectSchema>): Promise<ProjectSchema>;
+  public abstract init(
+    project: Partial<ProjectSchema>,
+    isInit?: boolean
+  ): Promise<ProjectSchema>;
 
   /**
    * 保存项目信息

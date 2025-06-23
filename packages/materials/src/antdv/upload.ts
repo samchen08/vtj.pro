@@ -18,7 +18,7 @@ const components: MaterialDescription[] = [
         name: 'action',
         label: 'action',
         title: '上传的地址',
-        setters: 'FunctionSetter'
+        setters: ['StringSetter', 'FunctionSetter']
       },
       {
         name: 'beforeUpload',
@@ -123,7 +123,7 @@ const components: MaterialDescription[] = [
         name: 'progress',
         label: 'progress',
         title: '自定义进度条样式',
-        setters: 'ObjectSetter', //?? 	ProgressProps（仅支持 type="line"）
+        setters: 'ObjectSetter',
         defaultValue: { strokeWidth: 2, showInfo: false }
       },
       {
@@ -155,14 +155,22 @@ const components: MaterialDescription[] = [
         defaultValue: false
       }
     ],
-    events: ['change', 'download', 'drop', 'preview', 'reject', 'remove'],
+    events: [
+      'change',
+      'download',
+      'drop',
+      'preview',
+      'reject',
+      'remove',
+      'modelValue:fileList'
+    ],
     slots: [
-      'default',
-      'downloadIcon',
-      'iconRender',
-      'itemRender',
-      'previewIcon',
-      'removeIcon'
+      { name: 'default' },
+      { name: 'downloadIcon' },
+      { name: 'iconRender' },
+      { name: 'itemRender' },
+      { name: 'previewIcon' },
+      { name: 'removeIcon' }
     ],
     snippet: {
       props: {
@@ -174,7 +182,6 @@ const components: MaterialDescription[] = [
       children: [
         {
           name: 'AButton',
-          // children: [{ name: 'uploadOutlined' }]
           children: 'Click to Upload'
         }
       ]

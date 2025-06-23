@@ -68,8 +68,10 @@
         let url =
           pathname === `${__BASE_PATH__}__vtj__/` ? __BASE_PATH__ : pathname;
         const file = project.currentFile;
+
         if (file && file.type === 'page' && project.homepage !== file.id) {
-          const pagePath = `${fillPrefix(base)}${isUniapp ? 'pages' : pageRouteName}/${file.id}`;
+          const uniName = config.pageBasePath ? `/${pageRouteName}` : '';
+          const pagePath = `${fillPrefix(base)}${isUniapp ? `pages${uniName}` : pageRouteName}/${file.id}`;
           url = isHashRouter() ? `${url}#/${pagePath}` : `${url}${pagePath}`;
         }
         window.open(url, 'VTJProject');

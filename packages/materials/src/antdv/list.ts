@@ -160,7 +160,7 @@ const components: MaterialDescription[] = [
                     {
                       name: 'AAvatar',
                       slot: { name: 'avatar' },
-                      props: { href: 'https://joeschmoe.io/api/v1/random' }
+                      props: { src: 'https://joeschmoe.io/api/v1/random' }
                     }
                   ]
                 }
@@ -212,7 +212,7 @@ const components: MaterialDescription[] = [
             {
               name: 'AAvatar',
               slot: { name: 'avatar' },
-              props: { href: 'https://joeschmoe.io/api/v1/random' }
+              props: { src: 'https://joeschmoe.io/api/v1/random' }
             }
           ]
         }

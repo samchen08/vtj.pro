@@ -149,6 +149,13 @@ const components: MaterialDescription[] = [
         label: 'tab',
         title: '选项卡头显示文字',
         setters: 'StringSetter'
+      },
+      {
+        name: 'disabled',
+        label: 'disabled',
+        title: '是否禁用',
+        setters: 'BooleanSetter',
+        defaultValue: false
       }
     ],
     slots: ['default', 'closeIcon', 'tab'],

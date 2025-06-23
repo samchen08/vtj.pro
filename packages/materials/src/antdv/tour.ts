@@ -58,6 +58,12 @@ const components: MaterialDescription[] = [
         setters: 'BooleanSetter'
       },
       {
+        name: 'current',
+        label: 'current',
+        title: '当前处于哪一步',
+        setters: 'NumberSetter'
+      },
+      {
         name: 'scrollIntoViewOptions',
         label: 'scrollIntoViewOptions',
         title:

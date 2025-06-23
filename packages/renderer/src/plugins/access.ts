@@ -249,7 +249,7 @@ export class Access {
     return false;
   }
 
-  private toLogin() {
+  toLogin() {
     const { auth, redirectParam } = this.options;
     if (!auth) return;
     // if (this.mode === ContextMode.Design) return;
@@ -300,7 +300,7 @@ export class Access {
     this.setData(data || null);
   }
 
-  private isLogined() {
+  isLogined() {
     const { session, authKey } = this.options;
     if (session && authKey) {
       return !!cookie.get(authKey);
@@ -372,7 +372,7 @@ export class Access {
     }
   }
 
-  private async showTip(content: string) {
+  async showTip(content: string) {
     const { alert } = this.options;
     if (alert) {
       // 延时是为了提示层渲染在loading的层级之上
@@ -380,7 +380,7 @@ export class Access {
       return await alert(content, {
         title: '提示',
         type: 'warning'
-      }).catch(() => false);
+      })?.catch(() => false);
     }
     return false;
   }

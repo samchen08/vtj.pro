@@ -19,7 +19,7 @@ const components: MaterialDescription[] = [
         name: 'color',
         label: 'color',
         title: '标签色',
-        setters: 'StringSetter'
+        setters: ['StringSetter', 'ColorSetter']
       },
       {
         name: 'bordered',

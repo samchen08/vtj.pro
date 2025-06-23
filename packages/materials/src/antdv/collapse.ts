@@ -46,7 +46,7 @@ const components: MaterialDescription[] = [
         name: 'expandIcon',
         label: 'expandIcon',
         title: '自定义切换图标',
-        setters: 'FunctionSetter' //?? 	Function(props):VNode | slot="expandIcon" slot-scope="props"|#expandIcon="props"
+        setters: 'FunctionSetter'
       },
       {
         name: 'expandIconPosition',
@@ -61,10 +61,23 @@ const components: MaterialDescription[] = [
         title: '使折叠面板透明且无边框',
         setters: 'BooleanSetter',
         defaultValue: false
+      },
+      {
+        name: 'defaultActiveKey',
+        label: 'defaultActiveKey',
+        title: '默认激活的 Tab 面板',
+        setters: 'StringSetter'
       }
     ],
     events: ['change', 'update:activeKey'],
-    slots: ['default', 'expandIcon'],
+    slots: [
+      {
+        name: 'default'
+      },
+      {
+        name: 'expandIcon'
+      }
+    ],
     snippet: {
       props: {
         activeKey: '1'
@@ -142,7 +155,7 @@ const components: MaterialDescription[] = [
       },
       {
         name: 'showArrow',
-        label: 'sho是否展示当前面板的箭头wArrow',
+        label: 'shoArrow',
         title: '是否展示当前面板的箭头',
         setters: 'BooleanSetter',
         defaultValue: true
