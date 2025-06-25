@@ -265,7 +265,7 @@ export class Provider extends Base {
 
         for (const url of urls) {
           if (isCSSUrl(url)) {
-            await loadCss(libraryName, urlUtils.append(url, { v: version }));
+            await loadCss(url, urlUtils.append(url, { v: version }));
           }
           if (isJSUrl(url)) {
             await loadScript(urlUtils.append(url, { v: version }));

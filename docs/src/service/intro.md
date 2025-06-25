@@ -1,15 +1,15 @@
 # VTJ 低代码开发平台示例项目
 
-这是一个基于 VTJ 低代码引擎实现的在线开发平台全功能示例项目，支持多平台应用开发。项目包含以下核心功能：
+这是一个基于 **VTJ** 低代码引擎实现的在线开发平台全功能示例项目，支持多平台应用开发。项目包含以下核心功能：
 
 - 设计器与渲染器集成
-- 自定义 Service 和 OpenAPI 实现
+- 自定义 `Service` 和 `OpenAPI` 实现
 - 设计器个性化定制扩展
   项目功能完整度达到生产环境要求，支持定制、编译和部署。
 
 ## 准备工作
 
-本项目是低代码平台前端工程，默认集成 VTJ 官方标准服务接口。由于接口调用需要登录授权，如需静默自动授权，请获取账号授权签名。
+本项目是低代码平台前端工程，默认集成 **VTJ** 官方标准服务接口。由于接口调用需要登录授权，如需静默自动授权，请获取账号授权签名。
 
 ### 获取授权签名
 
@@ -77,18 +77,18 @@ const pages = {
 
 设计器实现位于 `/src/views/designer.vue`，所有平台共用同一设计器，通过加载项目 DSL 的 `platform` 属性确定目标平台功能。
 
-设计器路由格式：`/:platform/:name`
+设计器路由格式：`/:platform/:id`
 
 - **platform**: 平台标识（web、h5、uniapp）
-- **name**: 应用标识（对应项目 DSL 的 `id` 字段）
+- **id**: 应用标识（对应项目 DSL 的 `id` 字段）
 
 ### 渲染器集成
 
-各平台渲染器实现位置：
+各平台渲染器实现文件：
 
-- **Web**: `/src/platform/web`
-- **H5**: `/src/platform/h5`
-- **UniApp**: `/src/platform/uniapp`
+- **Web**: `/src/platform/web/main.ts`
+- **H5**: `/src/platform/h5/main.ts`
+- **UniApp**: `/src/platform/uniapp/main.ts`
 
 ### 自定义 Service
 
@@ -108,9 +108,13 @@ OpenAPI 提供低代码平台的远程服务能力，如页面模板和 AI 助�
 
 ### 后端实现
 
-后端实现可自由设计，只需满足 Service 和 OpenAPI 的接口规范。具体实现细节请参考 `docs` 目录下的文档。
+后端实现可自行设计，只需满足 Service 和 OpenAPI 的接口规范。具体实现细节请参考 `docs` 目录下的文档。
+
+![](./assets/3.png)
 
 ## 重要说明
+
+- API方法统一在 `/src/apis` 目录下定义，函数都带有TS签名和注释， 可以按自己的需求更换对应接口。
 
 - 代码中的Access是为了适配官方接口服务的权限控制，如果你改为自己实现的服务，可以不需要Access
 - 请求工具使用了 `setGlobalRequest` 配置全局的`request`, 如果在设计器中的设计视图和预览也需要用相同的`request`, 可以通过参数传入到引擎和`createProvider`。
@@ -135,6 +139,14 @@ OpenAPI 提供低代码平台的远程服务能力，如页面模板和 AI 助�
 
 - 如果您不需要模版和AI功能，就不需要定义OpenAPI， 只需要把引擎的`remote`参数设置为`null`就可以关闭这两个功能。
 
+### 设计器交互
+
+![](./assets/5.png)
+
+![](./assets/4.png)
+
+![](./assets/6.png)
+
 ## 在线体验
 
-访问 Demo: [https://vtj.pro/demo/](https://demo.vtj.pro/demo/)
+访问 Demo: [https://vtj.pro/demo/](https://vtj.pro/demo/)

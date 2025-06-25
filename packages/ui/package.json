@@ -1,7 +1,7 @@
 {
   "name": "@vtj/ui",
   "private": false,
-  "version": "0.12.46",
+  "version": "0.12.47",
   "type": "module",
   "keywords": [
     "低代码引擎",
