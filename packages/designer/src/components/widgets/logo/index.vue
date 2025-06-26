@@ -1,5 +1,8 @@
 <template>
-  <div class="v-logo-widget" @click="onClick">
+  <div
+    class="v-logo-widget"
+    :class="{ 'is-pointer': !!props.link }"
+    @click="onClick">
     <img
       v-if="_logo"
       :title="props.text"

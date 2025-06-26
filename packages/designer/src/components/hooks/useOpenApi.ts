@@ -6,7 +6,8 @@ import {
   type TemplateDto,
   type TopicDto,
   type ChatDto,
-  type Settings
+  type Settings,
+  type CompletionChunk
 } from '../../framework';
 import { alert } from '../../utils';
 
@@ -35,8 +36,10 @@ export function useOpenApi() {
     if (!access) return;
 
     if (openApi?.loginBySign) {
-      const data = await openApi.loginBySign();
-      access?.login(data);
+      const data = await openApi.loginBySign(auth).catch(() => null);
+      if (data) {
+        access?.login(data);
+      }
       return;
     }
     if (!remote || !auth) return;
@@ -70,11 +73,12 @@ export function useOpenApi() {
   };
 
   const isLogined = async () => {
-    if (openApi?.isLogined) {
-      return await openApi?.isLogined();
-    }
     const token = access?.getData()?.token;
     if (token) {
+      if (openApi?.isLogined) {
+        const data = await openApi.isLogined().catch(() => null);
+        return !!data;
+      }
       const api = `${remote}/api/open/user/${token}`;
       const res = await jsonp(api).catch(() => null);
       if (res && res.data) {
@@ -332,8 +336,8 @@ export function useOpenApi() {
   const chatCompletions = async (
     topicId: string,
     chatId: string,
-    callback?: (data: any, done?: boolean) => void,
-    error?: (err: any, cancel?: boolean) => void
+    callback?: (data: CompletionChunk | null, done?: boolean) => void,
+    error?: (err: Error, cancel?: boolean) => void
   ) => {
     if (openApi?.chatCompletions) {
       return await openApi?.chatCompletions(topicId, chatId, callback, error);
@@ -363,7 +367,7 @@ export function useOpenApi() {
               try {
                 const data = JSON.parse(line.slice(6));
                 callback && callback(data, done);
-              } catch (e) {
+              } catch (e: any) {
                 const msg = line.slice(6);
                 error && error(msg ? new Error(msg) : e);
                 controller.abort();

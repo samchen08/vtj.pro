@@ -43,7 +43,7 @@ export class DevTools {
     const now = Date.now();
     const devtoolsPath = `${host}${__BASE_PATH__}${VUE_DEVTOOLS_PATH}?t=${now}`;
     if (this.enabled === undefined) {
-      this.enabled = await this.checkDevtools(devtoolsPath);
+      // this.enabled = await this.checkDevtools(devtoolsPath);
     }
     if (!this.enabled) return;
     this.createScript(window, devtoolsPath, () => {
@@ -104,7 +104,7 @@ export class DevTools {
     });
   }
 
-  private async checkDevtools(url: string) {
+  async checkDevtools(url: string) {
     return await window
       .fetch(url)
       .then(async (res) => {

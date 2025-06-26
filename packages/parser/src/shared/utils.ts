@@ -51,15 +51,15 @@ export function generateCode(node: Node) {
 }
 
 export function isJSExpression(data: any): data is JSExpression {
-  return data && data.type === 'JSExpression';
+  return !!data && data.type === 'JSExpression';
 }
 
 export function isJSFunction(x: any): x is JSFunction {
-  return typeof x === 'object' && x && x.type === 'JSFunction';
+  return typeof x === 'object' && !!x && x.type === 'JSFunction';
 }
 
 export function isJSCode(data: unknown): data is JSExpression | JSFunction {
-  return isJSExpression(data) || isJSFunction(data);
+  return !!isJSExpression(data) || !!isJSFunction(data);
 }
 
 export function isNodeSchema(

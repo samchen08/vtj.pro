@@ -3,6 +3,79 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.47](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.12.46...@vtj/designer@0.12.47) (2025-06-24)
+
+**Note:** Version bump only for package @vtj/designer
+
+
+
+
+
+## [0.12.46](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.12.45...@vtj/designer@0.12.46) (2025-06-23)
+
+
+### Bug Fixes
+
+* 🐛 uniapp预览跳转链接 ([1d54eaa](https://gitee.com/newgateway/vtj/commits/1d54eaa31274b6b0e192d2f862fea284b71242a6))
+
+
+
+
+
+## [0.12.45](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.12.44...@vtj/designer@0.12.45) (2025-06-23)
+
+
+### Bug Fixes
+
+* 🐛 下线 DevTools ([b05359c](https://gitee.com/newgateway/vtj/commits/b05359c7d2a2e3ad3ec26cca5058aaea06081163))
+* 🐛 chatCompletions type ([f4779b2](https://gitee.com/newgateway/vtj/commits/f4779b21fc4c853b730862cc6c83c4f19ed0155a))
+
+
+
+
+
+## [0.12.44](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.12.43...@vtj/designer@0.12.44) (2025-06-20)
+
+
+### Bug Fixes
+
+* 🐛 迁移常量定义 ([d448277](https://gitee.com/newgateway/vtj/commits/d4482775f9626178c0878d42318a89dad0d32f48))
+* 🐛 AI  CompletionChunk type ([187c6cd](https://gitee.com/newgateway/vtj/commits/187c6cda0d3dd5ced313427b964b5c96bf617d18))
+* 🐛 logo add pointer ([fe500b2](https://gitee.com/newgateway/vtj/commits/fe500b28710b0b28faba50d975833c3ab5c223fb))
+* 🐛 openApi ([d29d618](https://gitee.com/newgateway/vtj/commits/d29d618dc071f21ac3042b6b0ba305ac68fffc55))
+* 🐛 provider load project ([854b140](https://gitee.com/newgateway/vtj/commits/854b1403d7f8a62c4c9b58751f91e5fdc8cee675))
+
+
+
+
+
+## [0.12.43](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.12.42...@vtj/designer@0.12.43) (2025-06-17)
+
+**Note:** Version bump only for package @vtj/designer
+
+
+
+
+
+## [0.12.42](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.12.41...@vtj/designer@0.12.42) (2025-06-17)
+
+**Note:** Version bump only for package @vtj/designer
+
+
+
+
+
+## [0.12.41](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.12.40...@vtj/designer@0.12.41) (2025-06-16)
+
+
+### Features
+
+* ✨ SizeSetter支持滚轮输入 ([e2cceb3](https://gitee.com/newgateway/vtj/commits/e2cceb354934ba74186ecde03436e491966aa71e))
+
+
+
+
+
 ## [0.12.40](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.12.39...@vtj/designer@0.12.40) (2025-06-12)
 
 

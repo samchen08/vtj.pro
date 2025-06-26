@@ -49,7 +49,7 @@
       </template>
     </XField>
     <XField
-      v-if="!isUniapp"
+      v-if="!isUniapp && !noMask"
       :visible="{ dir: false }"
       inline
       name="mask"
@@ -59,7 +59,7 @@
       :disabled="!isWebPlatform"></XField>
 
     <XField
-      v-if="!isUniapp"
+      v-if="!isUniapp && !noMask"
       name="cache"
       :visible="{ dir: false }"
       inline
@@ -88,6 +88,7 @@
       :disabled="!isWebPlatform"></XField>
 
     <XField
+      v-if="!noMask"
       :visible="{ dir: false }"
       :disabled="!!props.item"
       inline
@@ -172,6 +173,8 @@
   const pageDir = computed(() => {
     return engine.options.pageRouteName || (isUniapp.value ? 'pages' : 'page');
   });
+
+  const noMask = computed(() => !!engine.options.noMask);
 
   const createEmptyModel = () => ({
     dir: false,

@@ -15,11 +15,11 @@ hero:
       text: 快速开始
       link: /guide/
     - theme: alt
-      text: ⭐ 在线体验
+      text: 在线体验
       link: https://lcdp.vtj.pro/page/92q671qifm
       target: new
     - theme: alt
-      text: 🔥 源码仓库
+      text: 源码仓库
       link: https://gitee.com/newgateway/vtj
       target: new
 

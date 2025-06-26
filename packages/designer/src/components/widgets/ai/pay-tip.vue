@@ -104,9 +104,9 @@
   } from 'element-plus';
   import { ShoppingCart, CopyDocument, Finished } from '@vtj/icons';
   import { useClipboard } from '@vueuse/core';
+  import { REMOTE } from '@vtj/renderer';
   import { type Settings } from '../../hooks';
   import { alert, confirm } from '../../../utils';
-  import { REMOTE } from '../../../constants';
 
   export interface Props {
     settings?: Settings;

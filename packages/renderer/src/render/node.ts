@@ -11,7 +11,7 @@ import {
   type NodeChildren,
   type NodeSlot
 } from '@vtj/core';
-import { camelCase, upperFirst, isString, pick } from '@vtj/utils';
+import { camelCase, upperFirst, isString, pick, isObject } from '@vtj/utils';
 import { type Context } from './context';
 import { BUILT_IN_DIRECTIVES } from '../constants';
 import {
@@ -69,6 +69,11 @@ export function nodeRender(
         }
         return $components[name] ?? appContext?.app?.component(name) ?? name;
       } else {
+        if (isObject(name) && dsl.id) {
+          const key = `Loader${dsl.id}_${seq}`;
+          const value = $components[key];
+          return value ? value : ($components[key] = name);
+        }
         return name;
       }
     })();

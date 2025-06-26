@@ -18,7 +18,8 @@ import {
   type ElementNode,
   type IfNode,
   type ForNode,
-  type CompoundExpressionNode
+  type CompoundExpressionNode,
+  type IfBranchNode
 } from '@vue/compiler-core';
 import { uid } from '@vtj/base';
 import { isJSExpression, isNodeSchema } from '../shared';
@@ -207,10 +208,17 @@ function getEvents(
   return events;
 }
 
-function getDirectives(node: IfNode | ForNode | ElementNode, branches?: any[]) {
+function getDirectives(
+  node: IfNode | ForNode | IfBranchNode | ElementNode,
+  branches?: any[]
+) {
   const directives: NodeDirective[] = [];
   // v-if
-  if (branches && (node as any).type === NodeTypes.IF_BRANCH) {
+  if (
+    branches &&
+    ((node as any).type === NodeTypes.IF_BRANCH ||
+      (node as any).type === NodeTypes.IF)
+  ) {
     branches.forEach((branch, index) => {
       if (node === branch) {
         const name =
@@ -380,15 +388,15 @@ function transformNode(
   node: TemplateChildNode,
   parent?: NodeSchema,
   branches?: any[]
-): NodeSchema | NodeSchema[] | JSExpression | string | null {
+): NodeSchema | NodeSchema[] | JSExpression | string | undefined {
   // 处理元素节点
   if (node.type === NodeTypes.ELEMENT) {
     return createNodeSchema(node, parent);
   }
 
   // 处理 v-if 节点
-  if (!branches && node.type === NodeTypes.IF) {
-    return transformBranches(node.branches);
+  if (node.type === NodeTypes.IF) {
+    return transformTemplateIf(node);
   }
 
   if (branches && node.type === NodeTypes.IF_BRANCH) {
@@ -402,9 +410,13 @@ function transformNode(
 
   // 处理 v-for 节点
   if (node.type === NodeTypes.FOR) {
-    const el = node.children[0];
-    if (el.type === NodeTypes.ELEMENT) {
-      return createNodeSchema(el, parent, node);
+    const child = node.children[0];
+    if (node.children.length > 1 || child.type !== NodeTypes.ELEMENT) {
+      const directives = getDirectives(node);
+      const el = { name: 'span', directives };
+      return transformChildren(el, node.children);
+    } else {
+      return createNodeSchema(child, parent, node);
     }
   }
 
@@ -442,11 +454,11 @@ function transformNode(
 
   // 注释，忽略
   if (node.type === NodeTypes.COMMENT) {
-    return null;
+    return;
   }
 
   console.warn('未处理', node.type);
-  return null;
+  // return null;
 }
 
 function transformCompoundExpression(children: CompoundExpressionNode[] = []) {
@@ -553,4 +565,21 @@ function transformChildren(
   }
 
   return el;
+}
+
+function transformTemplateIf(node: IfNode) {
+  const branches = node.branches || [];
+  const first = branches[0];
+  const children = first.children || [];
+  if (
+    first?.isTemplateIf ||
+    children.length > 1 ||
+    children[0].type !== NodeTypes.ELEMENT
+  ) {
+    const directives = getDirectives(first as any, branches);
+    const el = { name: 'span', directives };
+    return transformChildren(el, first.children);
+  } else {
+    return transformBranches(branches);
+  }
 }

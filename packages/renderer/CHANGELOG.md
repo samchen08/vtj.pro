@@ -3,6 +3,78 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.47](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.12.46...@vtj/renderer@0.12.47) (2025-06-24)
+
+
+### Bug Fixes
+
+* 🐛 renderer多样式文件引入失效 ([70fe6e7](https://gitee.com/newgateway/vtj/commits/70fe6e7aad765199122a0c787483e54aa11d88da))
+
+
+
+
+
+## [0.12.46](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.12.45...@vtj/renderer@0.12.46) (2025-06-23)
+
+
+### Bug Fixes
+
+* 🐛 uni alert ([2d23811](https://gitee.com/newgateway/vtj/commits/2d23811a22abca567443db14bc45f37c455a71cb))
+
+
+
+
+
+## [0.12.45](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.12.44...@vtj/renderer@0.12.45) (2025-06-23)
+
+
+### Bug Fixes
+
+* 🐛 access ([85a1091](https://gitee.com/newgateway/vtj/commits/85a1091c8ed4c898e1830fff02fcd12350c5cd72))
+
+
+
+
+
+## [0.12.44](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.12.43...@vtj/renderer@0.12.44) (2025-06-20)
+
+
+### Bug Fixes
+
+* 🐛 迁移常量定义 ([d448277](https://gitee.com/newgateway/vtj/commits/d4482775f9626178c0878d42318a89dad0d32f48))
+* 🐛 provider load project ([854b140](https://gitee.com/newgateway/vtj/commits/854b1403d7f8a62c4c9b58751f91e5fdc8cee675))
+
+
+
+
+
+## [0.12.43](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.12.42...@vtj/renderer@0.12.43) (2025-06-17)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
+## [0.12.42](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.12.41...@vtj/renderer@0.12.42) (2025-06-17)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
+## [0.12.41](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.12.40...@vtj/renderer@0.12.41) (2025-06-16)
+
+
+### Bug Fixes
+
+* 🐛 修复页面状态更新导致区块重新渲染问题 ([92ae2b9](https://gitee.com/newgateway/vtj/commits/92ae2b975cb2f512e252049ccadbfb28093ce237))
+
+
+
+
+
 ## [0.12.40](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.12.39...@vtj/renderer@0.12.40) (2025-06-12)
 
 

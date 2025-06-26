@@ -5,12 +5,14 @@
     :with-unit="!!unit"
     v-model="modelValue"
     @change="onChange"
+    v-wheel-number
     v-bind="$attrs">
   </XInputUnit>
 </template>
 <script lang="ts" setup>
   import { computed, ref, watch } from 'vue';
   import { XInputUnit } from '@vtj/ui';
+  import { vWheelNumber } from './shared';
 
   export interface Props {
     modelValue?: string;

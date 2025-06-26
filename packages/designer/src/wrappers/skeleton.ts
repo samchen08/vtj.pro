@@ -15,6 +15,9 @@ export const SkeletonWrapper = defineComponent({
     if (!engine?.remote) {
       widgetManager.removeRemoteWidgets();
     }
+    if (engine.options.noMask) {
+      widgetManager.unregister('ProjectConfig');
+    }
     return {
       skeletonRef,
       engine,

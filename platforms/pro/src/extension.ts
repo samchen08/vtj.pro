@@ -68,6 +68,18 @@ export class Extension {
         }
       }
     }
-    return options;
+    return Object.assign({}, this.getEngineOptions(), options);
+  }
+
+  getEngineOptions() {
+    const keys: string[] = [
+      'materialPath',
+      'pageBasePath',
+      'pageRouteName',
+      'remote',
+      'checkVersion',
+      'noMask'
+    ];
+    return VtjUtils.pick(this.config, keys);
   }
 }

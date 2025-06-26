@@ -9,8 +9,11 @@
   export interface Props {
     remote?: string;
     access?: Record<string, any>;
+    baseUrl?: string;
   }
-  const props = withDefaults(defineProps<Props>(), {});
+  const props = withDefaults(defineProps<Props>(), {
+    baseUrl: '/'
+  });
 
   const access = createAccess({
     alert,
@@ -36,7 +39,7 @@
     try {
       access.login(info);
       const redirect = route.query.redirect as string;
-      location.href = decodeURIComponent(redirect || '/');
+      location.href = decodeURIComponent(redirect || props.baseUrl);
     } catch (e) {
       location.reload();
     }
