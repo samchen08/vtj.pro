@@ -117,36 +117,6 @@ npm run setup && npm run build && npm run app:dev
 
 ## ⭐ 优秀案例
 
-### 新明珠集团低代码开发平台
-
-<table>
-<tr>
-<td>
-<img src="https://www.newpearl.com/assets/static/images/headerHover.png" height="50" />
-</td>
-<td>
-新明珠集团全面深度接入<code>VTJ</code>，采用本地开发模式配搭自建业务模型，存量系统通过wujie微前端集成，已在多个项目投入应用。
-低代码平台建设方案： <a href="https://vtj.pro/guide/newpearl.html">https://vtj.pro/guide/newpearl.html</a> 
-</td>
-</tr>
-</table>
-<table border="0">
-<tr>
-<td>业务数据模型</td>
-<td>模型管理设计器</td>
-<td>业务应用系统</td>
-</tr>
-  <tr>
-    <td>
-    <img src="dev/public/newpearl/p1.png" />
-    </td>
-    <td>
-    <img src="dev/public/newpearl/p2.png" /></td>
-   <td>
-   <img src="dev/public/newpearl/p3.png" /></td>
-  </tr>
-</table>
-
 ### 悦码低代码平台
 
 <table>
