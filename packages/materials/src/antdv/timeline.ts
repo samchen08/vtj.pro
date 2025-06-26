@@ -36,7 +36,7 @@ const components: MaterialDescription[] = [
         defaultValue: false
       }
     ],
-    slots: ['pending', 'pendingDot'],
+    slots: ['default', 'pending', 'pendingDot'],
     snippet: {
       children: [
         { name: 'ATimelineItem', children: 'Create a services site 2015-09-01' }
@@ -64,7 +64,7 @@ const components: MaterialDescription[] = [
         name: 'color',
         label: 'color',
         title: '指定圆圈颜色 blue, red, green，或自定义的色值',
-        setters: 'StringSetter',
+        setters: ['StringSetter', 'ColorSetter'],
         defaultValue: 'blue'
       },
       {
@@ -87,7 +87,7 @@ const components: MaterialDescription[] = [
         options: ['left', 'right']
       }
     ],
-    slots: ['dot', 'label'],
+    slots: ['default', 'dot', 'label'],
     snippet: {
       children: '创建服务现场 2015-09-01'
     }

@@ -10,7 +10,12 @@
       <ElRadioButton label="pad" value="pad">
         <VtjIconPad></VtjIconPad>
       </ElRadioButton>
+      <ElRadioButton label="custom" value="custom">
+        <VtjIconEdit></VtjIconEdit>
+      </ElRadioButton>
     </ElRadioGroup>
+
+    <ScreenSize v-if="mode === 'custom'" v-model="customSize"></ScreenSize>
 
     <ElInput v-if="false" class="v-toolbar-widget__zoomer" size="small">
       <template #prepend>
@@ -45,11 +50,20 @@
       active-text="辅助线"
       inactive-text="辅助线"
       :disabled="!!props.preview"
-      v-model="outline"></ElSwitch>
+      v-model="engine.state.outlineEnabled"></ElSwitch>
+    <ElSwitch
+      class="v-toolbar-widget__active-event"
+      size="default"
+      inline-prompt
+      active-text="响应事件"
+      inactive-text="响应事件"
+      :disabled="!!props.preview"
+      v-model="engine.state.activeEvent"></ElSwitch>
   </div>
 </template>
 <script lang="ts" setup>
   import { ref, computed, watch } from 'vue';
+  import ScreenSize from './ScreenSize.vue';
   import {
     ElButtonGroup,
     ElButton,
@@ -66,7 +80,8 @@
     VtjIconPad,
     VtjIconPhone,
     VtjIconUndo,
-    VtjIconRedo
+    VtjIconRedo,
+    VtjIconEdit
   } from '@vtj/icons';
   import { useHistory } from '../../hooks';
 
@@ -83,7 +98,11 @@
     return platform === 'web';
   });
   const mode = ref('pc');
-  const outline = ref(true);
+
+  const customSize = ref({
+    width: 1920,
+    height: 1080
+  });
 
   watch(
     isWebPlatform,
@@ -101,6 +120,6 @@
 
   defineExpose({
     mode,
-    outline
+    customSize
   });
 </script>

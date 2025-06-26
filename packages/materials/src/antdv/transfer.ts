@@ -154,7 +154,7 @@ const components: MaterialDescription[] = [
       'update:selectedKeys',
       'update:targetKeys'
     ],
-    slots: ['footer', 'render', 'selectAllLabels'],
+    slots: ['default', 'footer', 'render', 'selectAllLabels'],
     snippet: {
       props: {
         dataSource: mockData,

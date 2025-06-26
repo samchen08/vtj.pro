@@ -3,6 +3,138 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.1](https://gitee.com/newgateway/vtj/compare/create-vtj@0.12.0...create-vtj@0.12.1) (2025-06-11)
+
+**Note:** Version bump only for package create-vtj
+
+
+
+
+
+# [0.12.0](https://gitee.com/newgateway/vtj/compare/create-vtj@0.12.0-alpha.1...create-vtj@0.12.0) (2025-04-22)
+
+**Note:** Version bump only for package create-vtj
+
+
+
+
+
+# [0.12.0-alpha.1](https://gitee.com/newgateway/vtj/compare/create-vtj@0.12.0-alpha.0...create-vtj@0.12.0-alpha.1) (2025-04-22)
+
+**Note:** Version bump only for package create-vtj
+
+
+
+
+
+# [0.12.0-alpha.0](https://gitee.com/newgateway/vtj/compare/create-vtj@0.11.3...create-vtj@0.12.0-alpha.0) (2025-04-21)
+
+**Note:** Version bump only for package create-vtj
+
+
+
+
+
+## [0.11.3](https://gitee.com/newgateway/vtj/compare/create-vtj@0.11.2...create-vtj@0.11.3) (2025-04-09)
+
+
+### Bug Fixes
+
+* 🐛 物料项目工程模版缺少默认配置 ([905a137](https://gitee.com/newgateway/vtj/commits/905a13798821754f72d9fd23fc59ef1f5aefbc50))
+
+
+
+
+
+## [0.11.2](https://gitee.com/newgateway/vtj/compare/create-vtj@0.11.1...create-vtj@0.11.2) (2025-03-20)
+
+**Note:** Version bump only for package create-vtj
+
+
+
+
+
+## [0.11.1](https://gitee.com/newgateway/vtj/compare/create-vtj@0.11.1-alpha.1...create-vtj@0.11.1) (2025-03-18)
+
+**Note:** Version bump only for package create-vtj
+
+
+
+
+
+## [0.11.1-alpha.1](https://gitee.com/newgateway/vtj/compare/create-vtj@0.11.0...create-vtj@0.11.1-alpha.1) (2025-03-18)
+
+**Note:** Version bump only for package create-vtj
+
+
+
+
+
+# [0.11.0](https://gitee.com/newgateway/vtj/compare/create-vtj@0.10.8...create-vtj@0.11.0) (2025-03-17)
+
+
+### Features
+
+* ✨ 设计器扩展开发项目工程模版 ([1565b46](https://gitee.com/newgateway/vtj/commits/1565b46d82c9aab71daa1bf06b3a194cc028921b))
+
+
+
+
+
+## [0.10.8](https://gitee.com/newgateway/vtj/compare/create-vtj@0.10.7...create-vtj@0.10.8) (2025-03-14)
+
+**Note:** Version bump only for package create-vtj
+
+
+
+
+
+## [0.10.7](https://gitee.com/newgateway/vtj/compare/create-vtj@0.10.6...create-vtj@0.10.7) (2025-03-14)
+
+
+### Bug Fixes
+
+* 🐛 normalizedStyle ([b649f10](https://gitee.com/newgateway/vtj/commits/b649f109af7b11f29fcc51b523185c3302706d9a))
+
+
+
+
+
+## [0.10.6](https://gitee.com/newgateway/vtj/compare/create-vtj@0.10.5...create-vtj@0.10.6) (2025-03-13)
+
+
+### Features
+
+* ✨ 物料开发工程模版 ([b1e88e8](https://gitee.com/newgateway/vtj/commits/b1e88e852df84586600a5a0ef00a89bed55bc8b6))
+
+
+
+
+
+## [0.10.5](https://gitee.com/newgateway/vtj/compare/create-vtj@0.10.4...create-vtj@0.10.5) (2025-03-11)
+
+
+### Bug Fixes
+
+* 🐛 更新uniapp依赖, 优化renderer ([463b1f7](https://gitee.com/newgateway/vtj/commits/463b1f7419b5373c514eaaf285a989c5220f7934))
+
+
+### Features
+
+* ✨ uniapp 支持微信小程序 ([ca67024](https://gitee.com/newgateway/vtj/commits/ca6702490867df9badb5f045aee76c2df14f2052))
+
+
+
+
+
+## [0.10.4](https://gitee.com/newgateway/vtj/compare/create-vtj@0.10.3...create-vtj@0.10.4) (2025-03-04)
+
+**Note:** Version bump only for package create-vtj
+
+
+
+
+
 ## [0.10.3](https://gitee.com/newgateway/vtj/compare/create-vtj@0.10.2...create-vtj@0.10.3) (2025-02-26)
 
 

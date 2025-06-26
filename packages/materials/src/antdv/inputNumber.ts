@@ -92,7 +92,7 @@ const components: MaterialDescription[] = [
         label: 'size',
         title: '输入框大小',
         setters: 'SelectSetter',
-        options: ['large', 'middle', 'small']
+        options: ['large', '', 'small']
       },
       {
         name: 'status',
@@ -124,7 +124,14 @@ const components: MaterialDescription[] = [
       }
     ],
     events: ['change', 'pressEnter', 'step', 'update:value'],
-    slots: ['addonAfter', 'addonBefore', 'prefix', 'upIcon', 'downIcon']
+    slots: [
+      'default',
+      'addonAfter',
+      'addonBefore',
+      'prefix',
+      'upIcon',
+      'downIcon'
+    ]
   }
 ];
 export default components;

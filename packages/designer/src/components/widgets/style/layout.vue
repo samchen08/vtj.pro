@@ -43,6 +43,23 @@
           :value="props.styleJson['flex-wrap']"
           @change="props.setStyle"></SetterWrapper>
       </template>
+
+      <SetterWrapper
+        name="flex"
+        label="flex"
+        :setters="{ name: 'TagSetter' }"
+        :options="flexOptions"
+        :variable="false"
+        :value="props.styleJson['flex']"
+        @change="props.setStyle"></SetterWrapper>
+      <SetterWrapper
+        name="align-self"
+        label="align-self"
+        :setters="{ name: 'TagSetter' }"
+        :options="flexAlignItemsOptions"
+        :variable="false"
+        :value="props.styleJson['align-self']"
+        @change="props.setStyle"></SetterWrapper>
     </ElForm>
   </Panel>
 </template>
@@ -209,6 +226,21 @@
       label: 'stretch',
       value: 'stretch',
       svg: IconFlexAlignstretchrow
+    }
+  ];
+
+  const flexOptions = [
+    {
+      label: '默认',
+      value: 'initial'
+    },
+    {
+      label: '自动伸缩',
+      value: 'auto'
+    },
+    {
+      label: '不伸缩',
+      value: 'none'
     }
   ];
 

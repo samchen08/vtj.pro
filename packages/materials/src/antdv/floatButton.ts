@@ -62,7 +62,7 @@ const components: MaterialDescription[] = [
       }
     ],
     events: ['click'],
-    slots: ['icon', 'description', 'tooltip']
+    slots: ['default', 'icon', 'description', 'tooltip']
   },
   {
     name: 'AFloatButtonGroup',
@@ -147,7 +147,7 @@ const components: MaterialDescription[] = [
       }
     ],
     events: ['openChange', 'click', 'update:open'],
-    slots: ['icon', 'description', 'tooltip'],
+    slots: ['default', 'icon', 'description', 'tooltip'],
     snippet: {
       props: {
         style: { right: '164px' }
@@ -226,7 +226,7 @@ const components: MaterialDescription[] = [
       }
     ],
     events: ['click'],
-    slots: ['icon', 'description', 'tooltip'],
+    slots: ['default', 'icon', 'description', 'tooltip'],
     snippet: {
       props: {
         visibilityHeight: '0'

@@ -9,8 +9,7 @@
     "apps/*",
     "create-vtj",
     "dev",
-    "docs",
-    "lcdp"
+    "docs"
   ],
   "command": {
     "publish": {

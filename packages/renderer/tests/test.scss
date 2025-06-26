@@ -1,0 +1,50 @@
+.container[data-v-1232] {
+  color: red;
+}
+.item[data-v-1232]:hover {
+  background: blue;
+}
+.item[data-v-1232]::after {
+  background: blue;
+}
+.parent[data-v-1232] .child {
+  font-size: 14px;
+}
+.wrapper .nested[data-v-1232] {
+  margin: 10px;
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  50% {
+    opacity: 0.5;
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@media (max-width: 768px) {
+  .responsive[data-v-1232] {
+    display: none;
+  }
+  .mobile[data-v-1232]:focus {
+    outline: 2px solid blue;
+  }
+}
+@supports (display: grid) {
+  .grid[data-v-1232] {
+    display: grid;
+  }
+  .grid-item[data-v-1232] {
+    grid-area: auto;
+  }
+}
+:root {
+  --color: red;
+}
+body {
+  margin: 0;
+}

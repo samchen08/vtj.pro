@@ -12,8 +12,8 @@
         <span>{{ version }}</span>
       </div>
     </div>
-    <ElDivider direction="vertical"></ElDivider>
-    <div class="v-about-widget__item">
+    <ElDivider v-if="showUserAvatar" direction="vertical"></ElDivider>
+    <div v-if="showUserAvatar" class="v-about-widget__item">
       <div class="v-about-widget__logo">
         <ElAvatar
           :size="80"
@@ -48,11 +48,11 @@
   }
   const props = defineProps<Props>();
   const engine = props.engine;
-  const { access } = engine.adapter || {};
+  const { access } = engine || {};
   const { latest } = useCheckVersion();
   const avatarSrc = computed(() => {
     const avatar = access?.getData()?.avatar || '';
-    const remote = engine.adapter?.remote || '';
+    const remote = engine.remote || '';
     return avatar
       ? avatar.startsWith('https:')
         ? avatar
@@ -60,12 +60,17 @@
       : null;
   });
 
+  const showUserAvatar = computed(() => {
+    // 设置了auth，不显示头像
+    return !!engine.remote && !engine.options.auth;
+  });
+
   const username = computed(() => {
     return access?.getData()?.name || '未登录';
   });
 
   const isLogined = computed(() => {
-    return access.isLogined();
+    return access?.isLogined();
   });
 
   const logout = () => {

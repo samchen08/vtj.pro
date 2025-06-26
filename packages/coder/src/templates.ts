@@ -4,7 +4,7 @@ const scriptTemplate = `
 // @ts-nocheck
 
 <%= imports %>
-import { useProvider } from '@vtj/renderer';
+import { useProvider } from '<%= renderer %>';
 export default defineComponent({
   name: '<%= name %>', 
   <% if(inject) { %> inject: { <%= inject %>}, <% } %>
@@ -17,7 +17,7 @@ export default defineComponent({
       id: '<%= id %>',
       version: '<%= version %>'
     });
-    const state = reactive<Record<string, any>>({ <%= state %> });
+    const state = reactive({ <%= state %> });
     <%= urlSchemas %>
     <%= blockPlugins %>
     return {

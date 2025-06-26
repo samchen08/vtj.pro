@@ -1,0 +1,38 @@
+{
+  "code": 0,
+  "success": true,
+  "timestamp": 1740723785407,
+  "message": "成功",
+  "data": {
+    "id": "31aff5b8-e20b-4506-95dc-4730d197a5eb",
+    "object": "chat.completion",
+    "created": 1740723685,
+    "model": "deepseek-reasoner",
+    "choices": [
+      {
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "<template>\n  <div>\n    <el-form :model=\"state.queryForm\" inline>\n      <el-form-item label=\"用户名\">\n        <el-input v-model=\"state.queryForm.username\" placeholder=\"请输入用户名\" />\n      </el-form-item>\n      <el-form-item label=\"性别\">\n        <el-select v-model=\"state.queryForm.gender\" placeholder=\"请选择性别\">\n          <el-option label=\"男\" value=\"1\" />\n          <el-option label=\"女\" value=\"2\" />\n        </el-select>\n      </el-form-item>\n      <el-form-item label=\"手机号码\">\n        <el-input v-model=\"state.queryForm.phone\" placeholder=\"请输入手机号\" />\n      </el-form-item>\n      <el-form-item>\n        <el-button type=\"primary\" @click=\"handleQuery\">查询</el-button>\n        <el-button @click=\"resetQuery\">重置</el-button>\n      </el-form-item>\n    </el-form>\n\n    <el-table :data=\"state.tableData\" border stripe>\n      <el-table-column prop=\"id\" label=\"用户ID\" width=\"100\" />\n      <el-table-column prop=\"username\" label=\"用户名\" />\n      <el-table-column prop=\"age\" label=\"年龄\" width=\"80\" />\n      <el-table-column prop=\"gender\" label=\"性别\" width=\"80\">\n        <template #default=\"{row}\">{{ row.gender === 1 ? '男' : '女' }}</template>\n      </el-table-column>\n      <el-table-column prop=\"phone\" label=\"手机号码\" width=\"120\" />\n      <el-table-column prop=\"email\" label=\"邮箱地址\" width=\"180\" />\n      <el-table-column prop=\"address\" label=\"地址\" show-overflow-tooltip />\n      <el-table-column prop=\"createTime\" label=\"注册时间\" width=\"180\" />\n      <el-table-column label=\"操作\" width=\"120\">\n        <template #default>\n          <el-button type=\"text\">查看</el-button>\n          <el-button type=\"text\">编辑</el-button>\n        </template>\n      </el-table-column>\n    </el-table>\n\n    <el-pagination\n      class=\"pagination\"\n      v-model:current-page=\"state.currentPage\"\n      v-model:page-size=\"state.pageSize\"\n      :total=\"state.total\"\n      :page-sizes=\"[10, 20, 50]\"\n      layout=\"total, sizes, prev, pager, next, jumper\"\n      @current-change=\"handleQuery\"\n      @size-change=\"handleQuery\"\n    />\n  </div>\n</template>\n\n<script>\nimport { defineComponent, reactive } from 'vue';\nimport { useProvider } from '@vtj/renderer';\nimport {\n  ElTable,\n  ElTableColumn,\n  ElForm,\n  ElFormItem,\n  ElInput,\n  ElSelect,\n  ElOption,\n  ElButton,\n  ElPagination\n} from 'element-plus';\n\nexport default defineComponent({\n  name: 'UserList',\n  components: {\n    ElTable,\n    ElTableColumn,\n    ElForm,\n    ElFormItem,\n    ElInput,\n    ElSelect,\n    ElOption,\n    ElButton,\n    ElPagination\n  },\n  setup(props) {\n    const provider = useProvider({ id: '45tltwv09', version: '1740707174334' });\n    const state = reactive({\n      queryForm: {\n        username: '',\n        gender: '',\n        phone: ''\n      },\n      tableData: [],\n      total: 0,\n      currentPage: 1,\n      pageSize: 10\n    });\n    return { state, props, provider };\n  },\n  methods: {\n    async handleQuery() {\n      // 模拟接口调用\n      this.state.tableData = [\n        {\n          id: 1001,\n          username: '张三',\n          age: 28,\n          gender: 1,\n          phone: '13800138000',\n          email: 'zhangsan@example.com',\n          address: '北京市朝阳区',\n          createTime: '2023-01-01 10:00:00'\n        }\n      ];\n      this.state.total = 1;\n    },\n    resetQuery() {\n      this.state.queryForm = {\n        username: '',\n        gender: '',\n        phone: ''\n      };\n      this.handleQuery();\n    }\n  },\n  mounted() {\n    this.handleQuery();\n  }\n});\n</script>\n\n<style lang=\"css\" scoped>\n.pagination {\n  margin-top: 20px;\n  justify-content: flex-end;\n}\n.el-form-item {\n  margin-bottom: 12px;\n}\n.el-button + .el-button {\n  margin-left: 8px;\n}\n</style>",
+          "reasoning_content": "好的，用户需要实现一个用户信息查询列表的Vue3组件，使用element-plus库，并且按照给定的代码模板来写。我需要仔细分析用户的需求，并确保符合所有的要求。\n\n首先，用户的需求是表格展示多个字段，包括用户ID、用户名、年龄、性别、手机号码、邮箱地址、地址、注册时间和操作列。查询表单需要包含用户名、性别、手机号码，还有分页功能。按钮是查询按钮。\n\n接下来，我需要考虑使用element-plus的组件。表格用el-table，表单用el-form，分页用el-pagination。按需导入这些组件，并在components字段中注册。同时，性别选择框应该用el-select，选项是男和女。\n\n然后，根据代码模板，setup函数里只能定义state，所以所有的响应式数据都要放在state对象里。包括查询表单的字段（username、gender、phone）、分页的当前页和每页大小，以及模拟的表格数据tableData和总条数total。\n\n在methods里，需要添加handleQuery和resetQuery方法，分别处理查询和重置表单。查询方法里要发送请求，这里暂时用模拟数据。重置方法将表单字段置空，然后重新查询。\n\n分页处理方面，需要处理current-change和size-change事件，更新当前页和每页大小后重新获取数据。\n\n生命周期钩子这里，可能在mounted里调用初始数据获取，比如调用handleQuery。\n\n计算属性可能不需要，所以留空。样式部分，添加一些内边距和按钮间距，使用scoped的CSS。\n\n需要注意的点：按需导入element-plus的组件，局部注册；不能改动provider；代码只能放在指定位置；setup里只定义state。\n\n最后，检查是否所有需求都满足，包括表格列、查询表单、分页、操作按钮，以及代码结构和导入是否正确。"
+        },
+        "logprobs": null,
+        "finish_reason": "stop"
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 340,
+      "completion_tokens": 1703,
+      "total_tokens": 2043,
+      "prompt_tokens_details": {
+        "cached_tokens": 64
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 576
+      },
+      "prompt_cache_hit_tokens": 64,
+      "prompt_cache_miss_tokens": 276
+    },
+    "system_fingerprint": "fp_5417b77867_prod0225"
+  }
+}

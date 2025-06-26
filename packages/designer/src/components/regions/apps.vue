@@ -105,6 +105,7 @@
   });
 
   defineExpose({
+    active,
     widgets,
     widgetsRef,
     setActive

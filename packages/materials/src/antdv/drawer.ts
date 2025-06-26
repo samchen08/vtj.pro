@@ -179,7 +179,7 @@ const components: MaterialDescription[] = [
       }
     ],
     events: ['afterOpenChange', 'close', 'update:open'],
-    slots: ['closeIcon', 'extra', 'footer', 'title'],
+    slots: ['default', 'closeIcon', 'extra', 'footer', 'title'],
     snippet: {
       props: {
         open: true,

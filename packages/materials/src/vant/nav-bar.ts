@@ -10,19 +10,19 @@ const NavBar: MaterialDescription = {
     {
       name: 'title',
       title: '标题',
-      defaultValue: '""',
+      defaultValue: '',
       setters: 'StringSetter'
     },
     {
       name: 'left-text',
       title: '左侧文案',
-      defaultValue: '""',
+      defaultValue: '',
       setters: 'StringSetter'
     },
     {
       name: 'right-text',
       title: '右侧文案',
-      defaultValue: '""',
+      defaultValue: '',
       setters: 'StringSetter'
     },
     {
@@ -81,8 +81,8 @@ const NavBar: MaterialDescription = {
     }
   ],
   events: [
-    { name: 'click-left', params: ['event'] },
-    { name: 'click-right', params: ['event'] }
+    { name: 'clickLeft', params: ['event'] },
+    { name: 'clickRight', params: ['event'] }
   ],
   slots: ['title', 'left', 'right'],
   snippet: {

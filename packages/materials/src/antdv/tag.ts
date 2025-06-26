@@ -19,7 +19,7 @@ const components: MaterialDescription[] = [
         name: 'color',
         label: 'color',
         title: '标签色',
-        setters: 'StringSetter'
+        setters: ['StringSetter', 'ColorSetter']
       },
       {
         name: 'bordered',
@@ -30,7 +30,7 @@ const components: MaterialDescription[] = [
       }
     ],
     events: ['close'],
-    slots: ['closeIcon', 'icon'],
+    slots: ['default', 'closeIcon', 'icon'],
     snippet: {
       children: 'Tag'
     }

@@ -92,6 +92,7 @@
       theme: props.dark ? 'vs-dark' : 'vs',
       automaticLayout: true,
       minimap: { enabled: props.minimap },
+      tabSize: 2,
       ...props.options
     });
 

@@ -25,26 +25,7 @@ const desc: MaterialDescription[] = [
       children: [
         {
           name: 'UniBreadcrumbItem',
-          props: {
-            to: {
-              type: 'JSExpression',
-              value: 'this.context.item.to'
-            }
-          },
-          children: {
-            type: 'JSExpression',
-            value: 'this.context.item.name'
-          },
-          directives: [
-            {
-              name: 'vFor',
-              value: {
-                type: 'JSExpression',
-                value:
-                  '[{to: "/pages/index/index",name: "首页"},{	to: "",name: "菜单 A",},{to: "",name: "菜单 B"}]'
-              }
-            }
-          ]
+          children: '首页'
         }
       ]
     }

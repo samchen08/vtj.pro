@@ -1,4 +1,11 @@
-import { uid, merge, upperFirstCamelCase, delay, cloneDeep } from '@vtj/base';
+import {
+  uid,
+  merge,
+  upperFirstCamelCase,
+  delay,
+  cloneDeep,
+  uuid
+} from '@vtj/base';
 import type {
   ProjectSchema,
   Dependencie,
@@ -70,6 +77,7 @@ export const EVENT_PROJECT_GEN_SOURCE = 'EVENT_PROJECT_GEN_SOURCE';
 
 export class ProjectModel {
   id: string = '';
+  locked: string = '';
   platform: PlatformType = 'web';
   name: string = '';
   description: string = '';
@@ -83,7 +91,9 @@ export class ProjectModel {
   config: ProjectConfig = {};
   uniConfig: UniConfig = {};
   __BASE_PATH__: string = '/';
+  __UID__: string = uuid(true);
   static attrs: string[] = [
+    'locked',
     'platform',
     'name',
     'homepage',
@@ -95,11 +105,13 @@ export class ProjectModel {
     'meta',
     'config',
     'uniConfig',
-    '__BASE_PATH__'
+    '__BASE_PATH__',
+    '__UID__'
   ];
   constructor(schema: ProjectSchema) {
-    const { id } = schema;
+    const { id, __UID__ } = schema;
     this.id = id || uid();
+    this.__UID__ = __UID__ || uuid(true);
     this.update(schema, true);
   }
 
@@ -352,6 +364,7 @@ export class ProjectModel {
    */
   updatePage(page: PageFile, silent: boolean = false) {
     const match = this.getPage(page.id);
+    delete page.dsl;
     if (match) {
       Object.assign(match, page);
     } else {
@@ -411,6 +424,7 @@ export class ProjectModel {
     const name = page.name;
     const title = page.title;
     const dsl = new BlockModel({
+      ...page.dsl,
       id,
       name
     }).toDsl();
@@ -778,5 +792,27 @@ export class ProjectModel {
       data: null
     };
     emitter.emit(EVENT_PROJECT_GEN_SOURCE, event);
+  }
+
+  lock(id: string) {
+    this.locked = id;
+    const event: ProjectModelEvent = {
+      model: this,
+      type: 'update',
+      data: id
+    };
+    emitter.emit(EVENT_PROJECT_CHANGE, event);
+  }
+  unlock(id: string) {
+    if (id !== this.locked) {
+      return;
+    }
+    this.locked = '';
+    const event: ProjectModelEvent = {
+      model: this,
+      type: 'update',
+      data: null
+    };
+    emitter.emit(EVENT_PROJECT_CHANGE, event);
   }
 }

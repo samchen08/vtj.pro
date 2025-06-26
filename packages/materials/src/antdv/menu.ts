@@ -56,6 +56,12 @@ const components: MaterialDescription[] = [
         setters: 'ArraySetter'
       },
       {
+        name: 'overflowedIndicator',
+        label: 'overflowedIndicator',
+        title: '用于自定义 Menu 水平空间不足时的省略收缩的图标',
+        setters: 'IconSetter'
+      },
+      {
         name: 'selectable',
         label: 'selectable',
         title: '是否允许选中',
@@ -107,7 +113,7 @@ const components: MaterialDescription[] = [
       'update:openKeys',
       'update:selectedKeys'
     ],
-    slots: ['overflowedIndicator'],
+    slots: ['default', 'overflowedIndicator'],
     snippet: {
       props: {
         selectedKeys: ['mail'],
@@ -195,7 +201,7 @@ const components: MaterialDescription[] = [
         setters: 'StringSetter'
       }
     ],
-    slots: ['icon', 'title'],
+    slots: ['default', 'icon', 'title'],
     snippet: {
       children: '菜单项',
       props: {
@@ -246,7 +252,7 @@ const components: MaterialDescription[] = [
       }
     ],
     events: ['titleClick'],
-    slots: ['expandIcon', 'icon', 'title'],
+    slots: ['default', 'expandIcon', 'icon', 'title'],
     snippet: {
       //Menu.SubMenu 的子元素必须是 MenuItem 或者 SubMenu.
       //SubMenu 必须传递 key，如不传递，该 SubMenu 下子元素将提前渲染，而且部分场景无法进行有效高亮。
@@ -278,7 +284,7 @@ const components: MaterialDescription[] = [
         setters: 'StringSetter'
       }
     ],
-    slots: ['title'],
+    slots: ['default', 'title'],
     snippet: {
       //? children 只能为 AMenuItem
       children: [

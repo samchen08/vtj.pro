@@ -28,7 +28,7 @@ const components: MaterialDescription[] = [
         setters: 'ObjectSetter'
       }
     ],
-    slots: ['description', 'image']
+    slots: ['default', 'description', 'image']
   }
 ];
 export default components;

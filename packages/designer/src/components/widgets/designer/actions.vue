@@ -8,6 +8,14 @@
       :menus="menus"
       background="none"
       @command="onCommand"></XAction>
+    <XAction
+      v-if="isShowEdit"
+      mode="icon"
+      size="small"
+      :icon="Edit"
+      background="none"
+      title="修改区块"
+      @click="onOpenBlock"></XAction>
     <XActionBar
       :disabled="!visible"
       mode="icon"
@@ -26,9 +34,10 @@
     VtjIconArrowDown,
     VtjIconCopy,
     VtjIconRemove,
+    Edit,
     Rank
   } from '@vtj/icons';
-  import { NodeModel, BlockModel, isBlock } from '@vtj/core';
+  import { NodeModel, BlockModel, isBlock, type NodeFrom } from '@vtj/core';
   import { confirm } from '../../../utils';
 
   export interface Props {
@@ -96,6 +105,11 @@
     }
   ];
 
+  const isShowEdit = computed(() => {
+    const from = (props.model as any)?.from as NodeFrom;
+    return typeof from === 'object' && from.type === 'Schema';
+  });
+
   const onCommand = (item: any) => {
     emits('action', { type: 'selected', model: item.command });
   };
@@ -107,5 +121,9 @@
     } else {
       emits('action', { type: action.name, model: props.model });
     }
+  };
+
+  const onOpenBlock = () => {
+    emits('action', { type: 'open', model: props.model });
   };
 </script>

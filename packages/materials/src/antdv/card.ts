@@ -89,6 +89,7 @@ const components: MaterialDescription[] = [
     ],
     events: ['tabChange'],
     slots: [
+      'default',
       'actions',
       'cover',
       'customTab',

@@ -22,6 +22,37 @@ const desc: MaterialDescription = {
       setters: ['StringNumber']
     }
   ],
+  events: [
+    'highlight',
+    'downplay',
+    'selectchanged',
+    'legendselectchanged',
+    'legendselected',
+    'legendunselected',
+    'legendselectall',
+    'legendinverseselect',
+    'legendscroll',
+    'datazoom',
+    'datarangeselected',
+    'graphroam',
+    'georoam',
+    'treeroam',
+    'timelinechanged',
+    'timelineplaychanged',
+    'restore',
+    'dataviewchanged',
+    'magictypechanged',
+    'geoselectchanged',
+    'geoselected',
+    'geounselected',
+    'axisareaselected',
+    'brush',
+    'brushEnd',
+    'brushselected',
+    'globalcursortaken',
+    'rendered',
+    'finished'
+  ],
   snippet: {
     props: {
       width: '100%',

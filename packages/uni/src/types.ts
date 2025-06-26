@@ -3,7 +3,8 @@ import type { DefineComponent } from 'vue';
 export interface UniRoute {
   id: string;
   path: string;
-  component: DefineComponent | (() => Promise<DefineComponent>);
+  loader?: (route?: Partial<UniRoute>) => Promise<DefineComponent>;
+  component?: DefineComponent;
   style?: PageStyle;
   needLogin?: boolean;
   meta?: Record<string, any>;

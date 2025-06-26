@@ -23,6 +23,7 @@
   @include e(editor_wrap) {
     flex-grow: 1;
     line-height: 1;
+    width: 100%;
     @include when('inline') {
       display: flex;
       align-items: center;

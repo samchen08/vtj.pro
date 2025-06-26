@@ -7,11 +7,13 @@ export default createViteConfig({
   base: basePath,
   proxy,
   elementPlus: false,
+  lib: false,
   plugins: [
     createDevTools({
       staticBase: basePath,
-      devMode: true,
-      pluginNodeModulesDir: '../../node_modules'
+      devMode: false,
+      pluginNodeModulesDir: '../../node_modules',
+      enhance: true
     })
   ]
 });

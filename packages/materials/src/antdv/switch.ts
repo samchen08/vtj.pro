@@ -72,7 +72,7 @@ const components: MaterialDescription[] = [
       }
     ],
     events: ['change', 'click', 'update:checked'],
-    slots: ['checkedChildren', 'unCheckedChildren']
+    slots: ['default', 'checkedChildren', 'unCheckedChildren']
   }
 ];
 export default components;

@@ -38,6 +38,11 @@ export interface Material {
    * 排序号，物料在组件库的排序，数字小的在前
    */
   order: number;
+
+  /**
+   * 不显示在组件库面板
+   */
+  hidden?: boolean;
 }
 
 // 资产分类

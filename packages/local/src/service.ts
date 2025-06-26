@@ -7,11 +7,21 @@ import {
   type MaterialDescription,
   type PageFile,
   type BlockFile,
-  type PlatformType
+  type PlatformType,
+  type VTJConfig,
+  type EnhanceConfig
 } from '@vtj/core';
 import { resolve } from 'path';
-import { readJsonSync, upperFirstCamelCase, timestamp, merge } from '@vtj/node';
+import {
+  readJsonSync,
+  upperFirstCamelCase,
+  timestamp,
+  uuid,
+  readdirSync,
+  pathExistsSync
+} from '@vtj/node';
 import { generator, createEmptyPage } from '@vtj/coder';
+import { parseVue as vue2Dsl, type IParseVueOptions } from '@vtj/parser';
 import formidable from 'formidable';
 import { fail, success, type ApiRequest } from './shared';
 import {
@@ -42,28 +52,43 @@ export async function saveLogs(e: any) {
 export async function getExtension(_body: any, opts: DevToolsOptions) {
   const root = resolve('./');
   const pkg = readJsonSync(resolve(root, 'package.json'));
-  const { vtj = {} } = pkg || {};
+  const { name = 'VTJEnhance', outDir = 'enhance' } =
+    typeof opts.enhance === 'boolean' ? {} : opts.enhance || {};
+  const outputDir = `${opts.nodeModulesDir}/${opts.packageName}/dist/${outDir}`;
 
-  const adapters = {
-    remote: 'https://lcdp.vtj.pro',
-    access: {
-      auth: 'https://lcdp.vtj.pro/auth.html',
-      privateKey:
-        'MIIBOgIBAAJBAKoIzmn1FYQ1YOhOBw9EhABxZ+PySAIaydI+zdhoKflrdgJ4A5E4/5gbQmRpk09hPWG8nvX7h+l/QLU8kXxAIBECAwEAAQJAAlgpxQY6sByLsXqzJcthC8LSGsLf2JEJkHwlnpwFqlEV8UCkoINpuZ2Wzl+aftURu5rIfAzRCQBvHmeOTW9/zQIhAO5ufWDmnSLyfAAsNo5JRNpVuLFCFodR8Xm+ulDlosR/AiEAtpAltyP9wmCABKG/v/hrtTr3mcvFNGCjoGa9bUAok28CIHbrVs9w1ijrBlvTsXYwJw46uP539uKRRT4ymZzlm9QjAiB+1KH/G9f9pEEL9rtaSOG7JF5D0JcOjlze4MGVFs+ZrQIhALKOUFBNr2zEsyJIjw2PlvEucdlG77UniszjXTROHSPd'
-    }
+  const enhance: EnhanceConfig = {
+    name: name,
+    urls: []
   };
 
-  const extension = {
-    ...(vtj.extension || {}),
+  const enhanceDir = resolve(root, outputDir);
+  if (pathExistsSync(enhanceDir)) {
+    const files = readdirSync(enhanceDir) || [];
+    enhance.urls = files.map((n) => `${outDir}/${n}`);
+  }
+
+  const { vtj = {} } = pkg || {};
+
+  const __ACCESS__ = {
+    auth: 'https://lcdp.vtj.pro/login',
+    storageKey: 'RRO_IDE_ACCESS_STORAGE__',
+    privateKey:
+      'MIIBOgIBAAJBAKoIzmn1FYQ1YOhOBw9EhABxZ+PySAIaydI+zdhoKflrdgJ4A5E4/5gbQmRpk09hPWG8nvX7h+l/QLU8kXxAIBECAwEAAQJAAlgpxQY6sByLsXqzJcthC8LSGsLf2JEJkHwlnpwFqlEV8UCkoINpuZ2Wzl+aftURu5rIfAzRCQBvHmeOTW9/zQIhAO5ufWDmnSLyfAAsNo5JRNpVuLFCFodR8Xm+ulDlosR/AiEAtpAltyP9wmCABKG/v/hrtTr3mcvFNGCjoGa9bUAok28CIHbrVs9w1ijrBlvTsXYwJw46uP539uKRRT4ymZzlm9QjAiB+1KH/G9f9pEEL9rtaSOG7JF5D0JcOjlze4MGVFs+ZrQIhALKOUFBNr2zEsyJIjw2PlvEucdlG77UniszjXTROHSPd'
+  };
+
+  const config: VTJConfig = {
+    remote: 'https://lcdp.vtj.pro',
+    enhance,
+    ...vtj,
     history: vtj.history || 'hash',
     base: vtj.base || '/',
     pageRouteName:
       vtj.pageRouteName || (vtj.platform === 'uniapp' ? 'pages' : 'page'),
     __BASE_PATH__: opts.staticBase,
-    __adapters__: merge({}, adapters, vtj.adapters || {})
+    __ACCESS__: Object.assign(__ACCESS__, vtj.__ACCESS__ || {})
   };
 
-  return success(extension);
+  return success(config);
 }
 
 export async function init(_body: any, opts: DevToolsOptions) {
@@ -94,6 +119,9 @@ export async function init(_body: any, opts: DevToolsOptions) {
       repository.save(id, dsl);
     }
     dsl.__BASE_PATH__ = opts.staticBase;
+    if (!dsl.__UID__) {
+      dsl.__UID__ = uuid(true);
+    }
     return success(dsl);
   } else {
     const model = new ProjectModel({
@@ -287,7 +315,7 @@ export async function genVueContent(project: ProjectSchema, dsl: BlockSchema) {
   const materialsRepository = new JsonRepository('materials', project.platform);
   const materials = materialsRepository.get(project.id as string);
   const componentMap = new Map<string, MaterialDescription>(
-    Object.entries(materials)
+    Object.entries(materials || {})
   );
 
   const content = await generator(
@@ -299,6 +327,16 @@ export async function genVueContent(project: ProjectSchema, dsl: BlockSchema) {
     throw e;
   });
   return success(content);
+}
+
+export async function parseVue(options: IParseVueOptions) {
+  let errors: any = null;
+  const dsl = await vue2Dsl(options).catch((e: any) => {
+    errors = e;
+    return null;
+  });
+
+  return success(errors ? errors : dsl);
 }
 
 export async function createRawPage(file: PageFile) {

@@ -82,7 +82,14 @@ const components: MaterialDescription[] = [
       }
     ],
     events: ['change', 'edit', 'tabClick', 'tabScroll', 'update:activeKey'],
-    slots: ['addIcon', 'leftExtra', 'moreIcon', 'renderTabBar', 'rightExtra'],
+    slots: [
+      'default',
+      'addIcon',
+      'leftExtra',
+      'moreIcon',
+      'renderTabBar',
+      'rightExtra'
+    ],
     snippet: {
       props: {
         activeKey: '1',
@@ -142,9 +149,16 @@ const components: MaterialDescription[] = [
         label: 'tab',
         title: '选项卡头显示文字',
         setters: 'StringSetter'
+      },
+      {
+        name: 'disabled',
+        label: 'disabled',
+        title: '是否禁用',
+        setters: 'BooleanSetter',
+        defaultValue: false
       }
     ],
-    slots: ['closeIcon', 'tab'],
+    slots: ['default', 'closeIcon', 'tab'],
     snippet: {
       props: {
         key: '1',

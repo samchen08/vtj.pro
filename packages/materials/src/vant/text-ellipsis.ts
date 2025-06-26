@@ -42,7 +42,7 @@ const TextEllipsis: MaterialDescription = {
       options: ['start', 'middle', 'end']
     }
   ],
-  events: [{ name: 'lick-action', params: ['event'] }],
+  events: [{ name: 'lickAction', params: ['event'] }],
   slots: ['action'],
   snippet: {
     props: {

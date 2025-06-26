@@ -11,23 +11,22 @@
 import type { UniRoute, PagesJson } from '../types';
 import { getNavigationBar } from '../utils';
 
-function createPageComponent(Vue: any, UniH5: any, loader: any) {
-  const { defineAsyncComponent, openBlock, createBlock, withCtx, createVNode } =
-    Vue;
+function createPageComponent(Vue: any, UniH5: any, route: UniRoute) {
+  const { openBlock, createBlock, withCtx, createVNode } = Vue;
   const { PageComponent, setupPage, getApp } = UniH5;
   return {
     mpType: 'page',
-    setup() {
+    async setup() {
       const app = getApp();
       const query = app?.$route?.query || {};
-      const component =
-        typeof loader === 'function' ? defineAsyncComponent(loader) : loader;
+      const { loader, component } = route;
+      const page = loader ? await loader(route) : component || {};
       return () => (
         openBlock(),
         createBlock(PageComponent, null, {
           page: withCtx(() => [
             createVNode(
-              setupPage(component),
+              setupPage(page),
               Object.assign({}, query, { ref: 'page' }),
               null,
               512
@@ -73,13 +72,17 @@ export function injectUniRoutes(
 ) {
   const uniRoutes = routes.map((item, index) => {
     const meta = createPageMeta(pagesJson, item, index);
-    const component = createPageComponent(Vue, UniH5, item.component);
+    const component = createPageComponent(Vue, UniH5, item);
     const { path } = item;
     return {
       path,
       alias: path,
       meta,
-      component
+      component: {
+        render() {
+          return Vue.h(Vue.Suspense, [Vue.h(component)]);
+        }
+      }
     };
   });
   global.__uniRoutes = uniRoutes;

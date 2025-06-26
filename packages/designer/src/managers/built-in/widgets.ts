@@ -20,7 +20,8 @@ import {
   VtjIconSetting,
   HomeFilled,
   VtjIconTemplate,
-  VtjIconUniapp
+  VtjIconUniapp,
+  VtjIconAi
 } from '@vtj/icons';
 import { markRaw } from 'vue';
 
@@ -79,7 +80,8 @@ export const builtInWidgets: Array<AppWidget | TabWidget | Widget> = [
     type: 'app',
     openType: 'panel',
     icon: VtjIconTemplate,
-    label: '模板'
+    label: '模板',
+    remote: true
   },
   {
     name: 'Outline',
@@ -135,6 +137,16 @@ export const builtInWidgets: Array<AppWidget | TabWidget | Widget> = [
     openType: 'panel',
     icon: VtjIconSetting,
     label: '项目配置'
+  },
+  {
+    name: 'AI',
+    region: 'Apps',
+    component: widgets.AI,
+    type: 'app',
+    openType: 'panel',
+    icon: VtjIconAi,
+    label: 'AI助手',
+    remote: true
   },
   {
     name: 'About',

@@ -67,7 +67,7 @@ const Statistic: MaterialDescription = {
       setters: ['StringSetter', 'ObjectSetter', 'ArraySetter']
     }
   ],
-  slots: ['prefix', 'suffix', 'title'],
+  slots: ['prefix', 'suffix', 'title', 'default'],
   snippet: {
     props: {
       title: 'Daily active users',

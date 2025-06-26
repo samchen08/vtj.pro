@@ -58,6 +58,12 @@ const components: MaterialDescription[] = [
         setters: 'BooleanSetter'
       },
       {
+        name: 'current',
+        label: 'current',
+        title: '当前处于哪一步',
+        setters: 'NumberSetter'
+      },
+      {
         name: 'scrollIntoViewOptions',
         label: 'scrollIntoViewOptions',
         title:
@@ -81,7 +87,7 @@ const components: MaterialDescription[] = [
       }
     ],
     events: ['close', 'finish', 'change', 'update:current'],
-    slots: ['indicatorsRender'],
+    slots: ['default', 'indicatorsRender'],
     snippet: {
       props: {
         open: true,
@@ -186,7 +192,7 @@ const components: MaterialDescription[] = [
       }
     ],
     events: ['close'],
-    slots: ['cover', 'title', 'description']
+    slots: ['default', 'cover', 'title', 'description']
   }
 ];
 export default components;

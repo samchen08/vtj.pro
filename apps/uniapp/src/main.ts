@@ -13,16 +13,19 @@ import {
 
 import App from './App.vue';
 import { name } from '../package.json';
+import enhance from './enhance';
 
 const adapter = createAdapter({ loading, notify });
 const service = new LocalService(createServiceRequest(notify));
 const modules = createModules();
+
 const { provider } = createProvider({
   nodeEnv: process.env.NODE_ENV as NodeEnv,
   mode: ContextMode.Raw,
   modules,
   adapter,
   service,
+  enhance,
   project: {
     id: name
   }

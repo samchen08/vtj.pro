@@ -47,6 +47,8 @@ export const NO_END_TAGS = [
  */
 export const BUILT_IN_DIRECTIVES = [
   'vIf',
+  'vElseIf',
+  'vElse',
   'vShow',
   'vModel',
   'vFor',
@@ -79,6 +81,7 @@ export function parseTemplate(
       if (component) {
         components.push(component);
       }
+
       // 收集引用区块
       if (isFromSchema(from)) {
         importBlocks.push({ id: from.id, name });
@@ -118,9 +121,8 @@ export function parseTemplate(
         components = components.concat(nodeChildren?.components || []);
         importBlocks = importBlocks.concat(nodeChildren?.importBlocks || []);
       }
-
       const tagName = ['@dcloudio/uni-h5', '@dcloudio/uni-ui'].includes(
-        from as string
+        (from || componentMap.get(name)?.package) as string
       )
         ? kebabCase(name)
         : isFromUrlSchema(from) || isFromPlugin(from)
@@ -206,7 +208,12 @@ function isFromPlugin(from?: NodeFrom): from is NodeFromPlugin {
 
 function bindProp(name: string, value: unknown, computedKeys: string[] = []) {
   if (name === 'style') {
-    return '';
+    return isJSCode(value)
+      ? `:style="${parseValue({
+          ...value,
+          value: replaceComputedValue(value.value, computedKeys)
+        })}"`
+      : '';
   }
   if (name === '__class' && isJSCode(value)) {
     return `:class="${parseValue({
@@ -248,6 +255,8 @@ function bindNodeProps(
       }
     } else {
       props.class = className;
+    }
+    if (!isJSCode(props.style)) {
       delete props.style;
     }
   }
@@ -336,11 +345,29 @@ function parseDirectives(
   output: string[] = []
 ) {
   const result: string[] = [];
-  const { vIf, vShow, vModels, vFor, vBind, vHtml, customDirectives } =
-    getDiretives(directives);
+  const {
+    vIf,
+    vElse,
+    vElseIf,
+    vShow,
+    vModels,
+    vFor,
+    vBind,
+    vHtml,
+    customDirectives
+  } = getDiretives(directives);
   if (vIf) {
     result.push(`v-if="${parseValue(vIf.value, true, true, computedKeys)}"`);
   }
+  if (vElseIf) {
+    result.push(
+      `v-else-if="${parseValue(vElseIf.value, true, true, computedKeys)}"`
+    );
+  }
+  if (vElse) {
+    result.push('v-else');
+  }
+
   if (vShow) {
     result.push(
       `v-show="${parseValue(vShow.value, true, true, computedKeys)}"`
@@ -433,6 +460,12 @@ function getDiretives(directives: NodeDirective[] = []) {
   const vIf = builtInDirectives.find(
     (n) => camelCase(n.name as string) === 'vIf'
   );
+  const vElseIf = builtInDirectives.find(
+    (n) => camelCase(n.name as string) === 'vElseIf'
+  );
+  const vElse = builtInDirectives.find(
+    (n) => camelCase(n.name as string) === 'vElse'
+  );
   const vFor = builtInDirectives.find(
     (n) => camelCase(n.name as string) === 'vFor'
   );
@@ -450,6 +483,8 @@ function getDiretives(directives: NodeDirective[] = []) {
   );
   return {
     vIf,
+    vElseIf,
+    vElse,
     vFor,
     vShow,
     vModels,

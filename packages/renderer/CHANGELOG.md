@@ -3,6 +3,665 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.40](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.12.39...@vtj/renderer@0.12.40) (2025-06-12)
+
+
+### Bug Fixes
+
+* 🐛 可拖拽不在组件列表的不同html元素 ([cb3c2c7](https://gitee.com/newgateway/vtj/commits/cb3c2c77e16b4e94e96a87b8653ed21dd2860040))
+
+
+
+
+
+## [0.12.39](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.12.38...@vtj/renderer@0.12.39) (2025-06-11)
+
+
+### Bug Fixes
+
+* 🐛 更改区块同步更新页面引用区块 ([962f971](https://gitee.com/newgateway/vtj/commits/962f9714c953dba15367717a2857b5dcbdba89c5))
+
+
+
+
+
+## [0.12.38](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.12.37...@vtj/renderer@0.12.38) (2025-06-11)
+
+
+### Features
+
+* ✨ 加载区块组件增加队列缓存 ([d681d57](https://gitee.com/newgateway/vtj/commits/d681d575706d4f3f819323d5490339776a1032d0))
+
+
+
+
+
+## [0.12.37](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.12.36...@vtj/renderer@0.12.37) (2025-06-09)
+
+
+### Bug Fixes
+
+* 🐛 页面mounted拿不到$refs ([01da7c8](https://gitee.com/newgateway/vtj/commits/01da7c8d2b8ff16f138f2ed96e4f03aa0938d8bb))
+* 🐛 slots style scoped ([2ddf696](https://gitee.com/newgateway/vtj/commits/2ddf69670b5e818c6e14bc9ac52bd396f9d26a70))
+
+
+
+
+
+## [0.12.36](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.12.35...@vtj/renderer@0.12.36) (2025-06-09)
+
+
+### Bug Fixes
+
+* 🐛 修复多个区块排序错乱问题 ([bf21513](https://gitee.com/newgateway/vtj/commits/bf21513140f2bfd830c7295425cc153b399a0abf))
+* 🐛 compileScopedCSS ([84689ea](https://gitee.com/newgateway/vtj/commits/84689eae582dd0a97fc17dff1516bbc01e94bae1))
+
+
+
+
+
+## [0.12.35](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.12.34...@vtj/renderer@0.12.35) (2025-06-06)
+
+
+### Bug Fixes
+
+* 🐛 renderer default slots bug ([6b14e59](https://gitee.com/newgateway/vtj/commits/6b14e59ca133d034553493857b82f5ab269f29a2))
+
+
+
+
+
+## [0.12.34](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.12.33...@vtj/renderer@0.12.34) (2025-06-06)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
+## [0.12.33](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.12.32...@vtj/renderer@0.12.33) (2025-06-04)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
+## [0.12.32](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.12.31...@vtj/renderer@0.12.32) (2025-06-03)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
+## [0.12.31](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.12.30...@vtj/renderer@0.12.31) (2025-05-29)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
+## [0.12.30](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.12.29...@vtj/renderer@0.12.30) (2025-05-27)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
+## [0.12.29](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.12.28...@vtj/renderer@0.12.29) (2025-05-23)
+
+
+### Bug Fixes
+
+* 🐛 renderer css scoped ([1d2b741](https://gitee.com/newgateway/vtj/commits/1d2b741b735616197e776ceb7cc845779a161164))
+
+
+
+
+
+## [0.12.28](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.12.27...@vtj/renderer@0.12.28) (2025-05-23)
+
+
+### Bug Fixes
+
+* 🐛 render scoped css ([69d0c34](https://gitee.com/newgateway/vtj/commits/69d0c34b1b0836818bc6c6899981dd1092e28b29))
+
+
+
+
+
+## [0.12.27](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.12.26...@vtj/renderer@0.12.27) (2025-05-23)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
+## [0.12.26](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.12.25...@vtj/renderer@0.12.26) (2025-05-23)
+
+
+### Bug Fixes
+
+* 🐛 运行时渲染支持css scoped ([3b3b2d4](https://gitee.com/newgateway/vtj/commits/3b3b2d44d8a431ac2abb3a591bfd3943695f1a57))
+
+
+
+
+
+## [0.12.25](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.12.24...@vtj/renderer@0.12.25) (2025-05-22)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
+## [0.12.24](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.12.23...@vtj/renderer@0.12.24) (2025-05-21)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
+## [0.12.23](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.12.22...@vtj/renderer@0.12.23) (2025-05-21)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
+## [0.12.22](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.12.21...@vtj/renderer@0.12.22) (2025-05-20)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
+## [0.12.21](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.12.20...@vtj/renderer@0.12.21) (2025-05-16)
+
+
+### Bug Fixes
+
+* 🐛 renderer injects 失效问题 ([5f50c7e](https://gitee.com/newgateway/vtj/commits/5f50c7e1e7fabd59b36571dad2fb076417283341))
+
+
+
+
+
+## [0.12.20](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.12.19...@vtj/renderer@0.12.20) (2025-05-15)
+
+
+### Features
+
+* ✨ 支持应用增强配置 ([7abb434](https://gitee.com/newgateway/vtj/commits/7abb4349377ef268d6ff7e92691384c0d7980214))
+
+
+
+
+
+## [0.12.19](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.12.18...@vtj/renderer@0.12.19) (2025-05-12)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
+## [0.12.18](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.12.17...@vtj/renderer@0.12.18) (2025-05-12)
+
+
+### Bug Fixes
+
+* 🐛 parser utils ([03abd89](https://gitee.com/newgateway/vtj/commits/03abd89054d2daa55345024669a859f8585f8980))
+
+
+
+
+
+## [0.12.17](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.12.16...@vtj/renderer@0.12.17) (2025-05-12)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
+## [0.12.16](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.12.15...@vtj/renderer@0.12.16) (2025-05-12)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
+## [0.12.15](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.12.14...@vtj/renderer@0.12.15) (2025-05-07)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
+## [0.12.14](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.12.13...@vtj/renderer@0.12.14) (2025-05-07)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
+## [0.12.13](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.12.12...@vtj/renderer@0.12.13) (2025-05-06)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
+## [0.12.12](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.12.11...@vtj/renderer@0.12.12) (2025-05-06)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
+## [0.12.11](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.12.10...@vtj/renderer@0.12.11) (2025-05-05)
+
+
+### Features
+
+* ✨ 支持v-else-if 和 v-else 代码分支 ([6965137](https://gitee.com/newgateway/vtj/commits/69651374b83bffd4bb65f4e8d7de82eb4dc87e7d))
+
+
+
+
+
+## [0.12.10](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.12.9...@vtj/renderer@0.12.10) (2025-04-30)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
+## [0.12.9](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.12.8...@vtj/renderer@0.12.9) (2025-04-29)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
+## [0.12.8](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.12.7...@vtj/renderer@0.12.8) (2025-04-29)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
+## [0.12.7](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.12.6...@vtj/renderer@0.12.7) (2025-04-27)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
+## [0.12.6](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.12.5...@vtj/renderer@0.12.6) (2025-04-25)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
+## [0.12.5](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.12.4...@vtj/renderer@0.12.5) (2025-04-25)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
+## [0.12.4](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.12.3...@vtj/renderer@0.12.4) (2025-04-23)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
+## [0.12.3](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.12.2...@vtj/renderer@0.12.3) (2025-04-23)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
+## [0.12.2](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.12.1...@vtj/renderer@0.12.2) (2025-04-22)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
+## [0.12.1](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.12.0...@vtj/renderer@0.12.1) (2025-04-22)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
+# [0.12.0](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.12.0-alpha.2...@vtj/renderer@0.12.0) (2025-04-22)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
+# [0.12.0-alpha.2](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.12.0-alpha.1...@vtj/renderer@0.12.0-alpha.2) (2025-04-22)
+
+
+### Bug Fixes
+
+* 🐛 ai style ([1e4e3a4](https://gitee.com/newgateway/vtj/commits/1e4e3a41341a47677264745a8e9a3a52902a411d))
+
+
+
+
+
+# [0.12.0-alpha.1](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.12.0-alpha.0...@vtj/renderer@0.12.0-alpha.1) (2025-04-22)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
+# [0.12.0-alpha.0](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.11.16...@vtj/renderer@0.12.0-alpha.0) (2025-04-21)
+
+
+### Features
+
+* ✨ AI Widget ([e758a1b](https://gitee.com/newgateway/vtj/commits/e758a1b1e00496a20444d42c427288984a5766a5))
+* ✨ AI助手 ([702d912](https://gitee.com/newgateway/vtj/commits/702d91255d2860ee899f06f598d8043e6db9620d))
+
+
+
+
+
+## [0.11.16](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.11.15...@vtj/renderer@0.11.16) (2025-04-10)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
+## [0.11.15](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.11.14...@vtj/renderer@0.11.15) (2025-04-09)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
+## [0.11.14](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.11.13...@vtj/renderer@0.11.14) (2025-04-07)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
+## [0.11.13](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.11.12...@vtj/renderer@0.11.13) (2025-04-02)
+
+
+### Bug Fixes
+
+* 🐛 不采集非vtj请求的错误信息 ([61ce992](https://gitee.com/newgateway/vtj/commits/61ce9922cd7bae5fb4aed7fd50fd386629b4aedd))
+
+
+
+
+
+## [0.11.12](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.11.11...@vtj/renderer@0.11.12) (2025-03-28)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
+## [0.11.11](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.11.10...@vtj/renderer@0.11.11) (2025-03-28)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
+## [0.11.10](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.11.9...@vtj/renderer@0.11.10) (2025-03-27)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
+## [0.11.9](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.11.8...@vtj/renderer@0.11.9) (2025-03-27)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
+## [0.11.8](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.11.7...@vtj/renderer@0.11.8) (2025-03-27)
+
+
+### Features
+
+* ✨ report 模块,修复access和style出码bug ([db401ee](https://gitee.com/newgateway/vtj/commits/db401ee22a2c2fb85f4867755047966164b8e9f8))
+
+
+
+
+
+## [0.11.7](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.11.6...@vtj/renderer@0.11.7) (2025-03-25)
+
+
+### Bug Fixes
+
+* 🐛 一个页面多次引用某个区块，并给区块传递props时，这些区块所实际接收到的props值存在问题。 ([e3ffc5d](https://gitee.com/newgateway/vtj/commits/e3ffc5de136633ef81f44db7ed9889e0338d78d9))
+
+
+
+
+
+## [0.11.6](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.11.5...@vtj/renderer@0.11.6) (2025-03-21)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
+## [0.11.5](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.11.4...@vtj/renderer@0.11.5) (2025-03-20)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
+## [0.11.4](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.11.3...@vtj/renderer@0.11.4) (2025-03-19)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
+## [0.11.3](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.11.2...@vtj/renderer@0.11.3) (2025-03-19)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
+## [0.11.2](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.11.1...@vtj/renderer@0.11.2) (2025-03-19)
+
+
+### Bug Fixes
+
+* 🐛 一个页面多次引用某个区块，并给区块传递props时，这些区块所实际接收到的props值存在问题。 ([12c354e](https://gitee.com/newgateway/vtj/commits/12c354ef592834d0414504fe266278cb6372ebd2))
+
+
+
+
+
+## [0.11.1](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.11.1-alpha.1...@vtj/renderer@0.11.1) (2025-03-18)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
+## [0.11.1-alpha.1](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.11.1-alpha.0...@vtj/renderer@0.11.1-alpha.1) (2025-03-18)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
+## [0.11.1-alpha.0](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.11.0...@vtj/renderer@0.11.1-alpha.0) (2025-03-18)
+
+
+### Bug Fixes
+
+* 🐛 __access__ ([39a0ce2](https://gitee.com/newgateway/vtj/commits/39a0ce264f5993883b44c3f6e9016e862da9a0cd))
+
+
+
+
+
+# [0.11.0](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.10.15...@vtj/renderer@0.11.0) (2025-03-17)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
+## [0.10.15](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.10.14...@vtj/renderer@0.10.15) (2025-03-14)
+
+
+### Bug Fixes
+
+* 🐛 解决设计器request被污染的问题 ([338a3ba](https://gitee.com/newgateway/vtj/commits/338a3baedbb21ae41c489b4932b9004da80c36cc))
+
+
+
+
+
+## [0.10.14](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.10.13...@vtj/renderer@0.10.14) (2025-03-14)
+
+
+### Bug Fixes
+
+* 🐛 normalizedStyle ([b649f10](https://gitee.com/newgateway/vtj/commits/b649f109af7b11f29fcc51b523185c3302706d9a))
+
+
+
+
+
+## [0.10.13](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.10.12...@vtj/renderer@0.10.13) (2025-03-13)
+
+
+### Features
+
+* ✨ 物料开发示例工程 ([936fc1f](https://gitee.com/newgateway/vtj/commits/936fc1fe6afcd22cee0c988a88cba389bd583439))
+
+
+
+
+
+## [0.10.12](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.10.11...@vtj/renderer@0.10.12) (2025-03-11)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
+## [0.10.11](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.10.10...@vtj/renderer@0.10.11) (2025-03-11)
+
+
+### Bug Fixes
+
+* 🐛 更新uniapp依赖, 优化renderer ([463b1f7](https://gitee.com/newgateway/vtj/commits/463b1f7419b5373c514eaaf285a989c5220f7934))
+
+
+### Features
+
+* ✨ uniapp 支持微信小程序 ([ca67024](https://gitee.com/newgateway/vtj/commits/ca6702490867df9badb5f045aee76c2df14f2052))
+
+
+
+
+
+## [0.10.10](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.10.9...@vtj/renderer@0.10.10) (2025-03-07)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
+## [0.10.9](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.10.8...@vtj/renderer@0.10.9) (2025-03-04)
+
+
+### Bug Fixes
+
+* 🐛 pathToRegexpCompile 绝对地址解析错误 ([7ba2bcc](https://gitee.com/newgateway/vtj/commits/7ba2bccb17379ceca49cad6fca8f764e752f6cc0))
+
+
+
+
+
+## [0.10.8](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.10.7...@vtj/renderer@0.10.8) (2025-03-04)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
+## [0.10.7](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.10.5...@vtj/renderer@0.10.7) (2025-03-04)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
 ## [0.10.6](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.10.5...@vtj/renderer@0.10.6) (2025-02-28)
 
 **Note:** Version bump only for package @vtj/renderer

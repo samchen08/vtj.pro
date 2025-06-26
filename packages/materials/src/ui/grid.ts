@@ -152,7 +152,7 @@ const desc: MaterialDescription = {
       setters: 'BooleanSetter'
     },
     {
-      name: 'showFoter',
+      name: 'showFooter',
       setters: 'BooleanSetter'
     },
     {

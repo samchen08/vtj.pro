@@ -3,6 +3,65 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.1](https://gitee.com/newgateway/vtj/compare/@vtj/base@0.12.0...@vtj/base@0.12.1) (2025-06-11)
+
+
+### Features
+
+* ✨ 加载区块组件增加队列缓存 ([d681d57](https://gitee.com/newgateway/vtj/commits/d681d575706d4f3f819323d5490339776a1032d0))
+
+
+
+
+
+# [0.12.0](https://gitee.com/newgateway/vtj/compare/@vtj/base@0.12.0-alpha.1...@vtj/base@0.12.0) (2025-04-22)
+
+**Note:** Version bump only for package @vtj/base
+
+
+
+
+
+# [0.12.0-alpha.1](https://gitee.com/newgateway/vtj/compare/@vtj/base@0.11.2...@vtj/base@0.12.0-alpha.1) (2025-04-22)
+
+**Note:** Version bump only for package @vtj/base
+
+
+
+
+
+## [0.11.2](https://gitee.com/newgateway/vtj/compare/@vtj/base@0.11.1...@vtj/base@0.11.2) (2025-03-20)
+
+**Note:** Version bump only for package @vtj/base
+
+
+
+
+
+## [0.11.1](https://gitee.com/newgateway/vtj/compare/@vtj/base@0.11.1-alpha.1...@vtj/base@0.11.1) (2025-03-18)
+
+**Note:** Version bump only for package @vtj/base
+
+
+
+
+
+## [0.11.1-alpha.1](https://gitee.com/newgateway/vtj/compare/@vtj/base@0.10.2...@vtj/base@0.11.1-alpha.1) (2025-03-18)
+
+**Note:** Version bump only for package @vtj/base
+
+
+
+
+
+## [0.10.2](https://gitee.com/newgateway/vtj/compare/@vtj/base@0.10.1...@vtj/base@0.10.2) (2025-03-14)
+
+**Note:** Version bump only for package @vtj/base
+
+
+
+
+
 ## [0.10.1](https://gitee.com/newgateway/vtj/compare/@vtj/base@0.10.0...@vtj/base@0.10.1) (2025-02-25)
 
 **Note:** Version bump only for package @vtj/base

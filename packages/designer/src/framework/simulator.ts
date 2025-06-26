@@ -1,4 +1,11 @@
-import { type Ref, type ShallowRef, shallowRef, watch, ref } from 'vue';
+import {
+  type Ref,
+  type ShallowRef,
+  type App,
+  shallowRef,
+  watch,
+  ref
+} from 'vue';
 import {
   type Dependencie,
   type Material,
@@ -7,6 +14,7 @@ import {
   type ProjectConfig,
   type PlatformType,
   type UniConfig,
+  type EnhanceConfig,
   Base,
   BUILT_IN_NAME,
   BUILT_IN_LIBRARAY_MAP
@@ -18,7 +26,9 @@ import {
   createSchemaApis,
   getRawComponent,
   mockApis,
-  mockCleanup
+  mockCleanup,
+  parseUrls,
+  type Provider
 } from '@vtj/renderer';
 import html2canvas from 'html2canvas';
 import { logger } from '@vtj/utils';
@@ -49,11 +59,13 @@ export interface SimulatorEnv {
   globals: Record<string, any>;
   libraryLocaleMap: Record<string, any>;
   locales: Record<string, any>;
+  enhance?: (app: App, provider: Provider) => void;
 }
 
 export interface SimulatorOptions {
   engine: Engine;
   materialPath: string;
+  enhance?: EnhanceConfig;
 }
 
 export class Simulator extends Base {
@@ -64,12 +76,13 @@ export class Simulator extends Base {
   public materialPath: string;
   public rendered: Ref<symbol> = ref(Symbol());
   public devtools: DevTools = new DevTools();
+  public enhance?: EnhanceConfig;
   constructor(options: SimulatorOptions) {
     super();
-    const { engine, materialPath } = options;
+    const { engine, materialPath, enhance } = options;
     this.engine = engine;
     this.materialPath = materialPath;
-
+    this.enhance = enhance;
     (window as any).Mock = Mock;
 
     watch(this.engine.current, () => {
@@ -166,6 +179,9 @@ export class Simulator extends Base {
       materialMapLibrary,
       libraryLocaleMap
     } = parseDeps(deps, this.materialPath, true);
+    const { js: enhanceJs, css: enhanceCss } = parseUrls(
+      this.enhance?.urls || []
+    );
     const { platform = 'web' } = this.engine.project.value || {};
     doc.open();
     doc.write(`
@@ -176,11 +192,11 @@ export class Simulator extends Base {
        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0,viewport-fit=cover"/>
        ${this.initUniFeatures()}
        ${this.createGlobalCss(platform)}
-       ${createAssetsCss(css)}
+       ${createAssetsCss([...css, ...enhanceCss])}
        </head>
        <body> 
        </body>
-       ${createAssetScripts(scripts)}
+       ${createAssetScripts([...scripts, ...enhanceJs])}
        ${createAssetScripts(materials)}
        <script>
        __simulator__.emitReady(${JSON.stringify(libraryExports)},
@@ -203,7 +219,7 @@ export class Simulator extends Base {
     this.renderer?.dispose();
     this.renderer = null;
     const cw = this.contentWindow as any;
-    const { assets, service, current, provider, project } = this.engine;
+    const { assets, service, current, provider, project, report } = this.engine;
     const materialMap = provider.materials || {};
     const materials: Material[] = [];
     for (const name of materialExports) {
@@ -212,6 +228,7 @@ export class Simulator extends Base {
         : cw[name];
       materials.push(material);
     }
+    assets.clearCaches();
     assets.load(materials);
     const env = this.createEnv(
       libraryExports,
@@ -224,6 +241,7 @@ export class Simulator extends Base {
       env,
       service,
       provider,
+      report,
       project.value,
       this.designer.value
     );
@@ -243,6 +261,7 @@ export class Simulator extends Base {
     const cw = this.contentWindow as any;
     const { engine } = this;
     const { project, assets, provider } = engine;
+    const enhance = this.enhance ? cw[this.enhance.name] : undefined;
     const library = libraryExports.reduce((prev, cur) => {
       prev[cur] = cw[cur];
       return prev;
@@ -305,7 +324,8 @@ export class Simulator extends Base {
       apis,
       globals,
       libraryLocaleMap,
-      locales
+      locales,
+      enhance
     };
   }
 
@@ -320,7 +340,8 @@ export class Simulator extends Base {
       if (!this.contentWindow) return reject(null);
       const body = this.contentWindow.document.body;
       html2canvas(body, {
-        allowTaint: true
+        allowTaint: true,
+        useCORS: true
       })
         .then((canvas) => {
           resolve(canvas);

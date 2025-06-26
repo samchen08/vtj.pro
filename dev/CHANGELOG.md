@@ -3,6 +3,644 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.40](https://gitee.com/newgateway/vtj/compare/dev-web@0.12.39...dev-web@0.12.40) (2025-06-12)
+
+
+### Features
+
+* ✨ 页面引入的区块支持快捷方式打开 ([4cc9288](https://gitee.com/newgateway/vtj/commits/4cc92889245c2e32993cf00d6ceb8c26dec6c7e7))
+
+
+
+
+
+## [0.12.39](https://gitee.com/newgateway/vtj/compare/dev-web@0.12.38...dev-web@0.12.39) (2025-06-11)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
+## [0.12.38](https://gitee.com/newgateway/vtj/compare/dev-web@0.12.37...dev-web@0.12.38) (2025-06-11)
+
+
+### Features
+
+* ✨ 加载区块组件增加队列缓存 ([d681d57](https://gitee.com/newgateway/vtj/commits/d681d575706d4f3f819323d5490339776a1032d0))
+
+
+
+
+
+## [0.12.37](https://gitee.com/newgateway/vtj/compare/dev-web@0.12.36...dev-web@0.12.37) (2025-06-09)
+
+
+### Bug Fixes
+
+* 🐛 页面mounted拿不到$refs ([01da7c8](https://gitee.com/newgateway/vtj/commits/01da7c8d2b8ff16f138f2ed96e4f03aa0938d8bb))
+
+
+
+
+
+## [0.12.36](https://gitee.com/newgateway/vtj/compare/dev-web@0.12.35...dev-web@0.12.36) (2025-06-09)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
+## [0.12.35](https://gitee.com/newgateway/vtj/compare/dev-web@0.12.34...dev-web@0.12.35) (2025-06-06)
+
+
+### Bug Fixes
+
+* 🐛 renderer default slots bug ([6b14e59](https://gitee.com/newgateway/vtj/commits/6b14e59ca133d034553493857b82f5ab269f29a2))
+
+
+
+
+
+## [0.12.34](https://gitee.com/newgateway/vtj/compare/dev-web@0.12.33...dev-web@0.12.34) (2025-06-06)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
+## [0.12.33](https://gitee.com/newgateway/vtj/compare/dev-web@0.12.32...dev-web@0.12.33) (2025-06-04)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
+## [0.12.32](https://gitee.com/newgateway/vtj/compare/dev-web@0.12.31...dev-web@0.12.32) (2025-06-03)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
+## [0.12.31](https://gitee.com/newgateway/vtj/compare/dev-web@0.12.30...dev-web@0.12.31) (2025-05-29)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
+## [0.12.30](https://gitee.com/newgateway/vtj/compare/dev-web@0.12.29...dev-web@0.12.30) (2025-05-27)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
+## [0.12.29](https://gitee.com/newgateway/vtj/compare/dev-web@0.12.28...dev-web@0.12.29) (2025-05-23)
+
+
+### Bug Fixes
+
+* 🐛 renderer css scoped ([1d2b741](https://gitee.com/newgateway/vtj/commits/1d2b741b735616197e776ceb7cc845779a161164))
+
+
+
+
+
+## [0.12.28](https://gitee.com/newgateway/vtj/compare/dev-web@0.12.27...dev-web@0.12.28) (2025-05-23)
+
+
+### Bug Fixes
+
+* 🐛 render scoped css ([69d0c34](https://gitee.com/newgateway/vtj/commits/69d0c34b1b0836818bc6c6899981dd1092e28b29))
+
+
+
+
+
+## [0.12.27](https://gitee.com/newgateway/vtj/compare/dev-web@0.12.26...dev-web@0.12.27) (2025-05-23)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
+## [0.12.26](https://gitee.com/newgateway/vtj/compare/dev-web@0.12.25...dev-web@0.12.26) (2025-05-23)
+
+
+### Bug Fixes
+
+* 🐛 运行时渲染支持css scoped ([3b3b2d4](https://gitee.com/newgateway/vtj/commits/3b3b2d44d8a431ac2abb3a591bfd3943695f1a57))
+
+
+
+
+
+## [0.12.25](https://gitee.com/newgateway/vtj/compare/dev-web@0.12.24...dev-web@0.12.25) (2025-05-22)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
+## [0.12.24](https://gitee.com/newgateway/vtj/compare/dev-web@0.12.23...dev-web@0.12.24) (2025-05-21)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
+## [0.12.23](https://gitee.com/newgateway/vtj/compare/dev-web@0.12.22...dev-web@0.12.23) (2025-05-21)
+
+
+### Bug Fixes
+
+* 🐛 map-chart ready bug ([ede55d4](https://gitee.com/newgateway/vtj/commits/ede55d4ae8c7c91af2d82143fe281a5f6c475c4b))
+
+
+
+
+
+## [0.12.22](https://gitee.com/newgateway/vtj/compare/dev-web@0.12.21...dev-web@0.12.22) (2025-05-20)
+
+
+### Features
+
+* ✨ charts支持geo地图 ([bf42003](https://gitee.com/newgateway/vtj/commits/bf42003b73747b4a64de8f546f790bd8e6435da5))
+
+
+
+
+
+## [0.12.21](https://gitee.com/newgateway/vtj/compare/dev-web@0.12.20...dev-web@0.12.21) (2025-05-16)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
+## [0.12.20](https://gitee.com/newgateway/vtj/compare/dev-web@0.12.19...dev-web@0.12.20) (2025-05-15)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
+## [0.12.19](https://gitee.com/newgateway/vtj/compare/dev-web@0.12.18...dev-web@0.12.19) (2025-05-12)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
+## [0.12.18](https://gitee.com/newgateway/vtj/compare/dev-web@0.12.17...dev-web@0.12.18) (2025-05-12)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
+## [0.12.17](https://gitee.com/newgateway/vtj/compare/dev-web@0.12.16...dev-web@0.12.17) (2025-05-12)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
+## [0.12.16](https://gitee.com/newgateway/vtj/compare/dev-web@0.12.15...dev-web@0.12.16) (2025-05-12)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
+## [0.12.15](https://gitee.com/newgateway/vtj/compare/dev-web@0.12.14...dev-web@0.12.15) (2025-05-07)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
+## [0.12.14](https://gitee.com/newgateway/vtj/compare/dev-web@0.12.13...dev-web@0.12.14) (2025-05-07)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
+## [0.12.13](https://gitee.com/newgateway/vtj/compare/dev-web@0.12.12...dev-web@0.12.13) (2025-05-06)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
+## [0.12.12](https://gitee.com/newgateway/vtj/compare/dev-web@0.12.11...dev-web@0.12.12) (2025-05-06)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
+## [0.12.11](https://gitee.com/newgateway/vtj/compare/dev-web@0.12.10...dev-web@0.12.11) (2025-05-05)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
+## [0.12.10](https://gitee.com/newgateway/vtj/compare/dev-web@0.12.9...dev-web@0.12.10) (2025-04-30)
+
+
+### Features
+
+* ✨ 发布模版支持更换截图 ([f570adc](https://gitee.com/newgateway/vtj/commits/f570adcd1c04bee9bd33ff743b835dbf698bd162))
+
+
+
+
+
+## [0.12.9](https://gitee.com/newgateway/vtj/compare/dev-web@0.12.8...dev-web@0.12.9) (2025-04-29)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
+## [0.12.8](https://gitee.com/newgateway/vtj/compare/dev-web@0.12.7...dev-web@0.12.8) (2025-04-29)
+
+
+### Features
+
+* ✨ AI 图生代码 ([dd7fee5](https://gitee.com/newgateway/vtj/commits/dd7fee5c281ed9fce05cad14ae8ec2c37b9f0b0c))
+
+
+
+
+
+## [0.12.7](https://gitee.com/newgateway/vtj/compare/dev-web@0.12.6...dev-web@0.12.7) (2025-04-27)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
+## [0.12.6](https://gitee.com/newgateway/vtj/compare/dev-web@0.12.5...dev-web@0.12.6) (2025-04-25)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
+## [0.12.5](https://gitee.com/newgateway/vtj/compare/dev-web@0.12.4...dev-web@0.12.5) (2025-04-25)
+
+
+### Bug Fixes
+
+* 🐛 设计器接入指南 ([bd08152](https://gitee.com/newgateway/vtj/commits/bd081521d049176dfc334305a7829780363b0d81))
+
+
+
+
+
+## [0.12.4](https://gitee.com/newgateway/vtj/compare/dev-web@0.12.3...dev-web@0.12.4) (2025-04-23)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
+## [0.12.3](https://gitee.com/newgateway/vtj/compare/dev-web@0.12.2...dev-web@0.12.3) (2025-04-23)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
+## [0.12.2](https://gitee.com/newgateway/vtj/compare/dev-web@0.12.1...dev-web@0.12.2) (2025-04-22)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
+## [0.12.1](https://gitee.com/newgateway/vtj/compare/dev-web@0.12.0...dev-web@0.12.1) (2025-04-22)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
+# [0.12.0](https://gitee.com/newgateway/vtj/compare/dev-web@0.12.0-alpha.2...dev-web@0.12.0) (2025-04-22)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
+# [0.12.0-alpha.2](https://gitee.com/newgateway/vtj/compare/dev-web@0.12.0-alpha.1...dev-web@0.12.0-alpha.2) (2025-04-22)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
+# [0.12.0-alpha.1](https://gitee.com/newgateway/vtj/compare/dev-web@0.12.0-alpha.0...dev-web@0.12.0-alpha.1) (2025-04-22)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
+# [0.12.0-alpha.0](https://gitee.com/newgateway/vtj/compare/dev-web@0.11.16...dev-web@0.12.0-alpha.0) (2025-04-21)
+
+
+### Features
+
+* ✨ AI 对话ui ([53b8461](https://gitee.com/newgateway/vtj/commits/53b8461d0511e85a2d37bc85128163113f2d22d9))
+* ✨ parseVue ([ad40b5b](https://gitee.com/newgateway/vtj/commits/ad40b5be0314eeae722f65915bcb8412815d4591))
+* ✨ project add __UID__ ([b3315ce](https://gitee.com/newgateway/vtj/commits/b3315cee0c40de4f2591006a5ad56a2d1e92f318))
+* ✨ test api ([1c907f5](https://gitee.com/newgateway/vtj/commits/1c907f54f00c9fc10e6afffbe79154fbb4087bec))
+
+
+
+
+
+## [0.11.16](https://gitee.com/newgateway/vtj/compare/dev-web@0.11.15...dev-web@0.11.16) (2025-04-10)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
+## [0.11.15](https://gitee.com/newgateway/vtj/compare/dev-web@0.11.14...dev-web@0.11.15) (2025-04-09)
+
+
+### Bug Fixes
+
+* 🐛 panel style ([17ae9ae](https://gitee.com/newgateway/vtj/commits/17ae9aef67c95cbccfbecd33d99fbd0591440e7b))
+
+
+### Features
+
+* ✨ form add sticky prop ([b9ff2d8](https://gitee.com/newgateway/vtj/commits/b9ff2d8ba747d512a0da559c30f7a5502a6d3860))
+
+
+
+
+
+## [0.11.14](https://gitee.com/newgateway/vtj/compare/dev-web@0.11.13...dev-web@0.11.14) (2025-04-07)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
+## [0.11.13](https://gitee.com/newgateway/vtj/compare/dev-web@0.11.12...dev-web@0.11.13) (2025-04-02)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
+## [0.11.12](https://gitee.com/newgateway/vtj/compare/dev-web@0.11.11...dev-web@0.11.12) (2025-03-28)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
+## [0.11.11](https://gitee.com/newgateway/vtj/compare/dev-web@0.11.10...dev-web@0.11.11) (2025-03-28)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
+## [0.11.10](https://gitee.com/newgateway/vtj/compare/dev-web@0.11.9...dev-web@0.11.10) (2025-03-27)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
+## [0.11.9](https://gitee.com/newgateway/vtj/compare/dev-web@0.11.8...dev-web@0.11.9) (2025-03-27)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
+## [0.11.8](https://gitee.com/newgateway/vtj/compare/dev-web@0.11.7...dev-web@0.11.8) (2025-03-27)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
+## [0.11.7](https://gitee.com/newgateway/vtj/compare/dev-web@0.11.6...dev-web@0.11.7) (2025-03-25)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
+## [0.11.6](https://gitee.com/newgateway/vtj/compare/dev-web@0.11.5...dev-web@0.11.6) (2025-03-21)
+
+
+### Features
+
+* ✨ utils 增加客户端信息获取工具 ([7a5527d](https://gitee.com/newgateway/vtj/commits/7a5527d049a95af7cb3648be9fa197d6d895a3a5))
+
+
+
+
+
+## [0.11.5](https://gitee.com/newgateway/vtj/compare/dev-web@0.11.4...dev-web@0.11.5) (2025-03-20)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
+## [0.11.4](https://gitee.com/newgateway/vtj/compare/dev-web@0.11.3...dev-web@0.11.4) (2025-03-19)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
+## [0.11.3](https://gitee.com/newgateway/vtj/compare/dev-web@0.11.2...dev-web@0.11.3) (2025-03-19)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
+## [0.11.2](https://gitee.com/newgateway/vtj/compare/dev-web@0.11.1...dev-web@0.11.2) (2025-03-19)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
+## [0.11.1](https://gitee.com/newgateway/vtj/compare/dev-web@0.11.1-alpha.1...dev-web@0.11.1) (2025-03-18)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
+## [0.11.1-alpha.1](https://gitee.com/newgateway/vtj/compare/dev-web@0.11.1-alpha.0...dev-web@0.11.1-alpha.1) (2025-03-18)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
+## [0.11.1-alpha.0](https://gitee.com/newgateway/vtj/compare/dev-web@0.11.0...dev-web@0.11.1-alpha.0) (2025-03-18)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
+# [0.11.0](https://gitee.com/newgateway/vtj/compare/dev-web@0.10.15...dev-web@0.11.0) (2025-03-17)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
+## [0.10.15](https://gitee.com/newgateway/vtj/compare/dev-web@0.10.14...dev-web@0.10.15) (2025-03-14)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
+## [0.10.14](https://gitee.com/newgateway/vtj/compare/dev-web@0.10.13...dev-web@0.10.14) (2025-03-14)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
+## [0.10.13](https://gitee.com/newgateway/vtj/compare/dev-web@0.10.12...dev-web@0.10.13) (2025-03-13)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
+## [0.10.12](https://gitee.com/newgateway/vtj/compare/dev-web@0.10.11...dev-web@0.10.12) (2025-03-11)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
+## [0.10.11](https://gitee.com/newgateway/vtj/compare/dev-web@0.10.10...dev-web@0.10.11) (2025-03-11)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
+## [0.10.10](https://gitee.com/newgateway/vtj/compare/dev-web@0.10.9...dev-web@0.10.10) (2025-03-07)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
+## [0.10.9](https://gitee.com/newgateway/vtj/compare/dev-web@0.10.8...dev-web@0.10.9) (2025-03-04)
+
+
+### Bug Fixes
+
+* 🐛 pathToRegexpCompile 绝对地址解析错误 ([7ba2bcc](https://gitee.com/newgateway/vtj/commits/7ba2bccb17379ceca49cad6fca8f764e752f6cc0))
+
+
+
+
+
+## [0.10.8](https://gitee.com/newgateway/vtj/compare/dev-web@0.10.7...dev-web@0.10.8) (2025-03-04)
+
+
+### Features
+
+* ✨ 优化uniapp页面加载 ([f599e2f](https://gitee.com/newgateway/vtj/commits/f599e2f8879bfb094748f1e2a26a739a22e9fba7))
+
+
+
+
+
+## [0.10.7](https://gitee.com/newgateway/vtj/compare/dev-web@0.10.5...dev-web@0.10.7) (2025-03-04)
+
+
+### Bug Fixes
+
+* 🐛 XGrid 子column 设置editRenders无效 ([4b0f12b](https://gitee.com/newgateway/vtj/commits/4b0f12bbb65b246510665f39f1e81e74582c541a))
+
+
+
+
+
 ## [0.10.6](https://gitee.com/newgateway/vtj/compare/dev-web@0.10.5...dev-web@0.10.6) (2025-02-28)
 
 **Note:** Version bump only for package dev-web

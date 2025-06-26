@@ -1,17 +1,30 @@
-import type { Plugin } from 'vue';
+import type { Plugin, App } from 'vue';
+import type { PageFile, BlockFile } from '@vtj/core';
+import type { RouteLocationNormalizedGeneric } from 'vue-router';
 import { isFunction, isString } from '@vtj/utils';
 import { HTML_TAGS, BUILD_IN_TAGS } from '../constants';
+import { compileScopedCSS } from './compileScoped';
+
 export function toString(value: any) {
   return isString(value) ? value : JSON.stringify(value);
 }
 
-export function adoptedStyleSheets(global: Window, id: string, css: string) {
+export function adoptedStyleSheets(
+  global: Window,
+  id: string,
+  css: string,
+  scoped: boolean = false
+) {
   const CSSStyleSheet = (global as any).CSSStyleSheet;
+
+  const scopedId = scoped ? `data-v-${id}` : id;
+  const scopedCSS = scoped ? compileScopedCSS(css, scopedId) : css;
+
   // chrome > 71 才支持 replaceSync
   if (CSSStyleSheet.prototype.replaceSync) {
     const styleSheet = new CSSStyleSheet();
     styleSheet.id = id;
-    styleSheet.replaceSync(css);
+    styleSheet.replaceSync(scopedCSS);
     const doc: any = global.document;
     const adoptedStyleSheets = doc.adoptedStyleSheets;
     const sheets = Array.from(adoptedStyleSheets).filter(
@@ -22,11 +35,11 @@ export function adoptedStyleSheets(global: Window, id: string, css: string) {
     const doc = global.document;
     let styleSheet = doc.getElementById(id);
     if (styleSheet) {
-      styleSheet.innerHTML = css;
+      styleSheet.innerHTML = scopedCSS;
     } else {
       styleSheet = doc.createElement('style');
       styleSheet.id = id;
-      styleSheet.innerHTML = css;
+      styleSheet.innerHTML = scopedCSS;
       doc.head.appendChild(styleSheet);
     }
   }
@@ -99,11 +112,27 @@ export function isNativeTag(tag: string) {
 }
 
 export function getMock(global: any = window) {
-  const cache = (window as any).Mock;
+  const cache = (window as any)?.Mock;
   if (cache) return cache;
-  const Mock = global.Mock;
-  if (Mock) {
+  const Mock = global?.Mock;
+  if (Mock && window) {
     (window as any).Mock = Mock;
     return Mock;
+  }
+}
+
+export function setupPageSetting(
+  app: App,
+  route: RouteLocationNormalizedGeneric,
+  file: PageFile | BlockFile
+) {
+  Object.assign(route.meta, (file as PageFile).meta);
+  const el = app?._container;
+  if (file?.type === 'page') {
+    el.classList.add('is-page');
+  }
+  const isPure = (file as PageFile)?.pure;
+  if (isPure) {
+    el.classList.add('is-pure');
   }
 }

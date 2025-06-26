@@ -8,8 +8,11 @@ import type {
 import { createRenderer, type CreateRendererOptions } from './block';
 import { ContextMode } from '../constants';
 import { loadCssUrl, loadScriptUrl, isJSUrl, isCSSUrl } from '../utils';
+import { cloneDeep, Queue } from '@vtj/utils';
 
 import * as globalVue from 'vue';
+
+const __queue__ = new Queue();
 
 // 已注册的插件名称
 let __plugins__: string[] = [];
@@ -68,49 +71,45 @@ export function createLoader(opts: CreateLoaderOptions): BlockLoader {
   return (name: string, from?: NodeFrom, Vue: any = globalVue) => {
     if (!from || typeof from === 'string') return name;
     if (from.type === 'Schema' && from.id) {
-      let cache = __loaders__[from.id];
-      if (cache) {
-        return cache;
-      }
-      cache = __loaders__[from.id] = Vue.defineAsyncComponent(async () => {
-        const dsl = await getDsl(from.id);
+      return Vue.defineAsyncComponent(async () => {
+        const dsl =
+          __loaders__[from.id] ||
+          (await __queue__.add<BlockSchema | null>(from.id, () =>
+            getDsl(from.id)
+          ));
         if (dsl) {
           dsl.name = name;
+          __loaders__[from.id] = dsl;
         }
         return dsl
           ? createRenderer({
               ...options,
               Vue,
-              dsl,
+              dsl: cloneDeep(dsl),
               mode: ContextMode.Runtime,
               loader: createLoader(opts)
             }).renderer
           : null;
       });
-      return cache;
     }
 
     if (from.type === 'UrlSchema' && from.url) {
-      let cache = __loaders__[from.url];
-      if (cache) {
-        return cache;
-      }
-      cache = __loaders__[from.url] = Vue.defineAsyncComponent(async () => {
-        const dsl = await getDslByUrl(from.url);
+      return Vue.defineAsyncComponent(async () => {
+        const dsl = __loaders__[from.url] || (await getDslByUrl(from.url));
         if (dsl) {
           dsl.name = name;
+          __loaders__[from.url] = dsl;
         }
         return dsl
           ? createRenderer({
               ...options,
               Vue,
-              dsl,
+              dsl: cloneDeep(dsl),
               mode: ContextMode.Runtime,
               loader: createLoader(opts)
             }).renderer
           : null;
       });
-      return cache;
     }
 
     if (from.type === 'Plugin') {
@@ -144,4 +143,5 @@ export function createLoader(opts: CreateLoaderOptions): BlockLoader {
 
 export function clearLoaderCache() {
   __loaders__ = {};
+  __queue__.clearAllCache();
 }

@@ -4,7 +4,6 @@ const components: MaterialDescription[] = [
   {
     name: 'ASelect',
     alias: 'Select',
-    childIncludes: ['ASelectOption', 'ASelectOptGroup'],
     label: '选择器',
     categoryId: 'input',
     doc: 'https://www.antdv.com/components/select-cn',
@@ -132,6 +131,13 @@ const components: MaterialDescription[] = [
         title: '设置弹窗滚动高度',
         setters: 'NumberSetter',
         defaultValue: 256
+      },
+      {
+        name: 'loading',
+        label: 'loading',
+        title: '是否显示加载中状态',
+        setters: 'BooleanSetter',
+        defaultValue: false
       },
       {
         name: 'maxTagCount',
@@ -294,6 +300,7 @@ const components: MaterialDescription[] = [
     //   'tagRender'
     // ],
     slots: [
+      { name: 'default' },
       { name: 'clearIcon' },
       { name: 'maxTagPlaceholder' },
       { name: 'menuItemSelectedIcon' },

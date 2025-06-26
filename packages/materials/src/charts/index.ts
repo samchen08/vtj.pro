@@ -6,9 +6,10 @@ import type {
 import { version } from '../version';
 import { setPackageName } from '../shared';
 import chart from './chart';
+import mapChart from './map-chart';
 
 const name = '@vtj/charts';
-const components: MaterialDescription[] = [chart].flat();
+const components: MaterialDescription[] = [chart, mapChart].flat();
 
 const categories: MaterialCategory[] = [
   {

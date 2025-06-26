@@ -48,8 +48,11 @@ export const random = (min: number, max: number) => {
  * 唯一id
  * @returns
  */
-export function uid() {
-  return Number((++_incremental).toString() + Date.now()).toString(36);
+export function uid(start: Date = new Date('2025/01/01')) {
+  return (
+    (++_incremental).toString(36) +
+    Number(Date.now() - start.getTime()).toString(36)
+  );
 }
 
 /**

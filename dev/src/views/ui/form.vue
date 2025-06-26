@@ -7,7 +7,8 @@
     :inline-columns="2"
     :model="model"
     @submit="onSubmit"
-    @change="onModelChange">
+    @change="onModelChange"
+    sticky>
     <XField
       name="type"
       label="分类"

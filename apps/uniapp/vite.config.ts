@@ -8,8 +8,9 @@ export default createUniappViteConfig({
   proxy,
   plugins: [
     createDevTools({
+      enhance: true,
       // staticBase: basePath,
-      devMode: true,
+      devMode: false,
       pluginNodeModulesDir: '../../node_modules'
     }),
     !process.env.PREVIEW ? uni() : undefined

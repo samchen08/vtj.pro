@@ -226,3 +226,8 @@ body {
   background:  transparent;
   width: 6px;
 }
+
+.vp-doc table {
+  display: table!important;
+  width: 100%;
+}

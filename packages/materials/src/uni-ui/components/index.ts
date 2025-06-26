@@ -42,8 +42,8 @@ import searchBar from './searchBar';
 import section from './section';
 import segmentedControl from './segmentedControl';
 import steps from './steps';
-import swipeAction from './swipeAction';
-import swiperDot from './swiperDot';
+// import swipeAction from './swipeAction';
+// import swiperDot from './swiperDot';
 import table from './table';
 import tag from './tag';
 import title from './title';
@@ -89,8 +89,8 @@ const components: MaterialDescription[] = [
   section,
   segmentedControl,
   steps,
-  swipeAction,
-  swiperDot,
+  // swipeAction,
+  // swiperDot,
   table,
   tag,
   title,

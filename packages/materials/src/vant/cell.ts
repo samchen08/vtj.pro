@@ -11,17 +11,17 @@ const Cell: MaterialDescription[] = [
       {
         name: 'title',
         title: '左侧标题',
-        setters: ['NumberSetter', 'StringSetter']
+        setters: ['StringSetter']
       },
       {
         name: 'value',
         title: '右侧标题',
-        setters: ['NumberSetter', 'StringSetter']
+        setters: ['StringSetter']
       },
       {
         name: 'label',
         title: '标题下方的描述信息',
-        setters: ['NumberSetter', 'StringSetter']
+        setters: ['StringSetter']
       },
       {
         name: 'size',

@@ -262,11 +262,11 @@ const Field: MaterialDescription = {
     'blur',
     'clear',
     'click',
-    'click-input',
-    'click-left-icon',
-    'click-right-icon',
-    'start-validate',
-    'end-validate'
+    'clickInput',
+    'clickLeftIcon',
+    'clickRightIcon',
+    'startValidate',
+    'endValidate'
   ],
   slots: [
     'default',

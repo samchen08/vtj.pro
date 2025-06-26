@@ -38,60 +38,143 @@ import {
   type ProjectModelEvent,
   type PageFile,
   type HistoryItem,
-  type HistoryModelEvent
+  type HistoryModelEvent,
+  type BlockSchema,
+  type EnhanceConfig
 } from '@vtj/core';
 import {
   type Context,
   ContextMode,
   Provider,
+  Access,
   type ProvideAdapter
 } from '@vtj/renderer';
-import { logger } from '@vtj/utils';
+import { logger, isBoolean } from '@vtj/utils';
 
 import { SkeletonWrapper, type SkeletonWrapperInstance } from '../wrappers';
 import { depsManager, widgetManager } from '../managers';
 import { Simulator } from './simulator';
 import { Assets } from './assets';
-import { message } from '../utils';
+import { Report } from './report';
+import { OpenApi } from './openapi';
+import { State } from './state';
+import { message, alert } from '../utils';
+import { ACCESS, REMOTE } from '../constants';
 
 export const engineKey: InjectionKey<ShallowReactive<Engine>> =
   Symbol('VtjEngine');
 
+/**
+ * 设计器引擎配置选项
+ */
 export interface EngineOptions {
+  /**
+   * 设计器渲染容器
+   */
   container: MaybeRef<HTMLElement | undefined>;
+  /**
+   * 设计器文件服务
+   */
   service: Service;
+  /**
+   * 当前加载的项目信息
+   */
   project?: Partial<ProjectSchema>;
+  /**
+   * 项目依赖，优先于 project 的 dependencies
+   */
   dependencies?: Record<string, () => Promise<any>>;
+  /**
+   * 项目物料，优先于 project 的 dependencies
+   */
   materials?: Record<string, () => Promise<any>>;
+  /**
+   * 内置物料路径 BasePath
+   */
   materialPath?: string;
+  /**
+   * 全局变量
+   */
   globals?: Record<string, any>;
-  adapter?: ProvideAdapter;
+  /**
+   * 设计器画布适配
+   */
+  adapter?: Partial<ProvideAdapter>;
+  /**
+   * 设计器初始化后执行的回调
+   */
   install?: (app: App, engine?: Engine) => void;
+
+  /**
+   * 页面路由 base
+   */
   pageBasePath?: string;
+
+  /**
+   * 页面路由名称
+   */
   pageRouteName?: string;
+  /**
+   * 这个是引擎自己的Access，不是业务应用，应用的在 adapter 中设置
+   */
+  access?: Access;
+  /**
+   * 远程服务host
+   */
+  remote?: string | null;
+
+  /**
+   * 授权登录
+   */
+  auth?: string | (() => Promise<any>);
+
+  /**
+   * 开启版本检查
+   */
+  checkVersion?: boolean;
+
+  /**
+   * 适配远程接口
+   */
+  openApi?: OpenApi;
+
+  /**
+   * 开启应用整强
+   */
+  enhance?: boolean | EnhanceConfig;
 }
 
 export const SAVE_BLOCK_FILE_FINISH = 'SAVE_BLOCK_FILE_FINISH';
 
+/**
+ * 设计器引擎核心类，负责管理设计器的整体生命周期和状态
+ * 包括项目管理、文件操作、历史记录、渲染等核心功能
+ */
 export class Engine extends Base {
-  public app?: App;
-  public skeleton?: SkeletonWrapperInstance | null;
-  public container: MaybeRef<HTMLElement | undefined>;
-  public service: Service;
-  public assets: Assets;
-  public simulator: Simulator;
-  public emitter: Emitter = emitter;
-  public project: Ref<ProjectModel | null> = ref(null);
-  public current: Ref<BlockModel | null> = ref(null);
-  public context: Ref<Context | null> = ref(null);
-  public isEmptyCurrent: Ref<boolean> = ref(false);
-  public history: Ref<HistoryModel | null> = ref(null);
-  public provider: Provider;
-  public adapter?: ProvideAdapter;
+  public app?: App; // Vue应用实例
+  public skeleton?: SkeletonWrapperInstance | null; // 设计器骨架实例
+  public container: MaybeRef<HTMLElement | undefined>; // 设计器挂载容器
+  public service: Service; // 文件服务接口
+  public assets: Assets; // 资源管理器
+  public simulator: Simulator; // 模拟器实例
+  public emitter: Emitter = emitter; // 事件发射器
+  public project: Ref<ProjectModel | null> = ref(null); // 当前项目模型
+  public current: Ref<BlockModel | null> = ref(null); // 当前编辑的区块模型
+  public context: Ref<Context | null> = ref(null); // 当前上下文
+  public isEmptyCurrent: Ref<boolean> = ref(false); // 当前区块是否为空
+  public history: Ref<HistoryModel | null> = ref(null); // 历史记录管理器
+  public provider: Provider; // 提供者实例
+  public adapter?: Partial<ProvideAdapter>; // 适配器配置
   /**
    * 当current变化时，更新该值，用于通知组件更新
    */
-  public changed: Ref<symbol> = ref(Symbol());
+  public changed: Ref<symbol> = ref(Symbol()); // 变更标记
+  public access?: Access; // 权限控制器
+  public remote?: string | null = null; // 远程服务地址
+  public report: Report; // 报告服务
+  public checkVersion: boolean = true; // 是否检查版本
+  public openApi?: OpenApi; // OpenAPI服务
+  public state = new State(); // 引擎状态
   constructor(public options: EngineOptions) {
     super();
     const {
@@ -104,10 +187,16 @@ export class Engine extends Base {
       materialPath = './',
       pageRouteName,
       adapter,
-      install
+      install,
+      access,
+      remote = REMOTE,
+      checkVersion = true,
+      openApi,
+      enhance = false
     } = this.options;
     this.container = container;
     this.service = service;
+    this.openApi = openApi;
     this.adapter = adapter;
     this.provider = new Provider({
       mode: ContextMode.Design,
@@ -124,13 +213,21 @@ export class Engine extends Base {
     this.assets = new Assets(this.service, this.provider);
     this.simulator = new Simulator({
       engine: this,
-      materialPath
+      materialPath,
+      enhance: this.getEnhanceConfig(enhance)
     });
-
+    this.access = access || new Access({ alert, ...ACCESS });
+    this.remote = remote;
+    this.report = new Report(this.remote, this.access, this.service);
+    this.checkVersion = checkVersion;
     this.bindEvents();
     this.init(project as ProjectSchema).then(this.render.bind(this));
     onUnmounted(this.dispose.bind(this));
   }
+  /**
+   * 初始化引擎
+   * @param project 项目Schema
+   */
   private async init(project: ProjectSchema) {
     const dsl = await this.service.init(project).catch((e) => {
       logger.warn('VTJEngine service init fail.', e);
@@ -147,8 +244,49 @@ export class Engine extends Base {
       this.project.value = new ProjectModel(dsl);
       this.saveMaterials();
       this.triggerReady();
+      this.report.setProject(this.project.value);
+      this.report.init();
     }
   }
+  /**
+   * 获取增强配置
+   * @param enhance 增强配置或布尔值
+   * @returns 增强配置对象
+   */
+  private getEnhanceConfig(enhance: boolean | EnhanceConfig) {
+    if (enhance) {
+      const pathname = location.pathname;
+      return isBoolean(enhance)
+        ? {
+            name: 'VTJEnhance',
+            urls: [
+              `${pathname}enhance/enhance.css`,
+              `${pathname}enhance/enhance.umd.js`
+            ]
+          }
+        : enhance;
+    }
+  }
+  /**
+   * 检查项目是否被锁定
+   * @param slient 是否静默检查
+   * @returns 是否被锁定
+   */
+  private checkLocked(slient?: boolean) {
+    const lockedBy = this.project.value?.locked;
+    const isLocked = !!lockedBy;
+    const info = this.access?.getData();
+    if (isLocked && info?.name !== lockedBy) {
+      if (!slient) {
+        alert(`项目已被[ ${lockedBy} ]锁定，无法更新`);
+      }
+      return true;
+    }
+  }
+
+  /**
+   * 渲染设计器界面
+   */
   private render() {
     const container = unref(this.container);
     if (container) {
@@ -164,6 +302,9 @@ export class Engine extends Base {
     }
   }
 
+  /**
+   * 绑定所有事件监听器
+   */
   private bindEvents() {
     emitter.on(EVENT_PROJECT_CHANGE, (e) => this.saveProject(e));
     emitter.on(EVENT_PROJECT_BLOCKS_CHANGE, (e) => this.saveBlockFile(e));
@@ -179,6 +320,10 @@ export class Engine extends Base {
     emitter.on(EVENT_PROJECT_GEN_SOURCE, () => this.genSource());
   }
 
+  /**
+   * 激活文件处理
+   * @param e 项目模型事件
+   */
   private async activeFile(e: ProjectModelEvent) {
     await nextTick();
     const project = e.model;
@@ -203,7 +348,12 @@ export class Engine extends Base {
     triggerRef(this.project);
   }
 
+  /**
+   * 处理文件变更
+   * @param e 区块模型
+   */
   private async changeFile(e: BlockModel) {
+    if (this.checkLocked()) return;
     await nextTick();
     const dsl = e.toDsl();
     this.service.saveFile(dsl, this.project.value?.toDsl());
@@ -234,14 +384,24 @@ export class Engine extends Base {
     }
   }
 
+  /**
+   * 保存项目
+   * @param e 项目模型事件
+   */
   private async saveProject(e: ProjectModelEvent) {
+    if (this.checkLocked()) return;
     const project = e.model;
     const dsl = project.toDsl();
     await this.service.saveProject(dsl, e.type);
     triggerRef(this.project);
   }
 
+  /**
+   * 保存区块文件
+   * @param e 项目模型事件
+   */
   private async saveBlockFile(e: ProjectModelEvent) {
+    if (this.checkLocked()) return;
     const type = e.type;
     const project = e.model;
     const projectDsl = project.toDsl();
@@ -302,6 +462,9 @@ export class Engine extends Base {
     this.emitter.on(SAVE_BLOCK_FILE_FINISH, _callback);
   }
 
+  /**
+   * 保存物料资源
+   */
   private async saveMaterials() {
     await nextTick();
     this.simulator.ready(() => {
@@ -315,6 +478,7 @@ export class Engine extends Base {
   }
 
   private saveCurrentFile() {
+    if (this.checkLocked()) return;
     const current = this.current.value;
     if (current) {
       this.updateCurrent(current);
@@ -322,6 +486,10 @@ export class Engine extends Base {
     }
   }
 
+  /**
+   * 初始化历史记录
+   * @param block 区块模型
+   */
   private async initHistory(block: BlockModel | null) {
     if (block) {
       const dsl = await this.service
@@ -335,7 +503,12 @@ export class Engine extends Base {
     }
   }
 
+  /**
+   * 保存历史记录
+   * @param e 历史模型事件
+   */
   private async saveHistory(e: HistoryModelEvent) {
+    if (this.checkLocked(true)) return;
     const type = e.type;
     const history = e.model;
     const projectDsl = this.project.value?.toDsl();
@@ -367,6 +540,10 @@ export class Engine extends Base {
     triggerRef(this.history);
   }
 
+  /**
+   * 加载历史记录
+   * @param e 历史模型事件
+   */
   private async loadHistory(e: HistoryModelEvent) {
     const history = e.model;
     const data = e.data as HistoryItem;
@@ -384,7 +561,11 @@ export class Engine extends Base {
     }
   }
 
+  /**
+   * 发布项目
+   */
   private async publish() {
+    if (this.checkLocked()) return;
     const project = this.project.value;
     if (project) {
       const dsl = {
@@ -398,7 +579,12 @@ export class Engine extends Base {
     }
   }
 
+  /**
+   * 生成源代码
+   * @returns 生成的源代码
+   */
   public async genSource() {
+    if (this.checkLocked()) return;
     const project = this.project.value;
     if (project) {
       const dsl = {
@@ -409,7 +595,20 @@ export class Engine extends Base {
     }
   }
 
+  /**
+   * 应用AI生成的DSL
+   * @param dsl 区块Schema
+   */
+  public async applyAI(dsl: BlockSchema) {
+    const block = new BlockModel(dsl);
+    block.update(dsl);
+  }
+
+  /**
+   * 发布当前文件
+   */
   private async publishCurrent() {
+    if (this.checkLocked()) return;
     const project = this.project.value;
     const current = project?.currentFile;
     if (project && current) {
@@ -417,6 +616,7 @@ export class Engine extends Base {
         ...project.toDsl(),
         pages: project.getPages()
       };
+
       const ret = await this.service.publishFile(dsl, current);
       if (ret) {
         message('发布成功', 'success');
@@ -424,6 +624,9 @@ export class Engine extends Base {
     }
   }
 
+  /**
+   * 销毁引擎，清理资源
+   */
   dispose() {
     this.emitter.all.clear();
     this.simulator.dispose();
@@ -433,6 +636,10 @@ export class Engine extends Base {
     }
   }
 
+  /**
+   * 打开指定文件
+   * @param fileId 文件ID
+   */
   async openFile(fileId?: string) {
     const project = this.project.value;
     const apps = this.skeleton?.getRegion('Apps');
@@ -457,6 +664,10 @@ export class Engine extends Base {
   }
 }
 
+/**
+ * 在Vue组件中使用引擎的hook
+ * @returns 引擎实例
+ */
 export function useEngine() {
   const engine = inject(engineKey, null);
   if (!engine) {

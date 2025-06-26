@@ -86,6 +86,7 @@ const components: MaterialDescription[] = [
       }
     ],
     events: ['change', 'update:value'],
+    slots: ['default', 'label'],
     snippet: {
       props: {
         options: [

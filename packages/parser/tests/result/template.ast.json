@@ -1,0 +1,1638 @@
+[
+  {
+    "type": 1,
+    "tag": "div",
+    "ns": 0,
+    "tagType": 0,
+    "props": [],
+    "children": [
+      {
+        "type": 1,
+        "tag": "ElInput",
+        "ns": 0,
+        "tagType": 1,
+        "props": [
+          {
+            "type": 7,
+            "name": "model",
+            "rawName": "v-model:modelValue",
+            "exp": {
+              "type": 8,
+              "loc": {
+                "start": { "column": 27, "line": 4, "offset": 48 },
+                "end": { "column": 38, "line": 4, "offset": 59 },
+                "source": "state.value"
+              },
+              "children": [
+                {
+                  "type": 4,
+                  "loc": {
+                    "start": { "offset": 48, "line": 4, "column": 27 },
+                    "end": { "offset": 53, "line": 4, "column": 32 },
+                    "source": "state"
+                  },
+                  "content": "_ctx.state",
+                  "isStatic": false,
+                  "constType": 0
+                },
+                ".",
+                {
+                  "type": 4,
+                  "loc": {
+                    "start": { "offset": 54, "line": 4, "column": 33 },
+                    "end": { "offset": 59, "line": 4, "column": 38 },
+                    "source": "value"
+                  },
+                  "content": "value",
+                  "isStatic": false,
+                  "constType": 0
+                }
+              ],
+              "ast": {
+                "type": "MemberExpression",
+                "start": 1,
+                "end": 12,
+                "loc": {
+                  "start": { "line": 1, "column": 1, "index": 1 },
+                  "end": { "line": 1, "column": 12, "index": 12 }
+                },
+                "object": {
+                  "type": "Identifier",
+                  "start": 1,
+                  "end": 6,
+                  "loc": {
+                    "start": { "line": 1, "column": 1, "index": 1 },
+                    "end": { "line": 1, "column": 6, "index": 6 },
+                    "identifierName": "state"
+                  },
+                  "name": "_ctx.state"
+                },
+                "computed": false,
+                "property": {
+                  "type": "Identifier",
+                  "start": 7,
+                  "end": 12,
+                  "loc": {
+                    "start": { "line": 1, "column": 7, "index": 7 },
+                    "end": { "line": 1, "column": 12, "index": 12 },
+                    "identifierName": "value"
+                  },
+                  "name": "value"
+                },
+                "extra": { "parenthesized": true, "parenStart": 0 },
+                "comments": [],
+                "errors": []
+              },
+              "identifiers": []
+            },
+            "arg": {
+              "type": 4,
+              "loc": {
+                "start": { "column": 15, "line": 4, "offset": 36 },
+                "end": { "column": 25, "line": 4, "offset": 46 },
+                "source": "modelValue"
+              },
+              "content": "modelValue",
+              "isStatic": true,
+              "constType": 3
+            },
+            "modifiers": [],
+            "loc": {
+              "start": { "column": 7, "line": 4, "offset": 28 },
+              "end": { "column": 39, "line": 4, "offset": 60 },
+              "source": "v-model:modelValue=\"state.value\""
+            }
+          },
+          {
+            "type": 6,
+            "name": "class",
+            "nameLoc": {
+              "start": { "column": 7, "line": 5, "offset": 67 },
+              "end": { "column": 12, "line": 5, "offset": 72 },
+              "source": "class"
+            },
+            "value": {
+              "type": 2,
+              "content": "ElInput_sz3ep4zvw",
+              "loc": {
+                "start": { "column": 13, "line": 5, "offset": 73 },
+                "end": { "column": 32, "line": 5, "offset": 92 },
+                "source": "\"ElInput_sz3ep4zvw\""
+              }
+            },
+            "loc": {
+              "start": { "column": 7, "line": 5, "offset": 67 },
+              "end": { "column": 32, "line": 5, "offset": 92 },
+              "source": "class=\"ElInput_sz3ep4zvw\""
+            }
+          }
+        ],
+        "children": [],
+        "loc": {
+          "start": { "column": 5, "line": 3, "offset": 13 },
+          "end": { "column": 43, "line": 5, "offset": 103 },
+          "source": "<ElInput\n      v-model:modelValue=\"state.value\"\n      class=\"ElInput_sz3ep4zvw\"></ElInput>"
+        },
+        "codegenNode": {
+          "type": 13,
+          "tag": "_component_ElInput",
+          "props": {
+            "type": 15,
+            "loc": {
+              "start": { "column": 5, "line": 3, "offset": 13 },
+              "end": { "column": 43, "line": 5, "offset": 103 },
+              "source": "<ElInput\n      v-model:modelValue=\"state.value\"\n      class=\"ElInput_sz3ep4zvw\"></ElInput>"
+            },
+            "properties": [
+              {
+                "type": 16,
+                "loc": {
+                  "start": { "line": 1, "column": 1, "offset": 0 },
+                  "end": { "line": 1, "column": 1, "offset": 0 },
+                  "source": ""
+                },
+                "key": {
+                  "type": 4,
+                  "loc": {
+                    "start": { "column": 15, "line": 4, "offset": 36 },
+                    "end": { "column": 25, "line": 4, "offset": 46 },
+                    "source": "modelValue"
+                  },
+                  "content": "modelValue",
+                  "isStatic": true,
+                  "constType": 3
+                },
+                "value": {
+                  "type": 8,
+                  "loc": {
+                    "start": { "column": 27, "line": 4, "offset": 48 },
+                    "end": { "column": 38, "line": 4, "offset": 59 },
+                    "source": "state.value"
+                  },
+                  "children": [
+                    {
+                      "type": 4,
+                      "loc": {
+                        "start": { "offset": 48, "line": 4, "column": 27 },
+                        "end": { "offset": 53, "line": 4, "column": 32 },
+                        "source": "state"
+                      },
+                      "content": "_ctx.state",
+                      "isStatic": false,
+                      "constType": 0
+                    },
+                    ".",
+                    {
+                      "type": 4,
+                      "loc": {
+                        "start": { "offset": 54, "line": 4, "column": 33 },
+                        "end": { "offset": 59, "line": 4, "column": 38 },
+                        "source": "value"
+                      },
+                      "content": "value",
+                      "isStatic": false,
+                      "constType": 0
+                    }
+                  ],
+                  "ast": {
+                    "type": "MemberExpression",
+                    "start": 1,
+                    "end": 12,
+                    "loc": {
+                      "start": { "line": 1, "column": 1, "index": 1 },
+                      "end": { "line": 1, "column": 12, "index": 12 }
+                    },
+                    "object": {
+                      "type": "Identifier",
+                      "start": 1,
+                      "end": 6,
+                      "loc": {
+                        "start": { "line": 1, "column": 1, "index": 1 },
+                        "end": { "line": 1, "column": 6, "index": 6 },
+                        "identifierName": "state"
+                      },
+                      "name": "_ctx.state"
+                    },
+                    "computed": false,
+                    "property": {
+                      "type": "Identifier",
+                      "start": 7,
+                      "end": 12,
+                      "loc": {
+                        "start": { "line": 1, "column": 7, "index": 7 },
+                        "end": { "line": 1, "column": 12, "index": 12 },
+                        "identifierName": "value"
+                      },
+                      "name": "value"
+                    },
+                    "extra": { "parenthesized": true, "parenStart": 0 },
+                    "comments": [],
+                    "errors": []
+                  },
+                  "identifiers": []
+                }
+              },
+              {
+                "type": 16,
+                "loc": {
+                  "start": { "line": 1, "column": 1, "offset": 0 },
+                  "end": { "line": 1, "column": 1, "offset": 0 },
+                  "source": ""
+                },
+                "key": {
+                  "type": 4,
+                  "loc": {
+                    "start": { "line": 1, "column": 1, "offset": 0 },
+                    "end": { "line": 1, "column": 1, "offset": 0 },
+                    "source": ""
+                  },
+                  "content": "onUpdate:modelValue",
+                  "isStatic": true,
+                  "constType": 3
+                },
+                "value": {
+                  "type": 20,
+                  "index": 0,
+                  "value": {
+                    "type": 8,
+                    "loc": {
+                      "start": { "line": 1, "column": 1, "offset": 0 },
+                      "end": { "line": 1, "column": 1, "offset": 0 },
+                      "source": ""
+                    },
+                    "children": [
+                      "$event => ((",
+                      {
+                        "type": 8,
+                        "loc": {
+                          "start": { "column": 27, "line": 4, "offset": 48 },
+                          "end": { "column": 38, "line": 4, "offset": 59 },
+                          "source": "state.value"
+                        },
+                        "children": [
+                          {
+                            "type": 4,
+                            "loc": {
+                              "start": {
+                                "offset": 48,
+                                "line": 4,
+                                "column": 27
+                              },
+                              "end": { "offset": 53, "line": 4, "column": 32 },
+                              "source": "state"
+                            },
+                            "content": "_ctx.state",
+                            "isStatic": false,
+                            "constType": 0
+                          },
+                          ".",
+                          {
+                            "type": 4,
+                            "loc": {
+                              "start": {
+                                "offset": 54,
+                                "line": 4,
+                                "column": 33
+                              },
+                              "end": { "offset": 59, "line": 4, "column": 38 },
+                              "source": "value"
+                            },
+                            "content": "value",
+                            "isStatic": false,
+                            "constType": 0
+                          }
+                        ],
+                        "ast": {
+                          "type": "MemberExpression",
+                          "start": 1,
+                          "end": 12,
+                          "loc": {
+                            "start": { "line": 1, "column": 1, "index": 1 },
+                            "end": { "line": 1, "column": 12, "index": 12 }
+                          },
+                          "object": {
+                            "type": "Identifier",
+                            "start": 1,
+                            "end": 6,
+                            "loc": {
+                              "start": { "line": 1, "column": 1, "index": 1 },
+                              "end": { "line": 1, "column": 6, "index": 6 },
+                              "identifierName": "state"
+                            },
+                            "name": "_ctx.state"
+                          },
+                          "computed": false,
+                          "property": {
+                            "type": "Identifier",
+                            "start": 7,
+                            "end": 12,
+                            "loc": {
+                              "start": { "line": 1, "column": 7, "index": 7 },
+                              "end": { "line": 1, "column": 12, "index": 12 },
+                              "identifierName": "value"
+                            },
+                            "name": "value"
+                          },
+                          "extra": { "parenthesized": true, "parenStart": 0 },
+                          "comments": [],
+                          "errors": []
+                        },
+                        "identifiers": []
+                      },
+                      ") = $event)"
+                    ]
+                  },
+                  "needPauseTracking": false,
+                  "inVOnce": false,
+                  "needArraySpread": false,
+                  "loc": {
+                    "start": { "line": 1, "column": 1, "offset": 0 },
+                    "end": { "line": 1, "column": 1, "offset": 0 },
+                    "source": ""
+                  }
+                }
+              },
+              {
+                "type": 16,
+                "loc": {
+                  "start": { "line": 1, "column": 1, "offset": 0 },
+                  "end": { "line": 1, "column": 1, "offset": 0 },
+                  "source": ""
+                },
+                "key": {
+                  "type": 4,
+                  "loc": {
+                    "start": { "column": 7, "line": 5, "offset": 67 },
+                    "end": { "column": 12, "line": 5, "offset": 72 },
+                    "source": "class"
+                  },
+                  "content": "class",
+                  "isStatic": true,
+                  "constType": 3
+                },
+                "value": {
+                  "type": 4,
+                  "loc": {
+                    "start": { "column": 13, "line": 5, "offset": 73 },
+                    "end": { "column": 32, "line": 5, "offset": 92 },
+                    "source": "\"ElInput_sz3ep4zvw\""
+                  },
+                  "content": "ElInput_sz3ep4zvw",
+                  "isStatic": true,
+                  "constType": 3
+                }
+              }
+            ]
+          },
+          "patchFlag": 8,
+          "dynamicProps": "[\"modelValue\"]",
+          "isBlock": false,
+          "disableTracking": false,
+          "isComponent": true,
+          "loc": {
+            "start": { "column": 5, "line": 3, "offset": 13 },
+            "end": { "column": 43, "line": 5, "offset": 103 },
+            "source": "<ElInput\n      v-model:modelValue=\"state.value\"\n      class=\"ElInput_sz3ep4zvw\"></ElInput>"
+          }
+        }
+      },
+      {
+        "type": 1,
+        "tag": "ElButton",
+        "ns": 0,
+        "tagType": 1,
+        "props": [
+          {
+            "type": 6,
+            "name": "type",
+            "nameLoc": {
+              "start": { "column": 15, "line": 6, "offset": 118 },
+              "end": { "column": 19, "line": 6, "offset": 122 },
+              "source": "type"
+            },
+            "value": {
+              "type": 2,
+              "content": "primary",
+              "loc": {
+                "start": { "column": 20, "line": 6, "offset": 123 },
+                "end": { "column": 29, "line": 6, "offset": 132 },
+                "source": "\"primary\""
+              }
+            },
+            "loc": {
+              "start": { "column": 15, "line": 6, "offset": 118 },
+              "end": { "column": 29, "line": 6, "offset": 132 },
+              "source": "type=\"primary\""
+            }
+          },
+          {
+            "type": 7,
+            "name": "on",
+            "rawName": "@click",
+            "exp": {
+              "type": 4,
+              "loc": {
+                "start": { "column": 38, "line": 6, "offset": 141 },
+                "end": { "column": 42, "line": 6, "offset": 145 },
+                "source": "show"
+              },
+              "content": "_ctx.show",
+              "isStatic": false,
+              "constType": 0,
+              "ast": null
+            },
+            "arg": {
+              "type": 4,
+              "loc": {
+                "start": { "column": 31, "line": 6, "offset": 134 },
+                "end": { "column": 36, "line": 6, "offset": 139 },
+                "source": "click"
+              },
+              "content": "click",
+              "isStatic": true,
+              "constType": 3
+            },
+            "modifiers": [],
+            "loc": {
+              "start": { "column": 30, "line": 6, "offset": 133 },
+              "end": { "column": 43, "line": 6, "offset": 146 },
+              "source": "@click=\"show\""
+            }
+          }
+        ],
+        "children": [
+          {
+            "type": 12,
+            "content": {
+              "type": 2,
+              "content": " 按钮",
+              "loc": {
+                "start": { "column": 44, "line": 6, "offset": 147 },
+                "end": { "column": 47, "line": 6, "offset": 150 },
+                "source": " 按钮"
+              }
+            },
+            "loc": {
+              "start": { "column": 44, "line": 6, "offset": 147 },
+              "end": { "column": 47, "line": 6, "offset": 150 },
+              "source": " 按钮"
+            },
+            "codegenNode": {
+              "type": 14,
+              "loc": {
+                "start": { "line": 1, "column": 1, "offset": 0 },
+                "end": { "line": 1, "column": 1, "offset": 0 },
+                "source": ""
+              },
+              "arguments": [
+                {
+                  "type": 2,
+                  "content": " 按钮",
+                  "loc": {
+                    "start": { "column": 44, "line": 6, "offset": 147 },
+                    "end": { "column": 47, "line": 6, "offset": 150 },
+                    "source": " 按钮"
+                  }
+                }
+              ]
+            }
+          }
+        ],
+        "loc": {
+          "start": { "column": 5, "line": 6, "offset": 108 },
+          "end": { "column": 58, "line": 6, "offset": 161 },
+          "source": "<ElButton type=\"primary\" @click=\"show\"> 按钮</ElButton>"
+        },
+        "codegenNode": {
+          "type": 13,
+          "tag": "_component_ElButton",
+          "props": {
+            "type": 15,
+            "loc": {
+              "start": { "column": 5, "line": 6, "offset": 108 },
+              "end": { "column": 58, "line": 6, "offset": 161 },
+              "source": "<ElButton type=\"primary\" @click=\"show\"> 按钮</ElButton>"
+            },
+            "properties": [
+              {
+                "type": 16,
+                "loc": {
+                  "start": { "line": 1, "column": 1, "offset": 0 },
+                  "end": { "line": 1, "column": 1, "offset": 0 },
+                  "source": ""
+                },
+                "key": {
+                  "type": 4,
+                  "loc": {
+                    "start": { "column": 15, "line": 6, "offset": 118 },
+                    "end": { "column": 19, "line": 6, "offset": 122 },
+                    "source": "type"
+                  },
+                  "content": "type",
+                  "isStatic": true,
+                  "constType": 3
+                },
+                "value": {
+                  "type": 4,
+                  "loc": {
+                    "start": { "column": 20, "line": 6, "offset": 123 },
+                    "end": { "column": 29, "line": 6, "offset": 132 },
+                    "source": "\"primary\""
+                  },
+                  "content": "primary",
+                  "isStatic": true,
+                  "constType": 3
+                }
+              },
+              {
+                "type": 16,
+                "loc": {
+                  "start": { "line": 1, "column": 1, "offset": 0 },
+                  "end": { "line": 1, "column": 1, "offset": 0 },
+                  "source": ""
+                },
+                "key": {
+                  "type": 4,
+                  "loc": {
+                    "start": { "column": 31, "line": 6, "offset": 134 },
+                    "end": { "column": 36, "line": 6, "offset": 139 },
+                    "source": "click"
+                  },
+                  "content": "onClick",
+                  "isStatic": true,
+                  "constType": 3,
+                  "isHandlerKey": true
+                },
+                "value": {
+                  "type": 4,
+                  "loc": {
+                    "start": { "column": 38, "line": 6, "offset": 141 },
+                    "end": { "column": 42, "line": 6, "offset": 145 },
+                    "source": "show"
+                  },
+                  "content": "_ctx.show",
+                  "isStatic": false,
+                  "constType": 0,
+                  "ast": null
+                }
+              }
+            ]
+          },
+          "children": {
+            "type": 15,
+            "loc": {
+              "start": { "column": 5, "line": 6, "offset": 108 },
+              "end": { "column": 58, "line": 6, "offset": 161 },
+              "source": "<ElButton type=\"primary\" @click=\"show\"> 按钮</ElButton>"
+            },
+            "properties": [
+              {
+                "type": 16,
+                "loc": {
+                  "start": { "line": 1, "column": 1, "offset": 0 },
+                  "end": { "line": 1, "column": 1, "offset": 0 },
+                  "source": ""
+                },
+                "key": {
+                  "type": 4,
+                  "loc": {
+                    "start": { "line": 1, "column": 1, "offset": 0 },
+                    "end": { "line": 1, "column": 1, "offset": 0 },
+                    "source": ""
+                  },
+                  "content": "default",
+                  "isStatic": true,
+                  "constType": 3
+                },
+                "value": {
+                  "type": 18,
+                  "returns": {
+                    "type": 20,
+                    "index": 1,
+                    "value": {
+                      "type": 17,
+                      "loc": {
+                        "start": { "line": 1, "column": 1, "offset": 0 },
+                        "end": { "line": 1, "column": 1, "offset": 0 },
+                        "source": ""
+                      },
+                      "elements": [
+                        {
+                          "type": 12,
+                          "content": {
+                            "type": 2,
+                            "content": " 按钮",
+                            "loc": {
+                              "start": {
+                                "column": 44,
+                                "line": 6,
+                                "offset": 147
+                              },
+                              "end": { "column": 47, "line": 6, "offset": 150 },
+                              "source": " 按钮"
+                            }
+                          },
+                          "loc": {
+                            "start": { "column": 44, "line": 6, "offset": 147 },
+                            "end": { "column": 47, "line": 6, "offset": 150 },
+                            "source": " 按钮"
+                          },
+                          "codegenNode": {
+                            "type": 14,
+                            "loc": {
+                              "start": { "line": 1, "column": 1, "offset": 0 },
+                              "end": { "line": 1, "column": 1, "offset": 0 },
+                              "source": ""
+                            },
+                            "arguments": [
+                              {
+                                "type": 2,
+                                "content": " 按钮",
+                                "loc": {
+                                  "start": {
+                                    "column": 44,
+                                    "line": 6,
+                                    "offset": 147
+                                  },
+                                  "end": {
+                                    "column": 47,
+                                    "line": 6,
+                                    "offset": 150
+                                  },
+                                  "source": " 按钮"
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    },
+                    "needPauseTracking": false,
+                    "inVOnce": false,
+                    "needArraySpread": false,
+                    "loc": {
+                      "start": { "line": 1, "column": 1, "offset": 0 },
+                      "end": { "line": 1, "column": 1, "offset": 0 },
+                      "source": ""
+                    }
+                  },
+                  "newline": false,
+                  "isSlot": true,
+                  "loc": {
+                    "start": { "column": 44, "line": 6, "offset": 147 },
+                    "end": { "column": 47, "line": 6, "offset": 150 },
+                    "source": " 按钮"
+                  }
+                }
+              },
+              {
+                "type": 16,
+                "loc": {
+                  "start": { "line": 1, "column": 1, "offset": 0 },
+                  "end": { "line": 1, "column": 1, "offset": 0 },
+                  "source": ""
+                },
+                "key": {
+                  "type": 4,
+                  "loc": {
+                    "start": { "line": 1, "column": 1, "offset": 0 },
+                    "end": { "line": 1, "column": 1, "offset": 0 },
+                    "source": ""
+                  },
+                  "content": "_",
+                  "isStatic": true,
+                  "constType": 3
+                },
+                "value": {
+                  "type": 4,
+                  "loc": {
+                    "start": { "line": 1, "column": 1, "offset": 0 },
+                    "end": { "line": 1, "column": 1, "offset": 0 },
+                    "source": ""
+                  },
+                  "content": "1 /* STABLE */",
+                  "isStatic": false,
+                  "constType": 0
+                }
+              }
+            ]
+          },
+          "patchFlag": 8,
+          "dynamicProps": "[\"onClick\"]",
+          "isBlock": false,
+          "disableTracking": false,
+          "isComponent": true,
+          "loc": {
+            "start": { "column": 5, "line": 6, "offset": 108 },
+            "end": { "column": 58, "line": 6, "offset": 161 },
+            "source": "<ElButton type=\"primary\" @click=\"show\"> 按钮</ElButton>"
+          }
+        }
+      }
+    ],
+    "loc": {
+      "start": { "column": 3, "line": 2, "offset": 3 },
+      "end": { "column": 9, "line": 7, "offset": 170 },
+      "source": "<div>\n    <ElInput\n      v-model:modelValue=\"state.value\"\n      class=\"ElInput_sz3ep4zvw\"></ElInput>\n    <ElButton type=\"primary\" @click=\"show\"> 按钮</ElButton>\n  </div>"
+    },
+    "codegenNode": {
+      "type": 13,
+      "tag": "\"div\"",
+      "children": [
+        {
+          "type": 1,
+          "tag": "ElInput",
+          "ns": 0,
+          "tagType": 1,
+          "props": [
+            {
+              "type": 7,
+              "name": "model",
+              "rawName": "v-model:modelValue",
+              "exp": {
+                "type": 8,
+                "loc": {
+                  "start": { "column": 27, "line": 4, "offset": 48 },
+                  "end": { "column": 38, "line": 4, "offset": 59 },
+                  "source": "state.value"
+                },
+                "children": [
+                  {
+                    "type": 4,
+                    "loc": {
+                      "start": { "offset": 48, "line": 4, "column": 27 },
+                      "end": { "offset": 53, "line": 4, "column": 32 },
+                      "source": "state"
+                    },
+                    "content": "_ctx.state",
+                    "isStatic": false,
+                    "constType": 0
+                  },
+                  ".",
+                  {
+                    "type": 4,
+                    "loc": {
+                      "start": { "offset": 54, "line": 4, "column": 33 },
+                      "end": { "offset": 59, "line": 4, "column": 38 },
+                      "source": "value"
+                    },
+                    "content": "value",
+                    "isStatic": false,
+                    "constType": 0
+                  }
+                ],
+                "ast": {
+                  "type": "MemberExpression",
+                  "start": 1,
+                  "end": 12,
+                  "loc": {
+                    "start": { "line": 1, "column": 1, "index": 1 },
+                    "end": { "line": 1, "column": 12, "index": 12 }
+                  },
+                  "object": {
+                    "type": "Identifier",
+                    "start": 1,
+                    "end": 6,
+                    "loc": {
+                      "start": { "line": 1, "column": 1, "index": 1 },
+                      "end": { "line": 1, "column": 6, "index": 6 },
+                      "identifierName": "state"
+                    },
+                    "name": "_ctx.state"
+                  },
+                  "computed": false,
+                  "property": {
+                    "type": "Identifier",
+                    "start": 7,
+                    "end": 12,
+                    "loc": {
+                      "start": { "line": 1, "column": 7, "index": 7 },
+                      "end": { "line": 1, "column": 12, "index": 12 },
+                      "identifierName": "value"
+                    },
+                    "name": "value"
+                  },
+                  "extra": { "parenthesized": true, "parenStart": 0 },
+                  "comments": [],
+                  "errors": []
+                },
+                "identifiers": []
+              },
+              "arg": {
+                "type": 4,
+                "loc": {
+                  "start": { "column": 15, "line": 4, "offset": 36 },
+                  "end": { "column": 25, "line": 4, "offset": 46 },
+                  "source": "modelValue"
+                },
+                "content": "modelValue",
+                "isStatic": true,
+                "constType": 3
+              },
+              "modifiers": [],
+              "loc": {
+                "start": { "column": 7, "line": 4, "offset": 28 },
+                "end": { "column": 39, "line": 4, "offset": 60 },
+                "source": "v-model:modelValue=\"state.value\""
+              }
+            },
+            {
+              "type": 6,
+              "name": "class",
+              "nameLoc": {
+                "start": { "column": 7, "line": 5, "offset": 67 },
+                "end": { "column": 12, "line": 5, "offset": 72 },
+                "source": "class"
+              },
+              "value": {
+                "type": 2,
+                "content": "ElInput_sz3ep4zvw",
+                "loc": {
+                  "start": { "column": 13, "line": 5, "offset": 73 },
+                  "end": { "column": 32, "line": 5, "offset": 92 },
+                  "source": "\"ElInput_sz3ep4zvw\""
+                }
+              },
+              "loc": {
+                "start": { "column": 7, "line": 5, "offset": 67 },
+                "end": { "column": 32, "line": 5, "offset": 92 },
+                "source": "class=\"ElInput_sz3ep4zvw\""
+              }
+            }
+          ],
+          "children": [],
+          "loc": {
+            "start": { "column": 5, "line": 3, "offset": 13 },
+            "end": { "column": 43, "line": 5, "offset": 103 },
+            "source": "<ElInput\n      v-model:modelValue=\"state.value\"\n      class=\"ElInput_sz3ep4zvw\"></ElInput>"
+          },
+          "codegenNode": {
+            "type": 13,
+            "tag": "_component_ElInput",
+            "props": {
+              "type": 15,
+              "loc": {
+                "start": { "column": 5, "line": 3, "offset": 13 },
+                "end": { "column": 43, "line": 5, "offset": 103 },
+                "source": "<ElInput\n      v-model:modelValue=\"state.value\"\n      class=\"ElInput_sz3ep4zvw\"></ElInput>"
+              },
+              "properties": [
+                {
+                  "type": 16,
+                  "loc": {
+                    "start": { "line": 1, "column": 1, "offset": 0 },
+                    "end": { "line": 1, "column": 1, "offset": 0 },
+                    "source": ""
+                  },
+                  "key": {
+                    "type": 4,
+                    "loc": {
+                      "start": { "column": 15, "line": 4, "offset": 36 },
+                      "end": { "column": 25, "line": 4, "offset": 46 },
+                      "source": "modelValue"
+                    },
+                    "content": "modelValue",
+                    "isStatic": true,
+                    "constType": 3
+                  },
+                  "value": {
+                    "type": 8,
+                    "loc": {
+                      "start": { "column": 27, "line": 4, "offset": 48 },
+                      "end": { "column": 38, "line": 4, "offset": 59 },
+                      "source": "state.value"
+                    },
+                    "children": [
+                      {
+                        "type": 4,
+                        "loc": {
+                          "start": { "offset": 48, "line": 4, "column": 27 },
+                          "end": { "offset": 53, "line": 4, "column": 32 },
+                          "source": "state"
+                        },
+                        "content": "_ctx.state",
+                        "isStatic": false,
+                        "constType": 0
+                      },
+                      ".",
+                      {
+                        "type": 4,
+                        "loc": {
+                          "start": { "offset": 54, "line": 4, "column": 33 },
+                          "end": { "offset": 59, "line": 4, "column": 38 },
+                          "source": "value"
+                        },
+                        "content": "value",
+                        "isStatic": false,
+                        "constType": 0
+                      }
+                    ],
+                    "ast": {
+                      "type": "MemberExpression",
+                      "start": 1,
+                      "end": 12,
+                      "loc": {
+                        "start": { "line": 1, "column": 1, "index": 1 },
+                        "end": { "line": 1, "column": 12, "index": 12 }
+                      },
+                      "object": {
+                        "type": "Identifier",
+                        "start": 1,
+                        "end": 6,
+                        "loc": {
+                          "start": { "line": 1, "column": 1, "index": 1 },
+                          "end": { "line": 1, "column": 6, "index": 6 },
+                          "identifierName": "state"
+                        },
+                        "name": "_ctx.state"
+                      },
+                      "computed": false,
+                      "property": {
+                        "type": "Identifier",
+                        "start": 7,
+                        "end": 12,
+                        "loc": {
+                          "start": { "line": 1, "column": 7, "index": 7 },
+                          "end": { "line": 1, "column": 12, "index": 12 },
+                          "identifierName": "value"
+                        },
+                        "name": "value"
+                      },
+                      "extra": { "parenthesized": true, "parenStart": 0 },
+                      "comments": [],
+                      "errors": []
+                    },
+                    "identifiers": []
+                  }
+                },
+                {
+                  "type": 16,
+                  "loc": {
+                    "start": { "line": 1, "column": 1, "offset": 0 },
+                    "end": { "line": 1, "column": 1, "offset": 0 },
+                    "source": ""
+                  },
+                  "key": {
+                    "type": 4,
+                    "loc": {
+                      "start": { "line": 1, "column": 1, "offset": 0 },
+                      "end": { "line": 1, "column": 1, "offset": 0 },
+                      "source": ""
+                    },
+                    "content": "onUpdate:modelValue",
+                    "isStatic": true,
+                    "constType": 3
+                  },
+                  "value": {
+                    "type": 20,
+                    "index": 0,
+                    "value": {
+                      "type": 8,
+                      "loc": {
+                        "start": { "line": 1, "column": 1, "offset": 0 },
+                        "end": { "line": 1, "column": 1, "offset": 0 },
+                        "source": ""
+                      },
+                      "children": [
+                        "$event => ((",
+                        {
+                          "type": 8,
+                          "loc": {
+                            "start": { "column": 27, "line": 4, "offset": 48 },
+                            "end": { "column": 38, "line": 4, "offset": 59 },
+                            "source": "state.value"
+                          },
+                          "children": [
+                            {
+                              "type": 4,
+                              "loc": {
+                                "start": {
+                                  "offset": 48,
+                                  "line": 4,
+                                  "column": 27
+                                },
+                                "end": {
+                                  "offset": 53,
+                                  "line": 4,
+                                  "column": 32
+                                },
+                                "source": "state"
+                              },
+                              "content": "_ctx.state",
+                              "isStatic": false,
+                              "constType": 0
+                            },
+                            ".",
+                            {
+                              "type": 4,
+                              "loc": {
+                                "start": {
+                                  "offset": 54,
+                                  "line": 4,
+                                  "column": 33
+                                },
+                                "end": {
+                                  "offset": 59,
+                                  "line": 4,
+                                  "column": 38
+                                },
+                                "source": "value"
+                              },
+                              "content": "value",
+                              "isStatic": false,
+                              "constType": 0
+                            }
+                          ],
+                          "ast": {
+                            "type": "MemberExpression",
+                            "start": 1,
+                            "end": 12,
+                            "loc": {
+                              "start": { "line": 1, "column": 1, "index": 1 },
+                              "end": { "line": 1, "column": 12, "index": 12 }
+                            },
+                            "object": {
+                              "type": "Identifier",
+                              "start": 1,
+                              "end": 6,
+                              "loc": {
+                                "start": { "line": 1, "column": 1, "index": 1 },
+                                "end": { "line": 1, "column": 6, "index": 6 },
+                                "identifierName": "state"
+                              },
+                              "name": "_ctx.state"
+                            },
+                            "computed": false,
+                            "property": {
+                              "type": "Identifier",
+                              "start": 7,
+                              "end": 12,
+                              "loc": {
+                                "start": { "line": 1, "column": 7, "index": 7 },
+                                "end": { "line": 1, "column": 12, "index": 12 },
+                                "identifierName": "value"
+                              },
+                              "name": "value"
+                            },
+                            "extra": { "parenthesized": true, "parenStart": 0 },
+                            "comments": [],
+                            "errors": []
+                          },
+                          "identifiers": []
+                        },
+                        ") = $event)"
+                      ]
+                    },
+                    "needPauseTracking": false,
+                    "inVOnce": false,
+                    "needArraySpread": false,
+                    "loc": {
+                      "start": { "line": 1, "column": 1, "offset": 0 },
+                      "end": { "line": 1, "column": 1, "offset": 0 },
+                      "source": ""
+                    }
+                  }
+                },
+                {
+                  "type": 16,
+                  "loc": {
+                    "start": { "line": 1, "column": 1, "offset": 0 },
+                    "end": { "line": 1, "column": 1, "offset": 0 },
+                    "source": ""
+                  },
+                  "key": {
+                    "type": 4,
+                    "loc": {
+                      "start": { "column": 7, "line": 5, "offset": 67 },
+                      "end": { "column": 12, "line": 5, "offset": 72 },
+                      "source": "class"
+                    },
+                    "content": "class",
+                    "isStatic": true,
+                    "constType": 3
+                  },
+                  "value": {
+                    "type": 4,
+                    "loc": {
+                      "start": { "column": 13, "line": 5, "offset": 73 },
+                      "end": { "column": 32, "line": 5, "offset": 92 },
+                      "source": "\"ElInput_sz3ep4zvw\""
+                    },
+                    "content": "ElInput_sz3ep4zvw",
+                    "isStatic": true,
+                    "constType": 3
+                  }
+                }
+              ]
+            },
+            "patchFlag": 8,
+            "dynamicProps": "[\"modelValue\"]",
+            "isBlock": false,
+            "disableTracking": false,
+            "isComponent": true,
+            "loc": {
+              "start": { "column": 5, "line": 3, "offset": 13 },
+              "end": { "column": 43, "line": 5, "offset": 103 },
+              "source": "<ElInput\n      v-model:modelValue=\"state.value\"\n      class=\"ElInput_sz3ep4zvw\"></ElInput>"
+            }
+          }
+        },
+        {
+          "type": 1,
+          "tag": "ElButton",
+          "ns": 0,
+          "tagType": 1,
+          "props": [
+            {
+              "type": 6,
+              "name": "type",
+              "nameLoc": {
+                "start": { "column": 15, "line": 6, "offset": 118 },
+                "end": { "column": 19, "line": 6, "offset": 122 },
+                "source": "type"
+              },
+              "value": {
+                "type": 2,
+                "content": "primary",
+                "loc": {
+                  "start": { "column": 20, "line": 6, "offset": 123 },
+                  "end": { "column": 29, "line": 6, "offset": 132 },
+                  "source": "\"primary\""
+                }
+              },
+              "loc": {
+                "start": { "column": 15, "line": 6, "offset": 118 },
+                "end": { "column": 29, "line": 6, "offset": 132 },
+                "source": "type=\"primary\""
+              }
+            },
+            {
+              "type": 7,
+              "name": "on",
+              "rawName": "@click",
+              "exp": {
+                "type": 4,
+                "loc": {
+                  "start": { "column": 38, "line": 6, "offset": 141 },
+                  "end": { "column": 42, "line": 6, "offset": 145 },
+                  "source": "show"
+                },
+                "content": "_ctx.show",
+                "isStatic": false,
+                "constType": 0,
+                "ast": null
+              },
+              "arg": {
+                "type": 4,
+                "loc": {
+                  "start": { "column": 31, "line": 6, "offset": 134 },
+                  "end": { "column": 36, "line": 6, "offset": 139 },
+                  "source": "click"
+                },
+                "content": "click",
+                "isStatic": true,
+                "constType": 3
+              },
+              "modifiers": [],
+              "loc": {
+                "start": { "column": 30, "line": 6, "offset": 133 },
+                "end": { "column": 43, "line": 6, "offset": 146 },
+                "source": "@click=\"show\""
+              }
+            }
+          ],
+          "children": [
+            {
+              "type": 12,
+              "content": {
+                "type": 2,
+                "content": " 按钮",
+                "loc": {
+                  "start": { "column": 44, "line": 6, "offset": 147 },
+                  "end": { "column": 47, "line": 6, "offset": 150 },
+                  "source": " 按钮"
+                }
+              },
+              "loc": {
+                "start": { "column": 44, "line": 6, "offset": 147 },
+                "end": { "column": 47, "line": 6, "offset": 150 },
+                "source": " 按钮"
+              },
+              "codegenNode": {
+                "type": 14,
+                "loc": {
+                  "start": { "line": 1, "column": 1, "offset": 0 },
+                  "end": { "line": 1, "column": 1, "offset": 0 },
+                  "source": ""
+                },
+                "arguments": [
+                  {
+                    "type": 2,
+                    "content": " 按钮",
+                    "loc": {
+                      "start": { "column": 44, "line": 6, "offset": 147 },
+                      "end": { "column": 47, "line": 6, "offset": 150 },
+                      "source": " 按钮"
+                    }
+                  }
+                ]
+              }
+            }
+          ],
+          "loc": {
+            "start": { "column": 5, "line": 6, "offset": 108 },
+            "end": { "column": 58, "line": 6, "offset": 161 },
+            "source": "<ElButton type=\"primary\" @click=\"show\"> 按钮</ElButton>"
+          },
+          "codegenNode": {
+            "type": 13,
+            "tag": "_component_ElButton",
+            "props": {
+              "type": 15,
+              "loc": {
+                "start": { "column": 5, "line": 6, "offset": 108 },
+                "end": { "column": 58, "line": 6, "offset": 161 },
+                "source": "<ElButton type=\"primary\" @click=\"show\"> 按钮</ElButton>"
+              },
+              "properties": [
+                {
+                  "type": 16,
+                  "loc": {
+                    "start": { "line": 1, "column": 1, "offset": 0 },
+                    "end": { "line": 1, "column": 1, "offset": 0 },
+                    "source": ""
+                  },
+                  "key": {
+                    "type": 4,
+                    "loc": {
+                      "start": { "column": 15, "line": 6, "offset": 118 },
+                      "end": { "column": 19, "line": 6, "offset": 122 },
+                      "source": "type"
+                    },
+                    "content": "type",
+                    "isStatic": true,
+                    "constType": 3
+                  },
+                  "value": {
+                    "type": 4,
+                    "loc": {
+                      "start": { "column": 20, "line": 6, "offset": 123 },
+                      "end": { "column": 29, "line": 6, "offset": 132 },
+                      "source": "\"primary\""
+                    },
+                    "content": "primary",
+                    "isStatic": true,
+                    "constType": 3
+                  }
+                },
+                {
+                  "type": 16,
+                  "loc": {
+                    "start": { "line": 1, "column": 1, "offset": 0 },
+                    "end": { "line": 1, "column": 1, "offset": 0 },
+                    "source": ""
+                  },
+                  "key": {
+                    "type": 4,
+                    "loc": {
+                      "start": { "column": 31, "line": 6, "offset": 134 },
+                      "end": { "column": 36, "line": 6, "offset": 139 },
+                      "source": "click"
+                    },
+                    "content": "onClick",
+                    "isStatic": true,
+                    "constType": 3,
+                    "isHandlerKey": true
+                  },
+                  "value": {
+                    "type": 4,
+                    "loc": {
+                      "start": { "column": 38, "line": 6, "offset": 141 },
+                      "end": { "column": 42, "line": 6, "offset": 145 },
+                      "source": "show"
+                    },
+                    "content": "_ctx.show",
+                    "isStatic": false,
+                    "constType": 0,
+                    "ast": null
+                  }
+                }
+              ]
+            },
+            "children": {
+              "type": 15,
+              "loc": {
+                "start": { "column": 5, "line": 6, "offset": 108 },
+                "end": { "column": 58, "line": 6, "offset": 161 },
+                "source": "<ElButton type=\"primary\" @click=\"show\"> 按钮</ElButton>"
+              },
+              "properties": [
+                {
+                  "type": 16,
+                  "loc": {
+                    "start": { "line": 1, "column": 1, "offset": 0 },
+                    "end": { "line": 1, "column": 1, "offset": 0 },
+                    "source": ""
+                  },
+                  "key": {
+                    "type": 4,
+                    "loc": {
+                      "start": { "line": 1, "column": 1, "offset": 0 },
+                      "end": { "line": 1, "column": 1, "offset": 0 },
+                      "source": ""
+                    },
+                    "content": "default",
+                    "isStatic": true,
+                    "constType": 3
+                  },
+                  "value": {
+                    "type": 18,
+                    "returns": {
+                      "type": 20,
+                      "index": 1,
+                      "value": {
+                        "type": 17,
+                        "loc": {
+                          "start": { "line": 1, "column": 1, "offset": 0 },
+                          "end": { "line": 1, "column": 1, "offset": 0 },
+                          "source": ""
+                        },
+                        "elements": [
+                          {
+                            "type": 12,
+                            "content": {
+                              "type": 2,
+                              "content": " 按钮",
+                              "loc": {
+                                "start": {
+                                  "column": 44,
+                                  "line": 6,
+                                  "offset": 147
+                                },
+                                "end": {
+                                  "column": 47,
+                                  "line": 6,
+                                  "offset": 150
+                                },
+                                "source": " 按钮"
+                              }
+                            },
+                            "loc": {
+                              "start": {
+                                "column": 44,
+                                "line": 6,
+                                "offset": 147
+                              },
+                              "end": { "column": 47, "line": 6, "offset": 150 },
+                              "source": " 按钮"
+                            },
+                            "codegenNode": {
+                              "type": 14,
+                              "loc": {
+                                "start": {
+                                  "line": 1,
+                                  "column": 1,
+                                  "offset": 0
+                                },
+                                "end": { "line": 1, "column": 1, "offset": 0 },
+                                "source": ""
+                              },
+                              "arguments": [
+                                {
+                                  "type": 2,
+                                  "content": " 按钮",
+                                  "loc": {
+                                    "start": {
+                                      "column": 44,
+                                      "line": 6,
+                                      "offset": 147
+                                    },
+                                    "end": {
+                                      "column": 47,
+                                      "line": 6,
+                                      "offset": 150
+                                    },
+                                    "source": " 按钮"
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        ]
+                      },
+                      "needPauseTracking": false,
+                      "inVOnce": false,
+                      "needArraySpread": false,
+                      "loc": {
+                        "start": { "line": 1, "column": 1, "offset": 0 },
+                        "end": { "line": 1, "column": 1, "offset": 0 },
+                        "source": ""
+                      }
+                    },
+                    "newline": false,
+                    "isSlot": true,
+                    "loc": {
+                      "start": { "column": 44, "line": 6, "offset": 147 },
+                      "end": { "column": 47, "line": 6, "offset": 150 },
+                      "source": " 按钮"
+                    }
+                  }
+                },
+                {
+                  "type": 16,
+                  "loc": {
+                    "start": { "line": 1, "column": 1, "offset": 0 },
+                    "end": { "line": 1, "column": 1, "offset": 0 },
+                    "source": ""
+                  },
+                  "key": {
+                    "type": 4,
+                    "loc": {
+                      "start": { "line": 1, "column": 1, "offset": 0 },
+                      "end": { "line": 1, "column": 1, "offset": 0 },
+                      "source": ""
+                    },
+                    "content": "_",
+                    "isStatic": true,
+                    "constType": 3
+                  },
+                  "value": {
+                    "type": 4,
+                    "loc": {
+                      "start": { "line": 1, "column": 1, "offset": 0 },
+                      "end": { "line": 1, "column": 1, "offset": 0 },
+                      "source": ""
+                    },
+                    "content": "1 /* STABLE */",
+                    "isStatic": false,
+                    "constType": 0
+                  }
+                }
+              ]
+            },
+            "patchFlag": 8,
+            "dynamicProps": "[\"onClick\"]",
+            "isBlock": false,
+            "disableTracking": false,
+            "isComponent": true,
+            "loc": {
+              "start": { "column": 5, "line": 6, "offset": 108 },
+              "end": { "column": 58, "line": 6, "offset": 161 },
+              "source": "<ElButton type=\"primary\" @click=\"show\"> 按钮</ElButton>"
+            }
+          }
+        }
+      ],
+      "isBlock": false,
+      "disableTracking": false,
+      "isComponent": false,
+      "loc": {
+        "start": { "column": 3, "line": 2, "offset": 3 },
+        "end": { "column": 9, "line": 7, "offset": 170 },
+        "source": "<div>\n    <ElInput\n      v-model:modelValue=\"state.value\"\n      class=\"ElInput_sz3ep4zvw\"></ElInput>\n    <ElButton type=\"primary\" @click=\"show\"> 按钮</ElButton>\n  </div>"
+      }
+    }
+  },
+  {
+    "type": 1,
+    "tag": "div",
+    "ns": 0,
+    "tagType": 0,
+    "props": [
+      {
+        "type": 6,
+        "name": "class",
+        "nameLoc": {
+          "start": { "column": 8, "line": 8, "offset": 178 },
+          "end": { "column": 13, "line": 8, "offset": 183 },
+          "source": "class"
+        },
+        "value": {
+          "type": 2,
+          "content": "div_1lbywfn73x",
+          "loc": {
+            "start": { "column": 14, "line": 8, "offset": 184 },
+            "end": { "column": 30, "line": 8, "offset": 200 },
+            "source": "\"div_1lbywfn73x\""
+          }
+        },
+        "loc": {
+          "start": { "column": 8, "line": 8, "offset": 178 },
+          "end": { "column": 30, "line": 8, "offset": 200 },
+          "source": "class=\"div_1lbywfn73x\""
+        }
+      }
+    ],
+    "children": [
+      {
+        "type": 5,
+        "content": {
+          "type": 4,
+          "loc": {
+            "start": { "column": 33, "line": 8, "offset": 203 },
+            "end": { "column": 38, "line": 8, "offset": 208 },
+            "source": "count"
+          },
+          "content": "_ctx.count",
+          "isStatic": false,
+          "constType": 0,
+          "ast": null
+        },
+        "loc": {
+          "start": { "column": 31, "line": 8, "offset": 201 },
+          "end": { "column": 40, "line": 8, "offset": 210 },
+          "source": "{{count}}"
+        }
+      }
+    ],
+    "loc": {
+      "start": { "column": 3, "line": 8, "offset": 173 },
+      "end": { "column": 46, "line": 8, "offset": 216 },
+      "source": "<div class=\"div_1lbywfn73x\">{{count}}</div>"
+    },
+    "codegenNode": {
+      "type": 13,
+      "tag": "\"div\"",
+      "props": {
+        "type": 4,
+        "loc": {
+          "start": { "column": 3, "line": 8, "offset": 173 },
+          "end": { "column": 46, "line": 8, "offset": 216 },
+          "source": "<div class=\"div_1lbywfn73x\">{{count}}</div>"
+        },
+        "content": "_hoisted_1",
+        "isStatic": false,
+        "constType": 2,
+        "hoisted": {
+          "type": 15,
+          "loc": {
+            "start": { "column": 3, "line": 8, "offset": 173 },
+            "end": { "column": 46, "line": 8, "offset": 216 },
+            "source": "<div class=\"div_1lbywfn73x\">{{count}}</div>"
+          },
+          "properties": [
+            {
+              "type": 16,
+              "loc": {
+                "start": { "line": 1, "column": 1, "offset": 0 },
+                "end": { "line": 1, "column": 1, "offset": 0 },
+                "source": ""
+              },
+              "key": {
+                "type": 4,
+                "loc": {
+                  "start": { "column": 8, "line": 8, "offset": 178 },
+                  "end": { "column": 13, "line": 8, "offset": 183 },
+                  "source": "class"
+                },
+                "content": "class",
+                "isStatic": true,
+                "constType": 3
+              },
+              "value": {
+                "type": 4,
+                "loc": {
+                  "start": { "column": 14, "line": 8, "offset": 184 },
+                  "end": { "column": 30, "line": 8, "offset": 200 },
+                  "source": "\"div_1lbywfn73x\""
+                },
+                "content": "div_1lbywfn73x",
+                "isStatic": true,
+                "constType": 3
+              }
+            }
+          ]
+        }
+      },
+      "children": {
+        "type": 5,
+        "content": {
+          "type": 4,
+          "loc": {
+            "start": { "column": 33, "line": 8, "offset": 203 },
+            "end": { "column": 38, "line": 8, "offset": 208 },
+            "source": "count"
+          },
+          "content": "_ctx.count",
+          "isStatic": false,
+          "constType": 0,
+          "ast": null
+        },
+        "loc": {
+          "start": { "column": 31, "line": 8, "offset": 201 },
+          "end": { "column": 40, "line": 8, "offset": 210 },
+          "source": "{{count}}"
+        }
+      },
+      "patchFlag": 1,
+      "isBlock": false,
+      "disableTracking": false,
+      "isComponent": false,
+      "loc": {
+        "start": { "column": 3, "line": 8, "offset": 173 },
+        "end": { "column": 46, "line": 8, "offset": 216 },
+        "source": "<div class=\"div_1lbywfn73x\">{{count}}</div>"
+      }
+    }
+  }
+]

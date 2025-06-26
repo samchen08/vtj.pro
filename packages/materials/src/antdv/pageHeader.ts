@@ -18,13 +18,13 @@ const components: MaterialDescription[] = [
         name: 'backIcon',
         label: 'backIcon',
         title: '自定义 back icon ，如果为 false 不渲染 back icon',
-        setters: 'StringSetter'
+        setters: 'IconSetter'
       },
       {
         name: 'breadcrumb',
         label: 'breadcrumb',
         title: '面包屑的配置',
-        setters: 'ObjectSetter'
+        setters: ['ExpressionSetter', 'ArraySetter']
       },
       {
         name: 'extra',
@@ -65,7 +65,7 @@ const components: MaterialDescription[] = [
       }
     ],
     events: ['back'],
-    slots: ['backIcon', 'extra', 'footer', 'subTitle', 'title'],
+    slots: ['default', 'backIcon', 'extra', 'footer', 'subTitle', 'title'],
     snippet: {
       name: 'APageHeader',
       props: {

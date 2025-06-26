@@ -124,7 +124,7 @@ const components: MaterialDescription[] = [
       }
     ],
     events: ['openChange', 'update:open'],
-    slots: ['title'],
+    slots: ['default', 'title'],
     snippet: {
       slot: 'title',
       children: [

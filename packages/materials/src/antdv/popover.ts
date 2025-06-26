@@ -129,7 +129,8 @@ const components: MaterialDescription[] = [
         defaultValue: false
       }
     ],
-    slots: ['content', 'title'],
+    slots: ['default', 'content', 'title'],
+    events: ['update: open', 'openChange'],
     snippet: {
       props: {
         title: 'Title'

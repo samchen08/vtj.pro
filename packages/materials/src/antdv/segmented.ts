@@ -42,8 +42,8 @@ const components: MaterialDescription[] = [
         setters: ['StringSetter', 'NumberSetter']
       }
     ],
-    events: ['change'],
-    slots: ['label'],
+    events: ['change', 'update:value'],
+    slots: ['default', 'label'],
     snippet: {
       props: {
         value: 'Daily',

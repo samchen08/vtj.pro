@@ -18,13 +18,15 @@
         <span v-if="index !== undefined" class="v-item__index">
           # {{ index }}
         </span>
-        <span class="v-item__content">{{ title }}</span>
-        <span
-          v-if="subtitle"
-          class="v-item__subtitle"
-          :class="props.subtitleCls">
-          {{ subtitle }}
-        </span>
+        <div class="v-item__title-wrapper">
+          <span class="v-item__content">{{ title }}</span>
+          <span
+            v-if="subtitle"
+            class="v-item__subtitle"
+            :class="props.subtitleCls">
+            {{ subtitle }}
+          </span>
+        </div>
         <div v-if="props.textTags" class="v-item__tags">
           <span v-for="item in props.textTags">{{ item }}</span>
         </div>
@@ -148,10 +150,12 @@
     small?: boolean;
     actionInMore?: boolean;
     textTags?: string[];
+    nowrap?: boolean;
   }
 
   const props = withDefaults(defineProps<Props>(), {
-    actions: () => []
+    actions: () => [],
+    nowrap: true
   });
   const emits = defineEmits(['click', 'action', 'update:modelValue', 'switch']);
 
@@ -185,7 +189,8 @@
       'is-border': props.border,
       'is-active': props.active,
       'is-hover': props.hover,
-      'is-small': props.small
+      'is-small': props.small,
+      'is-nowrap': props.nowrap
     };
   });
 

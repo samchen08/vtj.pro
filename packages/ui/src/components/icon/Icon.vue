@@ -50,7 +50,9 @@
   const size = computed(() => {
     return typeof props.size === 'number'
       ? props.size
-      : (iconSizeMap[props.size as IconSizeKey] ?? undefined);
+      : (iconSizeMap[props.size as IconSizeKey] ??
+          Number.parseInt(props.size) ??
+          undefined);
   });
 
   defineOptions({

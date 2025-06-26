@@ -97,7 +97,7 @@
     <!-- #endif -->
     <!-- app nvue端 使用 bindingx -->
     <!-- #ifdef APP-NVUE -->
-    <view
+    <!-- <view
       ref="selector-box--hock"
       class="uni-swipe"
       @horizontalpan="touchstart"
@@ -165,11 +165,11 @@
       <view ref="selector-content--hock" class="uni-swipe_box">
         <slot></slot>
       </view>
-    </view>
+    </view> -->
     <!-- #endif -->
     <!-- 其他平台使用 js ，长列表性能可能会有影响-->
     <!-- #ifdef MP-ALIPAY || MP-BAIDU || MP-TOUTIAO || MP-QQ -->
-    <view class="uni-swipe">
+    <!-- <view class="uni-swipe">
       <view
         class="uni-swipe_box"
         @touchstart="touchstart"
@@ -245,7 +245,7 @@
           </slot>
         </view>
       </view>
-    </view>
+    </view> -->
     <!-- #endif -->
   </view>
 </template>
@@ -338,10 +338,10 @@
     },
     // #ifndef VUE3
     // TODO vue2
-    destroyed() {
-      if (this.__isUnmounted) return;
-      this.uninstall();
-    },
+    // destroyed() {
+    //   if (this.__isUnmounted) return;
+    //   this.uninstall();
+    // },
     // #endif
     // #ifdef VUE3
     // TODO vue3
@@ -377,7 +377,6 @@
     }
   };
 </script>
-
 
 <style lang="scss">
   .uni-swipe {

@@ -1,9 +1,17 @@
 {
   "pages": [
     {
-      "path": "pages/45tiwi8z7",
+      "path": "pages/45u0kfarj",
       "style": {
-        "navigationBarTitleText": "Title"
+        "navigationBarTitleText": "test"
+      },
+      "needLogin": false,
+      "vtj": true
+    },
+    {
+      "path": "pages/14ktqdut",
+      "style": {
+        "navigationBarTitleText": "bbb"
       },
       "needLogin": false,
       "vtj": true

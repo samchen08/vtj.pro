@@ -116,19 +116,9 @@ const Form: MaterialDescription = {
           {
             name: 'VanField',
             props: {
-              modelValue: '用户名',
-              name: '用户名',
-              label: '用户名',
-              placeholder: '用户名'
-            }
-          },
-          {
-            name: 'VanField',
-            props: {
-              modelValue: '密码',
-              name: '密码',
-              label: '密码',
-              placeholder: '密码'
+              name: 'title',
+              label: '标题',
+              placeholder: '标题'
             }
           }
         ]

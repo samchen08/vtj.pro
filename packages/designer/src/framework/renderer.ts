@@ -23,6 +23,7 @@ import {
 } from '@vtj/renderer';
 import { notify } from '../utils';
 import { type Designer } from './designer';
+import { Report } from './report';
 import { setupUniApp, createUniAppComponent } from '@vtj/uni';
 
 export class Renderer {
@@ -36,6 +37,7 @@ export class Renderer {
     public env: SimulatorEnv,
     public service: Service,
     public provider: Provider,
+    private report: Report,
     public project: ProjectModel | null = null,
     public designer: Designer | null = null
   ) {
@@ -57,7 +59,9 @@ export class Renderer {
       app.use(router);
     }
     app.use(this.provider);
-
+    if (this.env.enhance) {
+      app.use(this.env.enhance, this.provider);
+    }
     const plugins = Object.entries(library);
     Object.assign(app.config.globalProperties, globals);
     plugins.forEach(([name, plugin]) => {
@@ -151,6 +155,7 @@ export class Renderer {
 
   render(block: BlockModel, file?: PageFile | BlockFile | null) {
     if (!file) return;
+    clearLoaderCache();
     this.file = file;
     const { window, library, Vue, components, apis } = this.env;
     this.dsl = Vue.reactive(block.toDsl()) as BlockSchema;
@@ -171,10 +176,15 @@ export class Renderer {
     } catch (e: any) {
       notify(e.message || '未知错误', '运行时错误');
       console.error(e);
+      this.report.error(e, {
+        project: this.project?.toDsl(),
+        file: block.toDsl()
+      });
     }
     this.context = context;
     emitter.on(EVENT_NODE_CHANGE, this.nodeChange as any);
     emitter.on(EVENT_BLOCK_CHANGE, this.blockChange as any);
+    return this.app;
   }
 
   dispose() {
@@ -224,6 +234,9 @@ export class Renderer {
     }
   }
   private __onBlockChange(block: BlockModel) {
+    if (!this.app?._container || !this.isDesignerActive()) {
+      return;
+    }
     const file = this.file;
     this.dispose();
     this.render(block, file);
@@ -231,5 +244,15 @@ export class Renderer {
     if (this.designer?.selected.value) {
       this.designer.setSelected(block);
     }
+  }
+
+  private isDesignerActive() {
+    if (this.designer?.engine) {
+      const region = this.designer.engine.skeleton?.getRegion('Workspace');
+      if (region) {
+        return region.regionRef.isDesignerActive();
+      }
+    }
+    return false;
   }
 }

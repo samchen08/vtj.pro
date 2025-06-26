@@ -3,6 +3,110 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.4](https://gitee.com/newgateway/vtj/compare/vtj-project-library@0.12.3...vtj-project-library@0.12.4) (2025-06-11)
+
+**Note:** Version bump only for package vtj-project-library
+
+
+
+
+
+## [0.12.3](https://gitee.com/newgateway/vtj/compare/vtj-project-library@0.12.2...vtj-project-library@0.12.3) (2025-05-23)
+
+**Note:** Version bump only for package vtj-project-library
+
+
+
+
+
+## [0.12.2](https://gitee.com/newgateway/vtj/compare/vtj-project-library@0.12.1...vtj-project-library@0.12.2) (2025-05-05)
+
+**Note:** Version bump only for package vtj-project-library
+
+
+
+
+
+## [0.12.1](https://gitee.com/newgateway/vtj/compare/vtj-project-library@0.12.0...vtj-project-library@0.12.1) (2025-04-23)
+
+**Note:** Version bump only for package vtj-project-library
+
+
+
+
+
+# [0.12.0](https://gitee.com/newgateway/vtj/compare/vtj-project-library@0.12.0-alpha.1...vtj-project-library@0.12.0) (2025-04-22)
+
+**Note:** Version bump only for package vtj-project-library
+
+
+
+
+
+# [0.12.0-alpha.1](https://gitee.com/newgateway/vtj/compare/vtj-project-library@0.12.0-alpha.0...vtj-project-library@0.12.0-alpha.1) (2025-04-22)
+
+**Note:** Version bump only for package vtj-project-library
+
+
+
+
+
+# [0.12.0-alpha.0](https://gitee.com/newgateway/vtj/compare/vtj-project-library@0.11.2...vtj-project-library@0.12.0-alpha.0) (2025-04-21)
+
+**Note:** Version bump only for package vtj-project-library
+
+
+
+
+
+## [0.11.2](https://gitee.com/newgateway/vtj/compare/vtj-project-library@0.11.1...vtj-project-library@0.11.2) (2025-03-20)
+
+**Note:** Version bump only for package vtj-project-library
+
+
+
+
+
+## [0.11.1](https://gitee.com/newgateway/vtj/compare/vtj-project-library@0.11.1-alpha.1...vtj-project-library@0.11.1) (2025-03-18)
+
+**Note:** Version bump only for package vtj-project-library
+
+
+
+
+
+## [0.11.1-alpha.1](https://gitee.com/newgateway/vtj/compare/vtj-project-library@0.10.4...vtj-project-library@0.11.1-alpha.1) (2025-03-18)
+
+**Note:** Version bump only for package vtj-project-library
+
+
+
+
+
+## [0.10.4](https://gitee.com/newgateway/vtj/compare/vtj-project-library@0.10.3...vtj-project-library@0.10.4) (2025-03-14)
+
+**Note:** Version bump only for package vtj-project-library
+
+
+
+
+
+## [0.10.3](https://gitee.com/newgateway/vtj/compare/vtj-project-library@0.10.2...vtj-project-library@0.10.3) (2025-03-14)
+
+**Note:** Version bump only for package vtj-project-library
+
+
+
+
+
+## [0.10.2](https://gitee.com/newgateway/vtj/compare/vtj-project-library@0.10.1...vtj-project-library@0.10.2) (2025-03-04)
+
+**Note:** Version bump only for package vtj-project-library
+
+
+
+
+
 ## [0.10.1](https://gitee.com/newgateway/vtj/compare/vtj-project-library@0.10.0...vtj-project-library@0.10.1) (2025-02-25)
 
 **Note:** Version bump only for package vtj-project-library

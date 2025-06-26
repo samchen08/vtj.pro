@@ -70,7 +70,7 @@ const components: MaterialDescription[] = [
       'keydown',
       'update:value'
     ],
-    slots: ['character'],
+    slots: ['default', 'character'],
     snippet: {
       props: { value: 2 }
     }

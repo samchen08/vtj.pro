@@ -64,11 +64,11 @@ const components: MaterialDescription[] = [
         setters: 'ObjectSetter'
       }
     ],
-    slots: ['formatter', 'prefix', 'suffix', 'title'],
+    slots: ['default', 'formatter', 'prefix', 'suffix', 'title'],
     snippet: {
       props: {
         title: 'Active Users',
-        value: '112893'
+        value: Date.now() + 1000 * 60 * 60 * 20 * 2
       }
     }
   },
@@ -119,11 +119,11 @@ const components: MaterialDescription[] = [
       }
     ],
     events: ['finish'],
-    slots: ['prefix', 'suffix', 'title'],
+    slots: ['default', 'prefix', 'suffix', 'title'],
     snippet: {
       props: {
         title: 'countDown',
-        value: 1791998311585
+        value: Date.now() + 1000 * 60 * 60 * 20 * 2
       }
     }
   }

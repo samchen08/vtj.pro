@@ -8,6 +8,10 @@ import type { PlatformType, JSFunction } from '../shared';
  */
 export interface ProjectSchema {
   /**
+   * 被锁定
+   */
+  locked?: string;
+  /**
    * 平台，默认 web
    */
   platform?: PlatformType;
@@ -82,6 +86,11 @@ export interface ProjectSchema {
    * 项目部署目录
    */
   __BASE_PATH__?: string;
+
+  /**
+   * 全局项目标识
+   */
+  __UID__?: string;
 }
 
 /**

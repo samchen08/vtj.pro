@@ -500,6 +500,20 @@ const components: MaterialDescription[] = [
         to: '/'
       }
     }
+  },
+  {
+    name: 'RouterView',
+    label: '路由视图',
+    categoryId: 'components',
+    doc: 'https://router.vuejs.org/zh/api/interfaces/RouterViewProps.html',
+    package: 'vue-router',
+    props: [
+      {
+        name: 'name',
+        label: 'name',
+        setters: ['StringSetter']
+      }
+    ]
   }
 ];
 

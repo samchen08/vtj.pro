@@ -14,10 +14,14 @@
     </div>
     <div v-if="searchKey" class="v-components-widget__result">
       <ElRow wrap="wrap" :gutter="5">
-        <ElCol v-for="desc in searchResult" :span="span" :key="desc.name">
+        <ElCol
+          v-for="(desc, index) in searchResult"
+          :span="span"
+          :key="`${desc.name}_${index}`">
           <Box
             :name="desc.name"
             :title="desc.label || desc.name"
+            :icon="desc.icon"
             draggable
             @dragstart="onDragStart(desc)"
             @dragend="onDragEnd"></Box>
@@ -42,6 +46,7 @@
                   <Box
                     :name="desc.name"
                     :title="desc.label || desc.name"
+                    :icon="desc.icon"
                     draggable
                     @dragstart="onDragStart(desc)"
                     @dragend="onDragEnd"></Box>

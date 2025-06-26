@@ -1,9 +1,13 @@
 @use '../core' as *;
 
 @include b(toolbar-widget) {
-  width: 200px;
   text-align: center;
   white-space: nowrap;
+  display: flex;
+  align-items: center;
+  @include e(active-event) {
+    margin-left: 5px;
+  }
   .el-radio-group {
     display: inline-block;
     vertical-align: middle;
@@ -29,5 +33,4 @@
   .el-input-group__prepend {
     padding: 0 15px;
   }
-
 }

@@ -33,6 +33,13 @@ const components: MaterialDescription[] = [
         defaultValue: 'small'
       },
       {
+        name: 'split',
+        label: 'split',
+        title: '设置拆分',
+        setters: ['StringSetter', 'ExpressionSetter'],
+        defaultValue: '-'
+      },
+      {
         name: 'wrap',
         label: 'wrap',
         title: '是否自动换行，仅在 horizontal 时有效',
@@ -40,7 +47,7 @@ const components: MaterialDescription[] = [
         defaultValue: false
       }
     ],
-    slots: ['split'],
+    slots: ['default', 'split'],
     snippet: {
       props: {
         style: {
@@ -98,6 +105,7 @@ const components: MaterialDescription[] = [
         defaultValue: 'small'
       }
     ],
+    slots: ['default'],
     snippet: {
       props: {
         style: {

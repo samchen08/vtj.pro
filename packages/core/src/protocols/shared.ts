@@ -60,9 +60,6 @@ export interface StaticFileInfo {
   filepath: string;
 }
 
-/**
- * 扩展配置
- */
 export interface ExtensionConfig {
   /**
    * 扩展资源文件路径：js、css文件，js文件要求 umd 格式
@@ -77,6 +74,25 @@ export interface ExtensionConfig {
    * 附加参数/数据，用作个性需求
    */
   params?: Array<Record<string, any>>;
+}
+
+export interface EnhanceConfig {
+  name: string;
+  urls: string[];
+}
+
+/**
+ * 扩展配置
+ */
+export interface VTJConfig {
+  /**
+   * 应用增强配置
+   */
+  enhance?: boolean | EnhanceConfig;
+  /**
+   * 扩展配置
+   */
+  extension?: ExtensionConfig;
 
   /**
    * 路由History模式
@@ -100,12 +116,43 @@ export interface ExtensionConfig {
   __BASE_PATH__?: string;
 
   /**
-   * 适配类个性参数配置
+   * 远程服务host
    */
-  __adapters__?: Record<string, any>;
+  remote?: string;
+
+  /**
+   * 授权登录
+   */
+  auth?: string | (() => Promise<any>);
+
+  /**
+   * 检查版本更新
+   */
+  checkVersion?: boolean;
+
+  /**
+   * 平台
+   */
+  platform?: PlatformType;
+
+  /**
+   *  应用 Access 配置
+   */
+  access?: Record<string, any>;
+
+  /**
+   * 设计器是由Access 配置
+   */
+  __ACCESS__?: Record<string, any>;
 }
 
 /**
  * 平台类型
  */
 export type PlatformType = 'web' | 'h5' | 'uniapp';
+
+export interface ParseVueOptions {
+  id: string;
+  name: string;
+  source: string;
+}

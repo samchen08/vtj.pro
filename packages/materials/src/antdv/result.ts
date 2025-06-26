@@ -29,7 +29,7 @@ const components: MaterialDescription[] = [
         setters: 'StringSetter' //?? string slot vNode
       }
     ],
-    slots: ['extra', 'icon', 'subTitle', 'title']
+    slots: ['default', 'extra', 'icon', 'subTitle', 'title']
   }
 ];
 export default components;

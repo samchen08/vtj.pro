@@ -29,6 +29,7 @@
     color: var(--el-text-color-secondary);
     display: inline-block;
     width: 30px;
+    flex-shrink: 0;
   }
 
   @include e(tag) {
@@ -36,7 +37,7 @@
     zoom: 0.7;
   }
 
-  @include e(tags){
+  @include e(tags) {
     position: absolute;
     right: 30px;
     font-size: 12px;
@@ -45,11 +46,24 @@
       zoom: 0.9;
       color: var(--el-color-info);
       opacity: 0.8;
+    }
+  }
 
+  @include e(title-wrapper) {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 1px;
+    flex-grow: 1;
+  }
+
+  @include when(nowrap) {
+    @include e(title-wrapper) {
+      white-space: nowrap;
     }
   }
 
   @include e(title) {
+    flex-grow: 1;
     > .x-icon {
       margin-right: 3px;
     }
@@ -87,6 +101,4 @@
       }
     }
   }
-
-
 }

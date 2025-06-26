@@ -1,7 +1,8 @@
 import { computed, ref, type Ref } from 'vue';
 import { groupBy } from '@vtj/utils';
 import { ElMessageBox, ElMessage } from 'element-plus';
-import { useOpenApi, type TemplateDto } from './useOpenApi';
+import { useOpenApi } from './useOpenApi';
+import { type TemplateDto } from '../../framework';
 
 export function useTemplates() {
   const {

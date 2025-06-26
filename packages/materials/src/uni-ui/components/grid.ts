@@ -57,15 +57,6 @@ const desc: MaterialDescription[] = [
                 { name: 'Text', children: '文本信息' }
               ]
             }
-          ],
-          directives: [
-            {
-              name: 'vFor',
-              value: {
-                type: 'JSExpression',
-                value: '4'
-              }
-            }
           ]
         }
       ]

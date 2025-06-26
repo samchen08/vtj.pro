@@ -6,11 +6,11 @@ export default [
       { text: '简介', link: '/' },
       { text: '快速上手', link: '/start' },
       { text: '项目集成', link: '/integration' },
-      { text: '功能扩展', link: '/extension' },
-      {
-        text: '打造专属低代码平台(案例)',
-        link: '/newpearl'
-      }
+      { text: '功能扩展', link: '/extension' }
+      // {
+      //   text: '打造专属低代码平台(案例)',
+      //   link: '/newpearl'
+      // }
       // { text: '开发示例', link: '/newpearl' }
     ]
   },
@@ -38,7 +38,9 @@ export default [
           { text: '区块管理', link: '/designer/12' },
           { text: '预览、调试和发布', link: '/designer/13' }
         ]
-      }
+      },
+      { text: '设计器接入指南', link: '/base/access' },
+      { text: '应用增强', link: '/base/enhance' }
     ]
   },
   {

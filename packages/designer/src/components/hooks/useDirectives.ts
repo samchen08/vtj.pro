@@ -4,7 +4,8 @@ import {
   DirectiveModel,
   type JSExpression,
   type MaterialDescription,
-  type NodeDirectiveIterator
+  type NodeDirectiveIterator,
+  NodeModel
 } from '@vtj/core';
 import { type DesignHelper, useEngine } from '../../framework';
 import { confirm } from '../../utils';
@@ -58,6 +59,23 @@ export function useDirectives(
     return isBlock(model) ? null : model;
   });
 
+  const branchVisiable = computed(() => {
+    const parent: any = node.value?.parent || engine.current.value;
+    const brothers: NodeModel[] = parent.nodes || parent?.children || [];
+    if (brothers.length) {
+      const index = brothers.findIndex((n) => n.id === node.value?.id);
+      const prevNode = brothers[index - 1];
+      if (prevNode) {
+        return prevNode.directives.some(
+          (n) => n.name === 'vIf' || n.name === 'vElseIf'
+        );
+      } else {
+        return false;
+      }
+    }
+    return false;
+  });
+
   const getDirctive = (name: string) => {
     return computed(() => {
       if (!node.value) return createEmptyDirective(name);
@@ -93,6 +111,8 @@ export function useDirectives(
   };
 
   const vIf = getDirctive('vIf');
+  const vElseIf = getDirctive('vElseIf');
+  const vElse = getDirctive('vElse');
   const vShow = getDirctive('vShow');
   const vBind = getDirctive('vBind');
   const vFor = getDirctive('vFor');
@@ -102,6 +122,8 @@ export function useDirectives(
 
   const directives = {
     vIf,
+    vElseIf,
+    vElse,
     vShow,
     vBind,
     vFor,
@@ -181,6 +203,8 @@ export function useDirectives(
     engine,
     node,
     vIf,
+    vElseIf,
+    vElse,
     vShow,
     vBind,
     vFor,
@@ -192,6 +216,7 @@ export function useDirectives(
     onModelChange,
     onAddCustom,
     onRemoveCustom,
-    onCustomChange
+    onCustomChange,
+    branchVisiable
   };
 }

@@ -2,7 +2,8 @@
   <XDialogForm
     :title="title"
     width="800px"
-    height="700px"
+    height="650px"
+    :maximizable="true"
     :form-props="{ tooltipMessage: false }"
     :model="model"
     :submit-method="submit">
@@ -124,6 +125,7 @@
         <Editor
           dark
           height="250px"
+          width="100%"
           lang="json"
           v-model="computedStyle"></Editor>
       </template>

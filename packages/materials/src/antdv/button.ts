@@ -73,7 +73,7 @@ const components: MaterialDescription[] = [
       }
     ],
     events: ['click'],
-    slots: ['icon'],
+    slots: ['default','icon'],
     snippet: {
       children: 'Button'
     }

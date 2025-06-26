@@ -10,7 +10,8 @@ export default createViteConfig({
   plugins: [
     createDevTools({
       staticBase: basePath,
-      devMode: true,
+      devMode: false,
+      enhance: true,
       pluginNodeModulesDir: '../../node_modules'
     })
   ]

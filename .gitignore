@@ -16,7 +16,6 @@ lib
 *.local
 .nx
 .husky/_
-pnpm-lock.yaml
 package-lock.json
 
 # Editor directories and files
