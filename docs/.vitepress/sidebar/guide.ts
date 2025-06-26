@@ -39,15 +39,17 @@ export default [
           { text: '预览、调试和发布', link: '/designer/13' }
         ]
       },
-      { text: '设计器接入指南', link: '/base/access' },
-      { text: '应用增强', link: '/base/enhance' }
+      { text: '设计器接入指南', link: '/base/integrate' },
+      { text: '应用增强', link: '/base/enhance' },
+      { text: '网络请求', link: '/base/request' },
+      { text: '权限控制', link: '/base/access' }
     ]
   },
   {
     text: '进阶',
     // base: '/guide/extras',
     items: [
-      { text: '打造专属在线开发平台', link: '/service' }
+      { text: '🔥 打造专属在线开发平台', link: '/service' }
       // { text: '低代码物料制作', link: '/material' },
       // { text: '依赖管理', link: '/deps' },
       // { text: '自定义服务', link: '/service' },
