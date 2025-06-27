@@ -40,7 +40,7 @@ export default [
         ]
       },
       { text: '设计器接入指南', link: '/base/integrate' },
-      // { text: '物料制作指南', link: '/base/materials' },
+      { text: '物料制作指南', link: '/base/materials' },
       { text: '应用增强', link: '/base/enhance' },
       { text: '网络请求', link: '/base/request' },
       { text: '权限控制', link: '/base/access' }
