@@ -5,8 +5,7 @@ export default [
     items: [
       { text: '简介', link: '/' },
       { text: '快速上手', link: '/start' },
-      { text: '项目集成', link: '/integration' },
-      { text: '功能扩展', link: '/extension' }
+      { text: '项目集成', link: '/integration' }
       // {
       //   text: '打造专属低代码平台(案例)',
       //   link: '/newpearl'
@@ -48,9 +47,37 @@ export default [
   },
   {
     text: '进阶',
-    // base: '/guide/extras',
     items: [
-      { text: '🔥 打造专属在线开发平台', link: '/service' }
+      { text: '设计器引擎', link: '/guide/extras/engine' },
+      { text: '核心提供者', link: '/guide/extras/provider' },
+      {
+        text: '核心三件套',
+        collapsed: true,
+        items: [
+          { text: 'DSL渲染器', link: '/guide/extras/renderer' },
+          { text: '代码生成器', link: '/guide/extras/generator' },
+          { text: '代码解析器', link: '/guide/extras/parser' }
+        ]
+      },
+      {
+        text: '设计器扩展',
+        link: '/guide/extension',
+        collapsed: true,
+        items: [
+          {
+            text: '依赖管理器',
+            link: '/guide/extras/deps-manager'
+          },
+          {
+            text: '器件管理器',
+            link: '/guide/extras/widget-manager'
+          },
+          {
+            text: '属性设置器管理器',
+            link: '/guide/extras/setter-manager'
+          }
+        ]
+      }
       // { text: '低代码物料制作', link: '/material' },
       // { text: '依赖管理', link: '/deps' },
       // { text: '自定义服务', link: '/service' },
@@ -58,8 +85,7 @@ export default [
     ]
   },
   {
-    text: '集成',
-    base: '/guide/integration',
-    items: [{ text: 'vue-element-plus-admin', link: '/element-admin' }]
+    text: '高级',
+    items: [{ text: '🔥 打造专属在线开发平台', link: '/service' }]
   }
 ];

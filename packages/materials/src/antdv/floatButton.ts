@@ -92,14 +92,14 @@ const components: MaterialDescription[] = [
         options: ['default', 'primary'],
         defaultValue: 'default'
       },
-      {
-        name: 'shape',
-        label: 'shape',
-        title: '设置按钮形状',
-        setters: 'SelectSetter',
-        options: ['circle', 'square'],
-        defaultValue: 'circle'
-      },
+      // {
+      //   name: 'shape',
+      //   label: 'shape',
+      //   title: '设置按钮形状',
+      //   setters: 'SelectSetter',
+      //   options: ['circle', 'square'],
+      //   defaultValue: 'circle'
+      // },
       {
         name: 'onClick',
         label: 'onClick',

@@ -1,66 +1,82 @@
-# 项目集成
+# 项目集成指南
 
-通过脚手架可以方便快捷创建项目，但仅适用于新的项目，本章节介绍在现有的项目如何集成低代码设计器。
+通过脚手架可以快速创建新项目，但对于已有项目，本章将详细介绍如何集成VTJ低代码设计器。
 
-## 前提
+## 前提条件
 
-:::warning 集成 VTJ 低代码的前提条件
-前端工程是基于 Vite + TypeScript 的 Vue3 项目
+:::warning 项目技术要求
+前端工程必须是基于 **Vite + TypeScript** 的 **Vue3** 项目
 :::
 
-`Vue2` 或 是采用 `Webpack` 的非`ts`项目官方暂不提供支持。
+目前暂不支持以下项目类型：
+
+- Vue2 项目
+- 使用 Webpack 构建的项目
+- 非 TypeScript 项目
 
 ## 集成步骤
 
-现有项目需要使用VTJ辅助开发，按以下步骤集成：
+现有项目需按以下步骤集成VTJ低代码能力：
 
-### 一、添加依赖
+### 一、添加依赖包
 
-项目工程需安装以下依赖
+在项目中安装必要的依赖包：
 
-安装 `@vtj/cli` `@vtj/pro` 到 `devDependencies`
+1. 将以下包添加到 `devDependencies`：
 
 ```sh
 npm install @vtj/cli @vtj/pro --save-dev
 ```
 
-安装 `@vtj/web` 到 `dependencies`
+2. 将核心包添加到 `dependencies`：
 
 ```sh
 npm install @vtj/web --save
 ```
 
-### 二、添加插件
+### 二、配置Vite插件
 
-项目根目录下的 `vite.config.ts` 引入 VTJ 的开发工具插件
+在项目根目录的 `vite.config.ts` 文件中引入VTJ开发工具插件：
 
 ```js
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
 
-// 导入vite插件
+// 导入VTJ开发工具
 import { createDevTools } from '@vtj/pro/vite';
 
 export default defineConfig({
   plugins: [
     vue(),
-    // 添加插件
+    // 添加VTJ开发工具插件
     createDevTools()
   ]
 });
 ```
 
-### 三、改造入口程序
+:::tip 插件作用
+此插件提供：
 
-要使低代码设计器生成的产物能在项目中运行，需要对项目的入口程序 `main.ts` 进行改造。
+- 实时设计器预览
+- 热重载支持
+- 低代码组件编译
+  :::
 
-以下是参考示例，实际需要按项目情况进行调整。
+### 三、改造应用入口
+
+需要对项目入口文件 `main.ts` 进行改造，以支持低代码生成的组件：
 
 ```js
 import { createApp } from 'vue';
-// 1、引入 VTJ 相关功能
-import { createProvider, LocalService, createModules, NodeEnv } from '@vtj/web';
-// 2、引用组件样式
+// 1. 引入VTJ核心功能
+import {
+  createProvider,
+  LocalService,
+  createModules,
+  NodeEnv
+} from '@vtj/web';
+
+// 2. 引入组件库样式
 import '@vtj/web/src/index.scss';
 
 import './style.css';
@@ -69,93 +85,122 @@ import router from './router';
 
 const app = createApp(App);
 
-// 3、实例化低代码服务类
-// 采用本地开发的服务，如需要部署在生产环境的，需要自行实现一个远程Service
+// 3. 实例化低代码服务
+// 注意：LocalService仅适用于开发环境
+// 生产环境需实现RemoteService接口
 const service = new LocalService();
 
-// 4、创建低代码提供者实例
+// 4. 创建VTJ提供者实例
 const { provider, onReady } = createProvider({
+  // 设置运行环境
   nodeEnv: process.env.NODE_ENV as NodeEnv,
+
+  // 注册应用模块
   modules: createModules(),
+
+  // 注入服务实例
   service,
+
+  // 注入路由实例
   router
 });
 
-// 5、低代码提供者初始化完成后注册在根应用注册 路由 和 provider
+// 5. 初始化完成后挂载应用
 onReady(async () => {
   app.use(router);
   app.use(provider);
   app.mount('#app');
 });
-
 ```
 
-要点：
+关键改造点说明：
 
-- 从 `@vtj/web` 依赖包引用 `createProvider`, `LocalService`, `createModules`
-- 引入组件库样式 `@vtj/web/src/index.scss`
-- 实例化服务类
-- 用 `createProvider` 创建低代码提供者实例
-- 当初始化完成时，注册router 和 provider
+1. **核心功能导入**：从 `@vtj/web` 引入必要的功能模块
+2. **样式引入**：确保加载组件库样式
+3. **服务实例化**：
+   - `LocalService`：开发环境使用本地服务
+   - 生产环境需实现远程服务接口
+4. **提供者创建**：配置运行环境和依赖模块
+5. **异步初始化**：确保所有依赖就绪后再挂载应用
 
-### 四、添加异步依赖
+### 四、添加异步支持
 
-低代码页面组件是异步加载的，因此 `App.vue` 需要添加异步依赖`Suspense`, 如果您的项目已增加了 `Suspense` 可以跳过该步骤。
-
-可以按以下方式改造 `App.vue`
+由于低代码组件采用异步加载，需在 `App.vue` 中添加 `<Suspense>` 组件：
 
 ```html
 <template>
+  <!-- 添加异步加载边界 -->
   <Suspense>
     <router-view></router-view>
   </Suspense>
 </template>
+
 <script lang="ts" setup>
   import { Suspense } from 'vue';
 </script>
 ```
 
-### 五、tsconfig.json
+:::warning 为什么需要Suspense？
+VTJ生成的组件是异步加载的，`<Suspense>` 提供：
 
-ts 忽略 .vtj 文件夹校验，在 `tsconfig.json` 文件增加
+- 加载状态处理
+- 错误边界捕获
+- 异步组件生命周期管理
+  :::
 
-```ts
+### 五、配置TypeScript
+
+在 `tsconfig.json` 中排除 `.vtj` 目录的检查：
+
+```json
 {
   "exclude": [".vtj"]
 }
 ```
 
-## 配置项
+:::info 排除原因
+`.vtj` 目录包含：
 
-### 开启项目二级目录
+- 运行时生成的临时文件
+- 设计器元数据
+- 低代码编译中间产物
+  :::
 
-如项目配置 `vite.config.ts` 的 `base` 参数，设置项目路径，需要同时配置 `createDevTools` 的 `staticBase` 参数选项
+## 进阶配置
+
+### 二级目录部署
+
+当项目配置了 `base` 路径时，需同步设置 `staticBase`：
 
 ```js
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
 import { createDevTools } from '@vtj/pro/vite';
+
+// 设置基础路径
 const base = '/sub/';
+
 export default defineConfig({
   base,
   plugins: [
     vue(),
-    // 设置staticBase
     createDevTools({
+      // 同步设置静态资源基础路径
       staticBase: base
     })
   ]
 });
 ```
 
-### 路由模式 History
+### History路由模式适配
 
-如项目的路由模式是 `createWebHistory`, 在 `createProvider` 创建提供者实例时需要设置 物料的路径 basePath 如：
+使用 `createWebHistory` 路由模式时，需设置物料路径：
 
 ```js
 const { provider, onReady } = createProvider({
-  // 设置物料路径
+  // 关键：设置物料基础路径
   materialPath: '/',
+
   nodeEnv: process.env.NODE_ENV as NodeEnv,
   modules: createModules(),
   service,
@@ -163,10 +208,35 @@ const { provider, onReady } = createProvider({
 });
 ```
 
-内置物料的文件存储在本地工程，位置：`/node_modules/@vtj/materials/dist/`
+:::warning 物料路径说明
+内置物料存储在：
 
-## 设计器入口
+```
+/node_modules/@vtj/materials/dist/
+```
 
-项目启动后，在页面右下角会出现可以打开当前页面的设计器。
+`materialPath` 确保正确加载这些资源
+:::
 
-![vite-app](../assets/vite-app.png)
+## 设计器使用指南
+
+项目启动后，可在页面右下角激活设计器：
+
+![设计器入口](../assets/vite-app.png)
+
+### 设计器功能
+
+1. **页面编辑**：实时修改当前页面
+2. **组件拖拽**：从物料库添加组件
+3. **属性配置**：可视化调整组件属性
+4. **代码生成**：导出Vue单文件组件
+
+### 生产环境部署
+
+1. 实现 `RemoteService` 接口替代 `LocalService`
+2. 部署物料资源到CDN
+3. 配置API端点获取设计数据
+
+:::warning 安全提示
+生产环境务必移除 `createDevTools()` 插件
+:::

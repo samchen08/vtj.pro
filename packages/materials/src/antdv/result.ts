@@ -20,13 +20,13 @@ const components: MaterialDescription[] = [
         name: 'subTitle',
         label: 'subTitle',
         title: 'subTitle 文字',
-        setters: 'StringSetter' //?? string slot vNode
+        setters: 'StringSetter'
       },
       {
         name: 'title',
         label: 'title',
         title: 'title文字',
-        setters: 'StringSetter' //?? string slot vNode
+        setters: 'StringSetter'
       }
     ],
     slots: ['default', 'extra', 'icon', 'subTitle', 'title']

@@ -1,68 +1,68 @@
 # 集成指南
 
-本文档介绍如何将 VTJ 组件和工具集成到现有的 Vue.js 项目和开发工作流程中。它解释了嵌入 VTJ 的低代码功能的不同集成方法、服务配置、身份验证设置和特定于平台的注意事项。
+本文档介绍如何将 VTJ 组件和工具集成到现有的 Vue.js 项目和开发工作流程中，涵盖嵌入 VTJ 低代码功能的不同集成方法、服务配置、身份验证设置和特定于平台的注意事项。
 
-有关从头开始进行项目设置的信息，请参阅 **项目设置和基架** 。有关集成过程中的 AI 增强功能，请参阅 **AI 集成** 。
+关于项目设置的完整指南，请参阅 **项目设置与脚手架**文档。关于集成过程中的 AI 增强功能，请参阅 **AI 集成**文档。
 
 ## 集成方法
 
-VTJ 提供两种主要的集成模式：用于在生产应用程序中呈现低代码内容的**运行时集成** ，以及用于将可视化设计器嵌入到开发工具中的**设计时集成** 。
+VTJ 提供两种主要集成模式：**运行时集成**（用于在生产应用程序中呈现低代码内容）和**设计时集成**（用于将可视化设计器嵌入到开发工具中）。
 
 ### 运行时集成架构
 
 ![](../svg/18/1.png)
 
-**运行时集成**允许现有的 Vue 应用程序渲染使用 VTJ 的低代码设计器创建的页面和组件。该集成使用 `createProvider（）` 建立运行时上下文，并使用 `@vtj/renderer` 来显示低代码内容。
+**运行时集成**允许现有的 Vue 应用程序渲染使用 VTJ 低代码设计器创建的页面和组件。该集成使用 `createProvider()` 建立运行时上下文，并使用 `@vtj/renderer` 来显示低代码内容。
 
-### 设计时集成体系结构
+### 设计时集成架构
 
 ![](../svg/18/2.png)
 
-**设计时集**成将 VTJ 可视化设计器嵌入到开发环境中，允许开发人员在其现有开发工作流程中创建和编辑低代码内容。
+**设计时集成**将 VTJ 可视化设计器嵌入到开发环境中，允许开发人员在其现有开发工作流程中创建和编辑低代码内容。
 
-## Service Layer 集成
+## 服务层集成
 
-服务层提供 VTJ 组件和后端系统之间的接口。VTJ 包括多个可以扩展或替换的服务实现。
+服务层提供 VTJ 组件和后端系统之间的接口。VTJ 包含多个可扩展或替换的服务实现。
 
-### 基本服务配置
+### 基础服务配置
 
 ![](../svg/18/3.png)
 
-`BaseService` 类为所有服务实现提供了基础。要与现有后端集成，请执行以下作：
+`BaseService` 类为所有服务实现提供了基础。要与现有后端集成，请实现以下方法：
 
-| 服务方法       | 目的           | 需要实施                |
-| -------------- | -------------- | ----------------------- |
-| getExtension() | 加载平台配置   | 返回 VTJConfig 对象     |
-| init()         | 初始化项目数据 | 从存储加载项目架构      |
-| saveProject()  | 保留项目更改   | 保存到您的后端/文件系统 |
-| publishFile()  | 生成产品代码   | 部署生成的 Vue 文件     |
+| 服务方法       | 目的           | 需要实现的功能      |
+| -------------- | -------------- | ------------------- |
+| getExtension() | 加载平台配置   | 返回 VTJConfig 对象 |
+| init()         | 初始化项目数据 | 从存储加载项目架构  |
+| saveProject()  | 保存项目更改   | 保存到后端/文件系统 |
+| publishFile()  | 生成产品代码   | 部署生成的 Vue 文件 |
 
-### 自定义服务实施
+### 自定义服务实现
 
-要与现有后端集成，请扩展 `BaseService`：
+要与现有后端集成，请扩展 `BaseService` 类：
 
 ```ts
-// Example custom service integration
+// 自定义服务集成示例
 export class MyBackendService extends BaseService {
   async init(project: ProjectSchema): Promise<ProjectSchema> {
-    // Load project from your database
+    // 从数据库加载项目
     return await this.api('myBackend/projects', project);
   }
 
   async saveProject(project: ProjectSchema): Promise<boolean> {
-    // Save to your storage system
+    // 保存到存储系统
     return await this.api('myBackend/save', project);
   }
 }
 ```
 
-该服务通过 `packages/local/src/shared.ts`中定义的标准化 API 格式进行通信
+该服务通过 `packages/local/src/shared.ts` 中定义的标准化 API 格式进行通信。
 
-## Provider 和 Adapter 配置
+## 提供者与适配器配置
 
 提供者/适配器模式允许 VTJ 与不同的 Vue 应用程序架构和 UI 框架集成。
 
-### 提供商设置流程
+### 提供者设置流程
 
 ![](../svg/18/4.png)
 
@@ -70,13 +70,13 @@ export class MyBackendService extends BaseService {
 
 适配器系统将 VTJ 与现有的 UI 组件和实用程序连接起来：
 
-| Adapter 属性 | 目的            | 示例实现                    |
-| ------------ | --------------- | --------------------------- |
-| request      | HTTP 客户端集成 | Axios，fetch 包装器         |
-| loading      | 加载指示器      | Element 加 ElLoading        |
-| notify       | 通知系统        | Element Plus ElNotification |
-| useTitle     | 页面标题管理    | Vue 使用 useTitle           |
-| access       | 认证系统        | 自定义访问类                |
+| 适配器属性 | 目的            | 示例实现                    |
+| ---------- | --------------- | --------------------------- |
+| request    | HTTP 客户端集成 | Axios、fetch 包装器         |
+| loading    | 加载指示器      | Element Plus ElLoading      |
+| notify     | 通知系统        | Element Plus ElNotification |
+| useTitle   | 页面标题管理    | Vue 的 useTitle 钩子        |
+| access     | 认证系统        | 自定义访问类                |
 
 ```ts
 const adapter = createAdapter({
@@ -93,7 +93,7 @@ const adapter = createAdapter({
 
 ## 访问控制集成
 
-VTJ 包括一个与现有身份验证机制集成的综合访问控制系统。
+VTJ 包含一个可与现有认证机制集成的综合访问控制系统。
 
 ### 访问控制架构
 
@@ -101,15 +101,15 @@ VTJ 包括一个与现有身份验证机制集成的综合访问控制系统。
 
 ### 访问配置
 
-`Access` 类提供了身份验证和授权功能：
+`Access` 类提供认证和授权功能：
 
-| 配置         | 目的                 | 默认值           |
-| ------------ | -------------------- | ---------------- |
-| authKey      | 授权标头名称         | '授权'           |
-| storageKey   | 本地存储密钥         | “ACCESS_STORAGE” |
-| session      | 基于会话的身份验证   | 假               |
-| whiteList    | 未进行身份验证的路由 | 定义             |
-| unauthorized | 未经授权的重定向     | 定义             |
+| 配置项       | 目的               | 默认值           |
+| ------------ | ------------------ | ---------------- |
+| authKey      | 认证头名称         | 'Authorization'  |
+| storageKey   | 本地存储键名       | "ACCESS_STORAGE" |
+| session      | 基于会话的认证     | false            |
+| whiteList    | 无需认证的路由列表 | 已定义           |
+| unauthorized | 未授权重定向路径   | 已定义           |
 
 ```ts
 const access = createAccess({
@@ -127,12 +127,12 @@ const access = createAccess({
 VTJ 支持对页面和组件进行基于角色的访问控制：
 
 ```ts
-// Check permissions in components
+// 在组件中检查权限
 const access = useAccess();
 const canEdit = access?.can('page.edit');
 const canPublish = access?.some(['admin', 'publisher']);
 
-// Route-level permissions
+// 路由级权限检查
 router.beforeEach((to, from, next) => {
   if (access?.can(to.params.id)) {
     next();
@@ -142,18 +142,18 @@ router.beforeEach((to, from, next) => {
 });
 ```
 
-## 特定于平台的集成
+## 特定平台集成
 
 VTJ 支持具有特定集成要求的多个部署平台。
 
 ### 平台集成矩阵
 
-| 平台      | 包           | 主要特点          | 集成说明              |
-| --------- | ------------ | ----------------- | --------------------- |
-| Web       | @vtj/web     | 桌面应用程序      | 标准 Vue.js 集成      |
-| 移动式 H5 | @vtj/h5      | 移动 Web 应用程序 | 触摸优化组件          |
-| UniApp    | @vtj/uni-app | 跨平台应用程序    | 小程序兼容性          |
-| 专业版    | @vtj/pro     | 企业功能          | Designer + 运行时组合 |
+| 平台    | 包           | 主要特性      | 集成说明            |
+| ------- | ------------ | ------------- | ------------------- |
+| Web     | @vtj/web     | 桌面应用      | 标准 Vue.js 集成    |
+| 移动 H5 | @vtj/h5      | 移动 Web 应用 | 触摸优化组件        |
+| UniApp  | @vtj/uni-app | 跨平台应用    | 小程序兼容性        |
+| 专业版  | @vtj/pro     | 企业级功能    | 设计器 + 运行时组合 |
 
 ### Web 平台集成
 
@@ -174,15 +174,15 @@ const provider = createProvider({
 app.use(provider);
 ```
 
-### Uni-App 平台集成
+### UniApp 平台集成
 
-对于跨平台应用，VTJ 提供了专门的 Uni-App 集成：
+对于跨平台应用，VTJ 提供了专门的 UniApp 集成：
 
 ```ts
 import VTJUni from '@vtj/uni-app';
 import { createProvider } from '@vtj/renderer';
 
-// Uni-App specific configuration
+// UniApp 特定配置
 const provider = createProvider({
   mode: ContextMode.Runtime,
   service: new UniService(),
@@ -193,25 +193,25 @@ const provider = createProvider({
 });
 ```
 
-## 材料和组件集成
+## 物料与组件集成
 
-VTJ 的材质系统允许集成现有组件库和自定义组件。
+VTJ 的物料系统允许集成现有组件库和自定义组件。
 
 ### 物料集成流程
 
 ![](../svg/18/6.png)
 
-### 材质配置
+### 物料配置
 
-材质描述定义了组件在 Designer 中的显示方式以及它们的呈现方式：
+物料描述定义了组件在设计器中的显示方式及其渲染行为：
 
 ```ts
-// Example material integration
+// 物料集成示例
 const materials = new Map([
   [
     'MyButton',
     {
-      title: 'Custom Button',
+      title: '自定义按钮',
       component: 'MyButton',
       props: {
         type: { type: 'String', default: 'primary' },
@@ -226,23 +226,23 @@ const materials = new Map([
 await service.saveMaterials(project, materials);
 ```
 
-### 元件库集成
+### 组件库集成
 
-VTJ 为流行的组件库提供预构建的材质集：
+VTJ 为流行的组件库提供预构建的物料集：
 
-| 库           | 构建目标                  | 包含的组件       |
-| ------------ | ------------------------- | ---------------- |
-| Element Plus | BUILD_TYPE=element        | 表单、表格、导航 |
-| Ant Design   | 视图 BUILD_TYPE=antdv     | 企业组件         |
-| Vant         | BUILD_TYPE=vant           | 移动组件         |
-| Uni-UI       | 用户界面 BUILD_TYPE=uniUI | 跨平台组件       |
+| 库           | 构建目标           | 包含的组件       |
+| ------------ | ------------------ | ---------------- |
+| Element Plus | BUILD_TYPE=element | 表单、表格、导航 |
+| Ant Design   | BUILD_TYPE=antdv   | 企业级组件       |
+| Vant         | BUILD_TYPE=vant    | 移动组件         |
+| Uni-UI       | BUILD_TYPE=uniUI   | 跨平台组件       |
 
 ## 配置示例
 
-### 完整的集成示例
+### 完整集成示例
 
 ```ts
-// main.ts - Complete VTJ integration
+// main.ts - 完整的 VTJ 集成示例
 import { createApp } from 'vue';
 import { createRouter, createWebHistory } from 'vue-router';
 import { createProvider, ContextMode } from '@vtj/renderer';
@@ -255,7 +255,7 @@ const router = createRouter({
   routes: [{ path: '/page/:id', component: VTJPage, name: 'page' }]
 });
 
-// Configure VTJ integration
+// 配置 VTJ 集成
 const service = new MyCustomService();
 const access = createAccess({
   authKey: 'Authorization',
@@ -283,7 +283,3 @@ app.use(router);
 app.use(provider);
 app.mount('#app');
 ```
-
-:::info 提示
-内容由AI翻译，可能会出现错漏或过时信息，请查阅原文：https://deepwiki.com/ChenXiaohui99/vtj/6.2-integration-guide
-:::

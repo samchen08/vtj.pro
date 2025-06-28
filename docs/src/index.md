@@ -24,22 +24,28 @@ hero:
       target: new
 
 features:
-  - icon: 🔥
-    title: 流行的技术栈
-    details: Vue3、Typescript、Vite、EelementPlus、VueUse、Axios、ECharts、Lodash、Monaco Editor、Prettier 等。
-  - icon: 🛠️
-    title: 自由个性化
-    details: 低代码设计器支持源码级别的自定义，可轻松适配个性化需求，理论上写代码开发能实现的在设计器上都能完成。
-  - icon: 🚩
-    title: 低学习成本
-    details: 专为前端开发者设计，无需改变您熟悉的前端开发流程和编码习惯。只需了解Vue，即可轻松上手，实现无缝对接，真正做到零学习成本。
-  - icon: 🚀️
-    title: 高扩展性
-    details: 内置配备了先进的低代码引擎，通过配置化构建方式，赋予您对所有部件的完全自定义能力。您可以单独运用此引擎，自主打造专属的低代码平台。
+  - icon: ⚙️
+    title: 主流技术栈
+    details: 基于 Vue3 + TypeScript + Vite 构建，深度整合 ElementPlus、Axios、ECharts 等主流工具链，开箱即用。
+  - icon: 🧩
+    title: 源码级自定义
+    details: 低代码设计器支持源码级自由定制，无缝实现传统编码开发的所有功能，满足深度个性化需求。
+  - icon: 🚀
+    title: 零适应成本
+    details: 完全遵循前端开发习惯，Vue开发者无需额外学习，设计器与本地项目环境天然融合。
+  - icon: 🔌
+    title: 引擎化扩展
+    details: 内置可拆解的低代码引擎，支持独立调用，快速构建自有低代码平台，扩展能力无上限。
+  - icon: 💻
+    title: 源码零污染
+    details: 采用设计器-渲染器分离架构，产物为纯净Vue代码，支持直接二次开发，杜绝环境侵入。
   - icon: 📦
-    title: 无污染，可二开
-    details: 设计器无缝嵌入本地项目开发环境，既安全又便捷，轻松接入。同时，采用创新的设计器和渲染器分离模式，确保项目代码保持纯净，不受任何污染，并且产物支持二次开发。
-  - icon: ✨
-    title: 物料丰富
-    details: 此外，还内置了多款常用、功能强大的组件库以及丰富的页面模板，不仅支持高度定制，还提供了可复用的区块组件，助您高效构建出色的应用。
+    title: 高复用物料库
+    details: 内置多套企业级组件库+页面模板，提供可定制区块组件，大幅提升标准化开发效率。
+  - icon: 🤖
+    title: AI智能提效
+    details: 支持自然语言描述需求、上传网页截图、Sketch/Figma设计稿生成Vue组件
+  - icon: 🔄
+    title: 双向代码转换
+    details: 独创 DSL与Vue源码双向编译能力，保障低代码与手写代码的自由切换。
 ---

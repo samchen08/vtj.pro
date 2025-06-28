@@ -31,8 +31,9 @@ const components: MaterialDescription[] = [
       {
         name: 'status',
         label: 'status',
-        title: '状态，可选：success exception normal active(仅限 line)',
-        setters: 'StringSetter'
+        title: '状态',
+        setters: 'ArraySetter',
+        options: ['success', 'exception', 'normal', 'active']
       },
       {
         name: 'strokeColor',
@@ -78,10 +79,9 @@ const components: MaterialDescription[] = [
         name: 'size',
         label: 'size',
         title: '进度条的尺寸',
-        setters: ['NumberSetter', 'ArraySetter', 'small', 'default'], //?? 	number | [number, number] | "small" | "default"
+        setters: ['NumberSetter', 'ArraySetter', 'small', 'default'],
         defaultValue: 'default'
       },
-      //?? type="line"
       {
         name: 'steps',
         label: 'steps',
@@ -93,15 +93,8 @@ const components: MaterialDescription[] = [
         label: 'strokeColor',
         title:
           '进度条的色彩，传入 object 时为渐变。当有 steps 时支持传入一个数组',
-        setters: ['StringSetter', 'ArraySetter', 'ObjectSetter'] //?? 	string | string[] | { from: string; to: string; direction: string }
+        setters: ['StringSetter', 'ArraySetter', 'ObjectSetter']
       },
-      //?? type="circle"
-      // {
-      //   name: 'strokeColor',
-      //   label: 'strokeColor',
-      //   title: '圆形进度条线的色彩，传入 object 时为渐变',
-      //   setters: ['StringSetter', 'ObjectSetter'] //?? string | object
-      // },
       {
         name: 'strokeWidth',
         label: 'strokeWidth',
@@ -109,7 +102,6 @@ const components: MaterialDescription[] = [
         setters: 'NumberSetter',
         defaultValue: 6
       },
-      //?? type="dashboard"
       {
         name: 'gapDegree',
         label: 'gapDegree',
@@ -125,13 +117,6 @@ const components: MaterialDescription[] = [
         options: ['top', 'bottom', 'left', 'right'],
         defaultValue: 'bottom'
       }
-      // {
-      //   name: 'strokeWidth',
-      //   label: 'strokeWidth',
-      //   title: '仪表盘进度条线的宽度，单位是进度条画布宽度的百分比',
-      //   setters: 'NumberSetter',
-      //   defaultValue: 6
-      // }
     ],
     snippet: {
       props: {

@@ -1,122 +1,164 @@
-# 核心架构
+# 核心架构设计
 
-本文档介绍了为 VTJ 低代码平台提供支持的基本架构组件，包括 Engine 编排层、Provider 服务系统、数据模型和代码生成管道。有关 UI 组件库和 widget 系统的信息，请参阅 UI 组件库 。有关特定于平台的实施，请参阅平台实施 。
+本文档详细阐述了 VTJ 低代码平台的核心架构组件，包括引擎协调层、服务提供者系统、数据模型和代码转换管道。关于 UI 组件库的具体实现，请参考 UI 组件库文档；关于平台适配层实现，请查阅平台实现文档。
 
-## 引擎、提供商和服务层
+## 引擎、服务提供者与模拟器层
 
-VTJ 架构围绕三个主要编排组件构建：用于设计时管理的 `Engine`、用于运行时服务的 `Provider` 和用于基于 iframe 的渲染的 `Simulator`。
+VTJ 架构围绕三个核心协调组件构建，形成完整的设计-开发工作流：
 
 ### 设计时引擎架构
 
 ![](../svg/2/1.png)
 
-类 `Engine` 充当设计时环境的中央业务流程协调程序。它通过几个关键职责来管理整个生命周期：
+`Engine` 类作为设计时环境的中央协调器，通过以下关键职责管理完整生命周期：
 
-- **项目管理** ：通过 `Service` 界面协调 `ProjectModel` 实例和文件操作
-- **模拟器控制** ：管理模拟器以进行基于 iframe 的组件渲染和预览
-- **Asset Management**：通过 `Assets` 类处理材质加载和组件注册
-- **事件协调** ：绑定到模型事件以实现实时更新和持久性
+1. **项目管理**  
+   通过 `Service` 接口协调 `ProjectModel` 实例和文件操作
+2. **模拟器控制**  
+   管理 iframe 沙箱环境中的组件渲染和实时预览
+3. **资源管理**  
+   通过 `Assets` 类处理物料加载和组件注册
+4. **事件协调**  
+   实现模型事件绑定，支持响应式更新和状态持久化
 
-### Provider 服务架构
+### 服务提供者架构
 
 ![](../svg/2/2.png)
 
-`Provider` 类跨不同执行模式（`ContextMode.Design`、`ContextMode.Runtime`、`ContextMode.Raw`）管理运行时服务和资源加载。关键架构模式包括：
+`Provider` 类管理不同执行模式下的运行时服务：
 
-- **资源加载** ：根据项目配置异步加载依赖项、材料和组件
-- **API 管理** ：通过 `createSchemaApis` 创建和管理基于 schema 的 API
-- **组件注册** ：动态组件解析和 Vue 插件安装
-- **DSL 渲染** ：用于创建将 BlockSchema 转换为 Vue 组件的渲染器的工厂方法
+**支持模式：**
 
-## 项目模型和块模型
+- **设计模式**：完整可视化编辑能力
+- **运行时模式**：生产环境优化执行
+- **原始模式**：直接执行 Vue 组件
 
-数据层以反应式模型为中心，这些模型通过事件驱动架构管理项目状态和组件定义。
+**核心功能：**
 
-### 模型层次结构和事件
+1. **资源加载**  
+   根据项目配置异步加载依赖项、物料和组件
+2. **API 管理**  
+   通过 `createSchemaApis` 创建基于 Schema 的 RESTful API
+3. **组件注册**  
+   动态解析组件并安装 Vue 插件
+4. **DSL 渲染**  
+   提供工厂方法将 BlockSchema 转换为可执行 Vue 组件
+
+## 项目模型与块模型系统
+
+数据层采用响应式模型架构，通过事件驱动机制管理项目状态和组件定义。
+
+### 模型层次结构与事件机制
 
 ![](../svg/2/3.png)
 
-`ProjectModel` 管理完整的项目状态，包括页面、块、依赖项和配置。它实现了几个关键模式：
+`ProjectModel` 管理项目全局状态：
 
-- **文件管理** ：`PageFile` 和 `BlockFile` 的 CRUD 操作，包括验证和事件发出
-- **依存关系管理** ：外部库和材料的动态加载和版本管理
-- **状态同步** ：事件驱动的更新，通过 `Service` 层触发持久性
-- **平台适配**：支持不同目标平台（`web`、`h5`、`uniapp`）
+**核心数据结构：**
 
-关键作包括用于文件管理的 `createPage（）`、`createBlock（）`、`setDeps（）` 和 `active（）`， 每个作都会触发相应的事件以进行 UI 同步。
+- **页面(page)**：应用路由单元
+- **块(block)**：可复用组件单元
+- **依赖项(dependencies)**：外部库版本管理
+- **配置(configuration)**：项目级设置
 
-### 块模型和节点层次结构
+**关键特性：**
+
+- **文件操作**：支持 `PageFile` 和 `BlockFile` 的 CRUD 操作（含验证和事件触发）
+- **依赖管理**：支持外部库和物料的动态加载与版本控制
+- **状态同步**：通过事件驱动更新，由 `Service` 层触发状态持久化
+- **平台适配**：支持多目标平台（`web`, `h5`, `uniapp`）
+
+关键方法包括 `createPage()`, `createBlock()`, `setDeps()` 和 `active()`，每个操作触发相应事件实现 UI 同步
+
+### 块模型与节点层次结构
 
 ![](../svg/2/4.png)
 
-`BlockModel` 将单个组件或页面表示为 `NodeModel` 实例的树。该架构支持：
+`BlockModel` 将组件或页面表示为 `NodeModel` 节点树：
 
-- **层次结构** ：基于插槽的内容组织的父子关系
-- **组件集成** ：通过 MaterialDescription 和 NodeFrom 配置动态加载组件
-- **状态管理** ：具有锁定、可见性和验证状态的响应式属性
-- **序列化**：运行时模型和可序列化 BlockSchema/NodeSchema 之间的双向转换
+**架构特性：**
 
-## 代码生成和解析管道
+- **层次结构**：基于插槽(slot)的内容组织，形成树形父子关系
+- **组件集成**：通过物料描述(MaterialDescription)和节点来源(NodeFrom)配置动态加载组件
+- **状态管理**：支持锁定(locked)、可见性(visible)和验证状态(validation)的响应式属性
+- **序列化**：实现运行时模型与可序列化 BlockSchema/NodeSchema 的双向转换
 
-VTJ 通过复杂的解析和代码生成管道实现 Vue 单文件组件 （SFC） 和低代码 DSL 之间的双向转换。
+## 代码生成与解析管道
+
+VTJ 通过多层解析和代码生成管道，实现 Vue 单文件组件(SFC)与低代码 DSL 的双向转换。
 
 ### DSL 到组件渲染管道
 
 ![](../svg/2/5.png)
 
-渲染管道通过几个阶段将 `BlockSchema` 定义转换为可执行的 Vue 组件：
+渲染管道通过四个阶段将 `BlockSchema` 转换为可执行 Vue 组件：
 
-- **DSL 加载** ：createLoader 函数创建一个递归解析组件依赖关系的 BlockLoader
-- **组件解析** ：NodeFrom 配置指定如何加载组件（`Schema`、`UrlSchema`、`Plugin` 类型）
-- **异步组件创建** ：Vue 的 `defineAsyncComponent` 支持通过 **loaders** 进行缓存的延迟加载组件
-- 上下文集成 ：`CreateRendererOptions` 提供包括 Vue 实例、组件库和 API 在内的运行时上下文
+1. **DSL 加载**  
+   `createLoader` 函数创建 BlockLoader，递归解析组件依赖
+2. **组件解析**  
+   NodeFrom 配置指定组件加载方式（`Schema`, `UrlSchema`, `Plugin`）
+3. **异步组件创建**  
+   利用 Vue 的 `defineAsyncComponent`，通过支持缓存的加载器实现异步加载
+4. **上下文集成**  
+   `CreateRendererOptions` 提供运行时上下文（Vue 实例、组件库、API）
 
-### Vue SFC 解析和代码生成
+### Vue SFC 解析与代码生成
 
 ![](../svg/2/6.png)
 
-双向转换系统支持视觉设计和代码之间的无缝过渡：
+双向转换系统支持可视化设计与代码编辑的无缝切换：
 
-- **解析器集成**：`@vtj/parser`将 Vue SFC 转换为 `BlockSchema` 以进行可视化编辑
-- **代码生成** ：`@vtj/coder` 包从 `BlockSchema` 定义生成完整的 Vue 项目
-- **服务层** ：通过 `Service.saveFile（）` 和 `Service.getFile（）` 进行的文件作保持同步
-- **AI 集成** ：`Engine.applyAI（）` 方法使 AI 生成的 DSL 能够集成到设计工作流程中
+**核心处理流程：**
 
-`Engine.genSource（）` 方法编排完整的代码生成过程，而 `createRawPage（）` 支持具有可视化组件和基于代码的组件的混合工作流。
+1. **解析器集成**  
+   `@vtj/parser` 将 Vue 单文件组件(SFC)转换为 `BlockSchema`
+2. **代码生成**  
+   `@vtj/coder` 根据 `BlockSchema` 生成完整 Vue 项目结构
+3. **服务层操作**  
+   通过 `Service.saveFile()` 和 `Service.getFile()` 实现文件同步
+4. **AI 集成**  
+   `Engine.applyAI()` 方法支持 AI 生成 DSL 集成到设计流程
 
-## 运行时架构和上下文管理
+`Engine.genSource()` 方法编排完整代码生成流程，`createRawPage()` 支持混合工作流（可视化组件 + 代码组件）
 
-运行时系统通过分层上下文架构管理不同模式和平台上的组件执行
+## 运行时架构与上下文管理
 
-### 上下文和模式管理
+运行时系统通过分层上下文架构管理不同模式（mode）和平台（platform）的组件执行。
+
+### 上下文与模式管理
 
 ![](../svg/2/7.png)
 
-运行时体系结构根据 `ContextMode` 调整行为：
+运行时架构根据 `ContextMode` 调整行为：
 
-- **设计模式** ：完整的设计时功能，带有热重载和可视化编辑工具
-- **运行时模式** ：针对生产部署优化组件执行
-- **Raw 模式**：直接执行 Vue 组件，无低代码开销
+**执行模式：**
 
-`模拟器`会创建一个隔离的 iframe 环境 （`contentWindow`），其中包含自己的 `SimulatorEnv`：
+- **设计模式**：提供完整设计时功能，支持热重载(hot-reload)和可视化编辑
+- **运行时模式**：为生产环境优化组件执行性能
+- **原始模式**：直接执行 Vue 组件，无低代码平台开销
 
-- **组件注册表**：从 Materials 和 dependencies 解析的组件
-- **API 层** ：具有模拟数据支持的基于 Schema 的 API
-- **平台适配器** ：`Web` 与 `uniapp` 平台的不同应用程序创建策略
+`Simulator` 创建隔离的 iframe 环境（通过 `contentWindow`），包含专属的 `SimulatorEnv`：
+
+- **组件注册表**：从物料(materials)和依赖(dependencies)解析的组件集合
+- **API 层**：基于 Schema 的 API，支持模拟数据
+- **平台适配器**：针对不同平台的应用创建策略
 
 ### 多平台运行时适配
 
 ![](../svg/2/8.png)
 
-特定于平台的运行时创建可处理不同的执行环境：
+针对不同平台采用特定的运行时创建策略：
 
-- **Web 平台** ：带有 Vue 路由器和 DOM 安装的标准 Vue 应用程序
-- **UniApp 平台** ：使用 `setupUniApp（）` 和 `UniH5` 运行时集成进行专门设置
-- **插件安装** ：根据依赖项配置自动安装库插件
-- **路由器配置**：具有不同历史模式的平台适当路由设置
+**平台适配实现：**
 
-`Provider.install（）` 方法管理跨平台的插件安装和全局属性设置。
+- **Web 平台**：创建带 Vue 路由器和 DOM 挂载的标准 Vue 应用
+- **UniApp 平台**：使用 `setupUniApp()` 和 `UniH5` 运行时进行跨平台配置
+- **插件安装**：根据依赖配置自动安装库插件
+- **路由配置**：平台特定的路由历史模式实现
 
-:::info 提示
-内容由AI翻译，可能会出现错漏或过时信息，请查阅原文：https://deepwiki.com/ChenXiaohui99/vtj/2-core-architecture
+`Provider.install()` 方法管理跨平台的插件安装和全局属性设置
+
+:::info 文档说明
+本文档由AI辅助生成，可能存在技术细节偏差，最新架构设计请参考原始技术文档：  
+[VTJ核心架构原文](https://deepwiki.com/ChenXiaohui99/vtj/2-core-architecture)
 :::

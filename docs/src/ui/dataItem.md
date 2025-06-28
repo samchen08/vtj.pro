@@ -1,8 +1,6 @@
 # XDataItem 数据项
 
-
 ## 示例
-
 
 ### 基础用法
 
@@ -10,13 +8,11 @@
 demo-preview=../examples/ui/dataItem/base.vue
 :::
 
-
 ### 排列展示
 
 :::preview
 demo-preview=../examples/ui/dataItem/dataItem-1.vue
 :::
-
 
 ### 插槽展示
 
@@ -24,17 +20,9 @@ demo-preview=../examples/ui/dataItem/dataItem-1.vue
 demo-preview=../examples/ui/dataItem/dataItem-2.vue
 :::
 
-
-
-
-
-
-
-
-
 ## API
 
-### 属性 
+### 属性
 
 | 属性名         | 说明                  | 类型                        | 默认值                                     |
 | -------------- | --------------------- | --------------------------- | ------------------------------------------ |
@@ -51,8 +39,6 @@ demo-preview=../examples/ui/dataItem/dataItem-2.vue
 | onImageClick   | 点击图片              | `function`                  | -                                          |
 | onTitleClick   | 点击标题              | `function`                  | -                                          |
 
-
-
 ### 事件
 
 | 名称          | 说明     | 参数          |
@@ -61,8 +47,6 @@ demo-preview=../examples/ui/dataItem/dataItem-2.vue
 | titleClick    | 点击标题 | -             |
 | actionClick   | 点击图标 | (action)      |
 | actionCommand | 点击图标 | (action,menu) |
-
-
 
 ### 插槽
 
@@ -73,6 +57,3 @@ demo-preview=../examples/ui/dataItem/dataItem-2.vue
 | title       | -        | -    |
 | description | -        |
 | actions     | -        | -    |
-
-
-

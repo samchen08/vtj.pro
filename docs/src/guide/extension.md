@@ -129,6 +129,8 @@ export interface ExtensionConfig {
 
 示例工程：[https://gitee.com/newgateway/examples-vtj/tree/master/packages/extension-app](https://gitee.com/newgateway/examples-vtj/tree/master/packages/extension-app)
 
-## 功能扩展清单
+## 功能扩展方式
 
-待补充....
+- [DepsManager 依赖管理器](./extras/deps-manager.md)
+- [WidgetManager 器件管理器](./extras/widget-manager.md)
+- [SetterManager 属性设置器管理器](./extras/setter-manager.md)

@@ -32,8 +32,8 @@ const components: MaterialDescription[] = [
         defaultValue: 'nowrap'
       },
       {
-        name: 'justify	',
-        label: 'justify	',
+        name: 'justify',
+        label: 'justify',
         title: '设置元素在主轴方向上的对齐方式',
         setters: 'SelectSetter',
         options: [
@@ -117,7 +117,7 @@ const components: MaterialDescription[] = [
         title: '设置网格之间的间隙',
         setters: ['SelectSetter', 'NumberSetter', 'StringSetter'],
         options: ['small', 'middle', 'large'],
-        defaultValue: 'normal'
+        defaultValue: ''
       },
       {
         name: 'component',

@@ -1,153 +1,206 @@
-# AI 集成
+# AI 集成架构
 
-本文档介绍了 VTJ 的 AI 驱动的代码生成和设计辅助功能。AI 集成使用户能够通过自然语言提示、图像上传和元数据文件生成 Vue 组件和页面。有关处理 AI 生成代码的核心低代码引擎的信息，请参阅**核心架构** 。有关可视化设计器界面的详细信息，请参阅 **设计器和渲染器** 。
+本文档详细介绍了 VTJ 平台中 AI 驱动的代码生成与设计辅助功能。AI 子系统与 VTJ 核心引擎深度集成，支持通过自然语言提示、图像上传和元数据文件生成 Vue 组件和页面。有关底层处理机制，请参阅**核心架构文档**；关于可视化设计实现，请参考**设计器与渲染器文档**。
 
 ## AI 系统架构
 
-VTJ 的 AI 集成由多个层组成，这些层协同工作，将用户输入转换为可执行的 Vue 代码：
+VTJ 的 AI 集成采用分层架构设计，各层协同工作实现用户输入到可执行 Vue 代码的转换：
 
 ![](../svg/11/1.png)
 
-**AI 集成架构**
+**AI 集成架构层次：**
 
-AI 系统通过分层架构运行，其中接口组件收集用户输入，逻辑层管理状态和 API 通信，后端服务处理 AI 处理。生成的代码直接与 VTJ 的核心引擎集成，用于解析和渲染。
+1. **接口层**：负责收集用户输入（文本、图像、JSON）
+2. **逻辑控制层**：管理状态机、API 通信和错误处理
+3. **AI 处理层**：执行自然语言理解、图像识别和代码生成
+4. **引擎集成层**：将生成的代码与 VTJ 核心引擎对接
 
-## AI 输入类型和处理
+## AI 输入处理机制
 
-VTJ 支持三种主要的 AI 输入模式，每种模式都针对不同的用例而设计：
+VTJ 支持三种输入模式，每种模式针对不同的开发场景：
 
-| 输入类型    | 元件       | 文件扩展名       | 用例               |
-| ----------- | ---------- | ---------------- | ------------------ |
-| 文本信息    | ChatInput  | 不适用           | 自然语言要求       |
-| 图像        | ImageInput | .png、.jpg .jpeg | 设计模型、屏幕截图 |
-| JSON/元数据 | JsonInput  | .json            | Figma、Sketch 导出 |
+| 输入类型     | 前端组件   | 支持格式          | 典型应用场景              |
+| ------------ | ---------- | ----------------- | ------------------------- |
+| 自然语言文本 | ChatInput  | 纯文本            | 功能需求描述、代码优化    |
+| 设计图像     | ImageInput | .png, .jpg, .jpeg | 界面原型、设计稿转代码    |
+| 结构化元数据 | JsonInput  | .json             | Figma/Sketch 设计文件导出 |
 
-### 文本输入处理
+### 文本输入处理流程
 
-基于文本的 AI 生成通过 AISendData 接口处理自然语言提示：
+文本输入通过 AISendData 接口处理自然语言提示，处理流程如下：
 
 ![](../svg/11/2.png)
 
-**文本输入处理流程**
+**处理流程：**
 
-文本输入流使用当前项目上下文创建一个主题，包括现有的 DSL 和生成的 Vue 源代码，为 AI 提供完整的代码生成上下文。
+1. 提取当前项目上下文（包括 DSL 定义和 Vue 源码）
+2. 构建包含完整上下文的提示词
+3. 通过 AI 模型生成 Vue SFC 代码
+4. 解析并验证生成代码的有效性
 
-### 图像输入处理
+### 图像输入处理流程
 
-图像处理支持从屏幕截图、模型和设计文件生成设计到代码：
+图像处理管线将视觉设计转换为语义化的 Vue 组件：
 
 ![](../svg/11/3.png)
 
-**图像到代码处理管道**
+**转换流程：**
 
-图像输入系统接受设计文件，并通过经过设计识别训练的专用 AI 模型对其进行处理，将视觉布局转换为语义 Vue 组件。
+1. 图像预处理（尺寸归一化、特征增强）
+2. 基于 CV 模型识别 UI 元素和布局结构
+3. 生成组件层次结构和样式定义
+4. 输出符合 VTJ DSL 规范的中间表示
 
-## AI 聊天系统和实时流媒体
+## AI 聊天系统与实时流处理
 
-AI 聊天系统管理与流式响应的对话交互：
+AI 聊天系统通过状态机管理对话交互，支持实时响应流：
 
 ![](../svg/11/4.png)
 
-**AI 聊天状态机**
+**状态机关键状态：**
 
-聊天系统通过结构化状态机维护对话状态，该状态机处理流式响应、错误恢复和用户交互。
+- `INITIAL`: 等待用户输入
+- `STREAMING`: 处理 AI 流式响应
+- `COMPLETED`: 生成最终代码结果
+- `ERROR`: 处理异常情况
 
-### 实时响应流
+### 实时流式响应实现
 
-流式处理实现使用服务器发送事件 （SSE） 进行实时 AI 响应：
+使用 Server-Sent Events (SSE) 实现低延迟响应传输：
 
 ```ts
-// Key streaming logic from chatCompletions
+// 聊天补全核心逻辑
 const chatCompletions = async (
   topicId: string,
   chatId: string,
   callback?: (data: any, done?: boolean) => void,
   error?: (err: any, cancel?: boolean) => void
 ) => {
-  // Streaming implementation with AbortController
   const controller = new AbortController();
-  // Process streaming chunks and update UI reactively
+
+  try {
+    // 建立 SSE 连接
+    const response = await fetch(API_ENDPOINT, {
+      method: 'POST',
+      signal: controller.signal,
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ topicId, chatId })
+    });
+
+    // 处理流式数据块
+    const reader = response.body.getReader();
+    const decoder = new TextDecoder();
+    let buffer = '';
+
+    while (true) {
+      const { value, done } = await reader.read();
+      if (done) break;
+
+      buffer += decoder.decode(value, { stream: true });
+      const lines = buffer.split('\n');
+
+      for (const line of lines) {
+        if (line.startsWith('data:')) {
+          const data = JSON.parse(line.substring(5));
+          callback(data, false);
+        }
+      }
+    }
+
+    callback(null, true); // 流处理完成
+  } catch (err) {
+    error(err, true); // 错误处理
+  }
 };
 ```
 
-流式处理系统处理增量 AI 响应，实时更新 UI，同时保持对话上下文并处理中断。
+## 代码生成与 DSL 集成
 
-## 代码生成和 DSL 集成
-
-AI 系统通过双向代码转换与 VTJ 的核心引擎紧密集成：
+AI 系统通过双向转换管道与 VTJ 核心引擎集成：
 
 ![](../svg/11/5.png)
 
-**AI 代码生成和集成管道**
+**集成工作流：**
 
-代码生成管道从 AI 响应中提取 Vue 代码，将其解析为 VTJ 的 DSL 格式，并将更改应用于当前块模型以进行即时渲染。
+1. 从 AI 响应中提取 Vue SFC 代码
+2. 将 Vue 代码转换为 DSL 中间表示
+3. 应用变更到当前块模型
+4. 通过渲染引擎更新 UI
 
-### Vue 代码提取和解析
+### 代码转换关键函数
 
-系统从 AI markdown 响应中提取 Vue 代码，并将其转换为 VTJ 的内部 DSL：
+| 函数       | 功能描述                  | 输入         | 输出             |
+| ---------- | ------------------------- | ------------ | ---------------- |
+| getVueCode | 从 Markdown 提取 Vue 代码 | AI 响应文本  | Vue SFC 代码     |
+| vue2Dsl    | Vue SFC 转 DSL 表示       | Vue SFC 代码 | 块架构定义       |
+| applyAI    | 应用变更到引擎            | 块架构定义   | 更新后的 UI 状态 |
 
-| 功能       | 目的                   | 输入         | 输出         |
-| ---------- | ---------------------- | ------------ | ------------ |
-| getVueCode | 从 markdown 中提取 Vue | AI 响应文本  | Vue SFC 代码 |
-| vue2Dsl    | 转换为 DSL             | Vue SFC 代码 | 块架构       |
-| applyAI    | 应用于 engine          | 块架构       | 更新的 UI    |
+转换过程包含严格验证：
 
-解析过程根据 VTJ 的组件规则验证生成的代码，并在代码不符合预期模式时提供错误反馈。
+1. 组件命名符合 PascalCase 规范
+2. 属性类型与值匹配验证
+3. 样式作用域隔离检查
+4. 依赖项完整性校验
 
-## AI 主题和聊天管理
+## 主题管理与对话上下文
 
-AI 系统通过基于主题的组织维护对话历史记录：
+AI 系统通过主题机制管理对话上下文：
 
 ![](../svg/11/6.png)
 
-**AI 数据模型关系**
+**数据模型关系：**
 
-主题系统按文件上下文组织对话，每个主题包含多个聊天交流。主题链接到特定的 BlockModel 实例，以实现上下文感知生成。
+- 每个 `BlockModel` 关联多个 `Topic`
+- 每个 `Topic` 包含多个 `Chat` 对话
+- 每个 `Chat` 包含多条 `Message` 记录
 
 ### 主题生命周期管理
 
-主题是为每个新的 AI 对话创建的，并在会话中持续存在：
+1. **主题创建**  
+   通过 `onPostTopic` 创建新主题，关联项目上下文
+2. **对话管理**  
+   `onPostChat` 向主题添加消息，维护完整对话历史
+3. **上下文加载**  
+   根据 BlockModel 状态动态加载关联主题
+4. **资源清理**  
+   `onRemoveTopic` 级联删除主题及关联对话
 
-- **主题创建** ：onPostTopic 使用项目上下文创建新主题
-- **聊天添加** ：onPostChat 向现有主题添加消息
-- **历史管理**：主题按 BlockModel 上下文加载
-- **清理 **：onRemoveTopic 使用级联处理主题删除
+## 用户体验增强功能
 
-主题系统使用户能够在每个文件中维护多个 AI 对话，同时保留对话上下文和生成的代码历史记录。
+### 自动应用机制
 
-## 自动应用和用户体验功能
-
-VTJ 的 AI 集成包括多项 UX 增强功能，以简化开发：
-
-### 自动应用功能
-
-启用自动应用功能后，会自动将生成的代码应用于当前页面：
+启用后，系统自动应用验证通过的生成代码：
 
 ```ts
-// Auto-apply logic in completions callback
-if (data.auto) {
-  onApply(c); // Automatically apply generated DSL
+// 自动应用逻辑
+function handleAutoApply(generatedCode) {
+  if (config.autoApplyEnabled) {
+    const dsl = vue2Dsl(generatedCode);
+    if (validateDSL(dsl)) {
+      engine.applyDSL(dsl);
+    }
+  }
 }
 ```
 
 ### 交互式代码审查
 
-系统通过 `Detail` 组件提供详细的代码审查界面：
+提供多维度代码审查界面：
 
-- **代码编辑器** ：在应用之前修改生成的 Vue 代码
-- **DSL 预览** ：查看转换后的 DSL 结构
-- **重新生成** ：修改代码后更新 DSL
-- **Apply Control**：手动应用已审核的代码
+- **源码编辑器**：支持直接修改生成的 Vue 代码
+- **DSL 预览面板**：实时显示转换后的 DSL 结构
+- **版本比对**：对比不同生成版本的代码差异
+- **手动应用控制**：选择性应用审查后的代码
 
-### 错误处理和恢复
+### 错误恢复机制
 
-AI 系统包括全面的错误处理：
+全面错误处理框架：
 
-| 错误类型 | 处理器       | 恢复作                 |
-| -------- | ------------ | ---------------------- |
-| 解析错误 | vue2Dsl 捕获 | 显示错误消息，报价修复 |
-| 网络错误 | 完成错误     | 重试机制               |
-| 验证错误 | DSL 验证     | 显示验证错误           |
-| 取消     | onCancelChat | Clean 状态，允许重试   |
+| 错误类型     | 处理机制              | 恢复策略                   |
+| ------------ | --------------------- | -------------------------- |
+| 语法解析错误 | vue2Dsl 异常捕获      | 高亮错误位置，提供修复建议 |
+| 网络通信异常 | 请求超时/中断处理     | 自动重试机制（最多3次）    |
+| 验证错误     | DSL 模式校验          | 过滤无效节点，保留有效部分 |
+| 用户取消操作 | onCancelChat 事件处理 | 清理中间状态，释放资源     |
 
-错误系统提供上下文反馈和恢复选项，使用户能够迭代优化其 AI 生成的代码。
+错误处理系统提供上下文感知的恢复建议，支持用户迭代优化 AI 生成的代码。

@@ -44,7 +44,6 @@ demo-preview=../examples/ui/dialog/dialog-2.vue
 | bodyPadding | 显示内容区域的内边距               | `boolean`                     | `true`    |
 | primary     | 标题背景颜色                       | `boolean`                     | -         |
 
-
 #### 接收 XPanel 所有参数
 
 ### 事件
@@ -68,10 +67,6 @@ demo-preview=../examples/ui/dialog/dialog-2.vue
 | `submit`              | Dialog 点击确认按钮的回      | -        |
 | `cancel`              | Dialog 点击取消按钮的回      | -        |
 
-
-
-
-
 ### 暴露
 
 | 名称       | 说明                                       | 类型   |
@@ -88,9 +83,8 @@ demo-preview=../examples/ui/dialog/dialog-2.vue
 | cancel-    | Dialog 点击取消按钮的回调                  | -      |
 | close      | Dialog 关闭的回调                          | -      |
 
-
-
 #### state 参数说明
+
 | 参数          | 类型                                            |
 | ------------- | ----------------------------------------------- |
 | mode          | string <`normal` \| `maximized` \| `minimized`> |
@@ -103,6 +97,3 @@ demo-preview=../examples/ui/dialog/dialog-2.vue
 | zIndex        | number                                          |
 | dragging      | boolean                                         |
 | resizing      | boolean                                         |
-
-
-
