@@ -6,8 +6,8 @@ title: AI + 低代码
 layout: home
 hero:
   name: 'VTJ.PRO'
-  text: AI + 低代码
-  tagline: 所想即所见，融合双核优势，打造高生产力研发平台
+  text: 低代码引擎
+  tagline: AI 智能双向 Vue3 低代码，无缝融入开发者工作流
   image:
     src: /assets/logo-w.svg
   actions:

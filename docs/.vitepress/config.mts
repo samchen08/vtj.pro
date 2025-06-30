@@ -26,7 +26,7 @@ export default defineConfig({
   base,
   title: 'VTJ.PRO',
   description:
-    'VTJ 是一款基于 Vue3 + Typescript 的低代码页面可视化设计器。内置低代码引擎、渲染器和代码生成器，面向前端开发者，开箱即用。 无缝嵌入本地开发工程，不改变前端开发流程和编码习惯。',
+    'AI 驱动的 Vue3 低代码开发平台。内置低代码引擎、渲染器与代码生成器，实现 Vue 源码与低代码 DSL 的双向智能转换。专为前端开发者打造，开箱即用。无缝融入现有工程，零侵入开发流程与编码习惯。',
   head: [
     [
       'link',

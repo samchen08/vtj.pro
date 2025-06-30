@@ -1,7 +1,7 @@
 {
   "name": "create-vtj",
   "private": false,
-  "version": "0.12.2",
+  "version": "0.12.3",
   "type": "module",
   "keywords": [
     "低代码引擎",
