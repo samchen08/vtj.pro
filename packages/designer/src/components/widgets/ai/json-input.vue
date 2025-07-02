@@ -208,7 +208,7 @@
         type: 'application/json',
         lastModified: new Date().getTime()
       });
-      fileType.value = 'mastergo';
+      fileType.value = json.type || 'mastergo';
       fileName.value = file.name;
       content.value = json;
       textFile.value = file;

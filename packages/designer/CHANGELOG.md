@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.49](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.12.48...@vtj/designer@0.12.49) (2025-07-02)
+
+
+### Features
+
+* ✨ 支持mastergo ([0e1b6f3](https://gitee.com/newgateway/vtj/commits/0e1b6f398c075b0d6efc87cd79a28909e0f4a55b))
+
+
+
+
+
 ## [0.12.48](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.12.47...@vtj/designer@0.12.48) (2025-06-30)
 
 **Note:** Version bump only for package @vtj/designer

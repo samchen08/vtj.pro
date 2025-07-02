@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.49](https://github.com/samchen08/vtj.pro/compare/@vtj/docs@0.12.48...@vtj/docs@0.12.49) (2025-07-02)
+
+
+### Features
+
+* ✨ 支持mastergo ([0e1b6f3](https://github.com/samchen08/vtj.pro/commit/0e1b6f398c075b0d6efc87cd79a28909e0f4a55b))
+
+
+
+
+
 ## [0.12.48](https://github.com/samchen08/vtj.pro/compare/@vtj/docs@0.12.47...@vtj/docs@0.12.48) (2025-06-30)
 
 **Note:** Version bump only for package @vtj/docs

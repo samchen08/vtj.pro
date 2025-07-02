@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.49](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.12.48...@vtj/ui@0.12.49) (2025-07-02)
+
+
+### Bug Fixes
+
+* 🐛 修改代码不规范问题 ([a1aaa4e](https://gitee.com/newgateway/vtj/commits/a1aaa4ef27822b943a09ea4a31277d33f54297c2))
+* 🐛 修改样式写法 ([1b3b435](https://gitee.com/newgateway/vtj/commits/1b3b435a3ede835c185767bb297a0d045072c8c0))
+
+
+### Features
+
+* ✨ 支持mastergo ([0e1b6f3](https://gitee.com/newgateway/vtj/commits/0e1b6f398c075b0d6efc87cd79a28909e0f4a55b))
+* ✨ panel组件右上角添加标记功能 ([fab33b3](https://gitee.com/newgateway/vtj/commits/fab33b391ae3f26792b541a2f055ad818bc0a8fc))
+
+
+
+
+
 ## [0.12.48](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.12.47...@vtj/ui@0.12.48) (2025-06-30)
 
 **Note:** Version bump only for package @vtj/ui

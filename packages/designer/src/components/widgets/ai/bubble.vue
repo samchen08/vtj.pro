@@ -173,7 +173,8 @@
         return coverMap.figma;
       } else if (
         chat.json.includes('/group/') ||
-        chat.json.includes('/frame/')
+        chat.json.includes('/frame/') ||
+        chat.json.includes('/mastergo/')
       ) {
         return coverMap.mastergo;
       }

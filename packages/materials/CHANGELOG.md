@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.49](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.12.48...@vtj/materials@0.12.49) (2025-07-02)
+
+
+### Bug Fixes
+
+* 🐛 修改样式写法 ([1b3b435](https://gitee.com/newgateway/vtj/commits/1b3b435a3ede835c185767bb297a0d045072c8c0))
+
+
+
+
+
 ## [0.12.48](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.12.47...@vtj/materials@0.12.48) (2025-06-30)
 
 
