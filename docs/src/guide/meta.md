@@ -54,8 +54,10 @@ MasterGo 社区有现成的JSON导出插件，可以搜索然后安装。
 
 ## AI识别元数据
 
-打开VTJ设计器在 在AI助手新建话题 选择元数据，选择导出的 Sketch 或 Figma 元数据json文件，即可通过AI高精度还原设计图。
+打开VTJ设计器在 在AI助手新建话题 选择元数据，上传文件或粘贴的方式输入的 Sketch、 Figma 或 MasterGo 元数据json文件，即可通过AI高精度还原设计图。
 
 ![](../assets/meta/4.png)
 
 ![](../assets/meta/5.png)
+
+![](../assets/meta/9.png)
