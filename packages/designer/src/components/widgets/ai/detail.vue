@@ -42,7 +42,7 @@
 
   const props = defineProps<Props>();
   const emit = defineEmits<{
-    apply: [chat: AIChat];
+    apply: [chat: AIChat, manual?: boolean];
   }>();
 
   const dsl = computed(() => JSON.stringify(props.chat.dsl || {}, null, 2));
@@ -50,7 +50,7 @@
   const dslRef = ref();
 
   const onSubmit = () => {
-    emit('apply', props.chat);
+    emit('apply', props.chat, true);
   };
 
   const onRestDsl = async () => {

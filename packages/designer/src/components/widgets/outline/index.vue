@@ -184,7 +184,8 @@
     return selected.value?.model.id;
   });
 
-  const allowDrag = async (node: any) => {
+  // todo: ElTree 不支持异步判断，需要改造该方法
+  const allowDrag: any = async (node: any) => {
     const item: TreeRootData | TreeNodeData = node.data;
     if (item.type === 'slot') return false;
     // 页面不能拖
@@ -212,7 +213,7 @@
   };
 
   // todo: ElTree 不支持异步判断，需要改造该方法
-  const allowDrop = async (_dragging: any, drop: any, type: any) => {
+  const allowDrop: any = async (_dragging: any, drop: any, type: any) => {
     const data: TreeRootData | TreeNodeData = drop.data;
     const typeMap: Record<string, string> = {
       prev: 'top',

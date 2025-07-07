@@ -493,11 +493,13 @@ export function useAI() {
     return completions(chat);
   };
 
-  const onApply = (chat: AIChat) => {
+  const onApply = (chat: AIChat, manual?: boolean) => {
     if (chat.dsl) {
       engine.applyAI(chat.dsl);
     } else {
-      alert(`DSL不完整，无法应用到页面`);
+      if (manual) {
+        alert(`DSL不完整，无法应用到页面`);
+      }
     }
     showDetail.value = false;
     currentChat.value = null;

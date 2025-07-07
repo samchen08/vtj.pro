@@ -82,7 +82,7 @@
             :code="!isHideCode"
             @view="onView(chat)"
             @refresh="onRefresh(chat)"
-            @apply="onApply(chat)"
+            @apply="onApply(chat, true)"
             @fix="onFix(chat)"
             @cancel="onCancelChat(chat)"></Bubble>
         </template>
