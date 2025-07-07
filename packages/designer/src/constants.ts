@@ -141,3 +141,5 @@ export const REPORT_API = [
 export const SESSION_ID_KEY = 'SESSION_ID__';
 
 export const STATE_KEY = 'ENGINE_STATE__';
+
+export const MAX_TOKENS = 8 * 1024;

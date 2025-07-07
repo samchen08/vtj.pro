@@ -79,4 +79,36 @@
       }
     }
   }
+
+  @include e(badge-wrapper){
+    position: relative;
+    overflow: hidden;
+    .x-panel__body {
+      padding-right: 30px !important;
+    }
+    .is-badge-success {
+      background-color: var(--el-color-success);
+    }
+    .is-badge-primary {
+      background-color: var(--el-color-primary);
+    }
+    .is-badge-warning {
+      background-color: var(--el-color-warning);
+    }
+    .is-badge-danger {
+      background-color: var(--el-color-danger);
+    }
+  }
+  @include e(badge){
+    position: absolute;
+    font-size: 12px;
+    height: 20px;
+    line-height: 20px;
+    text-align: center;
+    width: 74px;
+    color: rgb(255, 255, 255);
+    transform: rotate(45deg);
+    right: -20px;
+    top: 6px;
+  }
 }

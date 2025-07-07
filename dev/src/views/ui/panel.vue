@@ -40,12 +40,27 @@
         <XAction :icon="VtjIconSetting" mode="text" label="设置"></XAction>
       </template>
     </XPanel>
-    <XPanel header="面板标题" size="large" shadow="hover"> Body</XPanel>
+    <XPanel shadow="hover" :badge="{ type: 'danger', text: '迭代' }">
+      2.5 版本，基于 Arco Design Pro 前端模板开发的 ContiNew Admin
+      前端适配项目。2.5 版本，基于 Arco Design Pro 前端模板开发的 ContiNew Admin
+      前端适配项目。 2.5 版本，基于 Arco Design Pro 前端模板开发的 ContiNew
+      Admin 前端适配项目。2.5 版本，基于 Arco Design Pro 前端模板开发的 ContiNew
+      Admin 前端适配项目。
+    </XPanel>
     <XPanel header="面板标题" size="small">
       <ElTabs>
         <ElTabPane label="选项卡一"></ElTabPane>
         <ElTabPane label="选项卡二"></ElTabPane>
       </ElTabs>
+    </XPanel>
+
+    <XPanel size="small" card>
+      <template #header>
+        <h1>Header</h1>
+      </template>
+      <template #footer>
+        <h1>Footer</h1>
+      </template>
     </XPanel>
   </div>
 </template>

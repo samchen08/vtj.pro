@@ -2,7 +2,20 @@ import type { PropType } from 'vue';
 import type { ComponentPropsType, BaseSize } from '../shared';
 import type { HeaderProps, ContainerProps } from '../';
 
+export type PanelBadgeType = 'success' | 'primary' | 'warning' | 'danger';
+
+export interface PanelBadge {
+  type: PanelBadgeType,
+  text: String
+}
+
 export const panelProps = {
+  /**
+   * 右上角标记
+   */
+  badge: {
+    type: Object as PropType<PanelBadge>,
+  },
   /**
    * 宽高自适应
    */

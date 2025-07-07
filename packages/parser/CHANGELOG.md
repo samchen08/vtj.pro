@@ -3,6 +3,44 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.52](https://gitee.com/newgateway/vtj/compare/@vtj/parser@0.12.51...@vtj/parser@0.12.52) (2025-07-07)
+
+
+### Bug Fixes
+
+* 🐛 0.12.51 ([e4d8797](https://gitee.com/newgateway/vtj/commits/e4d8797a041f6df63b7f9bba3a984f6992db1064))
+
+
+
+
+
+## [0.12.51](https://gitee.com/newgateway/vtj/compare/@vtj/parser@0.12.50...@vtj/parser@0.12.51) (2025-07-07)
+
+
+### Bug Fixes
+
+* 🐛 parseStyle 禁止添加charset ([ceb1a6c](https://gitee.com/newgateway/vtj/commits/ceb1a6cf63027506840efc81d5c730ee57c934b2))
+
+
+
+
+
+## [0.12.50](https://gitee.com/newgateway/vtj/compare/@vtj/parser@0.12.49...@vtj/parser@0.12.50) (2025-07-04)
+
+**Note:** Version bump only for package @vtj/parser
+
+
+
+
+
+## [0.12.49](https://gitee.com/newgateway/vtj/compare/@vtj/parser@0.12.48...@vtj/parser@0.12.49) (2025-07-02)
+
+**Note:** Version bump only for package @vtj/parser
+
+
+
+
+
 ## [0.12.48](https://gitee.com/newgateway/vtj/compare/@vtj/parser@0.12.47...@vtj/parser@0.12.48) (2025-06-30)
 
 **Note:** Version bump only for package @vtj/parser

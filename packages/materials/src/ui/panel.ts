@@ -58,6 +58,11 @@ const desc: MaterialDescription = {
       name: 'footer',
       title: 'footer',
       setters: 'ObjectSetter'
+    },
+    {
+      name: 'badge',
+      title: '标记设置',
+      setters: 'ObjectSetter'
     }
   ],
   slots: ['default', 'actions', 'title', 'footer'],

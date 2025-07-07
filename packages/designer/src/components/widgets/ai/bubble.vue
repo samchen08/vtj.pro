@@ -95,6 +95,7 @@
   import figma from '../../../assets/figma.png';
   import sketch from '../../../assets/sketch.png';
   import other from '../../../assets/json.png';
+  import mastergo from '../../../assets/MasterGo.png';
 
   export interface Props {
     type: 'user' | 'ai';
@@ -107,8 +108,15 @@
     code: true
   });
 
-  const emit = defineEmits(['refresh', 'view', 'download', 'fix', 'cancel']);
-  const coverMap = { figma, sketch, other, unknown: other };
+  const emit = defineEmits([
+    'refresh',
+    'view',
+    'apply',
+    'download',
+    'fix',
+    'cancel'
+  ]);
+  const coverMap = { figma, sketch, mastergo, other, unknown: other };
   const isAi = computed(() => props.type === 'ai');
   const isCompleted = computed(() => props.data.status === 'Success');
   const isPending = computed(() => props.data.status === 'Pending');
@@ -170,6 +178,12 @@
         return coverMap.sketch;
       } else if (chat.json.includes('/figma/')) {
         return coverMap.figma;
+      } else if (
+        chat.json.includes('/group/') ||
+        chat.json.includes('/frame/') ||
+        chat.json.includes('/mastergo/')
+      ) {
+        return coverMap.mastergo;
       }
       return coverMap.other;
     }

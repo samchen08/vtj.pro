@@ -326,3 +326,29 @@
     bottom: 5px;
   }
 }
+
+@include b(ai-widget-json-input-text) {
+  @include e(footer) {
+    padding: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    position: absolute;
+    width: calc(100% - 2px);
+    bottom: 1px;
+    padding: 5px;
+    border-top: 1px solid var(--el-border-color-lighter);
+    background-color: var(--el-mask-color);
+    border-radius: 0 0 var(--el-border-radius-base) var(--el-border-radius-base);
+    margin: 0 1px;
+  }
+
+  &:focusin {
+    background-color: red;
+  }
+
+  .el-textarea__inner {
+    padding-bottom: 45px;
+  }
+}

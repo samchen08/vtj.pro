@@ -3,6 +3,44 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.52](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.12.51...@vtj/materials@0.12.52) (2025-07-07)
+
+
+### Bug Fixes
+
+* 🐛 0.12.51 ([e4d8797](https://gitee.com/newgateway/vtj/commits/e4d8797a041f6df63b7f9bba3a984f6992db1064))
+
+
+
+
+
+## [0.12.51](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.12.50...@vtj/materials@0.12.51) (2025-07-07)
+
+**Note:** Version bump only for package @vtj/materials
+
+
+
+
+
+## [0.12.50](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.12.49...@vtj/materials@0.12.50) (2025-07-04)
+
+**Note:** Version bump only for package @vtj/materials
+
+
+
+
+
+## [0.12.49](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.12.48...@vtj/materials@0.12.49) (2025-07-02)
+
+
+### Bug Fixes
+
+* 🐛 修改样式写法 ([1b3b435](https://gitee.com/newgateway/vtj/commits/1b3b435a3ede835c185767bb297a0d045072c8c0))
+
+
+
+
+
 ## [0.12.48](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.12.47...@vtj/materials@0.12.48) (2025-06-30)
 
 

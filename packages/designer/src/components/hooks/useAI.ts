@@ -11,6 +11,8 @@ import {
 import type { ProjectSchema, BlockSchema, BlockModel } from '@vtj/core';
 import { useElementSize } from '@vueuse/core';
 import { delay, storage } from '@vtj/utils';
+import { notify, alert } from '../../utils';
+import { MAX_TOKENS } from '../../constants';
 
 export type { AITopic, AIChat, Settings };
 export type Dict = DictOption;
@@ -363,9 +365,17 @@ export function useAI() {
           }
         }
         if (data?.usage) {
-          chat.tokens = (chat.tokens || 0) + (data.usage.total_tokens || 0);
+          const completionTokens = data.usage.completion_tokens || 0;
+          if (completionTokens >= MAX_TOKENS) {
+            chat.status = 'Failed';
+            chat.message = `生成tokens数量达到了MAX_TOKENS【${completionTokens}】已被截断！`;
+            chat.dsl = null;
+            return null;
+          } else {
+            chat.tokens = (chat.tokens || 0) + (data.usage.total_tokens || 0);
+          }
         }
-        if (done && chat.status === 'Pending') {
+        if (done) {
           chat.status = 'Success';
           chat.thinking = Math.ceil(thinking / 1000);
           chat.vue = getVueCode(chat.content);
@@ -408,6 +418,9 @@ export function useAI() {
         }
         chat.status = 'Failed';
         console.warn('completions error', err);
+        if (err?.message) {
+          notify(err.message, '生成错误');
+        }
         await saveChat(chat);
         complete && complete(chat);
       }
@@ -483,6 +496,8 @@ export function useAI() {
   const onApply = (chat: AIChat) => {
     if (chat.dsl) {
       engine.applyAI(chat.dsl);
+    } else {
+      alert(`DSL不完整，无法应用到页面`);
     }
     showDetail.value = false;
     currentChat.value = null;
