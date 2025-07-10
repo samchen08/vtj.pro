@@ -1,3 +1,7 @@
+:::warning ✨✨✨ 福利来了 ✨✨✨
+回馈活动，AI助手百万额度免费领，领取链接：[https://lcdp.vtj.pro/tokens?code=gitee](https://lcdp.vtj.pro/tokens?code=gitee)
+:::
+
 # VTJ.PRO 技术简介
 
 **专为开发者打造的 AI 低代码平台**，让设计稿秒变高质量代码，释放 80% 重复劳动，专注创造真正价值！

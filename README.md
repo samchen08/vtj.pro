@@ -1,3 +1,6 @@
+> ✨✨✨ 福利来了 ✨✨✨
+> 回馈活动，AI助手百万额度免费领，领取链接：[https://lcdp.vtj.pro/tokens?code=gitee](https://lcdp.vtj.pro/tokens?code=gitee)
+
 <div align="center"> <a href="https://gitee.com/newgateway/vtj"> <img width="100" src="./platforms/pro/public/logo.svg"> </a> <br> <br>
 
 [![star](https://gitee.com/newgateway/vtj/badge/star.svg?theme=gvp)](https://gitee.com/newgateway/vtj)
