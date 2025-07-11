@@ -1,7 +1,7 @@
 {
   "name": "@vtj/local",
   "private": false,
-  "version": "0.12.53",
+  "version": "0.12.55",
   "type": "module",
   "keywords": [
     "低代码引擎",

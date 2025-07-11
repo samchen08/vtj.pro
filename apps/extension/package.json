@@ -1,7 +1,7 @@
 {
   "name": "vtj-extension",
   "private": true,
-  "version": "0.12.53",
+  "version": "0.12.55",
   "type": "module",
   "scripts": {
     "setup": "pnpm install --unsafe-perm --registry=https://registry.npmmirror.com",
@@ -9,7 +9,7 @@
     "build": "vue-tsc && vite build"
   },
   "dependencies": {
-    "@vueuse/core": "~13.3.0",
+    "@vueuse/core": "~13.5.0",
     "element-plus": "~2.10.0"
   },
   "devDependencies": {

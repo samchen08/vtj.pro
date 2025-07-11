@@ -1,7 +1,7 @@
 {
   "name": "@vtj/materials",
   "private": false,
-  "version": "0.12.53",
+  "version": "0.12.55",
   "type": "module",
   "keywords": [
     "低代码引擎",
@@ -48,7 +48,7 @@
     "@vtj/icons": "workspace:~",
     "@vtj/ui": "workspace:~",
     "@vtj/utils": "workspace:~",
-    "@vueuse/core": "~13.3.0",
+    "@vueuse/core": "~13.5.0",
     "ant-design-vue": "~4.2.0",
     "echarts": "~5.6.0",
     "element-plus": "~2.10.0",

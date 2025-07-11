@@ -13,12 +13,13 @@
       <XTabs :items="items" v-model="currentValue"> </XTabs>
     </XPanel>
 
-    <XTabs :items="items" v-model="currentValue">
-      <template #default="{ name }">
-        <MyComp :name="name"></MyComp>
-        <!-- <div>{{ Date.now() }} {{ console.log('tab', name) }}</div> -->
-      </template>
-    </XTabs>
+    <div style="height: 200px">
+      <XTabs :items="items" v-model="currentValue" tab-position="left" fit>
+        <template #default="{ name }">
+          <MyComp :name="name"></MyComp>
+        </template>
+      </XTabs>
+    </div>
     <ElTabs model-value="a">
       <ElTabPane label="a" name="a">
         {{ console.log('ElTabPane', 'A') }}

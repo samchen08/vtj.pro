@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.8](https://gitee.com/newgateway/vtj/compare/@vtj/cli@0.12.7...@vtj/cli@0.12.8) (2025-07-08)
+
+
+### Bug Fixes
+
+* 🐛 升级依赖 ([dbee35b](https://gitee.com/newgateway/vtj/commits/dbee35bd867a44f8c71c117fa90d56d108144a6b))
+* 🐛 锁定vite-plugin-node-polyfills ([4b402a3](https://gitee.com/newgateway/vtj/commits/4b402a3ecb123af7860f2be2529fa63e3b15808d))
+* 🐛 vite-plugin-node-polyfills ([3afa270](https://gitee.com/newgateway/vtj/commits/3afa2701d619fd36c170d9b0ab0b872a6af80edc))
+
+
+
+
+
 ## [0.12.7](https://gitee.com/newgateway/vtj/compare/@vtj/cli@0.12.6...@vtj/cli@0.12.7) (2025-06-30)
 
 **Note:** Version bump only for package @vtj/cli
