@@ -3,6 +3,6 @@ import { defineConfig } from 'vitest/config';
 export default defineConfig({
   test: {
     environment: 'jsdom',
-    include: ['**/vue.test.ts']
+    include: ['**/tools.test.ts']
   }
 });

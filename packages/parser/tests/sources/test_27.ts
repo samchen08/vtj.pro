@@ -1,15 +1,36 @@
 export const test_27 = `
-<template></template>
+<template>
+ <VanIcon name="arrow"></VanIcon>
+ <VanIcon dot name="arrow-double-left-2"></VanIcon>
+ <VanIcon name="arrow-double-left-a" dot></VanIcon>
+ <VanIcon name="arrow-double-left-b" :dot="true"></VanIcon>
+ <VanIcon :dot="true" name="arrow-double-left-c"></VanIcon>
+ <van-icon name="arrow-double-left-d"></van-icon>
+ <van-icon dot name="arrow-double"></van-icon>
+ <van-icon name="arrow-double-left" dot></van-icon>
+ <van-icon name="arrow-double-left" :dot="true"></van-icon>
+ <van-icon :dot="true" name="arrow-double-left"></van-icon>
+  <XIcon :icon="VtjIconCar"  color="red"></XIcon>
+ <XIcon :icon="Ddetat"  color="red"></XIcon>
+  <XIcon :icon="AddLocation"  color="red"></XIcon>
+</template>
 <script lang="ts">
   // @ts-nocheck
   import { defineComponent, reactive } from 'vue';
   import { useProvider } from '@vtj/renderer';
+  import {AddLocation, VtjIconChatRecord, VtjIconCar, Ddetat,ABC} from "@vtj/icons";
+  import { XIcon } from '@vtj/ui';
   export default defineComponent({
     name: 'Abc',
+    components: {
+      XIcon
+    },
     setup(props) {
       const provider = useProvider({ id: '107h4fa7z', version: '1752216444991' });
-      const state = reactive({ data: null });
-      return { state, props, provider };
+      const state = reactive({ data: {
+      item:VtjIconCar
+      },icons: [VtjIconCar,Ddetat,AddLocation,VtjIconChatRecord,ABC] });
+      return { state, props, provider, AddLocation, VtjIconChatRecord, VtjIconCar,Ddetat };
     },
     methods: {
       async getData(...args) {
@@ -28,10 +49,13 @@ export const test_27 = `
     },
     async created() {
       this.state.data = await this.getData();
+      this.state.data = ABC;
     }
   })
 </script>
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+body {}
+</style>
 
 
 `;
