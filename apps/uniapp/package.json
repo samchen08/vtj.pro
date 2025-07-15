@@ -77,7 +77,7 @@
     "@vtj/local": "workspace:~",
     "@vtj/pro": "workspace:~",
     "@vue/runtime-core": "~3.5.5",
-    "miniprogram-api-typings": "~4.0.2"
+    "miniprogram-api-typings": "~4.1.0"
   },
   "vtj": {
     "platform": "uniapp"
