@@ -223,8 +223,10 @@ function getFunction(item: ObjectMethod) {
     const asyncContent = async ? 'async ' : '';
     const content = `${asyncContent}(${paramsStr}) => ${code}`;
     const watcher = name.startsWith('watcher_');
+    const id = watcher ? name.replace('watcher_', '') : '';
 
     return {
+      id,
       name,
       watcher,
       exp: getJSFunction(content)
@@ -398,6 +400,7 @@ function getWatches(
       const properties = (value as ObjectExpression)
         .properties as ObjectProperty[];
       watches.push({
+        id: name.replace('watcher_', ''),
         source: watchers[name],
         deep: getBooleanValue(properties, 'deep'),
         immediate: getBooleanValue(properties, 'immediate'),
@@ -406,6 +409,7 @@ function getWatches(
     } else {
       if (item.type === 'ObjectMethod') {
         watches.push({
+          id: name.replace('watcher_', ''),
           // todo: 处理上下文
           source: {
             type: 'JSFunction',
@@ -421,6 +425,7 @@ function getWatches(
         const properties = (value as ObjectExpression)
           .properties as ObjectProperty[];
         watches.push({
+          id: name.replace('watcher_', ''),
           // todo: 处理上下文
           source: {
             type: 'JSFunction',

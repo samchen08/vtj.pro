@@ -1,9 +1,9 @@
 export const test_27 = `
 <template>
-<div>
-  <ElButton type="primary"> {{ state.text }}</ElButton>
-  <ElLink v-if="link" href="https://"> 链接文本</ElLink>
-</div>
+  <div>
+    <ElButton type="primary"> {{ state.text }}</ElButton>
+    <ElLink v-if="state.link" href="https://"> 链接文本</ElLink>
+  </div>
 </template>
 <script lang="ts">
   // @ts-nocheck
@@ -14,13 +14,28 @@ export const test_27 = `
     name: 'Bbb',
     components: { ElButton, ElLink },
     setup(props) {
-      const provider = useProvider({ id: '17rbz707', version: '1752570245937' });
+      const provider = useProvider({ id: '17rbz707', version: '1752572608783' });
       const state = reactive({ text: 'Button', link: 'https://www.baidu.com' });
       return { state, props, provider };
+    },
+    computed: {
+      watcher_37ror7zk() {
+        return this.state.text;
+      }
+    },
+    watch: {
+      watcher_37ror7zk: {
+        deep: false,
+        immediate: false,
+        handler() {
+          console.log('change');
+        }
+      }
     }
   })
 </script>
 <style lang="scss" scoped></style>
+
 
 `;
 
