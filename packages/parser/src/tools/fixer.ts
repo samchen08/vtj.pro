@@ -2,6 +2,7 @@ import * as t from '@babel/types';
 import type { ValidationResult } from './validator';
 import { parseSFC, transformScript } from '../shared';
 import { VantIcons, defaultVantIcon, defaultVtjIcon } from './icons';
+import { checkAndFixStatePrefix } from './state';
 export class AutoFixer {
   fixBasedOnValidation(code: string, validation: ValidationResult) {
     let fixedCode = code;
@@ -14,7 +15,7 @@ export class AutoFixer {
       fixedCode = this.fixVtjIcons(fixedCode, validation.illegalVtjIcons);
     }
 
-    return fixedCode;
+    return checkAndFixStatePrefix(fixedCode).fixedCode;
   }
 
   private fixVantIcons(code: string): string {

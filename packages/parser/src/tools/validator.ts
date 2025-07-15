@@ -30,6 +30,11 @@ export class ComponentValidator {
       result.valid = false;
     }
 
+    if (this.hasUnchangedComment(code)) {
+      result.errors.push('代码不完整，需要输出完整代码，不能省略');
+      result.valid = false;
+    }
+
     // 检查VantIcon
     result.illegalVantIcons = this.checkVantIcons(code);
     // 检查VtjIcon
@@ -107,7 +112,7 @@ export class ComponentValidator {
       .filter(Boolean); // 过滤空项
   }
 
-  checkVtjIcons(code: string) {
+  private checkVtjIcons(code: string) {
     const icons = this.findVtjIcons(code);
     const illegalIcons = [];
     for (const name of icons) {
@@ -116,5 +121,26 @@ export class ComponentValidator {
       }
     }
     return illegalIcons;
+  }
+
+  private hasUnchangedComment(code: string) {
+    // 匹配 HTML 注释 <!-- ... -->
+    const htmlCommentRegex = /<!--([\s\S]*?)-->/g;
+    // 匹配 CSS/JS 多行注释 /* ... */
+    const multiLineCommentRegex = /\/\*([\s\S]*?)\*\//g;
+    // 匹配 JS 单行注释 //
+    const singleLineCommentRegex = /\/\/(.*)/g;
+
+    // 合并所有匹配到的注释内容
+    const commentContents = [
+      ...(code.match(htmlCommentRegex) || []),
+      ...(code.match(multiLineCommentRegex) || []),
+      ...(code.match(singleLineCommentRegex) || [])
+    ];
+
+    // 检查注释内容是否包含"保持不变"
+    return commentContents.some(
+      (comment) => /不变/.test(comment.replace(/\*/g, '')) // 移除多行注释的星号避免干扰
+    );
   }
 }

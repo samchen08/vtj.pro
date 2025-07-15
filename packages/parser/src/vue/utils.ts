@@ -152,17 +152,6 @@ export function styleToJson(style: string) {
   }, {});
 }
 
-export function validate(content: string) {
-  const errors: string[] = [];
-  const r1 = /保持不变/g;
-
-  if (r1.test(content)) {
-    errors.push('部分保持不变的代码需要完整输出');
-  }
-
-  return errors;
-}
-
 export function mergeClass(
   staticClass: string,
   expSource: string,

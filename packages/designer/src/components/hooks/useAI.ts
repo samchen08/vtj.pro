@@ -295,6 +295,12 @@ export function useAI() {
       const chat = reactive(res.data);
       chats.value.push(chat);
       completions(chat, (c) => {
+        if (c.status === 'Error' && c.message) {
+          return onPostChat({
+            ...data,
+            prompt: c.message
+          });
+        }
         if (data.auto) {
           onApply(c);
         }
@@ -385,8 +391,8 @@ export function useAI() {
             } else {
               const messages = e?.data || e?.message;
               chat.message = Array.isArray(messages)
-                ? messages.join('，')
-                : '代码有错误';
+                ? messages.join('\n')
+                : '代码有异常，请检查并修复';
             }
             chat.status = 'Error';
             return null;
