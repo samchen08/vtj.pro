@@ -38,20 +38,26 @@ export class AutoFixer {
         if (path.node.source.value === '@vtj/icons') {
           const specifiers = path.node.specifiers;
           const newSpecifiers: any[] = [];
+          let hasDefault = false;
           for (const specifier of specifiers) {
             const name = specifier.imported?.name;
+            if (name === defaultVtjIcon) {
+              hasDefault = true;
+            }
             if (!illegal.includes(name)) {
               newSpecifiers.push(
                 t.importSpecifier(specifier.local, specifier.imported)
               );
             }
           }
-          newSpecifiers.push(
-            t.importSpecifier(
-              t.identifier(defaultVtjIcon),
-              t.identifier(defaultVtjIcon)
-            )
-          );
+          if (!hasDefault) {
+            newSpecifiers.push(
+              t.importSpecifier(
+                t.identifier(defaultVtjIcon),
+                t.identifier(defaultVtjIcon)
+              )
+            );
+          }
           path.node.specifiers = newSpecifiers;
         }
       },
