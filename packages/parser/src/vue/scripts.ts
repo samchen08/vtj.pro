@@ -262,7 +262,7 @@ function getDataSources(expression: ObjectExpression, project: ProjectSchema) {
   for (const item of expression.properties) {
     const method = getFunction(item as ObjectMethod);
     const bodyNode = (item as any).body.body?.[0];
-    const comment = (bodyNode?.leadingComments[0].value || '').trim();
+    const comment = (bodyNode?.leadingComments?.[0].value || '').trim();
     const dataSource = extractDataSource(comment);
 
     if (method && method.exp.value.includes('this.provider.apis')) {
