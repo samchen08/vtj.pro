@@ -1,7 +1,7 @@
 {
   "name": "@vtj/node",
   "private": false,
-  "version": "0.12.3",
+  "version": "0.12.4",
   "type": "module",
   "keywords": [
     "低代码引擎",
@@ -30,7 +30,7 @@
   "dependencies": {
     "@types/fs-extra": "~11.0.4",
     "@vtj/base": "workspace:~",
-    "axios": "~1.9.0",
+    "axios": "~1.10.0",
     "fs-extra": "~11.3.0"
   },
   "devDependencies": {

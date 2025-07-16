@@ -59,7 +59,7 @@
     if (!code) return;
     const dsl = await props.updateChatDsl(code).catch((e: any) => {
       if (Array.isArray(e)) {
-        notify(e.join(','));
+        notify(e.join('；'));
       } else {
         notify(e?.message || '代码错误');
       }

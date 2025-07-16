@@ -3,6 +3,40 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.56](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.12.55...@vtj/designer@0.12.56) (2025-07-16)
+
+
+### Features
+
+* ✨ 代码校验并自动修复 ([205257b](https://gitee.com/newgateway/vtj/commits/205257b75b5ebcb5c02ec4ade0000388552277a6))
+* ✨ parser watch ([26a942a](https://gitee.com/newgateway/vtj/commits/26a942a1b1297fa7d5c7ad49121b9175efce5b62))
+
+
+
+
+
+## [0.12.55](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.12.54...@vtj/designer@0.12.55) (2025-07-09)
+
+
+### Features
+
+* ✨ AI免费额度 ([4260ac9](https://gitee.com/newgateway/vtj/commits/4260ac9a319cc0da727bd36a5e8514d629e9b442))
+
+
+
+
+
+## [0.12.54](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.12.53...@vtj/designer@0.12.54) (2025-07-08)
+
+
+### Bug Fixes
+
+* 🐛 适配element-plus 2.10.3 类型 ([f55a477](https://gitee.com/newgateway/vtj/commits/f55a47700f116a67c887e9b5d93b6df92866004a))
+
+
+
+
+
 ## [0.12.53](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.12.52...@vtj/designer@0.12.53) (2025-07-07)
 
 

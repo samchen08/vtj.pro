@@ -6,8 +6,8 @@ title: AI + 低代码
 layout: home
 hero:
   name: 'VTJ.PRO'
-  text: 低代码引擎
-  tagline: AI 智能双向 Vue3 低代码，无缝融入开发者工作流
+  text: AI + 低代码
+  tagline: 所想即所见，融合双核优势，打造高生产力研发平台
   image:
     src: /assets/logo-w.svg
   actions:
@@ -49,3 +49,7 @@ features:
     title: 双向代码转换
     details: 独创 DSL与Vue源码双向编译能力，保障低代码与手写代码的自由切换。
 ---
+
+:::warning ✨✨✨ 福利来了 ✨✨✨
+回馈活动，AI助手百万额度免费领，领取链接：[https://lcdp.vtj.pro/tokens?code=gitee](https://lcdp.vtj.pro/tokens?code=gitee)
+:::

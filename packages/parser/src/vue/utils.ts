@@ -1,9 +1,10 @@
 import {
   type JSExpression,
   type JSFunction,
-  type PlatformType
+  type PlatformType,
+  type DataSourceSchema
 } from '@vtj/core';
-import { upperFirstCamelCase } from '@vtj/base';
+import { upperFirstCamelCase, unBase64 } from '@vtj/base';
 export interface ExpressionOptions {
   platform: PlatformType;
   context: Record<string, Set<string>>;
@@ -151,17 +152,6 @@ export function styleToJson(style: string) {
   }, {});
 }
 
-export function validate(content: string) {
-  const errors: string[] = [];
-  const r1 = /保持不变/g;
-
-  if (r1.test(content)) {
-    errors.push('部分保持不变的代码需要完整输出');
-  }
-
-  return errors;
-}
-
 export function mergeClass(
   staticClass: string,
   expSource: string,
@@ -183,5 +173,18 @@ export function mergeClass(
       })
       .join(',');
     return `([${staticStr}].concat(${expSource}))`;
+  }
+}
+
+export function extractDataSource(
+  comment: string = ''
+): DataSourceSchema | null {
+  const match = comment.trim().match(/DataSource:\s*([^\n=]+={0,2})/);
+  const base64Str = match?.[1] || '';
+  try {
+    return base64Str ? JSON.parse(unBase64(base64Str)) : null;
+  } catch (e) {
+    console.warn('extractDataSource fail', e);
+    return null;
   }
 }

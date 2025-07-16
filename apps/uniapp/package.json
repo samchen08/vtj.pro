@@ -1,6 +1,6 @@
 {
   "name": "vtj-project-uniapp",
-  "version": "0.12.53",
+  "version": "0.12.56",
   "private": true,
   "scripts": {
     "dev:app": "uni -p app",
@@ -77,7 +77,7 @@
     "@vtj/local": "workspace:~",
     "@vtj/pro": "workspace:~",
     "@vue/runtime-core": "~3.5.5",
-    "miniprogram-api-typings": "~4.0.2"
+    "miniprogram-api-typings": "~4.1.0"
   },
   "vtj": {
     "platform": "uniapp"

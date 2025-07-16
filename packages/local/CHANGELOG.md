@@ -3,6 +3,33 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.56](https://gitee.com/newgateway/vtj/compare/@vtj/local@0.12.55...@vtj/local@0.12.56) (2025-07-16)
+
+
+### Features
+
+* ✨ 代码校验并自动修复 ([205257b](https://gitee.com/newgateway/vtj/commits/205257b75b5ebcb5c02ec4ade0000388552277a6))
+
+
+
+
+
+## [0.12.55](https://gitee.com/newgateway/vtj/compare/@vtj/local@0.12.54...@vtj/local@0.12.55) (2025-07-09)
+
+**Note:** Version bump only for package @vtj/local
+
+
+
+
+
+## [0.12.54](https://gitee.com/newgateway/vtj/compare/@vtj/local@0.12.53...@vtj/local@0.12.54) (2025-07-08)
+
+**Note:** Version bump only for package @vtj/local
+
+
+
+
+
 ## [0.12.53](https://gitee.com/newgateway/vtj/compare/@vtj/local@0.12.52...@vtj/local@0.12.53) (2025-07-07)
 
 **Note:** Version bump only for package @vtj/local

@@ -268,7 +268,9 @@ export class BlockModel {
    */
   setEmit(emit: string | BlockEmit, silent: boolean = false) {
     const item: BlockEmit = isString(emit) ? { name: emit, params: [] } : emit;
-    const index = this.emits.findIndex((n) => n === item.name || n === item);
+    const index = this.emits.findIndex(
+      (n) => n === item.name || (n as BlockEmit).name === item.name
+    );
     if (index > -1) {
       this.emits.splice(index, 1, item);
     } else {
@@ -302,8 +304,10 @@ export class BlockModel {
    * @param silent
    */
   setSlot(slot: string | BlockSlot, silent: boolean = false) {
-    const item: BlockEmit = isString(slot) ? { name: slot, params: [] } : slot;
-    const index = this.slots.findIndex((n) => n === item.name || n === item);
+    const item: BlockSlot = isString(slot) ? { name: slot, params: [] } : slot;
+    const index = this.slots.findIndex(
+      (n) => n === item.name || (n as BlockSlot).name === item.name
+    );
     if (index > -1) {
       this.slots.splice(index, 1, item);
     } else {

@@ -3,6 +3,33 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.56](https://github.com/samchen08/vtj.pro/compare/dev-web@0.12.55...dev-web@0.12.56) (2025-07-16)
+
+
+### Bug Fixes
+
+* 🐛 x-tabs style ([7a48c6f](https://github.com/samchen08/vtj.pro/commit/7a48c6f47982bf5d94c522a50d4b9485cf6790db))
+
+
+
+
+
+## [0.12.55](https://github.com/samchen08/vtj.pro/compare/dev-web@0.12.54...dev-web@0.12.55) (2025-07-09)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
+## [0.12.54](https://github.com/samchen08/vtj.pro/compare/dev-web@0.12.53...dev-web@0.12.54) (2025-07-08)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
 ## [0.12.53](https://github.com/samchen08/vtj.pro/compare/dev-web@0.12.52...dev-web@0.12.53) (2025-07-07)
 
 **Note:** Version bump only for package dev-web
