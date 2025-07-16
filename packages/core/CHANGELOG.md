@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.56](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.12.55...@vtj/core@0.12.56) (2025-07-16)
+
+
+### Bug Fixes
+
+* 🐛 区块定义事件和插槽重复的问题 ([3b1dead](https://gitee.com/newgateway/vtj/commits/3b1dead86b1d52d557cfe6995f58d86a837e208d))
+
+
+
+
+
 ## [0.12.55](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.12.54...@vtj/core@0.12.55) (2025-07-09)
 
 **Note:** Version bump only for package @vtj/core
