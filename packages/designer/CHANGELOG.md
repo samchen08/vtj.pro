@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.56](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.12.55...@vtj/designer@0.12.56) (2025-07-16)
+
+
+### Features
+
+* ✨ 代码校验并自动修复 ([205257b](https://gitee.com/newgateway/vtj/commits/205257b75b5ebcb5c02ec4ade0000388552277a6))
+* ✨ parser watch ([26a942a](https://gitee.com/newgateway/vtj/commits/26a942a1b1297fa7d5c7ad49121b9175efce5b62))
+
+
+
+
+
 ## [0.12.55](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.12.54...@vtj/designer@0.12.55) (2025-07-09)
 
 

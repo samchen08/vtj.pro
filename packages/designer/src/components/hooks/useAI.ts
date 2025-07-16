@@ -295,7 +295,13 @@ export function useAI() {
       const chat = reactive(res.data);
       chats.value.push(chat);
       completions(chat, (c) => {
-        if (data.auto) {
+        if (c.status === 'Error' && c.message) {
+          return onPostChat({
+            ...data,
+            prompt: c.message
+          });
+        }
+        if (c.status === 'Success' && data.auto) {
           onApply(c);
         }
       });
@@ -333,6 +339,15 @@ export function useAI() {
       name,
       source
     });
+  };
+
+  const collectErrorMesssage = (msg: any) => {
+    let message = '';
+    if (Array.isArray(msg)) {
+      message += '页面存在以下错误，请检查并修复：\n';
+      message += msg.join(';\n');
+    }
+    return message ? message : '代码有异常，请检查并修复';
   };
 
   const completions = async (
@@ -380,14 +395,7 @@ export function useAI() {
           chat.thinking = Math.ceil(thinking / 1000);
           chat.vue = getVueCode(chat.content);
           const dsl = await vue2Dsl(chat).catch((e) => {
-            if (Array.isArray(e)) {
-              chat.message = e.join('\n');
-            } else {
-              const messages = e?.data || e?.message;
-              chat.message = Array.isArray(messages)
-                ? messages.join('，')
-                : '代码有错误';
-            }
+            chat.message = collectErrorMesssage(e);
             chat.status = 'Error';
             return null;
           });
@@ -396,13 +404,13 @@ export function useAI() {
               chat.dsl = typeof dsl === 'object' ? dsl : JSON.parse(dsl);
               if (Array.isArray(chat.dsl)) {
                 chat.status = 'Error';
-                chat.message = chat.dsl.join(', ');
+                chat.message = collectErrorMesssage(chat.dsl);
                 chat.dsl = null;
               }
             } catch (err: any) {
               chat.dsl = null;
               chat.status = 'Error';
-              chat.message = err?.message;
+              chat.message = collectErrorMesssage(err.message);
             }
           }
           await saveChat(chat);

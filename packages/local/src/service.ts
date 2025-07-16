@@ -335,7 +335,6 @@ export async function parseVue(options: IParseVueOptions) {
     errors = e;
     return null;
   });
-
   return success(errors ? errors : dsl);
 }
 

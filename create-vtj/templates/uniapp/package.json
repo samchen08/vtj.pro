@@ -74,7 +74,7 @@
     "@uni-helper/uni-app-types": "~0.5.13",
     "@uni-helper/uni-ui-types": "~0.5.13",
     "@vue/runtime-core": "~3.5.5",
-    "miniprogram-api-typings": "~4.0.2",
+    "miniprogram-api-typings": "~4.1.0",
     "@vtj/cli": "latest",
     "@vtj/pro": "latest",
     "@vtj/local": "latest"

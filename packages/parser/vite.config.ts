@@ -11,9 +11,11 @@ export default createViteConfig({
     '@vue/compiler-sfc',
     '@vue/compiler-dom',
     '@vue/compiler-core',
+    '@babel/core',
     '@babel/parser',
     '@babel/traverse',
     '@babel/generator',
+    '@babel/types',
     'postcss',
     'sass'
   ]

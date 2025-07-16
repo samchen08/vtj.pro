@@ -14,25 +14,38 @@ import { parseTemplate } from './template';
 import { parseScripts, type ImportStatement } from './scripts';
 import { parseStyle } from './style';
 import { htmlToNodes } from './html';
-import { patchCode, replacer, validate } from './utils';
+import { patchCode, replacer } from './utils';
+import { ComponentValidator, AutoFixer } from '../tools';
 
 export type IParseVueOptions = ParseVueOptions & { project: ProjectSchema };
 
 export { patchCode, replacer, htmlToNodes };
 
 export async function parseVue(options: IParseVueOptions) {
-  const { id, name, source, project } = options;
+  const { id, name, source: __source, project } = options;
   const { dependencies = [], platform = 'web' } = project || {};
-  const __errors = validate(source);
-  if (__errors.length) {
+  const validator = new ComponentValidator();
+  const fixer = new AutoFixer();
+  const validation = validator.validate(__source);
+  let __errors: string[] = [];
+  if (!validation.valid) {
+    __errors = validation.errors;
     return Promise.reject(__errors);
   }
+  const source = fixer.fixBasedOnValidation(__source, validation);
+
   const sfc = parseSFC(source);
   const {
     styles,
     css,
     errors: styleErrors
   } = parseStyle(sfc.styles.join('\n'));
+
+  __errors.push(...styleErrors);
+  if (__errors.length) {
+    return Promise.reject(__errors);
+  }
+
   const {
     state,
     watch,
@@ -113,11 +126,6 @@ export async function parseVue(options: IParseVueOptions) {
       exp.value = patchCode(code, '', patchCodeOpt);
     }
   );
-
-  __errors.push(...styleErrors);
-  if (__errors.length) {
-    return Promise.reject(__errors);
-  }
 
   const model = new BlockModel(dsl);
   return model.toDsl();
