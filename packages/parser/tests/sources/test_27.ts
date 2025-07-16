@@ -30,6 +30,16 @@ export const test_27 = `
         handler() {
           console.log('change');
         }
+      },
+      state(val) {
+        console.log(val)
+      },
+      'state.link': {
+        deep: false,
+        immediate: false,
+        handler() {
+          console.log('change');
+        }
       }
     }
   })

@@ -8,6 +8,7 @@ import type {
   CallExpression,
   Identifier
 } from '@babel/types';
+import { uid } from '@vtj/base';
 import { parseScript as toAST, traverseAST, generateCode } from '../shared';
 import type {
   BlockState,
@@ -409,11 +410,10 @@ function getWatches(
     } else {
       if (item.type === 'ObjectMethod') {
         watches.push({
-          id: name.replace('watcher_', ''),
-          // todo: 处理上下文
+          id: uid(),
           source: {
             type: 'JSFunction',
-            value: `this.${name}`
+            value: `() => { return this.${name}; }`
           },
           deep: false,
           immediate: false,
@@ -425,11 +425,10 @@ function getWatches(
         const properties = (value as ObjectExpression)
           .properties as ObjectProperty[];
         watches.push({
-          id: name.replace('watcher_', ''),
-          // todo: 处理上下文
+          id: uid(),
           source: {
             type: 'JSFunction',
-            value: `this.${name}`
+            value: `() => { return this.${name}; }`
           },
           deep: getBooleanValue(properties, 'deep'),
           immediate: getBooleanValue(properties, 'immediate'),

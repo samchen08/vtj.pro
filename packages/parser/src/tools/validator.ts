@@ -20,18 +20,18 @@ export class ComponentValidator {
 
     // 基础结构校验
     if (!this.isCompleteSFC(code)) {
-      result.errors.push('不符合单文件组件格式');
+      result.errors.push('代码不符合Vue3单文件组件规范');
       result.valid = false;
     }
 
     // setup函数校验
     if (!this.checkSetup(code)) {
-      result.errors.push('setup不符合模版要求');
+      result.errors.push('setup不符合低代码模版要求');
       result.valid = false;
     }
 
     if (this.hasUnchangedComment(code)) {
-      result.errors.push('代码不完整，需要输出完整代码，不能省略');
+      result.errors.push('代码不完整，需要输出完整代码，不能有任何省略');
       result.valid = false;
     }
 
