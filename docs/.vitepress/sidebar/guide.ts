@@ -86,6 +86,12 @@ export default [
   },
   {
     text: '高级',
-    items: [{ text: '🔥 打造专属在线开发平台', link: '/service' }]
+    items: [
+      { text: '🔥 打造专属在线开发平台', link: '/service' },
+      {
+        text: '🧩 集成 RuoYi-Vue3',
+        link: 'https://gitee.com/newgateway/VTJ-RuoYi-Vue3'
+      }
+    ]
   }
 ];
