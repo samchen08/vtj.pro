@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.58](https://gitee.com/newgateway/vtj/compare/@vtj/parser@0.12.57...@vtj/parser@0.12.58) (2025-07-16)
+
+
+### Bug Fixes
+
+* 🐛 parser 解决重复图标问题 ([56a7a1f](https://gitee.com/newgateway/vtj/commits/56a7a1f7098ad003fc1558d8d28fc34122ed50bc))
+
+
+
+
+
+## [0.12.57](https://gitee.com/newgateway/vtj/compare/@vtj/parser@0.12.56...@vtj/parser@0.12.57) (2025-07-16)
+
+
+### Bug Fixes
+
+* 🐛 parser script ([b2f03a1](https://gitee.com/newgateway/vtj/commits/b2f03a1a4c9470f77c3a9aa719d16ffddfe6b657))
+
+
+
+
+
 ## [0.12.56](https://gitee.com/newgateway/vtj/compare/@vtj/parser@0.12.55...@vtj/parser@0.12.56) (2025-07-16)
 
 
