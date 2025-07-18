@@ -47,6 +47,15 @@ function creator() {
   }
 
   return {
+    node: {
+      overrides: {
+        fs: 'memfs'
+      },
+      globals: {
+        process: true
+      },
+      protocolImports: true
+    },
     proxy,
     host: '0.0.0.0',
     base: './',

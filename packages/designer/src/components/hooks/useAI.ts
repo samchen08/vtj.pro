@@ -231,7 +231,14 @@ export function useAI() {
       const rChat = reactive(chat);
       chats.value.push(rChat);
       completions(rChat, (c) => {
-        if (data.auto) {
+        if (c.status === 'Error' && c.message) {
+          return onPostChat({
+            model: data.model,
+            auto: data.auto,
+            prompt: c.message
+          });
+        }
+        if (c.status === 'Success' && data.auto) {
           onApply(c);
         }
       });
@@ -267,7 +274,14 @@ export function useAI() {
       const rChat = reactive(chat);
       chats.value.push(rChat);
       completions(rChat, (c) => {
-        if (data.auto) {
+        if (c.status === 'Error' && c.message) {
+          return onPostChat({
+            model: data.model,
+            auto: data.auto,
+            prompt: c.message
+          });
+        }
+        if (c.status === 'Success' && data.auto) {
           onApply(c);
         }
       });
@@ -498,7 +512,11 @@ export function useAI() {
 
   const onRefresh = (chat: AIChat) => {
     if (isPending.value) return;
-    return completions(chat);
+    return completions(chat, (c) => {
+      if (engine.state.autoApply) {
+        onApply(c);
+      }
+    });
   };
 
   const onApply = (chat: AIChat, manual?: boolean) => {
@@ -522,7 +540,7 @@ export function useAI() {
   const onFix = (chat: AIChat) => {
     if (!currentTopic.value) return;
     const prompt = chat.message
-      ? `页面存在以下问题：\n ${chat.message} \n请检查代码并修复`
+      ? chat.message
       : '请检查代码是否有错误，是否符合规则要求，并改正';
     fillPromptInput(prompt);
   };

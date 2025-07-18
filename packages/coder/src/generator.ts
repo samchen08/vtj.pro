@@ -24,13 +24,43 @@ import { scriptCompiled, vueCompiled } from './templates';
  * 4. Compiled token 注入模板生成代码文件字符串
  */
 
+export interface GeneratorOptions {
+  dsl: BlockSchema;
+  componentMap?: Map<string, MaterialDescription>;
+  dependencies?: Dependencie[];
+  platform?: PlatformType;
+  formatterDisabled?: boolean;
+  ts?: boolean;
+  scss?: boolean;
+}
+
 export async function generator(
-  dsl: BlockSchema,
-  componentMap: Map<string, MaterialDescription> = new Map(),
-  dependencies: Dependencie[] = [],
-  platform: PlatformType = 'web',
-  formatterDisabled?: boolean
+  _dsl: BlockSchema | GeneratorOptions,
+  _componentMap: Map<string, MaterialDescription> = new Map(),
+  _dependencies: Dependencie[] = [],
+  _platform: PlatformType = 'web',
+  _formatterDisabled?: boolean
 ) {
+  const maybeOptions: any = _dsl;
+  const options: GeneratorOptions =
+    typeof maybeOptions.dsl === 'object' && arguments.length === 1
+      ? maybeOptions
+      : {
+          dsl: _dsl,
+          componentMap: _componentMap,
+          dependencies: _dependencies,
+          platform: _platform,
+          formatterDisabled: _formatterDisabled
+        };
+  const {
+    dsl,
+    componentMap = new Map(),
+    dependencies = [],
+    platform = 'web',
+    formatterDisabled = false,
+    ts = true,
+    scss = false
+  } = options;
   const collecter = new Collecter(cloneDeep(dsl), dependencies);
   const token = parser(collecter, componentMap, platform);
   const script = scriptCompiled(token);
@@ -38,7 +68,9 @@ export async function generator(
     template: token.template,
     css: await cssFormatter(token.css, formatterDisabled),
     script: await tsFormatter(script, formatterDisabled),
-    style: await cssFormatter(token.style, formatterDisabled)
+    style: await cssFormatter(token.style, formatterDisabled),
+    scriptLang: ts ? 'ts' : 'js',
+    styleLang: scss ? 'scss' : 'css'
   });
   return await vueFormatter(vue, formatterDisabled).catch((e) => {
     e.content = vue;

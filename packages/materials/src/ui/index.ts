@@ -28,6 +28,7 @@ import importButton from './import-button';
 import dialogGrid from './dialog-grid';
 import captcha from './captcha';
 import verify from './verify';
+import menu from './menu';
 
 const name = '@vtj/ui';
 const components: MaterialDescription[] = [
@@ -53,7 +54,8 @@ const components: MaterialDescription[] = [
   importButton,
   dialogGrid,
   captcha,
-  verify
+  verify,
+  menu
 ].flat();
 
 const categories: MaterialCategory[] = [

@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.60](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.12.59...@vtj/designer@0.12.60) (2025-07-18)
+
+
+### Bug Fixes
+
+* 🐛 desginer   box-sizing style ([bbeb093](https://gitee.com/newgateway/vtj/commits/bbeb09325f2ceb1100248467ca95ab59d573361b))
+
+
+
+
+
+## [0.12.59](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.12.58...@vtj/designer@0.12.59) (2025-07-18)
+
+
+### Bug Fixes
+
+* 🐛 优化AI错误处理 ([2f40717](https://gitee.com/newgateway/vtj/commits/2f40717e4e1c6d086e5bd2a9ba9f11fc5c052070))
+
+
+
+
+
 ## [0.12.58](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.12.57...@vtj/designer@0.12.58) (2025-07-16)
 
 **Note:** Version bump only for package @vtj/designer

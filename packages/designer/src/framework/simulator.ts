@@ -141,6 +141,7 @@ export class Simulator extends Base {
           }
           #app.is-page {
              padding: 10px;
+             box-sizing: border-box;
           }
             #app.is-page.is-pure {
              background-color: var(--el-fill-color-light, #f5f7fa);

@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.60](https://gitee.com/newgateway/vtj/compare/@vtj/pro@0.12.59...@vtj/pro@0.12.60) (2025-07-18)
+
+
+### Bug Fixes
+
+* 🐛 desginer   box-sizing style ([bbeb093](https://gitee.com/newgateway/vtj/commits/bbeb09325f2ceb1100248467ca95ab59d573361b))
+
+
+
+
+
+## [0.12.59](https://gitee.com/newgateway/vtj/compare/@vtj/pro@0.12.58...@vtj/pro@0.12.59) (2025-07-18)
+
+
+### Bug Fixes
+
+* 🐛 pro ide delay openFile ([1f42184](https://gitee.com/newgateway/vtj/commits/1f421843ef52764e90c1e5c84318ed44fa9274a0))
+
+
+
+
+
 ## [0.12.58](https://gitee.com/newgateway/vtj/compare/@vtj/pro@0.12.57...@vtj/pro@0.12.58) (2025-07-16)
 
 **Note:** Version bump only for package @vtj/pro
