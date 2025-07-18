@@ -361,7 +361,9 @@ export function useAI() {
       message += '页面存在以下错误，请检查并修复：\n';
       message += msg.join(';\n');
     }
-    return message ? message : '代码有异常，请检查并修复';
+    return message
+      ? message
+      : '请检查代码是否有错误，是否符合模版和规则要求，并改正';
   };
 
   const completions = async (
@@ -541,7 +543,7 @@ export function useAI() {
     if (!currentTopic.value) return;
     const prompt = chat.message
       ? chat.message
-      : '请检查代码是否有错误，是否符合规则要求，并改正';
+      : '请检查代码是否有错误，是否符合模版和规则要求，并改正';
     fillPromptInput(prompt);
   };
 
