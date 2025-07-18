@@ -2,6 +2,10 @@
 
 通过脚手架可以快速创建新项目，但对于已有项目，本章将详细介绍如何集成VTJ低代码设计器。
 
+:::info RuoYi-Vue3 集成示例
+[https://gitee.com/newgateway/VTJ-RuoYi-Vue3](https://gitee.com/newgateway/VTJ-RuoYi-Vue3)
+:::
+
 ## 前提条件
 
 :::warning 项目技术要求
