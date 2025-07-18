@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.60](https://gitee.com/newgateway/vtj/compare/@vtj/pro@0.12.59...@vtj/pro@0.12.60) (2025-07-18)
+
+
+### Bug Fixes
+
+* 🐛 desginer   box-sizing style ([bbeb093](https://gitee.com/newgateway/vtj/commits/bbeb09325f2ceb1100248467ca95ab59d573361b))
+
+
+
+
+
 ## [0.12.59](https://gitee.com/newgateway/vtj/compare/@vtj/pro@0.12.58...@vtj/pro@0.12.59) (2025-07-18)
 
 
