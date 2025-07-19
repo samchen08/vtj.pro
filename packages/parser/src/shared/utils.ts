@@ -1,10 +1,9 @@
 import { parse } from '@vue/compiler-sfc';
-import { transformSync, type Visitor } from '@babel/core';
 import { parse as babelParse } from '@babel/parser';
 import traverse from '@babel/traverse';
 import generate from '@babel/generator';
 import type { Node } from '@babel/types';
-import type { TraverseOptions } from '@babel/traverse';
+import type { TraverseOptions, Visitor } from '@babel/traverse';
 
 import type { JSExpression, JSFunction, NodeSchema } from '@vtj/core';
 
@@ -70,9 +69,12 @@ export function isNodeSchema(
 }
 
 export function transformScript(script: string, visitor: Visitor) {
-  return (
-    transformSync(script, {
-      plugins: [() => ({ visitor })]
-    })?.code || ''
-  );
+  try {
+    const ast = parseScript(script);
+    traverseAST(ast, visitor);
+    const code = generateCode(ast);
+    return code || '';
+  } catch (e) {
+    return '';
+  }
 }

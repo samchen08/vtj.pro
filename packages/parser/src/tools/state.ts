@@ -301,7 +301,8 @@ export function checkAndFixStatePrefix(vueCode: string): FixResult {
   // 重新组装完整的 Vue 文件
   if (fixes.length > 0) {
     const templateStart = vueCode.indexOf('<template>');
-    const templateEnd = vueCode.indexOf('</template>') + '</template>'.length;
+    const templateEnd =
+      vueCode.lastIndexOf('</template>') + '</template>'.length;
 
     fixedCode =
       vueCode.substring(0, templateStart) +

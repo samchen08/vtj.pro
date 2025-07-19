@@ -4,7 +4,13 @@ export const test_2 = {
   inject: [],
   state: {},
   lifeCycles: {},
-  methods: {},
+  methods: {
+    fetchArticles: {
+      type: 'JSFunction',
+      value:
+        "() => {\n  const mockArticles = this.$libs.Mock.Mock.mock({\n    'total|20-50': 0,\n    'list|5': [\n      {\n        'id|+1': 1,\n        title: '@ctitle(10, 20)',\n        summary: '@cparagraph(2, 4)',\n        date: '@date(\"yyyy-MM-dd\")',\n        author: '@cname()',\n        'category|1': ['前端技术', '后端开发', '设计', '生活随笔']\n      }\n    ]\n  });\n  this.state.latestArticles = mockArticles.list;\n  this.state.totalArticles = mockArticles.total;\n}"
+    }
+  },
   computed: {},
   watch: [],
   css: '',

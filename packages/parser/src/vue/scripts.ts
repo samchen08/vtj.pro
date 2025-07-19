@@ -245,7 +245,7 @@ function getMethods(expression: ObjectExpression) {
       method &&
       !method.watcher &&
       !method.exp.value.includes('this.provider.createMock') &&
-      !method.exp.value.includes('this.provider.createMock')
+      !method.exp.value.includes('this.provider.apis')
     ) {
       methods[method.name] = method.exp;
     }

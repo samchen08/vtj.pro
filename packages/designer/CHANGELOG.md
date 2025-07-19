@@ -3,6 +3,38 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.63](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.12.62...@vtj/designer@0.12.63) (2025-07-19)
+
+
+### Bug Fixes
+
+* 🐛 优化流输出效果 ([9ba3d5f](https://gitee.com/newgateway/vtj/commits/9ba3d5ff055ad837f4f1935a83ac59a8a4ee0f30))
+* 🐛 MAX_TOKENS ([8de5dc5](https://gitee.com/newgateway/vtj/commits/8de5dc5dd333d8518a715997b65c882337a12bde))
+
+
+
+
+
+## [0.12.62](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.12.61...@vtj/designer@0.12.62) (2025-07-19)
+
+**Note:** Version bump only for package @vtj/designer
+
+
+
+
+
+## [0.12.61](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.12.60...@vtj/designer@0.12.61) (2025-07-19)
+
+
+### Bug Fixes
+
+* 🐛 fix错误提示 ([8d5d7d9](https://gitee.com/newgateway/vtj/commits/8d5d7d981564247b4cef9c1ece6cfff22051a087))
+* 🐛 parser 删除 @babel/core 依赖 ([76cefe2](https://gitee.com/newgateway/vtj/commits/76cefe2b95abfcce7584f81b2e66282b94f0cb3c))
+
+
+
+
+
 ## [0.12.60](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.12.59...@vtj/designer@0.12.60) (2025-07-18)
 
 

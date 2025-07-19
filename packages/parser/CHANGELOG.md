@@ -3,6 +3,38 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.63](https://gitee.com/newgateway/vtj/compare/@vtj/parser@0.12.62...@vtj/parser@0.12.63) (2025-07-19)
+
+**Note:** Version bump only for package @vtj/parser
+
+
+
+
+
+## [0.12.62](https://gitee.com/newgateway/vtj/compare/@vtj/parser@0.12.61...@vtj/parser@0.12.62) (2025-07-19)
+
+
+### Bug Fixes
+
+* 🐛 coder 双引号问题 ([bec5a28](https://gitee.com/newgateway/vtj/commits/bec5a28bf8404cebc73ce6747c090a175d40eea3))
+
+
+
+
+
+## [0.12.61](https://gitee.com/newgateway/vtj/compare/@vtj/parser@0.12.60...@vtj/parser@0.12.61) (2025-07-19)
+
+
+### Bug Fixes
+
+* 🐛 parser 节点id重新生成问题 ([a4416f8](https://gitee.com/newgateway/vtj/commits/a4416f8092d728812e56bd67d7aa509d89fec8d7))
+* 🐛 parser 删除 @babel/core 依赖 ([76cefe2](https://gitee.com/newgateway/vtj/commits/76cefe2b95abfcce7584f81b2e66282b94f0cb3c))
+* 🐛 parser 数据源方法重复 ([a47cabe](https://gitee.com/newgateway/vtj/commits/a47cabef1fb4efd0b00cd4cacb532a6f0fd638e7))
+
+
+
+
+
 ## [0.12.60](https://gitee.com/newgateway/vtj/compare/@vtj/parser@0.12.59...@vtj/parser@0.12.60) (2025-07-18)
 
 **Note:** Version bump only for package @vtj/parser

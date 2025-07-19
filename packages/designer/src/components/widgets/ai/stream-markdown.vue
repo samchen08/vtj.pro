@@ -9,6 +9,7 @@
 <script lang="ts" setup>
   import { ref, type Ref, watch, nextTick } from 'vue';
   import { marked } from 'marked';
+  import { throttle } from '@vtj/utils';
   import hljs from 'highlight.js/lib/core';
   import 'highlight.js/styles/atom-one-dark.css';
   import xml from 'highlight.js/lib/languages/xml';
@@ -42,7 +43,12 @@
     });
   };
 
-  watch(() => props.content, updateContent, { immediate: true });
+  const throttleUpdate = throttle(updateContent, 50, {
+    leading: true,
+    trailing: true
+  });
+
+  watch(() => props.content, throttleUpdate, { immediate: true });
 
   const onClick = (e: MouseEvent) => {
     if (props.code) return;

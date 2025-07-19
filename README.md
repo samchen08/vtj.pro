@@ -1,7 +1,9 @@
-> ✨✨✨ 福利来了 ✨✨✨
-> 回馈活动，AI助手百万额度免费领，领取链接：[https://lcdp.vtj.pro/tokens?code=gitee](https://lcdp.vtj.pro/tokens?code=gitee)
-
-<div align="center"> <a href="https://gitee.com/newgateway/vtj"> <img width="100" src="./platforms/pro/public/logo.svg"> </a> <br> <br>
+<div><a href="https://vtj.pro"><img src="dev/public//banner.png" /></a></div>
+<br>
+<div align="center"> <a href="https://gitee.com/newgateway/vtj"> <img width="100" src="./platforms/pro/public/logo.svg"> </a> <br>
+<h1>VTJ.PRO</h1>
+<h3>AI 驱动的 Vue3 低代码开发平台</h3>
+<br>
 
 [![star](https://gitee.com/newgateway/vtj/badge/star.svg?theme=gvp)](https://gitee.com/newgateway/vtj)
 [![npm version](https://img.shields.io/npm/v/@vtj/pro.svg?style=flat-square)](https://www.npmjs.com/package/@vtj/pro)
@@ -10,16 +12,15 @@
 
 </div>
 
-# VTJ.PRO
-
-**AI 驱动的 Vue3 低代码开发平台**。
-
 内置低代码引擎、渲染器与代码生成器，**实现 Vue 源码与低代码 DSL 的双向智能转换。专为前端开发者打造，开箱即用**。
 
 **无缝融入现有工程**，**零侵入**开发流程与编码习惯。
 
 - **官方文档**：[https://vtj.pro](https://vtj.pro)
 - **在线应用开发平台**：[https://lcdp.vtj.pro](https://lcdp.vtj.pro)
+
+> ✨✨✨ 福利来了 ✨✨✨
+> 回馈活动，AI助手百万额度免费领，领取链接：[https://lcdp.vtj.pro/tokens?code=gitee](https://lcdp.vtj.pro/tokens?code=gitee)
 
 ## 核心特性
 

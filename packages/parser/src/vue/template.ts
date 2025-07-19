@@ -290,28 +290,23 @@ function getDirectives(
   return directives;
 }
 
-function getNodeId(el: NodeSchema) {
+function getNodeId(node: ElementNode | TemplateChildNode) {
   let id: string = '';
-  const { name, props, events = {} } = el;
-  const classes = props?.class || '';
-  // 从class提取id
-  if (typeof classes === 'string') {
-    const clsRegex = new RegExp(`${name}_\(\[\\w\]\+\)`);
-    const matches = classes.match(clsRegex);
-    if (matches && matches[1]) {
-      id = matches[1];
+  if (node.type === NodeTypes.ELEMENT) {
+    const { props = [], tag } = node;
+    for (const prop of props) {
+      if (prop.name === 'class') {
+        const content: string = (prop as any).value?.content || '';
+        const clsRegex = new RegExp(`${tag}_\(\[\\w\]\+\)`);
+        id = content.match(clsRegex)?.[1] || '';
+      } else if (prop.type === NodeTypes.DIRECTIVE && prop.name === 'on') {
+        const arg = prop.arg?.loc?.source || '';
+        const content = prop.exp?.loc?.source || '';
+        const regex = new RegExp(`${arg}_\(\[\\w\]\+\)`);
+        id = content.match(regex)?.[1] || '';
+      }
     }
   }
-
-  // 从事件绑定句柄提取id
-  for (const { name, handler } of Object.values(events)) {
-    const regex = new RegExp(`${name}_\(\[\\w\]\+\)`);
-    const matches = handler.value.match(regex);
-    if (matches && matches[1]) {
-      id = matches[1];
-    }
-  }
-
   return id || uid();
 }
 
@@ -368,7 +363,8 @@ function createNodeSchema(
     directives: getDirectives(scope || node, branches)
   };
 
-  dsl.id = getNodeId(dsl);
+  dsl.id = getNodeId(node);
+
   // v-for 上下文
   pickContext(dsl, parent);
   const el = transformChildren(dsl, node.children);
@@ -515,7 +511,7 @@ function transformChildren(
           __nodes.forEach((node) => {
             // 补充插槽指令
             if (isNodeSchema(node) && slot?.type === NodeTypes.DIRECTIVE) {
-              node.id = getNodeId(node);
+              node.id = getNodeId(child);
               node.slot = {
                 name: (slot.arg as any)?.content || 'default',
                 params: slot.exp?.identifiers || []
