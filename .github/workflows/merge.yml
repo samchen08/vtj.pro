@@ -22,16 +22,16 @@ jobs:
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
 
-      - name: 合并 next 分支到 main
+      - name: 合并 next 分支到 master
         run: |
-          # 切换到 main 分支
-          git checkout main
+          # 切换到 master 分支
+          git checkout master
 
           # 尝试合并 next 分支（使用 --no-ff 保留合并记录）
-          git merge --no-ff -m "Merge next into main (Automated by GitHub Actions)" origin/next
+          git merge --no-ff -m "Merge next into master (Automated by GitHub Actions)" origin/next
 
           # 推送到远程仓库
-          git push origin main
+          git push origin master
 
         env:
           # 使用 GitHub Token 进行身份验证
