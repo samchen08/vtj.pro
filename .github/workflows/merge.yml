@@ -3,7 +3,7 @@ name: Merge Next Branch
 on:
   push:
     tags:
-      - '0.*' # 监听以 v 开头的标签推送（例如 v1.0.0）
+      - '0.*' # 监听以 0. 开头的标签推送（例如 0.0.1）
 
 jobs:
   merge-next-to-main:
