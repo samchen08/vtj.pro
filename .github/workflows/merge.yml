@@ -1,0 +1,38 @@
+name: Merge Next Branch
+
+on:
+  push:
+    tags:
+      - '0.*' # 监听以 v 开头的标签推送（例如 v1.0.0）
+
+jobs:
+  merge-next-to-main:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # 需要写权限执行合并操作
+
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # 获取所有历史记录和分支
+
+      - name: 配置 Git 用户
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+
+      - name: 合并 next 分支到 main
+        run: |
+          # 切换到 main 分支
+          git checkout main
+
+          # 尝试合并 next 分支（使用 --no-ff 保留合并记录）
+          git merge --no-ff -m "Merge next into main (Automated by GitHub Actions)" origin/next
+
+          # 推送到远程仓库
+          git push origin main
+
+        env:
+          # 使用 GitHub Token 进行身份验证
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -1,0 +1,29 @@
+name: Create Release
+
+on:
+  push:
+    tags:
+      - '0.*' # 匹配 0. 开头的标签
+
+jobs:
+  create-release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # 必须授予写入权限
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # 自动生成的令牌
+        with:
+          tag_name: ${{ github.ref_name }} # 使用触发工作流的标签
+          release_name: 'Release ${{ github.ref_name }}'
+          body: |
+            Please refer to [CHANGELOG.md](https://github.com/ChenXiaohui99/vtj/blob/master/docs/CHANGELOG.md) for details.
+          draft: false
+          prerelease: ${{ contains(github.ref_name, 'beta') }} # 自动检测是否为预发布
