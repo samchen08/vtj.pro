@@ -99,6 +99,7 @@
   const currentOption = ref('text');
 
   const onTopicClick = (topic: AITopic) => {
+    currentOption.value = 'text';
     props.fillPromptInput(topic.prompt);
   };
 
