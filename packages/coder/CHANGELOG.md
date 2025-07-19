@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.61](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.12.60...@vtj/coder@0.12.61) (2025-07-19)
+
+**Note:** Version bump only for package @vtj/coder
+
+
+
+
+
+## [0.12.60](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.12.59...@vtj/coder@0.12.60) (2025-07-18)
+
+
+### Features
+
+* ✨ XMenu ([c6409fc](https://gitee.com/newgateway/vtj/commits/c6409fce89c4eb8a57494dc27b3ec6af08470f2f))
+
+
+
+
+
 ## [0.12.59](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.12.58...@vtj/coder@0.12.59) (2025-07-18)
 
 **Note:** Version bump only for package @vtj/coder

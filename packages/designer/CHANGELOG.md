@@ -3,6 +3,29 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.61](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.12.60...@vtj/designer@0.12.61) (2025-07-19)
+
+
+### Bug Fixes
+
+* 🐛 fix错误提示 ([8d5d7d9](https://gitee.com/newgateway/vtj/commits/8d5d7d981564247b4cef9c1ece6cfff22051a087))
+* 🐛 parser 删除 @babel/core 依赖 ([76cefe2](https://gitee.com/newgateway/vtj/commits/76cefe2b95abfcce7584f81b2e66282b94f0cb3c))
+
+
+
+
+
+## [0.12.60](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.12.59...@vtj/designer@0.12.60) (2025-07-18)
+
+
+### Bug Fixes
+
+* 🐛 desginer   box-sizing style ([bbeb093](https://gitee.com/newgateway/vtj/commits/bbeb09325f2ceb1100248467ca95ab59d573361b))
+
+
+
+
+
 ## [0.12.59](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.12.58...@vtj/designer@0.12.59) (2025-07-18)
 
 

@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.61](https://github.com/samchen08/vtj.pro/compare/dev-web@0.12.60...dev-web@0.12.61) (2025-07-19)
+
+
+### Bug Fixes
+
+* 🐛 parser 删除 @babel/core 依赖 ([76cefe2](https://github.com/samchen08/vtj.pro/commit/76cefe2b95abfcce7584f81b2e66282b94f0cb3c))
+
+
+
+
+
+## [0.12.60](https://github.com/samchen08/vtj.pro/compare/dev-web@0.12.59...dev-web@0.12.60) (2025-07-18)
+
+
+### Bug Fixes
+
+* 🐛 dev add nodePolyfill ([292525c](https://github.com/samchen08/vtj.pro/commit/292525cd094f21bf532ff44b1223207acaebe4c4))
+
+
+
+
+
 ## [0.12.59](https://github.com/samchen08/vtj.pro/compare/dev-web@0.12.58...dev-web@0.12.59) (2025-07-18)
 
 **Note:** Version bump only for package dev-web
