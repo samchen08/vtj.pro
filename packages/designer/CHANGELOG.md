@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.63](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.12.62...@vtj/designer@0.12.63) (2025-07-19)
+
+
+### Bug Fixes
+
+* 🐛 优化流输出效果 ([9ba3d5f](https://gitee.com/newgateway/vtj/commits/9ba3d5ff055ad837f4f1935a83ac59a8a4ee0f30))
+* 🐛 MAX_TOKENS ([8de5dc5](https://gitee.com/newgateway/vtj/commits/8de5dc5dd333d8518a715997b65c882337a12bde))
+
+
+
+
+
+## [0.12.62](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.12.61...@vtj/designer@0.12.62) (2025-07-19)
+
+**Note:** Version bump only for package @vtj/designer
+
+
+
+
+
 ## [0.12.61](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.12.60...@vtj/designer@0.12.61) (2025-07-19)
 
 

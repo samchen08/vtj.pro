@@ -42,7 +42,7 @@ export function parseValue(
   computedKeys: string[] = []
 ) {
   let value = isJSCode(val)
-    ? val.value.trim().replace(/\"/g, "'").replace(/;$/, '')
+    ? val.value.trim().replace(/\"/g, '\\"').replace(/;$/, '')
     : stringify
       ? JSON.stringify(val)
       : val;

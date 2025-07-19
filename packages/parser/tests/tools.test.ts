@@ -10,6 +10,7 @@ test('test_1', async () => {
   const fixer = new AutoFixer();
   const validation = validtor.validate(source);
   const content = fixer.fixBasedOnValidation(source, validation);
+
   // console.log(content);
 
   const result = await parseVue({
@@ -23,5 +24,6 @@ test('test_1', async () => {
 
   console.log(JSON.stringify(result, null, 2));
 
+  // console.log(JSON.stringify(result));
   expect(true).toBeTruthy();
 });
