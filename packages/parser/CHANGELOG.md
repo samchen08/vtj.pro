@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.62](https://gitee.com/newgateway/vtj/compare/@vtj/parser@0.12.61...@vtj/parser@0.12.62) (2025-07-19)
+
+
+### Bug Fixes
+
+* 🐛 coder 双引号问题 ([bec5a28](https://gitee.com/newgateway/vtj/commits/bec5a28bf8404cebc73ce6747c090a175d40eea3))
+
+
+
+
+
 ## [0.12.61](https://gitee.com/newgateway/vtj/compare/@vtj/parser@0.12.60...@vtj/parser@0.12.61) (2025-07-19)
 
 
