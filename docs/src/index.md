@@ -1,13 +1,13 @@
 ---
 # https://vitepress.dev/reference/default-theme-home-page
 
-title: AI + 低代码
+title: AI 驱动的 Vue3 低代码开发平台
 
 layout: home
 hero:
   name: 'VTJ.PRO'
   text: AI + 低代码
-  tagline: 所想即所见，融合双核优势，打造高生产力研发平台
+  tagline: 所想即所见，融合双核优势，让设计秒生纯净代码
   image:
     src: /assets/logo-w.svg
   actions:
@@ -17,10 +17,6 @@ hero:
     - theme: alt
       text: 💡 在线体验
       link: https://lcdp.vtj.pro/page/92q671qifm
-      target: new
-    - theme: alt
-      text: ⭐ 源码仓库
-      link: https://gitee.com/newgateway/vtj
       target: new
 
 features:

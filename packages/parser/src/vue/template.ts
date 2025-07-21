@@ -514,8 +514,13 @@ function transformChildren(
               node.id = getNodeId(child);
               node.slot = {
                 name: (slot.arg as any)?.content || 'default',
-                params: slot.exp?.identifiers || []
+                params: slot.exp?.identifiers || [],
+                scope:
+                  slot.exp?.type === NodeTypes.SIMPLE_EXPRESSION
+                    ? slot.exp.content
+                    : ''
               };
+
               pickContext(node, el);
             }
             nodes.push(node);
