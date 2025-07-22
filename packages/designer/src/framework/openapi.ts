@@ -33,6 +33,7 @@ export interface PublishTemplateDto {
 
 export interface TopicDto {
   model: string;
+  llm?: string;
   project: string;
   dsl: string;
   source: string;
@@ -42,7 +43,7 @@ export interface TopicDto {
 
 export type TopicType = 'text' | 'image' | 'json';
 
-export type TopicDataType = 'sketch' | 'figma' | 'unknown';
+export type TopicDataType = 'sketch' | 'figma' | 'mastergo' | 'unknown';
 
 export interface AITopic {
   id: string;

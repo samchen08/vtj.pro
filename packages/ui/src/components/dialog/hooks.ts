@@ -19,7 +19,7 @@ import type { DraggableOptions, ResizableOptions } from '../../directives';
 import { parseSize } from '../../utils';
 import { isObject } from '@vtj/utils';
 
-let __global_ZIndex__ = 1000;
+let __global_ZIndex__ = 3000;
 
 export function useState(props: DialogProps, wrapper: MaybeRef<HTMLElement>) {
   const { width, height } = useElementSize(wrapper);
