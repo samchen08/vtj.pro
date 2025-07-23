@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.65](https://gitee.com/newgateway/vtj/compare/@vtj/pro@0.12.64...@vtj/pro@0.12.65) (2025-07-23)
+
+
+### Bug Fixes
+
+* 🐛 coder双引号问题 ([74ff98f](https://gitee.com/newgateway/vtj/commits/74ff98fc80bd4091b9b42b4454bb3469e6eee235))
+
+
+
+
+
 ## [0.12.64](https://gitee.com/newgateway/vtj/compare/@vtj/pro@0.12.63...@vtj/pro@0.12.64) (2025-07-23)
 
 
