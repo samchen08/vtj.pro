@@ -24,7 +24,9 @@ export const test_27 = `
     components: { ElTable, ElTableColumn },
     setup(props) {
       const provider = useProvider({ id: '17zuumip', version: '1753066495241' });
-      const state = reactive({});
+      const state = reactive({
+      tableDatra:[{"id":"abc"}]
+      });
       return { state, props, provider };
     }
   })
