@@ -86,6 +86,7 @@
 
   const onRemove = () => {
     blobUrl.value = null;
+    uploadRef.value.clearFiles();
   };
 
   watch(

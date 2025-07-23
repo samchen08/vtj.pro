@@ -13,36 +13,54 @@ export const test_2 = {
   slots: [],
   dataSources: {},
   __VTJ_BLOCK__: true,
-  __VERSION__: '1746533057463',
+  __VERSION__: '1753066559638',
   id: '235w0t1w',
   nodes: [
     {
-      id: '14zt27ji',
-      name: 'div',
-      from: '',
+      id: '17zuxu31',
+      name: 'ElTable',
+      from: 'element-plus',
       invisible: false,
       locked: false,
       children: [
         {
-          id: '24zt27ji',
-          name: 'XIcon',
-          from: '',
+          id: '27zuxu31',
+          name: 'ElTableColumn',
+          from: 'element-plus',
           invisible: false,
           locked: false,
-          children: [],
+          children: [
+            {
+              id: '47zuxu31',
+              name: 'div',
+              from: '',
+              invisible: false,
+              locked: false,
+              slot: {
+                name: 'default',
+                params: [],
+                scope: 'scope'
+              },
+              children: '容器文本内容示例',
+              props: {},
+              directives: [],
+              events: {}
+            }
+          ],
           props: {
-            icon: {
-              type: 'JSExpression',
-              value: 'this.$libs.VtjIcons.VtjIconComponents'
-            },
-            size: '24'
+            prop: 'date',
+            label: 'Date'
           },
           directives: [],
           events: {}
         }
       ],
       props: {
-        class: 'landing-page'
+        data: {
+          type: 'JSExpression',
+          value:
+            "[\n  {\n    date: '2016-05-03',\n    name: 'Tom',\n    address: 'No. 189, Grove St, Los Angeles'\n  }\n]"
+        }
       },
       directives: [],
       events: {}

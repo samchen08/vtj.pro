@@ -99,6 +99,7 @@
   const currentOption = ref('text');
 
   const onTopicClick = (topic: AITopic) => {
+    currentOption.value = 'text';
     props.fillPromptInput(topic.prompt);
   };
 
@@ -108,12 +109,14 @@
 
   const onImageSend = (file: File, auto: boolean) => {
     const model = engine.state.llm || props.models[0].value;
-    emit('imageSend', { file, auto, model } as AISendImageData);
+    const llm = engine.state.getLLMById(model);
+    emit('imageSend', { file, auto, model, llm } as AISendImageData);
   };
 
   const onJsonSend = async (file: File, auto: boolean, content: any) => {
     const model = engine.state.llm || props.models[0].value;
-    emit('jsonSend', { file, auto, model, content } as AISendJsonData);
+    const llm = engine.state.getLLMById(model);
+    emit('jsonSend', { file, auto, model, content, llm } as AISendJsonData);
   };
 
   onMounted(async () => {

@@ -3,6 +3,41 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.64](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.12.63...@vtj/renderer@0.12.64) (2025-07-23)
+
+
+### Bug Fixes
+
+* 🐛 出码插槽支持scope名称 ([ca896df](https://gitee.com/newgateway/vtj/commits/ca896df0515e0f7b1904e5c839b81010b4c45355))
+
+
+
+
+
+## [0.12.63](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.12.62...@vtj/renderer@0.12.63) (2025-07-19)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
+## [0.12.62](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.12.61...@vtj/renderer@0.12.62) (2025-07-19)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
+## [0.12.61](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.12.60...@vtj/renderer@0.12.61) (2025-07-19)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
 ## [0.12.60](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.12.59...@vtj/renderer@0.12.60) (2025-07-18)
 
 **Note:** Version bump only for package @vtj/renderer

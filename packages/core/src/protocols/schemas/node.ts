@@ -125,6 +125,7 @@ export type NodeChildren = string | JSExpression | NodeSchema[];
 export interface NodeSlot {
   name: string;
   params?: string[];
+  scope?: string;
 }
 
 /**
