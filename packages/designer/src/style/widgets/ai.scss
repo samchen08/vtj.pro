@@ -95,6 +95,15 @@
       margin-left: auto;
     }
   }
+
+  @include e(llm-item) {
+    display: flex;
+    justify-content: space-between;
+    justify-items: center;
+    .label {
+      padding-right: 20px;
+    }
+  }
 }
 
 @include b(ai-widget-bubble) {
@@ -299,6 +308,10 @@
   .el-select-dropdown__item {
     height: 26px;
     line-height: 26px;
+    padding: 0 14px;
+  }
+  .el-select-group__title {
+    padding: 0 14px;
   }
 }
 

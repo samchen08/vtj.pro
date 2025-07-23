@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.65](https://github.com/samchen08/vtj.pro/compare/@vtj/docs@0.12.64...@vtj/docs@0.12.65) (2025-07-23)
+
+**Note:** Version bump only for package @vtj/docs
+
+
+
+
+
+## [0.12.64](https://github.com/samchen08/vtj.pro/compare/@vtj/docs@0.12.63...@vtj/docs@0.12.64) (2025-07-23)
+
+
+### Bug Fixes
+
+* 🐛 出码插槽支持scope名称 ([ca896df](https://github.com/samchen08/vtj.pro/commit/ca896df0515e0f7b1904e5c839b81010b4c45355))
+
+
+
+
+
 ## [0.12.63](https://github.com/samchen08/vtj.pro/compare/@vtj/docs@0.12.62...@vtj/docs@0.12.63) (2025-07-19)
 
 **Note:** Version bump only for package @vtj/docs

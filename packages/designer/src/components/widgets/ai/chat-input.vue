@@ -13,10 +13,37 @@
         popper-class="llm-popper"
         v-model="currentModel"
         :disabled="props.lockModel || props.loading">
-        <ElOption
-          v-for="item of props.models"
-          :label="item.label"
-          :value="item.value"></ElOption>
+        <ElOptionGroup label="内置模型">
+          <ElOption
+            v-for="item of props.models"
+            :label="item.label"
+            :value="item.value"></ElOption>
+        </ElOptionGroup>
+        <ElOptionGroup label="自定义模型">
+          <ElOption
+            v-for="item of engine.state.LLMs"
+            :label="item.label"
+            :value="item.id || item.model">
+            <div class="v-ai-widget-input__llm-item">
+              <span class="label">{{ item.label }}</span>
+              <span class="actions">
+                <XIcon
+                  size="small"
+                  :icon="EditPen"
+                  @click.stop="onEditModel(item)"></XIcon>
+                <XIcon
+                  size="small"
+                  :icon="Delete"
+                  @click.stop="onRemoveModel(item)"></XIcon>
+              </span>
+            </div>
+          </ElOption>
+        </ElOptionGroup>
+        <template #footer>
+          <ElButton size="small" :icon="Plus" @click.stop="onAddModel">
+            新增模型
+          </ElButton>
+        </template>
       </ElSelect>
       <ElCheckbox
         size="small"
@@ -35,6 +62,11 @@
         发送
       </ElButton>
     </div>
+    <ModelDialog
+      v-if="formVisable"
+      v-model="formVisable"
+      :item="currentFormModel"
+      @save="onSaveModel"></ModelDialog>
   </div>
 </template>
 <script setup lang="ts">
@@ -45,12 +77,15 @@
     ElSelect,
     ElOption,
     ElCheckbox,
-    ElMessage
+    ElMessage,
+    ElOptionGroup
   } from 'element-plus';
-  import { Promotion } from '@vtj/icons';
+  import { XIcon } from '@vtj/ui';
+  import { Promotion, Plus, EditPen, Delete } from '@vtj/icons';
   import { type Dict, type AISendData } from '../../hooks';
-  import { useEngine } from '../../../framework';
-  import { message } from '../../../utils';
+  import { useEngine, type LLM } from '../../../framework';
+  import { message, confirm } from '../../../utils';
+  import ModelDialog from './model-dialog.vue';
 
   export interface Props {
     minRows?: number;
@@ -77,6 +112,8 @@
   const engine = useEngine();
   const value = ref('');
   const currentModel = ref(props.model || engine.state.llm);
+  const currentFormModel = ref<LLM | null | undefined>(null);
+  const formVisable = ref(false);
 
   watch(
     () => props.models,
@@ -121,9 +158,31 @@
     emit('send', {
       auto: engine.state.autoApply,
       prompt: value.value.trim(),
-      model: currentModel.value
+      model: currentModel.value,
+      llm: engine.state.getLLMById(currentModel.value)
     });
     value.value = '';
+  };
+
+  const onAddModel = () => {
+    currentFormModel.value = null;
+    formVisable.value = true;
+  };
+
+  const onEditModel = (item: LLM) => {
+    currentFormModel.value = item;
+    formVisable.value = true;
+  };
+
+  const onRemoveModel = async (item: LLM) => {
+    const ret = await confirm('确定删除？').catch(() => false);
+    if (ret) {
+      engine.state.removeLLM(item);
+    }
+  };
+
+  const onSaveModel = (item: LLM) => {
+    engine.state.saveLLM(item);
   };
 
   defineExpose({

@@ -6,7 +6,8 @@ import {
   type AITopic,
   type AIChat,
   type DictOption,
-  type Settings
+  type Settings,
+  type LLM
 } from '../../framework';
 import type { ProjectSchema, BlockSchema, BlockModel } from '@vtj/core';
 import { useElementSize } from '@vueuse/core';
@@ -22,12 +23,14 @@ export interface AISendData {
   model: string;
   auto: boolean;
   prompt: string;
+  llm?: LLM;
 }
 
 export interface AISendImageData {
   model: string;
   auto: boolean;
   file: File;
+  llm?: LLM;
 }
 
 export interface AISendJsonData {
@@ -35,6 +38,7 @@ export interface AISendJsonData {
   auto: boolean;
   file: File;
   content: any;
+  llm?: LLM;
 }
 
 let __currentCompletions: any = null;
@@ -65,7 +69,7 @@ async function createTopicDto(
   data: AISendData,
   engine: UseAIOptions['engine']
 ) {
-  const { model, prompt = '' } = data;
+  const { model, prompt = '', llm } = data;
   const { projectDsl, dsl, source } = await createCommonDto(engine);
 
   const dto: TopicDto = {
@@ -73,7 +77,8 @@ async function createTopicDto(
     prompt,
     dsl: JSON.stringify(dsl),
     project: JSON.stringify(projectDsl),
-    source
+    source,
+    llm: llm ? JSON.stringify(llm) : ''
   };
   return dto;
 }
@@ -82,14 +87,15 @@ async function createImageTopicDto(
   data: AISendImageData,
   engine: UseAIOptions['engine']
 ) {
-  const { model, file } = data;
+  const { model, file, llm } = data;
   const { projectDsl, dsl, source } = await createCommonDto(engine);
   const dto: TopicDto = {
     model,
     file,
     dsl: JSON.stringify(dsl),
     project: JSON.stringify(projectDsl),
-    source
+    source,
+    llm: llm ? JSON.stringify(llm) : ''
   };
   return dto;
 }
@@ -434,11 +440,11 @@ export function useAI() {
         }
       },
       async (err: any) => {
-        const message = err.message || err.name || '未知错误';
+        const message = err.message || err.name;
         if (message === 'network error') {
           chat.message = '网络异常，请稍后再试';
         } else {
-          chat.message = '请求失败，请稍后再试';
+          chat.message = message || '请求失败，请稍后再试';
         }
         chat.status = 'Failed';
         console.warn('completions error', err);

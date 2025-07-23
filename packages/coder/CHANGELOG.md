@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.65](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.12.64...@vtj/coder@0.12.65) (2025-07-23)
+
+
+### Bug Fixes
+
+* 🐛 coder双引号问题 ([74ff98f](https://gitee.com/newgateway/vtj/commits/74ff98fc80bd4091b9b42b4454bb3469e6eee235))
+
+
+
+
+
+## [0.12.64](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.12.63...@vtj/coder@0.12.64) (2025-07-23)
+
+
+### Bug Fixes
+
+* 🐛 出码插槽支持scope名称 ([ca896df](https://gitee.com/newgateway/vtj/commits/ca896df0515e0f7b1904e5c839b81010b4c45355))
+
+
+
+
+
 ## [0.12.63](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.12.62...@vtj/coder@0.12.63) (2025-07-19)
 
 **Note:** Version bump only for package @vtj/coder

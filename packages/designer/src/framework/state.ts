@@ -1,6 +1,14 @@
 import { type Reactive, reactive, toRaw } from 'vue';
-import { storage } from '@vtj/utils';
+import { storage, uid } from '@vtj/utils';
 import { STATE_KEY } from '../constants';
+
+export interface LLM {
+  id?: string;
+  label: string;
+  baseURL: string;
+  model: string;
+  apiKey: string;
+}
 
 export interface EngineState {
   /**
@@ -19,9 +27,14 @@ export interface EngineState {
   autoApply: boolean;
 
   /**
-   * AI 大模型
+   * 当前使用的 AI 大模型
    */
-  llm: string;
+  llm: string | LLM;
+
+  /**
+   * 自定义模型列表
+   */
+  LLMs: LLM[];
 }
 
 export class State {
@@ -29,7 +42,8 @@ export class State {
     outlineEnabled: true,
     activeEvent: true,
     autoApply: true,
-    llm: ''
+    llm: '',
+    LLMs: []
   });
 
   constructor() {
@@ -75,5 +89,35 @@ export class State {
 
   set llm(value: any) {
     this.save('llm', value);
+  }
+
+  get LLMs() {
+    return this.__state.LLMs;
+  }
+  set LLMs(value: LLM[]) {
+    this.save('LLMs', value);
+  }
+
+  saveLLM(item: LLM) {
+    item.id = item.id || uid();
+    const index = this.__state.LLMs.findIndex((n) => n.id === item.id);
+    if (index > -1) {
+      this.__state.LLMs.splice(index, 1, item);
+    } else {
+      this.__state.LLMs.push(item);
+    }
+    this.LLMs = this.__state.LLMs;
+  }
+
+  removeLLM(item: LLM) {
+    const index = this.__state.LLMs.findIndex((n) => n.id === item.id);
+    if (index > -1) {
+      this.__state.LLMs.splice(index, 1);
+      this.LLMs = this.__state.LLMs;
+    }
+  }
+
+  getLLMById(id: string) {
+    return this.__state.LLMs.find((n) => n.id === id);
   }
 }

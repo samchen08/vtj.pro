@@ -169,12 +169,14 @@
         fileType.value = null;
         fileName.value = null;
         content.value = null;
+        uploadRef.value.clearFiles();
       }
     }
   };
 
   const onRemove = () => {
     fileName.value = null;
+    uploadRef.value.clearFiles();
   };
 
   watch(

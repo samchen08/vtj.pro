@@ -406,44 +406,56 @@ function childrenToSlots(
   if (Array.isArray(children) && children.length > 0) {
     const slots = createSlotsConfig(children);
 
-    const getScope = (scope: any) => {
+    const getScope = (scope: any, name?: string) => {
       if (!scope || !parent) return {};
       if (parent?.id && Object.keys(scope).length) {
-        return {
-          [`scope_${parent.id}`]: scope
-        };
+        return name
+          ? {
+              [name]: scope
+            }
+          : {
+              [`scope_${parent.id}`]: scope
+            };
       }
-      return {};
+      return name ? { [name]: Object.create(null) } : {};
     };
-    return Object.entries(slots).reduce((result, [name, { nodes, params }]) => {
-      result[name] = (scope: any) => {
-        // 记录插槽上下文
-        const props = params.length
-          ? pick(scope ?? {}, params)
-          : getScope(scope);
+    return Object.entries(slots).reduce(
+      (result, [name, { nodes, params, scope: scopeName }]) => {
+        result[name] = (scope: any) => {
+          // 记录插槽上下文
+          const props = params.length
+            ? pick(scope ?? {}, params)
+            : getScope(scope, scopeName);
 
-        return nodes.map((node) =>
-          nodeRender(node, context.__clone(props), Vue, loader, nodes)
-        );
-      };
-      return result;
-    }, {} as any);
+          return nodes.map((node) =>
+            nodeRender(node, context.__clone(props), Vue, loader, nodes)
+          );
+        };
+        return result;
+      },
+      {} as any
+    );
   }
   return null;
 }
 
 function createSlotsConfig(nodes: NodeSchema[]) {
-  const config: Record<string, { params: string[]; nodes: NodeSchema[] }> = {};
+  const config: Record<
+    string,
+    { params: string[]; nodes: NodeSchema[]; scope: string }
+  > = {};
   for (const node of nodes) {
     const slot = parseSlot(node.slot);
     const slotName = slot.name;
     if (config[slotName]) {
       config[slotName].nodes.push(node);
       config[slotName].params = config[slotName].params.concat(slot.params);
+      config[slotName].scope = slot.scope || '';
     } else {
       config[slotName] = {
         nodes: [node],
-        params: slot.params
+        params: slot.params,
+        scope: slot.scope || ''
       };
     }
   }
@@ -451,7 +463,9 @@ function createSlotsConfig(nodes: NodeSchema[]) {
 }
 
 function parseSlot(slot: string | NodeSlot = 'default') {
-  return isString(slot) ? { name: slot, params: [] } : { params: [], ...slot };
+  return isString(slot)
+    ? { name: slot, params: [], scope: '' }
+    : { params: [], scope: '', ...slot };
 }
 
 function vForRender(
