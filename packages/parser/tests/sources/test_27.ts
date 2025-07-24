@@ -19,6 +19,7 @@ export const test_27 = `
   import { defineComponent, reactive } from 'vue';
   import { ElTable, ElTableColumn } from 'element-plus';
   import { useProvider } from '@vtj/renderer';
+  import {mock} from 'mockjs'
   export default defineComponent({
     name: 'Abc1',
     components: { ElTable, ElTableColumn },
@@ -27,8 +28,13 @@ export const test_27 = `
       const state = reactive({
       tableDatra:[{"id":"abc"}]
       });
-      return { state, props, provider };
-    }
+      return { state, props, provider,mock };
+    },
+    created() {
+     this.state.tableDatra = this.mock({
+      'list|6':['@guid']
+     })
+     }
   })
 </script>
 <style lang="css" scoped></style>

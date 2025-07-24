@@ -31,8 +31,6 @@ export function replacer(content: string, key: string, to: string) {
   });
 
   return result.replace(r4, to);
-
-  return result;
 }
 
 export function patchCode(
@@ -58,9 +56,9 @@ export function patchCode(
   for (const key of computed) {
     content = replacer(content, key, `this.${key}.value`);
   }
-
   for (const [key, value] of Object.entries(libs)) {
     content = replacer(content, key, `this.$libs.${value}.${key}`);
+    content = replacer(content, `this.${key}`, `this.$libs.${value}.${key}`);
   }
 
   for (const key of members) {
