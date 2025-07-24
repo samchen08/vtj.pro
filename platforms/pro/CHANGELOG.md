@@ -3,6 +3,146 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.65](https://gitee.com/newgateway/vtj/compare/@vtj/pro@0.12.64...@vtj/pro@0.12.65) (2025-07-23)
+
+
+### Bug Fixes
+
+* 🐛 coder双引号问题 ([74ff98f](https://gitee.com/newgateway/vtj/commits/74ff98fc80bd4091b9b42b4454bb3469e6eee235))
+
+
+
+
+
+## [0.12.64](https://gitee.com/newgateway/vtj/compare/@vtj/pro@0.12.63...@vtj/pro@0.12.64) (2025-07-23)
+
+
+### Features
+
+* ✨ 支持自定义模型 ([37ae362](https://gitee.com/newgateway/vtj/commits/37ae362786659be5bb343290ad0fbd02dbf877f1))
+
+
+
+
+
+## [0.12.63](https://gitee.com/newgateway/vtj/compare/@vtj/pro@0.12.62...@vtj/pro@0.12.63) (2025-07-19)
+
+**Note:** Version bump only for package @vtj/pro
+
+
+
+
+
+## [0.12.62](https://gitee.com/newgateway/vtj/compare/@vtj/pro@0.12.61...@vtj/pro@0.12.62) (2025-07-19)
+
+**Note:** Version bump only for package @vtj/pro
+
+
+
+
+
+## [0.12.61](https://gitee.com/newgateway/vtj/compare/@vtj/pro@0.12.60...@vtj/pro@0.12.61) (2025-07-19)
+
+**Note:** Version bump only for package @vtj/pro
+
+
+
+
+
+## [0.12.60](https://gitee.com/newgateway/vtj/compare/@vtj/pro@0.12.59...@vtj/pro@0.12.60) (2025-07-18)
+
+
+### Bug Fixes
+
+* 🐛 desginer   box-sizing style ([bbeb093](https://gitee.com/newgateway/vtj/commits/bbeb09325f2ceb1100248467ca95ab59d573361b))
+
+
+
+
+
+## [0.12.59](https://gitee.com/newgateway/vtj/compare/@vtj/pro@0.12.58...@vtj/pro@0.12.59) (2025-07-18)
+
+
+### Bug Fixes
+
+* 🐛 pro ide delay openFile ([1f42184](https://gitee.com/newgateway/vtj/commits/1f421843ef52764e90c1e5c84318ed44fa9274a0))
+
+
+
+
+
+## [0.12.58](https://gitee.com/newgateway/vtj/compare/@vtj/pro@0.12.57...@vtj/pro@0.12.58) (2025-07-16)
+
+**Note:** Version bump only for package @vtj/pro
+
+
+
+
+
+## [0.12.57](https://gitee.com/newgateway/vtj/compare/@vtj/pro@0.12.56...@vtj/pro@0.12.57) (2025-07-16)
+
+**Note:** Version bump only for package @vtj/pro
+
+
+
+
+
+## [0.12.56](https://gitee.com/newgateway/vtj/compare/@vtj/pro@0.12.55...@vtj/pro@0.12.56) (2025-07-16)
+
+**Note:** Version bump only for package @vtj/pro
+
+
+
+
+
+## [0.12.55](https://gitee.com/newgateway/vtj/compare/@vtj/pro@0.12.54...@vtj/pro@0.12.55) (2025-07-09)
+
+**Note:** Version bump only for package @vtj/pro
+
+
+
+
+
+## [0.12.54](https://gitee.com/newgateway/vtj/compare/@vtj/pro@0.12.53...@vtj/pro@0.12.54) (2025-07-08)
+
+**Note:** Version bump only for package @vtj/pro
+
+
+
+
+
+## [0.12.53](https://gitee.com/newgateway/vtj/compare/@vtj/pro@0.12.52...@vtj/pro@0.12.53) (2025-07-07)
+
+**Note:** Version bump only for package @vtj/pro
+
+
+
+
+
+## [0.12.52](https://gitee.com/newgateway/vtj/compare/@vtj/pro@0.12.51...@vtj/pro@0.12.52) (2025-07-07)
+
+**Note:** Version bump only for package @vtj/pro
+
+
+
+
+
+## [0.12.51](https://gitee.com/newgateway/vtj/compare/@vtj/pro@0.12.50...@vtj/pro@0.12.51) (2025-07-07)
+
+**Note:** Version bump only for package @vtj/pro
+
+
+
+
+
+## [0.12.50](https://gitee.com/newgateway/vtj/compare/@vtj/pro@0.12.49...@vtj/pro@0.12.50) (2025-07-04)
+
+**Note:** Version bump only for package @vtj/pro
+
+
+
+
+
 ## [0.12.49](https://gitee.com/newgateway/vtj/compare/@vtj/pro@0.12.48...@vtj/pro@0.12.49) (2025-07-02)
 
 **Note:** Version bump only for package @vtj/pro

@@ -103,6 +103,9 @@ export const dialogProps = {
   },
   pure: {
     type: Boolean
+  },
+  zIndex: {
+    type: Number
   }
 };
 

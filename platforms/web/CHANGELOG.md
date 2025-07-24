@@ -3,6 +3,134 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.65](https://gitee.com/newgateway/vtj/compare/@vtj/web@0.12.64...@vtj/web@0.12.65) (2025-07-23)
+
+**Note:** Version bump only for package @vtj/web
+
+
+
+
+
+## [0.12.64](https://gitee.com/newgateway/vtj/compare/@vtj/web@0.12.63...@vtj/web@0.12.64) (2025-07-23)
+
+**Note:** Version bump only for package @vtj/web
+
+
+
+
+
+## [0.12.63](https://gitee.com/newgateway/vtj/compare/@vtj/web@0.12.62...@vtj/web@0.12.63) (2025-07-19)
+
+**Note:** Version bump only for package @vtj/web
+
+
+
+
+
+## [0.12.62](https://gitee.com/newgateway/vtj/compare/@vtj/web@0.12.61...@vtj/web@0.12.62) (2025-07-19)
+
+**Note:** Version bump only for package @vtj/web
+
+
+
+
+
+## [0.12.61](https://gitee.com/newgateway/vtj/compare/@vtj/web@0.12.60...@vtj/web@0.12.61) (2025-07-19)
+
+**Note:** Version bump only for package @vtj/web
+
+
+
+
+
+## [0.12.60](https://gitee.com/newgateway/vtj/compare/@vtj/web@0.12.59...@vtj/web@0.12.60) (2025-07-18)
+
+**Note:** Version bump only for package @vtj/web
+
+
+
+
+
+## [0.12.59](https://gitee.com/newgateway/vtj/compare/@vtj/web@0.12.58...@vtj/web@0.12.59) (2025-07-18)
+
+**Note:** Version bump only for package @vtj/web
+
+
+
+
+
+## [0.12.58](https://gitee.com/newgateway/vtj/compare/@vtj/web@0.12.57...@vtj/web@0.12.58) (2025-07-16)
+
+**Note:** Version bump only for package @vtj/web
+
+
+
+
+
+## [0.12.57](https://gitee.com/newgateway/vtj/compare/@vtj/web@0.12.56...@vtj/web@0.12.57) (2025-07-16)
+
+**Note:** Version bump only for package @vtj/web
+
+
+
+
+
+## [0.12.56](https://gitee.com/newgateway/vtj/compare/@vtj/web@0.12.55...@vtj/web@0.12.56) (2025-07-16)
+
+**Note:** Version bump only for package @vtj/web
+
+
+
+
+
+## [0.12.55](https://gitee.com/newgateway/vtj/compare/@vtj/web@0.12.54...@vtj/web@0.12.55) (2025-07-09)
+
+**Note:** Version bump only for package @vtj/web
+
+
+
+
+
+## [0.12.54](https://gitee.com/newgateway/vtj/compare/@vtj/web@0.12.53...@vtj/web@0.12.54) (2025-07-08)
+
+**Note:** Version bump only for package @vtj/web
+
+
+
+
+
+## [0.12.53](https://gitee.com/newgateway/vtj/compare/@vtj/web@0.12.52...@vtj/web@0.12.53) (2025-07-07)
+
+**Note:** Version bump only for package @vtj/web
+
+
+
+
+
+## [0.12.52](https://gitee.com/newgateway/vtj/compare/@vtj/web@0.12.51...@vtj/web@0.12.52) (2025-07-07)
+
+**Note:** Version bump only for package @vtj/web
+
+
+
+
+
+## [0.12.51](https://gitee.com/newgateway/vtj/compare/@vtj/web@0.12.50...@vtj/web@0.12.51) (2025-07-07)
+
+**Note:** Version bump only for package @vtj/web
+
+
+
+
+
+## [0.12.50](https://gitee.com/newgateway/vtj/compare/@vtj/web@0.12.49...@vtj/web@0.12.50) (2025-07-04)
+
+**Note:** Version bump only for package @vtj/web
+
+
+
+
+
 ## [0.12.49](https://gitee.com/newgateway/vtj/compare/@vtj/web@0.12.48...@vtj/web@0.12.49) (2025-07-02)
 
 **Note:** Version bump only for package @vtj/web

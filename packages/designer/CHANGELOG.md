@@ -3,6 +3,174 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.65](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.12.64...@vtj/designer@0.12.65) (2025-07-23)
+
+**Note:** Version bump only for package @vtj/designer
+
+
+
+
+
+## [0.12.64](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.12.63...@vtj/designer@0.12.64) (2025-07-23)
+
+
+### Features
+
+* ✨ 支持自定义模型 ([37ae362](https://gitee.com/newgateway/vtj/commits/37ae362786659be5bb343290ad0fbd02dbf877f1))
+
+
+
+
+
+## [0.12.63](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.12.62...@vtj/designer@0.12.63) (2025-07-19)
+
+
+### Bug Fixes
+
+* 🐛 优化流输出效果 ([9ba3d5f](https://gitee.com/newgateway/vtj/commits/9ba3d5ff055ad837f4f1935a83ac59a8a4ee0f30))
+* 🐛 MAX_TOKENS ([8de5dc5](https://gitee.com/newgateway/vtj/commits/8de5dc5dd333d8518a715997b65c882337a12bde))
+
+
+
+
+
+## [0.12.62](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.12.61...@vtj/designer@0.12.62) (2025-07-19)
+
+**Note:** Version bump only for package @vtj/designer
+
+
+
+
+
+## [0.12.61](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.12.60...@vtj/designer@0.12.61) (2025-07-19)
+
+
+### Bug Fixes
+
+* 🐛 fix错误提示 ([8d5d7d9](https://gitee.com/newgateway/vtj/commits/8d5d7d981564247b4cef9c1ece6cfff22051a087))
+* 🐛 parser 删除 @babel/core 依赖 ([76cefe2](https://gitee.com/newgateway/vtj/commits/76cefe2b95abfcce7584f81b2e66282b94f0cb3c))
+
+
+
+
+
+## [0.12.60](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.12.59...@vtj/designer@0.12.60) (2025-07-18)
+
+
+### Bug Fixes
+
+* 🐛 desginer   box-sizing style ([bbeb093](https://gitee.com/newgateway/vtj/commits/bbeb09325f2ceb1100248467ca95ab59d573361b))
+
+
+
+
+
+## [0.12.59](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.12.58...@vtj/designer@0.12.59) (2025-07-18)
+
+
+### Bug Fixes
+
+* 🐛 优化AI错误处理 ([2f40717](https://gitee.com/newgateway/vtj/commits/2f40717e4e1c6d086e5bd2a9ba9f11fc5c052070))
+
+
+
+
+
+## [0.12.58](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.12.57...@vtj/designer@0.12.58) (2025-07-16)
+
+**Note:** Version bump only for package @vtj/designer
+
+
+
+
+
+## [0.12.57](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.12.56...@vtj/designer@0.12.57) (2025-07-16)
+
+**Note:** Version bump only for package @vtj/designer
+
+
+
+
+
+## [0.12.56](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.12.55...@vtj/designer@0.12.56) (2025-07-16)
+
+
+### Features
+
+* ✨ 代码校验并自动修复 ([205257b](https://gitee.com/newgateway/vtj/commits/205257b75b5ebcb5c02ec4ade0000388552277a6))
+* ✨ parser watch ([26a942a](https://gitee.com/newgateway/vtj/commits/26a942a1b1297fa7d5c7ad49121b9175efce5b62))
+
+
+
+
+
+## [0.12.55](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.12.54...@vtj/designer@0.12.55) (2025-07-09)
+
+
+### Features
+
+* ✨ AI免费额度 ([4260ac9](https://gitee.com/newgateway/vtj/commits/4260ac9a319cc0da727bd36a5e8514d629e9b442))
+
+
+
+
+
+## [0.12.54](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.12.53...@vtj/designer@0.12.54) (2025-07-08)
+
+
+### Bug Fixes
+
+* 🐛 适配element-plus 2.10.3 类型 ([f55a477](https://gitee.com/newgateway/vtj/commits/f55a47700f116a67c887e9b5d93b6df92866004a))
+
+
+
+
+
+## [0.12.53](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.12.52...@vtj/designer@0.12.53) (2025-07-07)
+
+
+### Bug Fixes
+
+* 🐛 优化错误提示 ([0b0ec99](https://gitee.com/newgateway/vtj/commits/0b0ec99aee9d5220358536352b7533b5b39dce1d))
+
+
+
+
+
+## [0.12.52](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.12.51...@vtj/designer@0.12.52) (2025-07-07)
+
+
+### Bug Fixes
+
+* 🐛 0.12.51 ([e4d8797](https://gitee.com/newgateway/vtj/commits/e4d8797a041f6df63b7f9bba3a984f6992db1064))
+
+
+
+
+
+## [0.12.51](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.12.50...@vtj/designer@0.12.51) (2025-07-07)
+
+
+### Bug Fixes
+
+* 🐛 增加AI输出超过最大限制提示错误信息 ([ea5ad47](https://gitee.com/newgateway/vtj/commits/ea5ad47efae1115c7c740f1f8c404cb368cbef6c))
+
+
+
+
+
+## [0.12.50](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.12.49...@vtj/designer@0.12.50) (2025-07-04)
+
+
+### Bug Fixes
+
+* 🐛 AI偶发请求错误, 重新生成时自动应用失效问题 ([baa4b4e](https://gitee.com/newgateway/vtj/commits/baa4b4ea463e6d0b08bf54e8129206797118d91f))
+* 🐛 mastergo icon ([4b31960](https://gitee.com/newgateway/vtj/commits/4b31960aa015f73febc46d0c460198a5a3741fde))
+
+
+
+
+
 ## [0.12.49](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.12.48...@vtj/designer@0.12.49) (2025-07-02)
 
 

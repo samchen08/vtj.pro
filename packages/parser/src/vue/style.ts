@@ -13,7 +13,8 @@ export function parseStyle(content: string) {
   const css: string[] = [];
 
   try {
-    const cssContent = sass.compileString(content, {})?.css || '';
+    const cssContent =
+      sass.compileString(content, { charset: false })?.css || '';
     const root = postcss.parse(cssContent);
     const classRegex = /^.[\w]+_[\w]{5,}/;
     for (const rule of root.nodes) {

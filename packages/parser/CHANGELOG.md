@@ -3,6 +3,174 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.65](https://gitee.com/newgateway/vtj/compare/@vtj/parser@0.12.64...@vtj/parser@0.12.65) (2025-07-23)
+
+
+### Bug Fixes
+
+* 🐛 coder双引号问题 ([74ff98f](https://gitee.com/newgateway/vtj/commits/74ff98fc80bd4091b9b42b4454bb3469e6eee235))
+
+
+
+
+
+## [0.12.64](https://gitee.com/newgateway/vtj/compare/@vtj/parser@0.12.63...@vtj/parser@0.12.64) (2025-07-23)
+
+
+### Bug Fixes
+
+* 🐛 出码插槽支持scope名称 ([ca896df](https://gitee.com/newgateway/vtj/commits/ca896df0515e0f7b1904e5c839b81010b4c45355))
+
+
+
+
+
+## [0.12.63](https://gitee.com/newgateway/vtj/compare/@vtj/parser@0.12.62...@vtj/parser@0.12.63) (2025-07-19)
+
+**Note:** Version bump only for package @vtj/parser
+
+
+
+
+
+## [0.12.62](https://gitee.com/newgateway/vtj/compare/@vtj/parser@0.12.61...@vtj/parser@0.12.62) (2025-07-19)
+
+
+### Bug Fixes
+
+* 🐛 coder 双引号问题 ([bec5a28](https://gitee.com/newgateway/vtj/commits/bec5a28bf8404cebc73ce6747c090a175d40eea3))
+
+
+
+
+
+## [0.12.61](https://gitee.com/newgateway/vtj/compare/@vtj/parser@0.12.60...@vtj/parser@0.12.61) (2025-07-19)
+
+
+### Bug Fixes
+
+* 🐛 parser 节点id重新生成问题 ([a4416f8](https://gitee.com/newgateway/vtj/commits/a4416f8092d728812e56bd67d7aa509d89fec8d7))
+* 🐛 parser 删除 @babel/core 依赖 ([76cefe2](https://gitee.com/newgateway/vtj/commits/76cefe2b95abfcce7584f81b2e66282b94f0cb3c))
+* 🐛 parser 数据源方法重复 ([a47cabe](https://gitee.com/newgateway/vtj/commits/a47cabef1fb4efd0b00cd4cacb532a6f0fd638e7))
+
+
+
+
+
+## [0.12.60](https://gitee.com/newgateway/vtj/compare/@vtj/parser@0.12.59...@vtj/parser@0.12.60) (2025-07-18)
+
+**Note:** Version bump only for package @vtj/parser
+
+
+
+
+
+## [0.12.59](https://gitee.com/newgateway/vtj/compare/@vtj/parser@0.12.58...@vtj/parser@0.12.59) (2025-07-18)
+
+**Note:** Version bump only for package @vtj/parser
+
+
+
+
+
+## [0.12.58](https://gitee.com/newgateway/vtj/compare/@vtj/parser@0.12.57...@vtj/parser@0.12.58) (2025-07-16)
+
+
+### Bug Fixes
+
+* 🐛 parser 解决重复图标问题 ([56a7a1f](https://gitee.com/newgateway/vtj/commits/56a7a1f7098ad003fc1558d8d28fc34122ed50bc))
+
+
+
+
+
+## [0.12.57](https://gitee.com/newgateway/vtj/compare/@vtj/parser@0.12.56...@vtj/parser@0.12.57) (2025-07-16)
+
+
+### Bug Fixes
+
+* 🐛 parser script ([b2f03a1](https://gitee.com/newgateway/vtj/commits/b2f03a1a4c9470f77c3a9aa719d16ffddfe6b657))
+
+
+
+
+
+## [0.12.56](https://gitee.com/newgateway/vtj/compare/@vtj/parser@0.12.55...@vtj/parser@0.12.56) (2025-07-16)
+
+
+### Bug Fixes
+
+* 🐛 parser 数据源 ([9befb29](https://gitee.com/newgateway/vtj/commits/9befb2968ecc74f33b01202317e966c8f3bbadcd))
+* 🐛 parser watch ([9404146](https://gitee.com/newgateway/vtj/commits/940414637c3c079014f3d1c0f5dfcd53edf2f693))
+
+
+### Features
+
+* ✨ 代码校验并自动修复 ([205257b](https://gitee.com/newgateway/vtj/commits/205257b75b5ebcb5c02ec4ade0000388552277a6))
+* ✨ parser validator and fixer ([0a7e29c](https://gitee.com/newgateway/vtj/commits/0a7e29cee2d89fce800521c43af989252d937ea3))
+* ✨ parser watch ([26a942a](https://gitee.com/newgateway/vtj/commits/26a942a1b1297fa7d5c7ad49121b9175efce5b62))
+
+
+
+
+
+## [0.12.55](https://gitee.com/newgateway/vtj/compare/@vtj/parser@0.12.54...@vtj/parser@0.12.55) (2025-07-09)
+
+**Note:** Version bump only for package @vtj/parser
+
+
+
+
+
+## [0.12.54](https://gitee.com/newgateway/vtj/compare/@vtj/parser@0.12.53...@vtj/parser@0.12.54) (2025-07-08)
+
+
+### Bug Fixes
+
+* 🐛 升级依赖 ([dbee35b](https://gitee.com/newgateway/vtj/commits/dbee35bd867a44f8c71c117fa90d56d108144a6b))
+
+
+
+
+
+## [0.12.53](https://gitee.com/newgateway/vtj/compare/@vtj/parser@0.12.52...@vtj/parser@0.12.53) (2025-07-07)
+
+**Note:** Version bump only for package @vtj/parser
+
+
+
+
+
+## [0.12.52](https://gitee.com/newgateway/vtj/compare/@vtj/parser@0.12.51...@vtj/parser@0.12.52) (2025-07-07)
+
+
+### Bug Fixes
+
+* 🐛 0.12.51 ([e4d8797](https://gitee.com/newgateway/vtj/commits/e4d8797a041f6df63b7f9bba3a984f6992db1064))
+
+
+
+
+
+## [0.12.51](https://gitee.com/newgateway/vtj/compare/@vtj/parser@0.12.50...@vtj/parser@0.12.51) (2025-07-07)
+
+
+### Bug Fixes
+
+* 🐛 parseStyle 禁止添加charset ([ceb1a6c](https://gitee.com/newgateway/vtj/commits/ceb1a6cf63027506840efc81d5c730ee57c934b2))
+
+
+
+
+
+## [0.12.50](https://gitee.com/newgateway/vtj/compare/@vtj/parser@0.12.49...@vtj/parser@0.12.50) (2025-07-04)
+
+**Note:** Version bump only for package @vtj/parser
+
+
+
+
+
 ## [0.12.49](https://gitee.com/newgateway/vtj/compare/@vtj/parser@0.12.48...@vtj/parser@0.12.49) (2025-07-02)
 
 **Note:** Version bump only for package @vtj/parser

@@ -141,3 +141,7 @@ export const REPORT_API = [
 export const SESSION_ID_KEY = 'SESSION_ID__';
 
 export const STATE_KEY = 'ENGINE_STATE__';
+
+export const MAX_TOKENS = 2 * 8 * 1024;
+
+export const GET_TOKENS_LINK = 'https://lcdp.vtj.pro/page/17ikytmh';

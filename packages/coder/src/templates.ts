@@ -38,10 +38,10 @@ const vueTemplate = `
 <template>
 <%= template %>
 </template>
-<script lang="ts">
+<script lang="<%= scriptLang %>">
 <%= script %>
 </script>
-<style lang="scss" scoped>
+<style lang="<%= styleLang %>" scoped>
 <%= css %>
 <%= style %>
 </style>

@@ -3,6 +3,155 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.65](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.12.64...@vtj/coder@0.12.65) (2025-07-23)
+
+
+### Bug Fixes
+
+* 🐛 coder双引号问题 ([74ff98f](https://gitee.com/newgateway/vtj/commits/74ff98fc80bd4091b9b42b4454bb3469e6eee235))
+
+
+
+
+
+## [0.12.64](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.12.63...@vtj/coder@0.12.64) (2025-07-23)
+
+
+### Bug Fixes
+
+* 🐛 出码插槽支持scope名称 ([ca896df](https://gitee.com/newgateway/vtj/commits/ca896df0515e0f7b1904e5c839b81010b4c45355))
+
+
+
+
+
+## [0.12.63](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.12.62...@vtj/coder@0.12.63) (2025-07-19)
+
+**Note:** Version bump only for package @vtj/coder
+
+
+
+
+
+## [0.12.62](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.12.61...@vtj/coder@0.12.62) (2025-07-19)
+
+
+### Bug Fixes
+
+* 🐛 coder 双引号问题 ([bec5a28](https://gitee.com/newgateway/vtj/commits/bec5a28bf8404cebc73ce6747c090a175d40eea3))
+
+
+
+
+
+## [0.12.61](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.12.60...@vtj/coder@0.12.61) (2025-07-19)
+
+**Note:** Version bump only for package @vtj/coder
+
+
+
+
+
+## [0.12.60](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.12.59...@vtj/coder@0.12.60) (2025-07-18)
+
+
+### Features
+
+* ✨ XMenu ([c6409fc](https://gitee.com/newgateway/vtj/commits/c6409fce89c4eb8a57494dc27b3ec6af08470f2f))
+
+
+
+
+
+## [0.12.59](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.12.58...@vtj/coder@0.12.59) (2025-07-18)
+
+**Note:** Version bump only for package @vtj/coder
+
+
+
+
+
+## [0.12.58](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.12.57...@vtj/coder@0.12.58) (2025-07-16)
+
+**Note:** Version bump only for package @vtj/coder
+
+
+
+
+
+## [0.12.57](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.12.56...@vtj/coder@0.12.57) (2025-07-16)
+
+**Note:** Version bump only for package @vtj/coder
+
+
+
+
+
+## [0.12.56](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.12.55...@vtj/coder@0.12.56) (2025-07-16)
+
+
+### Bug Fixes
+
+* 🐛 parser 数据源 ([9befb29](https://gitee.com/newgateway/vtj/commits/9befb2968ecc74f33b01202317e966c8f3bbadcd))
+
+
+
+
+
+## [0.12.55](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.12.54...@vtj/coder@0.12.55) (2025-07-09)
+
+**Note:** Version bump only for package @vtj/coder
+
+
+
+
+
+## [0.12.54](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.12.53...@vtj/coder@0.12.54) (2025-07-08)
+
+
+### Bug Fixes
+
+* 🐛 升级依赖 ([dbee35b](https://gitee.com/newgateway/vtj/commits/dbee35bd867a44f8c71c117fa90d56d108144a6b))
+
+
+
+
+
+## [0.12.53](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.12.52...@vtj/coder@0.12.53) (2025-07-07)
+
+**Note:** Version bump only for package @vtj/coder
+
+
+
+
+
+## [0.12.52](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.12.51...@vtj/coder@0.12.52) (2025-07-07)
+
+
+### Bug Fixes
+
+* 🐛 0.12.51 ([e4d8797](https://gitee.com/newgateway/vtj/commits/e4d8797a041f6df63b7f9bba3a984f6992db1064))
+
+
+
+
+
+## [0.12.51](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.12.50...@vtj/coder@0.12.51) (2025-07-07)
+
+**Note:** Version bump only for package @vtj/coder
+
+
+
+
+
+## [0.12.50](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.12.49...@vtj/coder@0.12.50) (2025-07-04)
+
+**Note:** Version bump only for package @vtj/coder
+
+
+
+
+
 ## [0.12.49](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.12.48...@vtj/coder@0.12.49) (2025-07-02)
 
 **Note:** Version bump only for package @vtj/coder

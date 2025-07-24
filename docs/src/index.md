@@ -1,13 +1,13 @@
 ---
 # https://vitepress.dev/reference/default-theme-home-page
 
-title: AI + 低代码
+title: AI 驱动的 Vue3 低代码开发平台
 
 layout: home
 hero:
   name: 'VTJ.PRO'
-  text: 低代码引擎
-  tagline: AI 智能双向 Vue3 低代码，无缝融入开发者工作流
+  text: AI + 低代码
+  tagline: 所想即所见，融合双核优势，让设计秒生纯净代码
   image:
     src: /assets/logo-w.svg
   actions:
@@ -17,10 +17,6 @@ hero:
     - theme: alt
       text: 💡 在线体验
       link: https://lcdp.vtj.pro/page/92q671qifm
-      target: new
-    - theme: alt
-      text: ⭐ 源码仓库
-      link: https://gitee.com/newgateway/vtj
       target: new
 
 features:
@@ -49,3 +45,7 @@ features:
     title: 双向代码转换
     details: 独创 DSL与Vue源码双向编译能力，保障低代码与手写代码的自由切换。
 ---
+
+:::warning ✨✨✨ 福利来了 ✨✨✨
+回馈活动，AI助手百万额度免费领，领取链接：[https://lcdp.vtj.pro/tokens?code=gitee](https://lcdp.vtj.pro/tokens?code=gitee)
+:::

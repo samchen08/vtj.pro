@@ -342,10 +342,42 @@ export function useOpenApi() {
     if (openApi?.chatCompletions) {
       return await openApi?.chatCompletions(topicId, chatId, callback, error);
     }
+
     const token = access?.getData()?.token;
     const api = `${remote}/api/open/completions/${token}?tid=${topicId}&id=${chatId}`;
     const controller = new AbortController();
     const signal = controller.signal;
+
+    // 新增：行处理函数
+    const processLine = (line: string) => {
+      if (!line.startsWith('data: ')) return;
+
+      const content = line.slice(6).trim();
+      if (!content) return; // 忽略空消息
+
+      try {
+        const data = JSON.parse(content);
+        callback?.(data, false);
+      } catch (e) {
+        error?.(new Error(content));
+        controller.abort();
+      }
+    };
+
+    // 新增：统一错误处理
+    const handleError = (err: unknown) => {
+      const isAbort = err instanceof Error && err.name === 'AbortError';
+      const errorObj = err instanceof Error ? err : new Error(String(err));
+      if (!isAbort) {
+        error?.(errorObj, isAbort);
+        controller.abort();
+      }
+    };
+
+    // 新增：行缓冲区
+    let buffer = '';
+    const decoder = new TextDecoder();
+
     fetch(api, {
       method: 'get',
       signal
@@ -353,37 +385,38 @@ export function useOpenApi() {
       .then(async (res) => {
         const reader = res.body?.getReader();
         if (!reader) return;
-        const decoder = new TextDecoder();
-        while (true) {
-          const { done, value } = await reader.read();
-          if (done) {
-            callback && callback(null, true);
-            break;
-          }
 
-          const lines = decoder.decode(value).split('\n');
-          for (const line of lines) {
-            if (line.startsWith('data: ')) {
-              try {
-                const data = JSON.parse(line.slice(6));
-                callback && callback(data, done);
-              } catch (e: any) {
-                const msg = line.slice(6);
-                error && error(msg ? new Error(msg) : e);
-                controller.abort();
-                break;
+        try {
+          while (true) {
+            const { done, value } = await reader.read();
+            if (done) {
+              // 处理缓冲区剩余内容
+              if (buffer) {
+                processLine(buffer);
               }
+              callback?.(null, true);
+              break;
+            }
+
+            // 解码并追加到缓冲区
+            buffer += decoder.decode(value, { stream: true });
+
+            // 按行分割并处理完整行
+            const lines = buffer.split('\n');
+            // 保留最后一行（可能不完整）
+            buffer = lines.pop() || '';
+
+            for (const line of lines) {
+              processLine(line);
             }
           }
+        } catch (e) {
+          handleError(e);
         }
       })
-      .catch((err) => {
-        error && error(err, err.name === 'AbortError');
-      });
+      .catch(handleError);
 
-    return () => {
-      controller.abort();
-    };
+    return () => controller.abort();
   };
 
   const getSettins = async () => {

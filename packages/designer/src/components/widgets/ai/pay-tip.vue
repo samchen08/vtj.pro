@@ -21,6 +21,12 @@
         @click="onClosePayTip">
         取消
       </ElButton>
+      <ElDivider><ElText type="info">或</ElText></ElDivider>
+      <div>
+        <ElLink type="primary" target="_blank" :href="GET_TOKENS_LINK">
+          免费获取额度
+        </ElLink>
+      </div>
     </div>
   </div>
   <ElDialog
@@ -100,13 +106,17 @@
     ElDialog,
     ElSteps,
     ElStep,
-    ElMessage
+    ElMessage,
+    ElDivider,
+    ElLink,
+    ElText
   } from 'element-plus';
   import { ShoppingCart, CopyDocument, Finished } from '@vtj/icons';
   import { useClipboard } from '@vueuse/core';
   import { REMOTE } from '@vtj/renderer';
   import { type Settings } from '../../hooks';
   import { alert, confirm } from '../../../utils';
+  import { GET_TOKENS_LINK } from '../../../constants';
 
   export interface Props {
     settings?: Settings;

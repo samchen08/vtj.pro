@@ -5,6 +5,7 @@
   import { ref, watch } from 'vue';
   import { useRoute } from 'vue-router';
   import { useTitle } from '@vueuse/core';
+  import { delay } from '@vtj/utils';
   import {
     Engine,
     widgetManager,
@@ -109,13 +110,15 @@
     ...options
   });
 
-  engine.ready(() => {
+  engine.ready(async () => {
+    await delay(300);
     engine.openFile(route.query.id as string);
   });
 
   watch(
     () => route.query.id,
-    (id) => {
+    async (id) => {
+      await delay(300);
       engine.openFile(id as string);
     }
   );

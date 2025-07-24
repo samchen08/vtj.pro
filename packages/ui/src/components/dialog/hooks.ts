@@ -31,7 +31,7 @@ export function useState(props: DialogProps, wrapper: MaybeRef<HTMLElement>) {
     height: 0,
     top: 0,
     left: 0,
-    zIndex: ++__global_ZIndex__,
+    zIndex: props.zIndex || ++__global_ZIndex__,
     dragging: false,
     resizing: false
   });
@@ -50,7 +50,11 @@ export function useState(props: DialogProps, wrapper: MaybeRef<HTMLElement>) {
   });
 
   watch(state, (v) => {
-    __global_ZIndex__ = Math.max(v.zIndex, __global_ZIndex__);
+    __global_ZIndex__ = Math.max(
+      v.zIndex,
+      __global_ZIndex__,
+      props.zIndex || 1
+    );
   });
 
   return {
@@ -141,7 +145,11 @@ export function useMethods(
         nodeName.toUpperCase()
       )
     ) {
-      state.zIndex = Math.max(state.zIndex, ++__global_ZIndex__);
+      state.zIndex = Math.max(
+        state.zIndex,
+        ++__global_ZIndex__,
+        props.zIndex || 1
+      );
     }
   };
 

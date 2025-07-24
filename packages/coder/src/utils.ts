@@ -1,4 +1,11 @@
-import { type JSExpression, type JSFunction } from '@vtj/core';
+import {
+  type JSExpression,
+  type JSFunction,
+  type DataSourceSchema
+} from '@vtj/core';
+import { base64, unBase64 } from '@vtj/base';
+
+export { base64, unBase64 };
 
 export function isJSExpression(data: any): data is JSExpression {
   return data && data.type === 'JSExpression';
@@ -35,7 +42,7 @@ export function parseValue(
   computedKeys: string[] = []
 ) {
   let value = isJSCode(val)
-    ? val.value.trim().replace(/\"/g, "'").replace(/;$/, '')
+    ? val.value.trim().replace(/;$/, '')
     : stringify
       ? JSON.stringify(val)
       : val;
@@ -113,4 +120,17 @@ export function skipUniComponents(
   uniComponents: string[] = []
 ) {
   return components.filter((n) => !uniComponents.includes(n));
+}
+
+export function encodeDataSource(schema: DataSourceSchema) {
+  return base64(JSON.stringify(schema));
+}
+
+export function decodeDataSource(code: string): DataSourceSchema | null {
+  try {
+    return JSON.parse(unBase64(code));
+  } catch (e) {
+    console.warn('decodeDataSource fail', e);
+    return null;
+  }
 }

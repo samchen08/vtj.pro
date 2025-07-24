@@ -526,12 +526,14 @@ function wrapSlot(
   if (!slot) return content;
   const realSlot =
     typeof slot === 'string'
-      ? { name: slot, params: [] }
-      : { params: [], ...slot };
+      ? { name: slot, params: [], scope: '' }
+      : { params: [], scope: '', ...slot };
   const slotString = `#${realSlot.name}="${
-    realSlot.params?.length > 0
-      ? `{${realSlot.params?.join(',')}}`
-      : `scope_${nodeId}`
+    realSlot.scope
+      ? realSlot.scope
+      : realSlot.params?.length > 0
+        ? `{${realSlot.params?.join(',')}}`
+        : `scope_${nodeId}`
   }"`;
   return `<template ${slotString}>
     ${content}

@@ -108,7 +108,14 @@
     code: true
   });
 
-  const emit = defineEmits(['refresh', 'view', 'download', 'fix', 'cancel']);
+  const emit = defineEmits([
+    'refresh',
+    'view',
+    'apply',
+    'download',
+    'fix',
+    'cancel'
+  ]);
   const coverMap = { figma, sketch, mastergo, other, unknown: other };
   const isAi = computed(() => props.type === 'ai');
   const isCompleted = computed(() => props.data.status === 'Success');
@@ -174,6 +181,7 @@
       } else if (
         chat.json.includes('/group/') ||
         chat.json.includes('/frame/') ||
+        chat.json.includes('/component/') ||
         chat.json.includes('/mastergo/')
       ) {
         return coverMap.mastergo;

@@ -6,11 +6,14 @@ import {
   type AITopic,
   type AIChat,
   type DictOption,
-  type Settings
+  type Settings,
+  type LLM
 } from '../../framework';
 import type { ProjectSchema, BlockSchema, BlockModel } from '@vtj/core';
 import { useElementSize } from '@vueuse/core';
 import { delay, storage } from '@vtj/utils';
+import { notify, alert } from '../../utils';
+import { MAX_TOKENS } from '../../constants';
 
 export type { AITopic, AIChat, Settings };
 export type Dict = DictOption;
@@ -20,12 +23,14 @@ export interface AISendData {
   model: string;
   auto: boolean;
   prompt: string;
+  llm?: LLM;
 }
 
 export interface AISendImageData {
   model: string;
   auto: boolean;
   file: File;
+  llm?: LLM;
 }
 
 export interface AISendJsonData {
@@ -33,6 +38,7 @@ export interface AISendJsonData {
   auto: boolean;
   file: File;
   content: any;
+  llm?: LLM;
 }
 
 let __currentCompletions: any = null;
@@ -63,7 +69,7 @@ async function createTopicDto(
   data: AISendData,
   engine: UseAIOptions['engine']
 ) {
-  const { model, prompt = '' } = data;
+  const { model, prompt = '', llm } = data;
   const { projectDsl, dsl, source } = await createCommonDto(engine);
 
   const dto: TopicDto = {
@@ -71,7 +77,8 @@ async function createTopicDto(
     prompt,
     dsl: JSON.stringify(dsl),
     project: JSON.stringify(projectDsl),
-    source
+    source,
+    llm: llm ? JSON.stringify(llm) : ''
   };
   return dto;
 }
@@ -80,14 +87,15 @@ async function createImageTopicDto(
   data: AISendImageData,
   engine: UseAIOptions['engine']
 ) {
-  const { model, file } = data;
+  const { model, file, llm } = data;
   const { projectDsl, dsl, source } = await createCommonDto(engine);
   const dto: TopicDto = {
     model,
     file,
     dsl: JSON.stringify(dsl),
     project: JSON.stringify(projectDsl),
-    source
+    source,
+    llm: llm ? JSON.stringify(llm) : ''
   };
   return dto;
 }
@@ -229,7 +237,14 @@ export function useAI() {
       const rChat = reactive(chat);
       chats.value.push(rChat);
       completions(rChat, (c) => {
-        if (data.auto) {
+        if (c.status === 'Error' && c.message) {
+          return onPostChat({
+            model: data.model,
+            auto: data.auto,
+            prompt: c.message
+          });
+        }
+        if (c.status === 'Success' && data.auto) {
           onApply(c);
         }
       });
@@ -265,7 +280,14 @@ export function useAI() {
       const rChat = reactive(chat);
       chats.value.push(rChat);
       completions(rChat, (c) => {
-        if (data.auto) {
+        if (c.status === 'Error' && c.message) {
+          return onPostChat({
+            model: data.model,
+            auto: data.auto,
+            prompt: c.message
+          });
+        }
+        if (c.status === 'Success' && data.auto) {
           onApply(c);
         }
       });
@@ -293,7 +315,13 @@ export function useAI() {
       const chat = reactive(res.data);
       chats.value.push(chat);
       completions(chat, (c) => {
-        if (data.auto) {
+        if (c.status === 'Error' && c.message) {
+          return onPostChat({
+            ...data,
+            prompt: c.message
+          });
+        }
+        if (c.status === 'Success' && data.auto) {
           onApply(c);
         }
       });
@@ -333,6 +361,17 @@ export function useAI() {
     });
   };
 
+  const collectErrorMesssage = (msg: any) => {
+    let message = '';
+    if (Array.isArray(msg)) {
+      message += '页面存在以下错误，请检查并修复：\n';
+      message += msg.join(';\n');
+    }
+    return message
+      ? message
+      : '请检查代码是否有错误，是否符合模版和规则要求，并改正';
+  };
+
   const completions = async (
     chat: AIChat,
     complete?: (chat: AIChat) => void
@@ -363,21 +402,22 @@ export function useAI() {
           }
         }
         if (data?.usage) {
-          chat.tokens = (chat.tokens || 0) + (data.usage.total_tokens || 0);
+          const completionTokens = data.usage.completion_tokens || 0;
+          if (completionTokens >= MAX_TOKENS) {
+            chat.status = 'Failed';
+            chat.message = `生成tokens数量达到了MAX_TOKENS【${completionTokens}】已被截断！`;
+            chat.dsl = null;
+            return null;
+          } else {
+            chat.tokens = (chat.tokens || 0) + (data.usage.total_tokens || 0);
+          }
         }
-        if (done && chat.status === 'Pending') {
+        if (done) {
           chat.status = 'Success';
           chat.thinking = Math.ceil(thinking / 1000);
           chat.vue = getVueCode(chat.content);
           const dsl = await vue2Dsl(chat).catch((e) => {
-            if (Array.isArray(e)) {
-              chat.message = e.join('\n');
-            } else {
-              const messages = e?.data || e?.message;
-              chat.message = Array.isArray(messages)
-                ? messages.join('，')
-                : '代码有错误';
-            }
+            chat.message = collectErrorMesssage(e);
             chat.status = 'Error';
             return null;
           });
@@ -386,13 +426,13 @@ export function useAI() {
               chat.dsl = typeof dsl === 'object' ? dsl : JSON.parse(dsl);
               if (Array.isArray(chat.dsl)) {
                 chat.status = 'Error';
-                chat.message = chat.dsl.join(', ');
+                chat.message = collectErrorMesssage(chat.dsl);
                 chat.dsl = null;
               }
             } catch (err: any) {
               chat.dsl = null;
               chat.status = 'Error';
-              chat.message = err?.message;
+              chat.message = collectErrorMesssage(err.message);
             }
           }
           await saveChat(chat);
@@ -400,14 +440,17 @@ export function useAI() {
         }
       },
       async (err: any) => {
-        const message = err.message || err.name || '未知错误';
+        const message = err.message || err.name;
         if (message === 'network error') {
           chat.message = '网络异常，请稍后再试';
         } else {
-          chat.message = '请求失败，请稍后再试';
+          chat.message = message || '请求失败，请稍后再试';
         }
         chat.status = 'Failed';
         console.warn('completions error', err);
+        if (err?.message) {
+          notify(err.message, '生成错误');
+        }
         await saveChat(chat);
         complete && complete(chat);
       }
@@ -477,12 +520,20 @@ export function useAI() {
 
   const onRefresh = (chat: AIChat) => {
     if (isPending.value) return;
-    return completions(chat);
+    return completions(chat, (c) => {
+      if (engine.state.autoApply) {
+        onApply(c);
+      }
+    });
   };
 
-  const onApply = (chat: AIChat) => {
+  const onApply = (chat: AIChat, manual?: boolean) => {
     if (chat.dsl) {
       engine.applyAI(chat.dsl);
+    } else {
+      if (manual) {
+        alert(`DSL不完整，无法应用到页面`);
+      }
     }
     showDetail.value = false;
     currentChat.value = null;
@@ -497,8 +548,8 @@ export function useAI() {
   const onFix = (chat: AIChat) => {
     if (!currentTopic.value) return;
     const prompt = chat.message
-      ? `页面存在以下问题：\n ${chat.message} \n请检查代码并修复`
-      : '请检查代码是否有错误，是否符合规则要求，并改正';
+      ? chat.message
+      : '请检查代码是否有错误，是否符合模版和规则要求，并改正';
     fillPromptInput(prompt);
   };
 

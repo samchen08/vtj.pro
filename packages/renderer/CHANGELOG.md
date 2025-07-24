@@ -3,6 +3,140 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.65](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.12.64...@vtj/renderer@0.12.65) (2025-07-23)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
+## [0.12.64](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.12.63...@vtj/renderer@0.12.64) (2025-07-23)
+
+
+### Bug Fixes
+
+* 🐛 出码插槽支持scope名称 ([ca896df](https://gitee.com/newgateway/vtj/commits/ca896df0515e0f7b1904e5c839b81010b4c45355))
+
+
+
+
+
+## [0.12.63](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.12.62...@vtj/renderer@0.12.63) (2025-07-19)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
+## [0.12.62](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.12.61...@vtj/renderer@0.12.62) (2025-07-19)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
+## [0.12.61](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.12.60...@vtj/renderer@0.12.61) (2025-07-19)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
+## [0.12.60](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.12.59...@vtj/renderer@0.12.60) (2025-07-18)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
+## [0.12.59](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.12.58...@vtj/renderer@0.12.59) (2025-07-18)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
+## [0.12.58](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.12.57...@vtj/renderer@0.12.58) (2025-07-16)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
+## [0.12.57](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.12.56...@vtj/renderer@0.12.57) (2025-07-16)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
+## [0.12.56](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.12.55...@vtj/renderer@0.12.56) (2025-07-16)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
+## [0.12.55](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.12.54...@vtj/renderer@0.12.55) (2025-07-09)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
+## [0.12.54](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.12.53...@vtj/renderer@0.12.54) (2025-07-08)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
+## [0.12.53](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.12.52...@vtj/renderer@0.12.53) (2025-07-07)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
+## [0.12.52](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.12.51...@vtj/renderer@0.12.52) (2025-07-07)
+
+
+### Bug Fixes
+
+* 🐛 0.12.51 ([e4d8797](https://gitee.com/newgateway/vtj/commits/e4d8797a041f6df63b7f9bba3a984f6992db1064))
+
+
+
+
+
+## [0.12.51](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.12.50...@vtj/renderer@0.12.51) (2025-07-07)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
+## [0.12.50](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.12.49...@vtj/renderer@0.12.50) (2025-07-04)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
 ## [0.12.49](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.12.48...@vtj/renderer@0.12.49) (2025-07-02)
 
 **Note:** Version bump only for package @vtj/renderer

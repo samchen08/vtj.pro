@@ -3,6 +3,143 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.65](https://github.com/samchen08/vtj.pro/compare/dev-web@0.12.64...dev-web@0.12.65) (2025-07-23)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
+## [0.12.64](https://github.com/samchen08/vtj.pro/compare/dev-web@0.12.63...dev-web@0.12.64) (2025-07-23)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
+## [0.12.63](https://github.com/samchen08/vtj.pro/compare/dev-web@0.12.62...dev-web@0.12.63) (2025-07-19)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
+## [0.12.62](https://github.com/samchen08/vtj.pro/compare/dev-web@0.12.61...dev-web@0.12.62) (2025-07-19)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
+## [0.12.61](https://github.com/samchen08/vtj.pro/compare/dev-web@0.12.60...dev-web@0.12.61) (2025-07-19)
+
+
+### Bug Fixes
+
+* 🐛 parser 删除 @babel/core 依赖 ([76cefe2](https://github.com/samchen08/vtj.pro/commit/76cefe2b95abfcce7584f81b2e66282b94f0cb3c))
+
+
+
+
+
+## [0.12.60](https://github.com/samchen08/vtj.pro/compare/dev-web@0.12.59...dev-web@0.12.60) (2025-07-18)
+
+
+### Bug Fixes
+
+* 🐛 dev add nodePolyfill ([292525c](https://github.com/samchen08/vtj.pro/commit/292525cd094f21bf532ff44b1223207acaebe4c4))
+
+
+
+
+
+## [0.12.59](https://github.com/samchen08/vtj.pro/compare/dev-web@0.12.58...dev-web@0.12.59) (2025-07-18)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
+## [0.12.58](https://github.com/samchen08/vtj.pro/compare/dev-web@0.12.57...dev-web@0.12.58) (2025-07-16)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
+## [0.12.57](https://github.com/samchen08/vtj.pro/compare/dev-web@0.12.56...dev-web@0.12.57) (2025-07-16)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
+## [0.12.56](https://github.com/samchen08/vtj.pro/compare/dev-web@0.12.55...dev-web@0.12.56) (2025-07-16)
+
+
+### Bug Fixes
+
+* 🐛 x-tabs style ([7a48c6f](https://github.com/samchen08/vtj.pro/commit/7a48c6f47982bf5d94c522a50d4b9485cf6790db))
+
+
+
+
+
+## [0.12.55](https://github.com/samchen08/vtj.pro/compare/dev-web@0.12.54...dev-web@0.12.55) (2025-07-09)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
+## [0.12.54](https://github.com/samchen08/vtj.pro/compare/dev-web@0.12.53...dev-web@0.12.54) (2025-07-08)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
+## [0.12.53](https://github.com/samchen08/vtj.pro/compare/dev-web@0.12.52...dev-web@0.12.53) (2025-07-07)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
+## [0.12.52](https://github.com/samchen08/vtj.pro/compare/dev-web@0.12.51...dev-web@0.12.52) (2025-07-07)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
+## [0.12.51](https://github.com/samchen08/vtj.pro/compare/dev-web@0.12.50...dev-web@0.12.51) (2025-07-07)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
+## [0.12.50](https://github.com/samchen08/vtj.pro/compare/dev-web@0.12.49...dev-web@0.12.50) (2025-07-04)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
 ## [0.12.49](https://github.com/samchen08/vtj.pro/compare/dev-web@0.12.48...dev-web@0.12.49) (2025-07-02)
 
 

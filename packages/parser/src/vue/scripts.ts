@@ -8,6 +8,7 @@ import type {
   CallExpression,
   Identifier
 } from '@babel/types';
+import { uid } from '@vtj/base';
 import { parseScript as toAST, traverseAST, generateCode } from '../shared';
 import type {
   BlockState,
@@ -19,7 +20,12 @@ import type {
   DataSourceSchema,
   ProjectSchema
 } from '@vtj/core';
-import { getJSExpression, getJSFunction, LIFE_CYCLES_LIST } from './utils';
+import {
+  getJSExpression,
+  getJSFunction,
+  LIFE_CYCLES_LIST,
+  extractDataSource
+} from './utils';
 
 export interface ImportStatement {
   from: string;
@@ -218,8 +224,10 @@ function getFunction(item: ObjectMethod) {
     const asyncContent = async ? 'async ' : '';
     const content = `${asyncContent}(${paramsStr}) => ${code}`;
     const watcher = name.startsWith('watcher_');
+    const id = watcher ? name.replace('watcher_', '') : '';
 
     return {
+      id,
       name,
       watcher,
       exp: getJSFunction(content)
@@ -236,7 +244,8 @@ function getMethods(expression: ObjectExpression) {
     if (
       method &&
       !method.watcher &&
-      !method.exp.value.includes('provider.apis')
+      !method.exp.value.includes('this.provider.createMock') &&
+      !method.exp.value.includes('this.provider.apis')
     ) {
       methods[method.name] = method.exp;
     }
@@ -249,9 +258,14 @@ function getDataSources(expression: ObjectExpression, project: ProjectSchema) {
   const sources: Record<string, DataSourceSchema> = {};
   const idRegex = /apis\[\'([\w]*)\'\]/;
   const thenRegex = /\.then\(([\w\W]*)\)/;
+
   for (const item of expression.properties) {
     const method = getFunction(item as ObjectMethod);
-    if (method && method.exp.value.includes('provider.apis')) {
+    const bodyNode = (item as any).body.body?.[0];
+    const comment = (bodyNode?.leadingComments?.[0].value || '').trim();
+    const dataSource = extractDataSource(comment);
+
+    if (method && method.exp.value.includes('this.provider.apis')) {
       const matches = method.exp.value.match(idRegex) || [];
       const id = matches[1];
       if (!id) continue;
@@ -261,7 +275,7 @@ function getDataSources(expression: ObjectExpression, project: ProjectSchema) {
       sources[method.name] = {
         ref: id,
         name: api.name,
-        test: {
+        test: dataSource?.test || {
           type: 'JSFunction',
           value: '() => this.runApi({\n    /* 在这里可输入接口参数  */\n})'
         },
@@ -272,6 +286,30 @@ function getDataSources(expression: ObjectExpression, project: ProjectSchema) {
           value: transform || '(res) => {\n    return res;\n}'
         },
         mockTemplate: api.mockTemplate
+      };
+    }
+
+    if (method && method.exp.value.includes('this.provider.createMock')) {
+      const argumentNode = bodyNode?.declarations?.[0]?.init?.arguments?.[0];
+
+      const transform = method.exp.value.match(thenRegex)?.[1];
+      sources[method.name] = {
+        ref: '',
+        name: method.name,
+        test: dataSource?.test || {
+          type: 'JSFunction',
+          value: '() => this.runApi({\n    /* 在这里可输入接口参数  */\n})'
+        },
+        type: 'mock',
+        label: dataSource?.label || '',
+        transform: dataSource?.transform || {
+          type: 'JSFunction',
+          value: transform || '(res) => {\n    return res;\n}'
+        },
+        mockTemplate: dataSource?.mockTemplate || {
+          type: 'JSFunction',
+          value: argumentNode ? generateCode(argumentNode) : ''
+        }
       };
     }
   }
@@ -363,6 +401,7 @@ function getWatches(
       const properties = (value as ObjectExpression)
         .properties as ObjectProperty[];
       watches.push({
+        id: name.replace('watcher_', ''),
         source: watchers[name],
         deep: getBooleanValue(properties, 'deep'),
         immediate: getBooleanValue(properties, 'immediate'),
@@ -371,10 +410,10 @@ function getWatches(
     } else {
       if (item.type === 'ObjectMethod') {
         watches.push({
-          // todo: 处理上下文
+          id: uid(),
           source: {
             type: 'JSFunction',
-            value: `this.${name}`
+            value: `() => { return this.${name}; }`
           },
           deep: false,
           immediate: false,
@@ -386,10 +425,10 @@ function getWatches(
         const properties = (value as ObjectExpression)
           .properties as ObjectProperty[];
         watches.push({
-          // todo: 处理上下文
+          id: uid(),
           source: {
             type: 'JSFunction',
-            value: `this.${name}`
+            value: `() => { return this.${name}; }`
           },
           deep: getBooleanValue(properties, 'deep'),
           immediate: getBooleanValue(properties, 'immediate'),

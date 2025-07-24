@@ -3,6 +3,36 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.6](https://gitee.com/newgateway/vtj/compare/create-vtj@0.12.5...create-vtj@0.12.6) (2025-07-23)
+
+
+### Features
+
+* ✨ 支持自定义模型 ([37ae362](https://gitee.com/newgateway/vtj/commits/37ae362786659be5bb343290ad0fbd02dbf877f1))
+
+
+
+
+
+## [0.12.5](https://gitee.com/newgateway/vtj/compare/create-vtj@0.12.4...create-vtj@0.12.5) (2025-07-16)
+
+**Note:** Version bump only for package create-vtj
+
+
+
+
+
+## [0.12.4](https://gitee.com/newgateway/vtj/compare/create-vtj@0.12.3...create-vtj@0.12.4) (2025-07-08)
+
+
+### Bug Fixes
+
+* 🐛 升级依赖 ([dbee35b](https://gitee.com/newgateway/vtj/commits/dbee35bd867a44f8c71c117fa90d56d108144a6b))
+
+
+
+
+
 ## [0.12.3](https://gitee.com/newgateway/vtj/compare/create-vtj@0.12.2...create-vtj@0.12.3) (2025-06-30)
 
 **Note:** Version bump only for package create-vtj

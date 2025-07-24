@@ -191,7 +191,7 @@
     }
   };
 
-  const autoScrollToBottom = (diff: number = 200) => {
+  const autoScrollToBottom = (diff: number = 400) => {
     const body = panelRef.value?.bodyRef?.$el;
     if (body) {
       const { offsetHeight, scrollHeight, scrollTop } = body;

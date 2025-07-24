@@ -1,7 +1,7 @@
 {
   "name": "@vtj/docs",
   "private": true,
-  "version": "0.12.49",
+  "version": "0.12.65",
   "type": "module",
   "scripts": {
     "docs:dev": "vitepress dev",
@@ -11,7 +11,7 @@
     "empty:dist": "vtj rm dist"
   },
   "dependencies": {
-    "@vitepress-demo-preview/component": "~2.3.2",
+    "@vitepress-demo-preview/component": "~2.3.0",
     "@vitepress-demo-preview/plugin": "~1.4.0",
     "@vtj/icons": "workspace:*",
     "@vtj/pro": "workspace:*",
