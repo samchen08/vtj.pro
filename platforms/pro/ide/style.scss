@@ -20,6 +20,6 @@ body,
 }
 
 #app.is-page.is-pure {
-  background-color: var(--el-fill-color-light, #f5f7fa);
+  background: initial !important;
   padding: 0;
 }
