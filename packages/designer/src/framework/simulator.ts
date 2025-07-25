@@ -127,7 +127,7 @@ export class Simulator extends Base {
       : `
         <style>
           html,
-          body,
+          body
           #app {
             margin: 0;
             min-height: 100vh;
@@ -144,7 +144,7 @@ export class Simulator extends Base {
              box-sizing: border-box;
           }
             #app.is-page.is-pure {
-             background-color: var(--el-fill-color-light, #f5f7fa);
+            background: initial !important;
              padding: 0;
           }
          </style>`;

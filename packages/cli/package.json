@@ -60,7 +60,7 @@
     "terser": "~5.43.0",
     "typescript": "~5.8.2",
     "unbuild": "~2.0.0",
-    "unplugin-element-plus": "~0.10.0",
+    "unplugin-element-plus": "~0.9.0",
     "vite": "~6.3.0",
     "vite-plugin-cdn-import": "~1.0.1",
     "vite-plugin-dts": "~4.5.0",
