@@ -26,14 +26,28 @@ export const test_27 = `
     setup(props) {
       const provider = useProvider({ id: '17zuumip', version: '1753066495241' });
       const state = reactive({
-      tableDatra:[{"id":"abc"}]
+      mock: null,
+      tableDatra:[{mock:'mock',id:"abc", mock2:'mock'}]
       });
       return { state, props, provider,mock };
     },
-    created() {
+    methods: {
+     mock() {}
+
+      
+    },
+    async created() {
      this.state.tableDatra = this.mock({
       'list|6':['@guid']
      })
+      const data = [{id:"abc", mock:mock}];
+    this.mock
+    this.mock();
+    console.log(this.mock);
+    await this.mock()
+    mock();
+    mock(\`mock\${mock}\`);
+     mock(\`mock\${ mock }\`);
      }
   })
 </script>
