@@ -5,7 +5,8 @@
     :title="title"
     :model="model"
     :form-props="{ tooltipMessage: false }"
-    :submit-method="submit">
+    :submit-method="submit"
+    maximizable>
     <XField
       name="type"
       label="数据类型"
@@ -58,13 +59,17 @@
       :visible="mockVisible">
       <Editor
         v-model="(model.mockTemplate as JSFunction).value"
-        height="300px"
+        height="250px"
         dark></Editor>
     </XField>
-    <XField name="test.value" label="测试用例" editor="none">
+    <XField
+      name="test.value"
+      label="测试用例"
+      editor="none"
+      style="height: calc(100% - 450px)">
       <Editor
         v-model="(model.test as JSFunction).value"
-        height="100px"
+        height="100%"
         dark></Editor>
     </XField>
     <template #extra>
