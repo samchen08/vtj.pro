@@ -63,6 +63,7 @@
 
 ### 媒体报道
 
+- [这个开源的「AI + 低代码」开发平台绝了，Gitee上斩获 9.2K Star!](https://mp.weixin.qq.com/s/DBoMp7ymX5XS9zWz9LzCMw)
 - [【开源】告别重复代码！AI驱动的Vue3低代码平台，让开发快人一步](https://mp.weixin.qq.com/s/8zJyrGpL4yHxUCgmGg4qYQ)
 - [解锁低码高效新篇章：VTJ，让开发“飞”起来！](https://mp.weixin.qq.com/s/2bOX6p3mBG1ys_HivCMHhA)
 - [开箱即用，一款基于Vue3 + TypeScript的低代码开发神器！](https://mp.weixin.qq.com/s/mwD0dgeCl_GX_yDBwBsNtA)
