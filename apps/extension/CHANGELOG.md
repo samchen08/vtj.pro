@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.66](https://github.com/samchen08/vtj.pro/compare/vtj-extension@0.12.65...vtj-extension@0.12.66) (2025-07-26)
+
+
+### Bug Fixes
+
+* 🐛 extension tsconfig.node.json ([b90f494](https://github.com/samchen08/vtj.pro/commit/b90f494fd74197d68e00e9650cdb806bd4efaaff))
+
+
+
+
+
 ## [0.12.65](https://github.com/samchen08/vtj.pro/compare/vtj-extension@0.12.64...vtj-extension@0.12.65) (2025-07-23)
 
 **Note:** Version bump only for package vtj-extension
