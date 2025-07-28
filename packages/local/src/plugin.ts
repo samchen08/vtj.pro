@@ -25,7 +25,12 @@ export interface DevToolsOptions {
   staticDir: string;
   link: boolean | string;
   linkOptions: LinkOptions | null;
+  // 本地文件存储目录
   vtjDir: string;
+  // 本地文件静态文件目录, 必须要在staticDir的目录下
+  vtjStaticDir: string;
+  // 本地出码vue页面文件目录，独立于vtjDir
+  vtjRawDir: string;
   packagesDir: string;
   devMode: boolean;
   uploader: string;
@@ -344,6 +349,8 @@ export function createDevTools(options: Partial<DevToolsOptions> = {}) {
     link: true,
     linkOptions: null,
     vtjDir: '.vtj',
+    vtjStaticDir: '.vtj',
+    vtjRawDir: '.vtj/vue',
     packagesDir: '../../packages',
     devMode: false,
     uploader: '/uploader.json',
