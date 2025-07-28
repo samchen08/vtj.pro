@@ -52,6 +52,7 @@
       name="share"
       editor="switch"
       tip="非公共的模版即仅自己可以使用, 公开模版后不允许删除"
+      :disabled="true"
       required>
     </XField>
     <XField
