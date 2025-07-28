@@ -422,6 +422,10 @@ function transformNode(
       return node.content.content;
     } else if (node.content.type === NodeTypes.INTERPOLATION) {
       return getJSExpression(node.content.content.loc.source);
+    } else if (node.content.type === NodeTypes.COMPOUND_EXPRESSION) {
+      return transformCompoundExpression(
+        node.content.children as CompoundExpressionNode[]
+      );
     }
     return '';
   }
