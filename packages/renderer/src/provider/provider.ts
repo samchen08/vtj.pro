@@ -79,6 +79,8 @@ export interface ProviderOptions {
   pageRouteName?: string;
   routeMeta?: RouteMeta;
   enhance?: (app: App, provider: Provider) => void;
+  vtjDir?: string;
+  vtjRawDir?: string;
 }
 
 export enum NodeEnv {
@@ -183,10 +185,11 @@ export class Provider extends Base {
    * @param project 项目配置
    */
   async load(project: ProjectSchema) {
+    const { vtjDir = '.vtj' } = this.options;
     // 尝试从模块缓存加载项目配置，否则从服务初始化
     const module =
-      this.modules[`.vtj/projects/${project.id}.json`] ||
-      this.modules[`/src/.vtj/projects/${project.id}.json`];
+      this.modules[`${vtjDir}/projects/${project.id}.json`] ||
+      this.modules[`/src/${vtjDir}/projects/${project.id}.json`];
     this.project = module ? await module() : await this.service.init(project);
     if (!this.project) {
       throw new Error('project is null');
@@ -448,9 +451,10 @@ export class Provider extends Base {
     return this.getPage(homepage);
   }
   async getDsl(id: string): Promise<BlockSchema | null> {
+    const { vtjDir = '.vtj' } = this.options;
     const module =
-      this.modules[`.vtj/files/${id}.json`] ||
-      this.modules[`/src/.vtj/files/${id}.json`];
+      this.modules[`${vtjDir}/files/${id}.json`] ||
+      this.modules[`/src/${vtjDir}/files/${id}.json`];
     return module
       ? await module()
       : this.service.getFile(id, this.project || undefined).catch(() => null);
@@ -543,8 +547,10 @@ export class Provider extends Base {
       output(file);
     }
 
+    const { vtjRawDir = '.vtj/vue' } = this.options;
+
     // 尝试从模块缓存加载原始Vue组件
-    const rawPath = `.vtj/vue/${id}.vue`;
+    const rawPath = `${vtjRawDir}/${id}.vue`;
     const rawModule =
       this.modules[rawPath] || this.modules[`/src/pages/${id}.vue`];
     if (rawModule) {

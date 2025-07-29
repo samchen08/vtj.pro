@@ -104,7 +104,7 @@ const controller: Controller = {
     return service.getStaticFiles({
       staticBase: opts.staticBase,
       staticDir: opts.staticDir,
-      vtjDir: opts.vtjStaticDir || opts.vtjDir
+      vtjStaticDir: opts.vtjStaticDir
     });
   },
   removeStaticFile: async (req: ApiRequest, opts: DevToolsOptions) => {
@@ -112,20 +112,20 @@ const controller: Controller = {
     return service.removeStaticFile(name, {
       staticBase: opts.staticBase,
       staticDir: opts.staticDir,
-      vtjDir: opts.vtjStaticDir || opts.vtjDir
+      vtjStaticDir: opts.vtjStaticDir
     });
   },
   clearStaticFiles: async (_req: ApiRequest, opts: DevToolsOptions) => {
     return service.clearStaticFiles({
       staticBase: opts.staticBase,
       staticDir: opts.staticDir,
-      vtjDir: opts.vtjStaticDir || opts.vtjDir
+      vtjStaticDir: opts.vtjStaticDir
     });
   },
 
   uploader: async (req: any, opts: DevToolsOptions) => {
     if (!opts) return fail('异常错误');
-    const uploadDir = resolve(opts.staticDir, opts.vtjDir);
+    const uploadDir = resolve(opts.staticDir, opts.vtjStaticDir);
     const form = formidable({
       keepExtensions: true,
       multiples: true,
@@ -142,9 +142,11 @@ const controller: Controller = {
         const result = await service.uploadStaticFiles(tempFiles, {
           staticBase: opts.staticBase,
           staticDir: opts.staticDir,
-          vtjDir: opts.vtjStaticDir || opts.vtjDir
+          vtjStaticDir: opts.vtjStaticDir
         });
-        reslove(result);
+        setTimeout(() => {
+          reslove(result);
+        }, 200);
       });
     });
   }
