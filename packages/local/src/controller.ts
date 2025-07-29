@@ -133,13 +133,13 @@ const controller: Controller = {
       uploadDir
     });
     return await new Promise<ApiResponse>((reslove) => {
-      form.parse(req, (err, _fields, files) => {
+      form.parse(req, async (err, _fields, files) => {
         if (err) {
           reslove(fail('异常错误', err));
           return;
         }
         const tempFiles = files.files || [];
-        const result = service.uploadStaticFiles(tempFiles, {
+        const result = await service.uploadStaticFiles(tempFiles, {
           staticBase: opts.staticBase,
           staticDir: opts.staticDir,
           vtjDir: opts.vtjStaticDir || opts.vtjDir
