@@ -60,6 +60,8 @@ import { version } from '../version';
 
 import { createMenus } from '../hooks';
 
+import { createStaticRoutes } from './routes';
+
 export const providerKey: InjectionKey<Provider> = Symbol('Provider');
 
 export interface ProviderOptions {
@@ -79,8 +81,12 @@ export interface ProviderOptions {
   pageRouteName?: string;
   routeMeta?: RouteMeta;
   enhance?: (app: App, provider: Provider) => void;
+  // 出码文件存储目录
   vtjDir?: string;
+  // 出码的vue文件存储目录
   vtjRawDir?: string;
+  // 开启静态路由
+  enableStaticRoute?: boolean;
 }
 
 export enum NodeEnv {
@@ -340,12 +346,30 @@ export class Provider extends Base {
     if (router.hasRoute(HOMEPAGE_ROUTE_NAME)) {
       router.removeRoute(HOMEPAGE_ROUTE_NAME);
     }
-    if (routeAppendTo) {
-      router.addRoute(routeAppendTo, pageRoute);
-      router.addRoute(routeAppendTo, homeRoute);
+
+    if (options.enableStaticRoute) {
+      const pages = project?.pages || [];
+      const routes = createStaticRoutes({
+        name: pageRouteName,
+        prefix: pathStart,
+        pages,
+        component: PageContainer,
+        loader: this.getRenderComponent.bind(this),
+        homepage: project?.homepage
+      });
+      routes.forEach((route) => {
+        routeAppendTo
+          ? router.addRoute(routeAppendTo, route)
+          : router.addRoute(route);
+      });
     } else {
-      router.addRoute(pageRoute);
-      router.addRoute(homeRoute);
+      if (routeAppendTo) {
+        router.addRoute(routeAppendTo, pageRoute);
+        router.addRoute(routeAppendTo, homeRoute);
+      } else {
+        router.addRoute(pageRoute);
+        router.addRoute(homeRoute);
+      }
     }
   }
 

@@ -291,7 +291,10 @@ export class ProjectModel {
     const finder = (pages: PageFile[] = []) => {
       let result: PageFile[] = [];
       for (const page of pages) {
-        if (page.dir) {
+        if (page.dir || page.layout) {
+          if (page.layout) {
+            result.push(page);
+          }
           if (page.children && page.children.length) {
             result = result.concat(finder(page.children));
           }
