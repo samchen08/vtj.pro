@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.68](https://github.com/samchen08/vtj.pro/compare/vtj-project-h5@0.12.67...vtj-project-h5@0.12.68) (2025-07-31)
+
+
+### Bug Fixes
+
+* 🐛 project tempalte ([bdefc48](https://github.com/samchen08/vtj.pro/commit/bdefc484bf23a8828693f327f6049d1b19fe5c7c))
+
+
+
+
+
+## [0.12.67](https://github.com/samchen08/vtj.pro/compare/vtj-project-h5@0.12.66...vtj-project-h5@0.12.67) (2025-07-31)
+
+**Note:** Version bump only for package vtj-project-h5
+
+
+
+
+
 ## [0.12.66](https://github.com/samchen08/vtj.pro/compare/vtj-project-h5@0.12.65...vtj-project-h5@0.12.66) (2025-07-26)
 
 **Note:** Version bump only for package vtj-project-h5

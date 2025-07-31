@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.68](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.12.67...@vtj/ui@0.12.68) (2025-07-31)
+
+**Note:** Version bump only for package @vtj/ui
+
+
+
+
+
+## [0.12.67](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.12.66...@vtj/ui@0.12.67) (2025-07-31)
+
+
+### Bug Fixes
+
+* 🐛 ui mask pure style ([5f6a808](https://gitee.com/newgateway/vtj/commits/5f6a808eae66cb3c61f0ed66f74ccef373ebeaa3))
+
+
+
+
+
 ## [0.12.66](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.12.65...@vtj/ui@0.12.66) (2025-07-26)
 
 **Note:** Version bump only for package @vtj/ui

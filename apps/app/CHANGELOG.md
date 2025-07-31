@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.68](https://github.com/samchen08/vtj.pro/compare/vtj-project-app@0.12.67...vtj-project-app@0.12.68) (2025-07-31)
+
+**Note:** Version bump only for package vtj-project-app
+
+
+
+
+
+## [0.12.67](https://github.com/samchen08/vtj.pro/compare/vtj-project-app@0.12.66...vtj-project-app@0.12.67) (2025-07-31)
+
+
+### Features
+
+* ✨ 支持静态路由 ([bfcb73c](https://github.com/samchen08/vtj.pro/commit/bfcb73c1625abed19d241f9ccd2b4c832ef04cca))
+
+
+
+
+
 ## [0.12.66](https://github.com/samchen08/vtj.pro/compare/vtj-project-app@0.12.65...vtj-project-app@0.12.66) (2025-07-26)
 
 **Note:** Version bump only for package vtj-project-app

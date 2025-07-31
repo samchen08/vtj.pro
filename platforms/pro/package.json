@@ -1,7 +1,7 @@
 {
   "name": "@vtj/pro",
   "private": false,
-  "version": "0.12.66",
+  "version": "0.12.68",
   "keywords": [
     "低代码引擎",
     "LowCode Engine",
@@ -68,7 +68,7 @@
   },
   "vtj": {
     "name": "VTJ.PRO",
-    "platform": "uniapp",
+    "platform": "web",
     "remote": "https://lcdp.vtj.pro",
     "__ACCESS__": {
       "auth": "https://lcdp.vtj.pro/login",

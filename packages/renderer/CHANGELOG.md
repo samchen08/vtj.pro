@@ -3,6 +3,29 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.68](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.12.67...@vtj/renderer@0.12.68) (2025-07-31)
+
+
+### Bug Fixes
+
+* 🐛 project tempalte ([bdefc48](https://gitee.com/newgateway/vtj/commits/bdefc484bf23a8828693f327f6049d1b19fe5c7c))
+
+
+
+
+
+## [0.12.67](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.12.66...@vtj/renderer@0.12.67) (2025-07-31)
+
+
+### Features
+
+* ✨ 支持出码目录配置 ([ba9b114](https://gitee.com/newgateway/vtj/commits/ba9b1146f1cddf985582bd0ef165617bd1b1ea0a))
+* ✨ 支持静态路由 ([bfcb73c](https://gitee.com/newgateway/vtj/commits/bfcb73c1625abed19d241f9ccd2b4c832ef04cca))
+
+
+
+
+
 ## [0.12.66](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.12.65...@vtj/renderer@0.12.66) (2025-07-26)
 
 **Note:** Version bump only for package @vtj/renderer
