@@ -17,21 +17,29 @@ export function createMenus(
   pageRouteName: string,
   pages: PageFile[] = []
 ): MenuDataItem[] {
-  return pages.map((page) => {
-    const { id, title, icon, children, hidden } = page;
-    const menu: MenuDataItem = {
-      id,
-      title,
-      icon,
-      hidden,
-      url: `${menuPathPrefix}/${pageRouteName}/${id}`,
-      children:
-        children && children.length
-          ? createMenus(menuPathPrefix, pageRouteName, children)
-          : undefined
-    };
-    return menu;
-  });
+  const result: MenuDataItem[] = [];
+
+  for (const page of pages) {
+    const { id, title, icon, children, hidden, layout } = page;
+    if (layout) {
+      const menus = createMenus(menuPathPrefix, pageRouteName, children || []);
+      result.push(...menus);
+    } else {
+      const menu: MenuDataItem = {
+        id,
+        title,
+        icon,
+        hidden,
+        url: `${menuPathPrefix}/${pageRouteName}/${id}`,
+        children:
+          children && children.length
+            ? createMenus(menuPathPrefix, pageRouteName, children)
+            : undefined
+      };
+      result.push(menu);
+    }
+  }
+  return result;
 }
 
 export function menusFilter(
@@ -70,19 +78,27 @@ export function useMask(options?: UseMaskOptions) {
   const disabled = ref(false);
   const pure = ref(false);
   const project = provider.project;
+  const setPageSettings = (page?: PageFile | null) => {
+    disabled.value = !page?.mask;
+    pure.value = !!page?.pure;
+  };
   watchEffect(() => {
     const { name, params, meta } = route;
     if (name === PAGE_ROUTE_NAME) {
       const page = provider.getPage(params.id as string);
-      disabled.value = !page?.mask;
-      pure.value = !!page?.pure;
+      setPageSettings(page);
     } else if (name === HOMEPAGE_ROUTE_NAME) {
       const page = provider.getHomepage();
-      disabled.value = !page?.mask;
-      pure.value = !!page?.pure;
+      setPageSettings(page);
     } else {
-      disabled.value = !meta.mask;
-      pure.value = !!meta.pure;
+      const pageId = meta.__vtj__ as string;
+      if (pageId) {
+        const page = provider.getPage(pageId);
+        setPageSettings(page);
+      } else {
+        disabled.value = !meta.mask;
+        pure.value = !!meta.pure;
+      }
     }
   });
 

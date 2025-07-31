@@ -38,7 +38,7 @@
     overflow: auto;
     box-sizing: border-box;
     @include when(pure) {
-      background-color: transparent;
+      background-color: getCssVar('bg-color');
       padding: 0;
       border-radius: 0;
     }

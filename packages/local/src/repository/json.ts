@@ -9,12 +9,18 @@ import {
 
 import type { PlatformType } from '@vtj/core';
 
+export interface JsonRepositoryOptions {
+  dir: string;
+  platform: PlatformType;
+  category: string;
+}
+
 export class JsonRepository {
   private path: string;
-  constructor(path: string, platform: PlatformType = 'web') {
-    const dir = platform === 'uniapp' ? 'src/.vtj' : '.vtj';
-    // const dir = '.vtj';
-    this.path = resolve(dir, path);
+  constructor(options: JsonRepositoryOptions) {
+    const { dir = '.vtj', platform = 'web', category } = options;
+    const _dir = platform === 'uniapp' ? `src/${dir}` : dir;
+    this.path = resolve(_dir, category);
   }
   exist(name: string) {
     const filePath = join(this.path, `${name}.json`);

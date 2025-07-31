@@ -1,18 +1,9 @@
 export const test_27 = `
 <template>
-  <ElTable :data="[
-      {
-        date: '2016-05-03',
-        name: 'Tom',
-        address: 'No. 189, Grove St, Los Angeles'
-      }
-    ]">
-    <ElTableColumn prop="date" label="Date">
-      <template #default="scope">
-        <div>容器文本内容示例</div>
-      </template>
-    </ElTableColumn>
-  </ElTable>
+  <div>
+    {{ state.data}}
+     (<span> {{ state.item }}</span>)
+  </div>
 </template>
 <script lang="ts">
   // @ts-nocheck

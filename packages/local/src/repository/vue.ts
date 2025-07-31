@@ -8,11 +8,18 @@ import {
 
 import type { PlatformType } from '@vtj/core';
 
+export interface VueRepositoryOptions {
+  dir: string;
+  platform: PlatformType;
+}
+
 export class VueRepository {
   private path: string;
-  constructor(platform: PlatformType = 'web') {
-    const dir = platform === 'uniapp' ? 'src/pages' : '.vtj/vue';
-    this.path = resolve(dir);
+  constructor(options: VueRepositoryOptions) {
+    const { dir = '.vtj/vue', platform = 'web' } = options;
+    // uniapp不支持自定义定义
+    const _dir = platform === 'uniapp' ? `src/pages` : dir;
+    this.path = resolve(_dir);
   }
   exist(name: string) {
     const filePath = join(this.path, `${name}.vue`);

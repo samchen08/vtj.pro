@@ -28,8 +28,8 @@
   } from '@vtj/web';
   import zhCn from 'element-plus/es/locale/lang/zh-cn';
   import _logo from './assets/logo.svg';
-  const { disabled, title, menus, logo, themeSwitchable, pure } = useMask();
 
+  const { disabled, title, menus, logo, themeSwitchable, pure } = useMask();
   const actions: ActionBarItems = [
     {
       name: 'message',
