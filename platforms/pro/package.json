@@ -68,7 +68,7 @@
   },
   "vtj": {
     "name": "VTJ.PRO",
-    "platform": "web",
+    "platform": "uniapp",
     "remote": "https://lcdp.vtj.pro",
     "__ACCESS__": {
       "auth": "https://lcdp.vtj.pro/login",

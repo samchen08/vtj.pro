@@ -1,8 +1,9 @@
 <template>
   <XDialogForm
     :title="title"
+    class="v-pages-widget-form"
     width="800px"
-    height="650px"
+    height="700px"
     :maximizable="true"
     :form-props="{ tooltipMessage: false }"
     :model="model"
@@ -109,9 +110,10 @@
       :visible="{ dir: false }"
       name="meta"
       label="路由Meta"
-      label-width="80px">
+      label-width="80px"
+      :style="{ height: 'calc(100% - 500px)' }">
       <template #editor>
-        <Editor dark height="100px" lang="json" v-model="computedMeta"></Editor>
+        <Editor dark height="100%" lang="json" v-model="computedMeta"></Editor>
       </template>
     </XField>
 
@@ -128,11 +130,12 @@
       name="style"
       label="style"
       label-width="80px"
+      :style="{ height: 'calc(100% - 360px)' }"
       tip="配置页面窗口表现，配置项参考: https://uniapp.dcloud.net.cn/collocation/pages.html#style">
       <template #editor>
         <Editor
           dark
-          height="250px"
+          height="100%"
           width="100%"
           lang="json"
           v-model="computedStyle"></Editor>
