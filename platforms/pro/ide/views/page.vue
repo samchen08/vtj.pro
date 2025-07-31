@@ -2,7 +2,7 @@
   <component v-if="renderer" :is="renderer"></component>
 </template>
 <script lang="ts" setup>
-  import { ref, getCurrentInstance } from 'vue';
+  import { ref, getCurrentInstance, watch, type App } from 'vue';
   import { useRoute } from 'vue-router';
   import {
     createProvider,
@@ -45,17 +45,32 @@
   const renderer = ref();
   const instance = getCurrentInstance();
 
+  const setupPage = async (app: App) => {
+    renderer.value = await provider.getRenderComponent(
+      route.params.id.toString(),
+      (file: any) => {
+        setupPageSetting(app, route, file);
+      }
+    );
+  };
+
   onReady(async () => {
     const app = instance?.appContext.app;
     if (app) {
       app.use(IconsPlugin);
       app.use(provider);
-      renderer.value = await provider.getRenderComponent(
-        route.params.id.toString(),
-        (file: any) => {
-          setupPageSetting(app, route, file);
-        }
-      );
+      setupPage(app);
     }
   });
+
+  watch(
+    () => route.params.id,
+    async (id) => {
+      if (id) {
+        const app = instance?.appContext.app;
+        if (!app) return;
+        setupPage(app);
+      }
+    }
+  );
 </script>

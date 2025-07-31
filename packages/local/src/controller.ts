@@ -23,65 +23,65 @@ const controller: Controller = {
   },
   getExtension: service.getExtension,
   init: service.init,
-  saveProject: async (req: ApiRequest) => {
+  saveProject: async (req: ApiRequest, opts: DevToolsOptions) => {
     const project = req.data as ProjectSchema;
-    return service.saveProject(project, req.query?.type);
+    return service.saveProject(project, req.query?.type, opts);
   },
-  saveFile: async (req: ApiRequest) => {
+  saveFile: async (req: ApiRequest, opts: DevToolsOptions) => {
     const file = req.data as BlockSchema;
-    return service.saveFile(file);
+    return service.saveFile(file, opts);
   },
-  getFile: async (req: ApiRequest) => {
+  getFile: async (req: ApiRequest, opts: DevToolsOptions) => {
     const id = req.data as string;
-    return service.getFile(id);
+    return service.getFile(id, opts);
   },
-  removeFile: async (req: ApiRequest) => {
+  removeFile: async (req: ApiRequest, opts: DevToolsOptions) => {
     const id = req.data as string;
-    return service.removeFile(id);
+    return service.removeFile(id, opts);
   },
-  getHistory: async (req: ApiRequest) => {
+  getHistory: async (req: ApiRequest, opts: DevToolsOptions) => {
     const id = req.data as string;
-    return service.getHistory(id);
+    return service.getHistory(id, opts);
   },
-  saveHistory: async (req: ApiRequest) => {
+  saveHistory: async (req: ApiRequest, opts: DevToolsOptions) => {
     const file = req.data as HistorySchema;
-    return service.saveHistory(file);
+    return service.saveHistory(file, opts);
   },
-  removeHistory: async (req: ApiRequest) => {
+  removeHistory: async (req: ApiRequest, opts: DevToolsOptions) => {
     const id = req.data as string;
-    return service.removeHistory(id);
+    return service.removeHistory(id, opts);
   },
-  getHistoryItem: async (req: ApiRequest) => {
+  getHistoryItem: async (req: ApiRequest, opts: DevToolsOptions) => {
     const { fId, id } = req.data || {};
-    return service.getHistoryItem(fId, id);
+    return service.getHistoryItem(fId, id, opts);
   },
-  saveHistoryItem: async (req: ApiRequest) => {
+  saveHistoryItem: async (req: ApiRequest, opts: DevToolsOptions) => {
     const { fId, item } = req.data || {};
-    return service.saveHistoryItem(fId, item);
+    return service.saveHistoryItem(fId, item, opts);
   },
-  removeHistoryItem: async (req: ApiRequest) => {
+  removeHistoryItem: async (req: ApiRequest, opts: DevToolsOptions) => {
     const { fId, ids = [] } = req.data || {};
-    return service.removeHistoryItem(fId, ids);
+    return service.removeHistoryItem(fId, ids, opts);
   },
-  saveMaterials: async (req: ApiRequest) => {
+  saveMaterials: async (req: ApiRequest, opts: DevToolsOptions) => {
     const { project, materials } = req.data || {};
-    return service.saveMaterials(project, materials);
+    return service.saveMaterials(project, materials, opts);
   },
-  publishFile: async (req: ApiRequest) => {
+  publishFile: async (req: ApiRequest, opts: DevToolsOptions) => {
     const { project, file } = req.data || {};
-    const result = await service.publishFile(project, file);
+    const result = await service.publishFile(project, file, undefined, opts);
     if (project.platform === 'uniapp') {
       await service.genUniConfig(project, true);
     }
     return result;
   },
-  publish: async (req: ApiRequest) => {
+  publish: async (req: ApiRequest, opts: DevToolsOptions) => {
     const project = req.data || {};
-    return service.publish(project);
+    return service.publish(project, opts);
   },
-  genVueContent: async (req: ApiRequest) => {
+  genVueContent: async (req: ApiRequest, opts: DevToolsOptions) => {
     const { project, dsl } = req.data || {};
-    return service.genVueContent(project, dsl);
+    return service.genVueContent(project, dsl, opts);
   },
   parseVue: async (req: ApiRequest) => {
     const { id, name, source, project } = req.data || {};
@@ -92,28 +92,40 @@ const controller: Controller = {
       project
     });
   },
-  createRawPage: async (req: ApiRequest) => {
+  createRawPage: async (req: ApiRequest, opts: DevToolsOptions) => {
     const file = req.data as PageFile;
-    return service.createRawPage(file);
+    return service.createRawPage(file, opts);
   },
-  removeRawPage: async (req: ApiRequest) => {
+  removeRawPage: async (req: ApiRequest, opts: DevToolsOptions) => {
     const id = req.data as string;
-    return service.removeRawPage(id);
+    return service.removeRawPage(id, opts);
   },
-  getStaticFiles: async (_req: ApiRequest, opts?: DevToolsOptions) => {
-    return service.getStaticFiles(opts as any);
+  getStaticFiles: async (_req: ApiRequest, opts: DevToolsOptions) => {
+    return service.getStaticFiles({
+      staticBase: opts.staticBase,
+      staticDir: opts.staticDir,
+      vtjStaticDir: opts.vtjStaticDir
+    });
   },
-  removeStaticFile: async (req: ApiRequest, opts?: DevToolsOptions) => {
+  removeStaticFile: async (req: ApiRequest, opts: DevToolsOptions) => {
     const name = req.data?.name as string;
-    return service.removeStaticFile(name, opts as any);
+    return service.removeStaticFile(name, {
+      staticBase: opts.staticBase,
+      staticDir: opts.staticDir,
+      vtjStaticDir: opts.vtjStaticDir
+    });
   },
-  clearStaticFiles: async (_req: ApiRequest, opts?: DevToolsOptions) => {
-    return service.clearStaticFiles(opts as any);
+  clearStaticFiles: async (_req: ApiRequest, opts: DevToolsOptions) => {
+    return service.clearStaticFiles({
+      staticBase: opts.staticBase,
+      staticDir: opts.staticDir,
+      vtjStaticDir: opts.vtjStaticDir
+    });
   },
 
-  uploader: async (req: any, opts?: DevToolsOptions) => {
+  uploader: async (req: any, opts: DevToolsOptions) => {
     if (!opts) return fail('异常错误');
-    const uploadDir = resolve(opts.staticDir, opts.vtjDir);
+    const uploadDir = resolve(opts.staticDir, opts.vtjStaticDir);
     const form = formidable({
       keepExtensions: true,
       multiples: true,
@@ -121,14 +133,20 @@ const controller: Controller = {
       uploadDir
     });
     return await new Promise<ApiResponse>((reslove) => {
-      form.parse(req, (err, _fields, files) => {
+      form.parse(req, async (err, _fields, files) => {
         if (err) {
           reslove(fail('异常错误', err));
           return;
         }
         const tempFiles = files.files || [];
-        const result = service.uploadStaticFiles(tempFiles, opts as any);
-        reslove(result);
+        const result = await service.uploadStaticFiles(tempFiles, {
+          staticBase: opts.staticBase,
+          staticDir: opts.staticDir,
+          vtjStaticDir: opts.vtjStaticDir
+        });
+        setTimeout(() => {
+          reslove(result);
+        }, 200);
       });
     });
   }
@@ -182,7 +200,7 @@ export const router = async (req: any, opts: DevToolsOptions) => {
           stack: e?.stack
         }
       };
-      await service.saveLogs(info);
+      await service.saveLogs(info, opts);
       return fail('异常错误', e?.message, e?.stack);
     }
   }

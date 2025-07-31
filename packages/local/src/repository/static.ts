@@ -5,13 +5,13 @@ import formidable from 'formidable';
 export interface StaticRepositoryOptions {
   staticBase: string;
   staticDir: string;
-  vtjDir: string;
+  vtjStaticDir: string;
 }
 
 export class StaticRepository {
   private path: string;
   constructor(private options: StaticRepositoryOptions) {
-    this.path = resolve(this.options.staticDir, this.options.vtjDir);
+    this.path = resolve(this.options.staticDir, this.options.vtjStaticDir);
   }
   exist(name: string) {
     const filePath = join(this.path, name);
@@ -40,7 +40,7 @@ export class StaticRepository {
           filename: name,
           filepath: join(
             this.options.staticBase,
-            this.options.vtjDir,
+            this.options.vtjStaticDir,
             name
           ).replace(/\\/g, '/')
         };
@@ -60,7 +60,7 @@ export class StaticRepository {
             filename: file.originalFilename,
             filepath: join(
               this.options.staticBase,
-              this.options.vtjDir,
+              this.options.vtjStaticDir,
               file.originalFilename
             ).replace(/\\/g, '/')
           });
@@ -90,7 +90,7 @@ export class StaticRepository {
           filename: file.originalFilename,
           filepath: join(
             this.options.staticBase,
-            this.options.vtjDir,
+            this.options.vtjStaticDir,
             file.originalFilename
           ).replace(/\\/g, '/')
         });

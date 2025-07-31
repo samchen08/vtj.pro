@@ -85,6 +85,11 @@ export interface PageFile extends BlockFile {
   dir?: boolean;
 
   /**
+   * 是否布局页面
+   */
+  layout?: boolean;
+
+  /**
    * 菜单icon
    */
   icon?: string;

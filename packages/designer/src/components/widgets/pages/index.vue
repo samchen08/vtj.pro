@@ -9,23 +9,19 @@
       :data="pages"
       node-key="id"
       default-expand-all
+      :expand-on-click-node="false"
       draggable
       :allow-drop="allowDrop"
       @node-drop="onNodeDrop">
       <template #default="{ data, node }">
         <Item
           class="v-pages-widget__item"
+          :class="{ 'is-layout': data.layout }"
           :icon="icons[data.icon]"
           :title="data.title"
           :subtitle="data.name"
           :model-value="{ data, node }"
-          :actions="
-            data.dir
-              ? ['add', 'edit', 'remove']
-              : data.raw
-                ? ['home', 'edit', 'remove']
-                : ['home', 'edit', 'copy', 'remove', 'saveToBlock']
-          "
+          :actions="createActions(data)"
           @action="onAction"
           @click="onClick(data)"
           :active="current?.id === data.id"
@@ -77,6 +73,7 @@
 
   const createTextTags = (page: PageFile) => {
     const tags: string[] = [];
+    if (page.layout) return tags;
     if (project.value?.homepage === page.id) {
       tags.push('主');
     }
@@ -96,6 +93,16 @@
       tags.push('源');
     }
     return tags;
+  };
+
+  const createActions = (data: PageFile) => {
+    const actions =
+      data.dir || data.layout
+        ? ['add', 'edit', 'remove']
+        : data.raw
+          ? ['home', 'edit', 'remove']
+          : ['home', 'edit', 'copy', 'remove', 'saveToBlock'];
+    return actions as any[];
   };
 
   const onPlus = () => {
@@ -119,7 +126,7 @@
       visible.value = true;
     }
     if (name === 'remove') {
-      if (data.dir) {
+      if (data.dir || data.layout) {
         const page = project.value?.getPage(data.id);
         if (page && page.children?.length) {
           notify('请先删除子页面');
@@ -161,7 +168,7 @@
 
   const allowDrop = (_draggingNode: any, dropNode: any, type: string) => {
     if (type === 'inner') {
-      return !!dropNode.data.dir;
+      return !!dropNode.data.dir || !!dropNode.data.layout;
     }
     return true;
   };

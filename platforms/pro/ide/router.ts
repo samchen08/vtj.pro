@@ -21,7 +21,7 @@ const routes = [
   },
   {
     path: '/pages/:id',
-    name: 'page',
+    name: 'pages',
     component: () => import('./views/uni-page.vue'),
     meta: {
       pure: true

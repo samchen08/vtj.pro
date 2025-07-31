@@ -234,8 +234,7 @@ export abstract class Service {
   ): Promise<MaterialDescription | null>;
 
   /**
-   * 弃用，无作用
-   * @deprecated
+   * 项目出码，导出zip
    * @param project
    */
   public abstract genSource(project: ProjectSchema): Promise<string>;
