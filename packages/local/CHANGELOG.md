@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.67](https://gitee.com/newgateway/vtj/compare/@vtj/local@0.12.66...@vtj/local@0.12.67) (2025-07-31)
+
+
+### Bug Fixes
+
+* 🐛 static uploader ([2e8d8f7](https://gitee.com/newgateway/vtj/commits/2e8d8f7e5ced0d585baefd381713d0fd9b41a48b))
+
+
+### Features
+
+* ✨ 支持出码目录配置 ([ba9b114](https://gitee.com/newgateway/vtj/commits/ba9b1146f1cddf985582bd0ef165617bd1b1ea0a))
+* ✨ 支持定义出码文件路径 ([088f015](https://gitee.com/newgateway/vtj/commits/088f015dcf258de3ce97ee846862eec741d2e865))
+
+
+
+
+
 ## [0.12.66](https://gitee.com/newgateway/vtj/compare/@vtj/local@0.12.65...@vtj/local@0.12.66) (2025-07-26)
 
 **Note:** Version bump only for package @vtj/local

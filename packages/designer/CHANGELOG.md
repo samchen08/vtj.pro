@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.67](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.12.66...@vtj/designer@0.12.67) (2025-07-31)
+
+
+### Bug Fixes
+
+* 🐛 pages from style ([d604324](https://gitee.com/newgateway/vtj/commits/d604324c357accffb7f2c0040c081a33504d3655))
+
+
+### Features
+
+* ✨ 支持静态路由 ([bfcb73c](https://gitee.com/newgateway/vtj/commits/bfcb73c1625abed19d241f9ccd2b4c832ef04cca))
+
+
+
+
+
 ## [0.12.66](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.12.65...@vtj/designer@0.12.66) (2025-07-26)
 
 
