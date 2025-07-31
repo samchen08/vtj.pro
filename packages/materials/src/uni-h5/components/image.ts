@@ -70,8 +70,7 @@ const desc: MaterialDescription = {
       src: 'https://qiniu-web-assets.dcloud.net.cn/unidoc/zh/shuijiao.jpg',
       style: {
         width: '200px',
-        height: '200px',
-        backgroundColor: '#eeeeee'
+        height: '200px'
       }
     }
   }
