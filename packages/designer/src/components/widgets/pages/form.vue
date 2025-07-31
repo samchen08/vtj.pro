@@ -3,7 +3,7 @@
     :title="title"
     class="v-pages-widget-form"
     width="800px"
-    height="700px"
+    :height="height"
     :maximizable="true"
     :form-props="{ tooltipMessage: false }"
     :model="model"
@@ -111,7 +111,7 @@
       name="meta"
       label="路由Meta"
       label-width="80px"
-      :style="{ height: 'calc(100% - 500px)' }">
+      :style="{ height: fieldHeight }">
       <template #editor>
         <Editor dark height="100%" lang="json" v-model="computedMeta"></Editor>
       </template>
@@ -186,6 +186,10 @@
 
   const noMask = computed(() => !!engine.options.noMask);
 
+  const height = computed(() => (noMask.value ? '600px' : '700px'));
+  const fieldHeight = computed(() =>
+    noMask.value ? 'calc(100% - 360px)' : 'calc(100% - 500px)'
+  );
   const isLayout = computed(() => !!model.value.layout);
 
   const createEmptyModel = () => ({

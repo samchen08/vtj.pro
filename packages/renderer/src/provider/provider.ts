@@ -362,6 +362,11 @@ export class Provider extends Base {
           ? router.addRoute(routeAppendTo, route)
           : router.addRoute(route);
       });
+      if (!project?.homepage) {
+        routeAppendTo
+          ? router.addRoute(routeAppendTo, homeRoute)
+          : router.addRoute(homeRoute);
+      }
     } else {
       if (routeAppendTo) {
         router.addRoute(routeAppendTo, pageRoute);
