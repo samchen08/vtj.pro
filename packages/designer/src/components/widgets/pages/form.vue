@@ -130,7 +130,7 @@
       name="style"
       label="style"
       label-width="80px"
-      :style="{ height: 'calc(100% - 360px)' }"
+      :style="{ height: 'calc(100% - 320px)' }"
       tip="配置页面窗口表现，配置项参考: https://uniapp.dcloud.net.cn/collocation/pages.html#style">
       <template #editor>
         <Editor
@@ -186,7 +186,9 @@
 
   const noMask = computed(() => !!engine.options.noMask);
 
-  const height = computed(() => (noMask.value ? '600px' : '700px'));
+  const height = computed(() =>
+    noMask.value || isUniapp.value ? '600px' : '700px'
+  );
   const fieldHeight = computed(() =>
     noMask.value ? 'calc(100% - 360px)' : 'calc(100% - 500px)'
   );
