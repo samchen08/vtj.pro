@@ -3,7 +3,7 @@
     :title="title"
     class="v-pages-widget-form"
     width="800px"
-    height="700px"
+    :height="height"
     :maximizable="true"
     :form-props="{ tooltipMessage: false }"
     :model="model"
@@ -111,7 +111,7 @@
       name="meta"
       label="路由Meta"
       label-width="80px"
-      :style="{ height: 'calc(100% - 500px)' }">
+      :style="{ height: fieldHeight }">
       <template #editor>
         <Editor dark height="100%" lang="json" v-model="computedMeta"></Editor>
       </template>
@@ -130,7 +130,7 @@
       name="style"
       label="style"
       label-width="80px"
-      :style="{ height: 'calc(100% - 360px)' }"
+      :style="{ height: 'calc(100% - 320px)' }"
       tip="配置页面窗口表现，配置项参考: https://uniapp.dcloud.net.cn/collocation/pages.html#style">
       <template #editor>
         <Editor
@@ -186,6 +186,12 @@
 
   const noMask = computed(() => !!engine.options.noMask);
 
+  const height = computed(() =>
+    noMask.value || isUniapp.value ? '600px' : '700px'
+  );
+  const fieldHeight = computed(() =>
+    noMask.value ? 'calc(100% - 360px)' : 'calc(100% - 500px)'
+  );
   const isLayout = computed(() => !!model.value.layout);
 
   const createEmptyModel = () => ({

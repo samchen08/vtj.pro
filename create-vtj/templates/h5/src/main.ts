@@ -33,7 +33,8 @@ const { provider, onReady } = createProvider({
   },
   project: {
     id: name
-  }
+  },
+  enableStaticRoute: true
 });
 
 onReady(async () => {
