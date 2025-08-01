@@ -3,6 +3,33 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.10](https://gitee.com/newgateway/vtj/compare/@vtj/cli@0.12.9...@vtj/cli@0.12.10) (2025-07-31)
+
+
+### Bug Fixes
+
+* 🐛 cli 支持设置cssFileName ([10f8e0b](https://gitee.com/newgateway/vtj/commits/10f8e0b2524f89774bd29a6b57cba4f77f5bf493))
+
+
+### Features
+
+* ✨ 支持定义出码文件路径 ([088f015](https://gitee.com/newgateway/vtj/commits/088f015dcf258de3ce97ee846862eec741d2e865))
+
+
+
+
+
+## [0.12.9](https://gitee.com/newgateway/vtj/compare/@vtj/cli@0.12.8...@vtj/cli@0.12.9) (2025-07-26)
+
+
+### Bug Fixes
+
+* 🐛 回滚 unplugin-element-plus 依赖,0.10.0 不支持uniapp 的cjs ([96d8f66](https://gitee.com/newgateway/vtj/commits/96d8f66d27afb92cd80638a3016c5cfcd7d64d5c))
+
+
+
+
+
 ## [0.12.8](https://gitee.com/newgateway/vtj/compare/@vtj/cli@0.12.7...@vtj/cli@0.12.8) (2025-07-08)
 
 

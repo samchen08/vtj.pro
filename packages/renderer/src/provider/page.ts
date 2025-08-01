@@ -6,7 +6,7 @@ export const PageContainer = defineComponent({
   async setup() {
     const provider = useProvider();
     const route = useRoute();
-    const id = route.params.id as string;
+    const id = (route.meta.__vtj__ || route.params.id) as string;
     const file = id ? provider.getPage(id) : provider.getHomepage();
     const component = file ? await provider.getRenderComponent(file.id) : null;
     const sid = ref(Symbol());

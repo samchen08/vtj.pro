@@ -3,6 +3,70 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.70](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.12.69...@vtj/designer@0.12.70) (2025-08-01)
+
+
+### Bug Fixes
+
+* 🐛 layout页面支持mask ([66eab47](https://gitee.com/newgateway/vtj/commits/66eab472e5b913ffd101f7c7952bd5d620f8389d))
+
+
+
+
+
+## [0.12.69](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.12.68...@vtj/designer@0.12.69) (2025-08-01)
+
+
+### Bug Fixes
+
+* 🐛 修复模拟器样式 ([e5c1759](https://gitee.com/newgateway/vtj/commits/e5c1759ee8ec4c8eb76f667f612ab7fc16baa78e))
+* 🐛 ai-widget-bubble style ([b69302a](https://gitee.com/newgateway/vtj/commits/b69302ad2701832b214f8dcb89eac48ed7f5533a))
+
+
+
+
+
+## [0.12.68](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.12.67...@vtj/designer@0.12.68) (2025-07-31)
+
+
+### Bug Fixes
+
+* 🐛 page form style ([4255259](https://gitee.com/newgateway/vtj/commits/4255259080142319aa6e99f35d6676598adfa61b))
+* 🐛 project tempalte ([bdefc48](https://gitee.com/newgateway/vtj/commits/bdefc484bf23a8828693f327f6049d1b19fe5c7c))
+
+
+
+
+
+## [0.12.67](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.12.66...@vtj/designer@0.12.67) (2025-07-31)
+
+
+### Bug Fixes
+
+* 🐛 pages from style ([d604324](https://gitee.com/newgateway/vtj/commits/d604324c357accffb7f2c0040c081a33504d3655))
+
+
+### Features
+
+* ✨ 支持静态路由 ([bfcb73c](https://gitee.com/newgateway/vtj/commits/bfcb73c1625abed19d241f9ccd2b4c832ef04cca))
+
+
+
+
+
+## [0.12.66](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.12.65...@vtj/designer@0.12.66) (2025-07-26)
+
+
+### Bug Fixes
+
+* 🐛 禁用发布模版的公开选项 ([7ccb698](https://gitee.com/newgateway/vtj/commits/7ccb6985ffb53e0914da1756e33c752f873fab2d))
+* 🐛 设计器数据源弹窗样式 ([a488f12](https://gitee.com/newgateway/vtj/commits/a488f1232e7581a8828f509ec8455dd1c87762b7))
+* 🐛 simulator body css ([c7bc28b](https://gitee.com/newgateway/vtj/commits/c7bc28b80bc2af5360ed55d062b13f2c25c49f32))
+
+
+
+
+
 ## [0.12.65](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.12.64...@vtj/designer@0.12.65) (2025-07-23)
 
 **Note:** Version bump only for package @vtj/designer

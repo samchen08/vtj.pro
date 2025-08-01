@@ -3,6 +3,53 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.70](https://gitee.com/newgateway/vtj/compare/@vtj/parser@0.12.69...@vtj/parser@0.12.70) (2025-08-01)
+
+**Note:** Version bump only for package @vtj/parser
+
+
+
+
+
+## [0.12.69](https://gitee.com/newgateway/vtj/compare/@vtj/parser@0.12.68...@vtj/parser@0.12.69) (2025-08-01)
+
+**Note:** Version bump only for package @vtj/parser
+
+
+
+
+
+## [0.12.68](https://gitee.com/newgateway/vtj/compare/@vtj/parser@0.12.67...@vtj/parser@0.12.68) (2025-07-31)
+
+**Note:** Version bump only for package @vtj/parser
+
+
+
+
+
+## [0.12.67](https://gitee.com/newgateway/vtj/compare/@vtj/parser@0.12.66...@vtj/parser@0.12.67) (2025-07-31)
+
+
+### Bug Fixes
+
+* 🐛 parser TEXT_CALL ([f3fa726](https://gitee.com/newgateway/vtj/commits/f3fa726ce59a2a8b96da93e4415dd4b50dfb9bca))
+
+
+
+
+
+## [0.12.66](https://gitee.com/newgateway/vtj/compare/@vtj/parser@0.12.65...@vtj/parser@0.12.66) (2025-07-26)
+
+
+### Bug Fixes
+
+* 🐛 parser libs methods ([8fc0640](https://gitee.com/newgateway/vtj/commits/8fc06409905f0af3801cd63cf2b2046adf566637))
+* 🐛 parser replacer ([f1f15e3](https://gitee.com/newgateway/vtj/commits/f1f15e346009485d9294bb87b69dca4e711aa375))
+
+
+
+
+
 ## [0.12.65](https://gitee.com/newgateway/vtj/compare/@vtj/parser@0.12.64...@vtj/parser@0.12.65) (2025-07-23)
 
 

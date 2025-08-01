@@ -1,23 +1,27 @@
 <template>
   <XDialogForm
     :title="title"
+    class="v-pages-widget-form"
     width="800px"
-    height="650px"
+    :height="height"
     :maximizable="true"
     :form-props="{ tooltipMessage: false }"
     :model="model"
     :submit-method="submit">
     <XField
-      name="dir"
+      name="__type"
       label="类型"
       editor="radio"
       :options="typeOptions"
       :props="{ button: true, size: 'small' }"
       :disabled="!!props.item || isUniapp"
       inline
-      :tip="isUniapp ? `UniApp不支持目录类型` : undefined"
+      :tip="isUniapp ? `UniApp不支持目录和布局类型` : undefined"
       required></XField>
-    <XField v-if="!model.dir && !!props.item" label="路由" disabled>
+    <XField
+      v-if="!model.dir && !!props.item && !isLayout"
+      label="路由"
+      disabled>
       <template #editor>
         <ElAlert :closable="false">
           {{
@@ -43,7 +47,11 @@
         message: '名称格式不正确，要求英文驼峰格式'
       }"></XField>
     <XField name="title" label="标题" required></XField>
-    <XField v-if="!isUniapp" name="icon" label="菜单图标" editor="none">
+    <XField
+      v-if="!isUniapp && !isLayout"
+      name="icon"
+      label="菜单图标"
+      editor="none">
       <template #editor>
         <IconSetter v-model="model.icon" size="default"></IconSetter>
       </template>
@@ -59,7 +67,7 @@
       :disabled="!isWebPlatform"></XField>
 
     <XField
-      v-if="!isUniapp && !noMask"
+      v-if="!isUniapp && !noMask && !isLayout"
       name="cache"
       :visible="{ dir: false }"
       inline
@@ -69,7 +77,7 @@
       :disabled="!isWebPlatform"></XField>
 
     <XField
-      v-if="!isUniapp"
+      v-if="!isUniapp && !isLayout"
       name="hidden"
       inline
       label="隐藏菜单"
@@ -88,7 +96,7 @@
       :disabled="!isWebPlatform"></XField>
 
     <XField
-      v-if="!noMask"
+      v-if="!noMask && !isLayout"
       :visible="{ dir: false }"
       :disabled="!!props.item"
       inline
@@ -98,13 +106,14 @@
       tip="页面是非低代码开发，不能在线编辑"></XField>
 
     <XField
-      v-if="!isUniapp"
+      v-if="!isUniapp && !isLayout"
       :visible="{ dir: false }"
       name="meta"
       label="路由Meta"
-      label-width="80px">
+      label-width="80px"
+      :style="{ height: fieldHeight }">
       <template #editor>
-        <Editor dark height="100px" lang="json" v-model="computedMeta"></Editor>
+        <Editor dark height="100%" lang="json" v-model="computedMeta"></Editor>
       </template>
     </XField>
 
@@ -121,11 +130,12 @@
       name="style"
       label="style"
       label-width="80px"
+      :style="{ height: 'calc(100% - 320px)' }"
       tip="配置页面窗口表现，配置项参考: https://uniapp.dcloud.net.cn/collocation/pages.html#style">
       <template #editor>
         <Editor
           dark
-          height="250px"
+          height="100%"
           width="100%"
           lang="json"
           v-model="computedStyle"></Editor>
@@ -134,7 +144,7 @@
   </XDialogForm>
 </template>
 <script lang="ts" setup>
-  import { computed, ref } from 'vue';
+  import { computed, ref, watch } from 'vue';
   import { XDialogForm, XField, XIcon } from '@vtj/ui';
   import { type PageFile } from '@vtj/core';
   import { useClipboard } from '@vueuse/core';
@@ -176,12 +186,22 @@
 
   const noMask = computed(() => !!engine.options.noMask);
 
+  const height = computed(() =>
+    noMask.value || isUniapp.value ? '600px' : '700px'
+  );
+  const fieldHeight = computed(() =>
+    noMask.value ? 'calc(100% - 360px)' : 'calc(100% - 500px)'
+  );
+  const isLayout = computed(() => !!model.value.layout);
+
   const createEmptyModel = () => ({
+    __type: 'page',
     dir: false,
+    layout: false,
     name: '',
     title: '',
     icon: '',
-    mask: true,
+    mask: false,
     hidden: false,
     raw: false,
     pure: !isWebPlatform.value,
@@ -190,7 +210,33 @@
     needLogin: false,
     style: null
   });
-  const model = ref(props.item || createEmptyModel());
+
+  const model = ref();
+
+  watch(
+    () => props.item,
+    (v) => {
+      if (v) {
+        model.value = Object.assign({}, v, {
+          __type: v.layout ? 'layout' : v.dir ? 'dir' : 'page'
+        });
+      } else {
+        model.value = createEmptyModel();
+      }
+    },
+    {
+      immediate: true
+    }
+  );
+
+  watch(
+    () => model.value.__type,
+    (t: any) => {
+      model.value.dir = t === 'dir';
+      model.value.layout = t === 'layout';
+    }
+  );
+
   const computedMeta = computed({
     get() {
       return JSON.stringify(model.value.meta || {}, null, 4);
@@ -218,8 +264,9 @@
   });
 
   const typeOptions = [
-    { label: '页面', value: false },
-    { label: '目录', value: true }
+    { label: '页面', value: 'page' },
+    { label: '目录', value: 'dir' },
+    { label: '布局', value: 'layout' }
   ];
 
   const onNameChange = (val: string) => {
@@ -228,7 +275,9 @@
     }
   };
 
-  const submit = async (data: any) => {
+  const submit = async (_data: any) => {
+    const data = { ..._data };
+    delete data.__type;
     const exist = project.value?.existPageName(data.name, [data.id]);
     if (exist) {
       notify('页面名称已存在，请更换');

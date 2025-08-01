@@ -25,4 +25,19 @@
       opacity: 0.6;
     }
   }
+
+  @include e(item) {
+    &.is-layout {
+      background-color: var(--el-fill-color) !important;
+      &.is-active {
+        background-color: var(--el-color-primary-light-9) !important;
+      }
+    }
+  }
+}
+
+@include b(pages-widget-form) {
+  .x-field__editor_wrap {
+    height: 100%;
+  }
 }

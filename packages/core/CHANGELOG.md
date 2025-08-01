@@ -3,6 +3,49 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.70](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.12.69...@vtj/core@0.12.70) (2025-08-01)
+
+**Note:** Version bump only for package @vtj/core
+
+
+
+
+
+## [0.12.69](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.12.68...@vtj/core@0.12.69) (2025-08-01)
+
+**Note:** Version bump only for package @vtj/core
+
+
+
+
+
+## [0.12.68](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.12.67...@vtj/core@0.12.68) (2025-07-31)
+
+**Note:** Version bump only for package @vtj/core
+
+
+
+
+
+## [0.12.67](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.12.66...@vtj/core@0.12.67) (2025-07-31)
+
+
+### Features
+
+* ✨ 支持静态路由 ([bfcb73c](https://gitee.com/newgateway/vtj/commits/bfcb73c1625abed19d241f9ccd2b4c832ef04cca))
+
+
+
+
+
+## [0.12.66](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.12.65...@vtj/core@0.12.66) (2025-07-26)
+
+**Note:** Version bump only for package @vtj/core
+
+
+
+
+
 ## [0.12.65](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.12.64...@vtj/core@0.12.65) (2025-07-23)
 
 **Note:** Version bump only for package @vtj/core

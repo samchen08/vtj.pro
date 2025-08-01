@@ -42,9 +42,13 @@ export async function notMatch(_req: ApiRequest) {
   return fail('找不到处理程序');
 }
 
-export async function saveLogs(e: any) {
+export async function saveLogs(e: any, opts: DevToolsOptions) {
   const name = `error-${timestamp()}`;
-  const logs = new JsonRepository('logs', _platform);
+  const logs = new JsonRepository({
+    platform: _platform,
+    dir: opts.vtjDir,
+    category: 'logs'
+  });
   const json = JSON.parse(JSON.stringify(e));
   return logs.save(name, json);
 }
@@ -102,7 +106,11 @@ export async function init(_body: any, opts: DevToolsOptions) {
   const description = vtj.description || pkg.description || '';
   const platform = vtj.platform || 'web';
   _platform = platform;
-  const repository = new JsonRepository('projects', _platform);
+  const repository = new JsonRepository({
+    platform: _platform,
+    dir: opts.vtjDir,
+    category: 'projects'
+  });
   // 如果项目文件已经存在，则直接返回文件内容
   let dsl: ProjectSchema = repository.get(id);
   const plugins = pluginPepository.getPlugins();
@@ -141,8 +149,16 @@ export async function init(_body: any, opts: DevToolsOptions) {
   }
 }
 
-export async function saveProject(dsl: ProjectSchema, type?: string) {
-  const repository = new JsonRepository('projects', dsl.platform);
+export async function saveProject(
+  dsl: ProjectSchema,
+  type: string,
+  opts: DevToolsOptions
+) {
+  const repository = new JsonRepository({
+    platform: dsl.platform || 'web',
+    dir: opts.vtjDir,
+    category: 'projects'
+  });
   if (repository.exist(dsl.id as string)) {
     const ret = repository.save(dsl.id as string, dsl);
     if (dsl.platform === 'uniapp') {
@@ -154,14 +170,22 @@ export async function saveProject(dsl: ProjectSchema, type?: string) {
   }
 }
 
-export async function saveFile(dsl: BlockSchema) {
-  const repository = new JsonRepository('files', _platform);
+export async function saveFile(dsl: BlockSchema, opts: DevToolsOptions) {
+  const repository = new JsonRepository({
+    platform: _platform,
+    dir: opts.vtjDir,
+    category: 'files'
+  });
   const ret = repository.save(dsl.id as string, dsl);
   return success(ret);
 }
 
-export async function getFile(id: string) {
-  const repository = new JsonRepository('files', _platform);
+export async function getFile(id: string, opts: DevToolsOptions) {
+  const repository = new JsonRepository({
+    platform: _platform,
+    dir: opts.vtjDir,
+    category: 'files'
+  });
   const json = repository.get(id);
   if (json) {
     return success(json);
@@ -170,14 +194,22 @@ export async function getFile(id: string) {
   }
 }
 
-export async function removeFile(id: string) {
-  const repository = new JsonRepository('files', _platform);
+export async function removeFile(id: string, opts: DevToolsOptions) {
+  const repository = new JsonRepository({
+    platform: _platform,
+    dir: opts.vtjDir,
+    category: 'files'
+  });
   const ret = repository.remove(id);
   return success(ret);
 }
 
-export async function getHistory(id: string) {
-  const repository = new JsonRepository('histories', _platform);
+export async function getHistory(id: string, opts: DevToolsOptions) {
+  const repository = new JsonRepository({
+    platform: _platform,
+    dir: opts.vtjDir,
+    category: 'histories'
+  });
   const json = repository.get(id);
   if (json) {
     return success(json);
@@ -186,22 +218,44 @@ export async function getHistory(id: string) {
   }
 }
 
-export async function saveHistory(file: HistorySchema) {
-  const repository = new JsonRepository('histories', _platform);
+export async function saveHistory(file: HistorySchema, opts: DevToolsOptions) {
+  const repository = new JsonRepository({
+    platform: _platform,
+    dir: opts.vtjDir,
+    category: 'histories'
+  });
   const ret = repository.save(file.id as string, file);
   return success(ret);
 }
 
-export async function removeHistory(id: string) {
-  const repository = new JsonRepository('histories', _platform);
-  const items = new JsonRepository(`histories/${id}`, _platform);
+export async function removeHistory(id: string, opts: DevToolsOptions) {
+  const repository = new JsonRepository({
+    platform: _platform,
+    dir: opts.vtjDir,
+    category: 'histories'
+  });
+  const items = new JsonRepository({
+    platform: _platform,
+    dir: opts.vtjDir,
+    category: `histories/${id}`
+  });
+
   items.clear();
   repository.remove(id);
   return success(true);
 }
 
-export async function getHistoryItem(fId: string, id: string) {
-  const repository = new JsonRepository(`histories/${fId}`, _platform);
+export async function getHistoryItem(
+  fId: string,
+  id: string,
+  opts: DevToolsOptions
+) {
+  const repository = new JsonRepository({
+    platform: _platform,
+    dir: opts.vtjDir,
+    category: `histories/${fId}`
+  });
+
   const json = repository.get(id);
   if (json) {
     return success(json);
@@ -210,14 +264,30 @@ export async function getHistoryItem(fId: string, id: string) {
   }
 }
 
-export async function saveHistoryItem(fId: string, item: HistoryItem) {
-  const repository = new JsonRepository(`histories/${fId}`, _platform);
+export async function saveHistoryItem(
+  fId: string,
+  item: HistoryItem,
+  opts: DevToolsOptions
+) {
+  const repository = new JsonRepository({
+    platform: _platform,
+    dir: opts.vtjDir,
+    category: `histories/${fId}`
+  });
   repository.save(item.id, item);
   return success(true);
 }
 
-export async function removeHistoryItem(fId: string, ids: string[]) {
-  const repository = new JsonRepository(`histories/${fId}`, _platform);
+export async function removeHistoryItem(
+  fId: string,
+  ids: string[],
+  opts: DevToolsOptions
+) {
+  const repository = new JsonRepository({
+    platform: _platform,
+    dir: opts.vtjDir,
+    category: `histories/${fId}`
+  });
 
   ids.forEach((id: string) => {
     repository.remove(id);
@@ -228,9 +298,14 @@ export async function removeHistoryItem(fId: string, ids: string[]) {
 
 export async function saveMaterials(
   project: ProjectSchema,
-  materials: Record<string, MaterialDescription>
+  materials: Record<string, MaterialDescription>,
+  opts: DevToolsOptions
 ) {
-  const repository = new JsonRepository('materials', _platform);
+  const repository = new JsonRepository({
+    platform: _platform,
+    dir: opts.vtjDir,
+    category: 'materials'
+  });
   repository.save(project.id as string, materials);
   return success(true);
 }
@@ -238,14 +313,24 @@ export async function saveMaterials(
 export async function publishFile(
   project: ProjectSchema,
   file: PageFile | BlockFile,
-  componentMap?: Map<string, MaterialDescription>
+  componentMap: Map<string, MaterialDescription> | undefined,
+  opts: DevToolsOptions
 ) {
-  const materialsRepository = new JsonRepository('materials', project.platform);
+  const materialsRepository = new JsonRepository({
+    platform: _platform,
+    dir: opts.vtjDir,
+    category: 'materials'
+  });
   const materials = materialsRepository.get(project.id as string);
   componentMap =
     componentMap ||
     new Map<string, MaterialDescription>(Object.entries(materials || {}));
-  const fileRepository = new JsonRepository('files', project.platform);
+
+  const fileRepository = new JsonRepository({
+    platform: project.platform || _platform,
+    dir: opts.vtjDir,
+    category: 'files'
+  });
   const dsl = fileRepository.get(file.id as string);
   if (dsl) {
     const content = await generator(
@@ -255,17 +340,23 @@ export async function publishFile(
       project.platform
     ).catch((e) => {
       try {
-        saveLogs({
-          dsl: dsl,
-          componentMap,
-          dependencies: project.dependencies,
-          message: e.message,
-          stack: e.stack
-        });
+        saveLogs(
+          {
+            dsl: dsl,
+            componentMap,
+            dependencies: project.dependencies,
+            message: e.message,
+            stack: e.stack
+          },
+          opts
+        );
       } catch (e) {}
       throw e;
     });
-    const vueRepository = new VueRepository(_platform);
+    const vueRepository = new VueRepository({
+      platform: _platform,
+      dir: opts.vtjRawDir
+    });
     vueRepository.save(file.id as string, content);
     return success(true);
   } else {
@@ -273,9 +364,14 @@ export async function publishFile(
   }
 }
 
-export async function publish(project: ProjectSchema) {
+export async function publish(project: ProjectSchema, opts: DevToolsOptions) {
   const { pages = [], blocks = [] } = project;
-  const materialsRepository = new JsonRepository('materials', project.platform);
+  const materialsRepository = new JsonRepository({
+    platform: project.platform || _platform,
+    dir: opts.vtjDir,
+    category: 'materials'
+  });
+
   const materials = materialsRepository.get(project.id as string);
   const componentMap = new Map<string, MaterialDescription>(
     Object.entries(materials)
@@ -283,12 +379,12 @@ export async function publish(project: ProjectSchema) {
 
   for (const block of blocks) {
     if (!block.fromType || block.fromType === 'Schema') {
-      await publishFile(project, block, componentMap);
+      await publishFile(project, block, componentMap, opts);
     }
   }
   for (const page of pages) {
     if (!page.raw) {
-      await publishFile(project, page, componentMap);
+      await publishFile(project, page, componentMap, opts);
     }
   }
   if (project.platform === 'uniapp') {
@@ -311,8 +407,16 @@ export async function genUniConfig(
   return success(true);
 }
 
-export async function genVueContent(project: ProjectSchema, dsl: BlockSchema) {
-  const materialsRepository = new JsonRepository('materials', project.platform);
+export async function genVueContent(
+  project: ProjectSchema,
+  dsl: BlockSchema,
+  opts: DevToolsOptions
+) {
+  const materialsRepository = new JsonRepository({
+    platform: project.platform || _platform,
+    dir: opts.vtjDir,
+    category: 'materials'
+  });
   const materials = materialsRepository.get(project.id as string);
   const componentMap = new Map<string, MaterialDescription>(
     Object.entries(materials || {})
@@ -338,15 +442,22 @@ export async function parseVue(options: IParseVueOptions) {
   return success(errors ? errors : dsl);
 }
 
-export async function createRawPage(file: PageFile) {
-  const repository = new VueRepository(_platform);
+export async function createRawPage(file: PageFile, opts: DevToolsOptions) {
+  const repository = new VueRepository({
+    platform: _platform,
+    dir: opts.vtjRawDir
+  });
+
   const page = await createEmptyPage(file);
   repository.save(file.id as string, page);
   return success(true);
 }
 
-export async function removeRawPage(id: string) {
-  const repository = new VueRepository(_platform);
+export async function removeRawPage(id: string, opts: DevToolsOptions) {
+  const repository = new VueRepository({
+    platform: _platform,
+    dir: opts.vtjRawDir
+  });
   repository.remove(id);
   return success(true);
 }

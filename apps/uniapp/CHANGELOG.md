@@ -3,6 +3,49 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.70](https://github.com/samchen08/vtj.pro/compare/vtj-project-uniapp@0.12.69...vtj-project-uniapp@0.12.70) (2025-08-01)
+
+**Note:** Version bump only for package vtj-project-uniapp
+
+
+
+
+
+## [0.12.69](https://github.com/samchen08/vtj.pro/compare/vtj-project-uniapp@0.12.68...vtj-project-uniapp@0.12.69) (2025-08-01)
+
+**Note:** Version bump only for package vtj-project-uniapp
+
+
+
+
+
+## [0.12.68](https://github.com/samchen08/vtj.pro/compare/vtj-project-uniapp@0.12.67...vtj-project-uniapp@0.12.68) (2025-07-31)
+
+
+### Bug Fixes
+
+* 🐛 page form style ([4255259](https://github.com/samchen08/vtj.pro/commit/4255259080142319aa6e99f35d6676598adfa61b))
+
+
+
+
+
+## [0.12.67](https://github.com/samchen08/vtj.pro/compare/vtj-project-uniapp@0.12.66...vtj-project-uniapp@0.12.67) (2025-07-31)
+
+**Note:** Version bump only for package vtj-project-uniapp
+
+
+
+
+
+## [0.12.66](https://github.com/samchen08/vtj.pro/compare/vtj-project-uniapp@0.12.65...vtj-project-uniapp@0.12.66) (2025-07-26)
+
+**Note:** Version bump only for package vtj-project-uniapp
+
+
+
+
+
 ## [0.12.65](https://github.com/samchen08/vtj.pro/compare/vtj-project-uniapp@0.12.64...vtj-project-uniapp@0.12.65) (2025-07-23)
 
 **Note:** Version bump only for package vtj-project-uniapp

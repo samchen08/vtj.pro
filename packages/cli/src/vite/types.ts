@@ -161,9 +161,14 @@ export interface CreateViteConfigOptions {
   formats?: string[];
 
   /**
-   * 库模式编译输出文件名
+   * 库模式编译输出文件名,不包含后缀名
    */
   libFileName?: string;
+
+  /**
+   * 库模式编译css输出文件名，不包含后缀名
+   */
+  cssFileName?: string;
 
   /**
    * 自定义 chunk name, 在库模式无效
