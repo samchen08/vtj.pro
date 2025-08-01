@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.69](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.12.68...@vtj/materials@0.12.69) (2025-08-01)
+
+
+### Bug Fixes
+
+* 🐛 uni-h5物料样式错误 ([463bd5b](https://gitee.com/newgateway/vtj/commits/463bd5b832b08cfa95a581f0bf97c43dc1b3eb0d))
+
+
+
+
+
 ## [0.12.68](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.12.67...@vtj/materials@0.12.68) (2025-07-31)
 
 **Note:** Version bump only for package @vtj/materials
