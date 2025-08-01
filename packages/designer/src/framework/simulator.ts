@@ -127,7 +127,7 @@ export class Simulator extends Base {
       : `
         <style>
           html,
-          body
+          body,
           #app {
             margin: 0;
             min-height: 100vh;

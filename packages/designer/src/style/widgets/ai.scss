@@ -131,6 +131,7 @@
     border-radius: 4px;
     position: relative;
     min-height: 32px;
+    word-break: break-all;
     & > div.is-collapsed {
       height: 40px;
       overflow: hidden;

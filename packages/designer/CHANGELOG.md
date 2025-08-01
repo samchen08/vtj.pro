@@ -3,6 +3,29 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.70](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.12.69...@vtj/designer@0.12.70) (2025-08-01)
+
+
+### Bug Fixes
+
+* 🐛 layout页面支持mask ([66eab47](https://gitee.com/newgateway/vtj/commits/66eab472e5b913ffd101f7c7952bd5d620f8389d))
+
+
+
+
+
+## [0.12.69](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.12.68...@vtj/designer@0.12.69) (2025-08-01)
+
+
+### Bug Fixes
+
+* 🐛 修复模拟器样式 ([e5c1759](https://gitee.com/newgateway/vtj/commits/e5c1759ee8ec4c8eb76f667f612ab7fc16baa78e))
+* 🐛 ai-widget-bubble style ([b69302a](https://gitee.com/newgateway/vtj/commits/b69302ad2701832b214f8dcb89eac48ed7f5533a))
+
+
+
+
+
 ## [0.12.68](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.12.67...@vtj/designer@0.12.68) (2025-07-31)
 
 
