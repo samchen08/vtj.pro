@@ -6,6 +6,20 @@
   "description": "VTJ",
   "glyphs": [
     {
+      "icon_id": "2934112",
+      "name": "全局",
+      "font_class": "global",
+      "unicode": "e631",
+      "unicode_decimal": 58929
+    },
+    {
+      "icon_id": "7011124",
+      "name": "编辑母版",
+      "font_class": "master",
+      "unicode": "e645",
+      "unicode_decimal": 58949
+    },
+    {
       "icon_id": "40449436",
       "name": "历史对话",
       "font_class": "chat-record",
