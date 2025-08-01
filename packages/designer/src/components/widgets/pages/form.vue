@@ -57,7 +57,7 @@
       </template>
     </XField>
     <XField
-      v-if="!isUniapp && !noMask"
+      v-if="!isUniapp && !noMask && !isLayout"
       :visible="{ dir: false }"
       inline
       name="mask"
@@ -86,7 +86,7 @@
       :disabled="!isWebPlatform"></XField>
 
     <XField
-      v-if="!isUniapp"
+      v-if="!isUniapp && !isLayout"
       :visible="{ dir: false }"
       inline
       name="pure"
@@ -278,6 +278,10 @@
   const submit = async (_data: any) => {
     const data = { ..._data };
     delete data.__type;
+    if (data.layout) {
+      data.pure = true;
+      data.mask = false;
+    }
     const exist = project.value?.existPageName(data.name, [data.id]);
     if (exist) {
       notify('页面名称已存在，请更换');
