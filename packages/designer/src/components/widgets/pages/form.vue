@@ -57,7 +57,7 @@
       </template>
     </XField>
     <XField
-      v-if="!isUniapp && !noMask && !isLayout"
+      v-if="!isUniapp && !noMask"
       :visible="{ dir: false }"
       inline
       name="mask"
@@ -86,7 +86,7 @@
       :disabled="!isWebPlatform"></XField>
 
     <XField
-      v-if="!isUniapp && !isLayout"
+      v-if="!isUniapp"
       :visible="{ dir: false }"
       inline
       name="pure"
