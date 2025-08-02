@@ -10,12 +10,14 @@
     <XDialog
       v-if="dialogVisible"
       v-model="dialogVisible"
-      title="JSFunction"
+      :title="title"
+      :subtitle="subtitle"
       width="1000px"
       height="600px"
       cancel
       submit
       clear
+      :maximizable="true"
       @submit="handleSubmit"
       @clear="handleClear">
       <Editor
@@ -43,6 +45,8 @@
   export interface Props {
     modelValue?: JSFunction;
     defaultCode?: string;
+    title?: string;
+    subtitle?: string;
   }
 
   const props = withDefaults(defineProps<Props>(), {
@@ -50,7 +54,8 @@
       type: 'JSFunction',
       value: ''
     }),
-    defaultCode: ''
+    defaultCode: '',
+    title: 'JSFunction'
   });
 
   const codeEditor = ref();

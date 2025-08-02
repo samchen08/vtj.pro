@@ -38,7 +38,7 @@ export const builtInDeps: Dependencie[] = [
     version: 'latest',
     library: 'Pinia',
     urls: ['@vtj/materials/deps/pinia/pinia.iife.js'],
-    required: false,
+    required: true,
     official: true,
     enabled: true,
     platform: ['web', 'h5']
