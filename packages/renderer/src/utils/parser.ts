@@ -4,16 +4,21 @@ import { logger } from '@vtj/utils';
 export function parseExpression(
   str: JSExpression | JSFunction,
   self: any,
-  thisRequired = false,
-  throwError = false
+  thisRequired: boolean = false,
+  throwError: boolean = false,
+  noWith: boolean = false
 ) {
   try {
     const contextArr = ['"use strict";', 'var __self = arguments[0];'];
     contextArr.push('return ');
     let tarStr: string = (str.value || '').trim();
-    tarStr = tarStr.replace(/this(\W|$)/g, (_a: any, b: any) => `__self${b}`);
+    if (!noWith) {
+      tarStr = tarStr.replace(/this(\W|$)/g, (_a: any, b: any) => `__self${b}`);
+    }
     tarStr = contextArr.join('\n') + tarStr;
-    const code = `with(${thisRequired ? '{}' : '$scope || {}'}) { ${tarStr} }`;
+    const code = noWith
+      ? `\n${tarStr}\n`
+      : `with(${thisRequired ? '{}' : '$scope || {}'}) { ${tarStr} }`;
     return new Function('$scope', code)(self);
   } catch (err: any) {
     logger.error('parseExpression.error', err, str, self?.__self ?? self);
@@ -27,9 +32,10 @@ export function parseFunction(
   str: JSFunction,
   self: any,
   thisRequired = false,
-  throwError = false
+  throwError = false,
+  noWith: boolean = false
 ) {
-  const fn = parseExpression(str, self, thisRequired, throwError);
+  const fn = parseExpression(str, self, thisRequired, throwError, noWith);
   if (typeof fn !== 'function') {
     logger.error(
       'parseFunction.error',

@@ -111,17 +111,21 @@
     project.value?.setGloblas(name, value);
   };
 
-  const storeTemplate = `(app) => ({
-  state: {
+  const storeTemplate = `(app) => {
+  return {
+    state: () => {
+      return {
+        // 定义状态
+      }
+    },
+    getter: {
 
-  },
-  getter: {
+    },
+    actions: {
 
-  },
-  actions: {
-
+    }
   }
-})`;
+}`;
 
   const enhanceTemplate = `(app) => {
   // 在此添加增强代码
@@ -145,13 +149,33 @@
 
   const accessTemplate = `(app) => {
   return {
-    // AccessOptions
+    // session: false,
+    // authKey: 'Authorization',
+    // storageKey: 'ACCESS_STORAGE',
+    // storagePrefix: '__VTJ_',
+    // auth: '/#/login',
+    // redirectParam: 'r',
+    // unauthorizedCode: 401,
+    // unauthorizedMessage: '登录已经失效，请重新登录！',
+    // noPermissionMessage: '无权限访问该页面',
+    // statusKey: 'code'
   }
 }`;
 
   const axiosTemplate = `(app) => {
   return {
-    // IRequestOptions
+    // baseURL: '/',
+    // timeout: 60000,
+    // settings: {
+    //   type: 'form',
+    //   validSuccess: true,
+    //   originResponse: false,
+    //   loading: true,
+    //   failMessage: true,
+    //   validate: (res) => {
+    //     return res.data?.code === 0 || !!res.data?.success;
+    //   }
+    // }
   }
 }`;
 </script>

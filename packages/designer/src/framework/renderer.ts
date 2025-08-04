@@ -49,7 +49,7 @@ export class Renderer {
     // 记录环境，在扩展时可能需要用到
     (app as any).__vtj_env__ = this.env;
 
-    const { library, globals, VueRouter, locales } = this.env;
+    const { library, globals, VueRouter, locales, window } = this.env;
 
     if (VueRouter && platform !== 'uniapp') {
       const router = VueRouter.createRouter({
@@ -59,9 +59,6 @@ export class Renderer {
       app.use(router);
     }
     app.use(this.provider);
-    if (this.env.enhance) {
-      app.use(this.env.enhance, this.provider);
-    }
     const plugins = Object.entries(library);
     Object.assign(app.config.globalProperties, globals);
     plugins.forEach(([name, plugin]) => {
@@ -81,6 +78,16 @@ export class Renderer {
         app?.use(plugin, options);
       }
     });
+
+    this.provider.initGlobals(this.project?.globals || {}, {
+      app,
+      window,
+      library,
+      mode: ContextMode.Design
+    });
+    if (this.env.enhance) {
+      app.use(this.env.enhance, this.provider);
+    }
   }
 
   createUniApp(
@@ -149,6 +156,7 @@ export class Renderer {
       app.config.globalProperties.$route.meta,
       (file as PageFile).meta || {}
     );
+
     app.mount(el);
     return app;
   }
