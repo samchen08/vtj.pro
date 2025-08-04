@@ -417,6 +417,21 @@ export class Provider extends Base {
     app.provide(providerKey, this);
     app.config.globalProperties.$provider = this;
 
+    if (this.project?.platform !== 'uniapp') {
+      this.initGlobals(this.project?.globals || {}, {
+        app,
+        window,
+        adapter: this.adapter,
+        library: this.library,
+        mode: this.mode
+      });
+    }
+
+    // 执行增强函数
+    if (this.options.enhance) {
+      app.use(this.options.enhance, this);
+    }
+
     // 设计模式下设置错误处理器
     if (this.mode === ContextMode.Design) {
       app.config.errorHandler = (err: any, instance, info) => {
@@ -442,21 +457,6 @@ export class Provider extends Base {
       };
     }
 
-    // 运行时模式执行初始全局配置
-    if (this.options.mode === ContextMode.Runtime) {
-      this.initGlobals(this.project?.globals || {}, {
-        app,
-        window,
-        adapter: this.adapter,
-        library: this.library,
-        mode: this.mode
-      });
-    }
-
-    // 执行增强函数
-    if (this.options.enhance) {
-      app.use(this.options.enhance, this);
-    }
     app.config.globalProperties.installed = installed;
   }
 

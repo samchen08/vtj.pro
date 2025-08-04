@@ -45,10 +45,15 @@
   }
 
   @include when(disabled) {
+    background-color: initial;
     @include e(content) {
       height: 100%;
       width: 100%;
       padding: 0;
+      background-color: initial;
+    }
+    @include e(inner) {
+      background-color: initial !important;
     }
   }
 }

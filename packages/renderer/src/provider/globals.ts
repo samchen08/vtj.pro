@@ -20,32 +20,29 @@ export function initRuntimeGlobals(
   const { css, store, enhance } = globals;
   const { window, app, library = {}, adapter, mode } = options;
   const { Pinia } = library;
-  if (css) {
-    adoptedStyleSheets(window, 'global-css', css);
-  }
+  // 1. 设置全局样式
+  adoptedStyleSheets(window, 'global-css', css || '');
+
+  // 2. 设置全局状态
   if (Pinia && store) {
     createStore(store, app, Pinia);
   }
 
+  // 3. 配置请求默认设置、拦截器
   setAxios(app, adapter, globals);
 
-  // 没有在adapter传入aceess，但有全局配置，采用全局配置
+  // 4. 设置Access， 优先使用adapter传入的aceess
   if (!adapter.access && globals.access) {
     createAccess(globals.access, app, mode, adapter);
   }
 
+  // 5. 设置路由守卫
   setRouterGuard(app, globals);
 
+  // 最后. 设置应用增强函数
   if (enhance) {
     createEnhance(enhance, app);
   }
-}
-
-export function initRawGlobals(
-  globals: Record<string, any>,
-  options: InitGlobalsOptions
-) {
-  console.log(globals, options);
 }
 
 function createStore(store: JSFunction, app: App, Pinia: any) {
