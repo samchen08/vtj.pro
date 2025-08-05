@@ -90,6 +90,7 @@ export class ProjectModel {
   apis: ApiSchema[] = [];
   meta: MetaSchema[] = [];
   currentFile: PageFile | BlockFile | null = null;
+  activeFiles: string[] = [];
   config: ProjectConfig = {};
   uniConfig: UniConfig = {};
   globals: GlobalConfig = {};
@@ -186,6 +187,9 @@ export class ProjectModel {
    */
   active(file: BlockFile | PageFile, silent: boolean = false) {
     this.currentFile = file;
+    if (!this.activeFiles.includes(file.id)) {
+      this.activeFiles.unshift(file.id);
+    }
     if (!silent) {
       emitter.emit(EVENT_PROJECT_ACTIVED, {
         model: this,
@@ -199,6 +203,14 @@ export class ProjectModel {
    * @param silent
    */
   deactivate(silent: boolean = false) {
+    if (this.currentFile) {
+      const index = this.activeFiles.findIndex(
+        (n) => n === this.currentFile?.id
+      );
+      if (index > -1) {
+        this.activeFiles.splice(index, 1);
+      }
+    }
     this.currentFile = null;
     if (!silent) {
       emitter.emit(EVENT_PROJECT_ACTIVED, {
@@ -501,6 +513,10 @@ export class ProjectModel {
    */
   getBlock(id: string) {
     return this.blocks.find((n) => n.id === id);
+  }
+
+  getFile(id: string): BlockFile | PageFile | undefined {
+    return this.getPage(id) || this.getBlock(id);
   }
 
   /**

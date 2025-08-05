@@ -1,0 +1,7 @@
+@use '../core' as *;
+
+@include b(workspace-region) {
+  @include e(tab-label) {
+    margin-right: 5px;
+  }
+}
