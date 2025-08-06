@@ -72,9 +72,11 @@ export function useWorkspace(widgets: ComputedRef<Widget[]>) {
 
   watch(activeFileId, (id) => {
     if (id && project.value) {
-      const file = project.value.getFile(id);
-      if (file) {
-        project.value.active(file);
+      if (project.value.currentFile?.id !== id) {
+        const file = project.value.getFile(id);
+        if (file) {
+          project.value.active(file);
+        }
       }
     }
   });
