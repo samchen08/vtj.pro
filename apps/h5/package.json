@@ -26,6 +26,7 @@
     "@vtj/pro": "workspace:~"
   },
   "vtj": {
-    "platform": "h5"
+    "platform": "h5",
+    "noMask": true
   }
 }

@@ -234,6 +234,10 @@
     (t: any) => {
       model.value.dir = t === 'dir';
       model.value.layout = t === 'layout';
+      const { platform = 'web' } = project.value || {};
+      if (platform !== 'web') {
+        model.value.pure = true;
+      }
     }
   );
 
