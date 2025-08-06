@@ -313,6 +313,9 @@ export class Access {
       const id = to.params.id;
       return id && this.can(id);
     }
+    if (to.meta.__vtj__) {
+      return this.can(to.meta.__vtj__ as string);
+    }
     return true;
   }
 
