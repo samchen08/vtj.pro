@@ -7,7 +7,8 @@
     background="always"
     :dropdown="{
       size: 'small',
-      placement: 'bottom-end'
+      placement: 'bottom-end',
+      trigger: 'click'
     }"
     :menus="props.menus"
     @command="handleCommand"

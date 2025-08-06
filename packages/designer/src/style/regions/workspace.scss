@@ -4,4 +4,9 @@
   @include e(tab-label) {
     margin-right: 5px;
   }
+  @include e(tab-menu) {
+    .x-action__inner {
+      width: 45px;
+    }
+  }
 }

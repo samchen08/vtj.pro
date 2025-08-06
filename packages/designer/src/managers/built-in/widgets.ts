@@ -205,6 +205,7 @@ export const builtInWidgets: Array<AppWidget | TabWidget | Widget> = [
   },
   {
     name: 'Docs',
+    invisible: true,
     region: 'Workspace',
     component: widgets.Docs,
     type: 'tab',
