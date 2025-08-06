@@ -141,4 +141,8 @@
       }
     }
   }
+
+  @include e(arrow) {
+    margin-left: 3px;
+  }
 }

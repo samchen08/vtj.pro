@@ -9,7 +9,11 @@
           v-model="currentTab"
           @tab-remove="handelTabRemove"
           @action-click="onTabActionClick"
-          :stretch="props.stretch"></XTabs>
+          :stretch="props.stretch">
+          <template v-if="$slots.label" #label="scope">
+            <slot name="label" v-bind="scope"></slot>
+          </template>
+        </XTabs>
         <div v-if="props.menus && props.menus.length" class="v-tabs__actions">
           <XAction
             v-if="props.menus && props.menus.length"

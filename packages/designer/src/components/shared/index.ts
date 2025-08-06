@@ -7,8 +7,7 @@ import Binder from './binder.vue';
 import Viewer from './viewer.vue';
 import SlotsPicker from './slots.vue';
 import Viewport from './viewport.vue';
-import MicroApp from './micro-app.vue';
-
+import ActionMenu from './action-menu.vue';
 export * from './types';
 export {
   Icon,
@@ -20,5 +19,5 @@ export {
   Viewer,
   SlotsPicker,
   Viewport,
-  MicroApp
+  ActionMenu
 };

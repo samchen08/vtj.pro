@@ -13,7 +13,7 @@ export function useBinder(
   contextRef: MaybeRef<Context | null>
 ) {
   const keyword = ref('');
-  const { selected, isSelectBlock } = useSelected();
+  const { selected, isSelectBlock, engine } = useSelected();
   const id = computed(() => selected.value?.model.id);
 
   const options = computed(() => {
@@ -109,6 +109,7 @@ export function useBinder(
   return {
     keyword,
     options,
-    searchResult
+    searchResult,
+    engine
   };
 }

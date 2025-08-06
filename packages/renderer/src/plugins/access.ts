@@ -161,7 +161,7 @@ export class Access {
   connect(params: AccessConnectParams) {
     const { mode, router, request } = params;
     this.mode = mode;
-    if (router && this.mode === ContextMode.Raw) {
+    if (router && this.mode !== ContextMode.Design) {
       this.setGuard(router);
     }
     if (request) {
@@ -324,13 +324,13 @@ export class Access {
     if (this.isWhiteList(to) || this.isAuthPath(to)) {
       return next();
     }
-
     if (this.isLogined()) {
       if (this.hasRoutePermission(to)) {
         return next();
       } else {
         const { noPermissionMessage = '无权限访问', unauthorized = false } =
           this.options;
+
         await this.showTip(noPermissionMessage);
         if (isFunction(unauthorized)) {
           unauthorized();
@@ -343,6 +343,7 @@ export class Access {
       }
     }
     next(false);
+    await delay(0);
     this.toLogin();
   }
 

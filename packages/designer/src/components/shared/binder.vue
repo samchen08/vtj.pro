@@ -34,6 +34,21 @@
               </div>
               <ElEmpty v-if="!searchResult.length"></ElEmpty>
             </div>
+            <div v-show="currentTab === 'pages'">
+              <div>
+                <ElDivider border-style="dotted">页面路由</ElDivider>
+                <Item
+                  v-for="item in pages"
+                  :title="item.title"
+                  :subtitle="getPageRoute(item.id)"
+                  background
+                  :actions="['copy']"
+                  small
+                  @click="onPicker(getPageRoute(item.id))"
+                  @action="onCopy(getPageRoute(item.id))"></Item>
+              </div>
+              <ElEmpty v-if="!searchResult.length"></ElEmpty>
+            </div>
             <Viewer
               v-show="currentTab === 'viewer'"
               :context="props.context"
@@ -80,7 +95,7 @@
   </XDialog>
 </template>
 <script lang="ts" setup>
-  import { ref } from 'vue';
+  import { ref, computed } from 'vue';
   import { XDialog, XContainer, XForm, XPanel } from '@vtj/ui';
   import { Search } from '@vtj/icons';
   import { type Context } from '@vtj/renderer';
@@ -118,7 +133,10 @@
     'close'
   ]);
 
-  const { searchResult, keyword } = useBinder(props.block, props.context);
+  const { searchResult, keyword, engine } = useBinder(
+    props.block,
+    props.context
+  );
   const { copy } = useClipboard({});
 
   const tabs = [
@@ -127,12 +145,30 @@
       label: '常用'
     },
     {
+      name: 'pages',
+      label: '页面'
+    },
+    {
       name: 'viewer',
       label: '高级'
     }
   ];
   const currentTab = ref('normal');
   const formRef = ref();
+
+  const pages = computed(() => engine.project.value?.getPages() || []);
+
+  const isUniapp = computed(() => {
+    const { platform = 'web' } = engine.project.value || {};
+    return platform === 'uniapp';
+  });
+  const pageDir = computed(() => {
+    return engine.options.pageRouteName || (isUniapp.value ? 'pages' : 'page');
+  });
+
+  const getPageRoute = (id: string) => {
+    return `${engine.options.pageBasePath || ''}/${pageDir.value}/${id}`;
+  };
 
   const handleSubmit = async (model: any) => {
     emits('submit', model);

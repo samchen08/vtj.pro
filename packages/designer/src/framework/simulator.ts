@@ -15,6 +15,7 @@ import {
   type PlatformType,
   type UniConfig,
   type EnhanceConfig,
+  type GlobalConfig,
   Base,
   BUILT_IN_NAME,
   BUILT_IN_LIBRARAY_MAP
@@ -96,10 +97,11 @@ export class Simulator extends Base {
     apis: Ref<ApiSchema[]>,
     meta: Ref<MetaSchema[]>,
     config: Ref<ProjectConfig>,
-    uniConfig: Ref<UniConfig>
+    uniConfig: Ref<UniConfig>,
+    global: Ref<GlobalConfig>
   ) {
     watch(
-      [iframe, deps, apis, meta, config, uniConfig],
+      [iframe, deps, apis, meta, config, uniConfig, global],
       () => {
         if (iframe.value && deps.value.length) {
           this.resetReady();

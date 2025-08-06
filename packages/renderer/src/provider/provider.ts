@@ -16,6 +16,7 @@ import {
   type Material,
   type BlockSchema,
   type NodeFromPlugin,
+  type GlobalConfig,
   Base,
   BUILT_IN_COMPONENTS
 } from '@vtj/core';
@@ -61,6 +62,8 @@ import { version } from '../version';
 import { createMenus } from '../hooks';
 
 import { createStaticRoutes } from './routes';
+
+import { initRuntimeGlobals, type InitGlobalsOptions } from './globals';
 
 export const providerKey: InjectionKey<Provider> = Symbol('Provider');
 
@@ -413,7 +416,21 @@ export class Provider extends Base {
     // 提供全局 Provider 实例
     app.provide(providerKey, this);
     app.config.globalProperties.$provider = this;
-    app.config.globalProperties.installed = installed;
+
+    if (this.project?.platform !== 'uniapp') {
+      this.initGlobals(this.project?.globals || {}, {
+        app,
+        window,
+        adapter: this.adapter,
+        library: this.library,
+        mode: this.mode
+      });
+    }
+
+    // 执行增强函数
+    if (this.options.enhance) {
+      app.use(this.options.enhance, this);
+    }
 
     // 设计模式下设置错误处理器
     if (this.mode === ContextMode.Design) {
@@ -440,10 +457,7 @@ export class Provider extends Base {
       };
     }
 
-    // 执行增强函数
-    if (this.options.enhance) {
-      app.use(this.options.enhance, this);
-    }
+    app.config.globalProperties.installed = installed;
   }
 
   getFile(id: string): PageFile | BlockFile | null {
@@ -576,16 +590,17 @@ export class Provider extends Base {
       output(file);
     }
 
-    const { vtjRawDir = '.vtj/vue' } = this.options;
+    if (this.mode === ContextMode.Raw) {
+      const { vtjRawDir = '.vtj/vue' } = this.options;
 
-    // 尝试从模块缓存加载原始Vue组件
-    const rawPath = `${vtjRawDir}/${id}.vue`;
-    const rawModule =
-      this.modules[rawPath] || this.modules[`/src/pages/${id}.vue`];
-    if (rawModule) {
-      return (await rawModule())?.default;
+      // 尝试从模块缓存加载原始Vue组件
+      const rawPath = `${vtjRawDir}/${id}.vue`;
+      const rawModule =
+        this.modules[rawPath] || this.modules[`/src/pages/${id}.vue`];
+      if (rawModule) {
+        return (await rawModule())?.default;
+      }
     }
-
     // 获取DSL配置并创建渲染器
     const dsl = await this.getDsl(file.id);
     if (!dsl) {
@@ -627,6 +642,22 @@ export class Provider extends Base {
     return defineAsyncComponent(async () => {
       return (await getPlugin(from, window)) as any;
     });
+  }
+
+  /**
+   * 设置应用全局
+   * @param css
+   * @param win
+   */
+  initGlobals(globals: GlobalConfig, options: Partial<InitGlobalsOptions>) {
+    const opts = Object.assign(
+      {
+        adapter: this.adapter,
+        window: window
+      },
+      options
+    );
+    initRuntimeGlobals(globals, opts as InitGlobalsOptions);
   }
 }
 

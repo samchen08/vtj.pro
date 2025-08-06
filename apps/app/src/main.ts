@@ -33,7 +33,8 @@ const { provider, onReady } = createProvider({
   enhance,
   dependencies: {
     Vue: () => import('vue'),
-    VueRouter: () => import('vue-router')
+    VueRouter: () => import('vue-router'),
+    Pinia: () => import('pinia')
   },
   project: {
     id: name

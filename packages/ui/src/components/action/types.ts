@@ -122,6 +122,9 @@ export const actionProps = {
   },
   draggable: {
     type: Boolean
+  },
+  arrow: {
+    type: Boolean
   }
 };
 
