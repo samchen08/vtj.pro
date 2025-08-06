@@ -55,6 +55,17 @@ class DepsManager {
       this.deps.push(dep);
     }
   }
+
+  /**
+   * 更改依赖
+   * @param dep
+   */
+  save(dep: Partial<Dependencie>) {
+    if (dep.package) {
+      this.add(dep as Dependencie);
+    }
+  }
+
   /**
    * 项目与内置依赖进行合并，返回合并最终结果
    * @param projectDeps

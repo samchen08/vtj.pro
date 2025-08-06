@@ -69,6 +69,7 @@
 
   const config = computed(() => engine.project.value?.config || {});
   const uniConfig = computed(() => engine.project.value?.uniConfig || {});
+  const globals = computed(() => engine.project.value?.globals || {});
 
   const { designer, hover, dropping, selected, lines } = useDesigner(
     iframe,
@@ -76,7 +77,8 @@
     apis,
     meta,
     config,
-    uniConfig
+    uniConfig,
+    globals
   );
 
   const onAction = (e: any) => {

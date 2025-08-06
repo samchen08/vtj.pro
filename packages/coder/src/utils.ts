@@ -52,7 +52,10 @@ export function parseValue(
     : replaceContext(value as string);
 }
 
-export function replaceComputedValue(content: string, keys: string[] = []) {
+export function replaceComputedValue(
+  content: string = '',
+  keys: string[] = []
+) {
   let result = content;
   for (const key of keys) {
     result = result.replace(

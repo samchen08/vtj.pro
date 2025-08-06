@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.13.0](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.12.70...@vtj/coder@0.13.0) (2025-08-06)
+
+
+### Bug Fixes
+
+* 🐛 coder replaceComputedValue 边界异常 ([36bcc73](https://gitee.com/newgateway/vtj/commits/36bcc73306c4b39532e076fbfc6c49eee6291d38))
+
+
+
+
+
 ## [0.12.70](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.12.69...@vtj/coder@0.12.70) (2025-08-01)
 
 **Note:** Version bump only for package @vtj/coder

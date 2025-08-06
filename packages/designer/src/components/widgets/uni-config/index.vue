@@ -66,7 +66,6 @@
 }`;
 
   const onChange = (name: string, value: any) => {
-    console.log('change', project.value, name, value);
     project.value?.setUniConfig(name as keyof UniConfig, value);
   };
 </script>

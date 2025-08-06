@@ -46,6 +46,10 @@ export const SetterWrapper = defineComponent({
     removable: {
       type: Boolean,
       default: false
+    },
+    disabled: {
+      type: Boolean,
+      default: false
     }
   },
   computed: {
@@ -123,7 +127,8 @@ export const SetterWrapper = defineComponent({
       changeValue,
       defaultSetter,
       removable,
-      onRemove
+      onRemove,
+      disabled
     } = this;
     return h(SetterView, {
       context,
@@ -138,7 +143,8 @@ export const SetterWrapper = defineComponent({
       removable,
       options: computedOptions,
       onChange: changeValue,
-      onRemove: onRemove
+      onRemove: onRemove,
+      disabled
     } as any);
   },
   emits: ['change', 'remove'],

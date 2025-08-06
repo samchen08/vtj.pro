@@ -15,7 +15,9 @@ import type {
   MetaSchema,
   ProjectConfig,
   UniConfig,
-  PlatformType
+  PlatformType,
+  GlobalConfig,
+  JSFunction
 } from '../protocols';
 import { emitter, type ModelEventType } from '../tools';
 import { BlockModel } from './block';
@@ -90,6 +92,7 @@ export class ProjectModel {
   currentFile: PageFile | BlockFile | null = null;
   config: ProjectConfig = {};
   uniConfig: UniConfig = {};
+  globals: GlobalConfig = {};
   __BASE_PATH__: string = '/';
   __UID__: string = uuid(true);
   static attrs: string[] = [
@@ -105,6 +108,7 @@ export class ProjectModel {
     'meta',
     'config',
     'uniConfig',
+    'globals',
     '__BASE_PATH__',
     '__UID__'
   ];
@@ -499,6 +503,10 @@ export class ProjectModel {
     return this.blocks.find((n) => n.id === id);
   }
 
+  getFile(id: string): BlockFile | PageFile | undefined {
+    return this.getPage(id) || this.getBlock(id);
+  }
+
   /**
    * 创建区块
    * @param block
@@ -770,6 +778,22 @@ export class ProjectModel {
         model: this,
         type: 'update',
         data: this.uniConfig
+      };
+      emitter.emit(EVENT_PROJECT_CHANGE, event);
+    }
+  }
+
+  setGloblas(
+    key: keyof GlobalConfig,
+    value: string | JSFunction,
+    silent: boolean = false
+  ) {
+    this.globals = Object.assign(this.globals, { [key]: value });
+    if (!silent) {
+      const event: ProjectModelEvent = {
+        model: this,
+        type: 'update',
+        data: this.globals
       };
       emitter.emit(EVENT_PROJECT_CHANGE, event);
     }

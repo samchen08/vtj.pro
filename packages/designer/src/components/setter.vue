@@ -20,7 +20,7 @@
           :options="props.options"
           v-model="modelValue"
           @change="onChange"
-          :disabled="isBinding"></component>
+          :disabled="isBinding || props.disabled"></component>
         <ElInput
           v-if="isBinding"
           class="v-expression-setter"
@@ -111,6 +111,7 @@
     defaultSetter?: string;
     removable?: boolean;
     switchDisabled?: boolean;
+    disabled?: boolean;
   }
 
   const props = withDefaults(defineProps<Props>(), {
