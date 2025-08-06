@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.13.0](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.12.70...@vtj/materials@0.13.0) (2025-08-06)
+
+
+### Features
+
+* ✨ add pinia依/更新图标 ([d9b053e](https://gitee.com/newgateway/vtj/commits/d9b053ebcffbc457298a391d41cc01c03abeeaf5))
+
+
+
+
+
 ## [0.12.70](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.12.69...@vtj/materials@0.12.70) (2025-08-01)
 
 **Note:** Version bump only for package @vtj/materials

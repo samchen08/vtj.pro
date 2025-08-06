@@ -3,6 +3,29 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.13.0](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.12.70...@vtj/designer@0.13.0) (2025-08-06)
+
+
+### Bug Fixes
+
+* 🐛 指令设置异常问题 ([1dcd98f](https://gitee.com/newgateway/vtj/commits/1dcd98f0dd35cb3429603bfa18a260499f532787))
+* 🐛 layout page default pure ([bd1970f](https://gitee.com/newgateway/vtj/commits/bd1970f543cea6ee315f53440ff72d31f87ca0ff))
+
+
+### Features
+
+* ✨ 变量绑定器支持选择页面路由 ([cf9ee4b](https://gitee.com/newgateway/vtj/commits/cf9ee4bea1ec2123bab7de508091526212832e93))
+* ✨ 设计器应用全局设置面板 ([bd18cb3](https://gitee.com/newgateway/vtj/commits/bd18cb3d0a6a4aae1a5abccc80fc396fe1e2eeaa))
+* ✨ 应用全局配置 ([9a17f63](https://gitee.com/newgateway/vtj/commits/9a17f63208816006396d04480283c1df26e187fb))
+* ✨ 支持打开多个文件 ([4f3af4e](https://gitee.com/newgateway/vtj/commits/4f3af4e46c20ba06d89090034cb6b6c4381b5e42))
+* ✨ add pinia依/更新图标 ([d9b053e](https://gitee.com/newgateway/vtj/commits/d9b053ebcffbc457298a391d41cc01c03abeeaf5))
+* ✨ project支持activeFiles ([3bb2b02](https://gitee.com/newgateway/vtj/commits/3bb2b0243dd601f15fb71d9b17f7883cf5511a4f))
+* ✨ save dep ([c41d7e1](https://gitee.com/newgateway/vtj/commits/c41d7e1359398d1cb8dd30c64ace3fbae8ce4f58))
+
+
+
+
+
 ## [0.12.70](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.12.69...@vtj/designer@0.12.70) (2025-08-01)
 
 
