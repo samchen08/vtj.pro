@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.1](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.13.0...@vtj/designer@0.13.1) (2025-08-06)
+
+
+### Bug Fixes
+
+* 🐛 修复激活页面请求重复问题 ([1d176ed](https://gitee.com/newgateway/vtj/commits/1d176ed57054d137fbc50a22551a173e1a6da060))
+* 🐛 designer bg-color ([a7b0edb](https://gitee.com/newgateway/vtj/commits/a7b0edb69fff97a3192aac09d40b824041b0ef37))
+* 🐛 h5平台创建页面表单禁用mask ([6d16497](https://gitee.com/newgateway/vtj/commits/6d164970b8171b8d7292ffeb1942d6fc09ff5b27))
+* 🐛 previewer style ([f075a6d](https://gitee.com/newgateway/vtj/commits/f075a6d96e60ac7e7cf658db6ab82739a9a967a8))
+
+
+
+
+
 # [0.13.0](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.12.70...@vtj/designer@0.13.0) (2025-08-06)
 
 
