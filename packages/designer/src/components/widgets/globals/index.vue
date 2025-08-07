@@ -148,10 +148,12 @@
 }`;
 
   const accessTemplate = `(app) => {
+  const { id, platform } = app.config.globalProperties.$provider.project;
+  const storageKey = 'ACCESS__' + platform + '_' + id
   return {
     // session: false,
     // authKey: 'Authorization',
-    // storageKey: 'APP_ACCESS_STORAGE',
+    storageKey,
     // storagePrefix: '__VTJ_',
     // auth: '/#/login',
     // redirectParam: 'r',
