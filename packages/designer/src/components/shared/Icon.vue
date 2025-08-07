@@ -1,6 +1,10 @@
 <template>
   <ElTooltip effect="dark" placement="right" :content="label" :show-after="600">
-    <div class="v-apps-region__icon" :class="classes" @click="handleClick">
+    <div
+      v-bind="$attrs"
+      class="v-apps-region__icon"
+      :class="classes"
+      @click="handleClick">
       <component :is="icon"></component>
     </div>
   </ElTooltip>

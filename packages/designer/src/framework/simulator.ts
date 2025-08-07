@@ -15,6 +15,7 @@ import {
   type PlatformType,
   type UniConfig,
   type EnhanceConfig,
+  type GlobalConfig,
   Base,
   BUILT_IN_NAME,
   BUILT_IN_LIBRARAY_MAP
@@ -96,10 +97,11 @@ export class Simulator extends Base {
     apis: Ref<ApiSchema[]>,
     meta: Ref<MetaSchema[]>,
     config: Ref<ProjectConfig>,
-    uniConfig: Ref<UniConfig>
+    uniConfig: Ref<UniConfig>,
+    global: Ref<GlobalConfig>
   ) {
     watch(
-      [iframe, deps, apis, meta, config, uniConfig],
+      [iframe, deps, apis, meta, config, uniConfig, global],
       () => {
         if (iframe.value && deps.value.length) {
           this.resetReady();
@@ -130,22 +132,12 @@ export class Simulator extends Base {
           body,
           #app {
             margin: 0;
-            min-height: 100vh;
+            min-height: 100%;
             width: 100%;
             height: 100%;
             font-size: 14px;
-          }
-          #app {
-            background: var(--el-bg-color, #fff);
+            padding: 0;
             box-sizing: border-box;
-          }
-          #app.is-page {
-             padding: 10px;
-             box-sizing: border-box;
-          }
-            #app.is-page.is-pure {
-            background: initial !important;
-             padding: 0;
           }
          </style>`;
   }

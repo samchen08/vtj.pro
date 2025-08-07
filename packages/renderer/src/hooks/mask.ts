@@ -78,23 +78,26 @@ export function useMask(options?: UseMaskOptions) {
   const disabled = ref(false);
   const pure = ref(false);
   const project = provider.project;
-  const setPageSettings = (page?: PageFile | null) => {
+  const setPageSettings = (
+    page?: PageFile | null,
+    meta?: Record<string, any>
+  ) => {
     disabled.value = !page?.mask;
-    pure.value = !!page?.pure;
+    pure.value = meta?.pure ?? !!page?.pure;
   };
   watchEffect(() => {
     const { name, params, meta } = route;
     if (name === PAGE_ROUTE_NAME) {
       const page = provider.getPage(params.id as string);
-      setPageSettings(page);
+      setPageSettings(page, meta);
     } else if (name === HOMEPAGE_ROUTE_NAME) {
       const page = provider.getHomepage();
-      setPageSettings(page);
+      setPageSettings(page, meta);
     } else {
       const pageId = meta.__vtj__ as string;
       if (pageId) {
         const page = provider.getPage(pageId);
-        setPageSettings(page);
+        setPageSettings(page, meta);
       } else {
         disabled.value = !meta.mask;
         pure.value = !!meta.pure;

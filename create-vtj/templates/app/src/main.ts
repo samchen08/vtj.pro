@@ -31,7 +31,8 @@ const { provider, onReady } = createProvider({
   router,
   dependencies: {
     Vue: () => import('vue'),
-    VueRouter: () => import('vue-router')
+    VueRouter: () => import('vue-router'),
+    Pinia: () => import('pinia')
   },
   project: {
     id: name

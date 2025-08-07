@@ -1,5 +1,5 @@
 import * as t from '@babel/types';
-import { parseSFC, transformScript } from '../shared';
+import { parseSFC, transformScript, parseScript } from '../shared';
 import { VantIcons, VtjIcons } from './icons';
 
 export type ValidationResult = {
@@ -22,6 +22,13 @@ export class ComponentValidator {
     if (!this.isCompleteSFC(code)) {
       result.errors.push('代码不符合Vue3单文件组件规范');
       result.valid = false;
+    }
+
+    const msg = this.checkSyntax(code);
+    if (msg) {
+      result.errors.push(`代码语法错误: ${msg}`);
+      result.valid = false;
+      return result;
     }
 
     // setup函数校验
@@ -50,6 +57,19 @@ export class ComponentValidator {
     } catch (e) {
       return false;
     }
+  }
+
+  private checkSyntax(code: string) {
+    let msg = '';
+    try {
+      const sfc = parseSFC(code);
+      parseScript(sfc.script);
+    } catch (e: any) {
+      if (e instanceof SyntaxError) {
+        msg = e.message;
+      }
+    }
+    return msg;
   }
 
   private checkSetup(code: string) {

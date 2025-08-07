@@ -20,13 +20,15 @@
     "@vtj/renderer": "latest",
     "@vtj/h5": "latest",
     "vue": "~3.5.5",
-    "vue-router": "~4.5.0"
+    "vue-router": "~4.5.0",
+    "pinia": "~3.0.2"
   },
   "devDependencies": {
     "@vtj/cli": "latest",
     "@vtj/pro": "latest"
   },
   "vtj": {
-    "platform": "h5"
+    "platform": "h5",
+    "noMask": true
   }
 }

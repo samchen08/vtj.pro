@@ -3,6 +3,39 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.11](https://gitee.com/newgateway/vtj/compare/create-vtj@0.12.10...create-vtj@0.12.11) (2025-08-07)
+
+
+### Bug Fixes
+
+* 🐛 模版依赖增加pinia ([5b297df](https://gitee.com/newgateway/vtj/commits/5b297df353a4ea449f25e162f9f43a1707bd41b3))
+
+
+
+
+
+## [0.12.10](https://gitee.com/newgateway/vtj/compare/create-vtj@0.12.9...create-vtj@0.12.10) (2025-08-07)
+
+
+### Bug Fixes
+
+* 🐛 template add pinia ([a55107e](https://gitee.com/newgateway/vtj/commits/a55107e6c55c762d34d77500b9145ef793dfde55))
+
+
+
+
+
+## [0.12.9](https://gitee.com/newgateway/vtj/compare/create-vtj@0.12.8...create-vtj@0.12.9) (2025-08-06)
+
+
+### Bug Fixes
+
+* 🐛 h5平台创建页面表单禁用mask ([6d16497](https://gitee.com/newgateway/vtj/commits/6d164970b8171b8d7292ffeb1942d6fc09ff5b27))
+
+
+
+
+
 ## [0.12.8](https://gitee.com/newgateway/vtj/compare/create-vtj@0.12.7...create-vtj@0.12.8) (2025-07-31)
 
 

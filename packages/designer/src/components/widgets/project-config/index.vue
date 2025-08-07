@@ -1,5 +1,5 @@
 <template>
-  <Panel class="v-project-config-widget" title="项目配置">
+  <Panel class="v-project-config-widget" title="母版设置">
     <XForm
       v-if="project"
       :footer="false"

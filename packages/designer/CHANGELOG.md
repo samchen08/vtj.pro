@@ -3,6 +3,104 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.5](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.13.4...@vtj/designer@0.13.5) (2025-08-07)
+
+
+### Bug Fixes
+
+* 🐛 模版依赖增加pinia ([5b297df](https://gitee.com/newgateway/vtj/commits/5b297df353a4ea449f25e162f9f43a1707bd41b3))
+* 🐛 access showTip ([b65ee84](https://gitee.com/newgateway/vtj/commits/b65ee84679cb725adbc3cff0435dee07044c9a00))
+* 🐛 access template ([5b6da58](https://gitee.com/newgateway/vtj/commits/5b6da581499c25cbaf44b4fd94b5f2b0e4174340))
+* 🐛 access template code ([a16368a](https://gitee.com/newgateway/vtj/commits/a16368a0e58c7392230a54916c0a43e76124926e))
+* 🐛 designer renderer meta undefined ([2884ef1](https://gitee.com/newgateway/vtj/commits/2884ef18c103fe77ab3e6917de7cc2a72ccb69fc))
+* 🐛 globals access inject alert ([fcf1403](https://gitee.com/newgateway/vtj/commits/fcf14039e9948728c3ffe25e8faa464c00083fa0))
+* 🐛 uniapp hide Globals ([4cf2517](https://gitee.com/newgateway/vtj/commits/4cf25175c201bc96df97a575a53123578e8e4ea0))
+
+
+
+
+
+## [0.13.4](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.13.3...@vtj/designer@0.13.4) (2025-08-07)
+
+
+### Bug Fixes
+
+* 🐛 初始化项目依赖丢失问题 ([071ef12](https://gitee.com/newgateway/vtj/commits/071ef1208e740daf84adcdc27768c9860a1bd3ac))
+
+
+### Features
+
+* ✨ 更换视图切换方式 ([1ba145b](https://gitee.com/newgateway/vtj/commits/1ba145ba4b31f9d48adb0291a71e19f3155af804))
+
+
+
+
+
+## [0.13.3](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.13.2...@vtj/designer@0.13.3) (2025-08-07)
+
+
+### Bug Fixes
+
+* 🐛 设计器初始化默认选中页面设置 ([12c2cc8](https://gitee.com/newgateway/vtj/commits/12c2cc8cf9bc90b59192ec212e95e1fe29e77c6e))
+* 🐛 设计器初始化显示第一个页面 ([987ea04](https://gitee.com/newgateway/vtj/commits/987ea0447e990114b8d86ce7df4139350aae41d7))
+* 🐛 designer iframe load event ([5e5ca8d](https://gitee.com/newgateway/vtj/commits/5e5ca8d34ee07562dc21a96f5e27387fe1c1161e))
+* 🐛 mask pure 改为路由meta控制 ([aebcc7b](https://gitee.com/newgateway/vtj/commits/aebcc7b4f0021bc2ae6147007568d6f4417a94a6))
+* 🐛 tab style ([b76a97c](https://gitee.com/newgateway/vtj/commits/b76a97c4ab500aad6984ae74c702292066f66c79))
+
+
+### Features
+
+* ✨ 增加引导 ([5f6dd82](https://gitee.com/newgateway/vtj/commits/5f6dd825d5bc90e8d4421e9c0dce177af1fcf7fd))
+
+
+
+
+
+## [0.13.2](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.13.1...@vtj/designer@0.13.2) (2025-08-06)
+
+**Note:** Version bump only for package @vtj/designer
+
+
+
+
+
+## [0.13.1](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.13.0...@vtj/designer@0.13.1) (2025-08-06)
+
+
+### Bug Fixes
+
+* 🐛 修复激活页面请求重复问题 ([1d176ed](https://gitee.com/newgateway/vtj/commits/1d176ed57054d137fbc50a22551a173e1a6da060))
+* 🐛 designer bg-color ([a7b0edb](https://gitee.com/newgateway/vtj/commits/a7b0edb69fff97a3192aac09d40b824041b0ef37))
+* 🐛 h5平台创建页面表单禁用mask ([6d16497](https://gitee.com/newgateway/vtj/commits/6d164970b8171b8d7292ffeb1942d6fc09ff5b27))
+* 🐛 previewer style ([f075a6d](https://gitee.com/newgateway/vtj/commits/f075a6d96e60ac7e7cf658db6ab82739a9a967a8))
+
+
+
+
+
+# [0.13.0](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.12.70...@vtj/designer@0.13.0) (2025-08-06)
+
+
+### Bug Fixes
+
+* 🐛 指令设置异常问题 ([1dcd98f](https://gitee.com/newgateway/vtj/commits/1dcd98f0dd35cb3429603bfa18a260499f532787))
+* 🐛 layout page default pure ([bd1970f](https://gitee.com/newgateway/vtj/commits/bd1970f543cea6ee315f53440ff72d31f87ca0ff))
+
+
+### Features
+
+* ✨ 变量绑定器支持选择页面路由 ([cf9ee4b](https://gitee.com/newgateway/vtj/commits/cf9ee4bea1ec2123bab7de508091526212832e93))
+* ✨ 设计器应用全局设置面板 ([bd18cb3](https://gitee.com/newgateway/vtj/commits/bd18cb3d0a6a4aae1a5abccc80fc396fe1e2eeaa))
+* ✨ 应用全局配置 ([9a17f63](https://gitee.com/newgateway/vtj/commits/9a17f63208816006396d04480283c1df26e187fb))
+* ✨ 支持打开多个文件 ([4f3af4e](https://gitee.com/newgateway/vtj/commits/4f3af4e46c20ba06d89090034cb6b6c4381b5e42))
+* ✨ add pinia依/更新图标 ([d9b053e](https://gitee.com/newgateway/vtj/commits/d9b053ebcffbc457298a391d41cc01c03abeeaf5))
+* ✨ project支持activeFiles ([3bb2b02](https://gitee.com/newgateway/vtj/commits/3bb2b0243dd601f15fb71d9b17f7883cf5511a4f))
+* ✨ save dep ([c41d7e1](https://gitee.com/newgateway/vtj/commits/c41d7e1359398d1cb8dd30c64ace3fbae8ce4f58))
+
+
+
+
+
 ## [0.12.70](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.12.69...@vtj/designer@0.12.70) (2025-08-01)
 
 

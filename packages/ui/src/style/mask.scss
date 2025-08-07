@@ -45,10 +45,15 @@
   }
 
   @include when(disabled) {
+    background-color: initial;
     @include e(content) {
       height: 100%;
       width: 100%;
       padding: 0;
+      background-color: initial;
+    }
+    @include e(inner) {
+      background-color: initial !important;
     }
   }
 }
@@ -338,6 +343,9 @@
     --el-font-size-base: 12px;
     position: relative;
     left: 0;
+    &.el-tabs--card > .el-tabs__header .el-tabs__item {
+      margin-top: 0;
+    }
   }
 
   .el-tabs__header {

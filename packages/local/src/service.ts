@@ -1,5 +1,6 @@
 import {
   ProjectModel,
+  BlockModel,
   type ProjectSchema,
   type BlockSchema,
   type HistorySchema,
@@ -18,7 +19,8 @@ import {
   timestamp,
   uuid,
   readdirSync,
-  pathExistsSync
+  pathExistsSync,
+  uid
 } from '@vtj/node';
 import { generator, createEmptyPage } from '@vtj/coder';
 import { parseVue as vue2Dsl, type IParseVueOptions } from '@vtj/parser';
@@ -34,6 +36,7 @@ import {
 } from './repository';
 import type { DevToolsOptions } from './plugin';
 import { getUniConfig } from './uni';
+import { webPageJson, h5PageJson, uniappPageJson } from './launch/index';
 
 let isInit = false;
 let _platform: PlatformType = 'web';
@@ -132,12 +135,35 @@ export async function init(_body: any, opts: DevToolsOptions) {
     }
     return success(dsl);
   } else {
+    const launchPage: PageFile = {
+      id: uid(),
+      dir: false,
+      layout: false,
+      name: 'LaunchPage',
+      title: '启动页',
+      icon: '',
+      mask: false,
+      hidden: false,
+      raw: false,
+      pure: true,
+      cache: false,
+      needLogin: false,
+      style:
+        platform === 'uniapp'
+          ? {
+              navigationStyle: 'custom'
+            }
+          : {},
+      type: 'page'
+    };
     const model = new ProjectModel({
       id,
       name,
       description,
       platform,
-      blocks: plugins
+      blocks: plugins,
+      pages: [launchPage],
+      homepage: launchPage.id
     });
     dsl = model.toDsl();
     if (platform === 'uniapp') {
@@ -145,6 +171,31 @@ export async function init(_body: any, opts: DevToolsOptions) {
     }
     repository.save(id, dsl);
     dsl.__BASE_PATH__ = opts.staticBase;
+
+    let page;
+    if (platform === 'web') {
+      page = new BlockModel(
+        Object.assign(webPageJson, { id: launchPage.id, name: launchPage.name })
+      );
+    }
+    if (platform === 'h5') {
+      page = new BlockModel(
+        Object.assign(h5PageJson, { id: launchPage.id, name: launchPage.name })
+      );
+    }
+    if (platform === 'uniapp') {
+      page = new BlockModel(
+        Object.assign(uniappPageJson, {
+          id: launchPage.id,
+          name: launchPage.name
+        })
+      );
+    }
+
+    if (page) {
+      await saveFile(page.toDsl(), opts);
+    }
+
     return success(dsl);
   }
 }

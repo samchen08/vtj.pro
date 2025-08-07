@@ -3,6 +3,57 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.5](https://gitee.com/newgateway/vtj/compare/@vtj/local@0.13.4...@vtj/local@0.13.5) (2025-08-07)
+
+**Note:** Version bump only for package @vtj/local
+
+
+
+
+
+## [0.13.4](https://gitee.com/newgateway/vtj/compare/@vtj/local@0.13.3...@vtj/local@0.13.4) (2025-08-07)
+
+**Note:** Version bump only for package @vtj/local
+
+
+
+
+
+## [0.13.3](https://gitee.com/newgateway/vtj/compare/@vtj/local@0.13.2...@vtj/local@0.13.3) (2025-08-07)
+
+
+### Features
+
+* ✨ 初始化添加启动页 ([9a0301c](https://gitee.com/newgateway/vtj/commits/9a0301c4eca6dbcce9e905bce555e1ca68efdd5a))
+
+
+
+
+
+## [0.13.2](https://gitee.com/newgateway/vtj/compare/@vtj/local@0.13.1...@vtj/local@0.13.2) (2025-08-06)
+
+**Note:** Version bump only for package @vtj/local
+
+
+
+
+
+## [0.13.1](https://gitee.com/newgateway/vtj/compare/@vtj/local@0.13.0...@vtj/local@0.13.1) (2025-08-06)
+
+**Note:** Version bump only for package @vtj/local
+
+
+
+
+
+# [0.13.0](https://gitee.com/newgateway/vtj/compare/@vtj/local@0.12.70...@vtj/local@0.13.0) (2025-08-06)
+
+**Note:** Version bump only for package @vtj/local
+
+
+
+
+
 ## [0.12.70](https://gitee.com/newgateway/vtj/compare/@vtj/local@0.12.69...@vtj/local@0.12.70) (2025-08-01)
 
 **Note:** Version bump only for package @vtj/local

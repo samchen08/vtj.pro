@@ -80,6 +80,7 @@
     "@vtj/local": "latest"
   },
   "vtj": {
-    "platform": "uniapp"
+    "platform": "uniapp",
+    "noMask": true
   }
 }

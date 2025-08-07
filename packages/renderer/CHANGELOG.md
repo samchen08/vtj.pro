@@ -3,6 +3,72 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.5](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.13.4...@vtj/renderer@0.13.5) (2025-08-07)
+
+
+### Bug Fixes
+
+* 🐛 access showTip ([b65ee84](https://gitee.com/newgateway/vtj/commits/b65ee84679cb725adbc3cff0435dee07044c9a00))
+* 🐛 globals access inject alert ([fcf1403](https://gitee.com/newgateway/vtj/commits/fcf14039e9948728c3ffe25e8faa464c00083fa0))
+
+
+
+
+
+## [0.13.4](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.13.3...@vtj/renderer@0.13.4) (2025-08-07)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
+## [0.13.3](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.13.2...@vtj/renderer@0.13.3) (2025-08-07)
+
+
+### Bug Fixes
+
+* 🐛 mask pure 改为路由meta控制 ([aebcc7b](https://gitee.com/newgateway/vtj/commits/aebcc7b4f0021bc2ae6147007568d6f4417a94a6))
+
+
+
+
+
+## [0.13.2](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.13.1...@vtj/renderer@0.13.2) (2025-08-06)
+
+
+### Bug Fixes
+
+* 🐛 access路由守卫 ([c4219b9](https://gitee.com/newgateway/vtj/commits/c4219b978a5cdc6417b0a4f2dc9240c5527089f1))
+
+
+
+
+
+## [0.13.1](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.13.0...@vtj/renderer@0.13.1) (2025-08-06)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
+# [0.13.0](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.12.70...@vtj/renderer@0.13.0) (2025-08-06)
+
+
+### Bug Fixes
+
+* 🐛 initRuntimeGlobals ([c8cfc9b](https://gitee.com/newgateway/vtj/commits/c8cfc9bae6cef714ede1e737025dc98a98808b9e))
+
+
+### Features
+
+* ✨ 应用全局配置 ([9a17f63](https://gitee.com/newgateway/vtj/commits/9a17f63208816006396d04480283c1df26e187fb))
+
+
+
+
+
 ## [0.12.70](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.12.69...@vtj/renderer@0.12.70) (2025-08-01)
 
 **Note:** Version bump only for package @vtj/renderer

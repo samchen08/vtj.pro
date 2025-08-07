@@ -34,6 +34,16 @@ export const builtInDeps: Dependencie[] = [
     enabled: true
   },
   {
+    package: 'pinia',
+    version: 'latest',
+    library: 'Pinia',
+    urls: ['@vtj/materials/deps/pinia/pinia.iife.js'],
+    required: true,
+    official: true,
+    enabled: true,
+    platform: ['web', 'h5']
+  },
+  {
     package: 'uni-app',
     version: 'latest',
     library: 'UniApp',

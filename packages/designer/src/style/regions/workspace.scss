@@ -1,0 +1,22 @@
+@use '../core' as *;
+
+@include b(workspace-region) {
+  @include e(tab-label) {
+    margin-right: 5px;
+  }
+  @include e(tab-menu) {
+    .x-action__inner {
+      width: 45px;
+    }
+  }
+
+  .x-tabs__label-inner {
+    font-size: 12px;
+    opacity: 0.8;
+  }
+
+  .el-tabs__nav-next,
+  .el-tabs__nav-prev {
+    line-height: 30px;
+  }
+}

@@ -3,6 +3,59 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.5](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.13.4...@vtj/core@0.13.5) (2025-08-07)
+
+**Note:** Version bump only for package @vtj/core
+
+
+
+
+
+## [0.13.4](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.13.3...@vtj/core@0.13.4) (2025-08-07)
+
+**Note:** Version bump only for package @vtj/core
+
+
+
+
+
+## [0.13.3](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.13.2...@vtj/core@0.13.3) (2025-08-07)
+
+**Note:** Version bump only for package @vtj/core
+
+
+
+
+
+## [0.13.2](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.13.1...@vtj/core@0.13.2) (2025-08-06)
+
+**Note:** Version bump only for package @vtj/core
+
+
+
+
+
+## [0.13.1](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.13.0...@vtj/core@0.13.1) (2025-08-06)
+
+**Note:** Version bump only for package @vtj/core
+
+
+
+
+
+# [0.13.0](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.12.70...@vtj/core@0.13.0) (2025-08-06)
+
+
+### Features
+
+* ✨ 设计器应用全局设置面板 ([bd18cb3](https://gitee.com/newgateway/vtj/commits/bd18cb3d0a6a4aae1a5abccc80fc396fe1e2eeaa))
+* ✨ 支持打开多个文件 ([4f3af4e](https://gitee.com/newgateway/vtj/commits/4f3af4e46c20ba06d89090034cb6b6c4381b5e42))
+* ✨ project支持activeFiles ([3bb2b02](https://gitee.com/newgateway/vtj/commits/3bb2b0243dd601f15fb71d9b17f7883cf5511a4f))
+
+
+
+
+
 ## [0.12.70](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.12.69...@vtj/core@0.12.70) (2025-08-01)
 
 **Note:** Version bump only for package @vtj/core

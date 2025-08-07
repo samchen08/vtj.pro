@@ -9,32 +9,38 @@
           v-model="currentTab"
           @tab-remove="handelTabRemove"
           @action-click="onTabActionClick"
-          :stretch="props.stretch"></XTabs>
+          :stretch="props.stretch">
+          <template v-if="$slots.label" #label="scope">
+            <slot name="label" v-bind="scope"></slot>
+          </template>
+        </XTabs>
         <div v-if="props.menus && props.menus.length" class="v-tabs__actions">
-          <XAction
-            v-if="props.menus && props.menus.length"
-            mode="icon"
-            size="small"
-            :icon="MoreFilled"
-            background="hover"
-            :dropdown="{
-              size: 'small',
-              placement: 'bottom-end'
-            }"
-            :menus="props.menus"
-            @command="handleCommand">
-            <template #item="{ item }">
-              <span>
-                <VtjIconCheck
-                  :class="{
-                    'v-tabs__checked': true,
-                    'is-checked': item.checked
-                  }"
-                  v-if="props.checkable"></VtjIconCheck>
-                {{ item.label }}
-              </span>
-            </template>
-          </XAction>
+          <slot name="menus" :menus="props.menus">
+            <XAction
+              v-if="props.menus && props.menus.length"
+              mode="icon"
+              size="small"
+              :icon="MoreFilled"
+              background="hover"
+              :dropdown="{
+                size: 'small',
+                placement: 'bottom-end'
+              }"
+              :menus="props.menus"
+              @command="handleCommand">
+              <template #item="{ item }">
+                <span>
+                  <VtjIconCheck
+                    :class="{
+                      'v-tabs__checked': true,
+                      'is-checked': item.checked
+                    }"
+                    v-if="props.checkable"></VtjIconCheck>
+                  {{ item.label }}
+                </span>
+              </template>
+            </XAction>
+          </slot>
         </div>
       </div>
     </template>

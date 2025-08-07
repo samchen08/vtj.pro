@@ -3,6 +3,60 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.5](https://github.com/samchen08/vtj.pro/compare/vtj-project-uniapp@0.13.4...vtj-project-uniapp@0.13.5) (2025-08-07)
+
+**Note:** Version bump only for package vtj-project-uniapp
+
+
+
+
+
+## [0.13.4](https://github.com/samchen08/vtj.pro/compare/vtj-project-uniapp@0.13.3...vtj-project-uniapp@0.13.4) (2025-08-07)
+
+**Note:** Version bump only for package vtj-project-uniapp
+
+
+
+
+
+## [0.13.3](https://github.com/samchen08/vtj.pro/compare/vtj-project-uniapp@0.13.2...vtj-project-uniapp@0.13.3) (2025-08-07)
+
+
+### Features
+
+* ✨ 初始化添加启动页 ([9a0301c](https://github.com/samchen08/vtj.pro/commit/9a0301c4eca6dbcce9e905bce555e1ca68efdd5a))
+
+
+
+
+
+## [0.13.2](https://github.com/samchen08/vtj.pro/compare/vtj-project-uniapp@0.13.1...vtj-project-uniapp@0.13.2) (2025-08-06)
+
+**Note:** Version bump only for package vtj-project-uniapp
+
+
+
+
+
+## [0.13.1](https://github.com/samchen08/vtj.pro/compare/vtj-project-uniapp@0.13.0...vtj-project-uniapp@0.13.1) (2025-08-06)
+
+
+### Bug Fixes
+
+* 🐛 h5平台创建页面表单禁用mask ([6d16497](https://github.com/samchen08/vtj.pro/commit/6d164970b8171b8d7292ffeb1942d6fc09ff5b27))
+
+
+
+
+
+# [0.13.0](https://github.com/samchen08/vtj.pro/compare/vtj-project-uniapp@0.12.70...vtj-project-uniapp@0.13.0) (2025-08-06)
+
+**Note:** Version bump only for package vtj-project-uniapp
+
+
+
+
+
 ## [0.12.70](https://github.com/samchen08/vtj.pro/compare/vtj-project-uniapp@0.12.69...vtj-project-uniapp@0.12.70) (2025-08-01)
 
 **Note:** Version bump only for package vtj-project-uniapp

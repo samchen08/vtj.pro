@@ -1,6 +1,6 @@
 {
   "name": "vtj-project-uniapp",
-  "version": "0.12.70",
+  "version": "0.13.5",
   "private": true,
   "scripts": {
     "dev:app": "uni -p app",
@@ -80,6 +80,7 @@
     "miniprogram-api-typings": "~4.1.0"
   },
   "vtj": {
-    "platform": "uniapp"
+    "platform": "uniapp",
+    "noMask": true
   }
 }
