@@ -234,12 +234,16 @@ export class Engine extends Base {
    * @param project 项目Schema
    */
   private async init(project: ProjectSchema) {
+    const platform = project.platform || 'web';
+    project.dependencies = depsManager.merge(
+      project.dependencies || [],
+      platform
+    );
     const dsl = await this.service.init(project, true).catch((e) => {
       logger.warn('VTJEngine service init fail.', e);
       return null;
     });
     if (dsl) {
-      const platform = dsl.platform || 'web';
       if (platform === 'uniapp') {
         widgetManager.set('UniConfig', {
           invisible: false
