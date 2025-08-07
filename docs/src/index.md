@@ -45,7 +45,3 @@ features:
     title: 双向代码转换
     details: 独创 DSL与Vue源码双向编译能力，保障低代码与手写代码的自由切换。
 ---
-
-:::warning ✨✨✨ 福利来了 ✨✨✨
-回馈活动，AI助手百万额度免费领，领取链接：[https://lcdp.vtj.pro/tokens?code=gitee](https://lcdp.vtj.pro/tokens?code=gitee)
-:::
