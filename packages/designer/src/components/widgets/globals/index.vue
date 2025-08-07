@@ -151,7 +151,7 @@
   return {
     // session: false,
     // authKey: 'Authorization',
-    // storageKey: 'ACCESS_STORAGE',
+    // storageKey: 'APP_ACCESS_STORAGE',
     // storagePrefix: '__VTJ_',
     // auth: '/#/login',
     // redirectParam: 'r',
