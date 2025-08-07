@@ -63,9 +63,9 @@ function createAccess(
 ) {
   if (isJSFunction(access) && access.value) {
     const accessOptions = parseFunction(access, {}, false, false, true);
-    const instance = new Access(accessOptions(app));
+    const { alert, request } = adapter;
+    const instance = new Access({ alert, ...accessOptions(app) });
     const router = app.config.globalProperties.$router;
-    const request = adapter.request;
     instance.connect({ mode, router, request });
     app.use(instance);
   }

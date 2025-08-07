@@ -156,6 +156,7 @@
     storageKey,
     // storagePrefix: '__VTJ_',
     // auth: '/#/login',
+    // whiteList: (to) => true
     // redirectParam: 'r',
     // unauthorizedCode: 401,
     // unauthorizedMessage: '登录已经失效，请重新登录！',
