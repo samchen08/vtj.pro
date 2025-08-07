@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.5](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.13.4...@vtj/renderer@0.13.5) (2025-08-07)
+
+
+### Bug Fixes
+
+* 🐛 access showTip ([b65ee84](https://gitee.com/newgateway/vtj/commits/b65ee84679cb725adbc3cff0435dee07044c9a00))
+* 🐛 globals access inject alert ([fcf1403](https://gitee.com/newgateway/vtj/commits/fcf14039e9948728c3ffe25e8faa464c00083fa0))
+
+
+
+
+
 ## [0.13.4](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.13.3...@vtj/renderer@0.13.4) (2025-08-07)
 
 **Note:** Version bump only for package @vtj/renderer

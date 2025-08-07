@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.11](https://gitee.com/newgateway/vtj/compare/create-vtj@0.12.10...create-vtj@0.12.11) (2025-08-07)
+
+
+### Bug Fixes
+
+* 🐛 模版依赖增加pinia ([5b297df](https://gitee.com/newgateway/vtj/commits/5b297df353a4ea449f25e162f9f43a1707bd41b3))
+
+
+
+
+
 ## [0.12.10](https://gitee.com/newgateway/vtj/compare/create-vtj@0.12.9...create-vtj@0.12.10) (2025-08-07)
 
 
