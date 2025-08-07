@@ -6,8 +6,18 @@
     v-model="activeFileId"
     checkable
     @remove="onCloseTab"
-    @command="onMenuChecked"
     @action-click="onActionClick">
+    <template #menus>
+      <XAction
+        v-for="item of menus"
+        mode="icon"
+        size="small"
+        :type="menuChecked === item.name ? 'success' : 'info'"
+        background="always"
+        :label="item.label"
+        @click="onMenuChecked(item)">
+      </XAction>
+    </template>
     <template v-for="widget in widgets" :key="widget.name">
       <WidgetWrapper
         ref="widgetsRef"
@@ -20,10 +30,12 @@
 </template>
 <script lang="ts" setup>
   import { ref, nextTick } from 'vue';
+  import { XAction } from '@vtj/ui';
   import { Tabs } from '../shared';
   import { RegionType } from '../../framework';
   import { WidgetWrapper } from '../../wrappers';
   import { useRegion, useWorkspace } from '../hooks';
+
   export interface Props {
     region: RegionType;
   }

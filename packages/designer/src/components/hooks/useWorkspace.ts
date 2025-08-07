@@ -35,7 +35,7 @@ export function useWorkspace(widgets: ComputedRef<Widget[]>) {
       return {
         name: n.name,
         command: n.name,
-        label: n.label,
+        label: n.label.replace('视图', ''),
         checked: n.name === menuChecked.value
       };
     });
