@@ -15,7 +15,7 @@ export type UseTitle = (
 ) => Ref<string | null | undefined>;
 
 export interface CreateAdapterOptions {
-  notify?: (msg: string) => void;
+  notify?: (msg: string, title?: string, type?: any) => void;
   loading?: () => any;
   settings?: IRequestSettings;
   Startup?: any;
@@ -31,6 +31,9 @@ export interface ProvideAdapter {
   access?: Access;
   startupComponent?: any;
   useTitle?: UseTitle;
+  alert?: (msg: string, opt?: any) => any;
+  notify?: (msg: string, title?: string, type?: any) => void;
+  loading?: () => any;
   [index: string]: any;
 }
 
@@ -83,6 +86,7 @@ export function createAdapter(options: CreateAdapterOptions = {}) {
     notify,
     loading,
     useTitle,
+    alert,
     startupComponent: Startup,
     access: access ? new Access({ alert, ...access }) : undefined
   } as ProvideAdapter;

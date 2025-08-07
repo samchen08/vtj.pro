@@ -118,7 +118,7 @@
         // 定义状态
       }
     },
-    getter: {
+    getters: {
 
     },
     actions: {
@@ -148,12 +148,15 @@
 }`;
 
   const accessTemplate = `(app) => {
+  const { id, platform } = app.config.globalProperties.$provider.project;
+  const storageKey = 'ACCESS__' + platform + '_' + id
   return {
     // session: false,
     // authKey: 'Authorization',
-    // storageKey: 'ACCESS_STORAGE',
+    storageKey,
     // storagePrefix: '__VTJ_',
     // auth: '/#/login',
+    // whiteList: (to) => true
     // redirectParam: 'r',
     // unauthorizedCode: 401,
     // unauthorizedMessage: '登录已经失效，请重新登录！',

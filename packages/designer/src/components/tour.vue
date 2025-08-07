@@ -21,7 +21,7 @@
       target=".v-settings-region"
       title="组件设置区"
       placement="left"
-      description="在这里可以对选中的页面或组件进行响应个性化设置"></ElTourStep>
+      description="在这里可以对选中的页面或组件进行个性化设置"></ElTourStep>
 
     <ElTourStep
       target=".v-toolbar-region"

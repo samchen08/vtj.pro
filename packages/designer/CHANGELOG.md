@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.5](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.13.4...@vtj/designer@0.13.5) (2025-08-07)
+
+
+### Bug Fixes
+
+* 🐛 模版依赖增加pinia ([5b297df](https://gitee.com/newgateway/vtj/commits/5b297df353a4ea449f25e162f9f43a1707bd41b3))
+* 🐛 access showTip ([b65ee84](https://gitee.com/newgateway/vtj/commits/b65ee84679cb725adbc3cff0435dee07044c9a00))
+* 🐛 access template ([5b6da58](https://gitee.com/newgateway/vtj/commits/5b6da581499c25cbaf44b4fd94b5f2b0e4174340))
+* 🐛 access template code ([a16368a](https://gitee.com/newgateway/vtj/commits/a16368a0e58c7392230a54916c0a43e76124926e))
+* 🐛 designer renderer meta undefined ([2884ef1](https://gitee.com/newgateway/vtj/commits/2884ef18c103fe77ab3e6917de7cc2a72ccb69fc))
+* 🐛 globals access inject alert ([fcf1403](https://gitee.com/newgateway/vtj/commits/fcf14039e9948728c3ffe25e8faa464c00083fa0))
+* 🐛 uniapp hide Globals ([4cf2517](https://gitee.com/newgateway/vtj/commits/4cf25175c201bc96df97a575a53123578e8e4ea0))
+
+
+
+
+
 ## [0.13.4](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.13.3...@vtj/designer@0.13.4) (2025-08-07)
 
 

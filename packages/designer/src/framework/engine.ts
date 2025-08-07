@@ -248,6 +248,9 @@ export class Engine extends Base {
         widgetManager.set('UniConfig', {
           invisible: false
         });
+        widgetManager.set('Globals', {
+          invisible: true
+        });
       }
       dsl.dependencies = depsManager.merge(dsl.dependencies || [], platform);
       this.project.value = new ProjectModel(dsl);

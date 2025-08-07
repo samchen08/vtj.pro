@@ -153,7 +153,7 @@ export class Renderer {
     const app = Vue.createApp(AppContainer) as App;
     this.install(app, platform);
     Object.assign(
-      app.config.globalProperties.$route.meta,
+      app.config.globalProperties.$route?.meta || {},
       (file as PageFile).meta || {}
     );
 

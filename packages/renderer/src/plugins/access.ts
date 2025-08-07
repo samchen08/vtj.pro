@@ -385,6 +385,8 @@ export class Access {
         title: '提示',
         type: 'warning'
       })?.catch(() => false);
+    } else {
+      window.alert(content);
     }
     return false;
   }
