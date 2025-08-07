@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.4](https://github.com/samchen08/vtj.pro/compare/vtj-project-uniapp@0.13.3...vtj-project-uniapp@0.13.4) (2025-08-07)
+
+**Note:** Version bump only for package vtj-project-uniapp
+
+
+
+
+
+## [0.13.3](https://github.com/samchen08/vtj.pro/compare/vtj-project-uniapp@0.13.2...vtj-project-uniapp@0.13.3) (2025-08-07)
+
+
+### Features
+
+* ✨ 初始化添加启动页 ([9a0301c](https://github.com/samchen08/vtj.pro/commit/9a0301c4eca6dbcce9e905bce555e1ca68efdd5a))
+
+
+
+
+
 ## [0.13.2](https://github.com/samchen08/vtj.pro/compare/vtj-project-uniapp@0.13.1...vtj-project-uniapp@0.13.2) (2025-08-06)
 
 **Note:** Version bump only for package vtj-project-uniapp

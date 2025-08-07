@@ -96,6 +96,7 @@ export class Designer {
       this.bind(this.onViewChange, 'onViewChange')
     );
     cw.addEventListener('resize', this.bind(this.onViewChange, 'onViewChange'));
+    cw.addEventListener('load', this.bind(this.onViewChange, 'onViewChange'));
     doc.addEventListener('mouseleave', this.bind(this.onLeave, 'onLeave'));
     doc.addEventListener('dragleave', this.bind(this.onLeave, 'onLeave'));
     doc.addEventListener('dragover', this.bind(this.onDragOver, 'onDragOver'));
@@ -144,6 +145,10 @@ export class Designer {
     );
     cw.removeEventListener(
       'resize',
+      this.bind(this.onViewChange, 'onViewChange')
+    );
+    cw.removeEventListener(
+      'load',
       this.bind(this.onViewChange, 'onViewChange')
     );
     doc.removeEventListener('mouseleave', this.bind(this.onLeave, 'onLeave'));

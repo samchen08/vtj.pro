@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.4](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.13.3...@vtj/renderer@0.13.4) (2025-08-07)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
+## [0.13.3](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.13.2...@vtj/renderer@0.13.3) (2025-08-07)
+
+
+### Bug Fixes
+
+* 🐛 mask pure 改为路由meta控制 ([aebcc7b](https://gitee.com/newgateway/vtj/commits/aebcc7b4f0021bc2ae6147007568d6f4417a94a6))
+
+
+
+
+
 ## [0.13.2](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.13.1...@vtj/renderer@0.13.2) (2025-08-06)
 
 

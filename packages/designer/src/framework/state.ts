@@ -35,6 +35,11 @@ export interface EngineState {
    * 自定义模型列表
    */
   LLMs: LLM[];
+
+  /**
+   * 显示引导
+   */
+  tour: boolean;
 }
 
 export class State {
@@ -43,7 +48,8 @@ export class State {
     activeEvent: true,
     autoApply: true,
     llm: '',
-    LLMs: []
+    LLMs: [],
+    tour: true
   });
 
   constructor() {
@@ -96,6 +102,14 @@ export class State {
   }
   set LLMs(value: LLM[]) {
     this.save('LLMs', value);
+  }
+
+  get tour() {
+    return this.__state.tour;
+  }
+
+  set tour(value: boolean) {
+    this.save('tour', value);
   }
 
   saveLLM(item: LLM) {

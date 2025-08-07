@@ -85,7 +85,7 @@
       tip="系统菜单中不显示该项，仅Web平台有效"
       :disabled="!isWebPlatform"></XField>
 
-    <XField
+    <!-- <XField
       v-if="!isUniapp && !isLayout"
       :visible="{ dir: false }"
       inline
@@ -93,7 +93,7 @@
       label="纯净页面"
       editor="switch"
       tip="页面默认不带背景和内边距，仅Web平台有效"
-      :disabled="!isWebPlatform"></XField>
+      :disabled="!isWebPlatform"></XField> -->
 
     <XField
       v-if="!noMask && !isLayout"
@@ -187,10 +187,10 @@
   const noMask = computed(() => !!engine.options.noMask);
 
   const height = computed(() =>
-    noMask.value || isUniapp.value ? '600px' : '700px'
+    noMask.value || isUniapp.value ? '600px' : '650px'
   );
   const fieldHeight = computed(() =>
-    noMask.value ? 'calc(100% - 360px)' : 'calc(100% - 500px)'
+    noMask.value ? 'calc(100% - 360px)' : 'calc(100% - 450px)'
   );
   const isLayout = computed(() => !!model.value.layout);
 
@@ -204,7 +204,7 @@
     mask: false,
     hidden: false,
     raw: false,
-    pure: !isWebPlatform.value,
+    pure: true,
     meta: null,
     cache: false,
     needLogin: false,
@@ -234,10 +234,7 @@
     (t: any) => {
       model.value.dir = t === 'dir';
       model.value.layout = t === 'layout';
-      const { platform = 'web' } = project.value || {};
-      if (platform !== 'web') {
-        model.value.pure = true;
-      }
+      model.value.pure = true;
     }
   );
 
