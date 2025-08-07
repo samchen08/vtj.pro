@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.4](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.13.3...@vtj/designer@0.13.4) (2025-08-07)
+
+
+### Bug Fixes
+
+* 🐛 初始化项目依赖丢失问题 ([071ef12](https://gitee.com/newgateway/vtj/commits/071ef1208e740daf84adcdc27768c9860a1bd3ac))
+
+
+### Features
+
+* ✨ 更换视图切换方式 ([1ba145b](https://gitee.com/newgateway/vtj/commits/1ba145ba4b31f9d48adb0291a71e19f3155af804))
+
+
+
+
+
 ## [0.13.3](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.13.2...@vtj/designer@0.13.3) (2025-08-07)
 
 
