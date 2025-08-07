@@ -118,7 +118,7 @@
         // 定义状态
       }
     },
-    getter: {
+    getters: {
 
     },
     actions: {
