@@ -648,8 +648,13 @@ export class Engine extends Base {
    */
   async openFile(fileId?: string) {
     const project = this.project.value;
+    if (!project) return;
     const apps = this.skeleton?.getRegion('Apps');
-    const id = fileId || project?.homepage;
+    let id = fileId || project.homepage;
+    const pages = project.getPages();
+    if (!id) {
+      id = pages[0]?.id;
+    }
     if (!project || !apps || !id) return;
 
     const page = project.getPage(id);
