@@ -5,6 +5,7 @@
         <Icon
           v-for="widget in panelWidgets"
           :key="`icon-${widget.name}`"
+          :class="`v-apps-region-${widget.name}`"
           :icon="widget.icon"
           :label="widget.label"
           :active="active?.name === widget.name"

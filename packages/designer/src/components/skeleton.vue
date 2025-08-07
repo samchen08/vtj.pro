@@ -47,6 +47,7 @@
         <RegionWrapper ref="status" region="Status"></RegionWrapper>
       </el-footer>
     </el-container>
+    <Tour></Tour>
   </ElConfigProvider>
 </template>
 <script lang="ts" setup>
@@ -61,6 +62,7 @@
   } from 'element-plus';
   import zhCn from 'element-plus/es/locale/lang/zh-cn';
   import { vResizable, type ResizableOptions } from '@vtj/ui';
+  import Tour from './tour.vue';
   import { RegionWrapper } from '../wrappers';
   import { useCheckVersion, useOpenApi } from './hooks';
   import { notify } from '../utils';
