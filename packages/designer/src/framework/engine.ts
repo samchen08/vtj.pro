@@ -51,7 +51,7 @@ import {
   ACCESS,
   type ProvideAdapter
 } from '@vtj/renderer';
-import { logger, isBoolean } from '@vtj/utils';
+import { logger, isBoolean, delay } from '@vtj/utils';
 import { SkeletonWrapper, type SkeletonWrapperInstance } from '../wrappers';
 import { depsManager, widgetManager } from '../managers';
 import { Simulator } from './simulator';
@@ -660,16 +660,20 @@ export class Engine extends Base {
     const page = project.getPage(id);
     if (page && !page.raw) {
       apps.regionRef?.setActive('Pages');
-      this.simulator.ready(() => {
+      this.simulator.ready(async () => {
         project.active(page);
+        await delay(1000);
+        this.simulator.designer.value?.setSelected(this.current.value);
       });
     }
 
     const block = project.getBlock(id);
     if (block) {
       apps.regionRef?.setActive('Blocks');
-      this.simulator?.ready(() => {
+      this.simulator?.ready(async () => {
         project.active(block);
+        await delay(1000);
+        this.simulator.designer.value?.setSelected(this.current.value);
       });
     }
   }
