@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.10](https://gitee.com/newgateway/vtj/compare/create-vtj@0.12.9...create-vtj@0.12.10) (2025-08-07)
+
+
+### Bug Fixes
+
+* 🐛 template add pinia ([a55107e](https://gitee.com/newgateway/vtj/commits/a55107e6c55c762d34d77500b9145ef793dfde55))
+
+
+
+
+
 ## [0.12.9](https://gitee.com/newgateway/vtj/compare/create-vtj@0.12.8...create-vtj@0.12.9) (2025-08-06)
 
 

@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.3](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.13.2...@vtj/ui@0.13.3) (2025-08-07)
+
+
+### Bug Fixes
+
+* 🐛 mask pure 改为路由meta控制 ([aebcc7b](https://gitee.com/newgateway/vtj/commits/aebcc7b4f0021bc2ae6147007568d6f4417a94a6))
+* 🐛 tab style ([b76a97c](https://gitee.com/newgateway/vtj/commits/b76a97c4ab500aad6984ae74c702292066f66c79))
+
+
+
+
+
 ## [0.13.2](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.13.1...@vtj/ui@0.13.2) (2025-08-06)
 
 **Note:** Version bump only for package @vtj/ui

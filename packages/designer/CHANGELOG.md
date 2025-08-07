@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.3](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.13.2...@vtj/designer@0.13.3) (2025-08-07)
+
+
+### Bug Fixes
+
+* 🐛 设计器初始化默认选中页面设置 ([12c2cc8](https://gitee.com/newgateway/vtj/commits/12c2cc8cf9bc90b59192ec212e95e1fe29e77c6e))
+* 🐛 设计器初始化显示第一个页面 ([987ea04](https://gitee.com/newgateway/vtj/commits/987ea0447e990114b8d86ce7df4139350aae41d7))
+* 🐛 designer iframe load event ([5e5ca8d](https://gitee.com/newgateway/vtj/commits/5e5ca8d34ee07562dc21a96f5e27387fe1c1161e))
+* 🐛 mask pure 改为路由meta控制 ([aebcc7b](https://gitee.com/newgateway/vtj/commits/aebcc7b4f0021bc2ae6147007568d6f4417a94a6))
+* 🐛 tab style ([b76a97c](https://gitee.com/newgateway/vtj/commits/b76a97c4ab500aad6984ae74c702292066f66c79))
+
+
+### Features
+
+* ✨ 增加引导 ([5f6dd82](https://gitee.com/newgateway/vtj/commits/5f6dd825d5bc90e8d4421e9c0dce177af1fcf7fd))
+
+
+
+
+
 ## [0.13.2](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.13.1...@vtj/designer@0.13.2) (2025-08-06)
 
 **Note:** Version bump only for package @vtj/designer
