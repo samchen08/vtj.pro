@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.6](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.13.5...@vtj/designer@0.13.6) (2025-08-08)
+
+
+### Bug Fixes
+
+* 🐛 删除纯页面标识 ([0b0c506](https://gitee.com/newgateway/vtj/commits/0b0c506826cef3cacd6d2b3f95488e6f448ffe72))
+* 🐛 accessTemplate ([2186120](https://gitee.com/newgateway/vtj/commits/21861204941db62f941627e9c68deb2cca1475f7))
+
+
+
+
+
 ## [0.13.5](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.13.4...@vtj/designer@0.13.5) (2025-08-07)
 
 

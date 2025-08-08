@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.6](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.13.5...@vtj/renderer@0.13.6) (2025-08-08)
+
+
+### Bug Fixes
+
+* 🐛 coder parseWatch ([2ecfc5a](https://gitee.com/newgateway/vtj/commits/2ecfc5a82e848d83b4000f931d992e152b6fa47b))
+
+
+
+
+
 ## [0.13.5](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.13.4...@vtj/renderer@0.13.5) (2025-08-07)
 
 

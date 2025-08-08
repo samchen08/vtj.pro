@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.6](https://github.com/samchen08/vtj.pro/compare/@vtj/docs@0.13.5...@vtj/docs@0.13.6) (2025-08-08)
+
+
+### Bug Fixes
+
+* 🐛 coder parseWatch ([2ecfc5a](https://github.com/samchen08/vtj.pro/commit/2ecfc5a82e848d83b4000f931d992e152b6fa47b))
+
+
+
+
+
 ## [0.13.5](https://github.com/samchen08/vtj.pro/compare/@vtj/docs@0.13.4...@vtj/docs@0.13.5) (2025-08-07)
 
 **Note:** Version bump only for package @vtj/docs
