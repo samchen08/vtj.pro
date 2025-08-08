@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.7](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.13.6...@vtj/designer@0.13.7) (2025-08-08)
+
+
+### Bug Fixes
+
+* 🐛 engine parser platform deps ([9e8dfeb](https://gitee.com/newgateway/vtj/commits/9e8dfeb36d14c108bed532d1d38522b2671ddfc2))
+
+
+
+
+
 ## [0.13.6](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.13.5...@vtj/designer@0.13.6) (2025-08-08)
 
 
