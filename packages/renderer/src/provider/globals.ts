@@ -64,7 +64,11 @@ function createAccess(
   if (isJSFunction(access) && access.value) {
     const accessOptions = parseFunction(access, {}, false, false, true);
     const { alert, request } = adapter;
-    const instance = new Access({ alert, ...accessOptions(app) });
+    const instance = new Access({
+      alert,
+      ...accessOptions(app),
+      storagePrefix: '__VTJ_APP_'
+    });
     const router = app.config.globalProperties.$router;
     instance.connect({ mode, router, request });
     app.use(instance);
