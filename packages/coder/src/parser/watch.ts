@@ -17,13 +17,18 @@ export function parseWatch(
   );
   const computed = parseFunctionMap(watchers, computedKeys);
 
-  const watches = watch.map((n) => {
-    return `watcher_${n.id}: {
+  const watches = watch
+    .map((n) => {
+      if (n.handler && n.handler.value) {
+        return `watcher_${n.id}: {
         deep: ${n.deep},
         immediate:${n.immediate},
         handler${replaceFunctionTag(n.handler.value)}
       }`;
-  });
+      }
+      return null;
+    })
+    .filter((n) => !!n);
   return {
     computed,
     watches

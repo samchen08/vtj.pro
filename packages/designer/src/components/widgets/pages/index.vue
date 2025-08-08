@@ -86,9 +86,9 @@
     if (!isUniapp.value && page.hidden) {
       tags.push('隐');
     }
-    if (!isUniapp.value && page.pure) {
-      tags.push('纯');
-    }
+    // if (!isUniapp.value && page.pure) {
+    //   tags.push('纯');
+    // }
     if (page.raw) {
       tags.push('源');
     }

@@ -133,11 +133,11 @@
 
   const requestTemplate = `(config, app) => {
   return config;
-  }`;
+}`;
 
   const responseTemplate = `(res, app) => {
   return res;
-  }`;
+}`;
 
   const beforeTemplate = `(to, from, next, app) => {
   next();
@@ -148,13 +148,10 @@
 }`;
 
   const accessTemplate = `(app) => {
-  const { id, platform } = app.config.globalProperties.$provider.project;
-  const storageKey = 'ACCESS__' + platform + '_' + id
   return {
     // session: false,
     // authKey: 'Authorization',
-    storageKey,
-    // storagePrefix: '__VTJ_',
+    // storageKey: 'ACCESS_STORAGE',
     // auth: '/#/login',
     // whiteList: (to) => true
     // redirectParam: 'r',
