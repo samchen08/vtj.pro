@@ -42,7 +42,8 @@ export default [
       { text: '物料制作指南', link: '/base/materials' },
       { text: '应用增强', link: '/base/enhance' },
       { text: '网络请求', link: '/base/request' },
-      { text: '权限控制', link: '/base/access' }
+      { text: '权限控制', link: '/base/access' },
+      { text: '应用全局设置', link: '/base/globals' }
     ]
   },
   {
