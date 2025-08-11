@@ -5,8 +5,13 @@
     :block="props.current"
     :context="props.context"
     :model="model"
-    @pick="onPick">
-    <XField class="v-binder__editor" name="value" label="绑定内容 [ JSExpression ]" required>
+    @pick="onPick"
+    :disabled="props.disabled">
+    <XField
+      class="v-binder__editor"
+      name="value"
+      label="绑定内容 [ JSExpression ]"
+      required>
       <template #editor>
         <Editor
           ref="editorRef"
@@ -29,6 +34,7 @@
     context: Context | null;
     current: BlockModel | null;
     value?: string;
+    disabled?: boolean;
   }
 
   const props = defineProps<Props>();

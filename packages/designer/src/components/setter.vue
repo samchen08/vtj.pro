@@ -72,7 +72,8 @@
       :value="binderValue"
       v-model="binderVisible"
       :submitMethod="onVarsSubmit"
-      @unbind="onVarsRemove"></VariableBinder>
+      @unbind="onVarsRemove"
+      :disabled="props.disabled"></VariableBinder>
   </ElFormItem>
 </template>
 <script lang="ts" setup>

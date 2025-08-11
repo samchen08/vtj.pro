@@ -2,6 +2,7 @@
   <XContainer class="v-directives-widget" direction="column" fit>
     <Panel class="v-sub-panel" title="内置指令" size="small" :fit="false">
       <ElForm size="small" label-width="80px" @keydown.enter.prevent.stop>
+        {{ branchVisiable }}
         <SetterWrapper
           name="vIf"
           label="v-if"
@@ -9,6 +10,7 @@
           :current="current"
           :context="context"
           :value="vIf.value"
+          :disabled="hasNextBranch"
           @change="onValueChange">
         </SetterWrapper>
         <SetterWrapper
@@ -19,6 +21,7 @@
           :current="current"
           :context="context"
           :value="vElseIf.value"
+          :disabled="hasNextBranch"
           @change="onValueChange">
         </SetterWrapper>
         <SetterWrapper
@@ -29,9 +32,9 @@
           :current="current"
           :context="context"
           :value="!!vElse.value"
+          :disabled="hasNextBranch"
           @change="onValueChange">
         </SetterWrapper>
-
         <SetterWrapper
           name="vShow"
           label="v-show"
@@ -225,7 +228,8 @@
     onAddCustom,
     onRemoveCustom,
     onCustomChange,
-    branchVisiable
+    branchVisiable,
+    hasNextBranch
   } = useDirectives(selected);
 
   const getModelArgName = (vModel: DirectiveModel) => {
