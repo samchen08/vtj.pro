@@ -54,6 +54,7 @@
     }
     @include e(inner) {
       background-color: initial !important;
+      padding: 0;
     }
   }
 }
