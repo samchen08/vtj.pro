@@ -19,9 +19,6 @@
 - **官方文档**：[https://vtj.pro](https://vtj.pro)
 - **在线应用开发平台**：[https://lcdp.vtj.pro](https://lcdp.vtj.pro)
 
-> ✨✨✨ 福利来了 ✨✨✨
-> 回馈活动，AI助手百万额度免费领，领取链接：[https://lcdp.vtj.pro/tokens?code=gitee](https://lcdp.vtj.pro/tokens?code=gitee)
-
 ## 核心特性
 
 - ⚙️ **主流技术栈**: 基于 Vue3 + TypeScript + Vite 构建，深度整合 ElementPlus、Axios、ECharts 等主流工具链，开箱即用。
