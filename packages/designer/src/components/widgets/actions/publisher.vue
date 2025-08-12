@@ -146,7 +146,6 @@
     }
     const platform = engine.project.value?.platform || 'web';
     const dto: PublishTemplateDto = {
-      id: templateId,
       dsl: JSON.stringify(dsl),
       cover,
       category: '',
@@ -154,6 +153,9 @@
       platform,
       ...model
     };
+    if (templateId) {
+      dto.id = templateId;
+    }
     const ret = await publishTemplate(dto).catch((e: any) => {
       ElMessage.error({
         message: e.message || e || '未知错误'
