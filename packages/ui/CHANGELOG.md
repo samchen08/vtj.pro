@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.8](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.13.7...@vtj/ui@0.13.8) (2025-08-13)
+
+
+### Bug Fixes
+
+* 🐛 mask disabled inner padding ([d9c61cd](https://gitee.com/newgateway/vtj/commits/d9c61cd5af79d20c0dc7c5fa2d388ab36f22043e))
+
+
+
+
+
 ## [0.13.7](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.13.6...@vtj/ui@0.13.7) (2025-08-08)
 
 **Note:** Version bump only for package @vtj/ui

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.8](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.13.7...@vtj/coder@0.13.8) (2025-08-13)
+
+
+### Bug Fixes
+
+* 🐛 修复组件事件出码异常 ([e347a0b](https://gitee.com/newgateway/vtj/commits/e347a0b2e4c57e5fe1cd9dd5587fa679fe2b476d))
+
+
+
+
+
 ## [0.13.7](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.13.6...@vtj/coder@0.13.7) (2025-08-08)
 
 **Note:** Version bump only for package @vtj/coder
