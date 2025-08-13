@@ -76,6 +76,23 @@ export function useDirectives(
     return false;
   });
 
+  const hasNextBranch = computed(() => {
+    const parent: any = node.value?.parent || engine.current.value;
+    const brothers: NodeModel[] = parent.nodes || parent?.children || [];
+    if (brothers.length) {
+      const index = brothers.findIndex((n) => n.id === node.value?.id);
+      const nextNode = brothers[index + 1];
+      if (nextNode) {
+        return nextNode.directives.some(
+          (n) => n.name === 'vElse' || n.name === 'vElseIf'
+        );
+      } else {
+        return false;
+      }
+    }
+    return false;
+  });
+
   const getDirctive = (name: string) => {
     return computed(() => {
       if (!node.value) return createEmptyDirective(name);
@@ -217,6 +234,7 @@ export function useDirectives(
     onAddCustom,
     onRemoveCustom,
     onCustomChange,
-    branchVisiable
+    branchVisiable,
+    hasNextBranch
   };
 }

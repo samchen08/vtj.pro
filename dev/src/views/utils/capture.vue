@@ -7,9 +7,12 @@
   const captureScreen = async () => {
     try {
       const stream = await navigator.mediaDevices.getDisplayMedia({
-        video: true,
-        audio: false
-      });
+        video: {
+          // displaySurface: 'monitor'
+        },
+        audio: false,
+        preferCurrentTab: true
+      } as any);
       const video = document.createElement('video');
       video.srcObject = stream;
       video.onloadedmetadata = () => {

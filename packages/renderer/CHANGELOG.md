@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.8](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.13.7...@vtj/renderer@0.13.8) (2025-08-13)
+
+
+### Bug Fixes
+
+* 🐛 源码模式初始化找不到页面时显示启动页 ([71c6792](https://gitee.com/newgateway/vtj/commits/71c67926c585c35119b532610608d1649777124a))
+
+
+
+
+
 ## [0.13.7](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.13.6...@vtj/renderer@0.13.7) (2025-08-08)
 
 **Note:** Version bump only for package @vtj/renderer

@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.8](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.13.7...@vtj/designer@0.13.8) (2025-08-13)
+
+
+### Bug Fixes
+
+* 🐛 修复在线版发布模版失效问题 ([a04c489](https://gitee.com/newgateway/vtj/commits/a04c489b655dfc146a1f6fb292d01542a2072fed))
+* 🐛 元素使用 v-if和else，如果我取消了前面的v-if，后面的else就消失，没法取消，就会报错 ([65dec7a](https://gitee.com/newgateway/vtj/commits/65dec7ab1d8fe24d209413229612aa0f12b7be15))
+
+
+### Features
+
+* ✨ api模块支持测试 ([f625564](https://gitee.com/newgateway/vtj/commits/f6255643187a0139da6e58206aaf9e164395e471))
+
+
+
+
+
 ## [0.13.7](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.13.6...@vtj/designer@0.13.7) (2025-08-08)
 
 
