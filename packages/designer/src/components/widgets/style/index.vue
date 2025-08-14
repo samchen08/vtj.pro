@@ -96,7 +96,7 @@
       string,
       any
     >;
-    if (value !== undefined && value !== '') {
+    if (value !== undefined && value !== '' && value !== null) {
       style[name] = value;
     } else {
       delete style[name];
