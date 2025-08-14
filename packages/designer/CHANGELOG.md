@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.9](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.13.8...@vtj/designer@0.13.9) (2025-08-14)
+
+
+### Bug Fixes
+
+* 🐛 样式设置器清空颜色未重新赋值 ([88eaed5](https://gitee.com/newgateway/vtj/commits/88eaed5ae8eabfb8bd3c81bd415cc9feb1f713c8))
+
+
+
+
+
 ## [0.13.8](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.13.7...@vtj/designer@0.13.8) (2025-08-13)
 
 
