@@ -102,7 +102,6 @@ const components: MaterialDescription[] = [
         title: 'Default size card',
         style: { width: '300px' }
       },
-      slot: 'extra',
       children: [
         {
           name: 'a',
@@ -162,7 +161,6 @@ const components: MaterialDescription[] = [
     slots: ['avatar', 'description', 'title'],
     snippet: {
       props: { title: 'Europe Street beat' },
-      slot: 'description',
       children: [
         {
           name: 'span',

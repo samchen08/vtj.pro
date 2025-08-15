@@ -135,7 +135,6 @@ const components: MaterialDescription[] = [
       props: {
         title: 'Title'
       },
-      slot: 'content',
       children: [
         {
           name: 'p',

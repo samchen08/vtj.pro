@@ -36,7 +36,9 @@
 
 <script lang="ts" setup>
   import { ref, computed, watch } from 'vue';
+  import type { StaticFileInfo } from '@vtj/core';
   import { ElInput, ElButton } from 'element-plus';
+  import { delay } from '@vtj/utils';
   import { Files } from '@vtj/icons';
   import { XDialog, XAttachment, type AttachmentFile } from '@vtj/ui';
   import { notify } from '../../utils';
@@ -62,17 +64,19 @@
       return res.map((n) => {
         return {
           name: n.filename,
-          url: n.filepath
+          url: n.filepath,
+          id: n.id
         };
       });
     } else {
-      return res ? { name: res.filename, url: res.filepath } : null;
+      return res ? { name: res.filename, url: res.filepath, id: res.id } : null;
     }
   };
 
   const uploader = async (file: File) => {
     if (engine && project.value) {
       const res = await engine.service.uploadStaticFile(file, project.value.id);
+      await delay(300);
       return mapToFile(res) as AttachmentFile;
     }
     return null;
@@ -167,7 +171,12 @@
 
   const handleRemove = (file: AttachmentFile) => {
     if (file.name && project.value?.id) {
-      engine.service.removeStaticFile(file.name, project.value?.id);
+      const staticFile: StaticFileInfo = {
+        id: file.id,
+        filepath: file.url,
+        filename: file.name
+      };
+      engine.service.removeStaticFile(file.name, project.value?.id, staticFile);
     }
   };
 </script>
