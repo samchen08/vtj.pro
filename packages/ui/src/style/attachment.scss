@@ -4,6 +4,11 @@
   .el-upload-list__item {
     transition: none;
   }
+
+  @include e(upload) {
+    line-height: 1;
+  }
+
   @include when(disabled) {
     .el-upload {
       display: none;
