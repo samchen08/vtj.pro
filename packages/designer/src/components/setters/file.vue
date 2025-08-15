@@ -10,15 +10,18 @@
     <XDialog
       v-if="dialogVisible"
       v-model="dialogVisible"
-      title="文件选择器"
-      width="600px"
+      title="选择文件"
+      :subtitle="subtitle"
+      width="670px"
       height="400px"
       cancel
       submit
+      maximizable
+      resizable
       @submit="handleSubmit">
       <XAttachment
         size="small"
-        list-type="list"
+        list-type="card"
         :selectable="true"
         :uploader="uploader"
         v-model="fileList"
@@ -27,7 +30,7 @@
         @remove="handleRemove"></XAttachment>
       <template #extra>
         <ElButton type="warning" size="default" @click="handleClear">
-          清除
+          解除绑定
         </ElButton>
       </template>
     </XDialog>
@@ -47,6 +50,7 @@
   export interface Props {
     modelValue?: string;
     attachment?: Record<string, any>;
+    acceptFilter?: boolean;
   }
 
   defineOptions({
@@ -58,6 +62,11 @@
   const { engine, project } = useProject();
   const fileList = ref<AttachmentFile[]>([]);
   const dialogVisible = ref(false);
+
+  const subtitle = computed(() => {
+    const items = (props.attachment?.accept || '').split(',');
+    return items.join(' ');
+  });
 
   const mapToFile = (res: any) => {
     if (Array.isArray(res)) {
@@ -73,10 +82,26 @@
     }
   };
 
+  const filterAccepts = (info: StaticFileInfo[] = []) => {
+    if (props.acceptFilter) {
+      const accepts: string[] = (props.attachment?.accept || '')
+        .split(',')
+        .map((n: string) => n.trim());
+      if (accepts.length > 0) {
+        return info.filter((n) => {
+          const path = n.filepath.trim();
+          return accepts.some((a) => path.includes(a));
+        });
+      }
+      return info;
+    }
+    return info;
+  };
+
   const uploader = async (file: File) => {
     if (engine && project.value) {
       const res = await engine.service.uploadStaticFile(file, project.value.id);
-      await delay(300);
+      await delay(150);
       return mapToFile(res) as AttachmentFile;
     }
     return null;
@@ -118,7 +143,7 @@
         .catch(() => {
           return null;
         });
-      fileList.value = mapToFile(res) as AttachmentFile[];
+      fileList.value = mapToFile(filterAccepts(res || [])) as AttachmentFile[];
     }
   });
 
