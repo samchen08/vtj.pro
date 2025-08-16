@@ -73,6 +73,7 @@
       <XField
         name="urls"
         label="资源文件"
+        :key="model?.fromType"
         v-if="['Plugin', 'UrlSchema'].includes(model?.fromType || '')"
         required
         :editor="FileSetter"
