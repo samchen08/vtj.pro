@@ -13,7 +13,7 @@
       title="选择文件"
       :subtitle="subtitle"
       width="670px"
-      height="400px"
+      height="500px"
       cancel
       submit
       maximizable
@@ -21,7 +21,7 @@
       @submit="handleSubmit">
       <XAttachment
         size="small"
-        list-type="card"
+        list-type="list"
         :selectable="true"
         :uploader="uploader"
         v-model="fileList"
@@ -57,7 +57,9 @@
     name: 'FileSetter'
   });
 
-  const props = withDefaults(defineProps<Props>(), {});
+  const props = withDefaults(defineProps<Props>(), {
+    acceptFilter: true
+  });
   const emit = defineEmits(['change', 'update:modelValue']);
   const { engine, project } = useProject();
   const fileList = ref<AttachmentFile[]>([]);

@@ -136,7 +136,13 @@
       display: flex;
     }
     @include e(item-name) {
-      display: none;
+      font-weight: bold;
+      margin-right: 10px;
+    }
+
+    @include e(item-url) {
+      color: var(--el-text-color-secondary);
+      font-style: italic;
     }
 
     @include when(small) {
