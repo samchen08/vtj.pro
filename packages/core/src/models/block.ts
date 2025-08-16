@@ -78,6 +78,8 @@ export class BlockModel {
     const { nodes = [] } = schema;
     if (nodes.length) {
       this.nodes = nodes.map((n) => new NodeModel(n));
+    } else {
+      this.nodes = [];
     }
     if (!silent) {
       emitter.emit(EVENT_BLOCK_CHANGE, this);

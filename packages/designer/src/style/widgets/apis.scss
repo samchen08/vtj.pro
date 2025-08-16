@@ -15,3 +15,23 @@
     width: 50px;
   }
 }
+
+.v-apis-widget__form {
+  height: 100%;
+
+  .mock-template {
+    height: calc(100% - 100px);
+    .el-form-item__content,
+    .x-field__editor_wrap {
+      height: 100%;
+    }
+  }
+
+  .request-headers {
+    height: calc(100% - 200px);
+    .el-form-item__content,
+    .x-field__editor_wrap {
+      height: 100%;
+    }
+  }
+}

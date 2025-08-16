@@ -3,6 +3,63 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.10](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.13.9...@vtj/designer@0.13.10) (2025-08-16)
+
+
+### Bug Fixes
+
+* 🐛 文件选择器 ([d8f5f71](https://gitee.com/newgateway/vtj/commits/d8f5f710060ae108141af74d4f71f61562f4a5de))
+* 🐛 antd物料slot问题 ([d8c1f9b](https://gitee.com/newgateway/vtj/commits/d8c1f9b1e4cbd566449ecf27d64482c94ecc08ba))
+* 🐛 apis form ([6636bf0](https://gitee.com/newgateway/vtj/commits/6636bf041a12f26e394b28f14335e983c9f5eb2c))
+
+
+### Features
+
+* ✨ 文件选取器 ([77e2d69](https://gitee.com/newgateway/vtj/commits/77e2d692a260f049f75cd0079c54fd6228056d6c))
+
+
+
+
+
+## [0.13.9](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.13.8...@vtj/designer@0.13.9) (2025-08-14)
+
+
+### Bug Fixes
+
+* 🐛 样式设置器清空颜色未重新赋值 ([88eaed5](https://gitee.com/newgateway/vtj/commits/88eaed5ae8eabfb8bd3c81bd415cc9feb1f713c8))
+
+
+
+
+
+## [0.13.8](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.13.7...@vtj/designer@0.13.8) (2025-08-13)
+
+
+### Bug Fixes
+
+* 🐛 修复在线版发布模版失效问题 ([a04c489](https://gitee.com/newgateway/vtj/commits/a04c489b655dfc146a1f6fb292d01542a2072fed))
+* 🐛 元素使用 v-if和else，如果我取消了前面的v-if，后面的else就消失，没法取消，就会报错 ([65dec7a](https://gitee.com/newgateway/vtj/commits/65dec7ab1d8fe24d209413229612aa0f12b7be15))
+
+
+### Features
+
+* ✨ api模块支持测试 ([f625564](https://gitee.com/newgateway/vtj/commits/f6255643187a0139da6e58206aaf9e164395e471))
+
+
+
+
+
+## [0.13.7](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.13.6...@vtj/designer@0.13.7) (2025-08-08)
+
+
+### Bug Fixes
+
+* 🐛 engine parser platform deps ([9e8dfeb](https://gitee.com/newgateway/vtj/commits/9e8dfeb36d14c108bed532d1d38522b2671ddfc2))
+
+
+
+
+
 ## [0.13.6](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.13.5...@vtj/designer@0.13.6) (2025-08-08)
 
 

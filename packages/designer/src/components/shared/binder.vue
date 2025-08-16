@@ -76,7 +76,8 @@
                 v-if="unbindEnabled"
                 type="warning"
                 size="default"
-                @click="onUnbind">
+                @click="onUnbind"
+                :disabled="props.disabled">
                 移除绑定
               </ElButton>
             </XContainer>
@@ -84,7 +85,11 @@
               <ElButton type="default" size="default" @click="onCancel">
                 取消
               </ElButton>
-              <ElButton type="primary" size="default" @click="onSubmit">
+              <ElButton
+                type="primary"
+                size="default"
+                @click="onSubmit"
+                :disabled="props.disabled">
                 确定
               </ElButton>
             </XContainer>
@@ -121,6 +126,7 @@
     modelValue?: boolean;
     submitMethod?: (model: Record<string, any>) => Promise<boolean>;
     unbindEnabled?: boolean;
+    disabled?: boolean;
   }
 
   const props = defineProps<Props>();

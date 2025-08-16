@@ -30,7 +30,7 @@
               <span v-if="file.name" class="x-attachment__item-name">
                 {{ file.name }}</span
               >
-              <span class="el-upload-list__item-url">
+              <span class="x-attachment__item-url">
                 {{ file.url }}
               </span>
             </div>

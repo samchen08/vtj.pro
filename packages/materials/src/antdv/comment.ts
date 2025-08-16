@@ -41,7 +41,6 @@ const components: MaterialDescription[] = [
     ],
     slots: ['default', 'actions', 'author', 'avatar', 'content', 'datetime'],
     snippet: {
-      slot: 'actions',
       children: [
         // 图标
         // {

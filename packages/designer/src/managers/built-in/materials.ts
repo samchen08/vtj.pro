@@ -66,7 +66,19 @@ const elements: MaterialDescription[] = [
       {
         name: 'src',
         label: 'src',
-        setters: 'InputSetter'
+        setters: [
+          {
+            name: 'InputSetter',
+            label: '文本'
+          },
+          {
+            name: 'FileSetter',
+            label: '文件',
+            props: {
+              attachment: { accept: '.png,.jpg,.jpeg,.gif,.svg' }
+            }
+          }
+        ]
       },
       {
         name: 'width',

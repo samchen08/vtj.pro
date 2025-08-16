@@ -3,6 +3,38 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.10](https://github.com/samchen08/vtj.pro/compare/vtj-project-app@0.13.9...vtj-project-app@0.13.10) (2025-08-16)
+
+**Note:** Version bump only for package vtj-project-app
+
+
+
+
+
+## [0.13.9](https://github.com/samchen08/vtj.pro/compare/vtj-project-app@0.13.8...vtj-project-app@0.13.9) (2025-08-14)
+
+**Note:** Version bump only for package vtj-project-app
+
+
+
+
+
+## [0.13.8](https://github.com/samchen08/vtj.pro/compare/vtj-project-app@0.13.7...vtj-project-app@0.13.8) (2025-08-13)
+
+**Note:** Version bump only for package vtj-project-app
+
+
+
+
+
+## [0.13.7](https://github.com/samchen08/vtj.pro/compare/vtj-project-app@0.13.6...vtj-project-app@0.13.7) (2025-08-08)
+
+**Note:** Version bump only for package vtj-project-app
+
+
+
+
+
 ## [0.13.6](https://github.com/samchen08/vtj.pro/compare/vtj-project-app@0.13.5...vtj-project-app@0.13.6) (2025-08-08)
 
 **Note:** Version bump only for package vtj-project-app

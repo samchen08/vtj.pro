@@ -1,5 +1,10 @@
 <template>
-  <XDialog ref="dialogRef" :title="title" width="1000px" height="600px">
+  <XDialog
+    ref="dialogRef"
+    :title="title"
+    width="1000px"
+    height="600px"
+    maximizable>
     <XContainer fit>
       <XContainer width="100px" :shrink="false">
         <XTabs
@@ -17,6 +22,7 @@
         :shrink="true"
         fit>
         <XForm
+          class="v-apis-widget__form"
           ref="formRef"
           :footer="false"
           labelPosition="top"
@@ -27,15 +33,23 @@
             :categories="categories"
             v-show="currentTab === 'base'"></BaseInfo>
 
-          <div v-if="currentTab === 'settings'">
+          <template v-if="currentTab === 'settings'">
             <JsonpOptions v-if="isJsonp"></JsonpOptions>
             <RequestSettins v-else></RequestSettins>
-          </div>
+          </template>
           <MockTemplate v-if="currentTab === 'mock'"></MockTemplate>
+          <TestPanel
+            v-if="currentTab === 'test'"
+            v-model="testCode"></TestPanel>
         </XForm>
 
         <template #footer>
-          <XContainer justify="space-between">
+          <XContainer v-if="currentTab === 'test'" justify="flex-end">
+            <ElButton type="warning" @click="onRunTest" :loading="testLoading">
+              运行测试
+            </ElButton>
+          </XContainer>
+          <XContainer v-else justify="space-between">
             <div>
               <ElButton
                 v-if="currentTab === 'mock'"
@@ -57,7 +71,7 @@
       v-if="showPreview"
       class="v-drawer"
       v-model="showPreview"
-      title="模拟数据结果"
+      :title="resultTitle"
       direction="btt"
       append-to-body
       size="80%">
@@ -83,13 +97,15 @@
   import Mock from 'mockjs';
   import { type ApiSchema, type ProjectModel } from '@vtj/core';
   import { ElButton, ElDrawer } from 'element-plus';
-  import { parseExpression } from '@vtj/renderer';
+  import { parseExpression, createSchemaApi } from '@vtj/renderer';
   import { notify, expressionValidate } from '../../../utils';
   import BaseInfo from './base-info.vue';
   import RequestSettins from './request-settings.vue';
   import JsonpOptions from './jsonp-options.vue';
   import MockTemplate from './mock-template.vue';
+  import TestPanel from './test-panel.vue';
   import Editor from '../../editor';
+  import { useEngine } from '../../../framework';
 
   export interface Props {
     model?: ApiSchema;
@@ -97,6 +113,7 @@
     categories?: string[];
   }
 
+  const engine = useEngine();
   const props = defineProps<Props>();
   const title = computed(() => (props.model ? '编辑API' : '新增API'));
   const currentTab = ref<string>('base');
@@ -105,6 +122,11 @@
   const currentModel = ref<ApiSchema>(props.model || ({} as ApiSchema));
   const showPreview = ref(false);
   const mockResult = ref('');
+  const testCode = ref(`() => this.runApi({
+      /* 在这里可输入接口参数  */
+  })`);
+  const resultTitle = ref('模拟数据结果');
+  const testLoading = ref(false);
   const tabs: TabsItem[] = [
     {
       label: '基础信息',
@@ -117,6 +139,10 @@
     {
       label: '模拟数据',
       value: 'mock'
+    },
+    {
+      label: '接口测试',
+      value: 'test'
     }
   ];
 
@@ -197,7 +223,38 @@
         })
       );
       mockResult.value = JSON.stringify(json, null, 2);
+      resultTitle.value = '模拟数据结果';
       showPreview.value = true;
+    }
+  };
+
+  const onRunTest = async () => {
+    const adapter = engine.provider.adapter;
+    if (adapter && currentModel.value) {
+      const runApi = createSchemaApi(currentModel.value, adapter);
+      if (!runApi) return;
+
+      if (testCode.value) {
+        const run = parseExpression(
+          { type: 'JSFunction', value: testCode.value },
+          {
+            runApi
+          }
+        );
+        testLoading.value = true;
+        try {
+          adapter.access?.disableIntercept();
+          const result = await run().catch((e: any) => e);
+          const res = JSON.stringify(result, null, 2);
+          mockResult.value = res;
+          adapter.access?.enableIntercept();
+        } catch (e) {
+          console.warn('[runTest]', e);
+        }
+        testLoading.value = false;
+        resultTitle.value = '接口测试结果';
+        showPreview.value = true;
+      }
     }
   };
 </script>

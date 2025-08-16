@@ -234,17 +234,21 @@ export class Engine extends Base {
    * @param project 项目Schema
    */
   private async init(project: ProjectSchema) {
-    const platform = project.platform || 'web';
-    project.dependencies = depsManager.merge(
-      project.dependencies || [],
-      platform
-    );
+    const platform = project.platform;
+    if (platform) {
+      project.dependencies = depsManager.merge(
+        project.dependencies || [],
+        platform
+      );
+    }
+
     const dsl = await this.service.init(project, true).catch((e) => {
       logger.warn('VTJEngine service init fail.', e);
       return null;
     });
+
     if (dsl) {
-      if (platform === 'uniapp') {
+      if (dsl.platform === 'uniapp') {
         widgetManager.set('UniConfig', {
           invisible: false
         });
@@ -252,7 +256,10 @@ export class Engine extends Base {
           invisible: true
         });
       }
-      dsl.dependencies = depsManager.merge(dsl.dependencies || [], platform);
+      dsl.dependencies = depsManager.merge(
+        dsl.dependencies || [],
+        dsl.platform
+      );
       this.project.value = new ProjectModel(dsl);
       this.provider.project = this.project.value;
       this.saveMaterials();

@@ -10,7 +10,8 @@ import {
   pathToRegexpMatch,
   url as urlUtil,
   formDataToJson,
-  logger
+  logger,
+  isUrl
 } from '@vtj/utils';
 import {
   parseExpression,
@@ -137,19 +138,32 @@ export function mockApi(Mock: any, schema: ApiSchema) {
   if (!schema.mock) return;
   const { url, mockTemplate } = schema;
   if (url && mockTemplate) {
-    const regexp = pathToRegexp(`${url}(.*)`);
-    const match = pathToRegexpMatch(url, { decode: decodeURIComponent });
-    const handler = parseExpression(mockTemplate, {}, true);
-    Mock.mock(regexp, (options: MockCallbackOptions) => {
-      const params = urlUtil.parse(options.url) || {};
-      const data =
-        options.body instanceof FormData
-          ? formDataToJson(options.body)
-          : options.body;
-      const query = (match(options.url) as any)?.params;
-      Object.assign(options, { data, params, query });
-      return Mock.mock(handler(options));
-    });
+    try {
+      const path = isUrl(url) ? new URL(url).pathname : url;
+      const regexp = pathToRegexp(`(.*)${path}(.*)`);
+      const match = pathToRegexpMatch(path, { decode: decodeURIComponent });
+      const handler = parseExpression(mockTemplate, {}, true);
+      Mock.mock(regexp, (options: MockCallbackOptions) => {
+        const query = urlUtil.parse(options.url) || {};
+        const data =
+          options.body instanceof FormData
+            ? formDataToJson(options.body)
+            : options.body;
+        const oPath = isUrl(options.url)
+          ? new URL(options.url).pathname
+          : options.url.split('?')[0];
+        const params = (match(oPath) as any)?.params;
+        Object.assign(options, { data, params, query });
+        try {
+          return Mock.mock(handler(options));
+        } catch (e) {
+          console.warn('[mockApi]', regexp, options, e);
+          return null;
+        }
+      });
+    } catch (e) {
+      console.warn('mockApi', e);
+    }
   }
 }
 

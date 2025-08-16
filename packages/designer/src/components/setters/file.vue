@@ -10,11 +10,14 @@
     <XDialog
       v-if="dialogVisible"
       v-model="dialogVisible"
-      title="文件选择器"
-      width="600px"
-      height="400px"
+      title="选择文件"
+      :subtitle="subtitle"
+      width="670px"
+      height="500px"
       cancel
       submit
+      maximizable
+      resizable
       @submit="handleSubmit">
       <XAttachment
         size="small"
@@ -27,7 +30,7 @@
         @remove="handleRemove"></XAttachment>
       <template #extra>
         <ElButton type="warning" size="default" @click="handleClear">
-          清除
+          解除绑定
         </ElButton>
       </template>
     </XDialog>
@@ -36,7 +39,9 @@
 
 <script lang="ts" setup>
   import { ref, computed, watch } from 'vue';
+  import type { StaticFileInfo } from '@vtj/core';
   import { ElInput, ElButton } from 'element-plus';
+  import { delay } from '@vtj/utils';
   import { Files } from '@vtj/icons';
   import { XDialog, XAttachment, type AttachmentFile } from '@vtj/ui';
   import { notify } from '../../utils';
@@ -45,34 +50,60 @@
   export interface Props {
     modelValue?: string;
     attachment?: Record<string, any>;
+    acceptFilter?: boolean;
   }
 
   defineOptions({
     name: 'FileSetter'
   });
 
-  const props = withDefaults(defineProps<Props>(), {});
+  const props = withDefaults(defineProps<Props>(), {
+    acceptFilter: true
+  });
   const emit = defineEmits(['change', 'update:modelValue']);
   const { engine, project } = useProject();
   const fileList = ref<AttachmentFile[]>([]);
   const dialogVisible = ref(false);
+
+  const subtitle = computed(() => {
+    const items = (props.attachment?.accept || '').split(',');
+    return items.join(' ');
+  });
 
   const mapToFile = (res: any) => {
     if (Array.isArray(res)) {
       return res.map((n) => {
         return {
           name: n.filename,
-          url: n.filepath
+          url: n.filepath,
+          id: n.id
         };
       });
     } else {
-      return res ? { name: res.filename, url: res.filepath } : null;
+      return res ? { name: res.filename, url: res.filepath, id: res.id } : null;
     }
+  };
+
+  const filterAccepts = (info: StaticFileInfo[] = []) => {
+    if (props.acceptFilter) {
+      const accepts: string[] = (props.attachment?.accept || '')
+        .split(',')
+        .map((n: string) => n.trim());
+      if (accepts.length > 0) {
+        return info.filter((n) => {
+          const path = n.filepath.trim();
+          return accepts.some((a) => path.includes(a));
+        });
+      }
+      return info;
+    }
+    return info;
   };
 
   const uploader = async (file: File) => {
     if (engine && project.value) {
       const res = await engine.service.uploadStaticFile(file, project.value.id);
+      await delay(150);
       return mapToFile(res) as AttachmentFile;
     }
     return null;
@@ -114,7 +145,7 @@
         .catch(() => {
           return null;
         });
-      fileList.value = mapToFile(res) as AttachmentFile[];
+      fileList.value = mapToFile(filterAccepts(res || [])) as AttachmentFile[];
     }
   });
 
@@ -167,7 +198,12 @@
 
   const handleRemove = (file: AttachmentFile) => {
     if (file.name && project.value?.id) {
-      engine.service.removeStaticFile(file.name, project.value?.id);
+      const staticFile: StaticFileInfo = {
+        id: file.id,
+        filepath: file.url,
+        filename: file.name
+      };
+      engine.service.removeStaticFile(file.name, project.value?.id, staticFile);
     }
   };
 </script>

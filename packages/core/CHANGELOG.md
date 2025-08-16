@@ -3,6 +3,44 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.10](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.13.9...@vtj/core@0.13.10) (2025-08-16)
+
+
+### Bug Fixes
+
+* 🐛 antd物料slot问题 ([d8c1f9b](https://gitee.com/newgateway/vtj/commits/d8c1f9b1e4cbd566449ecf27d64482c94ecc08ba))
+
+
+
+
+
+## [0.13.9](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.13.8...@vtj/core@0.13.9) (2025-08-14)
+
+**Note:** Version bump only for package @vtj/core
+
+
+
+
+
+## [0.13.8](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.13.7...@vtj/core@0.13.8) (2025-08-13)
+
+
+### Bug Fixes
+
+* 🐛 blockModel save nodes ([3551e8f](https://gitee.com/newgateway/vtj/commits/3551e8ff43dac0f55810875fe1eadd53cb36f78f))
+
+
+
+
+
+## [0.13.7](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.13.6...@vtj/core@0.13.7) (2025-08-08)
+
+**Note:** Version bump only for package @vtj/core
+
+
+
+
+
 ## [0.13.6](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.13.5...@vtj/core@0.13.6) (2025-08-08)
 
 **Note:** Version bump only for package @vtj/core
