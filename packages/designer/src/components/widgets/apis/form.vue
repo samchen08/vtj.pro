@@ -1,5 +1,10 @@
 <template>
-  <XDialog ref="dialogRef" :title="title" width="1000px" height="600px">
+  <XDialog
+    ref="dialogRef"
+    :title="title"
+    width="1000px"
+    height="600px"
+    maximizable>
     <XContainer fit>
       <XContainer width="100px" :shrink="false">
         <XTabs
@@ -17,6 +22,7 @@
         :shrink="true"
         fit>
         <XForm
+          class="v-apis-widget__form"
           ref="formRef"
           :footer="false"
           labelPosition="top"
@@ -27,10 +33,10 @@
             :categories="categories"
             v-show="currentTab === 'base'"></BaseInfo>
 
-          <div v-if="currentTab === 'settings'">
+          <template v-if="currentTab === 'settings'">
             <JsonpOptions v-if="isJsonp"></JsonpOptions>
             <RequestSettins v-else></RequestSettins>
-          </div>
+          </template>
           <MockTemplate v-if="currentTab === 'mock'"></MockTemplate>
           <TestPanel
             v-if="currentTab === 'test'"

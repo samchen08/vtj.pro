@@ -1,34 +1,36 @@
 <template>
-  <div>
-    <!-- <ElAlert
+  <!-- <ElAlert
       v-if="!config.mock"
       type="warning"
       title="需要在项目配置中开启模拟数据"
       :closable="false"
       style="margin-bottom: 20px"></ElAlert> -->
-    <XField
-      size="small"
-      name="mock"
-      label="开启模拟数据"
-      editor="switch"></XField>
-    <XContainer justify="space-between">
-      <span>模拟数据模板</span>
-      <XAction
-        :icon="VtjIconHelp"
-        mode="text"
-        label="帮助"
-        @click="help"></XAction>
-    </XContainer>
-    <XField size="small" name="mockTemplate.value" label=" ">
-      <template #editor>
-        <Editor
-          dark
-          height="330px"
-          lang="typescript"
-          v-model="currentModel.mockTemplate.value"></Editor>
-      </template>
-    </XField>
-  </div>
+  <XField
+    size="small"
+    name="mock"
+    label="开启模拟数据"
+    editor="switch"></XField>
+  <XContainer justify="space-between">
+    <span>模拟数据模板</span>
+    <XAction
+      :icon="VtjIconHelp"
+      mode="text"
+      label="帮助"
+      @click="help"></XAction>
+  </XContainer>
+  <XField
+    class="mock-template"
+    size="small"
+    name="mockTemplate.value"
+    label=" ">
+    <template #editor>
+      <Editor
+        dark
+        height="100%"
+        lang="typescript"
+        v-model="currentModel.mockTemplate.value"></Editor>
+    </template>
+  </XField>
 </template>
 <script lang="ts" setup>
   import { inject } from 'vue';

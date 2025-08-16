@@ -1,7 +1,5 @@
 <template>
-  <div>
-    <Editor dark height="450px" lang="typescript" v-model="code"></Editor>
-  </div>
+  <Editor dark height="100%" lang="typescript" v-model="code"></Editor>
 </template>
 <script lang="ts" setup>
   import { computed } from 'vue';
