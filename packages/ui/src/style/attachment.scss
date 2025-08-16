@@ -134,6 +134,7 @@
     @include e(wrapper) {
       flex-grow: 1;
       display: flex;
+      align-items: center;
     }
     @include e(item-name) {
       font-weight: bold;
