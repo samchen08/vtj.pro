@@ -136,7 +136,7 @@ const components: MaterialDescription[] = [
           }
         ]
       },
-      slot: 'renderItem',
+
       children: [
         {
           name: 'span',

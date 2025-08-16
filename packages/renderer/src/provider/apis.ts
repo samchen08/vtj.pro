@@ -154,7 +154,12 @@ export function mockApi(Mock: any, schema: ApiSchema) {
           : options.url.split('?')[0];
         const params = (match(oPath) as any)?.params;
         Object.assign(options, { data, params, query });
-        return Mock.mock(handler(options));
+        try {
+          return Mock.mock(handler(options));
+        } catch (e) {
+          console.warn('[mockApi]', regexp, options, e);
+          return null;
+        }
       });
     } catch (e) {
       console.warn('mockApi', e);

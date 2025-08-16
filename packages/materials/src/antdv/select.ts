@@ -411,7 +411,6 @@ const components: MaterialDescription[] = [
     ],
     slots: ['label'],
     snippet: {
-      slot: 'label',
       children: [
         {
           name: 'span',

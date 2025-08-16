@@ -3,6 +3,40 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.11](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.13.10...@vtj/designer@0.13.11) (2025-08-16)
+
+
+### Bug Fixes
+
+* 🐛 有选择节点才显示设置面板 ([5c40e36](https://gitee.com/newgateway/vtj/commits/5c40e36e7f59290338aa8755d3d529d5bfa2c827))
+
+
+### Features
+
+* ✨ 支持关闭tabs ([44e547c](https://gitee.com/newgateway/vtj/commits/44e547ce916c8b808c3987c6022f7c3ed5c6d06d))
+
+
+
+
+
+## [0.13.10](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.13.9...@vtj/designer@0.13.10) (2025-08-16)
+
+
+### Bug Fixes
+
+* 🐛 文件选择器 ([d8f5f71](https://gitee.com/newgateway/vtj/commits/d8f5f710060ae108141af74d4f71f61562f4a5de))
+* 🐛 antd物料slot问题 ([d8c1f9b](https://gitee.com/newgateway/vtj/commits/d8c1f9b1e4cbd566449ecf27d64482c94ecc08ba))
+* 🐛 apis form ([6636bf0](https://gitee.com/newgateway/vtj/commits/6636bf041a12f26e394b28f14335e983c9f5eb2c))
+
+
+### Features
+
+* ✨ 文件选取器 ([77e2d69](https://gitee.com/newgateway/vtj/commits/77e2d692a260f049f75cd0079c54fd6228056d6c))
+
+
+
+
+
 ## [0.13.9](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.13.8...@vtj/designer@0.13.9) (2025-08-14)
 
 

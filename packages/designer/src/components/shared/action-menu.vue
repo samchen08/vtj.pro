@@ -2,17 +2,15 @@
   <XAction
     mode="icon"
     size="small"
-    :label="current?.label"
-    type="info"
-    background="always"
+    :icon="MoreFilled"
+    background="hover"
     :dropdown="{
       size: 'small',
       placement: 'bottom-end',
       trigger: 'click'
     }"
     :menus="props.menus"
-    @command="handleCommand"
-    arrow>
+    @command="handleCommand">
     <template #item="{ item }">
       <span>
         <VtjIconCheck
@@ -29,7 +27,7 @@
 <script lang="ts" setup>
   import { ref, watch } from 'vue';
   import { XAction, type ActionMenuItem } from '@vtj/ui';
-  import { VtjIconCheck } from '@vtj/icons';
+  import { VtjIconCheck, MoreFilled } from '@vtj/icons';
 
   defineOptions({
     name: 'VActionMenu'
@@ -45,7 +43,7 @@
     menus: () => []
   });
 
-  const emit = defineEmits(['update:modelValue']);
+  const emit = defineEmits(['update:modelValue', 'command']);
 
   const current = ref<ActionMenuItem>();
 
@@ -56,6 +54,7 @@
     item.checked = true;
     current.value = item;
     emit('update:modelValue', item.command);
+    emit('command', item.command);
   };
 
   watch(

@@ -3,6 +3,33 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.11](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.13.10...@vtj/ui@0.13.11) (2025-08-16)
+
+
+### Bug Fixes
+
+* 🐛 x-attachment style ([27a4c0e](https://gitee.com/newgateway/vtj/commits/27a4c0ec180e003f995cb5052abbf7379ee7c977))
+
+
+
+
+
+## [0.13.10](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.13.9...@vtj/ui@0.13.10) (2025-08-16)
+
+
+### Bug Fixes
+
+* 🐛 x-attachment style ([d634c9c](https://gitee.com/newgateway/vtj/commits/d634c9cd5fbc9fbbda8b0542e2ba1a2df2f69d84))
+
+
+### Features
+
+* ✨ 文件选取器 ([77e2d69](https://gitee.com/newgateway/vtj/commits/77e2d692a260f049f75cd0079c54fd6228056d6c))
+
+
+
+
+
 ## [0.13.9](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.13.8...@vtj/ui@0.13.9) (2025-08-14)
 
 **Note:** Version bump only for package @vtj/ui

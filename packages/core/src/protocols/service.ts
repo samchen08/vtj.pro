@@ -214,7 +214,8 @@ export abstract class Service {
    */
   public abstract removeStaticFile(
     name: string,
-    projectId: string
+    projectId: string,
+    file?: StaticFileInfo
   ): Promise<boolean>;
 
   /**
