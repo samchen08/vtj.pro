@@ -53,6 +53,18 @@ export function useWorkspace(widgets: ComputedRef<Widget[]>) {
     menuChecked.value = item.name;
   };
 
+  const closeAllTabs = () => {
+    fileIdArray.value = [];
+    activeFileId.value = '';
+    project.value?.deactivate();
+  };
+
+  const closeOtherTabs = () => {
+    fileIdArray.value = fileIdArray.value.filter(
+      (id) => id === activeFileId.value
+    );
+  };
+
   watch(
     () => project.value?.currentFile,
     (file, old) => {
@@ -87,6 +99,8 @@ export function useWorkspace(widgets: ComputedRef<Widget[]>) {
     activeFileId,
     menuChecked,
     onCloseTab,
-    onMenuChecked
+    onMenuChecked,
+    closeAllTabs,
+    closeOtherTabs
   };
 }

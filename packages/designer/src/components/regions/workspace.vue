@@ -12,11 +12,12 @@
         v-for="item of menus"
         mode="icon"
         size="small"
-        :type="menuChecked === item.name ? 'success' : 'info'"
+        :type="menuChecked === item.name ? 'primary' : 'info'"
         background="always"
         :label="item.label"
         @click="onMenuChecked(item)">
       </XAction>
+      <ActionMenu :menus="actions" @command="onActionCommand"></ActionMenu>
     </template>
     <template v-for="widget in widgets" :key="widget.name">
       <WidgetWrapper
@@ -31,7 +32,7 @@
 <script lang="ts" setup>
   import { ref, nextTick } from 'vue';
   import { XAction } from '@vtj/ui';
-  import { Tabs } from '../shared';
+  import { Tabs, ActionMenu } from '../shared';
   import { RegionType } from '../../framework';
   import { WidgetWrapper } from '../../wrappers';
   import { useRegion, useWorkspace } from '../hooks';
@@ -42,8 +43,16 @@
 
   const props = defineProps<Props>();
   const { widgets, widgetsRef } = useRegion(props.region);
-  const { tabs, menus, activeFileId, menuChecked, onCloseTab, onMenuChecked } =
-    useWorkspace(widgets);
+  const {
+    tabs,
+    menus,
+    activeFileId,
+    menuChecked,
+    onCloseTab,
+    onMenuChecked,
+    closeAllTabs,
+    closeOtherTabs
+  } = useWorkspace(widgets);
   const refresh = ref(true);
   const openTab = (_name: string, props: Record<string, any> = {}) => {
     const url = props.url;
@@ -72,6 +81,27 @@
 
   const isDesignerActive = () => {
     return menuChecked.value === 'Designer';
+  };
+
+  const actions = [
+    {
+      label: '关闭其他',
+      value: 'other',
+      command: 'other'
+    },
+    {
+      label: '关闭全部',
+      value: 'all',
+      command: 'all'
+    }
+  ];
+
+  const onActionCommand = (command: string) => {
+    if (command === 'all') {
+      closeAllTabs();
+    } else if (command === 'other') {
+      closeOtherTabs();
+    }
   };
 
   defineOptions({
