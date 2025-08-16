@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.11](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.13.10...@vtj/designer@0.13.11) (2025-08-16)
+
+
+### Bug Fixes
+
+* 🐛 有选择节点才显示设置面板 ([5c40e36](https://gitee.com/newgateway/vtj/commits/5c40e36e7f59290338aa8755d3d529d5bfa2c827))
+
+
+### Features
+
+* ✨ 支持关闭tabs ([44e547c](https://gitee.com/newgateway/vtj/commits/44e547ce916c8b808c3987c6022f7c3ed5c6d06d))
+
+
+
+
+
 ## [0.13.10](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.13.9...@vtj/designer@0.13.10) (2025-08-16)
 
 

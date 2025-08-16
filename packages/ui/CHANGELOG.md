@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.11](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.13.10...@vtj/ui@0.13.11) (2025-08-16)
+
+
+### Bug Fixes
+
+* 🐛 x-attachment style ([27a4c0e](https://gitee.com/newgateway/vtj/commits/27a4c0ec180e003f995cb5052abbf7379ee7c977))
+
+
+
+
+
 ## [0.13.10](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.13.9...@vtj/ui@0.13.10) (2025-08-16)
 
 
