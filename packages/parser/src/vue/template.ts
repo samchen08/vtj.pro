@@ -228,6 +228,12 @@ function getDirectives(
           name: name,
           value: name === 'vElse' ? true : getJSExpression(value)
         } as any);
+
+        const childNode = (node as any).children?.[0];
+        if (childNode) {
+          const otherDirectives = getDirectives(childNode);
+          directives.push(...otherDirectives);
+        }
       }
     });
   }
@@ -243,7 +249,6 @@ function getDirectives(
       }
     });
   }
-
   if (node.type === NodeTypes.ELEMENT) {
     const directivProps = node.props.filter(
       (prop) => prop.type === NodeTypes.DIRECTIVE

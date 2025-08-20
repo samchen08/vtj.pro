@@ -1,6 +1,7 @@
 @use 'core' as *;
 
 @include b(tabs) {
+  box-sizing: border-box;
   --el-tabs-header-height: 30px !important;
   &.el-tabs--left .el-tabs__nav-wrap.is-left:after,
   &.el-tabs--left .el-tabs__nav-wrap.is-right:after,

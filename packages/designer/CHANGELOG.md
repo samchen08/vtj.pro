@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.12](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.13.11...@vtj/designer@0.13.12) (2025-08-20)
+
+
+### Bug Fixes
+
+* 🐛 区块资源文件输入框缓存问题 ([439b09f](https://gitee.com/newgateway/vtj/commits/439b09fb8c2cf320ad44b8e94027744e52e5dcb9))
+* 🐛 删除测试信息 ([7e42813](https://gitee.com/newgateway/vtj/commits/7e42813f73f83da32a9169264817cd3dc937a696))
+
+
+
+
+
 ## [0.13.11](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.13.10...@vtj/designer@0.13.11) (2025-08-16)
 
 

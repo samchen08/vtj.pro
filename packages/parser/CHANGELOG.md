@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.12](https://gitee.com/newgateway/vtj/compare/@vtj/parser@0.13.11...@vtj/parser@0.13.12) (2025-08-20)
+
+
+### Bug Fixes
+
+* 🐛 修复条件表达式都是其他指令问题 ([1bdc480](https://gitee.com/newgateway/vtj/commits/1bdc4803c4f2f5b2401f4c1402e7a6cc5489624e))
+
+
+
+
+
 ## [0.13.11](https://gitee.com/newgateway/vtj/compare/@vtj/parser@0.13.10...@vtj/parser@0.13.11) (2025-08-16)
 
 **Note:** Version bump only for package @vtj/parser
