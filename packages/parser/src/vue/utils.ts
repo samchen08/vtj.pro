@@ -18,7 +18,7 @@ export function replacer(content: string, key: string, to: string) {
   // 关键字前的字符
   const r2 = /(\@|\_|\-|\$|\.|\,|\w|\{\s|\'|\")$/;
   // 关键字后的字符
-  const r3 = /^[\w\_\-\@\$\:]/;
+  const r3 = /^[\w\_\-\@\$]/;
   const r4 = new RegExp(`^this\.${key}$`, 'g');
   const result = content.replace(r1, (str, index, source) => {
     const start = source.substring(0, index);

@@ -30,7 +30,7 @@ import UniGridItem from '@dcloudio/uni-ui/lib/uni-grid-item/uni-grid-item.vue';
 import UniGroup from '@dcloudio/uni-ui/lib/uni-group/uni-group.vue';
 import UniIcons from './lib/uni-icons/uni-icons.vue';
 import UniIndexedList from './lib/uni-indexed-list/uni-indexed-list.vue';
-import UniLink from '@dcloudio/uni-ui/lib/uni-link/uni-link.vue';
+// import UniLink from '@dcloudio/uni-ui/lib/uni-link/uni-link.vue';
 import UniList from './lib/uni-list/uni-list.vue';
 import UniListItem from '@dcloudio/uni-ui/lib/uni-list-item/uni-list-item.vue';
 import UniListChat from '@dcloudio/uni-ui/lib/uni-list-chat/uni-list-chat.vue';
@@ -94,7 +94,7 @@ const components = {
   UniGroup,
   UniIcons,
   UniIndexedList,
-  UniLink,
+  // UniLink,
   UniList,
   UniListItem,
   UniListChat,
@@ -159,7 +159,7 @@ export {
   UniGroup,
   UniIcons,
   UniIndexedList,
-  UniLink,
+  // UniLink,
   UniList,
   UniListItem,
   UniListChat,
