@@ -256,6 +256,11 @@ export class Engine extends Base {
           invisible: true
         });
       }
+      if (dsl.platform !== 'web') {
+        widgetManager.set('ProjectConfig', {
+          invisible: true
+        });
+      }
       dsl.dependencies = depsManager.merge(
         dsl.dependencies || [],
         dsl.platform
