@@ -66,7 +66,11 @@ export class Storage {
     } else {
       const content = storage.getItem(realKey);
       if (content) {
-        info = JSON.parse(content);
+        try {
+          info = JSON.parse(content);
+        } catch (e) {
+          console.warn('[Storage] JSON.parse', e);
+        }
       }
     }
     // 不存在缓存
