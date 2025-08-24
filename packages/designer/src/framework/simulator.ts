@@ -139,6 +139,9 @@ export class Simulator extends Base {
             padding: 0;
             box-sizing: border-box;
           }
+          * {
+            box-sizing: border-box;
+          }
          </style>`;
   }
   private initUniFeatures(platform: PlatformType = 'web') {
