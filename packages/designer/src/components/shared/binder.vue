@@ -40,12 +40,12 @@
                 <Item
                   v-for="item in pages"
                   :title="item.title"
-                  :subtitle="getPageRoute(item.id)"
+                  :subtitle="item.path"
                   background
                   :actions="['copy']"
                   small
-                  @click="onPicker(getPageRoute(item.id))"
-                  @action="onCopy(getPageRoute(item.id))"></Item>
+                  @click="onPicker(item.path)"
+                  @action="onCopy(item.path)"></Item>
               </div>
               <ElEmpty v-if="!searchResult.length"></ElEmpty>
             </div>
@@ -162,19 +162,10 @@
   const currentTab = ref('normal');
   const formRef = ref();
 
-  const pages = computed(() => engine.project.value?.getPages() || []);
-
-  const isUniapp = computed(() => {
-    const { platform = 'web' } = engine.project.value || {};
-    return platform === 'uniapp';
-  });
-  const pageDir = computed(() => {
-    return engine.options.pageRouteName || (isUniapp.value ? 'pages' : 'page');
-  });
-
-  const getPageRoute = (id: string) => {
-    return `${engine.options.pageBasePath || ''}/${pageDir.value}/${id}`;
-  };
+  const { pageRouteName, pageBasePath } = engine.options;
+  const pages = computed(
+    () => engine.project.value?.getPageRoutes(pageRouteName, pageBasePath) || []
+  );
 
   const handleSubmit = async (model: any) => {
     emits('submit', model);

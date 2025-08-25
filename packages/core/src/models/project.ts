@@ -842,4 +842,19 @@ export class ProjectModel {
     };
     emitter.emit(EVENT_PROJECT_CHANGE, event);
   }
+  getPageRoutes(pageRouteName?: string, pageBasePath?: string) {
+    const isUniapp = this.platform === 'uniapp';
+    const pageDir = pageRouteName || (isUniapp ? 'pages' : 'page');
+    const pages = this.getPages();
+    const base = pageBasePath || '';
+    return pages.map((n) => {
+      return {
+        id: n.id,
+        path: `${base}/${pageDir}/${n.id}`,
+        name: n.name,
+        title: n.title,
+        meta: n.meta
+      };
+    });
+  }
 }
