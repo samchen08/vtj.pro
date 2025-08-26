@@ -1,5 +1,24 @@
 <template>
   <Panel class="v-apis-widget" title="API管理" plus @plus="onPlus">
+    <template #pre-actions>
+      <ElUpload
+        class="import-swagger"
+        :show-file-list="false"
+        :multiple="false"
+        :limit="1"
+        accept=".json"
+        :before-upload="onBeforeUpload">
+        <XAction
+          mode="icon"
+          label="Swagger"
+          size="small"
+          background="always"
+          type="info"
+          :icon="VtjIconSwagger"
+          title="导入 Swagger JSON"></XAction>
+      </ElUpload>
+      <ElDivider direction="vertical"></ElDivider>
+    </template>
     <div class="v-apis__search">
       <ElInput
         size="small"
@@ -35,22 +54,38 @@
       :model="formModel"
       :project="project"
       :categories="categories"></DialogForm>
+    <Swagger
+      v-if="swaggerVisible"
+      v-model="swaggerVisible"
+      :data="swaggerApis"
+      :saveApis="saveApis"></Swagger>
   </Panel>
 </template>
 <script lang="ts" setup>
   import { ref, computed } from 'vue';
   import { type ApiSchema } from '@vtj/core';
   import { cloneDeep, groupBy } from '@vtj/utils';
-  import { Search } from '@vtj/icons';
-  import { ElEmpty, ElInput, ElCollapse, ElCollapseItem } from 'element-plus';
+  import { Search, VtjIconSwagger } from '@vtj/icons';
+  import { XAction } from '@vtj/ui';
+  import {
+    ElEmpty,
+    ElInput,
+    ElCollapse,
+    ElCollapseItem,
+    ElUpload,
+    ElDivider
+  } from 'element-plus';
   import { isJSFunction, parseFunction } from '@vtj/renderer';
   import DialogForm from './form.vue';
+  import Swagger from './swagger.vue';
   import { Panel, Item } from '../../shared';
-  import { useProject } from '../../hooks';
+  import { useProject, useSwagger } from '../../hooks';
   defineOptions({
     name: 'ApisWidget'
   });
   const { project } = useProject();
+  const { swaggerVisible, onBeforeUpload, swaggerApis, saveApis } =
+    useSwagger();
   const visible = ref(false);
   const formModel = ref<any>(null);
   const keyword = ref('');
@@ -151,3 +186,10 @@
     visible.value = true;
   };
 </script>
+
+<style lang="scss" scoped>
+  .import-swagger {
+    display: inline-flex;
+    margin-right: 5px;
+  }
+</style>

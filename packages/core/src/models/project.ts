@@ -669,6 +669,22 @@ export class ProjectModel {
       emitter.emit(EVENT_PROJECT_CHANGE, event);
     }
   }
+
+  setApis(items: ApiSchema[], silent: boolean = false) {
+    for (const item of items) {
+      this.setApi(item, true);
+    }
+    if (!silent) {
+      const event: ProjectModelEvent = {
+        model: this,
+        type: 'create',
+        data: items
+      };
+      emitter.emit(EVENT_PROJECT_APIS_CHANGE, event);
+      emitter.emit(EVENT_PROJECT_CHANGE, event);
+    }
+  }
+
   /**
    * 删除api
    * @param name

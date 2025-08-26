@@ -1,4 +1,5 @@
 import { h, createTextVNode } from 'vue';
+import { get } from '@vtj/utils';
 import type { RendererOptions } from 'vxe-table';
 import { sharedFilterOptions } from './shared';
 import SelectEdit from './components/SelectEdit.vue';
@@ -9,7 +10,7 @@ function renderCell(renderOpts: any, params: any) {
   const { props = {} } = renderOpts;
   const { options = [], multiple, parser } = props;
   const { row, column } = params;
-  const value = row[column.field] ?? '';
+  const value = get(row, column.field) ?? '';
   let label;
   if (Array.isArray(options)) {
     if (multiple) {
@@ -21,6 +22,7 @@ function renderCell(renderOpts: any, params: any) {
       label = option?.label;
     }
   }
+
   return [createTextVNode(label || value)];
 }
 

@@ -7,6 +7,7 @@
     :header="header"
     fit>
     <template #actions>
+      <slot name="pre-actions"></slot>
       <XAction
         v-if="props.refresh"
         :size="($attrs as any).size"
