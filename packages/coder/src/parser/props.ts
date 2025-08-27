@@ -22,7 +22,7 @@ export function parseProps(props: Array<string | BlockProp> = []) {
       return `${prop.name}: {
           type:${toTypes(prop.type)},
           required: ${parseValue(!!prop.required, true, false)},
-          default: ${parseValue(prop.default, true, false)}
+          default: ${prop.default ? parseValue(prop.default, true, false) : 'undefined'}
           }`;
     }
   });
