@@ -58,10 +58,16 @@ async function createCommonDto(engine: UseAIOptions['engine']) {
   const projectDsl = engine.project.value?.toDsl() as ProjectSchema;
   const dsl = engine.current.value?.toDsl() as BlockSchema;
   const source = await engine.service.genVueContent(projectDsl, dsl);
+  const { pageBasePath, pageRouteName } = engine.options;
+  const options = JSON.stringify({
+    pageBasePath,
+    pageRouteName
+  });
   return {
     projectDsl,
     dsl,
-    source
+    source,
+    options
   };
 }
 
@@ -70,11 +76,12 @@ async function createTopicDto(
   engine: UseAIOptions['engine']
 ) {
   const { model, prompt = '', llm } = data;
-  const { projectDsl, dsl, source } = await createCommonDto(engine);
+  const { projectDsl, dsl, source, options } = await createCommonDto(engine);
 
   const dto: TopicDto = {
     model,
     prompt,
+    options,
     dsl: JSON.stringify(dsl),
     project: JSON.stringify(projectDsl),
     source,
@@ -88,10 +95,11 @@ async function createImageTopicDto(
   engine: UseAIOptions['engine']
 ) {
   const { model, file, llm } = data;
-  const { projectDsl, dsl, source } = await createCommonDto(engine);
+  const { projectDsl, dsl, source, options } = await createCommonDto(engine);
   const dto: TopicDto = {
     model,
     file,
+    options,
     dsl: JSON.stringify(dsl),
     project: JSON.stringify(projectDsl),
     source,

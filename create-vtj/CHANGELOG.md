@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.12](https://gitee.com/newgateway/vtj/compare/create-vtj@0.12.11...create-vtj@0.12.12) (2025-08-28)
+
+
+### Bug Fixes
+
+* 🐛 全局设置box-sizing: border-box ([38efeda](https://gitee.com/newgateway/vtj/commits/38efeda500a894141e2ddb35025757d32a88fdf2))
+
+
+
+
+
 ## [0.12.11](https://gitee.com/newgateway/vtj/compare/create-vtj@0.12.10...create-vtj@0.12.11) (2025-08-07)
 
 

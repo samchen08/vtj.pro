@@ -49,6 +49,7 @@
     box-shadow: var(--vp-shadow-1);
     flex-grow: 1;
     flex-shrink: 1;
+    min-width: calc(50% - 24px);
   }
   .header {
     padding: 10px;

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.14](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.13.13...@vtj/coder@0.13.14) (2025-08-28)
+
+
+### Bug Fixes
+
+* 🐛 修复出码属性默认值和$开头的成员表达式匹配问题 ([57696df](https://gitee.com/newgateway/vtj/commits/57696df87561c5e43a54c349240a8cff913a5060))
+
+
+
+
+
 ## [0.13.13](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.13.12...@vtj/coder@0.13.13) (2025-08-22)
 
 **Note:** Version bump only for package @vtj/coder

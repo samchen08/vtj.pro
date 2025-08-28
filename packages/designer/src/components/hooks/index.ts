@@ -18,3 +18,4 @@ export * from './useTemplates';
 export * from './useCheckVersion';
 export * from './useAI';
 export * from './useWorkspace';
+export * from './useSwagger';

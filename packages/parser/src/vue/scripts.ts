@@ -509,7 +509,7 @@ function processEmits(expression: CallExpression): BlockEmit[] {
       if (name) {
         emits.push({
           name,
-          params
+          params: params.filter((n) => !!n)
         });
       }
     }

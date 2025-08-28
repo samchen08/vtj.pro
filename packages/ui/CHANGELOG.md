@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.14](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.13.13...@vtj/ui@0.13.14) (2025-08-28)
+
+
+### Bug Fixes
+
+* 🐛 全局设置box-sizing: border-box ([38efeda](https://gitee.com/newgateway/vtj/commits/38efeda500a894141e2ddb35025757d32a88fdf2))
+
+
+### Features
+
+* ✨ 支持swagger导入 ([be5b00d](https://gitee.com/newgateway/vtj/commits/be5b00dbe8bb6b5907ff0de50240b34db52f1a75))
+
+
+
+
+
 ## [0.13.13](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.13.12...@vtj/ui@0.13.13) (2025-08-22)
 
 **Note:** Version bump only for package @vtj/ui

@@ -1,5 +1,7 @@
 @use '@vtj/h5/src/index.scss';
-
+* {
+  box-sizing: border-box;
+}
 html,
 body,
 #app {

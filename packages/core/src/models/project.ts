@@ -669,6 +669,22 @@ export class ProjectModel {
       emitter.emit(EVENT_PROJECT_CHANGE, event);
     }
   }
+
+  setApis(items: ApiSchema[], silent: boolean = false) {
+    for (const item of items) {
+      this.setApi(item, true);
+    }
+    if (!silent) {
+      const event: ProjectModelEvent = {
+        model: this,
+        type: 'create',
+        data: items
+      };
+      emitter.emit(EVENT_PROJECT_APIS_CHANGE, event);
+      emitter.emit(EVENT_PROJECT_CHANGE, event);
+    }
+  }
+
   /**
    * 删除api
    * @param name
@@ -841,5 +857,20 @@ export class ProjectModel {
       data: null
     };
     emitter.emit(EVENT_PROJECT_CHANGE, event);
+  }
+  getPageRoutes(pageRouteName?: string, pageBasePath?: string) {
+    const isUniapp = this.platform === 'uniapp';
+    const pageDir = pageRouteName || (isUniapp ? 'pages' : 'page');
+    const pages = this.getPages();
+    const base = pageBasePath || '';
+    return pages.map((n) => {
+      return {
+        id: n.id,
+        path: `${base}/${pageDir}/${n.id}`,
+        name: n.name,
+        title: n.title,
+        meta: n.meta
+      };
+    });
   }
 }
