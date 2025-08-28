@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.14](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.13.13...@vtj/core@0.13.14) (2025-08-28)
+
+
+### Features
+
+* ✨ 支持swagger导入 ([be5b00d](https://gitee.com/newgateway/vtj/commits/be5b00dbe8bb6b5907ff0de50240b34db52f1a75))
+* ✨ project model add getPageRoutes ([64e010f](https://gitee.com/newgateway/vtj/commits/64e010fcea5a71cac928db5d2215695cebeb6f35))
+
+
+
+
+
 ## [0.13.13](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.13.12...@vtj/core@0.13.13) (2025-08-22)
 
 **Note:** Version bump only for package @vtj/core

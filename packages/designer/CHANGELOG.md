@@ -3,6 +3,27 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.14](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.13.13...@vtj/designer@0.13.14) (2025-08-28)
+
+
+### Bug Fixes
+
+* 🐛 仅在web平台显示母版设置面板 ([271b304](https://gitee.com/newgateway/vtj/commits/271b304d7b2c64b784d2f39099d100580150f7f9))
+* 🐛 全局设置box-sizing: border-box ([38efeda](https://gitee.com/newgateway/vtj/commits/38efeda500a894141e2ddb35025757d32a88fdf2))
+* 🐛 style widget样式问题 ([bec85fc](https://gitee.com/newgateway/vtj/commits/bec85fcda161ae706da3f63a7bcabd00a62a4d1f))
+
+
+### Features
+
+* ✨ 支持OpenAPI格式文件上传 ([48a1c83](https://gitee.com/newgateway/vtj/commits/48a1c831db801c74f9fde039fc271b4b1317eb3d))
+* ✨ 支持swagger导入 ([be5b00d](https://gitee.com/newgateway/vtj/commits/be5b00dbe8bb6b5907ff0de50240b34db52f1a75))
+* ✨ postTopic 增加 options ([102374f](https://gitee.com/newgateway/vtj/commits/102374f0920bf2e2dbb9ad2bb4c79c3b408c1ed9))
+* ✨ project model add getPageRoutes ([64e010f](https://gitee.com/newgateway/vtj/commits/64e010fcea5a71cac928db5d2215695cebeb6f35))
+
+
+
+
+
 ## [0.13.13](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.13.12...@vtj/designer@0.13.13) (2025-08-22)
 
 **Note:** Version bump only for package @vtj/designer

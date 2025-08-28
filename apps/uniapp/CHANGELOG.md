@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.14](https://github.com/samchen08/vtj.pro/compare/vtj-project-uniapp@0.13.13...vtj-project-uniapp@0.13.14) (2025-08-28)
+
+
+### Bug Fixes
+
+* 🐛 全局设置box-sizing: border-box ([38efeda](https://github.com/samchen08/vtj.pro/commit/38efeda500a894141e2ddb35025757d32a88fdf2))
+
+
+
+
+
 ## [0.13.13](https://github.com/samchen08/vtj.pro/compare/vtj-project-uniapp@0.13.12...vtj-project-uniapp@0.13.13) (2025-08-22)
 
 **Note:** Version bump only for package vtj-project-uniapp

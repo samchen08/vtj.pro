@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.14](https://gitee.com/newgateway/vtj/compare/@vtj/utils@0.13.13...@vtj/utils@0.13.14) (2025-08-28)
+
+
+### Bug Fixes
+
+* 🐛 Storage JSON.parse 异常处理 ([6733161](https://gitee.com/newgateway/vtj/commits/6733161b7fa9fe6a6ccdede82e9da33f3ac6aab0))
+
+
+
+
+
 ## [0.13.13](https://gitee.com/newgateway/vtj/compare/@vtj/utils@0.13.12...@vtj/utils@0.13.13) (2025-08-22)
 
 **Note:** Version bump only for package @vtj/utils
