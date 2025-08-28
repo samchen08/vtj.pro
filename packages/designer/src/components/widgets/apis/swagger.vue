@@ -1,6 +1,6 @@
 <template>
   <XDialog
-    title="导入 Swagger API"
+    title="导入 OpenAPI/Swagger API"
     width="70%"
     height="70%"
     maximizable

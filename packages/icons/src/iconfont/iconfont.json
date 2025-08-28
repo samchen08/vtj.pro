@@ -6,6 +6,13 @@
   "description": "VTJ",
   "glyphs": [
     {
+      "icon_id": "35562663",
+      "name": "openapi",
+      "font_class": "openapi",
+      "unicode": "e63c",
+      "unicode_decimal": 58940
+    },
+    {
       "icon_id": "12900938",
       "name": "swagger",
       "font_class": "swagger",

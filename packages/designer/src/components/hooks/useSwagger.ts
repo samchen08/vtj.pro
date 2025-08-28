@@ -29,22 +29,23 @@ const parseFile = async (file: UploadRawFile) => {
 };
 
 const validate = (json: any) => {
-  return json?.swagger === '2.0';
+  return json?.swagger === '2.0' || !!json?.openapi;
 };
 
-const getApiType = (consumes: string[] = []) => {
+const getApiType = (consumes: string[] = [], requestBody: any) => {
   const map = {
     form: 'application/x-www-form-urlencoded',
     json: 'application/json',
     data: 'multipart/form-data'
   };
   const str = consumes.join(',');
-
+  const keys = Object.keys(requestBody?.content || {});
   for (const [type, item] of Object.entries(map)) {
-    if (str.includes(item)) {
+    if (str.includes(item) || keys.includes(item)) {
       return type;
     }
   }
+
   return 'form';
 };
 
@@ -69,7 +70,7 @@ const parseSwagger = (json: any) => {
         method: _method as ApiMethod,
         label: _info.summary,
         settings: {
-          type: getApiType(_info.consumes),
+          type: getApiType(_info.consumes, _info.requestBody),
           originResponse: true,
           validSuccess: false
         }
@@ -95,7 +96,7 @@ export function useSwagger() {
       const valid = validate(content);
       if (!valid) {
         ElMessage.warning({
-          message: '仅支持 Swagger 2.0 的 JSON文件'
+          message: '仅支持 OpenAPI 或 Swagger 2.0 的 JSON文件'
         });
         return false;
       }

@@ -10,12 +10,12 @@
         :before-upload="onBeforeUpload">
         <XAction
           mode="icon"
-          label="Swagger"
+          label="OpenAPI / Swagger"
           size="small"
           background="always"
           type="info"
-          :icon="VtjIconSwagger"
-          title="导入 Swagger JSON"></XAction>
+          :icon="VtjIconOpenapi"
+          title="导入 OpenAPI/Swagger JSON"></XAction>
       </ElUpload>
       <ElDivider direction="vertical"></ElDivider>
     </template>
@@ -65,7 +65,7 @@
   import { ref, computed } from 'vue';
   import { type ApiSchema } from '@vtj/core';
   import { cloneDeep, groupBy } from '@vtj/utils';
-  import { Search, VtjIconSwagger } from '@vtj/icons';
+  import { Search, VtjIconOpenapi } from '@vtj/icons';
   import { XAction } from '@vtj/ui';
   import {
     ElEmpty,
