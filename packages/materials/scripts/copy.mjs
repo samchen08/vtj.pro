@@ -20,6 +20,14 @@ const files = [
     modules + 'vue-router/dist/vue-router.global.js',
     'deps/vue-router/vue-router.global.js'
   ],
+  [
+    modules + 'vue-i18n/dist/vue-i18n.global.prod.js',
+    'deps/vue-i18n/vue-i18n.global.prod.js'
+  ],
+  [
+    modules + 'vue-i18n/dist/vue-i18n.global.js',
+    'deps/vue-i18n/vue-i18n.global.js'
+  ],
   [modules + 'pinia/dist/pinia.iife.prod.js', 'deps/pinia/pinia.iife.js'],
   [
     modules + 'element-plus/dist/index.full.min.js',

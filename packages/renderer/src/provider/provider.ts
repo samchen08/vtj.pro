@@ -417,7 +417,10 @@ export class Provider extends Base {
     app.provide(providerKey, this);
     app.config.globalProperties.$provider = this;
 
-    if (this.project?.platform !== 'uniapp') {
+    if (
+      this.project?.platform !== 'uniapp' &&
+      this.mode !== ContextMode.Design
+    ) {
       this.initGlobals(this.project?.globals || {}, {
         app,
         window,

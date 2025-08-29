@@ -41,7 +41,7 @@ export function initRuntimeGlobals(
 
   // 最后. 设置应用增强函数
   if (enhance) {
-    createEnhance(enhance, app);
+    createEnhance(enhance, app, library);
   }
 }
 
@@ -113,9 +113,13 @@ function setRouterGuard(app: App, globals: GlobalConfig) {
   }
 }
 
-function createEnhance(enhance: JSFunction, app: App) {
+function createEnhance(
+  enhance: JSFunction,
+  app: App,
+  libs: Record<string, any> = {}
+) {
   if (isJSFunction(enhance) && enhance.value) {
     const func = parseFunction(enhance, {}, false, false, true);
-    func(app);
+    func(app, libs);
   }
 }
