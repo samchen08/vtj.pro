@@ -1,5 +1,6 @@
 import { type Reactive, reactive, toRaw } from 'vue';
 import { storage, uid } from '@vtj/utils';
+import { useDark } from '@vueuse/core';
 import { STATE_KEY } from '../constants';
 
 export interface LLM {
@@ -40,6 +41,11 @@ export interface EngineState {
    * 显示引导
    */
   tour: boolean;
+
+  /**
+   * 暗黑模式
+   */
+  dark: boolean;
 }
 
 export class State {
@@ -49,8 +55,11 @@ export class State {
     autoApply: true,
     llm: '',
     LLMs: [],
-    tour: true
+    tour: true,
+    dark: false
   });
+
+  private __isDark = useDark();
 
   constructor() {
     const state = storage.get(STATE_KEY, { type: 'local' });
@@ -110,6 +119,14 @@ export class State {
 
   set tour(value: boolean) {
     this.save('tour', value);
+  }
+
+  get dark() {
+    return this.__isDark.value;
+  }
+
+  set dark(v: boolean) {
+    this.__isDark.value = v;
   }
 
   saveLLM(item: LLM) {
