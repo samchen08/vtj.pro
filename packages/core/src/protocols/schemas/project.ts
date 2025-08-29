@@ -234,3 +234,38 @@ export interface GlobalConfig {
    */
   afterEach?: JSFunction;
 }
+
+/**
+ * 国际化配置
+ */
+export interface I18nConfig {
+  /**
+   * 默认本地化语言
+   */
+  locale: I18nLocale;
+
+  /**
+   * 兜底语言
+   */
+  fallbackLocale?: I18nLocale;
+
+  /**
+   * 语言包
+   */
+  messages: I18nMessage[];
+}
+
+/**
+ * 本地语言名
+ */
+export type I18nLocale = 'zh-CN' | 'en';
+
+/**
+ * 语言信息项
+ */
+export interface I18nMessage {
+  key: string;
+  ['zh-CN']: string;
+  en: string;
+  [index: string]: string;
+}

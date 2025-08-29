@@ -6,6 +6,20 @@
   "description": "VTJ",
   "glyphs": [
     {
+      "icon_id": "7612714",
+      "name": "语言设置",
+      "font_class": "lang",
+      "unicode": "e6dd",
+      "unicode_decimal": 59101
+    },
+    {
+      "icon_id": "32055906",
+      "name": "应用设置",
+      "font_class": "config",
+      "unicode": "e7b0",
+      "unicode_decimal": 59312
+    },
+    {
       "icon_id": "35562663",
       "name": "openapi",
       "font_class": "openapi",
