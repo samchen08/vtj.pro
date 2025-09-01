@@ -17,6 +17,7 @@ import {
   type BlockSchema,
   type NodeFromPlugin,
   type GlobalConfig,
+  type I18nConfig,
   Base,
   BUILT_IN_COMPONENTS
 } from '@vtj/core';
@@ -64,6 +65,7 @@ import { createMenus } from '../hooks';
 import { createStaticRoutes } from './routes';
 
 import { initRuntimeGlobals, type InitGlobalsOptions } from './globals';
+import { initI18n } from './i18n';
 
 export const providerKey: InjectionKey<Provider> = Symbol('Provider');
 
@@ -413,10 +415,7 @@ export class Provider extends Base {
       app.use(this.adapter.access);
     }
 
-    // 提供全局 Provider 实例
-    app.provide(providerKey, this);
-    app.config.globalProperties.$provider = this;
-
+    // 应用全局配置
     if (
       this.project?.platform !== 'uniapp' &&
       this.mode !== ContextMode.Design
@@ -429,6 +428,15 @@ export class Provider extends Base {
         mode: this.mode
       });
     }
+
+    // 初始化国际化
+    if (this.mode !== ContextMode.Design && this.project?.i18n) {
+      this.initI18n(app, this.library, this.project.i18n);
+    }
+
+    // 提供全局 Provider 实例
+    app.provide(providerKey, this);
+    app.config.globalProperties.$provider = this;
 
     // 执行增强函数
     if (this.options.enhance) {
@@ -665,6 +673,10 @@ export class Provider extends Base {
       options
     );
     initRuntimeGlobals(globals, opts as InitGlobalsOptions);
+  }
+
+  initI18n(app: App, libs: Record<string, any>, i18n?: I18nConfig) {
+    initI18n(app, libs, i18n);
   }
 }
 

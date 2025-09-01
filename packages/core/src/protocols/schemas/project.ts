@@ -78,6 +78,11 @@ export interface ProjectSchema {
   globals?: GlobalConfig;
 
   /**
+   * 国际化
+   */
+  i18n?: I18nConfig;
+
+  /**
    * 标记
    */
   __VTJ_PROJECT__?: boolean;
@@ -242,7 +247,7 @@ export interface I18nConfig {
   /**
    * 默认本地化语言
    */
-  locale: I18nLocale;
+  locale?: I18nLocale;
 
   /**
    * 兜底语言
@@ -252,7 +257,7 @@ export interface I18nConfig {
   /**
    * 语言包
    */
-  messages: I18nMessage[];
+  messages?: I18nMessage[];
 }
 
 /**

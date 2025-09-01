@@ -85,6 +85,9 @@ export class Renderer {
       library,
       mode: ContextMode.Design
     });
+
+    this.provider.initI18n(app, library, this.project?.i18n);
+
     if (this.env.enhance) {
       app.use(this.env.enhance, this.provider);
     }

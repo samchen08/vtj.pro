@@ -16,6 +16,7 @@ import {
   type UniConfig,
   type EnhanceConfig,
   type GlobalConfig,
+  type I18nConfig,
   Base,
   BUILT_IN_NAME,
   BUILT_IN_LIBRARAY_MAP
@@ -98,10 +99,11 @@ export class Simulator extends Base {
     meta: Ref<MetaSchema[]>,
     config: Ref<ProjectConfig>,
     uniConfig: Ref<UniConfig>,
-    global: Ref<GlobalConfig>
+    global: Ref<GlobalConfig>,
+    i18n: Ref<I18nConfig>
   ) {
     watch(
-      [iframe, deps, apis, meta, config, uniConfig, global],
+      [iframe, deps, apis, meta, config, uniConfig, global, i18n],
       () => {
         if (iframe.value && deps.value.length) {
           this.resetReady();

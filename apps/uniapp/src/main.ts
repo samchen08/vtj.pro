@@ -10,6 +10,7 @@ import {
   notify,
   createModules
 } from '@vtj/uni-app';
+import * as VueI18n from 'vue-i18n';
 
 import App from './App.vue';
 import { name } from '../package.json';
@@ -19,7 +20,7 @@ const adapter = createAdapter({ loading, notify });
 const service = new LocalService(createServiceRequest(notify));
 const modules = createModules();
 
-const { provider } = createProvider({
+const { provider, onReady } = createProvider({
   nodeEnv: process.env.NODE_ENV as NodeEnv,
   mode: ContextMode.Raw,
   modules,
@@ -28,13 +29,17 @@ const { provider } = createProvider({
   enhance,
   project: {
     id: name
+  },
+  dependencies: {
+    VueI18n: async () => VueI18n
   }
 });
 
 export function createApp() {
   const app = createSSRApp(App);
-  app.use(provider);
-
+  onReady(() => {
+    app.use(provider);
+  });
   return {
     app
   };
