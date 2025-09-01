@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.15](https://gitee.com/newgateway/vtj/compare/@vtj/icons@0.13.14...@vtj/icons@0.13.15) (2025-09-01)
+
+
+### Features
+
+* ✨ core支持i18n,更新图标库 ([4949ee0](https://gitee.com/newgateway/vtj/commits/4949ee0bd9732c8bb246a3dd5ab68e0e87b667da))
+
+
+
+
+
 ## [0.13.14](https://gitee.com/newgateway/vtj/compare/@vtj/icons@0.13.13...@vtj/icons@0.13.14) (2025-08-28)
 
 

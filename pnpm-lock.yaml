@@ -74,6 +74,9 @@ importers:
       vue:
         specifier: ~3.5.5
         version: 3.5.20(typescript@5.8.3)
+      vue-i18n:
+        specifier: ~11.1.11
+        version: 11.1.11(vue@3.5.20(typescript@5.8.3))
       vue-router:
         specifier: ~4.5.0
         version: 4.5.1(vue@3.5.20(typescript@5.8.3))
@@ -145,6 +148,9 @@ importers:
       vue:
         specifier: ~3.5.5
         version: 3.5.20(typescript@5.8.3)
+      vue-i18n:
+        specifier: ~11.1.11
+        version: 11.1.11(vue@3.5.20(typescript@5.8.3))
       vue-router:
         specifier: ~4.5.0
         version: 4.5.1(vue@3.5.20(typescript@5.8.3))
@@ -276,7 +282,7 @@ importers:
         specifier: workspace:~
         version: link:../../platforms/uni-app
       vue-i18n:
-        specifier: ~11.1.0
+        specifier: ~11.1.11
         version: 11.1.11(vue@3.5.20(typescript@5.8.3))
     devDependencies:
       '@dcloudio/types':
@@ -379,9 +385,6 @@ importers:
       vue:
         specifier: ~3.5.5
         version: 3.5.20(typescript@5.8.3)
-      vue-i18n:
-        specifier: ~11.1.11
-        version: 11.1.11(vue@3.5.20(typescript@5.8.3))
       vue-router:
         specifier: ~4.5.0
         version: 4.5.1(vue@3.5.20(typescript@5.8.3))

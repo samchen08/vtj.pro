@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.13](https://gitee.com/newgateway/vtj/compare/create-vtj@0.12.12...create-vtj@0.12.13) (2025-09-01)
+
+
+### Bug Fixes
+
+* 🐛 vue-i18n依赖 ([3b9090c](https://gitee.com/newgateway/vtj/commits/3b9090c3b622f567831e248d3c3ef3e7837b7fa3))
+
+
+### Features
+
+* ✨ 国际化 ([54e3c5b](https://gitee.com/newgateway/vtj/commits/54e3c5be0e868b497a4c2f36c40039b47925cccc))
+
+
+
+
+
 ## [0.12.12](https://gitee.com/newgateway/vtj/compare/create-vtj@0.12.11...create-vtj@0.12.12) (2025-08-28)
 
 
