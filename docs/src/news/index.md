@@ -1,5 +1,6 @@
 # VTJ.PRO 新闻动态
 
+- [VTJ.PRO发布v0.13.15：全面支持Vue-I18n国际化，AI+低代码引擎正式完善企业级应用开发能力](./2028-09-02.md)
 - [VTJ.PRO重磅推出Swagger导入功能，开发效率再跃升](./2025-08-28.md)
 - [TinyEngine、LowCodeEngine、Amis、VTJ.PRO 四款低代码引擎如何选项？](./2025-08-26.md)
 - [低代码未死，AI让它重获新生！VTJ.PRO如何用智能颠覆开发世界](./2025-08-23.md)
