@@ -53,3 +53,14 @@ export const BUILT_IN_TAGS = [
   'span',
   'a'
 ];
+
+export const I18N_LOCALES = [
+  {
+    label: '简体中文',
+    value: 'zh-CN'
+  },
+  {
+    label: 'English',
+    value: 'en'
+  }
+];

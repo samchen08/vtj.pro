@@ -1,7 +1,7 @@
 {
   "name": "@vtj/materials",
   "private": false,
-  "version": "0.13.14",
+  "version": "0.13.15",
   "type": "module",
   "keywords": [
     "低代码引擎",
@@ -55,6 +55,7 @@
     "pinia": "~3.0.0",
     "vant": "~4.9.10",
     "vue": "~3.5.5",
+    "vue-i18n": "~11.1.11",
     "vue-router": "~4.5.0"
   },
   "files": [

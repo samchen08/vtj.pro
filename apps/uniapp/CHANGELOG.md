@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.15](https://github.com/samchen08/vtj.pro/compare/vtj-project-uniapp@0.13.14...vtj-project-uniapp@0.13.15) (2025-09-01)
+
+
+### Bug Fixes
+
+* 🐛 vue-i18n依赖 ([3b9090c](https://github.com/samchen08/vtj.pro/commit/3b9090c3b622f567831e248d3c3ef3e7837b7fa3))
+
+
+### Features
+
+* ✨ 国际化 ([54e3c5b](https://github.com/samchen08/vtj.pro/commit/54e3c5be0e868b497a4c2f36c40039b47925cccc))
+
+
+
+
+
 ## [0.13.14](https://github.com/samchen08/vtj.pro/compare/vtj-project-uniapp@0.13.13...vtj-project-uniapp@0.13.14) (2025-08-28)
 
 

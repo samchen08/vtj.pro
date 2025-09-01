@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.15](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.13.14...@vtj/materials@0.13.15) (2025-09-01)
+
+
+### Features
+
+* ✨ 增加 vue-i18n依赖 ([2227b02](https://gitee.com/newgateway/vtj/commits/2227b0212e085d1109ed8d6edfdf14aa4758cd80))
+
+
+
+
+
 ## [0.13.14](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.13.13...@vtj/materials@0.13.14) (2025-08-28)
 
 **Note:** Version bump only for package @vtj/materials

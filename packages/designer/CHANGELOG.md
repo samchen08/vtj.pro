@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.15](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.13.14...@vtj/designer@0.13.15) (2025-09-01)
+
+
+### Bug Fixes
+
+* 🐛 适配dark主题 ([d559ac6](https://gitee.com/newgateway/vtj/commits/d559ac6ffb80498723fcd11634b08cd4e74aa591))
+
+
+### Features
+
+* ✨ 国际化 ([54e3c5b](https://gitee.com/newgateway/vtj/commits/54e3c5be0e868b497a4c2f36c40039b47925cccc))
+* ✨ 增加 vue-i18n依赖 ([2227b02](https://gitee.com/newgateway/vtj/commits/2227b0212e085d1109ed8d6edfdf14aa4758cd80))
+
+
+
+
+
 ## [0.13.14](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.13.13...@vtj/designer@0.13.14) (2025-08-28)
 
 

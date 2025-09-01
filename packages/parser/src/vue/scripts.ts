@@ -206,6 +206,9 @@ function getFunction(item: ObjectMethod) {
           .join(',');
         return `{${pattern}}`;
       }
+      if (n.type === 'AssignmentPattern') {
+        return n.left.name + '=' + (n.right?.extra?.raw || 'null');
+      }
       return n.name;
     })
     .join(', ');

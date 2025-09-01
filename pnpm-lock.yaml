@@ -74,6 +74,9 @@ importers:
       vue:
         specifier: ~3.5.5
         version: 3.5.20(typescript@5.8.3)
+      vue-i18n:
+        specifier: ~11.1.11
+        version: 11.1.11(vue@3.5.20(typescript@5.8.3))
       vue-router:
         specifier: ~4.5.0
         version: 4.5.1(vue@3.5.20(typescript@5.8.3))
@@ -145,6 +148,9 @@ importers:
       vue:
         specifier: ~3.5.5
         version: 3.5.20(typescript@5.8.3)
+      vue-i18n:
+        specifier: ~11.1.11
+        version: 11.1.11(vue@3.5.20(typescript@5.8.3))
       vue-router:
         specifier: ~4.5.0
         version: 4.5.1(vue@3.5.20(typescript@5.8.3))
@@ -276,7 +282,7 @@ importers:
         specifier: workspace:~
         version: link:../../platforms/uni-app
       vue-i18n:
-        specifier: ~11.1.0
+        specifier: ~11.1.11
         version: 11.1.11(vue@3.5.20(typescript@5.8.3))
     devDependencies:
       '@dcloudio/types':
@@ -775,6 +781,9 @@ importers:
       vue:
         specifier: ~3.5.5
         version: 3.5.20(typescript@5.8.3)
+      vue-i18n:
+        specifier: ~11.1.11
+        version: 11.1.11(vue@3.5.20(typescript@5.8.3))
       vue-router:
         specifier: ~4.5.0
         version: 4.5.1(vue@3.5.20(typescript@5.8.3))
@@ -4085,18 +4094,18 @@ packages:
     resolution: {integrity: sha512-51LsGrfxTm/KKzKRIKuIPj5qaqs7P3KcMiGNzvbXxFkhbxZWAzsk39eNQ5o5a2FVq7SmZ66OXBefbBpy61gzgQ==}
     engines: {node: '>=16.0.0'}
 
-  '@vtj/icons@0.13.13':
-    resolution: {integrity: sha512-zDXEJDCqgaGYbu6yKjkuJN62w3loeNk44jF6NT2yEhs6OV8e6e9eXt4H0yOAKIp+zYtgUi0JmxHkWx2g0x0Qiw==}
+  '@vtj/icons@0.13.14':
+    resolution: {integrity: sha512-FWlEL+/DnOPC+sCovJ5oNjMqBr0IYCmQwvdbSkRYcKW0dkDTcem1iq+CVdM+IjWObtxpsh+FEC0TtpPUb+320w==}
 
   '@vtj/plugin-ckeditor@0.2.5':
     resolution: {integrity: sha512-moAcU4LhruhiNnIuviK/QBfHPH+nyNHS4iDLQocOrVbFn8RWEj8C4nBESscFU1hOBLaeAAc7aYQJCBEkfOnyQA==}
 
-  '@vtj/ui@0.13.13':
-    resolution: {integrity: sha512-uNSBWWVxZD1z/IOeaMtNKnHhAoIO+oGJojww3HWdqVW24FGJfjxfM3OfNFXCnd8kh9F1o1QkOFiWqOZbmi9ygg==}
+  '@vtj/ui@0.13.14':
+    resolution: {integrity: sha512-MjuHl8RWxZq13XZl7ZA/C1HJ3kBkWqs+OcDPvbnVELl6iZ/RUk+KbY05LG38dX/8pqfn9mvQH4pwwPs4ymw7gg==}
     engines: {node: '>=16.0.0'}
 
-  '@vtj/utils@0.13.13':
-    resolution: {integrity: sha512-7lq80Kf+VPrctUIqKmYQFs5kWH6hcnUkTMcCZ5VgQW9p6KGhB8xA4MykIESHtDjSfriNfuYcJmZ3COuXWU0aVQ==}
+  '@vtj/utils@0.13.14':
+    resolution: {integrity: sha512-ffva5ulmFoz7NP6JzVY6Z2rTirw/g6swYzxhbliz3wpTO+r3USDRujjOKh8Ocz4x0CFWF9M3ngAcsO+OJPWarg==}
 
   '@vue/babel-helper-vue-transform-on@1.5.0':
     resolution: {integrity: sha512-0dAYkerNhhHutHZ34JtTl2czVQHUNWv6xEbkdF5W+Yrv5pCWsqjeORdOgbtW2I9gWlt+wBmVn+ttqN9ZxR5tzA==}
@@ -13262,7 +13271,7 @@ snapshots:
 
   '@vtj/example-ui@0.2.0': {}
 
-  '@vtj/icons@0.13.13(vue@3.5.20(typescript@5.8.3))':
+  '@vtj/icons@0.13.14(vue@3.5.20(typescript@5.8.3))':
     dependencies:
       '@element-plus/icons-vue': 2.3.2(vue@3.5.20(typescript@5.8.3))
     transitivePeerDependencies:
@@ -13270,17 +13279,17 @@ snapshots:
 
   '@vtj/plugin-ckeditor@0.2.5(vue@3.5.20(typescript@5.8.3))':
     dependencies:
-      '@vtj/icons': 0.13.13(vue@3.5.20(typescript@5.8.3))
-      '@vtj/ui': 0.13.13(vue@3.5.20(typescript@5.8.3))
-      '@vtj/utils': 0.13.13
+      '@vtj/icons': 0.13.14(vue@3.5.20(typescript@5.8.3))
+      '@vtj/ui': 0.13.14(vue@3.5.20(typescript@5.8.3))
+      '@vtj/utils': 0.13.14
     transitivePeerDependencies:
       - '@vue/composition-api'
       - vue
 
-  '@vtj/ui@0.13.13(vue@3.5.20(typescript@5.8.3))':
+  '@vtj/ui@0.13.14(vue@3.5.20(typescript@5.8.3))':
     dependencies:
-      '@vtj/icons': 0.13.13(vue@3.5.20(typescript@5.8.3))
-      '@vtj/utils': 0.13.13
+      '@vtj/icons': 0.13.14(vue@3.5.20(typescript@5.8.3))
+      '@vtj/utils': 0.13.14
       '@vueuse/core': 13.5.0(vue@3.5.20(typescript@5.8.3))
       element-plus: 2.10.7(vue@3.5.20(typescript@5.8.3))
       sortablejs: 1.15.6
@@ -13290,7 +13299,7 @@ snapshots:
       - '@vue/composition-api'
       - vue
 
-  '@vtj/utils@0.13.13':
+  '@vtj/utils@0.13.14':
     dependencies:
       '@vtj/base': 0.12.2
 

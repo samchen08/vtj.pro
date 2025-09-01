@@ -34,6 +34,15 @@ export const builtInDeps: Dependencie[] = [
     enabled: true
   },
   {
+    package: 'vue-i18n',
+    version: 'latest',
+    library: 'VueI18n',
+    urls: ['@vtj/materials/deps/vue-i18n/vue-i18n.global.prod.js'],
+    required: true,
+    official: true,
+    enabled: true
+  },
+  {
     package: 'pinia',
     version: 'latest',
     library: 'Pinia',

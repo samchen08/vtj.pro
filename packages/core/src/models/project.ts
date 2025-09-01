@@ -17,7 +17,8 @@ import type {
   UniConfig,
   PlatformType,
   GlobalConfig,
-  JSFunction
+  JSFunction,
+  I18nConfig
 } from '../protocols';
 import { emitter, type ModelEventType } from '../tools';
 import { BlockModel } from './block';
@@ -93,6 +94,11 @@ export class ProjectModel {
   config: ProjectConfig = {};
   uniConfig: UniConfig = {};
   globals: GlobalConfig = {};
+  i18n: I18nConfig = {
+    locale: 'zh-CN',
+    fallbackLocale: 'zh-CN',
+    messages: []
+  };
   __BASE_PATH__: string = '/';
   __UID__: string = uuid(true);
   static attrs: string[] = [
@@ -109,6 +115,7 @@ export class ProjectModel {
     'config',
     'uniConfig',
     'globals',
+    'i18n',
     '__BASE_PATH__',
     '__UID__'
   ];
@@ -810,6 +817,18 @@ export class ProjectModel {
         model: this,
         type: 'update',
         data: this.globals
+      };
+      emitter.emit(EVENT_PROJECT_CHANGE, event);
+    }
+  }
+
+  setI18n(i18n: I18nConfig, silent: boolean = false) {
+    this.i18n = Object.assign(this.i18n, i18n);
+    if (!silent) {
+      const event: ProjectModelEvent = {
+        model: this,
+        type: 'update',
+        data: this.i18n
       };
       emitter.emit(EVENT_PROJECT_CHANGE, event);
     }
