@@ -61,13 +61,13 @@ const VirtualizedTable: MaterialDescription = {
     },
     {
       name: 'columns',
-      defaultValue: '50',
-      setters: 'NumberSetter'
+      defaultValue: [],
+      setters: 'ArraySetter'
     },
     {
       name: 'data',
       defaultValue: [],
-      setters: 'JSONSetter'
+      setters: 'ArraySetter'
     },
     {
       name: 'data-getter',
@@ -148,7 +148,6 @@ const VirtualizedTable: MaterialDescription = {
     },
     {
       name: 'sort-by',
-      defaultValue: {},
       title: '排序方式',
       setters: 'JSONSetter'
     },
@@ -170,8 +169,9 @@ const VirtualizedTable: MaterialDescription = {
   ],
   snippet: {
     props: {
-      width: 700,
-      height: 400
+      height: 400,
+      data: [],
+      columns: []
     }
   }
 };
