@@ -20,6 +20,8 @@ export function initRuntimeGlobals(
   const { css, store, enhance } = globals;
   const { window, app, library = {}, adapter, mode } = options;
   const { Pinia } = library;
+  app.config.globalProperties.$libs = library;
+
   // 1. 设置全局样式
   adoptedStyleSheets(window, 'global-css', css || '');
 
@@ -86,12 +88,20 @@ function setAxios(app: App, adapter: ProvideAdapter, globals: GlobalConfig) {
 
   if (request && isJSFunction(request) && request.value) {
     const func = parseFunction(request, {}, false, false, true);
-    adapter.request.useRequest((req) => func(req, app));
+    const _request = adapter.request as any;
+    if (_request.__unReq) {
+      _request.__unReq();
+    }
+    _request.__unReq = adapter.request.useRequest((req) => func(req, app));
   }
 
   if (response && isJSFunction(response) && response.value) {
     const func = parseFunction(response, {}, false, false, true);
-    adapter.request.useResponse((res) => func(res, app));
+    const _request = adapter.request as any;
+    if (_request.__unRes) {
+      _request.__unRes();
+    }
+    _request.__unRes = adapter.request.useResponse((res) => func(res, app));
   }
 }
 
