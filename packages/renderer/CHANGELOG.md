@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.16](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.13.15...@vtj/renderer@0.13.16) (2025-09-02)
+
+
+### Bug Fixes
+
+* 🐛 修复全局请求拦截重复触发问题, 全局注入app.config.globalProperties.$libs ([ab366f4](https://gitee.com/newgateway/vtj/commits/ab366f4789926ecd08d9f60ec09ecc0de6aa6c6e))
+
+
+
+
+
 ## [0.13.15](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.13.14...@vtj/renderer@0.13.15) (2025-09-01)
 
 

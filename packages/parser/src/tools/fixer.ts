@@ -110,6 +110,18 @@ export class AutoFixer {
       }
     });
 
+    const regexp = /:icon\s*=\s*["']([^"']+)["']/g;
+    const matches = sfc.template.match(regexp);
+    if (matches) {
+      for (const match of matches) {
+        let result = match;
+        for (const item of illegal) {
+          result = result.replace(new RegExp(item, 'g'), defaultVtjIcon);
+        }
+        sfc.template = sfc.template.replace(match, result);
+      }
+    }
+
     for (const item of illegal) {
       sfc.template = sfc.template.replace(
         new RegExp(`:icon="${item}"`, 'g'),

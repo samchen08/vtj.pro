@@ -1,11 +1,20 @@
 export const test_27 = `
 <template>
-  <div class="user-management-page"></div>
+  <div class="user-management-page">
+  <XIcon
+          :icon="item.expanded ? ChevronDown : ChevronRight"
+          :size="16"
+          :color="item.active ? '#ffffff' : '#aec1e0'"
+        ></XIcon>
+        <XIcon
+          :icon="ChevronRight"
+        ></XIcon>
+  </div>
 </template>
 <script lang="ts">
   // @ts-nocheck
   import { defineComponent, reactive } from 'vue';
-
+  import {ChevronDown, ChevronRight} from '@vtj/icons'
   import { useProvider } from '@vtj/renderer';
   export default defineComponent({
     name: 'UserPage',
@@ -19,7 +28,8 @@ export const test_27 = `
       return {
         state,
         props,
-        provider
+        provider,
+        ChevronDown, ChevronRight
       };
     },
     methods: {
