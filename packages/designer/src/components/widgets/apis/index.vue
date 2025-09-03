@@ -64,7 +64,7 @@
 <script lang="ts" setup>
   import { ref, computed } from 'vue';
   import { type ApiSchema } from '@vtj/core';
-  import { cloneDeep, groupBy } from '@vtj/utils';
+  import { cloneDeep, groupBy, merge } from '@vtj/utils';
   import { Search, VtjIconOpenapi } from '@vtj/icons';
   import { XAction } from '@vtj/ui';
   import {
@@ -182,7 +182,7 @@
 
   const onEdit = (item: any) => {
     isEdit.value = true;
-    formModel.value = cloneDeep(item);
+    formModel.value = merge(createEmptyFormModel(), cloneDeep(item));
     visible.value = true;
   };
 </script>
