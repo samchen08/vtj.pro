@@ -1,9 +1,11 @@
 <template>
   <ElUpload
+    ref="uploadRef"
     class="v-image-setter"
     :class="{ 'v-image-setter--addable': addable }"
     list-type="picture-card"
     :limit="1"
+    accept=".jpg,.jpeg.,.png,.gif,.svg"
     action="#"
     v-model:file-list="fileList"
     :before-upload="onBeforeUpload"
@@ -31,7 +33,7 @@
     limit: 1
   });
   const emit = defineEmits(['change', 'update:modelValue']);
-
+  const uploadRef = ref();
   const fileList = ref<UploadUserFile[]>([]);
 
   const addable = computed(() => {
@@ -41,6 +43,13 @@
   const onBeforeUpload = (rawFile: any) => {
     if (!rawFile.type.includes('image')) {
       ElMessage.error('只能上传图片');
+      uploadRef.value?.clearFiles();
+      return false;
+    }
+    const max = 500 * 1024; // 最大上传500k
+    if (rawFile.size > max) {
+      ElMessage.error('图片大小不能超过500K');
+      uploadRef.value?.clearFiles();
       return false;
     }
 
