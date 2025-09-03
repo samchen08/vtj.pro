@@ -135,15 +135,22 @@
       flex-grow: 1;
       display: flex;
       align-items: center;
+      overflow: hidden;
     }
     @include e(item-name) {
       font-weight: bold;
       margin-right: 10px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     @include e(item-url) {
       color: var(--el-text-color-secondary);
       font-style: italic;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     @include when(small) {
@@ -219,6 +226,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
+      flex-shrink: 0;
       > span {
         padding: 5px;
         cursor: pointer;
