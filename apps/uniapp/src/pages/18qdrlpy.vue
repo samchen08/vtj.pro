@@ -17,13 +17,16 @@
   export default defineComponent({
     name: 'LaunchPage',
     setup(props) {
-      const provider = useProvider({ id: '18qdrlpy', version: '1756711073277' });
+      const provider = useProvider({ id: '18qdrlpy', version: '1756977147414' });
       const state = reactive({ countDown: 3 });
       return { state, props, provider };
     },
     methods: {
       enterApp() {
         uni.showToast({ title: 'clicked!' });
+        uni.navigateTo({
+          url: '/pages/19sj3v0q'
+        });
       }
     }
   })
