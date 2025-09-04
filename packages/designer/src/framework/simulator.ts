@@ -30,6 +30,7 @@ import {
   mockApis,
   mockCleanup,
   parseUrls,
+  adoptStylesToInline,
   type Provider
 } from '@vtj/renderer';
 import html2canvas from 'html2canvas';
@@ -39,6 +40,7 @@ import { Designer } from './designer';
 import { type Engine } from './engine';
 import { DevTools } from './devtools';
 import Mock from 'mockjs';
+import { loading } from '../utils';
 
 declare global {
   interface Window {
@@ -336,15 +338,22 @@ export class Simulator extends Base {
   capture() {
     return new Promise((resolve, reject) => {
       if (!this.contentWindow) return reject(null);
-      const body = this.contentWindow.document.body;
-      html2canvas(body, {
+      adoptStylesToInline(this.contentWindow.document);
+      const doc = this.contentWindow.document.documentElement;
+      const instance = loading({ text: '正在生成截图...' });
+      html2canvas(doc, {
         allowTaint: true,
-        useCORS: true
+        useCORS: true,
+        imageTimeout: 0
       })
         .then((canvas) => {
           resolve(canvas);
         })
-        .catch(reject);
+        .catch(reject)
+        .finally(() => {
+          instance.close();
+          this.refresh();
+        });
     });
   }
 
