@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.17](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.13.16...@vtj/materials@0.13.17) (2025-09-05)
+
+
+### Bug Fixes
+
+* 🐛 图片组件src参数支持文件上传设置器 ([94445c7](https://gitee.com/newgateway/vtj/commits/94445c723b22a91ca92d0ba19cb777b6e9c1a954))
+* 🐛 ElTableV2 物料错误 ([2cffed7](https://gitee.com/newgateway/vtj/commits/2cffed78fbf0f9011ae488c7a5f09a3e43bc06ba))
+* 🐛 uni-ui物料 ([e76b105](https://gitee.com/newgateway/vtj/commits/e76b105d2682a2a47af40a66efc472c44bbcb35a))
+
+
+
+
+
 ## [0.13.16](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.13.15...@vtj/materials@0.13.16) (2025-09-02)
 
 **Note:** Version bump only for package @vtj/materials

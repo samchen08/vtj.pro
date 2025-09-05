@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.17](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.13.16...@vtj/ui@0.13.17) (2025-09-05)
+
+
+### Bug Fixes
+
+* 🐛 文件上传设置器限制文件大小5M ([31ed74e](https://gitee.com/newgateway/vtj/commits/31ed74eaa0eaa6c546718d6dd7dd755ed2817d93))
+* 🐛 attachment style ([d7ea87c](https://gitee.com/newgateway/vtj/commits/d7ea87c9972e977c55cd147f562bc3da3bbbf212))
+
+
+
+
+
 ## [0.13.16](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.13.15...@vtj/ui@0.13.16) (2025-09-02)
 
 **Note:** Version bump only for package @vtj/ui
