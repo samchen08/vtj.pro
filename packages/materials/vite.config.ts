@@ -72,8 +72,20 @@ function createConfig(name: string) {
   const { entry, library, outDir } = materials[name];
 
   if (name === 'uniUI') {
+    let plugins = (uni as any).default({}) as any;
+
+    plugins = plugins.filter(
+      (n: any) =>
+        ![
+          'uni:h5-manifest-json',
+          'uni:h5-pages-json',
+          'uni:h5-main-js',
+          'uni:h5-resolve-id'
+        ].includes(n.name)
+    );
+
     return defineConfig({
-      plugins: [(uni as any).default({}) as any],
+      plugins: [plugins],
 
       build: {
         emptyOutDir: false,
@@ -85,11 +97,22 @@ function createConfig(name: string) {
           formats: ['umd']
         },
         rollupOptions: {
-          external: ['vue', 'vue-router'],
+          external: [
+            'vue',
+            'vue-router',
+            'vue-i18n',
+            '@dcloudio/uni-app',
+            '@dcloudio/uni-h5-vue',
+            '@dcloudio/uni-h5'
+          ],
           output: {
             globals: {
               vue: 'Vue',
-              'vue-router': 'VueRouter'
+              'vue-router': 'VueRouter',
+              'vue-i18n': 'VueI18n',
+              '@dcloudio/uni-app': 'UniApp',
+              '@dcloudio/uni-h5': 'UniH5',
+              '@dcloudio/uni-h5-vue': 'Vue'
             }
           }
         }
