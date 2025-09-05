@@ -109,7 +109,8 @@
             :model-value="promptText"
             :disabled="inputDisabled"
             lock-model
-            @send="onPostChat"></ChatInput>
+            @send="onPostChat"
+            @cancel="handleCancelChat"></ChatInput>
           <div class="footer">内容由 AI 生成，请仔细甄别</div>
         </div>
       </template>
@@ -292,6 +293,13 @@
     isNewChat.value = false;
     currentTopic.value = item;
     loadChats(item.id);
+  };
+
+  const handleCancelChat = () => {
+    const currentChat = chats.value.find((n) => n.status === 'Pending');
+    if (currentChat) {
+      onCancelChat(currentChat);
+    }
   };
 
   defineOptions({

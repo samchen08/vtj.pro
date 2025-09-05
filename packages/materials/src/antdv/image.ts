@@ -43,7 +43,7 @@ const components: MaterialDescription[] = [
         name: 'src',
         label: 'src',
         title: '图片地址',
-        setters: 'StringSetter'
+        setters: ['StringSetter', 'FileSetter']
       },
       {
         name: 'previewMask',

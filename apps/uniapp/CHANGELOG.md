@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.17](https://github.com/samchen08/vtj.pro/compare/vtj-project-uniapp@0.13.16...vtj-project-uniapp@0.13.17) (2025-09-05)
+
+
+### Bug Fixes
+
+* 🐛 uni-ui物料 ([e76b105](https://github.com/samchen08/vtj.pro/commit/e76b105d2682a2a47af40a66efc472c44bbcb35a))
+
+
+
+
+
 ## [0.13.16](https://github.com/samchen08/vtj.pro/compare/vtj-project-uniapp@0.13.15...vtj-project-uniapp@0.13.16) (2025-09-02)
 
 **Note:** Version bump only for package vtj-project-uniapp

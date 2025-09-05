@@ -10,7 +10,7 @@ const Image: MaterialDescription = {
     {
       name: 'src',
       defaultValue: '',
-      setters: 'InputSetter'
+      setters: ['InputSetter', 'FileSetter']
     },
     {
       name: 'fit',

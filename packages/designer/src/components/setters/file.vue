@@ -24,6 +24,7 @@
         list-type="list"
         :selectable="true"
         :uploader="uploader"
+        limit-size="5M"
         v-model="fileList"
         v-model:select-value="selectValue"
         v-bind="props.attachment"

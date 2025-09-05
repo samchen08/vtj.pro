@@ -10,6 +10,14 @@
       "vtj": true
     },
     {
+      "path": "pages/19sj3v0q",
+      "style": {
+        "navigationBarTitleText": "abc"
+      },
+      "needLogin": false,
+      "vtj": true
+    },
+    {
       "path": "pages/startup"
     }
   ],

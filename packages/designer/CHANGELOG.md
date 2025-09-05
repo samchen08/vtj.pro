@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.17](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.13.16...@vtj/designer@0.13.17) (2025-09-05)
+
+
+### Bug Fixes
+
+* 🐛 导入的api编辑时,保存报错 ([128ff2c](https://gitee.com/newgateway/vtj/commits/128ff2c839b0594ab5a0de92dfe3cdb336a85698))
+* 🐛 文件上传设置器限制文件大小5M ([31ed74e](https://gitee.com/newgateway/vtj/commits/31ed74eaa0eaa6c546718d6dd7dd755ed2817d93))
+* 🐛 限制base64图片不超过500k ([18d01d0](https://gitee.com/newgateway/vtj/commits/18d01d04f8952716dfd1c3ccf3a11514479c5352))
+* 🐛 优化模版截图生成 ([f0e70f9](https://gitee.com/newgateway/vtj/commits/f0e70f9acb3f8b5ff30867371170eb75485ebe25))
+* 🐛 AI发送按钮支持取消 ([f259616](https://gitee.com/newgateway/vtj/commits/f259616cd2e29f053e149c08e8320431f7f15f88))
+* 🐛 uni-ui物料 ([e76b105](https://gitee.com/newgateway/vtj/commits/e76b105d2682a2a47af40a66efc472c44bbcb35a))
+
+
+
+
+
 ## [0.13.16](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.13.15...@vtj/designer@0.13.16) (2025-09-02)
 
 **Note:** Version bump only for package @vtj/designer

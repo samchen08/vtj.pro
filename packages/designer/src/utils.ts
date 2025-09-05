@@ -1,7 +1,13 @@
 import { type JSExpression, type JSFunction } from '@vtj/core';
 import { parseExpression, parseFunction } from '@vtj/renderer';
 import { kebabCase } from '@vtj/utils';
-import { ElNotification, ElMessageBox, ElMessage } from 'element-plus';
+import {
+  ElNotification,
+  ElMessageBox,
+  ElMessage,
+  ElLoading,
+  type LoadingOptions
+} from 'element-plus';
 
 export function alert(message: string, options?: any) {
   return ElMessageBox.alert(message, {
@@ -16,6 +22,10 @@ export function notify(message: string, title: string = '提示') {
     title,
     message
   });
+}
+
+export function loading(options: LoadingOptions = {}) {
+  return ElLoading.service(options);
 }
 
 export async function confirm(message: string, options?: any) {

@@ -1,7 +1,7 @@
 {
   "name": "vtj-material",
   "private": true,
-  "version": "0.13.16",
+  "version": "0.13.17",
   "type": "module",
   "scripts": {
     "setup": "pnpm install --unsafe-perm --registry=https://registry.npmmirror.com",
@@ -11,8 +11,8 @@
     "build:material": "vue-tsc && vite build --config vite.material.config.ts"
   },
   "dependencies": {
-    "@vueuse/core": "~13.5.0",
-    "element-plus": "~2.10.0"
+    "@vueuse/core": "~13.9.0",
+    "element-plus": "~2.11.0"
   },
   "devDependencies": {
     "@vtj/cli": "workspace:~",

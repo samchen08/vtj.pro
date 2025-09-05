@@ -218,7 +218,7 @@
       if (!valid) {
         clean(file as UploadUserFile);
         ElMessage.error({
-          message: `上传文件体积不可超过${props.limitSize}`
+          message: `上传文件不可超过${props.limitSize}`
         });
         return;
       }
