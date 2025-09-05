@@ -87,10 +87,10 @@ UniApp 平台支持广泛的部署目标：
 
 | 依赖包                   | 版本                   | 功能说明         |
 | ------------------------ | ---------------------- | ---------------- |
-| @dcloudio/uni-app        | 3.0.0-4050720250324001 | UniApp 框架核心  |
-| @dcloudio/uni-components | 3.0.0-4050720250324001 | 标准组件库       |
-| @dcloudio/uni-h5         | 3.0.0-4050720250324001 | H5 平台适配器    |
-| @dcloudio/uni-mp-weixin  | 3.0.0-4050720250324001 | 微信小程序适配器 |
+| @dcloudio/uni-app        | 3.0.0-4070620250821001 | UniApp 框架核心  |
+| @dcloudio/uni-components | 3.0.0-4070620250821001 | 标准组件库       |
+| @dcloudio/uni-h5         | 3.0.0-4070620250821001 | H5 平台适配器    |
+| @dcloudio/uni-mp-weixin  | 3.0.0-4070620250821001 | 微信小程序适配器 |
 | @dcloudio/uni-ui         | ~1.5.3                 | UI 组件库        |
 | @vtj/renderer            | workspace:~            | VTJ 渲染引擎     |
 | @vtj/uni-app             | workspace:~            | VTJ UniApp 集成  |
