@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.18](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.13.17...@vtj/materials@0.13.18) (2025-09-05)
+
+
+### Bug Fixes
+
+* 🐛 uni-ui编译工程 ([88d24e0](https://gitee.com/newgateway/vtj/commits/88d24e051f1f9ff63b84ee8bd27c8dee485bf49d))
+
+
+
+
+
 ## [0.13.17](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.13.16...@vtj/materials@0.13.17) (2025-09-05)
 
 
