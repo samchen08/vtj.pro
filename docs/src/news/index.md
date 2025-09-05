@@ -1,5 +1,6 @@
 # VTJ.PRO 新闻动态
 
+- [🚀 VTJ.PRO 再次突破！攻克 uniapp UI 库物料编译 UMD 难题，官方 uni-ui 物料正式上线！](./2025-09-05.md)
 - [VTJ.PRO发布v0.13.15：全面支持Vue-I18n国际化，AI+低代码引擎正式完善企业级应用开发能力](./2028-09-02.md)
 - [VTJ.PRO重磅推出Swagger导入功能，开发效率再跃升](./2025-08-28.md)
 - [TinyEngine、LowCodeEngine、Amis、VTJ.PRO 四款低代码引擎如何选项？](./2025-08-26.md)

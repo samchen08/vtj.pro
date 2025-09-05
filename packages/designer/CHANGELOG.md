@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.18](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.13.17...@vtj/designer@0.13.18) (2025-09-05)
+
+
+### Bug Fixes
+
+* 🐛 预览模式下，指定分辨率未生效；编辑模式下生效 ([66ee3cb](https://gitee.com/newgateway/vtj/commits/66ee3cb79b2a3551cf36a41dbfc0dde94a6985d2))
+
+
+
+
+
 ## [0.13.17](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.13.16...@vtj/designer@0.13.17) (2025-09-05)
 
 
