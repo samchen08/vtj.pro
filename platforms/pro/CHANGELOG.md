@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.19](https://gitee.com/newgateway/vtj/compare/@vtj/pro@0.13.18...@vtj/pro@0.13.19) (2025-09-06)
+
+
+### Bug Fixes
+
+* 🐛 修复 UniApp __uniConfig 初始化缺失报错 ([fca4810](https://gitee.com/newgateway/vtj/commits/fca4810bab484d933b755db2c8ffdaf1578b53bb))
+
+
+
+
+
 ## [0.13.18](https://gitee.com/newgateway/vtj/compare/@vtj/pro@0.13.17...@vtj/pro@0.13.18) (2025-09-05)
 
 **Note:** Version bump only for package @vtj/pro

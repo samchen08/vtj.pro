@@ -153,10 +153,12 @@ export class Simulator extends Base {
       ? ''
       : `
     <script>
+      window.__uniConfig = {};
       window.__UNI_FEATURE_UNI_CLOUD__ = false;
       window.__UNI_FEATURE_WX__ = false;
       window.__UNI_FEATURE_WXS__ = false;
       window.__UNI_FEATURE_PAGES__ = false;
+      window.getApp = function() {}
     </script>
     `;
   }

@@ -12,6 +12,7 @@
     <uni-list-item title="列表文字"></uni-list-item>
     <uni-list-item title="列表禁用状态" disabled="true"></uni-list-item
   ></uni-list>
+  <uni-calendar></uni-calendar>
 </template>
 <script lang="ts">
   // @ts-nocheck
@@ -20,7 +21,7 @@
   export default defineComponent({
     name: 'Abc',
     setup(props) {
-      const provider = useProvider({ id: '19sj3v0q', version: '1756977002348' });
+      const provider = useProvider({ id: '19sj3v0q', version: '1757061088096' });
       const state = reactive({});
       return { state, props, provider };
     }
