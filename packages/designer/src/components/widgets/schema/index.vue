@@ -4,9 +4,16 @@
     :title="title"
     subtitle="手动修改DSL有风险，可能导致页面无法加载，请确认您的操作无误。"
     size="small"
-    fit
-    save
-    @save="onSave">
+    fit>
+    <template #actions>
+      <XAction
+        type="danger"
+        mode="icon"
+        size="small"
+        label="保存"
+        :icon="VtjIconSave"
+        @click="onSave"></XAction>
+    </template>
     <Editor
       ref="editorRef"
       :model-value="dsl"
@@ -17,6 +24,8 @@
 </template>
 <script lang="ts" setup>
   import { ref, computed } from 'vue';
+  import { VtjIconSave } from '@vtj/icons';
+  import { XAction } from '@vtj/ui';
   import { Panel } from '../../shared';
   import Editor from '../../editor';
   import { useCurrent } from '../../hooks';
