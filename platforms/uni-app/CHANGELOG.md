@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.20](https://gitee.com/newgateway/vtj/compare/@vtj/uni-app@0.13.19...@vtj/uni-app@0.13.20) (2025-09-08)
+
+
+### Bug Fixes
+
+* 🐛 Uniapp后真机运行直接报错 ([82ddacc](https://gitee.com/newgateway/vtj/commits/82ddacc3a1b9677ee678f9a2b30e303a9bdda9b3))
+
+
+
+
+
 ## [0.13.19](https://gitee.com/newgateway/vtj/compare/@vtj/uni-app@0.13.18...@vtj/uni-app@0.13.19) (2025-09-06)
 
 **Note:** Version bump only for package @vtj/uni-app
