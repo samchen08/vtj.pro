@@ -76,6 +76,12 @@ const desc: MaterialDescription = {
       title: '是否初始化组件后就开始倒计时',
       defaultValue: true,
       setters: 'BooleanSetter'
+    },
+    {
+      name: 'fontSize',
+      title: '字体大小',
+      defaultValue: 16,
+      setters: ['NumberSetter', 'StringSetter']
     }
   ],
   events: ['timeup'],

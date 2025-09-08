@@ -50,6 +50,38 @@ const desc: MaterialDescription = {
       title: '返回的数据量',
       defaultValue: 20,
       setters: 'NumberSetter'
+    },
+    {
+      name: 'multiple',
+      title: '是否开启多选',
+      defaultValue: false,
+      setters: 'BooleanSetter'
+    },
+    {
+      name: 'wrap',
+      title: '是否开启换行展示(默认展示 1 行)',
+      defaultValue: false,
+      setters: 'BooleanSetter'
+    },
+    {
+      name: 'align',
+      title: '选择文字的位置',
+      defaultValue: 'left',
+      setters: 'SelectSetter',
+      options: ['left', 'center', 'right']
+    },
+    {
+      name: 'hideRight',
+      title: '是否隐藏右侧按钮',
+      defaultValue: false,
+      setters: 'BooleanSetter'
+    },
+    {
+      name: 'mode',
+      title: '边框样式',
+      defaultValue: 'default',
+      setters: 'SelectSetter',
+      options: ['default', 'underline', 'none']
     }
   ],
   events: ['change', 'update:modelValue'],

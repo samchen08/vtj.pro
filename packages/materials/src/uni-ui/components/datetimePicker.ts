@@ -13,7 +13,7 @@ const desc: MaterialDescription = {
       options: ['date', 'daterange', 'datetime', 'datetimerange']
     },
     {
-      name: 'value',
+      name: 'modelValue',
       title: '输入框当前值',
       defaultValue: '',
       setters: [
@@ -91,7 +91,7 @@ const desc: MaterialDescription = {
       setters: 'BooleanSetter'
     }
   ],
-  events: ['change', 'maskClick', 'show'],
+  events: ['change', 'maskClick', 'show', 'update:modelValue'],
   slots: ['default'],
   snippet: {
     props: {
