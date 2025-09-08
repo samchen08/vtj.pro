@@ -42,7 +42,7 @@ const desc: MaterialDescription = {
       setters: 'NumberSetter'
     }
   ],
-  events: ['change', 'focus', 'blur'],
+  events: ['change', 'focus', 'blur', 'update:modelValue'],
   snippet: {}
 };
 

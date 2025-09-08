@@ -23,7 +23,7 @@ const desc: MaterialDescription = {
       title: '颜色类型',
       defaultValue: 'default',
       setters: 'SelectSetter',
-      options: ['default', 'primary', 'success', 'warning', 'error', 'royal']
+      options: ['default', 'primary', 'success', 'warning', 'error']
     },
     {
       name: 'disabled',
