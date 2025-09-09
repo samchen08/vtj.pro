@@ -163,6 +163,12 @@ const desc: MaterialDescription[] = [
         defaultValue: 'row',
         setters: 'SelectSetter',
         options: ['row', 'column']
+      },
+      {
+        name: 'border',
+        title: '是否显示边框',
+        defaultValue: true,
+        setters: 'BooleanSetter'
       }
     ],
     events: ['click', 'switchChange'],
