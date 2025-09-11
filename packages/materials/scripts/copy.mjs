@@ -49,7 +49,7 @@ const files = [
     'deps/@vueuse/core/index.iife.min.js'
   ],
   [
-    modules + 'ant-design-vue/dist/antd.min.js',
+    modules + 'ant-design-vue/dist/antd-with-locales.min.js',
     'deps/ant-design-vue/antd.min.js'
   ],
   [modules + 'ant-design-vue/dist/reset.css', 'deps/ant-design-vue/reset.css'],

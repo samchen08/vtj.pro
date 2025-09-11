@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.22](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.13.21...@vtj/materials@0.13.22) (2025-09-11)
+
+
+### Bug Fixes
+
+* 🐛 物料 uni-ui ([ce20f7c](https://gitee.com/newgateway/vtj/commits/ce20f7caa64cd469f16b91179408e9b25f9111e5))
+* 🐛 element-plus runtime locale ([a6a960c](https://gitee.com/newgateway/vtj/commits/a6a960cfe38af25ad6548e1790e5f1e381f3a70f))
+
+
+
+
+
 ## [0.13.21](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.13.20...@vtj/materials@0.13.21) (2025-09-11)
 
 

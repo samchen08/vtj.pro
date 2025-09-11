@@ -177,8 +177,8 @@ export const builtInWidgets: Array<AppWidget | TabWidget | Widget> = [
     icon: widgets.UserAvatar,
     label: '关于',
     props: {
-      width: 500,
-      height: 250
+      width: 550,
+      height: 260
     }
   },
   {
