@@ -16,7 +16,7 @@ const desc: MaterialDescription = {
       title: '大小尺寸',
       defaultValue: 'normal',
       setters: 'SelectSetter',
-      options: ['normal', 'small']
+      options: ['normal', 'small', 'mini']
     },
     {
       name: 'type',
@@ -42,13 +42,24 @@ const desc: MaterialDescription = {
       title: '是否为圆角',
       defaultValue: false,
       setters: 'BooleanSetter'
+    },
+    {
+      name: 'mark',
+      title: '是否为标记标签',
+      defaultValue: false,
+      setters: 'BooleanSetter'
+    },
+    {
+      name: 'custom-style',
+      title: '自定义样式',
+      setters: 'StringSetter'
     }
   ],
   events: ['click'],
   snippet: {
     props: {
       text: '标签',
-      type: 'royal'
+      type: 'default'
     }
   }
 };

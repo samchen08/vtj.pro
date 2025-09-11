@@ -28,6 +28,11 @@ const desc: MaterialDescription = {
       name: 'options',
       title: '数据源',
       setters: 'ArraySetter'
+    },
+    {
+      name: 'active-icon',
+      title: '激活状态的图标',
+      setters: ['IconSetter', 'StringSetter']
     }
   ],
   events: [],
