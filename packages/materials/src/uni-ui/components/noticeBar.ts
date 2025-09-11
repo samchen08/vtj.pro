@@ -2,7 +2,7 @@ import type { MaterialDescription } from '@vtj/core';
 
 const desc: MaterialDescription = {
   name: 'UniNoticeBar',
-  label: '通告栏	',
+  label: '通告栏',
   categoryId: 'ext',
   props: [
     {

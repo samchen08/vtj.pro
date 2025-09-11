@@ -37,6 +37,12 @@ const desc: MaterialDescription = {
       title: '无匹配项时的提示语',
       defaultValue: '无匹配项',
       setters: 'StringSetter'
+    },
+    {
+      name: 'border',
+      title: '是否显示边框',
+      defaultValue: true,
+      setters: 'BooleanSetter'
     }
   ],
   events: ['input', 'update:modelValue'],

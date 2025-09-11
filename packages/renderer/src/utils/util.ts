@@ -123,7 +123,11 @@ export async function loadScriptUrl(
 }
 
 export function isVuePlugin(value: unknown): value is Plugin {
-  return isFunction(value) || isFunction((value as any)?.install);
+  return (
+    (isFunction(value) &&
+      Object.getOwnPropertyNames(value.prototype || {}).length === 0) ||
+    isFunction((value as any)?.install)
+  );
 }
 
 export function isBuiltInTag(tag: string) {

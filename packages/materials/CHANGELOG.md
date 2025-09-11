@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.21](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.13.20...@vtj/materials@0.13.21) (2025-09-11)
+
+
+### Bug Fixes
+
+* 🐛 物料-uni-ui ([bd47eab](https://gitee.com/newgateway/vtj/commits/bd47eabc8af8f0e166054981745cb60c8c9e81dc))
+* 🐛 物料-uni-ui ([f53b75a](https://gitee.com/newgateway/vtj/commits/f53b75aa665b0319b3de24968f74a45b93f2c6c2))
+* 🐛 uni-ui 物料 ([1adc721](https://gitee.com/newgateway/vtj/commits/1adc7216d4ed0f6c88d04e21f39e9f55a7bb2768))
+* 🐛 uni-ui 物料 ([241abec](https://gitee.com/newgateway/vtj/commits/241abec8e5237086402d5e94c36ef77d5982cabd))
+
+
+
+
+
 ## [0.13.20](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.13.19...@vtj/materials@0.13.20) (2025-09-08)
 
 **Note:** Version bump only for package @vtj/materials

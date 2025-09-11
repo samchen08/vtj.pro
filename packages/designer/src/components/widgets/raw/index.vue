@@ -4,9 +4,16 @@
     :title="title"
     :subtitle="subtitle"
     size="small"
-    fit
-    save
-    @save="onSave">
+    fit>
+    <template #actions>
+      <XAction
+        type="danger"
+        mode="icon"
+        size="small"
+        label="保存"
+        :icon="VtjIconSave"
+        @click="onSave"></XAction>
+    </template>
     <Editor
       ref="editorRef"
       :model-value="content"
@@ -17,6 +24,8 @@
 </template>
 <script lang="ts" setup>
   import { ref, watch, computed } from 'vue';
+  import { VtjIconSave } from '@vtj/icons';
+  import { XAction } from '@vtj/ui';
   import { Panel } from '../../shared';
   import Editor from '../../editor';
   import { useCurrent } from '../../hooks';

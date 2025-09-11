@@ -2,7 +2,7 @@ import type { MaterialDescription } from '@vtj/core';
 
 const desc: MaterialDescription = {
   name: 'UniNavBar',
-  label: '导航栏',
+  label: '自定义导航栏',
   categoryId: 'ext',
   props: [
     {
@@ -100,6 +100,12 @@ const desc: MaterialDescription = {
       title: '是否开启统计标题功能',
       defaultValue: '60px',
       setters: ['BooleanSetter', 'StringSetter']
+    },
+    {
+      name: 'showMenuButtonWidth',
+      title: '微信小程序是否开启胶囊避让功能，fixed:true 下生效',
+      defaultValue: false,
+      setters: 'BooleanSetter'
     }
   ],
   events: ['clickLeft', 'clickRight'],

@@ -149,6 +149,7 @@ const desc: MaterialDescription = {
     'keyboardheightchange',
     'update:modelValue'
   ],
+  slots: ['default', 'prefixIcon', 'suffixIcon'],
   snippet: {
     props: {
       placeholder: '请输入内容'

@@ -8,6 +8,7 @@ const desc: MaterialDescription = {
     {
       name: 'date',
       title: '自定义当前时间，默认为今天',
+      defaultValue: new Date().toLocaleDateString(),
       setters: 'StringSetter'
     },
     {
@@ -35,7 +36,7 @@ const desc: MaterialDescription = {
     {
       name: 'insert',
       title: '插入模式,可选值',
-      defaultValue: false,
+      defaultValue: true,
       setters: 'BooleanSetter'
     },
     {

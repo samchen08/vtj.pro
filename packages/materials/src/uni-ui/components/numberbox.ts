@@ -40,9 +40,21 @@ const desc: MaterialDescription = {
       title: '宽度（单位：px）',
       defaultValue: 40,
       setters: 'NumberSetter'
+    },
+    {
+      name: 'background',
+      title: '背景颜色',
+      defaultValue: '#f5f5f5',
+      setters: 'ColorSetter'
+    },
+    {
+      name: 'color',
+      title: '文字颜色',
+      defaultValue: '#333333',
+      setters: 'ColorSetter'
     }
   ],
-  events: ['change', 'focus', 'blur'],
+  events: ['change', 'focus', 'blur', 'update:modelValue'],
   snippet: {}
 };
 

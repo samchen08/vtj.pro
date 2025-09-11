@@ -92,7 +92,7 @@ const desc: MaterialDescription = {
     }
   ],
   events: ['click'],
-  slots: ['cover', 'title', 'actions', 'header', 'footer'],
+  slots: ['default', 'cover', 'title', 'actions', 'header', 'footer'],
   snippet: {
     props: {
       'is-full': true,
