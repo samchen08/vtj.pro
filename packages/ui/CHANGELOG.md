@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.21](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.13.20...@vtj/ui@0.13.21) (2025-09-11)
+
+
+### Features
+
+* ✨ 历史记录支持自动/手动/对比/打标记 ([bdf91d2](https://gitee.com/newgateway/vtj/commits/bdf91d2651b84f7b55dd72a1a7a7723d162bea2f))
+
+
+
+
+
 ## [0.13.20](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.13.19...@vtj/ui@0.13.20) (2025-09-08)
 
 **Note:** Version bump only for package @vtj/ui

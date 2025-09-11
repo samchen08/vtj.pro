@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.21](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.13.20...@vtj/designer@0.13.21) (2025-09-11)
+
+
+### Bug Fixes
+
+* 🐛 强化dsl和源码视图的保存按钮 ([57ed84b](https://gitee.com/newgateway/vtj/commits/57ed84b9d1f7b2c3e80c284980dac372559a7491))
+
+
+### Features
+
+* ✨ 历史记录支持自动/手动/对比/打标记 ([bdf91d2](https://gitee.com/newgateway/vtj/commits/bdf91d2651b84f7b55dd72a1a7a7723d162bea2f))
+* ✨ 支持风格切换 ([fc47bd6](https://gitee.com/newgateway/vtj/commits/fc47bd6286f945aebbb22bd44280dd15613c5d1b))
+
+
+
+
+
 ## [0.13.20](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.13.19...@vtj/designer@0.13.20) (2025-09-08)
 
 **Note:** Version bump only for package @vtj/designer
