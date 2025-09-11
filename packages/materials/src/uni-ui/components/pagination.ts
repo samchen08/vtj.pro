@@ -48,7 +48,7 @@ const desc: MaterialDescription = {
       setters: 'BooleanSetter'
     }
   ],
-  events: ['change'],
+  events: ['change', 'update:modelValue'],
   snippet: {
     props: {
       total: 50

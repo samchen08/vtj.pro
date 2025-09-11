@@ -57,6 +57,7 @@ const desc: MaterialDescription = {
     }
   ],
   events: ['click'],
+  slots: ['default', 'right', 'decoration'],
   snippet: {
     props: {
       title: '基础用法',

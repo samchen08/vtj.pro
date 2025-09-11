@@ -32,7 +32,7 @@ const desc: MaterialDescription = {
     {
       name: 'size',
       title: '星星的大小',
-      defaultValue: '24',
+      defaultValue: 24,
       setters: 'NumberSetter'
     },
     {
