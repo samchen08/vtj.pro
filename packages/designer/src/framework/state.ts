@@ -11,6 +11,17 @@ export interface LLM {
   apiKey: string;
 }
 
+const defaults = {
+  outlineEnabled: true,
+  activeEvent: true,
+  autoApply: true,
+  autoHistory: true,
+  llm: '',
+  LLMs: [],
+  tour: true,
+  dark: false
+};
+
 export interface EngineState {
   /**
    * 设计视图是否显示辅助线
@@ -54,16 +65,7 @@ export interface EngineState {
 }
 
 export class State {
-  private __state: Reactive<EngineState> = reactive({
-    outlineEnabled: true,
-    activeEvent: true,
-    autoApply: true,
-    autoHistory: true,
-    llm: '',
-    LLMs: [],
-    tour: true,
-    dark: false
-  });
+  private __state: Reactive<EngineState> = reactive(defaults);
 
   private __isDark = useDark();
 
@@ -72,6 +74,11 @@ export class State {
     if (state) {
       Object.assign(this.__state, state);
     }
+  }
+
+  reset() {
+    storage.clear({ type: 'local' });
+    location.reload();
   }
 
   private save(key: keyof EngineState, value: any) {

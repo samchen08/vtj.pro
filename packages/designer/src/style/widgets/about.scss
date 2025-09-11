@@ -2,15 +2,15 @@
 
 @include b(about-widget) {
   text-align: center;
-  padding: 20px;
+  padding: 10px;
   display: flex;
   justify-content: center;
- 
-  @include e(item){
-    width: 45%;
+
+  @include e(item) {
+    width: 50%;
   }
 
-  @include e(avatar){
+  @include e(avatar) {
     box-shadow: 0 0 3px var(--el-border-color);
     margin-left: -4px;
     border: 1px solid var(--el-border-color);
@@ -18,7 +18,7 @@
   }
 
   > .el-divider {
-    height: 150px;
+    height: 180px;
   }
 
   @include e(logo) {
@@ -26,7 +26,6 @@
 
     img {
       width: 100px;
-
     }
   }
 
@@ -38,7 +37,11 @@
   }
 
   @include e(version) {
-    font-size: 14px;
-    color:var(--el-text-color-secondary);
+    font-size: 12px;
+    color: var(--el-text-color-secondary);
+  }
+
+  @include e(footer) {
+    padding-top: 20px;
   }
 }
