@@ -28,6 +28,11 @@ export interface EngineState {
   autoApply: boolean;
 
   /**
+   * 自动保存历史记录
+   */
+  autoHistory: boolean;
+
+  /**
    * 当前使用的 AI 大模型
    */
   llm: string | LLM;
@@ -53,6 +58,7 @@ export class State {
     outlineEnabled: true,
     activeEvent: true,
     autoApply: true,
+    autoHistory: true,
     llm: '',
     LLMs: [],
     tour: true,
@@ -96,6 +102,14 @@ export class State {
 
   set autoApply(value: any) {
     this.save('autoApply', value);
+  }
+
+  get autoHistory() {
+    return this.__state.autoHistory;
+  }
+
+  set autoHistory(value: any) {
+    this.save('autoHistory', value);
   }
 
   get llm() {
