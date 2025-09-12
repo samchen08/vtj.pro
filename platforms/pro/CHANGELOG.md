@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.24](https://gitee.com/newgateway/vtj/compare/@vtj/pro@0.13.23...@vtj/pro@0.13.24) (2025-09-12)
+
+
+### Bug Fixes
+
+* 🐛 本地版本初始化依赖没保存 ([3238a96](https://gitee.com/newgateway/vtj/commits/3238a96ccbdc91b74a2b6c271aae9f59977bab61))
+* 🐛 element-plus 语言包问题 ([0cca78c](https://gitee.com/newgateway/vtj/commits/0cca78cbb47edb86c2c8fdfa315dddb653ddb1b3))
+
+
+
+
+
 ## [0.13.23](https://gitee.com/newgateway/vtj/compare/@vtj/pro@0.13.22...@vtj/pro@0.13.23) (2025-09-12)
 
 **Note:** Version bump only for package @vtj/pro
