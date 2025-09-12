@@ -44,7 +44,8 @@
     remote,
     auth,
     checkVersion = true,
-    enhance
+    enhance,
+    platform = 'web'
   } = config || {};
 
   const isHashRouter = () => history === 'hash';
@@ -107,6 +108,9 @@
     auth,
     checkVersion,
     enhance,
+    project: {
+      platform
+    },
     ...options
   });
 
