@@ -7,7 +7,19 @@
         alt="App Logo"></image
     ></view>
     <view class="app-name"> 我的应用</view>
-    <view class="enter-btn" @click="enterApp"> {{ $t('19o4rx0p') }}</view></view
+    <view class="enter-btn" @click="enterApp"> {{ $t('19o4rx0p') }}</view>
+    <uni-collapse :modelValue="['0']">
+      <uni-collapse-item title="默认开启">
+        <text>
+          折叠内容主体，这是一段比较长内容。默认折叠主要内容，只显示当前项标题。点击标题展开，才能看到这段文字。再次点击标题，折叠内容。</text
+        ></uni-collapse-item
+      >
+      <uni-collapse-item title="折叠内容">
+        <text>
+          折叠内容主体，这是一段比较长内容。默认折叠主要内容，只显示当前项标题。点击标题展开，才能看到这段文字。再次点击标题，折叠内容。</text
+        ></uni-collapse-item
+      ></uni-collapse
+    ></view
   >
 </template>
 <script lang="ts">
@@ -17,7 +29,7 @@
   export default defineComponent({
     name: 'LaunchPage',
     setup(props) {
-      const provider = useProvider({ id: '18qdrlpy', version: '1756977147414' });
+      const provider = useProvider({ id: '18qdrlpy', version: '1757641960758' });
       const state = reactive({ countDown: 3 });
       return { state, props, provider };
     },

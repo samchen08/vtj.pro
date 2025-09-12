@@ -77,7 +77,8 @@
     "miniprogram-api-typings": "~4.1.0",
     "@vtj/cli": "latest",
     "@vtj/pro": "latest",
-    "@vtj/local": "latest"
+    "@vtj/local": "latest",
+    "@rolldown/pluginutils": "1.0.0-beta.9"
   },
   "vtj": {
     "platform": "uniapp",

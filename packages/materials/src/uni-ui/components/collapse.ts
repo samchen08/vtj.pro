@@ -27,7 +27,7 @@ const desc: MaterialDescription[] = [
       children: [
         {
           name: 'UniCollapseItem',
-          props: { title: '默认开启"' },
+          props: { title: '默认开启' },
           children: [
             {
               name: 'Text',
