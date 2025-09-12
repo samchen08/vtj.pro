@@ -98,7 +98,7 @@ export async function getExtension(_body: any, opts: DevToolsOptions) {
   return success(config);
 }
 
-export async function init(_body: any, opts: DevToolsOptions) {
+export async function init(body: any, opts: DevToolsOptions) {
   const root = resolve('./');
   const pkg = readJsonSync(resolve(root, 'package.json'));
   const pluginPepository = new PluginRepository(pkg, opts);
@@ -108,6 +108,7 @@ export async function init(_body: any, opts: DevToolsOptions) {
   const name = vtj.name || pkg.description || upperFirstCamelCase(id);
   const description = vtj.description || pkg.description || '';
   const platform = vtj.platform || 'web';
+  const dependencies = body?.data?.dependencies || [];
   _platform = platform;
   const repository = new JsonRepository({
     platform: _platform,
@@ -121,14 +122,20 @@ export async function init(_body: any, opts: DevToolsOptions) {
     const blocks = (dsl.blocks || []).filter((n) => !n.preset);
     dsl.blocks = plugins.concat(blocks);
     Object.assign(dsl, { id, name, description, platform });
-
     if (platform === 'uniapp') {
       dsl.uniConfig = await getUniConfig(dsl);
     }
+
+    if (dsl.dependencies?.length === 0 && dependencies.length > 0) {
+      dsl.dependencies = dependencies;
+      repository.save(id, dsl);
+    }
+
     if (!isInit) {
       isInit = true;
       repository.save(id, dsl);
     }
+
     dsl.__BASE_PATH__ = opts.staticBase;
     if (!dsl.__UID__) {
       dsl.__UID__ = uuid(true);
@@ -161,6 +168,7 @@ export async function init(_body: any, opts: DevToolsOptions) {
       name,
       description,
       platform,
+      dependencies,
       blocks: plugins,
       pages: [launchPage],
       homepage: launchPage.id
