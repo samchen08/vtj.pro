@@ -1,11 +1,8 @@
 import * as Vue from 'vue';
 import * as core from '@vtj/core';
 import * as VtjUtils from '@vtj/utils';
-import * as VtjUI from '@vtj/ui';
 import * as designer from '@vtj/designer';
 import * as renderer from '@vtj/renderer';
-import * as VtjIcons from '@vtj/icons';
-import * as ElementPlus from 'element-plus';
 import type { VTJConfig } from '@vtj/core';
 import type { EngineOptions } from '@vtj/designer';
 
@@ -28,11 +25,7 @@ export class Extension {
     };
     const globals: Record<string, any> = {
       Vue,
-      __VTJ_PRO__,
-      VtjUtils,
-      VtjIcons,
-      VtjUI,
-      ElementPlus
+      __VTJ_PRO__
     };
     for (const [name, value] of Object.entries(globals)) {
       (window as any)[name] = value;
