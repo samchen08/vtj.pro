@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.23](https://github.com/samchen08/vtj.pro/compare/vtj-project-uniapp@0.13.22...vtj-project-uniapp@0.13.23) (2025-09-12)
+
+
+### Bug Fixes
+
+* 🐛 修复@rolldown/pluginutils导致uniapp服务错误 ([89eb13f](https://github.com/samchen08/vtj.pro/commit/89eb13ff5c4fe744f4ef6fb31a0d7e917d0998d8))
+* 🐛 uni-ui物料错误 ([08d8eeb](https://github.com/samchen08/vtj.pro/commit/08d8eebb711aa893ec941047fd2a279bb6d61702))
+
+
+
+
+
 ## [0.13.22](https://github.com/samchen08/vtj.pro/compare/vtj-project-uniapp@0.13.21...vtj-project-uniapp@0.13.22) (2025-09-11)
 
 **Note:** Version bump only for package vtj-project-uniapp
