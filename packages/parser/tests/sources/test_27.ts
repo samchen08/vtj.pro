@@ -1,47 +1,53 @@
 export const test_27 = `
 <template>
-  <div>
-    {{ state.data}}
-     (<span> {{ state.item }}</span>)
+  <div class="user-management-page">
+  <XIcon
+          :icon="item.expanded ? ChevronDown : ChevronRight"
+          :size="16"
+          :color="item.active ? '#ffffff' : '#aec1e0'"
+        ></XIcon>
+        <XIcon
+          :icon="ChevronRight"
+        ></XIcon>
   </div>
 </template>
 <script lang="ts">
   // @ts-nocheck
   import { defineComponent, reactive } from 'vue';
-  import { ElTable, ElTableColumn } from 'element-plus';
+  import {ChevronDown, ChevronRight} from '@vtj/icons'
   import { useProvider } from '@vtj/renderer';
-  import {mock} from 'mockjs'
   export default defineComponent({
-    name: 'Abc1',
-    components: { ElTable, ElTableColumn },
+    name: 'UserPage',
+    components: {},
     setup(props) {
-      const provider = useProvider({ id: '17zuumip', version: '1753066495241' });
-      const state = reactive({
-      mock: null,
-      tableDatra:[{mock:'mock',id:"abc", mock2:'mock'}]
+      const provider = useProvider({
+        id: '19eiup0i',
+        version: '1756167211727'
       });
-      return { state, props, provider,mock };
+      const state = reactive({});
+      return {
+        state,
+        props,
+        provider,
+        ChevronDown, ChevronRight
+      };
     },
     methods: {
-     mock() {}
-
-      
-    },
-    async created() {
-     this.state.tableDatra = this.mock({
-      'list|6':['@guid']
-     })
-      const data = [{id:"abc", mock:mock}];
-    this.mock
-    this.mock();
-    console.log(this.mock);
-    await this.mock()
-    mock();
-    mock(\`mock\${mock}\`);
-     mock(\`mock\${ mock }\`);
-     }
-  })
+      // 获取用户列表
+      async fetchUserList(
+        orgId = '',
+        page = 1,
+        size = 10,
+        keyword = '',
+        status = '',
+        role = ''
+      ) {
+       this.state.data = [];  
+      }
+    }
+  });
 </script>
 <style lang="css" scoped></style>
+
 
 `;

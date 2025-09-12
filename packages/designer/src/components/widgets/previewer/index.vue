@@ -1,6 +1,10 @@
 <template>
   <div ref="container" class="v-previewer" :key="key">
-    <Viewport :mode="mode" :width="width" :height="height">
+    <Viewport
+      :mode="mode"
+      :width="width"
+      :height="height"
+      :customSize="customSize">
       <iframe v-if="src" ref="iframe" frameborder="0" :src="src"></iframe>
     </Viewport>
   </div>
@@ -34,6 +38,11 @@
   const mode = computed(() => {
     const widget = engine.skeleton?.getWidget('Toolbar');
     return widget?.widgetRef.mode ?? 'pc';
+  });
+
+  const customSize = computed(() => {
+    const widget = engine.skeleton?.getWidget('Toolbar');
+    return widget?.widgetRef.customSize as { width: number; height: number };
   });
 
   const refresh = () => {

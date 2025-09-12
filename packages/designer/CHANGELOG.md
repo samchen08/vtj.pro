@@ -3,6 +3,179 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.24](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.13.23...@vtj/designer@0.13.24) (2025-09-12)
+
+**Note:** Version bump only for package @vtj/designer
+
+
+
+
+
+## [0.13.23](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.13.22...@vtj/designer@0.13.23) (2025-09-12)
+
+**Note:** Version bump only for package @vtj/designer
+
+
+
+
+
+## [0.13.22](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.13.21...@vtj/designer@0.13.22) (2025-09-11)
+
+
+### Bug Fixes
+
+* 🐛 支持重置状态 ([734c2f0](https://gitee.com/newgateway/vtj/commits/734c2f097e3ca2a41640ae55049cde420413eb5d))
+* 🐛 remark dialog title ([73fa974](https://gitee.com/newgateway/vtj/commits/73fa974baa0a7d399a4548be8497a87b818763d1))
+
+
+
+
+
+## [0.13.21](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.13.20...@vtj/designer@0.13.21) (2025-09-11)
+
+
+### Bug Fixes
+
+* 🐛 强化dsl和源码视图的保存按钮 ([57ed84b](https://gitee.com/newgateway/vtj/commits/57ed84b9d1f7b2c3e80c284980dac372559a7491))
+
+
+### Features
+
+* ✨ 历史记录支持自动/手动/对比/打标记 ([bdf91d2](https://gitee.com/newgateway/vtj/commits/bdf91d2651b84f7b55dd72a1a7a7723d162bea2f))
+* ✨ 支持风格切换 ([fc47bd6](https://gitee.com/newgateway/vtj/commits/fc47bd6286f945aebbb22bd44280dd15613c5d1b))
+
+
+
+
+
+## [0.13.20](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.13.19...@vtj/designer@0.13.20) (2025-09-08)
+
+**Note:** Version bump only for package @vtj/designer
+
+
+
+
+
+## [0.13.19](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.13.18...@vtj/designer@0.13.19) (2025-09-06)
+
+
+### Bug Fixes
+
+* 🐛 修复 UniApp __uniConfig 初始化缺失报错 ([fca4810](https://gitee.com/newgateway/vtj/commits/fca4810bab484d933b755db2c8ffdaf1578b53bb))
+
+
+
+
+
+## [0.13.18](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.13.17...@vtj/designer@0.13.18) (2025-09-05)
+
+
+### Bug Fixes
+
+* 🐛 预览模式下，指定分辨率未生效；编辑模式下生效 ([66ee3cb](https://gitee.com/newgateway/vtj/commits/66ee3cb79b2a3551cf36a41dbfc0dde94a6985d2))
+
+
+
+
+
+## [0.13.17](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.13.16...@vtj/designer@0.13.17) (2025-09-05)
+
+
+### Bug Fixes
+
+* 🐛 导入的api编辑时,保存报错 ([128ff2c](https://gitee.com/newgateway/vtj/commits/128ff2c839b0594ab5a0de92dfe3cdb336a85698))
+* 🐛 文件上传设置器限制文件大小5M ([31ed74e](https://gitee.com/newgateway/vtj/commits/31ed74eaa0eaa6c546718d6dd7dd755ed2817d93))
+* 🐛 限制base64图片不超过500k ([18d01d0](https://gitee.com/newgateway/vtj/commits/18d01d04f8952716dfd1c3ccf3a11514479c5352))
+* 🐛 优化模版截图生成 ([f0e70f9](https://gitee.com/newgateway/vtj/commits/f0e70f9acb3f8b5ff30867371170eb75485ebe25))
+* 🐛 AI发送按钮支持取消 ([f259616](https://gitee.com/newgateway/vtj/commits/f259616cd2e29f053e149c08e8320431f7f15f88))
+* 🐛 uni-ui物料 ([e76b105](https://gitee.com/newgateway/vtj/commits/e76b105d2682a2a47af40a66efc472c44bbcb35a))
+
+
+
+
+
+## [0.13.16](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.13.15...@vtj/designer@0.13.16) (2025-09-02)
+
+**Note:** Version bump only for package @vtj/designer
+
+
+
+
+
+## [0.13.15](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.13.14...@vtj/designer@0.13.15) (2025-09-01)
+
+
+### Bug Fixes
+
+* 🐛 适配dark主题 ([d559ac6](https://gitee.com/newgateway/vtj/commits/d559ac6ffb80498723fcd11634b08cd4e74aa591))
+
+
+### Features
+
+* ✨ 国际化 ([54e3c5b](https://gitee.com/newgateway/vtj/commits/54e3c5be0e868b497a4c2f36c40039b47925cccc))
+* ✨ 增加 vue-i18n依赖 ([2227b02](https://gitee.com/newgateway/vtj/commits/2227b0212e085d1109ed8d6edfdf14aa4758cd80))
+
+
+
+
+
+## [0.13.14](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.13.13...@vtj/designer@0.13.14) (2025-08-28)
+
+
+### Bug Fixes
+
+* 🐛 仅在web平台显示母版设置面板 ([271b304](https://gitee.com/newgateway/vtj/commits/271b304d7b2c64b784d2f39099d100580150f7f9))
+* 🐛 全局设置box-sizing: border-box ([38efeda](https://gitee.com/newgateway/vtj/commits/38efeda500a894141e2ddb35025757d32a88fdf2))
+* 🐛 style widget样式问题 ([bec85fc](https://gitee.com/newgateway/vtj/commits/bec85fcda161ae706da3f63a7bcabd00a62a4d1f))
+
+
+### Features
+
+* ✨ 支持OpenAPI格式文件上传 ([48a1c83](https://gitee.com/newgateway/vtj/commits/48a1c831db801c74f9fde039fc271b4b1317eb3d))
+* ✨ 支持swagger导入 ([be5b00d](https://gitee.com/newgateway/vtj/commits/be5b00dbe8bb6b5907ff0de50240b34db52f1a75))
+* ✨ postTopic 增加 options ([102374f](https://gitee.com/newgateway/vtj/commits/102374f0920bf2e2dbb9ad2bb4c79c3b408c1ed9))
+* ✨ project model add getPageRoutes ([64e010f](https://gitee.com/newgateway/vtj/commits/64e010fcea5a71cac928db5d2215695cebeb6f35))
+
+
+
+
+
+## [0.13.13](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.13.12...@vtj/designer@0.13.13) (2025-08-22)
+
+**Note:** Version bump only for package @vtj/designer
+
+
+
+
+
+## [0.13.12](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.13.11...@vtj/designer@0.13.12) (2025-08-20)
+
+
+### Bug Fixes
+
+* 🐛 区块资源文件输入框缓存问题 ([439b09f](https://gitee.com/newgateway/vtj/commits/439b09fb8c2cf320ad44b8e94027744e52e5dcb9))
+* 🐛 删除测试信息 ([7e42813](https://gitee.com/newgateway/vtj/commits/7e42813f73f83da32a9169264817cd3dc937a696))
+
+
+
+
+
+## [0.13.11](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.13.10...@vtj/designer@0.13.11) (2025-08-16)
+
+
+### Bug Fixes
+
+* 🐛 有选择节点才显示设置面板 ([5c40e36](https://gitee.com/newgateway/vtj/commits/5c40e36e7f59290338aa8755d3d529d5bfa2c827))
+
+
+### Features
+
+* ✨ 支持关闭tabs ([44e547c](https://gitee.com/newgateway/vtj/commits/44e547ce916c8b808c3987c6022f7c3ed5c6d06d))
+
+
+
+
+
 ## [0.13.10](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.13.9...@vtj/designer@0.13.10) (2025-08-16)
 
 

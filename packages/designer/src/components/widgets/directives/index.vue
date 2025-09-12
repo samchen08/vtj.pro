@@ -2,7 +2,6 @@
   <XContainer class="v-directives-widget" direction="column" fit>
     <Panel class="v-sub-panel" title="内置指令" size="small" :fit="false">
       <ElForm size="small" label-width="80px" @keydown.enter.prevent.stop>
-        {{ branchVisiable }}
         <SetterWrapper
           name="vIf"
           label="v-if"

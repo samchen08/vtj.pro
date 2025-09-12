@@ -1,4 +1,4 @@
-import { uid, cloneDeep } from '@vtj/base';
+import { uid, cloneDeep, toArray } from '@vtj/base';
 import type { HistorySchema, HistoryItem, BlockSchema } from '../protocols';
 import { emitter, type ModelEventType } from '../tools';
 
@@ -34,7 +34,11 @@ export class HistoryModel {
     const { id, items } = this;
     return {
       id,
-      items: items.map((n) => ({ id: n.id, label: n.label }))
+      items: items.map((n) => ({
+        id: n.id,
+        label: n.label,
+        remark: n.remark || ''
+      }))
     };
   }
   /**
@@ -51,21 +55,24 @@ export class HistoryModel {
    * @param dsl
    * @param silent
    */
-  add(dsl: BlockSchema, silent: boolean = false) {
+  add(dsl: BlockSchema, remark: string = '', silent: boolean = false) {
     const { max } = this.options;
     const item: HistoryItem = {
       id: uid(),
       label: new Date().toLocaleString(),
+      remark,
       dsl: cloneDeep(dsl)
     };
     this.items.unshift(item);
-    if (this.items.length > max) {
-      const removeItems = this.items.splice(max);
+    const noRemarkRecords = this.items.filter((n) => !n.remark);
+    if (noRemarkRecords.length > max) {
+      const removeIds = noRemarkRecords.splice(max).map((n) => n.id);
+      this.items = this.items.filter((n) => !removeIds.includes(n.id));
       if (!silent) {
         emitter.emit(EVENT_HISTORY_CHANGE, {
           model: this,
           type: 'delete',
-          data: removeItems.map((n) => n.id)
+          data: removeIds
         });
       }
     }
@@ -78,28 +85,53 @@ export class HistoryModel {
       });
     }
   }
+
+  /**
+   * 更新历史记录
+   * @param id
+   * @param remark
+   * @param silent
+   */
+  update(item: HistoryItem, silent: boolean = false) {
+    const match = this.items.find((n) => n.id === item.id);
+    if (match) {
+      Object.assign(match, item);
+    }
+    if (!silent) {
+      emitter.emit(EVENT_HISTORY_CHANGE, {
+        model: this,
+        type: 'update',
+        data: match
+      });
+    }
+  }
+
   /**
    * 删除历史记录
    * @param id
    * @param silent
    */
-  remove(id: string, silent: boolean = false) {
-    const index = this.items.findIndex((n) => n.id === id);
-    if (index > -1) {
-      this.items.splice(index, 1);
-      if (index === this.index) {
-        this.index = -1;
-      } else if (this.index >= this.items.length) {
-        this.index = this.items.length - 1;
+  remove(id: string | string[], silent: boolean = false) {
+    const ids: string[] = toArray(id);
+    for (const _id of ids) {
+      const index = this.items.findIndex((n) => n.id === _id);
+      if (index > -1) {
+        this.items.splice(index, 1);
+        if (index === this.index) {
+          this.index = -1;
+        } else if (this.index >= this.items.length) {
+          this.index = this.items.length - 1;
+        }
+      } else {
+        console.warn(`not found HistoryItem for id: ${id} `);
       }
-    } else {
-      console.warn(`not found HistoryItem for id: ${id} `);
     }
+
     if (!silent) {
       emitter.emit(EVENT_HISTORY_CHANGE, {
         model: this,
         type: 'delete',
-        data: [id]
+        data: ids
       });
     }
   }

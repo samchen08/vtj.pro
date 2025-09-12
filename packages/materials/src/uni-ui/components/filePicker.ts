@@ -54,7 +54,7 @@ const desc: MaterialDescription = {
       setters: ['NumberSetter', 'StringSetter']
     },
     {
-      name: 'title	',
+      name: 'title',
       title: '组件标题，右侧显示上传计数',
       defaultValue: '',
       setters: 'StringSetter'

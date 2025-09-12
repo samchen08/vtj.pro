@@ -3,6 +3,134 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.24](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.13.23...@vtj/renderer@0.13.24) (2025-09-12)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
+## [0.13.23](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.13.22...@vtj/renderer@0.13.23) (2025-09-12)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
+## [0.13.22](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.13.21...@vtj/renderer@0.13.22) (2025-09-11)
+
+
+### Bug Fixes
+
+* 🐛 element-plus runtime locale ([a6a960c](https://gitee.com/newgateway/vtj/commits/a6a960cfe38af25ad6548e1790e5f1e381f3a70f))
+
+
+
+
+
+## [0.13.21](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.13.20...@vtj/renderer@0.13.21) (2025-09-11)
+
+
+### Features
+
+* ✨ 历史记录支持自动/手动/对比/打标记 ([bdf91d2](https://gitee.com/newgateway/vtj/commits/bdf91d2651b84f7b55dd72a1a7a7723d162bea2f))
+
+
+
+
+
+## [0.13.20](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.13.19...@vtj/renderer@0.13.20) (2025-09-08)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
+## [0.13.19](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.13.18...@vtj/renderer@0.13.19) (2025-09-06)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
+## [0.13.18](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.13.17...@vtj/renderer@0.13.18) (2025-09-05)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
+## [0.13.17](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.13.16...@vtj/renderer@0.13.17) (2025-09-05)
+
+
+### Bug Fixes
+
+* 🐛 优化模版截图生成 ([f0e70f9](https://gitee.com/newgateway/vtj/commits/f0e70f9acb3f8b5ff30867371170eb75485ebe25))
+
+
+
+
+
+## [0.13.16](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.13.15...@vtj/renderer@0.13.16) (2025-09-02)
+
+
+### Bug Fixes
+
+* 🐛 修复全局请求拦截重复触发问题, 全局注入app.config.globalProperties.$libs ([ab366f4](https://gitee.com/newgateway/vtj/commits/ab366f4789926ecd08d9f60ec09ecc0de6aa6c6e))
+
+
+
+
+
+## [0.13.15](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.13.14...@vtj/renderer@0.13.15) (2025-09-01)
+
+
+### Features
+
+* ✨ 国际化 ([54e3c5b](https://gitee.com/newgateway/vtj/commits/54e3c5be0e868b497a4c2f36c40039b47925cccc))
+* ✨ 增加 vue-i18n依赖 ([2227b02](https://gitee.com/newgateway/vtj/commits/2227b0212e085d1109ed8d6edfdf14aa4758cd80))
+
+
+
+
+
+## [0.13.14](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.13.13...@vtj/renderer@0.13.14) (2025-08-28)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
+## [0.13.13](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.13.12...@vtj/renderer@0.13.13) (2025-08-22)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
+## [0.13.12](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.13.11...@vtj/renderer@0.13.12) (2025-08-20)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
+## [0.13.11](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.13.10...@vtj/renderer@0.13.11) (2025-08-16)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
 ## [0.13.10](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.13.9...@vtj/renderer@0.13.10) (2025-08-16)
 
 

@@ -35,19 +35,46 @@
               <ElEmpty v-if="!searchResult.length"></ElEmpty>
             </div>
             <div v-show="currentTab === 'pages'">
+              <ElInput
+                v-model="pageKeyword"
+                size="small"
+                clearable
+                :prefix-icon="Search"
+                placeholder="筛选可用项"></ElInput>
+              <ElDivider border-style="dotted">可用页面路由</ElDivider>
               <div>
-                <ElDivider border-style="dotted">页面路由</ElDivider>
                 <Item
                   v-for="item in pages"
                   :title="item.title"
-                  :subtitle="getPageRoute(item.id)"
+                  :subtitle="item.path"
                   background
                   :actions="['copy']"
                   small
-                  @click="onPicker(getPageRoute(item.id))"
-                  @action="onCopy(getPageRoute(item.id))"></Item>
+                  @click="onPicker(`this.$router.push('${item.path}')`)"
+                  @action="onCopy(item.path)"></Item>
               </div>
-              <ElEmpty v-if="!searchResult.length"></ElEmpty>
+              <ElEmpty v-if="!pages.length"></ElEmpty>
+            </div>
+            <div v-show="currentTab === 'i18n'">
+              <ElInput
+                v-model="i18nKeyword"
+                size="small"
+                clearable
+                :prefix-icon="Search"
+                placeholder="筛选可用项"></ElInput>
+              <ElDivider border-style="dotted">可用国际化配置</ElDivider>
+              <div>
+                <Item
+                  v-for="item in i18nMessages"
+                  :title="item['zh-CN']"
+                  :subtitle="item.key"
+                  background
+                  :actions="['copy']"
+                  small
+                  @click="onPicker(`this.$t('${item.key}')`)"
+                  @action="onCopy(item.key)"></Item>
+              </div>
+              <ElEmpty v-if="!i18nMessages.length"></ElEmpty>
             </div>
             <Viewer
               v-show="currentTab === 'viewer'"
@@ -151,30 +178,49 @@
       label: '常用'
     },
     {
-      name: 'pages',
-      label: '页面'
-    },
-    {
       name: 'viewer',
       label: '高级'
+    },
+    {
+      name: 'pages',
+      label: '路由'
+    },
+    {
+      name: 'i18n',
+      label: '国际化'
     }
   ];
   const currentTab = ref('normal');
   const formRef = ref();
-
-  const pages = computed(() => engine.project.value?.getPages() || []);
-
-  const isUniapp = computed(() => {
-    const { platform = 'web' } = engine.project.value || {};
-    return platform === 'uniapp';
+  const pageKeyword = ref('');
+  const i18nKeyword = ref('');
+  const { pageRouteName, pageBasePath } = engine.options;
+  const pages = computed(() => {
+    const list =
+      engine.project.value?.getPageRoutes(pageRouteName, pageBasePath) || [];
+    return pageKeyword.value
+      ? list.filter((n) => {
+          return (
+            n.name.includes(pageKeyword.value) ||
+            n.title.includes(pageKeyword.value) ||
+            n.id.includes(pageKeyword.value)
+          );
+        })
+      : list;
   });
-  const pageDir = computed(() => {
-    return engine.options.pageRouteName || (isUniapp.value ? 'pages' : 'page');
-  });
 
-  const getPageRoute = (id: string) => {
-    return `${engine.options.pageBasePath || ''}/${pageDir.value}/${id}`;
-  };
+  const i18nMessages = computed(() => {
+    const list = engine.project.value?.i18n.messages ?? [];
+    return i18nKeyword.value
+      ? list.filter((n) => {
+          return (
+            n.key.includes(i18nKeyword.value) ||
+            n['zh-CN'].includes(i18nKeyword.value) ||
+            n.en.includes(i18nKeyword.value)
+          );
+        })
+      : list;
+  });
 
   const handleSubmit = async (model: any) => {
     emits('submit', model);

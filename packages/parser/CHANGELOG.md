@@ -3,6 +3,133 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.24](https://gitee.com/newgateway/vtj/compare/@vtj/parser@0.13.23...@vtj/parser@0.13.24) (2025-09-12)
+
+**Note:** Version bump only for package @vtj/parser
+
+
+
+
+
+## [0.13.23](https://gitee.com/newgateway/vtj/compare/@vtj/parser@0.13.22...@vtj/parser@0.13.23) (2025-09-12)
+
+**Note:** Version bump only for package @vtj/parser
+
+
+
+
+
+## [0.13.22](https://gitee.com/newgateway/vtj/compare/@vtj/parser@0.13.21...@vtj/parser@0.13.22) (2025-09-11)
+
+**Note:** Version bump only for package @vtj/parser
+
+
+
+
+
+## [0.13.21](https://gitee.com/newgateway/vtj/compare/@vtj/parser@0.13.20...@vtj/parser@0.13.21) (2025-09-11)
+
+**Note:** Version bump only for package @vtj/parser
+
+
+
+
+
+## [0.13.20](https://gitee.com/newgateway/vtj/compare/@vtj/parser@0.13.19...@vtj/parser@0.13.20) (2025-09-08)
+
+**Note:** Version bump only for package @vtj/parser
+
+
+
+
+
+## [0.13.19](https://gitee.com/newgateway/vtj/compare/@vtj/parser@0.13.18...@vtj/parser@0.13.19) (2025-09-06)
+
+**Note:** Version bump only for package @vtj/parser
+
+
+
+
+
+## [0.13.18](https://gitee.com/newgateway/vtj/compare/@vtj/parser@0.13.17...@vtj/parser@0.13.18) (2025-09-05)
+
+**Note:** Version bump only for package @vtj/parser
+
+
+
+
+
+## [0.13.17](https://gitee.com/newgateway/vtj/compare/@vtj/parser@0.13.16...@vtj/parser@0.13.17) (2025-09-05)
+
+
+### Bug Fixes
+
+* 🐛 parser icons ([f733c0f](https://gitee.com/newgateway/vtj/commits/f733c0fb9a7bcb91ddc28aa31f29d98ae8c4e123))
+
+
+
+
+
+## [0.13.16](https://gitee.com/newgateway/vtj/compare/@vtj/parser@0.13.15...@vtj/parser@0.13.16) (2025-09-02)
+
+**Note:** Version bump only for package @vtj/parser
+
+
+
+
+
+## [0.13.15](https://gitee.com/newgateway/vtj/compare/@vtj/parser@0.13.14...@vtj/parser@0.13.15) (2025-09-01)
+
+
+### Features
+
+* ✨ 国际化 ([54e3c5b](https://gitee.com/newgateway/vtj/commits/54e3c5be0e868b497a4c2f36c40039b47925cccc))
+
+
+
+
+
+## [0.13.14](https://gitee.com/newgateway/vtj/compare/@vtj/parser@0.13.13...@vtj/parser@0.13.14) (2025-08-28)
+
+
+### Bug Fixes
+
+* 🐛 修复出码属性默认值和$开头的成员表达式匹配问题 ([57696df](https://gitee.com/newgateway/vtj/commits/57696df87561c5e43a54c349240a8cff913a5060))
+
+
+
+
+
+## [0.13.13](https://gitee.com/newgateway/vtj/compare/@vtj/parser@0.13.12...@vtj/parser@0.13.13) (2025-08-22)
+
+
+### Bug Fixes
+
+* 🐛 修复模版表达式解析json丢失libs问题 ([9d8e753](https://gitee.com/newgateway/vtj/commits/9d8e75360f9207ac4884f5e4ccb395144be67e9b))
+
+
+
+
+
+## [0.13.12](https://gitee.com/newgateway/vtj/compare/@vtj/parser@0.13.11...@vtj/parser@0.13.12) (2025-08-20)
+
+
+### Bug Fixes
+
+* 🐛 修复条件表达式都是其他指令问题 ([1bdc480](https://gitee.com/newgateway/vtj/commits/1bdc4803c4f2f5b2401f4c1402e7a6cc5489624e))
+
+
+
+
+
+## [0.13.11](https://gitee.com/newgateway/vtj/compare/@vtj/parser@0.13.10...@vtj/parser@0.13.11) (2025-08-16)
+
+**Note:** Version bump only for package @vtj/parser
+
+
+
+
+
 ## [0.13.10](https://gitee.com/newgateway/vtj/compare/@vtj/parser@0.13.9...@vtj/parser@0.13.10) (2025-08-16)
 
 **Note:** Version bump only for package @vtj/parser

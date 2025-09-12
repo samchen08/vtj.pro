@@ -20,6 +20,10 @@
     background-color: var(--el-color-primary-light-7);
   }
 
+  @include e(actions) {
+    align-items: center;
+  }
+
   @include e(switch) {
     margin-left: 5px;
   }

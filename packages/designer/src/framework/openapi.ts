@@ -39,6 +39,7 @@ export interface TopicDto {
   source: string;
   prompt?: string;
   file?: File;
+  options?: string;
 }
 
 export type TopicType = 'text' | 'image' | 'json';

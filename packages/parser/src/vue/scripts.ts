@@ -206,6 +206,9 @@ function getFunction(item: ObjectMethod) {
           .join(',');
         return `{${pattern}}`;
       }
+      if (n.type === 'AssignmentPattern') {
+        return n.left.name + '=' + (n.right?.extra?.raw || 'null');
+      }
       return n.name;
     })
     .join(', ');
@@ -509,7 +512,7 @@ function processEmits(expression: CallExpression): BlockEmit[] {
       if (name) {
         emits.push({
           name,
-          params
+          params: params.filter((n) => !!n)
         });
       }
     }

@@ -88,6 +88,12 @@ const desc: MaterialDescription[] = [
         name: 'badgeType',
         title: '数字角标类型',
         defaultValue: '',
+        setters: 'StringSetter'
+      },
+      {
+        name: 'badgeStyle',
+        title: '数字角标样式',
+        defaultValue: {},
         setters: 'ObjectSetter'
       },
       {
@@ -157,10 +163,16 @@ const desc: MaterialDescription[] = [
         defaultValue: 'row',
         setters: 'SelectSetter',
         options: ['row', 'column']
+      },
+      {
+        name: 'border',
+        title: '是否显示边框',
+        defaultValue: true,
+        setters: 'BooleanSetter'
       }
     ],
     events: ['click', 'switchChange'],
-    slots: ['header', 'body', 'footer'],
+    slots: ['default', 'header', 'body', 'footer'],
     snippet: {
       props: {
         title: '列表文字'

@@ -52,6 +52,7 @@
         :disabled="props.loading"
         v-model="engine.state.autoApply"></ElCheckbox>
       <ElButton
+        v-if="!props.loading"
         :icon="Promotion"
         type="primary"
         :disabled="props.disabled"
@@ -60,6 +61,15 @@
         :loading="props.loading"
         size="default">
         发送
+      </ElButton>
+      <ElButton
+        v-else
+        :icon="CircleClose"
+        type="warning"
+        round
+        size="default"
+        @click="onCancel">
+        取消
       </ElButton>
     </div>
     <ModelDialog
@@ -81,7 +91,7 @@
     ElOptionGroup
   } from 'element-plus';
   import { XIcon } from '@vtj/ui';
-  import { Promotion, Plus, EditPen, Delete } from '@vtj/icons';
+  import { Promotion, Plus, EditPen, Delete, CircleClose } from '@vtj/icons';
   import { type Dict, type AISendData } from '../../hooks';
   import { useEngine, type LLM } from '../../../framework';
   import { message, confirm } from '../../../utils';
@@ -107,6 +117,7 @@
   const emit = defineEmits<{
     'update:modelValue': [value: string];
     send: [value: AISendData];
+    cancel: [];
   }>();
 
   const engine = useEngine();
@@ -162,6 +173,10 @@
       llm: engine.state.getLLMById(currentModel.value)
     });
     value.value = '';
+  };
+
+  const onCancel = () => {
+    emit('cancel');
   };
 
   const onAddModel = () => {

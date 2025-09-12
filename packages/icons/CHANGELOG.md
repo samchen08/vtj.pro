@@ -3,6 +3,128 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.24](https://gitee.com/newgateway/vtj/compare/@vtj/icons@0.13.23...@vtj/icons@0.13.24) (2025-09-12)
+
+**Note:** Version bump only for package @vtj/icons
+
+
+
+
+
+## [0.13.23](https://gitee.com/newgateway/vtj/compare/@vtj/icons@0.13.22...@vtj/icons@0.13.23) (2025-09-12)
+
+**Note:** Version bump only for package @vtj/icons
+
+
+
+
+
+## [0.13.22](https://gitee.com/newgateway/vtj/compare/@vtj/icons@0.13.21...@vtj/icons@0.13.22) (2025-09-11)
+
+**Note:** Version bump only for package @vtj/icons
+
+
+
+
+
+## [0.13.21](https://gitee.com/newgateway/vtj/compare/@vtj/icons@0.13.20...@vtj/icons@0.13.21) (2025-09-11)
+
+
+### Features
+
+* ✨ 历史记录支持自动/手动/对比/打标记 ([bdf91d2](https://gitee.com/newgateway/vtj/commits/bdf91d2651b84f7b55dd72a1a7a7723d162bea2f))
+
+
+
+
+
+## [0.13.20](https://gitee.com/newgateway/vtj/compare/@vtj/icons@0.13.19...@vtj/icons@0.13.20) (2025-09-08)
+
+**Note:** Version bump only for package @vtj/icons
+
+
+
+
+
+## [0.13.19](https://gitee.com/newgateway/vtj/compare/@vtj/icons@0.13.18...@vtj/icons@0.13.19) (2025-09-06)
+
+**Note:** Version bump only for package @vtj/icons
+
+
+
+
+
+## [0.13.18](https://gitee.com/newgateway/vtj/compare/@vtj/icons@0.13.17...@vtj/icons@0.13.18) (2025-09-05)
+
+**Note:** Version bump only for package @vtj/icons
+
+
+
+
+
+## [0.13.17](https://gitee.com/newgateway/vtj/compare/@vtj/icons@0.13.16...@vtj/icons@0.13.17) (2025-09-05)
+
+**Note:** Version bump only for package @vtj/icons
+
+
+
+
+
+## [0.13.16](https://gitee.com/newgateway/vtj/compare/@vtj/icons@0.13.15...@vtj/icons@0.13.16) (2025-09-02)
+
+**Note:** Version bump only for package @vtj/icons
+
+
+
+
+
+## [0.13.15](https://gitee.com/newgateway/vtj/compare/@vtj/icons@0.13.14...@vtj/icons@0.13.15) (2025-09-01)
+
+
+### Features
+
+* ✨ core支持i18n,更新图标库 ([4949ee0](https://gitee.com/newgateway/vtj/commits/4949ee0bd9732c8bb246a3dd5ab68e0e87b667da))
+
+
+
+
+
+## [0.13.14](https://gitee.com/newgateway/vtj/compare/@vtj/icons@0.13.13...@vtj/icons@0.13.14) (2025-08-28)
+
+
+### Features
+
+* ✨ 支持OpenAPI格式文件上传 ([48a1c83](https://gitee.com/newgateway/vtj/commits/48a1c831db801c74f9fde039fc271b4b1317eb3d))
+* ✨ 支持swagger导入 ([be5b00d](https://gitee.com/newgateway/vtj/commits/be5b00dbe8bb6b5907ff0de50240b34db52f1a75))
+
+
+
+
+
+## [0.13.13](https://gitee.com/newgateway/vtj/compare/@vtj/icons@0.13.12...@vtj/icons@0.13.13) (2025-08-22)
+
+**Note:** Version bump only for package @vtj/icons
+
+
+
+
+
+## [0.13.12](https://gitee.com/newgateway/vtj/compare/@vtj/icons@0.13.11...@vtj/icons@0.13.12) (2025-08-20)
+
+**Note:** Version bump only for package @vtj/icons
+
+
+
+
+
+## [0.13.11](https://gitee.com/newgateway/vtj/compare/@vtj/icons@0.13.10...@vtj/icons@0.13.11) (2025-08-16)
+
+**Note:** Version bump only for package @vtj/icons
+
+
+
+
+
 ## [0.13.10](https://gitee.com/newgateway/vtj/compare/@vtj/icons@0.13.9...@vtj/icons@0.13.10) (2025-08-16)
 
 **Note:** Version bump only for package @vtj/icons

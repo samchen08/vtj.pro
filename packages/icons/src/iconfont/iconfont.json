@@ -6,6 +6,41 @@
   "description": "VTJ",
   "glyphs": [
     {
+      "icon_id": "15726777",
+      "name": "对比",
+      "font_class": "diff",
+      "unicode": "e633",
+      "unicode_decimal": 58931
+    },
+    {
+      "icon_id": "7612714",
+      "name": "语言设置",
+      "font_class": "lang",
+      "unicode": "e6dd",
+      "unicode_decimal": 59101
+    },
+    {
+      "icon_id": "32055906",
+      "name": "应用设置",
+      "font_class": "config",
+      "unicode": "e7b0",
+      "unicode_decimal": 59312
+    },
+    {
+      "icon_id": "35562663",
+      "name": "openapi",
+      "font_class": "openapi",
+      "unicode": "e63c",
+      "unicode_decimal": 58940
+    },
+    {
+      "icon_id": "12900938",
+      "name": "swagger",
+      "font_class": "swagger",
+      "unicode": "e603",
+      "unicode_decimal": 58883
+    },
+    {
       "icon_id": "2934112",
       "name": "全局",
       "font_class": "global",

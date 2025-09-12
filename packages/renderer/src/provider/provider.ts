@@ -17,6 +17,7 @@ import {
   type BlockSchema,
   type NodeFromPlugin,
   type GlobalConfig,
+  type I18nConfig,
   Base,
   BUILT_IN_COMPONENTS
 } from '@vtj/core';
@@ -64,6 +65,7 @@ import { createMenus } from '../hooks';
 import { createStaticRoutes } from './routes';
 
 import { initRuntimeGlobals, type InitGlobalsOptions } from './globals';
+import { initI18n } from './i18n';
 
 export const providerKey: InjectionKey<Provider> = Symbol('Provider');
 
@@ -113,6 +115,8 @@ export class Provider extends Base {
   public dependencies: Record<string, () => Promise<any>> = {}; // 依赖项
   public materials: Record<string, () => Promise<any>> = {}; // 物料资源
   public library: Record<string, any> = {}; // 第三方库
+  public libraryLocales: Record<string, any> = {}; // 第三方库语言包
+  public libraryLocaleMap: Record<string, string> = {}; // 库名称->语言包映射
   public service: Service; // 核心服务
   public project: ProjectSchema | null = null; // 当前项目配置
   public components: Record<string, any> = {}; // 组件集合
@@ -257,14 +261,23 @@ export class Provider extends Base {
 
   private async loadAssets(_window: any) {
     const { dependencies: deps = [] } = this.project as ProjectSchema;
-    const { dependencies, library, components, materialPath, nodeEnv } = this;
+    const {
+      dependencies,
+      library,
+      components,
+      materialPath,
+      nodeEnv,
+      libraryLocales
+    } = this;
     const {
       libraryExports,
       libraryMap,
       materials,
       materialExports,
-      materialMapLibrary
+      materialMapLibrary,
+      libraryLocaleMap
     } = parseDeps(deps, materialPath, nodeEnv === NodeEnv.Development);
+    Object.assign(this.libraryLocaleMap, libraryLocaleMap);
     for (const libraryName of libraryExports) {
       const raw = dependencies[libraryName];
       const lib = _window[libraryName];
@@ -284,6 +297,11 @@ export class Provider extends Base {
           }
         }
         library[libraryName] = _window[libraryName];
+      }
+
+      const locale = libraryLocaleMap[libraryName];
+      if (locale) {
+        libraryLocales[locale] = _window[locale];
       }
     }
 
@@ -392,13 +410,14 @@ export class Provider extends Base {
    * @param app Vue 应用实例
    */
   install(app: App) {
+    const { libraryLocaleMap, libraryLocales } = this;
     // 记录已安装的插件
     const installed = app.config.globalProperties.installed || {};
-
     // 安装所有第三方库插件
     for (const [name, library] of Object.entries(this.library)) {
       if (!installed[name] && isVuePlugin(library)) {
-        app.use(library);
+        const locale = libraryLocales[libraryLocaleMap[name]];
+        app.use(library, { locale });
         installed[name] = true;
       }
     }
@@ -413,11 +432,11 @@ export class Provider extends Base {
       app.use(this.adapter.access);
     }
 
-    // 提供全局 Provider 实例
-    app.provide(providerKey, this);
-    app.config.globalProperties.$provider = this;
-
-    if (this.project?.platform !== 'uniapp') {
+    // 应用全局配置
+    if (
+      this.project?.platform !== 'uniapp' &&
+      this.mode !== ContextMode.Design
+    ) {
       this.initGlobals(this.project?.globals || {}, {
         app,
         window,
@@ -426,6 +445,15 @@ export class Provider extends Base {
         mode: this.mode
       });
     }
+
+    // 初始化国际化
+    if (this.mode !== ContextMode.Design && this.project?.i18n) {
+      this.initI18n(app, this.library, this.project.i18n);
+    }
+
+    // 提供全局 Provider 实例
+    app.provide(providerKey, this);
+    app.config.globalProperties.$provider = this;
 
     // 执行增强函数
     if (this.options.enhance) {
@@ -662,6 +690,10 @@ export class Provider extends Base {
       options
     );
     initRuntimeGlobals(globals, opts as InitGlobalsOptions);
+  }
+
+  initI18n(app: App, libs: Record<string, any>, i18n?: I18nConfig) {
+    initI18n(app, libs, i18n);
   }
 }
 

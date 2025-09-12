@@ -22,7 +22,8 @@ import {
   VtjIconUniapp,
   VtjIconAi,
   VtjIconMaster,
-  VtjIconGlobal
+  VtjIconGlobal,
+  VtjIconLang
 } from '@vtj/icons';
 import { markRaw } from 'vue';
 
@@ -149,6 +150,15 @@ export const builtInWidgets: Array<AppWidget | TabWidget | Widget> = [
     label: '应用设置'
   },
   {
+    name: 'I18n',
+    region: 'Apps',
+    component: widgets.I18n,
+    type: 'app',
+    openType: 'panel',
+    icon: VtjIconLang,
+    label: '国际化资源'
+  },
+  {
     name: 'AI',
     region: 'Apps',
     component: widgets.AI,
@@ -167,8 +177,8 @@ export const builtInWidgets: Array<AppWidget | TabWidget | Widget> = [
     icon: widgets.UserAvatar,
     label: '关于',
     props: {
-      width: 500,
-      height: 250
+      width: 550,
+      height: 260
     }
   },
   {

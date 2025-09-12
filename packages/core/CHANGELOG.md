@@ -3,6 +3,129 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.24](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.13.23...@vtj/core@0.13.24) (2025-09-12)
+
+**Note:** Version bump only for package @vtj/core
+
+
+
+
+
+## [0.13.23](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.13.22...@vtj/core@0.13.23) (2025-09-12)
+
+**Note:** Version bump only for package @vtj/core
+
+
+
+
+
+## [0.13.22](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.13.21...@vtj/core@0.13.22) (2025-09-11)
+
+**Note:** Version bump only for package @vtj/core
+
+
+
+
+
+## [0.13.21](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.13.20...@vtj/core@0.13.21) (2025-09-11)
+
+
+### Features
+
+* ✨ 历史记录支持自动/手动/对比/打标记 ([bdf91d2](https://gitee.com/newgateway/vtj/commits/bdf91d2651b84f7b55dd72a1a7a7723d162bea2f))
+
+
+
+
+
+## [0.13.20](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.13.19...@vtj/core@0.13.20) (2025-09-08)
+
+**Note:** Version bump only for package @vtj/core
+
+
+
+
+
+## [0.13.19](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.13.18...@vtj/core@0.13.19) (2025-09-06)
+
+**Note:** Version bump only for package @vtj/core
+
+
+
+
+
+## [0.13.18](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.13.17...@vtj/core@0.13.18) (2025-09-05)
+
+**Note:** Version bump only for package @vtj/core
+
+
+
+
+
+## [0.13.17](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.13.16...@vtj/core@0.13.17) (2025-09-05)
+
+**Note:** Version bump only for package @vtj/core
+
+
+
+
+
+## [0.13.16](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.13.15...@vtj/core@0.13.16) (2025-09-02)
+
+**Note:** Version bump only for package @vtj/core
+
+
+
+
+
+## [0.13.15](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.13.14...@vtj/core@0.13.15) (2025-09-01)
+
+
+### Features
+
+* ✨ 国际化 ([54e3c5b](https://gitee.com/newgateway/vtj/commits/54e3c5be0e868b497a4c2f36c40039b47925cccc))
+* ✨ core支持i18n,更新图标库 ([4949ee0](https://gitee.com/newgateway/vtj/commits/4949ee0bd9732c8bb246a3dd5ab68e0e87b667da))
+
+
+
+
+
+## [0.13.14](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.13.13...@vtj/core@0.13.14) (2025-08-28)
+
+
+### Features
+
+* ✨ 支持swagger导入 ([be5b00d](https://gitee.com/newgateway/vtj/commits/be5b00dbe8bb6b5907ff0de50240b34db52f1a75))
+* ✨ project model add getPageRoutes ([64e010f](https://gitee.com/newgateway/vtj/commits/64e010fcea5a71cac928db5d2215695cebeb6f35))
+
+
+
+
+
+## [0.13.13](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.13.12...@vtj/core@0.13.13) (2025-08-22)
+
+**Note:** Version bump only for package @vtj/core
+
+
+
+
+
+## [0.13.12](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.13.11...@vtj/core@0.13.12) (2025-08-20)
+
+**Note:** Version bump only for package @vtj/core
+
+
+
+
+
+## [0.13.11](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.13.10...@vtj/core@0.13.11) (2025-08-16)
+
+**Note:** Version bump only for package @vtj/core
+
+
+
+
+
 ## [0.13.10](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.13.9...@vtj/core@0.13.10) (2025-08-16)
 
 

@@ -16,6 +16,7 @@ import {
   type UniConfig,
   type EnhanceConfig,
   type GlobalConfig,
+  type I18nConfig,
   Base,
   BUILT_IN_NAME,
   BUILT_IN_LIBRARAY_MAP
@@ -29,6 +30,7 @@ import {
   mockApis,
   mockCleanup,
   parseUrls,
+  adoptStylesToInline,
   type Provider
 } from '@vtj/renderer';
 import html2canvas from 'html2canvas';
@@ -38,6 +40,7 @@ import { Designer } from './designer';
 import { type Engine } from './engine';
 import { DevTools } from './devtools';
 import Mock from 'mockjs';
+import { loading } from '../utils';
 
 declare global {
   interface Window {
@@ -98,10 +101,11 @@ export class Simulator extends Base {
     meta: Ref<MetaSchema[]>,
     config: Ref<ProjectConfig>,
     uniConfig: Ref<UniConfig>,
-    global: Ref<GlobalConfig>
+    global: Ref<GlobalConfig>,
+    i18n: Ref<I18nConfig>
   ) {
     watch(
-      [iframe, deps, apis, meta, config, uniConfig, global],
+      [iframe, deps, apis, meta, config, uniConfig, global, i18n],
       () => {
         if (iframe.value && deps.value.length) {
           this.resetReady();
@@ -139,6 +143,9 @@ export class Simulator extends Base {
             padding: 0;
             box-sizing: border-box;
           }
+          * {
+            box-sizing: border-box;
+          }
          </style>`;
   }
   private initUniFeatures(platform: PlatformType = 'web') {
@@ -146,10 +153,12 @@ export class Simulator extends Base {
       ? ''
       : `
     <script>
+      window.__uniConfig = {};
       window.__UNI_FEATURE_UNI_CLOUD__ = false;
       window.__UNI_FEATURE_WX__ = false;
       window.__UNI_FEATURE_WXS__ = false;
       window.__UNI_FEATURE_PAGES__ = false;
+      window.getApp = function() {}
     </script>
     `;
   }
@@ -331,15 +340,22 @@ export class Simulator extends Base {
   capture() {
     return new Promise((resolve, reject) => {
       if (!this.contentWindow) return reject(null);
-      const body = this.contentWindow.document.body;
-      html2canvas(body, {
+      adoptStylesToInline(this.contentWindow.document);
+      const doc = this.contentWindow.document.documentElement;
+      const instance = loading({ text: '正在生成截图...' });
+      html2canvas(doc, {
         allowTaint: true,
-        useCORS: true
+        useCORS: true,
+        imageTimeout: 0
       })
         .then((canvas) => {
           resolve(canvas);
         })
-        .catch(reject);
+        .catch(reject)
+        .finally(() => {
+          instance.close();
+          this.refresh();
+        });
     });
   }
 

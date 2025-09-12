@@ -1,5 +1,6 @@
 import { type Reactive, reactive, toRaw } from 'vue';
 import { storage, uid } from '@vtj/utils';
+import { useDark } from '@vueuse/core';
 import { STATE_KEY } from '../constants';
 
 export interface LLM {
@@ -9,6 +10,17 @@ export interface LLM {
   model: string;
   apiKey: string;
 }
+
+const defaults = {
+  outlineEnabled: true,
+  activeEvent: true,
+  autoApply: true,
+  autoHistory: true,
+  llm: '',
+  LLMs: [],
+  tour: true,
+  dark: false
+};
 
 export interface EngineState {
   /**
@@ -27,6 +39,11 @@ export interface EngineState {
   autoApply: boolean;
 
   /**
+   * 自动保存历史记录
+   */
+  autoHistory: boolean;
+
+  /**
    * 当前使用的 AI 大模型
    */
   llm: string | LLM;
@@ -40,23 +57,28 @@ export interface EngineState {
    * 显示引导
    */
   tour: boolean;
+
+  /**
+   * 暗黑模式
+   */
+  dark: boolean;
 }
 
 export class State {
-  private __state: Reactive<EngineState> = reactive({
-    outlineEnabled: true,
-    activeEvent: true,
-    autoApply: true,
-    llm: '',
-    LLMs: [],
-    tour: true
-  });
+  private __state: Reactive<EngineState> = reactive(defaults);
+
+  private __isDark = useDark();
 
   constructor() {
     const state = storage.get(STATE_KEY, { type: 'local' });
     if (state) {
       Object.assign(this.__state, state);
     }
+  }
+
+  reset() {
+    storage.clear({ type: 'local' });
+    location.reload();
   }
 
   private save(key: keyof EngineState, value: any) {
@@ -89,6 +111,14 @@ export class State {
     this.save('autoApply', value);
   }
 
+  get autoHistory() {
+    return this.__state.autoHistory;
+  }
+
+  set autoHistory(value: any) {
+    this.save('autoHistory', value);
+  }
+
   get llm() {
     return this.__state.llm;
   }
@@ -110,6 +140,14 @@ export class State {
 
   set tour(value: boolean) {
     this.save('tour', value);
+  }
+
+  get dark() {
+    return this.__isDark.value;
+  }
+
+  set dark(v: boolean) {
+    this.__isDark.value = v;
   }
 
   saveLLM(item: LLM) {

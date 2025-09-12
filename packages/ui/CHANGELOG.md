@@ -3,6 +3,139 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.24](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.13.23...@vtj/ui@0.13.24) (2025-09-12)
+
+**Note:** Version bump only for package @vtj/ui
+
+
+
+
+
+## [0.13.23](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.13.22...@vtj/ui@0.13.23) (2025-09-12)
+
+**Note:** Version bump only for package @vtj/ui
+
+
+
+
+
+## [0.13.22](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.13.21...@vtj/ui@0.13.22) (2025-09-11)
+
+**Note:** Version bump only for package @vtj/ui
+
+
+
+
+
+## [0.13.21](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.13.20...@vtj/ui@0.13.21) (2025-09-11)
+
+
+### Features
+
+* ✨ 历史记录支持自动/手动/对比/打标记 ([bdf91d2](https://gitee.com/newgateway/vtj/commits/bdf91d2651b84f7b55dd72a1a7a7723d162bea2f))
+
+
+
+
+
+## [0.13.20](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.13.19...@vtj/ui@0.13.20) (2025-09-08)
+
+**Note:** Version bump only for package @vtj/ui
+
+
+
+
+
+## [0.13.19](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.13.18...@vtj/ui@0.13.19) (2025-09-06)
+
+**Note:** Version bump only for package @vtj/ui
+
+
+
+
+
+## [0.13.18](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.13.17...@vtj/ui@0.13.18) (2025-09-05)
+
+**Note:** Version bump only for package @vtj/ui
+
+
+
+
+
+## [0.13.17](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.13.16...@vtj/ui@0.13.17) (2025-09-05)
+
+
+### Bug Fixes
+
+* 🐛 文件上传设置器限制文件大小5M ([31ed74e](https://gitee.com/newgateway/vtj/commits/31ed74eaa0eaa6c546718d6dd7dd755ed2817d93))
+* 🐛 attachment style ([d7ea87c](https://gitee.com/newgateway/vtj/commits/d7ea87c9972e977c55cd147f562bc3da3bbbf212))
+
+
+
+
+
+## [0.13.16](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.13.15...@vtj/ui@0.13.16) (2025-09-02)
+
+**Note:** Version bump only for package @vtj/ui
+
+
+
+
+
+## [0.13.15](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.13.14...@vtj/ui@0.13.15) (2025-09-01)
+
+**Note:** Version bump only for package @vtj/ui
+
+
+
+
+
+## [0.13.14](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.13.13...@vtj/ui@0.13.14) (2025-08-28)
+
+
+### Bug Fixes
+
+* 🐛 全局设置box-sizing: border-box ([38efeda](https://gitee.com/newgateway/vtj/commits/38efeda500a894141e2ddb35025757d32a88fdf2))
+
+
+### Features
+
+* ✨ 支持swagger导入 ([be5b00d](https://gitee.com/newgateway/vtj/commits/be5b00dbe8bb6b5907ff0de50240b34db52f1a75))
+
+
+
+
+
+## [0.13.13](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.13.12...@vtj/ui@0.13.13) (2025-08-22)
+
+**Note:** Version bump only for package @vtj/ui
+
+
+
+
+
+## [0.13.12](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.13.11...@vtj/ui@0.13.12) (2025-08-20)
+
+
+### Bug Fixes
+
+* 🐛 x-tabs style ([865e1a2](https://gitee.com/newgateway/vtj/commits/865e1a268af0a77f1a39a8b239b63e18e7058c44))
+
+
+
+
+
+## [0.13.11](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.13.10...@vtj/ui@0.13.11) (2025-08-16)
+
+
+### Bug Fixes
+
+* 🐛 x-attachment style ([27a4c0e](https://gitee.com/newgateway/vtj/commits/27a4c0ec180e003f995cb5052abbf7379ee7c977))
+
+
+
+
+
 ## [0.13.10](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.13.9...@vtj/ui@0.13.10) (2025-08-16)
 
 

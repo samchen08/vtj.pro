@@ -1,5 +1,5 @@
 import { computed } from 'vue';
-import { isFunction } from '@vtj/utils';
+import { isFunction, get, set } from '@vtj/utils';
 import type { VxeGlobalRendererHandles } from '../types';
 
 export function useEditRender(
@@ -12,11 +12,11 @@ export function useEditRender(
 
   const cellValue = computed({
     get() {
-      const value = row[column.field];
+      const value = get(row, column.field);
       return parser ? parser(value) : value;
     },
     set(v) {
-      row[column.field] = stringify ? stringify(v) : v;
+      set(row, column.field, stringify ? stringify(v) : v);
     }
   });
 

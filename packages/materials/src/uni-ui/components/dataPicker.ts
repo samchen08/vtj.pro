@@ -98,7 +98,13 @@ const desc: MaterialDescription = {
       setters: 'ObjectSetter'
     }
   ],
-  events: ['change', 'nodeclick', 'popupopened', 'popupclosed'],
+  events: [
+    'change',
+    'nodeclick',
+    'popupopened',
+    'popupclosed',
+    'update:modelValue'
+  ],
   slots: ['default'],
   snippet: {
     props: {

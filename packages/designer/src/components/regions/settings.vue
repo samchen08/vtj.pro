@@ -113,7 +113,11 @@
     return null;
   });
 
-  watch(current, (v) => {
+  // watch(current, (v) => {
+  //   engine.skeleton?.settable(!!v);
+  // });
+
+  watch(selected, (v) => {
     engine.skeleton?.settable(!!v);
   });
 

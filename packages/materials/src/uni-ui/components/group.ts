@@ -22,7 +22,7 @@ const desc: MaterialDescription = {
       title: '模式 ，card 为卡片模式',
       defaultValue: '',
       setters: 'SelectSetter',
-      options: ['card']
+      options: ['', 'card']
     }
   ],
   snippet: {

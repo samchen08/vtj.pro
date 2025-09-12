@@ -11,6 +11,9 @@
         版本：
         <span>{{ version }}</span>
       </div>
+      <div class="v-about-widget__footer">
+        <ElButton size="small" @click="resetState"> 重置状态 </ElButton>
+      </div>
     </div>
     <ElDivider v-if="showUserAvatar" direction="vertical"></ElDivider>
     <div v-if="showUserAvatar" class="v-about-widget__item">
@@ -22,7 +25,8 @@
           class="v-about-widget__avatar"></ElAvatar>
       </div>
       <div class="v-about-widget__name">{{ username }}</div>
-      <div class="v-about-widget__version">
+      <div class="v-about-widget__version">ID: {{ userId }}</div>
+      <div class="v-about-widget__footer">
         <ElButton v-if="isLogined" size="small" @click="logout">
           退出登录
         </ElButton>
@@ -69,6 +73,10 @@
     return access?.getData()?.name || '未登录';
   });
 
+  const userId = computed(() => {
+    return access?.getData()?.id || '-';
+  });
+
   const isLogined = computed(() => {
     return access?.isLogined();
   });
@@ -76,6 +84,10 @@
   const logout = () => {
     access?.clear();
     location.reload();
+  };
+
+  const resetState = () => {
+    engine.state.reset();
   };
 
   defineOptions({

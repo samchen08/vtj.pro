@@ -3,6 +3,142 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.24](https://github.com/samchen08/vtj.pro/compare/vtj-project-uniapp@0.13.23...vtj-project-uniapp@0.13.24) (2025-09-12)
+
+
+### Bug Fixes
+
+* 🐛 本地版本初始化依赖没保存 ([3238a96](https://github.com/samchen08/vtj.pro/commit/3238a96ccbdc91b74a2b6c271aae9f59977bab61))
+
+
+
+
+
+## [0.13.23](https://github.com/samchen08/vtj.pro/compare/vtj-project-uniapp@0.13.22...vtj-project-uniapp@0.13.23) (2025-09-12)
+
+
+### Bug Fixes
+
+* 🐛 修复@rolldown/pluginutils导致uniapp服务错误 ([89eb13f](https://github.com/samchen08/vtj.pro/commit/89eb13ff5c4fe744f4ef6fb31a0d7e917d0998d8))
+* 🐛 uni-ui物料错误 ([08d8eeb](https://github.com/samchen08/vtj.pro/commit/08d8eebb711aa893ec941047fd2a279bb6d61702))
+
+
+
+
+
+## [0.13.22](https://github.com/samchen08/vtj.pro/compare/vtj-project-uniapp@0.13.21...vtj-project-uniapp@0.13.22) (2025-09-11)
+
+**Note:** Version bump only for package vtj-project-uniapp
+
+
+
+
+
+## [0.13.21](https://github.com/samchen08/vtj.pro/compare/vtj-project-uniapp@0.13.20...vtj-project-uniapp@0.13.21) (2025-09-11)
+
+**Note:** Version bump only for package vtj-project-uniapp
+
+
+
+
+
+## [0.13.20](https://github.com/samchen08/vtj.pro/compare/vtj-project-uniapp@0.13.19...vtj-project-uniapp@0.13.20) (2025-09-08)
+
+**Note:** Version bump only for package vtj-project-uniapp
+
+
+
+
+
+## [0.13.19](https://github.com/samchen08/vtj.pro/compare/vtj-project-uniapp@0.13.18...vtj-project-uniapp@0.13.19) (2025-09-06)
+
+
+### Bug Fixes
+
+* 🐛 修复 UniApp __uniConfig 初始化缺失报错 ([fca4810](https://github.com/samchen08/vtj.pro/commit/fca4810bab484d933b755db2c8ffdaf1578b53bb))
+
+
+
+
+
+## [0.13.18](https://github.com/samchen08/vtj.pro/compare/vtj-project-uniapp@0.13.17...vtj-project-uniapp@0.13.18) (2025-09-05)
+
+**Note:** Version bump only for package vtj-project-uniapp
+
+
+
+
+
+## [0.13.17](https://github.com/samchen08/vtj.pro/compare/vtj-project-uniapp@0.13.16...vtj-project-uniapp@0.13.17) (2025-09-05)
+
+
+### Bug Fixes
+
+* 🐛 uni-ui物料 ([e76b105](https://github.com/samchen08/vtj.pro/commit/e76b105d2682a2a47af40a66efc472c44bbcb35a))
+
+
+
+
+
+## [0.13.16](https://github.com/samchen08/vtj.pro/compare/vtj-project-uniapp@0.13.15...vtj-project-uniapp@0.13.16) (2025-09-02)
+
+**Note:** Version bump only for package vtj-project-uniapp
+
+
+
+
+
+## [0.13.15](https://github.com/samchen08/vtj.pro/compare/vtj-project-uniapp@0.13.14...vtj-project-uniapp@0.13.15) (2025-09-01)
+
+
+### Bug Fixes
+
+* 🐛 vue-i18n依赖 ([3b9090c](https://github.com/samchen08/vtj.pro/commit/3b9090c3b622f567831e248d3c3ef3e7837b7fa3))
+
+
+### Features
+
+* ✨ 国际化 ([54e3c5b](https://github.com/samchen08/vtj.pro/commit/54e3c5be0e868b497a4c2f36c40039b47925cccc))
+
+
+
+
+
+## [0.13.14](https://github.com/samchen08/vtj.pro/compare/vtj-project-uniapp@0.13.13...vtj-project-uniapp@0.13.14) (2025-08-28)
+
+
+### Bug Fixes
+
+* 🐛 全局设置box-sizing: border-box ([38efeda](https://github.com/samchen08/vtj.pro/commit/38efeda500a894141e2ddb35025757d32a88fdf2))
+
+
+
+
+
+## [0.13.13](https://github.com/samchen08/vtj.pro/compare/vtj-project-uniapp@0.13.12...vtj-project-uniapp@0.13.13) (2025-08-22)
+
+**Note:** Version bump only for package vtj-project-uniapp
+
+
+
+
+
+## [0.13.12](https://github.com/samchen08/vtj.pro/compare/vtj-project-uniapp@0.13.11...vtj-project-uniapp@0.13.12) (2025-08-20)
+
+**Note:** Version bump only for package vtj-project-uniapp
+
+
+
+
+
+## [0.13.11](https://github.com/samchen08/vtj.pro/compare/vtj-project-uniapp@0.13.10...vtj-project-uniapp@0.13.11) (2025-08-16)
+
+**Note:** Version bump only for package vtj-project-uniapp
+
+
+
+
+
 ## [0.13.10](https://github.com/samchen08/vtj.pro/compare/vtj-project-uniapp@0.13.9...vtj-project-uniapp@0.13.10) (2025-08-16)
 
 **Note:** Version bump only for package vtj-project-uniapp

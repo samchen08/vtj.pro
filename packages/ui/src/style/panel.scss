@@ -2,6 +2,7 @@
 
 @include b(panel) {
   background-color: var(--el-bg-color);
+  box-sizing: border-box;
   @include m(default) {
     @include when(radius) {
       border-radius: getCssVar('border-radius-base');
@@ -80,7 +81,7 @@
     }
   }
 
-  @include e(badge-wrapper){
+  @include e(badge-wrapper) {
     position: relative;
     overflow: hidden;
     .x-panel__body {
@@ -99,7 +100,7 @@
       background-color: var(--el-color-danger);
     }
   }
-  @include e(badge){
+  @include e(badge) {
     position: absolute;
     font-size: 12px;
     height: 20px;

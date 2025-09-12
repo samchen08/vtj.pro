@@ -40,6 +40,18 @@ export function useHistory() {
     return index >= total.value - 1;
   });
 
+  const getHistoryDsl = async (id: string) => {
+    if (engine.current.value) {
+      const projectDsl = engine.project.value?.toDsl();
+      const item = await engine.service.getHistoryItem(
+        engine.current.value.id,
+        id,
+        projectDsl
+      );
+      return item?.dsl;
+    }
+  };
+
   return {
     engine,
     history,
@@ -48,6 +60,7 @@ export function useHistory() {
     backward,
     load,
     forwardDisabled,
-    backwardDisabled
+    backwardDisabled,
+    getHistoryDsl
   };
 }

@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.12](https://gitee.com/newgateway/vtj/compare/@vtj/cli@0.12.11...@vtj/cli@0.12.12) (2025-09-11)
+
+**Note:** Version bump only for package @vtj/cli
+
+
+
+
+
+## [0.12.11](https://gitee.com/newgateway/vtj/compare/@vtj/cli@0.12.10...@vtj/cli@0.12.11) (2025-09-05)
+
+**Note:** Version bump only for package @vtj/cli
+
+
+
+
+
 ## [0.12.10](https://gitee.com/newgateway/vtj/compare/@vtj/cli@0.12.9...@vtj/cli@0.12.10) (2025-07-31)
 
 

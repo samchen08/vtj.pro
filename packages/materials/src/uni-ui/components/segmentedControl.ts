@@ -28,7 +28,7 @@ const desc: MaterialDescription = {
       name: 'inActiveColor',
       title: '未激活时的颜色',
       defaultValue: 'transparent',
-      setters: 'StringSetter'
+      setters: ['StringSetter', 'ColorSetter']
     },
     {
       name: 'values',

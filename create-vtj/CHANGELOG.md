@@ -3,6 +3,52 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.15](https://gitee.com/newgateway/vtj/compare/create-vtj@0.12.14...create-vtj@0.12.15) (2025-09-12)
+
+
+### Bug Fixes
+
+* 🐛 修复@rolldown/pluginutils导致uniapp服务错误 ([89eb13f](https://gitee.com/newgateway/vtj/commits/89eb13ff5c4fe744f4ef6fb31a0d7e917d0998d8))
+
+
+
+
+
+## [0.12.14](https://gitee.com/newgateway/vtj/compare/create-vtj@0.12.13...create-vtj@0.12.14) (2025-09-05)
+
+**Note:** Version bump only for package create-vtj
+
+
+
+
+
+## [0.12.13](https://gitee.com/newgateway/vtj/compare/create-vtj@0.12.12...create-vtj@0.12.13) (2025-09-01)
+
+
+### Bug Fixes
+
+* 🐛 vue-i18n依赖 ([3b9090c](https://gitee.com/newgateway/vtj/commits/3b9090c3b622f567831e248d3c3ef3e7837b7fa3))
+
+
+### Features
+
+* ✨ 国际化 ([54e3c5b](https://gitee.com/newgateway/vtj/commits/54e3c5be0e868b497a4c2f36c40039b47925cccc))
+
+
+
+
+
+## [0.12.12](https://gitee.com/newgateway/vtj/compare/create-vtj@0.12.11...create-vtj@0.12.12) (2025-08-28)
+
+
+### Bug Fixes
+
+* 🐛 全局设置box-sizing: border-box ([38efeda](https://gitee.com/newgateway/vtj/commits/38efeda500a894141e2ddb35025757d32a88fdf2))
+
+
+
+
+
 ## [0.12.11](https://gitee.com/newgateway/vtj/compare/create-vtj@0.12.10...create-vtj@0.12.11) (2025-08-07)
 
 

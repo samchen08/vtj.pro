@@ -67,6 +67,14 @@ export class Renderer {
         return;
       }
       if (
+        typeof plugin === 'function' &&
+        plugin.prototype &&
+        Object.getOwnPropertyNames(plugin.prototype).length > 0
+      ) {
+        return;
+      }
+
+      if (
         typeof plugin === 'function' ||
         typeof plugin.install === 'function'
       ) {
@@ -75,7 +83,11 @@ export class Renderer {
         if (locale) {
           options.locale = locale;
         }
-        app?.use(plugin, options);
+        try {
+          app?.use(plugin, options);
+        } catch (e) {
+          console.warn(`${name} is not a Vue plugin`);
+        }
       }
     });
 
@@ -85,6 +97,9 @@ export class Renderer {
       library,
       mode: ContextMode.Design
     });
+
+    this.provider.initI18n(app, library, this.project?.i18n);
+
     if (this.env.enhance) {
       app.use(this.env.enhance, this.provider);
     }

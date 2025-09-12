@@ -1,7 +1,7 @@
 {
   "name": "@vtj/materials",
   "private": false,
-  "version": "0.13.10",
+  "version": "0.13.24",
   "type": "module",
   "keywords": [
     "低代码引擎",
@@ -38,9 +38,9 @@
     "copy": "node scripts/copy.mjs"
   },
   "devDependencies": {
-    "@dcloudio/uni-app": "3.0.0-4050720250324001",
-    "@dcloudio/uni-h5": "3.0.0-4050720250324001",
-    "@dcloudio/uni-h5-vue": "3.0.0-4050720250324001",
+    "@dcloudio/uni-app": "3.0.0-4070620250821001",
+    "@dcloudio/uni-h5": "3.0.0-4070620250821001",
+    "@dcloudio/uni-h5-vue": "3.0.0-4070620250821001",
     "@dcloudio/uni-ui": "~1.5.3",
     "@vtj/charts": "workspace:~",
     "@vtj/cli": "workspace:~",
@@ -48,13 +48,14 @@
     "@vtj/icons": "workspace:~",
     "@vtj/ui": "workspace:~",
     "@vtj/utils": "workspace:~",
-    "@vueuse/core": "~13.5.0",
+    "@vueuse/core": "~13.9.0",
     "ant-design-vue": "~4.2.0",
     "echarts": "~5.6.0",
-    "element-plus": "~2.10.0",
+    "element-plus": "~2.11.0",
     "pinia": "~3.0.0",
     "vant": "~4.9.10",
     "vue": "~3.5.5",
+    "vue-i18n": "~11.1.11",
     "vue-router": "~4.5.0"
   },
   "files": [

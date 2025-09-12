@@ -9,6 +9,7 @@
       v-else
       :key="`widget-style-${node?.id}`"
       class="v-style-widget"
+      :overflow="isExpStyle ? 'hidden' : 'auto'"
       direction="column"
       fit>
       <Layout

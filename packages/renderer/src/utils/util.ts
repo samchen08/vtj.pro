@@ -45,6 +45,29 @@ export function adoptedStyleSheets(
   }
 }
 
+export function adoptStylesToInline(document: Document) {
+  const adoptedSheets = document.adoptedStyleSheets || [];
+  let styleContent = '';
+
+  adoptedSheets.forEach((sheet) => {
+    // 注意：这种方式可能无法获取到所有规则，受浏览器同源策略和CORS限制
+    try {
+      for (const rule of sheet.cssRules) {
+        styleContent += rule.cssText + '\n';
+      }
+    } catch (e) {
+      console.error('Failed to read cssRules from adopted stylesheet:', e);
+    }
+  });
+
+  if (styleContent) {
+    const styleEl = document.createElement('style');
+    styleEl.textContent = styleContent;
+    // 添加到document.head中，确保样式生效
+    document.head.appendChild(styleEl);
+  }
+}
+
 export async function loadCss(id: string, url: string) {
   const css = await window
     .fetch(url)
@@ -100,7 +123,11 @@ export async function loadScriptUrl(
 }
 
 export function isVuePlugin(value: unknown): value is Plugin {
-  return isFunction(value) || isFunction((value as any)?.install);
+  return (
+    (isFunction(value) &&
+      Object.getOwnPropertyNames(value.prototype || {}).length === 0) ||
+    isFunction((value as any)?.install)
+  );
 }
 
 export function isBuiltInTag(tag: string) {
