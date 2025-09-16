@@ -48,6 +48,7 @@ declare global {
     Vue?: any;
     VueRouter?: any;
     ElementPlus?: any;
+    hotkeys?: any;
   }
 }
 
@@ -153,12 +154,14 @@ export class Simulator extends Base {
       ? ''
       : `
     <script>
-      window.__uniConfig = {};
-      window.__UNI_FEATURE_UNI_CLOUD__ = false;
-      window.__UNI_FEATURE_WX__ = false;
-      window.__UNI_FEATURE_WXS__ = false;
-      window.__UNI_FEATURE_PAGES__ = false;
-      window.getApp = function() {}
+      var top = top || window;
+      top.__uniConfig = window.__uniConfig = {};
+      top.__UNI_FEATURE_UNI_CLOUD__ = window.__UNI_FEATURE_UNI_CLOUD__ = false;
+      top.__UNI_FEATURE_WX__ = window.__UNI_FEATURE_WX__ = false;
+      top.__UNI_FEATURE_WXS__ = window.__UNI_FEATURE_WXS__ = false;
+      top.__UNI_FEATURE_PAGES__ = window.__UNI_FEATURE_PAGES__ = false;
+      top.getApp = window.getApp = function() {};
+      top.uni = window.uni = {};
     </script>
     `;
   }

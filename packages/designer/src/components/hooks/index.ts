@@ -20,3 +20,4 @@ export * from './useAI';
 export * from './useWorkspace';
 export * from './useSwagger';
 export * from './useI18n';
+export * from './useHotkeys';

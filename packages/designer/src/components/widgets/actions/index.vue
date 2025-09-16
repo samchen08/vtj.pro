@@ -312,4 +312,9 @@
     name: 'ActionsWidget',
     inheritAttrs: false
   });
+
+  defineExpose({
+    preview: onPreview,
+    isPreview
+  });
 </script>

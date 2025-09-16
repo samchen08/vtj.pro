@@ -81,7 +81,9 @@
         }"
         required></XField>
       <template #extra>
-        <ElButton type="warning" @click="onClearFlag">移除标记</ElButton>
+        <ElButton type="warning" @click="onClearFlag" :disabled="!formModel">
+          移除标记
+        </ElButton>
       </template>
     </XDialogForm>
   </Panel>
@@ -223,6 +225,10 @@
     for (const item of items) {
       (item as any).checked = v;
     }
+  });
+
+  defineExpose({
+    openAdd: onAdd
   });
 </script>
 
