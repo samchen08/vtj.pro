@@ -31,7 +31,7 @@
       size="small"
       title="页面设置"
       @click="openCodeSetting">
-      <VtjIconSetting></VtjIconSetting>
+      <VtjIconPageSetting></VtjIconPageSetting>
     </ElButton>
 
     <ElButton
@@ -109,13 +109,13 @@
     ElMessageBox
   } from 'element-plus';
   import {
-    VtjIconSetting,
     VtjIconRefresh,
     VtjIconBug,
     VtjIconPreview,
     VtjIconTemplate,
     VtjIconPublish,
     VtjIconProject,
+    VtjIconPageSetting,
     Download,
     VtjIconAi,
     Lock
