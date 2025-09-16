@@ -1,6 +1,6 @@
 import { delay, uid, storage } from '@vtj/utils';
 import { watch, shallowRef, onUnmounted } from 'vue';
-import { isNode, NodeModel, isBlockSchema } from '@vtj/core';
+import { isNode, NodeModel, isBlockSchema, cloneDsl } from '@vtj/core';
 import { useClipboard } from '@vueuse/core';
 import { ElMessage } from 'element-plus';
 import hotkeys from 'hotkeys-js';
@@ -287,10 +287,10 @@ export function useHotkeys() {
         current.update(dsl);
       } else {
         if (isNode(selected.model)) {
-          const node = new NodeModel(dsl, selected.model.parent);
+          const node = new NodeModel(cloneDsl(dsl), selected.model.parent);
           current.addNode(node, selected.model, 'right');
         } else {
-          const node = new NodeModel(dsl);
+          const node = new NodeModel(cloneDsl(dsl));
           current.addNode(node, undefined, 'inner');
         }
       }
