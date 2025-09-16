@@ -315,6 +315,7 @@
 
   defineExpose({
     preview: onPreview,
-    isPreview
+    isPreview,
+    refresh
   });
 </script>

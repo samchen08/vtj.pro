@@ -41,6 +41,7 @@ import { type Engine } from './engine';
 import { DevTools } from './devtools';
 import Mock from 'mockjs';
 import { loading } from '../utils';
+import { HOT_KEYS_DEP } from '../constants';
 
 declare global {
   interface Window {
@@ -166,7 +167,7 @@ export class Simulator extends Base {
     `;
   }
 
-  private setup(iframe: HTMLIFrameElement, deps: Dependencie[]) {
+  private setup(iframe: HTMLIFrameElement, deps: Dependencie[] = []) {
     const cw = iframe.contentWindow;
     if (!cw) {
       logger.warn('Simulator contentWindow is null');
@@ -183,7 +184,7 @@ export class Simulator extends Base {
       materialExports,
       materialMapLibrary,
       libraryLocaleMap
-    } = parseDeps(deps, this.materialPath, true);
+    } = parseDeps([HOT_KEYS_DEP, ...deps], this.materialPath, true);
     const { js: enhanceJs, css: enhanceCss } = parseUrls(
       this.enhance?.urls || []
     );

@@ -122,7 +122,7 @@
   });
 
   const formTitle = computed(() =>
-    formModel.value ? '更新记录标记' : '新建历史记录'
+    formModel.value ? '更新记录标记' : '保存历史记录'
   );
 
   const onRemove = async () => {

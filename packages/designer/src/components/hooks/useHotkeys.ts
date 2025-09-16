@@ -1,6 +1,8 @@
-import { delay } from '@vtj/utils';
+import { delay, uid, storage } from '@vtj/utils';
 import { watch, shallowRef, onUnmounted } from 'vue';
-import { isNode, NodeModel } from '@vtj/core';
+import { isNode, NodeModel, isBlockSchema } from '@vtj/core';
+import { useClipboard } from '@vueuse/core';
+import { ElMessage } from 'element-plus';
 import hotkeys from 'hotkeys-js';
 import { useEngine } from '../../framework';
 
@@ -9,6 +11,9 @@ export const SAVE_KEYS = 'ctrl+s, command+s';
 
 // 预览
 export const PREVIEW_KEYS = 'ctrl+p, command+p';
+
+// 刷新
+export const REFRESH_KEYS = 'f5, ctrl+r, command+r';
 
 // 撤销
 export const UNDO_KEYS = 'ctrl+z, command+z';
@@ -41,17 +46,23 @@ export const LEFT_KEYS = 'left';
 export const RIGHT_KEYS = 'right';
 
 // 向前移动组件
-export const MOVE_PREV_KEYS = 'option+up, alt+up, option+left, alt+left';
+export const MOVE_PREV_KEYS = 'shift+up, shift+left';
 
 // 向后移动组件
-export const MOVE_NEXT_KEYS = 'option+down, alt+down, option+right, alt+right';
+export const MOVE_NEXT_KEYS = 'shift+down, shift+right';
 
 // 取消选择
 export const ESCAPE_KEYS = 'escape';
 
+// 全选
+export const SELECT_ALL_KEYS = 'ctrl+a, command+a';
+
+// 粘贴板数据缓存Key
+const CACHE_KEY = 'Designer_Clipboard__';
+
 export function useHotkeys() {
   const engine = useEngine();
-
+  const { copy, text } = useClipboard({});
   const _map: Record<string, any> = {};
   const _hotkeys = shallowRef<any>(null);
 
@@ -143,6 +154,15 @@ export function useHotkeys() {
     return false;
   });
 
+  bind(REFRESH_KEYS, (e: KeyboardEvent) => {
+    e.preventDefault();
+    const widgetRef = engine.skeleton?.getWidget('Actions')?.widgetRef;
+    if (widgetRef) {
+      widgetRef.refresh();
+    }
+    return false;
+  });
+
   bind(BACKSPACE_KEYS, () => {
     const { current, selected, designer } = getSelected();
     if (designer && current && selected && isNode(selected.model)) {
@@ -208,6 +228,80 @@ export function useHotkeys() {
         designer.setSelected(child);
       }
     }
+  });
+
+  bind(MOVE_PREV_KEYS, () => {
+    const { current, selected, designer } = getSelected();
+    if (designer && current && selected && isNode(selected.model)) {
+      current.movePrev(selected.model);
+      designer.setSelected(selected.model);
+    }
+  });
+
+  bind(MOVE_NEXT_KEYS, () => {
+    const { current, selected, designer } = getSelected();
+    if (designer && current && selected && isNode(selected.model)) {
+      current.moveNext(selected.model);
+      designer.setSelected(selected.model);
+    }
+  });
+
+  bind(COPY_KEYS, () => {
+    const { current, selected, designer } = getSelected();
+    if (designer && current && selected) {
+      const dsl = JSON.stringify(selected.model.toDsl());
+      copy(dsl);
+      storage.save(CACHE_KEY, dsl, { type: 'session' });
+      ElMessage.success({
+        message: '已经复制到粘贴板'
+      });
+    }
+  });
+
+  bind(CUT_KEYS, () => {
+    const { current, selected, designer } = getSelected();
+    if (designer && current && selected) {
+      const dsl = JSON.stringify(selected.model.toDsl());
+      copy(dsl);
+      storage.save(CACHE_KEY, dsl, { type: 'session' });
+      if (isNode(selected.model)) {
+        current.removeNode(selected.model);
+        designer.setSelected(null);
+      } else {
+        current.update({ name: selected.model.name });
+      }
+      ElMessage.success({
+        message: '已经复制到粘贴板'
+      });
+    }
+  });
+
+  bind(PASTE_KEYS, () => {
+    const { current, selected, designer } = getSelected();
+    if (designer && current && selected) {
+      const content = text.value || storage.get(CACHE_KEY, { type: 'session' });
+      const dsl = content ? JSON.parse(content) : null;
+      if (!dsl) return;
+      dsl.id = uid();
+      if (isBlockSchema(dsl)) {
+        current.update(dsl);
+      } else {
+        if (isNode(selected.model)) {
+          const node = new NodeModel(dsl, selected.model.parent);
+          current.addNode(node, selected.model, 'right');
+        } else {
+          const node = new NodeModel(dsl);
+          current.addNode(node, undefined, 'inner');
+        }
+      }
+
+      designer.setSelected(null);
+    }
+  });
+
+  bind(SELECT_ALL_KEYS, () => {
+    const { current, designer } = getSelected();
+    designer?.setSelected(current);
   });
 
   return {
