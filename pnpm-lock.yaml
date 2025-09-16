@@ -778,6 +778,9 @@ importers:
       element-plus:
         specifier: ~2.11.0
         version: 2.11.2(vue@3.5.21(typescript@5.9.2))
+      hotkeys-js:
+        specifier: ~3.13.15
+        version: 3.13.15
       pinia:
         specifier: ~3.0.0
         version: 3.0.3(typescript@5.9.2)(vue@3.5.21(typescript@5.9.2))

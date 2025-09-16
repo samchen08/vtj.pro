@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.25](https://gitee.com/newgateway/vtj/compare/@vtj/pro@0.13.24...@vtj/pro@0.13.25) (2025-09-16)
+
+
+### Bug Fixes
+
+* 🐛 uniapp添加全局uni对象 ([c6a3ee5](https://gitee.com/newgateway/vtj/commits/c6a3ee5c8dc47d840785fd25b920f94a3763fb51))
+
+
+### Features
+
+* ✨ 快捷键 ([e6dfeee](https://gitee.com/newgateway/vtj/commits/e6dfeeea8603df077dca7a034adc992b73469c3e))
+
+
+
+
+
 ## [0.13.24](https://gitee.com/newgateway/vtj/compare/@vtj/pro@0.13.23...@vtj/pro@0.13.24) (2025-09-12)
 
 
