@@ -299,9 +299,11 @@ export function useHotkeys() {
     }
   });
 
-  bind(SELECT_ALL_KEYS, () => {
+  bind(SELECT_ALL_KEYS, (e: KeyboardEvent) => {
+    e.preventDefault();
     const { current, designer } = getSelected();
     designer?.setSelected(current);
+    return false;
   });
 
   return {
