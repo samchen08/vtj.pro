@@ -10,6 +10,8 @@ import {
 } from '@vtj/core';
 import { useEngine, type DesignHelper } from '../../framework';
 
+import { useHotkeys } from './useHotkeys';
+
 export function useDesigner(
   iframe: Ref<HTMLIFrameElement | undefined>,
   dependencies: Ref<Dependencie[]>,
@@ -21,7 +23,7 @@ export function useDesigner(
   i18n: Ref<I18nConfig>
 ) {
   const engine = useEngine();
-
+  const hotkeys = useHotkeys();
   engine.simulator.init(
     iframe,
     dependencies,
@@ -63,7 +65,8 @@ export function useDesigner(
     dropping,
     hover,
     selected,
-    lines
+    lines,
+    hotkeys
   };
 }
 

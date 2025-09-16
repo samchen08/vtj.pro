@@ -35,7 +35,8 @@ export default [
           { text: '设置器和绑定器', link: '/designer/10' },
           { text: 'API管理和数据源', link: '/designer/11' },
           { text: '区块管理', link: '/designer/12' },
-          { text: '预览、调试和发布', link: '/designer/13' }
+          { text: '预览、调试和发布', link: '/designer/13' },
+          { text: '编辑器快捷键', link: '/designer/14' }
         ]
       },
       { text: '设计器接入指南', link: '/base/integrate' },

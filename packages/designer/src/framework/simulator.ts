@@ -41,6 +41,7 @@ import { type Engine } from './engine';
 import { DevTools } from './devtools';
 import Mock from 'mockjs';
 import { loading } from '../utils';
+import { HOT_KEYS_DEP } from '../constants';
 
 declare global {
   interface Window {
@@ -48,6 +49,7 @@ declare global {
     Vue?: any;
     VueRouter?: any;
     ElementPlus?: any;
+    hotkeys?: any;
   }
 }
 
@@ -153,17 +155,19 @@ export class Simulator extends Base {
       ? ''
       : `
     <script>
-      window.__uniConfig = {};
-      window.__UNI_FEATURE_UNI_CLOUD__ = false;
-      window.__UNI_FEATURE_WX__ = false;
-      window.__UNI_FEATURE_WXS__ = false;
-      window.__UNI_FEATURE_PAGES__ = false;
-      window.getApp = function() {}
+      var top = top || window;
+      top.__uniConfig = window.__uniConfig = {};
+      top.__UNI_FEATURE_UNI_CLOUD__ = window.__UNI_FEATURE_UNI_CLOUD__ = false;
+      top.__UNI_FEATURE_WX__ = window.__UNI_FEATURE_WX__ = false;
+      top.__UNI_FEATURE_WXS__ = window.__UNI_FEATURE_WXS__ = false;
+      top.__UNI_FEATURE_PAGES__ = window.__UNI_FEATURE_PAGES__ = false;
+      top.getApp = window.getApp = function() {};
+      top.uni = window.uni = {};
     </script>
     `;
   }
 
-  private setup(iframe: HTMLIFrameElement, deps: Dependencie[]) {
+  private setup(iframe: HTMLIFrameElement, deps: Dependencie[] = []) {
     const cw = iframe.contentWindow;
     if (!cw) {
       logger.warn('Simulator contentWindow is null');
@@ -180,7 +184,7 @@ export class Simulator extends Base {
       materialExports,
       materialMapLibrary,
       libraryLocaleMap
-    } = parseDeps(deps, this.materialPath, true);
+    } = parseDeps([HOT_KEYS_DEP, ...deps], this.materialPath, true);
     const { js: enhanceJs, css: enhanceCss } = parseUrls(
       this.enhance?.urls || []
     );

@@ -105,7 +105,8 @@ const files = [
   ],
   [modules + 'vant/lib/vant.min.js', 'deps/vant/vant.min.js'],
   [modules + 'vant/lib/index.css', 'deps/vant/index.css'],
-  [modules + 'mockjs/dist/mock-min.js', 'deps/mockjs/mock-min.js']
+  [modules + 'mockjs/dist/mock-min.js', 'deps/mockjs/mock-min.js'],
+  [modules + 'hotkeys-js/dist/hotkeys.min.js', 'deps/hotkeys-js/hotkeys.min.js']
 ];
 
 function doCopy() {

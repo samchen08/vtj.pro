@@ -6,6 +6,13 @@
   "description": "VTJ",
   "glyphs": [
     {
+      "icon_id": "34941703",
+      "name": "页面设置",
+      "font_class": "page-setting",
+      "unicode": "e71d",
+      "unicode_decimal": 59165
+    },
+    {
       "icon_id": "15726777",
       "name": "对比",
       "font_class": "diff",

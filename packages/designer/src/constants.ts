@@ -1,3 +1,5 @@
+import type { Dependencie } from '@vtj/core';
+
 export const MOBILE_SIZE = {
   width: 390,
   height: 844
@@ -145,3 +147,13 @@ export const STATE_KEY = 'ENGINE_STATE__';
 export const MAX_TOKENS = 2 * 8 * 1024;
 
 export const GET_TOKENS_LINK = 'https://lcdp.vtj.pro/page/17ikytmh';
+
+export const HOT_KEYS_DEP: Dependencie = {
+  package: 'hotkeys-js',
+  version: 'latest',
+  library: 'hotkeys',
+  enabled: true,
+  required: true,
+  official: true,
+  urls: ['@vtj/materials/deps/hotkeys-js/hotkeys.min.js']
+};

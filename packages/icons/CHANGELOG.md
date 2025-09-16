@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.25](https://gitee.com/newgateway/vtj/compare/@vtj/icons@0.13.24...@vtj/icons@0.13.25) (2025-09-16)
+
+
+### Bug Fixes
+
+* 🐛 更新图标 ([b2f9a21](https://gitee.com/newgateway/vtj/commits/b2f9a21560011a01c7b39e57265cd50ba7419118))
+
+
+
+
+
 ## [0.13.24](https://gitee.com/newgateway/vtj/compare/@vtj/icons@0.13.23...@vtj/icons@0.13.24) (2025-09-12)
 
 **Note:** Version bump only for package @vtj/icons
