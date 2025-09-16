@@ -231,7 +231,7 @@ export class Simulator extends Base {
     for (const name of materialExports) {
       const material: Material = materialMap[name]
         ? (await materialMap[name]()).default
-        : cw[name];
+        : cw[name]?.default || cw[name];
       materials.push(material);
     }
     assets.clearCaches();
