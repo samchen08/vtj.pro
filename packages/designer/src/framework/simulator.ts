@@ -202,8 +202,8 @@ export class Simulator extends Base {
        </head>
        <body> 
        </body>
-       ${createAssetScripts([...scripts, ...enhanceJs])}
        ${createAssetScripts(materials)}
+       ${createAssetScripts([...scripts, ...enhanceJs])}
        <script>
        __simulator__.emitReady(${JSON.stringify(libraryExports)},
         ${JSON.stringify(materialExports)}, 
@@ -229,10 +229,14 @@ export class Simulator extends Base {
     const materialMap = provider.materials || {};
     const materials: Material[] = [];
     for (const name of materialExports) {
-      const material: Material = materialMap[name]
-        ? (await materialMap[name]()).default
-        : cw[name]?.default || cw[name];
-      materials.push(material);
+      try {
+        const material: Material = materialMap[name]
+          ? (await materialMap[name]()).default
+          : cw[name]?.default || cw[name];
+        materials.push(material);
+      } catch (e) {
+        console.warn(e);
+      }
     }
     assets.clearCaches();
     assets.load(materials);
