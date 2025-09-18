@@ -11,7 +11,9 @@ export type VueComponent =
  */
 export enum WidgetGroup {
   Block = 'block',
-  Node = 'node'
+  Node = 'node',
+  Left = 'left',
+  Right = 'right'
 }
 
 /**

@@ -311,6 +311,13 @@ export const builtInWidgets: Array<AppWidget | TabWidget | Widget> = [
   {
     name: 'NodePath',
     region: 'Status',
-    component: widgets.NodePath
+    component: widgets.NodePath,
+    group: WidgetGroup.Left
+  },
+  {
+    name: 'Hotkeys',
+    region: 'Status',
+    component: widgets.Hotkeys,
+    group: WidgetGroup.Right
   }
 ];

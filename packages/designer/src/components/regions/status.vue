@@ -1,15 +1,25 @@
 <template>
   <div class="v-status-region">
-    <WidgetWrapper
-      v-for="widget in widgets"
-      ref="widgetsRef"
-      :region="region"
-      :widget="widget"></WidgetWrapper>
+    <div class="v-status-region__left">
+      <WidgetWrapper
+        v-for="widget in leftWidgets"
+        ref="widgetsRef"
+        :region="region"
+        :widget="widget"></WidgetWrapper>
+    </div>
+    <div class="v-status-region__right">
+      <WidgetWrapper
+        v-for="widget in rightWidget"
+        ref="widgetsRef"
+        :region="region"
+        :widget="widget"></WidgetWrapper>
+    </div>
   </div>
 </template>
 <script lang="ts" setup>
+  import { computed } from 'vue';
   import { WidgetWrapper } from '../../wrappers';
-  import { RegionType } from '../../framework';
+  import { RegionType, WidgetGroup } from '../../framework';
   import { useRegion } from '../hooks';
 
   export interface Props {
@@ -18,6 +28,14 @@
 
   const props = defineProps<Props>();
   const { widgets, widgetsRef } = useRegion(props.region);
+
+  const leftWidgets = computed(() => {
+    return widgets.value.filter((n) => n.group === WidgetGroup.Left);
+  });
+
+  const rightWidget = computed(() => {
+    return widgets.value.filter((n) => n.group === WidgetGroup.Right);
+  });
 
   defineOptions({
     name: 'StatusRegion',

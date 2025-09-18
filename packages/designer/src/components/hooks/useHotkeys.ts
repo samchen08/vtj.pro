@@ -93,6 +93,10 @@ export function useHotkeys() {
     });
   };
 
+  const trigger = (key: string) => {
+    hotkeys.trigger(key);
+  };
+
   const getSelected = () => {
     const designer = engine.simulator.designer.value;
     const selected = designer?.selected?.value;
@@ -131,8 +135,8 @@ export function useHotkeys() {
     engine.history.value?.forward();
   });
 
-  bind(SAVE_KEYS, async (e: KeyboardEvent) => {
-    e.preventDefault();
+  bind(SAVE_KEYS, async (e?: KeyboardEvent) => {
+    e?.preventDefault();
     const regionRef = engine.skeleton?.getRegion('Apps').regionRef;
     if (regionRef) {
       regionRef.setActive('History');
@@ -145,8 +149,8 @@ export function useHotkeys() {
     return false;
   });
 
-  bind(PREVIEW_KEYS, (e: KeyboardEvent) => {
-    e.preventDefault();
+  bind(PREVIEW_KEYS, (e?: KeyboardEvent) => {
+    e?.preventDefault();
     const widgetRef = engine.skeleton?.getWidget('Actions')?.widgetRef;
     if (widgetRef) {
       widgetRef.preview();
@@ -154,8 +158,8 @@ export function useHotkeys() {
     return false;
   });
 
-  bind(REFRESH_KEYS, (e: KeyboardEvent) => {
-    e.preventDefault();
+  bind(REFRESH_KEYS, (e?: KeyboardEvent) => {
+    e?.preventDefault();
     const widgetRef = engine.skeleton?.getWidget('Actions')?.widgetRef;
     if (widgetRef) {
       widgetRef.refresh();
@@ -299,8 +303,8 @@ export function useHotkeys() {
     }
   });
 
-  bind(SELECT_ALL_KEYS, (e: KeyboardEvent) => {
-    e.preventDefault();
+  bind(SELECT_ALL_KEYS, (e?: KeyboardEvent) => {
+    e?.preventDefault();
     const { current, designer } = getSelected();
     designer?.setSelected(current);
     return false;
@@ -310,6 +314,100 @@ export function useHotkeys() {
     bind,
     unbind,
     hotkeys,
-    _hotkeys
+    _hotkeys,
+    trigger
   };
+}
+
+export const hotkeysOptions = [
+  {
+    label: '保存',
+    value: '⌘ S',
+    command: SAVE_KEYS
+  },
+  {
+    label: '撤销',
+    value: '⌘ Z',
+    command: UNDO_KEYS
+  },
+  {
+    label: '恢复',
+    value: '⇧ ⌘ Z',
+    command: REDO_KEYS
+  },
+  {
+    label: '预览',
+    value: '⌘ P',
+    command: PREVIEW_KEYS
+  },
+  {
+    label: '刷新',
+    value: '⌘ R',
+    command: REFRESH_KEYS
+  },
+  {
+    label: '页面设置',
+    value: '⌘ A',
+    command: SELECT_ALL_KEYS
+  },
+  {
+    label: '删除',
+    value: 'Backspace',
+    command: BACKSPACE_KEYS,
+    divided: true
+  },
+  {
+    label: '复制',
+    value: '⌘ C',
+    command: COPY_KEYS
+  },
+  {
+    label: '粘贴',
+    value: '⌘ V',
+    command: PASTE_KEYS
+  },
+  {
+    label: '剪切',
+    value: '⌘ X',
+    command: CUT_KEYS
+  },
+  {
+    label: '向外层选择',
+    value: '↑',
+    command: UP_KEYS
+  },
+  {
+    label: '向内层选择',
+    value: '↓',
+    command: DOWN_KEYS
+  },
+  {
+    label: '向前选择',
+    value: '←',
+    command: LEFT_KEYS
+  },
+  {
+    label: '向后选择',
+    value: '→',
+    command: RIGHT_KEYS
+  },
+  {
+    label: '取消选择',
+    value: 'ESC',
+    command: ESCAPE_KEYS
+  },
+  {
+    label: '向前移动',
+    value: '⇧ ↑',
+    command: MOVE_PREV_KEYS
+  },
+  {
+    label: '向后移动',
+    value: '⇧ ↓',
+    command: MOVE_NEXT_KEYS
+  }
+];
+
+export function hotkeysTrigger(key: string) {
+  hotkeys.trigger(key);
 }

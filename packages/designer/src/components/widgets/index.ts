@@ -33,6 +33,7 @@ import UserAvatar from './user-avatar/index.vue';
 import AI from './ai/index.vue';
 import Globals from './globals/index.vue';
 import I18n from './i18n/index.vue';
+import Hotkeys from './hotkeys/index.vue';
 
 export const widgets = {
   Logo,
@@ -69,5 +70,6 @@ export const widgets = {
   UserAvatar,
   AI,
   Globals,
-  I18n
+  I18n,
+  Hotkeys
 };
