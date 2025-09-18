@@ -302,7 +302,8 @@ export class Provider extends Base {
 
       const locale = libraryLocaleMap[libraryName];
       if (locale) {
-        libraryLocales[locale] = _window[locale];
+        const raw = dependencies[locale];
+        libraryLocales[locale] = raw ? await raw() : _window[locale];
       }
     }
 
