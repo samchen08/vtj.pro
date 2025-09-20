@@ -22,7 +22,6 @@ export default createViteConfig({
       devMode: true
     })
   ],
-  devtools: false,
   staticDirs: [
     {
       path: '/__devtools__/',

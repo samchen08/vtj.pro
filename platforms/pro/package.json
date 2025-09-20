@@ -41,7 +41,8 @@
     "@vtj/ui": "workspace:~",
     "@vtj/utils": "workspace:~",
     "vue": "~3.5.5",
-    "vue-router": "~4.5.0"
+    "vue-router": "~4.5.0",
+    "vite-plugin-vue-devtools": "~8.0.2"
   },
   "exports": {
     "./vite": {
