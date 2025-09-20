@@ -34,6 +34,7 @@ import AI from './ai/index.vue';
 import Globals from './globals/index.vue';
 import I18n from './i18n/index.vue';
 import Hotkeys from './hotkeys/index.vue';
+import Devtools from './devtools/index.vue';
 
 export const widgets = {
   Logo,
@@ -71,5 +72,6 @@ export const widgets = {
   AI,
   Globals,
   I18n,
-  Hotkeys
+  Hotkeys,
+  Devtools
 };

@@ -67,7 +67,9 @@ export interface EngineState {
 export class State {
   private __state: Reactive<EngineState> = reactive(defaults);
 
-  private __isDark = useDark();
+  private __isDark = useDark({
+    storageKey: 'color-schema'
+  });
 
   constructor() {
     const state = storage.get(STATE_KEY, { type: 'local' });

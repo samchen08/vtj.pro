@@ -315,6 +315,12 @@ export const builtInWidgets: Array<AppWidget | TabWidget | Widget> = [
     group: WidgetGroup.Left
   },
   {
+    name: 'Devtools',
+    region: 'Status',
+    component: widgets.Devtools,
+    group: WidgetGroup.Right
+  },
+  {
     name: 'Hotkeys',
     region: 'Status',
     component: widgets.Hotkeys,

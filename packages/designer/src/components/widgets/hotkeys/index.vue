@@ -33,7 +33,6 @@
 
   const menus = computed(() => {
     const index = hotkeysOptions.findIndex((n) => !!n.divided);
-    console.log(isSelected.value);
     return hotkeysOptions.map((n: ActionMenuItem, i) => {
       if (isSelected.value) {
         n.disabled = false;

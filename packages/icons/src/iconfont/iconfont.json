@@ -6,6 +6,41 @@
   "description": "VTJ",
   "glyphs": [
     {
+      "icon_id": "18495582",
+      "name": "切换面板底部",
+      "font_class": "bottom-panel",
+      "unicode": "e6db",
+      "unicode_decimal": 59099
+    },
+    {
+      "icon_id": "18495585",
+      "name": "切换面板顶部",
+      "font_class": "top-panel",
+      "unicode": "e6dc",
+      "unicode_decimal": 59100
+    },
+    {
+      "icon_id": "18495668",
+      "name": "向右切换面板",
+      "font_class": "right-panel",
+      "unicode": "e6ee",
+      "unicode_decimal": 59118
+    },
+    {
+      "icon_id": "18495671",
+      "name": "向左切换面板",
+      "font_class": "left-panel",
+      "unicode": "e6f0",
+      "unicode_decimal": 59120
+    },
+    {
+      "icon_id": "44029099",
+      "name": "dev-tools",
+      "font_class": "dev-tools",
+      "unicode": "e751",
+      "unicode_decimal": 59217
+    },
+    {
       "icon_id": "34941703",
       "name": "页面设置",
       "font_class": "page-setting",

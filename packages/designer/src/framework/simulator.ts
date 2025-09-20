@@ -38,7 +38,6 @@ import { logger } from '@vtj/utils';
 import { Renderer } from './renderer';
 import { Designer } from './designer';
 import { type Engine } from './engine';
-import { DevTools } from './devtools';
 import Mock from 'mockjs';
 import { loading } from '../utils';
 import { HOT_KEYS_DEP } from '../constants';
@@ -50,6 +49,7 @@ declare global {
     VueRouter?: any;
     ElementPlus?: any;
     hotkeys?: any;
+    VueDevtools?: any;
   }
 }
 
@@ -81,7 +81,6 @@ export class Simulator extends Base {
   public engine: Engine;
   public materialPath: string;
   public rendered: Ref<symbol> = ref(Symbol());
-  public devtools: DevTools = new DevTools();
   public enhance?: EnhanceConfig;
   constructor(options: SimulatorOptions) {
     super();
@@ -119,8 +118,7 @@ export class Simulator extends Base {
             this.designer.value = new Designer(
               this.engine,
               this.contentWindow,
-              deps,
-              this.devtools
+              deps
             );
           }
         }
@@ -150,12 +148,11 @@ export class Simulator extends Base {
           }
          </style>`;
   }
-  private initUniFeatures(platform: PlatformType = 'web') {
-    return platform === 'uniapp'
-      ? ''
-      : `
+  private initFeatures() {
+    return `
     <script>
-      var top = top || window;
+      var top = window.parent || window;
+      var __VUE_PROD_DEVTOOLS__ = true;
       top.__uniConfig = window.__uniConfig = {};
       top.__UNI_FEATURE_UNI_CLOUD__ = window.__UNI_FEATURE_UNI_CLOUD__ = false;
       top.__UNI_FEATURE_WX__ = window.__UNI_FEATURE_WX__ = false;
@@ -163,6 +160,11 @@ export class Simulator extends Base {
       top.__UNI_FEATURE_PAGES__ = window.__UNI_FEATURE_PAGES__ = false;
       top.getApp = window.getApp = function() {};
       top.uni = window.uni = {};
+      Object.defineProperty(window, '__VUE_DEVTOOLS_GLOBAL_HOOK__', {
+        value: window.parent.__VUE_DEVTOOLS_GLOBAL_HOOK__,
+        writable: true,
+        configurable: true
+      });
     </script>
     `;
   }
@@ -196,7 +198,7 @@ export class Simulator extends Base {
        <head>
        <meta charset="utf-8">
        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0,viewport-fit=cover"/>
-       ${this.initUniFeatures()}
+       ${this.initFeatures()}
        ${this.createGlobalCss(platform)}
        ${createAssetsCss([...css, ...enhanceCss])}
        </head>
@@ -246,7 +248,6 @@ export class Simulator extends Base {
       materials,
       libraryLocaleMap
     );
-    this.devtools.init(cw, this.engine);
     this.renderer = new Renderer(
       env,
       service,

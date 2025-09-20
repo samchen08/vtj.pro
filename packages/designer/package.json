@@ -38,7 +38,9 @@
     "html2canvas": "~1.4.1",
     "marked": "~15.0.8",
     "mockjs": "~1.1.0",
-    "monaco-editor": "~0.52.0"
+    "monaco-editor": "~0.52.0",
+    "@vue/devtools-kit": "~8.0.2",
+    "@vue/devtools-core": "~8.0.2"
   },
   "devDependencies": {
     "@types/mockjs": "~1.0.10",

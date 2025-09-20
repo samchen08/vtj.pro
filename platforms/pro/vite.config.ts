@@ -22,5 +22,12 @@ export default createViteConfig({
       devMode: true
     })
   ],
-  devtools: false
+  devtools: false,
+  staticDirs: [
+    {
+      path: '/__devtools__/',
+      dir: '../../node_modules/vite-plugin-vue-devtools/client'
+    }
+  ],
+  copyStatic: true
 });

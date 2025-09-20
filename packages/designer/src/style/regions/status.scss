@@ -7,6 +7,9 @@
 
   @include e(right) {
     padding: 0 20px;
+    & > .x-action {
+      margin-left: 20px;
+    }
   }
 }
 
@@ -19,4 +22,8 @@
   @include e(value) {
     color: var(--el-text-color-secondary);
   }
+}
+
+#__vue-devtools-component-inspector__ {
+  transform: translate(var(--v-viewport-left, 0px), var(--v-viewport-top, 0px));
 }

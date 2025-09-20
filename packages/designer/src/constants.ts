@@ -157,3 +157,13 @@ export const HOT_KEYS_DEP: Dependencie = {
   official: true,
   urls: ['@vtj/materials/deps/hotkeys-js/hotkeys.min.js']
 };
+
+export const DEVTOOLS_DEP: Dependencie = {
+  package: 'vue-devtools',
+  version: 'latest',
+  library: 'VueDevtools',
+  enabled: true,
+  required: true,
+  official: true,
+  urls: ['@vtj/materials/deps/devtools/index.umd.js']
+};
