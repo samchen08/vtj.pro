@@ -65,8 +65,8 @@
     inheritAttrs: false
   });
 
-  const { dialogRef, setupDevtools, destoryDevtools } = useDevtools();
-  const visible = ref(false);
+  const { dialogRef, setupDevtools, destoryDevtools, visible } = useDevtools();
+
   const position = ref('');
 
   const onClick = () => {

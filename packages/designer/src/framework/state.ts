@@ -76,6 +76,13 @@ export class State {
     if (state) {
       Object.assign(this.__state, state);
     }
+    this.saveDevtoolsTheme();
+  }
+
+  private saveDevtoolsTheme() {
+    storage.save('__vue-devtools-theme__', this.dark ? 'dark' : 'auto', {
+      type: 'local'
+    });
   }
 
   reset() {
@@ -150,6 +157,7 @@ export class State {
 
   set dark(v: boolean) {
     this.__isDark.value = v;
+    this.saveDevtoolsTheme();
   }
 
   saveLLM(item: LLM) {

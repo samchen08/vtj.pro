@@ -1,4 +1,4 @@
-import { ref, shallowRef } from 'vue';
+import { ref, shallowRef, watch } from 'vue';
 import {
   devtoolsInspector,
   removeDevToolsAppRecord,
@@ -14,8 +14,39 @@ import { useEngine } from '../../framework';
 export function useDevtools() {
   const engine = useEngine();
   const dialogRef = ref();
+  const visible = ref(false);
   const client = shallowRef();
   const hook = shallowRef();
+
+  functions.inspectComponentInspector = async () => {
+    return new Promise((resolve) => {
+      const stopHover = watch(
+        () => engine.simulator.designer.value?.hover.value,
+        (v) => {
+          if (visible.value && v && v.el) {
+            const id = (v.el as any).__vueParentComponent
+              .__VUE_DEVTOOLS_NEXT_UID__;
+            functions.highlighComponent(id);
+          }
+        }
+      );
+      const stopSelected = watch(
+        () => engine.simulator.designer.value?.selected.value,
+        (v) => {
+          if (v && v.el) {
+            stopHover();
+            stopSelected();
+            const id = (v.el as any).__vueParentComponent
+              .__VUE_DEVTOOLS_NEXT_UID__;
+            resolve(JSON.stringify({ id }));
+          } else {
+            functions.cancelInspectComponentInspector();
+          }
+        }
+      );
+    });
+  };
+
   initDevTools();
   createRpcServer(functions, {
     preset: 'iframe'
@@ -43,30 +74,15 @@ export function useDevtools() {
     dialogRef.value.$vtjEl.click();
   };
 
-  const cancelInspect = async () => {
-    await delay(300);
-    const iframe = dialogRef.value?.iframeRef;
-    if (iframe?.contentWindow) {
-      const evt = new KeyboardEvent('keydown', {
-        key: 'Escape'
-      });
-      iframe.contentWindow.dispatchEvent(evt);
-    }
-    await client.value?.$functions.cancelInspectComponentInspector();
-  };
-
   const setupDevtools = () => {
     const iframe = dialogRef.value?.iframeRef;
     setIframeServerContext(iframe);
-
     client.value = rpcServer.value.clients[0];
     hook.value = (window as any).__VUE_DEVTOOLS_HOOK;
     cleanEngineApp();
-    client.value.$functions.on('toggle-panel', cancelInspect);
   };
 
   const destoryDevtools = () => {
-    client.value.$functions.off('toggle-panel', cancelInspect);
     removeDevToolsAppRecord(engine.simulator.renderer?.app);
     client.value = null;
     hook.value = null;
@@ -76,6 +92,7 @@ export function useDevtools() {
     dialogRef,
     engine,
     setupDevtools,
-    destoryDevtools
+    destoryDevtools,
+    visible
   };
 }
