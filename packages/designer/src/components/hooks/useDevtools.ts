@@ -5,9 +5,9 @@ import {
   setIframeServerContext,
   createRpcServer,
   initDevTools,
-  setActiveAppRecord,
-  setupDevToolsPlugin
+  setActiveAppRecord
 } from '@vue/devtools-kit';
+import * as devtoolsApi from '@vue/devtools-api';
 import { rpcServer, functions } from '@vue/devtools-core';
 import { delay } from '@vtj/utils';
 import { NodeModel } from '@vtj/core';
@@ -20,7 +20,7 @@ export function useDevtools() {
   const client = shallowRef();
   const hook = shallowRef();
   const designer = computed(() => engine.simulator.designer.value);
-  (window as any).devtoolsApi = { setupDevToolsPlugin };
+  (window as any).devtoolsApi = devtoolsApi;
   let stopHover: any = null;
   let stopSelected: any = null;
   let inspecting: boolean = false;
