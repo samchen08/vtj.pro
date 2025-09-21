@@ -1,6 +1,7 @@
 <template>
   <div ref="container" class="v-designer">
     <Viewport
+      ref="viewport"
       :mode="mode"
       :width="width"
       :height="height"
@@ -43,8 +44,8 @@
   </div>
 </template>
 <script lang="ts" setup>
-  import { computed, ref, watch } from 'vue';
-  import { useElementSize, useElementBounding } from '@vueuse/core';
+  import { computed, ref } from 'vue';
+  import { useElementSize } from '@vueuse/core';
   import { NodeModel } from '@vtj/core';
   import { ElEmpty } from 'element-plus';
   import Actions from './actions.vue';
@@ -53,8 +54,8 @@
 
   const container = ref();
   const iframe = ref<HTMLIFrameElement>();
+  const viewport = ref();
   const { width, height } = useElementSize(container);
-  const { left, top } = useElementBounding(container);
   const { dependencies, engine, apis, meta } = useDeps();
   const { current, isEmpty } = useCurrent();
 
@@ -145,16 +146,6 @@
       designer.value.setDragging(null);
     }
   };
-
-  watch(
-    [left, top],
-    ([l, t]) => {
-      const style = document.documentElement.style;
-      style.setProperty('--v-viewport-top', `${t}px`);
-      style.setProperty('--v-viewport-left', `${l}px`);
-    },
-    { immediate: true }
-  );
 
   defineExpose({
     designer,

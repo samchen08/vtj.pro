@@ -153,6 +153,7 @@ export class Simulator extends Base {
     <script>
       var top = window.parent || window;
       var __VUE_PROD_DEVTOOLS__ = true;
+      var devtoolsApi = top.devtoolsApi;
       top.__uniConfig = window.__uniConfig = {};
       top.__UNI_FEATURE_UNI_CLOUD__ = window.__UNI_FEATURE_UNI_CLOUD__ = false;
       top.__UNI_FEATURE_WX__ = window.__UNI_FEATURE_WX__ = false;

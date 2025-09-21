@@ -1,14 +1,16 @@
-import { ref, shallowRef, watch } from 'vue';
+import { ref, shallowRef, watch, computed } from 'vue';
 import {
   devtoolsInspector,
   removeDevToolsAppRecord,
   setIframeServerContext,
   createRpcServer,
   initDevTools,
-  setActiveAppRecord
+  setActiveAppRecord,
+  setupDevToolsPlugin
 } from '@vue/devtools-kit';
 import { rpcServer, functions } from '@vue/devtools-core';
 import { delay } from '@vtj/utils';
+import { NodeModel } from '@vtj/core';
 import { useEngine } from '../../framework';
 
 export function useDevtools() {
@@ -17,11 +19,39 @@ export function useDevtools() {
   const visible = ref(false);
   const client = shallowRef();
   const hook = shallowRef();
+  const designer = computed(() => engine.simulator.designer.value);
+  (window as any).devtoolsApi = { setupDevToolsPlugin };
+  let stopHover: any = null;
+  let stopSelected: any = null;
+  let inspecting: boolean = false;
+
+  functions.cancelInspectComponentInspector = async () => {
+    inspecting = false;
+    designer.value?.setHover(null);
+    stopHover && stopHover();
+    stopSelected && stopSelected();
+  };
+
+  functions.highlighComponent = async (uid: string) => {
+    if (inspecting) return;
+    const instanceMap = (window as any).__VUE_DEVTOOLS_KIT_ACTIVE_APP_RECORD__
+      ?.instanceMap as Map<string, any>;
+    if (!instanceMap) return;
+    const instance = instanceMap.get(uid);
+    if (!instance) return;
+    const id = instance.ctx?.$el?.__vtj__;
+    if (!id) return;
+    const model = NodeModel.nodes[id];
+    if (model) {
+      designer.value?.setHover(model);
+    }
+  };
 
   functions.inspectComponentInspector = async () => {
-    return new Promise((resolve) => {
-      const stopHover = watch(
-        () => engine.simulator.designer.value?.hover.value,
+    inspecting = true;
+    return new Promise<string>((resolve) => {
+      stopHover = watch(
+        () => designer.value?.hover.value,
         (v) => {
           if (visible.value && v && v.el) {
             const id = (v.el as any).__vueParentComponent
@@ -30,15 +60,16 @@ export function useDevtools() {
           }
         }
       );
-      const stopSelected = watch(
-        () => engine.simulator.designer.value?.selected.value,
+      stopSelected = watch(
+        () => designer.value?.selected.value,
         (v) => {
           if (v && v.el) {
-            stopHover();
-            stopSelected();
+            stopHover && stopHover();
+            stopSelected && stopSelected();
             const id = (v.el as any).__vueParentComponent
               .__VUE_DEVTOOLS_NEXT_UID__;
             resolve(JSON.stringify({ id }));
+            inspecting = false;
           } else {
             functions.cancelInspectComponentInspector();
           }
