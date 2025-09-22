@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.27](https://gitee.com/newgateway/vtj/compare/@vtj/local@0.13.26...@vtj/local@0.13.27) (2025-09-22)
+
+
+### Bug Fixes
+
+* 🐛 默认复制devtools ([1392cd4](https://gitee.com/newgateway/vtj/commits/1392cd4843bd39774affa1b9b35b43225ed6073d))
+* 🐛 devtools支持配置 ([4006889](https://gitee.com/newgateway/vtj/commits/400688973643dc68832e4ffb762731c4908d3185))
+
+
+
+
+
 ## [0.13.26](https://gitee.com/newgateway/vtj/compare/@vtj/local@0.13.25...@vtj/local@0.13.26) (2025-09-22)
 
 **Note:** Version bump only for package @vtj/local

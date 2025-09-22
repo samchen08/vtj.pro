@@ -42,6 +42,8 @@ export interface DevToolsOptions {
   materialDirs: string[];
   hm?: string;
   enhance?: boolean | EnhanceOptions;
+  devtools?: StaticPluginOption;
+  copyDevtools?: boolean;
 }
 
 export interface EnhanceOptions {
@@ -362,6 +364,11 @@ export function createDevTools(options: Partial<DevToolsOptions> = {}) {
     materialDirs: [],
     hm: '42f2469b4aa27c3f8978f634c0c19d24',
     enhance: false,
+    devtools: {
+      path: '__devtools__',
+      dir: './node_modules/@vtj/pro/dist/__devtools__'
+    },
+    copyDevtools: true,
     ...options
   };
   const plugins: Plugin[] = [aliasPlugin(opts)];
@@ -373,9 +380,9 @@ export function createDevTools(options: Partial<DevToolsOptions> = {}) {
     return `${opts.pluginNodeModulesDir}/${n}/dist`;
   });
 
+  const copyOptions: CopyPluginOption[] = [];
   // 复制物料目录
   if (opts.copy) {
-    const copyOptions: CopyPluginOption[] = [];
     if (pathExistsSync(materialsPath1)) {
       copyOptions.push({
         from: materialsPath1,
@@ -409,17 +416,33 @@ export function createDevTools(options: Partial<DevToolsOptions> = {}) {
         emptyDir: true
       });
     }
-    if (copyOptions.length > 0) {
-      plugins.push(copyPlugin(copyOptions));
-    }
   }
 
+  if (opts.copyDevtools && opts.devtools && pathExistsSync(opts.devtools.dir)) {
+    copyOptions.push({
+      from: opts.devtools.dir,
+      to: '__devtools__',
+      emptyDir: true
+    });
+  }
+
+  if (copyOptions.length > 0) {
+    plugins.push(copyPlugin(copyOptions));
+  }
   // 本地开发服务
   if (opts.server) {
     // api 服务
     plugins.push(apiServerPlugin(opts));
     // 静态资源服务
     const staticOptions: StaticPluginOption[] = [];
+
+    if (opts.devtools) {
+      staticOptions.push(
+        Object.assign({}, opts.devtools, {
+          path: `${opts.staticBase}${opts.devtools.path}`
+        })
+      );
+    }
 
     if (pathExistsSync(proPath)) {
       staticOptions.push({
