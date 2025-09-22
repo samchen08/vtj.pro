@@ -12,7 +12,7 @@
     title="开发工具"
     subtitle="DevTools"
     :class="`v-devtools--${position}`"
-    src="__devtools__/index.html"
+    :src="devtoolsPath"
     width="50%"
     height="60%"
     maximizable
@@ -49,7 +49,7 @@
   </XDialog>
 </template>
 <script lang="ts" setup>
-  import { ref } from 'vue';
+  import { ref, computed } from 'vue';
   import { ElDivider } from 'element-plus';
   import { XAction, XDialog } from '@vtj/ui';
   import {
@@ -65,7 +65,8 @@
     inheritAttrs: false
   });
 
-  const { dialogRef, setupDevtools, destoryDevtools, visible } = useDevtools();
+  const { dialogRef, setupDevtools, destoryDevtools, visible, engine } =
+    useDevtools();
 
   const position = ref('');
 
@@ -80,6 +81,10 @@
       position.value = type;
     }
   };
+
+  const devtoolsPath = computed(
+    () => engine.options.devtools || '__devtools__/index.html'
+  );
 
   defineExpose({
     visible
