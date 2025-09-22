@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.28](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.13.27...@vtj/core@0.13.28) (2025-09-22)
+
+
+### Features
+
+* ✨ 支持expose ([c54f24e](https://gitee.com/newgateway/vtj/commits/c54f24e9edc489128e65ca18d6063fb5b39d7dca))
+
+
+
+
+
 ## [0.13.27](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.13.26...@vtj/core@0.13.27) (2025-09-22)
 
 **Note:** Version bump only for package @vtj/core
