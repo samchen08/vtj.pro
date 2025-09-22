@@ -368,7 +368,7 @@ export function createDevTools(options: Partial<DevToolsOptions> = {}) {
       path: '__devtools__',
       dir: './node_modules/@vtj/pro/dist/__devtools__'
     },
-    copyDevtools: false,
+    copyDevtools: true,
     ...options
   };
   const plugins: Plugin[] = [aliasPlugin(opts)];
