@@ -7,24 +7,29 @@
   import { computed } from 'vue';
   import { MOBILE_SIZE, PAD_SIZE } from '../../constants';
 
-  
   export interface Props {
     mode?: 'pc' | 'pad' | 'mobile' | 'custom';
     width?: number;
     height?: number;
-    customSize?: { width : number, height : number }
+    customSize?: { width: number; height: number };
   }
 
   const props = withDefaults(defineProps<Props>(), {
     mode: 'pc',
-    customSize: ()=>({ width : 1920, height : 1080})
+    customSize: () => ({ width: 1920, height: 1080 })
   });
 
   const classes = computed(() => {
     return [`is-${props.mode}`];
   });
 
-  const size = computed(()=>props.mode === 'mobile' ? MOBILE_SIZE : props.mode === 'pad' ? PAD_SIZE : props.customSize)
+  const size = computed(() =>
+    props.mode === 'mobile'
+      ? MOBILE_SIZE
+      : props.mode === 'pad'
+        ? PAD_SIZE
+        : props.customSize
+  );
 
   const scale = computed(() => {
     if (props.mode === 'pc') return 1;
@@ -44,6 +49,10 @@
       top: '50%',
       transform: `translate(-50%, -50%) scale(${scale.value})`
     };
+  });
+
+  defineExpose({
+    scale
   });
 
   defineOptions({

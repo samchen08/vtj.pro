@@ -15,36 +15,40 @@ export default [
   },
   {
     text: '基础',
-    base: '/guide',
+    // base: '/guide',
     items: [
-      { text: '创建一个低代码应用（ Todo ）', link: '/base/todo' },
+      { text: '创建一个低代码应用（ Todo ）', link: '/guide/base/todo' },
       {
         text: '设计器入门教程',
         collapsed: true,
         items: [
-          { text: '概念', link: '/base/concept' },
-          { text: '项目工程搭建和配置', link: '/designer/01' },
-          { text: '可视化设计器功能概述', link: '/designer/02' },
-          { text: '页面管理', link: '/designer/03' },
-          { text: '物料和依赖管理', link: '/designer/04' },
-          { text: '工作区和画布操作', link: '/designer/05' },
-          { text: '节点大纲树', link: '/designer/06' },
-          { text: '历史记录', link: '/designer/07' },
-          { text: '页面设置', link: '/designer/08' },
-          { text: '节点设置', link: '/designer/09' },
-          { text: '设置器和绑定器', link: '/designer/10' },
-          { text: 'API管理和数据源', link: '/designer/11' },
-          { text: '区块管理', link: '/designer/12' },
-          { text: '预览、调试和发布', link: '/designer/13' },
-          { text: '编辑器快捷键', link: '/designer/14' }
+          { text: '概念', link: '/guide/base/concept' },
+          { text: '项目工程搭建和配置', link: '/guide/designer/01' },
+          { text: '可视化设计器功能概述', link: '/guide/designer/02' },
+          { text: '页面管理', link: '/guide/designer/03' },
+          { text: '物料和依赖管理', link: '/guide/designer/04' },
+          { text: '工作区和画布操作', link: '/guide/designer/05' },
+          { text: '节点大纲树', link: '/guide/designer/06' },
+          { text: '历史记录', link: '/guide/designer/07' },
+          { text: '页面设置', link: '/guide/designer/08' },
+          { text: '节点设置', link: '/guide/designer/09' },
+          { text: '设置器和绑定器', link: '/guide/designer/10' },
+          { text: 'API管理和数据源', link: '/guide/designer/11' },
+          { text: '区块管理', link: '/guide/designer/12' },
+          { text: '预览、调试和发布', link: '/guide/designer/13' },
+          { text: '编辑器快捷键', link: '/guide/designer/14' }
         ]
       },
-      { text: '设计器接入指南', link: '/base/integrate' },
-      { text: '物料制作指南', link: '/base/materials' },
-      { text: '应用增强', link: '/base/enhance' },
-      { text: '网络请求', link: '/base/request' },
-      { text: '权限控制', link: '/base/access' },
-      { text: '应用全局设置', link: '/base/globals' }
+      { text: '设计器接入指南', link: '/guide/base/integrate' },
+      { text: '物料制作指南', link: '/guide/base/materials' },
+      { text: '应用增强', link: '/guide/base/enhance' },
+      { text: '网络请求', link: '/guide/base/request' },
+      { text: '权限控制', link: '/guide/base/access' },
+      { text: '应用全局设置', link: '/guide/base/globals' },
+      {
+        text: '视频教程专题',
+        link: 'https://space.bilibili.com/1658426127'
+      }
     ]
   },
   {

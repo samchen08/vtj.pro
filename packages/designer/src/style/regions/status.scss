@@ -1,6 +1,25 @@
 @use '../core' as *;
 @include b(status-region) {
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
   align-items: center;
+  width: 100%;
+
+  @include e(right) {
+    padding: 0 20px;
+    & > .x-action {
+      margin-left: 20px;
+    }
+  }
+}
+
+@include b(hotkeys-item) {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 120px;
+
+  @include e(value) {
+    color: var(--el-text-color-secondary);
+  }
 }

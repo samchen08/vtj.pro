@@ -67,13 +67,22 @@ export interface EngineState {
 export class State {
   private __state: Reactive<EngineState> = reactive(defaults);
 
-  private __isDark = useDark();
+  private __isDark = useDark({
+    storageKey: 'color-schema'
+  });
 
   constructor() {
     const state = storage.get(STATE_KEY, { type: 'local' });
     if (state) {
       Object.assign(this.__state, state);
     }
+    this.saveDevtoolsTheme();
+  }
+
+  private saveDevtoolsTheme() {
+    storage.save('__vue-devtools-theme__', this.dark ? 'dark' : 'auto', {
+      type: 'local'
+    });
   }
 
   reset() {
@@ -148,6 +157,7 @@ export class State {
 
   set dark(v: boolean) {
     this.__isDark.value = v;
+    this.saveDevtoolsTheme();
   }
 
   saveLLM(item: LLM) {

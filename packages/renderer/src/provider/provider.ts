@@ -296,12 +296,14 @@ export class Provider extends Base {
             await loadScript(urlUtils.append(url, { v: version }));
           }
         }
-        library[libraryName] = _window[libraryName];
+        library[libraryName] =
+          _window[libraryName]?.default || _window[libraryName];
       }
 
       const locale = libraryLocaleMap[libraryName];
       if (locale) {
-        libraryLocales[locale] = _window[locale];
+        const raw = dependencies[locale];
+        libraryLocales[locale] = raw ? await raw() : _window[locale];
       }
     }
 
@@ -313,7 +315,8 @@ export class Provider extends Base {
 
       const materialMap = this.materials || {};
       for (const materialExport of materialExports) {
-        const lib = _window[materialMapLibrary[materialExport]];
+        const _lib = _window[materialMapLibrary[materialExport]];
+        const lib = _lib?.default || _lib;
         const builtInComponents = BUILT_IN_COMPONENTS[materialExport];
         if (builtInComponents) {
           if (lib) {

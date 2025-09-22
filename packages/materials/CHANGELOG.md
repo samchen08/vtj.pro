@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.26](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.13.25...@vtj/materials@0.13.26) (2025-09-22)
+
+
+### Features
+
+* ✨ devtools ([a3ee20e](https://gitee.com/newgateway/vtj/commits/a3ee20ec87064a6bfa71b99d538ffabdb68ea676))
+* ✨ uniapp devtools ([a26a7af](https://gitee.com/newgateway/vtj/commits/a26a7af5a4f9202ade01f5a91222385fbf8abd42))
+
+
+
+
+
 ## [0.13.25](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.13.24...@vtj/materials@0.13.25) (2025-09-16)
 
 

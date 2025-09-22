@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.26](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.13.25...@vtj/renderer@0.13.26) (2025-09-22)
+
+
+### Bug Fixes
+
+* 🐛 物料支持非标准Module文件 ([60ceec0](https://gitee.com/newgateway/vtj/commits/60ceec0d6380f2420bce39770b67be67b6c5963d))
+* 🐛 dependencies[locale] ([86361f0](https://gitee.com/newgateway/vtj/commits/86361f0a4a4f09850eebcb156cbc021d42a4dbda))
+
+
+
+
+
 ## [0.13.25](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.13.24...@vtj/renderer@0.13.25) (2025-09-16)
 
 **Note:** Version bump only for package @vtj/renderer

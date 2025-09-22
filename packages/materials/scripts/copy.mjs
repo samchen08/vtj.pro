@@ -28,7 +28,8 @@ const files = [
     modules + 'vue-i18n/dist/vue-i18n.global.js',
     'deps/vue-i18n/vue-i18n.global.js'
   ],
-  [modules + 'pinia/dist/pinia.iife.prod.js', 'deps/pinia/pinia.iife.js'],
+  [modules + 'pinia/dist/pinia.iife.prod.js', 'deps/pinia/pinia.iife.prod.js'],
+  [modules + 'pinia/dist/pinia.iife.js', 'deps/pinia/pinia.iife.js'],
   [
     modules + 'element-plus/dist/index.full.min.js',
     'deps/element-plus/index.full.min.js'

@@ -8,7 +8,6 @@ export default createViteConfig({
   outDir: '../pro/dist/uni',
   elementPlus: false,
   dts: false,
-  devtools: false,
   loading: false,
   reload: false,
   port: 8010,

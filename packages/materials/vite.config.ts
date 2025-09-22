@@ -51,6 +51,21 @@ const materials = {
     library: 'Vue',
     outDir: 'dist/deps/uni-h5-vue'
   },
+  uniH5VueDev: {
+    entry: 'src/uni-h5-vue/index.ts',
+    library: 'Vue',
+    outDir: 'dist/deps/uni-h5-vue',
+    dev: true,
+    filename: 'uni-h5-vue.js',
+    emptyOutDir: false
+  },
+  uniH5VueProd: {
+    entry: 'src/uni-h5-vue/index.ts',
+    library: 'Vue',
+    outDir: 'dist/deps/uni-h5-vue',
+    filename: 'uni-h5-vue.prod.js',
+    emptyOutDir: false
+  },
   uniH5C: {
     entry: 'src/uni-h5/components/index.ts',
     library: 'UniH5Material',
@@ -69,7 +84,14 @@ const materials = {
 };
 
 function createConfig(name: string) {
-  const { entry, library, outDir } = materials[name];
+  const {
+    entry,
+    library,
+    outDir,
+    dev,
+    filename,
+    emptyOutDir = true
+  } = materials[name];
 
   if (name === 'uniUI') {
     let plugins = (uni as any).default({}) as any;
@@ -124,6 +146,7 @@ function createConfig(name: string) {
     library,
     entry,
     outDir,
+    emptyOutDir,
     lib: true,
     dts: false,
     version: true,
@@ -135,7 +158,18 @@ function createConfig(name: string) {
       'vue-router': 'VueRouter',
       '@vtj/base': 'VtjBase',
       '@vtj/core': 'VtjCore'
-    }
+    },
+    defineConfig(config) {
+      if (dev) {
+        config.build.minify = false;
+        config.mode = 'development';
+        config.define = {
+          'process.env.NODE_ENV': '"development"'
+        };
+      }
+      return config;
+    },
+    libFileName: filename ? () => filename : 'index'
   });
 }
 

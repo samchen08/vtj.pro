@@ -7,7 +7,6 @@ import type {
 
 import { type StaticPluginOption } from '../plugins/static';
 import { type PolyfillOptions } from 'vite-plugin-node-polyfills';
-import { type VitePluginVueDevToolsOptions } from 'vite-plugin-vue-devtools';
 import { type CdnPluginOptions } from '../plugins/cdn';
 
 declare namespace NodeJS {
@@ -163,7 +162,7 @@ export interface CreateViteConfigOptions {
   /**
    * 库模式编译输出文件名,不包含后缀名
    */
-  libFileName?: string;
+  libFileName?: string | ((format?: string) => string);
 
   /**
    * 库模式编译css输出文件名，不包含后缀名
@@ -258,11 +257,6 @@ export interface CreateViteConfigOptions {
    * 默认情况下，Vite 会在构建阶段将 publicDir 目录中的所有文件复制到 outDir 目录中。可以通过设置该选项为 false 来禁用该行为。
    */
   copyPublicDir?: boolean;
-
-  /**
-   * 开启 VueDevTools
-   */
-  devtools?: boolean | VitePluginVueDevToolsOptions;
 
   /**
    * CDN配置
