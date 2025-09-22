@@ -43,6 +43,7 @@ export interface ParseScriptsResult {
   watch?: BlockWatch[];
   props?: Array<string | BlockProp>;
   emits?: BlockEmit[];
+  expose?: string[];
   inject?: BlockInject[];
   handlers?: Record<string, JSFunction>;
   dataSources?: Record<string, DataSourceSchema>;
@@ -104,6 +105,9 @@ export function parseScripts(content: string, project: ProjectSchema) {
             break;
           case 'inject':
             result.inject = processInject(item.value as any);
+            break;
+          case 'expose':
+            result.expose = processExpose(item.value as any);
             break;
         }
       }
@@ -540,6 +544,17 @@ function processInject(
   }
   // console.log(expression);
   return inject;
+}
+
+function processExpose(expression: ArrayExpression) {
+  if (expression && expression.elements) {
+    return expression.elements
+      .map((n) => {
+        return n?.type === 'StringLiteral' ? n.value : '';
+      })
+      .filter((n) => !!n);
+  }
+  return [];
 }
 
 function findApi(project: ProjectSchema, id: string) {

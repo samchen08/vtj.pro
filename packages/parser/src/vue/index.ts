@@ -54,6 +54,7 @@ export async function parseVue(options: IParseVueOptions) {
     methods,
     props,
     emits,
+    expose,
     inject,
     handlers,
     imports,
@@ -80,6 +81,7 @@ export async function parseVue(options: IParseVueOptions) {
     dataSources,
     slots,
     emits,
+    expose,
     nodes,
     css
   };

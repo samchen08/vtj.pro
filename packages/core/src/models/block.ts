@@ -39,6 +39,7 @@ export class BlockModel {
   public css: string = '';
   public props: Array<string | BlockProp> = [];
   public emits: Array<string | BlockEmit> = [];
+  public expose: string[] = [];
   public slots: Array<string | BlockSlot> = [];
   public dataSources: Record<string, DataSourceSchema> = {};
   public nodes: NodeModel[] = [];
@@ -57,6 +58,7 @@ export class BlockModel {
     'css',
     'props',
     'emits',
+    'expose',
     'slots',
     'dataSources',
     '__TEMPLATE_ID__'
@@ -297,6 +299,13 @@ export class BlockModel {
       if (!silent) {
         emitter.emit(EVENT_BLOCK_CHANGE, this);
       }
+    }
+  }
+
+  setExpose(expose: string[], silent: boolean = false) {
+    this.expose = expose;
+    if (!silent) {
+      emitter.emit(EVENT_BLOCK_CHANGE, this);
     }
   }
 

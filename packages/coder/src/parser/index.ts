@@ -21,6 +21,7 @@ export interface Token {
   inject: string;
   props: string;
   emits: string;
+  expose: string;
   watch: string;
   lifeCycles: string;
   computed: string;
@@ -101,6 +102,8 @@ export function parser(
     inject: parseInject(dsl.inject).join(','),
     props: parseProps(dsl.props).join(','),
     emits: parseEmits(dsl.emits).join(','),
+    expose:
+      dsl.expose && dsl.expose.length ? JSON.stringify(dsl.expose || []) : '',
     watch: watch.watches.join(','),
     lifeCycles: lifeCycles.join(','),
     computed: mergeComputed.join(','),
