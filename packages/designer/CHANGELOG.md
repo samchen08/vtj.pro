@@ -3,6 +3,29 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.26](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.13.25...@vtj/designer@0.13.26) (2025-09-22)
+
+
+### Bug Fixes
+
+* 🐛 物料支持非标准Module文件 ([60ceec0](https://gitee.com/newgateway/vtj/commits/60ceec0d6380f2420bce39770b67be67b6c5963d))
+* 🐛 优先加载物料资源 ([2f0e7de](https://gitee.com/newgateway/vtj/commits/2f0e7def1fa64f093b544d1273935bcfc7c50b0a))
+* 🐛 cloneDsl ([e718b94](https://gitee.com/newgateway/vtj/commits/e718b949305b88ebca9a88943561f4ed51ba9b48))
+* 🐛 devtools ([fffeade](https://gitee.com/newgateway/vtj/commits/fffeadeedf7ba2efef8843667292894c03ba794b))
+* 🐛 devtoolsApi ([9a907e6](https://gitee.com/newgateway/vtj/commits/9a907e6e80a2812c977f47c2b02cf14ab441beb7))
+* 🐛 SELECT_ALL_KEYS ([591dd6b](https://gitee.com/newgateway/vtj/commits/591dd6b74f0cff2323361824c5c23896864419ab))
+
+
+### Features
+
+* ✨ 增加快捷键向导 ([0885fd8](https://gitee.com/newgateway/vtj/commits/0885fd8e610cdf9245f756e67b2c61f644617b1c))
+* ✨ devtools ([a3ee20e](https://gitee.com/newgateway/vtj/commits/a3ee20ec87064a6bfa71b99d538ffabdb68ea676))
+* ✨ uniapp devtools ([a26a7af](https://gitee.com/newgateway/vtj/commits/a26a7af5a4f9202ade01f5a91222385fbf8abd42))
+
+
+
+
+
 ## [0.13.25](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.13.24...@vtj/designer@0.13.25) (2025-09-16)
 
 

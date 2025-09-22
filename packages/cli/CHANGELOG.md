@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.13](https://gitee.com/newgateway/vtj/compare/@vtj/cli@0.12.12...@vtj/cli@0.12.13) (2025-09-22)
+
+
+### Features
+
+* ✨ cli 删除 devtools ([e6e055b](https://gitee.com/newgateway/vtj/commits/e6e055be8b90441c6c149d770d59b0cccf9c736d))
+* ✨ devtools ([a3ee20e](https://gitee.com/newgateway/vtj/commits/a3ee20ec87064a6bfa71b99d538ffabdb68ea676))
+* ✨ uniapp devtools ([a26a7af](https://gitee.com/newgateway/vtj/commits/a26a7af5a4f9202ade01f5a91222385fbf8abd42))
+
+
+
+
+
 ## [0.12.12](https://gitee.com/newgateway/vtj/compare/@vtj/cli@0.12.11...@vtj/cli@0.12.12) (2025-09-11)
 
 **Note:** Version bump only for package @vtj/cli

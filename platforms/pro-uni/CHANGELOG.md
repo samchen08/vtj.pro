@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.26](https://github.com/samchen08/vtj.pro/compare/@vtj/pro-uni@0.13.25...@vtj/pro-uni@0.13.26) (2025-09-22)
+
+
+### Features
+
+* ✨ cli 删除 devtools ([e6e055b](https://github.com/samchen08/vtj.pro/commit/e6e055be8b90441c6c149d770d59b0cccf9c736d))
+
+
+
+
+
 ## [0.13.25](https://github.com/samchen08/vtj.pro/compare/@vtj/pro-uni@0.13.24...@vtj/pro-uni@0.13.25) (2025-09-16)
 
 **Note:** Version bump only for package @vtj/pro-uni
