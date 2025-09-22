@@ -64,6 +64,11 @@ export interface BlockSchema {
   emits?: Array<string | BlockEmit>;
 
   /**
+   * 定义暴露公共属性
+   */
+  expose?: string[];
+
+  /**
    * 定义插槽
    */
   slots?: Array<string | BlockSlot>;

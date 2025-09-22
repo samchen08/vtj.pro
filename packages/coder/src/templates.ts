@@ -11,7 +11,8 @@ export default defineComponent({
   <% if(components) { %> components: { <%= components %> }, <% } %>
   <% if(directives) { %> directives: { <%= directives %> }, <% } %>
   <% if(props) { %> props: { <%= props %> }, <% } %>
-  <% if(emits) {%> emits: [<%= emits %>], <% } %> 
+  <% if(emits) {%> emits: [<%= emits %>], <% } %>
+  <% if(expose) {%> expose: <%= expose %>, <% } %>  
   setup(props) {
     const provider = useProvider({
       id: '<%= id %>',

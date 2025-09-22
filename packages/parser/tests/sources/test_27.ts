@@ -1,51 +1,34 @@
 export const test_27 = `
 <template>
-  <div class="user-management-page">
-  <XIcon
-          :icon="item.expanded ? ChevronDown : ChevronRight"
-          :size="16"
-          :color="item.active ? '#ffffff' : '#aec1e0'"
-        ></XIcon>
-        <XIcon
-          :icon="ChevronRight"
-        ></XIcon>
+  <div>
+    <ElButton type="primary"> 按钮</ElButton>
   </div>
 </template>
 <script lang="ts">
   // @ts-nocheck
   import { defineComponent, reactive } from 'vue';
-  import {ChevronDown, ChevronRight} from '@vtj/icons'
+  import { ElButton } from 'element-plus';
   import { useProvider } from '@vtj/renderer';
   export default defineComponent({
-    name: 'UserPage',
-    components: {},
+    name: 'TestBlock',
+    components: { ElButton },
+    expose: ['state', 'titleLength', 'sayTitle'],
     setup(props) {
-      const provider = useProvider({
-        id: '19eiup0i',
-        version: '1756167211727'
-      });
-      const state = reactive({});
-      return {
-        state,
-        props,
-        provider,
-        ChevronDown, ChevronRight
-      };
+      const provider = useProvider({ id: '1ai5vjro', version: '1758529081462' });
+      const state = reactive({ title: 'Title' });
+      return { state, props, provider };
+    },
+    computed: {
+      titleLength() {
+        return this.state.title.length;
+      }
     },
     methods: {
-      // 获取用户列表
-      async fetchUserList(
-        orgId = '',
-        page = 1,
-        size = 10,
-        keyword = '',
-        status = '',
-        role = ''
-      ) {
-       this.state.data = [];  
+      sayTitle() {
+        alert(this.state.title);
       }
     }
-  });
+  })
 </script>
 <style lang="css" scoped></style>
 

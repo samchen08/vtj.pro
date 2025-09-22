@@ -277,6 +277,7 @@ export class Provider extends Base {
       materialMapLibrary,
       libraryLocaleMap
     } = parseDeps(deps, materialPath, nodeEnv === NodeEnv.Development);
+
     Object.assign(this.libraryLocaleMap, libraryLocaleMap);
     for (const libraryName of libraryExports) {
       const raw = dependencies[libraryName];
@@ -296,8 +297,7 @@ export class Provider extends Base {
             await loadScript(urlUtils.append(url, { v: version }));
           }
         }
-        library[libraryName] =
-          _window[libraryName]?.default || _window[libraryName];
+        library[libraryName] = _window[libraryName];
       }
 
       const locale = libraryLocaleMap[libraryName];
