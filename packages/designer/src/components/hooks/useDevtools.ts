@@ -21,6 +21,7 @@ export function useDevtools() {
   const hook = shallowRef();
   const designer = computed(() => engine.simulator.designer.value);
   (window as any).devtoolsApi = devtoolsApi;
+  (window as any).__VUE_DEVTOOLS_KIT_ACTIVE_APP_RECORD__ = {};
   let stopHover: any = null;
   let stopSelected: any = null;
   let inspecting: boolean = false;
