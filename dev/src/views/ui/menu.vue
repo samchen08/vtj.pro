@@ -1,5 +1,9 @@
 <template>
-  <XMenu :data="data" @select="onSelect" default-active="A-1"></XMenu>
+  <XMenu
+    :data="data"
+    @select="onSelect"
+    default-active="A-1"
+    :collapse="true"></XMenu>
 </template>
 <script lang="ts" setup>
   import { icons, XMenu, type MenuDataItem } from '@vtj/web';
@@ -8,6 +12,7 @@
       id: 'A',
       title: 'A',
       icon: icons['Document'],
+      badge: '100',
       children: [
         {
           id: 'A-1',
