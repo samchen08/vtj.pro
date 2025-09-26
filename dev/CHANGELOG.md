@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.29](https://github.com/samchen08/vtj.pro/compare/dev-web@0.13.28...dev-web@0.13.29) (2025-09-26)
+
+
+### Bug Fixes
+
+* 🐛 XMenu组件折叠图标问题 ([5839e20](https://github.com/samchen08/vtj.pro/commit/5839e204259bd02e677dc6079b92305571b67298))
+
+
+
+
+
 ## [0.13.28](https://github.com/samchen08/vtj.pro/compare/dev-web@0.13.27...dev-web@0.13.28) (2025-09-22)
 
 **Note:** Version bump only for package dev-web

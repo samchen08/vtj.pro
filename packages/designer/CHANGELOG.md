@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.29](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.13.28...@vtj/designer@0.13.29) (2025-09-26)
+
+
+### Bug Fixes
+
+* 🐛 缺失 __VUE_DEVTOOLS_KIT_ACTIVE_APP_RECORD__ 导致报错 ([3dd3372](https://gitee.com/newgateway/vtj/commits/3dd337250a31e0033f901fbc05beafc8572dc01a))
+
+
+
+
+
 ## [0.13.28](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.13.27...@vtj/designer@0.13.28) (2025-09-22)
 
 
