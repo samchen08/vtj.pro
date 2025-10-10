@@ -161,6 +161,7 @@ export class Simulator extends Base {
       top.__UNI_FEATURE_PAGES__ = window.__UNI_FEATURE_PAGES__ = false;
       top.getApp = window.getApp = function() {};
       top.uni = window.uni = {};
+      top.__VUE_DEVTOOLS_KIT_ACTIVE_APP_RECORD__ = {};
       Object.defineProperty(window, '__VUE_DEVTOOLS_GLOBAL_HOOK__', {
         value: window.parent.__VUE_DEVTOOLS_GLOBAL_HOOK__,
         writable: true,

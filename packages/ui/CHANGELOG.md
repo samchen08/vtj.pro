@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.29](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.13.28...@vtj/ui@0.13.29) (2025-09-26)
+
+
+### Bug Fixes
+
+* 🐛 XMenu组件折叠图标问题 ([5839e20](https://gitee.com/newgateway/vtj/commits/5839e204259bd02e677dc6079b92305571b67298))
+
+
+
+
+
 ## [0.13.28](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.13.27...@vtj/ui@0.13.28) (2025-09-22)
 
 **Note:** Version bump only for package @vtj/ui

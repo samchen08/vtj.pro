@@ -201,13 +201,17 @@
             zoom: 0.9;
             left: 0;
             bottom: 10px;
-            width: 100%;
+
             text-align: center;
             display: block;
             position: relative;
             top: -5px;
             color: getCssVar('text-color-secondary');
             overflow: hidden;
+
+            height: auto;
+            width: 100%;
+            visibility: visible;
           }
         }
       }

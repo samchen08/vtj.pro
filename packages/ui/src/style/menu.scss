@@ -4,8 +4,8 @@
   border-right: none !important;
 
   .x-icon {
-    font-size: inherit;
-    width: 14px;
+    font-size: 18px;
+    width: 18px;
   }
 
   @include e(wrapper) {
@@ -27,6 +27,13 @@
   &.el-menu--collapse {
     @include e(wrapper) {
       position: relative;
+      & > .x-menu__title {
+        height: 0;
+        width: 0;
+        overflow: hidden;
+        visibility: hidden;
+        display: inline-block;
+      }
     }
     @include e(badge) {
       position: absolute;
