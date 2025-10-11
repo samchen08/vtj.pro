@@ -295,6 +295,7 @@ export class Designer {
   private onSelected(e: MouseEvent) {
     if (!this.engine.state.activeEvent) {
       e.stopPropagation();
+      e.preventDefault();
     }
     this.setHover(null);
     this.selected.value = this.getHelper(e);
