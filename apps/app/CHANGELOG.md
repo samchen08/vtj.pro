@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.30](https://github.com/samchen08/vtj.pro/compare/vtj-project-app@0.13.29...vtj-project-app@0.13.30) (2025-10-11)
+
+**Note:** Version bump only for package vtj-project-app
+
+
+
+
+
 ## [0.13.29](https://github.com/samchen08/vtj.pro/compare/vtj-project-app@0.13.28...vtj-project-app@0.13.29) (2025-09-26)
 
 **Note:** Version bump only for package vtj-project-app
