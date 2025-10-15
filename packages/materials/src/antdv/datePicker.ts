@@ -69,8 +69,8 @@ const components: MaterialDescription[] = [
         defaultValue: false
       },
       {
-        name: 'local',
-        label: 'local',
+        name: 'locale',
+        label: 'locale',
         title: '国际化配置',
         setters: 'ObjectSetter'
       },
