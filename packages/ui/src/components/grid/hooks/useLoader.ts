@@ -38,9 +38,10 @@ export function useLoader(
     }
   };
 
-  const search = (reset?: boolean) => {
+  const search = async (reset?: boolean) => {
     state.page = props.page || 1;
-    load(reset);
+    await load(reset);
+    return true;
   };
 
   const onPagerChange = (currentPage: number, pageSize: number) => {

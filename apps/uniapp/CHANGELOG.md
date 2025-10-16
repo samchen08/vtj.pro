@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.31](https://github.com/samchen08/vtj.pro/compare/vtj-project-uniapp@0.13.30...vtj-project-uniapp@0.13.31) (2025-10-16)
+
+
+### Bug Fixes
+
+* 🐛 uniapp模版增加vue-router依赖 ([b5a1fbf](https://github.com/samchen08/vtj.pro/commit/b5a1fbf84172f1a605ab08cbc04c874ddacc08ca))
+
+
+
+
+
 ## [0.13.30](https://github.com/samchen08/vtj.pro/compare/vtj-project-uniapp@0.13.29...vtj-project-uniapp@0.13.30) (2025-10-11)
 
 **Note:** Version bump only for package vtj-project-uniapp

@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.31](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.13.30...@vtj/designer@0.13.31) (2025-10-16)
+
+
+### Bug Fixes
+
+* 🐛 响应事件增加e.preventDefault() ([2421eea](https://gitee.com/newgateway/vtj/commits/2421eeac1eee38ff0dda635cc6c6c4853f211196))
+* 🐛 dayjs语言包依赖 ([1132ecb](https://gitee.com/newgateway/vtj/commits/1132ecb973f9d62d162a4035520085125bfbce39))
+
+
+
+
+
 ## [0.13.30](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.13.29...@vtj/designer@0.13.30) (2025-10-11)
 
 **Note:** Version bump only for package @vtj/designer

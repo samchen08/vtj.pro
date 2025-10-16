@@ -83,6 +83,10 @@ const files = [
     modules + 'dayjs/plugin/quarterOfYear.js',
     'deps/ant-design-vue/dayjs/plugin/quarterOfYear.js'
   ],
+  [
+    modules + 'dayjs/locale/zh-cn.js',
+    'deps/ant-design-vue/dayjs/locale/zh-cn.js'
+  ],
   // [
   //   modules + '@ckeditor/ckeditor5-build-classic/build/ckeditor.js',
   //   'deps/@ckeditor/ckeditor5-build-classic/ckeditor.js'

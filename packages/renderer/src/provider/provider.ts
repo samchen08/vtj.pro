@@ -425,6 +425,10 @@ export class Provider extends Base {
       }
     }
 
+    // 提供全局 Provider 实例
+    app.provide(providerKey, this);
+    app.config.globalProperties.$provider = this;
+
     // 执行自定义安装函数
     if (this.options.install) {
       app.use(this.options.install);
@@ -453,10 +457,6 @@ export class Provider extends Base {
     if (this.mode !== ContextMode.Design && this.project?.i18n) {
       this.initI18n(app, this.library, this.project.i18n);
     }
-
-    // 提供全局 Provider 实例
-    app.provide(providerKey, this);
-    app.config.globalProperties.$provider = this;
 
     // 执行增强函数
     if (this.options.enhance) {

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.31](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.13.30...@vtj/renderer@0.13.31) (2025-10-16)
+
+
+### Bug Fixes
+
+* 🐛 渲染器提前设置 app.config.globalProperties.$provider ([75f862e](https://gitee.com/newgateway/vtj/commits/75f862ef21223349525d380fa663c3314e88b975))
+
+
+
+
+
 ## [0.13.30](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.13.29...@vtj/renderer@0.13.30) (2025-10-11)
 
 **Note:** Version bump only for package @vtj/renderer

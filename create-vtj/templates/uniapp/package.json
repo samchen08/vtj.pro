@@ -62,6 +62,7 @@
     "@dcloudio/uni-mp-weixin": "3.0.0-4070620250821001",
     "@dcloudio/uni-quickapp-webview": "3.0.0-4070620250821001",
     "@dcloudio/uni-ui": "~1.5.3",
+    "vue-router": "~4.5.0",
     "vue-i18n": "~11.1.11",
     "@vtj/uni-app": "latest"
   },

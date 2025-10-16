@@ -172,6 +172,7 @@ export const builtInDeps: Dependencie[] = [
     urls: [
       '@vtj/materials/deps/ant-design-vue/reset.css',
       '@vtj/materials/deps/ant-design-vue/dayjs/dayjs.min.js',
+      '@vtj/materials/deps/ant-design-vue/dayjs/locale/zh-cn.js',
       '@vtj/materials/deps/ant-design-vue/dayjs/plugin/customParseFormat.js',
       '@vtj/materials/deps/ant-design-vue/dayjs/plugin/weekday.js',
       '@vtj/materials/deps/ant-design-vue/dayjs/plugin/localeData.js',
