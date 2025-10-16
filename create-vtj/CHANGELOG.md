@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.16](https://gitee.com/newgateway/vtj/compare/create-vtj@0.12.15...create-vtj@0.12.16) (2025-10-16)
+
+
+### Bug Fixes
+
+* 🐛 uniapp模版增加vue-router依赖 ([b5a1fbf](https://gitee.com/newgateway/vtj/commits/b5a1fbf84172f1a605ab08cbc04c874ddacc08ca))
+
+
+
+
+
 ## [0.12.15](https://gitee.com/newgateway/vtj/compare/create-vtj@0.12.14...create-vtj@0.12.15) (2025-09-12)
 
 

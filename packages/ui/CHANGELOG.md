@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.31](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.13.30...@vtj/ui@0.13.31) (2025-10-16)
+
+
+### Bug Fixes
+
+* 🐛 优化 x-grid search ([12a7387](https://gitee.com/newgateway/vtj/commits/12a73877be0c0e807adc1fa9ce2fd62c0d20c3b2))
+
+
+
+
+
 ## [0.13.30](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.13.29...@vtj/ui@0.13.30) (2025-10-11)
 
 **Note:** Version bump only for package @vtj/ui
