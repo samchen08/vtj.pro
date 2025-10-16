@@ -38,9 +38,9 @@ import { logger } from '@vtj/utils';
 import { Renderer } from './renderer';
 import { Designer } from './designer';
 import { type Engine } from './engine';
-import { DevTools } from './devtools';
 import Mock from 'mockjs';
 import { loading } from '../utils';
+import { HOT_KEYS_DEP } from '../constants';
 
 declare global {
   interface Window {
@@ -48,6 +48,8 @@ declare global {
     Vue?: any;
     VueRouter?: any;
     ElementPlus?: any;
+    hotkeys?: any;
+    VueDevtools?: any;
   }
 }
 
@@ -79,7 +81,6 @@ export class Simulator extends Base {
   public engine: Engine;
   public materialPath: string;
   public rendered: Ref<symbol> = ref(Symbol());
-  public devtools: DevTools = new DevTools();
   public enhance?: EnhanceConfig;
   constructor(options: SimulatorOptions) {
     super();
@@ -117,8 +118,7 @@ export class Simulator extends Base {
             this.designer.value = new Designer(
               this.engine,
               this.contentWindow,
-              deps,
-              this.devtools
+              deps
             );
           }
         }
@@ -148,22 +148,30 @@ export class Simulator extends Base {
           }
          </style>`;
   }
-  private initUniFeatures(platform: PlatformType = 'web') {
-    return platform === 'uniapp'
-      ? ''
-      : `
+  private initFeatures() {
+    return `
     <script>
-      window.__uniConfig = {};
-      window.__UNI_FEATURE_UNI_CLOUD__ = false;
-      window.__UNI_FEATURE_WX__ = false;
-      window.__UNI_FEATURE_WXS__ = false;
-      window.__UNI_FEATURE_PAGES__ = false;
-      window.getApp = function() {}
+      var top = window.parent || window;
+      var __VUE_PROD_DEVTOOLS__ = true;
+      var devtoolsApi = top.devtoolsApi;
+      top.__uniConfig = window.__uniConfig = {};
+      top.__UNI_FEATURE_UNI_CLOUD__ = window.__UNI_FEATURE_UNI_CLOUD__ = false;
+      top.__UNI_FEATURE_WX__ = window.__UNI_FEATURE_WX__ = false;
+      top.__UNI_FEATURE_WXS__ = window.__UNI_FEATURE_WXS__ = false;
+      top.__UNI_FEATURE_PAGES__ = window.__UNI_FEATURE_PAGES__ = false;
+      top.getApp = window.getApp = function() {};
+      top.uni = window.uni = {};
+      top.__VUE_DEVTOOLS_KIT_ACTIVE_APP_RECORD__ = {};
+      Object.defineProperty(window, '__VUE_DEVTOOLS_GLOBAL_HOOK__', {
+        value: window.parent.__VUE_DEVTOOLS_GLOBAL_HOOK__,
+        writable: true,
+        configurable: true
+      });
     </script>
     `;
   }
 
-  private setup(iframe: HTMLIFrameElement, deps: Dependencie[]) {
+  private setup(iframe: HTMLIFrameElement, deps: Dependencie[] = []) {
     const cw = iframe.contentWindow;
     if (!cw) {
       logger.warn('Simulator contentWindow is null');
@@ -180,7 +188,7 @@ export class Simulator extends Base {
       materialExports,
       materialMapLibrary,
       libraryLocaleMap
-    } = parseDeps(deps, this.materialPath, true);
+    } = parseDeps([HOT_KEYS_DEP, ...deps], this.materialPath, true);
     const { js: enhanceJs, css: enhanceCss } = parseUrls(
       this.enhance?.urls || []
     );
@@ -192,14 +200,14 @@ export class Simulator extends Base {
        <head>
        <meta charset="utf-8">
        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0,viewport-fit=cover"/>
-       ${this.initUniFeatures()}
+       ${this.initFeatures()}
        ${this.createGlobalCss(platform)}
        ${createAssetsCss([...css, ...enhanceCss])}
        </head>
        <body> 
        </body>
-       ${createAssetScripts([...scripts, ...enhanceJs])}
        ${createAssetScripts(materials)}
+       ${createAssetScripts([...scripts, ...enhanceJs])}
        <script>
        __simulator__.emitReady(${JSON.stringify(libraryExports)},
         ${JSON.stringify(materialExports)}, 
@@ -225,10 +233,14 @@ export class Simulator extends Base {
     const materialMap = provider.materials || {};
     const materials: Material[] = [];
     for (const name of materialExports) {
-      const material: Material = materialMap[name]
-        ? (await materialMap[name]()).default
-        : cw[name];
-      materials.push(material);
+      try {
+        const material: Material = materialMap[name]
+          ? (await materialMap[name]()).default
+          : cw[name]?.default || cw[name];
+        materials.push(material);
+      } catch (e) {
+        console.warn(e);
+      }
     }
     assets.clearCaches();
     assets.load(materials);
@@ -238,7 +250,6 @@ export class Simulator extends Base {
       materials,
       libraryLocaleMap
     );
-    this.devtools.init(cw, this.engine);
     this.renderer = new Renderer(
       env,
       service,

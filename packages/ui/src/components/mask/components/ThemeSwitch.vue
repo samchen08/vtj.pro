@@ -13,7 +13,7 @@
   import { Sunny, Moon } from '@vtj/icons';
   import { useDark } from '@vueuse/core';
   import { XAction } from '../../';
-  const isDark = useDark();
+  const isDark = useDark({ storageKey: 'color-schema' });
 
   const icon = computed(() => (isDark.value ? Sunny : Moon));
   const toggleChange = () => {

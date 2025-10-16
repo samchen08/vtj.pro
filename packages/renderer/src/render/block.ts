@@ -96,11 +96,14 @@ export function createRenderer(options: CreateRendererOptions) {
       setWatches(Vue, dsl.value.watch ?? [], context);
 
       return {
-        vtj: context
+        vtj: context,
+        state: context.state,
+        ...computed,
+        ...methods
       };
     },
     emits: createEmits(dsl.value.emits),
-    expose: ['vtj'],
+    expose: ['vtj', ...(dsl.value.expose || [])],
     render() {
       if (!dsl.value.nodes) return null;
       const nodes: NodeSchema[] = dsl.value.nodes || [];

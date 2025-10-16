@@ -79,7 +79,6 @@
       size="small"
       plus
       :fit="false"
-      grow
       @plus="onInjectsPlus">
       <Item
         v-for="item in blockInjects"
@@ -96,6 +95,12 @@
         :current="current"
         :context="context"
         :item="currentInjectItem"></DefinedInjectsDialog>
+    </Panel>
+    <Panel class="v-sub-panel" title="暴露" size="small" :fit="false" grow>
+      <DefinedExpose
+        :options="exposeOptions"
+        :model-value="currentExpose"
+        @change="onExposeChange"></DefinedExpose>
     </Panel>
   </XContainer>
 </template>
@@ -115,6 +120,7 @@
   import DefinedEventsDialog from './events.vue';
   import DefinedSlotsDialog from './slots.vue';
   import DefinedInjectsDialog from './injects.vue';
+  import DefinedExpose from './expose.vue';
 
   defineOptions({
     name: 'DefinedWidget'
@@ -148,6 +154,23 @@
     return current.value?.inject || [];
   });
 
+  const exposeOptions = computed<Record<string, string[]>>(() => {
+    const result: Record<string, string[]> = {};
+    if (!current.value) return result;
+    result['状态'] = ['state'];
+    const computedKeys = Object.keys(current.value.computed || {});
+    const methods = Object.keys(current.value.methods || {});
+
+    if (computedKeys.length) {
+      result['计算属性'] = computedKeys;
+    }
+    if (methods.length) {
+      result['方法'] = methods;
+    }
+
+    return result;
+  });
+
   const visibleProps = ref(false);
   const currentPropItem = ref<BlockProp>();
   const visibleEvents = ref(false);
@@ -156,6 +179,10 @@
   const currentSlotItem = ref<BlockSlot>();
   const visibleInjects = ref(false);
   const currentInjectItem = ref<BlockInject>();
+
+  const currentExpose = computed(() => {
+    return current.value?.expose || [];
+  });
 
   const onPropsPlug = () => {
     currentPropItem.value = undefined;
@@ -235,5 +262,9 @@
     if (name === 'remove') {
       current.value?.removeInject(modelValue);
     }
+  };
+
+  const onExposeChange = (expose: string[]) => {
+    current.value?.setExpose(expose);
   };
 </script>

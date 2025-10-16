@@ -1,7 +1,7 @@
 {
   "name": "@vtj/pro",
   "private": false,
-  "version": "0.13.24",
+  "version": "0.13.31",
   "keywords": [
     "低代码引擎",
     "LowCode Engine",
@@ -40,6 +40,7 @@
     "@vtj/icons": "workspace:~",
     "@vtj/ui": "workspace:~",
     "@vtj/utils": "workspace:~",
+    "vite-plugin-vue-devtools": "~8.0.2",
     "vue": "~3.5.5",
     "vue-router": "~4.5.0"
   },

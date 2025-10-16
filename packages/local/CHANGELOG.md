@@ -3,6 +3,66 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.31](https://gitee.com/newgateway/vtj/compare/@vtj/local@0.13.30...@vtj/local@0.13.31) (2025-10-16)
+
+**Note:** Version bump only for package @vtj/local
+
+
+
+
+
+## [0.13.30](https://gitee.com/newgateway/vtj/compare/@vtj/local@0.13.29...@vtj/local@0.13.30) (2025-10-11)
+
+**Note:** Version bump only for package @vtj/local
+
+
+
+
+
+## [0.13.29](https://gitee.com/newgateway/vtj/compare/@vtj/local@0.13.28...@vtj/local@0.13.29) (2025-09-26)
+
+**Note:** Version bump only for package @vtj/local
+
+
+
+
+
+## [0.13.28](https://gitee.com/newgateway/vtj/compare/@vtj/local@0.13.27...@vtj/local@0.13.28) (2025-09-22)
+
+**Note:** Version bump only for package @vtj/local
+
+
+
+
+
+## [0.13.27](https://gitee.com/newgateway/vtj/compare/@vtj/local@0.13.26...@vtj/local@0.13.27) (2025-09-22)
+
+
+### Bug Fixes
+
+* 🐛 默认复制devtools ([1392cd4](https://gitee.com/newgateway/vtj/commits/1392cd4843bd39774affa1b9b35b43225ed6073d))
+* 🐛 devtools支持配置 ([4006889](https://gitee.com/newgateway/vtj/commits/400688973643dc68832e4ffb762731c4908d3185))
+
+
+
+
+
+## [0.13.26](https://gitee.com/newgateway/vtj/compare/@vtj/local@0.13.25...@vtj/local@0.13.26) (2025-09-22)
+
+**Note:** Version bump only for package @vtj/local
+
+
+
+
+
+## [0.13.25](https://gitee.com/newgateway/vtj/compare/@vtj/local@0.13.24...@vtj/local@0.13.25) (2025-09-16)
+
+**Note:** Version bump only for package @vtj/local
+
+
+
+
+
 ## [0.13.24](https://gitee.com/newgateway/vtj/compare/@vtj/local@0.13.23...@vtj/local@0.13.24) (2025-09-12)
 
 

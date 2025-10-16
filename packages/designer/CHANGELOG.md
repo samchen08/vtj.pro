@@ -3,6 +3,99 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.31](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.13.30...@vtj/designer@0.13.31) (2025-10-16)
+
+
+### Bug Fixes
+
+* 🐛 响应事件增加e.preventDefault() ([2421eea](https://gitee.com/newgateway/vtj/commits/2421eeac1eee38ff0dda635cc6c6c4853f211196))
+* 🐛 dayjs语言包依赖 ([1132ecb](https://gitee.com/newgateway/vtj/commits/1132ecb973f9d62d162a4035520085125bfbce39))
+
+
+
+
+
+## [0.13.30](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.13.29...@vtj/designer@0.13.30) (2025-10-11)
+
+**Note:** Version bump only for package @vtj/designer
+
+
+
+
+
+## [0.13.29](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.13.28...@vtj/designer@0.13.29) (2025-09-26)
+
+
+### Bug Fixes
+
+* 🐛 缺失 __VUE_DEVTOOLS_KIT_ACTIVE_APP_RECORD__ 导致报错 ([3dd3372](https://gitee.com/newgateway/vtj/commits/3dd337250a31e0033f901fbc05beafc8572dc01a))
+
+
+
+
+
+## [0.13.28](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.13.27...@vtj/designer@0.13.28) (2025-09-22)
+
+
+### Features
+
+* ✨ 支持expose ([c54f24e](https://gitee.com/newgateway/vtj/commits/c54f24e9edc489128e65ca18d6063fb5b39d7dca))
+
+
+
+
+
+## [0.13.27](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.13.26...@vtj/designer@0.13.27) (2025-09-22)
+
+
+### Bug Fixes
+
+* 🐛 devtools支持配置 ([4006889](https://gitee.com/newgateway/vtj/commits/400688973643dc68832e4ffb762731c4908d3185))
+
+
+
+
+
+## [0.13.26](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.13.25...@vtj/designer@0.13.26) (2025-09-22)
+
+
+### Bug Fixes
+
+* 🐛 物料支持非标准Module文件 ([60ceec0](https://gitee.com/newgateway/vtj/commits/60ceec0d6380f2420bce39770b67be67b6c5963d))
+* 🐛 优先加载物料资源 ([2f0e7de](https://gitee.com/newgateway/vtj/commits/2f0e7def1fa64f093b544d1273935bcfc7c50b0a))
+* 🐛 cloneDsl ([e718b94](https://gitee.com/newgateway/vtj/commits/e718b949305b88ebca9a88943561f4ed51ba9b48))
+* 🐛 devtools ([fffeade](https://gitee.com/newgateway/vtj/commits/fffeadeedf7ba2efef8843667292894c03ba794b))
+* 🐛 devtoolsApi ([9a907e6](https://gitee.com/newgateway/vtj/commits/9a907e6e80a2812c977f47c2b02cf14ab441beb7))
+* 🐛 SELECT_ALL_KEYS ([591dd6b](https://gitee.com/newgateway/vtj/commits/591dd6b74f0cff2323361824c5c23896864419ab))
+
+
+### Features
+
+* ✨ 增加快捷键向导 ([0885fd8](https://gitee.com/newgateway/vtj/commits/0885fd8e610cdf9245f756e67b2c61f644617b1c))
+* ✨ devtools ([a3ee20e](https://gitee.com/newgateway/vtj/commits/a3ee20ec87064a6bfa71b99d538ffabdb68ea676))
+* ✨ uniapp devtools ([a26a7af](https://gitee.com/newgateway/vtj/commits/a26a7af5a4f9202ade01f5a91222385fbf8abd42))
+
+
+
+
+
+## [0.13.25](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.13.24...@vtj/designer@0.13.25) (2025-09-16)
+
+
+### Bug Fixes
+
+* 🐛 更新图标 ([b2f9a21](https://gitee.com/newgateway/vtj/commits/b2f9a21560011a01c7b39e57265cd50ba7419118))
+* 🐛 uniapp添加全局uni对象 ([c6a3ee5](https://gitee.com/newgateway/vtj/commits/c6a3ee5c8dc47d840785fd25b920f94a3763fb51))
+
+
+### Features
+
+* ✨ 快捷键 ([e6dfeee](https://gitee.com/newgateway/vtj/commits/e6dfeeea8603df077dca7a034adc992b73469c3e))
+
+
+
+
+
 ## [0.13.24](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.13.23...@vtj/designer@0.13.24) (2025-09-12)
 
 **Note:** Version bump only for package @vtj/designer

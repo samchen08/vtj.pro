@@ -147,6 +147,11 @@ export interface EngineOptions {
    * 关闭页面内嵌到母版功能
    */
   noMask?: boolean;
+
+  /**
+   * 开发工具路径
+   */
+  devtools?: string;
 }
 
 export const SAVE_BLOCK_FILE_FINISH = 'SAVE_BLOCK_FILE_FINISH';

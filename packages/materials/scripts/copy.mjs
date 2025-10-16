@@ -28,7 +28,8 @@ const files = [
     modules + 'vue-i18n/dist/vue-i18n.global.js',
     'deps/vue-i18n/vue-i18n.global.js'
   ],
-  [modules + 'pinia/dist/pinia.iife.prod.js', 'deps/pinia/pinia.iife.js'],
+  [modules + 'pinia/dist/pinia.iife.prod.js', 'deps/pinia/pinia.iife.prod.js'],
+  [modules + 'pinia/dist/pinia.iife.js', 'deps/pinia/pinia.iife.js'],
   [
     modules + 'element-plus/dist/index.full.min.js',
     'deps/element-plus/index.full.min.js'
@@ -82,6 +83,10 @@ const files = [
     modules + 'dayjs/plugin/quarterOfYear.js',
     'deps/ant-design-vue/dayjs/plugin/quarterOfYear.js'
   ],
+  [
+    modules + 'dayjs/locale/zh-cn.js',
+    'deps/ant-design-vue/dayjs/locale/zh-cn.js'
+  ],
   // [
   //   modules + '@ckeditor/ckeditor5-build-classic/build/ckeditor.js',
   //   'deps/@ckeditor/ckeditor5-build-classic/ckeditor.js'
@@ -105,7 +110,8 @@ const files = [
   ],
   [modules + 'vant/lib/vant.min.js', 'deps/vant/vant.min.js'],
   [modules + 'vant/lib/index.css', 'deps/vant/index.css'],
-  [modules + 'mockjs/dist/mock-min.js', 'deps/mockjs/mock-min.js']
+  [modules + 'mockjs/dist/mock-min.js', 'deps/mockjs/mock-min.js'],
+  [modules + 'hotkeys-js/dist/hotkeys.min.js', 'deps/hotkeys-js/hotkeys.min.js']
 ];
 
 function doCopy() {

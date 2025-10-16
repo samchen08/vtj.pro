@@ -11,7 +11,7 @@ export function isBlock(value: unknown): value is BlockModel {
   return value instanceof BlockModel;
 }
 
-export function isNode(value: unknown): value is BlockModel {
+export function isNode(value: unknown): value is NodeModel {
   return value instanceof NodeModel;
 }
 

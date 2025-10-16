@@ -3,6 +3,71 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.31](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.13.30...@vtj/ui@0.13.31) (2025-10-16)
+
+
+### Bug Fixes
+
+* 🐛 优化 x-grid search ([12a7387](https://gitee.com/newgateway/vtj/commits/12a73877be0c0e807adc1fa9ce2fd62c0d20c3b2))
+
+
+
+
+
+## [0.13.30](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.13.29...@vtj/ui@0.13.30) (2025-10-11)
+
+**Note:** Version bump only for package @vtj/ui
+
+
+
+
+
+## [0.13.29](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.13.28...@vtj/ui@0.13.29) (2025-09-26)
+
+
+### Bug Fixes
+
+* 🐛 XMenu组件折叠图标问题 ([5839e20](https://gitee.com/newgateway/vtj/commits/5839e204259bd02e677dc6079b92305571b67298))
+
+
+
+
+
+## [0.13.28](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.13.27...@vtj/ui@0.13.28) (2025-09-22)
+
+**Note:** Version bump only for package @vtj/ui
+
+
+
+
+
+## [0.13.27](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.13.26...@vtj/ui@0.13.27) (2025-09-22)
+
+**Note:** Version bump only for package @vtj/ui
+
+
+
+
+
+## [0.13.26](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.13.25...@vtj/ui@0.13.26) (2025-09-22)
+
+
+### Features
+
+* ✨ devtools ([a3ee20e](https://gitee.com/newgateway/vtj/commits/a3ee20ec87064a6bfa71b99d538ffabdb68ea676))
+
+
+
+
+
+## [0.13.25](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.13.24...@vtj/ui@0.13.25) (2025-09-16)
+
+**Note:** Version bump only for package @vtj/ui
+
+
+
+
+
 ## [0.13.24](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.13.23...@vtj/ui@0.13.24) (2025-09-12)
 
 **Note:** Version bump only for package @vtj/ui

@@ -65,6 +65,7 @@
           <component v-if="props.content" :is="props.content"></component>
           <iframe
             v-if="props.src"
+            ref="iframeRef"
             :src="props.src"
             class="x-dialog__frame"></iframe>
         </slot>
@@ -138,6 +139,7 @@
   const instance = getCurrentInstance();
   const wrapper = ref();
   const panelRef = ref();
+  const iframeRef = ref();
   const { state, maximized, minimized, normal } = useState(props, wrapper);
   const { styles, classes, wrapperClass, modalStyle, zIndexStyle } = useStyle(
     props,
@@ -182,6 +184,7 @@
     submit,
     cancel,
     close,
-    componentInstance
+    componentInstance,
+    iframeRef
   });
 </script>

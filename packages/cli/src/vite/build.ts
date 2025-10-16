@@ -85,7 +85,9 @@ export const createBuild = (opts: CreateViteConfigOptions) => {
           name: opts.library,
           formats: opts.formats,
           fileName: (format) => {
-            return opts.libFileName + extMap[format];
+            return typeof opts.libFileName === 'function'
+              ? opts.libFileName(format)
+              : opts.libFileName + extMap[format];
           },
           cssFileName: opts.cssFileName || 'style'
         } as LibraryOptions)

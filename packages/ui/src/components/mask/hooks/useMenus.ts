@@ -84,12 +84,12 @@ export function useMenus(props: MaskProps, emit: MaskEmitsFn) {
     menus.value =
       typeof props.menus === 'function'
         ? (await props.menus()) || []
-        : props.menus ?? [];
+        : (props.menus ?? []);
 
     favorites.value =
       typeof props.favorites === 'function'
         ? (await props.favorites()) || []
-        : props.favorites ?? [];
+        : (props.favorites ?? []);
   };
 
   const addFavorite = (item: MenuDataItem) => {
@@ -126,4 +126,3 @@ export function useMenus(props: MaskProps, emit: MaskEmitsFn) {
     toggleFavorite
   };
 }
-

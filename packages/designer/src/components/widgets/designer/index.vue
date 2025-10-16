@@ -1,6 +1,7 @@
 <template>
   <div ref="container" class="v-designer">
     <Viewport
+      ref="viewport"
       :mode="mode"
       :width="width"
       :height="height"
@@ -53,6 +54,7 @@
 
   const container = ref();
   const iframe = ref<HTMLIFrameElement>();
+  const viewport = ref();
   const { width, height } = useElementSize(container);
   const { dependencies, engine, apis, meta } = useDeps();
   const { current, isEmpty } = useCurrent();

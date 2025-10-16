@@ -277,6 +277,7 @@ export class Provider extends Base {
       materialMapLibrary,
       libraryLocaleMap
     } = parseDeps(deps, materialPath, nodeEnv === NodeEnv.Development);
+
     Object.assign(this.libraryLocaleMap, libraryLocaleMap);
     for (const libraryName of libraryExports) {
       const raw = dependencies[libraryName];
@@ -301,7 +302,8 @@ export class Provider extends Base {
 
       const locale = libraryLocaleMap[libraryName];
       if (locale) {
-        libraryLocales[locale] = _window[locale];
+        const raw = dependencies[locale];
+        libraryLocales[locale] = raw ? await raw() : _window[locale];
       }
     }
 
@@ -313,7 +315,8 @@ export class Provider extends Base {
 
       const materialMap = this.materials || {};
       for (const materialExport of materialExports) {
-        const lib = _window[materialMapLibrary[materialExport]];
+        const _lib = _window[materialMapLibrary[materialExport]];
+        const lib = _lib?.default || _lib;
         const builtInComponents = BUILT_IN_COMPONENTS[materialExport];
         if (builtInComponents) {
           if (lib) {
@@ -422,6 +425,10 @@ export class Provider extends Base {
       }
     }
 
+    // 提供全局 Provider 实例
+    app.provide(providerKey, this);
+    app.config.globalProperties.$provider = this;
+
     // 执行自定义安装函数
     if (this.options.install) {
       app.use(this.options.install);
@@ -450,10 +457,6 @@ export class Provider extends Base {
     if (this.mode !== ContextMode.Design && this.project?.i18n) {
       this.initI18n(app, this.library, this.project.i18n);
     }
-
-    // 提供全局 Provider 实例
-    app.provide(providerKey, this);
-    app.config.globalProperties.$provider = this;
 
     // 执行增强函数
     if (this.options.enhance) {

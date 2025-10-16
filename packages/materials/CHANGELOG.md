@@ -3,6 +3,73 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.31](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.13.30...@vtj/materials@0.13.31) (2025-10-16)
+
+
+### Bug Fixes
+
+* 🐛 antd物料属性 ([b163e54](https://gitee.com/newgateway/vtj/commits/b163e54ae0c7c305cc0c9a58816fba53d74ca3bb))
+* 🐛 dayjs语言包依赖 ([1132ecb](https://gitee.com/newgateway/vtj/commits/1132ecb973f9d62d162a4035520085125bfbce39))
+
+
+
+
+
+## [0.13.30](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.13.29...@vtj/materials@0.13.30) (2025-10-11)
+
+**Note:** Version bump only for package @vtj/materials
+
+
+
+
+
+## [0.13.29](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.13.28...@vtj/materials@0.13.29) (2025-09-26)
+
+**Note:** Version bump only for package @vtj/materials
+
+
+
+
+
+## [0.13.28](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.13.27...@vtj/materials@0.13.28) (2025-09-22)
+
+**Note:** Version bump only for package @vtj/materials
+
+
+
+
+
+## [0.13.27](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.13.26...@vtj/materials@0.13.27) (2025-09-22)
+
+**Note:** Version bump only for package @vtj/materials
+
+
+
+
+
+## [0.13.26](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.13.25...@vtj/materials@0.13.26) (2025-09-22)
+
+
+### Features
+
+* ✨ devtools ([a3ee20e](https://gitee.com/newgateway/vtj/commits/a3ee20ec87064a6bfa71b99d538ffabdb68ea676))
+* ✨ uniapp devtools ([a26a7af](https://gitee.com/newgateway/vtj/commits/a26a7af5a4f9202ade01f5a91222385fbf8abd42))
+
+
+
+
+
+## [0.13.25](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.13.24...@vtj/materials@0.13.25) (2025-09-16)
+
+
+### Bug Fixes
+
+* 🐛 uniapp添加全局uni对象 ([c6a3ee5](https://gitee.com/newgateway/vtj/commits/c6a3ee5c8dc47d840785fd25b920f94a3763fb51))
+
+
+
+
+
 ## [0.13.24](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.13.23...@vtj/materials@0.13.24) (2025-09-12)
 
 **Note:** Version bump only for package @vtj/materials

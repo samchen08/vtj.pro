@@ -25,7 +25,6 @@ import {
 import { delay, toArray } from '@vtj/utils';
 import { SlotsPicker } from '../components';
 import { type Engine } from './engine';
-import { type DevTools } from './devtools';
 
 export function createSlotsPicker(name: string, slots: MaterialSlot[]) {
   return new Promise<MaterialSlot>((resolve, reject) => {
@@ -70,8 +69,7 @@ export class Designer {
   constructor(
     public engine: Engine,
     public contentWindow: Window,
-    public dependencies: Ref<Dependencie[]>,
-    public devtools: DevTools
+    public dependencies: Ref<Dependencie[]>
   ) {
     this.document = this.contentWindow.document;
     this.bindEvents(contentWindow, this.document);
@@ -117,15 +115,6 @@ export class Designer {
     );
     emitter.on(EVENT_NODE_CHANGE, this.bind(this.onViewChange, 'onViewChange'));
 
-    watch(
-      this.devtools.isOpen,
-      (open) => {
-        if (open) {
-          this.cleanHelper();
-        }
-      },
-      { immediate: true }
-    );
     watch(
       () => this.engine.state.outlineEnabled,
       () => {
@@ -175,7 +164,6 @@ export class Designer {
   }
 
   private onMouseOver(e: MouseEvent) {
-    if (this.devtools.isOpen.value) return;
     const hover = this.getHelper(e);
     if (hover && hover?.model.id !== this.selected.value?.model.id) {
       this.hover.value = hover;
@@ -305,12 +293,10 @@ export class Designer {
   }
 
   private onSelected(e: MouseEvent) {
-    if (this.devtools.isOpen.value) return;
-    // 与 vue-devtools 冲突，不能阻止冒泡
     if (!this.engine.state.activeEvent) {
       e.stopPropagation();
+      e.preventDefault();
     }
-
     this.setHover(null);
     this.selected.value = this.getHelper(e);
   }

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import type { App } from 'vue';
 import UniBadge from '@dcloudio/uni-ui/lib/uni-badge/uni-badge.vue';
 import UniBreadcrumb from '@dcloudio/uni-ui/lib/uni-breadcrumb/uni-breadcrumb.vue';
