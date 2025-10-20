@@ -6,6 +6,27 @@
   "description": "VTJ",
   "glyphs": [
     {
+      "icon_id": "4942664",
+      "name": "收起",
+      "font_class": "collapsed",
+      "unicode": "e634",
+      "unicode_decimal": 58932
+    },
+    {
+      "icon_id": "9356233",
+      "name": "展开",
+      "font_class": "expand",
+      "unicode": "e70c",
+      "unicode_decimal": 59148
+    },
+    {
+      "icon_id": "44523808",
+      "name": "环境变量",
+      "font_class": "env",
+      "unicode": "e65c",
+      "unicode_decimal": 58972
+    },
+    {
       "icon_id": "18495582",
       "name": "切换面板底部",
       "font_class": "bottom-panel",
