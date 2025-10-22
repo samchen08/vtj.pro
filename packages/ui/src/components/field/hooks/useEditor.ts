@@ -47,7 +47,7 @@ export function useEditor(
   });
 
   watch(
-    [watcher, () => props.options],
+    [watcher, () => props.options, fieldVisible],
     async ([val, _o]) => {
       if (fieldVisible.value) {
         optionsRef.value = await useOptions(props, val);

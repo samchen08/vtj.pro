@@ -1,8 +1,8 @@
 @font-face {
   font-family: "VtjIconfont"; /* Project id 3351036 */
-  src: url('iconfont.woff2?t=1758354845456') format('woff2'),
-       url('iconfont.woff?t=1758354845456') format('woff'),
-       url('iconfont.ttf?t=1758354845456') format('truetype');
+  src: url('iconfont.woff2?t=1760921612576') format('woff2'),
+       url('iconfont.woff?t=1760921612576') format('woff'),
+       url('iconfont.ttf?t=1760921612576') format('truetype');
 }
 
 .VtjIconfont {
@@ -11,6 +11,18 @@
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.vtj-icon-collapsed:before {
+  content: "\e634";
+}
+
+.vtj-icon-expand:before {
+  content: "\e70c";
+}
+
+.vtj-icon-env:before {
+  content: "\e65c";
 }
 
 .vtj-icon-bottom-panel:before {

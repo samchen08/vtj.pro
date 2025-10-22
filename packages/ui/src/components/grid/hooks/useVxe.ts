@@ -35,7 +35,7 @@ export function useVxe(options: VXETableConfigOptions = {}) {
   const instance = getCurrentInstance();
   const app = instance?.appContext.app;
   const { vxeConfig, vxePlugin } = useAdapter();
-  const isDark = useDark();
+  const isDark = useDark({ storageKey: 'color-schema' });
   if (app && !(app as any).__installVxe) {
     VXETable.use(RenderPlugin);
     if (vxePlugin) {
