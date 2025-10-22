@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.32](https://gitee.com/newgateway/vtj/compare/@vtj/utils@0.13.31...@vtj/utils@0.13.32) (2025-10-22)
+
+
+### Bug Fixes
+
+* 🐛 @vue/utils响应式失效问题 ([2122006](https://gitee.com/newgateway/vtj/commits/2122006250b950c127d55a0e3e344ee89bf341cf))
+
+
+
+
+
 ## [0.13.31](https://gitee.com/newgateway/vtj/compare/@vtj/utils@0.13.30...@vtj/utils@0.13.31) (2025-10-16)
 
 **Note:** Version bump only for package @vtj/utils
