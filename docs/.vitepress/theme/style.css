@@ -233,6 +233,14 @@ body {
 }
 .is-home .vp-doc {
   position: absolute;
-  top: 40px;
-  left: 0px
+  top: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align:center;
+  width: 100%;
+}
+
+.is-home .vp-doc blockquote {
+  border: none;
+  color:#bd34fe;
 }
