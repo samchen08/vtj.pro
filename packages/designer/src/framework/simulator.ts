@@ -323,6 +323,7 @@ export class Simulator extends Base {
       project.value?.meta,
       adapter
     );
+    provider.apis = apis;
     mockCleanup();
     mockApis(project.value?.apis || []);
 

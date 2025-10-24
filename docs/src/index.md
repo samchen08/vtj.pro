@@ -45,3 +45,6 @@ features:
     title: 双向代码转换
     details: 独创 DSL与Vue源码双向编译能力，保障低代码与手写代码的自由切换。
 ---
+
+> 我正在参加 Gitee 2025 最受欢迎的开源软件投票活动，快来给我投票吧！<br>
+> https://gitee.com/activity/2025opensource?ident=ID1KKL

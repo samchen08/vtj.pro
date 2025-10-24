@@ -49,7 +49,7 @@ export class Renderer {
     // 记录环境，在扩展时可能需要用到
     (app as any).__vtj_env__ = this.env;
 
-    const { library, globals, VueRouter, locales, window } = this.env;
+    const { library, globals, VueRouter, locales, window, apis } = this.env;
 
     if (VueRouter && platform !== 'uniapp') {
       const router = VueRouter.createRouter({
@@ -61,6 +61,7 @@ export class Renderer {
     app.use(this.provider);
     const plugins = Object.entries(library);
     Object.assign(app.config.globalProperties, globals);
+    app.config.globalProperties.$apis = apis;
     plugins.forEach(([name, plugin]) => {
       if (!plugin) {
         console.warn(`plugin: ${name} is undefined`);
