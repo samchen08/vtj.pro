@@ -102,6 +102,12 @@
     ul {
       padding-inline-start: 2em;
     }
+    h1,
+    h2,
+    h3 {
+      font-size: 14px;
+      margin: 5px 0;
+    }
   }
 
   .markdown-container pre {

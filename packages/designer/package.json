@@ -45,7 +45,6 @@
   },
   "devDependencies": {
     "@types/mockjs": "~1.0.10",
-    "@types/diff": "~8.0.0",
     "@vtj/cli": "workspace:~",
     "vue": "~3.5.5",
     "vue-router": "~4.5.0"
