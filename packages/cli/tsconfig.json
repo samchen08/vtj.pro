@@ -1,9 +1,9 @@
 {
   "extends": "./config/tsconfig.json",
-  "compilerOptions": {},
-  "include": [
-    "src"
-  ],
+  "compilerOptions": {
+    "ignoreDeprecations": "6.0"
+  },
+  "include": ["src"],
   "references": [
     {
       "path": "./tsconfig.node.json"

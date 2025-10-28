@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.33](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.13.32...@vtj/ui@0.13.33) (2025-10-28)
+
+**Note:** Version bump only for package @vtj/ui
+
+
+
+
+
+## [0.13.32](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.13.31...@vtj/ui@0.13.32) (2025-10-22)
+
+
+### Bug Fixes
+
+* 🐛 统一color-schema ([0c43229](https://gitee.com/newgateway/vtj/commits/0c432291bd5b20e512f03eac9202839b868fbc0c))
+* 🐛 修复XField组件 visible 联动 options 没有更新 ([4abf81e](https://gitee.com/newgateway/vtj/commits/4abf81efb40e3b91fe7398206cd04cbdb5a26e62))
+
+
+
+
+
 ## [0.13.31](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.13.30...@vtj/ui@0.13.31) (2025-10-16)
 
 

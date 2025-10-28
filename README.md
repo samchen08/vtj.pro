@@ -1,3 +1,5 @@
+> 我正在参加 Gitee 2025 最受欢迎的开源软件投票活动，快来给我投票吧！<br> [https://gitee.com/activity/2025opensource?ident=ID1KKL](https://gitee.com/activity/2025opensource?ident=ID1KKL)
+
 <div><a href="https://vtj.pro"><img src="dev/public//banner.png" /></a></div>
 <br>
 <div align="center"> <a href="https://gitee.com/newgateway/vtj"> <img width="100" src="./platforms/pro/public/logo.svg"> </a> <br>

@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.33](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.13.32...@vtj/coder@0.13.33) (2025-10-28)
+
+
+### Features
+
+* ✨ AI 加入实验性diff模式 ([f2f99da](https://gitee.com/newgateway/vtj/commits/f2f99da806a59c2b71f90ed8ea668340745f2bc3))
+
+
+
+
+
+## [0.13.32](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.13.31...@vtj/coder@0.13.32) (2025-10-22)
+
+**Note:** Version bump only for package @vtj/coder
+
+
+
+
+
 ## [0.13.31](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.13.30...@vtj/coder@0.13.31) (2025-10-16)
 
 **Note:** Version bump only for package @vtj/coder

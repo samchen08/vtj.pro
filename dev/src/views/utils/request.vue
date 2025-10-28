@@ -7,7 +7,8 @@
   </div>
 </template>
 <script lang="ts" setup>
-  import { request, Access } from '@vtj/web';
+  import { watch, computed } from 'vue';
+  import { request, Access, useApi, delay } from '@vtj/web';
   import {
     ElNotification,
     ElLoading,
@@ -143,4 +144,21 @@
   //     }
   //   }
   // });
+
+  const { data } = useApi<any>(
+    new Promise(async (resolve) => {
+      await delay(1000);
+      resolve({
+        list: [1, 2, 3]
+      });
+    })
+  );
+
+  const count = computed(() => data.value.list.length);
+
+  watch(data, (v) => {
+    console.log('change data', v, count.value);
+  });
+
+  console.log('useApi', data);
 </script>

@@ -68,7 +68,9 @@ export function createSchemaApis(
 ) {
   const result: Record<string, any> = {};
   for (const api of apis) {
-    result[api.id] = createSchemaApi(api, adapter);
+    const handler = createSchemaApi(api, adapter);
+    result[api.id] = handler;
+    result[api.name] = handler;
   }
   for (const item of meta) {
     result[item.id] = createMetaApi(item, adapter);

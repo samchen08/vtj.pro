@@ -250,7 +250,7 @@ export class Provider extends Base {
     }
   }
 
-  private async loadDependencies(_window: any) {
+  private async loadDependencies(_window: any = {}) {
     const entries = Object.entries(this.dependencies);
     for (const [name, raw] of entries) {
       if (!_window[name]) {
@@ -259,7 +259,7 @@ export class Provider extends Base {
     }
   }
 
-  private async loadAssets(_window: any) {
+  private async loadAssets(_window: any = {}) {
     const { dependencies: deps = [] } = this.project as ProjectSchema;
     const {
       dependencies,
@@ -428,7 +428,7 @@ export class Provider extends Base {
     // 提供全局 Provider 实例
     app.provide(providerKey, this);
     app.config.globalProperties.$provider = this;
-
+    app.config.globalProperties.$request = this.adapter?.request;
     // 执行自定义安装函数
     if (this.options.install) {
       app.use(this.options.install);

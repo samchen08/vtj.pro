@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.33](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.13.32...@vtj/renderer@0.13.33) (2025-10-28)
+
+
+### Bug Fixes
+
+* 🐛 注入全局$apis $request ([2ac2283](https://gitee.com/newgateway/vtj/commits/2ac2283da7d86b0870ae383af8ca58e5153bcd4c))
+* 🐛 uniapp 微信小程序编译问题 ([6a7ed28](https://gitee.com/newgateway/vtj/commits/6a7ed288ba878a4c5d7a3a09918b64a4610b62be))
+
+
+
+
+
+## [0.13.32](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.13.31...@vtj/renderer@0.13.32) (2025-10-22)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
 ## [0.13.31](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.13.30...@vtj/renderer@0.13.31) (2025-10-16)
 
 

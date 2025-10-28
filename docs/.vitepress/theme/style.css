@@ -231,3 +231,19 @@ body {
   display: table!important;
   width: 100%;
 }
+.is-home .vp-doc {
+  position: absolute;
+  top: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align:center;
+  width: 100%;
+}
+
+.is-home .vp-doc blockquote {
+  border: none;
+  color:#bd34fe;
+  background: var(--vp-custom-block-tip-bg);
+  border-radius: 6px;
+  padding: 6px;
+}

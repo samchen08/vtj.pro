@@ -1,8 +1,9 @@
 # VTJ.PRO 技术简介
 
-:::warning ✨✨✨ 福利来了 ✨✨✨
-AI助手额度免费领，领取链接：[https://lcdp.vtj.pro/tokens?code=gitee](https://lcdp.vtj.pro/tokens?code=gitee)
-:::
+> 我正在参加 Gitee 2025 最受欢迎的开源软件投票活动，快来给我投票吧！<br>
+> https://gitee.com/activity/2025opensource?ident=ID1KKL
+
+<!--  AI助手额度免费领，领取链接：[https://lcdp.vtj.pro/tokens?code=gitee](https://lcdp.vtj.pro/tokens?code=gitee) -->
 
 **专为开发者打造的 AI 低代码平台**，让设计稿秒变高质量代码，释放 80% 重复劳动，专注创造真正价值！
 
