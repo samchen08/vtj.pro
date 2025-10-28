@@ -1,4 +1,8 @@
 import { ref, watch, type Ref, reactive, computed } from 'vue';
+import type { ProjectSchema, BlockSchema, BlockModel } from '@vtj/core';
+import { useElementSize } from '@vueuse/core';
+import { delay, storage } from '@vtj/utils';
+import { applyPatch } from 'diff';
 import { useOpenApi } from './useOpenApi';
 import {
   type TopicDto,
@@ -9,9 +13,6 @@ import {
   type Settings,
   type LLM
 } from '../../framework';
-import type { ProjectSchema, BlockSchema, BlockModel } from '@vtj/core';
-import { useElementSize } from '@vueuse/core';
-import { delay, storage } from '@vtj/utils';
 import { notify, alert } from '../../utils';
 import { MAX_TOKENS } from '../../constants';
 
@@ -106,6 +107,33 @@ async function createImageTopicDto(
     llm: llm ? JSON.stringify(llm) : ''
   };
   return dto;
+}
+
+function getVueCode(content: string) {
+  const regex = /```vue\n([\s\S]*?)\n```/;
+  const matches = content.match(regex);
+  return matches?.[1] ?? '';
+}
+
+function getDiffCode(content: string) {
+  const regex = /```diff\n([\s\S]*?)\n```/;
+  const matches = content.match(regex);
+  return matches?.[1] ?? '';
+}
+
+function applyAIPatch(chat: AIChat) {
+  const diffContent = getDiffCode(chat.content);
+  if (diffContent && chat.source) {
+    try {
+      const source = chat.source;
+      chat.vue = applyPatch(source, diffContent) || '';
+    } catch (e) {
+      console.error(e);
+    }
+  } else {
+    chat.vue = getVueCode(chat.content);
+  }
+  return chat;
 }
 
 export function useAI() {
@@ -360,7 +388,7 @@ export function useAI() {
     const id = currentTopic.value?.fileId as string;
     const project = engine.project.value?.toDsl() as ProjectSchema;
     const { name = '' } = engine.current.value || {};
-    const source = getVueCode(chat.content);
+    const source = chat.vue || getVueCode(chat.content);
     if (!source) return;
     return await engine.service.parseVue(project, {
       id,
@@ -423,7 +451,8 @@ export function useAI() {
         if (done) {
           chat.status = 'Success';
           chat.thinking = Math.ceil(thinking / 1000);
-          chat.vue = getVueCode(chat.content);
+          applyAIPatch(chat);
+
           const dsl = await vue2Dsl(chat).catch((e) => {
             chat.message = collectErrorMesssage(e);
             chat.status = 'Error';
@@ -465,12 +494,6 @@ export function useAI() {
     );
 
     return __currentCompletions;
-  };
-
-  const getVueCode = (content: string) => {
-    const regex = /```vue\n([\s\S]*?)\n```/;
-    const matches = content.match(regex);
-    return matches?.[1] ?? '';
   };
 
   const updateChatDsl = async (source: string) => {
@@ -548,7 +571,7 @@ export function useAI() {
   };
 
   const onView = (chat: AIChat) => {
-    chat.vue = getVueCode(chat.content);
+    applyAIPatch(chat);
     currentChat.value = chat;
     showDetail.value = true;
   };
