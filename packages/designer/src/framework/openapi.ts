@@ -71,6 +71,7 @@ export interface AIChat {
   createdAt: string;
   dsl: any;
   message: string;
+  source?: string;
   prompt: string;
   reasoning: string;
   status: 'Pending' | 'Success' | 'Failed' | 'Error' | 'Canceled';

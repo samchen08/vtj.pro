@@ -7,12 +7,14 @@ import proxy from './proxy.config';
 export default createUniappViteConfig({
   proxy,
   plugins: [
-    createDevTools({
-      enhance: true,
-      // staticBase: basePath,
-      devMode: false,
-      pluginNodeModulesDir: '../../node_modules'
-    }),
+    process.env.ENV_TYPE
+      ? createDevTools({
+          enhance: true,
+          // staticBase: basePath,
+          devMode: false,
+          pluginNodeModulesDir: '../../node_modules'
+        })
+      : undefined,
     !process.env.PREVIEW ? uni() : undefined
   ],
   alias: {

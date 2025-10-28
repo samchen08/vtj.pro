@@ -2,7 +2,6 @@
 # https://vitepress.dev/reference/default-theme-home-page
 
 title: AI 驱动的 Vue3 低代码开发平台
-
 layout: home
 hero:
   name: 'VTJ.PRO'

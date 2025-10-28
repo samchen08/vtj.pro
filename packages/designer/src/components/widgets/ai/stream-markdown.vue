@@ -15,6 +15,7 @@
   import xml from 'highlight.js/lib/languages/xml';
   import javascript from 'highlight.js/lib/languages/javascript';
   import css from 'highlight.js/lib/languages/css';
+  import diff from 'highlight.js/lib/languages/diff';
 
   const props = defineProps<{
     content?: string;
@@ -25,6 +26,7 @@
   hljs.registerLanguage('vue', xml);
   hljs.registerLanguage('javascript', javascript);
   hljs.registerLanguage('css', css);
+  hljs.registerLanguage('diff', diff);
 
   marked.setOptions({
     breaks: true,
@@ -99,6 +101,12 @@
     ol,
     ul {
       padding-inline-start: 2em;
+    }
+    h1,
+    h2,
+    h3 {
+      font-size: 14px;
+      margin: 5px 0;
     }
   }
 

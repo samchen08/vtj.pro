@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.33](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.13.32...@vtj/designer@0.13.33) (2025-10-28)
+
+
+### Bug Fixes
+
+* 🐛 注入全局$apis $request ([2ac2283](https://gitee.com/newgateway/vtj/commits/2ac2283da7d86b0870ae383af8ca58e5153bcd4c))
+* 🐛 ai面板样式问题 ([090475b](https://gitee.com/newgateway/vtj/commits/090475b852bde401917281a2eabd0c0c01fe46b7))
+
+
+### Features
+
+* ✨ AI 加入实验性diff模式 ([f2f99da](https://gitee.com/newgateway/vtj/commits/f2f99da806a59c2b71f90ed8ea668340745f2bc3))
+
+
+
+
+
 ## [0.13.32](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.13.31...@vtj/designer@0.13.32) (2025-10-22)
 
 **Note:** Version bump only for package @vtj/designer

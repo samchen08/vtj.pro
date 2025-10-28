@@ -5,5 +5,8 @@ import proxy from './proxy.config';
 
 export default createUniappViteConfig({
   proxy,
-  plugins: [createDevTools({}), !process.env.PREVIEW ? uni() : undefined]
+  plugins: [
+    process.env.ENV_TYPE ? createDevTools({}) : undefined,
+    !process.env.PREVIEW ? uni() : undefined
+  ]
 });

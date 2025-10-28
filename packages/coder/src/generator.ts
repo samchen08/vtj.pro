@@ -65,8 +65,10 @@ export async function generator(
   const token = parser(collecter, componentMap, platform);
   const script = scriptCompiled(token);
   const vue = vueCompiled({
-    template: token.template,
-    css: await cssFormatter(token.css, formatterDisabled),
+    template: token.template || `\n<!--组件模版内容-->\n`,
+    css:
+      (await cssFormatter(token.css, formatterDisabled)) ||
+      `\n/* 组件样式内容 */\n`,
     script: await tsFormatter(script, formatterDisabled),
     style: await cssFormatter(token.style, formatterDisabled),
     scriptLang: ts ? 'ts' : 'js',
