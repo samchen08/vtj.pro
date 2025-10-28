@@ -75,7 +75,8 @@
       v-else
       :createView="createView"
       :exclude="exclude"
-      :pure="props.pure">
+      :pure="props.pure"
+      :disabled="props.disabled">
       <template v-if="$slots.default">
         <slot></slot>
       </template>
@@ -84,6 +85,7 @@
 </template>
 <script lang="ts" setup>
   import { provide, watch, toValue } from 'vue';
+
   import { XContainer, type ActionProps, type ActionMenuItem } from '../';
   import Sidebar from './components/Sidebar.vue';
   import SwitchBar from './components/SwitchBar.vue';
