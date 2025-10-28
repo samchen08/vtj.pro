@@ -250,7 +250,7 @@ export class Provider extends Base {
     }
   }
 
-  private async loadDependencies(_window: any) {
+  private async loadDependencies(_window: any = {}) {
     const entries = Object.entries(this.dependencies);
     for (const [name, raw] of entries) {
       if (!_window[name]) {
@@ -259,7 +259,7 @@ export class Provider extends Base {
     }
   }
 
-  private async loadAssets(_window: any) {
+  private async loadAssets(_window: any = {}) {
     const { dependencies: deps = [] } = this.project as ProjectSchema;
     const {
       dependencies,
