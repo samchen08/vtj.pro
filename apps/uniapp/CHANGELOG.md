@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.33](https://github.com/samchen08/vtj.pro/compare/vtj-project-uniapp@0.13.32...vtj-project-uniapp@0.13.33) (2025-10-28)
+
+
+### Bug Fixes
+
+* 🐛 uniapp 微信小程序编译问题 ([6a7ed28](https://github.com/samchen08/vtj.pro/commit/6a7ed288ba878a4c5d7a3a09918b64a4610b62be))
+
+
+
+
+
 ## [0.13.32](https://github.com/samchen08/vtj.pro/compare/vtj-project-uniapp@0.13.31...vtj-project-uniapp@0.13.32) (2025-10-22)
 
 **Note:** Version bump only for package vtj-project-uniapp

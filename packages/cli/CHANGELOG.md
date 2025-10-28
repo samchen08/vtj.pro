@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.14](https://gitee.com/newgateway/vtj/compare/@vtj/cli@0.12.13...@vtj/cli@0.12.14) (2025-10-28)
+
+
+### Features
+
+* ✨ AI 加入实验性diff模式 ([f2f99da](https://gitee.com/newgateway/vtj/commits/f2f99da806a59c2b71f90ed8ea668340745f2bc3))
+
+
+
+
+
 ## [0.12.13](https://gitee.com/newgateway/vtj/compare/@vtj/cli@0.12.12...@vtj/cli@0.12.13) (2025-09-22)
 
 

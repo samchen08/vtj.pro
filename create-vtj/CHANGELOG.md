@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.17](https://gitee.com/newgateway/vtj/compare/create-vtj@0.12.16...create-vtj@0.12.17) (2025-10-28)
+
+
+### Bug Fixes
+
+* 🐛 uniapp 微信小程序编译问题 ([6a7ed28](https://gitee.com/newgateway/vtj/commits/6a7ed288ba878a4c5d7a3a09918b64a4610b62be))
+
+
+
+
+
 ## [0.12.16](https://gitee.com/newgateway/vtj/compare/create-vtj@0.12.15...create-vtj@0.12.16) (2025-10-16)
 
 
