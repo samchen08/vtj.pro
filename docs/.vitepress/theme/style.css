@@ -247,3 +247,20 @@ body {
   border-radius: 6px;
   padding: 6px;
 }
+
+.tip-msg {
+  --el-messagebox-width: 550px;
+
+}
+
+.tip-msg__p1 {
+  margin-top: 30px;
+  color:#bd34fe;
+}
+.tip-msg__p2 {
+  padding-bottom: 20px;
+}
+
+.tip-msg__a1 {
+  color:var(--vp-c-tip-3)
+}

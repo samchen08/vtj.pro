@@ -1,14 +1,9 @@
 {
   "extends": "../packages/cli/config/tsconfig.web.json",
   "compilerOptions": {
-    "baseUrl": "./",
     "paths": {
-      "@/*": [
-        "src/*"
-      ],
-      "$/*": [
-        ".vitepress/*"
-      ]
+      "@/*": ["./src/*"],
+      "$/*": ["./.vitepress/*"]
     }
   },
   "include": [
