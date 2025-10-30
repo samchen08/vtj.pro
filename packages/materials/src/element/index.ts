@@ -21,7 +21,7 @@ import cascader from './cascader';
 import checkbox from './checkbox';
 import colorPicker from './colorPicker';
 import datePicker from './datePicker';
-import dateTime from './dateTime';
+// import dateTime from './dateTime';
 import form from './form';
 import input from './input';
 import inputNumber from './inputNumber';
@@ -109,7 +109,7 @@ const components: MaterialDescription[] = [
   configProvider,
   container,
   datePicker,
-  dateTime,
+  // dateTime,
   descriptions,
   dialog,
   divider,

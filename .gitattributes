@@ -3,3 +3,6 @@
 *.mjs   eol=lf 
 *.ts    eol=lf
 *.json  eol=lf
+*.vue   eol=lf
+*.scss   eol=lf
+*.css   eol=lf
