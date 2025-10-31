@@ -249,18 +249,35 @@ body {
 }
 
 .tip-msg {
-  --el-messagebox-width: 550px;
+  --el-messagebox-width: 600px;
+  /* --el-messagebox-title-color:#fff;
+ --el-messagebox-content-color:#fff; */
+ --el-messagebox-font-size:20px;
+ --el-messagebox-content-font-size:16px;
+ --el-messagebox-font-line-height:30px;
+  /* background: linear-gradient(90deg, #bd34fe, #41d1ff); */
 
+}
+.tip-msg__t {
+  background: linear-gradient(90deg, #bd34fe, #41d1ff);
+  padding: 5px 10px;
+  color:#fff;
+  border-radius: 6px;
+  margin-bottom: 10px;
 }
 
 .tip-msg__p1 {
   margin-top: 30px;
-  color:#bd34fe;
-}
-.tip-msg__p2 {
-  padding-bottom: 20px;
+  color:var(--vp-c-brand-1);
 }
 
+
 .tip-msg__a1 {
-  color:var(--vp-c-tip-3)
+    color: var(--vp-c-brand-1);
+    
+}
+
+.tip-msg .el-message-box__container {
+  width: 100%;
+  display: block;
 }
