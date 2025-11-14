@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.34](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.13.33...@vtj/ui@0.13.34) (2025-11-14)
+
+
+### Bug Fixes
+
+* 🐛 修复 XMask 组件 disabled状态缓存问题 ([9183aaf](https://gitee.com/newgateway/vtj/commits/9183aaf5f571d2e8d6dee2a73502510562227947))
+
+
+
+
+
 ## [0.13.33](https://gitee.com/newgateway/vtj/compare/@vtj/ui@0.13.32...@vtj/ui@0.13.33) (2025-10-28)
 
 **Note:** Version bump only for package @vtj/ui

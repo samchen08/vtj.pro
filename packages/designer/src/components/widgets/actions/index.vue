@@ -34,15 +34,6 @@
       <VtjIconPageSetting></VtjIconPageSetting>
     </ElButton>
 
-    <ElButton
-      v-if="engine.remote"
-      type="default"
-      size="small"
-      title="AI助手"
-      @click="onActiveAI">
-      <VtjIconAi></VtjIconAi>
-    </ElButton>
-
     <ElDivider direction="vertical"></ElDivider>
 
     <ElButton
@@ -93,8 +84,6 @@
       v-if="publisherVisible"
       v-model="publisherVisible"
       v-bind="publisherProps"></Publisher>
-
-    <!-- <Coder :icon="Download"></Coder> -->
   </div>
 </template>
 <script lang="ts" setup>
@@ -117,7 +106,6 @@
     VtjIconProject,
     VtjIconPageSetting,
     Download,
-    VtjIconAi,
     Lock
   } from '@vtj/icons';
   import { XAction, createDialog, XIcon } from '@vtj/ui';
@@ -261,13 +249,6 @@
         icon: Download,
         content: h(Coder, { link })
       });
-    }
-  };
-
-  const onActiveAI = async () => {
-    const region = engine.skeleton?.getRegion('Apps');
-    if (region) {
-      region.regionRef.setActive('AI');
     }
   };
 

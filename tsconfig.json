@@ -1,8 +1,6 @@
 {
   "extends": "./packages/cli/config/tsconfig.json",
-  "compilerOptions": {
-    "ignoreDeprecations": "6.0"
-  },
+  "compilerOptions": {},
   "include": [
     "docs/refs",
     "packages/base/src/**/*.ts",

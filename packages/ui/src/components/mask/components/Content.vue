@@ -7,8 +7,8 @@
     :padding="false">
     <div class="x-mask__inner" :class="{ 'is-pure': props.pure }">
       <slot></slot>
-
-      <RouterView v-slot="{ Component, route }">
+      <RouterView v-if="props.disabled" :key="route.fullPath"></RouterView>
+      <RouterView v-else v-slot="{ Component, route }">
         <KeepAlive :exclude="props.exclude">
           <component
             v-if="Component"
@@ -22,13 +22,20 @@
 <script lang="ts" setup>
   // @ts-ignore
   import { KeepAlive } from 'vue';
-  import { RouterView, type RouteLocationNormalizedLoaded } from 'vue-router';
+  import {
+    RouterView,
+    useRoute,
+    type RouteLocationNormalizedLoaded
+  } from 'vue-router';
   import { XContainer } from '../../';
 
   export interface Props {
     createView: (module: any, route: RouteLocationNormalizedLoaded) => any;
     exclude: string[];
     pure: boolean;
+    disabled?: boolean;
   }
   const props = defineProps<Props>();
+
+  const route = useRoute();
 </script>

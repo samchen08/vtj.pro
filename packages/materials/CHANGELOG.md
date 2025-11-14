@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.34](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.13.33...@vtj/materials@0.13.34) (2025-11-14)
+
+
+### Bug Fixes
+
+* 🐛 删除 el 物料 ElDateTimePicker ([2fe17a2](https://gitee.com/newgateway/vtj/commits/2fe17a2d20ba5c88c698385de30fd63ed0ed2df5))
+
+
+
+
+
 ## [0.13.33](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.13.32...@vtj/materials@0.13.33) (2025-10-28)
 
 **Note:** Version bump only for package @vtj/materials
