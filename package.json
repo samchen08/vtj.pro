@@ -96,7 +96,7 @@
     "h5:dev": "cd apps/h5 && npm run dev",
     "h5:build": "cd apps/h5  && npm run build",
     "h5:preview": "cd apps/h5 && npm run preview",
-    "uniapp:dev": "cd apps/uniapp && npm run dev:h5",
+    "uniapp:dev": "cd apps/uniapp && npm run dev",
     "uniapp:mp": "cd apps/uniapp && npm run dev:mp-weixin",
     "uniapp:build": "cd apps/uniapp && npm run build:h5",
     "uniapp:preview": "cd apps/uniapp && npm run preview:h5",
