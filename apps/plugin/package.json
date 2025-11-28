@@ -22,7 +22,7 @@
     "@vtj/pro": "workspace:~",
     "@vtj/web": "workspace:~",
     "vue": "~3.5.5",
-    "vue-router": "~4.5.0"
+    "vue-router": "~4.6.0"
   },
   "exports": {
     ".": {

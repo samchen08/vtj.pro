@@ -21,8 +21,8 @@
     "@vtj/web": "workspace:~",
     "pinia": "~3.0.2",
     "vue": "~3.5.5",
-    "vue-i18n": "~11.1.11",
-    "vue-router": "~4.5.0"
+    "vue-i18n": "~11.2.2",
+    "vue-router": "~4.6.0"
   },
   "devDependencies": {
     "@vtj/charts": "workspace:~",

@@ -32,7 +32,7 @@
     "@vtj/renderer": "workspace:~",
     "@vtj/ui": "workspace:~",
     "@vtj/utils": "workspace:~",
-    "core-js": "~3.45.0",
+    "core-js": "~3.47.0",
     "regenerator-runtime": "~0.14.1"
   },
   "devDependencies": {

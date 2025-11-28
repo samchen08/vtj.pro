@@ -33,7 +33,7 @@
   "dependencies": {
     "@vtj/icons": "workspace:~",
     "@vtj/utils": "workspace:~",
-    "@vueuse/core": "~13.9.0",
+    "@vueuse/core": "~14.1.0",
     "element-plus": "~2.11.0",
     "sortablejs": "~1.15.6",
     "vxe-table": "~4.6.17",
@@ -45,7 +45,7 @@
     "@vtj/cli": "workspace:~",
     "qrcode": "~1.5.3",
     "vue": "~3.5.5",
-    "vue-router": "~4.5.0"
+    "vue-router": "~4.6.0"
   },
   "files": [
     "dist",
