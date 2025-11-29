@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.35](https://gitee.com/newgateway/vtj/compare/@vtj/parser@0.13.34...@vtj/parser@0.13.35) (2025-11-29)
+
+
+### Bug Fixes
+
+* 🐛 更新项目依赖 ([5c78163](https://gitee.com/newgateway/vtj/commits/5c78163bee169f461cd2438dec3d30ec3963459d))
+* 🐛 修复parser 计算属性嵌套替换错误 ([18c4dcb](https://gitee.com/newgateway/vtj/commits/18c4dcb8c5743331b8dd376f6d47db906ba57a20))
+
+
+
+
+
 ## [0.13.34](https://gitee.com/newgateway/vtj/compare/@vtj/parser@0.13.33...@vtj/parser@0.13.34) (2025-11-14)
 
 **Note:** Version bump only for package @vtj/parser
