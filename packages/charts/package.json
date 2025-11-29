@@ -1,7 +1,7 @@
 {
   "name": "@vtj/charts",
   "private": false,
-  "version": "0.13.34",
+  "version": "0.13.35",
   "type": "module",
   "keywords": [
     "低代码引擎",
@@ -33,7 +33,7 @@
   "dependencies": {
     "@vtj/icons": "workspace:~",
     "@vtj/utils": "workspace:~",
-    "@vueuse/core": "~13.9.0",
+    "@vueuse/core": "~14.1.0",
     "echarts": "~5.6.0"
   },
   "devDependencies": {

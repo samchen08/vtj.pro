@@ -5,7 +5,7 @@
   "devDependencies": {
     "pnpm": "~10.13.0",
     "lerna": "~8.2.0",
-    "axios": "~1.11.0",
+    "axios": "~1.13.0",
     "fs-extra": "~11.3.0",
     "jsdom": "~26.1.0",
     "typedoc": "~0.28.3",
@@ -17,7 +17,7 @@
     "husky": "~9.1.1",
     "@commitlint/cli": "~19.8.0",
     "@commitlint/config-conventional": "~19.8.0",
-    "mime": "~4.0.1",
+    "mime": "~4.1.0",
     "node-ssh": "~13.2.0"
   },
   "scripts": {

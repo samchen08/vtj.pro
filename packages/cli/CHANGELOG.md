@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.15](https://gitee.com/newgateway/vtj/compare/@vtj/cli@0.12.14...@vtj/cli@0.12.15) (2025-11-29)
+
+
+### Bug Fixes
+
+* 🐛 更新项目依赖 ([5c78163](https://gitee.com/newgateway/vtj/commits/5c78163bee169f461cd2438dec3d30ec3963459d))
+
+
+
+
+
 ## [0.12.14](https://gitee.com/newgateway/vtj/compare/@vtj/cli@0.12.13...@vtj/cli@0.12.14) (2025-10-28)
 
 

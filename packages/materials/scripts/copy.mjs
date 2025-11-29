@@ -46,7 +46,7 @@ const files = [
     'deps/@vueuse/shared/index.iife.min.js'
   ],
   [
-    modules + '@vueuse/core/index.iife.min.js',
+    modules + '@vueuse/core/dist/index.iife.min.js',
     'deps/@vueuse/core/index.iife.min.js'
   ],
   [

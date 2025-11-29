@@ -532,29 +532,38 @@ export interface UseApiReturn<R = any> {
   data: Ref<R | null>;
   error: Ref<any>;
   loading: Ref<boolean>;
+  reload: () => void;
 }
 
 export function useApi<R = any>(
-  api: Promise<R>,
+  loader: Promise<R> | (() => Promise<R>),
   transform?: (res: any) => R
 ): UseApiReturn<R> {
   const data: Ref<R | null> = ref(null);
   const error = ref<any>();
   const loading = ref<boolean>(true);
-  api
-    .then((res: any) => {
-      data.value = transform ? transform(res) : res;
-    })
-    .catch((err) => {
-      error.value = err;
-    })
-    .finally(() => {
-      loading.value = false;
-    });
+  const reload = () => {
+    loading.value = true;
+    error.value = undefined;
+    const api = typeof loader === 'function' ? loader() : loader;
+    api
+      .then((res: any) => {
+        data.value = transform ? transform(res) : res;
+      })
+      .catch((err) => {
+        error.value = err;
+      })
+      .finally(() => {
+        loading.value = false;
+      });
+  };
+
+  reload();
   return {
     data,
     error,
-    loading
+    loading,
+    reload
   };
 }
 

@@ -2,7 +2,7 @@ import { expect, test } from 'vitest';
 import { ComponentValidator, AutoFixer } from '../src';
 
 import { project } from './sources/project';
-import { test_27 as source } from './sources/test_27';
+import { test_28 as source } from './sources/test_28';
 import { parseVue } from '../src';
 
 test('test_1', async () => {

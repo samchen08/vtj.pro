@@ -1,7 +1,7 @@
 {
   "name": "@vtj/renderer",
   "private": false,
-  "version": "0.13.34",
+  "version": "0.13.35",
   "type": "module",
   "keywords": [
     "低代码引擎",
@@ -35,7 +35,7 @@
     "@vtj/icons": "workspace:~",
     "@vtj/ui": "workspace:~",
     "vue": "~3.5.5",
-    "vue-router": "~4.5.0"
+    "vue-router": "~4.6.0"
   },
   "exports": {
     ".": {
