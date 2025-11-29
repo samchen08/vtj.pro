@@ -110,7 +110,7 @@ importers:
         version: 14.1.0(vue@3.5.25(typescript@5.9.3))
       element-plus:
         specifier: ~2.11.0
-        version: 2.11.8(vue@3.5.25(typescript@5.9.3))
+        version: 2.11.9(vue@3.5.25(typescript@5.9.3))
     devDependencies:
       '@vtj/cli':
         specifier: workspace:~
@@ -179,7 +179,7 @@ importers:
         version: 14.1.0(vue@3.5.25(typescript@5.9.3))
       element-plus:
         specifier: ~2.11.0
-        version: 2.11.8(vue@3.5.25(typescript@5.9.3))
+        version: 2.11.9(vue@3.5.25(typescript@5.9.3))
     devDependencies:
       '@vtj/cli':
         specifier: workspace:~
@@ -446,20 +446,16 @@ importers:
         version: 1.6.4(@algolia/client-search@5.45.0)(@types/node@24.10.1)(async-validator@4.2.5)(axios@1.13.2)(postcss@8.5.6)(qrcode@1.5.4)(sass@1.94.2)(search-insights@2.17.3)(sortablejs@1.15.6)(terser@5.44.1)(typescript@5.9.3)
 
   packages/base:
-    dependencies:
+    devDependencies:
+      '@types/crypto-js':
+        specifier: ~4.2.2
+        version: 4.2.2
       '@types/lodash-es':
         specifier: ~4.17.12
         version: 4.17.12
       '@types/numeral':
         specifier: ~2.0.5
         version: 2.0.5
-      reflect-metadata:
-        specifier: ~0.2.1
-        version: 0.2.2
-    devDependencies:
-      '@types/crypto-js':
-        specifier: ~4.2.2
-        version: 4.2.2
       crypto-js:
         specifier: ~4.2.0
         version: 4.2.0
@@ -786,7 +782,7 @@ importers:
         version: 5.6.0
       element-plus:
         specifier: ~2.11.0
-        version: 2.11.8(vue@3.5.25(typescript@5.9.3))
+        version: 2.11.9(vue@3.5.25(typescript@5.9.3))
       hotkeys-js:
         specifier: ~3.13.15
         version: 3.13.15
@@ -909,7 +905,7 @@ importers:
         version: 14.1.0(vue@3.5.25(typescript@5.9.3))
       element-plus:
         specifier: ~2.11.0
-        version: 2.11.8(vue@3.5.25(typescript@5.9.3))
+        version: 2.11.9(vue@3.5.25(typescript@5.9.3))
       sortablejs:
         specifier: ~1.15.6
         version: 1.15.6
@@ -4619,8 +4615,8 @@ packages:
     resolution: {integrity: sha512-ir1UPr3dkwexU7FdV8qBBbNDRUhMmIekYMFZfi+C/sLNnRESKPl23nB9b2pltqfOQNnGzsDdId90AEtG5tCx4A==}
     engines: {node: '>=6.0.0'}
 
-  baseline-browser-mapping@2.8.31:
-    resolution: {integrity: sha512-a28v2eWrrRWPpJSzxc+mKwm0ZtVx/G8SepdQZDArnXYU/XS+IF6mp8aB/4E+hH1tyGCoDo3KlUCdlSxGDsRkAw==}
+  baseline-browser-mapping@2.8.32:
+    resolution: {integrity: sha512-OPz5aBThlyLFgxyhdwf/s2+8ab3OvT7AdTNvKHBwpXomIYeXqpUUuT8LrdtxZSsWJ4R4CU1un4XGh5Ez3nlTpw==}
     hasBin: true
 
   bcrypt-pbkdf@1.0.2:
@@ -5450,8 +5446,8 @@ packages:
   electron-to-chromium@1.5.262:
     resolution: {integrity: sha512-NlAsMteRHek05jRUxUR0a5jpjYq9ykk6+kO0yRaMi5moe7u0fVIOeQ3Y30A8dIiWFBNUoQGi1ljb1i5VtS9WQQ==}
 
-  element-plus@2.11.8:
-    resolution: {integrity: sha512-2wzSj2uubFU1f0t/gHkkE1d09mUgV18fSZX5excw3Ar6hyWcxph4E57U8dgYLDt7HwkKYv1BiqPyBdy0WqWlOA==}
+  element-plus@2.11.9:
+    resolution: {integrity: sha512-yTckX+fMGDGiBHVL1gpwfmjEc8P8OwuyU5ZX3f4FhMy2OdC2Y+OwQYWUXmuB+jFMukuSdnGYXYgHq6muBjSxTg==}
     peerDependencies:
       vue: ^3.2.0
 
@@ -13319,7 +13315,7 @@ snapshots:
       '@vtj/icons': 0.13.34(vue@3.5.25(typescript@5.9.3))
       '@vtj/utils': 0.13.34
       '@vueuse/core': 13.9.0(vue@3.5.25(typescript@5.9.3))
-      element-plus: 2.11.8(vue@3.5.25(typescript@5.9.3))
+      element-plus: 2.11.9(vue@3.5.25(typescript@5.9.3))
       sortablejs: 1.15.6
       vxe-table: 4.6.25(vue@3.5.25(typescript@5.9.3))
       vxe-table-plugin-menus: 4.0.6(vxe-table@4.6.25(vue@3.5.25(typescript@5.9.3)))
@@ -13942,7 +13938,7 @@ snapshots:
 
   base64url@3.0.1: {}
 
-  baseline-browser-mapping@2.8.31: {}
+  baseline-browser-mapping@2.8.32: {}
 
   bcrypt-pbkdf@1.0.2:
     dependencies:
@@ -14064,7 +14060,7 @@ snapshots:
 
   browserslist@4.28.0:
     dependencies:
-      baseline-browser-mapping: 2.8.31
+      baseline-browser-mapping: 2.8.32
       caniuse-lite: 1.0.30001757
       electron-to-chromium: 1.5.262
       node-releases: 2.0.27
@@ -14810,7 +14806,7 @@ snapshots:
 
   electron-to-chromium@1.5.262: {}
 
-  element-plus@2.11.8(vue@3.5.25(typescript@5.9.3)):
+  element-plus@2.11.9(vue@3.5.25(typescript@5.9.3)):
     dependencies:
       '@ctrl/tinycolor': 3.6.1
       '@element-plus/icons-vue': 2.3.2(vue@3.5.25(typescript@5.9.3))
