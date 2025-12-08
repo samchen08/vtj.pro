@@ -23,7 +23,7 @@
       </ElButton>
       <ElDivider><ElText type="info">或</ElText></ElDivider>
       <div>
-        <ElLink type="primary" target="_blank" :href="GET_TOKENS_LINK">
+        <ElLink type="primary" target="_blank" :href="tokenLink">
           免费获取额度
         </ElLink>
       </div>
@@ -134,7 +134,14 @@
   const orderData = ref<any>(null);
 
   const orderLink = computed(() => {
+    if (props.settings?.orderLink) {
+      return `${props.settings?.orderLink}?id=${orderData.value?.id}`;
+    }
     return `${props.remote || REMOTE}/page/a3wwnb20?id=${orderData.value?.id}`;
+  });
+
+  const tokenLink = computed(() => {
+    return props.settings?.tokenLink || GET_TOKENS_LINK;
   });
 
   watch(
