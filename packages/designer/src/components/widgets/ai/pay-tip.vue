@@ -181,11 +181,13 @@
     const res = await props.getOrder(orderData.value?.id);
     const data = res?.data;
     if (data.status === 'Completed') {
-      await alert('订单已经支付成功，你权限已经开通！').catch(() => null);
+      await alert('订单已经支付成功，你权限已经开通！', {
+        type: 'success'
+      }).catch(() => null);
       location.reload();
     } else {
       await alert('您的订单状态还没更新，支付后请与客服联系！', {
-        type: 'success',
+        type: 'warning',
         confirmButtonText: '再等等'
       }).catch(() => null);
     }
