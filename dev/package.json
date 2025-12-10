@@ -1,7 +1,7 @@
 {
   "name": "dev-web",
   "private": true,
-  "version": "0.13.34",
+  "version": "0.13.35",
   "type": "module",
   "scripts": {
     "dev": "cross-env ENV_TYPE=local vite --force",
@@ -31,7 +31,7 @@
     "@vtj/utils": "workspace:~",
     "@vtj/web": "workspace:~",
     "vue": "~3.5.5",
-    "vue-router": "~4.5.0"
+    "vue-router": "~4.6.0"
   },
   "devDependencies": {
     "@vtj/cli": "workspace:~",

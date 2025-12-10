@@ -55,7 +55,9 @@ export function patchCode(
   }
 
   for (const key of computed) {
+    content = replacer(content, `this.${key}`, `this.${key}.value`);
     content = replacer(content, key, `this.${key}.value`);
+    content = replacer(content, `this.${key}.value.value`, `this.${key}.value`);
   }
   for (const [key, value] of Object.entries(libs)) {
     content = replacer(content, key, `this.$libs.${value}.${key}`);

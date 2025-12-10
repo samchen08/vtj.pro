@@ -111,6 +111,8 @@ export interface Settings {
   invited: boolean;
   paid: boolean;
   free: boolean;
+  orderLink?: string;
+  tokenLink?: string;
 }
 
 export interface CompletionChunk {

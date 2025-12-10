@@ -23,7 +23,7 @@
       </ElButton>
       <ElDivider><ElText type="info">或</ElText></ElDivider>
       <div>
-        <ElLink type="primary" target="_blank" :href="GET_TOKENS_LINK">
+        <ElLink type="primary" target="_blank" :href="tokenLink">
           免费获取额度
         </ElLink>
       </div>
@@ -134,7 +134,14 @@
   const orderData = ref<any>(null);
 
   const orderLink = computed(() => {
+    if (props.settings?.orderLink) {
+      return `${props.settings?.orderLink}?id=${orderData.value?.id}`;
+    }
     return `${props.remote || REMOTE}/page/a3wwnb20?id=${orderData.value?.id}`;
+  });
+
+  const tokenLink = computed(() => {
+    return props.settings?.tokenLink || GET_TOKENS_LINK;
   });
 
   watch(
@@ -174,11 +181,13 @@
     const res = await props.getOrder(orderData.value?.id);
     const data = res?.data;
     if (data.status === 'Completed') {
-      await alert('订单已经支付成功，你权限已经开通！').catch(() => null);
+      await alert('订单已经支付成功，你权限已经开通！', {
+        type: 'success'
+      }).catch(() => null);
       location.reload();
     } else {
       await alert('您的订单状态还没更新，支付后请与客服联系！', {
-        type: 'success',
+        type: 'warning',
         confirmButtonText: '再等等'
       }).catch(() => null);
     }

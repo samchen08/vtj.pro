@@ -19,7 +19,6 @@
           :icon="widget.icon"
           :label="widget.label"
           @click="handleClickOtherItem(widget)"></Icon>
-        <Icon v-bind="switchThemeProps" @click="toggleTheme"></Icon>
       </div>
     </div>
     <div class="v-apps-region__panels">
@@ -39,7 +38,6 @@
   // @ts-ignore
   import { computed, ref, KeepAlive, watch, h, markRaw } from 'vue';
   import { createDialog } from '@vtj/ui';
-  import { Sunny, Moon } from '@vtj/icons';
   import { WidgetWrapper } from '../../wrappers';
   import { useEngine, RegionType, type AppWidget } from '../../framework';
   import { Icon } from '../shared';
@@ -65,18 +63,6 @@
     return (widgets.value as AppWidget[]).filter((n) => {
       return n.openType !== 'panel';
     });
-  });
-
-  const switchThemeProps = computed(() => {
-    return engine.state.dark
-      ? {
-          icon: markRaw(Sunny),
-          label: '切换到明亮风格'
-        }
-      : {
-          icon: markRaw(Moon),
-          label: '切换到暗黑风格'
-        };
   });
 
   const defaultWidget = panelWidgets.value[props.index];
@@ -112,10 +98,6 @@
     const widget = panelWidgets.value.find((n) => n.name === name) as AppWidget;
     active.value = widget;
     open.value = widget;
-  };
-
-  const toggleTheme = () => {
-    engine.state.dark = !engine.state.dark;
   };
 
   defineOptions({

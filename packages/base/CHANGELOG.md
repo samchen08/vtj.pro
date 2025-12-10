@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.4](https://gitee.com/newgateway/vtj/compare/@vtj/base@0.12.3...@vtj/base@0.12.4) (2025-11-29)
+
+
+### Bug Fixes
+
+* 🐛 更新项目依赖 ([5c78163](https://gitee.com/newgateway/vtj/commits/5c78163bee169f461cd2438dec3d30ec3963459d))
+* 🐛 优化base依赖 ([dad4d1f](https://gitee.com/newgateway/vtj/commits/dad4d1f8b9fa2c1ade164f0786850ebabc20c3e0))
+
+
+
+
+
 ## [0.12.3](https://gitee.com/newgateway/vtj/compare/@vtj/base@0.12.2...@vtj/base@0.12.3) (2025-09-05)
 
 **Note:** Version bump only for package @vtj/base

@@ -199,7 +199,7 @@ export function useAI() {
           data[0].type = currentTopic.value.type;
         }
         if (currentTopic.value.dataType) {
-          data[0].type = currentTopic.value.dataType;
+          data[0].dataType = currentTopic.value.dataType;
         }
       }
       chats.value = res.data;
