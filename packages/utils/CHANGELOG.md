@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.36](https://gitee.com/newgateway/vtj/compare/@vtj/utils@0.13.35...@vtj/utils@0.13.36) (2025-12-11)
+
+
+### Features
+
+* ✨ createApi 支持设置request 实例 ([2e8b711](https://gitee.com/newgateway/vtj/commits/2e8b711f0960c5dbacae2d20a2d44e40dbfd059e))
+
+
+
+
+
 ## [0.13.35](https://gitee.com/newgateway/vtj/compare/@vtj/utils@0.13.34...@vtj/utils@0.13.35) (2025-11-29)
 
 
