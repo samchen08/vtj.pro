@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.36](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.13.35...@vtj/designer@0.13.36) (2025-12-11)
+
+
+### Bug Fixes
+
+* 🐛 元数据识别类型识别错误 ([6dcd949](https://gitee.com/newgateway/vtj/commits/6dcd949531fb4f013432e6368003d6df3a8c8943))
+* 🐛 支付成功提示 ([d6f4fe2](https://gitee.com/newgateway/vtj/commits/d6f4fe29f598b46ada459dd113d8c283d916765f))
+
+
+### Features
+
+* ✨ 切换风格按钮更改到状态栏显示 ([196233b](https://gitee.com/newgateway/vtj/commits/196233b1f8012166a636e88861ff3f7e6383465c))
+* ✨ AI配置支持 orderLink 和 tokenLink ([0535a24](https://gitee.com/newgateway/vtj/commits/0535a247d0f80c4bd0148e8efdc154b4e863feb7))
+
+
+
+
+
 ## [0.13.35](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.13.34...@vtj/designer@0.13.35) (2025-11-29)
 
 

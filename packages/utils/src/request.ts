@@ -509,21 +509,24 @@ export const request: IStaticRequest = createRequest({
   }
 });
 
-export function createApi<R = any, D = any>(config: string | IRequestConfig) {
+export function createApi<R = any, D = any>(
+  config: string | IRequestConfig,
+  req: IStaticRequest = request
+) {
   const _conifg: IRequestConfig =
     typeof config === 'string' ? { url: config } : config;
   return (data?: D, opts?: IRequestConfig) =>
-    request.send<R, D>(merge({}, _conifg, opts || {}, { data }));
+    req.send<R, D>(merge({}, _conifg, opts || {}, { data }));
 }
 
 export interface IApiMap {
   [name: string]: string | IRequestConfig;
 }
 
-export function createApis(map: IApiMap) {
+export function createApis(map: IApiMap, req: IStaticRequest = request) {
   const apis: Record<string, ReturnType<typeof createApi>> = {};
   for (const [name, opts] of Object.entries(map)) {
-    apis[name] = createApi(opts);
+    apis[name] = createApi(opts, req);
   }
   return apis;
 }

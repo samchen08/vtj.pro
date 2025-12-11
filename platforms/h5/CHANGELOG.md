@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.36](https://gitee.com/newgateway/vtj/compare/@vtj/h5@0.13.35...@vtj/h5@0.13.36) (2025-12-11)
+
+**Note:** Version bump only for package @vtj/h5
+
+
+
+
+
 ## [0.13.35](https://gitee.com/newgateway/vtj/compare/@vtj/h5@0.13.34...@vtj/h5@0.13.35) (2025-11-29)
 
 **Note:** Version bump only for package @vtj/h5
