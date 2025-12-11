@@ -29,6 +29,10 @@ export default [
           {
             text: '架构概述',
             link: '/wiki/2'
+          },
+          {
+            text: '竞品分析',
+            link: '/wiki/analysis'
           }
         ]
       }
