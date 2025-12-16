@@ -44,6 +44,7 @@ export interface DevToolsOptions {
   enhance?: boolean | EnhanceOptions;
   devtools?: StaticPluginOption;
   copyDevtools?: boolean;
+  pathRewrite?: string[];
 }
 
 export interface EnhanceOptions {
@@ -308,6 +309,34 @@ const umdBuildPlugin = function (options: DevToolsOptions): Plugin {
   };
 };
 
+const pathRewritePlugin = (options: DevToolsOptions) => {
+  const { pathRewrite = [] } = options;
+  return {
+    name: 'web-path-rewrite',
+    configureServer(server) {
+      server.middlewares.use((req, _res, next) => {
+        for (const item of pathRewrite) {
+          if (req.url?.startsWith(item)) {
+            req.url = item;
+          }
+        }
+
+        next();
+      });
+    },
+    configurePreviewServer(server) {
+      server.middlewares.use((req, _res, next) => {
+        for (const item of pathRewrite) {
+          if (req.url?.startsWith(item)) {
+            req.url = item;
+          }
+        }
+        next();
+      });
+    }
+  } as Plugin;
+};
+
 export function parsePresetPlugins(options: DevToolsOptions) {
   const {
     presetPlugins = [],
@@ -507,6 +536,10 @@ export function createDevTools(options: Partial<DevToolsOptions> = {}) {
 
   if (opts.enhance) {
     plugins.push(umdBuildPlugin(opts));
+  }
+
+  if (opts.pathRewrite) {
+    plugins.push(pathRewritePlugin(opts));
   }
   return plugins;
 }
