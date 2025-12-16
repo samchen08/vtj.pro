@@ -14,7 +14,9 @@ export const PageContainer = defineComponent({
       Object.assign(route.meta, file.meta || {}, { cache: file.cache });
       const { useTitle } = provider?.adapter;
       if (useTitle) {
-        useTitle(file.title || 'VTJ');
+        const title: string =
+          (route.meta.title as string) || file.title || 'VTJ.PRO';
+        useTitle(title);
       }
     }
     return {
