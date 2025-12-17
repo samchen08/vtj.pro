@@ -178,16 +178,16 @@
       label: '常用'
     },
     {
-      name: 'viewer',
-      label: '高级'
-    },
-    {
       name: 'pages',
       label: '路由'
     },
     {
       name: 'i18n',
       label: '国际化'
+    },
+    {
+      name: 'viewer',
+      label: '高级'
     }
   ];
   const currentTab = ref('normal');
