@@ -60,9 +60,7 @@
 
   const emit = defineEmits(['pick', 'copy']);
 
-  // const context = computed(() => project.current.value?.runtimeContext);
-
-  const excludes = ['$provider', '$apis', '$components', 'context'];
+  const excludes = ['$components', 'context'];
 
   const filterText = ref('');
   const treeRef = ref<InstanceType<typeof ElTree>>();

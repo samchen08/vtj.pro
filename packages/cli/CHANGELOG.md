@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.17](https://gitee.com/newgateway/vtj/compare/@vtj/cli@0.12.16...@vtj/cli@0.12.17) (2025-12-17)
+
+
+### Features
+
+* ✨ local add pathRewrite plugin ([02c5cf1](https://gitee.com/newgateway/vtj/commits/02c5cf11a344d9c5124e1ab91444c99e58fdb24f))
+
+
+
+
+
 ## [0.12.16](https://gitee.com/newgateway/vtj/compare/@vtj/cli@0.12.15...@vtj/cli@0.12.16) (2025-12-11)
 
 **Note:** Version bump only for package @vtj/cli

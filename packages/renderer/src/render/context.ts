@@ -7,6 +7,7 @@ import {
   type JSExpression
 } from '@vtj/core';
 import { parseFunction, parseExpression } from '../utils';
+import type { Provider } from '../provider';
 
 export interface ContextOptions {
   mode: ContextMode;
@@ -45,6 +46,7 @@ export class Context {
   $components: Record<string, any> = {};
   $libs: Record<string, any> = {};
   $apis: Record<string, any> = {};
+  $provider: Provider | null = null;
   private __transform: Record<string, string> = {};
   constructor(options: ContextOptions) {
     const { mode, dsl, attrs } = options;

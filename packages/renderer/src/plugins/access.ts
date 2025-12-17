@@ -146,6 +146,7 @@ export class Access {
   private data: AccessData | null = null;
   private mode?: ContextMode = ContextMode.Raw;
   private interceptResponse: boolean = true;
+  private isTipShowing: boolean = false;
   constructor(options: Partial<AccessOptions>) {
     this.options = Object.assign({}, defaults, options);
     this.loadData();
@@ -316,6 +317,9 @@ export class Access {
     if (to.meta.__vtj__) {
       return this.can(to.meta.__vtj__ as string);
     }
+    if (to.meta.permission) {
+      return this.can(to.meta.permission as string);
+    }
     return true;
   }
 
@@ -371,24 +375,33 @@ export class Access {
   private async showUnauthorizedAlert(res: any) {
     const { unauthorizedMessage = '登录已失效' } = this.options;
     if (this.isUnauthorized(res)) {
-      await this.showTip(unauthorizedMessage);
-      this.toLogin();
+      const ret = await this.showTip(unauthorizedMessage);
+      if (ret) {
+        this.toLogin();
+      }
     }
   }
 
   async showTip(content: string) {
     const { alert } = this.options;
+    if (this.isTipShowing) return false;
+
     if (alert) {
+      this.isTipShowing = true;
       // 延时是为了提示层渲染在loading的层级之上
       await delay(150);
       return await alert(content, {
         title: '提示',
         type: 'warning'
-      })?.catch(() => false);
+      })
+        ?.catch(() => true)
+        ?.finally(() => {
+          this.isTipShowing = false;
+        });
     } else {
       window.alert(content);
     }
-    return false;
+    return true;
   }
 
   private setRequest(request: Request) {

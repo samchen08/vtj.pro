@@ -58,6 +58,7 @@ export class Renderer {
       });
       app.use(router);
     }
+
     app.use(this.provider);
     const plugins = Object.entries(library);
     Object.assign(app.config.globalProperties, globals);
@@ -91,6 +92,7 @@ export class Renderer {
         }
       }
     });
+    this.provider.initEnv(this.project?.env || []);
 
     this.provider.initGlobals(this.project?.globals || {}, {
       app,

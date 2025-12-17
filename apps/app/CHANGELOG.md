@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.37](https://github.com/samchen08/vtj.pro/compare/vtj-project-app@0.13.36...vtj-project-app@0.13.37) (2025-12-17)
+
+
+### Features
+
+* ✨ 环境变量模块 ([61e585e](https://github.com/samchen08/vtj.pro/commit/61e585e92517cab9d677f62448303f050e93ace9))
+
+
+
+
+
 ## [0.13.36](https://github.com/samchen08/vtj.pro/compare/vtj-project-app@0.13.35...vtj-project-app@0.13.36) (2025-12-11)
 
 **Note:** Version bump only for package vtj-project-app

@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.37](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.13.36...@vtj/designer@0.13.37) (2025-12-17)
+
+
+### Bug Fixes
+
+* 🐛 放开 $provider 和 $apis 绑定器可选 ([8b4b616](https://gitee.com/newgateway/vtj/commits/8b4b616bebf0954a3b938dd597f93e8a9f705e83))
+
+
+### Features
+
+* ✨ 环境变量模块 ([61e585e](https://gitee.com/newgateway/vtj/commits/61e585e92517cab9d677f62448303f050e93ace9))
+
+
+
+
+
 ## [0.13.36](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.13.35...@vtj/designer@0.13.36) (2025-12-11)
 
 

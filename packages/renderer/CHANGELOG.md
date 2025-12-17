@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.37](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.13.36...@vtj/renderer@0.13.37) (2025-12-17)
+
+
+### Bug Fixes
+
+* 🐛 access权限控制 ([657063b](https://gitee.com/newgateway/vtj/commits/657063ba9998b6f7cdb11edd1cc9f87eb8cf9d41))
+* 🐛 useTitle ([ce1e2f2](https://gitee.com/newgateway/vtj/commits/ce1e2f286fdafa01ea5f82846b9430087507d534))
+
+
+### Features
+
+* ✨ 环境变量模块 ([61e585e](https://gitee.com/newgateway/vtj/commits/61e585e92517cab9d677f62448303f050e93ace9))
+
+
+
+
+
 ## [0.13.36](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.13.35...@vtj/renderer@0.13.36) (2025-12-11)
 
 **Note:** Version bump only for package @vtj/renderer
