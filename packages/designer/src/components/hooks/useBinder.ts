@@ -31,7 +31,7 @@ export function useBinder(
     if (env.length) {
       opts.push({
         title: '环境变量',
-        items: ['this.$provider.env.a']
+        items: env
       });
     }
 

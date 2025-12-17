@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.38](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.13.37...@vtj/designer@0.13.38) (2025-12-17)
+
+
+### Bug Fixes
+
+* 🐛 变量绑定环境变量 ([5c25864](https://gitee.com/newgateway/vtj/commits/5c25864bfbfd7a0ea30d56bd9db2947c4e40cfa3))
+
+
+
+
+
 ## [0.13.37](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.13.36...@vtj/designer@0.13.37) (2025-12-17)
 
 
