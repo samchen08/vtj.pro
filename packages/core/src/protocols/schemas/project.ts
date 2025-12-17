@@ -83,6 +83,11 @@ export interface ProjectSchema {
   i18n?: I18nConfig;
 
   /**
+   * 环境变量
+   */
+  env?: EnvConfig[];
+
+  /**
    * 标记
    */
   __VTJ_PROJECT__?: boolean;
@@ -273,4 +278,13 @@ export interface I18nMessage {
   ['zh-CN']: string;
   en: string;
   [index: string]: string;
+}
+
+/**
+ * 环境变量配置
+ */
+export interface EnvConfig {
+  name: string;
+  development: string;
+  production: string;
 }

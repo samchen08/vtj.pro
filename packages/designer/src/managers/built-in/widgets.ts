@@ -23,7 +23,8 @@ import {
   VtjIconAi,
   VtjIconMaster,
   VtjIconGlobal,
-  VtjIconLang
+  VtjIconLang,
+  VtjIconEnv
 } from '@vtj/icons';
 import { markRaw } from 'vue';
 
@@ -157,6 +158,15 @@ export const builtInWidgets: Array<AppWidget | TabWidget | Widget> = [
     openType: 'panel',
     icon: VtjIconLang,
     label: '国际化资源'
+  },
+  {
+    name: 'env',
+    region: 'Apps',
+    component: widgets.Env,
+    type: 'app',
+    openType: 'panel',
+    icon: VtjIconEnv,
+    label: '环境变量'
   },
   {
     name: 'AI',

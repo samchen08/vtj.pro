@@ -24,6 +24,17 @@ export function useBinder(
 
     const nodeContext = context?.__contextRefs[id.value || ''];
     const isEqualRoot = context === nodeContext || isSelectBlock.value;
+
+    const env = Object.keys(context?.$provider?.env || {}).map(
+      (n) => `this.$provider.env.${n}`
+    );
+    if (env.length) {
+      opts.push({
+        title: '环境变量',
+        items: env
+      });
+    }
+
     // 运行时上下文
     const _context = isEqualRoot
       ? []

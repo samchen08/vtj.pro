@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.38](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.13.37...@vtj/core@0.13.38) (2025-12-17)
+
+**Note:** Version bump only for package @vtj/core
+
+
+
+
+
+## [0.13.37](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.13.36...@vtj/core@0.13.37) (2025-12-17)
+
+
+### Features
+
+* ✨ 环境变量模块 ([61e585e](https://gitee.com/newgateway/vtj/commits/61e585e92517cab9d677f62448303f050e93ace9))
+
+
+
+
+
 ## [0.13.36](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.13.35...@vtj/core@0.13.36) (2025-12-11)
 
 **Note:** Version bump only for package @vtj/core

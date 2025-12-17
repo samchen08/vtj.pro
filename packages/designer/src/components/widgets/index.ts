@@ -36,6 +36,7 @@ import I18n from './i18n/index.vue';
 import Hotkeys from './hotkeys/index.vue';
 import Devtools from './devtools/index.vue';
 import Themer from './themer/index.vue';
+import Env from './env/index.vue';
 
 export const widgets = {
   Logo,
@@ -75,5 +76,6 @@ export const widgets = {
   I18n,
   Hotkeys,
   Devtools,
-  Themer
+  Themer,
+  Env
 };
