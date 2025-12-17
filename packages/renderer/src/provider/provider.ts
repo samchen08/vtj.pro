@@ -18,6 +18,7 @@ import {
   type NodeFromPlugin,
   type GlobalConfig,
   type I18nConfig,
+  type EnvConfig,
   Base,
   BUILT_IN_COMPONENTS
 } from '@vtj/core';
@@ -121,6 +122,7 @@ export class Provider extends Base {
   public project: ProjectSchema | null = null; // 当前项目配置
   public components: Record<string, any> = {}; // 组件集合
   public nodeEnv: NodeEnv = NodeEnv.Development; // 运行环境
+  public env: Record<string, string> = {}; // 环境变量
   private router: Router | null = null; // 路由实例
   private materialPath: string = './'; // 物料路径
   private urlDslCaches: Record<string, any> = {}; // DSL缓存
@@ -207,12 +209,14 @@ export class Provider extends Base {
     if (!this.project) {
       throw new Error('project is null');
     }
-    const { apis = [], meta = [] } = this.project as ProjectSchema;
+    const { apis = [], meta = [], env = [] } = this.project as ProjectSchema;
     const _window = window as any;
     if (_window) {
       // 解决CkEditor错误提示问题
       _window.CKEDITOR_VERSION = undefined;
     }
+
+    this.initEnv(env);
 
     /**
      * 源码模式只加载原生代码依赖
@@ -697,6 +701,16 @@ export class Provider extends Base {
 
   initI18n(app: App, libs: Record<string, any>, i18n?: I18nConfig) {
     initI18n(app, libs, i18n);
+  }
+
+  initEnv(envConfig: EnvConfig[] = []) {
+    this.env = envConfig.reduce(
+      (prev, cur) => {
+        prev[cur.name] = cur[this.nodeEnv];
+        return prev;
+      },
+      {} as Record<string, string>
+    );
   }
 }
 
