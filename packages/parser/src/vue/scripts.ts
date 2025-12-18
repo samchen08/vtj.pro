@@ -281,7 +281,7 @@ function getDataSources(expression: ObjectExpression, project: ProjectSchema) {
       const transform = method.exp.value.match(thenRegex)?.[1];
       sources[method.name] = {
         ref: id,
-        name: api.name,
+        name: method.name,
         test: dataSource?.test || {
           type: 'JSFunction',
           value: '() => this.runApi({\n    /* 在这里可输入接口参数  */\n})'
