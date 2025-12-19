@@ -79,6 +79,7 @@ export interface ProviderOptions {
   router?: Router;
   dependencies?: Record<string, () => Promise<any>>;
   materials?: Record<string, () => Promise<any>>;
+  libraryOptions?: Record<string, any>;
   globals?: Record<string, any>;
   materialPath?: string;
   nodeEnv?: NodeEnv;
@@ -418,13 +419,21 @@ export class Provider extends Base {
    */
   install(app: App) {
     const { libraryLocaleMap, libraryLocales } = this;
+    // 获取扩展参数
+    const { libraryOptions = {} } = this.options;
     // 记录已安装的插件
     const installed = app.config.globalProperties.installed || {};
     // 安装所有第三方库插件
     for (const [name, library] of Object.entries(this.library)) {
       if (!installed[name] && isVuePlugin(library)) {
         const locale = libraryLocales[libraryLocaleMap[name]];
-        app.use(library, { locale });
+
+        // 扩展参数和locale进行安全融合
+        const baseOptions = { locale };
+        const extraOptions = libraryOptions[name] || {};
+        const finalOptions = { ...baseOptions, ...extraOptions };
+
+        app.use(library, finalOptions);
         installed[name] = true;
       }
     }
