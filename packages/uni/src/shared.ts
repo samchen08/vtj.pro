@@ -30,7 +30,7 @@ export async function notify(
       showCancel: false
     });
   }
-  return Promise.reject(new Error('window.uni.showModal is undefined'));
+  return window.alert(message);
 }
 
 export async function alert(message: string) {
