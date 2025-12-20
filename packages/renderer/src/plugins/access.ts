@@ -400,6 +400,7 @@ export class Access {
         });
     } else {
       window.alert(content);
+      return true;
     }
     return true;
   }
