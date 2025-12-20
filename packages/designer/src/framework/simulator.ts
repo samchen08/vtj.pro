@@ -130,27 +130,27 @@ export class Simulator extends Base {
   private createGlobalCss(platform: PlatformType = 'web') {
     return platform === 'uniapp'
       ? `
-       <style>
-          body::-webkit-scrollbar {
+        <style>
+          *::-webkit-scrollbar {
             width: 3px;
             height: 3px;
           }
 
-          body::-webkit-scrollbar-track {
+          *::-webkit-scrollbar-track {
             background: transparent;
             border-radius: 3px;
           }
 
-          body::-webkit-scrollbar-thumb {
+          *::-webkit-scrollbar-thumb {
             background: rgba(0, 0, 0, 0.2);
             border-radius: 3px;
             transition: all 0.3s ease;
           }
 
-          body::-webkit-scrollbar-thumb:hover {
+          *::-webkit-scrollbar-thumb:hover {
             background: rgba(0, 0, 0, 0.3);
           }
-       </style>
+        </style>
       `
       : `
         <style>
