@@ -1,7 +1,7 @@
 {
   "name": "@vtj/parser",
   "private": false,
-  "version": "0.13.38",
+  "version": "0.13.39",
   "type": "module",
   "keywords": [
     "低代码引擎",
@@ -38,7 +38,7 @@
     "@vue/compiler-sfc": "~3.5.13",
     "htmlparser2": "~10.0.0",
     "postcss": "~8.5.0",
-    "sass": "~1.95.1"
+    "sass": "~1.97.1"
   },
   "devDependencies": {
     "@vtj/cli": "workspace:~"

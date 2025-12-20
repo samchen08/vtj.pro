@@ -4,6 +4,7 @@ import type { RouteLocationNormalizedGeneric } from 'vue-router';
 import { isFunction, isString } from '@vtj/utils';
 import { HTML_TAGS, BUILD_IN_TAGS } from '../constants';
 import { compileScopedCSS } from './compileScoped';
+import { convertCssRpx } from './converter';
 
 export function toString(value: any) {
   return isString(value) ? value : JSON.stringify(value);
@@ -18,7 +19,10 @@ export function adoptedStyleSheets(
   const CSSStyleSheet = (global as any).CSSStyleSheet;
 
   const scopedId = scoped ? `data-v-${id}` : id;
-  const scopedCSS = scoped ? compileScopedCSS(css, scopedId) : css;
+  const content = (global as any).__uniConfig
+    ? convertCssRpx(global, css)
+    : css;
+  const scopedCSS = scoped ? compileScopedCSS(content, scopedId) : content;
 
   // chrome > 71 才支持 replaceSync
   if (CSSStyleSheet.prototype.replaceSync) {

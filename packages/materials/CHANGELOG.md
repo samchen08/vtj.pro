@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.39](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.13.38...@vtj/materials@0.13.39) (2025-12-20)
+
+
+### Bug Fixes
+
+* 🐛 优化uniapp样式 ([154c9a8](https://gitee.com/newgateway/vtj/commits/154c9a840a71c192e9c6d3307c5b4741ebf19472))
+
+
+### Features
+
+* ✨ uniapp 支持 rpx 样式单位 ([d3bffef](https://gitee.com/newgateway/vtj/commits/d3bffef0019a27f066de0720b9571941d257896e))
+
+
+
+
+
 ## [0.13.38](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.13.37...@vtj/materials@0.13.38) (2025-12-17)
 
 **Note:** Version bump only for package @vtj/materials

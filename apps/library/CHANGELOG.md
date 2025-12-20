@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.18](https://github.com/samchen08/vtj.pro/compare/vtj-project-library@0.12.17...vtj-project-library@0.12.18) (2025-12-20)
+
+**Note:** Version bump only for package vtj-project-library
+
+
+
+
+
 ## [0.12.17](https://github.com/samchen08/vtj.pro/compare/vtj-project-library@0.12.16...vtj-project-library@0.12.17) (2025-12-17)
 
 **Note:** Version bump only for package vtj-project-library
