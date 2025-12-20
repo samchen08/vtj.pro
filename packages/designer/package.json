@@ -39,7 +39,7 @@
     "highlight.js": "~11.11.1",
     "hotkeys-js": "~3.13.15",
     "html2canvas": "~1.4.1",
-    "marked": "~15.0.8",
+    "marked": "~17.0.1",
     "mockjs": "~1.1.0",
     "monaco-editor": "~0.52.0"
   },

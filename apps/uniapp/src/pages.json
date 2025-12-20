@@ -1,6 +1,23 @@
 {
   "pages": [
     {
+      "path": "pages/1e0wsuo1",
+      "style": {
+        "navigationBarTitleText": "登录"
+      },
+      "needLogin": false,
+      "vtj": true
+    },
+    {
+      "path": "pages/1d3bu6t7",
+      "style": {
+        "navigationBarTitleText": "启动页",
+        "navigationStyle": "custom"
+      },
+      "needLogin": false,
+      "vtj": true
+    },
+    {
       "path": "pages/startup"
     }
   ],

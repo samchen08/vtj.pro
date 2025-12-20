@@ -29,7 +29,7 @@
   "dependencies": {
     "@vtj/base": "workspace:~",
     "@vtj/core": "workspace:~",
-    "prettier": "~3.6.0"
+    "prettier": "~3.7.0"
   },
   "devDependencies": {
     "@vtj/cli": "workspace:~"
