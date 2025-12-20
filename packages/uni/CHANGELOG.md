@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.39](https://gitee.com/newgateway/vtj/compare/@vtj/uni@0.13.38...@vtj/uni@0.13.39) (2025-12-20)
+
+
+### Bug Fixes
+
+* 🐛 uniapp 适配 window.uni.showModal 错误 ([990c03b](https://gitee.com/newgateway/vtj/commits/990c03b3e87cc157903d1e5fc5d3870db75d2b5c))
+
+
+
+
+
 ## [0.13.38](https://gitee.com/newgateway/vtj/compare/@vtj/uni@0.13.37...@vtj/uni@0.13.38) (2025-12-17)
 
 **Note:** Version bump only for package @vtj/uni

@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.39](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.13.38...@vtj/renderer@0.13.39) (2025-12-20)
+
+
+### Features
+
+* ✨ uniapp 支持 rpx 样式单位 ([d3bffef](https://gitee.com/newgateway/vtj/commits/d3bffef0019a27f066de0720b9571941d257896e))
+* **renderer:** 支持库插件安装时扩展配置参数 ([581fcf2](https://gitee.com/newgateway/vtj/commits/581fcf2755b3883c13acd38ad3beaf1dedf7ff80))
+
+
+
+
+
 ## [0.13.38](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.13.37...@vtj/renderer@0.13.38) (2025-12-17)
 
 **Note:** Version bump only for package @vtj/renderer
