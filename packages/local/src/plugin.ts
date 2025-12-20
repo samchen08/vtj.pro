@@ -161,6 +161,7 @@ const hmPlugin = function (options: DevToolsOptions): Plugin {
           s.parentNode.insertBefore(hm, s);
         })();       
         </script>
+        </body>
         `
       );
     }
