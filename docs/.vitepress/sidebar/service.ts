@@ -33,6 +33,10 @@ export default [
           {
             text: '竞品分析',
             link: '/wiki/analysis'
+          },
+          {
+            text: '商业伙伴',
+            link: '/cooperative'
           }
         ]
       }
