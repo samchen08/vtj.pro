@@ -12,7 +12,7 @@
       <td>浪潮集团有限公司</td>
       <td>北京百度网讯科技有限公司</td>
       <td>上药控股有限公司</td>
-      <td>中国电子系统工程第三建设有限公司</td>
+      <td>中国***限公司</td>
     </tr>
     <tr>
       <td>
@@ -25,7 +25,6 @@
         <img src="./sponsors/shaphar.png" />
       </td>
       <td>
-        <img src="./sponsors/cese3.png" />
       </td>
     </tr>
   </tbody>

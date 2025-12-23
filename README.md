@@ -174,7 +174,7 @@ npm run setup && npm run build && npm run app:dev
       <td align="center">浪潮集团有限公司</td>
       <td align="center">北京百度网讯科技有限公司</td>
       <td align="center">上药控股有限公司</td>
-      <td align="center">中国电子系统工程第三建设有限公司</td>
+      <td align="center">中国***有限公司</td>
     </tr>
     <tr>
       <td align="center">
@@ -187,7 +187,6 @@ npm run setup && npm run build && npm run app:dev
         <img height="60" src="https://vtj.pro/assets/shaphar.DMIWR0O5.png" />
       </td>
       <td align="center">
-        <img height="60" src="https://vtj.pro/assets/cese3.B17sUJw2.png" />
       </td>
     </tr>
   </tbody>
