@@ -39,6 +39,8 @@
 
 ### 双向代码转换
 
+通过双向代码转换技术，开发者可以将可视化设计的界面一键导出为标准Vue组件代码，也能将手写代码导入设计器进行可视化调整。
+
 <table border="0">
 <tr><td>
 <img src="https://vtj.pro/assets/animation.I-2tk84M.gif" alt="">
@@ -46,6 +48,8 @@
 </table>
 
 ### 深度AI赋能
+
+VTJ.PRO的AI不是噱头，而是实打实的生产力加速器.
 
 <table border="0">
 <tr><td>
