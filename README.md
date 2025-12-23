@@ -41,20 +41,20 @@
 
 通过双向代码转换技术，开发者可以将可视化设计的界面一键导出为标准Vue组件代码，也能将手写代码导入设计器进行可视化调整。
 
-<table border="0">
+<table border="0" style="display:table">
 <tr><td>
-<img height="60" src="https://vtj.pro/assets/animation.I-2tk84M.gif" alt="">
-<td></tr>
+<img src="https://vtj.pro/assets/animation.I-2tk84M.gif" alt="">
+</td></tr>
 </table>
 
 ### 深度AI赋能
 
 VTJ.PRO的AI不是噱头，而是实打实的生产力加速器.
 
-<table border="0">
+<table border="0" style="display:table">
 <tr><td>
-<img height="60" src="https://vtj.pro/assets/gpt.DRg0bDMT.gif" alt="">
-<td></tr>
+<img src="https://vtj.pro/assets/gpt.DRg0bDMT.gif" alt="">
+</td></tr>
 </table>
 
 <table border="0">
@@ -160,18 +160,18 @@ npm run setup && npm run build && npm run app:dev
 
 众多企业和组织正在使用 **VTJ.PRO** 加速数字化转型和升级。
 
-<table border="0" class="sponsors"><tbody><tr><td>浪潮集团有限公司</td><td>北京百度网讯科技有限公司</td><td>上药控股有限公司</td></tr><tr><td><img height="60" src="https://vtj.pro/assets/inspur.B1Nj6i_-.png"></td><td><img height="60" src="https://vtj.pro/assets/baidu.C-ODazGp.png"></td><td><img height="60" src="https://vtj.pro/assets/shaphar.DMIWR0O5.png"></td></tr></tbody></table>
+<table border="0" class="sponsors"  style="display:table"><tbody><tr><td>浪潮集团有限公司</td><td>北京百度网讯科技有限公司</td><td>上药控股有限公司</td></tr><tr><td><img height="60" src="https://vtj.pro/assets/inspur.B1Nj6i_-.png"></td><td><img height="60" src="https://vtj.pro/assets/baidu.C-ODazGp.png"></td><td><img height="60" src="https://vtj.pro/assets/shaphar.DMIWR0O5.png"></td></tr></tbody></table>
 
-<table border="0" class="sponsors"><tbody><tr><td>中国电子系统工程第三建设有限公司</td><td>中国铁塔股份有限公司</td><td>海尔消费金融有限公司</td></tr><tr><td><img height="60" src="https://vtj.pro/assets/cese3.B17sUJw2.png"></td><td><img height="60" src="https://vtj.pro/assets/china-tower.6AoVbI9b.png"></td><td><img height="60" src="https://vtj.pro/assets/haierxj.D0r8pxLW.png"></td></tr></tbody></table>
+<table border="0" class="sponsors"  style="display:table"><tbody><tr><td>中国电子系统工程第三建设有限公司</td><td>中国铁塔股份有限公司</td><td>海尔消费金融有限公司</td></tr><tr><td><img height="60" src="https://vtj.pro/assets/cese3.B17sUJw2.png"></td><td><img height="60" src="https://vtj.pro/assets/china-tower.6AoVbI9b.png"></td><td><img height="60" src="https://vtj.pro/assets/haierxj.D0r8pxLW.png"></td></tr></tbody></table>
 
-<table border="0" class="sponsors"><tbody><tr><td>苹果电子产品商贸（北京）有限公司</td><td>广州诗悦网络科技有限公司</td><td>山东国子软件股份有限公司</td></tr><tr><td><img height="60" src="https://vtj.pro/assets/apple.DA87OfrJ.png"></td><td><img height="60" src="https://vtj.pro/assets/shiyue.Dsry6-Pz.png"></td><td><img height="60" src="https://vtj.pro/assets/googosoft.DZwFHgml.png"></td></tr></tbody></table>
+<table border="0" class="sponsors"  style="display:table"><tbody><tr><td>苹果电子产品商贸（北京）有限公司</td><td>广州诗悦网络科技有限公司</td><td>山东国子软件股份有限公司</td></tr><tr><td><img height="60" src="https://vtj.pro/assets/apple.DA87OfrJ.png"></td><td><img height="60" src="https://vtj.pro/assets/shiyue.Dsry6-Pz.png"></td><td><img height="60" src="https://vtj.pro/assets/googosoft.DZwFHgml.png"></td></tr></tbody></table>
 
-<table border="0" class="sponsors"><tbody><tr><td>乐至县清源水务有限公司</td><td>河南贤迈网络科技服务有限公司</td><td>中电福富信息科技有限公司</td></tr><tr><td><img height="60" src="https://vtj.pro/assets/lzqysw.ze1Bd-co.png"></td><td><img height="60" src="https://vtj.pro/assets/xianmai.DqR6xkTB.png"></td><td><img height="60" src="https://vtj.pro/assets/ffcs.CWQHovDk.png"></td></tr></tbody></table>
+<table border="0" class="sponsors"  style="display:table"><tbody><tr><td>乐至县清源水务有限公司</td><td>河南贤迈网络科技服务有限公司</td><td>中电福富信息科技有限公司</td></tr><tr><td><img height="60" src="https://vtj.pro/assets/lzqysw.ze1Bd-co.png"></td><td><img height="60" src="https://vtj.pro/assets/xianmai.DqR6xkTB.png"></td><td><img height="60" src="https://vtj.pro/assets/ffcs.CWQHovDk.png"></td></tr></tbody></table>
 
-<table border="0" class="sponsors"><tbody><tr><td>上海森克电子科技有限公司</td><td>南京韬盛信息科技有限公司</td><td>南京派光智慧感知信息技术有限公司</td></tr><tr><td><img height="60" src="https://vtj.pro/assets/senke.Cy5TazGc.png"></td><td><img height="60" src="https://vtj.pro/assets/njtsxx.BadEl2x_.png"></td><td><img height="60" src="https://vtj.pro/assets/pgsensing.Bsn88Pe8.png"></td></tr></tbody></table>
+<table border="0" class="sponsors"  style="display:table"><tbody><tr><td>上海森克电子科技有限公司</td><td>南京韬盛信息科技有限公司</td><td>南京派光智慧感知信息技术有限公司</td></tr><tr><td><img height="60" src="https://vtj.pro/assets/senke.Cy5TazGc.png"></td><td><img height="60" src="https://vtj.pro/assets/njtsxx.BadEl2x_.png"></td><td><img height="60" src="https://vtj.pro/assets/pgsensing.Bsn88Pe8.png"></td></tr></tbody></table>
 
-<table border="0" class="sponsors"><tbody><tr><td>上海同筑信息科技有限公司</td><td>合肥晨飞网络科技有限公司</td><td>福建国通星驿网络科技有限公司</td></tr><tr><td><img height="60" src="https://vtj.pro/assets/tztos.od2kT-_s.png"></td><td><img height="60" src="https://vtj.pro/assets/ahcfwl.B6d1z92_.png"></td><td></td></tr></tbody></table>
+<table border="0" class="sponsors"  style="display:table"><tbody><tr><td>上海同筑信息科技有限公司</td><td>合肥晨飞网络科技有限公司</td><td>福建国通星驿网络科技有限公司</td></tr><tr><td><img height="60" src="https://vtj.pro/assets/tztos.od2kT-_s.png"></td><td><img height="60" src="https://vtj.pro/assets/ahcfwl.B6d1z92_.png"></td><td></td></tr></tbody></table>
 
-<table border="0" class="sponsors"><tbody><tr><td>成都淞幸科技有限责任公司</td><td>北京万古科技股份有限公司</td><td>杭州江南布衣服饰有限公司</td></tr><tr><td><img height="60" src="https://vtj.pro/assets/sunsheen.Yb7cGhMs.png"></td><td><img height="60" src="https://vtj.pro/assets/vgtech.ClYS6cBc.png"></td><td><img height="60" src="https://vtj.pro/assets/jnby.ojrHJeXk.png"></td></tr></tbody></table>
+<table border="0" class="sponsors"  style="display:table"><tbody><tr><td>成都淞幸科技有限责任公司</td><td>北京万古科技股份有限公司</td><td>杭州江南布衣服饰有限公司</td></tr><tr><td><img height="60" src="https://vtj.pro/assets/sunsheen.Yb7cGhMs.png"></td><td><img height="60" src="https://vtj.pro/assets/vgtech.ClYS6cBc.png"></td><td><img height="60" src="https://vtj.pro/assets/jnby.ojrHJeXk.png"></td></tr></tbody></table>
 
-<table border="0" class="sponsors"><tbody><tr><td>合肥市星之源信息技术有限公司</td><td>泉州海丝泓盛供应链有限公司</td><td>浪潮云洲工业互联网有限公司</td></tr><tr><td>武汉仓鼠科技有限公司</td><td>义乌市云度企业管理咨询有限公司</td><td>深圳海用智能科技有限公司</td></tr><tr><td>天津易讯文传科技有限公司</td><td>深圳市翱阳鸿宇科技有限公司</td><td>武汉兄弟桥科技发展有限公司</td></tr><tr><td>江西牛虎科技有限公司</td><td>青岛艾玛信息技术有限公司</td><td>贵阳市第四人民医院</td></tr><tr><td>常熟市融媒体中心</td><td>年华数据科技有限公司</td><td>Employers’ Advocate, Inc.</td></tr><tr><td>江西七叶莲科技</td><td>北京寄云鼎城科技有限公司</td><td></td></tr></tbody></table>
+<table border="0" class="sponsors"  style="display:table"><tbody><tr><td>合肥市星之源信息技术有限公司</td><td>泉州海丝泓盛供应链有限公司</td><td>浪潮云洲工业互联网有限公司</td></tr><tr><td>武汉仓鼠科技有限公司</td><td>义乌市云度企业管理咨询有限公司</td><td>深圳海用智能科技有限公司</td></tr><tr><td>天津易讯文传科技有限公司</td><td>深圳市翱阳鸿宇科技有限公司</td><td>武汉兄弟桥科技发展有限公司</td></tr><tr><td>江西牛虎科技有限公司</td><td>青岛艾玛信息技术有限公司</td><td>贵阳市第四人民医院</td></tr><tr><td>常熟市融媒体中心</td><td>年华数据科技有限公司</td><td>Employers’ Advocate, Inc.</td></tr><tr><td>江西七叶莲科技</td><td>北京寄云鼎城科技有限公司</td><td></td></tr></tbody></table>
