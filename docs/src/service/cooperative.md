@@ -4,6 +4,8 @@
 
 ## 商业合作伙伴
 
+众多企业和组织正在使用 **VTJ.PRO** 加速数字化转型和升级。
+
 <table border="0" class="sponsors">
   <tbody>
     <tr>
