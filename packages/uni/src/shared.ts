@@ -30,7 +30,8 @@ export async function notify(
       showCancel: false
     });
   }
-  return window.alert(message);
+  window.alert(message);
+  return true;
 }
 
 export async function alert(message: string) {

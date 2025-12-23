@@ -1,7 +1,3 @@
-> 我正在参加 Gitee 2025 最受欢迎的开源软件投票活动，快来给我投票吧！<br> [https://gitee.com/activity/2025opensource?ident=ID1KKL](https://gitee.com/activity/2025opensource?ident=ID1KKL)
-
-<div><a href="https://vtj.pro"><img src="dev/public//banner.png" /></a></div>
-<br>
 <div align="center"> <a href="https://gitee.com/newgateway/vtj"> <img width="100" src="./platforms/pro/public/logo.svg"> </a> <br>
 <h1>VTJ.PRO</h1>
 <h3>AI 驱动的 Vue3 低代码开发平台</h3>
@@ -40,6 +36,30 @@
 - 🔄 **双向代码转换**: 独创 **DSL与Vue源码双向编译**能力，保障低代码与手写代码的自由切换。
 
 ## 设计器预览
+
+### 双向代码转换
+
+通过双向代码转换技术，开发者可以将可视化设计的界面一键导出为标准Vue组件代码，也能将手写代码导入设计器进行可视化调整。
+
+<table border="0" style="display: table">
+  <tr>
+    <td>
+      <img src="https://vtj.pro/assets/animation.I-2tk84M.gif" alt="" />
+    </td>
+  </tr>
+</table>
+
+### 深度AI赋能
+
+VTJ.PRO的AI不是噱头，而是实打实的生产力加速器.
+
+<table border="0" style="display: table">
+  <tr>
+    <td>
+      <img src="https://vtj.pro/assets/gpt.DRg0bDMT.gif" alt="" />
+    </td>
+  </tr>
+</table>
 
 <table border="0">
   <tr>
@@ -124,93 +144,9 @@ npm run setup && npm run build && npm run app:dev
 钉钉群、 微信群(加好友，拉进群，备注：vtj)
 
 <table border="0">
-<tr><td><img src="./dingtalk.png" /></td><td><img src="./wechat.png" width="" /></td></tr></table>
-
-## ⭐ 优秀案例
-
-### 悦码低代码平台
-
-<table>
-<tr>
-<td>
-<img src="dev/public/shiyue/logo.png" height="50" />
-</td>
-<td>
-悦码是<strong>诗悦网络</strong>采用<code>VTJ</code>搭建低代码平台，已上线投产。
-特点：<br />
-1. 通过无界渲染器可跨技术栈引入低代码页面，实现低代码页面跨技术栈复用，包括：<code>react</code> <code>next.js</code> <code>vue</code> <code>svelte</code> ：<br />
-2. 多应用独立设计器
-</td>
-</tr>
-</table>
-
-<table border="0">
-<tr>
-<td>多应用独立设计器</td>
-<td>用户生命周期</td>
-<td>静态资源管理</td>
-</tr>
   <tr>
-    <td>
-    <img src="https://cms-ycode.shiyue.com/y-code/20250521/案例-低代码项目列表.png" />
-    </td>
-    <td>
-    <img src="https://cms-ycode.shiyue.com/y-code/20250521/案例-用户生命周期.png" /></td>
-   <td>
-   <img src="https://cms-ycode.shiyue.com/y-code/20250521/案例-资源管理.png" /></td>
-  </tr>
-</table>
-
-### 寄云科技低代码开发平台
-
-<table>
-<tr>
-<td>
-<img src="dev/public/neucloud/logo.png" height="50" />
-</td>
-<td>
-已接入VTJ作为云画面的交互画面设计器之一，实现与平台深度融合，快速响应业务需求，构建应用，已成功服务于多家世界500强工业企业。
-
-产品主页地址：<a href="https://www.neucloud.cn/product/lcdp">https://www.neucloud.cn/product/lcdp</a>
-
-</td>
-</tr>
-</table>
-
-<table border="0">
-  <tr>
-    <td>
-    <img src="dev/public/neucloud/p1.jpg" />
-    </td>
-    <td>
-    <img src="dev/public/neucloud/p2.jpg" /></td>
-   <td>
-   <img src="dev/public/neucloud/p3.jpg" /></td>
-  </tr>
-</table>
-
-### 江西七叶莲科技
-
-<table>
-<tr>
-<td>
-<img src="https://www.qylian.cn/assets/img/logo.png" height="50" />
-</td>
-<td>
-接入VTJ本地版本，使用AI生成页面集成到芋道项目。
-</td>
-</tr>
-</table>
-
-<table border="0">
-  <tr>
-    <td>
-    <img src="dev/public/qylian/1.png" />
-    </td>
-    <td>
-    <img src="dev/public/qylian/2.png" /></td>
-   <td>
-   <img src="dev/public/qylian/3.png" /></td>
+    <td><img src="./dingtalk.png" /></td>
+    <td><img src="./wechat.png" width="" /></td>
   </tr>
 </table>
 
@@ -227,3 +163,169 @@ npm run setup && npm run build && npm run app:dev
 - [5.4K Star 【VTJ.PRO】：重新定义前端开发的低代码神器](https://mp.weixin.qq.com/s/ySWojJ1DKMSYes_CeYk9qw)
 - [低代码开发工具推荐，VTJ.PRO，一款基于Vue3和TypeScript打造的低代码开发工具，值得一试！](https://mp.weixin.qq.com/s/wIw7XWOJ4xQ8f7OOhqAyzQ)
 - [开源|一个基于Vue3 + TypeScript的低代码开发工具平台，内置了设计器引擎、渲染器和代码生成器](https://mp.weixin.qq.com/s/JTfqmIfmbBcBUbCORCUHkA)
+
+## 他们也在用 VTJ.PRO
+
+众多企业和组织正在使用 **VTJ.PRO** 加速数字化转型和升级。
+
+<table border="0" class="sponsors" style="display: table">
+  <tbody>
+    <tr>
+      <td align="center">浪潮集团有限公司</td>
+      <td align="center">北京百度网讯科技有限公司</td>
+      <td align="center">上药控股有限公司</td>
+      <td align="center">中国电子系统工程第三建设有限公司</td>
+    </tr>
+    <tr>
+      <td align="center">
+        <img height="60" src="https://vtj.pro/assets/inspur.B1Nj6i_-.png" />
+      </td>
+      <td align="center">
+        <img height="60" src="https://vtj.pro/assets/baidu.C-ODazGp.png" />
+      </td>
+      <td align="center">
+        <img height="60" src="https://vtj.pro/assets/shaphar.DMIWR0O5.png" />
+      </td>
+      <td align="center">
+        <img height="60" src="https://vtj.pro/assets/cese3.B17sUJw2.png" />
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<table border="0" class="sponsors" style="display: table">
+  <tbody>
+    <tr>
+      <td align="center">中国铁塔股份有限公司</td>
+      <td align="center">海尔消费金融有限公司</td>
+      <td align="center">苹果电子产品商贸（北京）有限公司</td>
+      <td align="center">广州诗悦网络科技有限公司</td>
+    </tr>
+    <tr>
+      <td align="center">
+        <img
+          height="60"
+          src="https://vtj.pro/assets/china-tower.6AoVbI9b.png" />
+      </td>
+      <td align="center">
+        <img height="60" src="https://vtj.pro/assets/haierxj.D0r8pxLW.png" />
+      </td>
+      <td align="center">
+        <img height="60" src="https://vtj.pro/assets/apple.DA87OfrJ.png" />
+      </td>
+      <td align="center">
+        <img height="60" src="https://vtj.pro/assets/shiyue.Dsry6-Pz.png" />
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<table border="0" class="sponsors" style="display: table">
+  <tbody>
+    <tr>
+      <td align="center">山东国子软件股份有限公司</td>
+      <td align="center">乐至县清源水务有限公司</td>
+      <td align="center">河南贤迈网络科技服务有限公司</td>
+      <td align="center">中电福富信息科技有限公司</td>
+    </tr>
+    <tr>
+      <td align="center">
+        <img height="60" src="https://vtj.pro/assets/googosoft.DZwFHgml.png" />
+      </td>
+      <td align="center">
+        <img height="60" src="https://vtj.pro/assets/lzqysw.ze1Bd-co.png" />
+      </td>
+      <td align="center">
+        <img height="60" src="https://vtj.pro/assets/xianmai.DqR6xkTB.png" />
+      </td>
+      <td align="center">
+        <img height="60" src="https://vtj.pro/assets/ffcs.CWQHovDk.png" />
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<table border="0" class="sponsors" style="display: table">
+  <tbody>
+    <tr>
+      <td align="center">上海森克电子科技有限公司</td>
+      <td align="center">南京韬盛信息科技有限公司</td>
+      <td align="center">南京派光智慧感知信息技术有限公司</td>
+      <td align="center">上海同筑信息科技有限公司</td>
+    </tr>
+    <tr>
+      <td align="center">
+        <img height="60" src="https://vtj.pro/assets/senke.Cy5TazGc.png" />
+      </td>
+      <td align="center">
+        <img height="60" src="https://vtj.pro/assets/njtsxx.BadEl2x_.png" />
+      </td>
+      <td align="center">
+        <img height="60" src="https://vtj.pro/assets/pgsensing.Bsn88Pe8.png" />
+      </td>
+      <td align="center">
+        <img height="60" src="https://vtj.pro/assets/tztos.od2kT-_s.png" />
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<table border="0" class="sponsors" style="display: table">
+  <tbody>
+    <tr>
+      <td align="center">合肥晨飞网络科技有限公司</td>
+      <td align="center">成都淞幸科技有限责任公司</td>
+      <td align="center">北京万古科技股份有限公司</td>
+      <td align="center">杭州江南布衣服饰有限公司</td>
+    </tr>
+    <tr>
+      <td align="center">
+        <img height="60" src="https://vtj.pro/assets/ahcfwl.B6d1z92_.png" />
+      </td>
+      <td align="center">
+        <img height="60" src="https://vtj.pro/assets/sunsheen.Yb7cGhMs.png" />
+      </td>
+      <td align="center">
+        <img height="60" src="https://vtj.pro/assets/vgtech.ClYS6cBc.png" />
+      </td>
+      <td align="center">
+        <img height="60" src="https://vtj.pro/assets/jnby.ojrHJeXk.png" />
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<table border="0" class="sponsors" style="display: table">
+  <tbody>
+    <tr>
+      <td align="center">合肥市星之源信息技术有限公司</td>
+      <td align="center">泉州海丝泓盛供应链有限公司</td>
+      <td align="center">浪潮云洲工业互联网有限公司</td>
+      <td align="center">武汉仓鼠科技有限公司</td>
+    </tr>
+    <tr>
+      <td align="center">义乌市云度企业管理咨询有限公司</td>
+      <td align="center">深圳海用智能科技有限公司</td>
+      <td align="center">天津易讯文传科技有限公司</td>
+      <td align="center">深圳市翱阳鸿宇科技有限公司</td>
+    </tr>
+    <tr>
+      <td align="center">武汉兄弟桥科技发展有限公司</td>
+      <td align="center">江西牛虎科技有限公司</td>
+      <td align="center">青岛艾玛信息技术有限公司</td>
+      <td align="center">贵阳市第四人民医院</td>
+    </tr>
+    <tr>
+      <td align="center">常熟市融媒体中心</td>
+      <td align="center">年华数据科技有限公司</td>
+      <td align="center">Employers’ Advocate, Inc.</td>
+      <td align="center">江西七叶莲科技</td>
+    </tr>
+    <tr>
+      <td align="center">北京寄云鼎城科技有限公司</td>
+      <td align="center">福建国通星驿网络科技有限公司</td>
+      <td align="center"></td>
+      <td align="center"></td>
+    </tr>
+  </tbody>
+</table>
