@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.40](https://github.com/samchen08/vtj.pro/compare/@vtj/pro-uni@0.13.39...@vtj/pro-uni@0.13.40) (2025-12-26)
+
+
+### Bug Fixes
+
+* 🐛 uniapp 滚动条style ([6b41606](https://github.com/samchen08/vtj.pro/commit/6b4160628b6e3b97a18c6623367e69fa1e88b19b))
+
+
+
+
+
 ## [0.13.39](https://github.com/samchen08/vtj.pro/compare/@vtj/pro-uni@0.13.38...@vtj/pro-uni@0.13.39) (2025-12-20)
 
 

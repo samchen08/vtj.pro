@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.40](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.13.39...@vtj/materials@0.13.40) (2025-12-26)
+
+
+### Bug Fixes
+
+* 🐛 rename style file ([5734954](https://gitee.com/newgateway/vtj/commits/5734954b1cc50359d0cccd3ee539d5f2cb9b28f4))
+* 🐛 uniapp 物料样式 ([761bd60](https://gitee.com/newgateway/vtj/commits/761bd60669f911b0328feb09f6ee4f8d009512f7))
+* 🐛 uniapp style ([183d5fe](https://gitee.com/newgateway/vtj/commits/183d5fe27399ffa67438461f232665e8608f33aa))
+
+
+
+
+
 ## [0.13.39](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.13.38...@vtj/materials@0.13.39) (2025-12-20)
 
 

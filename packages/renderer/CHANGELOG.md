@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.40](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.13.39...@vtj/renderer@0.13.40) (2025-12-26)
+
+
+### Bug Fixes
+
+* 🐛 uniapp 适配 alert ([f6226e8](https://gitee.com/newgateway/vtj/commits/f6226e8ca12a4e112b11b6a5aa52aae46b8b0f0c))
+
+
+
+
+
 ## [0.13.39](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.13.38...@vtj/renderer@0.13.39) (2025-12-20)
 
 
