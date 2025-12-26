@@ -89,6 +89,10 @@ export interface EngineOptions {
    */
   materials?: Record<string, () => Promise<any>>;
   /**
+   *  依赖库选项配置
+   */
+  libraryOptions?: Record<string, any>;
+  /**
    * 内置物料路径 BasePath
    */
   materialPath?: string;
@@ -195,6 +199,7 @@ export class Engine extends Base {
       dependencies,
       materials,
       materialPath = './',
+      libraryOptions = {},
       pageRouteName,
       adapter,
       install,
@@ -216,6 +221,7 @@ export class Engine extends Base {
       dependencies,
       materials,
       materialPath,
+      libraryOptions,
       adapter,
       pageRouteName,
       install
