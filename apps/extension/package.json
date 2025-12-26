@@ -1,7 +1,7 @@
 {
   "name": "vtj-extension",
   "private": true,
-  "version": "0.13.38",
+  "version": "0.13.40",
   "type": "module",
   "scripts": {
     "setup": "pnpm install --unsafe-perm --registry=https://registry.npmmirror.com",
@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@vueuse/core": "~14.1.0",
-    "element-plus": "~2.12.0"
+    "element-plus": "~2.13.0"
   },
   "devDependencies": {
     "@vtj/cli": "workspace:~",

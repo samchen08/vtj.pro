@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.40](https://gitee.com/newgateway/vtj/compare/@vtj/parser@0.13.39...@vtj/parser@0.13.40) (2025-12-26)
+
+**Note:** Version bump only for package @vtj/parser
+
+
+
+
+
+## [0.13.39](https://gitee.com/newgateway/vtj/compare/@vtj/parser@0.13.38...@vtj/parser@0.13.39) (2025-12-20)
+
+
+### Bug Fixes
+
+* 🐛 页面源码保存时，会将自定义的方法名重置 ([ad2946a](https://gitee.com/newgateway/vtj/commits/ad2946a864ae39932d74db949b290ae8b233f7d0))
+* 🐛 优化uniapp样式 ([154c9a8](https://gitee.com/newgateway/vtj/commits/154c9a840a71c192e9c6d3307c5b4741ebf19472))
+
+
+
+
+
 ## [0.13.38](https://gitee.com/newgateway/vtj/compare/@vtj/parser@0.13.37...@vtj/parser@0.13.38) (2025-12-17)
 
 **Note:** Version bump only for package @vtj/parser

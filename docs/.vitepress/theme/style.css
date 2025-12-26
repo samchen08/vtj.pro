@@ -281,3 +281,29 @@ body {
   width: 100%;
   display: block;
 }
+
+.sponsors td {
+  text-align: center;
+  width: 25%;
+}
+.sponsors th {
+  text-align: center;
+}
+.sponsors td img {
+  height: 60px;
+  display: block;
+  margin: auto;
+}
+.contributors td {
+  text-align: center;
+  width: 20%;
+}
+.contributors th {
+  text-align: center;
+}
+.contributors td img {
+  height: 50px;
+  display: block;
+  margin: auto;
+  border-radius: 50%;
+}

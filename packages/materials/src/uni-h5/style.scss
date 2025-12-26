@@ -1,3 +1,4 @@
+@use './common.scss';
 @use '@dcloudio/uni-h5/style/api/action-sheet.css';
 @use '@dcloudio/uni-h5/style/api/location-picker.css';
 @use '@dcloudio/uni-h5/style/api/location-view.css';
@@ -7,12 +8,10 @@
 @use '@dcloudio/uni-h5/style/framework/async.css';
 @use '@dcloudio/uni-h5/style/framework/base.css';
 @use '@dcloudio/uni-h5/style/framework/layout.css';
-@use '@dcloudio/uni-h5/style/framework/nvue.css';
 @use '@dcloudio/uni-h5/style/framework/pageHead.css';
 @use '@dcloudio/uni-h5/style/framework/pageRefresh.css';
 @use '@dcloudio/uni-h5/style/framework/shadow.css';
 @use '@dcloudio/uni-h5/style/framework/tabBar.css';
-@use '@dcloudio/uni-h5/style/framework/uvue.css';
 
 @use '@dcloudio/uni-h5/style/ad-content-page.css';
 @use '@dcloudio/uni-h5/style/ad-draw.css';

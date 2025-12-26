@@ -3,6 +3,29 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.40](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.13.39...@vtj/designer@0.13.40) (2025-12-26)
+
+
+### Bug Fixes
+
+* 🐛 icon样式 ([11465b6](https://gitee.com/newgateway/vtj/commits/11465b65b606f3a5c7a6dc4a3624613c2447b1e2))
+* 🐛 uniapp 滚动条style ([6b41606](https://gitee.com/newgateway/vtj/commits/6b4160628b6e3b97a18c6623367e69fa1e88b19b))
+
+
+
+
+
+## [0.13.39](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.13.38...@vtj/designer@0.13.39) (2025-12-20)
+
+
+### Bug Fixes
+
+* 🐛 优化uniapp样式 ([154c9a8](https://gitee.com/newgateway/vtj/commits/154c9a840a71c192e9c6d3307c5b4741ebf19472))
+
+
+
+
+
 ## [0.13.38](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.13.37...@vtj/designer@0.13.38) (2025-12-17)
 
 
