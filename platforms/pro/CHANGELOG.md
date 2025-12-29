@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.41](https://gitee.com/newgateway/vtj/compare/@vtj/pro@0.13.40...@vtj/pro@0.13.41) (2025-12-29)
+
+
+### Bug Fixes
+
+* 🐛 适配登录 ([5c5d8f2](https://gitee.com/newgateway/vtj/commits/5c5d8f2c712d68ef30b5f951f09846f9ac4317b6))
+* 🐛 新版后台系统适配 ([965e037](https://gitee.com/newgateway/vtj/commits/965e037ffb81ab03b2c841bc3059db775692edd9))
+
+
+
+
+
 ## [0.13.40](https://gitee.com/newgateway/vtj/compare/@vtj/pro@0.13.39...@vtj/pro@0.13.40) (2025-12-26)
 
 **Note:** Version bump only for package @vtj/pro
