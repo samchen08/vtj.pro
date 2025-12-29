@@ -46,7 +46,9 @@ export function useOpenApi() {
     if (typeof auth === 'string') {
       const api = `${remote}/api/open/auth/${auth}`;
       const res = await jsonp(api).catch(() => null);
-      if (res && res.data) {
+      if (res && Array.isArray(res)) {
+        access.login(res);
+      } else if (res && res.data) {
         access.login(res.data);
       }
     } else if (typeof auth === 'function') {
@@ -81,7 +83,10 @@ export function useOpenApi() {
       }
       const api = `${remote}/api/open/user/${token}`;
       const res = await jsonp(api).catch(() => null);
-      if (res && res.data) {
+      if (res && Array.isArray(res)) {
+        access.login(res);
+        return true;
+      } else if (res && res.data) {
         access?.login(res.data);
         return true;
       }
@@ -424,6 +429,7 @@ export function useOpenApi() {
       return await openApi?.getSettins();
     }
     const token = access?.getData()?.token;
+    if (!token) return undefined;
     const api = `${remote}/api/open/settings/${token}`;
     const res = await window
       .fetch(api, {

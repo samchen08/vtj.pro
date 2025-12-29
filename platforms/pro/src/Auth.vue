@@ -46,6 +46,10 @@
     } catch (e) {
       location.reload();
     }
+  } else {
+    await alert('登录失败');
+    const redirect = route.query.redirect as string;
+    location.href = decodeURIComponent(redirect || props.baseUrl);
   }
 </script>
 
