@@ -25,6 +25,9 @@
   const getLoginInfo = async (token: string) => {
     const api = `${props.remote || REMOTE}/api/open/user/${token}`;
     const res = await jsonp(api).catch(() => null);
+    if (!!res && Array.isArray(res)) {
+      return res;
+    }
     if (!res || !res.success) {
       await alert('登录失败');
       return null;
