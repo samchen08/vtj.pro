@@ -1,5 +1,5 @@
 /**!
- * Copyright (c) 2025, VTJ.PRO All rights reserved.
+ * Copyright (c) 2026, VTJ.PRO All rights reserved.
  * @name @vtj/core 
  * @author CHC chenhuachun1549@dingtalk.com 
  * @version 0.13.41

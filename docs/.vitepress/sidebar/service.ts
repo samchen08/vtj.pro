@@ -4,12 +4,31 @@ export default [
     base: '/service',
     items: [
       {
-        text: '📦 在线版低代码平台源码',
+        text: '📦 专属 VTJ.PRO 应用开发平台',
         link: '/',
         items: [
           {
-            text: '源码说明',
-            link: '/intro'
+            text: '源码项目工程文档',
+            link: '/intro',
+            collapsed: true,
+            items: [
+              {
+                text: '初始化项目',
+                link: '/info/init'
+              },
+              {
+                text: '部署和运维',
+                link: '/info/deploy'
+              },
+              {
+                text: '用户使用手册',
+                link: '/info/manual'
+              },
+              {
+                text: '商业授权协议',
+                link: '/info/license'
+              }
+            ]
           },
           {
             text: '平台概述',

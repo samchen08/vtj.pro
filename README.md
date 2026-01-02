@@ -15,7 +15,7 @@
 **无缝融入现有工程**，**零侵入**开发流程与编码习惯。
 
 - **官方文档**：[https://vtj.pro](https://vtj.pro)
-- **在线应用开发平台**：[https://lcdp.vtj.pro](https://lcdp.vtj.pro)
+- **在线应用开发平台**：[https://app.vtj.pro](https://app.vtj.pro)
 
 ## 核心特性
 
@@ -80,7 +80,7 @@ VTJ.PRO的AI不是噱头，而是实打实的生产力加速器.
 
 ### 一、在线体验
 
-- [https://lcdp.vtj.pro](https://lcdp.vtj.pro)
+- [https://app.vtj.pro](https://app.vtj.pro)
 
 访问VTJ专属低代码开发平台，创建应用可以体验设计器和出码功能。
 

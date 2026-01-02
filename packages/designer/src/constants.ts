@@ -146,7 +146,7 @@ export const STATE_KEY = 'ENGINE_STATE__';
 
 export const MAX_TOKENS = 2 * 8 * 1024;
 
-export const GET_TOKENS_LINK = 'https://lcdp.vtj.pro/page/17ikytmh';
+export const GET_TOKENS_LINK = 'https://app.vtj.pro/#/workbench/token';
 
 export const HOT_KEYS_DEP: Dependencie = {
   package: 'hotkeys-js',

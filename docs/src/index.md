@@ -15,7 +15,7 @@ hero:
       link: /guide/
     - theme: alt
       text: 💡 在线体验
-      link: https://lcdp.vtj.pro/page/92q671qifm
+      link: https://app.vtj.pro
       target: new
 
 features:
@@ -44,6 +44,3 @@ features:
     title: 双向代码转换
     details: 独创 DSL与Vue源码双向编译能力，保障低代码与手写代码的自由切换。
 ---
-
-> 我正在参加 Gitee 2025 最受欢迎的开源软件投票活动，快来给我投票吧！<br>
-> https://gitee.com/activity/2025opensource?ident=ID1KKL
