@@ -4,9 +4,17 @@
 
 **VTJ.PRO应用开发平台**是基于其核心低代码引擎实现的全功能在线集成开发环境，它将可视化设计、AI智能辅助、多平台出码等能力融为一体，让开发者可以直接在浏览器中完成从设计到出码的完整应用开发流程。
 
+## 源码获取方式
+
+订阅高级服务，登录 [https://app.vtj.pro/#/workbench/service](https://app.vtj.pro/#/workbench/service) 下载。
+
+![](./_img/1.png)
+
 ## 项目工程
 
 此项目工程采用 `pnpm` 搭建的 `Monorepo` 项目。 前端（frontend） 与 后端（backend） 分别是独立的子包项目。
+
+![](./_img/2.png)
 
 ### 开发环境要求
 

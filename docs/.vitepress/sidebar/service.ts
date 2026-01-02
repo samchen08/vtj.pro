@@ -8,21 +8,17 @@ export default [
         link: '/',
         items: [
           {
-            text: '源码项目工程文档',
-            link: '/intro',
-            collapsed: true,
+            text: '私有化部署',
+            link: '/info/',
+            collapsed: false,
             items: [
               {
-                text: '初始化项目',
+                text: '项目初始化指南',
                 link: '/info/init'
               },
               {
                 text: '部署和运维',
                 link: '/info/deploy'
-              },
-              {
-                text: '用户使用手册',
-                link: '/info/manual'
               },
               {
                 text: '商业授权协议',
