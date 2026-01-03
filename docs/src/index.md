@@ -11,12 +11,12 @@ hero:
     src: /assets/logo-w.svg
   actions:
     - theme: brand
-      text: ⚡ 快速开始
-      link: /guide/
-    - theme: alt
-      text: 💡 在线体验
+      text: ⚡ 立即开始
       link: https://app.vtj.pro
       target: new
+    - theme: alt
+      text: 💡 使用指引
+      link: /guide/
 
 features:
   - icon: ⚙️
