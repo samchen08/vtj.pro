@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.14.0](https://gitee.com/newgateway/vtj/compare/@vtj/pro@0.13.41...@vtj/pro@0.14.0) (2026-01-03)
+
+
+### Bug Fixes
+
+* 🐛 扩支持设置 auth ([b061b69](https://gitee.com/newgateway/vtj/commits/b061b69b271e7fbcdc741f0018a704a1dfe9ec01))
+
+
+
+
+
 ## [0.13.41](https://gitee.com/newgateway/vtj/compare/@vtj/pro@0.13.40...@vtj/pro@0.13.41) (2025-12-29)
 
 
