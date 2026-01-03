@@ -36,7 +36,7 @@ pnpm install && npm run build && npm run pm2:start
 
 ### 前端服务
 
-前端服务用 `Nginx` 部署，前端的编译产物文件夹路径是：`/home/vtj-pro/frontend/dist/`。 nginx.conf 参考：
+前端服务用 `Nginx` 部署，前端的编译产物文件夹路径是：`/home/vtj-pro/frontend/dist/`。 完整 nginx.conf 配置参考：
 
 ```nginx
 user www-data;
@@ -213,6 +213,15 @@ http {
     }
 }
 ```
+
+### 重点关注配置项
+
+- `location /api/`
+- `location /dev/`
+- `location /web/`
+- `location /h5/`
+- `location /uniapp/`
+- `location /uploadfiles/`
 
 ### Nginx 配置文件说明
 

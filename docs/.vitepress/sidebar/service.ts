@@ -27,27 +27,38 @@ export default [
             ]
           },
           {
-            text: '平台概述',
+            text: '项目源码揭秘',
             link: '/wiki/',
-            collapsed: true,
             items: [
               {
-                text: '项目结构',
-                link: '/wiki/1.1'
+                text: '平台概述',
+                link: '/wiki/1'
               },
               {
-                text: '多平台构建系统',
-                link: '/wiki/1.2'
+                text: '架构设计',
+                link: '/wiki/2',
+                collapsed: true,
+                items: [
+                  {
+                    text: '前端架构',
+                    link: '/wiki/2.1'
+                  },
+                  {
+                    text: '后端模块系统',
+                    link: '/wiki/2.2'
+                  },
+                  {
+                    text: '运行时系统',
+                    link: '/wiki/2.3'
+                  }
+                ]
               }
             ]
           },
-          {
-            text: '架构概述',
-            link: '/wiki/2'
-          },
+
           {
             text: '竞品分析',
-            link: '/wiki/analysis'
+            link: '/analysis'
           },
           {
             text: '商业伙伴',

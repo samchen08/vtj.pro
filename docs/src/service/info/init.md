@@ -14,8 +14,6 @@
 | 6    | 启动前后端服务       | 3-5分钟  | 运行完整的开发环境             |
 | 7    | 平台功能配置         | 5-15分钟 | AI功能、邮箱服务等配置         |
 
----
-
 ## 步骤 0：检查开发环境
 
 ### 🎯 目的
@@ -50,8 +48,6 @@ npm --version
 - 如果使用 nvm 管理 Node.js 版本，请确保已切换到正确的版本
 - 在 Windows 系统上，建议使用 Git Bash 或 WSL2 执行命令
 - 如果遇到权限问题，请勿使用 `sudo`，而是通过 `pnpm setup` 正确配置
-
----
 
 ## 步骤 1：安装项目依赖
 
@@ -91,8 +87,6 @@ pnpm list @nestjs/core
 - 如果安装失败，请检查网络连接或尝试使用国内镜像源
 - 确保磁盘空间充足（至少需要 500MB）
 
----
-
 ## 步骤 2：配置后端项目环境变量
 
 ### 🎯 目的
@@ -116,30 +110,28 @@ VTJ.PRO 后端支持多环境配置，配置文件优先级如下：
 
 ### 🗂️ 主要环境变量说明
 
-| 变量名                  | 类别   | 必填 | 默认值        | 说明                                      |
-| ----------------------- | ------ | ---- | ------------- | ----------------------------------------- |
-| **应用配置**            |        |      |               |                                           |
-| `PORT`                  | 基础   | 否   | `3000`        | 应用服务监听端口                          |
-| `NODE_ENV`              | 基础   | 否   | `development` | 运行环境：development/production          |
-| `APP_NAME`              | 基础   | 否   | `VTJ.PRO`     | 应用名称                                  |
-| **数据库配置**          |        |      |               |                                           |
-| `DATABASE_HOST`         | 数据库 | 是   | -             | MySQL 主机地址                            |
-| `DATABASE_PORT`         | 数据库 | 否   | `3306`        | MySQL 端口                                |
-| `DATABASE_NAME`         | 数据库 | 是   | -             | 数据库名称                                |
-| `DATABASE_USER`         | 数据库 | 是   | -             | 数据库用户名                              |
-| `DATABASE_PASSWORD`     | 数据库 | 是   | -             | 数据库密码                                |
-| `DATABASE_SYNC`         | 数据库 | 否   | `false`       | 是否自动同步表结构（开发环境可设为 true） |
-| **文件存储配置**        |        |      |               |                                           |
-| `LOCAL_UPLOAD_BASE_DIR` | 存储   | 否   | `uploadfiles` | 本地文件上传目录（OSS未启用时生效）       |
-| `OSS_ENABLED`           | OSS    | 否   | `false`       | 是否启用阿里云OSS                         |
-| `OSS_ACCESS_KEY_ID`     | OSS    | 条件 | -             | OSS Access Key ID（OSS启用时必填）        |
-| `OSS_ACCESS_KEY_SECRET` | OSS    | 条件 | -             | OSS Access Key Secret（OSS启用时必填）    |
-| `OSS_BUCKET`            | OSS    | 条件 | -             | OSS存储桶名称（OSS启用时必填）            |
-| `OSS_REGION`            | OSS    | 条件 | -             | OSS区域，如 `oss-cn-guangzhou`            |
-| `OSS_ENDPOINT`          | OSS    | 否   | -             | OSS端点，留空使用默认                     |
-| `OSS_SECURE`            | OSS    | 否   | `true`        | 是否使用HTTPS                             |
-| `OSS_TIMEOUT`           | OSS    | 否   | `6000`        | OSS请求超时时间（毫秒）                   |
-| `OSS_MAX_FILE_SIZE`     | OSS    | 否   | `10485760`    | 最大文件上传大小（字节，默认10MB）        |
+| 变量名                  | 类别   | 必填 | 默认值        | 说明                                   |
+| ----------------------- | ------ | ---- | ------------- | -------------------------------------- |
+| **应用配置**            |        |      |               |                                        |
+| `PORT`                  | 基础   | 否   | `3000`        | 应用服务监听端口                       |
+| `NODE_ENV`              | 基础   | 否   | `development` | 运行环境：development/production       |
+| **数据库配置**          |        |      |               |                                        |
+| `DATABASE_HOST`         | 数据库 | 是   | -             | MySQL 主机地址                         |
+| `DATABASE_PORT`         | 数据库 | 否   | `3306`        | MySQL 端口                             |
+| `DATABASE_NAME`         | 数据库 | 是   | -             | 数据库名称                             |
+| `DATABASE_USER`         | 数据库 | 是   | -             | 数据库用户名                           |
+| `DATABASE_PASSWORD`     | 数据库 | 是   | -             | 数据库密码                             |
+| **文件存储配置**        |        |      |               |                                        |
+| `LOCAL_UPLOAD_BASE_DIR` | 存储   | 否   | `uploadfiles` | 本地文件上传目录（OSS未启用时生效）    |
+| `OSS_ENABLED`           | OSS    | 否   | `false`       | 是否启用阿里云OSS                      |
+| `OSS_ACCESS_KEY_ID`     | OSS    | 条件 | -             | OSS Access Key ID（OSS启用时必填）     |
+| `OSS_ACCESS_KEY_SECRET` | OSS    | 条件 | -             | OSS Access Key Secret（OSS启用时必填） |
+| `OSS_BUCKET`            | OSS    | 条件 | -             | OSS存储桶名称（OSS启用时必填）         |
+| `OSS_REGION`            | OSS    | 条件 | -             | OSS区域，如 `oss-cn-guangzhou`         |
+| `OSS_ENDPOINT`          | OSS    | 否   | -             | OSS端点，留空使用默认                  |
+| `OSS_SECURE`            | OSS    | 否   | `true`        | 是否使用HTTPS                          |
+| `OSS_TIMEOUT`           | OSS    | 否   | `6000`        | OSS请求超时时间（毫秒）                |
+| `OSS_MAX_FILE_SIZE`     | OSS    | 否   | `10485760`    | 最大文件上传大小（字节，默认10MB）     |
 
 ### 📝 配置示例
 
@@ -150,15 +142,13 @@ VTJ.PRO 后端支持多环境配置，配置文件优先级如下：
 # 应用基础配置
 # ============================================
 PORT=3000
-NODE_ENV=development
-APP_NAME=VTJ.PRO Development
 
 # ============================================
 # 数据库配置（MySQL）
 # ============================================
 DATABASE_HOST=127.0.0.1
 DATABASE_PORT=3306
-DATABASE_NAME=vtj_pro
+DATABASE_NAME=vtj_example
 DATABASE_USER=root
 DATABASE_PASSWORD=your_password_here
 DATABASE_SYNC=false  # 生产环境必须为 false
@@ -191,7 +181,7 @@ NODE_ENV=production
 # 生产数据库（使用云数据库）
 DATABASE_HOST=rm-xxx.mysql.rds.aliyuncs.com
 DATABASE_PORT=3306
-DATABASE_NAME=vtj_pro_prod
+DATABASE_NAME=vtj_example_prod
 DATABASE_USER=prod_user
 DATABASE_PASSWORD=strong_production_password
 DATABASE_SYNC=false  # 生产环境必须为 false
@@ -248,12 +238,12 @@ OSS_SECURE=true
 2. 创建数据库：
 
    ```sql
-   CREATE DATABASE vtj_pro CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+   CREATE DATABASE vtj_example CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
    ```
 
 3. 验证数据库创建：
    ```sql
-   SHOW DATABASES LIKE 'vtj_pro';
+   SHOW DATABASES LIKE 'vtj_example';
    ```
 
 **配置环境变量**：
@@ -319,7 +309,7 @@ OSS_SECURE=true
 
 2. **数据库表验证**：
    ```sql
-   USE vtj_pro;
+   USE vtj_example;
    SHOW TABLES;
    ```
    应显示创建的所有表（约 20+ 个表）。
@@ -329,8 +319,6 @@ OSS_SECURE=true
 - 首次启动会自动创建所有数据库表，请确保数据库用户有 CREATE TABLE 权限
 - 如果表创建失败，请检查数据库连接配置和权限
 - 服务启动后，**不要关闭终端**，保持服务运行或进行下一步操作
-
----
 
 ## 步骤 4：初始化种子数据
 
@@ -543,7 +531,7 @@ npm run server
 
 **第三方登录**：
 
-- Gitee：AppKey、AppSecret
+- Gitee：clientId、clientSecret
 
 ### ✅ 配置完成验证
 
@@ -563,8 +551,6 @@ npm run server
    - 创建测试订单
    - 完成支付流程
    - 验证订单状态更新
-
----
 
 ## 🚀 初始化完成检查清单
 
@@ -604,8 +590,6 @@ npm run server
 - [ ] 各功能模块可正常访问
 - [ ] AI助手功能可正常使用
 - [ ] 文件上传功能正常
-
----
 
 ## 🔧 故障排除指南
 
@@ -802,8 +786,6 @@ lsof -i :5173  # 前端端口
    - 操作日志审计
    - 数据统计分析
 
----
-
 ## 🎉 总结
 
 恭喜！您已成功完成 VTJ.PRO 应用开发平台的初始化工作。系统现已具备以下能力：
@@ -834,7 +816,5 @@ VTJ.PRO 将持续更新和改进，建议：
 - 定期拉取最新代码
 - 关注版本更新日志
 - 参与社区贡献
-
----
 
 **祝您使用愉快！如有任何问题，请参考本文档或寻求社区支持。**
