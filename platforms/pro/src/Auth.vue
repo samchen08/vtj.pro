@@ -25,6 +25,9 @@
   const getLoginInfo = async (token: string) => {
     const api = `${props.remote || REMOTE}/api/open/user/${token}`;
     const res = await jsonp(api).catch(() => null);
+    if (!!res && Array.isArray(res)) {
+      return res;
+    }
     if (!res || !res.success) {
       await alert('登录失败');
       return null;
@@ -43,6 +46,10 @@
     } catch (e) {
       location.reload();
     }
+  } else {
+    await alert('登录失败');
+    const redirect = route.query.redirect as string;
+    location.href = decodeURIComponent(redirect || props.baseUrl);
   }
 </script>
 

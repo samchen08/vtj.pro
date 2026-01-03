@@ -1,8 +1,8 @@
 /**!
- * Copyright (c) 2025, VTJ.PRO All rights reserved.
+ * Copyright (c) 2026, VTJ.PRO All rights reserved.
  * @name @vtj/parser 
  * @author CHC chenhuachun1549@dingtalk.com 
- * @version 0.13.40
+ * @version 0.14.0
  * @license <a href="https://vtj.pro/license.html">MIT License</a>
  */
-export const version = '0.13.40';
+export const version = '0.14.0';

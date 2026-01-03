@@ -71,7 +71,8 @@ export class Extension {
       'pageRouteName',
       'remote',
       'checkVersion',
-      'noMask'
+      'noMask',
+      'auth'
     ];
     return VtjUtils.pick(this.config, keys);
   }

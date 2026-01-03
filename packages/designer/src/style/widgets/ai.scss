@@ -258,7 +258,7 @@
     .or {
       font-size: 12px;
       color: var(--el-text-color-placeholder);
-      margin: 10px 0;
+      margin: 4px 0;
     }
     .el-upload__text {
       margin-top: 8px;
@@ -337,7 +337,8 @@
     font-size: 12px;
     text-align: left;
     position: absolute;
-    bottom: 5px;
+    right: 5px;
+    top: 8px;
   }
 }
 

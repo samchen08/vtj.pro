@@ -18,11 +18,11 @@
     return engine.state.dark
       ? {
           icon: markRaw(Sunny),
-          label: '切换到明亮'
+          label: '明亮'
         }
       : {
           icon: markRaw(Moon),
-          label: '切换到暗黑'
+          label: '暗黑'
         };
   });
 

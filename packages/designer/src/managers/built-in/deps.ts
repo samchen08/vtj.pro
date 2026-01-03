@@ -35,7 +35,7 @@ export const builtInDeps: Dependencie[] = [
   },
   {
     package: 'vue-i18n',
-    version: 'latest',
+    version: '~11.2.2',
     library: 'VueI18n',
     urls: ['@vtj/materials/deps/vue-i18n/vue-i18n.global.prod.js'],
     required: true,
@@ -44,7 +44,7 @@ export const builtInDeps: Dependencie[] = [
   },
   {
     package: 'pinia',
-    version: 'latest',
+    version: '~3.0.2',
     library: 'Pinia',
     urls: ['@vtj/materials/deps/pinia/pinia.iife.prod.js'],
     required: true,
@@ -118,7 +118,7 @@ export const builtInDeps: Dependencie[] = [
   },
   {
     package: '@vueuse/core',
-    version: 'latest',
+    version: '~14.1.0',
     library: 'VueUse',
     urls: [
       '@vtj/materials/deps/@vueuse/shared/index.iife.min.js',
@@ -131,7 +131,7 @@ export const builtInDeps: Dependencie[] = [
   },
   {
     package: 'element-plus',
-    version: 'latest',
+    version: '~2.13.0',
     library: 'ElementPlus',
     localeLibrary: 'ElementPlusLocaleZhCn',
     urls: [
@@ -167,7 +167,7 @@ export const builtInDeps: Dependencie[] = [
   },
   {
     package: 'ant-design-vue',
-    version: 'latest',
+    version: '~4.2.0',
     library: 'antd',
     urls: [
       '@vtj/materials/deps/ant-design-vue/reset.css',
@@ -191,7 +191,7 @@ export const builtInDeps: Dependencie[] = [
   },
   {
     package: 'vant',
-    version: 'latest',
+    version: '~4.9.10',
     library: 'vant',
     urls: [
       '@vtj/materials/deps/vant/index.css',
@@ -221,7 +221,7 @@ export const builtInDeps: Dependencie[] = [
   },
   {
     package: 'mockjs',
-    version: 'latest',
+    version: '~1.1.0',
     library: 'Mock',
     urls: ['@vtj/materials/deps/mockjs/mock-min.js'],
     required: false,
