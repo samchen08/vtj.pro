@@ -77,6 +77,7 @@ npmrc.md
 
 /scripts/ssh.mjs
 /pnpm-publish-summary.json
+/scripts/nginx
 
 # materials
 !/packages/materials/src/uni-ui/lib
