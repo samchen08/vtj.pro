@@ -17,7 +17,7 @@ import ProductCard from '../../.vitepress/components/ProductCard.vue'
 :::warning 重要说明
 
 - **公有云服务版本**不包含 **管理后台** 模块。
-- **私有化部署版本**不包含 **AI大模型私有化** 功能，AI能力需配置符合 OpenAI 规范的外部第三方服务, 推荐使用 [openrouter.ai](https://openrouter.ai/)。
+- **私有化部署版本**不包含 **AI大模型私有化**，AI能力需配置符合 OpenAI 规范的第三方服务, 推荐使用 [openrouter.ai](https://openrouter.ai/)。
 
 > - [源码项目说明](./intro.md)
 > - [在线体验项目效果](https://app.vtj.pro)
