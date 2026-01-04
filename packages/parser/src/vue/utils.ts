@@ -59,6 +59,7 @@ export function patchCode(
     content = replacer(content, key, `this.${key}.value`);
     content = replacer(content, `this.${key}.value.value`, `this.${key}.value`);
   }
+
   for (const [key, value] of Object.entries(libs)) {
     content = replacer(content, key, `this.$libs.${value}.${key}`);
     content = replacer(content, `this.${key}`, `this.$libs.${value}.${key}`);
@@ -69,7 +70,7 @@ export function patchCode(
   }
 
   if (platform === 'uniapp') {
-    const uniRegex = /\buni\./g;
+    const uniRegex = /\suni\./g;
     content = content.replace(uniRegex, 'this.$libs.UniH5.uni.');
   }
 
