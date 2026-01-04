@@ -10,7 +10,7 @@
       <div class="price"><span>￥</span>{{ price }}</div>
       <div class="original"><span>￥</span>{{ original }}</div>
       <div class="btn" :class="`is-${type}`">
-        <a class="PButton medium">限时订阅</a>
+        <a class="PButton medium" href="#订阅购买流程">限时订阅</a>
         <span v-if="timeLeft > 0" class="timer">{{ countdownText }}</span>
       </div>
     </div>
