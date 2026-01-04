@@ -1,6 +1,6 @@
 export default [
   { text: '指引', link: '/guide/' },
-  { text: '平台', link: 'https://lcdp.vtj.pro/' },
+  { text: '平台', link: 'https://app.vtj.pro/' },
   { text: '维基', link: '/wiki/' },
   { text: '🔥 高级', link: '/service/' },
   { text: '动态', link: '/news/' },

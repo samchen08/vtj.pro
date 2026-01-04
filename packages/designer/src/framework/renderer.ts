@@ -63,6 +63,7 @@ export class Renderer {
     const plugins = Object.entries(library);
     Object.assign(app.config.globalProperties, globals);
     app.config.globalProperties.$apis = apis;
+    const libraryOptions = this.provider?.options?.libraryOptions || {};
     plugins.forEach(([name, plugin]) => {
       if (!plugin) {
         console.warn(`plugin: ${name} is undefined`);
@@ -80,11 +81,9 @@ export class Renderer {
         typeof plugin === 'function' ||
         typeof plugin.install === 'function'
       ) {
-        let options: Record<string, any> = {};
-        const locale = locales[name];
-        if (locale) {
-          options.locale = locale;
-        }
+        const locale = locales[name] || {};
+        const extraOptions = libraryOptions[name] || {};
+        const options = { ...locale, ...extraOptions };
         try {
           app?.use(plugin, options);
         } catch (e) {
