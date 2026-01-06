@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.14.2](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.14.1...@vtj/designer@0.14.2) (2026-01-06)
+
+
+### Bug Fixes
+
+* 🐛 ai生成vue代码增加 isVueSFC 判断 ([56c30b3](https://gitee.com/newgateway/vtj/commits/56c30b3c86485aa393c8eaa23e1169e0affdbbb8))
+
+
+
+
+
 ## [0.14.1](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.14.0...@vtj/designer@0.14.1) (2026-01-04)
 
 **Note:** Version bump only for package @vtj/designer
