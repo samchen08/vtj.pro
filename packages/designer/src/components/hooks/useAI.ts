@@ -14,7 +14,7 @@ import {
   type LLM
 } from '../../framework';
 import { notify, alert } from '../../utils';
-import { MAX_TOKENS } from '../../constants';
+// import { MAX_TOKENS } from '../../constants';
 
 export type { AITopic, AIChat, Settings };
 export type Dict = DictOption;
@@ -408,6 +408,15 @@ export function useAI() {
       : '请检查代码是否有错误，是否符合模版和规则要求，并改正';
   };
 
+  const isVueSFC = (content: string) => {
+    const trimmed = content.trim();
+    return (
+      trimmed.endsWith('</template>') ||
+      trimmed.endsWith('</script>') ||
+      trimmed.endsWith('</style>')
+    );
+  };
+
   const completions = async (
     chat: AIChat,
     complete?: (chat: AIChat) => void
@@ -438,20 +447,30 @@ export function useAI() {
           }
         }
         if (data?.usage) {
-          const completionTokens = data.usage.completion_tokens || 0;
-          if (completionTokens >= MAX_TOKENS) {
-            chat.status = 'Failed';
-            chat.message = `生成tokens数量达到了MAX_TOKENS【${completionTokens}】已被截断！`;
-            chat.dsl = null;
-            return null;
-          } else {
-            chat.tokens = (chat.tokens || 0) + (data.usage.total_tokens || 0);
-          }
+          // const completionTokens = data.usage.completion_tokens || 0;
+          // if (completionTokens >= MAX_TOKENS) {
+          //   chat.status = 'Failed';
+          //   chat.message = `生成tokens数量达到了MAX_TOKENS【${completionTokens}】已被截断！`;
+          //   chat.dsl = null;
+          //   return null;
+          // } else {
+          //   chat.tokens = (chat.tokens || 0) + (data.usage.total_tokens || 0);
+          // }
+          chat.tokens = (chat.tokens || 0) + (data.usage.total_tokens || 0);
         }
         if (done) {
           chat.status = 'Success';
           chat.thinking = Math.ceil(thinking / 1000);
           applyAIPatch(chat);
+          if (chat.vue && !isVueSFC(chat.vue)) {
+            chat.status = 'Failed';
+            chat.message =
+              '代码不完整，似乎被截断了，可能上下文已溢出，请开启新对话！';
+            chat.dsl = null;
+            await saveChat(chat);
+            complete && complete(chat);
+            return null;
+          }
 
           const dsl = await vue2Dsl(chat).catch((e) => {
             chat.message = collectErrorMesssage(e);
