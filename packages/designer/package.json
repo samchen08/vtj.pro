@@ -41,7 +41,7 @@
     "html2canvas": "~1.4.1",
     "marked": "~17.0.1",
     "mockjs": "~1.1.0",
-    "monaco-editor": "~0.52.0"
+    "monaco-editor": "~0.55.0"
   },
   "devDependencies": {
     "@types/mockjs": "~1.0.10",
