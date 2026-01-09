@@ -4,7 +4,7 @@ const Space: MaterialDescription = {
   label: '间距',
 
   categoryId: 'base',
-  doc: 'https://element-plus.org/zh-CN/component/space.html',
+  doc: 'https://element-plus.org/zh-CN/component/splitter.html',
   package: 'element-plus',
   props: [
     {

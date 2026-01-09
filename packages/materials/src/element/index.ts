@@ -87,6 +87,7 @@ import divider from './divider';
 import watermark from './watermark';
 
 import configProvider from './configProvider';
+import splitters from './splitter';
 
 const name = 'element-plus';
 const components: MaterialDescription[] = [
@@ -158,7 +159,8 @@ const components: MaterialDescription[] = [
   treeV2,
   upload,
   virtualizedTable,
-  watermark
+  watermark,
+  splitters
 ].flat();
 
 const categories: MaterialCategory[] = [
