@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.14.3](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.14.2...@vtj/designer@0.14.3) (2026-01-09)
+
+
+### Bug Fixes
+
+* 🐛 更新 monaco-editor,解决与@vtj/parser 冲突报错的问题 ([3759abc](https://gitee.com/newgateway/vtj/commits/3759abc4d55d48dbcd8b83b10ccb5f066dd56713))
+* 🐛 修复代码不完整，似乎被截断了的提示 ([c45b5b2](https://gitee.com/newgateway/vtj/commits/c45b5b291facee570a7a90c22cd6d2559adedff5))
+
+
+
+
+
 ## [0.14.2](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.14.1...@vtj/designer@0.14.2) (2026-01-06)
 
 

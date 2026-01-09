@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.14.3](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.14.2...@vtj/materials@0.14.3) (2026-01-09)
+
+
+### Features
+
+* ✨ element物料增加spiltter分隔面板组件 ([7d5feae](https://gitee.com/newgateway/vtj/commits/7d5feaebb8ebd6d079ac1dd816140a7d1e7fbad9))
+
+
+
+
+
 ## [0.14.2](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.14.1...@vtj/materials@0.14.2) (2026-01-06)
 
 **Note:** Version bump only for package @vtj/materials
