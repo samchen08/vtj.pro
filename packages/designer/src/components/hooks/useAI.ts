@@ -14,7 +14,6 @@ import {
   type LLM
 } from '../../framework';
 import { notify, alert } from '../../utils';
-// import { MAX_TOKENS } from '../../constants';
 
 export type { AITopic, AIChat, Settings };
 export type Dict = DictOption;
@@ -110,7 +109,7 @@ async function createImageTopicDto(
 }
 
 function getVueCode(content: string) {
-  const regex = /```vue\n([\s\S]*?)\n```/;
+  const regex = /```vue\r?\n([\s\S]*?)(?:\r?\n```|$)/;
   const matches = content.match(regex);
   return matches?.[1] ?? '';
 }
@@ -446,29 +445,18 @@ export function useAI() {
             thinking += Date.now() - now;
           }
         }
-        if (data?.usage) {
-          // const completionTokens = data.usage.completion_tokens || 0;
-          // if (completionTokens >= MAX_TOKENS) {
-          //   chat.status = 'Failed';
-          //   chat.message = `生成tokens数量达到了MAX_TOKENS【${completionTokens}】已被截断！`;
-          //   chat.dsl = null;
-          //   return null;
-          // } else {
-          //   chat.tokens = (chat.tokens || 0) + (data.usage.total_tokens || 0);
-          // }
-          chat.tokens = (chat.tokens || 0) + (data.usage.total_tokens || 0);
-        }
         if (done) {
           chat.status = 'Success';
           chat.thinking = Math.ceil(thinking / 1000);
+          if (data?.usage) {
+            chat.tokens = (chat.tokens || 0) + (data.usage.total_tokens || 0);
+          }
           applyAIPatch(chat);
           if (chat.vue && !isVueSFC(chat.vue)) {
             chat.status = 'Failed';
             chat.message =
               '代码不完整，似乎被截断了，可能上下文已溢出，请开启新对话！';
             chat.dsl = null;
-            await saveChat(chat);
-            complete && complete(chat);
             return null;
           }
 
