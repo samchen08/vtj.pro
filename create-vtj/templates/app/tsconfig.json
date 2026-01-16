@@ -3,22 +3,13 @@
   "compilerOptions": {
     "noUnusedLocals": false,
     "noUnusedParameters": false,
-    "baseUrl": "./",
     "paths": {
-      "@/*": [
-        "src/*"
-      ],
-      "$vtj/*": [
-        ".vtj/*"
-      ]
+      "@/*": ["./src/*"],
+      "$vtj/*": ["./.vtj/*"]
     }
   },
-  "include": [
-    "src"
-  ],
-  "exclude": [
-    ".vtj",
-  ],
+  "include": ["src"],
+  "exclude": [".vtj"],
   "references": [
     {
       "path": "./tsconfig.node.json"

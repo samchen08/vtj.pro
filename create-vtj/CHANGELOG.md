@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.19](https://gitee.com/newgateway/vtj/compare/create-vtj@0.12.18...create-vtj@0.12.19) (2026-01-16)
+
+
+### Bug Fixes
+
+* 🐛 项目模版 tsconfig.json 删除baseUrl ([21d05b4](https://gitee.com/newgateway/vtj/commits/21d05b481b27e54034c4e90547b68f1707ab5257))
+
+
+
+
+
 ## [0.12.18](https://gitee.com/newgateway/vtj/compare/create-vtj@0.12.17...create-vtj@0.12.18) (2025-11-29)
 
 

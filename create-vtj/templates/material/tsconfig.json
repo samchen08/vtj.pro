@@ -1,10 +1,9 @@
 {
   "extends": "./node_modules/@vtj/cli/config/tsconfig.web.json",
   "compilerOptions": {
-    "baseUrl": "./",
     "paths": {
-      "@/*": ["src/*"],
-      "$vtj/*": [".vtj/*"]
+      "@/*": ["./src/*"],
+      "$vtj/*": ["./.vtj/*"]
     }
   },
   "include": ["src/library"],
