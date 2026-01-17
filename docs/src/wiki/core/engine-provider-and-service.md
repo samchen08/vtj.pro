@@ -34,7 +34,7 @@ const engine = new Engine({
   service: localService, // 后端服务实例
   materialPath: '/', // 物料资源基础路径
   adapter: adapterInstance, // 运行时适配器
-  remote: 'https://lcdp.vtj.pro' // 远程服务器地址
+  remote: 'https://app.vtj.pro' // 远程服务器地址
 });
 ```
 
