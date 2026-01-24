@@ -1,7 +1,7 @@
 {
   "name": "@vtj/coder",
   "private": false,
-  "version": "0.14.4",
+  "version": "0.14.5",
   "type": "module",
   "keywords": [
     "低代码引擎",

@@ -120,7 +120,7 @@ VTJ 平台支持通过 `package.json` 中的 `vtj` 字段进行配置：
   "vtj": {
     "name": "VTJ.PRO",
     "platform": "web",
-    "remote": "https://lcdp.vtj.pro"
+    "remote": "https://app.vtj.pro"
   }
 }
 ```

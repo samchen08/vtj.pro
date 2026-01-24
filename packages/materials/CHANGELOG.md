@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.14.5](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.14.4...@vtj/materials@0.14.5) (2026-01-24)
+
+
+### Bug Fixes
+
+* 🐛 antd qrcode 物料名称错误 ([6c8366a](https://gitee.com/newgateway/vtj/commits/6c8366a7b2e7e4941091484bb93e5778219da303))
+
+
+
+
+
 ## [0.14.4](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.14.3...@vtj/materials@0.14.4) (2026-01-16)
 
 **Note:** Version bump only for package @vtj/materials

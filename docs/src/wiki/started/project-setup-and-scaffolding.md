@@ -125,7 +125,7 @@ package.json 中的 vtj 部分提供 VTJ 项目的基础配置：
     "history": "hash", // "web"
     "base": "/",
     "pageRouteName": "page", // uniapp 中为 "pages"
-    "remote": "https://lcdp.vtj.pro",
+    "remote": "https://app.vtj.pro",
     "checkVersion": true
   }
 }
