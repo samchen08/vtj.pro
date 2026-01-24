@@ -10,7 +10,7 @@ import {
   type NodeSchema,
   type BlockEmit
 } from '@vtj/core';
-import { isString, delay, isFunction } from '@vtj/utils';
+import { isString, isFunction } from '@vtj/utils';
 import { ContextMode, DATA_TYPES } from '../constants';
 import { Context } from './context';
 import { adoptedStyleSheets, isJSExpression, isJSFunction } from '../utils';
@@ -63,7 +63,7 @@ export function createRenderer(options: CreateRendererOptions) {
     props: {
       ...createProps(dsl.value.props ?? [], context)
     },
-    setup(props: any) {
+    async setup(props: any) {
       context.$props = props;
       context.props = props;
       if (dsl.value.id) {
@@ -277,9 +277,8 @@ function createLifeCycles(
     (result, [k, v]) => {
       const func = context.__parseFunction(v);
       result[k] = async () => {
-        await delay(0);
         if (isFunction(func)) {
-          func();
+          await func();
         }
       };
       return result;
