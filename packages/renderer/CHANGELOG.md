@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.14.5](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.14.4...@vtj/renderer@0.14.5) (2026-01-24)
+
+
+### Bug Fixes
+
+* 🐛 修复在线异步区块渲染顺序问题 ([e758023](https://gitee.com/newgateway/vtj/commits/e75802320b96f8ec9f766bd419c27213ed921464))
+
+
+
+
+
 ## [0.14.4](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.14.3...@vtj/renderer@0.14.4) (2026-01-16)
 
 **Note:** Version bump only for package @vtj/renderer
