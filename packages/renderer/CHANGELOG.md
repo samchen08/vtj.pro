@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.14.6](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.14.5...@vtj/renderer@0.14.6) (2026-01-26)
+
+
+### Bug Fixes
+
+* 🐛 修复区块组件缓存问题 ([6601a00](https://gitee.com/newgateway/vtj/commits/6601a0083249a2490e12f1ae685f1d0c6e841dd5))
+
+
+
+
+
 ## [0.14.5](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.14.4...@vtj/renderer@0.14.5) (2026-01-24)
 
 
