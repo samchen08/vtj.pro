@@ -362,6 +362,10 @@ export function useOpenApi() {
 
       try {
         const data = JSON.parse(content);
+        if (data?.error) {
+          error?.(new Error(data.message));
+          return;
+        }
         callback?.(data, false);
       } catch (e) {
         error?.(new Error(content));

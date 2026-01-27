@@ -55,7 +55,11 @@
   const onClick = (e: MouseEvent) => {
     if (props.code) return;
     const target = e.target as HTMLElement;
-    if (target && target.classList.contains('language-vue')) {
+    if (
+      target &&
+      (target.classList.contains('language-vue') ||
+        target.classList.contains('language-diff'))
+    ) {
       emit('click');
     }
   };
@@ -67,19 +71,21 @@
 <style lang="scss">
   .markdown-container {
     line-height: 1.5em;
-    .language-vue {
+    .language-vue,
+    .language-diff {
       border-radius: 4px;
       margin: 5px 0;
     }
     &.is-hide-code {
-      .language-vue {
+      .language-vue,
+      .language-diff {
         height: 0;
         overflow: hidden;
         padding: 7px;
         position: relative;
         cursor: pointer;
         &::before {
-          content: 'Vue Code';
+          content: 'Code';
           position: absolute;
           background-color: var(--el-text-color-regular);
           color: var(--el-fill-color-light);
