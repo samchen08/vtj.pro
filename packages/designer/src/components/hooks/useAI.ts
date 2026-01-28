@@ -462,12 +462,12 @@ export function useAI() {
             thinking += Date.now() - now;
           }
         }
+        if (data?.usage) {
+          chat.tokens = (chat.tokens || 0) + (data.usage.total_tokens || 0);
+        }
         if (done) {
           chat.status = 'Success';
           chat.thinking = Math.ceil(thinking / 1000);
-          if (data?.usage) {
-            chat.tokens = (chat.tokens || 0) + (data.usage.total_tokens || 0);
-          }
           applyAIPatch(chat);
           if (chat.vue && !isVueSFC(chat.vue)) {
             chat.status = 'Failed';
