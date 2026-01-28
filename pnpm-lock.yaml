@@ -657,9 +657,6 @@ importers:
       '@vue/devtools-kit':
         specifier: ~8.0.2
         version: 8.0.5
-      diff:
-        specifier: ~8.0.2
-        version: 8.0.3
       highlight.js:
         specifier: ~11.11.1
         version: 11.11.1
@@ -4137,18 +4134,18 @@ packages:
     resolution: {integrity: sha512-51LsGrfxTm/KKzKRIKuIPj5qaqs7P3KcMiGNzvbXxFkhbxZWAzsk39eNQ5o5a2FVq7SmZ66OXBefbBpy61gzgQ==}
     engines: {node: '>=16.0.0'}
 
-  '@vtj/icons@0.14.6':
-    resolution: {integrity: sha512-cS7h1FDHklkTfs/XlN1rGe3CwT/2UnXcbl2VpaD/oDPq5hGFDIczC0pC/A4f1Hc0Emt3n44/WAnH/HY312TT1Q==}
+  '@vtj/icons@0.15.0':
+    resolution: {integrity: sha512-ydr/4pYWqKf1OqVfEPjAC9Gcq1a1LrcqfSP7R06nzR8NRtW/MIxB5VYTgpeXNUcAuGSaMRVIMOffLDbyq4VC3g==}
 
   '@vtj/plugin-ckeditor@0.2.5':
     resolution: {integrity: sha512-moAcU4LhruhiNnIuviK/QBfHPH+nyNHS4iDLQocOrVbFn8RWEj8C4nBESscFU1hOBLaeAAc7aYQJCBEkfOnyQA==}
 
-  '@vtj/ui@0.14.6':
-    resolution: {integrity: sha512-WKt7dIlzVq+4R68drJQYKXABjXpHx7PjFKpAL+0NzzzSYcaVTrda3uVzB/GzJTBGq45EesZwnRVFlqPJbTG1HA==}
+  '@vtj/ui@0.15.0':
+    resolution: {integrity: sha512-skbOuIexJR3MPHJFHt3fQtu/SINfJkcCuiB9o2ba92Jdiyl3EyXTscXfy5A2AE/uhBDHGmXmr49XJzdZOeBbog==}
     engines: {node: '>=16.0.0'}
 
-  '@vtj/utils@0.14.6':
-    resolution: {integrity: sha512-rELtcVo+/bkYiSC1RQk1Jlei0hIeLI1ndpE1bPrhxq4tP11mxd+aQ8QoUZZyI+5v36WBpFu7CCeNp2MLBHR9ig==}
+  '@vtj/utils@0.15.0':
+    resolution: {integrity: sha512-AXTjWvvBWUOmG28iYeAVQmnnPHSDS6/Typqe11w8+El9HdqRcFXykB5+6OkaEgl1tcwwkQEFa5VJeryZYKOINw==}
 
   '@vue/babel-helper-vue-transform-on@1.5.0':
     resolution: {integrity: sha512-0dAYkerNhhHutHZ34JtTl2czVQHUNWv6xEbkdF5W+Yrv5pCWsqjeORdOgbtW2I9gWlt+wBmVn+ttqN9ZxR5tzA==}
@@ -8605,6 +8602,7 @@ packages:
   tar@6.2.1:
     resolution: {integrity: sha512-DZ4yORTwrbTj/7MZYq2w+/ZFdI6OZ/f9SFHR+71gIVUZhOQPHzVCLpvRnPgyaMpfWxxk/4ONva3GQSyNIKRv6A==}
     engines: {node: '>=10'}
+    deprecated: Old versions of tar are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exhorbitant rates) by contacting i@izs.me
 
   temp-dir@1.0.0:
     resolution: {integrity: sha512-xZFXEGbG7SNC3itwBzI3RYjq/cEhBkx2hJuKGIUOcEULmkQExXiHat2z/qkISYsuR+IKumhEfKKbV5qXmhICFQ==}
@@ -13307,7 +13305,7 @@ snapshots:
 
   '@vtj/example-ui@0.2.0': {}
 
-  '@vtj/icons@0.14.6(vue@3.5.27(typescript@5.9.3))':
+  '@vtj/icons@0.15.0(vue@3.5.27(typescript@5.9.3))':
     dependencies:
       '@element-plus/icons-vue': 2.3.2(vue@3.5.27(typescript@5.9.3))
     transitivePeerDependencies:
@@ -13315,17 +13313,17 @@ snapshots:
 
   '@vtj/plugin-ckeditor@0.2.5(vue@3.5.27(typescript@5.9.3))':
     dependencies:
-      '@vtj/icons': 0.14.6(vue@3.5.27(typescript@5.9.3))
-      '@vtj/ui': 0.14.6(vue@3.5.27(typescript@5.9.3))
-      '@vtj/utils': 0.14.6
+      '@vtj/icons': 0.15.0(vue@3.5.27(typescript@5.9.3))
+      '@vtj/ui': 0.15.0(vue@3.5.27(typescript@5.9.3))
+      '@vtj/utils': 0.15.0
     transitivePeerDependencies:
       - '@vue/composition-api'
       - vue
 
-  '@vtj/ui@0.14.6(vue@3.5.27(typescript@5.9.3))':
+  '@vtj/ui@0.15.0(vue@3.5.27(typescript@5.9.3))':
     dependencies:
-      '@vtj/icons': 0.14.6(vue@3.5.27(typescript@5.9.3))
-      '@vtj/utils': 0.14.6
+      '@vtj/icons': 0.15.0(vue@3.5.27(typescript@5.9.3))
+      '@vtj/utils': 0.15.0
       '@vueuse/core': 14.1.0(vue@3.5.27(typescript@5.9.3))
       element-plus: 2.13.1(vue@3.5.27(typescript@5.9.3))
       sortablejs: 1.15.6
@@ -13335,7 +13333,7 @@ snapshots:
       - '@vue/composition-api'
       - vue
 
-  '@vtj/utils@0.14.6':
+  '@vtj/utils@0.15.0':
     dependencies:
       '@vtj/base': 0.12.4
 
