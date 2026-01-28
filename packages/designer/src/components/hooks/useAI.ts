@@ -2,7 +2,6 @@ import { ref, watch, type Ref, reactive, computed } from 'vue';
 import type { ProjectSchema, BlockSchema, BlockModel } from '@vtj/core';
 import { useElementSize } from '@vueuse/core';
 import { delay, storage } from '@vtj/utils';
-// import { applyPatch } from 'diff';
 import { useOpenApi } from './useOpenApi';
 import {
   type TopicDto,
@@ -141,6 +140,7 @@ function applyAIPatch(chat: AIChat) {
         } else {
           chat.status = 'Error';
           chat.message = result.error || '增量更新错误';
+          chat.message += `\n切换到全量生成代码模式重新生成`;
         }
       }
     } catch (e) {
@@ -462,12 +462,12 @@ export function useAI() {
             thinking += Date.now() - now;
           }
         }
+        if (data?.usage) {
+          chat.tokens = (chat.tokens || 0) + (data.usage.total_tokens || 0);
+        }
         if (done) {
           chat.status = 'Success';
           chat.thinking = Math.ceil(thinking / 1000);
-          if (data?.usage) {
-            chat.tokens = (chat.tokens || 0) + (data.usage.total_tokens || 0);
-          }
           applyAIPatch(chat);
           if (chat.vue && !isVueSFC(chat.vue)) {
             chat.status = 'Failed';

@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.15.1](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.15.0...@vtj/designer@0.15.1) (2026-01-28)
+
+
+### Bug Fixes
+
+* 🐛 修复消耗token统计丢失问题 ([8b2916d](https://gitee.com/newgateway/vtj/commits/8b2916dd5d3944069c23f43261cf9b7f08bd0a1d))
+* 🐛 增量更新失败时,切换换到全量生成 ([784edf6](https://gitee.com/newgateway/vtj/commits/784edf6ac3b41acc909163fa55076e67b61956bf))
+
+
+
+
+
 # [0.15.0](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.14.6...@vtj/designer@0.15.0) (2026-01-27)
 
 
