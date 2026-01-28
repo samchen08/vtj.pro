@@ -10,7 +10,7 @@ import {
   type NodeSchema,
   type BlockEmit
 } from '@vtj/core';
-import { isString, isFunction } from '@vtj/utils';
+import { isString, isFunction, delay } from '@vtj/utils';
 import { ContextMode, DATA_TYPES } from '../constants';
 import { Context } from './context';
 import { adoptedStyleSheets, isJSExpression, isJSFunction } from '../utils';
@@ -278,6 +278,7 @@ function createLifeCycles(
       const func = context.__parseFunction(v);
       result[k] = async () => {
         if (isFunction(func)) {
+          await delay(0);
           await func();
         }
       };
