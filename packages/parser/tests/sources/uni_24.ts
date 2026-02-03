@@ -1,15 +1,7 @@
 export const uni_24 = `
 <template>
-  <view class="launch-page">
-    <view class="logo-container">
-      <image
-        alt="App Logo"
-        src="https://picsum.photos/200/200?random=1"
-        class="logo"></image
-    ></view>
-    <view class="app-name"> 我的应用</view>
-    <view class="enter-btn" @click="click_58o4z7x6"> 立即体验</view></view
-  >
+  <view :class="page1.class" :title="page()">
+  </view>
 </template>
 <script lang="ts">
   // @ts-nocheck
@@ -22,12 +14,20 @@ export const uni_24 = `
       const state = reactive({});
       return { state, props, provider };
     },
+    computed: {
+    page1() {
+    return 'page1'
+    }
+    },
     methods: {
       click_58o4z7x6() {
         uni.navigateTo({
           url: '/pages/3e1fldxr'
         });
-      }
+      },
+      page() {
+       console.log('this.page1','/uni/page1',[page1]);
+        return page1.class}
     }
   })
 </script>

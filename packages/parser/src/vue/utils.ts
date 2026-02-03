@@ -13,25 +13,146 @@ export interface ExpressionOptions {
   members: string[];
 }
 
+function updateStringState(
+  str: string,
+  state: {
+    inString: boolean;
+    stringChar: string;
+    escaped: boolean;
+    inTemplateExpr: number;
+  }
+) {
+  for (let j = 0; j < str.length; j++) {
+    const char = str[j];
+
+    if (!state.escaped) {
+      // 检查是否进入或退出字符串
+      if ((char === "'" || char === '"' || char === '`') && !state.inString) {
+        state.inString = true;
+        state.stringChar = char;
+      } else if (
+        state.inString &&
+        char === state.stringChar &&
+        state.stringChar !== '`'
+      ) {
+        // 普通字符串退出
+        state.inString = false;
+        state.stringChar = '';
+      } else if (state.inString && state.stringChar === '`') {
+        // 模板字符串特殊处理
+        if (char === '$' && j + 1 < str.length && str[j + 1] === '{') {
+          state.inTemplateExpr++;
+          j++; // 跳过 '{'
+        } else if (char === '}' && state.inTemplateExpr > 0) {
+          state.inTemplateExpr--;
+        } else if (char === '`' && state.inTemplateExpr === 0) {
+          state.inString = false;
+          state.stringChar = '';
+        }
+      }
+
+      // 处理转义字符
+      if (char === '\\') {
+        state.escaped = true;
+      }
+    } else {
+      state.escaped = false;
+    }
+  }
+}
+
 export function replacer(content: string, key: string, to: string) {
-  const r1 = new RegExp(`${key.replace(/\$/g, '\\$')}`, 'g');
-  // 关键字前的字符
-  const r2 = /(\@|\_|\-|\$|\.|\,|\w|\{\s|\'|\")$/;
+  // 关键字前的字符检测（移除了 \' 和 \"）
+  const r2 = /(\@|\_|\-|\$|\.|\,|\w|\{\s)$/;
   // 关键字后的字符
   const r3 = /^[\w\_\-\@\$]/;
-  const r4 = new RegExp(`^this\.${key}$`, 'g');
 
-  const result = content.replace(r1, (str, index, source) => {
-    const start = source.substring(0, index);
-    const end = source.substring(index + key.length);
-    // 前后字符符合正则的不替换
-    if (r2.test(start) || r3.test(end.trim())) {
-      return str;
+  // 手动实现搜索以避免全局正则表达式的 lastIndex 问题
+  const keyPattern = key.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const keyRegex = new RegExp(keyPattern, 'g');
+
+  let result = '';
+  let i = 0;
+  const state = {
+    inString: false,
+    stringChar: '',
+    escaped: false,
+    inTemplateExpr: 0
+  };
+
+  while (i < content.length) {
+    // 从当前位置开始查找下一个匹配
+    const slice = content.substring(i);
+    keyRegex.lastIndex = 0; // 重置 lastIndex
+    const match = keyRegex.exec(slice);
+
+    if (!match) {
+      // 没有更多匹配，添加剩余内容
+      result += slice;
+      break;
     }
-    return to;
-  });
 
-  return result.replace(r4, to);
+    const matchIndex = match.index;
+
+    // 处理匹配前的部分，并更新字符串状态
+    const beforeMatch = slice.substring(0, matchIndex);
+    if (beforeMatch) {
+      result += beforeMatch;
+      updateStringState(beforeMatch, state);
+    }
+    i += matchIndex;
+
+    // 检查当前位置是否在字符串内
+    const isInString = state.inString && state.inTemplateExpr === 0;
+
+    // 检查是否匹配 this.key 模式
+    const start = content.substring(0, i);
+    const isThisKey = start.endsWith('this.');
+
+    if (isThisKey) {
+      // 检查 this. 前面是否有单词字符（确保是独立的 this.）
+      const beforeThis = start.substring(0, start.length - 5); // 去掉 "this."
+      const isValidThisKey =
+        !beforeThis || /[^\w_]/.test(beforeThis.charAt(beforeThis.length - 1));
+
+      if (isValidThisKey) {
+        if (isInString) {
+          // 在字符串内，保留原样
+          result += match[0];
+        } else {
+          // 不在字符串内，替换整个 this.key
+          // 删除 result 末尾的 "this."，然后添加 to
+          result = result.substring(0, result.length - 5); // 删除 "this."
+          result += to;
+        }
+        i += key.length;
+        continue;
+      }
+    }
+
+    if (isInString) {
+      // 在字符串内，保留原字符串
+      result += match[0];
+      i += key.length;
+      continue;
+    }
+
+    // 检查前后字符
+    const end = content.substring(i + key.length);
+
+    if (r2.test(start) || r3.test(end.trim())) {
+      // 不符合替换条件，保留原字符串
+      result += match[0];
+      i += key.length;
+      continue;
+    }
+
+    // 执行替换
+    result += to;
+    i += key.length;
+  }
+
+  return result;
 }
 
 export function patchCode(
@@ -55,8 +176,8 @@ export function patchCode(
   }
 
   for (const key of computed) {
+    content = replacer(content, key, `this.${key}`);
     content = replacer(content, `this.${key}`, `this.${key}.value`);
-    content = replacer(content, key, `this.${key}.value`);
     content = replacer(content, `this.${key}.value.value`, `this.${key}.value`);
   }
 
