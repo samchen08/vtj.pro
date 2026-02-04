@@ -21,59 +21,70 @@ const Progress: MaterialDescription = {
     },
     {
       name: 'type',
+      title: '进度条类型',
       defaultValue: 'line',
       options: ['line', 'circle', 'dashboard'],
       setters: 'SelectSetter'
     },
     {
       name: 'strokeWidth',
+      title: '进度条的宽度',
       defaultValue: 6,
       setters: 'NumberSetter'
     },
     {
       name: 'textInside',
+      title: '进度条显示文字内置在进度条内（仅 type 为 \'line\' 时可用）',
       defaultValue: false,
       setters: 'BooleanSetter'
     },
     {
       name: 'status',
+      title: '进度条当前状态',
       defaultValue: '',
       options: ['success', 'exception', 'warning'],
       setters: 'SelectSetter'
     },
     {
       name: 'indeterminate',
+      title: '是否为动画进度条',
       defaultValue: false,
       setters: 'BooleanSetter'
     },
     {
       name: 'duration',
+      title: '控制动画进度条速度和条纹进度条流动速度',
       defaultValue: 3,
       setters: 'NumberSetter'
     },
     {
       name: 'color',
+      title: '进度条背景色 （会覆盖 status 状态颜色）',
       defaultValue: '',
       setters: ['ColorSetter', 'FunctionSetter', 'ArraySetter', 'JSONSetter']
     },
     {
       name: 'width',
+      title: '环形进度条画布宽度（只在 type 为 circle 或 dashboard 时可用）',
       defaultValue: 126,
       setters: 'NumberSetter'
     },
     {
       name: 'showText',
+      title: '是否显示进度条文字内容',
       defaultValue: true,
       setters: 'BooleanSetter'
     },
     {
       name: 'strokeLinecap',
+      title: 'circle/dashboard 类型路径两端的形状',
       defaultValue: 'round',
       options: ['butt', 'round', 'square'],
       setters: 'SelectSetter'
     },
     {
       name: 'format',
+      title: '指定进度条文字内容',
       defaultValue: '',
       setters: 'FunctionSetter'
     },

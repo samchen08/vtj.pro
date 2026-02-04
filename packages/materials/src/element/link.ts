@@ -10,16 +10,20 @@ const link: MaterialDescription = {
     type('type'),
     {
       name: 'underline',
+      title: '控制下划线是否出现',
       defaultValue: true,
-      setters: 'BooleanSetter'
+      options: ['always', 'hover', 'never'],
+      setters: ['BooleanSetter', 'SelectSetter'],
     },
     {
       name: 'disabled',
+      title: '是否禁用状态',
       defaultValue: false,
       setters: 'BooleanSetter'
     },
     {
       name: 'href',
+      title: '原生 href 属性',
       defaultValue: '',
       setters: 'InputSetter'
     },
@@ -33,6 +37,7 @@ const link: MaterialDescription = {
     },
     {
       name: 'icon',
+      title: '图标组件',
       defaultValue: '',
       setters: 'IconSetter'
     }

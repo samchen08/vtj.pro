@@ -168,7 +168,18 @@ const Slider: MaterialDescription = {
       title: '输入时是否触发表单的校验',
       defaultValue: true,
       setters: 'BooleanSetter'
-    }
+    },
+    {
+      name: 'persistent',
+      title: '当 slider 的 tooltip 处于非活动状态且 persistent 为 false 时，tooltip 将被销毁。 当 show-tooltip 为 false 时，persistent 将始终为 false',
+      defaultValue: true,
+      setters: 'BooleanSetter'
+    },
+    {
+      name: 'label',
+      title: '原生 aria-label属性',
+      setters: 'StringSetter'
+    },
   ],
   events: ['change', 'input', 'update:modelValue']
 };

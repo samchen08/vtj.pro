@@ -10,45 +10,53 @@ const Tag: MaterialDescription[] = [
     props: [
       {
         name: 'type',
+        title: 'Tag 的类型',
         defaultValue: 'primary',
         options: ['primary', 'success', 'info', 'warning', 'danger'],
         setters: 'SelectSetter'
       },
       {
         name: 'closable',
+        title: '是否可关闭',
         defaultValue: false,
         setters: 'BooleanSetter'
       },
       {
         name: 'disable-transitions',
         defaultValue: false,
-        label: '渐变动画',
+        label: '禁用渐变动画',
+        title: '是否禁用渐变动画',
         setters: 'BooleanSetter'
       },
       {
         name: 'hit',
+        title: '是否有边框描边',
         defaultValue: false,
         setters: 'BooleanSetter'
       },
       {
         name: 'color',
+        title: '背景色',
         defaultValue: '',
         setters: 'ColorSetter'
       },
       {
         name: 'size',
+        title: 'Tag 的尺寸',
         defaultValue: 'default',
         options: ['large', 'default', 'small'],
         setters: 'SelectSetter'
       },
       {
         name: 'effect',
+        title: 'Tag 的主题',
         defaultValue: 'light',
         options: ['dark', 'light', 'plain'],
         setters: 'SelectSetter'
       },
       {
         name: 'round',
+        title: 'Tag 是否为圆形',
         defaultValue: false,
         setters: 'BooleanSetter'
       }
@@ -68,11 +76,13 @@ const Tag: MaterialDescription[] = [
     props: [
       {
         name: 'checked',
+        title: '是否选中',
         defaultValue: false,
         setters: 'BooleanSetter'
       },
       {
         name: 'disabled',
+        title: '是否禁用',
         defaultValue: false,
         setters: 'BooleanSetter'
       },

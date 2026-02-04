@@ -9,6 +9,11 @@ const Tour: MaterialDescription = {
   package: 'element-plus',
   props: [
     {
+      name: 'append-to',
+      title: '挂载到哪个 DOM 元素',
+      setters: ['StringSetter', 'ExpressionSetter'],
+    },
+    {
       name: 'showArrow',
       label: 'showArrow',
       title: '是否显示箭头',

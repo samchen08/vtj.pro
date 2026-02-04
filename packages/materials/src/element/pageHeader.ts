@@ -10,16 +10,19 @@ const components: MaterialDescription = {
   props: [
     {
       name: 'icon',
+      title: '图标',
       defaultValue: 'Back',
       setters: 'InputSetter'
     },
     {
       name: 'title',
+      title: '主标题',
       defaultValue: '',
       setters: 'InputSetter'
     },
     {
       name: 'content',
+      title: '内容',
       defaultValue: '',
       setters: 'InputSetter'
     }

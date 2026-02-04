@@ -10,47 +10,56 @@ const Tree: MaterialDescription = {
   props: [
     {
       name: 'data',
+      title: '展示数据',
       defaultValue: '',
       setters: 'JSONSetter'
     },
     {
       name: 'empty-text',
+      title: '内容为空的时候展示的文本',
       defaultValue: '',
       setters: 'InputSetter'
     },
     {
       name: 'node-key',
+      title: '每个树节点用来作为唯一标识的属性，整棵树应该是唯一的',
       defaultValue: '',
       setters: 'InputSetter'
     },
     {
       name: 'props',
+      title: '配置选项',
       defaultValue: '',
       setters: 'JSONSetter'
     },
     {
       name: 'render-after-expand',
+      title: '是否在第一次展开某个树节点后才渲染其子节点',
       defaultValue: true,
       setters: 'BooleanSetter'
     },
     {
       name: 'load',
+      title: '加载子树数据的方法，仅当 lazy 属性为true 时生效',
       defaultValue: '',
       setters: 'FunctionSetter'
     },
     {
       name: 'render-content',
+      title: '树节点的内容区的渲染 Function',
       defaultValue: '',
       setters: 'FunctionSetter'
     },
     {
       name: 'highlight-current',
+      title: '是否高亮当前选中节点',
       defaultValue: false,
       label: '高亮当前节点',
       setters: 'BooleanSetter'
     },
     {
       name: 'default-expand-all',
+      title: '是否默认展开所有节点',
       defaultValue: false,
       label: '展开所有节点',
       setters: 'BooleanSetter'
@@ -87,12 +96,14 @@ const Tree: MaterialDescription = {
     },
     {
       name: 'show-checkbox',
+      title: '节点是否可被选择',
       defaultValue: false,
       label: '显示checkbox',
       setters: 'BooleanSetter'
     },
     {
       name: 'check-strictly',
+      title: '在显示复选框的情况下，是否严格的遵循父子不互相关联的做法',
       defaultValue: false,
       setters: 'BooleanSetter'
     },
@@ -105,6 +116,7 @@ const Tree: MaterialDescription = {
     },
     {
       name: 'current-node-key',
+      title: '当前选中的节点',
       defaultValue: '',
       label: '当前节点key',
       setters: ['InputSetter', 'NumberSetter']
@@ -119,26 +131,31 @@ const Tree: MaterialDescription = {
     },
     {
       name: 'accordion',
+      title: '是否每次只打开一个同级树节点展开',
       defaultValue: false,
       setters: 'BooleanSetter'
     },
     {
       name: 'indent',
+      title: '相邻级节点间的水平缩进，单位为像素',
       defaultValue: 16,
       setters: 'NumberSetter'
     },
     {
       name: 'icon',
+      title: '自定义树节点图标组件',
       defaultValue: '',
       setters: 'InputSetter'
     },
     {
       name: 'lazy',
+      title: '是否懒加载子节点，需与 load 方法结合使用',
       defaultValue: false,
       setters: 'BooleanSetter'
     },
     {
       name: 'draggable',
+      title: '是否开启拖拽节点功能',
       defaultValue: false,
       setters: 'BooleanSetter'
     },

@@ -9,16 +9,19 @@ const Result: MaterialDescription = {
   props: [
     {
       name: 'title',
+      title: '标题',
       defaultValue: '',
       setters: 'InputSetter'
     },
     {
       name: 'subTitle',
+      title: '副标题',
       defaultValue: '',
       setters: 'InputSetter'
     },
     {
       name: 'icon',
+      title: '图标类型',
       defaultValue: 'info',
       options: ['success', 'warning', 'info', 'error'],
       setters: 'SelectSetter'

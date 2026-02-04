@@ -84,7 +84,19 @@ const ColorPicker: MaterialDescription = {
       name: 'label',
       title: 'ColorPicker 的 aria-label(deprecated)',
       setters: 'StringSetter'
-    }
+    },
+    {
+      name: 'persistent',
+      title: '当颜色选择器未激活且 persistent 为 false 时，颜色面板将被销毁',
+      defaultValue: true,
+      setters: 'BooleanSetter'
+    },
+    {
+      name: 'appendTo',
+      title: '挂载到哪个 DOM 元素',
+      defaultValue: '',
+      setters: 'StringSetter',
+    },
   ],
   events: [
     {

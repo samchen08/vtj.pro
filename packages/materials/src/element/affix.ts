@@ -10,17 +10,20 @@ const components: MaterialDescription = {
   props: [
     {
       name: 'offset',
+      title: '偏移距离',
       defaultValue: 0,
       setters: 'NumberSetter'
     },
     {
       name: 'position',
+      title: '固钉位置',
       defaultValue: 'top',
       setters: 'SelectSetter',
       options: ['top', 'bottom']
     },
     {
       name: 'target',
+      title: '通过设置target属性 (CSS 选择器)，让固钉始终保持在容器内， 超过范围则隐藏',
       defaultValue: '',
       setters: 'InputSetter'
     },
