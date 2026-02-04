@@ -1,5 +1,5 @@
 import type { MaterialDescription } from '@vtj/core';
-import { mockTreeData } from '../shared';
+import { mockTreeData, size } from '../shared';
 const Cascader: MaterialDescription[] = [
   {
     name: 'ElCascader',
@@ -25,13 +25,7 @@ const Cascader: MaterialDescription[] = [
         title: '配置选项',
         setters: ['ObjectSetter', 'JSONSetter']
       },
-      {
-        name: 'size',
-        defaultValue: '',
-        title: '尺寸',
-        options: ['large', 'default', 'small'],
-        setters: 'SelectSetter'
-      },
+      size('size'),
       {
         name: 'placeholder',
         title: '输入框占位文本',

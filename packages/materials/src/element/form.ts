@@ -1,4 +1,5 @@
 import type { MaterialDescription } from '@vtj/core';
+import { size } from '../shared';
 const form: MaterialDescription[] = [
   {
     name: 'ElForm',
@@ -83,11 +84,8 @@ const form: MaterialDescription[] = [
         setters: 'BooleanSetter'
       },
       {
-        name: 'size',
+        ...size('size'),
         title: '用于控制该表单内组件的尺寸',
-        defaultValue: '',
-        options: ['large', 'default', 'small'],
-        setters: 'SelectSetter'
       },
       {
         name: 'disabled',
@@ -214,11 +212,8 @@ const form: MaterialDescription[] = [
         setters: 'BooleanSetter'
       },
       {
-        name: 'size',
+        ...size('size'),
         title: '用于控制该表单域下组件的默认尺寸',
-        defaultValue: 'default',
-        options: ['large', 'default', 'small'],
-        setters: 'SelectSetter'
       },
       {
         name: 'for',

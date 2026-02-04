@@ -1,4 +1,5 @@
 import type { MaterialDescription } from '@vtj/core';
+import { size } from '../shared';
 const InputNumber: MaterialDescription = {
   name: 'ElInputNumber',
   label: '数字输入框',
@@ -43,13 +44,7 @@ const InputNumber: MaterialDescription = {
       defaultValue: '',
       setters: 'NumberSetter'
     },
-    {
-      name: 'size',
-      title: '计数器尺寸',
-      defaultValue: 'default',
-      options: ['large', 'default', 'small'],
-      setters: 'SelectSetter'
-    },
+    size('size'),
     {
       name: 'readonly',
       title: '原生 readonly 属性，是否只读',

@@ -1,4 +1,5 @@
 import type { MaterialDescription } from '@vtj/core';
+import { size } from '../shared';
 
 const configProvider: MaterialDescription = {
   name: 'ElConfigProvider',
@@ -13,12 +14,8 @@ const configProvider: MaterialDescription = {
       setters: 'ObjectSetter'
     },
     {
-      name: 'size',
-      label: 'size',
+      ...size('size'),
       title: '全局组件大小',
-      setters: 'SelectSetter',
-      options: ['large', 'default', 'small'],
-      defaultValue: 'default'
     },
     {
       name: 'zIndex',

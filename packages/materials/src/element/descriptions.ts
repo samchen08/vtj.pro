@@ -1,4 +1,5 @@
 import type { MaterialDescription } from '@vtj/core';
+import { size } from '../shared';
 const Descriptions: MaterialDescription[] = [
   {
     name: 'ElDescriptions',
@@ -27,13 +28,7 @@ const Descriptions: MaterialDescription[] = [
         options: ['vertical', 'horizontal'],
         setters: 'SelectSetter'
       },
-      {
-        name: 'size',
-        title: '列表的尺寸',
-        defaultValue: '',
-        options: ['', 'large', 'default', 'small'],
-        setters: 'SelectSetter'
-      },
+      size('size'),
       {
         name: 'title',
         title: '标题文本，显示在左上方',

@@ -1,4 +1,5 @@
 import type { MaterialDescription } from '@vtj/core';
+import { size } from '../shared';
 const Rate: MaterialDescription = {
   name: 'ElRate',
   label: '评分',
@@ -20,13 +21,7 @@ const Rate: MaterialDescription = {
       defaultValue: 5,
       setters: 'NumberSetter'
     },
-    {
-      name: 'size',
-      title: '尺寸',
-      defaultValue: 'default',
-      options: ['large', 'default', 'small'],
-      setters: 'SelectSetter'
-    },
+    size('size'),
     {
       name: 'disabled',
       title: '是否为只读',

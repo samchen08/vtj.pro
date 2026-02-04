@@ -1,4 +1,5 @@
 import type { MaterialDescription } from '@vtj/core';
+import { effect, size } from '../shared';
 const TimeSelect: MaterialDescription = {
   name: 'ElTimeSelect',
   label: '时间选择',
@@ -38,13 +39,7 @@ const TimeSelect: MaterialDescription = {
       defaultValue: false,
       setters: 'BooleanSetter'
     },
-    {
-      name: 'size',
-      title: '输入框尺寸',
-      defaultValue: 'default',
-      options: ['large', 'default', 'small'],
-      setters: 'SelectSetter'
-    },
+    size('size'),
     {
       name: 'placeholder',
       title: '非范围选择时的占位内容',
@@ -57,13 +52,7 @@ const TimeSelect: MaterialDescription = {
       defaultValue: '',
       setters: 'InputSetter'
     },
-    {
-      name: 'effect',
-      title: 'Tooltip 主题',
-      defaultValue: 'light',
-      options: ['dark', 'light'],
-      setters: 'SelectSetter'
-    },
+    effect('effect'),
     {
       name: 'prefixIcon',
       title: '自定义前缀图标',

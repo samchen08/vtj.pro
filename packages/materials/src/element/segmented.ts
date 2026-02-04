@@ -1,4 +1,5 @@
 import type { MaterialDescription } from '@vtj/core';
+import { size } from '../shared';
 const Segmented: MaterialDescription[] = [
   {
     name: 'ElSegmented',
@@ -24,13 +25,7 @@ const Segmented: MaterialDescription[] = [
         title: '配置选项',
         setters: 'ObjectSetter'
       },
-      {
-        name: 'size',
-        title: '组件大小',
-        defaultValue: '',
-        options: ['', 'large', 'default', 'small'],
-        setters: 'SelectSetter'
-      },
+      size('size'),
       {
         name: 'block',
         title: '撑满父元素宽度',

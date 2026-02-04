@@ -1,4 +1,5 @@
 import type { MaterialDescription } from '@vtj/core';
+import { size } from '../shared';
 const DatePicker: MaterialDescription = {
   name: 'ElDatePicker',
   label: '日期选择器',
@@ -30,13 +31,7 @@ const DatePicker: MaterialDescription = {
       defaultValue: false,
       setters: 'BooleanSetter'
     },
-    {
-      name: 'size',
-      title: '输入框尺寸',
-      defaultValue: 'default',
-      options: ['large', 'default', 'small'],
-      setters: 'SelectSetter'
-    },
+    size('size'),
     {
       name: 'editable',
       title: '文本框可输入',

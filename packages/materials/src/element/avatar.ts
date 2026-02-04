@@ -1,4 +1,5 @@
 import type { MaterialDescription } from '@vtj/core';
+import { size } from '../shared';
 
 const Avatar: MaterialDescription = {
   name: 'ElAvatar',
@@ -15,11 +16,8 @@ const Avatar: MaterialDescription = {
       setters: 'IconSetter'
     },
     {
-      name: 'size',
-      title: '大小',
+      ...size('size'),
       setters: ['SelectSetter', 'NumberSetter'],
-      options: ['large', 'default', 'small'],
-      defaultValue: 'default'
     },
     {
       name: 'shape',

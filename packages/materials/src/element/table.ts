@@ -1,5 +1,5 @@
 import type { MaterialDescription } from '@vtj/core';
-import { mockTableData } from '../shared';
+import { mockTableData, size } from '../shared';
 const Table: MaterialDescription[] = [
   {
     name: 'ElTable',
@@ -39,13 +39,7 @@ const Table: MaterialDescription[] = [
         defaultValue: false,
         setters: 'BooleanSetter'
       },
-      {
-        name: 'size',
-        title: 'Table 的尺寸',
-        defaultValue: '',
-        options: ['', 'large', 'default', 'small'],
-        setters: 'SelectSetter'
-      },
+      size('size'),
       {
         name: 'fit',
         defaultValue: true,

@@ -1,4 +1,5 @@
 import type { MaterialDescription } from '@vtj/core';
+import { size } from '../shared';
 const Switch: MaterialDescription = {
   name: 'ElSwitch',
   label: '开关',
@@ -25,13 +26,7 @@ const Switch: MaterialDescription = {
       defaultValue: false,
       setters: 'BooleanSetter'
     },
-    {
-      name: 'size',
-      title: 'switch 的大小',
-      defaultValue: 'default',
-      options: ['large', 'default', 'small'],
-      setters: 'SelectSetter'
-    },
+    size('size'),
     {
       name: 'width',
       title: 'switch 的宽度',

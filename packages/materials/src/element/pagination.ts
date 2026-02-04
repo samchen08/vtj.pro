@@ -1,4 +1,5 @@
 import type { MaterialDescription } from '@vtj/core';
+import { size } from '../shared';
 const Pagination: MaterialDescription = {
   name: 'ElPagination',
   label: '分页',
@@ -7,13 +8,7 @@ const Pagination: MaterialDescription = {
   doc: 'https://element-plus.org/zh-CN/component/pagination.html',
   package: 'element-plus',
   props: [
-    {
-      name: 'size',
-      title: '分页大小',
-      defaultValue: 'default',
-      options: ['large', 'default', 'small'],
-      setters: 'SelectSetter'
-    },
+    size('size'),
     {
       name: 'background',
       title: '是否为分页按钮添加背景色',

@@ -1,4 +1,5 @@
 import type { MaterialDescription } from '@vtj/core';
+import { size, type } from '../shared';
 
 const text: MaterialDescription = {
   name: 'ElText',
@@ -6,21 +7,8 @@ const text: MaterialDescription = {
   categoryId: 'base',
   doc: 'https://element-plus.org/zh-CN/component/text.html',
   props: [
-    {
-      name: 'type',
-      label: 'type',
-      title: '类型',
-      setters: 'SelectSetter',
-      options: ['primary', 'success', 'warning', 'danger', 'info']
-    },
-    {
-      name: 'size',
-      label: 'size',
-      title: '大小',
-      setters: 'SelectSetter',
-      options: ['large', 'default', 'small'],
-      defaultValue: 'default'
-    },
+    type('type'),
+    size('size'),
     {
       name: 'truncated',
       label: 'truncated',

@@ -1,4 +1,5 @@
 import type { MaterialDescription } from '@vtj/core';
+import { size } from '../shared';
 const Slider: MaterialDescription = {
   name: 'ElSlider',
   label: '滑块',
@@ -52,11 +53,8 @@ const Slider: MaterialDescription = {
       setters: 'BooleanSetter'
     },
     {
-      name: 'size',
-      defaultValue: 'default',
+      ...size('size'),
       title: 'slider 包装器的大小，垂直模式下该属性不可用',
-      options: ['large', 'default', 'small'],
-      setters: 'SelectSetter'
     },
     {
       name: 'inputSize',

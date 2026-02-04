@@ -1,4 +1,5 @@
 import type { MaterialDescription } from '@vtj/core';
+import { type } from '../shared';
 const Badge: MaterialDescription = {
   name: 'ElBadge',
   label: '徽章',
@@ -32,11 +33,8 @@ const Badge: MaterialDescription = {
       setters: 'BooleanSetter'
     },
     {
-      name: 'type',
+      ...type('type'),
       defaultValue: 'danger',
-      title: 'badge 类型',
-      options: ['primary', 'success', 'warning', 'danger', 'info'],
-      setters: 'SelectSetter'
     },
     {
       name: 'showZero',

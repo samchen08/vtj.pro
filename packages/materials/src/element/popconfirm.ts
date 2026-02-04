@@ -1,4 +1,5 @@
 import type { MaterialDescription } from '@vtj/core';
+import { effect } from '../shared';
 const components: MaterialDescription = {
   name: 'ElPopconfirm',
   label: '气泡确认框',
@@ -13,13 +14,7 @@ const components: MaterialDescription = {
       defaultValue: '',
       setters: 'InputSetter'
     },
-    {
-      name: 'effect',
-      title: 'Tooltip 主题',
-      defaultValue: 'light',
-      options: ['dark', 'light'],
-      setters: 'SelectSetter'
-    },
+    effect('effect'),
     {
       name: 'confirmButtonText',
       title: '确认按钮文字',

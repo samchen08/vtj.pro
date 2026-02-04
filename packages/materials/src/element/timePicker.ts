@@ -1,4 +1,5 @@
 import type { MaterialDescription } from '@vtj/core';
+import { size } from '../shared';
 const TimePicker: MaterialDescription = {
   name: 'ElTimePicker',
   label: '时间选择器',
@@ -43,13 +44,7 @@ const TimePicker: MaterialDescription = {
       defaultValue: true,
       setters: 'BooleanSetter'
     },
-    {
-      name: 'size',
-      title: '输入框尺寸',
-      defaultValue: 'default',
-      options: ['large', 'default', 'small'],
-      setters: 'SelectSetter'
-    },
+    size('size'),
     {
       name: 'placeholder',
       title: '非范围选择时的占位内容',

@@ -1,4 +1,5 @@
 import type { MaterialDescription } from '@vtj/core';
+import { effect, type } from '../shared';
 const components: MaterialDescription = {
   name: 'ElAlert',
   childIncludes: true,
@@ -15,11 +16,8 @@ const components: MaterialDescription = {
       setters: 'InputSetter'
     },
     {
-      name: 'type',
-      label: '类型',
+      ...type('type'),
       defaultValue: 'info',
-      setters: 'SelectSetter',
-      options: ['success', 'warning', 'info', 'error']
     },
     {
       name: 'description',
@@ -52,13 +50,7 @@ const components: MaterialDescription = {
       defaultValue: false,
       setters: 'BooleanSetter'
     },
-    {
-      name: 'effect',
-      label: '主题',
-      defaultValue: 'light',
-      setters: 'SelectSetter',
-      options: ['light', 'dark']
-    }
+    effect('effect'),
   ],
   events: [
     {

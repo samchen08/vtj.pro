@@ -19,3 +19,13 @@ export function type(name: string = 'type'): MaterialProp {
     options: ['default', 'primary', 'success', 'warning', 'danger', 'info']
   };
 }
+
+export function effect(name: string = 'effect'): MaterialProp {
+  return {
+    name,
+    title: '主题',
+    defaultValue: 'light',
+    setters: 'SelectSetter',
+    options: ['dark', 'light'],
+  };
+}

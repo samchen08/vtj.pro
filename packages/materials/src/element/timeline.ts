@@ -1,4 +1,5 @@
 import type { MaterialDescription } from '@vtj/core';
+import { type } from '../shared';
 const Timeline: MaterialDescription[] = [
   {
     name: 'ElTimeline',
@@ -90,13 +91,7 @@ const Timeline: MaterialDescription[] = [
         options: ['top', 'bottom'],
         setters: 'SelectSetter'
       },
-      {
-        name: 'type',
-        title: '节点类型',
-        defaultValue: '',
-        options: ['primary', 'success', 'warning', 'danger', 'info'],
-        setters: 'SelectSetter'
-      },
+      type('type'),
       {
         name: 'color',
         title: '节点颜色',

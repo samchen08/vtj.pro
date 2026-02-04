@@ -1,4 +1,5 @@
 import type { MaterialDescription } from '@vtj/core';
+import { effect, size } from '../shared';
 const Dropdown: MaterialDescription[] = [
   {
     name: 'ElDropdown',
@@ -24,13 +25,7 @@ const Dropdown: MaterialDescription[] = [
         ],
         setters: 'SelectSetter'
       },
-      {
-        name: 'size',
-        title: '菜单尺寸',
-        defaultValue: 'default',
-        setters: 'SelectSetter',
-        options: ['large', 'default', 'small']
-      },
+      size('size'),
       {
         name: 'buttonProps',
         title: '按钮组件的 props',
@@ -68,13 +63,7 @@ const Dropdown: MaterialDescription[] = [
           'bottom-end'
         ]
       },
-      {
-        name: 'effect',
-        title: 'Tooltip 主题',
-        defaultValue: 'light',
-        setters: 'SelectSetter',
-        options: ['dark', 'light']
-      },
+      effect('effect'),
       {
         name: 'trigger',
         title: '触发下拉的行为',

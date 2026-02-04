@@ -1,4 +1,5 @@
 import type { MaterialDescription } from '@vtj/core';
+import { effect } from '../shared';
 const components: MaterialDescription = {
   name: 'ElTooltip',
   childIncludes: true,
@@ -15,12 +16,7 @@ const components: MaterialDescription = {
       defaultValue: '',
       setters: 'InputSetter'
     },
-    {
-      name: 'effect',
-      title: 'Tooltip 主题',
-      defaultValue: 'dark',
-      setters: 'InputSetter'
-    },
+    effect('effect'),
     {
       name: 'content',
       title: '显示的内容',

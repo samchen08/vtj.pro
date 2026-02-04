@@ -1,4 +1,5 @@
 import type { MaterialDescription } from '@vtj/core';
+import { size } from '../shared';
 const Radio: MaterialDescription[] = [
   {
     name: 'ElRadio',
@@ -37,13 +38,7 @@ const Radio: MaterialDescription[] = [
         defaultValue: false,
         setters: 'BooleanSetter'
       },
-      {
-        name: 'size',
-        title: '单选框的尺寸',
-        defaultValue: '',
-        options: ['large', 'default', 'small'],
-        setters: 'SelectSetter'
-      },
+      size('size'),
       {
         name: 'name',
         title: '原始 name 属性',
@@ -81,11 +76,8 @@ const Radio: MaterialDescription[] = [
         setters: ['InputSetter', 'NumberSetter', 'BooleanSetter']
       },
       {
-        name: 'size',
+        ...size('size'),
         title: '单选框按钮或边框按钮的大小',
-        defaultValue: '',
-        options: ['large', 'default', 'small'],
-        setters: 'SelectSetter'
       },
       {
         name: 'disabled',

@@ -1,4 +1,5 @@
 import type { MaterialDescription } from '@vtj/core';
+import { effect, size } from '../shared';
 
 const InputTag: MaterialDescription = {
   name: 'ElInputTag',
@@ -30,13 +31,7 @@ const InputTag: MaterialDescription = {
       setters: 'SelectSetter',
       options: ['light', 'dark', 'plain']
     },
-    {
-      name: 'effect',
-      title: 'tooltip 主题',
-      defaultValue: 'light',
-      setters: 'SelectSetter',
-      options: ['light', 'dark']
-    },
+    effect('effect'),
     {
       name: 'trigger',
       title: '触发输入标签的按键',
@@ -55,13 +50,7 @@ const InputTag: MaterialDescription = {
       title: '在匹配分隔符时添加标签',
       setters: 'InputSetter'
     },
-    {
-      name: 'size',
-      title: '输入框尺寸',
-      setters: 'SelectSetter',
-      defaultValue: 'default',
-      options: ['large', 'default', 'small']
-    },
+    size('size'),
     {
       name: 'collapseTags',
       title: '多选时是否将选中值按文字的形式展示',

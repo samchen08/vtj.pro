@@ -1,4 +1,5 @@
 import type { MaterialDescription } from '@vtj/core';
+import { size } from '../shared';
 const ColorPicker: MaterialDescription = {
   name: 'ElColorPicker',
   label: '取色器',
@@ -20,12 +21,7 @@ const ColorPicker: MaterialDescription = {
       defaultValue: false,
       setters: 'BooleanSetter'
     },
-    {
-      name: 'size',
-      defaultValue: '',
-      options: ['large', 'default', 'small'],
-      setters: 'SelectSetter'
-    },
+    size('size'),
     {
       name: 'showAlpha',
       title: '是否支持透明度选择',

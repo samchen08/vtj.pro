@@ -1,4 +1,5 @@
 import type { MaterialDescription } from '@vtj/core';
+import { effect } from '../shared';
 const components: MaterialDescription = {
   name: 'ElPopover',
   label: '气泡卡片',
@@ -26,13 +27,7 @@ const components: MaterialDescription = {
       defaultValue: '',
       setters: 'InputSetter'
     },
-    {
-      name: 'effect',
-      title: 'Tooltip 主题',
-      defaultValue: 'light',
-      options: ['dark', 'light'],
-      setters: 'SelectSetter'
-    },
+    effect('effect'),
     {
       name: 'content',
       title: '显示的内容',

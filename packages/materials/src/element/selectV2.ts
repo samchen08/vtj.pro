@@ -1,4 +1,5 @@
 import type { MaterialDescription } from '@vtj/core';
+import { effect, size } from '../shared';
 const SelectV2: MaterialDescription = {
   name: 'ElSelectV2',
   label: '虚拟列表选择器',
@@ -43,13 +44,7 @@ const SelectV2: MaterialDescription = {
       defaultValue: 'value',
       setters: 'InputSetter'
     },
-    {
-      name: 'size',
-      title: '组件大小',
-      defaultValue: '',
-      options: ['', 'large', 'default', 'small'],
-      setters: 'SelectSetter'
-    },
+    size('size'),
     {
       name: 'clearable',
       title: '是否可以清空选项',
@@ -88,13 +83,7 @@ const SelectV2: MaterialDescription = {
       defaultValue: '',
       setters: 'InputSetter'
     },
-    {
-      name: 'effect',
-      title: 'tooltip 主题',
-      defaultValue: 'light',
-      options: ['dark', 'light'],
-      setters: ['SelectSetter', 'StringSetter']
-    },
+    effect('effect'),
     {
       name: 'autocomplete',
       title: '自动完成选择输入',

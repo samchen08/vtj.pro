@@ -1,4 +1,5 @@
 import type { MaterialDescription } from '@vtj/core';
+import { effect, size, type } from '../shared';
 const Tag: MaterialDescription[] = [
   {
     name: 'ElTag',
@@ -9,11 +10,8 @@ const Tag: MaterialDescription[] = [
     package: 'element-plus',
     props: [
       {
-        name: 'type',
-        title: 'Tag 的类型',
+        ...type('type'),
         defaultValue: 'primary',
-        options: ['primary', 'success', 'info', 'warning', 'danger'],
-        setters: 'SelectSetter'
       },
       {
         name: 'closable',
@@ -40,19 +38,10 @@ const Tag: MaterialDescription[] = [
         defaultValue: '',
         setters: 'ColorSetter'
       },
+      size('size'),
       {
-        name: 'size',
-        title: 'Tag 的尺寸',
-        defaultValue: 'default',
-        options: ['large', 'default', 'small'],
-        setters: 'SelectSetter'
-      },
-      {
-        name: 'effect',
-        title: 'Tag 的主题',
-        defaultValue: 'light',
+        ...effect('effect'),
         options: ['dark', 'light', 'plain'],
-        setters: 'SelectSetter'
       },
       {
         name: 'round',
@@ -87,11 +76,7 @@ const Tag: MaterialDescription[] = [
         setters: 'BooleanSetter'
       },
       {
-        name: 'type',
-        label: 'type',
-        title: 'CheckTag 类型',
-        setters: 'SelectSetter',
-        options: ['primary', 'success', 'info', 'warning', 'danger'],
+        ...type('type'),
         defaultValue: 'primary'
       }
     ],
