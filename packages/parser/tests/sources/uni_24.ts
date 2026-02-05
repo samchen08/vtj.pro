@@ -7,11 +7,14 @@ export const uni_24 = `
   // @ts-nocheck
   import { defineComponent, reactive } from 'vue';
   import { useProvider } from '@vtj/uni-app';
+  import { axios } from '@vtj/utils';
   export default defineComponent({
     name: 'LaunchPage',
     setup(props) {
       const provider = useProvider({ id: '1bfetlhc', version: '1767512044679' });
-      const state = reactive({});
+      const state = reactive({
+      title:'Title'
+      });
       return { state, props, provider };
     },
     computed: {
@@ -26,8 +29,8 @@ export const uni_24 = `
         });
       },
       page() {
-       console.log('this.page1','/uni/page1',[page1]);
-        return page1.class}
+       console.log('this.page1', this.page1)
+}
     }
   })
 </script>
