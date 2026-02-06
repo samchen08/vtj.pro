@@ -37,6 +37,7 @@ import { type ImportStatement } from './scripts';
 let __slots: BlockSlot[] = [];
 let __context: Record<string, Set<string>> = {};
 let __handlers: Record<string, JSFunction> = {};
+let __directives: Record<string, JSExpression> = {};
 let __styles: CSSRules = {};
 let __platform: PlatformType = 'web';
 let __imports: ImportStatement[] = [];
@@ -46,6 +47,7 @@ export interface ParseTemplateOptions {
   imports?: ImportStatement[];
   handlers?: Record<string, JSFunction>;
   styles?: CSSRules;
+  directives?: Record<string, JSExpression>;
 }
 
 export function parseTemplate(
@@ -60,6 +62,7 @@ export function parseTemplate(
   __styles = options?.styles || {};
   __platform = options?.platform || 'web';
   __imports = options?.imports || [];
+  __directives = options?.directives || {};
 
   const result = compileTemplate({
     id,
@@ -213,6 +216,8 @@ function getDirectives(
   branches?: any[]
 ) {
   const directives: NodeDirective[] = [];
+  const builtIns = ['if', 'for', 'model', 'show', 'bind', 'html'];
+
   // v-if
   if (
     branches &&
@@ -249,6 +254,7 @@ function getDirectives(
       }
     });
   }
+
   if (node.type === NodeTypes.ELEMENT) {
     const directivProps = node.props.filter(
       (prop) => prop.type === NodeTypes.DIRECTIVE
@@ -290,6 +296,28 @@ function getDirectives(
         name: 'vHtml',
         value: getJSExpression(vHtml.exp?.loc.source || '')
       });
+    }
+
+    const others = directivProps.filter((n) => !builtIns.includes(n.name));
+
+    for (const item of others) {
+      const modifiers = (item.modifiers || []).reduce(
+        (result, cur) => {
+          result[cur.content] = true;
+          return result;
+        },
+        {} as Record<string, boolean>
+      );
+      const arg: string = (item as any).arg?.content || undefined;
+      const directiveName = __directives[item.name];
+      if (directiveName) {
+        directives.push({
+          name: directiveName,
+          value: getJSExpression(item.exp?.loc.source || ''),
+          arg,
+          modifiers
+        });
+      }
     }
   }
   return directives;

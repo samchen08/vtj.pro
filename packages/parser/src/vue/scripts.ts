@@ -18,7 +18,8 @@ import type {
   BlockEmit,
   BlockInject,
   DataSourceSchema,
-  ProjectSchema
+  ProjectSchema,
+  JSExpression
 } from '@vtj/core';
 import {
   getJSExpression,
@@ -47,6 +48,7 @@ export interface ParseScriptsResult {
   inject?: BlockInject[];
   handlers?: Record<string, JSFunction>;
   dataSources?: Record<string, DataSourceSchema>;
+  directives?: Record<string, JSExpression>;
   errors: string[];
 }
 
@@ -108,6 +110,9 @@ export function parseScripts(content: string, project: ProjectSchema) {
             break;
           case 'expose':
             result.expose = processExpose(item.value as any);
+            break;
+          case 'directives':
+            result.directives = processDirectives(item.value as any);
             break;
         }
       }
@@ -559,4 +564,20 @@ function processExpose(expression: ArrayExpression) {
 
 function findApi(project: ProjectSchema, id: string) {
   return (project.apis || []).find((n) => n.id === id);
+}
+
+function processDirectives(expression: ObjectExpression) {
+  if (!expression?.properties) return {};
+  const map: Record<string, JSExpression> = {};
+  for (const item of expression.properties) {
+    const { key, value } = item as any;
+    if (key?.name && value?.name) {
+      map[key.name] = map[key.name.toLowerCase()] = {
+        type: 'JSExpression',
+        value: value.name
+      };
+    }
+  }
+
+  return map;
 }
