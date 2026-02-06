@@ -1,36 +1,33 @@
 export const test_27 = `
 <template>
-  <div>
-    <ElButton type="primary"> 按钮</ElButton>
-  </div>
+  <ElTable
+    v-loading:arg.body="true">
+    </ElTable>
 </template>
 <script lang="ts">
   // @ts-nocheck
   import { defineComponent, reactive } from 'vue';
-  import { ElButton } from 'element-plus';
+  import { ElTable, ElTableColumn, vLoading } from 'element-plus';
   import { useProvider } from '@vtj/renderer';
   export default defineComponent({
-    name: 'TestBlock',
-    components: { ElButton },
-    expose: ['state', 'titleLength', 'sayTitle'],
+    name: 'TestTable',
+    components: { ElTable, ElTableColumn },
+    directives: { Loading: vLoading },
     setup(props) {
-      const provider = useProvider({ id: '1ai5vjro', version: '1758529081462' });
-      const state = reactive({ title: 'Title' });
-      return { state, props, provider };
+      const provider = useProvider({ id: '1fxwojn7', version: '1770366137924' });
+      const state = reactive({ loading: false });
+      return { state, props, provider, vLoading };
     },
-    computed: {
-      titleLength() {
-        return this.state.title.length;
-      }
-    },
-    methods: {
-      sayTitle() {
-        alert(this.state.title);
-      }
+    mounted() {
+      this.state.loading = true;
+      setTimeout(() => {
+        this.state.loading = false;
+      }, 2000);
     }
   })
 </script>
-<style lang="css" scoped></style>
-
+<style lang="css" scoped>
+  /* 组件样式内容 */
+</style>
 
 `;

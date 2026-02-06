@@ -58,14 +58,16 @@ export async function parseVue(options: IParseVueOptions) {
     inject,
     handlers,
     imports,
-    dataSources
+    dataSources,
+    directives
   } = parseScripts(sfc.script, project);
 
   const { nodes, slots, context } = parseTemplate(id, name, sfc.template, {
     platform,
     handlers,
     styles,
-    imports
+    imports,
+    directives
   });
 
   const dsl: BlockSchema = {
