@@ -10,6 +10,7 @@ const components: MaterialDescription[] = [
     props: [
       {
         name: 'direction',
+        title: '子元素的排列方向',
         defaultValue: '',
         setters: 'SelectSetter',
         options: ['horizontal', 'vertical']
@@ -35,6 +36,7 @@ const components: MaterialDescription[] = [
     props: [
       {
         name: 'height',
+        title: '顶栏高度',
         defaultValue: '60px',
         setters: ['InputSetter']
       }
@@ -50,6 +52,7 @@ const components: MaterialDescription[] = [
     props: [
       {
         name: 'width',
+        title: '侧边栏宽度',
         defaultValue: '300px',
         setters: ['InputSetter']
       }
@@ -74,6 +77,7 @@ const components: MaterialDescription[] = [
     props: [
       {
         name: 'height',
+        title: '底栏高度',
         defaultValue: '60px',
         setters: ['InputSetter']
       }

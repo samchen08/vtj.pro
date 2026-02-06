@@ -3,6 +3,76 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.15.2](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.15.1...@vtj/materials@0.15.2) (2026-02-06)
+
+**Note:** Version bump only for package @vtj/materials
+
+
+
+
+
+## [0.15.1](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.15.0...@vtj/materials@0.15.1) (2026-01-28)
+
+**Note:** Version bump only for package @vtj/materials
+
+
+
+
+
+# [0.15.0](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.14.6...@vtj/materials@0.15.0) (2026-01-27)
+
+**Note:** Version bump only for package @vtj/materials
+
+
+
+
+
+## [0.14.6](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.14.5...@vtj/materials@0.14.6) (2026-01-26)
+
+**Note:** Version bump only for package @vtj/materials
+
+
+
+
+
+## [0.14.5](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.14.4...@vtj/materials@0.14.5) (2026-01-24)
+
+
+### Bug Fixes
+
+* 🐛 antd qrcode 物料名称错误 ([6c8366a](https://gitee.com/newgateway/vtj/commits/6c8366a7b2e7e4941091484bb93e5778219da303))
+
+
+
+
+
+## [0.14.4](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.14.3...@vtj/materials@0.14.4) (2026-01-16)
+
+**Note:** Version bump only for package @vtj/materials
+
+
+
+
+
+## [0.14.3](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.14.2...@vtj/materials@0.14.3) (2026-01-09)
+
+
+### Features
+
+* ✨ element物料增加spiltter分隔面板组件 ([7d5feae](https://gitee.com/newgateway/vtj/commits/7d5feaebb8ebd6d079ac1dd816140a7d1e7fbad9))
+
+
+
+
+
+## [0.14.2](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.14.1...@vtj/materials@0.14.2) (2026-01-06)
+
+**Note:** Version bump only for package @vtj/materials
+
+
+
+
+
 ## [0.14.1](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.14.0...@vtj/materials@0.14.1) (2026-01-04)
 
 **Note:** Version bump only for package @vtj/materials

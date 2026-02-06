@@ -1,5 +1,5 @@
 import type { MaterialDescription } from '@vtj/core';
-import { mockTableData } from '../shared';
+import { mockTableData, size } from '../shared';
 const Table: MaterialDescription[] = [
   {
     name: 'ElTable',
@@ -11,35 +11,35 @@ const Table: MaterialDescription[] = [
     props: [
       {
         name: 'data',
+        title: '表数据',
         defaultValue: '',
         setters: ['ArraySetter', 'JSONSetter']
       },
       {
         name: 'height',
+        title: 'table 的高度。 默认为自动高度',
         defaultValue: '',
         setters: ['InputSetter', 'NumberSetter']
       },
       {
         name: 'maxHeight',
+        title: 'table 的最大高度',
         defaultValue: '',
         setters: ['InputSetter', 'NumberSetter']
       },
       {
         name: 'stripe',
+        title: '是否为斑马纹 table',
         defaultValue: false,
         setters: 'BooleanSetter'
       },
       {
         name: 'border',
+        title: '是否带有纵向边框',
         defaultValue: false,
         setters: 'BooleanSetter'
       },
-      {
-        name: 'size',
-        defaultValue: '',
-        options: ['', 'large', 'default', 'small'],
-        setters: 'SelectSetter'
-      },
+      size('size'),
       {
         name: 'fit',
         defaultValue: true,
@@ -48,6 +48,7 @@ const Table: MaterialDescription[] = [
       },
       {
         name: 'showHeader',
+        title: '是否显示表头',
         defaultValue: true,
         setters: 'BooleanSetter'
       },
@@ -59,26 +60,31 @@ const Table: MaterialDescription[] = [
       },
       {
         name: 'currentRowKey',
+        title: '当前行的 key，只写属性名',
         defaultValue: '',
         setters: ['InputSetter', 'NumberSetter']
       },
       {
         name: 'rowClassName',
+        title: '行的 className 的回调方法，也可以使用字符串为所有行设置一个固定的 className',
         defaultValue: '',
         setters: ['InputSetter', 'FunctionSetter']
       },
       {
         name: 'rowStyle',
+        title: '行的 style 的回调方法，也可以使用一个固定的 Object 为所有行设置一样的 Style',
         defaultValue: '',
         setters: ['JSONSetter', 'FunctionSetter']
       },
       {
         name: 'cellClassName',
+        title: '单元格的 className 的回调方法，也可以使用字符串为所有单元格设置一个固定的 className',
         defaultValue: '',
         setters: ['InputSetter', 'FunctionSetter']
       },
       {
         name: 'cellStyle',
+        title: '单元格的 style 的回调方法，也可以使用一个固定的 Object 为所有单元格设置一样的 Style',
         defaultValue: '',
         setters: ['JSONSetter', 'FunctionSetter']
       },
@@ -91,6 +97,7 @@ const Table: MaterialDescription[] = [
       },
       {
         name: 'headerRowStyle',
+        title: '表头行的 style 的回调方法，也可以使用一个固定的 Object 为所有表头行设置一样的 Style',
         defaultValue: '',
         setters: ['JSONSetter', 'FunctionSetter']
       },
@@ -103,16 +110,19 @@ const Table: MaterialDescription[] = [
       },
       {
         name: 'headerCellStyle',
+        title: '表头单元格的 style 的回调方法，也可以使用一个固定的 Object 为所有表头单元格设置一样的 Style',
         defaultValue: '',
         setters: ['JSONSetter', 'FunctionSetter']
       },
       {
         name: 'rowKey',
+        title: '行数据的 Key，用来优化 Table 的渲染。类型为 String 时，支持多层访问：user.info.id，但不支持 user.info[0].id，此种情况请使用 Function',
         defaultValue: '',
         setters: ['InputSetter', 'FunctionSetter']
       },
       {
         name: 'emptyText',
+        title: '空数据时显示的文本内容',
         defaultValue: '',
         setters: 'InputSetter'
       },
@@ -132,17 +142,20 @@ const Table: MaterialDescription[] = [
       },
       {
         name: 'default-sort',
+        title: '默认的排序列的 prop 和顺序。 它的 prop 属性指定默认的排序的列，order 指定默认排序的顺序',
         defaultValue: '',
         setters: 'JSONSetter'
       },
       {
         name: 'tooltip-effect',
+        title: '溢出的 tooltip 的 effect',
         defaultValue: 'dark',
         options: ['dark', 'light'],
         setters: 'SelectSetter'
       },
       {
         name: 'tooltip-options',
+        title: '溢出 tooltip 的选项',
         defaultValue: {
           enterable: true,
           placement: 'top',
@@ -151,6 +164,11 @@ const Table: MaterialDescription[] = [
           popperOptions: { strategy: 'fixed' }
         },
         setters: 'ObjectSetter'
+      },
+      {
+        name: 'append-filter-panel-to',
+        title: '挂载到哪个 DOM 元素',
+        setters: 'StringSetter'
       },
       {
         name: 'show-summary',
@@ -171,6 +189,7 @@ const Table: MaterialDescription[] = [
       },
       {
         name: 'span-method',
+        title: '合并行或列的计算方法',
         defaultValue: '',
         setters: 'FunctionSetter'
       },
@@ -184,21 +203,25 @@ const Table: MaterialDescription[] = [
       },
       {
         name: 'indent',
+        title: '展示树形数据时，树节点的缩进',
         defaultValue: 16,
         setters: 'NumberSetter'
       },
       {
         name: 'lazy',
+        title: '是否懒加载子节点数据',
         defaultValue: false,
         setters: 'BooleanSetter'
       },
       {
         name: 'load',
+        title: '加载子节点数据的函数，lazy 为 true 时生效',
         defaultValue: '',
         setters: 'FunctionSetter'
       },
       {
         name: 'tree-props',
+        title: '渲染嵌套数据的配置选项',
         defaultValue: { hasChildren: 'hasChildren', children: 'children' },
         setters: 'JSONSetter'
       },
@@ -221,18 +244,43 @@ const Table: MaterialDescription[] = [
       },
       {
         name: 'flexible',
+        title: '确保主轴的最小尺寸，以便不超过内容',
         defaultValue: false,
         setters: 'BooleanSetter'
       },
       {
         name: 'scrollbarTabindex',
+        title: 'body 的滚动条的包裹容器 tabindex',
         setters: ['StringSetter', 'NumberSetter']
       },
       {
         name: 'allowDragLastColumn',
+        title: '是否允许拖动最后一列',
         defaultValue: true,
         setters: 'BooleanSetter'
-      }
+      },
+      {
+        name: 'tooltipFormatter',
+        title: '自定义 show-overflow-tooltip 时的 tooltip 内容',
+        setters: 'FunctionSetter'
+      },
+      {
+        name: 'preserveExpandedContent',
+        title: '在折叠后是否在DOM中保留展开行内容',
+        defaultValue: false,
+        setters: 'BooleanSetter'
+      },
+      {
+        name: 'nativeScrollbar',
+        title: '是否使用原生滚动条样式',
+        defaultValue: false,
+        setters: 'BooleanSetter'
+      },
+      {
+        name: 'rowExpandable',
+        title: '启用可展开行，当表格具有 type="expand" 列时有效',
+        setters: 'FunctionSetter'
+      },
     ],
     events: [
       'select',
@@ -296,6 +344,7 @@ const Table: MaterialDescription[] = [
     props: [
       {
         name: 'type',
+        title: '对应列的类型',
         defaultValue: 'default',
         options: ['default', 'selection', 'index', 'expand'],
         setters: 'SelectSetter'
@@ -308,54 +357,63 @@ const Table: MaterialDescription[] = [
       },
       {
         name: 'label',
+        title: '显示的标题',
         defaultValue: '',
         setters: 'InputSetter'
       },
       {
         name: 'column-key',
+        title: 'column 的 key， column 的 key， 如果需要使用 filter-change 事件，则需要此属性标识是哪个 column 的筛选条件',
         defaultValue: '',
         setters: 'InputSetter'
       },
       {
         name: 'prop',
+        title: '字段名称 对应列内容的字段名， 也可以使用 property属性',
         defaultValue: '',
         setters: 'InputSetter'
       },
       {
         name: 'width',
+        title: '对应列的宽度',
         defaultValue: '',
         setters: ['InputSetter', 'NumberSetter']
       },
       {
         name: 'min-width',
         defaultValue: '',
-        title: '',
+        title: '对应列的最小宽度， 对应列的最小宽度， 与 width 的区别是 width 是固定的，min-width 会把剩余宽度按比例分配给设置了 min-width 的列',
         setters: ['InputSetter', 'NumberSetter']
       },
       {
         name: 'fixed',
+        title: '列是否固定在左侧或者右侧。 true 表示固定在左侧',
         defaultValue: '',
         options: ['left', 'right'],
         setters: ['SelectSetter', 'BooleanSetter']
       },
       {
         name: 'render-header',
+        title: '列标题 Label 区域渲染使用的 Function',
         defaultValue: '',
         setters: 'FunctionSetter'
       },
       {
         name: 'sortable',
+        title: '对应列是否可以排序， 如果设置为 \'custom\'，则代表用户希望远程排序，需要监听 Table 的 sort-change 事件',
         defaultValue: false,
         options: ['', 'custom'],
         setters: ['BooleanSetter', 'SelectSetter']
       },
       {
         name: 'sort-method',
+        title: '指定数据按照哪个属性进行排序，仅当sortable设置为true的时候有效。 应该如同 Array.sort 那样返回一个 Number',
         defaultValue: '',
         setters: 'FunctionSetter'
       },
       {
         name: 'sort-by',
+        title: '指定数据按照哪个属性进行排序，仅当 sortable 设置为 true 且没有设置 sort-method 的时候有效。 如果 sort-by 为数组，则先按照第 1 个属性排序，如果第 1 个相等，再按照第 2 个排序，以此类推',
         defaultValue: '',
         setters: ['InputSetter', 'FunctionSetter', 'JSONSetter']
       },
@@ -368,11 +426,13 @@ const Table: MaterialDescription[] = [
       },
       {
         name: 'resizable',
+        title: '对应列是否可以通过拖动改变宽度（需要在 el-table 上设置 border 属性为真）',
         defaultValue: true,
         setters: 'BooleanSetter'
       },
       {
         name: 'formatter',
+        title: '用来格式化内容',
         defaultValue: '',
         setters: 'FunctionSetter'
       },
@@ -384,18 +444,21 @@ const Table: MaterialDescription[] = [
       },
       {
         name: 'align',
+        title: '对齐方式',
         defaultValue: 'left',
         options: ['left', 'center', 'right'],
         setters: 'SelectSetter'
       },
       {
         name: 'header-align',
+        title: '表头对齐方式， 若不设置该项，则使用表格的对齐方式',
         defaultValue: 'left',
         options: ['left', 'center', 'right'],
         setters: 'SelectSetter'
       },
       {
         name: 'class-name',
+        title: '列的 className',
         defaultValue: '',
         setters: 'InputSetter'
       },
@@ -407,6 +470,7 @@ const Table: MaterialDescription[] = [
       },
       {
         name: 'selectable',
+        title: '仅对 type=selection 的列有效，类型为 Function，Function 的返回值用来决定这一行的 CheckBox 是否可以勾选',
         setters: 'FunctionSetter'
       },
       {
@@ -418,6 +482,7 @@ const Table: MaterialDescription[] = [
       },
       {
         name: 'filters',
+        title: '数据过滤的选项， 数组格式，数组中的元素需要有 text 和 value 属性。 数组中的每个元素都需要有 text 和 value 属性',
         defaultValue: '',
         setters: 'JSONSetter'
       },
@@ -429,24 +494,33 @@ const Table: MaterialDescription[] = [
       },
       {
         name: 'filter-class-name',
+        title: '过滤弹出框的 className',
         defaultValue: '',
         setters: 'StringSetter'
       },
       {
         name: 'filter-multiple',
+        title: '数据过滤的选项是否多选',
         defaultValue: true,
         setters: 'BooleanSetter'
       },
       {
         name: 'filter-method',
+        title: '数据过滤使用的方法， 如果是多选的筛选项，对每一条数据会执行多次，任意一次返回 true 就会显示',
         defaultValue: '',
         setters: 'FunctionSetter'
       },
       {
         name: 'filtered-value',
+        title: '选中的数据过滤项，如果需要自定义表头过滤的渲染方式，可能会需要此属性',
         defaultValue: '',
         setters: 'JSONSetter'
-      }
+      },
+      {
+        name: 'tooltip-formatter',
+        title: '使用 show-overflow-tooltip 时自定义 tooltip 内容',
+        setters: 'FunctionSetter'
+      },
     ],
     slots: [
       {
@@ -460,6 +534,9 @@ const Table: MaterialDescription[] = [
       {
         name: 'filter-icon',
         params: ['filterOpened']
+      },
+      {
+        name: 'expand',
       }
     ],
     snippet: {

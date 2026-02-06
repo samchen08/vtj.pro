@@ -4,6 +4,7 @@
     :class="{ 'is-border': props.border }"
     ref="container"
     @keyup.enter.stop
+    @keydown.stop
     :style="{ height: props.height }"></div>
 </template>
 <script lang="ts" setup>
@@ -35,31 +36,25 @@
     async getWorker(_, label) {
       let worker;
       if (label === 'json') {
-        worker = await import(
-          'monaco-editor/esm/vs/language/json/json.worker?worker&inline'
-        );
+        worker =
+          await import('monaco-editor/esm/vs/language/json/json.worker?worker&inline');
       }
       if (['css', 'scss', 'less'].includes(label)) {
-        worker = await import(
-          'monaco-editor/esm/vs/language/css/css.worker?worker&inline'
-        );
+        worker =
+          await import('monaco-editor/esm/vs/language/css/css.worker?worker&inline');
       }
       if (['html', 'handlebars', 'razor', 'vue'].includes(label)) {
-        worker = await import(
-          'monaco-editor/esm/vs/language/html/html.worker?worker&inline'
-        );
+        worker =
+          await import('monaco-editor/esm/vs/language/html/html.worker?worker&inline');
       }
       if (['typescript', 'javascript'].includes(label)) {
-        worker = await import(
-          'monaco-editor/esm/vs/language/typescript/ts.worker?worker&inline'
-        );
+        worker =
+          await import('monaco-editor/esm/vs/language/typescript/ts.worker?worker&inline');
       }
 
       worker =
         worker ||
-        (await import(
-          'monaco-editor/esm/vs/editor/editor.worker?worker&inline'
-        ));
+        (await import('monaco-editor/esm/vs/editor/editor.worker?worker&inline'));
 
       // return new Worker(worker as any);
       return new worker.default();
@@ -105,6 +100,11 @@
 
   onMounted(() => {
     nextTick(createEditor);
+
+    // document.addEventListener('keydown', (e) => {
+    //   e.preventDefault();
+    //   e.stopPropagation();
+    // });
   });
 
   onUnmounted(() => {

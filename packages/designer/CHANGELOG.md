@@ -3,6 +3,87 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.15.2](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.15.1...@vtj/designer@0.15.2) (2026-02-06)
+
+**Note:** Version bump only for package @vtj/designer
+
+
+
+
+
+## [0.15.1](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.15.0...@vtj/designer@0.15.1) (2026-01-28)
+
+
+### Bug Fixes
+
+* 🐛 修复消耗token统计丢失问题 ([8b2916d](https://gitee.com/newgateway/vtj/commits/8b2916dd5d3944069c23f43261cf9b7f08bd0a1d))
+* 🐛 增量更新失败时,切换换到全量生成 ([784edf6](https://gitee.com/newgateway/vtj/commits/784edf6ac3b41acc909163fa55076e67b61956bf))
+
+
+
+
+
+# [0.15.0](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.14.6...@vtj/designer@0.15.0) (2026-01-27)
+
+
+### Features
+
+* ✨ 增量更新引擎 ([f8ceecb](https://gitee.com/newgateway/vtj/commits/f8ceecbfb9e31c5d64740845ab68567545af2049))
+
+
+
+
+
+## [0.14.6](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.14.5...@vtj/designer@0.14.6) (2026-01-26)
+
+**Note:** Version bump only for package @vtj/designer
+
+
+
+
+
+## [0.14.5](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.14.4...@vtj/designer@0.14.5) (2026-01-24)
+
+**Note:** Version bump only for package @vtj/designer
+
+
+
+
+
+## [0.14.4](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.14.3...@vtj/designer@0.14.4) (2026-01-16)
+
+
+### Bug Fixes
+
+* 🐛 代码编辑器触发设计器快捷键问题 ([df1709d](https://gitee.com/newgateway/vtj/commits/df1709d16dabd772db0606346338671be698913a))
+
+
+
+
+
+## [0.14.3](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.14.2...@vtj/designer@0.14.3) (2026-01-09)
+
+
+### Bug Fixes
+
+* 🐛 更新 monaco-editor,解决与@vtj/parser 冲突报错的问题 ([3759abc](https://gitee.com/newgateway/vtj/commits/3759abc4d55d48dbcd8b83b10ccb5f066dd56713))
+* 🐛 修复代码不完整，似乎被截断了的提示 ([c45b5b2](https://gitee.com/newgateway/vtj/commits/c45b5b291facee570a7a90c22cd6d2559adedff5))
+
+
+
+
+
+## [0.14.2](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.14.1...@vtj/designer@0.14.2) (2026-01-06)
+
+
+### Bug Fixes
+
+* 🐛 ai生成vue代码增加 isVueSFC 判断 ([56c30b3](https://gitee.com/newgateway/vtj/commits/56c30b3c86485aa393c8eaa23e1169e0affdbbb8))
+
+
+
+
+
 ## [0.14.1](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.14.0...@vtj/designer@0.14.1) (2026-01-04)
 
 **Note:** Version bump only for package @vtj/designer

@@ -11,32 +11,38 @@ const Carousel: MaterialDescription[] = [
     props: [
       {
         name: 'height',
+        title: 'carousel 的高度',
         defaultValue: '',
         setters: 'InputSetter'
       },
       {
         name: 'initialIndex',
+        title: '初始状态激活的幻灯片的索引，从 0 开始',
         defaultValue: 0,
         setters: 'NumberSetter'
       },
       {
         name: 'trigger',
+        title: '指示器的触发方式',
         defaultValue: 'hover',
         options: ['hover', 'click'],
         setters: 'SelectSetter'
       },
       {
         name: 'autoplay',
+        title: '是否自动切换',
         defaultValue: true,
         setters: 'BooleanSetter'
       },
       {
         name: 'interval',
+        title: '自动切换的时间间隔，单位为毫秒',
         defaultValue: 3000,
         setters: 'NumberSetter'
       },
       {
         name: 'indicatorPosition',
+        title: '指示器的位置',
         defaultValue: '',
         options: ['', 'outside', 'none'],
         label: '指示器',
@@ -44,39 +50,46 @@ const Carousel: MaterialDescription[] = [
       },
       {
         name: 'arrow',
+        title: '切换箭头的显示时机',
         defaultValue: 'hover',
         options: ['always', 'hover', 'never'],
         setters: 'SelectSetter'
       },
       {
         name: 'type',
+        title: 'carousel 的类型',
         defaultValue: '',
         options: ['', 'card'],
         setters: 'SelectSetter'
       },
       {
         name: 'cardScale',
+        title: '当 type 为 card时，二级卡的缩放大小',
         defaultValue: 0.83,
         setters: 'NumberSetter'
       },
       {
         name: 'loop',
+        title: '是否循环显示',
         defaultValue: true,
         setters: 'BooleanSetter'
       },
       {
         name: 'direction',
+        title: '展示的方向',
         defaultValue: 'horizontal',
         options: ['horizontal', 'vertical'],
         setters: 'SelectSetter'
       },
       {
         name: 'pauseOnHover',
+        title: '鼠标悬浮时暂停自动切换',
         defaultValue: true,
         setters: 'BooleanSetter'
       },
       {
         name: 'motionBlur',
+        title: '添加动态模糊以给走马灯注入活力和流畅性',
         defaultValue: false,
         setters: 'BooleanSetter'
       }
@@ -133,11 +146,13 @@ const Carousel: MaterialDescription[] = [
     props: [
       {
         name: 'name',
+        title: '幻灯片的名字',
         defaultValue: '',
         setters: 'InputSetter'
       },
       {
         name: 'label',
+        title: '该幻灯片所对应指示器的文本',
         defaultValue: '',
         setters: 'InputSetter'
       }

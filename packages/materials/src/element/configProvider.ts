@@ -1,4 +1,5 @@
 import type { MaterialDescription } from '@vtj/core';
+import { size } from '../shared';
 
 const configProvider: MaterialDescription = {
   name: 'ElConfigProvider',
@@ -13,12 +14,8 @@ const configProvider: MaterialDescription = {
       setters: 'ObjectSetter'
     },
     {
-      name: 'size',
-      label: 'size',
+      ...size('size'),
       title: '全局组件大小',
-      setters: 'SelectSetter',
-      options: ['large', 'default', 'small'],
-      defaultValue: 'default'
     },
     {
       name: 'zIndex',
@@ -38,7 +35,41 @@ const configProvider: MaterialDescription = {
       label: 'button',
       title: '按钮相关配置',
       setters: 'ObjectSetter',
-      defaultValue: { autoInsertSpace: false }
+      defaultValue: {
+        type: null,
+        autoInsertSpace: false,
+        plain: false,
+        text: false,
+        round: false,
+      }
+    },
+    {
+      name: 'link',
+      title: '链接相关的配置',
+      setters: 'ObjectSetter',
+      defaultValue: {
+        type: 'default',
+        underline: 'hover'
+      }
+    },
+    {
+      name: 'card',
+      title: 'card 相关的配置',
+      setters: 'ObjectSetter',
+      defaultValue: {
+        shadow: null,
+      }
+    },
+    {
+      name: 'dialog',
+      title: 'dialog 相关的配置',
+      setters: 'ObjectSetter',
+      defaultValue: {
+        alignCenter: false,
+        draggable: false,
+        overflow: false,
+        transition: null
+      }
     },
     {
       name: 'message',
@@ -51,6 +82,18 @@ const configProvider: MaterialDescription = {
       label: 'experimentalFeatures',
       title: '将要添加的实验阶段的功能，所有功能都是默认设置为 false',
       setters: 'ObjectSetter'
+    },
+    {
+      name: 'emptyValues',
+      label: 'emptyValues',
+      title: '输入类组件空值',
+      setters: 'ArraySetter'
+    },
+    {
+      name: 'valueOnClear',
+      label: 'valueOnClear',
+      title: '输入类组件清空值',
+      setters: ['InputSetter', 'NumberSetter', 'BooleanSetter', 'FunctionSetter']
     }
   ],
   slots: ['default']

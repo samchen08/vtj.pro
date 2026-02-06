@@ -3,6 +3,7 @@
 <h3>AI 驱动的 Vue3 低代码开发平台</h3>
 <br>
 
+[![star](https://gitcode.com/vtj/vtj.pro/star/badge.svg)](https://gitcode.com/vtj/vtj.pro)
 [![star](https://gitee.com/newgateway/vtj/badge/star.svg?theme=gvp)](https://gitee.com/newgateway/vtj)
 [![npm version](https://img.shields.io/npm/v/@vtj/pro.svg?style=flat-square)](https://www.npmjs.com/package/@vtj/pro)
 [![npm downloads](https://img.shields.io/npm/dt/@vtj/core.svg?style=flat-square)](https://npm-stat.com/charts.html?package=@vtj/core)

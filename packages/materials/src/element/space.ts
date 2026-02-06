@@ -1,10 +1,11 @@
 import type { MaterialDescription } from '@vtj/core';
+import { size } from '../shared';
 const Space: MaterialDescription = {
   name: 'ElSpace',
   label: '间距',
 
   categoryId: 'base',
-  doc: 'https://element-plus.org/zh-CN/component/space.html',
+  doc: 'https://element-plus.org/zh-CN/component/splitter.html',
   package: 'element-plus',
   props: [
     {
@@ -64,11 +65,10 @@ const Space: MaterialDescription = {
       setters: ['StringSetter', 'NumberSetter']
     },
     {
-      name: 'size',
+      ...size('size'),
       title: '间隔大小',
       defaultValue: 'small',
       setters: ['SelectSetter', 'NumberSetter', 'ArraySetter'],
-      options: ['large', 'default', 'small']
     },
     {
       name: 'wrap',

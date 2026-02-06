@@ -1,4 +1,5 @@
 import type { MaterialDescription } from '@vtj/core';
+import { size } from '../shared';
 const Slider: MaterialDescription = {
   name: 'ElSlider',
   label: '滑块',
@@ -52,11 +53,8 @@ const Slider: MaterialDescription = {
       setters: 'BooleanSetter'
     },
     {
-      name: 'size',
-      defaultValue: 'default',
+      ...size('size'),
       title: 'slider 包装器的大小，垂直模式下该属性不可用',
-      options: ['large', 'default', 'small'],
-      setters: 'SelectSetter'
     },
     {
       name: 'inputSize',
@@ -168,7 +166,18 @@ const Slider: MaterialDescription = {
       title: '输入时是否触发表单的校验',
       defaultValue: true,
       setters: 'BooleanSetter'
-    }
+    },
+    {
+      name: 'persistent',
+      title: '当 slider 的 tooltip 处于非活动状态且 persistent 为 false 时，tooltip 将被销毁。 当 show-tooltip 为 false 时，persistent 将始终为 false',
+      defaultValue: true,
+      setters: 'BooleanSetter'
+    },
+    {
+      name: 'label',
+      title: '原生 aria-label属性',
+      setters: 'StringSetter'
+    },
   ],
   events: ['change', 'input', 'update:modelValue']
 };

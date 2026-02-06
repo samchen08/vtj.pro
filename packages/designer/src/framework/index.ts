@@ -6,3 +6,4 @@ export * from './renderer';
 export * from './designer';
 export * from './openapi';
 export * from './state';
+export * from './updater';

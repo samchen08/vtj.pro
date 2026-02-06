@@ -59,46 +59,55 @@ const components: MaterialDescription[] = [
     props: [
       {
         name: 'span',
+        title: '栅格占据的列数',
         defaultValue: 24,
         setters: 'NumberSetter'
       },
       {
         name: 'offset',
+        title: '栅格左侧的间隔格数',
         defaultValue: 0,
         setters: 'NumberSetter'
       },
       {
         name: 'push',
+        title: '栅格向右移动格数',
         defaultValue: 0,
         setters: 'NumberSetter'
       },
       {
         name: 'pull',
+        title: '栅格向左移动格数',
         defaultValue: 0,
         setters: 'NumberSetter'
       },
       {
         name: 'xs',
+        title: '<768px 响应式栅格数或者栅格属性对象',
         defaultValue: undefined,
         setters: ['JSONSetter', 'NumberSetter']
       },
       {
         name: 'sm',
+        title: '≥768px 响应式栅格数或者栅格属性对象',
         defaultValue: undefined,
         setters: ['JSONSetter', 'NumberSetter']
       },
       {
         name: 'md',
+        title: '≥992px 响应式栅格数或者栅格属性对象',
         defaultValue: undefined,
         setters: ['JSONSetter', 'NumberSetter']
       },
       {
         name: 'lg',
+        title: '≥1200px 响应式栅格数或者栅格属性对象',
         defaultValue: undefined,
         setters: ['JSONSetter', 'NumberSetter']
       },
       {
         name: 'xl',
+        title: '≥1920px 响应式栅格数或者栅格属性对象',
         defaultValue: undefined,
         setters: ['JSONSetter', 'NumberSetter']
       },

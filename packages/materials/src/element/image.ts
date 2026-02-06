@@ -9,43 +9,51 @@ const Image: MaterialDescription = {
   props: [
     {
       name: 'src',
+      title: '图片源地址，同原生属性一致',
       defaultValue: '',
       setters: ['InputSetter', 'FileSetter']
     },
     {
       name: 'fit',
+      title: '确定图片如何适应容器框，同原生 object-fit',
       defaultValue: '',
       options: ['', 'fill', 'contain', 'cover', 'none', 'scale-down'],
       setters: 'SelectSetter'
     },
     {
       name: 'hideOnClickModal',
+      title: '当开启 preview 功能时，是否可以通过点击遮罩层关闭 preview',
       defaultValue: false,
       setters: 'BooleanSetter'
     },
     {
       name: 'loading',
+      title: '浏览器加载图像的策略，和 浏览器原生能力一致',
       defaultValue: '',
       options: ['eager', 'lazy'],
       setters: 'SelectSetter'
     },
     {
       name: 'lazy',
+      title: '是否使用懒加载',
       defaultValue: false,
       setters: 'BooleanSetter'
     },
     {
       name: 'scrollContainer',
+      title: '开启懒加载功能后，监听 scroll 事件的容器 默认情况下，开启懒加载功能后，监听 scroll 事件的容器',
       defaultValue: '',
-      setters: 'InputSetter'
+      setters: ['InputSetter', 'ObjectSetter']
     },
     {
       name: 'alt',
+      title: '原生属性 alt',
       defaultValue: '',
       setters: 'InputSetter'
     },
     {
       name: 'referrerPolicy',
+      title: '原生属性 referrerPolicy',
       defaultValue: '',
       setters: 'InputSetter'
     },
@@ -58,16 +66,19 @@ const Image: MaterialDescription = {
     },
     {
       name: 'previewSrcList',
+      title: '开启图片预览功能',
       defaultValue: '',
       setters: ['ArraySetter', 'JSONSetter']
     },
     {
       name: 'zIndex',
+      title: '设置图片预览的 z-index',
       defaultValue: '',
       setters: 'NumberSetter'
     },
     {
       name: 'initialIndex',
+      title: '初始预览图像索引，小于 url-list 的长度',
       defaultValue: 0,
       setters: 'NumberSetter'
     },
@@ -80,6 +91,7 @@ const Image: MaterialDescription = {
     },
     {
       name: 'previewTeleported',
+      title: 'image-viewer 是否插入至 body 元素上。 嵌套的父元素属性会发生修改时应该将此属性设置为 true',
       defaultValue: false,
       setters: 'BooleanSetter'
     },
@@ -99,6 +111,12 @@ const Image: MaterialDescription = {
         }
       },
       title: '图像查看器缩放事件的缩放速率'
+    },
+    {
+      name: 'scale',
+      defaultValue: 1,
+      title: '预览图像缩放',
+      setters: 'NumberSetter'
     },
     {
       name: 'minScale',
@@ -121,7 +139,13 @@ const Image: MaterialDescription = {
         }
       },
       title: '图像查看器缩放事件的最大缩放比例'
-    }
+    },
+    {
+      name: 'showProgress',
+      title: '是否在预览图片时显示进度条',
+      defaultValue: true,
+      setters: 'BooleanSetter',
+    },
   ],
   events: ['load', 'error', 'switch', 'close', 'show'],
   slots: ['placeholder', 'error', 'viewer'],

@@ -40,7 +40,7 @@ npm create vtj@latest --registry=https://registry.npmmirror.com -- -t app
 
 设计器依赖的服务有两种类型，一种是设计器的核心功能，必须要有的，如：项目、文件、历史记录、出码。缺少这些API, 设计器就不能正常工作。 另一种是可选功能的API，例如：模版、AI。 这些功能可通过配置关闭，缺少这些API，设计器还能正常运行，只是依赖的功能不可用。为了区分两种API，核心功能的API称为 Service， 而可选功能的API称为 OpenApi
 
-在本地版本中，Service是通过vite插件启动http服务依附到本地开发服务中，因此本地版本是可以离线运行。 而OpenApi的服务是由 [https://lcdp.vtj.pro/](https://lcdp.vtj.pro/) 提供，需要网络支持。
+在本地版本中，Service是通过vite插件启动http服务依附到本地开发服务中，因此本地版本是可以离线运行。 而OpenApi的服务是由 [https://app.vtj.pro/](https://app.vtj.pro/) 提供，需要网络支持。
 
 本地版本的项目数据是以json文件存储到当前项目工程里面，默认的存储路径是项目根目录下的 `.vtj` 文件夹。开发实践中，您应该把这个文件夹也要提交git作版本控制。
 
@@ -109,7 +109,7 @@ VTJ 的 Service 协议中是一个抽象类来定义， 定义文件在 `@vtj/co
 
 ### OpenApi
 
-官方在线平台[https://lcdp.vtj.pro/](https://lcdp.vtj.pro/) 提供了可用的在线服务，如您没有特殊的需求可以直接使用官方的提供的服务即可。
+官方在线平台[https://app.vtj.pro/](https://app.vtj.pro/) 提供了可用的在线服务，如您没有特殊的需求可以直接使用官方的提供的服务即可。
 
 目前提供的在线服务包括： `模版`、`AI` 两个模块。
 
@@ -124,7 +124,7 @@ const engine = new Engine({
   project: {
     id: 'my-project-id'
   },
-  // 设置null禁用OpenApi， 默认值是： https://lcdp.vtj.pro
+  // 设置null禁用OpenApi， 默认值是： https://app.vtj.pro
   remote: null
 });
 ```
@@ -143,7 +143,7 @@ const engine = new Engine({
 
 由于官方提供的服务是需要注册账号和登录，有些场景可能不希望显示官方的账号、用户这些标志。可以通过配置引擎的 `auth` 参数实现静默登录，同时也不会在界面显示任何官方相关的用户信息。
 
-`auth` 参数支持传递字符串或函数，类型是： `string | (() => Promise<any>);` 。字符串是传递您的官方账号的登录授权签名，签名在 `https://lcdp.vtj.pro/` 获取：
+`auth` 参数支持传递字符串或函数，类型是： `string | (() => Promise<any>);` 。字符串是传递您的官方账号的登录授权签名，签名在 `https://app.vtj.pro/` 获取：
 
 ![](../../assets/access/sign.png)
 
@@ -173,7 +173,7 @@ const engine = new Engine({
 如果你的设计器是对外开放的，设置字符串的方式会泄露你的用户签名， 存在安全隐患。 强烈建议你改为以下方式。
 :::
 
-`auth` 也可以设置为函数，通过调用您的后端接口，由你的后端去调用 `https://lcdp.vtj.pro` 的登录接口，避免用户签名的泄露。
+`auth` 也可以设置为函数，通过调用您的后端接口，由你的后端去调用 `https://app.vtj.pro` 的登录接口，避免用户签名的泄露。
 
 ```ts
 const engine = new Engine({
@@ -188,12 +188,12 @@ const engine = new Engine({
 });
 ```
 
-后端实现调 `https://lcdp.vtj.pro` 的登录接口, 以下是node的实现示例代码
+后端实现调 `https://app.vtj.pro` 的登录接口, 以下是node的实现示例代码
 
 ```ts
 return axios
   .get(
-    'https://lcdp.vtj.pro/api/open/auth/M2VjNmYxMjktOTBlNC00N******************YjgxNjBkNzlmYTFkMGU4ODAxN2IyNTNm'
+    'https://app.vtj.pro/api/open/auth/M2VjNmYxMjktOTBlNC00N******************YjgxNjBkNzlmYTFkMGU4ODAxN2IyNTNm'
   )
   .then((res) => res.json());
 ```
