@@ -1,4 +1,5 @@
 import type { MaterialDescription } from '@vtj/core';
+import { size } from '../shared';
 const DatePicker: MaterialDescription = {
   name: 'ElDatePicker',
   label: '日期选择器',
@@ -20,20 +21,17 @@ const DatePicker: MaterialDescription = {
     },
     {
       name: 'readonly',
+      title: '只读',
       defaultValue: false,
       setters: 'BooleanSetter'
     },
     {
       name: 'disabled',
+      title: '禁用',
       defaultValue: false,
       setters: 'BooleanSetter'
     },
-    {
-      name: 'size',
-      defaultValue: 'default',
-      options: ['large', 'default', 'small'],
-      setters: 'SelectSetter'
-    },
+    size('size'),
     {
       name: 'editable',
       title: '文本框可输入',
@@ -42,11 +40,13 @@ const DatePicker: MaterialDescription = {
     },
     {
       name: 'clearable',
+      title: '是否显示清除按钮',
       defaultValue: true,
       setters: 'BooleanSetter'
     },
     {
       name: 'placeholder',
+      title: '非范围选择时的占位内容',
       defaultValue: '',
       setters: 'InputSetter'
     },
@@ -95,6 +95,12 @@ const DatePicker: MaterialDescription = {
       setters: 'InputSetter'
     },
     {
+      name: 'popperStyle',
+      title: '弹出内容的自定义样式',
+      defaultValue: '',
+      setters: ['InputSetter', 'ObjectSetter']
+    },
+    {
       name: 'popper-options',
       title: '自定义 popper 选项',
       defaultValue: '',
@@ -126,11 +132,13 @@ const DatePicker: MaterialDescription = {
     },
     {
       name: 'id',
+      title: '等价于原生 input id 属性',
       defaultValue: '',
       setters: ['InputSetter']
     },
     {
       name: 'name',
+      title: '等价于原生 input name 属性',
       defaultValue: '',
       setters: 'InputSetter'
     },
@@ -222,6 +230,30 @@ const DatePicker: MaterialDescription = {
         'right-start',
         'right-end'
       ]
+    },
+    {
+      name: 'show-footer',
+      title: '是否显示 footer',
+      defaultValue: true,
+      setters: 'BooleanSetter'
+    },
+    {
+      name: 'show-confirm',
+      title: '是否显示确定按钮',
+      defaultValue: true,
+      setters: 'BooleanSetter'
+    },
+    {
+      name: 'show-week-number',
+      title: '显示周数(除周外)',
+      defaultValue: false,
+      setters: 'BooleanSetter'
+    },
+    {
+      name: 'automatic-dropdown',
+      title: '该属性决定在输入框获得焦点时日期选择面板是否弹出',
+      defaultValue: true,
+      setters: 'BooleanSetter'
     }
   ],
   events: [

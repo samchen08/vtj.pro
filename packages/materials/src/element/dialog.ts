@@ -9,32 +9,44 @@ const components: MaterialDescription = {
   props: [
     {
       name: 'modelValue',
+      title: '是否显示 Dialog',
       defaultValue: false,
       setters: 'BooleanSetter'
     },
     {
       name: 'title',
+      title: 'Dialog 对话框 Dialog 的标题',
       defaultValue: '',
       setters: 'InputSetter'
     },
     {
       name: 'width',
+      title: '对话框的宽度',
       defaultValue: '',
       setters: ['InputSetter', 'NumberSetter']
     },
     {
       name: 'fullscreen',
+      title: '是否为全屏 Dialog',
       defaultValue: false,
       setters: 'BooleanSetter'
     },
     {
       name: 'top',
+      title: 'dialog CSS 中的 margin-top 值',
       defaultValue: '',
       setters: 'InputSetter'
     },
     {
       name: 'modal',
+      title: '是否需要遮罩层',
       defaultValue: true,
+      setters: 'BooleanSetter'
+    },
+    {
+      name: 'modalPenetrable',
+      title: '是否允许穿透遮罩层',
+      defaultValue: false,
       setters: 'BooleanSetter'
     },
     {
@@ -44,7 +56,26 @@ const components: MaterialDescription = {
       setters: 'StringSetter'
     },
     {
+      name: 'headerClass',
+      label: 'headerClass',
+      title: 'header 部分的自定义 class 名',
+      setters: 'StringSetter'
+    },
+    {
+      name: 'bodyClass',
+      label: 'bodyClass',
+      title: 'body 部分的自定义 class 名',
+      setters: 'StringSetter'
+    },
+    {
+      name: 'footerClass',
+      label: 'footerClass',
+      title: 'footer 部分的自定义 class 名',
+      setters: 'StringSetter'
+    },
+    {
       name: 'appendToBody',
+      title: 'Dialog 自身是否插入至 body 元素上',
       defaultValue: false,
       setters: 'BooleanSetter'
     },
@@ -57,21 +88,25 @@ const components: MaterialDescription = {
     },
     {
       name: 'lockScroll',
+      title: '是否在 Dialog 出现时将 body 滚动锁定',
       defaultValue: true,
       setters: 'BooleanSetter'
     },
     {
       name: 'openDelay',
+      title: 'dialog 打开的延时时间，单位毫秒',
       defaultValue: 0,
       setters: 'NumberSetter'
     },
     {
       name: 'closeDelay',
+      title: 'dialog 关闭的延时时间，单位毫秒',
       defaultValue: 0,
       setters: 'NumberSetter'
     },
     {
       name: 'closeOnClickModal',
+      title: '是否可以通过点击 modal 关闭 Dialog',
       label: '点击关闭',
       defaultValue: true,
       setters: 'BooleanSetter'
@@ -79,21 +114,25 @@ const components: MaterialDescription = {
     {
       name: 'closeOnPressEscape',
       label: 'ESC键关闭',
+      title: '是否可以通过按下 ESC 关闭 Dialog',
       defaultValue: true,
       setters: 'BooleanSetter'
     },
     {
       name: 'showClose',
+      title: '是否显示关闭按钮',
       defaultValue: true,
       setters: 'BooleanSetter'
     },
     {
       name: 'beforeClose',
+      title: '关闭前的回调，会暂停 Dialog 的关闭. 回调函数内执行 done 参数方法的时候才是真正关闭对话框的时候',
       defaultValue: '',
       setters: 'FunctionSetter'
     },
     {
       name: 'draggable',
+      title: '为 Dialog 启用可拖拽功能',
       defaultValue: false,
       setters: 'BooleanSetter'
     },
@@ -106,16 +145,19 @@ const components: MaterialDescription = {
     },
     {
       name: 'center',
+      title: '是否让 Dialog 的 header 和 footer 部分居中排列',
       defaultValue: false,
       setters: 'BooleanSetter'
     },
     {
       name: 'alignCenter',
+      title: '是否水平垂直对齐对话框',
       defaultValue: false,
       setters: 'BooleanSetter'
     },
     {
       name: 'destroyOnClose',
+      title: '当关闭 Dialog 时，销毁其中的元素',
       defaultValue: false,
       setters: 'BooleanSetter'
     },
@@ -139,10 +181,15 @@ const components: MaterialDescription = {
       defaultValue: 2
     },
     {
-      name: 'customClass',
-      defaultValue: '',
-      setters: 'InputSetter'
-    }
+      name: 'transition',
+      title: '对话框动画的自定义过渡配置',
+      setters: ['StringSetter', 'ObjectSetter']
+    },
+    // {
+    //   name: 'customClass',
+    //   defaultValue: '',
+    //   setters: 'InputSetter'
+    // }
   ],
   events: [
     {

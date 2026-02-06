@@ -1,4 +1,5 @@
 import type { MaterialDescription } from '@vtj/core';
+import { effect, size } from '../shared';
 const SelectV2: MaterialDescription = {
   name: 'ElSelectV2',
   label: '虚拟列表选择器',
@@ -9,6 +10,7 @@ const SelectV2: MaterialDescription = {
   props: [
     {
       name: 'modelValue',
+      title: '选中项绑定值',
       defaultValue: '',
       setters: ['InputSetter', 'NumberSetter', 'BooleanSetter', 'JSONSetter']
     },
@@ -21,32 +23,31 @@ const SelectV2: MaterialDescription = {
     {
       name: 'props',
       label: 'props',
-      title: '配置选项，具体看下表',
+      title: '配置选项',
       setters: 'ObjectSetter'
     },
     {
       name: 'multiple',
+      title: '是否多选',
       defaultValue: false,
       setters: 'BooleanSetter'
     },
     {
       name: 'disabled',
+      title: '是否禁用',
       defaultValue: false,
       setters: 'BooleanSetter'
     },
     {
       name: 'valueKey',
+      title: '作为 value 唯一标识的键名，绑定值为对象类型时必填',
       defaultValue: 'value',
       setters: 'InputSetter'
     },
-    {
-      name: 'size',
-      defaultValue: '',
-      options: ['', 'large', 'default', 'small'],
-      setters: 'SelectSetter'
-    },
+    size('size'),
     {
       name: 'clearable',
+      title: '是否可以清空选项',
       defaultValue: false,
       setters: 'BooleanSetter'
     },
@@ -59,6 +60,7 @@ const SelectV2: MaterialDescription = {
     },
     {
       name: 'collapseTags',
+      title: '多选时是否将选中值按文字的形式展示',
       defaultValue: false,
       setters: 'BooleanSetter'
     },
@@ -70,40 +72,46 @@ const SelectV2: MaterialDescription = {
       defaultValue: 0
     },
     {
-      name: 'name',
+      name: 'id',
+      title: '原生 input 的 id',
       defaultValue: '',
       setters: 'InputSetter'
     },
     {
-      name: 'effect',
-      defaultValue: 'light',
-      options: ['dark', 'light'],
-      setters: ['SelectSetter', 'StringSetter']
+      name: 'name',
+      title: '选择器的原生name属性',
+      defaultValue: '',
+      setters: 'InputSetter'
     },
+    effect('effect'),
     {
       name: 'autocomplete',
+      title: '自动完成选择输入',
       defaultValue: 'off',
       setters: 'InputSetter'
     },
     {
       name: 'placeholder',
+      title: '占位文字',
       defaultValue: 'Please select',
       setters: 'InputSetter'
     },
     {
       name: 'filterable',
+      title: 'Select 组件是否可筛选',
       defaultValue: false,
       setters: 'BooleanSetter'
     },
     {
       name: 'allowCreate',
+      title: '是否允许创建新条目， 当使用该属性时，filterable必须设置为true',
       defaultValue: false,
       setters: 'BooleanSetter'
     },
     {
       name: 'filterMethod',
       label: 'filterMethod',
-      title: '自定义筛选方法',
+      title: '自定义筛选方法的第一个参数是当前输入的值。 当filterable设置为 true 时才会生效',
       setters: 'FunctionSetter'
     },
     {
@@ -149,6 +157,11 @@ const SelectV2: MaterialDescription = {
       defaultValue: ''
     },
     {
+      name: 'popperStyle',
+      title: 'Select 下拉菜单和标签提示的自定义样式',
+      setters: ['StringSetter', 'ObjectSetter'],
+    },
+    {
       name: 'teleported',
       label: 'teleported',
       title: '是否将下拉列表元素插入 append-to 指向的元素下',
@@ -162,6 +175,7 @@ const SelectV2: MaterialDescription = {
     },
     {
       name: 'persistent',
+      title: '当下拉选择器未被激活并且persistent设置为false，选择器会被删除',
       defaultValue: true,
       setters: 'BooleanSetter'
     },
@@ -173,16 +187,24 @@ const SelectV2: MaterialDescription = {
     },
     {
       name: 'automaticDropdown',
+      title: '对于不可搜索的 Select，是否在输入框获得焦点后自动弹出选项菜单',
       defaultValue: false,
       setters: 'BooleanSetter'
     },
     {
       name: 'fitInputWidth',
+      title: '无论下拉框的宽度是否与输入框相同，如果值为number，则宽度是固定的',
       defaultValue: true,
       setters: ['BooleanSetter', 'NumberSetter']
     },
     {
+      name: 'suffixIcon',
+      title: '自定义后缀图标组件',
+      setters: 'StringSetter'
+    },
+    {
       name: 'height',
+      title: '下拉菜单的高度',
       defaultValue: 274,
       setters: 'NumberSetter'
     },
@@ -195,21 +217,31 @@ const SelectV2: MaterialDescription = {
     },
     {
       name: 'scrollbarAlwaysOn',
+      title: '是否总是展示滚动条',
       defaultValue: false,
       setters: 'BooleanSetter'
     },
     {
       name: 'remote',
+      title: '是否从服务器获取数据',
       defaultValue: false,
       setters: 'BooleanSetter'
     },
     {
+      name: 'debounce',
+      title: '远程搜索时的防抖延迟（以毫秒为单位）',
+      defaultValue: 300,
+      setters: 'NumberSetter'
+    },
+    {
       name: 'remoteMethod',
+      title: '当输入值发生变化时触发的函数。 它的参数就是当前的输入值。 当filterable设置为 true 时才会生效',
       defaultValue: '',
       setters: 'FunctionSetter'
     },
     {
       name: 'validateEvent',
+      title: '是否触发表单验证',
       defaultValue: true,
       setters: 'BooleanSetter'
     },
@@ -248,16 +280,19 @@ const SelectV2: MaterialDescription = {
     },
     {
       name: 'fallbackPlacements',
+      title: 'dropdown 可用的 positions',
       setters: 'ArraySetter',
       defaultValue: ['bottom-start', 'top-start', 'right', 'left']
     },
     {
       name: 'collapseTagsTooltip',
+      title: '当鼠标悬停于折叠标签的文本时，是否显示所有选中的标签。 要使用此功能，collapse-tags的值必须为true',
       setters: 'BooleanSetter',
       defaultValue: false
     },
     {
       name: 'maxCollapseTags',
+      title: '需要显示的 Tag 的最大数量。 只有当 collapse-tags 设置为 true 时才会生效',
       setters: 'NumberSetter',
       defaultValue: 1
     },

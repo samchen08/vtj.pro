@@ -1,4 +1,5 @@
 import type { MaterialDescription } from '@vtj/core';
+import { type } from '../shared';
 const Timeline: MaterialDescription[] = [
   {
     name: 'ElTimeline',
@@ -7,6 +8,22 @@ const Timeline: MaterialDescription[] = [
     doc: 'https://element-plus.org/zh-CN/component/timeline.html',
     categoryId: 'form',
     package: 'element-plus',
+
+    props: [
+      {
+        name: 'reverse',
+        title: '是否逆序排序',
+        defaultValue: false,
+        setters: 'BooleanSetter'
+      },
+      {
+        name: 'mode',
+        title: '时间线与内容的相对位置',
+        defaultValue: 'start',
+        setters: 'SelectSetter',
+        options: ['start', 'alternate', 'alternate-reverse', 'end']
+      },
+    ],
     slots: ['default'],
     snippet: {
       name: 'ElTimeline',
@@ -51,50 +68,53 @@ const Timeline: MaterialDescription[] = [
     props: [
       {
         name: 'timestamp',
+        title: '时间戳',
         defaultValue: '',
         setters: 'InputSetter'
       },
       {
         name: 'hide-timestamp',
+        title: '是否隐藏时间戳',
         defaultValue: false,
         setters: 'BooleanSetter'
       },
       {
         name: 'center',
+        title: '是否垂直居中',
         defaultValue: false,
         setters: 'BooleanSetter'
       },
       {
         name: 'placement',
+        title: '时间戳位置',
         defaultValue: 'bottom',
         options: ['top', 'bottom'],
         setters: 'SelectSetter'
       },
-      {
-        name: 'type',
-        defaultValue: '',
-        options: ['primary', 'success', 'warning', 'danger', 'info'],
-        setters: 'SelectSetter'
-      },
+      type('type'),
       {
         name: 'color',
+        title: '节点颜色',
         defaultValue: '',
         options: ['hsl', 'hsv', 'hex', 'rgb'],
         setters: 'SelectSetter'
       },
       {
         name: 'size',
+        title: '节点尺寸',
         defaultValue: 'normal',
         options: ['normal', 'large'],
         setters: 'SelectSetter'
       },
       {
         name: 'icon',
+        title: '自定义图标',
         defaultValue: '',
         setters: 'IconSetter'
       },
       {
         name: 'hollow',
+        title: '是否空心点',
         defaultValue: false,
         setters: 'BooleanSetter'
       }

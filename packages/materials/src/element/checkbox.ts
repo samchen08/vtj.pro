@@ -1,4 +1,5 @@
 import type { MaterialDescription } from '@vtj/core';
+import { size } from '../shared';
 const Checkbox: MaterialDescription[] = [
   {
     name: 'ElCheckbox',
@@ -52,13 +53,7 @@ const Checkbox: MaterialDescription[] = [
         defaultValue: false,
         setters: 'BooleanSetter'
       },
-      {
-        name: 'size',
-        title: 'Checkbox 的尺寸',
-        defaultValue: 'default',
-        options: ['large', 'default', 'small'],
-        setters: 'SelectSetter'
-      },
+      size('size'),
       {
         name: 'name',
         defaultValue: '',
@@ -149,13 +144,7 @@ const Checkbox: MaterialDescription[] = [
         defaultValue: [],
         setters: 'JSONSetter'
       },
-      {
-        name: 'size',
-        title: '多选框组尺寸',
-        defaultValue: '',
-        options: ['large', 'default', 'small'],
-        setters: 'SelectSetter'
-      },
+      size('size'),
       {
         name: 'disabled',
         title: '是否禁用',

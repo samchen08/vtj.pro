@@ -1,4 +1,5 @@
 import type { MaterialDescription } from '@vtj/core';
+import { size } from '../shared';
 const Radio: MaterialDescription[] = [
   {
     name: 'ElRadio',
@@ -10,6 +11,7 @@ const Radio: MaterialDescription[] = [
     props: [
       {
         name: 'modelValue',
+        title: '选中项绑定值',
         defaultValue: '',
         setters: ['InputSetter', 'NumberSetter', 'BooleanSetter']
       },
@@ -36,13 +38,7 @@ const Radio: MaterialDescription[] = [
         defaultValue: false,
         setters: 'BooleanSetter'
       },
-      {
-        name: 'size',
-        title: '单选框的尺寸',
-        defaultValue: '',
-        options: ['large', 'default', 'small'],
-        setters: 'SelectSetter'
-      },
+      size('size'),
       {
         name: 'name',
         title: '原始 name 属性',
@@ -80,11 +76,8 @@ const Radio: MaterialDescription[] = [
         setters: ['InputSetter', 'NumberSetter', 'BooleanSetter']
       },
       {
-        name: 'size',
+        ...size('size'),
         title: '单选框按钮或边框按钮的大小',
-        defaultValue: '',
-        options: ['large', 'default', 'small'],
-        setters: 'SelectSetter'
       },
       {
         name: 'disabled',
@@ -93,24 +86,22 @@ const Radio: MaterialDescription[] = [
         setters: 'BooleanSetter'
       },
       {
+        name: 'validateEvent',
+        title: '输入时是否触发表单的校验',
+        defaultValue: true,
+        setters: 'BooleanSetter'
+      },
+      {
         name: 'textColor',
         title: '按钮形式的 Radio 激活时的文本颜色',
         defaultValue: '#ffffff',
         setters: 'ColorSetter'
       },
-
       {
         name: 'fill',
         title: '按钮形式的 Radio 激活时的填充色和边框色',
         defaultValue: '#409EFF',
         setters: 'ColorSetter'
-      },
-
-      {
-        name: 'validateEvent',
-        title: '输入时是否触发表单的校验',
-        defaultValue: true,
-        setters: 'BooleanSetter'
       },
       {
         name: 'aria-label',
@@ -128,7 +119,24 @@ const Radio: MaterialDescription[] = [
         label: 'id',
         title: '原生 id 属性',
         setters: 'StringSetter'
-      }
+      },
+      {
+        name: 'options',
+        title: '选项的数据源， value 的 key 和 label 和  disabled可以通过 props自定义.',
+        setters: 'ArraySetter'
+      },
+      {
+        name: 'props',
+        title: 'options 的配置',
+        setters: 'ObjectSetter'
+      },
+      {
+        name: 'type',
+        title: '\t用于渲染选项的组件类型（例如 \'button\'）',
+        defaultValue: 'radio',
+        options: ['radio', 'button'],
+        setters: 'SelectSetter'
+      },
     ],
     events: [
       {

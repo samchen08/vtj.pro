@@ -10,14 +10,17 @@ const components: MaterialDescription = {
   props: [
     {
       name: 'direction',
+      title: '设置分割线方向',
       defaultValue: 'horizontal',
       setters: 'SelectSetter',
       options: ['horizontal', 'vertical']
     },
     {
       name: 'borderStyle',
+      title: '设置分隔符样式',
       defaultValue: 'solid',
-      setters: 'InputSetter'
+      setters: 'SelectSetter',
+      options: ['none', 'hidden', 'dotted', 'dashed', 'solid', 'double', 'groove', 'ridge', 'inset', 'outset']
     },
     {
       name: 'contentPosition',
