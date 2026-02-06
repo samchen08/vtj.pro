@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.15.2](https://gitee.com/newgateway/vtj/compare/@vtj/parser@0.15.1...@vtj/parser@0.15.2) (2026-02-06)
+
+
+### Bug Fixes
+
+* 🐛 replacer 意外替换字符串 ([a6ecbe5](https://gitee.com/newgateway/vtj/commits/a6ecbe55546a8cc90db247171861dfd964ba2b6d))
+
+
+### Features
+
+* ✨ parser支持自定义指令 ([ee98d66](https://gitee.com/newgateway/vtj/commits/ee98d665cdc2a7a3f2fad03eaec7d4dda7f77e58))
+
+
+
+
+
 ## [0.15.1](https://gitee.com/newgateway/vtj/compare/@vtj/parser@0.15.0...@vtj/parser@0.15.1) (2026-01-28)
 
 **Note:** Version bump only for package @vtj/parser
