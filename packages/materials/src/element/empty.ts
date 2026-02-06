@@ -9,16 +9,19 @@ const Empty: MaterialDescription = {
   props: [
     {
       name: 'image',
+      title: 'empty 组件的图像地址',
       defaultValue: '',
       setters: 'InputSetter'
     },
     {
       name: 'imageSize',
+      title: 'empty 组件的图像尺寸（宽度）',
       defaultValue: '',
       setters: 'NumberSetter'
     },
     {
       name: 'description',
+      title: 'empty 组件的描述信息',
       defaultValue: '',
       setters: 'InputSetter'
     }

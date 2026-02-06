@@ -14,6 +14,12 @@ const Mention: MaterialDescription = {
       setters: 'ArraySetter'
     },
     {
+      name: 'props',
+      title: 'options 的配置',
+      defaultValue: {value: 'value', label: 'label', disabled: 'disabled'},
+      setters: 'ObjectSetter'
+    },
+    {
       name: 'prefix',
       title: '触发字段的前缀。 字符串长度必须且只能为 1',
       defaultValue: '@',
@@ -75,6 +81,11 @@ const Mention: MaterialDescription = {
       name: 'popperClass',
       title: '自定义浮层类名',
       setters: 'StringSetter'
+    },
+    {
+      name: 'popperStyle',
+      title: '自定义浮层样式',
+      setters: ['StringSetter', 'ObjectSetter']
     },
     {
       name: 'popperOptions',

@@ -1,4 +1,5 @@
 import type { MaterialDescription } from '@vtj/core';
+import { effect, size } from '../shared';
 
 const InputTag: MaterialDescription = {
   name: 'ElInputTag',
@@ -8,6 +9,7 @@ const InputTag: MaterialDescription = {
   props: [
     {
       name: 'modelValue',
+      title: '绑定值',
       setters: 'ArraySetter'
     },
     {
@@ -29,6 +31,7 @@ const InputTag: MaterialDescription = {
       setters: 'SelectSetter',
       options: ['light', 'dark', 'plain']
     },
+    effect('effect'),
     {
       name: 'trigger',
       title: '触发输入标签的按键',
@@ -43,16 +46,39 @@ const InputTag: MaterialDescription = {
       setters: 'BooleanSetter'
     },
     {
-      name: 'size',
-      setters: 'SelectSetter',
-      defaultValue: 'default',
-      options: ['large', 'default', 'small']
+      name: 'delimiter',
+      title: '在匹配分隔符时添加标签',
+      setters: 'InputSetter'
+    },
+    size('size'),
+    {
+      name: 'collapseTags',
+      title: '多选时是否将选中值按文字的形式展示',
+      defaultValue: false,
+      setters: 'BooleanSetter'
+    },
+    {
+      name: 'collapseTagsTooltip',
+      title: '当鼠标悬停于折叠标签的文本时，是否显示所有选中的标签。 要使用此功能，collapse-tags的值必须为true',
+      defaultValue: false,
+      setters: 'BooleanSetter'
+    },
+    {
+      name: 'saveOnBlur',
+      title: '当输入失去焦点时是否保存输入值',
+      defaultValue: true,
+      setters: 'BooleanSetter'
     },
     {
       name: 'clearable',
       title: '是否显示清除按钮',
       defaultValue: false,
       setters: 'BooleanSetter'
+    },
+    {
+      name: 'clearIcon',
+      title: '自定义清除图标',
+      setters: 'InputSetter'
     },
     {
       name: 'disabled',
@@ -68,41 +94,55 @@ const InputTag: MaterialDescription = {
     },
     {
       name: 'readonly',
+      title: '等价于原生 readonly 属性',
       defaultValue: false,
       setters: 'BooleanSetter'
     },
     {
       name: 'autofocus',
+      title: '等价于原生  autofocus  属性',
       defaultValue: false,
       setters: 'BooleanSetter'
     },
     {
       name: 'id',
+      title: '等价于原生 input id 属性',
       setters: 'StringSetter'
     },
     {
       name: 'tabindex',
+      title: '等价于原生  tabindex  属性',
       setters: ['StringSetter', 'NumberSetter']
     },
     {
+      name: 'maxCollapseTags',
+      title: '需要显示的 Tag 的最大数量 要使用此功能，collapse-tags的值必须为true',
+      setters: 'NumberSetter'
+    },
+    {
       name: 'maxlength',
+      title: '等价于原生  maxlength  属性',
       setters: ['StringSetter', 'NumberSetter']
     },
     {
       name: 'minlength',
+      title: '等价于原生  minlength  属性',
       setters: ['StringSetter', 'NumberSetter']
     },
     {
       name: 'placeholder',
+      title: '输入框占位文本',
       setters: 'StringSetter'
     },
     {
       name: 'autocomplete',
+      title: '等价于原生  autocomplete  属性',
       defaultValue: 'off',
       setters: 'StringSetter'
     },
     {
       name: 'ariaLabel',
+      title: '等价于原生  aria-label  属性',
       setters: 'StringSetter'
     }
   ],
@@ -118,6 +158,9 @@ const InputTag: MaterialDescription = {
     },
     {
       name: 'remove-tag'
+    },
+    {
+      name: 'drag-tag'
     },
     {
       name: 'focus'
