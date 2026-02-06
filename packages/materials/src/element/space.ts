@@ -1,4 +1,5 @@
 import type { MaterialDescription } from '@vtj/core';
+import { size } from '../shared';
 const Space: MaterialDescription = {
   name: 'ElSpace',
   label: '间距',
@@ -64,11 +65,10 @@ const Space: MaterialDescription = {
       setters: ['StringSetter', 'NumberSetter']
     },
     {
-      name: 'size',
+      ...size('size'),
       title: '间隔大小',
       defaultValue: 'small',
       setters: ['SelectSetter', 'NumberSetter', 'ArraySetter'],
-      options: ['large', 'default', 'small']
     },
     {
       name: 'wrap',

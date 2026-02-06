@@ -1,4 +1,5 @@
 import type { MaterialDescription } from '@vtj/core';
+import { type } from '../shared';
 const Badge: MaterialDescription = {
   name: 'ElBadge',
   label: '徽章',
@@ -15,31 +16,29 @@ const Badge: MaterialDescription = {
     },
     {
       name: 'max',
+      title: '最大值，超过最大值会显示 {max}+。 只有当 value 是数字类型时起作用',
       defaultValue: 99,
       setters: 'NumberSetter'
     },
     {
       name: 'isDot',
       defaultValue: false,
-      title: '是否显示小圆点。',
+      title: '是否显示小圆点',
       setters: 'BooleanSetter'
     },
     {
       name: 'hidden',
       defaultValue: false,
-      title: '是否隐藏 Badge。',
+      title: '是否隐藏 Badge',
       setters: 'BooleanSetter'
     },
     {
-      name: 'type',
+      ...type('type'),
       defaultValue: 'danger',
-      title: 'badge 类型。',
-      options: ['primary', 'success', 'warning', 'danger', 'info'],
-      setters: 'SelectSetter'
     },
     {
       name: 'showZero',
-      title: '值为零时是否显示 Badge  ',
+      title: '值为零时是否显示 Badge',
       setters: 'BooleanSetter',
       defaultValue: true
     },

@@ -9,21 +9,31 @@ const TreeV2: MaterialDescription = {
   props: [
     {
       name: 'data',
+      title: '展示数据',
       defaultValue: '',
       setters: ['ArraySetter', 'JSONSetter']
     },
     {
       name: 'empty-text',
+      title: '内容为空的时候展示的文本',
       defaultValue: '',
       setters: 'InputSetter'
     },
     {
       name: 'props',
-      defaultValue: '',
+      title: '配置选项',
+      defaultValue: {
+        value: 'id',
+        label: 'label',
+        children: 'children',
+        disabled: 'disabled',
+        class : '',
+      },
       setters: ['ObjectSetter', 'JSONSetter']
     },
     {
       name: 'highlight-current',
+      title: '是否高亮当前选中节点',
       defaultValue: false,
       label: '高亮选中节点',
       setters: 'BooleanSetter'
@@ -45,6 +55,13 @@ const TreeV2: MaterialDescription = {
       setters: 'BooleanSetter'
     },
     {
+      name: 'check-on-click-leaf',
+      title:
+        '点击叶节点(最后一个子节点)时是否检查或取消节点',
+      defaultValue: true,
+      setters: 'BooleanSetter'
+    },
+    {
       name: 'default-expanded-keys',
       defaultValue: '',
       title: '默认展开的节点的 key 的数组',
@@ -60,6 +77,7 @@ const TreeV2: MaterialDescription = {
     },
     {
       name: 'check-strictly',
+      title: '在显示复选框的情况下，是否严格的遵循父子不互相关联的做法',
       defaultValue: false,
       setters: 'BooleanSetter'
     },
@@ -72,6 +90,7 @@ const TreeV2: MaterialDescription = {
     },
     {
       name: 'current-node-key',
+      title: '当前选中的节点',
       defaultValue: '',
       label: '选中的节点',
       setters: ['InputSetter', 'NumberSetter']
@@ -101,7 +120,19 @@ const TreeV2: MaterialDescription = {
       title: '自定义树节点的高度',
       setters: 'NumberSetter',
       defaultValue: 26
-    }
+    },
+    {
+      name: 'scrollbar-always-on',
+      title: '总是显示滚动条',
+      defaultValue: false,
+      setters: 'BooleanSetter'
+    },
+    {
+      name: 'height',
+      title: 'tree 的高度',
+      defaultValue: 200,
+      setters: 'NumberSetter'
+    },
   ],
   events: [
     'node-click',
@@ -113,7 +144,7 @@ const TreeV2: MaterialDescription = {
     'node-expand',
     'node-collapse'
   ],
-  slots: [{ name: 'default', params: ['node', 'data'] }]
+  slots: [{ name: 'default', params: ['node', 'data'] }, { name: 'empty' }]
 };
 
 export default TreeV2;
