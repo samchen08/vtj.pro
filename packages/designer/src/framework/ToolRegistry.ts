@@ -33,6 +33,14 @@ export interface ToolParameter {
    * 枚举值（仅适用于string类型）
    */
   enum?: string[];
+  /**
+   * 对象属性定义（仅在type为'object'时使用）
+   */
+  properties?: Record<string, Omit<ToolParameter, 'name'>>;
+  /**
+   * 数组元素类型定义（仅在type为'array'时使用）
+   */
+  items?: Omit<ToolParameter, 'name'>;
 }
 
 /**
@@ -166,10 +174,52 @@ export class ToolRegistry {
    * @returns 工具描述数组
    */
   generateToolDescriptions(): ToolDescription[] {
+    // 递归处理参数，确保嵌套结构被正确包含
+    const processParameter = (param: ToolParameter): ToolParameter => {
+      const result: ToolParameter = {
+        name: param.name,
+        type: param.type,
+        ...(param.description && { description: param.description }),
+        ...(param.required !== undefined && { required: param.required }),
+        ...(param.enum && { enum: param.enum })
+      };
+
+      // 处理对象属性
+      if (param.type === 'object' && param.properties) {
+        const processedProperties: Record<
+          string,
+          Omit<ToolParameter, 'name'>
+        > = {};
+        for (const [propName, propDef] of Object.entries(param.properties)) {
+          // 为属性添加名称并递归处理
+          const processedProp = processParameter({
+            name: propName,
+            ...propDef
+          });
+          // 移除name字段，因为属性名已作为键
+          const { name, ...rest } = processedProp;
+          processedProperties[propName] = rest;
+        }
+        result.properties = processedProperties;
+      }
+
+      // 处理数组元素类型
+      if (param.type === 'array' && param.items) {
+        const processedItem = processParameter({
+          name: 'item',
+          ...param.items
+        });
+        const { name, ...rest } = processedItem;
+        result.items = rest;
+      }
+
+      return result;
+    };
+
     return Object.values(this.tools).map((tool) => ({
       name: tool.name,
       description: tool.description,
-      parameters: tool.parameters
+      parameters: tool.parameters.map(processParameter)
     }));
   }
 
