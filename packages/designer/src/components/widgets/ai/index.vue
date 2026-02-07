@@ -180,7 +180,7 @@
   } from '@vtj/icons';
   import { XAction, XContainer } from '@vtj/ui';
   import { ElDrawer, ElButton, ElDivider, ElEmpty } from 'element-plus';
-  import { useAI, useAgent, type AITopic, type AIChat } from '../../hooks';
+  import { useAI, type AITopic, type AIChat } from '../../hooks';
   import { Panel } from '../../shared';
   import { message } from '../../../utils';
   import ChatRecords from './records.vue';
@@ -192,7 +192,6 @@
   import Detial from './detail.vue';
   import InviteTip from './invite-tip.vue';
   import PayTip from './pay-tip.vue';
-  useAgent();
   const {
     engine,
     isLogined,
@@ -234,26 +233,6 @@
     onPostJsonTopic,
     onCancelChat
   } = useAI();
-
-  const descriptions = engine.toolRegistry.generateToolDescriptions();
-  console.log(JSON.stringify(descriptions, null, 2));
-
-  // engine.toolRegistry.execute('getPages').then((res) => {
-  //   console.log('getPages', res);
-  // });
-
-  // engine.toolRegistry
-  //   .execute('createPage', [
-  //     { name: 'Page3', title: '页面三', layout: false },
-  //     '1fzao77c'
-  //   ])
-  //   .then((res) => {
-  //     console.log('createPage', res);
-  //   });
-
-  engine.toolRegistry.execute('active', ['1fzao77c']).then((res) => {
-    console.log('active', res);
-  });
 
   const logined = ref(true);
   const showDrawer = ref(false);
