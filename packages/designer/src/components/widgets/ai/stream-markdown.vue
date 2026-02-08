@@ -35,12 +35,45 @@
     async: true
   });
 
+  // 标签映射对象
+  const labelMap: Record<string, string> = {
+    T: '思考',
+    A: '动作',
+    O: '观察',
+    P: '计划',
+    F: '总结'
+  };
+
   const container: Ref<HTMLElement | undefined> = ref();
   const htmlContent = ref('');
 
   // 更新内容并触发高亮
   const updateContent = async () => {
-    htmlContent.value = await marked(props.content || '');
+    let content = props.content || '';
+
+    // 1. 提取并保护代码块
+    const codeBlocks: string[] = [];
+    content = content.replace(/```[\s\S]*?```/g, (match) => {
+      codeBlocks.push(match);
+      return `__CODE_BLOCK_${codeBlocks.length - 1}__`;
+    });
+
+    // 2. 替换标签行，使用映射对象的中文标签
+    content = content.replace(
+      /^(T:|A:|O:|P:|F:)(\s*)(.*)$/gm,
+      (_match, type, space, text) => {
+        const t = type.charAt(0); // 'T', 'A', 'P', 'F'
+        const chineseLabel = labelMap[t] || t;
+        return `<div class="section-label section-${t}"><span>${chineseLabel}</span></div>\n${space}${text}`;
+      }
+    );
+
+    // 3. 恢复代码块
+    content = content.replace(/__CODE_BLOCK_(\d+)__/g, (_match, index) => {
+      return codeBlocks[parseInt(index)];
+    });
+
+    htmlContent.value = await marked(content);
     await nextTick();
     container.value?.querySelectorAll('pre code').forEach((block) => {
       hljs.highlightElement(block as HTMLElement);
@@ -123,5 +156,26 @@
   .markdown-container pre {
     overflow-x: auto;
     margin: 0;
+  }
+
+  .markdown-container .section-label {
+    display: block;
+    margin: 5px 0;
+    position: relative;
+    span {
+      position: relative;
+      z-index: 1;
+      background-color: var(--el-color-info-light-9);
+      padding-right: 5px;
+      font-weight: bold;
+    }
+    &::before {
+      content: '';
+      display: block;
+      border-bottom: 1px dotted var(--el-border-color);
+      position: absolute;
+      width: 100%;
+      top: 50%;
+    }
   }
 </style>
