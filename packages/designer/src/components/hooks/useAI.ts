@@ -1,8 +1,9 @@
 import { ref, watch, type Ref, reactive, computed } from 'vue';
-import type { ProjectSchema, BlockSchema, BlockModel } from '@vtj/core';
+import type { ProjectSchema, BlockSchema } from '@vtj/core';
 import { useElementSize } from '@vueuse/core';
 import { delay, storage } from '@vtj/utils';
 import { useOpenApi } from './useOpenApi';
+import { useAgent } from './useAgent';
 import {
   type TopicDto,
   type ChatDto,
@@ -23,6 +24,7 @@ export interface AISendData {
   model: string;
   auto: boolean;
   prompt: string;
+  toolCallId?: string;
   llm?: LLM;
 }
 
@@ -57,7 +59,7 @@ function useDict(code: string, getDictOptions: (code: string) => Promise<any>) {
 async function createCommonDto(engine: UseAIOptions['engine']) {
   const projectDsl = engine.project.value?.toDsl() as ProjectSchema;
   const dsl = engine.current.value?.toDsl() as BlockSchema;
-  const source = await engine.service.genVueContent(projectDsl, dsl);
+  const source = dsl ? await engine.service.genVueContent(projectDsl, dsl) : '';
   const { pageBasePath, pageRouteName } = engine.options;
   const options = JSON.stringify({
     pageBasePath,
@@ -77,6 +79,7 @@ async function createTopicDto(
 ) {
   const { model, prompt = '', llm } = data;
   const { projectDsl, dsl, source, options } = await createCommonDto(engine);
+  const tools = engine.toolRegistry.generateToolDescriptions();
 
   const dto: TopicDto = {
     model,
@@ -85,7 +88,8 @@ async function createTopicDto(
     dsl: JSON.stringify(dsl),
     project: JSON.stringify(projectDsl),
     source,
-    llm: llm ? JSON.stringify(llm) : ''
+    llm: llm ? JSON.stringify(llm) : '',
+    tools: tools ? JSON.stringify(tools) : ''
   };
   return dto;
 }
@@ -175,6 +179,7 @@ export function useAI() {
     postJsonTopic,
     cancelChat
   } = useOpenApi();
+
   const hideCodeCacheKey = 'CHAT_HIDE_CODE';
   const region = engine.skeleton?.getRegion('Apps').regionRef;
   const isReady = ref(false);
@@ -200,6 +205,11 @@ export function useAI() {
   });
   const { height: panelHeight } = useElementSize(listRef);
 
+  const { processOutput, shouldNext, createNextPrompt } = useAgent({
+    currentTopic,
+    activeDelayMs: 300
+  });
+
   const loadChats = async (topicId: string) => {
     const res = await getChats(topicId);
     if (res && res.success) {
@@ -222,15 +232,15 @@ export function useAI() {
     }
   };
 
-  const init = async (block: BlockModel | null) => {
+  const init = async () => {
     isReady.value = false;
     settings.value = await getSettins();
     if (!settings.value) return;
-    if (!block || block.id === currentTopic.value?.fileId) return;
+    if (!engine.project.value) return;
     topics.value = [];
     chats.value = [];
     isNewChat.value = true;
-    const res = await getTopics(block.id).catch(() => null);
+    const res = await getTopics(engine.project.value.__UID__).catch(() => null);
     if (res && res.success) {
       topics.value = res.data;
     }
@@ -260,13 +270,20 @@ export function useAI() {
         if (data.auto) {
           onApply(c);
         }
+        if (shouldNext(c)) {
+          return onPostChat({
+            ...data,
+            toolCallId: c.toolCallId,
+            prompt: createNextPrompt(c)
+          });
+        }
       });
       await delay(0);
       if (panelRef.value) {
         panelRef.value.scrollToBottom();
       }
     } else {
-      await init(null);
+      await init();
     }
     return res;
   };
@@ -289,15 +306,16 @@ export function useAI() {
       const rChat = reactive(chat);
       chats.value.push(rChat);
       completions(rChat, (c) => {
-        if (c.status === 'Error' && c.message) {
+        if (c.status === 'Success' && data.auto) {
+          onApply(c);
+        }
+        if (shouldNext(c)) {
           return onPostChat({
             model: data.model,
             auto: data.auto,
-            prompt: c.message
+            toolCallId: c.toolCallId,
+            prompt: createNextPrompt(c)
           });
-        }
-        if (c.status === 'Success' && data.auto) {
-          onApply(c);
         }
       });
       await delay(0);
@@ -305,7 +323,7 @@ export function useAI() {
         panelRef.value.scrollToBottom();
       }
     } else {
-      await init(null);
+      await init();
     }
     return res;
   };
@@ -332,15 +350,16 @@ export function useAI() {
       const rChat = reactive(chat);
       chats.value.push(rChat);
       completions(rChat, (c) => {
-        if (c.status === 'Error' && c.message) {
+        if (c.status === 'Success' && data.auto) {
+          onApply(c);
+        }
+        if (shouldNext(c)) {
           return onPostChat({
             model: data.model,
             auto: data.auto,
-            prompt: c.message
+            toolCallId: c.toolCallId,
+            prompt: createNextPrompt(c)
           });
-        }
-        if (c.status === 'Success' && data.auto) {
-          onApply(c);
         }
       });
       await delay(0);
@@ -348,7 +367,7 @@ export function useAI() {
         panelRef.value.scrollToBottom();
       }
     } else {
-      await init(null);
+      await init();
     }
     return res;
   };
@@ -358,7 +377,8 @@ export function useAI() {
     loading.value = true;
     const dto: ChatDto = {
       topicId: currentTopic.value.id,
-      prompt: data.prompt
+      prompt: data.prompt,
+      toolCallId: data.toolCallId
     };
     const res = await postChat(dto).catch(() => null);
     loading.value = false;
@@ -367,14 +387,15 @@ export function useAI() {
       const chat = reactive(res.data);
       chats.value.push(chat);
       completions(chat, (c) => {
-        if (c.status === 'Error' && c.message) {
-          return onPostChat({
-            ...data,
-            prompt: c.message
-          });
-        }
         if (c.status === 'Success' && data.auto) {
           onApply(c);
+        }
+        if (shouldNext(c)) {
+          return onPostChat({
+            ...data,
+            toolCallId: c.toolCallId,
+            prompt: createNextPrompt(c)
+          });
         }
       });
       await delay(0);
@@ -382,7 +403,7 @@ export function useAI() {
         panelRef.value.scrollToBottom();
       }
     } else {
-      await init(null);
+      await init();
     }
     return res;
   };
@@ -468,36 +489,39 @@ export function useAI() {
         if (done) {
           chat.status = 'Success';
           chat.thinking = Math.ceil(thinking / 1000);
-          applyAIPatch(chat);
-          if (chat.vue && !isVueSFC(chat.vue)) {
-            chat.status = 'Failed';
-            chat.message =
-              '代码不完整，似乎被截断了，可能上下文已溢出，请开启新对话！';
-            chat.dsl = null;
-            return null;
-          }
 
-          const dsl = await vue2Dsl(chat).catch((e) => {
-            chat.message = collectErrorMesssage(e);
-            chat.status = 'Error';
-            return null;
-          });
-          if (dsl) {
-            try {
-              chat.dsl = typeof dsl === 'object' ? dsl : JSON.parse(dsl);
-              if (Array.isArray(chat.dsl)) {
-                chat.status = 'Error';
-                chat.message = collectErrorMesssage(chat.dsl);
-                chat.dsl = null;
-              }
-            } catch (err: any) {
-              chat.dsl = null;
-              chat.status = 'Error';
-              chat.message = collectErrorMesssage(err.message);
-            }
-          }
+          const output = await processOutput(chat);
+
+          // applyAIPatch(chat);
+          // if (chat.vue && !isVueSFC(chat.vue)) {
+          //   chat.status = 'Failed';
+          //   chat.message =
+          //     '代码不完整，似乎被截断了，可能上下文已溢出，请开启新对话！';
+          //   chat.dsl = null;
+          //   return null;
+          // }
+
+          // const dsl = await vue2Dsl(chat).catch((e) => {
+          //   chat.message = collectErrorMesssage(e);
+          //   chat.status = 'Error';
+          //   return null;
+          // });
+          // if (dsl) {
+          //   try {
+          //     chat.dsl = typeof dsl === 'object' ? dsl : JSON.parse(dsl);
+          //     if (Array.isArray(chat.dsl)) {
+          //       chat.status = 'Error';
+          //       chat.message = collectErrorMesssage(chat.dsl);
+          //       chat.dsl = null;
+          //     }
+          //   } catch (err: any) {
+          //     chat.dsl = null;
+          //     chat.status = 'Error';
+          //     chat.message = collectErrorMesssage(err.message);
+          //   }
+          // }
           await saveChat(chat);
-          complete && complete(chat);
+          complete && complete(output);
         }
       },
       async (err: any) => {
@@ -638,19 +662,13 @@ export function useAI() {
     () => region?.active,
     (widget) => {
       if (widget.name === 'AI') {
-        init(engine.current.value);
+        init();
       }
     },
     {
       immediate: true
     }
   );
-
-  watch(engine.current, (val, old) => {
-    if (val?.id !== old?.id) {
-      currentTopic.value = null;
-    }
-  });
 
   watch(panelHeight, () => {
     if (panelRef.value && isPending.value) {

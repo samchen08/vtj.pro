@@ -40,6 +40,7 @@ export interface TopicDto {
   prompt?: string;
   file?: File;
   options?: string;
+  tools?: string;
 }
 
 export type TopicType = 'text' | 'image' | 'json';
@@ -93,6 +94,7 @@ export interface AIChat {
 export interface ChatDto {
   topicId: string;
   prompt: string;
+  toolCallId?: string;
 }
 
 export interface ResponseWrapper<T = any> {

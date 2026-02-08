@@ -61,9 +61,8 @@
       </template>
 
       <LoginTip v-if="!logined"></LoginTip>
-      <NoFileTip v-if="logined && isNoFile"></NoFileTip>
       <NewTopic
-        v-if="isNoFile || isNewChat"
+        v-if="isNewChat"
         :models="models"
         :loading="loading"
         :model-value="promptText"
@@ -112,7 +111,6 @@
             lock-model
             @send="onPostChat"
             @cancel="handleCancelChat"></ChatInput>
-          <div class="footer">内容由 AI 生成，请仔细甄别</div>
         </div>
       </template>
 
@@ -189,7 +187,6 @@
   import Bubble from './bubble.vue';
   import LoginTip from './login-tip.vue';
   import NewTopic from './new-topic.vue';
-  import NoFileTip from './no-file-tip.vue';
   import Detial from './detail.vue';
   import InviteTip from './invite-tip.vue';
   import PayTip from './pay-tip.vue';
@@ -237,7 +234,6 @@
 
   const logined = ref(true);
   const showDrawer = ref(false);
-  const isNoFile = computed(() => !engine.current.value);
 
   const showCodeProps = computed<any>(() => {
     return isHideCode.value
@@ -254,7 +250,7 @@
   });
 
   const bodyOverflow = computed(() => {
-    return !logined.value || isNoFile.value ? 'hidden' : 'auto';
+    return !logined.value ? 'hidden' : 'auto';
   });
 
   onMounted(async () => {
@@ -265,13 +261,6 @@
     if (!logined.value) {
       message(
         '使用AI助手需登录，您还没登录或登录已失效，请重新登录！',
-        'warning'
-      );
-      return;
-    }
-    if (isNoFile.value) {
-      message(
-        '当前设计视图无任何文件，请新建或打开文件后再使用AI助',
         'warning'
       );
       return;

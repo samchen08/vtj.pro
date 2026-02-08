@@ -41,7 +41,8 @@
     A: '动作',
     O: '系统',
     P: '计划',
-    F: '总结'
+    F: '总结',
+    R: '结果'
   };
 
   const container: Ref<HTMLElement | undefined> = ref();
@@ -60,7 +61,7 @@
 
     // 2. 替换标签行，使用映射对象的中文标签
     content = content.replace(
-      /^(T:|A:|O:|P:|F:)(\s*)(.*)$/gm,
+      /^(T:|A:|O:|P:|F:|R:)(\s*)(.*)$/gm,
       (_match, type, space, text) => {
         const t = type.charAt(0); // 'T', 'A', 'P', 'F'
         const chineseLabel = labelMap[t] || t;
