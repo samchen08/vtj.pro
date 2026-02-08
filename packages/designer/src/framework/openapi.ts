@@ -86,6 +86,8 @@ export interface AIChat {
   json?: string;
   type?: TopicType;
   dataType?: TopicDataType;
+  toolCallId?: string;
+  toolContent?: string;
 }
 
 export interface ChatDto {

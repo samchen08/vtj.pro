@@ -43,6 +43,11 @@
             text
             circle></ElButton>
         </template>
+        <template v-else-if="isSystem">
+          <div v-if="props.data.prompt" class="v-ai-widget-bubble__detail">
+            <StreamMarkdown :content="props.data.prompt"></StreamMarkdown>
+          </div>
+        </template>
         <div v-else>
           <div v-if="props.data.image || props.data.json">
             <ElImage :src="getCover(props.data)"></ElImage>
@@ -98,7 +103,7 @@
   import mastergo from '../../../assets/MasterGo.png';
 
   export interface Props {
-    type: 'user' | 'ai';
+    type: 'user' | 'ai' | 'system';
     data: AIChat;
     code?: boolean;
   }
@@ -118,6 +123,7 @@
   ]);
   const coverMap = { figma, sketch, mastergo, other, unknown: other };
   const isAi = computed(() => props.type === 'ai');
+  const isSystem = computed(() => props.type === 'system');
   const isCompleted = computed(() => props.data.status === 'Success');
   const isPending = computed(() => props.data.status === 'Pending');
   const isError = computed(() => props.data.status === 'Error');
@@ -156,7 +162,8 @@
   const classes = computed(() => {
     return {
       'is-user': props.type === 'user',
-      'is-ai': props.type === 'ai'
+      'is-ai': props.type === 'ai',
+      'is-system': props.type === 'system'
     };
   });
 

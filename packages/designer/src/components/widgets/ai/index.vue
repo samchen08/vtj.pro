@@ -75,7 +75,8 @@
 
       <div v-if="!isNewChat" ref="listRef" class="v-ai-widget__bubble-list">
         <template v-for="chat of chats" :key="chat.id">
-          <Bubble type="user" :data="chat"></Bubble>
+          <Bubble type="system" v-if="chat.toolCallId" :data="chat"></Bubble>
+          <Bubble type="user" v-else :data="chat"></Bubble>
           <Bubble
             type="ai"
             :data="chat"

@@ -39,7 +39,7 @@
   const labelMap: Record<string, string> = {
     T: '思考',
     A: '动作',
-    O: '观察',
+    O: '系统',
     P: '计划',
     F: '总结'
   };
@@ -114,7 +114,6 @@
     }
     &.is-hide-code {
       .language-vue,
-      .language-json,
       .language-diff {
         height: 0;
         overflow: hidden;
