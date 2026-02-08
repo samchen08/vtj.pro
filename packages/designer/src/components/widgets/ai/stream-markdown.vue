@@ -16,6 +16,7 @@
   import javascript from 'highlight.js/lib/languages/javascript';
   import css from 'highlight.js/lib/languages/css';
   import diff from 'highlight.js/lib/languages/diff';
+  import json from 'highlight.js/lib/languages/json';
 
   const props = defineProps<{
     content?: string;
@@ -27,6 +28,7 @@
   hljs.registerLanguage('javascript', javascript);
   hljs.registerLanguage('css', css);
   hljs.registerLanguage('diff', diff);
+  hljs.registerLanguage('json', json);
 
   marked.setOptions({
     breaks: true,
@@ -72,12 +74,14 @@
   .markdown-container {
     line-height: 1.5em;
     .language-vue,
+    .language-json,
     .language-diff {
       border-radius: 4px;
       margin: 5px 0;
     }
     &.is-hide-code {
       .language-vue,
+      .language-json,
       .language-diff {
         height: 0;
         overflow: hidden;
