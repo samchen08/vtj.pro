@@ -54,6 +54,16 @@ function toJsonString(json: any) {
   return json;
 }
 
+function createResultContent(result: any) {
+  if (typeof result === 'object') {
+    return `\n\n\`\`\`json\n${toJsonString(result)}\n\`\`\`\n`;
+  } else if (isValidVueSFC(result)) {
+    return `\n\n\`\`\`vue\n${result}\n\`\`\`\n`;
+  } else {
+    return `\n\n\`\`\`diff\n${result}\n\`\`\`\n`;
+  }
+}
+
 const PARSE_RULES: readonly ParseRule[] = [
   {
     type: 'vue',
@@ -212,46 +222,49 @@ export function useAgent(config: AgentConfig) {
       });
     if (error) {
       const msg = error?.message
-        ? `错误信息：\n\n\`\`\`text\n${error.message || '未知错误'}\n\`\`\``
+        ? `错误信息：${createResultContent(error.message || '未知错误')}`
         : '';
       return `O: 工具调用执行失败！${msg}`;
     }
-    const res = result
-      ? `结果:\n\n\`\`\`json\n${toJsonString(result)}\n\`\`\``
-      : '';
+    const res = result ? `结果:${createResultContent(result)}` : '';
     return `O: 工具调用执行成功。${res}`;
   };
 
-  const applyPatch = (chat: AIChat) => {
-    const source = chat.source || '';
-    if (!source) return;
-    try {
-      const updated = codeIncrementalUpdater.parseIncrementalUpdate(
-        chat.content
-      );
-
-      if (updated) {
-        const result = codeIncrementalUpdater.applyIncrementalUpdate(
-          source,
-          updated
-        );
-        if (result.success) {
-          chat.vue = result.updatedCode;
-        } else {
-          chat.status = 'Error';
-          chat.message = result.error || '增量更新错误';
-          chat.message += `\n切换到全量生成代码模式重新生成`;
-        }
+  const getSource = (content: string) => {
+    if (content.startsWith('O:')) {
+      const result = parseOutput(content);
+      if (result?.type === 'vue') {
+        return result.content;
       }
-    } catch (e: any) {
-      chat.status = 'Error';
-      chat.message = e?.message || '增量更新错误';
-      chat.message += `\n切换到全量生成代码模式重新生成`;
+    }
+    return '';
+  };
+
+  const applyPatch = (chat: AIChat) => {
+    const source = getSource(chat.prompt) || chat.source;
+    if (!source) {
+      throw new Error('缺少基准代码，需要获取最新代码基准重新评估');
+    }
+    const updated = codeIncrementalUpdater.parseIncrementalUpdate(chat.content);
+
+    if (updated) {
+      const result = codeIncrementalUpdater.applyIncrementalUpdate(
+        source,
+        updated
+      );
+      if (result.success) {
+        chat.vue = result.updatedCode;
+      } else {
+        chat.status = 'Error';
+        chat.message = result.error || '增量更新错误';
+        chat.message += `\n需要获取最新代码基准重新评估`;
+        throw new Error(chat.message);
+      }
     }
   };
 
   const processOutput = async (chat: AIChat) => {
-    const content = chat.content;
+    const content = chat.content || chat.reasoning;
     const output = parseOutput(content);
     chat.status = 'Success';
     if (!output) return { ...chat };
@@ -267,14 +280,20 @@ export function useAgent(config: AgentConfig) {
 
     if (output.type === 'vue' || output.type === 'diff') {
       if (output.type === 'diff') {
-        applyPatch(chat);
+        try {
+          applyPatch(chat);
+        } catch (e: any) {
+          chat.status = 'Error';
+          chat.toolContent = `O: ${output.label}执行失败, 错误信息：${createResultContent(e.message)}`;
+        }
       } else {
         chat.vue = output.content;
       }
+      chat.source = chat.vue;
       const dsl = await convertVueToDsl(chat).catch((e: any) => {
         chat.message = collectErrorMessage(e);
         chat.status = 'Error';
-        chat.toolContent = `O: ${output.label}执行失败`;
+        chat.toolContent = `O: ${output.label}执行失败, 错误信息：${createResultContent(chat.message)}`;
         return null;
       });
       if (dsl) {
@@ -284,7 +303,7 @@ export function useAgent(config: AgentConfig) {
             chat.status = 'Error';
             chat.message = collectErrorMessage(_dsl);
             chat.dsl = null;
-            chat.toolContent = `O: ${output.label}执行失败`;
+            chat.toolContent = `O: ${output.label}执行失败, 错误信息：${createResultContent(chat.message)}`;
           } else {
             chat.dsl = _dsl;
             chat.toolContent = `O: ${output.label}执行成功`;
@@ -305,7 +324,8 @@ export function useAgent(config: AgentConfig) {
   };
 
   const shouldNext = (chat: AIChat) => {
-    if (chat.content.includes('\nF:') || chat.content.includes('\nR:')) {
+    const content = chat.content || chat.reasoning || '';
+    if (content.includes('\nF:') || content.includes('\nR:')) {
       return false;
     }
     if (chat.toolCallId && chat.toolContent) {
@@ -314,20 +334,30 @@ export function useAgent(config: AgentConfig) {
     if (chat.status === 'Error' && chat.message) {
       return true;
     }
+    if (chat.status === 'Failed' && chat.message) {
+      return true;
+    }
+    if (content.includes('\nP:') && !content.includes('\nA:')) {
+      return true;
+    }
+
     return false;
   };
 
   const createNextPrompt = (chat: AIChat) => {
-    return chat.toolCallId
-      ? chat.toolContent || '动作执行成功'
-      : chat.status === 'Error'
-        ? chat.message
-        : '继续生成';
+    if (chat.toolCallId) {
+      return chat.toolContent || 'O: 动作执行成功';
+    }
+    if (chat.status === 'Error' || chat.status === 'Failed') {
+      return chat.message || 'O: 动作执行失败';
+    }
+    return '执行计划';
   };
 
   const getCurrentVue = async () => {
+    if (!engine.current.value) return '';
     const projectDsl = project.value?.toDsl();
-    const dsl = engine.current.value?.toDsl();
+    const dsl = engine.current.value.toDsl();
     if (!dsl || !projectDsl) return '';
     return await service.genVueContent(projectDsl, dsl);
   };

@@ -682,6 +682,8 @@ export class ProjectModel {
       emitter.emit(EVENT_PROJECT_APIS_CHANGE, event);
       emitter.emit(EVENT_PROJECT_CHANGE, event);
     }
+
+    return match || item;
   }
 
   setApis(items: ApiSchema[], silent: boolean = false) {

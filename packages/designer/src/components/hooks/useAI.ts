@@ -205,10 +205,11 @@ export function useAI() {
   });
   const { height: panelHeight } = useElementSize(listRef);
 
-  const { processOutput, shouldNext, createNextPrompt } = useAgent({
-    currentTopic,
-    activeDelayMs: 300
-  });
+  const { processOutput, shouldNext, createNextPrompt, getCurrentVue } =
+    useAgent({
+      currentTopic,
+      activeDelayMs: 300
+    });
 
   const loadChats = async (topicId: string) => {
     const res = await getChats(topicId);
@@ -378,8 +379,10 @@ export function useAI() {
     const dto: ChatDto = {
       topicId: currentTopic.value.id,
       prompt: data.prompt,
-      toolCallId: data.toolCallId
+      toolCallId: data.toolCallId,
+      source: await getCurrentVue()
     };
+
     const res = await postChat(dto).catch(() => null);
     loading.value = false;
 

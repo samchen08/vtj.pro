@@ -45,7 +45,9 @@
         </template>
         <template v-else-if="isSystem">
           <div v-if="props.data.prompt" class="v-ai-widget-bubble__detail">
-            <StreamMarkdown :content="props.data.prompt"></StreamMarkdown>
+            <StreamMarkdown
+              :content="props.data.prompt"
+              :code="isPending || props.code"></StreamMarkdown>
           </div>
         </template>
         <div v-else>

@@ -48,6 +48,7 @@ export interface ChatDto {
   topicId: string;
   prompt: string;
   toolCallId?: string;
+  source?: string;
 }
 
 export interface ResponseWrapper<T = any> {

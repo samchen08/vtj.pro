@@ -1,6 +1,7 @@
 import type { VNode, DefineComponent, Ref } from 'vue';
 import type { ProjectModel, Service, BlockPropDataType } from '@vtj/core';
 import type { ToolRegistry, ToolParameter } from './ToolRegistry';
+import type { Engine } from './engine';
 
 export type VueComponent =
   | Record<string, any>
@@ -243,7 +244,7 @@ export interface ToolCall {
 }
 
 export interface ToolContext {
-  engine: any; // Will be refined later
+  engine: Engine;
   project: ProjectModel;
   service: Service;
   toolRegistry: ToolRegistry;
