@@ -1,14 +1,15 @@
-import { type Ref } from 'vue';
-import type { PageFile, ProjectModel, Service, ProjectSchema } from '@vtj/core';
-import { delay } from '@vtj/utils';
+import type { ProjectModel, ProjectSchema } from '@vtj/core';
 import {
   useEngine,
   codeIncrementalUpdater,
   type AIChat,
-  type AITopic,
-  type ToolParameter,
-  type ToolRegistry
+  type AgentConfig,
+  type ParseResult,
+  type ParseRule,
+  type ToolCall,
+  type ToolContext
 } from '../../framework';
+import { TOOL_CONFIGS } from '../../managers';
 
 // Constants
 const PARSER_REGEX = {
@@ -18,7 +19,7 @@ const PARSER_REGEX = {
 } as const;
 
 const DEFAULT_CONFIG = {
-  ACTIVE_DELAY_MS: 300
+  ACTIVE_DELAY_MS: 500
 } as const;
 
 // Validation functions
@@ -42,179 +43,39 @@ function isValidDiffFormat(diffContent: string): boolean {
 }
 
 function isToolCall(toolCall: any): boolean {
+  if (!toolCall) return false;
   return typeof toolCall === 'object' && !!toolCall.action;
 }
 
-interface AgentConfig {
-  activeDelayMs?: number;
-  currentTopic: Ref<AITopic | null>;
+function toJsonString(json: any) {
+  if (typeof json === 'object') {
+    return JSON.stringify(json, null, 2);
+  }
+  return json;
 }
-
-interface ParseResult {
-  type: 'vue' | 'diff' | 'json' | 'error';
-  content: any;
-}
-
-type ParseRule =
-  | {
-      type: 'vue';
-      regex: RegExp;
-      validate: (content: string) => boolean;
-    }
-  | {
-      type: 'diff';
-      regex: RegExp;
-      validate: (content: string) => boolean;
-    }
-  | {
-      type: 'json';
-      regex: RegExp;
-      parse: (content: string) => any;
-    };
 
 const PARSE_RULES: readonly ParseRule[] = [
   {
     type: 'vue',
+    label: '全量生成',
     regex: PARSER_REGEX.VUE,
     validate: isValidVueSFC
   },
   {
     type: 'diff',
+    label: '增量更新',
     regex: PARSER_REGEX.DIFF,
     validate: isValidDiffFormat
   },
   {
     type: 'json',
+    label: '工具调用',
     regex: PARSER_REGEX.JSON,
     parse: (content: string) => JSON.parse(content)
   }
 ] as const;
 
-// Tool context interface
-interface ToolContext {
-  engine: ReturnType<typeof useEngine>;
-  project: ProjectModel;
-  service: Service;
-  toolRegistry: ToolRegistry;
-  config: AgentConfig & { activeDelayMs: number };
-}
-
-// Tool configuration interface
-interface ToolConfig {
-  name: string;
-  description: string;
-  parameters: ToolParameter[];
-  createHandler: (context: ToolContext) => (...args: any[]) => Promise<any>;
-}
-
-interface ToolCall {
-  action: string;
-  parameters: any[];
-}
-
-// Tool configurations
-const TOOL_CONFIGS: ToolConfig[] = [
-  {
-    name: 'getPages',
-    description: '获取当前项目的全部页面',
-    parameters: [],
-    createHandler:
-      ({ project }) =>
-      async () => {
-        const pages = project.getPages() || [];
-        return pages.map((page: any) => {
-          const { id, name, title, layout } = page;
-          return {
-            id,
-            name,
-            title,
-            layout
-          };
-        });
-      }
-  },
-  {
-    name: 'createPage',
-    description: '新建页面',
-    parameters: [
-      {
-        name: 'page',
-        type: 'object',
-        description: 'PageFile页面对象',
-        required: true,
-        properties: {
-          name: {
-            type: 'string',
-            description: '页面名称',
-            required: true
-          },
-          title: {
-            type: 'string',
-            description: '页面标题',
-            required: true
-          },
-          layout: {
-            type: 'boolean',
-            description: '是否布局页面',
-            required: false
-          }
-        }
-      },
-      {
-        name: 'parentId',
-        type: 'string',
-        description: '父页面ID（可选）',
-        required: false
-      }
-    ],
-    createHandler:
-      ({ project }) =>
-      async (page: PageFile, parentId?: string) => {
-        const newPage = await project.createPage(page, parentId);
-        return newPage
-          ? {
-              ...page,
-              id: newPage.id
-            }
-          : null;
-      }
-  },
-  {
-    name: 'active',
-    description: '打开文件',
-    parameters: [
-      {
-        name: 'id',
-        type: 'string',
-        description: '文件(页面、区块)ID',
-        required: true
-      }
-    ],
-    createHandler:
-      ({ project, service, config }) =>
-      async (id: string) => {
-        const file = project.getFile(id);
-        if (!file) {
-          return null;
-        }
-
-        project.active(file);
-
-        await delay(config.activeDelayMs);
-        const projectDsl = project.toDsl();
-        const fileDsl = await service.getFile(id).catch(() => null);
-
-        if (projectDsl && fileDsl) {
-          return await service
-            .genVueContent(projectDsl, fileDsl)
-            .catch(() => null);
-        }
-        return null;
-      }
-  }
-];
-
-function collectErrorMesssage(msg: any) {
+function collectErrorMessage(msg: any) {
   let message = '';
   if (Array.isArray(msg)) {
     message += '页面存在以下错误，请检查并修复：\n';
@@ -232,11 +93,10 @@ export function useAgent(config: AgentConfig) {
   const activeDelayMs = config.activeDelayMs || DEFAULT_CONFIG.ACTIVE_DELAY_MS;
   const currentTopic = config.currentTopic;
 
-  const vue2Dsl = async (chat: AIChat) => {
+  const convertVueToDsl = async (chat: AIChat) => {
     if (!currentTopic.value) return;
-    const id = currentTopic.value?.fileId as string;
     const projectDsl = project.value?.toDsl() as ProjectSchema;
-    const { name = '' } = engine.current.value || {};
+    const { name = '', id = '' } = engine.current.value || {};
     const source = chat.vue;
     if (!source) return;
     return await service.parseVue(projectDsl, {
@@ -266,20 +126,41 @@ export function useAgent(config: AgentConfig) {
   });
 
   const parseOutput = (content: string): ParseResult | null => {
+    // Early return for empty content
+    if (!content || typeof content !== 'string') {
+      return null;
+    }
+
+    // Check for code block markers to skip unnecessary regex matching
+    const hasVueBlock = content.includes('```vue');
+    const hasDiffBlock = content.includes('```diff');
+    const hasJsonBlock = content.includes('```json');
+
     for (const rule of PARSE_RULES) {
-      const matches = content.match(rule.regex);
-      if (!matches?.[1]) {
-        continue;
-      }
+      // Skip rule if content doesn't contain markers for this type
+      if (rule.type === 'vue' && !hasVueBlock) continue;
+      if (rule.type === 'diff' && !hasDiffBlock) continue;
+      if (rule.type === 'json' && !hasJsonBlock) continue;
+
+      // Use test() for quick existence check (fast path)
+      if (!rule.regex.test(content)) continue;
+
+      // Now do the full match
+      const matches = rule.regex.exec(content);
+      if (!matches?.[1]) continue;
+
       const extractedContent = matches[1];
 
-      if (rule.type === 'diff') {
+      if (rule.type === 'json') {
         try {
           const toolCall = JSON.parse(extractedContent);
           if (!isToolCall(toolCall)) {
             continue;
           }
-        } catch (_e) {}
+        } catch (_e) {
+          // Not valid JSON, skip this match
+          continue;
+        }
       }
 
       // Execute validation if applicable
@@ -290,6 +171,7 @@ export function useAgent(config: AgentConfig) {
       ) {
         return {
           type: 'error',
+          label: rule.label,
           content: `Invalid ${rule.type} format`
         };
       }
@@ -299,11 +181,13 @@ export function useAgent(config: AgentConfig) {
         try {
           return {
             type: rule.type,
+            label: rule.label,
             content: rule.parse(extractedContent)
           };
         } catch (error) {
           return {
             type: 'error',
+            label: rule.label,
             content: error instanceof Error ? error.message : String(error)
           };
         }
@@ -311,6 +195,7 @@ export function useAgent(config: AgentConfig) {
 
       return {
         type: rule.type,
+        label: rule.label,
         content: extractedContent
       };
     }
@@ -327,12 +212,14 @@ export function useAgent(config: AgentConfig) {
       });
     if (error) {
       const msg = error?.message
-        ? `错误信息：${error.message || '未知错误'}`
+        ? `错误信息：\n\n\`\`\`text\n${error.message || '未知错误'}\n\`\`\``
         : '';
-      return `O: 动作执行失败！${msg}`;
+      return `O: 工具调用执行失败！${msg}`;
     }
-    const res = result ? `结果:\n${result}` : '';
-    return `O: 动作执行成功。${res}`;
+    const res = result
+      ? `结果:\n\n\`\`\`json\n${toJsonString(result)}\n\`\`\``
+      : '';
+    return `O: 工具调用执行成功。${res}`;
   };
 
   const applyPatch = (chat: AIChat) => {
@@ -367,10 +254,7 @@ export function useAgent(config: AgentConfig) {
     const content = chat.content;
     const output = parseOutput(content);
     chat.status = 'Success';
-
-    if (!output) return chat;
-
-    // chat.toolCallId = output.type;
+    if (!output) return { ...chat };
 
     if (output.type === 'error') {
       chat.status = 'Error';
@@ -387,10 +271,10 @@ export function useAgent(config: AgentConfig) {
       } else {
         chat.vue = output.content;
       }
-      const dsl = await vue2Dsl(chat).catch((e) => {
-        chat.message = collectErrorMesssage(e);
+      const dsl = await convertVueToDsl(chat).catch((e: any) => {
+        chat.message = collectErrorMessage(e);
         chat.status = 'Error';
-        chat.toolContent = '动作执行失败';
+        chat.toolContent = `O: ${output.label}执行失败`;
         return null;
       });
       if (dsl) {
@@ -398,18 +282,18 @@ export function useAgent(config: AgentConfig) {
           const _dsl = typeof dsl === 'object' ? dsl : JSON.parse(dsl);
           if (Array.isArray(_dsl)) {
             chat.status = 'Error';
-            chat.message = collectErrorMesssage(_dsl);
+            chat.message = collectErrorMessage(_dsl);
             chat.dsl = null;
-            chat.toolContent = '动作执行失败';
+            chat.toolContent = `O: ${output.label}执行失败`;
           } else {
             chat.dsl = _dsl;
-            chat.toolContent = '动作执行成功';
+            chat.toolContent = `O: ${output.label}执行成功`;
           }
         } catch (err: any) {
           chat.dsl = null;
           chat.status = 'Error';
-          chat.message = collectErrorMesssage(err.message);
-          chat.toolContent = '动作执行失败';
+          chat.message = collectErrorMessage(err.message);
+          chat.toolContent = `O: ${output.label}执行失败`;
         }
       }
     }
@@ -421,6 +305,9 @@ export function useAgent(config: AgentConfig) {
   };
 
   const shouldNext = (chat: AIChat) => {
+    if (chat.content.includes('\nF:') || chat.content.includes('\nR:')) {
+      return false;
+    }
     if (chat.toolCallId && chat.toolContent) {
       return true;
     }
@@ -438,13 +325,21 @@ export function useAgent(config: AgentConfig) {
         : '继续生成';
   };
 
+  const getCurrentVue = async () => {
+    const projectDsl = project.value?.toDsl();
+    const dsl = engine.current.value?.toDsl();
+    if (!dsl || !projectDsl) return '';
+    return await service.genVueContent(projectDsl, dsl);
+  };
+
   return {
     engine,
     parseOutput,
     callTool,
     processOutput,
     shouldNext,
-    createNextPrompt
+    createNextPrompt,
+    getCurrentVue
   };
 }
 

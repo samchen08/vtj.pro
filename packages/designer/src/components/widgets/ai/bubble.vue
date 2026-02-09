@@ -1,7 +1,7 @@
 <template>
   <div class="v-ai-widget-bubble" :class="classes">
     <ElAvatar
-      v-if="isAi"
+      v-if="isAi || isSystem"
       class="v-ai-widget-bubble__avatar"
       :size="24"
       :icon="VtjIconAi"></ElAvatar>
@@ -124,7 +124,13 @@
   const coverMap = { figma, sketch, mastergo, other, unknown: other };
   const isAi = computed(() => props.type === 'ai');
   const isSystem = computed(() => props.type === 'system');
-  const isCompleted = computed(() => props.data.status === 'Success');
+  const isCompleted = computed(() => {
+    const { status, content } = props.data;
+    return (
+      status === 'Success' &&
+      (content.includes('```vue') || content.includes('```diff'))
+    );
+  });
   const isPending = computed(() => props.data.status === 'Pending');
   const isError = computed(() => props.data.status === 'Error');
   const collasped = ref(props.data.collapsed);

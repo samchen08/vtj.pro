@@ -115,6 +115,7 @@
     }
     &.is-hide-code {
       .language-vue,
+      .language-json,
       .language-diff {
         height: 0;
         overflow: hidden;
@@ -138,6 +139,10 @@
         &:hover {
           opacity: 0.7;
         }
+      }
+
+      .language-json {
+        cursor: not-allowed;
       }
     }
 

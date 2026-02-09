@@ -421,10 +421,9 @@ export function useAI() {
   };
 
   const vue2Dsl = async (chat: AIChat) => {
-    if (!currentTopic.value) return;
-    const id = currentTopic.value?.fileId as string;
+    if (!engine.current.value) return;
     const project = engine.project.value?.toDsl() as ProjectSchema;
-    const { name = '' } = engine.current.value || {};
+    const { name = '', id = '' } = engine.current.value || {};
     const source = chat.vue || getVueCode(chat.content);
     if (!source) return;
     return await engine.service.parseVue(project, {
@@ -432,26 +431,6 @@ export function useAI() {
       name,
       source
     });
-  };
-
-  const collectErrorMesssage = (msg: any) => {
-    let message = '';
-    if (Array.isArray(msg)) {
-      message += '页面存在以下错误，请检查并修复：\n';
-      message += msg.join(';\n');
-    }
-    return message
-      ? message
-      : '请检查代码是否有错误，是否符合模版和规则要求，并改正';
-  };
-
-  const isVueSFC = (content: string) => {
-    const trimmed = content.trim();
-    return (
-      trimmed.endsWith('</template>') ||
-      trimmed.endsWith('</script>') ||
-      trimmed.endsWith('</style>')
-    );
   };
 
   const completions = async (
@@ -489,37 +468,7 @@ export function useAI() {
         if (done) {
           chat.status = 'Success';
           chat.thinking = Math.ceil(thinking / 1000);
-
           const output = await processOutput(chat);
-
-          // applyAIPatch(chat);
-          // if (chat.vue && !isVueSFC(chat.vue)) {
-          //   chat.status = 'Failed';
-          //   chat.message =
-          //     '代码不完整，似乎被截断了，可能上下文已溢出，请开启新对话！';
-          //   chat.dsl = null;
-          //   return null;
-          // }
-
-          // const dsl = await vue2Dsl(chat).catch((e) => {
-          //   chat.message = collectErrorMesssage(e);
-          //   chat.status = 'Error';
-          //   return null;
-          // });
-          // if (dsl) {
-          //   try {
-          //     chat.dsl = typeof dsl === 'object' ? dsl : JSON.parse(dsl);
-          //     if (Array.isArray(chat.dsl)) {
-          //       chat.status = 'Error';
-          //       chat.message = collectErrorMesssage(chat.dsl);
-          //       chat.dsl = null;
-          //     }
-          //   } catch (err: any) {
-          //     chat.dsl = null;
-          //     chat.status = 'Error';
-          //     chat.message = collectErrorMesssage(err.message);
-          //   }
-          // }
           await saveChat(chat);
           complete && complete(output);
         }
@@ -546,10 +495,8 @@ export function useAI() {
 
   const updateChatDsl = async (source: string) => {
     if (!currentTopic.value || !currentChat.value || !source) return;
-    const id = currentTopic.value?.fileId as string;
+    const { name = '', id = '' } = engine.current.value || {};
     const project = engine.project.value?.toDsl() as ProjectSchema;
-    const { name = '' } = engine.current.value || {};
-
     const dsl = await engine.service
       .parseVue(project, {
         id,
@@ -608,6 +555,10 @@ export function useAI() {
 
   const onApply = (chat: AIChat, manual?: boolean) => {
     if (chat.dsl) {
+      const id = engine.current.value?.id;
+      if (id) {
+        chat.dsl.id = id;
+      }
       engine.applyAI(chat.dsl);
     } else {
       if (manual) {

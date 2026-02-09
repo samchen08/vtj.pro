@@ -1,4 +1,5 @@
 import type { PlatformType, BlockSchema } from '@vtj/core';
+import type { AITopic, AIChat } from './types';
 export interface TemplateDto {
   id: string;
   name: string;
@@ -41,54 +42,6 @@ export interface TopicDto {
   file?: File;
   options?: string;
   tools?: string;
-}
-
-export type TopicType = 'text' | 'image' | 'json';
-
-export type TopicDataType = 'sketch' | 'figma' | 'mastergo' | 'unknown';
-
-export interface AITopic {
-  id: string;
-  appId: string;
-  createAt: string;
-  fileId: string;
-  isHot: boolean;
-  model: string;
-  platform: string;
-  projectId: string;
-  title: string;
-  prompt: string;
-  dependencies: string;
-  dsl: any;
-  image?: string;
-  json?: string;
-  type?: TopicType;
-  dataType?: TopicDataType;
-}
-
-export interface AIChat {
-  id: string;
-  content: string;
-  createdAt: string;
-  dsl: any;
-  message: string;
-  source?: string;
-  prompt: string;
-  reasoning: string;
-  status: 'Pending' | 'Success' | 'Failed' | 'Error' | 'Canceled';
-  tokens: number;
-  topicId: string;
-  userId: string;
-  userName: string;
-  thinking: number;
-  vue: string;
-  collapsed?: boolean;
-  image?: string;
-  json?: string;
-  type?: TopicType;
-  dataType?: TopicDataType;
-  toolCallId?: string;
-  toolContent?: string;
 }
 
 export interface ChatDto {
