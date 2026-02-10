@@ -208,7 +208,7 @@ export function useAI() {
   const { processOutput, shouldNext, createNextPrompt, getCurrentVue } =
     useAgent({
       currentTopic,
-      activeDelayMs: 300
+      activeDelayMs: 1500
     });
 
   const loadChats = async (topicId: string) => {
@@ -552,6 +552,14 @@ export function useAI() {
     return completions(chat, (c) => {
       if (engine.state.autoApply) {
         onApply(c);
+      }
+      if (shouldNext(c)) {
+        return onPostChat({
+          model: currentTopic.value?.model as string,
+          auto: engine.state.autoApply,
+          toolCallId: c.toolCallId,
+          prompt: createNextPrompt(c)
+        });
       }
     });
   };

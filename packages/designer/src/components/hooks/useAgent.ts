@@ -19,7 +19,7 @@ const PARSER_REGEX = {
 } as const;
 
 const DEFAULT_CONFIG = {
-  ACTIVE_DELAY_MS: 500
+  ACTIVE_DELAY_MS: 1500
 } as const;
 
 // Validation functions
@@ -267,6 +267,7 @@ export function useAgent(config: AgentConfig) {
     const content = chat.content || chat.reasoning;
     const output = parseOutput(content);
     chat.status = 'Success';
+
     if (!output) return { ...chat };
 
     if (output.type === 'error') {
