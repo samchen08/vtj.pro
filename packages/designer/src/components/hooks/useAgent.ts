@@ -1,4 +1,5 @@
 import type { ProjectModel, ProjectSchema } from '@vtj/core';
+import { delay } from '@vtj/utils';
 import {
   useEngine,
   codeIncrementalUpdater,
@@ -135,11 +136,13 @@ export function useAgent(config: AgentConfig) {
     });
   });
 
-  const parseOutput = (content: string): ParseResult | null => {
+  const parseOutput = (content: string, flag?: string): ParseResult | null => {
     // Early return for empty content
     if (!content || typeof content !== 'string') {
       return null;
     }
+
+    if (flag && !content.includes(flag)) return null;
 
     // Check for code block markers to skip unnecessary regex matching
     const hasVueBlock = content.includes('```vue');
@@ -220,6 +223,7 @@ export function useAgent(config: AgentConfig) {
       .catch((e) => {
         error = e;
       });
+    await delay(1000);
     if (error) {
       const msg = error?.message
         ? `错误信息：${createResultContent(error.message || '未知错误')}`
@@ -265,7 +269,7 @@ export function useAgent(config: AgentConfig) {
 
   const processOutput = async (chat: AIChat) => {
     const content = chat.content || chat.reasoning;
-    const output = parseOutput(content);
+    const output = parseOutput(content, '\nA:');
     chat.status = 'Success';
 
     if (!output) return { ...chat };

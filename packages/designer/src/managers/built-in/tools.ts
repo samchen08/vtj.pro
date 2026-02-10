@@ -522,7 +522,7 @@ const getGlobalCss: ToolConfig = {
     ({ project, config }) =>
     async () => {
       await delay(config.activeDelayMs);
-      return project.globals.css || '';
+      return project.globals.css || '没有全局CSS';
     }
 };
 
@@ -571,6 +571,9 @@ store的代码是一个js函数，函数接收的app参数是 Vue的应用实例
     }
 };
 
+/**
+ * 获取应用全局状态
+ */
 const getGlobalStore: ToolConfig = {
   name: 'getGlobalStore',
   description: '获取应用的全局状态(Pinia Store)',
@@ -579,7 +582,515 @@ const getGlobalStore: ToolConfig = {
     ({ project, config }) =>
     async () => {
       await delay(config.activeDelayMs);
-      return project.globals.store?.value || '';
+      return project.globals.store?.value || '当前没有配置全局状态';
+    }
+};
+
+/**
+ * 配置权限控制插件
+ */
+const setGlobalAccess: ToolConfig = {
+  name: 'setGlobalAccess',
+  description: `设置权限控制插件配置项, 配置样例：
+\`\`\`javascript  
+(app) => {
+  return {
+    session: false,
+    authKey: 'Authorization',
+    storageKey: 'ACCESS_STORAGE',
+    auth: '/#/login',
+    whiteList: (to) => true,
+    redirectParam: 'r',
+    unauthorizedCode: 401,
+    unauthorizedMessage: '登录已经失效，请重新登录！',
+    noPermissionMessage: '无权限访问该页面',
+    statusKey: 'code'
+  }
+}
+\`\`\`
+
+权限控制配置的代码是一个js函数，函数接收的app参数是 Vue的应用实例，函数返回 AccessOptions 配置项对象
+
+配置项说明：
+
+export interface AccessOptions {
+  /**
+   * 开启session, token 储存到cookie，关闭浏览器将登录失效
+   */
+  session: boolean;
+
+  /**
+   * 请求头和cookie记录token名称
+   */
+  authKey: string;
+
+  /**
+   * 本地缓存key前缀
+   */
+  storagePrefix: string;
+
+  /**
+   * 本地缓存key
+   */
+  storageKey: string;
+
+  /**
+   * 路由拦截白名单
+   */
+  whiteList?: string[] | ((to: RouteLocationNormalized) => boolean);
+
+  /**
+   * 未授权页面路由路径
+   */
+  unauthorized?: string | (() => void);
+
+  /**
+   * 授权登录页面 pathname
+   */
+  auth?: string | ((search: string) => void);
+
+  /**
+   * 判断是否登录页面
+   * @param path
+   * @returns
+   */
+  isAuth?: (to: RouteLocationNormalized) => boolean;
+
+  /**
+   * 重定向参数名
+   */
+  redirectParam?: string;
+
+  /**
+   * 未登录响应状态码
+   */
+  unauthorizedCode?: number;
+
+  /**
+   * 提示信息方法
+   * @param message
+   * @returns
+   */
+  alert?: (message: string, options?: Record<string, any>) => Promise<any>;
+
+  /**
+   * 未登录提示文本
+   */
+  unauthorizedMessage?: string;
+
+  /**
+   * 无权限提示
+   */
+  noPermissionMessage?: string;
+
+  /**
+   * RSA解密私钥
+   */
+  privateKey?: string;
+
+  /**
+   * 应用编码
+   */
+  appName?: string;
+
+  /**
+   * 请求响应数据状态的key
+   */
+  statusKey?: string;
+}
+
+  `,
+  parameters: [
+    {
+      name: 'access',
+      type: 'string',
+      description: `配置函数代码`,
+      required: true
+    }
+  ],
+  createHandler:
+    ({ project, config }) =>
+    async (access: string) => {
+      project.setGloblas('access', {
+        type: 'JSFunction',
+        value: access
+      });
+      await delay(config.activeDelayMs);
+      return true;
+    }
+};
+
+/**
+ * 查看权限配置
+ */
+const getGlobalAccess: ToolConfig = {
+  name: 'getGlobalAccess',
+  description: '查看权限控制插件配置项',
+  parameters: [],
+  createHandler:
+    ({ project, config }) =>
+    async () => {
+      await delay(config.activeDelayMs);
+      return project.globals.access?.value || '当前没有配置权限控制插件';
+    }
+};
+
+/**
+ * 查看全局请求配置
+ */
+const getGolbalAxios: ToolConfig = {
+  name: 'getGolbalAxios',
+  description: '查看Axios请求工具配置项',
+  parameters: [],
+  createHandler:
+    ({ project, config }) =>
+    async () => {
+      await delay(config.activeDelayMs);
+      return project.globals.axios?.value || '当前没有配置请求工具';
+    }
+};
+
+/**
+ * 配置全局请求
+ */
+const setGolbalAxios: ToolConfig = {
+  name: 'setGolbalAxios',
+  description: `
+设置全局Axios请求工具配置项, 配置样例：
+\`\`\`javascript  
+(app) => {
+  return {
+    baseURL: '/',
+    timeout: 60000,
+    settings: {
+      type: 'form',
+      validSuccess: true,
+      originResponse: false,
+      loading: true,
+      failMessage: true,
+      validate: (res) => {
+        return res.data?.code === 0 || !!res.data?.success;
+      }
+    }
+  }
+}
+\`\`\`
+设置全局Axios请求工具配置项的代码是一个js函数，函数接收的app参数是 Vue的应用实例，函数返回 IRequestOptions 配置项对象
+
+export interface IRequestOptions extends CreateAxiosDefaults {
+  settings?: IRequestSettings;
+}
+
+settings 配置项说明：
+
+export interface IRequestSettings {
+  /**
+   * 发送数据类型
+   */
+  type?: 'form' | 'json' | 'data';
+
+  /**
+   *  是否注入自定义的请求头
+   */
+  injectHeaders?: boolean;
+
+  /**
+   * 自定义请求头
+   */
+  headers?:
+    | RawAxiosRequestHeaders
+    | ((
+        id: string,
+        config: AxiosRequestConfig,
+        settings: IRequestSettings
+      ) => RawAxiosRequestHeaders);
+  /**
+   * 是否显示 loading
+   */
+  loading?: boolean;
+
+  /**
+   * 显示 loading
+   */
+  showLoading?: () => void;
+  /**
+   * 关闭 loading
+   */
+  hideLoading?: () => void;
+
+  /**
+   * 显示失败提示
+   */
+  failMessage?: boolean;
+
+  /**
+   * 自定义失败提示
+   */
+  showError?: (msg: string, e: any) => void;
+
+  /**
+   *  返回原始 axios 响应对象
+   */
+  originResponse?: boolean;
+
+  /**
+   * 校验响应成功
+   */
+  validSuccess?: boolean;
+
+  /**
+   * 自定义校验方法
+   */
+  validate?: (res: AxiosResponse) => boolean;
+
+  /**
+   * 请求响应警告执行程序插件
+   */
+  skipWarn?: IRequestSkipWarn;
+
+}
+  `,
+  parameters: [
+    {
+      name: 'axios',
+      type: 'string',
+      description: `配置函代码`,
+      required: true
+    }
+  ],
+  createHandler:
+    ({ project, config }) =>
+    async (axios: string) => {
+      project.setGloblas('axios', {
+        type: 'JSFunction',
+        value: axios
+      });
+      await delay(config.activeDelayMs);
+      return true;
+    }
+};
+
+/**
+ * 设置请求拦截器
+ */
+const setGolbalRequestInterceptor: ToolConfig = {
+  name: 'setGolbalRequestInterceptor',
+  description: `设置全局Axios全局请求拦截器, 代码样例：
+
+\`\`\`javascript
+(config, app) => {
+  return config;
+}
+\`\`\`
+
+axios请求拦截的代码是一个js函数，函数接收两个参数:
+- config: 请求的配置
+- app: 当前Vue应用的实例
+
+函数需要返回请求配置
+  
+`,
+  parameters: [
+    {
+      name: 'request',
+      type: 'string',
+      description: `配置函代码`,
+      required: true
+    }
+  ],
+  createHandler:
+    ({ project, config }) =>
+    async (request: string) => {
+      project.setGloblas('request', {
+        type: 'JSFunction',
+        value: request
+      });
+      await delay(config.activeDelayMs);
+      return true;
+    }
+};
+
+/**
+ * 查看请求拦截器
+ */
+const getGolbalRequestInterceptor: ToolConfig = {
+  name: 'getGolbalRequestInterceptor',
+  description: '查看全局Axios全局请求拦截器',
+  parameters: [],
+  createHandler:
+    ({ project, config }) =>
+    async () => {
+      await delay(config.activeDelayMs);
+      return project.globals.request?.value || '当前没有配置请求拦截器';
+    }
+};
+
+/**
+ * 设置响应拦截器
+ */
+const setGolbalResponseInterceptor: ToolConfig = {
+  name: 'setGolbalResponseInterceptor',
+  description: `设置全局Axios全局响应拦截器, 代码样例：
+
+\`\`\`javascript
+(res, app) => {
+  return res;
+}
+\`\`\`
+
+axios响应拦截的代码是一个js函数，函数接收两个参数:
+- res: Axios原始响应对象
+- app: 当前Vue应用的实例
+
+函数需要返回响应对象
+  
+`,
+  parameters: [
+    {
+      name: 'response',
+      type: 'string',
+      description: `配置函代码`,
+      required: true
+    }
+  ],
+  createHandler:
+    ({ project, config }) =>
+    async (response: string) => {
+      project.setGloblas('response', {
+        type: 'JSFunction',
+        value: response
+      });
+      await delay(config.activeDelayMs);
+      return true;
+    }
+};
+
+/**
+ * 查看响应拦截器
+ */
+const getGolbalResponseInterceptor: ToolConfig = {
+  name: 'getGolbalResponseInterceptor',
+  description: '查看全局Axios全局响应拦截器',
+  parameters: [],
+  createHandler:
+    ({ project, config }) =>
+    async () => {
+      await delay(config.activeDelayMs);
+      return project.globals.response?.value || '当前没有配置响应拦截器';
+    }
+};
+
+/**
+ * 查看路由前置守卫
+ */
+const getGolbalBeforeEach: ToolConfig = {
+  name: 'getGolbalBeforeEach',
+  description: '查看全局前置路由守卫',
+  parameters: [],
+  createHandler:
+    ({ project, config }) =>
+    async () => {
+      await delay(config.activeDelayMs);
+      return project.globals.beforeEach?.value || '当前没有全局前置路由守卫';
+    }
+};
+
+/**
+ * 查看路由后置守卫
+ */
+const getGolbalAfterEach: ToolConfig = {
+  name: 'getGolbalAfterEach',
+  description: '查看全局后置路由守卫',
+  parameters: [],
+  createHandler:
+    ({ project, config }) =>
+    async () => {
+      await delay(config.activeDelayMs);
+      return project.globals.afterEach?.value || '当前没有全局后置路由守卫';
+    }
+};
+
+/**
+ * 设置路由后置守卫
+ */
+const setGolbalBeforeEach: ToolConfig = {
+  name: 'setGolbalBeforeEach',
+  description: `设置全局前置路由守卫, 代码样例：
+
+\`\`\`javascript
+(to, from, next, app) => {
+  next();
+}
+\`\`\`
+
+前置路由守卫的代码是一个js函数，函数接收4个参数:
+- to: 即将要进入的目标
+- from: 当前导航正要离开的路由
+- next: 执行函数
+- app: 当前Vue应用的实例
+
+函数需要返回响应对象
+  
+`,
+  parameters: [
+    {
+      name: 'value',
+      type: 'string',
+      description: `配置函代码`,
+      required: true
+    }
+  ],
+  createHandler:
+    ({ project, config }) =>
+    async (value: string) => {
+      project.setGloblas('beforeEach', {
+        type: 'JSFunction',
+        value: value
+      });
+      await delay(config.activeDelayMs);
+      return true;
+    }
+};
+
+/**
+ * 设置路由后置守卫
+ */
+const setGolbalAfterEach: ToolConfig = {
+  name: 'setGolbalAfterEach',
+  description: `设置全局后置路由守卫, 代码样例：
+
+\`\`\`javascript
+(to, from, failure, app) => {
+
+}
+\`\`\`
+
+前置路由守卫的代码是一个js函数，函数接收4个参数:
+- to: 即将要进入的目标
+- from: 当前导航正要离开的路由
+- failure: 失败
+- app: 当前Vue应用的实例
+
+函数需要返回响应对象
+  
+`,
+  parameters: [
+    {
+      name: 'value',
+      type: 'string',
+      description: `配置函代码`,
+      required: true
+    }
+  ],
+  createHandler:
+    ({ project, config }) =>
+    async (value: string) => {
+      project.setGloblas('afterEach', {
+        type: 'JSFunction',
+        value: value
+      });
+      await delay(config.activeDelayMs);
+      return true;
     }
 };
 
@@ -602,5 +1113,17 @@ export const TOOL_CONFIGS: ToolConfig[] = [
   setGlobalCss,
   getGlobalCss,
   setGlobalStore,
-  getGlobalStore
+  getGlobalStore,
+  setGlobalAccess,
+  getGlobalAccess,
+  getGolbalAxios,
+  setGolbalAxios,
+  setGolbalRequestInterceptor,
+  getGolbalRequestInterceptor,
+  getGolbalResponseInterceptor,
+  setGolbalResponseInterceptor,
+  getGolbalBeforeEach,
+  getGolbalAfterEach,
+  setGolbalBeforeEach,
+  setGolbalAfterEach
 ];

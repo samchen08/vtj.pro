@@ -485,6 +485,7 @@ export class Provider extends Base {
             ? err
             : err?.message || err?.msg || '未知错误';
         const message = `[ ${name} ] ${msg} ${info}`;
+        if (message.includes('ResizeObserver')) return;
         console.error(
           '[VTJ Error]:',
           {

@@ -23,18 +23,20 @@
     </div>
     <div class="v-apps-region__panels">
       <template v-for="widget in panelWidgets" :key="widget.name">
-        <WidgetWrapper
-          ref="widgetsRef"
-          v-if="active?.name === widget.name"
-          :region="region"
-          :widget="widget"></WidgetWrapper>
+        <KeepAlive>
+          <WidgetWrapper
+            ref="widgetsRef"
+            v-if="active?.name === widget.name"
+            :region="region"
+            :widget="widget"></WidgetWrapper>
+        </KeepAlive>
       </template>
     </div>
   </div>
 </template>
 <script lang="ts" setup>
   // @ts-ignore
-  import { computed, ref, watch, h, markRaw } from 'vue';
+  import { computed, ref, KeepAlive, watch, h, markRaw } from 'vue';
   import { createDialog } from '@vtj/ui';
   import { WidgetWrapper } from '../../wrappers';
   import { useEngine, RegionType, type AppWidget } from '../../framework';

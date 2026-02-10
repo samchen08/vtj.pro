@@ -215,7 +215,11 @@ export class Renderer {
   dispose() {
     if (this.app) {
       const { platform = 'web' } = this.project || {};
-      this.app.unmount();
+      try {
+        this.app.unmount();
+      } catch (e: any) {
+        console.warn(e);
+      }
       const $route = this.app.config.globalProperties.$route;
       if ($route) {
         $route.meta = {};

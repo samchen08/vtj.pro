@@ -1,4 +1,4 @@
-import { ref, watch, type Ref, reactive, computed } from 'vue';
+import { ref, watch, type Ref, reactive, computed, onMounted } from 'vue';
 import type { ProjectSchema, BlockSchema } from '@vtj/core';
 import { useElementSize } from '@vueuse/core';
 import { delay, storage } from '@vtj/utils';
@@ -620,17 +620,7 @@ export function useAI() {
     }
   };
 
-  watch(
-    () => region?.active,
-    (widget) => {
-      if (widget.name === 'AI') {
-        init();
-      }
-    },
-    {
-      immediate: true
-    }
-  );
+  onMounted(init);
 
   watch(panelHeight, () => {
     if (panelRef.value && isPending.value) {
