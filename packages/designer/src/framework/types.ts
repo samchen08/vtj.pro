@@ -107,6 +107,11 @@ export interface AppWidget extends Widget {
    * 链接url，openType 为 link 时有效
    */
   url?: string;
+
+  /**
+   * 是否加缓存，openType 为 panel 有效
+   */
+  cache?: boolean;
 }
 
 /**

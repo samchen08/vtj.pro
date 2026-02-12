@@ -181,7 +181,7 @@ export function useAI() {
   } = useOpenApi();
 
   const hideCodeCacheKey = 'CHAT_HIDE_CODE';
-  const region = engine.skeleton?.getRegion('Apps').regionRef;
+  // const region = engine.skeleton?.getRegion('Apps').regionRef;
   const isReady = ref(false);
   const loading = ref(false);
   const isNewChat = ref(true);

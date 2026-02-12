@@ -23,13 +23,20 @@
     </div>
     <div class="v-apps-region__panels">
       <template v-for="widget in panelWidgets" :key="widget.name">
-        <KeepAlive>
+        <KeepAlive v-if="widget.cache">
           <WidgetWrapper
             ref="widgetsRef"
             v-if="active?.name === widget.name"
             :region="region"
             :widget="widget"></WidgetWrapper>
         </KeepAlive>
+        <template v-else>
+          <WidgetWrapper
+            ref="widgetsRef"
+            v-if="active?.name === widget.name"
+            :region="region"
+            :widget="widget"></WidgetWrapper>
+        </template>
       </template>
     </div>
   </div>
