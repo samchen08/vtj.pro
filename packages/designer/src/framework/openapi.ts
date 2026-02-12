@@ -231,7 +231,7 @@ export abstract class OpenApi {
   /**
    * 获取AI设置
    */
-  public abstract getSettins?: () => Promise<Settings>;
+  public abstract getSettings?: () => Promise<Settings>;
   /**
    * 创建订单
    */
@@ -255,4 +255,12 @@ export abstract class OpenApi {
    * 获取文件url
    */
   public abstract getOssFile?: (path?: string) => string | undefined;
+
+  /**
+   * 获取技能文档
+   */
+  public abstract getSkills?: (
+    platform: PlatformType,
+    ids: string[]
+  ) => Promise<ResponseWrapper<string>>;
 }

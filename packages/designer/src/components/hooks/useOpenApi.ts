@@ -428,9 +428,9 @@ export function useOpenApi() {
     return () => controller.abort();
   };
 
-  const getSettins = async () => {
-    if (openApi?.getSettins) {
-      return await openApi?.getSettins();
+  const getSettings = async () => {
+    if (openApi?.getSettings) {
+      return await openApi?.getSettings();
     }
     const token = access?.getData()?.token;
     if (!token) return undefined;
@@ -490,26 +490,22 @@ export function useOpenApi() {
       .catch(() => null);
   };
 
-  // const uploader = async (file: File) => {
-  //   if (openApi?.uploader) {
-  //     return await openApi?.uploader(file);
-  //   }
-  //   const token = access?.getData()?.token;
-  //   const api = `${remote}/api/open/upload/${token}`;
-  //   const data = new FormData();
-  //   data.append('file', file);
-  //   return await window
-  //     .fetch(api, {
-  //       method: 'post',
-  //       body: data
-  //     })
-  //     .then((res) => res.json())
-  //     .catch(async (e) => {
-  //       await alert(e.message || '上传失败');
-  //       return null;
-  //     });
-  // };
-
+  const getSkills = async (ids: string[]) => {
+    const platform = engine.project.value?.platform || 'web';
+    if (openApi?.getSkills) {
+      return await openApi.getSkills(platform, ids);
+    }
+    const api = `${remote}/api/open/skills/${platform}`;
+    const res = await window.fetch(api, {
+      method: 'post',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(ids)
+    });
+    const result = await res.json();
+    return result?.data || '';
+  };
   return {
     engine,
     access,
@@ -532,7 +528,7 @@ export function useOpenApi() {
     chatCompletions,
     saveChat,
     getHotTopics,
-    getSettins,
+    getSettings,
     createOrder,
     cancelOrder,
     getOrder,
@@ -540,6 +536,7 @@ export function useOpenApi() {
     getOssFile,
     postImageTopic,
     postJsonTopic,
-    cancelChat
+    cancelChat,
+    getSkills
   };
 }

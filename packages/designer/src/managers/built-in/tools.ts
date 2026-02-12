@@ -2,6 +2,34 @@ import type { PageFile, BlockFile, ApiSchema } from '@vtj/core';
 import { delay } from '@vtj/utils';
 import type { ToolConfig } from '../../framework';
 
+const getSkills: ToolConfig = {
+  name: 'getSkills',
+  description: `获取技能文档, 调用示例：
+\`\`\`json  
+{
+  "action": "getSkills",
+  "parameters":["技能ID 1", "技能ID 2"]
+}
+\`\`\`
+  `,
+  parameters: [
+    {
+      name: 'id',
+      type: 'string',
+      description: '技能ID',
+      required: true
+    }
+  ],
+  createHandler:
+    ({ config }) =>
+    async (...ids: string[]) => {
+      if (config.getSkills) {
+        return await config.getSkills(ids);
+      }
+      return '';
+    }
+};
+
 /**
  * 获取项目页面列表
  */
@@ -1095,6 +1123,7 @@ const setGolbalAfterEach: ToolConfig = {
 };
 
 export const TOOL_CONFIGS: ToolConfig[] = [
+  getSkills,
   getPages,
   getBlocks,
   createPage,

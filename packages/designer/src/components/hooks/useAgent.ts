@@ -55,13 +55,17 @@ function toJsonString(json: any) {
   return json;
 }
 
+function replaceCodeBlock(content: string) {
+  return content.replace(/\`\`\`/g, '\\`\\`\\`');
+}
+
 function createResultContent(result: any) {
   if (typeof result === 'object') {
-    return `\n\n\`\`\`json\n${toJsonString(result)}\n\`\`\`\n`;
+    return `\n\n\`\`\`json\n${replaceCodeBlock(toJsonString(result))}\n\`\`\`\n`;
   } else if (isValidVueSFC(result)) {
-    return `\n\n\`\`\`vue\n${result}\n\`\`\`\n`;
+    return `\n\n\`\`\`vue\n${replaceCodeBlock(result)}\n\`\`\`\n`;
   } else {
-    return `\n\n\`\`\`diff\n${result}\n\`\`\`\n`;
+    return `\n\n\`\`\`diff\n${replaceCodeBlock(result)}\n\`\`\`\n`;
   }
 }
 
@@ -244,8 +248,17 @@ export function useAgent(config: AgentConfig) {
     return '';
   };
 
-  const applyPatch = (chat: AIChat) => {
-    const source = getSource(chat.prompt) || chat.source;
+  const getCurrentVue = async () => {
+    if (!engine.current.value) return '';
+    const projectDsl = project.value?.toDsl();
+    const dsl = engine.current.value.toDsl();
+    if (!dsl || !projectDsl) return '';
+    return await service.genVueContent(projectDsl, dsl);
+  };
+
+  const applyPatch = async (chat: AIChat) => {
+    const source =
+      getSource(chat.prompt) || chat.source || (await getCurrentVue());
     if (!source) {
       throw new Error('缺少基准代码，需要获取最新代码基准重新评估');
     }
@@ -286,7 +299,7 @@ export function useAgent(config: AgentConfig) {
     if (output.type === 'vue' || output.type === 'diff') {
       if (output.type === 'diff') {
         try {
-          applyPatch(chat);
+          await applyPatch(chat);
         } catch (e: any) {
           chat.status = 'Error';
           chat.toolContent = `O: ${output.label}执行失败, 错误信息：${createResultContent(e.message)}`;
@@ -357,14 +370,6 @@ export function useAgent(config: AgentConfig) {
       return chat.message || 'O: 动作执行失败';
     }
     return '执行计划';
-  };
-
-  const getCurrentVue = async () => {
-    if (!engine.current.value) return '';
-    const projectDsl = project.value?.toDsl();
-    const dsl = engine.current.value.toDsl();
-    if (!dsl || !projectDsl) return '';
-    return await service.genVueContent(projectDsl, dsl);
   };
 
   return {

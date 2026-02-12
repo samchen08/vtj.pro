@@ -169,7 +169,7 @@ export function useAI() {
     chatCompletions,
     saveChat,
     getHotTopics,
-    getSettins,
+    getSettings,
     createOrder,
     cancelOrder,
     getOrder,
@@ -177,7 +177,8 @@ export function useAI() {
     getOssFile,
     postImageTopic,
     postJsonTopic,
-    cancelChat
+    cancelChat,
+    getSkills
   } = useOpenApi();
 
   const hideCodeCacheKey = 'CHAT_HIDE_CODE';
@@ -208,7 +209,8 @@ export function useAI() {
   const { processOutput, shouldNext, createNextPrompt, getCurrentVue } =
     useAgent({
       currentTopic,
-      activeDelayMs: 1500
+      activeDelayMs: 1500,
+      getSkills
     });
 
   const loadChats = async (topicId: string) => {
@@ -235,7 +237,7 @@ export function useAI() {
 
   const init = async () => {
     isReady.value = false;
-    settings.value = await getSettins();
+    settings.value = await getSettings();
     if (!settings.value) return;
     if (!engine.project.value) return;
     topics.value = [];

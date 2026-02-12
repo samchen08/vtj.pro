@@ -213,6 +213,7 @@ export interface AIChat {
 }
 
 export interface AgentConfig {
+  getSkills?: (ids: string[]) => Promise<string>;
   activeDelayMs?: number;
   currentTopic: Ref<AITopic | null>;
 }
@@ -253,7 +254,7 @@ export interface ToolContext {
   project: ProjectModel;
   service: Service;
   toolRegistry: ToolRegistry;
-  config: AgentConfig & { activeDelayMs: number };
+  config: AgentConfig;
 }
 
 export interface ToolConfig {
