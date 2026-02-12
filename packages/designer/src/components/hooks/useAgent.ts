@@ -55,8 +55,11 @@ function toJsonString(json: any) {
   return json;
 }
 
-function replaceCodeBlock(content: string) {
-  return content.replace(/\`\`\`/g, '\\`\\`\\`');
+function replaceCodeBlock(content: any) {
+  if (typeof content === 'string') {
+    return content.replace(/\`\`\`/g, '\\`\\`\\`');
+  }
+  return content;
 }
 
 function createResultContent(result: any) {
