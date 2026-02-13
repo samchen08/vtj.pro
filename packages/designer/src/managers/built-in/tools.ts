@@ -766,8 +766,8 @@ const getGlobalAccess: ToolConfig = {
 /**
  * 查看全局请求配置
  */
-const getGolbalAxios: ToolConfig = {
-  name: 'getGolbalAxios',
+const getGlobalAxios: ToolConfig = {
+  name: 'getGlobalAxios',
   description: '查看Axios请求工具配置项',
   parameters: [],
   createHandler:
@@ -781,8 +781,8 @@ const getGolbalAxios: ToolConfig = {
 /**
  * 配置全局请求
  */
-const setGolbalAxios: ToolConfig = {
-  name: 'setGolbalAxios',
+const setGlobalAxios: ToolConfig = {
+  name: 'setGlobalAxios',
   description: `
 设置全局Axios请求工具配置项, 配置样例：
 \`\`\`javascript  
@@ -901,8 +901,8 @@ export interface IRequestSettings {
 /**
  * 设置请求拦截器
  */
-const setGolbalRequestInterceptor: ToolConfig = {
-  name: 'setGolbalRequestInterceptor',
+const setGlobalRequestInterceptor: ToolConfig = {
+  name: 'setGlobalRequestInterceptor',
   description: `设置全局Axios全局请求拦截器, 代码样例：
 
 \`\`\`javascript
@@ -941,8 +941,8 @@ axios请求拦截的代码是一个js函数，函数接收两个参数:
 /**
  * 查看请求拦截器
  */
-const getGolbalRequestInterceptor: ToolConfig = {
-  name: 'getGolbalRequestInterceptor',
+const getGlobalRequestInterceptor: ToolConfig = {
+  name: 'getGlobalRequestInterceptor',
   description: '查看全局Axios全局请求拦截器',
   parameters: [],
   createHandler:
@@ -956,8 +956,8 @@ const getGolbalRequestInterceptor: ToolConfig = {
 /**
  * 设置响应拦截器
  */
-const setGolbalResponseInterceptor: ToolConfig = {
-  name: 'setGolbalResponseInterceptor',
+const setGlobalResponseInterceptor: ToolConfig = {
+  name: 'setGlobalResponseInterceptor',
   description: `设置全局Axios全局响应拦截器, 代码样例：
 
 \`\`\`javascript
@@ -996,8 +996,8 @@ axios响应拦截的代码是一个js函数，函数接收两个参数:
 /**
  * 查看响应拦截器
  */
-const getGolbalResponseInterceptor: ToolConfig = {
-  name: 'getGolbalResponseInterceptor',
+const getGlobalResponseInterceptor: ToolConfig = {
+  name: 'getGlobalResponseInterceptor',
   description: '查看全局Axios全局响应拦截器',
   parameters: [],
   createHandler:
@@ -1011,8 +1011,8 @@ const getGolbalResponseInterceptor: ToolConfig = {
 /**
  * 查看路由前置守卫
  */
-const getGolbalBeforeEach: ToolConfig = {
-  name: 'getGolbalBeforeEach',
+const getGlobalBeforeEach: ToolConfig = {
+  name: 'getGlobalBeforeEach',
   description: '查看全局前置路由守卫',
   parameters: [],
   createHandler:
@@ -1026,8 +1026,8 @@ const getGolbalBeforeEach: ToolConfig = {
 /**
  * 查看路由后置守卫
  */
-const getGolbalAfterEach: ToolConfig = {
-  name: 'getGolbalAfterEach',
+const getGlobalAfterEach: ToolConfig = {
+  name: 'getGlobalAfterEach',
   description: '查看全局后置路由守卫',
   parameters: [],
   createHandler:
@@ -1041,8 +1041,8 @@ const getGolbalAfterEach: ToolConfig = {
 /**
  * 设置路由后置守卫
  */
-const setGolbalBeforeEach: ToolConfig = {
-  name: 'setGolbalBeforeEach',
+const setGlobalBeforeEach: ToolConfig = {
+  name: 'setGlobalBeforeEach',
   description: `设置全局前置路由守卫, 代码样例：
 
 \`\`\`javascript
@@ -1083,8 +1083,8 @@ const setGolbalBeforeEach: ToolConfig = {
 /**
  * 设置路由后置守卫
  */
-const setGolbalAfterEach: ToolConfig = {
-  name: 'setGolbalAfterEach',
+const setGlobalAfterEach: ToolConfig = {
+  name: 'setGlobalAfterEach',
   description: `设置全局后置路由守卫, 代码样例：
 
 \`\`\`javascript
@@ -1145,14 +1145,14 @@ export const TOOL_CONFIGS: ToolConfig[] = [
   getGlobalStore,
   setGlobalAccess,
   getGlobalAccess,
-  getGolbalAxios,
-  setGolbalAxios,
-  setGolbalRequestInterceptor,
-  getGolbalRequestInterceptor,
-  getGolbalResponseInterceptor,
-  setGolbalResponseInterceptor,
-  getGolbalBeforeEach,
-  getGolbalAfterEach,
-  setGolbalBeforeEach,
-  setGolbalAfterEach
+  getGlobalAxios,
+  setGlobalAxios,
+  setGlobalRequestInterceptor,
+  getGlobalRequestInterceptor,
+  getGlobalResponseInterceptor,
+  setGlobalResponseInterceptor,
+  getGlobalBeforeEach,
+  getGlobalAfterEach,
+  setGlobalBeforeEach,
+  setGlobalAfterEach
 ];

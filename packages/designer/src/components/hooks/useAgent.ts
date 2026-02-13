@@ -260,9 +260,14 @@ export function useAgent(config: AgentConfig) {
   };
 
   const applyPatch = async (chat: AIChat) => {
+    if (chat.status === 'Error' || chat.status === 'Failed') {
+      throw new Error(
+        `O: 增量更新失败，${chat.message || '增量更新错误'}, 需要全量生成代码`
+      );
+    }
     const source = getSource(chat.prompt) || (await getCurrentVue());
     if (!source) {
-      throw new Error('缺少基准代码，需要获取最新代码基准重新评估');
+      throw new Error('O: 增量更新失败，缺少基准代码，需要全量生成代码。');
     }
     const updated = codeIncrementalUpdater.parseIncrementalUpdate(chat.content);
 
@@ -276,11 +281,13 @@ export function useAgent(config: AgentConfig) {
       } else {
         chat.status = 'Error';
         chat.message = result.error || '增量更新错误';
-        chat.message += `\n需要获取最新代码基准重新评估`;
+        chat.message += `\n需要全量生成代码`;
         throw new Error(chat.message);
       }
     } else {
-      throw new Error('检测不到增量更新内容，需要获取最新代码基准重新评估');
+      throw new Error(
+        'O: 增量更新失败，检测不到增量更新内容，需要全量生成代码'
+      );
     }
   };
 
