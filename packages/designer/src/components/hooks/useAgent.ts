@@ -260,8 +260,7 @@ export function useAgent(config: AgentConfig) {
   };
 
   const applyPatch = async (chat: AIChat) => {
-    const source =
-      getSource(chat.prompt) || chat.source || (await getCurrentVue());
+    const source = getSource(chat.prompt) || (await getCurrentVue());
     if (!source) {
       throw new Error('缺少基准代码，需要获取最新代码基准重新评估');
     }
@@ -280,6 +279,8 @@ export function useAgent(config: AgentConfig) {
         chat.message += `\n需要获取最新代码基准重新评估`;
         throw new Error(chat.message);
       }
+    } else {
+      throw new Error('检测不到增量更新内容，需要获取最新代码基准重新评估');
     }
   };
 
@@ -358,9 +359,6 @@ export function useAgent(config: AgentConfig) {
     if (chat.status === 'Failed' && chat.message) {
       return true;
     }
-    if (content.includes('\nP:') && !content.includes('\nA:')) {
-      return true;
-    }
 
     return false;
   };
@@ -382,7 +380,8 @@ export function useAgent(config: AgentConfig) {
     processOutput,
     shouldNext,
     createNextPrompt,
-    getCurrentVue
+    getCurrentVue,
+    convertVueToDsl
   };
 }
 

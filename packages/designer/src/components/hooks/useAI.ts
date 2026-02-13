@@ -11,8 +11,7 @@ import {
   type AIChat,
   type DictOption,
   type Settings,
-  type LLM,
-  codeIncrementalUpdater
+  type LLM
 } from '../../framework';
 import { notify, alert } from '../../utils';
 
@@ -118,44 +117,6 @@ function getVueCode(content: string) {
   return matches?.[1] ?? '';
 }
 
-function getDiffCode(content: string) {
-  const regex = /```diff\r?\n([\s\S]*?)(?:\r?\n```|$)/;
-  const matches = content.match(regex);
-  return matches?.[1] ?? '';
-}
-
-function applyAIPatch(chat: AIChat) {
-  const diffContent = getDiffCode(chat.content);
-
-  if (diffContent && chat.source) {
-    try {
-      const source = chat.source;
-      const updated = codeIncrementalUpdater.parseIncrementalUpdate(
-        chat.content
-      );
-
-      if (updated) {
-        const result = codeIncrementalUpdater.applyIncrementalUpdate(
-          source,
-          updated
-        );
-        if (result.success) {
-          chat.vue = result.updatedCode;
-        } else {
-          chat.status = 'Error';
-          chat.message = result.error || '增量更新错误';
-          chat.message += `\n切换到全量生成代码模式重新生成`;
-        }
-      }
-    } catch (e) {
-      console.error(e);
-    }
-  } else {
-    chat.vue = getVueCode(chat.content);
-  }
-  return chat;
-}
-
 export function useAI() {
   const {
     isLogined,
@@ -206,12 +167,17 @@ export function useAI() {
   });
   const { height: panelHeight } = useElementSize(listRef);
 
-  const { processOutput, shouldNext, createNextPrompt, getCurrentVue } =
-    useAgent({
-      currentTopic,
-      activeDelayMs: 1500,
-      getSkills
-    });
+  const {
+    processOutput,
+    shouldNext,
+    createNextPrompt,
+    getCurrentVue,
+    convertVueToDsl
+  } = useAgent({
+    currentTopic,
+    activeDelayMs: 1500,
+    getSkills
+  });
 
   const loadChats = async (topicId: string) => {
     const res = await getChats(topicId);
@@ -425,19 +391,6 @@ export function useAI() {
     }
   };
 
-  const vue2Dsl = async (chat: AIChat) => {
-    if (!engine.current.value) return;
-    const project = engine.project.value?.toDsl() as ProjectSchema;
-    const { name = '', id = '' } = engine.current.value || {};
-    const source = chat.vue || getVueCode(chat.content);
-    if (!source) return;
-    return await engine.service.parseVue(project, {
-      id,
-      name,
-      source
-    });
-  };
-
   const completions = async (
     chat: AIChat,
     complete?: (chat: AIChat) => void
@@ -582,8 +535,8 @@ export function useAI() {
     currentChat.value = null;
   };
 
-  const onView = (chat: AIChat) => {
-    applyAIPatch(chat);
+  const onView = async (chat: AIChat) => {
+    await processOutput(chat);
     currentChat.value = chat;
     showDetail.value = true;
   };
@@ -646,7 +599,7 @@ export function useAI() {
     loadChats,
     onRemoveTopic,
     getVueCode,
-    vue2Dsl,
+    vue2Dsl: convertVueToDsl,
     onRefresh,
     onApply,
     onView,
