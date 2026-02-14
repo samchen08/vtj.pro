@@ -1,5 +1,4 @@
 import type { ProjectModel, ProjectSchema } from '@vtj/core';
-import { delay } from '@vtj/utils';
 import {
   useEngine,
   codeIncrementalUpdater,
@@ -230,7 +229,6 @@ export function useAgent(config: AgentConfig) {
       .catch((e) => {
         error = e;
       });
-    await delay(1000);
     if (error) {
       const msg = error?.message
         ? `错误信息：${createResultContent(error.message || '未知错误')}`
@@ -261,13 +259,11 @@ export function useAgent(config: AgentConfig) {
 
   const applyPatch = async (chat: AIChat) => {
     if (chat.status === 'Error' || chat.status === 'Failed') {
-      throw new Error(
-        `O: 增量更新失败，${chat.message || '增量更新错误'}, 需要全量生成代码`
-      );
+      throw new Error(chat.message || '增量更新错误');
     }
     const source = getSource(chat.prompt) || (await getCurrentVue());
     if (!source) {
-      throw new Error('O: 增量更新失败，缺少基准代码，需要全量生成代码。');
+      throw new Error('缺少基准代码');
     }
     const updated = codeIncrementalUpdater.parseIncrementalUpdate(chat.content);
 
@@ -281,13 +277,10 @@ export function useAgent(config: AgentConfig) {
       } else {
         chat.status = 'Error';
         chat.message = result.error || '增量更新错误';
-        chat.message += `\n需要全量生成代码`;
         throw new Error(chat.message);
       }
     } else {
-      throw new Error(
-        'O: 增量更新失败，检测不到增量更新内容，需要全量生成代码'
-      );
+      throw new Error('检测不到增量更新内容');
     }
   };
 
@@ -301,6 +294,7 @@ export function useAgent(config: AgentConfig) {
     if (output.type === 'error') {
       chat.status = 'Error';
       chat.message = output.content;
+      chat.toolContent = `O: ${output.label}执行失败, 错误信息：${createResultContent(chat.message)}`;
     }
 
     if (output.type === 'json') {
@@ -313,7 +307,7 @@ export function useAgent(config: AgentConfig) {
           await applyPatch(chat);
         } catch (e: any) {
           chat.status = 'Error';
-          chat.toolContent = `O: ${output.label}执行失败, 错误信息：${createResultContent(e.message)}`;
+          chat.toolContent = `O: ${output.label}执行失败, 错误信息：${createResultContent(e.message)} \n需要全量生成代码`;
         }
       } else {
         chat.vue = output.content;
@@ -341,7 +335,7 @@ export function useAgent(config: AgentConfig) {
           chat.dsl = null;
           chat.status = 'Error';
           chat.message = collectErrorMessage(err.message);
-          chat.toolContent = `O: ${output.label}执行失败`;
+          chat.toolContent = `O: ${output.label}执行失败, 错误信息：${createResultContent(chat.message)}`;
         }
       }
     }
@@ -372,10 +366,10 @@ export function useAgent(config: AgentConfig) {
 
   const createNextPrompt = (chat: AIChat) => {
     if (chat.toolCallId) {
-      return chat.toolContent || 'O: 动作执行成功';
+      return chat.toolContent || chat.message || 'O: 动作执行成功';
     }
     if (chat.status === 'Error' || chat.status === 'Failed') {
-      return chat.message || 'O: 动作执行失败';
+      return chat.toolContent || chat.message || 'O: 动作执行失败';
     }
     return '执行计划';
   };
@@ -392,5 +386,4 @@ export function useAgent(config: AgentConfig) {
   };
 }
 
-// Export validation functions for external use
 export { isValidVueSFC, isValidDiffFormat };

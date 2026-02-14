@@ -143,7 +143,6 @@ export function useAI() {
   } = useOpenApi();
 
   const hideCodeCacheKey = 'CHAT_HIDE_CODE';
-  // const region = engine.skeleton?.getRegion('Apps').regionRef;
   const isReady = ref(false);
   const loading = ref(false);
   const isNewChat = ref(true);
@@ -395,6 +394,7 @@ export function useAI() {
     chat: AIChat,
     complete?: (chat: AIChat) => void
   ) => {
+    engine.state.streaming = true;
     promptText.value = '';
     chat.content = '';
     chat.reasoning = '';
@@ -429,6 +429,7 @@ export function useAI() {
           const output = await processOutput(chat);
           await saveChat(chat);
           complete && complete(output);
+          engine.state.streaming = false;
         }
       },
       async (err: any) => {
@@ -445,6 +446,7 @@ export function useAI() {
         }
         await saveChat(chat);
         complete && complete(chat);
+        engine.state.streaming = false;
       }
     );
 
