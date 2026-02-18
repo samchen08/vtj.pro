@@ -38,7 +38,7 @@
   // 标签映射对象
   const labelMap: Record<string, string> = {
     T: '思考',
-    A: '动作',
+    A: '执行',
     O: '系统',
     P: '计划',
     F: '总结',

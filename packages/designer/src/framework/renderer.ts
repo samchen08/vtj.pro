@@ -199,7 +199,8 @@ export class Renderer {
           ? this.createUniApp(platform, file, renderer)
           : this.createApp(platform, file, renderer);
     } catch (e: any) {
-      notify(e.message || '未知错误', '运行时错误');
+      const msg = typeof e === 'string' ? e : e.message || '未知错误';
+      notify(msg, '运行时错误');
       console.error(e);
       this.report.error(e, {
         project: this.project?.toDsl(),

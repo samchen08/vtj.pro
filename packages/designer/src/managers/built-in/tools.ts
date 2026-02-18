@@ -30,6 +30,29 @@ const getSkills: ToolConfig = {
     }
 };
 
+const getMenus: ToolConfig = {
+  name: 'getMenus',
+  description: '获取当前项目的页面菜单树结构',
+  parameters: [],
+  createHandler:
+    ({ project }) =>
+    async () => {
+      const pages = project.pages || [];
+      return pages.map((page: any) => {
+        const { id, name, title, layout, dir, icon, children } = page;
+        return {
+          id,
+          name,
+          title,
+          layout,
+          dir,
+          icon,
+          children
+        };
+      });
+    }
+};
+
 /**
  * 获取项目页面列表
  */
@@ -42,13 +65,14 @@ const getPages: ToolConfig = {
     async () => {
       const pages = project.getPages() || [];
       return pages.map((page: any) => {
-        const { id, name, title, layout, dir } = page;
+        const { id, name, title, layout, dir, icon } = page;
         return {
           id,
           name,
           title,
           layout,
-          dir
+          dir,
+          icon
         };
       });
     }
@@ -76,6 +100,11 @@ const createPage: ToolConfig = {
           type: 'string',
           description: '页面标题',
           required: true
+        },
+        icon: {
+          type: 'string',
+          description: '图标,可选ElementPlus图标或 @vtj/icons的图标名称',
+          required: false
         },
         dir: {
           type: 'boolean',
@@ -120,8 +149,10 @@ const createPage: ToolConfig = {
         ),
         parentId
       );
-      project.active(newPage);
-      await delay(config.activeDelayMs);
+      if (!newPage.dir) {
+        project.active(newPage);
+        await delay(config.activeDelayMs);
+      }
       const { name, title, layout, dir } = page;
       return newPage
         ? {
@@ -156,11 +187,16 @@ const updatePage: ToolConfig = {
         name: {
           type: 'string',
           description: '页面名称,如：PageName',
-          required: false
+          required: true
         },
         title: {
           type: 'string',
           description: '页面标题',
+          required: true
+        },
+        icon: {
+          type: 'string',
+          description: '图标,可选ElementPlus图标或 @vtj/icons的图标名称',
           required: false
         }
       }
@@ -1124,6 +1160,7 @@ const setGlobalAfterEach: ToolConfig = {
 
 export const TOOL_CONFIGS: ToolConfig[] = [
   getSkills,
+  getMenus,
   getPages,
   getBlocks,
   createPage,

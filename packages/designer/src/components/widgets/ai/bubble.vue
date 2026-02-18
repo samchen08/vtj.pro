@@ -133,6 +133,7 @@
       (content.includes('```vue') || content.includes('```diff'))
     );
   });
+  const isSuccess = computed(() => props.data.status === 'Success');
   const isPending = computed(() => props.data.status === 'Pending');
   const isError = computed(() => props.data.status === 'Error');
   const collasped = ref(props.data.collapsed);
@@ -150,7 +151,8 @@
       {
         name: 'refresh',
         tooltip: '重新生成',
-        icon: Refresh
+        icon: Refresh,
+        disabled: isSuccess.value
       },
       {
         name: 'view',
