@@ -254,6 +254,7 @@ export function useAgent(config: AgentConfig) {
     const projectDsl = project.value?.toDsl();
     const dsl = engine.current.value.toDsl();
     if (!dsl || !projectDsl) return '';
+    dsl.__VERSION__ = 'version';
     return await service.genVueContent(projectDsl, dsl);
   };
 
@@ -286,7 +287,7 @@ export function useAgent(config: AgentConfig) {
 
   const processOutput = async (chat: AIChat) => {
     const content = chat.content || chat.reasoning;
-    const output = parseOutput(content, '\nA:');
+    const output = parseOutput(content, 'A:');
     chat.status = 'Success';
 
     if (!output) return { ...chat };
@@ -351,7 +352,7 @@ export function useAgent(config: AgentConfig) {
     if (content.includes('\nF:') || content.includes('\nR:')) {
       return false;
     }
-    if (chat.toolCallId && chat.toolContent) {
+    if (chat.toolCallId) {
       return true;
     }
     if (chat.status === 'Error' && chat.message) {

@@ -133,7 +133,9 @@
       (content.includes('```vue') || content.includes('```diff'))
     );
   });
-  const isSuccess = computed(() => props.data.status === 'Success');
+  const isSuccess = computed(
+    () => props.data.status === 'Success' && !props.data.message
+  );
   const isPending = computed(() => props.data.status === 'Pending');
   const isError = computed(() => props.data.status === 'Error');
   const collasped = ref(props.data.collapsed);

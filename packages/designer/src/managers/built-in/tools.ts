@@ -1,4 +1,10 @@
-import type { PageFile, BlockFile, ApiSchema } from '@vtj/core';
+import type {
+  PageFile,
+  BlockFile,
+  ApiSchema,
+  EnvConfig,
+  I18nMessage
+} from '@vtj/core';
 import { delay } from '@vtj/utils';
 import type { ToolConfig } from '../../framework';
 
@@ -441,6 +447,7 @@ const getCurrentFileContent: ToolConfig = {
         const file = project.getFile(id);
         if (!file) return null;
         const dsl = await service.getFile(file.id);
+        dsl.__VERSION__ = 'version';
         return await service.genVueContent(project.toDsl(), dsl);
       }
       throw new Error('当前没有打开的文件');
@@ -1177,6 +1184,146 @@ const getSelectedPath: ToolConfig = {
     }
 };
 
+const getEnv: ToolConfig = {
+  name: 'getEnv',
+  description:
+    '获取环境变量列表, 环境变量的值可用 `app.config.globalProperties.$provider.env.变量名` 或在组件中用 `this.$provider.env.变量名`获取',
+  parameters: [],
+  createHandler:
+    ({ project }) =>
+    async () => {
+      return project.env || [];
+    }
+};
+
+const createEnv: ToolConfig = {
+  name: 'createEnv',
+  description: '新增环境变量',
+  parameters: [
+    {
+      name: 'page',
+      type: 'object',
+      description: 'PageFile页面对象',
+      required: true,
+      properties: {
+        name: {
+          type: 'string',
+          description: '变量名称, 如：BASE_URL',
+          required: true
+        },
+        development: {
+          type: 'string',
+          description: '在开发环境中的值',
+          required: true
+        },
+        production: {
+          type: 'string',
+          description: '在生产环境中的值',
+          required: true
+        }
+      }
+    }
+  ],
+  createHandler:
+    ({ project }) =>
+    async (config: EnvConfig) => {
+      const env = [...project.env, config];
+      project.setEnv(env);
+      return true;
+    }
+};
+
+const removeEnv: ToolConfig = {
+  name: 'removeEnv',
+  description: '删除环境变量',
+  parameters: [
+    {
+      name: 'name',
+      type: 'string',
+      description: '环境变量名',
+      required: true
+    }
+  ],
+  createHandler:
+    ({ project }) =>
+    async (name: string) => {
+      const env = (project.env || []).filter((n) => n.name !== name);
+      project.setEnv(env);
+      return true;
+    }
+};
+
+const getI18nMessage: ToolConfig = {
+  name: 'getI18nMessage',
+  description:
+    '获取 vue-i18n 的 message 中英对照词条, 在组件可用 `this.$t.key` 调用词条',
+  parameters: [],
+  createHandler:
+    ({ project }) =>
+    async () => {
+      return project.i18n.messages || [];
+    }
+};
+
+const createI18nMessage: ToolConfig = {
+  name: 'createI18nMessage',
+  description: '新增 vue-i18n 的 message 中英对照词条',
+  parameters: [
+    {
+      name: 'message',
+      type: 'object',
+      description: 'message词条',
+      required: true,
+      properties: {
+        key: {
+          type: 'string',
+          description: '词条Key',
+          required: true
+        },
+        'zh-CN': {
+          type: 'string',
+          description: '中文内容',
+          required: true
+        },
+        en: {
+          type: 'string',
+          description: '英文内容',
+          required: true
+        }
+      }
+    }
+  ],
+  createHandler:
+    ({ project }) =>
+    async (message: I18nMessage) => {
+      project.i18n.messages?.push(message);
+      project.setI18n(project.i18n);
+      return true;
+    }
+};
+
+const removeI18nMessage: ToolConfig = {
+  name: 'removeI18nMessage',
+  description: '删除 vue-i18n 的 message 词条',
+  parameters: [
+    {
+      name: 'key',
+      type: 'string',
+      description: '词条标识key',
+      required: true
+    }
+  ],
+  createHandler:
+    ({ project }) =>
+    async (key: string) => {
+      project.i18n.messages = project.i18n.messages?.filter(
+        (n) => n.key !== key
+      );
+      project.setI18n(project.i18n);
+      return true;
+    }
+};
+
 export const TOOL_CONFIGS: ToolConfig[] = [
   getSkills,
   getMenus,
@@ -1211,5 +1358,11 @@ export const TOOL_CONFIGS: ToolConfig[] = [
   getGlobalAfterEach,
   setGlobalBeforeEach,
   setGlobalAfterEach,
-  getSelectedPath
+  getSelectedPath,
+  getEnv,
+  createEnv,
+  removeEnv,
+  getI18nMessage,
+  createI18nMessage,
+  removeI18nMessage
 ];
