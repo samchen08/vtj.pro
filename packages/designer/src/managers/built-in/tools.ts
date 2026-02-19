@@ -1158,6 +1158,25 @@ const setGlobalAfterEach: ToolConfig = {
     }
 };
 
+const getSelectedPath: ToolConfig = {
+  name: 'getNodeSelected',
+  description:
+    '获取当前页面选中的节点路径，用于定位当前选中的页面元素，路径最后一个是选中的元素名称',
+  parameters: [],
+  createHandler:
+    ({ engine }) =>
+    async () => {
+      const designer = engine.simulator.designer.value;
+      if (!designer) return null;
+      const path = designer.selected.value?.path;
+      if (!path) return null;
+      return path
+        .map((n) => n.name)
+        .reverse()
+        .join('>');
+    }
+};
+
 export const TOOL_CONFIGS: ToolConfig[] = [
   getSkills,
   getMenus,
@@ -1191,5 +1210,6 @@ export const TOOL_CONFIGS: ToolConfig[] = [
   getGlobalBeforeEach,
   getGlobalAfterEach,
   setGlobalBeforeEach,
-  setGlobalAfterEach
+  setGlobalAfterEach,
+  getSelectedPath
 ];
