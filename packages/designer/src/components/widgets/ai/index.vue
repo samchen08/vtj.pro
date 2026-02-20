@@ -2,7 +2,7 @@
   <XContainer class="v-ai-widget__wrapper" direction="column" fit>
     <Panel
       class="v-ai-widget"
-      title="AI助手"
+      title="AI智能体"
       ref="panelRef"
       :body="{ overflow: bodyOverflow }">
       <template #actions>

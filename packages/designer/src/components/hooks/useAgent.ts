@@ -349,10 +349,10 @@ export function useAgent(config: AgentConfig) {
 
   const shouldNext = (chat: AIChat) => {
     const content = chat.content || chat.reasoning || '';
-    if (content.includes('\nF:') || content.includes('\nR:')) {
+    if (content.includes('F:') || content.includes('R:')) {
       return false;
     }
-    if (chat.toolCallId) {
+    if (chat.toolCallId && (chat.toolContent || chat.message)) {
       return true;
     }
     if (chat.status === 'Error' && chat.message) {

@@ -128,6 +128,7 @@ export class Provider extends Base {
   private router: Router | null = null; // 路由实例
   private materialPath: string = './'; // 物料路径
   private urlDslCaches: Record<string, any> = {}; // DSL缓存
+  public errorHandler: ((err: any) => void) | null = null;
 
   /**
    * 创建Provider实例
@@ -425,6 +426,9 @@ export class Provider extends Base {
         },
         err?.stack
       );
+      if (this.errorHandler) {
+        this.errorHandler(err);
+      }
       if (this.adapter.notify) {
         this.adapter.notify(message, '组件渲染错误', 'error');
       }

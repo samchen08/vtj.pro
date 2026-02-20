@@ -234,9 +234,9 @@ export function useAI() {
       currentTopic.value = topic;
       const rChat = reactive(chat);
       chats.value.push(rChat);
-      completions(rChat, (c) => {
+      completions(rChat, async (c) => {
         if (data.auto) {
-          onApply(c);
+          await onApply(c);
         }
         if (shouldNext(c)) {
           return onPostChat({
@@ -273,9 +273,9 @@ export function useAI() {
       chat.type = topic.type;
       const rChat = reactive(chat);
       chats.value.push(rChat);
-      completions(rChat, (c) => {
+      completions(rChat, async (c) => {
         if (c.status === 'Success' && data.auto) {
-          onApply(c);
+          await onApply(c);
         }
         if (shouldNext(c)) {
           return onPostChat({
@@ -317,9 +317,9 @@ export function useAI() {
       chat.dataType = topic.dataType;
       const rChat = reactive(chat);
       chats.value.push(rChat);
-      completions(rChat, (c) => {
+      completions(rChat, async (c) => {
         if (c.status === 'Success' && data.auto) {
-          onApply(c);
+          await onApply(c);
         }
         if (shouldNext(c)) {
           return onPostChat({
@@ -356,9 +356,9 @@ export function useAI() {
     if (res && res.success) {
       const chat = reactive(res.data);
       chats.value.push(chat);
-      completions(chat, (c) => {
+      completions(chat, async (c) => {
         if (c.status === 'Success' && data.auto) {
-          onApply(c);
+          await onApply(c);
         }
         if (shouldNext(c)) {
           return onPostChat({
@@ -507,9 +507,9 @@ export function useAI() {
 
   const onRefresh = (chat: AIChat) => {
     if (isPending.value) return;
-    return completions(chat, (c) => {
+    return completions(chat, async (c) => {
       if (engine.state.autoApply) {
-        onApply(c);
+        await onApply(c);
       }
       if (shouldNext(c)) {
         return onPostChat({
@@ -522,13 +522,13 @@ export function useAI() {
     });
   };
 
-  const onApply = (chat: AIChat, manual?: boolean) => {
+  const onApply = async (chat: AIChat, manual?: boolean) => {
     if (chat.dsl) {
       const id = engine.current.value?.id;
       if (id) {
         chat.dsl.id = id;
       }
-      engine.applyAI(chat.dsl);
+      await engine.applyAI(chat.dsl);
     } else {
       if (manual) {
         alert(`DSL不完整，无法应用到页面`);

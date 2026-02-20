@@ -454,6 +454,27 @@ const getCurrentFileContent: ToolConfig = {
     }
 };
 
+const refresh: ToolConfig = {
+  name: 'refresh',
+  description:
+    '刷新当前页面或区块组件运行时，当需要检测代码是否存在运行时错误可调用',
+  parameters: [],
+  createHandler:
+    ({ engine, config }) =>
+    async () => {
+      let error: any = null;
+      engine.provider.errorHandler = (e) => {
+        error = e;
+      };
+      engine.simulator.refresh();
+      await delay(config.activeDelayMs);
+      engine.provider.errorHandler = null;
+      return error
+        ? `运行时报错：\n${error.message}\n请检查页面代码并修复`
+        : true;
+    }
+};
+
 /**
  * 设置API
  */
@@ -1338,6 +1359,7 @@ export const TOOL_CONFIGS: ToolConfig[] = [
   active,
   getCurrentFile,
   getCurrentFileContent,
+  refresh,
   setApi,
   getApis,
   removeApi,
