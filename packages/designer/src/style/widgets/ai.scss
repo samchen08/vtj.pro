@@ -133,7 +133,7 @@
     min-height: 32px;
     word-break: break-all;
     & > div.is-collapsed {
-      height: 40px;
+      height: 46px;
       overflow: hidden;
       display: -webkit-box;
       -webkit-box-orient: vertical;
@@ -147,6 +147,16 @@
   @include when(user) {
     justify-content: end;
     flex-direction: row-reverse;
+  }
+
+  @include when(system) {
+    @include e(main) {
+      width: 100%;
+      word-break: break-all;
+    }
+    .v-ai-widget-bubble__content {
+      background-color: var(--el-color-success-light-9);
+    }
   }
 
   @include when(ai) {

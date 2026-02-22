@@ -2,7 +2,7 @@
   <XContainer class="v-ai-widget__wrapper" direction="column" fit>
     <Panel
       class="v-ai-widget"
-      title="AI助手"
+      title="AI智能体"
       ref="panelRef"
       :body="{ overflow: bodyOverflow }">
       <template #actions>
@@ -61,9 +61,8 @@
       </template>
 
       <LoginTip v-if="!logined"></LoginTip>
-      <NoFileTip v-if="logined && isNoFile"></NoFileTip>
       <NewTopic
-        v-if="isNoFile || isNewChat"
+        v-if="isNewChat"
         :models="models"
         :loading="loading"
         :model-value="promptText"
@@ -75,7 +74,12 @@
 
       <div v-if="!isNewChat" ref="listRef" class="v-ai-widget__bubble-list">
         <template v-for="chat of chats" :key="chat.id">
-          <Bubble type="user" :data="chat"></Bubble>
+          <Bubble
+            type="system"
+            v-if="chat.toolCallId"
+            :data="chat"
+            :code="!isHideCode"></Bubble>
+          <Bubble type="user" v-else :data="chat"></Bubble>
           <Bubble
             type="ai"
             :data="chat"
@@ -111,7 +115,6 @@
             lock-model
             @send="onPostChat"
             @cancel="handleCancelChat"></ChatInput>
-          <div class="footer">内容由 AI 生成，请仔细甄别</div>
         </div>
       </template>
 
@@ -188,11 +191,9 @@
   import Bubble from './bubble.vue';
   import LoginTip from './login-tip.vue';
   import NewTopic from './new-topic.vue';
-  import NoFileTip from './no-file-tip.vue';
   import Detial from './detail.vue';
   import InviteTip from './invite-tip.vue';
   import PayTip from './pay-tip.vue';
-
   const {
     engine,
     isLogined,
@@ -237,7 +238,6 @@
 
   const logined = ref(true);
   const showDrawer = ref(false);
-  const isNoFile = computed(() => !engine.current.value);
 
   const showCodeProps = computed<any>(() => {
     return isHideCode.value
@@ -254,7 +254,7 @@
   });
 
   const bodyOverflow = computed(() => {
-    return !logined.value || isNoFile.value ? 'hidden' : 'auto';
+    return !logined.value ? 'hidden' : 'auto';
   });
 
   onMounted(async () => {
@@ -265,13 +265,6 @@
     if (!logined.value) {
       message(
         '使用AI助手需登录，您还没登录或登录已失效，请重新登录！',
-        'warning'
-      );
-      return;
-    }
-    if (isNoFile.value) {
-      message(
-        '当前设计视图无任何文件，请新建或打开文件后再使用AI助',
         'warning'
       );
       return;

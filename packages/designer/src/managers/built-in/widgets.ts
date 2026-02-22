@@ -175,8 +175,9 @@ export const builtInWidgets: Array<AppWidget | TabWidget | Widget> = [
     type: 'app',
     openType: 'panel',
     icon: VtjIconAi,
-    label: 'AI助手',
-    remote: true
+    label: 'AI智能体',
+    remote: true,
+    cache: true
   },
   {
     name: 'About',

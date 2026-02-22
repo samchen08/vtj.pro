@@ -1,5 +1,7 @@
-import { type VNode, type DefineComponent } from 'vue';
-import { type BlockPropDataType } from '@vtj/core';
+import type { VNode, DefineComponent, Ref } from 'vue';
+import type { ProjectModel, Service, BlockPropDataType } from '@vtj/core';
+import type { ToolRegistry, ToolParameter } from './ToolRegistry';
+import type { Engine } from './engine';
 
 export type VueComponent =
   | Record<string, any>
@@ -105,6 +107,11 @@ export interface AppWidget extends Widget {
    * 链接url，openType 为 link 时有效
    */
   url?: string;
+
+  /**
+   * 是否加缓存，openType 为 panel 有效
+   */
+  cache?: boolean;
 }
 
 /**
@@ -155,4 +162,104 @@ export interface Setter {
    * 设计器参数
    */
   props?: Record<string, any>;
+}
+
+export type TopicType = 'text' | 'image' | 'json';
+
+export type TopicDataType = 'sketch' | 'figma' | 'mastergo' | 'unknown';
+
+export interface AITopic {
+  id: string;
+  appId: string;
+  createAt: string;
+  fileId: string;
+  isHot: boolean;
+  model: string;
+  platform: string;
+  projectId: string;
+  title: string;
+  prompt: string;
+  dependencies: string;
+  dsl: any;
+  image?: string;
+  json?: string;
+  type?: TopicType;
+  dataType?: TopicDataType;
+}
+
+export interface AIChat {
+  id: string;
+  content: string;
+  createdAt: string;
+  dsl: any;
+  message: string;
+  source?: string;
+  prompt: string;
+  reasoning: string;
+  status: 'Pending' | 'Success' | 'Failed' | 'Error' | 'Canceled';
+  tokens: number;
+  topicId: string;
+  userId: string;
+  userName: string;
+  thinking: number;
+  vue: string;
+  collapsed?: boolean;
+  image?: string;
+  json?: string;
+  type?: TopicType;
+  dataType?: TopicDataType;
+  toolCallId?: string;
+  toolContent?: string;
+}
+
+export interface AgentConfig {
+  getSkills?: (ids: string[]) => Promise<string>;
+  activeDelayMs?: number;
+  currentTopic: Ref<AITopic | null>;
+}
+
+export interface ParseResult {
+  type: 'vue' | 'diff' | 'json' | 'error';
+  label: string;
+  content: any;
+}
+
+export type ParseRule =
+  | {
+      type: 'vue';
+      label: string;
+      regex: RegExp;
+      validate: (content: string) => boolean;
+    }
+  | {
+      type: 'diff';
+      label: string;
+      regex: RegExp;
+      validate: (content: string) => boolean;
+    }
+  | {
+      type: 'json';
+      label: string;
+      regex: RegExp;
+      parse: (content: string) => any;
+    };
+
+export interface ToolCall {
+  action: string;
+  parameters: any[];
+}
+
+export interface ToolContext {
+  engine: Engine;
+  project: ProjectModel;
+  service: Service;
+  toolRegistry: ToolRegistry;
+  config: AgentConfig;
+}
+
+export interface ToolConfig {
+  name: string;
+  description: string;
+  parameters: ToolParameter[];
+  createHandler: (context: ToolContext) => (...args: any[]) => Promise<any>;
 }

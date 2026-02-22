@@ -372,6 +372,7 @@ export class ProjectModel {
       await delay(1000);
       this.active(page, silent);
     }
+    return page;
   }
 
   /**
@@ -396,6 +397,7 @@ export class ProjectModel {
       emitter.emit(EVENT_PROJECT_PAGES_CHANGE, event);
       emitter.emit(EVENT_PROJECT_CHANGE, event);
     }
+    return match;
   }
 
   /**
@@ -545,6 +547,7 @@ export class ProjectModel {
       await delay(1000);
       this.active(block, silent);
     }
+    return block;
   }
 
   /**
@@ -571,6 +574,7 @@ export class ProjectModel {
       emitter.emit(EVENT_PROJECT_BLOCKS_CHANGE, event);
       emitter.emit(EVENT_PROJECT_CHANGE, event);
     }
+    return match;
   }
 
   cloneBlock(block: BlockFile, silent: boolean = false) {
@@ -678,6 +682,8 @@ export class ProjectModel {
       emitter.emit(EVENT_PROJECT_APIS_CHANGE, event);
       emitter.emit(EVENT_PROJECT_CHANGE, event);
     }
+
+    return match || item;
   }
 
   setApis(items: ApiSchema[], silent: boolean = false) {

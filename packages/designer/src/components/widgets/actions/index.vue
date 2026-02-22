@@ -18,11 +18,17 @@
       @click="onPreview"
       :type="isPreview ? 'warning' : 'default'"
       size="small"
-      title="预览">
+      title="预览"
+      :disabled="engine.state.streaming">
       <VtjIconPreview></VtjIconPreview>
     </ElButton>
 
-    <ElButton @click="refresh" type="default" size="small" title="刷新">
+    <ElButton
+      @click="refresh"
+      type="default"
+      size="small"
+      title="刷新"
+      :disabled="engine.state.streaming">
       <VtjIconRefresh></VtjIconRefresh>
     </ElButton>
 
