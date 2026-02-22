@@ -7,3 +7,4 @@ export * from './designer';
 export * from './openapi';
 export * from './state';
 export * from './updater';
+export * from './ToolRegistry';

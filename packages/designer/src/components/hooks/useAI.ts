@@ -1,8 +1,9 @@
-import { ref, watch, type Ref, reactive, computed } from 'vue';
-import type { ProjectSchema, BlockSchema, BlockModel } from '@vtj/core';
+import { ref, watch, type Ref, reactive, computed, onMounted } from 'vue';
+import type { ProjectSchema, BlockSchema } from '@vtj/core';
 import { useElementSize } from '@vueuse/core';
 import { delay, storage } from '@vtj/utils';
 import { useOpenApi } from './useOpenApi';
+import { useAgent } from './useAgent';
 import {
   type TopicDto,
   type ChatDto,
@@ -10,8 +11,7 @@ import {
   type AIChat,
   type DictOption,
   type Settings,
-  type LLM,
-  codeIncrementalUpdater
+  type LLM
 } from '../../framework';
 import { notify, alert } from '../../utils';
 
@@ -23,6 +23,7 @@ export interface AISendData {
   model: string;
   auto: boolean;
   prompt: string;
+  toolCallId?: string;
   llm?: LLM;
 }
 
@@ -57,7 +58,7 @@ function useDict(code: string, getDictOptions: (code: string) => Promise<any>) {
 async function createCommonDto(engine: UseAIOptions['engine']) {
   const projectDsl = engine.project.value?.toDsl() as ProjectSchema;
   const dsl = engine.current.value?.toDsl() as BlockSchema;
-  const source = await engine.service.genVueContent(projectDsl, dsl);
+  const source = dsl ? await engine.service.genVueContent(projectDsl, dsl) : '';
   const { pageBasePath, pageRouteName } = engine.options;
   const options = JSON.stringify({
     pageBasePath,
@@ -77,6 +78,7 @@ async function createTopicDto(
 ) {
   const { model, prompt = '', llm } = data;
   const { projectDsl, dsl, source, options } = await createCommonDto(engine);
+  const tools = engine.toolRegistry.generateToolDescriptions();
 
   const dto: TopicDto = {
     model,
@@ -85,7 +87,8 @@ async function createTopicDto(
     dsl: JSON.stringify(dsl),
     project: JSON.stringify(projectDsl),
     source,
-    llm: llm ? JSON.stringify(llm) : ''
+    llm: llm ? JSON.stringify(llm) : '',
+    tools: tools ? JSON.stringify(tools) : ''
   };
   return dto;
 }
@@ -114,44 +117,6 @@ function getVueCode(content: string) {
   return matches?.[1] ?? '';
 }
 
-function getDiffCode(content: string) {
-  const regex = /```diff\r?\n([\s\S]*?)(?:\r?\n```|$)/;
-  const matches = content.match(regex);
-  return matches?.[1] ?? '';
-}
-
-function applyAIPatch(chat: AIChat) {
-  const diffContent = getDiffCode(chat.content);
-
-  if (diffContent && chat.source) {
-    try {
-      const source = chat.source;
-      const updated = codeIncrementalUpdater.parseIncrementalUpdate(
-        chat.content
-      );
-
-      if (updated) {
-        const result = codeIncrementalUpdater.applyIncrementalUpdate(
-          source,
-          updated
-        );
-        if (result.success) {
-          chat.vue = result.updatedCode;
-        } else {
-          chat.status = 'Error';
-          chat.message = result.error || '增量更新错误';
-          chat.message += `\n切换到全量生成代码模式重新生成`;
-        }
-      }
-    } catch (e) {
-      console.error(e);
-    }
-  } else {
-    chat.vue = getVueCode(chat.content);
-  }
-  return chat;
-}
-
 export function useAI() {
   const {
     isLogined,
@@ -165,7 +130,7 @@ export function useAI() {
     chatCompletions,
     saveChat,
     getHotTopics,
-    getSettins,
+    getSettings,
     createOrder,
     cancelOrder,
     getOrder,
@@ -173,10 +138,11 @@ export function useAI() {
     getOssFile,
     postImageTopic,
     postJsonTopic,
-    cancelChat
+    cancelChat,
+    getSkills
   } = useOpenApi();
+
   const hideCodeCacheKey = 'CHAT_HIDE_CODE';
-  const region = engine.skeleton?.getRegion('Apps').regionRef;
   const isReady = ref(false);
   const loading = ref(false);
   const isNewChat = ref(true);
@@ -200,6 +166,18 @@ export function useAI() {
   });
   const { height: panelHeight } = useElementSize(listRef);
 
+  const {
+    processOutput,
+    shouldNext,
+    createNextPrompt,
+    getCurrentVue,
+    convertVueToDsl
+  } = useAgent({
+    currentTopic,
+    activeDelayMs: 1500,
+    getSkills
+  });
+
   const loadChats = async (topicId: string) => {
     const res = await getChats(topicId);
     if (res && res.success) {
@@ -222,15 +200,15 @@ export function useAI() {
     }
   };
 
-  const init = async (block: BlockModel | null) => {
+  const init = async () => {
     isReady.value = false;
-    settings.value = await getSettins();
+    settings.value = await getSettings();
     if (!settings.value) return;
-    if (!block || block.id === currentTopic.value?.fileId) return;
+    if (!engine.project.value) return;
     topics.value = [];
     chats.value = [];
     isNewChat.value = true;
-    const res = await getTopics(block.id).catch(() => null);
+    const res = await getTopics(engine.project.value.__UID__).catch(() => null);
     if (res && res.success) {
       topics.value = res.data;
     }
@@ -256,9 +234,16 @@ export function useAI() {
       currentTopic.value = topic;
       const rChat = reactive(chat);
       chats.value.push(rChat);
-      completions(rChat, (c) => {
+      completions(rChat, async (c) => {
         if (data.auto) {
-          onApply(c);
+          await onApply(c);
+        }
+        if (shouldNext(c)) {
+          return onPostChat({
+            ...data,
+            toolCallId: c.toolCallId,
+            prompt: createNextPrompt(c)
+          });
         }
       });
       await delay(0);
@@ -266,7 +251,7 @@ export function useAI() {
         panelRef.value.scrollToBottom();
       }
     } else {
-      await init(null);
+      await init();
     }
     return res;
   };
@@ -288,16 +273,17 @@ export function useAI() {
       chat.type = topic.type;
       const rChat = reactive(chat);
       chats.value.push(rChat);
-      completions(rChat, (c) => {
-        if (c.status === 'Error' && c.message) {
+      completions(rChat, async (c) => {
+        if (c.status === 'Success' && data.auto) {
+          await onApply(c);
+        }
+        if (shouldNext(c)) {
           return onPostChat({
             model: data.model,
             auto: data.auto,
-            prompt: c.message
+            toolCallId: c.toolCallId,
+            prompt: createNextPrompt(c)
           });
-        }
-        if (c.status === 'Success' && data.auto) {
-          onApply(c);
         }
       });
       await delay(0);
@@ -305,7 +291,7 @@ export function useAI() {
         panelRef.value.scrollToBottom();
       }
     } else {
-      await init(null);
+      await init();
     }
     return res;
   };
@@ -331,16 +317,17 @@ export function useAI() {
       chat.dataType = topic.dataType;
       const rChat = reactive(chat);
       chats.value.push(rChat);
-      completions(rChat, (c) => {
-        if (c.status === 'Error' && c.message) {
+      completions(rChat, async (c) => {
+        if (c.status === 'Success' && data.auto) {
+          await onApply(c);
+        }
+        if (shouldNext(c)) {
           return onPostChat({
             model: data.model,
             auto: data.auto,
-            prompt: c.message
+            toolCallId: c.toolCallId,
+            prompt: createNextPrompt(c)
           });
-        }
-        if (c.status === 'Success' && data.auto) {
-          onApply(c);
         }
       });
       await delay(0);
@@ -348,7 +335,7 @@ export function useAI() {
         panelRef.value.scrollToBottom();
       }
     } else {
-      await init(null);
+      await init();
     }
     return res;
   };
@@ -358,23 +345,27 @@ export function useAI() {
     loading.value = true;
     const dto: ChatDto = {
       topicId: currentTopic.value.id,
-      prompt: data.prompt
+      prompt: data.prompt,
+      toolCallId: data.toolCallId,
+      source: await getCurrentVue()
     };
+
     const res = await postChat(dto).catch(() => null);
     loading.value = false;
 
     if (res && res.success) {
       const chat = reactive(res.data);
       chats.value.push(chat);
-      completions(chat, (c) => {
-        if (c.status === 'Error' && c.message) {
+      completions(chat, async (c) => {
+        if (c.status === 'Success' && data.auto) {
+          await onApply(c);
+        }
+        if (shouldNext(c)) {
           return onPostChat({
             ...data,
-            prompt: c.message
+            toolCallId: c.toolCallId,
+            prompt: createNextPrompt(c)
           });
-        }
-        if (c.status === 'Success' && data.auto) {
-          onApply(c);
         }
       });
       await delay(0);
@@ -382,7 +373,7 @@ export function useAI() {
         panelRef.value.scrollToBottom();
       }
     } else {
-      await init(null);
+      await init();
     }
     return res;
   };
@@ -399,44 +390,11 @@ export function useAI() {
     }
   };
 
-  const vue2Dsl = async (chat: AIChat) => {
-    if (!currentTopic.value) return;
-    const id = currentTopic.value?.fileId as string;
-    const project = engine.project.value?.toDsl() as ProjectSchema;
-    const { name = '' } = engine.current.value || {};
-    const source = chat.vue || getVueCode(chat.content);
-    if (!source) return;
-    return await engine.service.parseVue(project, {
-      id,
-      name,
-      source
-    });
-  };
-
-  const collectErrorMesssage = (msg: any) => {
-    let message = '';
-    if (Array.isArray(msg)) {
-      message += '页面存在以下错误，请检查并修复：\n';
-      message += msg.join(';\n');
-    }
-    return message
-      ? message
-      : '请检查代码是否有错误，是否符合模版和规则要求，并改正';
-  };
-
-  const isVueSFC = (content: string) => {
-    const trimmed = content.trim();
-    return (
-      trimmed.endsWith('</template>') ||
-      trimmed.endsWith('</script>') ||
-      trimmed.endsWith('</style>')
-    );
-  };
-
   const completions = async (
     chat: AIChat,
     complete?: (chat: AIChat) => void
   ) => {
+    engine.state.streaming = true;
     promptText.value = '';
     chat.content = '';
     chat.reasoning = '';
@@ -463,41 +421,16 @@ export function useAI() {
           }
         }
         if (data?.usage) {
-          chat.tokens = (chat.tokens || 0) + (data.usage.total_tokens || 0);
+          chat.tokens =
+            (chat.tokens || 0) + (data.usage.completion_tokens || 0);
         }
         if (done) {
           chat.status = 'Success';
           chat.thinking = Math.ceil(thinking / 1000);
-          applyAIPatch(chat);
-          if (chat.vue && !isVueSFC(chat.vue)) {
-            chat.status = 'Failed';
-            chat.message =
-              '代码不完整，似乎被截断了，可能上下文已溢出，请开启新对话！';
-            chat.dsl = null;
-            return null;
-          }
-
-          const dsl = await vue2Dsl(chat).catch((e) => {
-            chat.message = collectErrorMesssage(e);
-            chat.status = 'Error';
-            return null;
-          });
-          if (dsl) {
-            try {
-              chat.dsl = typeof dsl === 'object' ? dsl : JSON.parse(dsl);
-              if (Array.isArray(chat.dsl)) {
-                chat.status = 'Error';
-                chat.message = collectErrorMesssage(chat.dsl);
-                chat.dsl = null;
-              }
-            } catch (err: any) {
-              chat.dsl = null;
-              chat.status = 'Error';
-              chat.message = collectErrorMesssage(err.message);
-            }
-          }
+          const output = await processOutput(chat);
           await saveChat(chat);
-          complete && complete(chat);
+          complete && complete(output);
+          engine.state.streaming = false;
         }
       },
       async (err: any) => {
@@ -514,6 +447,7 @@ export function useAI() {
         }
         await saveChat(chat);
         complete && complete(chat);
+        engine.state.streaming = false;
       }
     );
 
@@ -522,10 +456,8 @@ export function useAI() {
 
   const updateChatDsl = async (source: string) => {
     if (!currentTopic.value || !currentChat.value || !source) return;
-    const id = currentTopic.value?.fileId as string;
+    const { name = '', id = '' } = engine.current.value || {};
     const project = engine.project.value?.toDsl() as ProjectSchema;
-    const { name = '' } = engine.current.value || {};
-
     const dsl = await engine.service
       .parseVue(project, {
         id,
@@ -575,16 +507,28 @@ export function useAI() {
 
   const onRefresh = (chat: AIChat) => {
     if (isPending.value) return;
-    return completions(chat, (c) => {
+    return completions(chat, async (c) => {
       if (engine.state.autoApply) {
-        onApply(c);
+        await onApply(c);
+      }
+      if (shouldNext(c)) {
+        return onPostChat({
+          model: currentTopic.value?.model as string,
+          auto: engine.state.autoApply,
+          toolCallId: c.toolCallId,
+          prompt: createNextPrompt(c)
+        });
       }
     });
   };
 
-  const onApply = (chat: AIChat, manual?: boolean) => {
+  const onApply = async (chat: AIChat, manual?: boolean) => {
     if (chat.dsl) {
-      engine.applyAI(chat.dsl);
+      const id = engine.current.value?.id;
+      if (id) {
+        chat.dsl.id = id;
+      }
+      await engine.applyAI(chat.dsl);
     } else {
       if (manual) {
         alert(`DSL不完整，无法应用到页面`);
@@ -594,8 +538,8 @@ export function useAI() {
     currentChat.value = null;
   };
 
-  const onView = (chat: AIChat) => {
-    applyAIPatch(chat);
+  const onView = async (chat: AIChat) => {
+    await processOutput(chat);
     currentChat.value = chat;
     showDetail.value = true;
   };
@@ -634,23 +578,7 @@ export function useAI() {
     }
   };
 
-  watch(
-    () => region?.active,
-    (widget) => {
-      if (widget.name === 'AI') {
-        init(engine.current.value);
-      }
-    },
-    {
-      immediate: true
-    }
-  );
-
-  watch(engine.current, (val, old) => {
-    if (val?.id !== old?.id) {
-      currentTopic.value = null;
-    }
-  });
+  onMounted(init);
 
   watch(panelHeight, () => {
     if (panelRef.value && isPending.value) {
@@ -674,7 +602,7 @@ export function useAI() {
     loadChats,
     onRemoveTopic,
     getVueCode,
-    vue2Dsl,
+    vue2Dsl: convertVueToDsl,
     onRefresh,
     onApply,
     onView,

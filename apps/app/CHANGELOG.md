@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.16.0](https://github.com/samchen08/vtj.pro/compare/vtj-project-app@0.15.2...vtj-project-app@0.16.0) (2026-02-22)
+
+
+### Bug Fixes
+
+* 🐛 优化代码 ([9fdec6e](https://github.com/samchen08/vtj.pro/commit/9fdec6e0a7bda938c47369b9e39feb7ca0bc6d99))
+
+
+
+
+
 ## [0.15.2](https://github.com/samchen08/vtj.pro/compare/vtj-project-app@0.15.1...vtj-project-app@0.15.2) (2026-02-06)
 
 **Note:** Version bump only for package vtj-project-app
