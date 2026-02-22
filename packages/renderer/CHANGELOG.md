@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.16.0](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.15.2...@vtj/renderer@0.16.0) (2026-02-22)
+
+
+### Bug Fixes
+
+* 🐛 优化代码 ([9fdec6e](https://gitee.com/newgateway/vtj/commits/9fdec6e0a7bda938c47369b9e39feb7ca0bc6d99))
+* 🐛 优化agent ([8496549](https://gitee.com/newgateway/vtj/commits/8496549fdc43a3b458e30d87d82b9806cdf61684))
+* 🐛 agent cache ([22e16ac](https://gitee.com/newgateway/vtj/commits/22e16ac4ed2b8e639951968b82d2f4a1153f3ce1))
+
+
+### Features
+
+* ✨ 代码校验 ([cc2f930](https://gitee.com/newgateway/vtj/commits/cc2f9308c9a36cf901893e0008fa1af8ef860f7a))
+
+
+
+
+
 ## [0.15.2](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.15.1...@vtj/renderer@0.15.2) (2026-02-06)
 
 **Note:** Version bump only for package @vtj/renderer

@@ -3,6 +3,41 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.16.0](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.15.2...@vtj/designer@0.16.0) (2026-02-22)
+
+
+### Bug Fixes
+
+* 🐛 临时保存 ([d2a5b5d](https://gitee.com/newgateway/vtj/commits/d2a5b5d61a5189f96e39c8a30ba99433ba694dd3))
+* 🐛 临时存储 ([3d32906](https://gitee.com/newgateway/vtj/commits/3d32906a6ace246d51a12a92887fe5eab2c849d3))
+* 🐛 优化代码 ([9fdec6e](https://gitee.com/newgateway/vtj/commits/9fdec6e0a7bda938c47369b9e39feb7ca0bc6d99))
+* 🐛 优化agent ([8496549](https://gitee.com/newgateway/vtj/commits/8496549fdc43a3b458e30d87d82b9806cdf61684))
+* 🐛 支持 ReAct 消息展示 ([0b932b5](https://gitee.com/newgateway/vtj/commits/0b932b569f33c0ce214ab016133eb96102af7e6f))
+* 🐛 agent ([270da59](https://gitee.com/newgateway/vtj/commits/270da5919ba81368799b681161072467e4163d7e))
+* 🐛 agent ([372b0fe](https://gitee.com/newgateway/vtj/commits/372b0fe804170b3dd482f04167959931deffda93))
+* 🐛 Agent ([50e850e](https://gitee.com/newgateway/vtj/commits/50e850e685c975cdd77c10d451ba701393587c89))
+* 🐛 agent cache ([22e16ac](https://gitee.com/newgateway/vtj/commits/22e16ac4ed2b8e639951968b82d2f4a1153f3ce1))
+* 🐛 AI生成中,禁用影响相关的操作 ([e0072ad](https://gitee.com/newgateway/vtj/commits/e0072adcea6bf9449b3fd2561965e684bb288b83))
+* 🐛 AI助手改名 ([2329f1c](https://gitee.com/newgateway/vtj/commits/2329f1c940a845703c1cd7918791d91d9f2d4840))
+* 🐛 useAgent ([d7f9cbd](https://gitee.com/newgateway/vtj/commits/d7f9cbd0572f0a57a9ece29da57ab6d4b8c9a11c))
+
+
+### Features
+
+* ✨ 代码校验 ([cc2f930](https://gitee.com/newgateway/vtj/commits/cc2f9308c9a36cf901893e0008fa1af8ef860f7a))
+* ✨ Agent ([4cb54d7](https://gitee.com/newgateway/vtj/commits/4cb54d783655d6ec4f0b681c8ede2ae657fe1e52))
+* ✨ AI Agent ([fbccc3a](https://gitee.com/newgateway/vtj/commits/fbccc3a7258bb5d58c532406e759b0766ca8808e))
+* ✨ bubble支持显示系统消息 ([8f90c90](https://gitee.com/newgateway/vtj/commits/8f90c90036096a626607396e6b64c2d140e93ad1))
+* ✨ getSelectedPath tool ([ad04fda](https://gitee.com/newgateway/vtj/commits/ad04fda55ba306f0d20b01f7da6664214bcbee49))
+* ✨ skills ([fb9c885](https://gitee.com/newgateway/vtj/commits/fb9c885770736210e04fee827fd13c975815435f))
+* ✨ tools ([b1defc6](https://gitee.com/newgateway/vtj/commits/b1defc67a355d824e7b66169ab3be2a8540cf5e7))
+* ✨ useAgent ([422d92f](https://gitee.com/newgateway/vtj/commits/422d92f455dffebf330e4f5b5e728bef51b21185))
+* ✨ Widget 缓存 ([5300cbe](https://gitee.com/newgateway/vtj/commits/5300cbeaa7e62196bc21d4096baec8f625d67772))
+
+
+
+
+
 ## [0.15.2](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.15.1...@vtj/designer@0.15.2) (2026-02-06)
 
 **Note:** Version bump only for package @vtj/designer

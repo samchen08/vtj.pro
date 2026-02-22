@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.16.0](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.15.2...@vtj/core@0.16.0) (2026-02-22)
+
+
+### Bug Fixes
+
+* 🐛 临时存储 ([3d32906](https://gitee.com/newgateway/vtj/commits/3d32906a6ace246d51a12a92887fe5eab2c849d3))
+
+
+### Features
+
+* ✨ Agent ([4cb54d7](https://gitee.com/newgateway/vtj/commits/4cb54d783655d6ec4f0b681c8ede2ae657fe1e52))
+
+
+
+
+
 ## [0.15.2](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.15.1...@vtj/core@0.15.2) (2026-02-06)
 
 **Note:** Version bump only for package @vtj/core
