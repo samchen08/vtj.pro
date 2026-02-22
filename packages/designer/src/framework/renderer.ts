@@ -199,7 +199,8 @@ export class Renderer {
           ? this.createUniApp(platform, file, renderer)
           : this.createApp(platform, file, renderer);
     } catch (e: any) {
-      notify(e.message || '未知错误', '运行时错误');
+      const msg = typeof e === 'string' ? e : e.message || '未知错误';
+      notify(msg, '运行时错误');
       console.error(e);
       this.report.error(e, {
         project: this.project?.toDsl(),
@@ -215,7 +216,11 @@ export class Renderer {
   dispose() {
     if (this.app) {
       const { platform = 'web' } = this.project || {};
-      this.app.unmount();
+      try {
+        this.app.unmount();
+      } catch (e: any) {
+        console.warn(e);
+      }
       const $route = this.app.config.globalProperties.$route;
       if ($route) {
         $route.meta = {};

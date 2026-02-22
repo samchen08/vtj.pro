@@ -9,7 +9,7 @@ import {
   BlockModel
 } from '@vtj/core';
 import { tsFormatter } from '@vtj/coder';
-import { parseSFC, isJSCode } from '../shared';
+import { parseSFC, isJSCode, compileValidator } from '../shared';
 import { parseTemplate } from './template';
 import { parseScripts, type ImportStatement } from './scripts';
 import { parseStyle } from './style';
@@ -23,6 +23,10 @@ export { patchCode, replacer, htmlToNodes };
 
 export async function parseVue(options: IParseVueOptions) {
   const { id, name, source: __source, project } = options;
+  const errors = compileValidator(__source, name);
+  if (errors) {
+    return Promise.reject(errors);
+  }
   const { dependencies = [], platform = 'web' } = project || {};
   const validator = new ComponentValidator();
   const fixer = new AutoFixer();

@@ -19,7 +19,8 @@ const defaults = {
   llm: '',
   LLMs: [],
   tour: true,
-  dark: false
+  dark: false,
+  streaming: false
 };
 
 export interface EngineState {
@@ -62,6 +63,11 @@ export interface EngineState {
    * 暗黑模式
    */
   dark: boolean;
+
+  /**
+   * AI输出中
+   */
+  streaming: boolean;
 }
 
 export class State {
@@ -74,7 +80,7 @@ export class State {
   constructor() {
     const state = storage.get(STATE_KEY, { type: 'local' });
     if (state) {
-      Object.assign(this.__state, state);
+      Object.assign(this.__state, state, { streaming: false });
     }
     this.saveDevtoolsTheme();
   }
@@ -158,6 +164,13 @@ export class State {
   set dark(v: boolean) {
     this.__isDark.value = v;
     this.saveDevtoolsTheme();
+  }
+  get streaming() {
+    return this.__state.streaming;
+  }
+
+  set streaming(v: boolean) {
+    this.save('streaming', v);
   }
 
   saveLLM(item: LLM) {

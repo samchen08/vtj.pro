@@ -23,13 +23,20 @@
     </div>
     <div class="v-apps-region__panels">
       <template v-for="widget in panelWidgets" :key="widget.name">
-        <KeepAlive>
+        <KeepAlive v-if="widget.cache">
           <WidgetWrapper
             ref="widgetsRef"
             v-if="active?.name === widget.name"
             :region="region"
             :widget="widget"></WidgetWrapper>
         </KeepAlive>
+        <template v-else>
+          <WidgetWrapper
+            ref="widgetsRef"
+            v-if="active?.name === widget.name"
+            :region="region"
+            :widget="widget"></WidgetWrapper>
+        </template>
       </template>
     </div>
   </div>
@@ -42,6 +49,7 @@
   import { useEngine, RegionType, type AppWidget } from '../../framework';
   import { Icon } from '../shared';
   import { useRegion, useOpenApi } from '../hooks';
+  import { message } from '../../utils';
 
   export interface Props {
     region: RegionType;
@@ -70,6 +78,10 @@
   const open = ref<AppWidget | null>(defaultWidget);
 
   const handleClickItem = (item: AppWidget) => {
+    if (engine.state.streaming) {
+      message('AI正在生成中，请稍后...', 'warning');
+      return;
+    }
     active.value = item;
     open.value = open.value?.name === item.name ? null : item;
   };

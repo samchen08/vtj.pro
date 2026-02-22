@@ -2,7 +2,7 @@
   <div class="v-ai-widget-new-chat">
     <div class="v-ai-widget-new-chat__welcome">
       <h3>嗨！我是您的智能助手</h3>
-      <div>我可以帮你开发低代码页面，请把你的任务交给我吧~</div>
+      <div>我可以帮你开发应用，请把你的任务交给我吧~</div>
     </div>
     <div class="v-ai-widget-new-chat__input-type">
       <ElSegmented

@@ -1,7 +1,7 @@
 <template>
   <div class="v-ai-widget-bubble" :class="classes">
     <ElAvatar
-      v-if="isAi"
+      v-if="isAi || isSystem"
       class="v-ai-widget-bubble__avatar"
       :size="24"
       :icon="VtjIconAi"></ElAvatar>
@@ -42,6 +42,13 @@
             size="default"
             text
             circle></ElButton>
+        </template>
+        <template v-else-if="isSystem">
+          <div v-if="props.data.prompt" class="v-ai-widget-bubble__detail">
+            <StreamMarkdown
+              :content="props.data.prompt"
+              :code="isPending || props.code"></StreamMarkdown>
+          </div>
         </template>
         <div v-else>
           <div v-if="props.data.image || props.data.json">
@@ -98,7 +105,7 @@
   import mastergo from '../../../assets/MasterGo.png';
 
   export interface Props {
-    type: 'user' | 'ai';
+    type: 'user' | 'ai' | 'system';
     data: AIChat;
     code?: boolean;
   }
@@ -118,7 +125,17 @@
   ]);
   const coverMap = { figma, sketch, mastergo, other, unknown: other };
   const isAi = computed(() => props.type === 'ai');
-  const isCompleted = computed(() => props.data.status === 'Success');
+  const isSystem = computed(() => props.type === 'system');
+  const isCompleted = computed(() => {
+    const { status, content } = props.data;
+    return (
+      status === 'Success' &&
+      (content.includes('```vue') || content.includes('```diff'))
+    );
+  });
+  const isSuccess = computed(
+    () => props.data.status === 'Success' && !props.data.message
+  );
   const isPending = computed(() => props.data.status === 'Pending');
   const isError = computed(() => props.data.status === 'Error');
   const collasped = ref(props.data.collapsed);
@@ -136,7 +153,8 @@
       {
         name: 'refresh',
         tooltip: '重新生成',
-        icon: Refresh
+        icon: Refresh,
+        disabled: isSuccess.value
       },
       {
         name: 'view',
@@ -156,7 +174,8 @@
   const classes = computed(() => {
     return {
       'is-user': props.type === 'user',
-      'is-ai': props.type === 'ai'
+      'is-ai': props.type === 'ai',
+      'is-system': props.type === 'system'
     };
   });
 

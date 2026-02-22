@@ -62,7 +62,7 @@
   </Panel>
 </template>
 <script lang="ts" setup>
-  import { ref, computed } from 'vue';
+  import { ref, computed, createApp } from 'vue';
   import { type ApiSchema } from '@vtj/core';
   import { cloneDeep, groupBy, merge } from '@vtj/utils';
   import { Search, VtjIconOpenapi } from '@vtj/icons';
@@ -83,7 +83,7 @@
   defineOptions({
     name: 'ApisWidget'
   });
-  const { project } = useProject();
+  const { project, engine } = useProject();
   const { swaggerVisible, onBeforeUpload, swaggerApis, saveApis } =
     useSwagger();
   const visible = ref(false);
@@ -117,7 +117,7 @@
     const axios = project.value?.globals?.axios;
     if (axios && isJSFunction(axios) && axios.value) {
       const func = parseFunction(axios, {}, false, false, true);
-      const config = func({});
+      const config = func(engine.simulator.renderer?.app || createApp({}));
       return config?.settings || {};
     }
   });

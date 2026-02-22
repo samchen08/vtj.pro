@@ -1,4 +1,5 @@
 import type { PlatformType, BlockSchema } from '@vtj/core';
+import type { AITopic, AIChat } from './types';
 export interface TemplateDto {
   id: string;
   name: string;
@@ -40,57 +41,14 @@ export interface TopicDto {
   prompt?: string;
   file?: File;
   options?: string;
-}
-
-export type TopicType = 'text' | 'image' | 'json';
-
-export type TopicDataType = 'sketch' | 'figma' | 'mastergo' | 'unknown';
-
-export interface AITopic {
-  id: string;
-  appId: string;
-  createAt: string;
-  fileId: string;
-  isHot: boolean;
-  model: string;
-  platform: string;
-  projectId: string;
-  title: string;
-  prompt: string;
-  dependencies: string;
-  dsl: any;
-  image?: string;
-  json?: string;
-  type?: TopicType;
-  dataType?: TopicDataType;
-}
-
-export interface AIChat {
-  id: string;
-  content: string;
-  createdAt: string;
-  dsl: any;
-  message: string;
-  source?: string;
-  prompt: string;
-  reasoning: string;
-  status: 'Pending' | 'Success' | 'Failed' | 'Error' | 'Canceled';
-  tokens: number;
-  topicId: string;
-  userId: string;
-  userName: string;
-  thinking: number;
-  vue: string;
-  collapsed?: boolean;
-  image?: string;
-  json?: string;
-  type?: TopicType;
-  dataType?: TopicDataType;
+  tools?: string;
 }
 
 export interface ChatDto {
   topicId: string;
   prompt: string;
+  toolCallId?: string;
+  source?: string;
 }
 
 export interface ResponseWrapper<T = any> {
@@ -273,7 +231,7 @@ export abstract class OpenApi {
   /**
    * 获取AI设置
    */
-  public abstract getSettins?: () => Promise<Settings>;
+  public abstract getSettings?: () => Promise<Settings>;
   /**
    * 创建订单
    */
@@ -297,4 +255,12 @@ export abstract class OpenApi {
    * 获取文件url
    */
   public abstract getOssFile?: (path?: string) => string | undefined;
+
+  /**
+   * 获取技能文档
+   */
+  public abstract getSkills?: (
+    platform: PlatformType,
+    ids: string[]
+  ) => Promise<ResponseWrapper<string>>;
 }

@@ -2,9 +2,10 @@ import { watch, ref, computed, type ComputedRef } from 'vue';
 import type { ActionMenuItem, TabsItem } from '@vtj/ui';
 import { type TabWidget, type Widget } from '../../framework';
 import { useProject } from './useProject';
+import { message } from '../../utils';
 
 export function useWorkspace(widgets: ComputedRef<Widget[]>) {
-  const { project } = useProject();
+  const { project, engine } = useProject();
   // 最近打开的文件历史记录
   const fileIdArray = ref<string[]>([]);
   // 当前激活的文件
@@ -21,7 +22,8 @@ export function useWorkspace(widgets: ComputedRef<Widget[]>) {
           return {
             label: file.title,
             name: file.id,
-            closable: true
+            closable: true,
+            disabled: engine.state.streaming
           } as TabsItem;
         }
         return null;
@@ -42,6 +44,10 @@ export function useWorkspace(widgets: ComputedRef<Widget[]>) {
   });
 
   const onCloseTab = (name: string) => {
+    if (engine.state.streaming) {
+      message('AI正在生成中，请稍后...', 'warning');
+      return;
+    }
     fileIdArray.value = fileIdArray.value.filter((id) => id !== name);
     activeFileId.value = fileIdArray.value[0] || '';
     if (!fileIdArray.value.length) {
@@ -54,12 +60,20 @@ export function useWorkspace(widgets: ComputedRef<Widget[]>) {
   };
 
   const closeAllTabs = () => {
+    if (engine.state.streaming) {
+      message('AI正在生成中，请稍后...', 'warning');
+      return;
+    }
     fileIdArray.value = [];
     activeFileId.value = '';
     project.value?.deactivate();
   };
 
   const closeOtherTabs = () => {
+    if (engine.state.streaming) {
+      message('AI正在生成中，请稍后...', 'warning');
+      return;
+    }
     fileIdArray.value = fileIdArray.value.filter(
       (id) => id === activeFileId.value
     );

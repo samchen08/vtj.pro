@@ -26,19 +26,23 @@
       </template>
     </ElInput>
 
-    <ElButtonGroup>
+    <ElButtonGroup :disabled="engine.state.streaming">
       <ElButton
         type="default"
         size="small"
         @click="backward"
-        :disabled="backwardDisabled || !!props.preview">
+        :disabled="
+          engine.state.streaming || backwardDisabled || !!props.preview
+        ">
         <VtjIconUndo></VtjIconUndo>
       </ElButton>
       <ElButton
         type="default"
         size="small"
         @click="forward"
-        :disabled="forwardDisabled || !!props.preview">
+        :disabled="
+          engine.state.streaming || forwardDisabled || !!props.preview
+        ">
         <VtjIconRedo></VtjIconRedo>
       </ElButton>
     </ElButtonGroup>
