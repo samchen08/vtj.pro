@@ -559,6 +559,7 @@ export function useAI() {
     }
     chat.status = 'Canceled';
     const res = await cancelChat(chat);
+    engine.state.streaming = false;
     if (res && res.data) {
       Object.assign(chat, res.data);
     }
