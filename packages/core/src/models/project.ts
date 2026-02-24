@@ -400,6 +400,76 @@ export class ProjectModel {
     return match;
   }
 
+  findParent(id: string): PageFile | undefined {
+    const finder = (
+      targetId: string,
+      pages: PageFile[] = [],
+      parent?: PageFile
+    ): PageFile | undefined => {
+      for (const page of pages) {
+        if (page.id === targetId) {
+          return parent;
+        }
+        if (page.children && page.children.length) {
+          const result = finder(targetId, page.children, page);
+          if (result) {
+            return result;
+          }
+        }
+      }
+    };
+    return finder(id, this.pages);
+  }
+
+  movePageTo(pageId: string, parentId?: string, silent: boolean = false) {
+    const parentPage = parentId ? this.getPage(parentId) : null;
+    const page = this.getPage(pageId);
+    if (!page) return false;
+
+    const currentParent = this.findParent(pageId);
+    if (currentParent) {
+      currentParent.children = currentParent.children?.filter(
+        (n) => n.id !== pageId
+      );
+    } else {
+      this.pages = this.pages.filter((n) => n.id !== pageId);
+    }
+
+    if (parentPage) {
+      if (parentPage.dir || parentPage.layout) {
+        if (parentPage.children) {
+          parentPage.children.push(page);
+        } else {
+          parentPage.children = [page];
+        }
+      }
+    } else {
+      this.pages.push(page);
+    }
+
+    if (!silent) {
+      const event: ProjectModelEvent = {
+        model: this,
+        type: 'update',
+        data: page
+      };
+      emitter.emit(EVENT_PROJECT_PAGES_CHANGE, event);
+      emitter.emit(EVENT_PROJECT_CHANGE, event);
+    }
+    return true;
+  }
+
+  getPageTree() {
+    // 1. 深拷贝 this.pages
+    const clonedPages = cloneDeep(this.pages);
+
+    // 2. 递归删除 dsl 属性（使用现有的 cleanPagesDsl 方法）
+    this.cleanPagesDsl(clonedPages);
+
+    // 3. 返回处理后的页面数组
+    return clonedPages;
+  }
+
   /**
    * 复制页面
    * @param page

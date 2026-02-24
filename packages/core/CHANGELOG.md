@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.16.2](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.16.1...@vtj/core@0.16.2) (2026-02-24)
+
+
+### Bug Fixes
+
+* 🐛 菜单树管理工具 ([425c3eb](https://gitee.com/newgateway/vtj/commits/425c3eb87a16de2403b7ee2456ec40169615ea6d))
+
+
+
+
+
 ## [0.16.1](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.16.0...@vtj/core@0.16.1) (2026-02-22)
 
 **Note:** Version bump only for package @vtj/core
