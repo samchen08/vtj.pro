@@ -473,7 +473,7 @@ export class Engine extends Base {
       if (file && project.isPageFile(file) && !!file.raw) {
         await this.service.removeRawPage(file.id, projectDsl);
       } else {
-        if (!(file as PageFile).dir) {
+        if (file && !(file as PageFile).dir) {
           await this.service.removeFile(file.id, projectDsl);
           await this.service.removeRawPage(file.id, projectDsl);
           await this.service.removeHistory(file.id, projectDsl);

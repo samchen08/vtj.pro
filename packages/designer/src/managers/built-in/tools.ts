@@ -43,7 +43,7 @@ const getMenus: ToolConfig = {
   createHandler:
     ({ project }) =>
     async () => {
-      const pages = project.pages || [];
+      const pages = project.getPageTree() || [];
       return pages.map((page: any) => {
         const { id, name, title, layout, dir, icon, children } = page;
         return {
@@ -89,7 +89,8 @@ const getPages: ToolConfig = {
  */
 const createPage: ToolConfig = {
   name: 'createPage',
-  description: '在当前项目新建页面',
+  description:
+    '在当前项目新建页面, 有层级的页面，需先创建父级，如先创建目录或布局类型的页面',
   parameters: [
     {
       name: 'page',
@@ -221,12 +222,37 @@ const updatePage: ToolConfig = {
     }
 };
 
+const movePage: ToolConfig = {
+  name: 'movePage',
+  description: '更改页面层级，布局和目录类型的页面可以有子级页面',
+  parameters: [
+    {
+      name: 'id',
+      type: 'string',
+      description: '需要更改的页面ID',
+      required: true
+    },
+    {
+      name: 'parentId',
+      type: 'string',
+      description: '更改到该页面ID的子级, 为null即移到根目录',
+      required: false
+    }
+  ],
+  createHandler:
+    ({ project }) =>
+    async (id: string, parentId: string) => {
+      return project.movePageTo(id, parentId);
+    }
+};
+
 /**
  * 删除页面
  */
 const removePage: ToolConfig = {
   name: 'removePage',
-  description: '删除页面或目录文件',
+  description:
+    '删除页面或目录文件, 如删除目录或布局类型的页面，需先删除子级页面',
   parameters: [
     {
       name: 'id',
@@ -1353,6 +1379,7 @@ export const TOOL_CONFIGS: ToolConfig[] = [
   getBlocks,
   createPage,
   updatePage,
+  movePage,
   removePage,
   createBlock,
   updateBlock,
