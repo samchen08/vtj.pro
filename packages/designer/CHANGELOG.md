@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.16.2](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.16.1...@vtj/designer@0.16.2) (2026-02-24)
+
+
+### Bug Fixes
+
+* 🐛 菜单树管理工具 ([425c3eb](https://gitee.com/newgateway/vtj/commits/425c3eb87a16de2403b7ee2456ec40169615ea6d))
+* 🐛 取消时重置AI状态 ([6295101](https://gitee.com/newgateway/vtj/commits/6295101c8fd5acce1ac3ff6c97bebbdf22e320e1))
+
+
+
+
+
 ## [0.16.1](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.16.0...@vtj/designer@0.16.1) (2026-02-22)
 
 
