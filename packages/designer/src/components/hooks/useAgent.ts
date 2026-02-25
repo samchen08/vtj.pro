@@ -356,10 +356,10 @@ export function useAgent(config: AgentConfig) {
       return true;
     }
     if (chat.status === 'Error' && chat.message) {
-      return true;
+      return !chat.message.startsWith('400');
     }
     if (chat.status === 'Failed' && chat.message) {
-      return true;
+      return !chat.message.startsWith('400');
     }
 
     return false;
