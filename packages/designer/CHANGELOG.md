@@ -3,6 +3,32 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.16.4](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.16.3...@vtj/designer@0.16.4) (2026-02-26)
+
+
+### Bug Fixes
+
+* 🐛 修复图片识别缺少tools参数 ([2d21ef7](https://gitee.com/newgateway/vtj/commits/2d21ef7af10d17909ec5781108708b230148b1ca))
+
+
+
+
+
+## [0.16.3](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.16.2...@vtj/designer@0.16.3) (2026-02-26)
+
+
+### Bug Fixes
+
+* 🐛 400错误终止AI执行 ([1980b5b](https://gitee.com/newgateway/vtj/commits/1980b5b69d47f921fc45e90a059f86bd6d79542e))
+* 🐛 错误信息开头 400 413 500 等状态码，如果是模型API报错，停止运行 ([6c7ae58](https://gitee.com/newgateway/vtj/commits/6c7ae5861ad8eb5cdd3417ee15d864a7084ed282))
+* 🐛 优化AI tools ([a488ea5](https://gitee.com/newgateway/vtj/commits/a488ea562ee225e6f77523c90f5c0756e4d48763))
+* 🐛 call tool 参数校验 ([41eb7c9](https://gitee.com/newgateway/vtj/commits/41eb7c9f9775beb6a680322a8a9425a95a274f50))
+* 🐛 tool 容错处理 ([3015c21](https://gitee.com/newgateway/vtj/commits/3015c2135d6fab3ffb0cd2a83782c51ea2d6355c))
+
+
+
+
+
 ## [0.16.2](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.16.1...@vtj/designer@0.16.2) (2026-02-24)
 
 

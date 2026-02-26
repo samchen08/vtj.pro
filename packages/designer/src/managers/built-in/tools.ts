@@ -89,8 +89,21 @@ const getPages: ToolConfig = {
  */
 const createPage: ToolConfig = {
   name: 'createPage',
-  description:
-    '在当前项目新建页面, 有层级的页面，需先创建父级，如先创建目录或布局类型的页面',
+  description: `在当前项目新建页面。有层级的页面，需先创建父级，例如如先创建目录或布局类型的页面。示例：
+\`\`\`json      
+{
+  "action": "createPage",
+  "parameters": [
+    {
+      "name": "Dashboard",
+      "title": "仪表盘",
+      "icon": "DataAnalysis"
+    },
+    "2gqoc7vp"
+  ]
+}
+\`\`\`
+    `,
   parameters: [
     {
       name: 'page',
@@ -136,6 +149,11 @@ const createPage: ToolConfig = {
   createHandler:
     ({ project, config }) =>
     async (page: PageFile, parentId?: string) => {
+      if (typeof page !== 'object') {
+        throw new Error(
+          '调用 createPage 工具参数错误，第一个参数要求是 PageFile 对象'
+        );
+      }
       // 容错处理
       const _parentId = parentId || (page as any).parentId;
       const newPage = await project.createPage(
@@ -214,6 +232,11 @@ const updatePage: ToolConfig = {
   createHandler:
     ({ project, config }) =>
     async (page: PageFile) => {
+      if (typeof page !== 'object') {
+        throw new Error(
+          '调用 updatePage 工具参数错误，第一个参数要求是 PageFile 对象'
+        );
+      }
       const newPage = project.updatePage(page);
       await delay(config.activeDelayMs);
       if (newPage) {
@@ -324,6 +347,11 @@ const createBlock: ToolConfig = {
   createHandler:
     ({ project, config }) =>
     async (block: BlockFile) => {
+      if (typeof block !== 'object') {
+        throw new Error(
+          '调用 createBlock 工具参数错误，第一个参数要求是 BlockFile 对象'
+        );
+      }
       const newBlock = await project.createBlock(block);
       project.active(newBlock);
       await delay(config.activeDelayMs);

@@ -355,13 +355,15 @@ export function useAgent(config: AgentConfig) {
     if (chat.toolCallId && (chat.toolContent || chat.message)) {
       return true;
     }
-    if (chat.status === 'Error' && chat.message) {
-      return !chat.message.startsWith('400');
-    }
-    if (chat.status === 'Failed' && chat.message) {
-      return !chat.message.startsWith('400');
-    }
 
+    if (chat.status === 'Error' || chat.status === 'Failed') {
+      // 是否错误信息开头 400 413 500 等状态码，如果是模型API报错，停止运行
+      return (
+        chat.message &&
+        !chat.message.startsWith('4') &&
+        !chat.message.startsWith('5')
+      );
+    }
     return false;
   };
 
