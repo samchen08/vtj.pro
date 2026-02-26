@@ -99,6 +99,7 @@ async function createImageTopicDto(
 ) {
   const { model, file, llm } = data;
   const { projectDsl, dsl, source, options } = await createCommonDto(engine);
+  const tools = engine.toolRegistry.generateToolDescriptions();
   const dto: TopicDto = {
     model,
     file,
@@ -106,7 +107,8 @@ async function createImageTopicDto(
     dsl: JSON.stringify(dsl),
     project: JSON.stringify(projectDsl),
     source,
-    llm: llm ? JSON.stringify(llm) : ''
+    llm: llm ? JSON.stringify(llm) : '',
+    tools: tools ? JSON.stringify(tools) : ''
   };
   return dto;
 }
