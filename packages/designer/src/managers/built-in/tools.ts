@@ -136,6 +136,8 @@ const createPage: ToolConfig = {
   createHandler:
     ({ project, config }) =>
     async (page: PageFile, parentId?: string) => {
+      // 容错处理
+      const _parentId = parentId || (page as any).parentId;
       const newPage = await project.createPage(
         Object.assign(
           {
@@ -154,7 +156,7 @@ const createPage: ToolConfig = {
           },
           page
         ),
-        parentId
+        _parentId
       );
       if (!newPage.dir) {
         project.active(newPage);
