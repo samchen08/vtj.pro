@@ -89,8 +89,21 @@ const getPages: ToolConfig = {
  */
 const createPage: ToolConfig = {
   name: 'createPage',
-  description:
-    '在当前项目新建页面, 有层级的页面，需先创建父级，如先创建目录或布局类型的页面',
+  description: `在当前项目新建页面。有层级的页面，需先创建父级，例如如先创建目录或布局类型的页面。示例：
+\`\`\`json      
+{
+  "action": "createPage",
+  "parameters": [
+    {
+      "name": "Dashboard",
+      "title": "仪表盘",
+      "icon": "DataAnalysis"
+    },
+    "2gqoc7vp"
+  ]
+}
+\`\`\`
+    `,
   parameters: [
     {
       name: 'page',
@@ -138,7 +151,7 @@ const createPage: ToolConfig = {
     async (page: PageFile, parentId?: string) => {
       if (typeof page !== 'object') {
         throw new Error(
-          '调用 createPageg 工具参数错误，第一个参数要求是 PageFile 对象'
+          '调用 createPage 工具参数错误，第一个参数要求是 PageFile 对象'
         );
       }
       // 容错处理
