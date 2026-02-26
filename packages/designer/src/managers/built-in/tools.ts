@@ -136,6 +136,11 @@ const createPage: ToolConfig = {
   createHandler:
     ({ project, config }) =>
     async (page: PageFile, parentId?: string) => {
+      if (typeof page !== 'object') {
+        throw new Error(
+          '调用 createPageg 工具参数错误，第一个参数要求是 PageFile 对象'
+        );
+      }
       // 容错处理
       const _parentId = parentId || (page as any).parentId;
       const newPage = await project.createPage(
@@ -214,6 +219,11 @@ const updatePage: ToolConfig = {
   createHandler:
     ({ project, config }) =>
     async (page: PageFile) => {
+      if (typeof page !== 'object') {
+        throw new Error(
+          '调用 updatePage 工具参数错误，第一个参数要求是 PageFile 对象'
+        );
+      }
       const newPage = project.updatePage(page);
       await delay(config.activeDelayMs);
       if (newPage) {
@@ -324,6 +334,11 @@ const createBlock: ToolConfig = {
   createHandler:
     ({ project, config }) =>
     async (block: BlockFile) => {
+      if (typeof block !== 'object') {
+        throw new Error(
+          '调用 createBlock 工具参数错误，第一个参数要求是 BlockFile 对象'
+        );
+      }
       const newBlock = await project.createBlock(block);
       project.active(newBlock);
       await delay(config.activeDelayMs);
