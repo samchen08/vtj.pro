@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.16.5](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.16.4...@vtj/coder@0.16.5) (2026-02-27)
+
+
+### Bug Fixes
+
+* 🐛 出码模版代码双引号替换为单引号 ([42b5b59](https://gitee.com/newgateway/vtj/commits/42b5b59b4d92e1fb602232416c0987d6f8df935f))
+
+
+
+
+
 ## [0.16.4](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.16.3...@vtj/coder@0.16.4) (2026-02-26)
 
 **Note:** Version bump only for package @vtj/coder
