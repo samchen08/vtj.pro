@@ -615,6 +615,35 @@ const removeApi: ToolConfig = {
 };
 
 /**
+ * 批量删除API
+ */
+const removeApis: ToolConfig = {
+  name: 'removeApis',
+  description: '批量删除API',
+  parameters: [
+    {
+      name: 'apis',
+      type: 'array',
+      description: 'API名称或ID数组',
+      required: true,
+      items: {
+        type: 'string',
+        description: 'API名称或ID'
+      }
+    }
+  ],
+  createHandler:
+    ({ project, config }) =>
+    async (apis: string[] = []) => {
+      for (const id of apis) {
+        project.removeApi(id);
+      }
+      await delay(config.activeDelayMs);
+      return true;
+    }
+};
+
+/**
  * 设置应用主页
  */
 const setHomepage: ToolConfig = {
@@ -1421,6 +1450,7 @@ export const TOOL_CONFIGS: ToolConfig[] = [
   setApi,
   getApis,
   removeApi,
+  removeApis,
   setHomepage,
   setGlobalCss,
   getGlobalCss,

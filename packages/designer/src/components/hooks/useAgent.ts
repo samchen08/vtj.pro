@@ -349,13 +349,6 @@ export function useAgent(config: AgentConfig) {
 
   const shouldNext = (chat: AIChat) => {
     const content = chat.content || chat.reasoning || '';
-    if (content.includes('F:') || content.includes('R:')) {
-      return false;
-    }
-    if (chat.toolCallId && (chat.toolContent || chat.message)) {
-      return true;
-    }
-
     if (chat.status === 'Error' || chat.status === 'Failed') {
       // 是否错误信息开头 400 413 500 等状态码，如果是模型API报错，停止运行
       return (
@@ -364,6 +357,15 @@ export function useAgent(config: AgentConfig) {
         !chat.message.startsWith('5')
       );
     }
+
+    if (content.includes('F:') || content.includes('R:')) {
+      return false;
+    }
+
+    if (chat.toolCallId && (chat.toolContent || chat.message)) {
+      return true;
+    }
+
     return false;
   };
 

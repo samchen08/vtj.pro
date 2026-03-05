@@ -71,6 +71,11 @@
       field: 'label',
       title: '备注',
       minWidth: 100
+    },
+    {
+      field: 'category',
+      title: '分组',
+      minWidth: 100
     }
   ];
 
@@ -123,7 +128,8 @@
     },
     url: 'XInput',
     name: 'XInput',
-    label: 'XInput'
+    label: 'XInput',
+    category: 'XInput'
   };
 
   const editRules = {
