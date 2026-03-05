@@ -134,7 +134,7 @@ const createPage: ToolConfig = {
         layout: {
           type: 'boolean',
           description:
-            '是否布局页面，布局页面的子级是子页面，需要以 RouterView 结合',
+            '是否布局页面，布局页面的子级是子页面，需要以 RouterView 结合，UniApp平台不支持目录和布局类型',
           required: false
         }
       }
@@ -153,6 +153,11 @@ const createPage: ToolConfig = {
         throw new Error(
           '调用 createPage 工具参数错误，第一个参数要求是 PageFile 对象'
         );
+      }
+      const platform = project.platform;
+      if (platform === 'uniapp') {
+        page.dir = false;
+        page.layout = false;
       }
       // 容错处理
       const _parentId = parentId || (page as any).parentId;
