@@ -60,7 +60,8 @@ export const EVENT_MODIFIERS = [
   'capture',
   'self',
   'once',
-  'passive'
+  'passive',
+  'enter'
 ];
 
 /**

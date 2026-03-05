@@ -3,6 +3,72 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.16.6](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.16.5...@vtj/designer@0.16.6) (2026-03-05)
+
+
+### Bug Fixes
+
+* 🐛 api管理 defaultSettings 在页面未打开时报异常错误 ([90df8d7](https://gitee.com/newgateway/vtj/commits/90df8d7dfb92a05a64e3421b6303a092f68b1b62))
+* 🐛 shouldNext判断异常错误 ([97fda20](https://gitee.com/newgateway/vtj/commits/97fda201899d63e2064fef5cb5ed875289b89ae2))
+
+
+### Features
+
+* ✨ 新增批量删除api tool ([d72710e](https://gitee.com/newgateway/vtj/commits/d72710e8ba74320811174b86a12be33d99302b6d))
+
+
+
+
+
+## [0.16.5](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.16.4...@vtj/designer@0.16.5) (2026-02-27)
+
+
+### Bug Fixes
+
+* 🐛 事件支持 enter 修饰符 ([c582b26](https://gitee.com/newgateway/vtj/commits/c582b2670c8ed02bdf4a28774f5e2cbea46ee155))
+
+
+
+
+
+## [0.16.4](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.16.3...@vtj/designer@0.16.4) (2026-02-26)
+
+
+### Bug Fixes
+
+* 🐛 修复图片识别缺少tools参数 ([2d21ef7](https://gitee.com/newgateway/vtj/commits/2d21ef7af10d17909ec5781108708b230148b1ca))
+
+
+
+
+
+## [0.16.3](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.16.2...@vtj/designer@0.16.3) (2026-02-26)
+
+
+### Bug Fixes
+
+* 🐛 400错误终止AI执行 ([1980b5b](https://gitee.com/newgateway/vtj/commits/1980b5b69d47f921fc45e90a059f86bd6d79542e))
+* 🐛 错误信息开头 400 413 500 等状态码，如果是模型API报错，停止运行 ([6c7ae58](https://gitee.com/newgateway/vtj/commits/6c7ae5861ad8eb5cdd3417ee15d864a7084ed282))
+* 🐛 优化AI tools ([a488ea5](https://gitee.com/newgateway/vtj/commits/a488ea562ee225e6f77523c90f5c0756e4d48763))
+* 🐛 call tool 参数校验 ([41eb7c9](https://gitee.com/newgateway/vtj/commits/41eb7c9f9775beb6a680322a8a9425a95a274f50))
+* 🐛 tool 容错处理 ([3015c21](https://gitee.com/newgateway/vtj/commits/3015c2135d6fab3ffb0cd2a83782c51ea2d6355c))
+
+
+
+
+
+## [0.16.2](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.16.1...@vtj/designer@0.16.2) (2026-02-24)
+
+
+### Bug Fixes
+
+* 🐛 菜单树管理工具 ([425c3eb](https://gitee.com/newgateway/vtj/commits/425c3eb87a16de2403b7ee2456ec40169615ea6d))
+* 🐛 取消时重置AI状态 ([6295101](https://gitee.com/newgateway/vtj/commits/6295101c8fd5acce1ac3ff6c97bebbdf22e320e1))
+
+
+
+
+
 ## [0.16.1](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.16.0...@vtj/designer@0.16.1) (2026-02-22)
 
 

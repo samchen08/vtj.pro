@@ -56,6 +56,7 @@ const createCallName = (method: string, url: string) => {
 };
 
 const parseSwagger = (json: any) => {
+  console.log(json);
   const apis: ApiSchema[] = [];
   const entries: [string, any][] = Object.entries(json.paths || {});
   for (const [url, items] of entries) {
@@ -63,9 +64,11 @@ const parseSwagger = (json: any) => {
       const _info: any = info;
       const _url = url.replace(/{([^}]+)}/g, ':$1');
       const _method = method.toLowerCase();
+      const _category = _info.tags ? _info.tags.join(',') : '';
       const api: ApiSchema = {
         id: uid(),
         name: createCallName(_method, _url),
+        category: _category,
         url: _url,
         method: _method as ApiMethod,
         label: _info.summary,

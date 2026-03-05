@@ -237,6 +237,14 @@ function deepParseNodeProps(props: any, context: Context): any {
   }
 }
 
+function withKey(handler: Function, key: string) {
+  return (event: any) => {
+    if (event?.key?.toLowerCase() === key.toLowerCase()) {
+      handler(event);
+    }
+  };
+}
+
 function parseNodeEvents(Vue: any, events: NodeEvents, context: Context) {
   const suffixModifiers = ['passive', 'capture', 'once'];
   const suffixMap: Record<string, string> = {
@@ -254,7 +262,10 @@ function parseNodeEvents(Vue: any, events: NodeEvents, context: Context) {
 
       const handler = context.__parseFunction(event.handler);
       if (handler) {
-        result[name] = Vue.withModifiers(handler, modifiers);
+        result[name] = Vue.withModifiers(
+          modifiers.includes('enter') ? withKey(handler, 'enter') : handler,
+          modifiers
+        );
       }
       return result;
     },

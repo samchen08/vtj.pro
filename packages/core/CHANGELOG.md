@@ -3,6 +3,49 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.16.6](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.16.5...@vtj/core@0.16.6) (2026-03-05)
+
+**Note:** Version bump only for package @vtj/core
+
+
+
+
+
+## [0.16.5](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.16.4...@vtj/core@0.16.5) (2026-02-27)
+
+**Note:** Version bump only for package @vtj/core
+
+
+
+
+
+## [0.16.4](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.16.3...@vtj/core@0.16.4) (2026-02-26)
+
+**Note:** Version bump only for package @vtj/core
+
+
+
+
+
+## [0.16.3](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.16.2...@vtj/core@0.16.3) (2026-02-26)
+
+**Note:** Version bump only for package @vtj/core
+
+
+
+
+
+## [0.16.2](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.16.1...@vtj/core@0.16.2) (2026-02-24)
+
+
+### Bug Fixes
+
+* 🐛 菜单树管理工具 ([425c3eb](https://gitee.com/newgateway/vtj/commits/425c3eb87a16de2403b7ee2456ec40169615ea6d))
+
+
+
+
+
 ## [0.16.1](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.16.0...@vtj/core@0.16.1) (2026-02-22)
 
 **Note:** Version bump only for package @vtj/core

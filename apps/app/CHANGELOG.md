@@ -3,6 +3,49 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.16.6](https://github.com/samchen08/vtj.pro/compare/vtj-project-app@0.16.5...vtj-project-app@0.16.6) (2026-03-05)
+
+**Note:** Version bump only for package vtj-project-app
+
+
+
+
+
+## [0.16.5](https://github.com/samchen08/vtj.pro/compare/vtj-project-app@0.16.4...vtj-project-app@0.16.5) (2026-02-27)
+
+**Note:** Version bump only for package vtj-project-app
+
+
+
+
+
+## [0.16.4](https://github.com/samchen08/vtj.pro/compare/vtj-project-app@0.16.3...vtj-project-app@0.16.4) (2026-02-26)
+
+**Note:** Version bump only for package vtj-project-app
+
+
+
+
+
+## [0.16.3](https://github.com/samchen08/vtj.pro/compare/vtj-project-app@0.16.2...vtj-project-app@0.16.3) (2026-02-26)
+
+
+### Bug Fixes
+
+* 🐛 删除测试配置 ([061cec8](https://github.com/samchen08/vtj.pro/commit/061cec89ce1d2f36d4e086db275c03b0da3e1acd))
+
+
+
+
+
+## [0.16.2](https://github.com/samchen08/vtj.pro/compare/vtj-project-app@0.16.1...vtj-project-app@0.16.2) (2026-02-24)
+
+**Note:** Version bump only for package vtj-project-app
+
+
+
+
+
 ## [0.16.1](https://github.com/samchen08/vtj.pro/compare/vtj-project-app@0.16.0...vtj-project-app@0.16.1) (2026-02-22)
 
 **Note:** Version bump only for package vtj-project-app

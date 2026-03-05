@@ -43,7 +43,7 @@ const getMenus: ToolConfig = {
   createHandler:
     ({ project }) =>
     async () => {
-      const pages = project.pages || [];
+      const pages = project.getPageTree() || [];
       return pages.map((page: any) => {
         const { id, name, title, layout, dir, icon, children } = page;
         return {
@@ -89,7 +89,21 @@ const getPages: ToolConfig = {
  */
 const createPage: ToolConfig = {
   name: 'createPage',
-  description: '在当前项目新建页面',
+  description: `在当前项目新建页面。有层级的页面，需先创建父级，例如如先创建目录或布局类型的页面。示例：
+\`\`\`json      
+{
+  "action": "createPage",
+  "parameters": [
+    {
+      "name": "Dashboard",
+      "title": "仪表盘",
+      "icon": "DataAnalysis"
+    },
+    "2gqoc7vp"
+  ]
+}
+\`\`\`
+    `,
   parameters: [
     {
       name: 'page',
@@ -135,6 +149,13 @@ const createPage: ToolConfig = {
   createHandler:
     ({ project, config }) =>
     async (page: PageFile, parentId?: string) => {
+      if (typeof page !== 'object') {
+        throw new Error(
+          '调用 createPage 工具参数错误，第一个参数要求是 PageFile 对象'
+        );
+      }
+      // 容错处理
+      const _parentId = parentId || (page as any).parentId;
       const newPage = await project.createPage(
         Object.assign(
           {
@@ -153,7 +174,7 @@ const createPage: ToolConfig = {
           },
           page
         ),
-        parentId
+        _parentId
       );
       if (!newPage.dir) {
         project.active(newPage);
@@ -211,6 +232,11 @@ const updatePage: ToolConfig = {
   createHandler:
     ({ project, config }) =>
     async (page: PageFile) => {
+      if (typeof page !== 'object') {
+        throw new Error(
+          '调用 updatePage 工具参数错误，第一个参数要求是 PageFile 对象'
+        );
+      }
       const newPage = project.updatePage(page);
       await delay(config.activeDelayMs);
       if (newPage) {
@@ -221,12 +247,37 @@ const updatePage: ToolConfig = {
     }
 };
 
+const movePage: ToolConfig = {
+  name: 'movePage',
+  description: '更改页面层级，布局和目录类型的页面可以有子级页面',
+  parameters: [
+    {
+      name: 'id',
+      type: 'string',
+      description: '需要更改的页面ID',
+      required: true
+    },
+    {
+      name: 'parentId',
+      type: 'string',
+      description: '更改到该页面ID的子级, 为null即移到根目录',
+      required: false
+    }
+  ],
+  createHandler:
+    ({ project }) =>
+    async (id: string, parentId: string) => {
+      return project.movePageTo(id, parentId);
+    }
+};
+
 /**
  * 删除页面
  */
 const removePage: ToolConfig = {
   name: 'removePage',
-  description: '删除页面或目录文件',
+  description:
+    '删除页面或目录文件, 如删除目录或布局类型的页面，需先删除子级页面',
   parameters: [
     {
       name: 'id',
@@ -296,6 +347,11 @@ const createBlock: ToolConfig = {
   createHandler:
     ({ project, config }) =>
     async (block: BlockFile) => {
+      if (typeof block !== 'object') {
+        throw new Error(
+          '调用 createBlock 工具参数错误，第一个参数要求是 BlockFile 对象'
+        );
+      }
       const newBlock = await project.createBlock(block);
       project.active(newBlock);
       await delay(config.activeDelayMs);
@@ -553,6 +609,35 @@ const removeApi: ToolConfig = {
     ({ project, config }) =>
     async (name: string) => {
       project.removeApi(name);
+      await delay(config.activeDelayMs);
+      return true;
+    }
+};
+
+/**
+ * 批量删除API
+ */
+const removeApis: ToolConfig = {
+  name: 'removeApis',
+  description: '批量删除API',
+  parameters: [
+    {
+      name: 'apis',
+      type: 'array',
+      description: 'API名称或ID数组',
+      required: true,
+      items: {
+        type: 'string',
+        description: 'API名称或ID'
+      }
+    }
+  ],
+  createHandler:
+    ({ project, config }) =>
+    async (apis: string[] = []) => {
+      for (const id of apis) {
+        project.removeApi(id);
+      }
       await delay(config.activeDelayMs);
       return true;
     }
@@ -1353,6 +1438,7 @@ export const TOOL_CONFIGS: ToolConfig[] = [
   getBlocks,
   createPage,
   updatePage,
+  movePage,
   removePage,
   createBlock,
   updateBlock,
@@ -1364,6 +1450,7 @@ export const TOOL_CONFIGS: ToolConfig[] = [
   setApi,
   getApis,
   removeApi,
+  removeApis,
   setHomepage,
   setGlobalCss,
   getGlobalCss,

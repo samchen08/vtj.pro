@@ -116,9 +116,14 @@
   const defaultSettings = computed(() => {
     const axios = project.value?.globals?.axios;
     if (axios && isJSFunction(axios) && axios.value) {
-      const func = parseFunction(axios, {}, false, false, true);
-      const config = func(engine.simulator.renderer?.app || createApp({}));
-      return config?.settings || {};
+      try {
+        const func = parseFunction(axios, {}, false, false, true);
+        const config = func(engine.simulator.renderer?.app || createApp({}));
+        return config?.settings || {};
+      } catch (e) {
+        console.warn(e);
+        return {};
+      }
     }
   });
 

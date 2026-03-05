@@ -3,6 +3,46 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.16.6](https://github.com/samchen08/vtj.pro/compare/vtj-project-h5@0.16.5...vtj-project-h5@0.16.6) (2026-03-05)
+
+**Note:** Version bump only for package vtj-project-h5
+
+
+
+
+
+## [0.16.5](https://github.com/samchen08/vtj.pro/compare/vtj-project-h5@0.16.4...vtj-project-h5@0.16.5) (2026-02-27)
+
+**Note:** Version bump only for package vtj-project-h5
+
+
+
+
+
+## [0.16.4](https://github.com/samchen08/vtj.pro/compare/vtj-project-h5@0.16.3...vtj-project-h5@0.16.4) (2026-02-26)
+
+**Note:** Version bump only for package vtj-project-h5
+
+
+
+
+
+## [0.16.3](https://github.com/samchen08/vtj.pro/compare/vtj-project-h5@0.16.2...vtj-project-h5@0.16.3) (2026-02-26)
+
+**Note:** Version bump only for package vtj-project-h5
+
+
+
+
+
+## [0.16.2](https://github.com/samchen08/vtj.pro/compare/vtj-project-h5@0.16.1...vtj-project-h5@0.16.2) (2026-02-24)
+
+**Note:** Version bump only for package vtj-project-h5
+
+
+
+
+
 ## [0.16.1](https://github.com/samchen08/vtj.pro/compare/vtj-project-h5@0.16.0...vtj-project-h5@0.16.1) (2026-02-22)
 
 **Note:** Version bump only for package vtj-project-h5
