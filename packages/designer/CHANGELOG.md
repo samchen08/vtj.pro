@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.16.6](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.16.5...@vtj/designer@0.16.6) (2026-03-05)
+
+
+### Bug Fixes
+
+* 🐛 api管理 defaultSettings 在页面未打开时报异常错误 ([90df8d7](https://gitee.com/newgateway/vtj/commits/90df8d7dfb92a05a64e3421b6303a092f68b1b62))
+* 🐛 shouldNext判断异常错误 ([97fda20](https://gitee.com/newgateway/vtj/commits/97fda201899d63e2064fef5cb5ed875289b89ae2))
+
+
+### Features
+
+* ✨ 新增批量删除api tool ([d72710e](https://gitee.com/newgateway/vtj/commits/d72710e8ba74320811174b86a12be33d99302b6d))
+
+
+
+
+
 ## [0.16.5](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.16.4...@vtj/designer@0.16.5) (2026-02-27)
 
 
