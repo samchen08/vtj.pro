@@ -13,7 +13,7 @@ import {
 } from '@vtj/core';
 import { camelCase, upperFirst, isString, pick } from '@vtj/utils';
 import { type Context } from './context';
-import { BUILT_IN_DIRECTIVES } from '../constants';
+import { BUILT_IN_DIRECTIVES, HTML_TAGS } from '../constants';
 import {
   toString,
   isJSExpression,
@@ -100,7 +100,11 @@ export function nodeRender(
     }
     // v-model
     vModels.forEach((vModel) => {
-      Object.assign(props, vModelRender(Vue, vModel, context));
+      if (HTML_TAGS.includes(dsl.name)) {
+        Object.assign(props, vNativeModelRender(vModel, context));
+      } else {
+        Object.assign(props, vModelRender(Vue, vModel, context));
+      }
     });
 
     const slots = childrenToSlots(
@@ -363,6 +367,24 @@ function vHtmlRender(directive: NodeDirective, context: Context) {
   const value = context.__parseExpression(directive.value);
   return {
     innerHTML: value || ''
+  };
+}
+
+function vNativeModelRender(directive: NodeDirective, context: Context) {
+  const handler: JSFunction = {
+    type: 'JSFunction',
+    value: directive.value?.value
+      ? `(v) => {
+        ${directive.value.value} = v?.target.value;
+      }`
+      : `(v) => {}`
+  };
+  const arg = isJSExpression(directive.arg)
+    ? context.__parseExpression(directive.arg)
+    : directive.arg || 'value';
+  return {
+    [arg]: context.__parseExpression(directive.value),
+    onInput: context.__parseFunction(handler)
   };
 }
 
