@@ -255,6 +255,10 @@
   @include e(input-type) {
     margin-bottom: 8px;
   }
+
+  .hot-list {
+    overflow: auto;
+  }
 }
 
 @include b(ai-widget-image-input) {
