@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.16.9](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.16.8...@vtj/designer@0.16.9) (2026-03-07)
+
+
+### Bug Fixes
+
+* 🐛 collectErrorMessage ([37be3a9](https://gitee.com/newgateway/vtj/commits/37be3a917c00a1ab8ae757ce5d9311c576547c96))
+* 🐛 collectErrorMessage ([455de2f](https://gitee.com/newgateway/vtj/commits/455de2f18d5046dd5f21f67213b3effe5a8d2a91))
+
+
+
+
+
 ## [0.16.8](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.16.7...@vtj/designer@0.16.8) (2026-03-07)
 
 
