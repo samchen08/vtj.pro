@@ -29,7 +29,7 @@
       @send="onJsonSend"></JsonInput>
     <template v-if="hotTopics.length">
       <ElDivider content-position="left">热门需求</ElDivider>
-      <div>
+      <div class="hot-list">
         <Item
           v-for="(item, index) in hotTopics"
           :index="index + 1"

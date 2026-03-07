@@ -13,13 +13,34 @@
       name: 'Test',
       nodes: [
         {
-          name: 'div',
-          children: 'ABC',
+          name: 'input',
           props: {
-            ref: 'div'
+            name: 'text'
+          },
+          directives: [
+            {
+              name: 'vModel',
+              value: {
+                type: 'JSExpression',
+                value: 'this.state.text'
+              }
+            }
+          ]
+        },
+        {
+          name: 'div',
+          children: {
+            type: 'JSExpression',
+            value: 'this.state.text'
           }
         }
       ],
+      state: {
+        text: {
+          type: 'JSExpression',
+          value: '2'
+        }
+      },
       lifeCycles: {
         mounted: {
           type: 'JSFunction',
