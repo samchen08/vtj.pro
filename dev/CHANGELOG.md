@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.16.7](https://github.com/samchen08/vtj.pro/compare/dev-web@0.16.6...dev-web@0.16.7) (2026-03-07)
+
+
+### Bug Fixes
+
+* 🐛 渲染器支持原生input v-model指令 ([aa9b722](https://github.com/samchen08/vtj.pro/commit/aa9b72261eec9ca5ad528e476e6c7f68210eeb3c))
+
+
+
+
+
 ## [0.16.6](https://github.com/samchen08/vtj.pro/compare/dev-web@0.16.5...dev-web@0.16.6) (2026-03-05)
 
 **Note:** Version bump only for package dev-web

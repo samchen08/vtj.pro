@@ -3,6 +3,21 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.16.7](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.16.6...@vtj/designer@0.16.7) (2026-03-07)
+
+
+### Bug Fixes
+
+* 🐛 热门需求加滚动条 ([3b4ef19](https://gitee.com/newgateway/vtj/commits/3b4ef19c22ca9c5ba0f47eb80acc5c30b8c4a7bd))
+* 🐛 优化工具简介 ([5b7c48b](https://gitee.com/newgateway/vtj/commits/5b7c48b1274fd914ab7fca565df7561e84c3ee4c))
+* 🐛 优化AI输入框样式 ([1b53bc4](https://gitee.com/newgateway/vtj/commits/1b53bc47935eb7b5164057512b23b0bc17065de3))
+* 🐛 优化Editor ([0c24238](https://gitee.com/newgateway/vtj/commits/0c242384b33e6f5156edac876d8febb84bdd280c))
+* 🐛 tool createPage uniapp 不支持dir 和 layout ([8651140](https://gitee.com/newgateway/vtj/commits/8651140273d45e1732ce56affabface773ac715e))
+
+
+
+
+
 ## [0.16.6](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.16.5...@vtj/designer@0.16.6) (2026-03-05)
 
 
