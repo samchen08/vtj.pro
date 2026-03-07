@@ -94,12 +94,12 @@ const PARSE_RULES: readonly ParseRule[] = [
 
 function collectErrorMessage(err: any) {
   let message = '';
-  const msg = err?.message || err;
+  const msg = err?.message || err?.data || err;
   if (Array.isArray(msg)) {
     message += '页面存在以下错误，请检查并修复：\n';
     message += msg.join(';\n');
   } else {
-    message = JSON.stringify(msg);
+    message = msg ? JSON.stringify(msg) : '';
   }
   return message
     ? message
