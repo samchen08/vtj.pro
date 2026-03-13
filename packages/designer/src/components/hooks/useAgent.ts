@@ -99,7 +99,12 @@ function collectErrorMessage(err: any) {
     message += '页面存在以下错误，请检查并修复：\n';
     message += msg.join(';\n');
   } else {
-    message = msg ? JSON.stringify(msg) : '';
+    try {
+      message = msg ? JSON.stringify(msg) : '';
+    } catch (e) {
+      console.warn('collectErrorMessage', e);
+      message = '';
+    }
   }
   return message
     ? message

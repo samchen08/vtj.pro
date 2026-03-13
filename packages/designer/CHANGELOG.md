@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.16.10](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.16.9...@vtj/designer@0.16.10) (2026-03-13)
+
+
+### Bug Fixes
+
+* 🐛 collectErrorMessage ([7ab0359](https://gitee.com/newgateway/vtj/commits/7ab0359d40433854b412496e82bd9be0df3dd6a4))
+
+
+### Features
+
+* ✨ AI 暴露 postTopic接口 ([8614ced](https://gitee.com/newgateway/vtj/commits/8614cede3b065516d266a93c581d27a12b13bf7b))
+
+
+
+
+
 ## [0.16.9](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.16.8...@vtj/designer@0.16.9) (2026-03-07)
 
 

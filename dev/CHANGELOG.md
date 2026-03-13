@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.16.10](https://github.com/samchen08/vtj.pro/compare/dev-web@0.16.9...dev-web@0.16.10) (2026-03-13)
+
+
+### Features
+
+* ✨ AI 暴露 postTopic接口 ([8614ced](https://github.com/samchen08/vtj.pro/commit/8614cede3b065516d266a93c581d27a12b13bf7b))
+
+
+
+
+
 ## [0.16.9](https://github.com/samchen08/vtj.pro/compare/dev-web@0.16.8...dev-web@0.16.9) (2026-03-07)
 
 **Note:** Version bump only for package dev-web
