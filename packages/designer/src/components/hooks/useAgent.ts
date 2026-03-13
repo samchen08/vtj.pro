@@ -92,11 +92,19 @@ const PARSE_RULES: readonly ParseRule[] = [
   }
 ] as const;
 
-function collectErrorMessage(msg: any) {
+function collectErrorMessage(err: any) {
   let message = '';
+  const msg = err?.message || err?.data || err;
   if (Array.isArray(msg)) {
     message += '页面存在以下错误，请检查并修复：\n';
     message += msg.join(';\n');
+  } else {
+    try {
+      message = msg ? JSON.stringify(msg) : '';
+    } catch (e) {
+      console.warn('collectErrorMessage', e);
+      message = '';
+    }
   }
   return message
     ? message
@@ -349,13 +357,9 @@ export function useAgent(config: AgentConfig) {
 
   const shouldNext = (chat: AIChat) => {
     const content = chat.content || chat.reasoning || '';
-    if (chat.status === 'Error' || chat.status === 'Failed') {
-      // 是否错误信息开头 400 413 500 等状态码，如果是模型API报错，停止运行
-      return (
-        chat.message &&
-        !chat.message.startsWith('4') &&
-        !chat.message.startsWith('5')
-      );
+    const message = chat.message?.trim() || '';
+    if (message.startsWith('4') || message.startsWith('5')) {
+      return false;
     }
 
     if (content.includes('F:') || content.includes('R:')) {

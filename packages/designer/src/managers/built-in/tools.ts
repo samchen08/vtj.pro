@@ -134,7 +134,7 @@ const createPage: ToolConfig = {
         layout: {
           type: 'boolean',
           description:
-            '是否布局页面，布局页面的子级是子页面，需要以 RouterView 结合',
+            '是否布局页面，布局页面的子级是子页面，需要以 RouterView 结合，UniApp平台不支持目录和布局类型',
           required: false
         }
       }
@@ -153,6 +153,11 @@ const createPage: ToolConfig = {
         throw new Error(
           '调用 createPage 工具参数错误，第一个参数要求是 PageFile 对象'
         );
+      }
+      const platform = project.platform;
+      if (platform === 'uniapp') {
+        page.dir = false;
+        page.layout = false;
       }
       // 容错处理
       const _parentId = parentId || (page as any).parentId;
@@ -732,7 +737,8 @@ const setGlobalStore: ToolConfig = {
   }
 }
 \`\`\`
-store的代码是一个js函数，函数接收的app参数是 Vue的应用实例，函数返回一个标准 Pinia Store
+store的代码是一个js函数，函数接收的app参数是 Vue的应用实例，函数返回一个标准 Pinia Store。
+你可以调用 getSkills 工具或取 pinia 的用法
       `,
       required: true
     }
@@ -788,95 +794,7 @@ const setGlobalAccess: ToolConfig = {
 \`\`\`
 
 权限控制配置的代码是一个js函数，函数接收的app参数是 Vue的应用实例，函数返回 AccessOptions 配置项对象
-
-配置项说明：
-
-export interface AccessOptions {
-  /**
-   * 开启session, token 储存到cookie，关闭浏览器将登录失效
-   */
-  session: boolean;
-
-  /**
-   * 请求头和cookie记录token名称
-   */
-  authKey: string;
-
-  /**
-   * 本地缓存key前缀
-   */
-  storagePrefix: string;
-
-  /**
-   * 本地缓存key
-   */
-  storageKey: string;
-
-  /**
-   * 路由拦截白名单
-   */
-  whiteList?: string[] | ((to: RouteLocationNormalized) => boolean);
-
-  /**
-   * 未授权页面路由路径
-   */
-  unauthorized?: string | (() => void);
-
-  /**
-   * 授权登录页面 pathname
-   */
-  auth?: string | ((search: string) => void);
-
-  /**
-   * 判断是否登录页面
-   * @param path
-   * @returns
-   */
-  isAuth?: (to: RouteLocationNormalized) => boolean;
-
-  /**
-   * 重定向参数名
-   */
-  redirectParam?: string;
-
-  /**
-   * 未登录响应状态码
-   */
-  unauthorizedCode?: number;
-
-  /**
-   * 提示信息方法
-   * @param message
-   * @returns
-   */
-  alert?: (message: string, options?: Record<string, any>) => Promise<any>;
-
-  /**
-   * 未登录提示文本
-   */
-  unauthorizedMessage?: string;
-
-  /**
-   * 无权限提示
-   */
-  noPermissionMessage?: string;
-
-  /**
-   * RSA解密私钥
-   */
-  privateKey?: string;
-
-  /**
-   * 应用编码
-   */
-  appName?: string;
-
-  /**
-   * 请求响应数据状态的key
-   */
-  statusKey?: string;
-}
-
+你可以调用 getSkills 工具或取 access 用法
   `,
   parameters: [
     {
@@ -954,79 +872,7 @@ const setGlobalAxios: ToolConfig = {
 }
 \`\`\`
 设置全局Axios请求工具配置项的代码是一个js函数，函数接收的app参数是 Vue的应用实例，函数返回 IRequestOptions 配置项对象
-
-export interface IRequestOptions extends CreateAxiosDefaults {
-  settings?: IRequestSettings;
-}
-
-settings 配置项说明：
-
-export interface IRequestSettings {
-  /**
-   * 发送数据类型
-   */
-  type?: 'form' | 'json' | 'data';
-
-  /**
-   *  是否注入自定义的请求头
-   */
-  injectHeaders?: boolean;
-
-  /**
-   * 自定义请求头
-   */
-  headers?:
-    | RawAxiosRequestHeaders
-    | ((
-        id: string,
-        config: AxiosRequestConfig,
-        settings: IRequestSettings
-      ) => RawAxiosRequestHeaders);
-  /**
-   * 是否显示 loading
-   */
-  loading?: boolean;
-
-  /**
-   * 显示 loading
-   */
-  showLoading?: () => void;
-  /**
-   * 关闭 loading
-   */
-  hideLoading?: () => void;
-
-  /**
-   * 显示失败提示
-   */
-  failMessage?: boolean;
-
-  /**
-   * 自定义失败提示
-   */
-  showError?: (msg: string, e: any) => void;
-
-  /**
-   *  返回原始 axios 响应对象
-   */
-  originResponse?: boolean;
-
-  /**
-   * 校验响应成功
-   */
-  validSuccess?: boolean;
-
-  /**
-   * 自定义校验方法
-   */
-  validate?: (res: AxiosResponse) => boolean;
-
-  /**
-   * 请求响应警告执行程序插件
-   */
-  skipWarn?: IRequestSkipWarn;
-
-}
+你可以调用 getSkills 工具或取 axios 用法
   `,
   parameters: [
     {

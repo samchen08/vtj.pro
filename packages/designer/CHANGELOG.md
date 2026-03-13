@@ -3,6 +3,60 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.16.10](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.16.9...@vtj/designer@0.16.10) (2026-03-13)
+
+
+### Bug Fixes
+
+* 🐛 collectErrorMessage ([7ab0359](https://gitee.com/newgateway/vtj/commits/7ab0359d40433854b412496e82bd9be0df3dd6a4))
+
+
+### Features
+
+* ✨ AI 暴露 postTopic接口 ([8614ced](https://gitee.com/newgateway/vtj/commits/8614cede3b065516d266a93c581d27a12b13bf7b))
+
+
+
+
+
+## [0.16.9](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.16.8...@vtj/designer@0.16.9) (2026-03-07)
+
+
+### Bug Fixes
+
+* 🐛 collectErrorMessage ([37be3a9](https://gitee.com/newgateway/vtj/commits/37be3a917c00a1ab8ae757ce5d9311c576547c96))
+* 🐛 collectErrorMessage ([455de2f](https://gitee.com/newgateway/vtj/commits/455de2f18d5046dd5f21f67213b3effe5a8d2a91))
+
+
+
+
+
+## [0.16.8](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.16.7...@vtj/designer@0.16.8) (2026-03-07)
+
+
+### Bug Fixes
+
+* 🐛 ai 响应400 循环问题 ([9898d3f](https://gitee.com/newgateway/vtj/commits/9898d3f9a83f3b02a4ada8e87a45b77d6944c5b4))
+
+
+
+
+
+## [0.16.7](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.16.6...@vtj/designer@0.16.7) (2026-03-07)
+
+
+### Bug Fixes
+
+* 🐛 热门需求加滚动条 ([3b4ef19](https://gitee.com/newgateway/vtj/commits/3b4ef19c22ca9c5ba0f47eb80acc5c30b8c4a7bd))
+* 🐛 优化工具简介 ([5b7c48b](https://gitee.com/newgateway/vtj/commits/5b7c48b1274fd914ab7fca565df7561e84c3ee4c))
+* 🐛 优化AI输入框样式 ([1b53bc4](https://gitee.com/newgateway/vtj/commits/1b53bc47935eb7b5164057512b23b0bc17065de3))
+* 🐛 优化Editor ([0c24238](https://gitee.com/newgateway/vtj/commits/0c242384b33e6f5156edac876d8febb84bdd280c))
+* 🐛 tool createPage uniapp 不支持dir 和 layout ([8651140](https://gitee.com/newgateway/vtj/commits/8651140273d45e1732ce56affabface773ac715e))
+
+
+
+
+
 ## [0.16.6](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.16.5...@vtj/designer@0.16.6) (2026-03-05)
 
 

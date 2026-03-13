@@ -68,7 +68,10 @@
 
   const format = async () => {
     if (!editor) return;
-    await editor.getAction('editor.action.formatDocument')?.run();
+    await editor
+      .getAction('editor.action.formatDocument')
+      ?.run()
+      .catch((e) => e);
     editor.setValue(editor.getValue());
   };
 
@@ -80,6 +83,10 @@
   };
 
   const createEditor = () => {
+    if (editor) {
+      editor.dispose();
+      editor = null;
+    }
     editor = monacoEditor.create(container.value, {
       value: props.modelValue,
       language: props.lang,
@@ -100,11 +107,6 @@
 
   onMounted(() => {
     nextTick(createEditor);
-
-    // document.addEventListener('keydown', (e) => {
-    //   e.preventDefault();
-    //   e.stopPropagation();
-    // });
   });
 
   onUnmounted(() => {

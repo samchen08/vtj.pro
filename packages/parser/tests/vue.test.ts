@@ -11,7 +11,7 @@ test('test_1', async () => {
     name: 'Bbb',
     source
   }).catch((errors) => {
-    console.error('error', errors);
+    // console.error('error', errors);
   });
 
   console.log(JSON.stringify(result, null, 2));

@@ -3,6 +3,41 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.16.10](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.16.9...@vtj/renderer@0.16.10) (2026-03-13)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
+## [0.16.9](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.16.8...@vtj/renderer@0.16.9) (2026-03-07)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
+## [0.16.8](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.16.7...@vtj/renderer@0.16.8) (2026-03-07)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
+## [0.16.7](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.16.6...@vtj/renderer@0.16.7) (2026-03-07)
+
+
+### Bug Fixes
+
+* 🐛 渲染器支持原生input v-model指令 ([aa9b722](https://gitee.com/newgateway/vtj/commits/aa9b72261eec9ca5ad528e476e6c7f68210eeb3c))
+
+
+
+
+
 ## [0.16.6](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.16.5...@vtj/renderer@0.16.6) (2026-03-05)
 
 **Note:** Version bump only for package @vtj/renderer
