@@ -298,4 +298,9 @@
   defineOptions({
     name: 'AIWidget'
   });
+
+  defineExpose({
+    newChat: onNewChat,
+    postTopic: onPostTopic
+  });
 </script>
