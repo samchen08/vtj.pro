@@ -381,7 +381,7 @@ function getBooleanValue(properties: ObjectProperty[], name: string) {
 }
 
 function getStringValue(properties: ObjectProperty[], name: string) {
-  const node = properties.find(
+  const node = properties?.find(
     (n) => (n as any).key?.name === name
   ) as ObjectProperty;
   return (node?.value as any)?.value;
@@ -391,7 +391,7 @@ function getFunctionExp(
   properties: Array<ObjectProperty | ObjectMethod>,
   name: string
 ) {
-  const node = properties.find(
+  const node = properties?.find(
     (n) => (n as any).key?.name === name
   ) as ObjectMethod;
   if (node) {
@@ -412,6 +412,7 @@ function getWatches(
     if (watchers[name]) {
       const properties = (value as ObjectExpression)
         .properties as ObjectProperty[];
+
       watches.push({
         id: name.replace('watcher_', ''),
         source: watchers[name],
@@ -468,7 +469,7 @@ function getLifeCycles(methods: ObjectMethod[]) {
 }
 
 function getPropDataType(properties: ObjectProperty[]) {
-  const node = properties.find(
+  const node = properties?.find(
     (n) => (n as any).key?.name === 'type'
   ) as ObjectProperty;
   if (!node) return undefined;
@@ -480,7 +481,7 @@ function getPropDataType(properties: ObjectProperty[]) {
 }
 
 function getPropDefault(properties: ObjectProperty[]) {
-  const node = properties.find(
+  const node = properties?.find(
     (n) => (n as any).key?.name === 'default'
   ) as ObjectProperty;
   if (!node) return undefined;
@@ -494,7 +495,7 @@ function processProps(expression: ObjectExpression | ArrayExpression) {
   if (expression.type === 'ArrayExpression') {
     props = expression.elements.map((n: any) => n.value);
   } else if (expression.type === 'ObjectExpression') {
-    props = expression.properties.map((n: any) => {
+    props = expression.properties?.map((n: any) => {
       const { key, value } = n as ObjectProperty;
       const properties = (value as any).properties || [];
       return {
@@ -534,7 +535,7 @@ function processInject(
 ): BlockInject[] {
   let inject: BlockInject[] = [];
   if (expression.type === 'ObjectExpression') {
-    inject = expression.properties.map((n) => {
+    inject = expression.properties?.map((n) => {
       const { key, value } = n as ObjectProperty;
       const properties = (value as any).properties;
       const name = (key as any).name;
