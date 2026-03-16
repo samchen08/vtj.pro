@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.16.12](https://gitee.com/newgateway/vtj/compare/@vtj/parser@0.16.11...@vtj/parser@0.16.12) (2026-03-16)
+
+
+### Bug Fixes
+
+* 🐛 当script有嵌套双引号，出码报错; 模版节点只有事件，没有句柄时，出码报错，如 只绑定[@click](https://gitee.com/click).stop ([268aeb9](https://gitee.com/newgateway/vtj/commits/268aeb952aa50ee9aa36fb9f87e7d89e65e360db))
+* 🐛 parser if 分支为 for 循环解析报错 ([004cf71](https://gitee.com/newgateway/vtj/commits/004cf71fef9d238cb9ea52347a745e094159e714))
+
+
+
+
+
 ## [0.16.11](https://gitee.com/newgateway/vtj/compare/@vtj/parser@0.16.10...@vtj/parser@0.16.11) (2026-03-14)
 
 
