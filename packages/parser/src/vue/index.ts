@@ -146,8 +146,8 @@ async function walkDsl(
 ) {
   const walking = async (node: NodeSchema, parent?: NodeSchema) => {
     await callback(node, parent);
-    if (Array.isArray(node.children)) {
-      for (const n of node.children) {
+    if (Array.isArray(node?.children)) {
+      for (const n of node?.children || []) {
         await walking(n, node);
       }
     }
