@@ -3,7 +3,7 @@ import { parseValue } from '../utils';
 
 export function parseState(state: BlockState = {}) {
   return Object.entries(state).map(([name, val]) => {
-    const value = parseValue(val, false);
+    const value = parseValue(val, false, true, [], false);
     return `${name}:${value}`;
   });
 }

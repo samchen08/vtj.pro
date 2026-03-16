@@ -1,10 +1,15 @@
 export const test_2 = {
-  name: 'Aaa',
+  name: 'Test',
   locked: false,
   inject: [],
   state: {},
   lifeCycles: {},
-  methods: {},
+  methods: {
+    say: {
+      type: 'JSFunction',
+      value: '() => {\n  console.log(\'date("YYYY-MM-DD")\')\n}'
+    }
+  },
   computed: {},
   watch: [],
   css: '',
@@ -14,27 +19,23 @@ export const test_2 = {
   slots: [],
   dataSources: {},
   __VTJ_BLOCK__: true,
-  __VERSION__: '1772173967139',
-  id: '1gruuag5',
+  __VERSION__: '1773650406287',
+  id: '1hg9jd9v',
   nodes: [
     {
-      id: '2gruuje7',
+      id: '3hga039x',
       name: 'div',
       from: '',
       invisible: false,
       locked: false,
       children: '容器文本内容示例',
-      props: {},
-      directives: [
-        {
-          id: '8gruuomh',
-          name: 'vFor',
-          value: {
-            type: 'JSExpression',
-            value: '["2021", "2023"]'
-          }
+      props: {
+        class: {
+          type: 'JSExpression',
+          value: '({ "is-class": true })'
         }
-      ],
+      },
+      directives: [],
       events: {}
     }
   ]

@@ -7,7 +7,9 @@ export function parseFunctionMap(
 ) {
   return Object.entries(map)
     .map(([name, val]) => {
-      let handler = replaceFunctionTag(parseValue(val, false, false) as string);
+      let handler = replaceFunctionTag(
+        parseValue(val, false, false, [], false) as string
+      );
       handler = replaceComputedValue(handler, computedKeys)?.trim();
 
       if (handler.startsWith('async')) {
