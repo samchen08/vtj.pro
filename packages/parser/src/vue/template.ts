@@ -187,6 +187,9 @@ function getEvents(
         if (endRegex.test(code)) {
           code = `($event) => { ${code} } `;
         }
+        if (!code) {
+          code = '() => {}';
+        }
         const regex = new RegExp(`${item.arg.content}_\[\\w\]\{5\,\}`);
         const name = code.match(regex)?.[0] || '';
         const handler = handlers[name];
