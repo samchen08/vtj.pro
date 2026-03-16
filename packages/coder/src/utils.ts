@@ -39,13 +39,26 @@ export function parseValue(
   val: unknown,
   stringify: boolean = true,
   noThis: boolean = true,
-  computedKeys: string[] = []
+  computedKeys: string[] = [],
+  quote: boolean = true
 ) {
-  let value = isJSCode(val)
-    ? val.value.trim().replace(/;$/, '').replace(/\"/g, "'")
-    : stringify
-      ? JSON.stringify(val)
-      : val;
+  let value = val as any;
+
+  if (isJSCode(val)) {
+    value = val.value.trim().replace(/;$/, '');
+    if (quote) {
+      value = value.replace(/\"/g, "'");
+    }
+  } else {
+    value = stringify ? JSON.stringify(value) : val;
+  }
+
+  // let value = isJSCode(val)
+  //   ? val.value.trim().replace(/;$/, '').replace(/\"/g, "'")
+  //   : stringify
+  //     ? JSON.stringify(val)
+  //     : val;
+
   value = replaceComputedValue(value as string, computedKeys);
   return noThis
     ? replaceThis(replaceContext(value as string))

@@ -187,6 +187,9 @@ function getEvents(
         if (endRegex.test(code)) {
           code = `($event) => { ${code} } `;
         }
+        if (!code) {
+          code = '() => {}';
+        }
         const regex = new RegExp(`${item.arg.content}_\[\\w\]\{5\,\}`);
         const name = code.match(regex)?.[0] || '';
         const handler = handlers[name];
@@ -429,12 +432,21 @@ function transformNode(
   }
 
   if (branches && node.type === NodeTypes.IF_BRANCH) {
-    const el = node.children.find((n) => n.type === NodeTypes.ELEMENT);
+    const el = node.children.find(
+      (n) => n.type === NodeTypes.ELEMENT || n.type === NodeTypes.FOR
+    );
+
     if (el) {
       if (el.type === NodeTypes.ELEMENT) {
         return createNodeSchema(el, parent, node as any, branches);
+      } else if (el.type === NodeTypes.FOR) {
+        const directives = getDirectives(node);
+        const el = { name: 'div', directives };
+        return transformChildren(el, node.children || []);
       }
     }
+
+    return '';
   }
 
   // 处理 v-for 节点
@@ -491,7 +503,6 @@ function transformNode(
   }
 
   console.warn('未处理', node.type);
-  // return null;
 }
 
 function transformCompoundExpression(children: CompoundExpressionNode[] = []) {

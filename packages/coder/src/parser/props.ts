@@ -21,8 +21,8 @@ export function parseProps(props: Array<string | BlockProp> = []) {
       }
       return `${prop.name}: {
           type:${toTypes(prop.type)},
-          required: ${parseValue(!!prop.required, true, false)},
-          default: ${prop.default ? parseValue(prop.default, true, false) : 'undefined'}
+          required: ${parseValue(!!prop.required, true, false, [], false)},
+          default: ${prop.default ? parseValue(prop.default, true, false, [], false) : 'undefined'}
           }`;
     }
   });
