@@ -23,9 +23,9 @@ export function adoptedStyleSheets(
     ? convertCssRpx(global, css)
     : css;
   const scopedCSS = scoped ? compileScopedCSS(content, scopedId) : content;
-
+  const isUni = !!(global as any).__uniConfig;
   // chrome > 71 才支持 replaceSync
-  if (CSSStyleSheet.prototype.replaceSync) {
+  if (CSSStyleSheet.prototype.replaceSync && !isUni) {
     const styleSheet = new CSSStyleSheet();
     styleSheet.id = id;
     styleSheet.replaceSync(scopedCSS);

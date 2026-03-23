@@ -216,7 +216,9 @@ export abstract class OpenApi {
   /**
    * 获取热门话题
    */
-  public abstract getHotTopics?: () => Promise<ResponseWrapper<AITopic[]>>;
+  public abstract getHotTopics?: (
+    platform?: string
+  ) => Promise<ResponseWrapper<AITopic[]>>;
 
   /**
    * AI Completions
