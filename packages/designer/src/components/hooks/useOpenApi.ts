@@ -325,11 +325,11 @@ export function useOpenApi() {
     return await res.json();
   };
 
-  const getHotTopics = async () => {
+  const getHotTopics = async (platform: string = '') => {
     if (openApi?.getHotTopics) {
-      return await openApi?.getHotTopics();
+      return await openApi?.getHotTopics(platform);
     }
-    const api = `${remote}/api/open/topic/hot`;
+    const api = `${remote}/api/open/topic/hot?platform=${platform}`;
     return await window
       .fetch(api, {
         method: 'get'

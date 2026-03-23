@@ -83,7 +83,7 @@ export class Renderer {
       ) {
         const locale = locales[name] || {};
         const extraOptions = libraryOptions[name] || {};
-        const options = { ...locale, ...extraOptions };
+        const options = { locale, ...extraOptions };
         try {
           app?.use(plugin, options);
         } catch (e) {

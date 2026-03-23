@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.16.13](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.16.12...@vtj/renderer@0.16.13) (2026-03-23)
+
+
+### Bug Fixes
+
+* 🐛 调整uniapp样式加载方式 ([c6bf082](https://gitee.com/newgateway/vtj/commits/c6bf082db0811e9faae88067be0186d379781218))
+
+
+
+
+
 ## [0.16.12](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.16.11...@vtj/renderer@0.16.12) (2026-03-16)
 
 **Note:** Version bump only for package @vtj/renderer

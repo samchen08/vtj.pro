@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.16.13](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.16.12...@vtj/designer@0.16.13) (2026-03-23)
+
+
+### Bug Fixes
+
+* 🐛 设计视图ElementPlus语言包 ([6f9b873](https://gitee.com/newgateway/vtj/commits/6f9b8732b150b1729f0ecb52fb04e6c7e116110d))
+* 🐛 getHotTopics 支持 platform 参数 ([5ad33e5](https://gitee.com/newgateway/vtj/commits/5ad33e5d49ca38d854983bb85f1f3c3954a5b9c9))
+
+
+
+
+
 ## [0.16.12](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.16.11...@vtj/designer@0.16.12) (2026-03-16)
 
 **Note:** Version bump only for package @vtj/designer

@@ -120,7 +120,7 @@
   };
 
   onMounted(async () => {
-    const res = await getHotTopics();
+    const res = await getHotTopics(engine.project.value?.platform);
     if (res?.success) {
       hotTopics.value = res.data as AITopic[];
     }
