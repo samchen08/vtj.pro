@@ -110,6 +110,10 @@ export default [
       {
         text: '深入探究',
         link: 'https://juejin.cn/column/7615538630096764962'
+      },
+      {
+        text: '平台揭秘',
+        link: 'https://juejin.cn/column/7618920576732921882'
       }
     ]
   }
