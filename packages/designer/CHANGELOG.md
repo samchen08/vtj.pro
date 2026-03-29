@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.16.14](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.16.13...@vtj/designer@0.16.14) (2026-03-29)
+
+
+### Bug Fixes
+
+* 🐛 修复发布模版更新问题 ([4069c00](https://gitee.com/newgateway/vtj/commits/4069c00f22bc0aadc2cd9f1c9a123c1f52f3d390))
+
+
+
+
+
 ## [0.16.13](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.16.12...@vtj/designer@0.16.13) (2026-03-23)
 
 
