@@ -114,7 +114,7 @@ export function useOpenApi() {
     const token = access?.getData()?.token;
     const api = `${remote}/api/open/template/${token}`;
     const res = await jsonp(api, { query: { id } });
-    return (res?.data || null) as TemplateDto;
+    return (res?.data || res || null) as TemplateDto;
   };
 
   const removeTemplate = async (id: string) => {
@@ -163,12 +163,17 @@ export function useOpenApi() {
         data.append(name, value);
       }
     }
-    return window
+    const res = await window
       .fetch(api, {
         method: 'post',
         body: data
       })
-      .then((res) => res.json());
+      .then((res) => res.json())
+      .catch(() => null);
+
+    return new Promise((resolve, reject) => {
+      return res?.success ? resolve(res.data) : reject(res);
+    });
   };
 
   const postTopic = async (dto: TopicDto) => {
