@@ -1951,7 +1951,7 @@ export const project: any = {
     {
       id: '1vd6wcz557i',
       method: 'post',
-      name: 'defaultRole',
+      name: 'getUser',
       label: '设置默认角色',
       url: '/api/roles/default/:id',
       settings: {

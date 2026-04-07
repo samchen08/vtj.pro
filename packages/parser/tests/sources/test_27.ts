@@ -14,7 +14,11 @@ export const test_27 = `
       return { state, props, provider };
     },
     methods: {
-     say() {}
+    async fetchUser() {
+      return await this.provider.apis['getUser']
+        .apply(this, arguments)
+        .then(res => res);
+    }
     }
   })
 </script>
