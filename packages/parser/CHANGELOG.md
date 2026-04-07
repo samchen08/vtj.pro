@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.16.15](https://gitee.com/newgateway/vtj/compare/@vtj/parser@0.16.14...@vtj/parser@0.16.15) (2026-04-07)
+
+
+### Bug Fixes
+
+* 🐛 parser 数据源this.provider.apis ([155210e](https://gitee.com/newgateway/vtj/commits/155210e949fc709fa013e7c14a7044645dcd0ad6))
+
+
+
+
+
 ## [0.16.14](https://gitee.com/newgateway/vtj/compare/@vtj/parser@0.16.13...@vtj/parser@0.16.14) (2026-03-29)
 
 **Note:** Version bump only for package @vtj/parser

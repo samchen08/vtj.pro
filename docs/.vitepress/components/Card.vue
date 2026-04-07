@@ -7,8 +7,12 @@
           {{ desc }}
         </slot>
       </div>
-      <div class="price"><span>￥</span>{{ price }}</div>
-      <div class="original"><span>￥</span>{{ original }}</div>
+      <div class="price" :class="{ 'is-timeLeft': timeLeft > 0 }">
+        <span>￥</span>{{ timeLeft > 0 ? price : original }}
+      </div>
+      <div class="original" v-if="timeLeft > 0">
+        <span>￥</span>{{ original }}
+      </div>
       <div class="btn" :class="`is-${type}`">
         <a class="PButton medium" href="#订阅购买流程">限时订阅</a>
         <span v-if="timeLeft > 0" class="timer">{{ countdownText }}</span>
@@ -137,6 +141,10 @@
     font-weight: bold;
     padding: 20px 0 5px 0;
     color: var(--vp-c-danger-3);
+    margin-bottom: 10px;
+    &.is-timeLeft {
+      margin-bottom: 0;
+    }
     span {
       font-size: 20px;
       color: var(--vp-c-danger-3);

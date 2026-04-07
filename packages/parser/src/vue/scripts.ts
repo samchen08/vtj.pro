@@ -564,7 +564,7 @@ function processExpose(expression: ArrayExpression) {
 }
 
 function findApi(project: ProjectSchema, id: string) {
-  return (project.apis || []).find((n) => n.id === id);
+  return (project.apis || []).find((n) => n.id === id || n.name === id);
 }
 
 function processDirectives(expression: ObjectExpression) {
