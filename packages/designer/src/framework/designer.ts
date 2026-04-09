@@ -345,7 +345,7 @@ export class Designer {
   }
 
   private getNodeByElement(el: VtjElement): NodeModel | null {
-    const id = el.__vtj__ ?? '';
+    const id = (el as HTMLElement).getAttribute('data-vtj') || el.__vtj__ || '';
     return NodeModel.nodes[id] || null;
   }
 
@@ -406,7 +406,9 @@ export class Designer {
       this.document.querySelectorAll('*')
     );
     return list.find(
-      (el) => (el as VtjElement).__vtj__ === model.id
+      (el) =>
+        (el as VtjElement).__vtj__ === model.id ||
+        (el as any).getAttribute(`data-vtj`) === model.id
     ) as VtjElement;
   }
 
