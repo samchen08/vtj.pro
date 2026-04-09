@@ -387,14 +387,14 @@ export class Provider extends Base {
         pages,
         component: PageContainer,
         loader: this.getRenderComponent.bind(this),
-        homepage: project?.homepage
+        homepage: homepage?.id
       });
       routes.forEach((route) => {
         routeAppendTo
           ? router.addRoute(routeAppendTo, route)
           : router.addRoute(route);
       });
-      if (!project?.homepage) {
+      if (!homepage) {
         routeAppendTo
           ? router.addRoute(routeAppendTo, homeRoute)
           : router.addRoute(homeRoute);
