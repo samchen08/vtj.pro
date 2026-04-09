@@ -60,7 +60,7 @@
       发布模板
     </ElButton>
     <ElDropdown
-      v-else
+      v-else-if="!props.appMode"
       split-button
       type="primary"
       size="small"
@@ -81,6 +81,29 @@
             :icon="VtjIconTemplate"
             divided>
             发布模板
+          </ElDropdownItem>
+        </ElDropdownMenu>
+      </template>
+    </ElDropdown>
+
+    <ElDropdown
+      v-if="props.appMode"
+      split-button
+      type="primary"
+      size="small"
+      @click="onPublishApp"
+      @command="onPublishCommand">
+      <span>发布</span>
+      <template #dropdown>
+        <ElDropdownMenu>
+          <ElDropdownItem command="publishApp" :icon="VtjIconPublish">
+            发布应用
+          </ElDropdownItem>
+          <ElDropdownItem command="template" :icon="VtjIconTemplate">
+            发布模板
+          </ElDropdownItem>
+          <ElDropdownItem command="coder" :icon="Download" divided>
+            项目出码
           </ElDropdownItem>
         </ElDropdownMenu>
       </template>
@@ -124,11 +147,13 @@
   export interface Props {
     onlyPublishTemplate?: boolean;
     coder?: boolean;
+    appMode?: boolean;
   }
 
   const props = withDefaults(defineProps<Props>(), {
     onlyPublishTemplate: false,
-    coder: false
+    coder: false,
+    appMode: false
   });
 
   const { engine, designer } = useSelected();
@@ -227,6 +252,27 @@
     }
   };
 
+  const onCoder = async () => {
+    const project = engine.project.value;
+    if (!project) return;
+    const link = await engine.genSource();
+    if (link) {
+      createDialog({
+        width: '600px',
+        height: '200px',
+        title: '出码',
+        icon: Download,
+        content: h(Coder, { link })
+      });
+    }
+  };
+
+  const onPublishApp = () => {
+    const project = engine.project.value;
+    if (!project) return;
+    alert('onPublishApp');
+  };
+
   const onPublishCommand = (command: string) => {
     const project = engine.project.value;
     if (!project) return;
@@ -240,21 +286,12 @@
       case 'template':
         onPublishToTemplate();
         break;
-    }
-  };
-
-  const onCoder = async () => {
-    const project = engine.project.value;
-    if (!project) return;
-    const link = await engine.genSource();
-    if (link) {
-      createDialog({
-        width: '600px',
-        height: '200px',
-        title: '出码',
-        icon: Download,
-        content: h(Coder, { link })
-      });
+      case 'coder':
+        onCoder();
+        break;
+      case 'publishApp':
+        onPublishApp();
+        break;
     }
   };
 
