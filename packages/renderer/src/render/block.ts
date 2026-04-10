@@ -110,9 +110,10 @@ export function createRenderer(options: CreateRendererOptions) {
       if (nodes.length === 1) {
         return nodeRender(nodes[0], context, Vue, loader, nodes);
       } else {
-        return nodes.map((child) =>
+        const children = nodes.map((child) =>
           nodeRender(child, context, Vue, loader, nodes)
         );
+        return Vue.createVNode('div', {}, children);
       }
     },
     ...createLifeCycles(dsl.value.lifeCycles ?? {}, context)

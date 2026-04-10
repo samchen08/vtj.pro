@@ -9,16 +9,17 @@
     <XField label="截图">
       <template #editor>
         <div class="v-actions-widget__cover">
-          <ElImage :src="imageDataUrl" fit="contain"></ElImage>
+          <ElImage :src="imageDataUrl" fit="cover"></ElImage>
           <ElUpload
             class="v-actions-widget__upload"
             @change="onFileChange"
             :auto-upload="false"
-            :show-file-list="false">
+            :show-file-list="false"
+            accept="image/*">
             <template #trigger>
-              <ElButton round :icon="Upload" type="warning" size="small"
-                >更换图片</ElButton
-              >
+              <ElButton round :icon="Upload" type="warning" size="small">
+                更换图片
+              </ElButton>
             </template>
           </ElUpload>
         </div>

@@ -113,6 +113,14 @@
       v-if="publisherVisible"
       v-model="publisherVisible"
       v-bind="publisherProps"></Publisher>
+
+    <Versioner
+      ref="versionerRef"
+      :canvas="homepageCanvas"
+      :getAppsInit="props.getAppsInit"
+      :postAppsVersions="props.postAppsVersions"
+      :postDslDevPublish="props.postDslDevPublish"
+      :putAppsCurrentVersion="props.putAppsCurrentVersion"></Versioner>
   </div>
 </template>
 <script lang="ts" setup>
@@ -141,6 +149,7 @@
   import { delay } from '@vtj/utils';
   import Publisher from './publisher.vue';
   import Coder from './coder.vue';
+  import Versioner from './versioner‌.vue';
   import { useSelected, useOpenApi } from '../../hooks';
   import { message, alert } from '../../../utils';
 
@@ -148,6 +157,10 @@
     onlyPublishTemplate?: boolean;
     coder?: boolean;
     appMode?: boolean;
+    getAppsInit?: any;
+    postAppsVersions?: any;
+    postDslDevPublish?: any;
+    putAppsCurrentVersion?: any;
   }
 
   const props = withDefaults(defineProps<Props>(), {
@@ -161,6 +174,8 @@
   const isPreview = ref(false);
   const publisherVisible = ref(false);
   const publisherProps = ref();
+  const versionerRef = ref();
+  const homepageCanvas = ref();
   const refresh = () => {
     if (engine.current.value) {
       if (isPreview.value) {
@@ -267,10 +282,18 @@
     }
   };
 
-  const onPublishApp = () => {
+  const onPublishApp = async () => {
     const project = engine.project.value;
     if (!project) return;
-    alert('onPublishApp');
+    const homepage = project.getHomepage();
+    if (!homepage) {
+      message('项目没有页面，无需发布', 'warning');
+      return;
+    }
+    project.active(homepage);
+    await delay(300);
+    homepageCanvas.value = await engine.simulator.capture();
+    versionerRef?.value.openDialog();
   };
 
   const onPublishCommand = (command: string) => {
