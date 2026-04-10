@@ -672,9 +672,9 @@ export class Provider extends Base {
       if (rawModule) {
         return (await rawModule())?.default;
       }
-      // if (this.nodeEnv === 'development') {
-      //   return this.adapter.startupComponent || null;
-      // }
+      if (this.nodeEnv === 'development') {
+        return this.adapter.startupComponent || null;
+      }
       return null;
     }
     // 获取DSL配置并创建渲染器
