@@ -9,16 +9,17 @@
     <XField label="截图">
       <template #editor>
         <div class="v-actions-widget__cover">
-          <ElImage :src="imageDataUrl" fit="contain"></ElImage>
+          <ElImage :src="imageDataUrl" fit="cover"></ElImage>
           <ElUpload
             class="v-actions-widget__upload"
             @change="onFileChange"
             :auto-upload="false"
-            :show-file-list="false">
+            :show-file-list="false"
+            accept="image/*">
             <template #trigger>
-              <ElButton round :icon="Upload" type="warning" size="small"
-                >更换图片</ElButton
-              >
+              <ElButton round :icon="Upload" type="warning" size="small">
+                更换图片
+              </ElButton>
             </template>
           </ElUpload>
         </div>
@@ -40,6 +41,14 @@
       :options="getTemplateCategories"
       required></XField>
     <XField
+      label="更新类型"
+      name="type"
+      required
+      editor="radio"
+      :options="typeOptions"
+      :props="{ button: true }"
+      @change="handleTypeChange"></XField>
+    <XField
       label="版本号"
       name="version"
       required
@@ -49,10 +58,9 @@
       }"></XField>
     <XField
       label="公开"
-      name="share"
+      name="isShared"
       editor="switch"
       tip="非公共的模版即仅自己可以使用, 公开模版后不允许删除"
-      :disabled="true"
       required>
     </XField>
     <XField
@@ -77,6 +85,7 @@
   import { useOpenApi } from '../../hooks';
   import { type PublishTemplateDto } from '../../../framework';
   import { NAME_REGEX, VERSION_REGEX } from '../../../constants';
+  import { upgradeVersion } from '../../../utils';
   export interface Props {
     id?: string;
     canvas: any;
@@ -92,18 +101,44 @@
   const model = reactive({
     name: props.name,
     label: props.label,
-    share: false
+    isShared: false,
+    prodVersion: '',
+    version: upgradeVersion('patch'),
+    type: 'patch'
   });
 
   const isOwner = ref(false);
   const userFile = ref();
 
+  const typeOptions = [
+    {
+      label: '版本升级',
+      value: 'major'
+    },
+    {
+      label: '特性更新',
+      value: 'minor'
+    },
+    {
+      label: '修订补丁',
+      value: 'patch'
+    }
+  ];
+
+  const handleTypeChange = (type: any) => {
+    model.version = upgradeVersion(type, model.prodVersion);
+  };
+
   if (props.id) {
     getTemplateById(props.id).then((res) => {
       if (res) {
+        const version = res.latestVersion?.version;
         Object.assign(model, {
           category: res.category,
-          version: res.latest
+          version: upgradeVersion('patch', version),
+          prodVersion: version,
+          isShared: res.isShared ?? res.share,
+          name: res.code
         });
       }
       isOwner.value = !!res;
@@ -149,7 +184,6 @@
       dsl: JSON.stringify(dsl),
       cover,
       category: '',
-      version: '',
       platform,
       ...model
     };
@@ -186,7 +220,7 @@
   .v-actions-widget__cover {
     position: relative;
     width: 100%;
-    height: 300px;
+    height: 250px;
     background-color: var(--el-fill-color-dark);
     border: 1px solid var(--el-border-color);
     .el-image {

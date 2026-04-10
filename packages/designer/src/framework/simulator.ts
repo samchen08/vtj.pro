@@ -44,7 +44,7 @@ import { HOT_KEYS_DEP } from '../constants';
 
 declare global {
   interface Window {
-    __simulator__: Simulator;
+    __simulator__: any;
     Vue?: any;
     VueRouter?: any;
     ElementPlus?: any;

@@ -321,6 +321,10 @@ export class ProjectModel {
     return finder(this.pages);
   }
 
+  getHomepage() {
+    return this.homepage ? this.getPage(this.homepage) : this.getPages()[0];
+  }
+
   /**
    * 新建页面
    * @param page

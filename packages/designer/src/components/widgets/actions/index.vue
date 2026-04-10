@@ -60,7 +60,7 @@
       发布模板
     </ElButton>
     <ElDropdown
-      v-else
+      v-else-if="!props.appMode"
       split-button
       type="primary"
       size="small"
@@ -86,10 +86,41 @@
       </template>
     </ElDropdown>
 
+    <ElDropdown
+      v-if="props.appMode"
+      split-button
+      type="primary"
+      size="small"
+      @click="onPublishApp"
+      @command="onPublishCommand">
+      <span>发布</span>
+      <template #dropdown>
+        <ElDropdownMenu>
+          <ElDropdownItem command="publishApp" :icon="VtjIconPublish">
+            发布应用
+          </ElDropdownItem>
+          <ElDropdownItem command="template" :icon="VtjIconTemplate">
+            发布模板
+          </ElDropdownItem>
+          <ElDropdownItem command="coder" :icon="Download" divided>
+            项目出码
+          </ElDropdownItem>
+        </ElDropdownMenu>
+      </template>
+    </ElDropdown>
+
     <Publisher
       v-if="publisherVisible"
       v-model="publisherVisible"
       v-bind="publisherProps"></Publisher>
+
+    <Versioner
+      ref="versionerRef"
+      :canvas="homepageCanvas"
+      :getAppsInit="props.getAppsInit"
+      :postAppsVersions="props.postAppsVersions"
+      :postDslDevPublish="props.postDslDevPublish"
+      :putAppsCurrentVersion="props.putAppsCurrentVersion"></Versioner>
   </div>
 </template>
 <script lang="ts" setup>
@@ -118,17 +149,24 @@
   import { delay } from '@vtj/utils';
   import Publisher from './publisher.vue';
   import Coder from './coder.vue';
+  import Versioner from './versioner‌.vue';
   import { useSelected, useOpenApi } from '../../hooks';
   import { message, alert } from '../../../utils';
 
   export interface Props {
     onlyPublishTemplate?: boolean;
     coder?: boolean;
+    appMode?: boolean;
+    getAppsInit?: any;
+    postAppsVersions?: any;
+    postDslDevPublish?: any;
+    putAppsCurrentVersion?: any;
   }
 
   const props = withDefaults(defineProps<Props>(), {
     onlyPublishTemplate: false,
-    coder: false
+    coder: false,
+    appMode: false
   });
 
   const { engine, designer } = useSelected();
@@ -136,6 +174,8 @@
   const isPreview = ref(false);
   const publisherVisible = ref(false);
   const publisherProps = ref();
+  const versionerRef = ref();
+  const homepageCanvas = ref();
   const refresh = () => {
     if (engine.current.value) {
       if (isPreview.value) {
@@ -227,6 +267,35 @@
     }
   };
 
+  const onCoder = async () => {
+    const project = engine.project.value;
+    if (!project) return;
+    const link = await engine.genSource();
+    if (link) {
+      createDialog({
+        width: '600px',
+        height: '200px',
+        title: '出码',
+        icon: Download,
+        content: h(Coder, { link })
+      });
+    }
+  };
+
+  const onPublishApp = async () => {
+    const project = engine.project.value;
+    if (!project) return;
+    const homepage = project.getHomepage();
+    if (!homepage) {
+      message('项目没有页面，无需发布', 'warning');
+      return;
+    }
+    project.active(homepage);
+    await delay(300);
+    homepageCanvas.value = await engine.simulator.capture();
+    versionerRef?.value.openDialog();
+  };
+
   const onPublishCommand = (command: string) => {
     const project = engine.project.value;
     if (!project) return;
@@ -240,21 +309,12 @@
       case 'template':
         onPublishToTemplate();
         break;
-    }
-  };
-
-  const onCoder = async () => {
-    const project = engine.project.value;
-    if (!project) return;
-    const link = await engine.genSource();
-    if (link) {
-      createDialog({
-        width: '600px',
-        height: '200px',
-        title: '出码',
-        icon: Download,
-        content: h(Coder, { link })
-      });
+      case 'coder':
+        onCoder();
+        break;
+      case 'publishApp':
+        onPublishApp();
+        break;
     }
   };
 

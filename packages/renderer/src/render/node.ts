@@ -13,7 +13,7 @@ import {
 } from '@vtj/core';
 import { camelCase, upperFirst, isString, pick } from '@vtj/utils';
 import { type Context } from './context';
-import { BUILT_IN_DIRECTIVES, HTML_TAGS } from '../constants';
+import { BUILT_IN_DIRECTIVES, HTML_TAGS, ContextMode } from '../constants';
 import {
   toString,
   isJSExpression,
@@ -117,9 +117,13 @@ export function nodeRender(
 
     const __scopeId = context?.__id ? `data-v-${context.__id}` : undefined;
     const styleScope = __scopeId ? { [__scopeId]: '' } : {};
+
+    const nodeAttrs =
+      context.__mode === ContextMode.Design ? { 'data-vtj': id } : {};
+
     let vnode = Vue.createVNode(
       component,
-      { key: `${id}_${seq}`, ...styleScope, ...props, ...events },
+      { key: `${id}_${seq}`, ...styleScope, ...nodeAttrs, ...props, ...events },
       slots
     );
 

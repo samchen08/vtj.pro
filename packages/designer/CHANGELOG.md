@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.16.16](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.16.15...@vtj/designer@0.16.16) (2026-04-10)
+
+
+### Bug Fixes
+
+* 🐛 修复设计器视图选不了区块问题 ([55c2e38](https://gitee.com/newgateway/vtj/commits/55c2e38108a77f6238cf2e2cf21359f1176b952d))
+* 🐛 模版发布支持共享 ([cd451f7](https://gitee.com/newgateway/vtj/commits/cd451f7bc7a1c6dd366f399bd819d6b7253958cd))
+
+
+
+
+
 ## [0.16.15](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.16.14...@vtj/designer@0.16.15) (2026-04-07)
 
 **Note:** Version bump only for package @vtj/designer

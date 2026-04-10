@@ -34,7 +34,11 @@ export const PageContainer = defineComponent({
     if (component) {
       return h(component, { ...query, key: sid });
     } else {
-      return h('div', '页面不存在');
+      return h(
+        'div',
+        { style: { padding: '10px' } },
+        '找不到组件，组件不存在或未发布！'
+      );
     }
   },
   activated() {

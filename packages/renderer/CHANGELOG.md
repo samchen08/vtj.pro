@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.16.16](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.16.15...@vtj/renderer@0.16.16) (2026-04-10)
+
+
+### Bug Fixes
+
+* 🐛 修复设计器视图选不了区块问题 ([55c2e38](https://gitee.com/newgateway/vtj/commits/55c2e38108a77f6238cf2e2cf21359f1176b952d))
+* 🐛 区块组件缓存问题 ([ac93eee](https://gitee.com/newgateway/vtj/commits/ac93eee92ebb8055f76e30bf71a88063ad4b9886))
+* 🐛 默认主页 ([7e41a90](https://gitee.com/newgateway/vtj/commits/7e41a90e21c13c19fd8c77474c1298a0541825ca))
+
+
+### Features
+
+* ✨ 当缺省主页时,提取第一个页面当主页 ([759db1d](https://gitee.com/newgateway/vtj/commits/759db1dea2e20ef8bf66602e098f4d31a942cb1e))
+
+
+
+
+
 ## [0.16.15](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.16.14...@vtj/renderer@0.16.15) (2026-04-07)
 
 **Note:** Version bump only for package @vtj/renderer
