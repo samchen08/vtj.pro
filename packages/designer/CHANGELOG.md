@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.16.17](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.16.16...@vtj/designer@0.16.17) (2026-04-13)
+
+
+### Bug Fixes
+
+* 🐛 AI支持uniapp全局配置 ([a03be8d](https://gitee.com/newgateway/vtj/commits/a03be8d6ecb6e4eb2630df2f744449f22f70383f))
+* 🐛 replace lcdp.vtj.pro ([3e4f60f](https://gitee.com/newgateway/vtj/commits/3e4f60fcad2fcf9ef3d0882720f6f9b684391173))
+* 🐛 支持定义About组件参数 ([66d99d3](https://gitee.com/newgateway/vtj/commits/66d99d30309eaf221d819d1546666c4d08a48501))
+* 🐛 获取当前选择节点的工具，未能定位到唯一元素 ([2eba0b9](https://gitee.com/newgateway/vtj/commits/2eba0b916c4c295b496a08ebdbf9f26dd5a5afbe))
+
+
+
+
+
 ## [0.16.16](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.16.15...@vtj/designer@0.16.16) (2026-04-10)
 
 

@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.16.17](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.16.16...@vtj/renderer@0.16.17) (2026-04-13)
+
+
+### Bug Fixes
+
+* 🐛 replace lcdp.vtj.pro ([3e4f60f](https://gitee.com/newgateway/vtj/commits/3e4f60fcad2fcf9ef3d0882720f6f9b684391173))
+* 🐛 修复本地版初始启动页startupComponent ([d9cb8be](https://gitee.com/newgateway/vtj/commits/d9cb8be3861c0b1a6741204b199c26b987611138))
+
+
+
+
+
 ## [0.16.16](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.16.15...@vtj/renderer@0.16.16) (2026-04-10)
 
 
