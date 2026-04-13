@@ -55,6 +55,7 @@ export interface DesignHelper {
   rect: DOMRect;
   type?: DropPosition;
   path?: Array<NodeModel | BlockModel>;
+  indexes?: number[];
 }
 
 export class Designer {
@@ -377,6 +378,16 @@ export class Designer {
     return [...nodePath, root];
   }
 
+  private getNodePathIndex(nodePath: Array<BlockModel | NodeModel>) {
+    return nodePath.map((n) => {
+      if (isBlock(n)) {
+        return 0;
+      } else {
+        return n.parent?.findChildIndex(n) || 0;
+      }
+    });
+  }
+
   private setDslFrom(dsl: NodeSchema) {
     const desc = this.engine.assets.componentMap.get(dsl.name);
     dsl.from = dsl.from || desc?.package;
@@ -435,12 +446,14 @@ export class Designer {
     const rect = el.getBoundingClientRect();
     const type = this.getDropType(rect, e.clientX, e.clientY);
     const path = this.getNodePath(targets);
+    const indexes = this.getNodePathIndex(path);
     return {
       el,
       model,
       rect,
       type,
-      path
+      path,
+      indexes
     };
   }
 

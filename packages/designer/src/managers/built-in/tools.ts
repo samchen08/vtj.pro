@@ -1139,10 +1139,12 @@ const getSelectedPath: ToolConfig = {
     async () => {
       const designer = engine.simulator.designer.value;
       if (!designer) return null;
-      const path = designer.selected.value?.path;
+      const { path, indexes = [] } = designer.selected.value || {};
       if (!path) return null;
       return path
-        .map((n) => n.name)
+        .map((n, i) => {
+          return `${n.name}[${indexes[i]}]`;
+        })
         .reverse()
         .join('>');
     }
