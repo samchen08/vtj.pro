@@ -3,12 +3,12 @@
     <div class="v-about-widget__item">
       <div class="v-about-widget__logo">
         <ElBadge :value="latest" title="最新版本" :hidden="latest === version"
-          ><img :src="logo"
+          ><img :src="props.logo"
         /></ElBadge>
       </div>
-      <div class="v-about-widget__name">VTJ.PRO</div>
+      <div class="v-about-widget__name">{{ props.title }}</div>
       <div class="v-about-widget__version">
-        版本：
+        内核版本：
         <span>{{ version }}</span>
       </div>
       <div class="v-about-widget__footer">
@@ -49,8 +49,13 @@
     engine: any;
     isLogined: any;
     toRemoteAuth: any;
+    logo?: string;
+    title?: string;
   }
-  const props = defineProps<Props>();
+  const props = withDefaults(defineProps<Props>(), {
+    logo,
+    title: 'VTJ.PRO'
+  });
   const engine = props.engine;
   const { access } = engine || {};
   const { latest } = useCheckVersion();
