@@ -69,7 +69,7 @@
   },
   "vtj": {
     "name": "VTJ.PRO",
-    "platform": "web",
+    "platform": "uniapp",
     "remote": "https://app.vtj.pro",
     "__ACCESS__": {
       "auth": "https://app.vtj.pro/#/login",

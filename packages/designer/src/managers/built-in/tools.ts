@@ -6,6 +6,7 @@ import type {
   I18nMessage
 } from '@vtj/core';
 import { delay } from '@vtj/utils';
+import { APP_LIFE_CYCLE } from '@vtj/uni';
 import type { ToolConfig } from '../../framework';
 
 const getSkills: ToolConfig = {
@@ -688,7 +689,12 @@ const setGlobalCss: ToolConfig = {
   createHandler:
     ({ project, config }) =>
     async (css: string) => {
-      project.setGloblas('css', css);
+      const platform = project.platform;
+      if (platform === 'uniapp') {
+        project.setUniConfig('css', css as any);
+      } else {
+        project.setGloblas('css', css);
+      }
       await delay(config.activeDelayMs);
       return true;
     }
@@ -705,7 +711,12 @@ const getGlobalCss: ToolConfig = {
     ({ project, config }) =>
     async () => {
       await delay(config.activeDelayMs);
-      return project.globals.css || '没有全局CSS';
+      const platform = project.platform;
+      if (platform === 'uniapp') {
+        project.uniConfig.css || '';
+      } else {
+        return project.globals.css || '没有全局CSS';
+      }
     }
 };
 
@@ -1277,6 +1288,82 @@ const removeI18nMessage: ToolConfig = {
     }
 };
 
+const setUniConfig: ToolConfig = {
+  name: 'setUniConfig',
+  description:
+    '设置uniapp全局配置，包括pages.json，manifest.json 应用配置，全局css，App.vue 应用生命周期等',
+  parameters: [
+    {
+      name: 'key',
+      type: 'string',
+      enum: ['manifestJson', 'pagesJson', 'css', ...APP_LIFE_CYCLE],
+      description: '配置类型名称, 名称只能从枚举值中取',
+      required: true
+    },
+    {
+      name: 'value',
+      type: 'string',
+      description: `配置内容，只内容有以下规则:      
+1. 当key为manifestJson 或 pagesJson 时，value 为 JSON字符串；
+2. 当key为css时，value为css代码字符串;
+3. 当key为生命周期名称时，value为js函数代码块，默认值为：
+\`\`\`js
+() => {
+}
+\`\`\`
+4. 当value值为null时，表示清除该名称的配置
+`,
+
+      required: true
+    }
+  ],
+  createHandler:
+    ({ project }) =>
+    async (key: any, value: any) => {
+      if (key === 'css') {
+        project.setUniConfig(key, value || undefined);
+      } else if (['manifestJson', 'pagesJson'].includes(key)) {
+        if (value) {
+          project.setUniConfig(key, value ? JSON.parse(value) : undefined);
+        }
+      } else {
+        project.setUniConfig(
+          key,
+          value ? ({ type: 'JSFunction', value } as any) : undefined
+        );
+      }
+
+      return true;
+    }
+};
+
+const getUniConfig: ToolConfig = {
+  name: 'getUniConfig',
+  description:
+    '获取uniapp全局配置，包括pages.json，manifest.json 应用配置，全局css，App.vue 应用生命周期等',
+  parameters: [
+    {
+      name: 'key',
+      type: 'string',
+      enum: ['manifestJson', 'pagesJson', 'css', ...APP_LIFE_CYCLE],
+      description: '配置类型名称, 名称只能从枚举值中取',
+      required: true
+    }
+  ],
+  createHandler:
+    ({ project }) =>
+    async (key: any) => {
+      const uniConfig: Record<string, any> = project.uniConfig || {};
+      if (key === 'css') {
+        return uniConfig.css || '';
+      } else if (['manifestJson', 'pagesJson'].includes(key)) {
+        const value = uniConfig[key];
+        return value ? JSON.stringify(value, null, 2) : null;
+      } else {
+        return uniConfig[key]?.value;
+      }
+    }
+};
 export const TOOL_CONFIGS: ToolConfig[] = [
   getSkills,
   getMenus,
@@ -1320,5 +1407,7 @@ export const TOOL_CONFIGS: ToolConfig[] = [
   removeEnv,
   getI18nMessage,
   createI18nMessage,
-  removeI18nMessage
+  removeI18nMessage,
+  setUniConfig,
+  getUniConfig
 ];
