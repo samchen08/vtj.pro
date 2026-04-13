@@ -603,6 +603,7 @@ export class ProjectModel {
     const name = upperFirstCamelCase(block.name);
     block.id = id;
     block.type = 'block';
+    block.fromType = block.fromType || 'Schema';
     block.dsl = new BlockModel({ id, name }).toDsl();
     this.blocks.push(block);
     const type = block.fromType || 'Schema';

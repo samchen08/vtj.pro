@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.16.17](https://gitee.com/newgateway/vtj/compare/@vtj/parser@0.16.16...@vtj/parser@0.16.17) (2026-04-13)
+
+
+### Bug Fixes
+
+* 🐛 replace lcdp.vtj.pro ([3e4f60f](https://gitee.com/newgateway/vtj/commits/3e4f60fcad2fcf9ef3d0882720f6f9b684391173))
+
+
+
+
+
 ## [0.16.16](https://gitee.com/newgateway/vtj/compare/@vtj/parser@0.16.15...@vtj/parser@0.16.16) (2026-04-10)
 
 **Note:** Version bump only for package @vtj/parser

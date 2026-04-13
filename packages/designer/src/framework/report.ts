@@ -51,7 +51,7 @@ export class Report {
     private access: Access,
     private service?: Service
   ) {
-    this.remote = remote || 'https://lcdp.vtj.pro';
+    this.remote = remote || 'https://app.vtj.pro';
     this.api = this.remote + REPORT_API;
     this.debounceSend = debounce(this.send.bind(this), 500);
     this.online();
@@ -67,7 +67,7 @@ export class Report {
 
   private isVtjUrl(config: any) {
     const { url } = config || {};
-    const urls = ['/__vtj__/', 'lcdp.vtj.pro'];
+    const urls = ['/__vtj__/', 'app.vtj.pro'];
     return urls.some((n) => url?.includes(n));
   }
 

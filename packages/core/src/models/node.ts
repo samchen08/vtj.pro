@@ -486,4 +486,11 @@ export class NodeModel {
     }
     return match;
   }
+
+  findChildIndex(child: NodeModel) {
+    if (Array.isArray(this.children)) {
+      return this.children.findIndex((n) => n === child || n.id === child.id);
+    }
+    return -1;
+  }
 }

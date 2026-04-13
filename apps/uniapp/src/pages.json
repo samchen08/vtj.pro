@@ -1,6 +1,15 @@
 {
   "pages": [
     {
+      "path": "pages/1e1fzmk8",
+      "style": {
+        "navigationBarTitleText": "启动页",
+        "navigationStyle": "custom"
+      },
+      "needLogin": false,
+      "vtj": true
+    },
+    {
       "path": "pages/startup"
     }
   ],

@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.16.17](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.16.16...@vtj/core@0.16.17) (2026-04-13)
+
+
+### Bug Fixes
+
+* 🐛 AI 创建区块文件丢失 fromType 属性 ([6ba903f](https://gitee.com/newgateway/vtj/commits/6ba903f10c39c63c20dac21a5806a5f4086e391f))
+* 🐛 replace lcdp.vtj.pro ([3e4f60f](https://gitee.com/newgateway/vtj/commits/3e4f60fcad2fcf9ef3d0882720f6f9b684391173))
+* 🐛 获取当前选择节点的工具，未能定位到唯一元素 ([2eba0b9](https://gitee.com/newgateway/vtj/commits/2eba0b916c4c295b496a08ebdbf9f26dd5a5afbe))
+
+
+
+
+
 ## [0.16.16](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.16.15...@vtj/core@0.16.16) (2026-04-10)
 
 **Note:** Version bump only for package @vtj/core
