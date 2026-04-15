@@ -16,6 +16,7 @@ lib
 *.local
 .nx
 .husky/_
+.qoder
 package-lock.json
 
 # Editor directories and files
