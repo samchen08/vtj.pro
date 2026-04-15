@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.16.18](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.16.17...@vtj/renderer@0.16.18) (2026-04-15)
+
+
+### Bug Fixes
+
+* 🐛 render ref 函数导致区块触发update ([df13df0](https://gitee.com/newgateway/vtj/commits/df13df0a8dfbd6d74544f1bfe66df9d1fb60b5b2))
+
+
+
+
+
 ## [0.16.17](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.16.16...@vtj/renderer@0.16.17) (2026-04-13)
 
 
