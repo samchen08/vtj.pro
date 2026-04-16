@@ -11,7 +11,13 @@ import {
   type NodeChildren,
   type NodeSlot
 } from '@vtj/core';
-import { camelCase, upperFirst, isString, pick } from '@vtj/utils';
+import {
+  camelCase,
+  upperFirst,
+  isString,
+  pick,
+  upperFirstCamelCase
+} from '@vtj/utils';
 import { type Context } from './context';
 import { BUILT_IN_DIRECTIVES, HTML_TAGS, ContextMode } from '../constants';
 import {
@@ -266,7 +272,9 @@ function parseNodeEvents(Vue: any, events: NodeEvents, context: Context) {
       const modifiers = getModifiers(event.modifiers);
       const suffix = modifiers.find((n) => suffixModifiers.includes(n));
       const name =
-        'on' + upperFirst(key) + (suffix ? suffixMap[suffix] || '' : '');
+        'on' +
+        upperFirstCamelCase(key) +
+        (suffix ? suffixMap[suffix] || '' : '');
 
       const handler = context.__parseFunction(event.handler);
       if (handler) {
