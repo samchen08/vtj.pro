@@ -4,6 +4,7 @@
     :class="classes"
     justify="space-between"
     align="center"
+    :title="props.tooltip"
     @click="onClick">
     <XContainer class="v-item__title" align="center">
       <slot>
@@ -151,6 +152,7 @@
     actionInMore?: boolean;
     textTags?: string[];
     nowrap?: boolean;
+    tooltip?: string;
   }
 
   const props = withDefaults(defineProps<Props>(), {

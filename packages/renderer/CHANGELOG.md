@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.16.19](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.16.18...@vtj/renderer@0.16.19) (2026-04-16)
+
+
+### Bug Fixes
+
+* 🐛 修复渲染器事件名称驼峰转换错误 ([bb86c79](https://gitee.com/newgateway/vtj/commits/bb86c794eae58a830b541273e49f29facc683fdc))
+* 🐛 区块缓存问题 ([1b9b7ba](https://gitee.com/newgateway/vtj/commits/1b9b7ba672c9977910d0823018537134582c0b0f))
+* 🐛 渲染器区块缓存问题 ([b07c1b5](https://gitee.com/newgateway/vtj/commits/b07c1b5053d9ad442323e12203048862acaf60d6))
+
+
+
+
+
 ## [0.16.18](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.16.17...@vtj/renderer@0.16.18) (2026-04-15)
 
 

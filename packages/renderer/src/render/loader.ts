@@ -23,13 +23,17 @@ let __loaders__: Record<string | symbol, any> = {};
 // 组件缓存
 let __caches__: Record<string | symbol, any> = {};
 
+//  节点缓存
+let __nodes__: Record<string, any> = {};
+
 export type BlockLoader = (
+  id: string,
   name: string,
   from?: NodeFrom,
   Vue?: any
 ) => string | DefineComponent;
 
-export const defaultLoader: BlockLoader = (name: string) => {
+export const defaultLoader: BlockLoader = (_id: string, name: string) => {
   // 默认不处理 from
   return name;
 };
@@ -71,13 +75,13 @@ export function createLoader(opts: CreateLoaderOptions): BlockLoader {
     __plugins__ = [];
   }
 
-  return (name: string, from?: NodeFrom, Vue: any = globalVue) => {
+  return (id: string, name: string, from?: NodeFrom, Vue: any = globalVue) => {
     if (!from || typeof from === 'string') return name;
 
     let cacheKey: string | symbol = '';
 
     if (from.type === 'Schema' && from.id) {
-      cacheKey = from.id;
+      cacheKey = from.id + '_' + id;
 
       return (
         __caches__[cacheKey] ||
@@ -93,10 +97,10 @@ export function createLoader(opts: CreateLoaderOptions): BlockLoader {
           }
           return dsl
             ? createRenderer({
-                ...options,
                 Vue,
-                dsl: cloneDeep(dsl),
                 mode: ContextMode.Runtime,
+                ...options,
+                dsl: cloneDeep(dsl),
                 loader: createLoader(opts)
               }).renderer
             : null;
@@ -105,7 +109,7 @@ export function createLoader(opts: CreateLoaderOptions): BlockLoader {
     }
 
     if (from.type === 'UrlSchema' && from.url) {
-      cacheKey = from.url;
+      cacheKey = from.url + '_' + id;
       return (
         __caches__[cacheKey] ||
         (__caches__[cacheKey] = Vue.defineAsyncComponent(async () => {
@@ -159,5 +163,18 @@ export function createLoader(opts: CreateLoaderOptions): BlockLoader {
 export function clearLoaderCache() {
   __loaders__ = {};
   __caches__ = {};
+  __nodes__ = {};
   __queue__.clearAllCache();
+}
+
+export function setNodeCache(key: string, value: any) {
+  __nodes__[key] = value;
+}
+
+export function getNodeCache(key: string) {
+  return __nodes__[key];
+}
+
+export function clearNodeCache() {
+  __nodes__ = {};
 }

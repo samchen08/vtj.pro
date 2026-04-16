@@ -1,7 +1,7 @@
 import type { Plugin, App } from 'vue';
 import type { PageFile, BlockFile } from '@vtj/core';
 import type { RouteLocationNormalizedGeneric } from 'vue-router';
-import { isFunction, isString } from '@vtj/utils';
+import { isFunction, isString, isEqual } from '@vtj/utils';
 import { HTML_TAGS, BUILD_IN_TAGS } from '../constants';
 import { compileScopedCSS } from './compileScoped';
 import { convertCssRpx } from './converter';
@@ -166,4 +166,19 @@ export function setupPageSetting(
   if (isPure) {
     el.classList.add('is-pure');
   }
+}
+
+export function isEqualValue(value: any = {}, other: any = {}) {
+  const valueEntries = Object.entries(value);
+  const otherEntries = Object.entries(other);
+  if (valueEntries.length !== otherEntries.length) {
+    return false;
+  }
+  for (const [key, val] of valueEntries) {
+    if (!isFunction(val) && !isEqual(val, other[key])) {
+      return false;
+    }
+  }
+
+  return true;
 }
