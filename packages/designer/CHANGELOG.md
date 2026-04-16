@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.16.19](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.16.18...@vtj/designer@0.16.19) (2026-04-16)
+
+
+### Bug Fixes
+
+* 🐛 区块缓存问题 ([1b9b7ba](https://gitee.com/newgateway/vtj/commits/1b9b7ba672c9977910d0823018537134582c0b0f))
+* 🐛 变量绑定器可选项名称增加tooltip ([1c0acda](https://gitee.com/newgateway/vtj/commits/1c0acda36dae714dcb49092baa5c5877a466439c))
+
+
+
+
+
 ## [0.16.18](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.16.17...@vtj/designer@0.16.18) (2026-04-15)
 
 **Note:** Version bump only for package @vtj/designer
