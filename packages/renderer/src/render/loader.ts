@@ -23,6 +23,9 @@ let __loaders__: Record<string | symbol, any> = {};
 // 组件缓存
 let __caches__: Record<string | symbol, any> = {};
 
+//  节点缓存
+let __nodes__: Record<string, any> = {};
+
 export type BlockLoader = (
   id: string,
   name: string,
@@ -94,10 +97,10 @@ export function createLoader(opts: CreateLoaderOptions): BlockLoader {
           }
           return dsl
             ? createRenderer({
-                ...options,
                 Vue,
-                dsl: cloneDeep(dsl),
                 mode: ContextMode.Runtime,
+                ...options,
+                dsl: cloneDeep(dsl),
                 loader: createLoader(opts)
               }).renderer
             : null;
@@ -160,5 +163,18 @@ export function createLoader(opts: CreateLoaderOptions): BlockLoader {
 export function clearLoaderCache() {
   __loaders__ = {};
   __caches__ = {};
+  __nodes__ = {};
   __queue__.clearAllCache();
+}
+
+export function setNodeCache(key: string, value: any) {
+  __nodes__[key] = value;
+}
+
+export function getNodeCache(key: string) {
+  return __nodes__[key];
+}
+
+export function clearNodeCache() {
+  __nodes__ = {};
 }
