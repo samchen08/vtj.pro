@@ -13,10 +13,10 @@ import {
 } from '@vtj/core';
 import {
   camelCase,
-  upperFirst,
   isString,
   pick,
-  upperFirstCamelCase
+  upperFirstCamelCase,
+  isEqual
 } from '@vtj/utils';
 import { type Context } from './context';
 import { BUILT_IN_DIRECTIVES, HTML_TAGS, ContextMode } from '../constants';
@@ -28,6 +28,8 @@ import {
   isNativeTag
 } from '../utils';
 import { defaultLoader, type BlockLoader } from './loader';
+
+const __caches__: Record<string, any> = {};
 
 export function nodeRender(
   dsl: NodeSchema,
@@ -67,7 +69,7 @@ export function nodeRender(
 
       // 组件加载器,默认返回 dsl.name
 
-      const name = loader(dsl.name, dsl.from, Vue);
+      const name = loader(dsl.id || '', dsl.name, dsl.from, Vue);
 
       if (isString(name)) {
         if (isBuiltInTag(name) || isNativeTag(name)) {
@@ -127,11 +129,20 @@ export function nodeRender(
     const nodeAttrs =
       context.__mode === ContextMode.Design ? { 'data-vtj': id } : {};
 
-    let vnode = Vue.createVNode(
-      component,
-      { key: `${id}_${seq}`, ...styleScope, ...nodeAttrs, ...props, ...events },
-      slots
-    );
+    const key = `${id}_${seq}`;
+    const nodeProps = {
+      key: `${id}_${seq}`,
+      ...styleScope,
+      ...nodeAttrs,
+      ...props,
+      ...events
+    };
+
+    if (!isEqual(nodeProps, __caches__[key])) {
+      __caches__[key] = nodeProps;
+    }
+
+    let vnode = Vue.createVNode(component, __caches__[key] || {}, slots);
 
     // v-others 绑定其他指令
     const withDirectives = appContext
