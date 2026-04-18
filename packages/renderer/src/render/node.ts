@@ -11,9 +11,9 @@ import {
   type NodeChildren,
   type NodeSlot
 } from '@vtj/core';
-import { camelCase, upperFirst, isString, pick } from '@vtj/utils';
+import { camelCase, isString, pick, upperFirstCamelCase } from '@vtj/utils';
 import { type Context } from './context';
-import { BUILT_IN_DIRECTIVES, HTML_TAGS } from '../constants';
+import { BUILT_IN_DIRECTIVES, HTML_TAGS, ContextMode } from '../constants';
 import {
   toString,
   isJSExpression,
@@ -22,6 +22,8 @@ import {
   isNativeTag
 } from '../utils';
 import { defaultLoader, type BlockLoader } from './loader';
+
+import { nodeCache } from './cache';
 
 export function nodeRender(
   dsl: NodeSchema,
@@ -60,8 +62,7 @@ export function nodeRender(
       if (dsl.name === 'slot') return dsl.name;
 
       // 组件加载器,默认返回 dsl.name
-
-      const name = loader(dsl.name, dsl.from, Vue);
+      const name = loader(`${dsl.id}_${seq}`, dsl.name, dsl.from, Vue);
 
       if (isString(name)) {
         if (isBuiltInTag(name) || isNativeTag(name)) {
@@ -74,7 +75,12 @@ export function nodeRender(
     })();
 
     const props = parseNodeProps(id, dsl.props ?? {}, context);
-    const events = parseNodeEvents(Vue, dsl.events ?? {}, context);
+    const events = parseNodeEvents(
+      Vue,
+      dsl.id as string,
+      dsl.events ?? {},
+      context
+    );
 
     // 插槽
     if (dsl.name === 'slot') {
@@ -117,9 +123,26 @@ export function nodeRender(
 
     const __scopeId = context?.__id ? `data-v-${context.__id}` : undefined;
     const styleScope = __scopeId ? { [__scopeId]: '' } : {};
+
+    const nodeAttrs =
+      context.__mode === ContextMode.Design ? { 'data-vtj': id } : {};
+
+    const key = `${id}_${seq}`;
+    const cache = {
+      key: `${id}_${seq}`,
+      ...styleScope,
+      ...nodeAttrs,
+      ...props,
+      ...events
+    };
+
+    if (!nodeCache.isEqual(cache, nodeCache.getNode(key))) {
+      nodeCache.setNode(key, cache);
+    }
+
     let vnode = Vue.createVNode(
       component,
-      { key: `${id}_${seq}`, ...styleScope, ...props, ...events },
+      nodeCache.getNode(key) || cache || {},
       slots
     );
 
@@ -211,9 +234,16 @@ function createBuiltInComponent(context: Context, is?: string | JSExpression) {
 
 //修改后
 function parseNodeProps(id: string | null, props: NodeProps, context: Context) {
+  const cache = id ? nodeCache.getProps(id) : null;
+  if (cache) {
+    return cache;
+  }
   // 深度解析props
   const _props = deepParseNodeProps(props, context);
   _props.ref = context.__ref(id, _props.ref);
+  if (id) {
+    nodeCache.setProps(id, _props);
+  }
   return _props;
 }
 
@@ -249,20 +279,31 @@ function withKey(handler: Function, key: string) {
   };
 }
 
-function parseNodeEvents(Vue: any, events: NodeEvents, context: Context) {
+function parseNodeEvents(
+  Vue: any,
+  id: string,
+  events: NodeEvents,
+  context: Context
+) {
+  const cache = id ? nodeCache.getEvents(id) : null;
+  if (cache) {
+    return cache;
+  }
   const suffixModifiers = ['passive', 'capture', 'once'];
   const suffixMap: Record<string, string> = {
     capture: 'Capture',
     once: 'Once',
     passive: 'OnceCapture'
   };
-  return Object.keys(events || {}).reduce(
+  const result = Object.keys(events || {}).reduce(
     (result, key: string) => {
       const event = events[key];
       const modifiers = getModifiers(event.modifiers);
       const suffix = modifiers.find((n) => suffixModifiers.includes(n));
       const name =
-        'on' + upperFirst(key) + (suffix ? suffixMap[suffix] || '' : '');
+        'on' +
+        upperFirstCamelCase(key) +
+        (suffix ? suffixMap[suffix] || '' : '');
 
       const handler = context.__parseFunction(event.handler);
       if (handler) {
@@ -275,6 +316,10 @@ function parseNodeEvents(Vue: any, events: NodeEvents, context: Context) {
     },
     {} as Record<string, any>
   );
+  if (id) {
+    nodeCache.setEvents(id, result);
+  }
+  return result;
 }
 
 function branchRender(
@@ -321,6 +366,7 @@ function renderSlot(
   const { children } = node;
   const realSlot = getNodeSlot(node, context);
   const slotFunc = context.$slots?.[realSlot.name];
+
   if (slotFunc) {
     return slotFunc(props) as unknown as VNode;
   } else {

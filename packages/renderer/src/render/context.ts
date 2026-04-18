@@ -28,6 +28,7 @@ export class Context {
   __instance: any | null = null;
   __contextRefs: Record<string, Context> = {};
   __refs: Record<string, any> = {};
+  __refCaches: Record<string, any> = {};
   context: Record<string, any> = {};
   state: Record<string, any> = {};
   props: Record<string, any> = {};
@@ -63,6 +64,7 @@ export class Context {
     const instance = Vue.getCurrentInstance();
     if (!instance) return;
     this.__refs = {};
+    this.__refCaches = {};
     this.$refs = {};
     this.context = {};
     this.__contextRefs = {};
@@ -92,10 +94,12 @@ export class Context {
     CONTEXT_HOST.forEach((name) => {
       (this as any)[name] = null;
     });
+
     this.__reset();
   }
   private __reset() {
     this.__refs = {};
+    this.__refCaches = {};
     this.$refs = {};
     this.__contextRefs = {};
     this.context = {};
@@ -131,7 +135,11 @@ export class Context {
       this.__contextRefs[id] = this;
     }
 
-    return async (el: any) => {
+    let refFunc = id ? this.__refCaches[id] : null;
+    if (refFunc) {
+      return refFunc;
+    }
+    refFunc = async (el: any) => {
       // 异步组件需要等待渲染
       await delay(0);
       let dom = el?.$vtjEl || el?.$el || el?._?.vnode?.el || el;
@@ -172,6 +180,12 @@ export class Context {
 
       return el;
     };
+
+    if (id) {
+      this.__refCaches[id] = refFunc;
+    }
+
+    return refFunc;
   }
   __getRefEl(refs: Record<string, any>, key: string, el: any) {
     const exist = refs[key];

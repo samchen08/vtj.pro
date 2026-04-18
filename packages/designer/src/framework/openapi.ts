@@ -3,15 +3,18 @@ import type { AITopic, AIChat } from './types';
 export interface TemplateDto {
   id: string;
   name: string;
+  code?: string;
   label: string;
   vip: boolean;
-  share: boolean;
+  share?: boolean;
+  isShared?: boolean;
   cover: string;
   author: string;
   userId: string;
   category: string;
   latest: string;
   platform: string;
+  latestVersion?: any;
 }
 
 export interface DictOption {
@@ -24,7 +27,8 @@ export interface PublishTemplateDto {
   label: string;
   category: string;
   cover: Blob;
-  share: boolean;
+  share?: boolean;
+  isShared?: boolean;
   version: string;
   platform: string;
   latest?: string;

@@ -3,6 +3,71 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.16.20](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.16.19...@vtj/renderer@0.16.20) (2026-04-18)
+
+
+### Bug Fixes
+
+* 🐛 node cache ([f22185e](https://gitee.com/newgateway/vtj/commits/f22185e69aa1910c80d5aa04b60a5116bddc5a03))
+
+
+
+
+
+## [0.16.19](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.16.18...@vtj/renderer@0.16.19) (2026-04-16)
+
+
+### Bug Fixes
+
+* 🐛 修复渲染器事件名称驼峰转换错误 ([bb86c79](https://gitee.com/newgateway/vtj/commits/bb86c794eae58a830b541273e49f29facc683fdc))
+* 🐛 区块缓存问题 ([1b9b7ba](https://gitee.com/newgateway/vtj/commits/1b9b7ba672c9977910d0823018537134582c0b0f))
+* 🐛 渲染器区块缓存问题 ([b07c1b5](https://gitee.com/newgateway/vtj/commits/b07c1b5053d9ad442323e12203048862acaf60d6))
+
+
+
+
+
+## [0.16.18](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.16.17...@vtj/renderer@0.16.18) (2026-04-15)
+
+
+### Bug Fixes
+
+* 🐛 render ref 函数导致区块触发update ([df13df0](https://gitee.com/newgateway/vtj/commits/df13df0a8dfbd6d74544f1bfe66df9d1fb60b5b2))
+
+
+
+
+
+## [0.16.17](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.16.16...@vtj/renderer@0.16.17) (2026-04-13)
+
+
+### Bug Fixes
+
+* 🐛 replace lcdp.vtj.pro ([3e4f60f](https://gitee.com/newgateway/vtj/commits/3e4f60fcad2fcf9ef3d0882720f6f9b684391173))
+* 🐛 修复本地版初始启动页startupComponent ([d9cb8be](https://gitee.com/newgateway/vtj/commits/d9cb8be3861c0b1a6741204b199c26b987611138))
+
+
+
+
+
+## [0.16.16](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.16.15...@vtj/renderer@0.16.16) (2026-04-10)
+
+
+### Bug Fixes
+
+* 🐛 修复设计器视图选不了区块问题 ([55c2e38](https://gitee.com/newgateway/vtj/commits/55c2e38108a77f6238cf2e2cf21359f1176b952d))
+* 🐛 区块组件缓存问题 ([ac93eee](https://gitee.com/newgateway/vtj/commits/ac93eee92ebb8055f76e30bf71a88063ad4b9886))
+* 🐛 默认主页 ([7e41a90](https://gitee.com/newgateway/vtj/commits/7e41a90e21c13c19fd8c77474c1298a0541825ca))
+
+
+### Features
+
+* ✨ 当缺省主页时,提取第一个页面当主页 ([759db1d](https://gitee.com/newgateway/vtj/commits/759db1dea2e20ef8bf66602e098f4d31a942cb1e))
+
+
+
+
+
 ## [0.16.15](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.16.14...@vtj/renderer@0.16.15) (2026-04-07)
 
 **Note:** Version bump only for package @vtj/renderer

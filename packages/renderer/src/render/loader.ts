@@ -5,10 +5,11 @@ import type {
   NodeFromPlugin,
   BlockPlugin
 } from '@vtj/core';
+import { cloneDeep, Queue } from '@vtj/utils';
 import { createRenderer, type CreateRendererOptions } from './block';
 import { ContextMode } from '../constants';
 import { loadCssUrl, loadScriptUrl, isJSUrl, isCSSUrl } from '../utils';
-import { cloneDeep, Queue } from '@vtj/utils';
+import { nodeCache } from './cache';
 
 import * as globalVue from 'vue';
 
@@ -20,13 +21,17 @@ let __plugins__: string[] = [];
 // loader 结果缓存
 let __loaders__: Record<string | symbol, any> = {};
 
+// 组件缓存
+let __caches__: Record<string | symbol, any> = {};
+
 export type BlockLoader = (
+  id: string,
   name: string,
   from?: NodeFrom,
   Vue?: any
 ) => string | DefineComponent;
 
-export const defaultLoader: BlockLoader = (name: string) => {
+export const defaultLoader: BlockLoader = (_id: string, name: string) => {
   // 默认不处理 from
   return name;
 };
@@ -68,48 +73,60 @@ export function createLoader(opts: CreateLoaderOptions): BlockLoader {
     __plugins__ = [];
   }
 
-  return (name: string, from?: NodeFrom, Vue: any = globalVue) => {
+  return (id: string, name: string, from?: NodeFrom, Vue: any = globalVue) => {
     if (!from || typeof from === 'string') return name;
+
+    let cacheKey: string | symbol = '';
+
     if (from.type === 'Schema' && from.id) {
-      return Vue.defineAsyncComponent(async () => {
-        const dsl =
-          __loaders__[from.id] ||
-          (await __queue__.add<BlockSchema | null>(from.id, () =>
-            getDsl(from.id)
-          ));
-        if (dsl) {
-          dsl.name = name;
-          __loaders__[from.id] = dsl;
-        }
-        return dsl
-          ? createRenderer({
-              ...options,
-              Vue,
-              dsl: cloneDeep(dsl),
-              mode: ContextMode.Runtime,
-              loader: createLoader(opts)
-            }).renderer
-          : null;
-      });
+      cacheKey = from.id + '_' + id;
+
+      return (
+        __caches__[cacheKey] ||
+        (__caches__[cacheKey] = Vue.defineAsyncComponent(async () => {
+          const dsl =
+            __loaders__[from.id] ||
+            (await __queue__.add<BlockSchema | null>(from.id, () =>
+              getDsl(from.id)
+            ));
+          if (dsl) {
+            dsl.name = name;
+            __loaders__[from.id] = dsl;
+          }
+          return dsl
+            ? createRenderer({
+                Vue,
+                mode: ContextMode.Runtime,
+                ...options,
+                dsl: cloneDeep(dsl),
+                loader: createLoader(opts)
+              }).renderer
+            : null;
+        }))
+      );
     }
 
     if (from.type === 'UrlSchema' && from.url) {
-      return Vue.defineAsyncComponent(async () => {
-        const dsl = __loaders__[from.url] || (await getDslByUrl(from.url));
-        if (dsl) {
-          dsl.name = name;
-          __loaders__[from.url] = dsl;
-        }
-        return dsl
-          ? createRenderer({
-              ...options,
-              Vue,
-              dsl: cloneDeep(dsl),
-              mode: ContextMode.Runtime,
-              loader: createLoader(opts)
-            }).renderer
-          : null;
-      });
+      cacheKey = from.url + '_' + id;
+      return (
+        __caches__[cacheKey] ||
+        (__caches__[cacheKey] = Vue.defineAsyncComponent(async () => {
+          const dsl = __loaders__[from.url] || (await getDslByUrl(from.url));
+          if (dsl) {
+            dsl.name = name;
+            __loaders__[from.url] = dsl;
+          }
+          return dsl
+            ? createRenderer({
+                ...options,
+                Vue,
+                dsl: cloneDeep(dsl),
+                mode: ContextMode.Runtime,
+                loader: createLoader(opts)
+              }).renderer
+            : null;
+        }))
+      );
     }
 
     if (from.type === 'Plugin') {
@@ -143,5 +160,7 @@ export function createLoader(opts: CreateLoaderOptions): BlockLoader {
 
 export function clearLoaderCache() {
   __loaders__ = {};
+  __caches__ = {};
   __queue__.clearAllCache();
+  nodeCache.clear();
 }

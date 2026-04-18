@@ -146,3 +146,37 @@ export function readJsonFile(file: File): Promise<any> {
     reader.readAsText(file);
   });
 }
+
+export function upgradeVersion(
+  type: 'major' | 'minor' | 'patch',
+  version?: string
+) {
+  if (!version) return '0.1.0';
+
+  const versionParts = version.split('.').map((part) => parseInt(part, 10));
+
+  if (versionParts.length !== 3 || versionParts.some(isNaN)) {
+    throw new Error('Invalid version format. Expected format: x.y.z');
+  }
+
+  let [major, minor, patch] = versionParts;
+
+  switch (type) {
+    case 'major':
+      major += 1;
+      minor = 0;
+      patch = 0;
+      break;
+    case 'minor':
+      minor += 1;
+      patch = 0;
+      break;
+    case 'patch':
+      patch += 1;
+      break;
+    default:
+      throw new Error('Invalid version type. Expected: major, minor, or patch');
+  }
+
+  return `${major}.${minor}.${patch}`;
+}

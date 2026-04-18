@@ -3,6 +3,63 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.16.20](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.16.19...@vtj/designer@0.16.20) (2026-04-18)
+
+
+### Bug Fixes
+
+* 🐛 node cache ([f22185e](https://gitee.com/newgateway/vtj/commits/f22185e69aa1910c80d5aa04b60a5116bddc5a03))
+
+
+
+
+
+## [0.16.19](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.16.18...@vtj/designer@0.16.19) (2026-04-16)
+
+
+### Bug Fixes
+
+* 🐛 区块缓存问题 ([1b9b7ba](https://gitee.com/newgateway/vtj/commits/1b9b7ba672c9977910d0823018537134582c0b0f))
+* 🐛 变量绑定器可选项名称增加tooltip ([1c0acda](https://gitee.com/newgateway/vtj/commits/1c0acda36dae714dcb49092baa5c5877a466439c))
+
+
+
+
+
+## [0.16.18](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.16.17...@vtj/designer@0.16.18) (2026-04-15)
+
+**Note:** Version bump only for package @vtj/designer
+
+
+
+
+
+## [0.16.17](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.16.16...@vtj/designer@0.16.17) (2026-04-13)
+
+
+### Bug Fixes
+
+* 🐛 AI支持uniapp全局配置 ([a03be8d](https://gitee.com/newgateway/vtj/commits/a03be8d6ecb6e4eb2630df2f744449f22f70383f))
+* 🐛 replace lcdp.vtj.pro ([3e4f60f](https://gitee.com/newgateway/vtj/commits/3e4f60fcad2fcf9ef3d0882720f6f9b684391173))
+* 🐛 支持定义About组件参数 ([66d99d3](https://gitee.com/newgateway/vtj/commits/66d99d30309eaf221d819d1546666c4d08a48501))
+* 🐛 获取当前选择节点的工具，未能定位到唯一元素 ([2eba0b9](https://gitee.com/newgateway/vtj/commits/2eba0b916c4c295b496a08ebdbf9f26dd5a5afbe))
+
+
+
+
+
+## [0.16.16](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.16.15...@vtj/designer@0.16.16) (2026-04-10)
+
+
+### Bug Fixes
+
+* 🐛 修复设计器视图选不了区块问题 ([55c2e38](https://gitee.com/newgateway/vtj/commits/55c2e38108a77f6238cf2e2cf21359f1176b952d))
+* 🐛 模版发布支持共享 ([cd451f7](https://gitee.com/newgateway/vtj/commits/cd451f7bc7a1c6dd366f399bd819d6b7253958cd))
+
+
+
+
+
 ## [0.16.15](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.16.14...@vtj/designer@0.16.15) (2026-04-07)
 
 **Note:** Version bump only for package @vtj/designer

@@ -26,6 +26,7 @@
               @click="onPick(data)"
               background
               :actions="['copy']"
+              :tooltip="data.path"
               @action="onCopy(data)"
               grow
               small>

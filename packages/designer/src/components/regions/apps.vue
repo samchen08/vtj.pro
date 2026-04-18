@@ -97,7 +97,12 @@
         title: item.label,
         // icon: item.icon,
         ...item.props,
-        content: h(item.component, { engine, isLogined, toRemoteAuth })
+        content: h(item.component, {
+          engine,
+          isLogined,
+          toRemoteAuth,
+          ...item.props
+        })
       });
     }
   };

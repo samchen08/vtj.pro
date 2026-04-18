@@ -12,12 +12,21 @@ export function getConfig(envPath: string, type: string): Record<string, any> {
 }
 
 const createEnv = (type: string, envConfig: EnvConfig) => {
+  const env: Record<string, any> = {
+    ENV_TYPE: type,
+    NODE_ENV: process.env.NODE_ENV,
+    ...envConfig
+  };
+  const entries = Object.entries(env);
+  const meta: Record<string, any> = {};
+  for (const [key, val] of entries) {
+    meta[`import.meta.env.${key}`] = JSON.stringify(val);
+  }
   return {
     'process.env': {
-      ENV_TYPE: type,
-      NODE_ENV: process.env.NODE_ENV,
-      ...envConfig
-    }
+      ...env
+    },
+    ...meta
   };
 };
 

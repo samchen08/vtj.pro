@@ -363,10 +363,11 @@ export class Provider extends Base {
       name: PAGE_ROUTE_NAME,
       component: PageContainer
     };
+    const homepage = this.getHomepage();
     const homeRoute: RouteRecordRaw = {
       path: pathStart,
       name: HOMEPAGE_ROUTE_NAME,
-      component: project?.homepage
+      component: homepage
         ? PageContainer
         : adapter.startupComponent || StartupContainer,
       meta: routeMeta
@@ -386,14 +387,14 @@ export class Provider extends Base {
         pages,
         component: PageContainer,
         loader: this.getRenderComponent.bind(this),
-        homepage: project?.homepage
+        homepage: homepage?.id
       });
       routes.forEach((route) => {
         routeAppendTo
           ? router.addRoute(routeAppendTo, route)
           : router.addRoute(route);
       });
-      if (!project?.homepage) {
+      if (!homepage) {
         routeAppendTo
           ? router.addRoute(routeAppendTo, homeRoute)
           : router.addRoute(homeRoute);
@@ -537,12 +538,31 @@ export class Provider extends Base {
     };
     return finder(id, pages) || null;
   }
+  getFirstPage() {
+    const { pages = [] } = this.project || {};
+    if (!pages.length) return null;
+    const finder = (pages: PageFile[] = []): PageFile | undefined => {
+      for (const page of pages) {
+        if (page.type === 'page' && !page.dir && !page.layout) {
+          return page;
+        } else {
+          if (page.children && page.children.length) {
+            const match = finder(page.children);
+            if (match) {
+              return match;
+            }
+          }
+        }
+      }
+    };
+    return finder(pages) || null;
+  }
   getMenus(name: string = 'page', prefix: string = '') {
     return createMenus(prefix, name, this.project?.pages || []);
   }
   getHomepage(): PageFile | null {
     const { homepage } = this.project || {};
-    if (!homepage) return null;
+    if (!homepage) return this.getFirstPage();
     return this.getPage(homepage);
   }
   async getDsl(id: string): Promise<BlockSchema | null> {

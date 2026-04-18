@@ -11,7 +11,7 @@
     :minimizable="false"
     @close="onClose">
     <XContainer fit direction="row" overflow="hidden">
-      <XContainer width="30%" height="100%">
+      <XContainer width="36%" height="100%">
         <Tabs class="v-binder__tabs" :items="tabs" v-model="currentTab">
           <XContainer class="v-binder__tab-content" fit padding :flex="false">
             <div v-show="currentTab === 'normal'">
@@ -28,6 +28,7 @@
                   :title="item"
                   background
                   :actions="['copy']"
+                  :tooltip="item"
                   small
                   @click="onPicker(item)"
                   @action="onCopy(item)"></Item>
@@ -49,6 +50,7 @@
                   :subtitle="item.path"
                   background
                   :actions="['copy']"
+                  :tooltip="item.path"
                   small
                   @click="onPicker(`this.$router.push('${item.path}')`)"
                   @action="onCopy(item.path)"></Item>
@@ -70,6 +72,7 @@
                   :subtitle="item.key"
                   background
                   :actions="['copy']"
+                  :tooltip="item.key"
                   small
                   @click="onPicker(`this.$t('${item.key}')`)"
                   @action="onCopy(item.key)"></Item>
@@ -130,7 +133,7 @@
   import { ref, computed } from 'vue';
   import { XDialog, XContainer, XForm, XPanel } from '@vtj/ui';
   import { Search } from '@vtj/icons';
-  import { type Context } from '@vtj/renderer';
+  import { type Context, nodeCache } from '@vtj/renderer';
   import { BlockModel } from '@vtj/core';
   import {
     ElInput,
@@ -223,6 +226,7 @@
   });
 
   const handleSubmit = async (model: any) => {
+    nodeCache.clear();
     emits('submit', model);
     if (props.submitMethod) {
       const ret = await props.submitMethod(model);

@@ -3,6 +3,50 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.16.20](https://gitee.com/newgateway/vtj/compare/@vtj/pro@0.16.19...@vtj/pro@0.16.20) (2026-04-18)
+
+**Note:** Version bump only for package @vtj/pro
+
+
+
+
+
+## [0.16.19](https://gitee.com/newgateway/vtj/compare/@vtj/pro@0.16.18...@vtj/pro@0.16.19) (2026-04-16)
+
+**Note:** Version bump only for package @vtj/pro
+
+
+
+
+
+## [0.16.18](https://gitee.com/newgateway/vtj/compare/@vtj/pro@0.16.17...@vtj/pro@0.16.18) (2026-04-15)
+
+**Note:** Version bump only for package @vtj/pro
+
+
+
+
+
+## [0.16.17](https://gitee.com/newgateway/vtj/compare/@vtj/pro@0.16.16...@vtj/pro@0.16.17) (2026-04-13)
+
+
+### Bug Fixes
+
+* 🐛 AI支持uniapp全局配置 ([a03be8d](https://gitee.com/newgateway/vtj/commits/a03be8d6ecb6e4eb2630df2f744449f22f70383f))
+* 🐛 获取当前选择节点的工具，未能定位到唯一元素 ([2eba0b9](https://gitee.com/newgateway/vtj/commits/2eba0b916c4c295b496a08ebdbf9f26dd5a5afbe))
+
+
+
+
+
+## [0.16.16](https://gitee.com/newgateway/vtj/compare/@vtj/pro@0.16.15...@vtj/pro@0.16.16) (2026-04-10)
+
+**Note:** Version bump only for package @vtj/pro
+
+
+
+
+
 ## [0.16.15](https://gitee.com/newgateway/vtj/compare/@vtj/pro@0.16.14...@vtj/pro@0.16.15) (2026-04-07)
 
 **Note:** Version bump only for package @vtj/pro
