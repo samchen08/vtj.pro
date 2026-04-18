@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.19](https://gitee.com/newgateway/vtj/compare/@vtj/cli@0.12.18...@vtj/cli@0.12.19) (2026-04-18)
+
+
+### Bug Fixes
+
+* 🐛 cli env 同步到import.meta.env ([bdd8d54](https://gitee.com/newgateway/vtj/commits/bdd8d54d14063b29ba8f84d482d05565b595ea91))
+* 🐛 replace lcdp.vtj.pro ([3e4f60f](https://gitee.com/newgateway/vtj/commits/3e4f60fcad2fcf9ef3d0882720f6f9b684391173))
+
+
+
+
+
 ## [0.12.18](https://gitee.com/newgateway/vtj/compare/@vtj/cli@0.12.17...@vtj/cli@0.12.18) (2025-12-20)
 
 

@@ -5,10 +5,11 @@ import type {
   NodeFromPlugin,
   BlockPlugin
 } from '@vtj/core';
+import { cloneDeep, Queue } from '@vtj/utils';
 import { createRenderer, type CreateRendererOptions } from './block';
 import { ContextMode } from '../constants';
 import { loadCssUrl, loadScriptUrl, isJSUrl, isCSSUrl } from '../utils';
-import { cloneDeep, Queue } from '@vtj/utils';
+import { nodeCache } from './cache';
 
 import * as globalVue from 'vue';
 
@@ -22,9 +23,6 @@ let __loaders__: Record<string | symbol, any> = {};
 
 // 组件缓存
 let __caches__: Record<string | symbol, any> = {};
-
-//  节点缓存
-let __nodes__: Record<string, any> = {};
 
 export type BlockLoader = (
   id: string,
@@ -163,18 +161,6 @@ export function createLoader(opts: CreateLoaderOptions): BlockLoader {
 export function clearLoaderCache() {
   __loaders__ = {};
   __caches__ = {};
-  __nodes__ = {};
   __queue__.clearAllCache();
-}
-
-export function setNodeCache(key: string, value: any) {
-  __nodes__[key] = value;
-}
-
-export function getNodeCache(key: string) {
-  return __nodes__[key];
-}
-
-export function clearNodeCache() {
-  __nodes__ = {};
+  nodeCache.clear();
 }
