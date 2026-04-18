@@ -19,15 +19,11 @@ import {
   isJSExpression,
   isJSFunction,
   isBuiltInTag,
-  isNativeTag,
-  isEqualValue
+  isNativeTag
 } from '../utils';
-import {
-  defaultLoader,
-  type BlockLoader,
-  getNodeCache,
-  setNodeCache
-} from './loader';
+import { defaultLoader, type BlockLoader } from './loader';
+
+import { nodeCache } from './cache';
 
 export function nodeRender(
   dsl: NodeSchema,
@@ -79,7 +75,12 @@ export function nodeRender(
     })();
 
     const props = parseNodeProps(id, dsl.props ?? {}, context);
-    const events = parseNodeEvents(Vue, dsl.events ?? {}, context);
+    const events = parseNodeEvents(
+      Vue,
+      dsl.id as string,
+      dsl.events ?? {},
+      context
+    );
 
     // 插槽
     if (dsl.name === 'slot') {
@@ -127,7 +128,7 @@ export function nodeRender(
       context.__mode === ContextMode.Design ? { 'data-vtj': id } : {};
 
     const key = `${id}_${seq}`;
-    const nodeProps = {
+    const cache = {
       key: `${id}_${seq}`,
       ...styleScope,
       ...nodeAttrs,
@@ -135,13 +136,13 @@ export function nodeRender(
       ...events
     };
 
-    if (!isEqualValue(nodeProps, getNodeCache(key))) {
-      setNodeCache(key, nodeProps);
+    if (!nodeCache.isEqual(cache, nodeCache.getNode(key))) {
+      nodeCache.setNode(key, cache);
     }
 
     let vnode = Vue.createVNode(
       component,
-      getNodeCache(key) || nodeProps || {},
+      nodeCache.getNode(key) || cache || {},
       slots
     );
 
@@ -233,9 +234,16 @@ function createBuiltInComponent(context: Context, is?: string | JSExpression) {
 
 //修改后
 function parseNodeProps(id: string | null, props: NodeProps, context: Context) {
+  const cache = id ? nodeCache.getProps(id) : null;
+  if (cache) {
+    return cache;
+  }
   // 深度解析props
   const _props = deepParseNodeProps(props, context);
   _props.ref = context.__ref(id, _props.ref);
+  if (id) {
+    nodeCache.setProps(id, _props);
+  }
   return _props;
 }
 
@@ -271,14 +279,23 @@ function withKey(handler: Function, key: string) {
   };
 }
 
-function parseNodeEvents(Vue: any, events: NodeEvents, context: Context) {
+function parseNodeEvents(
+  Vue: any,
+  id: string,
+  events: NodeEvents,
+  context: Context
+) {
+  const cache = id ? nodeCache.getEvents(id) : null;
+  if (cache) {
+    return cache;
+  }
   const suffixModifiers = ['passive', 'capture', 'once'];
   const suffixMap: Record<string, string> = {
     capture: 'Capture',
     once: 'Once',
     passive: 'OnceCapture'
   };
-  return Object.keys(events || {}).reduce(
+  const result = Object.keys(events || {}).reduce(
     (result, key: string) => {
       const event = events[key];
       const modifiers = getModifiers(event.modifiers);
@@ -299,6 +316,10 @@ function parseNodeEvents(Vue: any, events: NodeEvents, context: Context) {
     },
     {} as Record<string, any>
   );
+  if (id) {
+    nodeCache.setEvents(id, result);
+  }
+  return result;
 }
 
 function branchRender(
