@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.16.20](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.16.19...@vtj/renderer@0.16.20) (2026-04-18)
+
+
+### Bug Fixes
+
+* 🐛 node cache ([f22185e](https://gitee.com/newgateway/vtj/commits/f22185e69aa1910c80d5aa04b60a5116bddc5a03))
+
+
+
+
+
 ## [0.16.19](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.16.18...@vtj/renderer@0.16.19) (2026-04-16)
 
 
