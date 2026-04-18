@@ -31,7 +31,8 @@ export function nodeRender(
   Vue: any = globalVue,
   loader: BlockLoader = defaultLoader,
   brothers: NodeSchema[] = [],
-  isBranch: boolean = false
+  isBranch: boolean = false,
+  index: number = 0
 ): VNode | VNode[] | null {
   if (!dsl || !dsl.name || dsl.invisible) return null;
 
@@ -129,7 +130,7 @@ export function nodeRender(
 
     const key = `${id}_${seq}`;
     const cache = {
-      key: `${id}_${seq}`,
+      key,
       ...styleScope,
       ...nodeAttrs,
       ...props,
@@ -162,7 +163,7 @@ export function nodeRender(
     return vForRender(vFor, render, context);
   }
 
-  return render(context);
+  return render(context, index);
 }
 
 function createWithDirectives(
@@ -234,16 +235,10 @@ function createBuiltInComponent(context: Context, is?: string | JSExpression) {
 
 //修改后
 function parseNodeProps(id: string | null, props: NodeProps, context: Context) {
-  const cache = id ? nodeCache.getProps(id) : null;
-  if (cache) {
-    return cache;
-  }
   // 深度解析props
   const _props = deepParseNodeProps(props, context);
   _props.ref = context.__ref(id, _props.ref);
-  if (id) {
-    nodeCache.setProps(id, _props);
-  }
+
   return _props;
 }
 
@@ -281,14 +276,10 @@ function withKey(handler: Function, key: string) {
 
 function parseNodeEvents(
   Vue: any,
-  id: string,
+  _id: string,
   events: NodeEvents,
   context: Context
 ) {
-  const cache = id ? nodeCache.getEvents(id) : null;
-  if (cache) {
-    return cache;
-  }
   const suffixModifiers = ['passive', 'capture', 'once'];
   const suffixMap: Record<string, string> = {
     capture: 'Capture',
@@ -316,9 +307,6 @@ function parseNodeEvents(
     },
     {} as Record<string, any>
   );
-  if (id) {
-    nodeCache.setEvents(id, result);
-  }
   return result;
 }
 
@@ -383,8 +371,8 @@ function renderSlot(
     }
 
     if (Array.isArray(children)) {
-      return children.map((n) =>
-        nodeRender(n, context, Vue, loader, children)
+      return children.map((n, i) =>
+        nodeRender(n, context, Vue, loader, children, false, i)
       ) as VNode[];
     }
     return null;
@@ -501,8 +489,16 @@ function childrenToSlots(
             ? pick(scope ?? {}, params)
             : getScope(scope, scopeName);
 
-          return nodes.map((node) =>
-            nodeRender(node, context.__clone(props), Vue, loader, nodes)
+          return nodes.map((node, index) =>
+            nodeRender(
+              node,
+              context.__clone(props),
+              Vue,
+              loader,
+              nodes,
+              false,
+              index
+            )
           );
         };
         return result;
