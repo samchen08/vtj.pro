@@ -127,6 +127,16 @@ export interface IRequestSettings {
   skipWarn?: IRequestSkipWarn;
 
   /**
+   * 是否开启代理
+   */
+  proxy?: boolean;
+
+  /**
+   * 代理服务
+   */
+  proxyPath?: string;
+
+  /**
    * 其他自定义扩展参数
    */
   [index: string]: any;
@@ -316,6 +326,27 @@ export class Request {
     return url;
   }
 
+  private createProxy(
+    settings: IRequestSettings,
+    url: string,
+    headers: RawAxiosRequestHeaders
+  ) {
+    if (!settings.proxy) {
+      return {
+        url,
+        headers
+      };
+    }
+    const path = settings.proxyPath || '/api/open/proxy/v1';
+    const { protocol, host } = location || {};
+    const target = isUrl(url) ? url : `${protocol}//${host}${url}`;
+    headers.Target = target;
+    return {
+      url: path,
+      headers
+    };
+  }
+
   private openLoading(settings: IRequestSettings) {
     const { loading, showLoading } = settings;
     if (!loading) return;
@@ -374,8 +405,9 @@ export class Request {
     const id = uuid(false);
     const source = axios.CancelToken.source();
     this.records[id] = { settings, config, source };
-    const url = this.createUrl(config);
-    const headers = this.createHeaders(id, settings, config);
+    const _url = this.createUrl(config) || '';
+    const _headers = this.createHeaders(id, settings, config);
+    const { url, headers } = this.createProxy(settings, _url, _headers);
     const { data, params } = this.createSendData(
       settings,
       config,
