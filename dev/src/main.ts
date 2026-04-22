@@ -4,7 +4,7 @@ import router from './router';
 import { AdapterPlugin, IconsPlugin } from '@vtj/web';
 // import ElementPlus from 'element-plus';
 import '@/style/index.scss';
-import './mock';
+// import './mock';
 
 const app = createApp(App);
 app.use(router);

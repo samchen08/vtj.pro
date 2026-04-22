@@ -28,6 +28,7 @@ const DATA_METHODS = ['put', 'post', 'patch'];
 const LOCAL_REQUEST_ID = 'Local-Request-Id';
 const LOADING_DELAY = 100;
 const ERROR_DELAY = 300;
+const PROXY_PATH = '/api/proxy';
 
 export interface IRequestSkipWarn {
   // 处理程序
@@ -337,7 +338,7 @@ export class Request {
         headers
       };
     }
-    const path = settings.proxyPath || '/api/open/proxy/v1';
+    const path = settings.proxyPath || PROXY_PATH;
     const { protocol, host } = location || {};
     const target = isUrl(url) ? url : `${protocol}//${host}${url}`;
     headers.Target = target;
