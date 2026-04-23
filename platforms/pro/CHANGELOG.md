@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.16.22](https://gitee.com/newgateway/vtj/compare/@vtj/pro@0.16.21...@vtj/pro@0.16.22) (2026-04-23)
+
+
+### Bug Fixes
+
+* 🐛 API代理 ([bb1fdd4](https://gitee.com/newgateway/vtj/commits/bb1fdd4127575efc3720be9d790b2ff5fa1aebbc))
+
+
+
+
+
 ## [0.16.21](https://gitee.com/newgateway/vtj/compare/@vtj/pro@0.16.20...@vtj/pro@0.16.21) (2026-04-18)
 
 **Note:** Version bump only for package @vtj/pro
