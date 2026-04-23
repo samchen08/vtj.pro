@@ -25,6 +25,11 @@
       name="settings.injectHeaders"
       label="注入请求头"
       editor="switch"></XField>
+    <XField
+      size="small"
+      name="settings.proxy"
+      label="开启代理"
+      editor="switch"></XField>
   </XContainer>
   <XField
     size="small"

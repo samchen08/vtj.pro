@@ -4,6 +4,7 @@
     <ElButton @click="execApi1">Test api1</ElButton>
     <ElButton @click="doRequest">Test api2</ElButton>
     <ElButton @click="doRequest3">Test api3</ElButton>
+    <ElButton @click="doRequest4">Test api4</ElButton>
   </div>
 </template>
 <script lang="ts" setup>
@@ -76,6 +77,12 @@
   const doRequest3 = () => {
     request({
       url: '/api/logs'
+    });
+  };
+
+  const doRequest4 = () => {
+    request({
+      url: 'https://app.vtj.pro/api/proxy'
     });
   };
 

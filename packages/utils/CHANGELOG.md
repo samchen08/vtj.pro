@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.16.22](https://gitee.com/newgateway/vtj/compare/@vtj/utils@0.16.21...@vtj/utils@0.16.22) (2026-04-23)
+
+
+### Bug Fixes
+
+* 🐛 API代理 ([8c596c6](https://gitee.com/newgateway/vtj/commits/8c596c6911eae84979c1a5d5bb9581f1b97b7dfb))
+
+
+### Features
+
+* ✨ request 支持代理转发 ([25cf342](https://gitee.com/newgateway/vtj/commits/25cf3427eadae6ccdde842c9bc9547d91043cd13))
+
+
+
+
+
 ## [0.16.21](https://gitee.com/newgateway/vtj/compare/@vtj/utils@0.16.20...@vtj/utils@0.16.21) (2026-04-18)
 
 **Note:** Version bump only for package @vtj/utils
