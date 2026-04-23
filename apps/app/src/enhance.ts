@@ -18,7 +18,6 @@ export default function (app: App, provider: Provider) {
 
   provider.adapter.request.useRequest((config) => {
     // 注入请求头
-    config.headers.Token = '123456';
     return config;
   });
 

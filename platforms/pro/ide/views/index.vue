@@ -24,17 +24,6 @@
   const service = new LocalService(createServiceRequest(notify));
   const config: VTJConfig =
     (await service.getExtension().catch(() => null)) || {};
-  const adapter = createAdapter({
-    loading,
-    notify,
-    useTitle,
-    alert,
-    access: config?.access
-  });
-  const __ACCESS__ = createAccess({
-    alert,
-    ...config?.__ACCESS__
-  });
   const options = config ? await new Extension(config).load() : {};
   const {
     __BASE_PATH__ = '/',
@@ -47,6 +36,21 @@
     enhance,
     platform = 'web'
   } = config || {};
+
+  const adapter = createAdapter({
+    loading,
+    notify,
+    useTitle,
+    alert,
+    access: config?.access,
+    settings: {
+      proxyPath: `${remote}/api/proxy`
+    }
+  });
+  const __ACCESS__ = createAccess({
+    alert,
+    ...config?.__ACCESS__
+  });
 
   const isHashRouter = () => history === 'hash';
 
