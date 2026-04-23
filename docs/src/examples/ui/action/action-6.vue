@@ -100,7 +100,7 @@
   }
 
   .fill {
-    background-image: url('https://source.unsplash.com/random/150x150');
+    background-image: url('https://picsum.photos/150/150');
     height: 145px;
     width: 145px;
     cursor: pointer;
