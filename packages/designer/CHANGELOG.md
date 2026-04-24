@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.16.23](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.16.22...@vtj/designer@0.16.23) (2026-04-24)
+
+
+### Bug Fixes
+
+* 🐛 分块加载页面列表 ([a3d89f9](https://gitee.com/newgateway/vtj/commits/a3d89f91f29d93539dfdedf73356be593f41c36b))
+* 🐛 区块工具支持分组 ([672260e](https://gitee.com/newgateway/vtj/commits/672260ee26693e45c207ff62ed8615fa32bb5ebe))
+
+
+
+
+
 ## [0.16.22](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.16.21...@vtj/designer@0.16.22) (2026-04-23)
 
 
