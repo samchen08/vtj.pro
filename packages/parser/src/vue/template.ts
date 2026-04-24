@@ -162,6 +162,14 @@ function getProps(nodes: Array<AttributeNode | DirectiveNode>) {
   return props;
 }
 
+function replaceTapToClick(events: NodeEvents = {}) {
+  const _events: NodeEvents = {};
+  for (const [name, value] of Object.entries(events)) {
+    _events[name === 'tap' ? 'click' : name] = value;
+  }
+  return _events;
+}
+
 function getEvents(
   nodes: Array<AttributeNode | DirectiveNode>,
   handlers: Record<string, JSFunction> = {}
@@ -176,7 +184,9 @@ function getEvents(
       ) {
         const modifiers = item.modifiers.reduce(
           (result, cur) => {
-            result[cur.content] = true;
+            if (cur.content) {
+              result[cur.content] = true;
+            }
             return result;
           },
           {} as Record<string, boolean>
@@ -211,7 +221,7 @@ function getEvents(
       }
     }
   }
-  return events;
+  return replaceTapToClick(events);
 }
 
 function getDirectives(
