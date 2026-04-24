@@ -314,11 +314,12 @@ const getBlocks: ToolConfig = {
     async () => {
       const blocks = project.blocks || [];
       return blocks.map((block: any) => {
-        const { id, name, title } = block;
+        const { id, name, title, category } = block;
         return {
           id,
           name,
-          title
+          title,
+          category
         };
       });
     }
@@ -346,6 +347,11 @@ const createBlock: ToolConfig = {
           type: 'string',
           description: '区块标题',
           required: true
+        },
+        category: {
+          type: 'string',
+          description: '区块分类/组',
+          required: false
         }
       }
     }
@@ -361,11 +367,12 @@ const createBlock: ToolConfig = {
       const newBlock = await project.createBlock(block);
       project.active(newBlock);
       await delay(config.activeDelayMs);
-      const { name, title } = block;
+      const { name, title, category } = block;
       return newBlock
         ? {
             name,
             title,
+            category,
             id: newBlock.id
           }
         : null;
@@ -399,6 +406,11 @@ const updateBlock: ToolConfig = {
           type: 'string',
           description: '区块标题',
           required: false
+        },
+        category: {
+          type: 'string',
+          description: '区块分类/组',
+          required: false
         }
       }
     }
@@ -409,10 +421,11 @@ const updateBlock: ToolConfig = {
       const newBlock = project.updateBlock(block);
       await delay(config.activeDelayMs);
       if (newBlock) {
-        const { name, title, id } = block;
+        const { name, title, id, category } = block;
         return {
           name,
           title,
+          category,
           id
         };
       }
