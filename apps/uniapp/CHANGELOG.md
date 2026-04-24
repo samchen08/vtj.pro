@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.16.23](https://github.com/samchen08/vtj.pro/compare/vtj-project-uniapp@0.16.22...vtj-project-uniapp@0.16.23) (2026-04-24)
+
+
+### Bug Fixes
+
+* 🐛 uniapp 支持 [@tap](https://github.com/tap) 事件 ([ff495c5](https://github.com/samchen08/vtj.pro/commit/ff495c5ed4e9774c23ca10775949e8d7378c9a0a))
+
+
+
+
+
 ## [0.16.22](https://github.com/samchen08/vtj.pro/compare/vtj-project-uniapp@0.16.21...vtj-project-uniapp@0.16.22) (2026-04-23)
 
 **Note:** Version bump only for package vtj-project-uniapp

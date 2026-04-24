@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.16.23](https://gitee.com/newgateway/vtj/compare/@vtj/parser@0.16.22...@vtj/parser@0.16.23) (2026-04-24)
+
+
+### Bug Fixes
+
+* 🐛 uniapp 支持 [@tap](https://gitee.com/tap) 事件 ([ff495c5](https://gitee.com/newgateway/vtj/commits/ff495c5ed4e9774c23ca10775949e8d7378c9a0a))
+
+
+
+
+
 ## [0.16.22](https://gitee.com/newgateway/vtj/compare/@vtj/parser@0.16.21...@vtj/parser@0.16.22) (2026-04-23)
 
 **Note:** Version bump only for package @vtj/parser

@@ -2,7 +2,7 @@ import { expect, test } from 'vitest';
 
 import { uniappMaterials } from './dsl/uniapp.materials';
 import { uniappProject } from './dsl/uniapp.project';
-import { test_1 as dsl } from './dsl/test_1';
+import { uni_1 as dsl } from './dsl/uni_1';
 import { generator } from '../src';
 
 const map = new Map();

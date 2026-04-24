@@ -5,34 +5,42 @@
     plus
     :subtitle="subtitle"
     @plus="onPlus">
-    <ElTree
-      :data="pages"
-      node-key="id"
-      default-expand-all
-      :expand-on-click-node="false"
-      draggable
-      :allow-drop="allowDrop"
-      @node-drop="onNodeDrop">
-      <template #default="{ data, node }">
-        <Item
-          class="v-pages-widget__item"
-          :class="{ 'is-layout': data.layout }"
-          :icon="icons[data.icon]"
-          :title="data.title"
-          :subtitle="data.name"
-          :model-value="{ data, node }"
-          :actions="createActions(data)"
-          @action="onAction"
-          @click="onClick(data)"
-          :active="current?.id === data.id"
-          grow
-          small
-          background
-          hover
-          action-in-more
-          :text-tags="createTextTags(data)"></Item>
-      </template>
-    </ElTree>
+    <div class="v-pages-widget__tree">
+      <ElTree
+        :data="chunkedData"
+        node-key="id"
+        default-expand-all
+        :expand-on-click-node="false"
+        draggable
+        :allow-drop="allowDrop"
+        @node-drop="onNodeDrop">
+        <template #default="{ data, node }">
+          <Item
+            class="v-pages-widget__item"
+            :class="{ 'is-layout': data.layout }"
+            :icon="icons[data.icon]"
+            :title="data.title"
+            :subtitle="data.name"
+            :model-value="{ data, node }"
+            :actions="createActions(data)"
+            @action="onAction"
+            @click="onClick(data)"
+            :active="current?.id === data.id"
+            grow
+            small
+            background
+            hover
+            action-in-more
+            :text-tags="createTextTags(data)"></Item>
+        </template>
+      </ElTree>
+      <div
+        v-if="!isFullyLoaded"
+        ref="sentinelRef"
+        class="v-pages-widget__loading">
+        加载中... ({{ loadedCount }}/{{ pages.length }})
+      </div>
+    </div>
     <PageForm
       v-if="visible"
       v-model="visible"
@@ -48,7 +56,7 @@
   import { cloneDeep } from '@vtj/utils';
   import PageForm from './form.vue';
   import { Panel, Item } from '../../shared';
-  import { useProject, useCurrent } from '../../hooks';
+  import { useProject, useCurrent, useChunkTree } from '../../hooks';
   import { message, notify } from '../../../utils';
 
   defineOptions({
@@ -61,6 +69,11 @@
   const visible = ref(false);
   const item = ref();
   const parentId = ref();
+
+  const { chunkedData, isFullyLoaded, loadedCount, reset } = useChunkTree(
+    pages,
+    { chunkSize: 50 }
+  );
 
   const subtitle = computed(() => {
     return `(共 ${pages.value.length} 项)`;
@@ -177,5 +190,18 @@
     project.value?.update({
       pages: toValue(pages)
     });
+    reset();
   };
 </script>
+<style scoped lang="scss">
+  .v-pages-widget__tree {
+    height: 100%;
+    overflow-y: auto;
+  }
+  .v-pages-widget__loading {
+    text-align: center;
+    padding: 8px 0;
+    font-size: 12px;
+    color: #999;
+  }
+</style>

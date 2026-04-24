@@ -23,3 +23,4 @@ export * from './useI18n';
 export * from './useHotkeys';
 export * from './useDevtools';
 export * from './useAgent';
+export * from './useChunkTree';
