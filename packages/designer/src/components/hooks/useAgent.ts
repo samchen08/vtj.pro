@@ -358,15 +358,23 @@ export function useAgent(config: AgentConfig) {
   const shouldNext = (chat: AIChat) => {
     const content = chat.content || chat.reasoning || '';
     const message = chat.message?.trim() || '';
+    // 大模型响应错误码
     if (message.startsWith('4') || message.startsWith('5')) {
       return false;
     }
 
+    // 最终结果或信息查询结果
     if (content.includes('F:') || content.includes('R:')) {
       return false;
     }
 
+    // 有工具调用
     if (chat.toolCallId && (chat.toolContent || chat.message)) {
+      return true;
+    }
+
+    // 有计划，却没有执行
+    if (content.includes('P:') && !content.includes('A:')) {
       return true;
     }
 
@@ -380,7 +388,7 @@ export function useAgent(config: AgentConfig) {
     if (chat.status === 'Error' || chat.status === 'Failed') {
       return chat.toolContent || chat.message || 'O: 动作执行失败';
     }
-    return '执行计划';
+    return 'O: 开始执行计划';
   };
 
   return {

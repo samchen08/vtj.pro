@@ -544,6 +544,7 @@ const refresh: ToolConfig = {
       };
       engine.simulator.refresh();
       await delay(config.activeDelayMs);
+      await delay(1000);
       engine.provider.errorHandler = null;
       return error
         ? `运行时报错：\n${error.message}\n请检查页面代码并修复`

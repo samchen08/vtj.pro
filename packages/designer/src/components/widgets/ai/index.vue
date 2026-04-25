@@ -76,7 +76,7 @@
         <template v-for="chat of chats" :key="chat.id">
           <Bubble
             type="system"
-            v-if="chat.toolCallId"
+            v-if="chat.toolCallId || chat.prompt?.startsWith('O:')"
             :data="chat"
             :code="!isHideCode"></Bubble>
           <Bubble type="user" v-else :data="chat"></Bubble>

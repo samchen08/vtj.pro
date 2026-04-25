@@ -125,7 +125,9 @@
   ]);
   const coverMap = { figma, sketch, mastergo, other, unknown: other };
   const isAi = computed(() => props.type === 'ai');
-  const isSystem = computed(() => props.type === 'system');
+  const isSystem = computed(
+    () => props.type === 'system' || props.data?.prompt?.startsWith('O:')
+  );
   const isCompleted = computed(() => {
     const { status, content } = props.data;
     return (
@@ -175,7 +177,7 @@
     return {
       'is-user': props.type === 'user',
       'is-ai': props.type === 'ai',
-      'is-system': props.type === 'system'
+      'is-system': isSystem.value
     };
   });
 
