@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.16.24](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.16.23...@vtj/designer@0.16.24) (2026-04-25)
+
+
+### Bug Fixes
+
+* 🐛 AI自动开始计划任务 ([c48fbd5](https://gitee.com/newgateway/vtj/commits/c48fbd55008c022bca1900f90f8936b1ccb80d61))
+* 🐛 refresh 等待多1秒是否有运行错误 ([c49566d](https://gitee.com/newgateway/vtj/commits/c49566dd290285187c305de9a934ddd5de848942))
+* 🐛 自动执行计划任务 ([1345568](https://gitee.com/newgateway/vtj/commits/134556858146a23242647c1c8b35d788b93064d1))
+
+
+
+
+
 ## [0.16.23](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.16.22...@vtj/designer@0.16.23) (2026-04-24)
 
 
