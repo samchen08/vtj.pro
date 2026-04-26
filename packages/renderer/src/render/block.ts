@@ -63,7 +63,7 @@ export function createRenderer(options: CreateRendererOptions) {
     props: {
       ...createProps(dsl.value.props ?? [], context)
     },
-    async setup(props: any) {
+    async setup(props: any = {}) {
       context.$props = props;
       context.props = props;
       if (dsl.value.id) {
@@ -98,6 +98,7 @@ export function createRenderer(options: CreateRendererOptions) {
       return {
         vtj: context,
         state: context.state,
+        ...props,
         ...computed,
         ...methods
       };
