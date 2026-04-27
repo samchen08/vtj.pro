@@ -1,6 +1,19 @@
 import type { JSExpression, JSFunction } from '@vtj/core';
 import { logger } from '@vtj/utils';
 
+function triggerError(err: any) {
+  if (typeof window === 'undefined') return;
+  const win: any = window[0] || window;
+  if (win.__simulator__) {
+    try {
+      const handler = win.__simulator__.engine.provider.errorHandler;
+      if (handler) {
+        handler(err);
+      }
+    } catch (_e) {}
+  }
+}
+
 export function parseExpression(
   str: JSExpression | JSFunction,
   self: any,
@@ -22,6 +35,7 @@ export function parseExpression(
     return new Function('$scope', code)(self);
   } catch (err: any) {
     logger.error('parseExpression.error', err, str, self?.__self ?? self);
+    triggerError(err);
     if (throwError) {
       throw err;
     }
