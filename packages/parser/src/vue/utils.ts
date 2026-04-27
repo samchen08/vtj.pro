@@ -93,6 +93,11 @@ function isInFunctionParameter(
       }
     }
 
+    // 如果是从逗号位置进入，但未找到匹配的开括号，说明不在函数参数列表中（如数组 [a, key] 中的逗号）
+    if (hasCommaBefore && openParenIndex < 0) {
+      return false;
+    }
+
     // 如果找到了开括号，检查括号前面是否有标识符
     if (openParenIndex >= 0) {
       let j = openParenIndex - 1;
@@ -209,6 +214,26 @@ function isShorthandProperty(
 
   // 排除模板表达式 ${ key }（{ 前面是 $）
   if (prevChar === '{' && i > 0 && content[i - 1] === '$') return false;
+
+  // 当 prevChar === ',' 时，确认该逗号位于对象字面量 { } 内部，而非数组 [ ] 或括号 ( ) 内
+  if (prevChar === ',') {
+    let depth = 0;
+    let k = i - 1;
+    while (k >= 0) {
+      const c = content[k];
+      if (c === '}') depth++;
+      else if (c === '{') {
+        if (depth === 0) break; // 找到对象起始
+        depth--;
+      } else if (c === ']' || c === ')') {
+        depth++;
+      } else if (c === '[' || c === '(') {
+        if (depth === 0) return false; // 数组或括号内
+        depth--;
+      }
+      k--;
+    }
+  }
 
   // 向后跳过空白，检查 key 之后紧跟着什么
   let j = matchPos + key.length;

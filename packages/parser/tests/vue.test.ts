@@ -67,10 +67,7 @@ test('test_1', async () => {
 //   // ${ value } → value 不应该被当成简写属性展开
 //   const input1 = '`hello ${ value } world`';
 //   const result1 = replacer(input1, 'value', 'replaced');
-//   // value 不在字符串内（因为 ${} 内是表达式），预期被替换为 replaced
-//   // 但不应该展开为 value: replaced
 //   expect(result1).not.toContain('value: replaced');
-//   // 确认 value 确实存在于输入中，替换行为符合预期（普通替换为 replaced）
 //   expect(input1).toContain('value');
 //   expect(result1).toContain('replaced');
 
@@ -90,11 +87,31 @@ test('test_1', async () => {
 // test('replacer: ${ key } should replace, not expand', () => {
 //   const input = '`hello ${ ElLink } world`';
 //   const result = replacer(input, 'ElLink', 'this.$libs.ElementPlus.ElLink');
-//   // 不应该展开为 ElLink: ...
 //   expect(result).not.toContain('ElLink:');
-//   // 应该正常替换
 //   expect(result).toContain('this.$libs.ElementPlus.ElLink');
-//   // 确认 ${ ... } 结构完整
 //   expect(result).toContain('${');
 //   expect(result).toContain('}');
+// });
+
+// test('replacer: should NOT expand shorthand inside array literal', () => {
+//   // 数组 [View, User, UserFilled] 中的 User 不应该展开为 User: to
+//   const input1 = `() => {
+//     return [View, User, UserFilled];
+//   }`;
+//   const result1 = replacer(input1, 'User', 'this.$libs.VtjIcons.User');
+//   expect(result1).not.toContain('User:');
+//   expect(result1).toContain('this.$libs.VtjIcons.User');
+
+//   // 用户报告的原始场景
+//   const input2 = `
+// () => {
+//   const baseData = this.$libs.Mock.mock({
+//     'list|4': [{ icon: () => [this.$libs.VtjIcons.View, User, UserFilled] }]
+//   });
+// }`;
+//   const result2 = replacer(input2, 'User', 'this.$libs.VtjIcons.User');
+//   expect(result2).not.toContain('User:');
+//   expect(result2).toContain(
+//     '[this.$libs.VtjIcons.View, this.$libs.VtjIcons.User, UserFilled]'
+//   );
 // });
