@@ -420,7 +420,7 @@ function createNodeSchema(
   return el;
 }
 
-function transformBranches(branches: any[], parent?: NodeSchema) {
+function transformBranches(branches: any[] = [], parent?: NodeSchema) {
   return branches.map((n) => {
     return transformNode(n, parent, branches) as NodeSchema;
   });
@@ -630,6 +630,7 @@ function transformTemplateIf(node: IfNode) {
   const branches = node.branches || [];
   const first = branches[0];
   const children = first.children || [];
+
   if (
     first?.isTemplateIf ||
     children.length > 1 ||
@@ -639,6 +640,6 @@ function transformTemplateIf(node: IfNode) {
     const el = { name: 'span', directives };
     return transformChildren(el, first.children);
   } else {
-    return transformBranches(branches);
+    return transformBranches(branches)?.[0];
   }
 }
