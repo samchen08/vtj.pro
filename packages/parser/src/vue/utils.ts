@@ -187,6 +187,37 @@ function isInFunctionParameter(
 }
 
 /**
+ * 判断当前位置是否处于 ES6 对象字面量简写属性位置
+ * 例如 { key } 或 { a, key } 中的 key
+ * 特点：key 前面是 { 或 ,，后面紧跟 , 或 }
+ *      如果后面紧跟 : 则为普通属性名，不算简写
+ */
+function isShorthandProperty(
+  content: string,
+  matchPos: number,
+  key: string
+): boolean {
+  // 向前跳过空白，找到前一个非空白字符
+  let i = matchPos - 1;
+  while (i >= 0 && /\s/.test(content[i])) i--;
+  if (i < 0) return false;
+  const prevChar = content[i];
+
+  // 必须位于 { 或 , 之后（即处于对象属性位置）
+  if (prevChar !== '{' && prevChar !== ',') return false;
+
+  // 向后跳过空白，检查 key 之后紧跟着什么
+  let j = matchPos + key.length;
+  while (j < content.length && /\s/.test(content[j])) j++;
+  if (j >= content.length) return false;
+  const nextChar = content[j];
+
+  // , 或 } → 简写属性（后面没有 :）
+  // :     → 普通属性（key: value），key 是属性名
+  return nextChar === ',' || nextChar === '}';
+}
+
+/**
  * 简化的字符串替换函数，遵循以下规则：
  * 1. 字符串中的 key 不替换（包括模板字符串普通文本，但 ${key} 中的 key 要替换）
  * 2. 对象属性访问 obj.key 不替换（. 前）
@@ -446,7 +477,11 @@ export function replacer(content: string, key: string, to: string): string {
         // 计算属性名，应该替换
         return true;
       }
-      // 普通对象属性名，不应该替换
+      // 简写属性 { key } → 允许替换（外部展开为 key: to）
+      if (isShorthandProperty(content, matchPos, key)) {
+        return true;
+      }
+      // 普通对象属性名 { key: value }，不应该替换
       return false;
     }
 
@@ -482,7 +517,12 @@ export function replacer(content: string, key: string, to: string): string {
 
     // 决定是否替换
     if (shouldReplace(pos)) {
-      result.push(to);
+      // ES6 简写属性：{ key } → { key: to }
+      if (isShorthandProperty(content, pos, key)) {
+        result.push(key + ': ' + to);
+      } else {
+        result.push(to);
+      }
     } else {
       result.push(key);
     }

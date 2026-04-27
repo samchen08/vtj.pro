@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.16.25](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.16.24...@vtj/renderer@0.16.25) (2026-04-27)
+
+
+### Bug Fixes
+
+* 🐛 render props ([289ab6c](https://gitee.com/newgateway/vtj/commits/289ab6c916e74091507500a8d57848d4e7642f3d))
+
+
+
+
+
 ## [0.16.24](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.16.23...@vtj/renderer@0.16.24) (2026-04-25)
 
 **Note:** Version bump only for package @vtj/renderer

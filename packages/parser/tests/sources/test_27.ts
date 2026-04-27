@@ -6,6 +6,7 @@ export const test_27 = `
   // @ts-nocheck
   import { defineComponent, reactive } from 'vue';
   import { useProvider } from '@vtj/renderer';
+  import {ElButton, ElLink} from 'element-plus'
   export default defineComponent({
     name: 'Test2',
     setup(props) {
@@ -13,12 +14,10 @@ export const test_27 = `
       const state = reactive({});
       return { state, props, provider };
     },
-    methods: {
-    async fetchUser() {
-      return await this.provider.apis['getUser']
-        .apply(this, arguments)
-        .then(res => res);
-    }
+    computed: {
+       testc1() {
+         return { ElButton,ElLink }
+       }
     }
   })
 </script>
