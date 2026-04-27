@@ -3,6 +3,29 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.16.27](https://gitee.com/newgateway/vtj/compare/@vtj/parser@0.16.26...@vtj/parser@0.16.27) (2026-04-27)
+
+
+### Bug Fixes
+
+* 🐛 parser error ([2c99be3](https://gitee.com/newgateway/vtj/commits/2c99be35f62a7ef2c71ded4e8c05f6a994293808))
+* 🐛 重构parser replacer ([b0491de](https://gitee.com/newgateway/vtj/commits/b0491de3695236c62a13d4b662f58aa9e8a87a14))
+
+
+
+
+
+## [0.16.26](https://gitee.com/newgateway/vtj/compare/@vtj/parser@0.16.25...@vtj/parser@0.16.26) (2026-04-27)
+
+
+### Bug Fixes
+
+* 🐛 parser props missing ([6b12015](https://gitee.com/newgateway/vtj/commits/6b120150d036d4c1d7399015ccfa9c76b268896c))
+
+
+
+
+
 ## [0.16.25](https://gitee.com/newgateway/vtj/compare/@vtj/parser@0.16.24...@vtj/parser@0.16.25) (2026-04-27)
 
 

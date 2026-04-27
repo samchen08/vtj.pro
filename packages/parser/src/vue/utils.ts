@@ -5,12 +5,14 @@ import {
   type DataSourceSchema
 } from '@vtj/core';
 import { upperFirstCamelCase, unBase64 } from '@vtj/base';
+
 export interface ExpressionOptions {
   platform: PlatformType;
   context: Record<string, Set<string>>;
   computed: string[];
   libs: Record<string, string>;
   members: string[];
+  props: string[];
 }
 
 /**
@@ -90,6 +92,11 @@ function isInFunctionParameter(
           }
         }
       }
+    }
+
+    // 如果是从逗号位置进入，但未找到匹配的开括号，说明不在函数参数列表中（如数组 [a, key] 中的逗号）
+    if (hasCommaBefore && openParenIndex < 0) {
+      return false;
     }
 
     // 如果找到了开括号，检查括号前面是否有标识符
@@ -205,6 +212,29 @@ function isShorthandProperty(
 
   // 必须位于 { 或 , 之后（即处于对象属性位置）
   if (prevChar !== '{' && prevChar !== ',') return false;
+
+  // 排除模板表达式 ${ key }（{ 前面是 $）
+  if (prevChar === '{' && i > 0 && content[i - 1] === '$') return false;
+
+  // 当 prevChar === ',' 时，确认该逗号位于对象字面量 { } 内部，而非数组 [ ] 或括号 ( ) 内
+  if (prevChar === ',') {
+    let depth = 0;
+    let k = i - 1;
+    while (k >= 0) {
+      const c = content[k];
+      if (c === '}') depth++;
+      else if (c === '{') {
+        if (depth === 0) break; // 找到对象起始
+        depth--;
+      } else if (c === ']' || c === ')') {
+        depth++;
+      } else if (c === '[' || c === '(') {
+        if (depth === 0) return false; // 数组或括号内
+        depth--;
+      }
+      k--;
+    }
+  }
 
   // 向后跳过空白，检查 key 之后紧跟着什么
   let j = matchPos + key.length;
@@ -469,9 +499,9 @@ export function replacer(content: string, key: string, to: string): string {
       return false;
     }
 
-    // 7. 检查是否为对象属性名（{ key: 或 { key }），排除模板表达式中的 ${
+    // 7. 检查是否为对象属性名（{ key: 或 { key }），排除模板表达式中的 ${...}
     const propertyMatch = beforeMatch.match(/\{\s*$/);
-    if (propertyMatch && !beforeMatch.endsWith('${')) {
+    if (propertyMatch && !/\$\{\s*$/.test(beforeMatch)) {
       // 检查是否为计算属性名 {[key]: value}
       if (matchPos > 0 && content.charAt(matchPos - 1) === '[') {
         // 计算属性名，应该替换
@@ -548,6 +578,7 @@ export function patchCode(
     computed = [],
     libs = {},
     members = [],
+    props = [],
     platform
   } = options || {};
   const contextKeys = Array.from(context[id || ''] || new Set());
@@ -562,6 +593,11 @@ export function patchCode(
     content = replacer(content, key, `this.${key}.value`);
     content = replacer(content, `this.${key}`, `this.${key}.value`);
     content = replacer(content, `this.${key}.value.value`, `this.${key}.value`);
+  }
+
+  for (const key of props) {
+    content = replacer(content, key, `this.props.${key}`);
+    content = replacer(content, `this.${key}`, `this.props.${key}`);
   }
 
   for (const [key, value] of Object.entries(libs)) {
