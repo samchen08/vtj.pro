@@ -93,6 +93,9 @@ export async function parseVue(options: IParseVueOptions) {
   };
 
   const computedKeys = Object.keys(computed || {});
+  const propsKeys = (props || []).map((n) =>
+    typeof n === 'string' ? n : n.name
+  );
   const members: string[] = [
     '$el',
     '$emit',
@@ -117,7 +120,8 @@ export async function parseVue(options: IParseVueOptions) {
     context,
     computed: computedKeys,
     libs,
-    members
+    members,
+    props: propsKeys
   };
   await walkDsl(
     dsl,

@@ -11,6 +11,7 @@ export interface ExpressionOptions {
   computed: string[];
   libs: Record<string, string>;
   members: string[];
+  props: string[];
 }
 
 /**
@@ -205,6 +206,9 @@ function isShorthandProperty(
 
   // 必须位于 { 或 , 之后（即处于对象属性位置）
   if (prevChar !== '{' && prevChar !== ',') return false;
+
+  // 排除模板表达式 ${ key }（{ 前面是 $）
+  if (prevChar === '{' && i > 0 && content[i - 1] === '$') return false;
 
   // 向后跳过空白，检查 key 之后紧跟着什么
   let j = matchPos + key.length;
@@ -469,9 +473,9 @@ export function replacer(content: string, key: string, to: string): string {
       return false;
     }
 
-    // 7. 检查是否为对象属性名（{ key: 或 { key }），排除模板表达式中的 ${
+    // 7. 检查是否为对象属性名（{ key: 或 { key }），排除模板表达式中的 ${...}
     const propertyMatch = beforeMatch.match(/\{\s*$/);
-    if (propertyMatch && !beforeMatch.endsWith('${')) {
+    if (propertyMatch && !/\$\{\s*$/.test(beforeMatch)) {
       // 检查是否为计算属性名 {[key]: value}
       if (matchPos > 0 && content.charAt(matchPos - 1) === '[') {
         // 计算属性名，应该替换
@@ -548,6 +552,7 @@ export function patchCode(
     computed = [],
     libs = {},
     members = [],
+    props = [],
     platform
   } = options || {};
   const contextKeys = Array.from(context[id || ''] || new Set());
@@ -562,6 +567,11 @@ export function patchCode(
     content = replacer(content, key, `this.${key}.value`);
     content = replacer(content, `this.${key}`, `this.${key}.value`);
     content = replacer(content, `this.${key}.value.value`, `this.${key}.value`);
+  }
+
+  for (const key of props) {
+    content = replacer(content, key, `this.props.${key}`);
+    content = replacer(content, `this.${key}`, `this.props.${key}`);
   }
 
   for (const [key, value] of Object.entries(libs)) {
