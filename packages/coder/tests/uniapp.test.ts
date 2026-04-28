@@ -23,7 +23,7 @@ test('uniapp', async () => {
     // );
     // console.log(content);
   } catch (e) {
-    console.log('error----------------', e.codeFrame);
+    // console.log('error----------------', e.codeFrame);
   }
   expect(!!generator).toBeTruthy();
 });

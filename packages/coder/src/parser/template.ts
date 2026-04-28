@@ -12,7 +12,8 @@ import {
   type NodeChildren,
   type NodeFromUrlSchema,
   type NodeFromPlugin,
-  BUILT_IN_TAGS
+  BUILT_IN_TAGS,
+  type JSExpression
 } from '@vtj/core';
 import { isPlainObject, camelCase, dedupArray, kebabCase } from '@vtj/base';
 import {
@@ -21,6 +22,7 @@ import {
   parsePlainObjectValue,
   getModifiers,
   replaceComputedValue,
+  replaceContext,
   replaceThis,
   isJSCode
 } from '../utils';
@@ -88,7 +90,7 @@ export function parseTemplate(
       }
 
       // 收集属性和事件
-      const { props, events, handlers } = parsePropsAndEvents(
+      const { props, events } = parsePropsAndEvents(
         child,
         id as string,
         child.props,
@@ -111,7 +113,7 @@ export function parseTemplate(
             child
           )
         : '';
-      Object.assign(methods, handlers);
+      // Object.assign(methods, handlers);
       let childContent = '';
       if (typeof nodeChildren === 'string') {
         childContent = nodeChildren;
@@ -272,49 +274,23 @@ function bindNodeProps(
   });
 }
 
-function bindEvent(
-  name: string,
-  value: NodeEvent,
-  binder: string,
-  nodeContext: string[],
-  isExp: boolean
-) {
+function bindEvent(name: string, value: NodeEvent, binder: string) {
   const modifiers = getModifiers(value.modifiers, true);
-  if (isExp) {
-    return `@${name}${modifiers.join('')}="${binder}"`;
-  }
-  if (nodeContext && nodeContext.length > 0) {
-    return `@${name}${modifiers.join('')}="(...args:any[]) => ${binder}"`;
-  }
   return `@${name}${modifiers.join('')}="${binder}"`;
 }
 
 function bindNodeEvents(
-  id: string,
+  _id: string,
   events: NodeEvents = {},
-  context: Record<string, Set<string>> = {}
+  _context: Record<string, Set<string>> = {}
 ) {
-  const handlers: Record<string, JSFunction> = {};
-  const nodeContext = Array.from(context[id] || new Set([]));
-  const eventParams = nodeContext.length
-    ? `({${nodeContext.join(', ')}}, args)`
-    : '';
+  const handlers: Record<string, JSFunction | JSExpression> = {};
   const binders = Object.entries(events).map(([name, value]) => {
-    const isExp = value.handler.value.startsWith('this.');
-    const binder = isExp
-      ? replaceThis(value.handler.value)
-      : `${camelCase(name)}_${id}${eventParams}`;
-    if (!isExp) {
-      handlers[binder] = nodeContext.length
-        ? {
-            type: 'JSFunction',
-            value: `{
-          return (${value.handler.value}).apply(this, args);
-        }`
-          }
-        : value.handler;
-    }
-    return bindEvent(name, value, binder, nodeContext, isExp);
+    const binder = replaceThis(replaceContext(value.handler.value)).replace(
+      /\"/g,
+      "'"
+    );
+    return bindEvent(name, value, binder);
   });
   return {
     binders,

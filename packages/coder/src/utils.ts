@@ -53,12 +53,6 @@ export function parseValue(
     value = stringify ? JSON.stringify(value) : val;
   }
 
-  // let value = isJSCode(val)
-  //   ? val.value.trim().replace(/;$/, '').replace(/\"/g, "'")
-  //   : stringify
-  //     ? JSON.stringify(val)
-  //     : val;
-
   value = replaceComputedValue(value as string, computedKeys);
   return noThis
     ? replaceThis(replaceContext(value as string))

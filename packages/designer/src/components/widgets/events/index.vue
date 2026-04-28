@@ -63,7 +63,7 @@
   import { Panel, Item } from '../../shared';
   import { useCurrent, useSelected, useNodeEvents } from '../../hooks';
   import { EventBinder } from '../../binders';
-  import { confirm, expressionValidate } from '../../../utils';
+  import { confirm } from '../../../utils';
 
   export interface EventDataItem {
     name: string;
@@ -99,8 +99,7 @@
         return prev;
       }, {})
     };
-    if (!expressionValidate(nodeEvent.handler, context.value, true))
-      return false;
+
     const node = selected.value?.model as NodeModel;
     node.setEvent(nodeEvent);
     return true;
