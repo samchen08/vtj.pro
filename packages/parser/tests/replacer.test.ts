@@ -90,7 +90,8 @@ test('new RegExp string should replace even with surrounding punctuation', () =>
 test('dot property access should NOT replace', () => {
   expectReplace('obj.foo', 'foo', 'bar', 'obj.foo');
   expectReplace('obj.foo.baz', 'foo', 'bar', 'obj.foo.baz');
-  expectReplace('this.foo', 'foo', 'bar', 'this.foo');
+  // this.X 模式：整个 this.X 应被替换为 to
+  expectReplace('this.foo', 'foo', 'bar', 'bar');
 });
 
 test('optional chaining property access should NOT replace', () => {
@@ -393,6 +394,15 @@ test('replacer: should expand ES6 shorthand property in object literal', () => {
   const result3 = replacer(input3, 'ElLink', 'this.$libs.ElementPlus.ElLink');
   expect(result3).toContain('ElLink: someValue');
   expect(result3).not.toContain('this.$libs.ElementPlus.ElLink');
+
+  const input3a = `
+  () => {
+    return this.current;
+  }
+`;
+
+  const result3a = replacer(input3a, 'current', 'this.props.current');
+  expect(result3a).toContain('this.props.current');
 
   // 单个简写属性 { ElLink } 应展开
   const input4 = `{
