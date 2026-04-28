@@ -13,44 +13,41 @@
       name: 'Test',
       nodes: [
         {
-          name: 'input',
-          props: {
-            name: 'text'
-          },
-          directives: [
+          name: 'div',
+          children: [
             {
-              name: 'vModel',
-              value: {
+              name: 'button',
+              children: {
                 type: 'JSExpression',
-                value: 'this.state.text'
-              }
+                value: '`按钮_${this.context.item}`'
+              },
+              events: {
+                click: {
+                  name: 'click',
+                  handler: {
+                    type: 'JSFunction',
+                    value:
+                      'this.say(this.context.item, this.context.index, $event)'
+                  }
+                }
+              },
+              directives: [
+                {
+                  name: 'vFor',
+                  value: {
+                    type: 'JSExpression',
+                    value: '3'
+                  }
+                }
+              ]
             }
           ]
-        },
-        {
-          name: 'div',
-          children: {
-            type: 'JSExpression',
-            value: 'this.state.text'
-          }
         }
       ],
-      state: {
-        text: {
-          type: 'JSExpression',
-          value: '2'
-        }
-      },
-      lifeCycles: {
-        mounted: {
+      methods: {
+        say: {
           type: 'JSFunction',
-          value: `()=>{
-              console.log(this.$refs.div)
-             setTimeout(()=>{
-               console.log(this.$refs.div)
-             }, 0)
-            
-            }`
+          value: '(a, i, e)=>{ console.log(a,i, e)}'
         }
       }
     }

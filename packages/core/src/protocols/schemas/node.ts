@@ -108,7 +108,7 @@ export interface NodeProps {
  */
 export interface NodeEvent {
   name: string;
-  handler: JSFunction;
+  handler: JSFunction | JSExpression;
   modifiers?: Record<string, boolean>;
 }
 

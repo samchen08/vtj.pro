@@ -15,7 +15,7 @@
     <XField
       class="v-binder__editor"
       name="handler.value"
-      label="事件处理函数 [ JSFunction ]"
+      label="事件处理函数 [ JSExpression ]"
       required>
       <template #editor>
         <Editor
@@ -52,7 +52,7 @@
       ...props.event,
       modifiers: Object.keys(props.event?.modifiers || {}),
       handler: {
-        type: 'JSFunction',
+        type: 'JSExpression',
         value: props.event?.handler?.value || '() => {}'
       }
     };
