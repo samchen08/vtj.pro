@@ -175,3 +175,7 @@ export function isArrowFunction(code: string) {
 export function isCallFunction(code: string) {
   return /\w+\([\s\S]*\)$/.test(code.trim());
 }
+
+export function isAssignment‌(code: string) {
+  return code.includes('=');
+}
