@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.16.29](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.16.28...@vtj/renderer@0.16.29) (2026-04-28)
+
+
+### Bug Fixes
+
+* 🐛 render event ([cfc6caa](https://gitee.com/newgateway/vtj/commits/cfc6caaaab0fc727a507f43879ed6d13565775c2))
+
+
+
+
+
 ## [0.16.28](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.16.27...@vtj/renderer@0.16.28) (2026-04-28)
 
 

@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.16.29](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.16.28...@vtj/materials@0.16.29) (2026-04-28)
+
+**Note:** Version bump only for package @vtj/materials
+
+
+
+
+
 ## [0.16.28](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.16.27...@vtj/materials@0.16.28) (2026-04-28)
 
 **Note:** Version bump only for package @vtj/materials

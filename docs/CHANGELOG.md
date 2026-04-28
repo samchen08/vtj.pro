@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.16.29](https://github.com/samchen08/vtj.pro/compare/@vtj/docs@0.16.28...@vtj/docs@0.16.29) (2026-04-28)
+
+**Note:** Version bump only for package @vtj/docs
+
+
+
+
+
 ## [0.16.28](https://github.com/samchen08/vtj.pro/compare/@vtj/docs@0.16.27...@vtj/docs@0.16.28) (2026-04-28)
 
 **Note:** Version bump only for package @vtj/docs
