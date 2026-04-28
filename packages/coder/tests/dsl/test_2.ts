@@ -1,42 +1,43 @@
 export const test_2 = {
+  id: '123',
   name: 'Test',
-  locked: false,
-  inject: [],
-  state: {},
-  lifeCycles: {},
+  nodes: [
+    {
+      name: 'div',
+      children: [
+        {
+          name: 'button',
+          children: {
+            type: 'JSExpression',
+            value: '`按钮_${this.context.item}`'
+          },
+          events: {
+            click: {
+              name: 'click',
+              handler: {
+                type: 'JSFunction',
+                value:
+                  '() => this.say(this.context.item, this.context.index, $event)'
+              }
+            }
+          },
+          directives: [
+            {
+              name: 'vFor',
+              value: {
+                type: 'JSExpression',
+                value: '3'
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
   methods: {
     say: {
       type: 'JSFunction',
-      value: '() => {\n  console.log(\'date("YYYY-MM-DD")\')\n}'
+      value: '(a, i, e)=>{ console.log(a,i, e)}'
     }
-  },
-  computed: {},
-  watch: [],
-  css: '',
-  props: [],
-  emits: [],
-  expose: [],
-  slots: [],
-  dataSources: {},
-  __VTJ_BLOCK__: true,
-  __VERSION__: '1773650406287',
-  id: '1hg9jd9v',
-  nodes: [
-    {
-      id: '3hga039x',
-      name: 'div',
-      from: '',
-      invisible: false,
-      locked: false,
-      children: '容器文本内容示例',
-      props: {
-        class: {
-          type: 'JSExpression',
-          value: '({ "is-class": true })'
-        }
-      },
-      directives: [],
-      events: {}
-    }
-  ]
+  }
 };

@@ -193,17 +193,16 @@ function getEvents(
         );
 
         let code = item.exp?.loc.source || '';
-        const endRegex = /\)$/;
-        if (endRegex.test(code)) {
-          code = `($event) => { ${code} } `;
-        }
+        // const endRegex = /\)$/;
+        // if (endRegex.test(code)) {
+        //   code = `($event) => { ${code} } `;
+        // }
         if (!code) {
           code = '() => {}';
         }
         const regex = new RegExp(`${item.arg.content}_\[\\w\]\{5\,\}`);
         const name = code.match(regex)?.[0] || '';
         const handler = handlers[name];
-
         if (name && handler) {
           events[item.arg.content] = {
             name: item.arg.content,
@@ -211,10 +210,10 @@ function getEvents(
             modifiers
           };
         } else {
-          const exp = (item.exp as any)?.ast?.type === 'AssignmentExpression';
+          const exp = (item.exp as any)?.ast?.type === 'CallExpression';
           events[item.arg.content] = {
             name: item.arg.content,
-            handler: getJSFunction(exp ? `()=> {${code}}` : `(${code})`),
+            handler: exp ? getJSExpression(code) : getJSFunction(code),
             modifiers
           };
         }

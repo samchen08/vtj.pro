@@ -19,7 +19,9 @@ import {
   isJSExpression,
   isJSFunction,
   isBuiltInTag,
-  isNativeTag
+  isNativeTag,
+  isArrowFunction,
+  isCallFunction
 } from '../utils';
 import { defaultLoader, type BlockLoader } from './loader';
 
@@ -274,6 +276,24 @@ function withKey(handler: Function, key: string) {
   };
 }
 
+function wrapEventHandler(handler: JSFunction) {
+  if (isArrowFunction(handler.value)) {
+    return handler;
+  }
+  if (isCallFunction(handler.value)) {
+    const value = `(...args) => (() => {
+       return (($event) => {
+           ${handler.value}
+          }).apply(this, args);
+       })()`;
+    return {
+      type: 'JSFunction',
+      value
+    } as JSFunction;
+  }
+  return handler as JSFunction;
+}
+
 function parseNodeEvents(
   Vue: any,
   _id: string,
@@ -295,8 +315,10 @@ function parseNodeEvents(
         'on' +
         upperFirstCamelCase(key) +
         (suffix ? suffixMap[suffix] || '' : '');
+      const handler = event.handler
+        ? context.__parseFunction(wrapEventHandler(event.handler as JSFunction))
+        : null;
 
-      const handler = context.__parseFunction(event.handler);
       if (handler) {
         result[name] = Vue.withModifiers(
           modifiers.includes('enter') ? withKey(handler, 'enter') : handler,

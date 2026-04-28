@@ -6,6 +6,7 @@ export const test_27 = `
       :key="index"
       class="heart-rain-item"
       :style="heart.style"
+      @click.stop="startRain(index)"
     >
       ❤️
     </div>

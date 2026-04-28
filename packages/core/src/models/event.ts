@@ -2,12 +2,13 @@ import type {
   NodeEvents,
   NodeEvent,
   NodeModifiers,
-  JSFunction
+  JSFunction,
+  JSExpression
 } from '../protocols';
 
 export class EventModel {
   public readonly name: string;
-  public handler: JSFunction;
+  public handler: JSFunction | JSExpression;
   public modifiers: NodeModifiers = {};
   constructor(private schema: NodeEvent) {
     const { name, handler } = this.schema;
