@@ -77,26 +77,27 @@ export class Context {
       // 部分属性在 onMounted 后才生成，需要重新更新一次
       this.__proxy();
     });
-    Vue.onUnmounted(() => {
-      this.__cleanup();
-    });
+    // Vue.onUnmounted(() => {
+    //   this.__cleanup();
+    // });
     Vue.onBeforeUpdate(() => {
       this.__reset();
     });
   }
   private __proxy() {
     if (!this.__instance) return;
+    const ins = this.__instance as any;
     CONTEXT_HOST.forEach((name) => {
-      (this as any)[name] = (this.__instance as any)?.[name];
+      (this as any)[name] = ins[name] || ins._?.[name.replace('$', '')] || null;
     });
   }
-  private __cleanup() {
-    CONTEXT_HOST.forEach((name) => {
-      (this as any)[name] = null;
-    });
+  // private __cleanup() {
+  //   CONTEXT_HOST.forEach((name) => {
+  //     (this as any)[name] = null;
+  //   });
 
-    this.__reset();
-  }
+  //   this.__reset();
+  // }
   private __reset() {
     this.__refs = {};
     this.__refCaches = {};
