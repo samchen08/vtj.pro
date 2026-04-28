@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.16.28](https://github.com/samchen08/vtj.pro/compare/dev-web@0.16.27...dev-web@0.16.28) (2026-04-28)
+
+
+### Bug Fixes
+
+* 🐛 优化代码生成 ([afb9bd1](https://github.com/samchen08/vtj.pro/commit/afb9bd114208228e6de5802bd7f88a9b2eb9abce))
+
+
+
+
+
 ## [0.16.27](https://github.com/samchen08/vtj.pro/compare/dev-web@0.16.26...dev-web@0.16.27) (2026-04-27)
 
 **Note:** Version bump only for package dev-web
