@@ -1,6 +1,6 @@
 {
   "name": "vtj-project-uniapp",
-  "version": "0.16.30",
+  "version": "0.16.31",
   "private": true,
   "scripts": {
     "dev:app": "uni -p app",
