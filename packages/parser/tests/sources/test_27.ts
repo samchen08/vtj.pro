@@ -1,8 +1,9 @@
 export const test_27 = `
 <template>
-  <div class="progress-bar-wrapper">
 
-  </div>
+    <button v-if="disabled">aaaa</button>
+    <button v-else>bbbb</button>
+   
 </template>
 <script>
   import { defineComponent, reactive } from 'vue';
@@ -27,6 +28,12 @@ export default defineComponent({
       hintText: ''
     });
     return { state, props, provider, List };
+  },
+
+  computed: {
+    disabled() {
+    return !!this.state.value
+    }
   },
 
     watch: {

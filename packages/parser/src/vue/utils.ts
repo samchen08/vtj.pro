@@ -593,9 +593,9 @@ export function patchCode(
   }
 
   for (const key of computed) {
-    content = replacer(content, key, `this.${key}.value`);
-    content = replacer(content, `this.${key}`, `this.${key}.value`);
-    content = replacer(content, `this.${key}.value.value`, `this.${key}.value`);
+    if (!content.includes(`this.${key}.value`)) {
+      content = replacer(content, key, `this.${key}.value`);
+    }
   }
 
   for (const key of props) {
