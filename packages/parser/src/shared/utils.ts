@@ -32,8 +32,10 @@ export function traverseAST(
 }
 
 export function generateCode(node: Node) {
+  if (!node) return '';
   try {
     const func = (generate as any).default || generate;
+
     const generated = func(node, {
       comments: false,
       concise: true,
