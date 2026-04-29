@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.16.33](https://gitee.com/newgateway/vtj/compare/@vtj/parser@0.16.32...@vtj/parser@0.16.33) (2026-04-29)
+
+
+### Bug Fixes
+
+* 🐛 parser state ([ca13293](https://gitee.com/newgateway/vtj/commits/ca13293acf5ecaaebf4aa5e6bb6a29bd739de30b))
+
+
+
+
+
 ## [0.16.32](https://gitee.com/newgateway/vtj/compare/@vtj/parser@0.16.31...@vtj/parser@0.16.32) (2026-04-28)
 
 
