@@ -74,6 +74,14 @@ function replaceViaAST(content: string, key: string, to: string): string {
 
     TemplateLiteral(path: NodePath) {
       handleTemplateLiteral(path, key, to, offset, content, replacements);
+    },
+
+    MemberExpression(path: NodePath) {
+      handleThisMemberExpression(path, key, to, offset, content, replacements);
+    },
+
+    OptionalMemberExpression(path: NodePath) {
+      handleThisMemberExpression(path, key, to, offset, content, replacements);
     }
   } as any);
 
@@ -191,6 +199,38 @@ function handleTemplateLiteral(
       }
       searchPos = idx + key.length;
     }
+  }
+}
+
+/**
+ * 处理 this.X / this?.X 模式：将整个 MemberExpression 替换为 to
+ * 例如 this.current → this.props.current
+ */
+function handleThisMemberExpression(
+  path: NodePath,
+  key: string,
+  to: string,
+  offset: number,
+  content: string,
+  replacements: Replacement[]
+): void {
+  const node = path.node as any;
+  // 检查 object 是 ThisExpression，property 是非计算的 Identifier 且匹配 key
+  if (
+    node.object?.type !== 'ThisExpression' ||
+    node.computed ||
+    node.property?.type !== 'Identifier' ||
+    node.property.name !== key
+  ) {
+    return;
+  }
+
+  const start = (node.start ?? 0) - offset;
+  const end = (node.end ?? 0) - offset;
+  if (start < 0 || end > content.length) return;
+
+  if (!replacements.some((r) => r.start === start && r.end === end)) {
+    replacements.push({ start, end, text: to });
   }
 }
 

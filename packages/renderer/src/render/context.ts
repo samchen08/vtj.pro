@@ -86,8 +86,9 @@ export class Context {
   }
   private __proxy() {
     if (!this.__instance) return;
+    const ins = this.__instance as any;
     CONTEXT_HOST.forEach((name) => {
-      (this as any)[name] = (this.__instance as any)?.[name];
+      (this as any)[name] = ins[name] || ins._?.[name.replace('$', '')] || null;
     });
   }
   private __cleanup() {

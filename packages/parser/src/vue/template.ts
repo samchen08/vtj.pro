@@ -71,8 +71,17 @@ export function parseTemplate(
     isProd: true,
     slotted: true
   });
+
   const children = result.ast?.children || [];
-  const nodes = children.map((child) => transformNode(child)) as NodeSchema[];
+  const nodes: NodeSchema[] = [];
+  for (const child of children) {
+    const result = transformNode(child) as any;
+    if (Array.isArray(result)) {
+      nodes.push(...result);
+    } else {
+      nodes.push(result);
+    }
+  }
   return {
     nodes: nodes.filter((n) => !!n),
     slots: __slots,
@@ -639,6 +648,6 @@ function transformTemplateIf(node: IfNode) {
     const el = { name: 'span', directives };
     return transformChildren(el, first.children);
   } else {
-    return transformBranches(branches)?.[0];
+    return transformBranches(branches);
   }
 }
