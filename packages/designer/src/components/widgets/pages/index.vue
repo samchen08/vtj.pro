@@ -188,7 +188,7 @@
 
   const onNodeDrop = () => {
     project.value?.update({
-      pages: toValue(pages)
+      pages: toValue(chunkedData)
     });
     reset();
   };
