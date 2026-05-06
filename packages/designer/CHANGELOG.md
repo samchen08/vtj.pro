@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.16.34](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.16.33...@vtj/designer@0.16.34) (2026-05-06)
+
+
+### Bug Fixes
+
+* 🐛 修复页面树结构拖拽节点意外克隆的问题 ([7f0eee7](https://gitee.com/newgateway/vtj/commits/7f0eee7cabfc5107b0ff9f06e03201ca50e8f7dc))
+
+
+
+
+
 ## [0.16.33](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.16.32...@vtj/designer@0.16.33) (2026-04-29)
 
 **Note:** Version bump only for package @vtj/designer
