@@ -196,10 +196,24 @@ function getState(block: BlockStatement) {
   if (!stateExpression) return {};
   const state: BlockState = {};
   for (const item of stateExpression.properties) {
-    const { key, value } = item as ObjectProperty;
-    if (key.type === 'Identifier') {
-      const code = generateCode(value);
-      state[key.name] = getJSExpression(code);
+    if (item.type === 'ObjectProperty') {
+      const { key, value } = item as ObjectProperty;
+      if (key.type === 'Identifier') {
+        const code = generateCode(value);
+        state[key.name] = getJSExpression(code);
+      }
+    } else if (item.type === 'ObjectMethod') {
+      const { key, params, body } = item as ObjectMethod;
+      if (key.type === 'Identifier') {
+        const bodyCode = generateCode(body);
+        const paramsCode = params
+          .map((n) => {
+            return (n as any).name || 'none';
+          })
+          .join(',');
+        const code = `(${paramsCode}) => ${bodyCode}`;
+        state[key.name] = getJSExpression(code);
+      }
     }
   }
   return state;
