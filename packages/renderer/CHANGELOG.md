@@ -3,6 +3,60 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.16.34](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.16.33...@vtj/renderer@0.16.34) (2026-05-06)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
+## [0.16.33](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.16.32...@vtj/renderer@0.16.33) (2026-04-29)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
+## [0.16.32](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.16.31...@vtj/renderer@0.16.32) (2026-04-28)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
+## [0.16.31](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.16.30...@vtj/renderer@0.16.31) (2026-04-28)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
+## [0.16.30](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.16.29...@vtj/renderer@0.16.30) (2026-04-28)
+
+
+### Bug Fixes
+
+* 🐛 render context ([5a3bde6](https://gitee.com/newgateway/vtj/commits/5a3bde6dfef670facabce1b3171cabae71b0dcbe))
+
+
+
+
+
+## [0.16.29](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.16.28...@vtj/renderer@0.16.29) (2026-04-28)
+
+
+### Bug Fixes
+
+* 🐛 render event ([cfc6caa](https://gitee.com/newgateway/vtj/commits/cfc6caaaab0fc727a507f43879ed6d13565775c2))
+
+
+
+
+
 ## [0.16.28](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.16.27...@vtj/renderer@0.16.28) (2026-04-28)
 
 

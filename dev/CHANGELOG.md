@@ -3,6 +3,57 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.16.34](https://github.com/samchen08/vtj.pro/compare/dev-web@0.16.33...dev-web@0.16.34) (2026-05-06)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
+## [0.16.33](https://github.com/samchen08/vtj.pro/compare/dev-web@0.16.32...dev-web@0.16.33) (2026-04-29)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
+## [0.16.32](https://github.com/samchen08/vtj.pro/compare/dev-web@0.16.31...dev-web@0.16.32) (2026-04-28)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
+## [0.16.31](https://github.com/samchen08/vtj.pro/compare/dev-web@0.16.30...dev-web@0.16.31) (2026-04-28)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
+## [0.16.30](https://github.com/samchen08/vtj.pro/compare/dev-web@0.16.29...dev-web@0.16.30) (2026-04-28)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
+## [0.16.29](https://github.com/samchen08/vtj.pro/compare/dev-web@0.16.28...dev-web@0.16.29) (2026-04-28)
+
+
+### Bug Fixes
+
+* 🐛 render event ([cfc6caa](https://github.com/samchen08/vtj.pro/commit/cfc6caaaab0fc727a507f43879ed6d13565775c2))
+
+
+
+
+
 ## [0.16.28](https://github.com/samchen08/vtj.pro/compare/dev-web@0.16.27...dev-web@0.16.28) (2026-04-28)
 
 

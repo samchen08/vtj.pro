@@ -3,6 +3,54 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.16.34](https://gitee.com/newgateway/vtj/compare/@vtj/web@0.16.33...@vtj/web@0.16.34) (2026-05-06)
+
+**Note:** Version bump only for package @vtj/web
+
+
+
+
+
+## [0.16.33](https://gitee.com/newgateway/vtj/compare/@vtj/web@0.16.32...@vtj/web@0.16.33) (2026-04-29)
+
+**Note:** Version bump only for package @vtj/web
+
+
+
+
+
+## [0.16.32](https://gitee.com/newgateway/vtj/compare/@vtj/web@0.16.31...@vtj/web@0.16.32) (2026-04-28)
+
+**Note:** Version bump only for package @vtj/web
+
+
+
+
+
+## [0.16.31](https://gitee.com/newgateway/vtj/compare/@vtj/web@0.16.30...@vtj/web@0.16.31) (2026-04-28)
+
+**Note:** Version bump only for package @vtj/web
+
+
+
+
+
+## [0.16.30](https://gitee.com/newgateway/vtj/compare/@vtj/web@0.16.29...@vtj/web@0.16.30) (2026-04-28)
+
+**Note:** Version bump only for package @vtj/web
+
+
+
+
+
+## [0.16.29](https://gitee.com/newgateway/vtj/compare/@vtj/web@0.16.28...@vtj/web@0.16.29) (2026-04-28)
+
+**Note:** Version bump only for package @vtj/web
+
+
+
+
+
 ## [0.16.28](https://gitee.com/newgateway/vtj/compare/@vtj/web@0.16.27...@vtj/web@0.16.28) (2026-04-28)
 
 **Note:** Version bump only for package @vtj/web

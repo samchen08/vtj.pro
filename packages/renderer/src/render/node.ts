@@ -21,7 +21,8 @@ import {
   isBuiltInTag,
   isNativeTag,
   isArrowFunction,
-  isCallFunction
+  isCallFunction,
+  isAssignment‌
 } from '../utils';
 import { defaultLoader, type BlockLoader } from './loader';
 
@@ -291,6 +292,14 @@ function wrapEventHandler(handler: JSFunction) {
       value
     } as JSFunction;
   }
+
+  if (isAssignment‌(handler.value)) {
+    return {
+      type: 'JSFunction',
+      value: `() => { ${handler.value}}`
+    } as JSFunction;
+  }
+
   return handler as JSFunction;
 }
 

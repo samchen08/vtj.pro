@@ -3,6 +3,63 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.16.34](https://gitee.com/newgateway/vtj/compare/@vtj/parser@0.16.33...@vtj/parser@0.16.34) (2026-05-06)
+
+**Note:** Version bump only for package @vtj/parser
+
+
+
+
+
+## [0.16.33](https://gitee.com/newgateway/vtj/compare/@vtj/parser@0.16.32...@vtj/parser@0.16.33) (2026-04-29)
+
+
+### Bug Fixes
+
+* 🐛 parser state ([ca13293](https://gitee.com/newgateway/vtj/commits/ca13293acf5ecaaebf4aa5e6bb6a29bd739de30b))
+
+
+
+
+
+## [0.16.32](https://gitee.com/newgateway/vtj/compare/@vtj/parser@0.16.31...@vtj/parser@0.16.32) (2026-04-28)
+
+
+### Bug Fixes
+
+* 🐛 parser v-if v-else ([5b7f29b](https://gitee.com/newgateway/vtj/commits/5b7f29b1cc5267ba5fe78f938485f6f516666d7d))
+
+
+
+
+
+## [0.16.31](https://gitee.com/newgateway/vtj/compare/@vtj/parser@0.16.30...@vtj/parser@0.16.31) (2026-04-28)
+
+
+### Bug Fixes
+
+* 🐛 new replacer ([89ceab9](https://gitee.com/newgateway/vtj/commits/89ceab9587552a1e85fdfd5f9f1f1c513e009ade))
+
+
+
+
+
+## [0.16.30](https://gitee.com/newgateway/vtj/compare/@vtj/parser@0.16.29...@vtj/parser@0.16.30) (2026-04-28)
+
+**Note:** Version bump only for package @vtj/parser
+
+
+
+
+
+## [0.16.29](https://gitee.com/newgateway/vtj/compare/@vtj/parser@0.16.28...@vtj/parser@0.16.29) (2026-04-28)
+
+**Note:** Version bump only for package @vtj/parser
+
+
+
+
+
 ## [0.16.28](https://gitee.com/newgateway/vtj/compare/@vtj/parser@0.16.27...@vtj/parser@0.16.28) (2026-04-28)
 
 
