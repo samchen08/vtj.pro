@@ -31,6 +31,7 @@
 </template>
 <script lang="ts" setup>
   import { ref, nextTick } from 'vue';
+  import { delay } from '@vtj/utils';
   import { XAction } from '@vtj/ui';
   import { Tabs, ActionMenu } from '../shared';
   import { RegionType } from '../../framework';
@@ -83,6 +84,13 @@
     return menuChecked.value === 'Designer';
   };
 
+  const activeDesigner = async () => {
+    if (!isDesignerActive()) {
+      menuChecked.value = 'Designer';
+      await delay(300);
+    }
+  };
+
   const actions = [
     {
       label: '关闭其他',
@@ -114,6 +122,7 @@
     widgetsRef,
     openTab,
     reload,
-    isDesignerActive
+    isDesignerActive,
+    activeDesigner
   });
 </script>

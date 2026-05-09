@@ -235,6 +235,11 @@
     if (!project) return;
     if (project.currentFile) {
       if (await isLogined()) {
+        const workspace = engine.skeleton?.getRegion('Workspace').regionRef;
+        if (workspace) {
+          await workspace.activeDesigner();
+        }
+        console.log(workspace);
         const canvas = await engine.simulator.capture();
         const { name, title, market } = project.currentFile;
         if (!canvas) {
@@ -289,6 +294,10 @@
     if (!homepage) {
       message('项目没有页面，无需发布', 'warning');
       return;
+    }
+    const workspace = engine.skeleton?.getRegion('Workspace').regionRef;
+    if (workspace) {
+      await workspace.activeDesigner();
     }
     project.active(homepage);
     await delay(300);
