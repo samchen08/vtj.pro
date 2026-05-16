@@ -1,6 +1,6 @@
 <div align="center"> <a href="https://gitee.com/newgateway/vtj"> <img width="100" src="./platforms/pro/public/logo.svg"> </a> <br>
 <h1>VTJ.PRO</h1>
-<h3>AI 驱动的 Vue3 低代码开发平台</h3>
+<h3>给专业开发者的 AI 低代码引擎</h3>
 <br>
 
 [![star](https://gitcode.com/vtj/vtj.pro/star/badge.svg)](https://gitcode.com/vtj/vtj.pro)
@@ -11,9 +11,37 @@
 
 </div>
 
-内置低代码引擎、渲染器与代码生成器，**实现 Vue 源码与低代码 DSL 的双向智能转换。专为前端开发者打造，开箱即用**。
+VTJ.PRO 是一个开源的 AI 低代码引擎，专注解决 “低代码生成代码不可控、难维护” 的痛点。
+
+通过 **DSL 与 Vue 3 源码双向转换**，让可视化设计与工程化开发无缝融合。
 
 **无缝融入现有工程**，**零侵入**开发流程与编码习惯。
+
+- ✅ 拖拽生成 ≠ 黑盒代码
+- ✅ 支持 Web / H5 / UniApp 多端输出
+- ✅ 支持私有化部署、离线运行
+- ✅ AI 直接参与设计、逻辑编排与代码修复
+
+## 为什么选择 VTJ.PRO？
+
+大多数低代码平台的问题是：  
+**生成代码不可读、无法二次开发、离开平台就废。**
+
+VTJ.PRO 的设计原则是：
+
+- 🧩 **双向代码转换**  
+  DSL ↔ Vue 3 单文件组件，随时进出设计器
+
+- 🤖 **AI 是副驾驶，不是玩具**  
+  生成页面、修复代码、读设计稿、改逻辑
+
+- 🏢 **为工程化而生**  
+  支持 TypeScript、Pinia、vue-i18n、ESLint 等企业级能力
+
+- 🔓 **永不锁代码**  
+  导出的就是标准 Vue 项目，可独立运行、可长期维护
+
+## 体验
 
 - **官方文档**：[https://vtj.pro](https://vtj.pro)
 - **在线应用开发平台**：[https://app.vtj.pro](https://app.vtj.pro)

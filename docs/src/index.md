@@ -1,12 +1,12 @@
 ---
 # https://vitepress.dev/reference/default-theme-home-page
 
-title: AI 驱动的 Vue3 低代码开发平台
+title: VTJ.PRO —— 给专业开发者的 AI 低代码引擎
 layout: home
 hero:
   name: 'VTJ.PRO'
-  text: AI + 低代码
-  tagline: 所想即所见，融合双核优势，让设计秒生纯净代码
+  text: 给专业开发者的 AI 低代码引擎
+  tagline: 代码可导出 · 项目可脱离 · 企业可私有化
   image:
     src: /assets/logo-w.svg
   actions:

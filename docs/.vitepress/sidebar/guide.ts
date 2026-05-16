@@ -3,7 +3,7 @@ export default [
     text: '开始',
     base: '/guide',
     items: [
-      { text: '简介', link: '/' },
+      { text: '关于 VTJ.PRO', link: '/' },
       { text: '快速上手', link: '/start' },
       { text: '项目集成', link: '/integration' }
       // {
