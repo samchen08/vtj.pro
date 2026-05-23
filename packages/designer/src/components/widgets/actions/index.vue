@@ -239,12 +239,11 @@
         if (workspace) {
           await workspace.activeDesigner();
         }
-        console.log(workspace);
-        const canvas = await engine.simulator.capture();
+
+        const canvas = await engine.simulator.capture().catch(() => null);
         const { name, title, market } = project.currentFile;
         if (!canvas) {
           message('截图失败', 'warning');
-          return;
         }
         publisherProps.value = {
           id: market?.id,
@@ -301,7 +300,11 @@
     }
     project.active(homepage);
     await delay(300);
-    homepageCanvas.value = await engine.simulator.capture();
+    try {
+      homepageCanvas.value = await engine.simulator.capture();
+    } catch (e) {
+      console.warn(e);
+    }
     versionerRef?.value.openDialog();
   };
 

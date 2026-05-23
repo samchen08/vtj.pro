@@ -338,7 +338,15 @@ export class Designer {
   }
 
   private isVtjElement(el: EventTarget | HTMLElement): el is VtjElement {
-    return !!(el as any).__vtj__ && !!(el as any).__context__;
+    const block = this.engine.current.value;
+    const hasAttribute = (el as any)?.hasAttribute;
+    if (block && hasAttribute) {
+      return (
+        (el as any).hasAttribute(`data-v-${block.id}`) && !!(el as any).__vtj__
+      );
+    } else {
+      return !!(el as any).__vtj__ && !!(el as any).__context__;
+    }
   }
 
   private findVtjElement(targets: HTMLElement[] | EventTarget[]) {
@@ -440,8 +448,10 @@ export class Designer {
   getHelper(e: DragEvent | MouseEvent): DesignHelper | null {
     const targets = e.composedPath() || [];
     const el = this.findVtjElement(targets) || this.document?.body;
+
     if (!el) return null;
     const model = this.getNodeByElement(el) || this.engine.current.value;
+
     if (!model) return null;
     const rect = el.getBoundingClientRect();
     const type = this.getDropType(rect, e.clientX, e.clientY);

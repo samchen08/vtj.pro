@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.16.36](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.16.35...@vtj/designer@0.16.36) (2026-05-23)
+
+
+### Bug Fixes
+
+* 🐛 优化 isVtjElement 方法以支持动态块属性检查 ([e76a163](https://gitee.com/newgateway/vtj/commits/e76a163f1f25ca91185ed3376cd7b6d56c4df2dc))
+* 🐛 优化截图处理，添加错误捕获和条件渲染 ([33f9467](https://gitee.com/newgateway/vtj/commits/33f946733f5fde96ec1f1101cbff82de9b4c34b6))
+
+
+
+
+
 ## [0.16.35](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.16.34...@vtj/designer@0.16.35) (2026-05-09)
 
 
