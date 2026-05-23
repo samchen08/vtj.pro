@@ -9,7 +9,10 @@
     <XField label="截图">
       <template #editor>
         <div class="v-actions-widget__cover">
-          <ElImage :src="imageDataUrl" fit="cover"></ElImage>
+          <ElImage
+            v-if="imageDataUrl"
+            :src="imageDataUrl"
+            fit="cover"></ElImage>
           <ElUpload
             class="v-actions-widget__upload"
             @change="onFileChange"

@@ -1,7 +1,7 @@
 {
   "name": "@vtj/docs",
   "private": true,
-  "version": "0.16.35",
+  "version": "0.16.36",
   "type": "module",
   "scripts": {
     "docs:dev": "vitepress dev",
