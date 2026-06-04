@@ -151,5 +151,9 @@ export const attachmentProps = {
   autoUpload: {
     type: Boolean,
     default: true
+  },
+  showTitle: {
+    type: Boolean,
+    default: true
   }
 };

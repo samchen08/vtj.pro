@@ -141,7 +141,8 @@ export function useAI() {
     postImageTopic,
     postJsonTopic,
     cancelChat,
-    getSkills
+    getSkills,
+    recognitionFile
   } = useOpenApi();
 
   const hideCodeCacheKey = 'CHAT_HIDE_CODE';
@@ -581,6 +582,22 @@ export function useAI() {
     }
   };
 
+  const handleRecognitionFile = async (file: File) => {
+    loading.value = true;
+    const res = await recognitionFile(file).catch((e) => {
+      console.warn(e);
+      return null;
+    });
+    loading.value = false;
+    return res?.data
+      ? {
+          ...res.data,
+          url: getOssFile(res.data.fileName),
+          name: res.data.originalName
+        }
+      : null;
+  };
+
   onMounted(init);
 
   watch(panelHeight, () => {
@@ -633,6 +650,7 @@ export function useAI() {
     getImage,
     onPostImageTopic,
     onPostJsonTopic,
-    onCancelChat
+    onCancelChat,
+    handleRecognitionFile
   };
 }

@@ -18,6 +18,7 @@
       :loading="props.loading"
       :disabled="props.disabled"
       :model-value="props.modelValue"
+      :recognitionFile="props.recognitionFile"
       @send="onSend"></ChatInput>
     <ImageInput
       v-if="currentOption === 'image'"
@@ -66,6 +67,7 @@
     fillPromptInput: any;
     disabled?: boolean;
     uploader?: (file: File) => Promise<any>;
+    recognitionFile?: (file: File) => Promise<any>;
   }
 
   const props = withDefaults(defineProps<Props>(), {

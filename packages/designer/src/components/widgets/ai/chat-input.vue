@@ -7,70 +7,85 @@
       placeholder="请描述您的需求"
       @change="onChange"></ElInput>
     <div class="v-ai-widget-input__footer">
-      <ElSelect
-        v-if="props.models.length"
-        size="small"
-        popper-class="llm-popper"
-        v-model="currentModel"
-        :disabled="props.lockModel || props.loading">
-        <ElOptionGroup label="内置模型">
-          <ElOption
-            v-for="item of props.models"
-            :label="item.label"
-            :value="item.value"></ElOption>
-        </ElOptionGroup>
-        <ElOptionGroup label="自定义模型">
-          <ElOption
-            v-for="item of engine.state.LLMs"
-            :label="item.label"
-            :value="item.id || item.model">
-            <div class="v-ai-widget-input__llm-item">
-              <span class="label">{{ item.label }}</span>
-              <span class="actions">
-                <XIcon
-                  size="small"
-                  :icon="EditPen"
-                  @click.stop="onEditModel(item)"></XIcon>
-                <XIcon
-                  size="small"
-                  :icon="Delete"
-                  @click.stop="onRemoveModel(item)"></XIcon>
-              </span>
-            </div>
-          </ElOption>
-        </ElOptionGroup>
-        <template #footer>
-          <ElButton size="small" :icon="Plus" @click.stop="onAddModel">
-            新增模型
-          </ElButton>
-        </template>
-      </ElSelect>
-      <ElCheckbox
+      <div class="v-ai-widget-input-attachment" v-loading="props.loading">
+        <XAttachment
+          v-model="currentFiles"
+          :uploader="props.recognitionFile"
+          :show-title="false"
+          :previewable="false"
+          :downloadable="false"
+          :limit="5"
+          :multiple="true"
+          accept="image/*,.json"></XAttachment>
+        <span v-if="currentFiles.length === 0">可识别图片或json文件</span>
+      </div>
+
+      <div class="v-ai-widget-input-action">
+        <ElSelect
+          v-if="props.models.length"
+          size="small"
+          popper-class="llm-popper"
+          v-model="currentModel"
+          :disabled="props.lockModel || props.loading">
+          <ElOptionGroup label="内置模型">
+            <ElOption
+              v-for="item of props.models"
+              :label="item.label"
+              :value="item.value"></ElOption>
+          </ElOptionGroup>
+          <ElOptionGroup label="自定义模型">
+            <ElOption
+              v-for="item of engine.state.LLMs"
+              :label="item.label"
+              :value="item.id || item.model">
+              <div class="v-ai-widget-input__llm-item">
+                <span class="label">{{ item.label }}</span>
+                <span class="actions">
+                  <XIcon
+                    size="small"
+                    :icon="EditPen"
+                    @click.stop="onEditModel(item)"></XIcon>
+                  <XIcon
+                    size="small"
+                    :icon="Delete"
+                    @click.stop="onRemoveModel(item)"></XIcon>
+                </span>
+              </div>
+            </ElOption>
+          </ElOptionGroup>
+          <template #footer>
+            <ElButton size="small" :icon="Plus" @click.stop="onAddModel">
+              新增模型
+            </ElButton>
+          </template>
+        </ElSelect>
+        <!-- <ElCheckbox
         size="small"
         label="自动"
         border
         :disabled="props.loading"
-        v-model="engine.state.autoApply"></ElCheckbox>
-      <ElButton
-        v-if="!props.loading"
-        :icon="Promotion"
-        type="primary"
-        :disabled="props.disabled"
-        round
-        @click="onSend"
-        :loading="props.loading"
-        size="default">
-        发送
-      </ElButton>
-      <ElButton
-        v-else
-        :icon="CircleClose"
-        type="warning"
-        round
-        size="default"
-        @click="onCancel">
-        取消
-      </ElButton>
+        v-model="engine.state.autoApply"></ElCheckbox> -->
+        <ElButton
+          v-if="!props.loading"
+          :icon="Promotion"
+          type="primary"
+          :disabled="props.disabled"
+          round
+          @click="onSend"
+          :loading="props.loading"
+          size="default">
+          发送
+        </ElButton>
+        <ElButton
+          v-else
+          :icon="CircleClose"
+          type="warning"
+          round
+          size="default"
+          @click="onCancel">
+          取消
+        </ElButton>
+      </div>
     </div>
     <ModelDialog
       v-if="formVisable"
@@ -86,11 +101,11 @@
     ElButton,
     ElSelect,
     ElOption,
-    ElCheckbox,
     ElMessage,
-    ElOptionGroup
+    ElOptionGroup,
+    vLoading
   } from 'element-plus';
-  import { XIcon } from '@vtj/ui';
+  import { XIcon, XAttachment } from '@vtj/ui';
   import { Promotion, Plus, EditPen, Delete, CircleClose } from '@vtj/icons';
   import { type Dict, type AISendData } from '../../hooks';
   import { useEngine, type LLM } from '../../../framework';
@@ -105,6 +120,7 @@
     lockModel?: boolean;
     loading?: boolean;
     disabled?: boolean;
+    recognitionFile?: (file: File) => Promise<any>;
   }
 
   const props = withDefaults(defineProps<Props>(), {
@@ -125,6 +141,7 @@
   const currentModel = ref(props.model || engine.state.llm);
   const currentFormModel = ref<LLM | null | undefined>(null);
   const formVisable = ref(false);
+  const currentFiles = ref<any[]>([]);
 
   watch(
     () => props.models,
@@ -166,13 +183,28 @@
       message('请描述您的需求', 'warning');
       return;
     }
+    const attachments = [];
+    const links = [];
+    if (currentFiles.value) {
+      attachments.push('\n```attachment\n\n## 附件文件列表');
+      links.push('\n附件文件：');
+      for (const item of currentFiles.value) {
+        attachments.push(`### 文件名：${item.originalName}`);
+        attachments.push(`### 文件内容\n${item.content}`);
+        attachments.push(`\n---\n`);
+        links.push(`- ${item.url}`);
+      }
+      attachments.push('\n```\n');
+    }
+
     emit('send', {
-      auto: engine.state.autoApply,
-      prompt: value.value.trim(),
+      auto: true, //engine.state.autoApply,
+      prompt: value.value.trim() + attachments.join('\n') + links.join('\n'),
       model: currentModel.value,
       llm: engine.state.getLLMById(currentModel.value)
     });
     value.value = '';
+    currentFiles.value = [];
   };
 
   const onCancel = () => {

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.17.0](https://gitee.com/newgateway/vtj/compare/@vtj/pro@0.16.36...@vtj/pro@0.17.0) (2026-06-04)
+
+
+### Features
+
+* **ai:** 添加图片和JSON文件识别上传功能 ([491d53d](https://gitee.com/newgateway/vtj/commits/491d53dadceca72784521f880e5ce55b7d758a5f))
+
+
+
+
+
 ## [0.16.36](https://gitee.com/newgateway/vtj/compare/@vtj/pro@0.16.35...@vtj/pro@0.16.36) (2026-05-23)
 
 **Note:** Version bump only for package @vtj/pro

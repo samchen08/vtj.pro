@@ -68,6 +68,7 @@
         :model-value="promptText"
         :disabled="inputDisabled"
         :fillPromptInput="fillPromptInput"
+        :recognitionFile="handleRecognitionFile"
         @send="onPostTopic"
         @image-send="onPostImageTopic"
         @json-send="onPostJsonTopic"></NewTopic>
@@ -112,6 +113,7 @@
             :model="currentTopic?.model"
             :model-value="promptText"
             :disabled="inputDisabled"
+            :recognitionFile="handleRecognitionFile"
             lock-model
             @send="onPostChat"
             @cancel="handleCancelChat"></ChatInput>
@@ -233,7 +235,8 @@
     getImage,
     onPostImageTopic,
     onPostJsonTopic,
-    onCancelChat
+    onCancelChat,
+    handleRecognitionFile
   } = useAI();
 
   const logined = ref(true);

@@ -60,7 +60,7 @@
               {{ getFileName(props.data.image || props.data.json) }}
             </div>
           </div>
-          <pre v-else>{{ props.data.prompt }}</pre>
+          <pre v-else>{{ showAttachment(props.data.prompt) }}</pre>
         </div>
       </div>
       <div v-if="isAi" class="v-ai-widget-bubble__tools">
@@ -123,6 +123,7 @@
     'fix',
     'cancel'
   ]);
+
   const coverMap = { figma, sketch, mastergo, other, unknown: other };
   const isAi = computed(() => props.type === 'ai');
   const isSystem = computed(
@@ -244,6 +245,18 @@
 
   const onCancel = () => {
     emit('cancel', props.data);
+  };
+
+  const showAttachment = (content: string) => {
+    if (content.includes('```attachment')) {
+      const regex = /```attachment\r?\n([\s\S]*?)(?:\r?\n```|$)/;
+      const matches = regex.exec(content);
+      if (matches?.[0]) {
+        return content.replace(matches?.[0], '');
+      }
+      return content;
+    }
+    return content;
   };
 
   watch(

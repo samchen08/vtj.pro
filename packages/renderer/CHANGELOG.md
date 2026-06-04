@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.17.0](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.16.36...@vtj/renderer@0.17.0) (2026-06-04)
+
+
+### Bug Fixes
+
+* 🐛 在 mockApi 中添加 method 参数以支持不同请求方法 ([c17daab](https://gitee.com/newgateway/vtj/commits/c17daabe6840fe005b87b9571d095d53785bf3c5))
+
+
+
+
+
 ## [0.16.36](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.16.35...@vtj/renderer@0.16.36) (2026-05-23)
 
 **Note:** Version bump only for package @vtj/renderer
