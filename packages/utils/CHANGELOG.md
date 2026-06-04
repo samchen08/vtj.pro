@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.17.0](https://gitee.com/newgateway/vtj/compare/@vtj/utils@0.16.36...@vtj/utils@0.17.0) (2026-06-04)
+
+
+### Bug Fixes
+
+* 🐛 移除 closeLoading 方法中的冗余 loading 检查 ([0421389](https://gitee.com/newgateway/vtj/commits/0421389a923b68a578bc849f196155a7b16f106e))
+
+
+
+
+
 ## [0.16.36](https://gitee.com/newgateway/vtj/compare/@vtj/utils@0.16.35...@vtj/utils@0.16.36) (2026-05-23)
 
 **Note:** Version bump only for package @vtj/utils

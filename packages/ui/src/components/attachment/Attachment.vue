@@ -24,7 +24,7 @@
               :class="{ 'is-icon': !isImage(file as AttachmentFile) }"
               :src="createFileThumbnail(file)" />
             <div
-              v-if="props.listType !== 'card' || file.name"
+              v-if="props.showTitle && (props.listType !== 'card' || file.name)"
               class="el-upload-list__item-name"
               :title="file.url">
               <span v-if="file.name" class="x-attachment__item-name">

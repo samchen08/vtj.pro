@@ -361,8 +361,7 @@ export class Request {
   }
 
   private closeLoading(settings: IRequestSettings) {
-    const { loading, hideLoading } = settings;
-    if (!loading) return;
+    const { hideLoading } = settings;
     this.isLoading = false;
     const records = Object.keys(this.records);
     if (hideLoading && records.length === 0) {
