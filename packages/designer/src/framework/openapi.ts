@@ -269,4 +269,13 @@ export abstract class OpenApi {
     platform: PlatformType,
     ids: string[]
   ) => Promise<ResponseWrapper<string>>;
+
+  public abstract recognitionFile?: (file: File) => Promise<
+    ResponseWrapper<{
+      originalName: string;
+      fileName: string;
+      title: string;
+      content: string;
+    }>
+  >;
 }

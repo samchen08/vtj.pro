@@ -511,6 +511,30 @@ export function useOpenApi() {
     const result = await res.json();
     return result?.data || '';
   };
+
+  const recognitionFile = async (file: File) => {
+    if (openApi?.recognitionFile) {
+      return await openApi?.recognitionFile(file);
+    }
+    const token = access?.getData()?.token;
+    const api = `${remote}/api/open/recognition/post/${token}`;
+    const data = new FormData();
+    Object.entries({ file }).forEach(([name, value]) => {
+      data.append(name, value);
+    });
+    const res = await window
+      .fetch(api, {
+        method: 'post',
+        body: data
+      })
+      .then((res) => res.json())
+      .catch((e) => e);
+    if (!res?.success) {
+      await alert(res.message || '未知错误');
+    }
+    return res;
+  };
+
   return {
     engine,
     access,
@@ -542,6 +566,7 @@ export function useOpenApi() {
     postImageTopic,
     postJsonTopic,
     cancelChat,
-    getSkills
+    getSkills,
+    recognitionFile
   };
 }
