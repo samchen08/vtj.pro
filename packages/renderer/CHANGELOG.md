@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.17.2](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.17.1...@vtj/renderer@0.17.2) (2026-06-06)
+
+
+### Features
+
+* **provider:** 为全局配置添加 $apis 属性 ([e738ae4](https://gitee.com/newgateway/vtj/commits/e738ae47516bfc2d649eeb24c49126dfa42b5bda))
+
+
+
+
+
+## [0.17.1](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.17.0...@vtj/renderer@0.17.1) (2026-06-04)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
 # [0.17.0](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.16.36...@vtj/renderer@0.17.0) (2026-06-04)
 
 

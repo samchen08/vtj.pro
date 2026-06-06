@@ -470,6 +470,7 @@ export class Provider extends Base {
     // 提供全局 Provider 实例
     app.provide(providerKey, this);
     app.config.globalProperties.$provider = this;
+    app.config.globalProperties.$apis = this.apis;
     app.config.globalProperties.$request = this.adapter?.request;
     // 执行自定义安装函数
     if (this.options.install) {
