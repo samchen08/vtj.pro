@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.17.3](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.17.2...@vtj/designer@0.17.3) (2026-06-07)
+
+
+### Bug Fixes
+
+* **core:** 修复未打开文件时自动激活新建页面和区块的问题 ([8b3eacd](https://gitee.com/newgateway/vtj/commits/8b3eacd08e5ac002c65cba33345e74efc91aa079))
+
+
+
+
+
 ## [0.17.2](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.17.1...@vtj/designer@0.17.2) (2026-06-06)
 
 **Note:** Version bump only for package @vtj/designer
