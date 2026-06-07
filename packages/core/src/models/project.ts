@@ -373,6 +373,7 @@ export class ProjectModel {
 
     // 没有打开任何文件时，自动打开新建的页面
     if (!this.currentFile && !page.dir) {
+      this.active(page, true);
       await delay(1000);
       this.active(page, silent);
     }
@@ -619,6 +620,7 @@ export class ProjectModel {
     }
 
     if (!this.currentFile && type === 'Schema') {
+      this.active(block, true);
       await delay(1000);
       this.active(block, silent);
     }
