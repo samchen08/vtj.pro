@@ -69,12 +69,6 @@
         size="small"
         @click="onRemove"></ElButton>
       <div class="v-ai-widget-input__footer">
-        <ElCheckbox
-          size="small"
-          label="自动"
-          border
-          :disabled="props.loading"
-          v-model="engine.state.autoApply"></ElCheckbox>
         <ElButton
           :icon="Promotion"
           type="primary"
@@ -94,7 +88,6 @@
     ElUpload,
     ElButton,
     ElImage,
-    ElCheckbox,
     vLoading,
     ElMessage,
     ElLink,

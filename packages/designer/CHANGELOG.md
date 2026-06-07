@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.17.4](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.17.3...@vtj/designer@0.17.4) (2026-06-07)
+
+
+### Bug Fixes
+
+* **useAgent:** 修复转换 Vue 到 DSL 时的空值判断和名称回退 ([45482ea](https://gitee.com/newgateway/vtj/commits/45482ea28e13a8d63191806a869d4e6c65a337ac))
+
+
+
+
+
 ## [0.17.3](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.17.2...@vtj/designer@0.17.3) (2026-06-07)
 
 

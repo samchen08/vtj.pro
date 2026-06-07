@@ -435,3 +435,12 @@
     display: block;
   }
 }
+
+.v-ai-widget-image-input,
+.v-ai-widget-json-input {
+  .v-ai-widget-input__footer {
+    border: none;
+    padding: 6px;
+    border-top: 1px solid var(--el-border-color-lighter);
+  }
+}
