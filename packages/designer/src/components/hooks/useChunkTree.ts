@@ -40,7 +40,7 @@ export function useChunkTree<T>(
   // 分片后的数据
   const chunkedData = computed(() => {
     const data = source.value;
-    return data.slice(0, loadedCount.value);
+    return loadedCount.value ? data.slice(0, loadedCount.value) : data;
   });
 
   // 是否还有更多数据
