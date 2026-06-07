@@ -119,11 +119,16 @@ export function useAgent(config: AgentConfig) {
   const currentTopic = config.currentTopic;
 
   const convertVueToDsl = async (chat: AIChat) => {
-    if (!currentTopic.value) return;
-    const projectDsl = project.value?.toDsl() as ProjectSchema;
-    const { name = '', id = '' } = engine.current.value || {};
+    if (!currentTopic.value || !project.value) return;
+    const projectDsl = project.value.toDsl() as ProjectSchema;
     const source = chat.vue;
-    if (!source) return;
+    let { name = '', id = '' } = engine.current.value || {};
+
+    if (!name) {
+      const file = project.value.getFile(id);
+      name = file?.name || 'ComponentName';
+    }
+
     return await service.parseVue(projectDsl, {
       id,
       name,
