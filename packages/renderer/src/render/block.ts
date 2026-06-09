@@ -4,7 +4,10 @@ import {
   type BlockPropDataType,
   type BlockState,
   type JSFunction,
+  type JSExpression,
+  type JSONValue,
   type BlockInject,
+  type BlockComposable,
   type DataSourceSchema,
   type BlockWatch,
   type NodeSchema,
@@ -75,7 +78,22 @@ export function createRenderer(options: CreateRendererOptions) {
         );
       }
 
-      context.state = createState(Vue, dsl.value.state ?? {}, context);
+      const isComposition = dsl.value.apiMode === 'composition';
+
+      // 状态创建：根据模式分流
+      if (isComposition) {
+        const refs = createRefs(Vue, dsl.value.refs ?? {}, context);
+        const reactives = createReactives(
+          Vue,
+          dsl.value.reactives ?? {},
+          context
+        );
+        // 合并到 context.state，使设计器中 this.state.xxx 可用
+        context.state = Vue.reactive({ ...refs, ...reactives });
+      } else {
+        context.state = createState(Vue, dsl.value.state ?? {}, context);
+      }
+
       const computed = createComputed(Vue, dsl.value.computed ?? {}, context);
       const methods = createMethods(dsl.value.methods ?? {}, context);
       const injects = createInject(Vue, dsl.value.inject, context);
@@ -86,14 +104,32 @@ export function createRenderer(options: CreateRendererOptions) {
         dsl.value.dataSources || {},
         context
       );
+
+      // Composition 模式特有逻辑
+      let composableResults = {};
+      if (isComposition) {
+        composableResults = createComposables(
+          Vue,
+          dsl.value.composables ?? [],
+          context
+        );
+        createProvide(Vue, dsl.value.provide ?? {}, context);
+      }
+
       const attrs = {
         ...injects,
         ...computed,
         ...methods,
-        ...dataSources
+        ...dataSources,
+        ...composableResults
       };
       context.setup(attrs, Vue);
       setWatches(Vue, dsl.value.watch ?? [], context);
+
+      // Composition 模式下生命周期在 setup 内注册
+      if (isComposition) {
+        createCompositionLifeCycles(Vue, dsl.value.lifeCycles ?? {}, context);
+      }
 
       return {
         vtj: context,
@@ -117,7 +153,10 @@ export function createRenderer(options: CreateRendererOptions) {
         return Vue.createVNode('div', {}, children);
       }
     },
-    ...createLifeCycles(dsl.value.lifeCycles ?? {}, context)
+    // Options 模式下生命周期以 Options 风格注册
+    ...(dsl.value.apiMode !== 'composition'
+      ? createLifeCycles(dsl.value.lifeCycles ?? {}, context)
+      : {})
   });
 
   return {
@@ -265,9 +304,132 @@ function setWatches(Vue: any, watches: BlockWatch[] = [], context: Context) {
       context.__parseFunction(n.handler) as any,
       {
         deep: n.deep,
-        immediate: n.immediate
+        immediate: n.immediate,
+        flush: n.flush
       }
     );
+  });
+}
+
+function createRefs(
+  Vue: any,
+  refs: Record<string, JSONValue | JSExpression>,
+  context: Context
+) {
+  return Object.entries(refs).reduce(
+    (result, [key, val]) => {
+      const value = isJSExpression(val) ? context.__parseExpression(val) : val;
+      result[key] = Vue.ref(value);
+      return result;
+    },
+    {} as Record<string, any>
+  );
+}
+
+function createReactives(
+  Vue: any,
+  reactives: Record<string, JSONValue | JSExpression>,
+  context: Context
+) {
+  return Object.entries(reactives).reduce(
+    (result, [key, val]) => {
+      const value = isJSExpression(val) ? context.__parseExpression(val) : val;
+      result[key] = Vue.reactive(value ?? {});
+      return result;
+    },
+    {} as Record<string, any>
+  );
+}
+
+function createComposables(
+  Vue: any,
+  composables: BlockComposable[],
+  context: Context
+) {
+  return composables.reduce(
+    (result, item) => {
+      try {
+        // 从 $libs 中解析 composable 函数
+        let fn: Function | undefined;
+        if (item.from && context.$libs[item.from]) {
+          fn = context.$libs[item.from][item.composable];
+        } else {
+          // 尝试从 Vue 或全局 libs 中查找
+          fn = (Vue as any)[item.composable] || context.$libs[item.composable];
+        }
+        if (isFunction(fn)) {
+          // 解析参数
+          const args = (item.args || []).map((arg: any) =>
+            isJSExpression(arg) ? context.__parseExpression(arg) : arg
+          );
+          const callResult = fn(...args);
+          if (item.destructure && item.destructure.length > 0) {
+            // 解构赋值
+            for (const field of item.destructure) {
+              result[field] = callResult?.[field];
+            }
+          } else {
+            result[item.name] = callResult;
+          }
+        }
+      } catch (e) {
+        // 设计模式下降级处理
+        if (context.__mode === ContextMode.Design) {
+          result[item.name] = {};
+        }
+      }
+      return result;
+    },
+    {} as Record<string, any>
+  );
+}
+
+function createProvide(
+  Vue: any,
+  provide: Record<string, any>,
+  context: Context
+) {
+  Object.entries(provide).forEach(([key, val]) => {
+    let value = val;
+    if (isJSExpression(val)) {
+      value = context.__parseExpression(val);
+    } else if (isJSFunction(val)) {
+      value = context.__parseFunction(val);
+    }
+    Vue.provide(key, value);
+  });
+}
+
+function createCompositionLifeCycles(
+  Vue: any,
+  lifeCycles: Record<string, JSFunction>,
+  context: Context
+) {
+  const hookMap: Record<string, Function> = {
+    onBeforeMount: Vue.onBeforeMount,
+    onMounted: Vue.onMounted,
+    onBeforeUpdate: Vue.onBeforeUpdate,
+    onUpdated: Vue.onUpdated,
+    onBeforeUnmount: Vue.onBeforeUnmount,
+    onUnmounted: Vue.onUnmounted,
+    onErrorCaptured: Vue.onErrorCaptured,
+    onRenderTracked: Vue.onRenderTracked,
+    onRenderTriggered: Vue.onRenderTriggered,
+    onActivated: Vue.onActivated,
+    onDeactivated: Vue.onDeactivated
+  };
+
+  Object.entries(lifeCycles).forEach(([name, code]) => {
+    const hook = hookMap[name];
+    if (hook && isFunction(hook)) {
+      const fn = context.__parseFunction(code);
+      if (isFunction(fn)) {
+        hook(async () => {
+          await delay(0);
+          await fn();
+        });
+      }
+    }
   });
 }
 
