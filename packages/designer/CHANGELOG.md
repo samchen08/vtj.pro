@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.17.5](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.17.4...@vtj/designer@0.17.5) (2026-06-09)
+
+
+### Bug Fixes
+
+* **designer:** 修复聊天输出解析和尺寸单位判断逻辑 ([e292e62](https://gitee.com/newgateway/vtj/commits/e292e62bb325a75f297ddce348c26dd505ba615d))
+
+
+
+
+
 ## [0.17.4](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.17.3...@vtj/designer@0.17.4) (2026-06-07)
 
 

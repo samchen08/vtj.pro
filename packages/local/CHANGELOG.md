@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.17.5](https://gitee.com/newgateway/vtj/compare/@vtj/local@0.17.4...@vtj/local@0.17.5) (2026-06-09)
+
+
+### Features
+
+* **uniapp:** 集成 VTJ 模块虚拟插件及模块加载器 ([291c47f](https://gitee.com/newgateway/vtj/commits/291c47f80c9abd690e38075edb87bf534415f325))
+
+
+
+
+
 ## [0.17.4](https://gitee.com/newgateway/vtj/compare/@vtj/local@0.17.3...@vtj/local@0.17.4) (2026-06-07)
 
 **Note:** Version bump only for package @vtj/local

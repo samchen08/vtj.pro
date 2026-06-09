@@ -26,7 +26,7 @@
   const modelValue = ref(props.modelValue);
 
   const onChange = (val: any) => {
-    isPx.value = !!Number(val);
+    isPx.value = !!Number(val) && !String(val).endsWith('rpx');
   };
 
   watch(modelValue, (v: any) => {
@@ -37,7 +37,7 @@
     () => props.modelValue,
     (v) => {
       if (v) {
-        isPx.value = v.endsWith('px');
+        isPx.value = v.endsWith('px') && !v.endsWith('rpx');
         modelValue.value = v;
       }
     },

@@ -1,12 +1,13 @@
 import { createUniappViteConfig } from '@vtj/cli';
 import uni from '@dcloudio/vite-plugin-uni';
-import { createDevTools } from '@vtj/local';
+import { createDevTools, vtjModulesPlugin } from '@vtj/local';
 import { resolve } from 'path';
 import proxy from './proxy.config';
 
 export default createUniappViteConfig({
   proxy,
   plugins: [
+    vtjModulesPlugin('src/.vtj'),
     process.env.ENV_TYPE
       ? createDevTools({
           enhance: true,
