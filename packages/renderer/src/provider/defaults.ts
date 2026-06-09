@@ -4,7 +4,8 @@ import {
   jsonp,
   type IRequestSettings,
   type IStaticRequest,
-  type Jsonp
+  type Jsonp,
+  type AxiosAdapter
 } from '@vtj/utils';
 
 import { Access, type AccessOptions } from '../plugins';
@@ -22,6 +23,7 @@ export interface CreateAdapterOptions {
   access?: Partial<AccessOptions>;
   useTitle?: UseTitle;
   alert?: (msg: string, opt?: any) => any;
+  axiosAdapter?: AxiosAdapter;
 }
 
 export interface ProvideAdapter {
@@ -49,6 +51,7 @@ export function createAdapter(options: CreateAdapterOptions = {}) {
   } = options;
   let _loading: any = null;
   const request = createRequest({
+    adapter: options.axiosAdapter,
     settings: {
       type: 'form',
       validSuccess: true,

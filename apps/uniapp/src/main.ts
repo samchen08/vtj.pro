@@ -1,3 +1,4 @@
+import './polyfill';
 import { createSSRApp } from 'vue';
 import {
   NodeEnv,
@@ -15,7 +16,11 @@ import App from './App.vue';
 import { name } from '../package.json';
 import { createModules } from './modules';
 
-const adapter = createAdapter({ loading, notify });
+const adapter = createAdapter({
+  loading,
+  notify
+});
+
 const service = new LocalService(createServiceRequest(notify));
 const modules = createModules();
 

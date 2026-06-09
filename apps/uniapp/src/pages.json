@@ -1,14 +1,6 @@
 {
   "pages": [
     {
-      "path": "pages/1ks1nymr",
-      "style": {
-        "navigationBarTitleText": "主页"
-      },
-      "needLogin": false,
-      "vtj": true
-    },
-    {
       "path": "pages/startup"
     }
   ],
