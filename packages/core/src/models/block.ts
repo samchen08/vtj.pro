@@ -2,6 +2,7 @@ import { uid, timestamp, isString } from '@vtj/base';
 import { emitter, cloneDsl } from '../tools';
 import type {
   BlockSchema,
+  BlockApiMode,
   BlockInject,
   BlockState,
   JSFunction,
@@ -9,6 +10,7 @@ import type {
   JSExpression,
   BlockWatch,
   BlockProp,
+  BlockComposable,
   DataSourceSchema,
   BlockEmit,
   BlockSlot
@@ -30,12 +32,17 @@ export class BlockModel {
   public readonly __VTJ_BLOCK__: boolean = true;
   public readonly id: string;
   public name: string = '';
+  public apiMode: BlockApiMode = 'options';
   public inject: BlockInject[] = [];
   public state: BlockState = {};
+  public refs: Record<string, JSONValue | JSExpression> = {};
+  public reactives: Record<string, JSONValue | JSExpression> = {};
   public lifeCycles: Record<string, JSFunction> = {};
   public methods: Record<string, JSFunction> = {};
   public computed: Record<string, JSFunction> = {};
   public watch: BlockWatch[] = [];
+  public composables: BlockComposable[] = [];
+  public provide: Record<string, JSONValue | JSExpression | JSFunction> = {};
   public css: string = '';
   public props: Array<string | BlockProp> = [];
   public emits: Array<string | BlockEmit> = [];
@@ -49,12 +56,17 @@ export class BlockModel {
   static normalAttrs: string[] = [
     'name',
     'locked',
+    'apiMode',
     'inject',
     'state',
+    'refs',
+    'reactives',
     'lifeCycles',
     'methods',
     'computed',
     'watch',
+    'composables',
+    'provide',
     'css',
     'props',
     'emits',
@@ -396,6 +408,137 @@ export class BlockModel {
    */
   removeDataSource(name: string, silent: boolean = false) {
     delete this.dataSources[name];
+    if (!silent) {
+      emitter.emit(EVENT_BLOCK_CHANGE, this);
+    }
+  }
+
+  /**
+   * 设置 API 风格
+   * @param mode
+   * @param silent
+   */
+  setApiMode(mode: BlockApiMode, silent: boolean = false) {
+    this.apiMode = mode;
+    if (!silent) {
+      emitter.emit(EVENT_BLOCK_CHANGE, this);
+    }
+  }
+
+  /**
+   * 设置 ref 声明
+   * @param name
+   * @param value
+   * @param silent
+   */
+  setRef(
+    name: string,
+    value: JSONValue | JSExpression,
+    silent: boolean = false
+  ) {
+    this.refs[name] = value;
+    if (!silent) {
+      emitter.emit(EVENT_BLOCK_CHANGE, this);
+    }
+  }
+
+  /**
+   * 删除 ref 声明
+   * @param name
+   * @param silent
+   */
+  removeRef(name: string, silent: boolean = false) {
+    delete this.refs[name];
+    if (!silent) {
+      emitter.emit(EVENT_BLOCK_CHANGE, this);
+    }
+  }
+
+  /**
+   * 设置 reactive 声明
+   * @param name
+   * @param value
+   * @param silent
+   */
+  setReactive(
+    name: string,
+    value: JSONValue | JSExpression,
+    silent: boolean = false
+  ) {
+    this.reactives[name] = value;
+    if (!silent) {
+      emitter.emit(EVENT_BLOCK_CHANGE, this);
+    }
+  }
+
+  /**
+   * 删除 reactive 声明
+   * @param name
+   * @param silent
+   */
+  removeReactive(name: string, silent: boolean = false) {
+    delete this.reactives[name];
+    if (!silent) {
+      emitter.emit(EVENT_BLOCK_CHANGE, this);
+    }
+  }
+
+  /**
+   * 设置组合函数调用
+   * @param composable
+   * @param silent
+   */
+  setComposable(composable: BlockComposable, silent: boolean = false) {
+    const index = this.composables.findIndex((c) => c.name === composable.name);
+    if (index > -1) {
+      this.composables.splice(index, 1, composable);
+    } else {
+      this.composables.push(composable);
+    }
+    if (!silent) {
+      emitter.emit(EVENT_BLOCK_CHANGE, this);
+    }
+  }
+
+  /**
+   * 删除组合函数调用
+   * @param name
+   * @param silent
+   */
+  removeComposable(name: string, silent: boolean = false) {
+    const index = this.composables.findIndex((c) => c.name === name);
+    if (index > -1) {
+      this.composables.splice(index, 1);
+      if (!silent) {
+        emitter.emit(EVENT_BLOCK_CHANGE, this);
+      }
+    }
+  }
+
+  /**
+   * 设置 provide
+   * @param key
+   * @param value
+   * @param silent
+   */
+  setProvide(
+    key: string,
+    value: JSONValue | JSExpression | JSFunction,
+    silent: boolean = false
+  ) {
+    this.provide[key] = value;
+    if (!silent) {
+      emitter.emit(EVENT_BLOCK_CHANGE, this);
+    }
+  }
+
+  /**
+   * 删除 provide
+   * @param key
+   * @param silent
+   */
+  removeProvide(key: string, silent: boolean = false) {
+    delete this.provide[key];
     if (!silent) {
       emitter.emit(EVENT_BLOCK_CHANGE, this);
     }
