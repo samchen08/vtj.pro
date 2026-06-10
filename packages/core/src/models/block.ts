@@ -87,7 +87,7 @@ export class BlockModel {
   update(schema: BlockSchema, silent: boolean = false) {
     for (const key of BlockModel.normalAttrs) {
       const value = schema[key as keyof BlockSchema];
-      if (value !== undefined) {
+      if (value !== undefined || key === 'setup') {
         (this as any)[key] = value;
       }
     }

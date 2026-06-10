@@ -105,6 +105,7 @@ export class Renderer {
     if (this.env.enhance) {
       app.use(this.env.enhance, this.provider);
     }
+    this.provider.setGlobals(app.config.globalProperties);
   }
 
   createUniApp(

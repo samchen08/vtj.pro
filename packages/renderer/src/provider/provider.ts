@@ -514,6 +514,12 @@ export class Provider extends Base {
     app.config.globalProperties.installed = installed;
   }
 
+  setGlobals(globals: Record<string, any> = {}) {
+    for (const [key, val] of Object.entries(globals)) {
+      (this as any)[key] = val;
+    }
+  }
+
   getFile(id: string): PageFile | BlockFile | null {
     const { blocks = [] } = this.project || {};
     return this.getPage(id) || blocks.find((item) => item.id === id) || null;
