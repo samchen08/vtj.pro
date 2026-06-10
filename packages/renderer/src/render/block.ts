@@ -121,7 +121,11 @@ export function createRenderer(options: CreateRendererOptions) {
 
       // Composition 模式下生命周期在 setup 内注册
       if (isComposition) {
-        createCompositionLifeCycles(Vue, dsl.value.lifeCycles ?? {}, context);
+        await createCompositionLifeCycles(
+          Vue,
+          dsl.value.lifeCycles ?? {},
+          context
+        );
         // 执行 setup 初始化代码
         if (dsl.value.setup) {
           const setupFn = context.__parseFunction(dsl.value.setup);
@@ -405,11 +409,26 @@ function createProvide(
   });
 }
 
-function createCompositionLifeCycles(
+async function createCompositionLifeCycles(
   Vue: any,
   lifeCycles: Record<string, JSFunction>,
   context: Context
 ) {
+  // Options API → Composition API 生命周期名称映射
+  const optionsToCompositionMap: Record<string, string> = {
+    beforeMount: 'onBeforeMount',
+    mounted: 'onMounted',
+    beforeUpdate: 'onBeforeUpdate',
+    updated: 'onUpdated',
+    beforeUnmount: 'onBeforeUnmount',
+    unmounted: 'onUnmounted',
+    errorCaptured: 'onErrorCaptured',
+    renderTracked: 'onRenderTracked',
+    renderTriggered: 'onRenderTriggered',
+    activated: 'onActivated',
+    deactivated: 'onDeactivated'
+  };
+
   const hookMap: Record<string, Function> = {
     onBeforeMount: Vue.onBeforeMount,
     onMounted: Vue.onMounted,
@@ -424,8 +443,18 @@ function createCompositionLifeCycles(
     onDeactivated: Vue.onDeactivated
   };
 
-  Object.entries(lifeCycles).forEach(([name, code]) => {
-    const hook = hookMap[name];
+  for (const [name, code] of Object.entries(lifeCycles)) {
+    // created/beforeCreate 在 Composition 模式下等价于 setup，立即执行
+    if (name === 'created' || name === 'beforeCreate') {
+      const fn = context.__parseFunction(code);
+      if (isFunction(fn)) {
+        await fn();
+      }
+      continue;
+    }
+    // 兼容 Options API 命名，自动映射为 Composition API
+    const hookName = optionsToCompositionMap[name] || name;
+    const hook = hookMap[hookName];
     if (hook && isFunction(hook)) {
       const fn = context.__parseFunction(code);
       if (isFunction(fn)) {
@@ -439,7 +468,7 @@ function createCompositionLifeCycles(
         `[VTJ] 无效的 Composition 生命周期钩子 "${name}"，请使用 onMounted/onUnmounted 等命名`
       );
     }
-  });
+  }
 }
 
 function createLifeCycles(
