@@ -39,7 +39,7 @@ const vueTemplate = `
 <template>
 <%= template %>
 </template>
-<script lang="<%= scriptLang %>">
+<script lang="<%= scriptLang %>"<% if(scriptSetup) { %> setup<% } %>>
 <%= script %>
 </script>
 <style lang="<%= styleLang %>" scoped>
@@ -48,5 +48,38 @@ const vueTemplate = `
 </style>
 `;
 
+/**
+ * Composition API 出码模板（<script setup>）
+ * 顺序：imports → props/emits/expose → provider → globalApiDeclares →
+ *      injects → composables → state(reactive) → refs → reactives →
+ *      computed → methods → watch → provide → created/setup → lifeCycles
+ */
+const scriptSetupTemplate = `
+// @ts-nocheck
+<%= imports %>
+import { useProvider } from '<%= renderer %>';
+<% if(props) { %>const props = defineProps({ <%= props %> });<% } %>
+<% if(emits) { %>const emit = defineEmits([<%= emits %>]);<% } %>
+<% if(expose) { %>defineExpose(<%= expose %>);<% } %>
+const provider = useProvider({ id: '<%= id %>', version: '<%= version %>' });
+<%= globalApiDeclares %>
+<%= injects %>
+<%= composables %>
+<%= state %>
+<%= refs %>
+<%= reactives %>
+<%= computed %>
+<%= methods %>
+<%= dataSources %>
+<%= watch %>
+<%= provide %>
+<%= urlSchemas %>
+<%= blockPlugins %>
+<%= createdStatements %>
+<%= setupStatements %>
+<%= lifeCycles %>
+`;
+
 export const scriptCompiled = template(scriptTemplate);
+export const scriptSetupCompiled = template(scriptSetupTemplate);
 export const vueCompiled = template(vueTemplate);
