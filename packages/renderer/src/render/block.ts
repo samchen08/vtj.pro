@@ -78,28 +78,18 @@ export function createRenderer(options: CreateRendererOptions) {
         );
       }
 
+      context.state = createState(Vue, dsl.value.state ?? {}, context);
       const isComposition = dsl.value.apiMode === 'composition';
-
       // 状态创建：根据模式分流
-      if (isComposition) {
-        const refs = createRefs(Vue, dsl.value.refs ?? {}, context);
-        const reactives = createReactives(
-          Vue,
-          dsl.value.reactives ?? {},
-          context
-        );
-        // 合并到 context.state，使设计器中 this.state.xxx 可用
-        context.state = Vue.reactive({ ...refs, ...reactives });
-      } else {
-        context.state = createState(Vue, dsl.value.state ?? {}, context);
-      }
-
+      const refs = isComposition
+        ? createRefs(Vue, dsl.value.refs ?? {}, context)
+        : {};
+      const reactives = isComposition
+        ? createReactives(Vue, dsl.value.reactives ?? {}, context)
+        : {};
       const computed = createComputed(Vue, dsl.value.computed ?? {}, context);
       const methods = createMethods(dsl.value.methods ?? {}, context);
       const injects = createInject(Vue, dsl.value.inject, context);
-      for (const [key, value] of Object.entries(injects || {})) {
-        injects[key] = Vue.inject(key, value);
-      }
       const dataSources = createDataSources(
         dsl.value.dataSources || {},
         context
@@ -117,6 +107,8 @@ export function createRenderer(options: CreateRendererOptions) {
       }
 
       const attrs = {
+        ...refs,
+        ...reactives,
         ...injects,
         ...computed,
         ...methods,
@@ -135,6 +127,8 @@ export function createRenderer(options: CreateRendererOptions) {
         vtj: context,
         state: context.state,
         ...props,
+        ...refs,
+        ...reactives,
         ...computed,
         ...methods
       };
@@ -252,7 +246,6 @@ function createInject(Vue: any, injects: BlockInject[] = [], context: Context) {
   return injects.reduce(
     (result, current) => {
       const { name, from } = current || {};
-      current.default;
       const key = isJSExpression(from)
         ? context.__parseExpression(from) || name
         : (from ?? name);
@@ -342,7 +335,7 @@ function createReactives(
 }
 
 function createComposables(
-  Vue: any,
+  _Vue: any,
   composables: BlockComposable[],
   context: Context
 ) {
@@ -354,8 +347,8 @@ function createComposables(
         if (item.from && context.$libs[item.from]) {
           fn = context.$libs[item.from][item.composable];
         } else {
-          // 尝试从 Vue 或全局 libs 中查找
-          fn = (Vue as any)[item.composable] || context.$libs[item.composable];
+          // 仅从 $libs 中查找，避免意外匹配 Vue 内置 API
+          fn = context.$libs[item.composable];
         }
         if (isFunction(fn)) {
           // 解析参数
@@ -375,6 +368,10 @@ function createComposables(
       } catch (e) {
         // 设计模式下降级处理
         if (context.__mode === ContextMode.Design) {
+          console.warn(
+            `[VTJ] composable "${item.composable}" 执行失败，已降级处理`,
+            e
+          );
           result[item.name] = {};
         }
       }
@@ -429,6 +426,10 @@ function createCompositionLifeCycles(
           await fn();
         });
       }
+    } else {
+      console.warn(
+        `[VTJ] 无效的 Composition 生命周期钩子 "${name}"，请使用 onMounted/onUnmounted 等命名`
+      );
     }
   });
 }

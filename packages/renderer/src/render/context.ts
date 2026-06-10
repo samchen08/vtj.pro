@@ -31,6 +31,8 @@ export class Context {
   __refCaches: Record<string, any> = {};
   context: Record<string, any> = {};
   state: Record<string, any> = {};
+  refs: Record<string, any> = {};
+  reactives: Record<string, any> = {};
   props: Record<string, any> = {};
   $props: Record<string, any> = {};
   $refs: Record<string, any> = {};
@@ -69,9 +71,15 @@ export class Context {
     this.context = {};
     this.__contextRefs = {};
     this.__instance = instance.proxy;
+    // 保存响应式数据，防止被 globalProperties/attrs 覆盖
+    const { state, refs, reactives } = this;
     const globalProperties = instance.appContext.config.globalProperties;
     Object.assign(this, globalProperties);
     Object.assign(this, attrs || {});
+    // 恢复响应式数据
+    this.state = state;
+    this.refs = refs;
+    this.reactives = reactives;
     this.__proxy();
     Vue.onMounted(() => {
       // 部分属性在 onMounted 后才生成，需要重新更新一次
