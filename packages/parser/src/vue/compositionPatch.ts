@@ -86,11 +86,15 @@ export function compositionPatch(
   // 3. props.xxx → this.xxx
   // props 在 composition 中是 props.title，DSL 中是 this.title
   for (const key of props) {
-    // 先替换 props.key → this.key
+    // 替换 props.key → this.key
     result = replaceMemberAccess(result, 'props', key, `this.${key}`);
   }
-  // 清理剩余的裸 props 引用（如果有的话）
-  // 不做裸 props 替换，因为 props 本身可能作为参数名出现
+  // 裸 prop 名 → this.prop（模板中直接使用 prop 名的情况）
+  // 例如 :title="title" 中的 prop1，在 setup 中直接作为标识符存在
+  // 使用 replacer 自动跳过声明、参数、this.prop 中的 prop
+  for (const key of props) {
+    result = replacer(result, key, `this.${key}`);
+  }
 
   // 4. state reactive 整体：state → this.state
   if (hasState) {

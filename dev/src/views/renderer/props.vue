@@ -1,5 +1,6 @@
 <template>
   <div>
+    {{ title }}
     <component
       :is="renderer"
       name="传递的Name"
@@ -12,6 +13,13 @@
 <script lang="ts" setup>
   import { reactive } from 'vue';
   import { createRenderer } from '@vtj/renderer';
+
+  const props = defineProps({
+    title: {
+      type: String,
+      default: 'abc'
+    }
+  });
 
   const config = reactive({
     theme: 'dark',
