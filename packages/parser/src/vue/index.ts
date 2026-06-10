@@ -210,7 +210,7 @@ async function parseVueComposition(
   sfc: ReturnType<typeof parseSFC>,
   opts: ParseVueInternalOptions
 ) {
-  const { id, name, project, platform, styles, css } = opts;
+  const { id, name, project, platform, styles, css, dependencies } = opts;
 
   const scriptResult = parseScriptSetup(sfc.script, project);
 
@@ -250,6 +250,7 @@ async function parseVueComposition(
   const propsKeys = (scriptResult.props || []).map((n) =>
     typeof n === 'string' ? n : n.name
   );
+  const { libs } = parseDeps(scriptResult.imports, dependencies);
   const patchOpts = {
     refs: Object.keys(scriptResult.refs || {}),
     reactives: Object.keys(scriptResult.reactives || {}),
@@ -260,7 +261,8 @@ async function parseVueComposition(
     composables: scriptResult.composables.map((c) => c.name),
     injects: scriptResult.inject.map((i) => i.name),
     dataSources: Object.keys(scriptResult.dataSources || {}),
-    globalApiVars: GLOBAL_API_REVERSE_MAP
+    globalApiVars: GLOBAL_API_REVERSE_MAP,
+    libs
   };
 
   // 对所有 JSCode value 执行反向 this 注入
@@ -326,7 +328,11 @@ async function walkDsl(
     dataSources,
     methods,
     lifeCycles,
-    inject
+    inject,
+    setup,
+    provide,
+    refs,
+    reactives
   } = dsl;
 
   await walkingExp({
@@ -337,7 +343,11 @@ async function walkDsl(
     dataSources,
     methods,
     lifeCycles,
-    inject
+    inject,
+    setup,
+    provide,
+    refs,
+    reactives
   });
 
   if (Array.isArray(dsl.nodes)) {

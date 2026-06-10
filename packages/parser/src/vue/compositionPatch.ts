@@ -28,6 +28,11 @@ export interface CompositionPatchOptions {
    * 例如 { router: '$router', route: '$route', t: '$t', store: '$store' }
    */
   globalApiVars: Record<string, string>;
+  /**
+   * 第三方库标识符映射，例如 { ElButton: 'ElementPlus', useDark: 'VueUse' }
+   * 替换为 this.$libs.ElementPlus.ElButton 等
+   */
+  libs: Record<string, string>;
 }
 
 /**
@@ -60,7 +65,8 @@ export function compositionPatch(
     composables,
     injects,
     dataSources,
-    globalApiVars
+    globalApiVars,
+    libs = {}
   } = options;
 
   let result = content;
@@ -124,6 +130,11 @@ export function compositionPatch(
   // 9. dataSources
   for (const name of dataSources) {
     result = replacer(result, name, `this.${name}`);
+  }
+
+  // 10. 第三方库标识符：ElButton → this.$libs.ElementPlus.ElButton
+  for (const [key, value] of Object.entries(libs)) {
+    result = replacer(result, key, `this.$libs.${value}.${key}`);
   }
 
   // 兜底：修复 this.this. 双重替换
