@@ -599,8 +599,7 @@ export function patchCode(
   }
 
   for (const key of props) {
-    content = replacer(content, key, `this.props.${key}`);
-    content = replacer(content, `this.${key}`, `this.props.${key}`);
+    content = replacer(content, key, `this.${key}`);
   }
 
   for (const [key, value] of Object.entries(libs)) {

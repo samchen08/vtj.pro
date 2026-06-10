@@ -9,13 +9,15 @@ import type { JSExpression, JSFunction, NodeSchema } from '@vtj/core';
 export function parseSFC(source: string) {
   const { descriptor, errors } = parse(source);
   const template = descriptor.template?.content || '';
+  const isScriptSetup = !!descriptor.scriptSetup;
   const script = (descriptor.scriptSetup || descriptor.script)?.content || '';
   const styles = descriptor.styles.map((s) => s.content);
   return {
     template,
     script,
     styles,
-    errors
+    errors,
+    isScriptSetup
   };
 }
 

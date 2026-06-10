@@ -12,9 +12,11 @@ import { tsFormatter } from '@vtj/coder';
 import { parseSFC, isJSCode, compileValidator } from '../shared';
 import { parseTemplate } from './template';
 import { parseScripts, type ImportStatement } from './scripts';
-import { parseStyle } from './style';
+import { parseScriptSetup } from './scriptSetup';
+import { parseStyle, type CSSRules } from './style';
 import { htmlToNodes } from './html';
 import { patchCode, replacer } from './utils';
+import { compositionPatch } from './compositionPatch';
 import { ComponentValidator, AutoFixer } from '../tools';
 
 export type IParseVueOptions = ParseVueOptions & { project: ProjectSchema };
@@ -50,6 +52,49 @@ export async function parseVue(options: IParseVueOptions) {
     return Promise.reject(__errors);
   }
 
+  // === 单点分流 ===
+  if (sfc.isScriptSetup) {
+    return parseVueComposition(sfc, {
+      id,
+      name,
+      project,
+      platform,
+      dependencies,
+      styles,
+      css
+    });
+  }
+
+  // === Options 模式（原逻辑不变） ===
+  return parseVueOptions(sfc, {
+    id,
+    name,
+    project,
+    platform,
+    dependencies,
+    styles,
+    css
+  });
+}
+
+// ======================== Options 模式 ========================
+
+interface ParseVueInternalOptions {
+  id: string;
+  name: string;
+  project: ProjectSchema;
+  platform: string;
+  dependencies: Dependencie[];
+  styles: CSSRules;
+  css: string;
+}
+
+async function parseVueOptions(
+  sfc: ReturnType<typeof parseSFC>,
+  opts: ParseVueInternalOptions
+) {
+  const { id, name, project, platform, dependencies, styles, css } = opts;
+
   const {
     state,
     watch,
@@ -67,7 +112,7 @@ export async function parseVue(options: IParseVueOptions) {
   } = parseScripts(sfc.script, project);
 
   const { nodes, slots, context } = parseTemplate(id, name, sfc.template, {
-    platform,
+    platform: platform as any,
     handlers,
     styles,
     imports,
@@ -116,7 +161,7 @@ export async function parseVue(options: IParseVueOptions) {
   ];
   const { libs } = parseDeps(imports, dependencies);
   const patchCodeOpt = {
-    platform,
+    platform: platform as any,
     context,
     computed: computedKeys,
     libs,
@@ -136,6 +181,102 @@ export async function parseVue(options: IParseVueOptions) {
     async (exp: JSExpression | JSFunction) => {
       const code = await tsFormatter(exp.value);
       exp.value = patchCode(code, '', patchCodeOpt);
+    }
+  );
+
+  const model = new BlockModel(dsl);
+  return model.toDsl();
+}
+
+// ======================== Composition 模式 ========================
+
+/**
+ * 全局 API 变量名 → this.$xxx 的反向映射
+ * 与 @vtj/coder GLOBAL_API_MAP 保持一致
+ */
+const GLOBAL_API_REVERSE_MAP: Record<string, string> = {
+  router: '$router',
+  route: '$route',
+  store: '$store',
+  pinia: '$pinia',
+  t: '$t',
+  i18n: '$i18n',
+  emit: '$emit',
+  attrs: '$attrs',
+  slots: '$slots'
+};
+
+async function parseVueComposition(
+  sfc: ReturnType<typeof parseSFC>,
+  opts: ParseVueInternalOptions
+) {
+  const { id, name, project, platform, styles, css } = opts;
+
+  const scriptResult = parseScriptSetup(sfc.script, project);
+
+  const { nodes, slots } = parseTemplate(id, name, sfc.template, {
+    platform: platform as any,
+    handlers: scriptResult.handlers,
+    styles,
+    imports: scriptResult.imports,
+    directives: scriptResult.directives
+  });
+
+  const dsl: BlockSchema = {
+    id,
+    name,
+    apiMode: 'composition',
+    inject: scriptResult.inject,
+    props: scriptResult.props,
+    state: scriptResult.state,
+    refs: scriptResult.refs,
+    reactives: scriptResult.reactives,
+    composables: scriptResult.composables,
+    setup: scriptResult.setup,
+    provide: scriptResult.provide,
+    watch: scriptResult.watch,
+    lifeCycles: scriptResult.lifeCycles,
+    computed: scriptResult.computed,
+    methods: scriptResult.methods,
+    dataSources: scriptResult.dataSources,
+    slots,
+    emits: scriptResult.emits,
+    expose: scriptResult.expose,
+    nodes,
+    css
+  };
+
+  // 构建 compositionPatch 选项
+  const propsKeys = (scriptResult.props || []).map((n) =>
+    typeof n === 'string' ? n : n.name
+  );
+  const patchOpts = {
+    refs: Object.keys(scriptResult.refs || {}),
+    reactives: Object.keys(scriptResult.reactives || {}),
+    hasState: Object.keys(scriptResult.state || {}).length > 0,
+    computed: Object.keys(scriptResult.computed || {}),
+    methods: Object.keys(scriptResult.methods || {}),
+    props: propsKeys,
+    composables: scriptResult.composables.map((c) => c.name),
+    injects: scriptResult.inject.map((i) => i.name),
+    dataSources: Object.keys(scriptResult.dataSources || {}),
+    globalApiVars: GLOBAL_API_REVERSE_MAP
+  };
+
+  // 对所有 JSCode value 执行反向 this 注入
+  await walkDsl(
+    dsl,
+    async (node: NodeSchema) => {
+      await walkNode(node, async (content: any) => {
+        if (isJSCode(content)) {
+          const code = await tsFormatter(content.value);
+          content.value = compositionPatch(code, patchOpts);
+        }
+      });
+    },
+    async (exp: JSExpression | JSFunction) => {
+      const code = await tsFormatter(exp.value);
+      exp.value = compositionPatch(code, patchOpts);
     }
   );
 

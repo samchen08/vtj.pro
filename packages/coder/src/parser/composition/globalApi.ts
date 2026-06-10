@@ -64,6 +64,30 @@ export const GLOBAL_API_MAP: Record<string, GlobalApiConfig> = {
     from: 'vue',
     declare: 'const __instance = getCurrentInstance();',
     replace: '__instance.proxy.$forceUpdate'
+  },
+  $store: {
+    composable: 'useStore',
+    from: 'pinia',
+    declare: 'const store = useStore();',
+    replace: 'store'
+  },
+  $pinia: {
+    composable: 'getActivePinia',
+    from: 'pinia',
+    declare: 'const pinia = getActivePinia();',
+    replace: 'pinia'
+  },
+  $t: {
+    composable: 'useI18n',
+    from: 'vue-i18n',
+    declare: 'const { t } = useI18n();',
+    replace: 't'
+  },
+  $i18n: {
+    composable: 'useI18n',
+    from: 'vue-i18n',
+    declare: 'const i18n = useI18n();',
+    replace: 'i18n'
   }
 };
 
@@ -121,10 +145,24 @@ export function detectGlobalApis(dsl: BlockSchema): Set<string> {
 
 /**
  * 根据检测到的全局 API 生成顶层声明语句
+ * 特殊处理：$t 和 $i18n 同时存在时合并为一条声明
  */
 export function generateGlobalApiDeclares(apis: Set<string>): string[] {
   const declares: string[] = [];
+
+  // 处理 vue-i18n 特殊合并
+  const hasT = apis.has('$t');
+  const hasI18n = apis.has('$i18n');
+  if (hasT && hasI18n) {
+    declares.push('const { t, ...i18n } = useI18n();');
+  } else if (hasT) {
+    declares.push('const { t } = useI18n();');
+  } else if (hasI18n) {
+    declares.push('const i18n = useI18n();');
+  }
+
   for (const api of apis) {
+    if (api === '$t' || api === '$i18n') continue; // 已处理
     const cfg = GLOBAL_API_MAP[api];
     if (cfg && cfg.declare) {
       declares.push(cfg.declare);
