@@ -39,6 +39,7 @@
   import {
     type Context,
     LIFE_CYCLES_LIST,
+    COMPOSITION_HOOKS_LIST,
     JSCodeToString
   } from '@vtj/renderer';
   import { XField } from '@vtj/ui';
@@ -55,6 +56,10 @@
   const engine = useEngine();
   const props = defineProps<Props>();
 
+  const isComposition = computed(
+    () => engine.current.value?.apiMode === 'composition'
+  );
+
   const options = computed(() => {
     const { platform = 'web', currentFile } = engine.project.value || {};
     const isPage = currentFile?.type === 'page';
@@ -63,7 +68,9 @@
         ? isPage
           ? PAGE_LIFE_CYCLES_LIST
           : COMPONENT_LIFE_CYCLES_LIST
-        : LIFE_CYCLES_LIST;
+        : isComposition.value
+          ? COMPOSITION_HOOKS_LIST
+          : LIFE_CYCLES_LIST;
     return list.map((name) => {
       return {
         label: name,

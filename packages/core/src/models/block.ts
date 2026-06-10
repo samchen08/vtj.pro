@@ -134,6 +134,14 @@ export class BlockModel {
     this.disposed = true;
   }
 
+  isExistName(name: string) {
+    return (
+      name in this.refs ||
+      name in this.reactives ||
+      name in this.computed ||
+      name in this.methods
+    );
+  }
   /**
    * 设置通用函数属性
    * @param type

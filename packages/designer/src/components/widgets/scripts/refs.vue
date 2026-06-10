@@ -1,18 +1,18 @@
 <template>
   <Group
-    title="计算属性"
+    title="响应式: ref"
     :current="props.current"
     :context="props.context"
     :list="list"
-    nameLabel="计算属性名称"
-    valueLabel="计算函数 [ JSFunction ]"
+    nameLabel="状态数据名称"
+    valueLabel="状态初始值 [ JSExpression ]"
     :createEmpty="createEmpty"
     :remove="remove"
     :submit="submit"></Group>
 </template>
 <script lang="ts" setup>
   import { computed } from 'vue';
-  import { BlockModel, type JSFunction } from '@vtj/core';
+  import { BlockModel, type JSExpression } from '@vtj/core';
   import { type Context, JSCodeToString } from '@vtj/renderer';
   import Group from './group.vue';
   import { notify, expressionValidate } from '../../../utils';
@@ -23,7 +23,7 @@
   }
   const props = defineProps<Props>();
   const list = computed(() => {
-    const entries = Object.entries(props.current?.computed || {});
+    const entries = Object.entries(props.current?.refs || {});
     return entries.map(([name, value]) => {
       return { name, value: JSCodeToString(value) };
     });
@@ -31,26 +31,27 @@
   const createEmpty = () => {
     return {
       name: '',
-      value: '() => { }'
+      value: ''
     };
   };
 
   const remove = (data: any) => {
-    return props.current?.removeFunction('computed', data.name);
+    return props.current?.removeRef(data.name);
   };
+
   const submit = async (form: any, edit: boolean) => {
     const { name, value } = form;
     if (!edit && !!props.current?.isExistName(name)) {
       notify(`名称 ${name} 已存在，请更换！`);
       return false;
     }
-    const code: JSFunction = {
-      type: 'JSFunction',
+    const code: JSExpression = {
+      type: 'JSExpression',
       value
     };
     const valid = expressionValidate(code, props.context, true);
     if (!valid) return false;
-    props.current?.setFunction('computed', name, code);
+    props.current?.setRef(name, code);
     return true;
   };
 </script>

@@ -13,7 +13,7 @@
       :actions="['edit', 'remove']"
       @action="onItemAction(item, $event)"
       @click="onItemClick(item)"></Item>
-    <ElEmpty v-if="!list.length" :image-size="40"></ElEmpty>
+    <ElEmpty v-if="!list.length" :image-size="0"></ElEmpty>
     <Binder
       v-model="visible"
       :title="title"
