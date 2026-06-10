@@ -25,9 +25,19 @@ export function parseComposables(
 ): ComposableResult {
   const statements: string[] = [];
   const imports: Record<string, string[]> = {};
+  const processedNames = new Set<string>();
 
   for (const c of composables) {
     if (!c || !c.composable) continue;
+
+    // 过滤 useProvider，由模板写死版本始终生效
+    if (c.composable === 'useProvider') continue;
+
+    // 按 name 去重，同名的 composable 只会保留第一个
+    if (c.name) {
+      if (processedNames.has(c.name)) continue;
+      processedNames.add(c.name);
+    }
 
     // 收集 import
     if (c.from) {

@@ -205,10 +205,16 @@ export function parseScriptSetup(
               // 全局插件，不收集，后续由 compositionPatch 处理
               return;
             }
+            // 过滤 useProvider，由 Options API 模板写死版本处理
+            if (callee === 'useProvider') return;
             // 用户自定义 composable
             const name = getDeclaratorName(declarator.id);
             const destructure = getDestructureNames(declarator.id);
             if (name || destructure.length) {
+              // 按 name 去重，同名的 composable 只保留第一个
+              if (name && result.composables.some((c) => c.name === name)) {
+                return;
+              }
               const composable: BlockComposable = {
                 name: name || destructure[0] || callee,
                 composable: callee,
