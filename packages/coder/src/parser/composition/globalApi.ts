@@ -88,6 +88,12 @@ export const GLOBAL_API_MAP: Record<string, GlobalApiConfig> = {
     from: 'vue-i18n',
     declare: 'const i18n = useI18n();',
     replace: 'i18n'
+  },
+  $provider: {
+    composable: 'inject',
+    from: 'vue',
+    declare: "const provider = inject('provider');",
+    replace: 'provider'
   }
 };
 
@@ -146,6 +152,7 @@ export function detectGlobalApis(dsl: BlockSchema): Set<string> {
 /**
  * 根据检测到的全局 API 生成顶层声明语句
  * 特殊处理：$t 和 $i18n 同时存在时合并为一条声明
+ * 特殊处理：$provider 不生成声明，因为模板中已经有 useProvider()
  */
 export function generateGlobalApiDeclares(apis: Set<string>): string[] {
   const declares: string[] = [];
@@ -163,6 +170,7 @@ export function generateGlobalApiDeclares(apis: Set<string>): string[] {
 
   for (const api of apis) {
     if (api === '$t' || api === '$i18n') continue; // 已处理
+    if (api === '$provider') continue; // 模板中已有 useProvider()
     const cfg = GLOBAL_API_MAP[api];
     if (cfg && cfg.declare) {
       declares.push(cfg.declare);

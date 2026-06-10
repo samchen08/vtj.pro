@@ -30,6 +30,10 @@ export const test_composition = {
       type: 'JSFunction',
       value:
         'async function() { await this.$nextTick(); console.log(this.title, this.total); }'
+    },
+    getEnv: {
+      type: 'JSFunction',
+      value: 'function() { return this.$provider?.env?.NODE_ENV; }'
     }
   },
   watch: [

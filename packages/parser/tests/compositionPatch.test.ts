@@ -15,8 +15,10 @@ const baseOptions = {
     router: '$router',
     route: '$route',
     t: '$t',
-    store: '$store'
-  }
+    store: '$store',
+    provider: '$provider'
+  },
+  libs: {}
 };
 
 describe('compositionPatch', () => {
@@ -66,6 +68,12 @@ describe('compositionPatch', () => {
     const input = 't("hello")';
     const result = compositionPatch(input, baseOptions);
     expect(result).toBe('this.$t("hello")');
+  });
+
+  test('should replace provider references', () => {
+    const input = 'provider?.env?.NODE_ENV';
+    const result = compositionPatch(input, baseOptions);
+    expect(result).toBe('this.$provider?.env?.NODE_ENV');
   });
 
   test('should replace props.xxx with this.xxx', () => {

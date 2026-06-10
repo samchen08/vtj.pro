@@ -516,7 +516,9 @@ export class Provider extends Base {
 
   setGlobals(globals: Record<string, any> = {}) {
     for (const [key, val] of Object.entries(globals)) {
-      (this as any)[key] = val;
+      if (key !== '$provider') {
+        (this as any)[key] = val;
+      }
     }
   }
 

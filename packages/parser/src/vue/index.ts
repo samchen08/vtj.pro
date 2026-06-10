@@ -203,7 +203,8 @@ const GLOBAL_API_REVERSE_MAP: Record<string, string> = {
   i18n: '$i18n',
   emit: '$emit',
   attrs: '$attrs',
-  slots: '$slots'
+  slots: '$slots',
+  provider: '$provider'
 };
 
 async function parseVueComposition(

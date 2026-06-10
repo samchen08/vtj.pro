@@ -35,4 +35,6 @@ test('composition mode', async () => {
   expect(content).toContain('watch(');
   expect(content).toContain('onMounted(');
   expect(content).toContain("provide('appName'");
+  expect(content).toContain('const getEnv =');
+  expect(content).toContain('provider');
 });
