@@ -140,7 +140,7 @@ export function nodeRender(
       ...events
     };
 
-    if (!nodeCache.isEqual(cache, nodeCache.getNode(key))) {
+    if (!nodeCache.isNodeEqual(cache, nodeCache.getNode(key))) {
       nodeCache.setNode(key, cache);
     }
 
