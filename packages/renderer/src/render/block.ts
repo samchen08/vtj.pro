@@ -153,9 +153,9 @@ export function createRenderer(options: CreateRendererOptions) {
       if (nodes.length === 1) {
         return nodeRender(nodes[0], context, Vue, loader, nodes);
       } else {
-        const children = nodes.map((child) =>
-          nodeRender(child, context, Vue, loader, nodes)
-        );
+        const children = nodes
+          .map((child) => nodeRender(child, context, Vue, loader, nodes))
+          .flat();
         return Vue.createVNode('div', {}, children);
       }
     },
