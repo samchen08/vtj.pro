@@ -89,6 +89,16 @@ export function parseScriptSetup(
   const imports = parseImports(content);
   const importSourceMap = buildImportSourceMap(imports);
 
+  // 构建模块路径到库名的映射
+  const { dependencies = [] } = project || {};
+  const moduleToLibMap = dependencies.reduce(
+    (prev, current) => {
+      prev[current.package] = current.library;
+      return prev;
+    },
+    {} as Record<string, string>
+  );
+
   const result: ParseScriptSetupResult = {
     imports,
     refs: {},
@@ -217,14 +227,19 @@ export function parseScriptSetup(
               }
 
               // 构建 composable 表达式
-              // 如果有 from（import 来源），使用 this.$libs[fromName].callee 格式
+              // 如果有 from（import 来源），使用 this.$libs[LibName].callee 格式
               // 否则直接使用 callee 名称
               let composableValue: string;
               if (from) {
-                // 尝试从 libs 中查找，格式为 this.$libs.LibName.callee
-                // from 是模块路径，例如 '@vueuse/core'，需要转换为 libs 中的键名
-                // 这里直接使用 callee 作为键名，因为 libs 会映射它
-                composableValue = `this.$libs.${callee}`;
+                // from 是模块路径，例如 '@vueuse/core'，需要转换为 libs 中的库名
+                const libName = moduleToLibMap[from];
+                if (libName) {
+                  // 例如: this.$libs.VueUse.useDark
+                  composableValue = `this.$libs.${libName}.${callee}`;
+                } else {
+                  // 如果没有找到库名，直接使用函数名
+                  composableValue = callee;
+                }
               } else {
                 composableValue = callee;
               }

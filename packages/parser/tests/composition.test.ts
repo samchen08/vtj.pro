@@ -239,10 +239,20 @@ describe('parseVue Composition mode', () => {
 
     expect(result.composables).toBeDefined();
     // useMouse should be collected as a composable
-    const mouse = result.composables!.find((c) => c.composable === 'useMouse');
+    const mouse = result.composables!.find(
+      (c) =>
+        c.composable &&
+        typeof c.composable === 'object' &&
+        'value' in c.composable &&
+        c.composable.value.includes('useMouse')
+    );
     expect(mouse).toBeDefined();
-    expect(mouse!.from).toBe('@vueuse/core');
+    expect(mouse!.name).toBe('x'); // 第一个解构字段
     expect(mouse!.destructure).toEqual(['x', 'y']);
+    // 验证 composable 表达式格式
+    if (mouse!.composable && typeof mouse!.composable === 'object') {
+      expect(mouse!.composable.value).toBe('this.$libs.VueUse.useMouse');
+    }
   });
 
   test('global composables (vue-router) are NOT in composables', async () => {
