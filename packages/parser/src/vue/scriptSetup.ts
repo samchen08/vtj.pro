@@ -215,10 +215,26 @@ export function parseScriptSetup(
               if (name && result.composables.some((c) => c.name === name)) {
                 return;
               }
+
+              // 构建 composable 表达式
+              // 如果有 from（import 来源），使用 this.$libs[fromName].callee 格式
+              // 否则直接使用 callee 名称
+              let composableValue: string;
+              if (from) {
+                // 尝试从 libs 中查找，格式为 this.$libs.LibName.callee
+                // from 是模块路径，例如 '@vueuse/core'，需要转换为 libs 中的键名
+                // 这里直接使用 callee 作为键名，因为 libs 会映射它
+                composableValue = `this.$libs.${callee}`;
+              } else {
+                composableValue = callee;
+              }
+
               const composable: BlockComposable = {
                 name: name || destructure[0] || callee,
-                composable: callee,
-                from: from || undefined
+                composable: {
+                  type: 'JSExpression',
+                  value: composableValue
+                }
               };
               if (init.arguments.length > 0) {
                 composable.args = init.arguments.map((arg: any) =>

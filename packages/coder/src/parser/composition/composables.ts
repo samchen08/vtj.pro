@@ -12,11 +12,11 @@ export interface ComposableResult {
 
 /**
  * 解析 composables：
- * - { name: 'router', composable: 'useRouter', from: 'vue-router' }
- *   → const router = useRouter();
- * - { composable: 'useUserStore', from: 'pinia', destructure: ['user', 'login'] }
+ * - { name: 'router', composable: { type: 'JSExpression', value: 'this.$libs.VueRouter.useRouter' } }
+ *   → const router = this.$libs.VueRouter.useRouter();
+ * - { composable: { type: 'JSExpression', value: 'useUserStore' }, destructure: ['user', 'login'] }
  *   → const { user, login } = useUserStore();
- * - { name: 'data', composable: 'useFetch', args: ['/api'] }
+ * - { name: 'data', composable: { type: 'JSExpression', value: 'useFetch' }, args: ['/api'] }
  *   → const data = useFetch('/api');
  */
 export function parseComposables(
@@ -30,19 +30,24 @@ export function parseComposables(
   for (const c of composables) {
     if (!c || !c.composable) continue;
 
+    // 获取 composable 的字符串表示
+    let composableStr = '';
+    if (isJSCode(c.composable)) {
+      composableStr = c.composable.value || '';
+    } else if (typeof c.composable === 'string') {
+      // 兼容旧协议
+      composableStr = c.composable;
+    }
+
+    if (!composableStr) continue;
+
     // 过滤 useProvider，由模板写死版本始终生效
-    if (c.composable === 'useProvider') continue;
+    if (composableStr === 'useProvider') continue;
 
     // 按 name 去重，同名的 composable 只会保留第一个
     if (c.name) {
       if (processedNames.has(c.name)) continue;
       processedNames.add(c.name);
-    }
-
-    // 收集 import
-    if (c.from) {
-      const arr = imports[c.from] ?? (imports[c.from] = []);
-      if (!arr.includes(c.composable)) arr.push(c.composable);
     }
 
     // 解析参数
@@ -59,13 +64,13 @@ export function parseComposables(
     // 解构 vs 命名
     if (c.destructure && c.destructure.length > 0) {
       statements.push(
-        `const { ${c.destructure.join(', ')} } = ${c.composable}(${args});`
+        `const { ${c.destructure.join(', ')} } = ${composableStr}(${args});`
       );
     } else if (c.name) {
-      statements.push(`const ${c.name} = ${c.composable}(${args});`);
+      statements.push(`const ${c.name} = ${composableStr}(${args});`);
     } else {
       // 无 name 无 destructure：仅调用副作用
-      statements.push(`${c.composable}(${args});`);
+      statements.push(`${composableStr}(${args});`);
     }
   }
 

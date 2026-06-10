@@ -225,7 +225,10 @@ describe('block - Composition API mode', () => {
       composables: [
         {
           name: 'useCustom',
-          composable: 'useCustom',
+          composable: {
+            type: 'JSExpression',
+            value: 'this.$libs.useCustom'
+          },
           args: [],
           destructure: ['result']
         }

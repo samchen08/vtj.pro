@@ -354,14 +354,18 @@ function createComposables(
   return composables.reduce(
     (result, item) => {
       try {
-        // 从 $libs 中解析 composable 函数
+        // 从 composable 表达式中解析函数
+        // composable 是 JSExpression，例如: this.$libs.VueUse.useDark
         let fn: Function | undefined;
-        if (item.from && context.$libs[item.from]) {
-          fn = context.$libs[item.from][item.composable];
-        } else {
-          // 仅从 $libs 中查找，避免意外匹配 Vue 内置 API
+
+        if (isJSExpression(item.composable)) {
+          // 解析表达式获取函数引用
+          fn = context.__parseExpression(item.composable);
+        } else if (isString(item.composable)) {
+          // 兼容旧协议：字符串形式的函数名（从 $libs 中查找）
           fn = context.$libs[item.composable];
         }
+
         if (isFunction(fn)) {
           // 解析参数
           const args = (item.args || []).map((arg: any) =>
@@ -380,10 +384,7 @@ function createComposables(
       } catch (e) {
         // 设计模式下降级处理
         if (context.__mode === ContextMode.Design) {
-          console.warn(
-            `[VTJ] composable "${item.composable}" 执行失败，已降级处理`,
-            e
-          );
+          console.warn(`[VTJ] composable 执行失败，已降级处理`, e);
           result[item.name] = {};
         }
       }

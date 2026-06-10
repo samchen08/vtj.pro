@@ -34,17 +34,21 @@
       composables: [
         {
           name: 'isDark',
-          composable: 'useDark',
-          from: '@vueuse/core'
+          composable: {
+            type: 'JSExpression',
+            value: 'this.$libs.VueUse.useDark'
+          }
         },
         {
           name: 'toggleDark',
-          composable: 'useToggle',
-          from: '@vueuse/core',
+          composable: {
+            type: 'JSExpression',
+            value: 'this.$libs.VueUse.useToggle'
+          },
           args: [
             {
               type: 'JSExpression',
-              value: 'isDark'
+              value: 'this.isDark'
             }
           ]
         }

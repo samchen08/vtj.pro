@@ -175,13 +175,10 @@ export interface BlockComposable {
    */
   name: string;
   /**
-   * composable 函数名
+   * composable 来源函数
    */
-  composable: string;
-  /**
-   * 来源包
-   */
-  from?: string;
+  composable: JSExpression;
+
   /**
    * 调用参数
    */
