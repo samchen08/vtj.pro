@@ -6,8 +6,7 @@
   }
   .el-empty {
     --el-empty-padding: 10px;
-    --el-empty-description-margin-top: 0;
-    flex-direction: row;
+    --el-empty-description-margin-top: 10px;
   }
   > .x-panel__body {
     transition: height 0.2s;

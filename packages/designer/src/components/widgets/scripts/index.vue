@@ -30,3 +30,12 @@
     () => current.value?.apiMode === 'composition'
   );
 </script>
+
+<style lang="scss" scoped>
+  .v-scripts-widget {
+    :deep(.el-empty) {
+      --el-empty-description-margin-top: 0;
+      flex-direction: row;
+    }
+  }
+</style>
