@@ -20,16 +20,34 @@ const baseOptions = {
 };
 
 describe('compositionPatch', () => {
-  test('should replace ref .value access with this.xxx', () => {
+  test('should replace ref .value access with this.xxx.value', () => {
     const input = 'count.value + message.value';
     const result = compositionPatch(input, baseOptions);
-    expect(result).toBe('this.count + this.message');
+    expect(result).toBe('this.count.value + this.message.value');
   });
 
-  test('should replace computed .value access with this.xxx', () => {
+  test('should replace computed .value access with this.xxx.value', () => {
     const input = 'doubleCount.value';
     const result = compositionPatch(input, baseOptions);
-    expect(result).toBe('this.doubleCount');
+    expect(result).toBe('this.doubleCount.value');
+  });
+
+  test('should replace bare ref name with this.xxx.value', () => {
+    const input = 'count + message';
+    const result = compositionPatch(input, baseOptions);
+    expect(result).toBe('this.count.value + this.message.value');
+  });
+
+  test('should replace bare computed name with this.xxx.value', () => {
+    const input = 'doubleCount';
+    const result = compositionPatch(input, baseOptions);
+    expect(result).toBe('this.doubleCount.value');
+  });
+
+  test('should not double-patch already patched ref expressions', () => {
+    const input = 'this.count.value + this.message.value';
+    const result = compositionPatch(input, baseOptions);
+    expect(result).toBe('this.count.value + this.message.value');
   });
 
   test('should replace global API variables', () => {

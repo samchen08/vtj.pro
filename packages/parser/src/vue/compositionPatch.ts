@@ -65,13 +65,17 @@ export function compositionPatch(
 
   let result = content;
 
-  // 1. ref/computed 的 .value 解包：xxx.value → this.xxx
-  // 需要精确匹配 xxx.value 而不是 xxx 本身
+  // 1. ref/computed 转换
+  // 需要处理两种情况（均在 DSL 中转为 this.xxx.value）：
+  //   a) 裸 xxx → this.xxx.value     （模板中直接使用 ref 变量）
+  //   b) xxx.value → this.xxx.value  （已有 .value 访问）
+  // 注意：不能使用 replacer，因为它的 handleThisMemberExpression 会误将
+  //     this.xxx 整体替换，导致已转换的 this.xxx.value 变成 this.xxx.value.value
   for (const name of refs) {
-    result = replaceValueAccess(result, name);
+    result = replaceRefOrComputed(result, name);
   }
   for (const name of computed) {
-    result = replaceValueAccess(result, name);
+    result = replaceRefOrComputed(result, name);
   }
 
   // 2. 全局 API 变量：router → this.$router, t → this.$t
@@ -125,20 +129,25 @@ export function compositionPatch(
 }
 
 /**
- * 替换 xxx.value → this.xxx
- * 使用正则先做快速检测，然后用精确替换
+ * 替换 ref/computed 变量引用：
+ *   a) xxx.value → this.xxx.value  （已有 .value 访问）
+ *   b) 裸 xxx   → this.xxx.value  （直接使用变量名）
+ *
+ * 使用两步正则配合负向后顾，避免重复替换已处理的 this.xxx.value 中的 xxx
  */
-function replaceValueAccess(content: string, name: string): string {
-  // 匹配 name.value（非计算属性访问）
-  const regex = new RegExp(`\\b${escapeRegex(name)}\\.value\\b`, 'g');
-  if (!regex.test(content)) return content;
-
-  // 使用 replacer 替换 name.value 整体
-  // 由于 replacer 按标识符替换，我们需要用字符串替换
-  return content.replace(
-    new RegExp(`\\b${escapeRegex(name)}\\.value\\b`, 'g'),
-    `this.${name}`
+function replaceRefOrComputed(content: string, name: string): string {
+  const escaped = escapeRegex(name);
+  // Step 1: xxx.value → this.xxx.value
+  let result = content.replace(
+    new RegExp(`\\b${escaped}\\.value\\b`, 'g'),
+    `this.${name}.value`
   );
+  // Step 2: bare xxx（前面没有 this.）→ this.xxx.value
+  result = result.replace(
+    new RegExp(`(?<!this\\.)\\b${escaped}\\b`, 'g'),
+    `this.${name}.value`
+  );
+  return result;
 }
 
 /**

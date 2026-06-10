@@ -41,9 +41,26 @@ export function transformExpression(
     result = result.replace(regex, cfg.replace);
   }
 
-  // 2. 处理已知符号：this.xxx → 转换后的标识符
+  // 2. 优先匹配 ref/computed 的 this.xxx.value 整段
+  // DSL 中 ref/computed 以 this.xxx.value 形式出现，需要整体处理
+  result = result.replace(
+    /this\.([A-Za-z_$][\w$]*)\.value\b/g,
+    (match, name) => {
+      if (symbols.refs.has(name) || symbols.computed.has(name)) {
+        // template: refs/computed 由 Vue 自动解包，去掉 .value
+        // script: 保持 .value
+        return context === 'script' ? `${name}.value` : name;
+      }
+      // 非 ref/computed 的 this.xxx.value，保持原样
+      return match;
+    }
+  );
+
+  // 3. 处理已知符号：this.xxx → 转换后的标识符（不含 .value 后缀）
   result = result.replace(/this\.([A-Za-z_$][\w$]*)/g, (match, name) => {
     // refs / computed 需要解包（仅 script）
+    // 注意：这里遇到的是没有 .value 的 this.xxx（非 DSL 标准格式），
+    // 但仍然保留此逻辑用于兼容旧数据
     if (symbols.refs.has(name) || symbols.computed.has(name)) {
       return context === 'script' ? `${name}.value` : name;
     }
