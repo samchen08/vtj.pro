@@ -107,6 +107,7 @@ export function createRenderer(options: CreateRendererOptions) {
       }
 
       const attrs = {
+        ...props,
         ...refs,
         ...reactives,
         ...injects,

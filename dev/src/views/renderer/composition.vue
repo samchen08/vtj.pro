@@ -16,7 +16,8 @@
       // ref 响应式数据
       refs: {
         count: { type: 'JSExpression', value: '0' },
-        message: { type: 'JSExpression', value: '"Hello VTJ"' }
+        message: { type: 'JSExpression', value: '"Hello VTJ"' },
+        lastAction: { type: 'JSExpression', value: '""' }
       },
 
       // reactive 响应式数据
@@ -63,8 +64,33 @@
           type: 'JSFunction',
           value:
             '() => { this.user.role = this.user.role === "developer" ? "admin" : "developer" }'
+        },
+        clearWatchLog: {
+          type: 'JSFunction',
+          value: '() => { this.lastAction.value = "" }'
         }
       },
+
+      // 侦听器
+      watch: [
+        {
+          source: { type: 'JSExpression', value: 'this.count' },
+          immediate: true,
+          handler: {
+            type: 'JSFunction',
+            value:
+              '(newVal, oldVal) => { this.lastAction.value = `Count changed: ${oldVal} → ${newVal}`; console.log("[Watch count]", newVal, oldVal) }'
+          }
+        },
+        {
+          source: { type: 'JSExpression', value: 'this.message' },
+          handler: {
+            type: 'JSFunction',
+            value:
+              '(newVal, oldVal) => { this.lastAction.value = `Message changed: "${oldVal}" → "${newVal}"`; console.log("[Watch message]", newVal, oldVal) }'
+          }
+        }
+      ],
 
       // 生命周期（composition 风格）
       lifeCycles: {
@@ -291,6 +317,57 @@
                     }
                   },
                   children: '🔁 Reset'
+                },
+                {
+                  id: 'btn-clear',
+                  name: 'button',
+                  props: {
+                    style: { padding: '4px 16px', cursor: 'pointer' }
+                  },
+                  events: {
+                    click: {
+                      name: 'click',
+                      handler: {
+                        type: 'JSFunction',
+                        value: '() => this.clearWatchLog()'
+                      }
+                    }
+                  },
+                  children: '🧹 Clear Log'
+                }
+              ]
+            },
+            {
+              id: 'watch-section',
+              name: 'div',
+              props: {
+                style: {
+                  marginTop: '12px',
+                  padding: '8px 12px',
+                  backgroundColor: '#fff7e6',
+                  border: '1px solid #ffd591',
+                  borderRadius: '4px',
+                  fontSize: '13px',
+                  color: '#d46b08'
+                }
+              },
+              directives: [
+                {
+                  name: 'vShow',
+                  value: {
+                    type: 'JSExpression',
+                    value: 'this.lastAction.value'
+                  }
+                }
+              ],
+              children: [
+                { name: 'span', children: '🔔 ' },
+                {
+                  name: 'span',
+                  children: {
+                    type: 'JSExpression',
+                    value: 'this.lastAction.value'
+                  }
                 }
               ]
             },
