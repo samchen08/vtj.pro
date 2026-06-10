@@ -74,6 +74,12 @@ export interface BlockSchema {
   composables?: BlockComposable[];
 
   /**
+   * setup 初始化代码 (Composition 模式)
+   * 在 refs/reactives/composables 创建之后、组件挂载之前执行
+   */
+  setup?: JSFunction;
+
+  /**
    * provide 声明
    */
   provide?: Record<string, JSONValue | JSExpression | JSFunction>;

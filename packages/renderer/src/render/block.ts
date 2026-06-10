@@ -122,6 +122,13 @@ export function createRenderer(options: CreateRendererOptions) {
       // Composition 模式下生命周期在 setup 内注册
       if (isComposition) {
         createCompositionLifeCycles(Vue, dsl.value.lifeCycles ?? {}, context);
+        // 执行 setup 初始化代码
+        if (dsl.value.setup) {
+          const setupFn = context.__parseFunction(dsl.value.setup);
+          if (isFunction(setupFn)) {
+            await setupFn();
+          }
+        }
       }
 
       return {

@@ -42,6 +42,7 @@ export class BlockModel {
   public computed: Record<string, JSFunction> = {};
   public watch: BlockWatch[] = [];
   public composables: BlockComposable[] = [];
+  public setup: JSFunction | undefined = undefined;
   public provide: Record<string, JSONValue | JSExpression | JSFunction> = {};
   public css: string = '';
   public props: Array<string | BlockProp> = [];
@@ -66,6 +67,7 @@ export class BlockModel {
     'computed',
     'watch',
     'composables',
+    'setup',
     'provide',
     'css',
     'props',
@@ -539,6 +541,18 @@ export class BlockModel {
    */
   removeProvide(key: string, silent: boolean = false) {
     delete this.provide[key];
+    if (!silent) {
+      emitter.emit(EVENT_BLOCK_CHANGE, this);
+    }
+  }
+
+  /**
+   * 设置 setup 初始化代码
+   * @param code
+   * @param silent
+   */
+  setSetup(code: JSFunction | undefined, silent: boolean = false) {
+    this.setup = code;
     if (!silent) {
       emitter.emit(EVENT_BLOCK_CHANGE, this);
     }
