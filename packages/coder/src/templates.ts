@@ -57,7 +57,7 @@ const vueTemplate = `
 const scriptSetupTemplate = `
 // @ts-nocheck
 <%= imports %>
-import { useProvider } from '<%= renderer %>';
+import { <%= rendererImports %> } from '<%= renderer %>';
 <% if(props) { %>const props = defineProps({ <%= props %> });<% } else if(needsProps) { %>const props = defineProps();<% } %>
 <% if(emits) { %>const emit = defineEmits([<%= emits %>]);<% } else if(needsEmit) { %>const emit = defineEmits();<% } %>
 <% if(expose) { %>defineExpose(<%= expose %>);<% } %>

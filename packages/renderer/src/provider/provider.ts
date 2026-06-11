@@ -835,3 +835,8 @@ export function useLibs() {
   const globals = useGlobals();
   return globals.$libs;
 }
+
+export function useApis() {
+  const globals = useGlobals();
+  return globals.$apis;
+}

@@ -58,6 +58,10 @@ export const test_composition = {
     getLocale: {
       type: 'JSFunction',
       value: 'function() { return this.$i18n.locale; }'
+    },
+    getStoreUser: {
+      type: 'JSFunction',
+      value: 'function() { return this.$store.state.user; }'
     }
   },
   watch: [

@@ -80,6 +80,8 @@ export interface TokenComposition {
   blockPlugins: string;
   uniComponents: string[];
   renderer: string;
+  /** renderer 包导入的标识符（useProvider + 可能的 useStore 等） */
+  rendererImports: string;
 }
 
 /**
@@ -99,6 +101,10 @@ export function parserComposition(
   const globalApis = detectGlobalApis(dsl);
   const globalApiDeclares = generateGlobalApiDeclares(globalApis);
   const globalApiImports = collectGlobalApiImports(globalApis);
+
+  // 提取 renderer 包的额外 API（__renderer__ 标记），与 useProvider 合并
+  const rendererApiIds = globalApiImports['__renderer__'] || [];
+  delete globalApiImports['__renderer__'];
 
   // 3. 解析 template（template 内会收集 components / methods / importBlocks）
   const tplResult = parseTemplateComposition(
@@ -196,6 +202,7 @@ export function parserComposition(
     urlSchemas: urlSchemas.join('\n'),
     blockPlugins: blockPlugins.join('\n'),
     uniComponents,
-    renderer: platform === 'uniapp' ? '@vtj/uni-app' : '@vtj/renderer'
+    renderer: platform === 'uniapp' ? '@vtj/uni-app' : '@vtj/renderer',
+    rendererImports: ['useProvider', ...rendererApiIds].join(', ')
   };
 }

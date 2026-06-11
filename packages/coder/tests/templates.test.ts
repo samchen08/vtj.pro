@@ -117,7 +117,8 @@ describe('scriptSetupCompiled', () => {
       blockPlugins: '',
       createdStatements: '',
       setupStatements: '',
-      lifeCycles: ''
+      lifeCycles: '',
+      rendererImports: 'useProvider'
     });
     expect(result).toContain("import { useProvider } from '@vtj/renderer'");
     expect(result).toContain("id: '123'");
@@ -150,7 +151,8 @@ describe('scriptSetupCompiled', () => {
       blockPlugins: '',
       createdStatements: '',
       setupStatements: '',
-      lifeCycles: ''
+      lifeCycles: '',
+      rendererImports: 'useProvider'
     });
     expect(result).toContain('defineProps({ title: String })');
   });
@@ -182,9 +184,46 @@ describe('scriptSetupCompiled', () => {
       blockPlugins: '',
       createdStatements: '',
       setupStatements: '',
-      lifeCycles: ''
+      lifeCycles: '',
+      rendererImports: 'useProvider'
     });
     expect(result).toContain("defineEmits(['change', 'submit'])");
+  });
+
+  test('should merge renderer imports when store is used', () => {
+    const result = scriptSetupCompiled({
+      name: 'Comp',
+      imports: '',
+      renderer: '@vtj/renderer',
+      id: '1',
+      version: '1.0.0',
+      props: '',
+      emits: '',
+      needsProps: false,
+      needsEmit: false,
+      expose: '',
+      globalApiDeclares: 'const store = useStore();',
+      injects: '',
+      composables: '',
+      state: '',
+      refs: '',
+      reactives: '',
+      computed: '',
+      methods: '',
+      dataSources: '',
+      watch: '',
+      provide: '',
+      urlSchemas: '',
+      blockPlugins: '',
+      createdStatements: '',
+      setupStatements: '',
+      lifeCycles: '',
+      rendererImports: 'useProvider, useStore'
+    });
+    expect(result).toContain(
+      "import { useProvider, useStore } from '@vtj/renderer'"
+    );
+    expect(result).toContain('const store = useStore();');
   });
 });
 

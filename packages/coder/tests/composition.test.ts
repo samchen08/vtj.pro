@@ -62,5 +62,12 @@ test('composition mode', async () => {
   expect(content).toContain('__i18n.locale');
   // 确保 useI18n 声明不重复
   expect(content.match(/const __i18n = useI18n\(\)/g)?.length).toBe(1);
+  // 验证 $store 与 useProvider 合并到同一条 import
+  expect(content).toContain('useStore');
+  expect(content).toContain('useProvider, useStore');
+  expect(content).toContain('const store = useStore()');
+  expect(content).toContain('store.state.user');
+  // 确保 @vtj/renderer 只有一条 import
+  expect(content.match(/from '@vtj\/renderer'/g)?.length).toBe(1);
   expect(content).toContain('provider');
 });

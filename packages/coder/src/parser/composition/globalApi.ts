@@ -148,6 +148,44 @@ export const GLOBAL_API_MAP: Record<string, GlobalApiConfig> = {
     from: 'vue-i18n',
     declare: 'const __i18n = useI18n();',
     replace: '__i18n.tm'
+  },
+  // ---- @vtj/renderer ----
+  // 注：from 使用特殊标记 '__renderer__'，运行时会与 useProvider 合并到同一条 import 语句
+  $store: {
+    composable: 'useStore',
+    from: '__renderer__',
+    declare: 'const store = useStore();',
+    replace: 'store'
+  },
+  $pinia: {
+    composable: 'usePinia',
+    from: '__renderer__',
+    declare: 'const pinia = usePinia();',
+    replace: 'pinia'
+  },
+  $request: {
+    composable: 'useRequest',
+    from: '__renderer__',
+    declare: 'const request = useRequest();',
+    replace: 'request'
+  },
+  $libs: {
+    composable: 'useLibs',
+    from: '__renderer__',
+    declare: 'const libs = useLibs();',
+    replace: 'libs'
+  },
+  $access: {
+    composable: 'useAccess',
+    from: '__renderer__',
+    declare: 'const access = useAccess();',
+    replace: 'access'
+  },
+  $apis: {
+    composable: 'useApis',
+    from: '__renderer__',
+    declare: 'const apis = useApis();',
+    replace: 'apis'
   }
 };
 
