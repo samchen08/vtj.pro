@@ -11,11 +11,16 @@ import {
   notify
 } from '@vtj/uni-app';
 import * as VueI18n from 'vue-i18n';
+import { createUniAppAxiosAdapter } from '@uni-helper/axios-adapter';
 import App from './App.vue';
 import { name } from '../package.json';
 import { createModules } from './modules';
 
-const adapter = createAdapter({ loading, notify });
+const adapter = createAdapter({
+  loading,
+  notify,
+  axiosAdapter: createUniAppAxiosAdapter()
+});
 const service = new LocalService(createServiceRequest(notify));
 const modules = createModules();
 const { provider, onReady } = createProvider({

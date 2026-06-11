@@ -28,7 +28,8 @@
   },
   "dependencies": {
     "@vtj/core": "workspace:~",
-    "@vtj/utils": "workspace:~"
+    "@vtj/utils": "workspace:~",
+    "eval5": "^1.4.8"
   },
   "devDependencies": {
     "@vtj/cli": "workspace:~",

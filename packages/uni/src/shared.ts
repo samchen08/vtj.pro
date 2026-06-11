@@ -1,19 +1,31 @@
-declare global {
-  interface Window {
-    uni: any;
+declare const uni: any;
+
+function getUni(): any {
+  if (typeof uni !== 'undefined') {
+    return uni;
   }
+  if (typeof globalThis !== 'undefined' && (globalThis as any).uni) {
+    return (globalThis as any).uni;
+  }
+  if (typeof window !== 'undefined' && (window as any).uni) {
+    return (window as any).uni;
+  }
+  return undefined;
 }
 
 export function loading() {
-  if (window.uni?.showLoading) {
-    window.uni.showLoading({
+  const _uni = getUni();
+  if (_uni?.showLoading) {
+    _uni.showLoading({
       title: '加载中...',
       mask: true
     });
   }
+
   return {
     close: () => {
-      window.uni?.hideLoading && window.uni.hideLoading();
+      const _uni = getUni();
+      _uni?.hideLoading && _uni.hideLoading();
     }
   };
 }
@@ -23,14 +35,17 @@ export async function notify(
   title: string = '',
   _type: 'primary' | 'warning' | 'danger' | 'success' = 'warning'
 ) {
-  if (window.uni?.showModal) {
-    return window.uni.showModal({
+  const _uni = getUni();
+  if (_uni?.showModal) {
+    return _uni.showModal({
       title,
       content: message,
       showCancel: false
     });
   }
-  window.alert(message);
+  if (typeof window !== 'undefined') {
+    window.alert(message);
+  }
   return true;
 }
 
