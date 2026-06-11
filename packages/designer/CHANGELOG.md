@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.17.6](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.17.5...@vtj/designer@0.17.6) (2026-06-11)
+
+
+### Features
+
+* **uniapp:** add polyfills for FormData and Blob; fix useAssets splice ([14e4ab4](https://gitee.com/newgateway/vtj/commits/14e4ab4671b190426d10e3172cc42675623bf012))
+
+
+
+
+
 ## [0.17.5](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.17.4...@vtj/designer@0.17.5) (2026-06-09)
 
 
