@@ -275,9 +275,6 @@ importers:
       '@dcloudio/uni-ui':
         specifier: ~1.5.3
         version: 1.5.12
-      '@uni-helper/axios-adapter':
-        specifier: ~1.16.1
-        version: 1.16.1(axios@1.16.1)(vite@6.3.7(@types/node@25.0.10)(jiti@2.7.0)(sass@1.97.3)(terser@5.44.1)(yaml@2.9.0))
       '@vtj/renderer':
         specifier: workspace:~
         version: link:../../packages/renderer
@@ -4011,12 +4008,6 @@ packages:
   '@ungap/structured-clone@1.3.1':
     resolution: {integrity: sha512-mUFwbeTqrVgDQxFveS+df2yfap6iuP20NAKAsBt5jDEoOTDew+zwLAOilHCeQJOVSvmgCX4ogqIrA0mnyr08yQ==}
 
-  '@uni-helper/axios-adapter@1.16.1':
-    resolution: {integrity: sha512-n2+oKU+sF2sWF8FooBXGU7dR7UzbHxvkfJ//z2Mfi2i/dhSXsB7AsjNSFihVhBqF7xp41ml07kikc3CHQdLajw==}
-    peerDependencies:
-      axios: ^1.16.0
-      vite: ^5.0.0
-
   '@uni-helper/uni-app-types@0.5.13':
     resolution: {integrity: sha512-NIKHv9Zof7sxsznjH+LRB2VM8ncEyfpkwRVLm7u2N1X3e1RFWvABH+bttfu+d8FIP6JzksBNOQwsyZjDnLN0fw==}
     engines: {node: '>=14.18'}
@@ -4656,8 +4647,8 @@ packages:
     resolution: {integrity: sha512-ir1UPr3dkwexU7FdV8qBBbNDRUhMmIekYMFZfi+C/sLNnRESKPl23nB9b2pltqfOQNnGzsDdId90AEtG5tCx4A==}
     engines: {node: '>=6.0.0'}
 
-  baseline-browser-mapping@2.10.34:
-    resolution: {integrity: sha512-IMDedajPifLnHNY0X9n8hKxRTQ6/eTHwr5bDo04WnuqxyKw6LYtQywCuuqPZwhl3aBXMvQpJov42GLCwRRdQzw==}
+  baseline-browser-mapping@2.10.35:
+    resolution: {integrity: sha512-honAfLBde0HAFLdNyBEfuuENkF6zR+ozxqxa/2zJKHBe1qzLqyTSeRKpdPEHAP03rlDGyQOPnCSxnVpVqQo9Mg==}
     engines: {node: '>=6.0.0'}
     hasBin: true
 
@@ -5500,8 +5491,8 @@ packages:
     engines: {node: '>=0.10.0'}
     hasBin: true
 
-  electron-to-chromium@1.5.369:
-    resolution: {integrity: sha512-XM22K9FNaaCOvMMrBn1caIc8v0g6+pKt660ZbfQqUZvfil0hEzr8ZoiY7VcSLGM3L/x3rz5PqZrk+bKOOmVM9w==}
+  electron-to-chromium@1.5.371:
+    resolution: {integrity: sha512-e9htk9mAYL6AzmkEhSvVVw7IWGSBJ/Bqdn2eRyRLrj1g6sncN4WbFt5qnILYoCktktr45pyjIrOiRvBThQ808w==}
 
   element-plus@2.13.7:
     resolution: {integrity: sha512-XdHATFZOyzVFL1DaHQ90IOJQSg9UnSAV+bhDW+YB5UoZ0Hxs50mwqjqfwXkuwpSag+VXXizVcErBR6Movo5daw==}
@@ -7926,8 +7917,8 @@ packages:
     resolution: {integrity: sha512-Q8qQfPiZ+THO/3ZrOrO0cJJKfpYCagtMUkXbnEfmgUjwXg6z/WBeOyS9APBBPCTSiDV+s4SwQGu8yFsiMRIudg==}
     engines: {node: '>=4'}
 
-  postcss-selector-parser@7.1.1:
-    resolution: {integrity: sha512-orRsuYpJVw8LdAwqqLykBj9ecS5/cRHlI5+nvTo8LcCKmzDmqVORXtOIYEEQuL9D4BxtA1lm5isAqzQZCoQ6Eg==}
+  postcss-selector-parser@7.1.2:
+    resolution: {integrity: sha512-Wjvt4scRFouioIInHf51IFNP4ltJ2EngJM+cZPGiqbKetBfmP3vpdPV8ID2S6JS6/jdo74N8+aEYH9lQr2C6sA==}
     engines: {node: '>=4'}
 
   postcss-svgo@7.1.3:
@@ -8378,8 +8369,8 @@ packages:
     engines: {node: '>=10'}
     hasBin: true
 
-  semver@7.8.3:
-    resolution: {integrity: sha512-wnilbGyMxzbY7dNOl7jpKbLSjcfeweJWU5j4+u5qW+6/wuGD9KzIGOyZnQVSBM9E7DtWaaH3CyHkppYrKYoxwg==}
+  semver@7.8.4:
+    resolution: {integrity: sha512-rUCObTnP32Q08R2uuIrt7r9PlEonuTmtuXYcW6s5kjdlj3xbnwe+21yXptAUYcMAABLkYYTtnmzb3w3EDZfueA==}
     engines: {node: '>=10'}
     hasBin: true
 
@@ -10598,7 +10589,7 @@ snapshots:
   '@commitlint/is-ignored@19.8.1':
     dependencies:
       '@commitlint/types': 19.8.1
-      semver: 7.8.3
+      semver: 7.8.4
 
   '@commitlint/lint@19.8.1':
     dependencies:
@@ -12340,7 +12331,7 @@ snapshots:
       read-cmd-shim: 4.0.0
       resolve-from: 5.0.0
       rimraf: 4.4.1
-      semver: 7.8.3
+      semver: 7.8.4
       set-blocking: 2.0.0
       signal-exit: 3.0.7
       slash: 3.0.0
@@ -12468,7 +12459,7 @@ snapshots:
       promise-all-reject-late: 1.0.1
       promise-call-limit: 3.0.2
       read-package-json-fast: 3.0.2
-      semver: 7.8.3
+      semver: 7.8.4
       ssri: 10.0.6
       treeverse: 3.0.0
       walk-up-path: 3.0.1
@@ -12478,7 +12469,7 @@ snapshots:
 
   '@npmcli/fs@3.1.1':
     dependencies:
-      semver: 7.8.3
+      semver: 7.8.4
 
   '@npmcli/git@5.0.8':
     dependencies:
@@ -12489,7 +12480,7 @@ snapshots:
       proc-log: 4.2.0
       promise-inflight: 1.0.1
       promise-retry: 2.0.1
-      semver: 7.8.3
+      semver: 7.8.4
       which: 4.0.0
     transitivePeerDependencies:
       - bluebird
@@ -12512,7 +12503,7 @@ snapshots:
       json-parse-even-better-errors: 3.0.2
       pacote: 18.0.6
       proc-log: 4.2.0
-      semver: 7.8.3
+      semver: 7.8.4
     transitivePeerDependencies:
       - bluebird
       - supports-color
@@ -12529,7 +12520,7 @@ snapshots:
       json-parse-even-better-errors: 3.0.2
       normalize-package-data: 6.0.2
       proc-log: 4.2.0
-      semver: 7.8.3
+      semver: 7.8.4
     transitivePeerDependencies:
       - bluebird
 
@@ -12562,7 +12553,7 @@ snapshots:
       ignore: 5.3.2
       minimatch: 9.0.3
       nx: 20.8.4
-      semver: 7.8.3
+      semver: 7.8.4
       tmp: 0.2.7
       tslib: 2.8.1
       yargs-parser: 21.1.1
@@ -13212,13 +13203,6 @@ snapshots:
       '@types/yargs-parser': 21.0.3
 
   '@ungap/structured-clone@1.3.1': {}
-
-  '@uni-helper/axios-adapter@1.16.1(axios@1.16.1)(vite@6.3.7(@types/node@25.0.10)(jiti@2.7.0)(sass@1.97.3)(terser@5.44.1)(yaml@2.9.0))':
-    dependencies:
-      axios: 1.16.1
-      local-pkg: 1.2.1
-      unplugin: 2.3.11
-      vite: 6.3.7(@types/node@25.0.10)(jiti@2.7.0)(sass@1.97.3)(terser@5.44.1)(yaml@2.9.0)
 
   '@uni-helper/uni-app-types@0.5.13(typescript@5.9.3)':
     dependencies:
@@ -14029,7 +14013,7 @@ snapshots:
 
   base64url@3.0.1: {}
 
-  baseline-browser-mapping@2.10.34: {}
+  baseline-browser-mapping@2.10.35: {}
 
   bcrypt-pbkdf@1.0.2:
     dependencies:
@@ -14157,9 +14141,9 @@ snapshots:
 
   browserslist@4.28.2:
     dependencies:
-      baseline-browser-mapping: 2.10.34
+      baseline-browser-mapping: 2.10.35
       caniuse-lite: 1.0.30001797
-      electron-to-chromium: 1.5.369
+      electron-to-chromium: 1.5.371
       node-releases: 2.0.47
       update-browserslist-db: 1.2.3(browserslist@4.28.2)
 
@@ -14469,7 +14453,7 @@ snapshots:
       handlebars: 4.7.9
       json-stringify-safe: 5.0.1
       meow: 8.1.2
-      semver: 7.8.3
+      semver: 7.8.4
       split: 1.0.1
 
   conventional-commits-filter@3.0.0:
@@ -14904,7 +14888,7 @@ snapshots:
       '@one-ini/wasm': 0.1.1
       commander: 10.0.1
       minimatch: 9.0.9
-      semver: 7.8.3
+      semver: 7.8.4
 
   ee-first@1.1.1: {}
 
@@ -14912,7 +14896,7 @@ snapshots:
     dependencies:
       jake: 10.9.4
 
-  electron-to-chromium@1.5.369: {}
+  electron-to-chromium@1.5.371: {}
 
   element-plus@2.13.7(typescript@5.9.3)(vue@3.5.35(typescript@5.9.3)):
     dependencies:
@@ -15475,7 +15459,7 @@ snapshots:
   git-semver-tags@5.0.1:
     dependencies:
       meow: 8.1.2
-      semver: 7.8.3
+      semver: 7.8.4
 
   git-up@7.0.0:
     dependencies:
@@ -15793,7 +15777,7 @@ snapshots:
       npm-package-arg: 11.0.2
       promzard: 1.0.2
       read: 3.0.1
-      semver: 7.8.3
+      semver: 7.8.4
       validate-npm-package-license: 3.0.4
       validate-npm-package-name: 5.0.1
     transitivePeerDependencies:
@@ -16333,7 +16317,7 @@ snapshots:
       jest-util: 27.5.1
       natural-compare: 1.4.0
       pretty-format: 27.5.1
-      semver: 7.8.3
+      semver: 7.8.4
     transitivePeerDependencies:
       - supports-color
 
@@ -16601,7 +16585,7 @@ snapshots:
       read-cmd-shim: 4.0.0
       resolve-from: 5.0.0
       rimraf: 4.4.1
-      semver: 7.8.3
+      semver: 7.8.4
       set-blocking: 2.0.0
       signal-exit: 3.0.7
       slash: 3.0.0
@@ -16647,7 +16631,7 @@ snapshots:
       npm-package-arg: 11.0.2
       npm-registry-fetch: 17.1.0
       proc-log: 4.2.0
-      semver: 7.8.3
+      semver: 7.8.4
       sigstore: 2.3.1
       ssri: 10.0.6
     transitivePeerDependencies:
@@ -16761,7 +16745,7 @@ snapshots:
 
   log-symbols@4.1.0:
     dependencies:
-      chalk: 4.1.0
+      chalk: 4.1.2
       is-unicode-supported: 0.1.0
 
   loose-envify@1.4.0:
@@ -16809,7 +16793,7 @@ snapshots:
 
   make-dir@4.0.0:
     dependencies:
-      semver: 7.8.3
+      semver: 7.8.4
 
   make-error@1.3.6: {}
 
@@ -17097,7 +17081,7 @@ snapshots:
       pkg-types: 1.3.1
       postcss: 8.5.15
       postcss-nested: 6.2.0(postcss@8.5.15)
-      semver: 7.8.3
+      semver: 7.8.4
       tinyglobby: 0.2.17
     optionalDependencies:
       sass: 1.97.3
@@ -17177,7 +17161,7 @@ snapshots:
       make-fetch-happen: 13.0.1
       nopt: 7.2.1
       proc-log: 4.2.0
-      semver: 7.8.3
+      semver: 7.8.4
       tar: 6.2.1
       which: 4.0.0
     transitivePeerDependencies:
@@ -17235,7 +17219,7 @@ snapshots:
       ignore-by-default: 1.0.1
       minimatch: 10.2.5
       pstree.remy: 1.1.8
-      semver: 7.8.3
+      semver: 7.8.4
       simple-update-notifier: 2.0.0
       supports-color: 5.5.0
       touch: 3.1.1
@@ -17256,13 +17240,13 @@ snapshots:
     dependencies:
       hosted-git-info: 4.1.0
       is-core-module: 2.16.2
-      semver: 7.8.3
+      semver: 7.8.4
       validate-npm-package-license: 3.0.4
 
   normalize-package-data@6.0.2:
     dependencies:
       hosted-git-info: 7.0.2
-      semver: 7.8.3
+      semver: 7.8.4
       validate-npm-package-license: 3.0.4
 
   normalize-path@3.0.0: {}
@@ -17275,7 +17259,7 @@ snapshots:
 
   npm-install-checks@6.3.0:
     dependencies:
-      semver: 7.8.3
+      semver: 7.8.4
 
   npm-normalize-package-bin@3.0.1: {}
 
@@ -17283,7 +17267,7 @@ snapshots:
     dependencies:
       hosted-git-info: 7.0.2
       proc-log: 4.2.0
-      semver: 7.8.3
+      semver: 7.8.4
       validate-npm-package-name: 5.0.1
 
   npm-packlist@8.0.2:
@@ -17295,7 +17279,7 @@ snapshots:
       npm-install-checks: 6.3.0
       npm-normalize-package-bin: 3.0.1
       npm-package-arg: 11.0.2
-      semver: 7.8.3
+      semver: 7.8.4
 
   npm-registry-fetch@17.1.0:
     dependencies:
@@ -17349,7 +17333,7 @@ snapshots:
       open: 8.4.2
       ora: 5.3.0
       resolve.exports: 2.0.3
-      semver: 7.8.3
+      semver: 7.8.4
       string-width: 4.2.3
       tar-stream: 2.2.0
       tmp: 0.2.7
@@ -17728,7 +17712,7 @@ snapshots:
   postcss-calc@10.1.1(postcss@8.5.15):
     dependencies:
       postcss: 8.5.15
-      postcss-selector-parser: 7.1.1
+      postcss-selector-parser: 7.1.2
       postcss-value-parser: 4.2.0
 
   postcss-colormin@7.0.10(postcss@8.5.15):
@@ -17748,7 +17732,7 @@ snapshots:
   postcss-discard-comments@7.0.8(postcss@8.5.15):
     dependencies:
       postcss: 8.5.15
-      postcss-selector-parser: 7.1.1
+      postcss-selector-parser: 7.1.2
 
   postcss-discard-duplicates@7.0.4(postcss@8.5.15):
     dependencies:
@@ -17789,7 +17773,7 @@ snapshots:
       caniuse-api: 3.0.0
       cssnano-utils: 5.0.3(postcss@8.5.15)
       postcss: 8.5.15
-      postcss-selector-parser: 7.1.1
+      postcss-selector-parser: 7.1.2
 
   postcss-minify-font-values@7.0.3(postcss@8.5.15):
     dependencies:
@@ -17816,7 +17800,7 @@ snapshots:
       caniuse-api: 3.0.0
       cssesc: 3.0.0
       postcss: 8.5.15
-      postcss-selector-parser: 7.1.1
+      postcss-selector-parser: 7.1.2
 
   postcss-modules-extract-imports@3.1.0(postcss@8.5.15):
     dependencies:
@@ -17826,13 +17810,13 @@ snapshots:
     dependencies:
       icss-utils: 5.1.0(postcss@8.5.15)
       postcss: 8.5.15
-      postcss-selector-parser: 7.1.1
+      postcss-selector-parser: 7.1.2
       postcss-value-parser: 4.2.0
 
   postcss-modules-scope@3.2.1(postcss@8.5.15):
     dependencies:
       postcss: 8.5.15
-      postcss-selector-parser: 7.1.1
+      postcss-selector-parser: 7.1.2
 
   postcss-modules-values@4.0.0(postcss@8.5.15):
     dependencies:
@@ -17923,7 +17907,7 @@ snapshots:
       cssesc: 3.0.0
       util-deprecate: 1.0.2
 
-  postcss-selector-parser@7.1.1:
+  postcss-selector-parser@7.1.2:
     dependencies:
       cssesc: 3.0.0
       util-deprecate: 1.0.2
@@ -17937,7 +17921,7 @@ snapshots:
   postcss-unique-selectors@7.0.7(postcss@8.5.15):
     dependencies:
       postcss: 8.5.15
-      postcss-selector-parser: 7.1.1
+      postcss-selector-parser: 7.1.2
 
   postcss-value-parser@4.2.0: {}
 
@@ -18366,7 +18350,7 @@ snapshots:
 
   semver@7.7.4: {}
 
-  semver@7.8.3: {}
+  semver@7.8.4: {}
 
   send@0.19.2:
     dependencies:
@@ -18488,7 +18472,7 @@ snapshots:
 
   simple-update-notifier@2.0.0:
     dependencies:
-      semver: 7.8.3
+      semver: 7.8.4
 
   sirv@3.0.2:
     dependencies:
@@ -18662,7 +18646,7 @@ snapshots:
     dependencies:
       browserslist: 4.28.2
       postcss: 8.5.15
-      postcss-selector-parser: 7.1.1
+      postcss-selector-parser: 7.1.2
 
   stylis@4.4.0: {}
 

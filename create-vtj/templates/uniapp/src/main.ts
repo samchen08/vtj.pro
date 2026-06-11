@@ -1,3 +1,4 @@
+import './polyfill';
 import { createSSRApp } from 'vue';
 import {
   NodeEnv,
