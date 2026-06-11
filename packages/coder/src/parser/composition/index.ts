@@ -9,7 +9,7 @@ import { buildSymbolTable } from './symbolTable';
 import {
   detectGlobalApis,
   generateGlobalApiDeclares,
-  collectGlobalApiVueImports
+  collectGlobalApiImports
 } from './globalApi';
 import { parseRefs } from './refs';
 import { parseReactives, parseStateAsReactive } from './reactives';
@@ -98,7 +98,7 @@ export function parserComposition(
   // 2. 检测全局 API
   const globalApis = detectGlobalApis(dsl);
   const globalApiDeclares = generateGlobalApiDeclares(globalApis);
-  const globalApiVueImports = collectGlobalApiVueImports(globalApis);
+  const globalApiImports = collectGlobalApiImports(globalApis);
 
   // 3. 解析 template（template 内会收集 components / methods / importBlocks）
   const tplResult = parseTemplateComposition(
@@ -148,7 +148,6 @@ export function parserComposition(
   if (injectArr.length > 0) vueImports.add('inject');
   if (provideArr.length > 0) vueImports.add('provide');
   for (const hook of lifeCyclesResult.usedHooks) vueImports.add(hook);
-  for (const id of globalApiVueImports) vueImports.add(id);
 
   // 6. 解析 imports
   const { imports, uniComponents } = parseImports({
@@ -158,7 +157,8 @@ export function parserComposition(
     collectImports: collecter.imports,
     platform,
     vueImports: Array.from(vueImports),
-    composableImports: composablesResult.imports
+    composableImports: composablesResult.imports,
+    globalApiImports
   });
 
   // 7. 异步组件 + url schemas + block plugins

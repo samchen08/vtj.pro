@@ -42,6 +42,22 @@ export const test_composition = {
     getEl: {
       type: 'JSFunction',
       value: 'function() { return this.$el; }'
+    },
+    navigate: {
+      type: 'JSFunction',
+      value: 'function() { this.$router.push("/about"); }'
+    },
+    getRouteId: {
+      type: 'JSFunction',
+      value: 'function() { return this.$route.params.id; }'
+    },
+    translate: {
+      type: 'JSFunction',
+      value: 'function() { return this.$t("hello"); }'
+    },
+    getLocale: {
+      type: 'JSFunction',
+      value: 'function() { return this.$i18n.locale; }'
     }
   },
   watch: [

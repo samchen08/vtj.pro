@@ -3,11 +3,12 @@ import { isJSCode } from '../../utils';
 
 /**
  * 全局 API 配置：DSL 中 this.$xxx 形式 → Composition API 等价物
- * 仅包含 Vue 原生 Options API 中可用的 this.$xxx
  */
 export interface GlobalApiConfig {
   /** 需要 import 的标识符（如 useAttrs），无则为 null */
   composable: string | null;
+  /** composable 的来源包（如 'vue'、'vue-router'） */
+  from: string;
   /** 顶层声明语句（无则不生成） */
   declare: string | null;
   /** 替换后的名称（this.$attrs → attrs） */
@@ -15,71 +16,138 @@ export interface GlobalApiConfig {
 }
 
 /**
- * Vue 原生全局 API 映射表
- * 仅包含 Vue Options API 中通过 this.$xxx 访问的内置 API
+ * 全局 API 映射表
+ * 包含 Vue 原生 + 第三方插件通过 this.$xxx 访问的 API
  */
 export const GLOBAL_API_MAP: Record<string, GlobalApiConfig> = {
+  // ---- Vue 原生 ----
   $emit: {
-    // emit 已通过 defineEmits 自动获得
     composable: null,
+    from: 'vue',
     declare: null,
     replace: 'emit'
   },
   $props: {
-    // props 已通过 defineProps 自动获得
     composable: null,
+    from: 'vue',
     declare: null,
     replace: 'props'
   },
   $attrs: {
     composable: 'useAttrs',
+    from: 'vue',
     declare: 'const attrs = useAttrs();',
     replace: 'attrs'
   },
   $slots: {
     composable: 'useSlots',
+    from: 'vue',
     declare: 'const slots = useSlots();',
     replace: 'slots'
   },
   $nextTick: {
     composable: 'nextTick',
-    declare: null, // 直接函数调用，无需声明
+    from: 'vue',
+    declare: null,
     replace: 'nextTick'
   },
   $watch: {
     composable: 'watch',
-    declare: null, // 直接函数调用，无需声明
+    from: 'vue',
+    declare: null,
     replace: 'watch'
   },
   $refs: {
     composable: 'getCurrentInstance',
+    from: 'vue',
     declare: 'const __instance = getCurrentInstance();',
     replace: '__instance.proxy.$refs'
   },
   $el: {
     composable: 'getCurrentInstance',
+    from: 'vue',
     declare: 'const __instance = getCurrentInstance();',
     replace: '__instance.proxy.$el'
   },
   $root: {
     composable: 'getCurrentInstance',
+    from: 'vue',
     declare: 'const __instance = getCurrentInstance();',
     replace: '__instance.proxy.$root'
   },
   $parent: {
     composable: 'getCurrentInstance',
+    from: 'vue',
     declare: 'const __instance = getCurrentInstance();',
     replace: '__instance.proxy.$parent'
   },
   $options: {
     composable: 'getCurrentInstance',
+    from: 'vue',
     declare: 'const __instance = getCurrentInstance();',
     replace: '__instance.proxy.$options'
   },
   $forceUpdate: {
     composable: 'getCurrentInstance',
+    from: 'vue',
     declare: 'const __instance = getCurrentInstance();',
     replace: '__instance.proxy.$forceUpdate'
+  },
+  // ---- vue-router ----
+  $router: {
+    composable: 'useRouter',
+    from: 'vue-router',
+    declare: 'const router = useRouter();',
+    replace: 'router'
+  },
+  $route: {
+    composable: 'useRoute',
+    from: 'vue-router',
+    declare: 'const route = useRoute();',
+    replace: 'route'
+  },
+  // ---- vue-i18n ----
+  $i18n: {
+    composable: 'useI18n',
+    from: 'vue-i18n',
+    declare: 'const __i18n = useI18n();',
+    replace: '__i18n'
+  },
+  $t: {
+    composable: 'useI18n',
+    from: 'vue-i18n',
+    declare: 'const __i18n = useI18n();',
+    replace: '__i18n.t'
+  },
+  $n: {
+    composable: 'useI18n',
+    from: 'vue-i18n',
+    declare: 'const __i18n = useI18n();',
+    replace: '__i18n.n'
+  },
+  $d: {
+    composable: 'useI18n',
+    from: 'vue-i18n',
+    declare: 'const __i18n = useI18n();',
+    replace: '__i18n.d'
+  },
+  $rt: {
+    composable: 'useI18n',
+    from: 'vue-i18n',
+    declare: 'const __i18n = useI18n();',
+    replace: '__i18n.rt'
+  },
+  $te: {
+    composable: 'useI18n',
+    from: 'vue-i18n',
+    declare: 'const __i18n = useI18n();',
+    replace: '__i18n.te'
+  },
+  $tm: {
+    composable: 'useI18n',
+    from: 'vue-i18n',
+    declare: 'const __i18n = useI18n();',
+    replace: '__i18n.tm'
   }
 };
 
@@ -149,14 +217,19 @@ export function generateGlobalApiDeclares(apis: Set<string>): string[] {
 }
 
 /**
- * 收集全局 API 需要从 vue 导入的标识符
+ * 收集全局 API 需要导入的标识符，按来源包分组
  */
-export function collectGlobalApiVueImports(apis: Set<string>): string[] {
-  const result: string[] = [];
+export function collectGlobalApiImports(
+  apis: Set<string>
+): Record<string, string[]> {
+  const result: Record<string, string[]> = {};
   for (const api of apis) {
     const cfg = GLOBAL_API_MAP[api];
-    if (cfg && cfg.composable && !result.includes(cfg.composable)) {
-      result.push(cfg.composable);
+    if (cfg && cfg.composable) {
+      const items = result[cfg.from] ?? (result[cfg.from] = []);
+      if (!items.includes(cfg.composable)) {
+        items.push(cfg.composable);
+      }
     }
   }
   return result;

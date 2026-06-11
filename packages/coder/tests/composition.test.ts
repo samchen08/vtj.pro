@@ -46,5 +46,21 @@ test('composition mode', async () => {
   expect(
     content.match(/const __instance = getCurrentInstance\(\)/g)?.length
   ).toBe(1);
+  // 验证 vue-router API
+  expect(content).toContain("from 'vue-router'");
+  expect(content).toContain('useRouter');
+  expect(content).toContain('useRoute');
+  expect(content).toContain('const router = useRouter()');
+  expect(content).toContain('const route = useRoute()');
+  expect(content).toContain("router.push('/about')");
+  expect(content).toContain('route.params.id');
+  // 验证 vue-i18n API
+  expect(content).toContain("from 'vue-i18n'");
+  expect(content).toContain('useI18n');
+  expect(content).toContain('const __i18n = useI18n()');
+  expect(content).toContain("__i18n.t('hello')");
+  expect(content).toContain('__i18n.locale');
+  // 确保 useI18n 声明不重复
+  expect(content.match(/const __i18n = useI18n\(\)/g)?.length).toBe(1);
   expect(content).toContain('provider');
 });

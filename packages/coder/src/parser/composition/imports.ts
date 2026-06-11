@@ -16,6 +16,8 @@ export interface CompositionImportsInput {
   vueImports: string[];
   /** composables 引入：{ from: [composable, ...] } */
   composableImports: Record<string, string[]>;
+  /** 全局 API 引入（按来源包分组）：{ 'vue': ['useAttrs'], 'vue-router': ['useRouter'] } */
+  globalApiImports: Record<string, string[]>;
 }
 
 /**
@@ -29,7 +31,8 @@ export function parseImports(input: CompositionImportsInput) {
     collectImports,
     platform,
     vueImports,
-    composableImports
+    composableImports,
+    globalApiImports
   } = input;
 
   const uniH5: string[] = [
@@ -70,6 +73,12 @@ export function parseImports(input: CompositionImportsInput) {
 
   // 显式 composables 引入
   for (const [from, names] of Object.entries(composableImports)) {
+    const items = imports[from] ?? (imports[from] = []);
+    items.push(...names);
+  }
+
+  // 全局 API 引入（vue + vue-router 等）
+  for (const [from, names] of Object.entries(globalApiImports)) {
     const items = imports[from] ?? (imports[from] = []);
     items.push(...names);
   }
