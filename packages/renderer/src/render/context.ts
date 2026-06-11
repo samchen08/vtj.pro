@@ -153,6 +153,10 @@ export class Context {
       if (!dom) {
         if (typeof ref === 'string') {
           delete this.$refs[ref];
+          // Composition API: 清除 Vue Ref 对象的 value
+          if ((this as any)[ref] && globalVue.isRef((this as any)[ref])) {
+            (this as any)[ref].value = null;
+          }
           if (id) {
             delete this.__refs[id];
           }
@@ -181,6 +185,10 @@ export class Context {
         ref(el);
       } else if (ref) {
         this.$refs[ref] = this.__getRefEl(this.$refs, ref, el);
+        // Composition API: 同步更新 Vue Ref 对象的 value
+        if ((this as any)[ref] && globalVue.isRef((this as any)[ref])) {
+          (this as any)[ref].value = this.$refs[ref];
+        }
       }
 
       return el;

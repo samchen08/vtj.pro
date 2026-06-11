@@ -811,7 +811,27 @@ export function useProvider(options: UseProviderOptions = {}): Provider {
   return provider;
 }
 
-export function useGlobal() {
+export function useGlobals() {
   const provider = inject(providerKey, null);
   return provider?.globals ?? {};
+}
+
+export function useStore() {
+  const globals = useGlobals();
+  return globals.$store;
+}
+
+export function usePinia() {
+  const globals = useGlobals();
+  return globals.$pinia;
+}
+
+export function useRequest() {
+  const globals = useGlobals();
+  return globals.$request;
+}
+
+export function useLibs() {
+  const globals = useGlobals();
+  return globals.$libs;
 }
