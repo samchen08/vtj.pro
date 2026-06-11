@@ -50,9 +50,9 @@ const vueTemplate = `
 
 /**
  * Composition API 出码模板（<script setup>）
- * 顺序：imports → props/emits/expose → provider → globalApiDeclares →
+ * 顺序：imports → props/emits → provider → globalApiDeclares →
  *      injects → composables → state(reactive) → refs → reactives →
- *      computed → methods → watch → provide → created/setup → lifeCycles
+ *      computed → methods → watch → provide → created/setup → lifeCycles → expose
  */
 const scriptSetupTemplate = `
 // @ts-nocheck
@@ -60,7 +60,6 @@ const scriptSetupTemplate = `
 import { <%= rendererImports %> } from '<%= renderer %>';
 <% if(props) { %>const props = defineProps({ <%= props %> });<% } else if(needsProps) { %>const props = defineProps();<% } %>
 <% if(emits) { %>const emit = defineEmits([<%= emits %>]);<% } else if(needsEmit) { %>const emit = defineEmits();<% } %>
-<% if(expose) { %>defineExpose(<%= expose %>);<% } %>
 const provider = useProvider({ id: '<%= id %>', version: '<%= version %>' });
 <%= globalApiDeclares %>
 <%= injects %>
@@ -78,6 +77,7 @@ const provider = useProvider({ id: '<%= id %>', version: '<%= version %>' });
 <%= createdStatements %>
 <%= setupStatements %>
 <%= lifeCycles %>
+<% if(expose) { %>defineExpose(<%= expose %>);<% } %>
 `;
 
 export const scriptCompiled = template(scriptTemplate);

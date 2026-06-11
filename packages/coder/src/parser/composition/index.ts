@@ -189,7 +189,7 @@ export function parserComposition(
     needsProps: globalApis.has('$props'),
     needsEmit: globalApis.has('$emit'),
     expose:
-      dsl.expose && dsl.expose.length ? JSON.stringify(dsl.expose || []) : '',
+      dsl.expose && dsl.expose.length ? `{ ${dsl.expose.join(', ')} }` : '',
     globalApiDeclares: globalApiDeclares.join('\n'),
     injects: injectArr.join('\n'),
     composables: composablesResult.statements.join('\n'),
