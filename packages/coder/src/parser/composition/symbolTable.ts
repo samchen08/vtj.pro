@@ -1,5 +1,7 @@
 import type { BlockSchema, BlockProp, BlockComposable } from '@vtj/core';
 import { isString } from '@vtj/base';
+import type { GlobalApiConfig } from './globalApi';
+import { GLOBAL_API_MAP } from './globalApi';
 
 /**
  * 符号表：标识 DSL 中可识别的 this.xxx 引用属于哪一类
@@ -24,12 +26,17 @@ export interface SymbolTable {
   dataSources: Set<string>;
   /** 是否生成 state reactive 声明 */
   hasState: boolean;
+  /** 有效的全局 API 映射表（基础 Map + 当前 UI 库 Map） */
+  effectiveApiMap: Record<string, GlobalApiConfig>;
 }
 
 /**
  * 构建符号表
  */
-export function buildSymbolTable(dsl: BlockSchema): SymbolTable {
+export function buildSymbolTable(
+  dsl: BlockSchema,
+  effectiveApiMap: Record<string, GlobalApiConfig> = GLOBAL_API_MAP
+): SymbolTable {
   // refs
   const refs = new Set(Object.keys(dsl.refs ?? {}));
 
@@ -88,6 +95,7 @@ export function buildSymbolTable(dsl: BlockSchema): SymbolTable {
     composables,
     injects,
     dataSources,
-    hasState
+    hasState,
+    effectiveApiMap
   };
 }

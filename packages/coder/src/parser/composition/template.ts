@@ -1,6 +1,7 @@
 import type { NodeSchema, MaterialDescription } from '@vtj/core';
 import { isJSCode } from '../../utils';
 import { parseTemplate } from '../template';
+import type { GlobalApiConfig } from './globalApi';
 import { GLOBAL_API_MAP } from './globalApi';
 
 /**
@@ -10,8 +11,11 @@ import { GLOBAL_API_MAP } from './globalApi';
  * 模板内不需要 .value 解包（Vue 自动处理），故 props/refs/computed 等
  * 通过原 parseTemplate 的 replaceThis 已正确转换为顶层标识符。
  */
-function transformNodesGlobalApi(nodes: NodeSchema[]): NodeSchema[] {
-  const apiEntries = Object.entries(GLOBAL_API_MAP);
+function transformNodesGlobalApi(
+  nodes: NodeSchema[],
+  effectiveMap: Record<string, GlobalApiConfig> = GLOBAL_API_MAP
+): NodeSchema[] {
+  const apiEntries = Object.entries(effectiveMap);
 
   const visit = (item: any): any => {
     if (item === null || item === undefined) return item;
@@ -48,9 +52,10 @@ export function parseTemplateComposition(
   componentMap: Map<string, MaterialDescription>,
   computedKeys: string[] = [],
   context: Record<string, Set<string>> = {},
-  parent?: NodeSchema
+  parent?: NodeSchema,
+  effectiveMap: Record<string, GlobalApiConfig> = GLOBAL_API_MAP
 ) {
-  const transformed = transformNodesGlobalApi(children);
+  const transformed = transformNodesGlobalApi(children, effectiveMap);
   return parseTemplate(
     transformed,
     componentMap,

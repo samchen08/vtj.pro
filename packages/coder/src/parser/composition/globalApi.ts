@@ -1,4 +1,4 @@
-import type { BlockSchema } from '@vtj/core';
+import type { BlockSchema, MaterialDescription } from '@vtj/core';
 import { isJSCode } from '../../utils';
 
 /**
@@ -16,8 +16,9 @@ export interface GlobalApiConfig {
 }
 
 /**
- * 全局 API 映射表
- * 包含 Vue 原生 + 第三方插件通过 this.$xxx 访问的 API
+ * 框架无关的基础全局 API 映射表
+ * 包含 Vue 原生、vue-router、vue-i18n、@vtj/renderer
+ * 不含任何 UI 库（element-plus / ant-design-vue 等）
  */
 export const GLOBAL_API_MAP: Record<string, GlobalApiConfig> = {
   // ---- Vue 原生 ----
@@ -186,58 +187,142 @@ export const GLOBAL_API_MAP: Record<string, GlobalApiConfig> = {
     from: '__renderer__',
     declare: 'const apis = useApis();',
     replace: 'apis'
-  },
-  // ---- element-plus ----
-  $loading: {
-    composable: 'ElLoading',
-    from: 'element-plus',
-    declare: null,
-    replace: 'ElLoading.service'
-  },
-  $message: {
-    composable: 'ElMessage',
-    from: 'element-plus',
-    declare: null,
-    replace: 'ElMessage'
-  },
-  $notify: {
-    composable: 'ElNotification',
-    from: 'element-plus',
-    declare: null,
-    replace: 'ElNotification'
-  },
-  $messageBox: {
-    composable: 'ElMessageBox',
-    from: 'element-plus',
-    declare: null,
-    replace: 'ElMessageBox'
-  },
-  $msgbox: {
-    composable: 'ElMessageBox',
-    from: 'element-plus',
-    declare: null,
-    replace: 'ElMessageBox'
-  },
-  $confirm: {
-    composable: 'ElMessageBox',
-    from: 'element-plus',
-    declare: null,
-    replace: 'ElMessageBox.confirm'
-  },
-  $prompt: {
-    composable: 'ElMessageBox',
-    from: 'element-plus',
-    declare: null,
-    replace: 'ElMessageBox.prompt'
   }
 };
+
+/**
+ * UI 库专属全局 API 映射（按包名分组）
+ * 同名 key 会在运行时覆盖 GLOBAL_API_MAP 中的同名条目
+ */
+export const UI_GLOBAL_API_MAPS: Record<
+  string,
+  Record<string, GlobalApiConfig>
+> = {
+  'element-plus': {
+    $loading: {
+      composable: 'ElLoading',
+      from: 'element-plus',
+      declare: null,
+      replace: 'ElLoading.service'
+    },
+    $message: {
+      composable: 'ElMessage',
+      from: 'element-plus',
+      declare: null,
+      replace: 'ElMessage'
+    },
+    $notify: {
+      composable: 'ElNotification',
+      from: 'element-plus',
+      declare: null,
+      replace: 'ElNotification'
+    },
+    $messageBox: {
+      composable: 'ElMessageBox',
+      from: 'element-plus',
+      declare: null,
+      replace: 'ElMessageBox'
+    },
+    $msgbox: {
+      composable: 'ElMessageBox',
+      from: 'element-plus',
+      declare: null,
+      replace: 'ElMessageBox'
+    },
+    $confirm: {
+      composable: 'ElMessageBox',
+      from: 'element-plus',
+      declare: null,
+      replace: 'ElMessageBox.confirm'
+    },
+    $prompt: {
+      composable: 'ElMessageBox',
+      from: 'element-plus',
+      declare: null,
+      replace: 'ElMessageBox.prompt'
+    }
+  },
+  'ant-design-vue': {
+    $confirm: {
+      composable: 'Modal',
+      from: 'ant-design-vue',
+      declare: null,
+      replace: 'Modal.confirm'
+    },
+    $message: {
+      composable: 'message',
+      from: 'ant-design-vue',
+      declare: null,
+      replace: 'message'
+    },
+    $notification: {
+      composable: 'notification',
+      from: 'ant-design-vue',
+      declare: null,
+      replace: 'notification'
+    },
+    $info: {
+      composable: 'message',
+      from: 'ant-design-vue',
+      declare: null,
+      replace: 'message.info'
+    },
+    $success: {
+      composable: 'message',
+      from: 'ant-design-vue',
+      declare: null,
+      replace: 'message.success'
+    },
+    $warning: {
+      composable: 'message',
+      from: 'ant-design-vue',
+      declare: null,
+      replace: 'message.warning'
+    },
+    $error: {
+      composable: 'message',
+      from: 'ant-design-vue',
+      declare: null,
+      replace: 'message.error'
+    }
+  }
+};
+
+/** 已知 UI 库包名列表 */
+export const UI_PACKAGES = Object.keys(UI_GLOBAL_API_MAPS);
+
+/**
+ * 从 componentMap 探测当前激活的 UI 库包名
+ */
+export function detectUIPackage(
+  componentMap: Map<string, MaterialDescription>
+): string | null {
+  for (const [, desc] of componentMap) {
+    if (UI_PACKAGES.includes(desc.package as string))
+      return desc.package as string;
+  }
+  return null;
+}
+
+/**
+ * 构建有效 API 映射：基础 Map + 当前 UI 库 Map（UI 库覆盖同名 key）
+ */
+export function buildEffectiveApiMap(
+  uiPackage: string | null
+): Record<string, GlobalApiConfig> {
+  const uiMap = uiPackage ? (UI_GLOBAL_API_MAPS[uiPackage] ?? {}) : {};
+  return { ...GLOBAL_API_MAP, ...uiMap };
+}
 
 /**
  * 全局 API 检测器
  * 走读 DSL 中所有 JSExpression / JSFunction 的 value 字符串
  * 识别使用到的 this.$xxx，返回出现的 API 名集合
  */
-export function detectGlobalApis(dsl: BlockSchema): Set<string> {
+export function detectGlobalApis(
+  dsl: BlockSchema,
+  effectiveMap: Record<string, GlobalApiConfig> = GLOBAL_API_MAP
+): Set<string> {
   const apis = new Set<string>();
   const regex = /this\.\$(\w+)\b/g;
 
@@ -254,7 +339,7 @@ export function detectGlobalApis(dsl: BlockSchema): Set<string> {
       regex.lastIndex = 0;
       while ((match = regex.exec(item.value)) !== null) {
         const apiName = '$' + match[1];
-        if (apiName in GLOBAL_API_MAP) {
+        if (apiName in effectiveMap) {
           apis.add(apiName);
         }
       }
@@ -286,10 +371,13 @@ export function detectGlobalApis(dsl: BlockSchema): Set<string> {
 /**
  * 根据检测到的全局 API 生成顶层声明语句
  */
-export function generateGlobalApiDeclares(apis: Set<string>): string[] {
+export function generateGlobalApiDeclares(
+  apis: Set<string>,
+  effectiveMap: Record<string, GlobalApiConfig> = GLOBAL_API_MAP
+): string[] {
   const declares: string[] = [];
   for (const api of apis) {
-    const cfg = GLOBAL_API_MAP[api];
+    const cfg = effectiveMap[api];
     if (cfg && cfg.declare && !declares.includes(cfg.declare)) {
       declares.push(cfg.declare);
     }
@@ -301,11 +389,12 @@ export function generateGlobalApiDeclares(apis: Set<string>): string[] {
  * 收集全局 API 需要导入的标识符，按来源包分组
  */
 export function collectGlobalApiImports(
-  apis: Set<string>
+  apis: Set<string>,
+  effectiveMap: Record<string, GlobalApiConfig> = GLOBAL_API_MAP
 ): Record<string, string[]> {
   const result: Record<string, string[]> = {};
   for (const api of apis) {
-    const cfg = GLOBAL_API_MAP[api];
+    const cfg = effectiveMap[api];
     if (cfg && cfg.composable) {
       const items = result[cfg.from] ?? (result[cfg.from] = []);
       if (!items.includes(cfg.composable)) {

@@ -9,7 +9,9 @@ import { buildSymbolTable } from './symbolTable';
 import {
   detectGlobalApis,
   generateGlobalApiDeclares,
-  collectGlobalApiImports
+  collectGlobalApiImports,
+  detectUIPackage,
+  buildEffectiveApiMap
 } from './globalApi';
 import { parseRefs } from './refs';
 import { parseReactives, parseStateAsReactive } from './reactives';
@@ -94,13 +96,17 @@ export function parserComposition(
 ): TokenComposition {
   const { dsl } = collecter;
 
-  // 1. 构建符号表
-  const symbols = buildSymbolTable(dsl);
+  // 1. 探测当前 UI 库，构建有效 API 映射
+  const uiPackage = detectUIPackage(componentMap);
+  const effectiveMap = buildEffectiveApiMap(uiPackage);
 
-  // 2. 检测全局 API
-  const globalApis = detectGlobalApis(dsl);
-  const globalApiDeclares = generateGlobalApiDeclares(globalApis);
-  const globalApiImports = collectGlobalApiImports(globalApis);
+  // 2. 构建符号表（含 effectiveApiMap）
+  const symbols = buildSymbolTable(dsl, effectiveMap);
+
+  // 3. 检测全局 API
+  const globalApis = detectGlobalApis(dsl, effectiveMap);
+  const globalApiDeclares = generateGlobalApiDeclares(globalApis, effectiveMap);
+  const globalApiImports = collectGlobalApiImports(globalApis, effectiveMap);
 
   // 提取 renderer 包的额外 API（__renderer__ 标记），与 useProvider 合并
   const rendererApiIds = globalApiImports['__renderer__'] || [];
@@ -111,7 +117,9 @@ export function parserComposition(
     dsl.nodes || [],
     componentMap,
     Object.keys(dsl.computed || {}),
-    collecter.context
+    collecter.context,
+    undefined,
+    effectiveMap
   );
   const blocksImport = tplResult.importBlocks.map(
     (n: any) => `import ${n.name} from './${n.id}.vue';`

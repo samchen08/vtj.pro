@@ -1,7 +1,6 @@
 import type { JSExpression, JSFunction } from '@vtj/core';
 import { isJSCode } from '../../utils';
 import type { SymbolTable } from './symbolTable';
-import { GLOBAL_API_MAP } from './globalApi';
 
 /**
  * 转换上下文：影响 ref/computed 的 .value 解包行为
@@ -34,7 +33,7 @@ export function transformExpression(
   let result = code;
 
   // 1. 处理全局 API：this.$router → router
-  for (const [api, cfg] of Object.entries(GLOBAL_API_MAP)) {
+  for (const [api, cfg] of Object.entries(symbols.effectiveApiMap)) {
     // 转义 $ 与正则字符
     const escaped = api.replace(/\$/g, '\\$');
     const regex = new RegExp(`this\\.${escaped}\\b`, 'g');

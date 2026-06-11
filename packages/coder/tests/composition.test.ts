@@ -1,8 +1,15 @@
 import { expect, test } from 'vitest';
 import { generator } from '../src';
 import { test_composition as dsl } from './dsl/test_composition';
+import { test_composition_antd as dslAntd } from './dsl/test_composition_antd';
 
+// element-plus 项目的 componentMap
 const map = new Map();
+map.set('ElButton', { name: 'ElButton', package: 'element-plus' } as any);
+
+// ant-design-vue 项目的 componentMap
+const mapAntd = new Map();
+mapAntd.set('AButton', { name: 'AButton', package: 'ant-design-vue' } as any);
 
 test('composition mode', async () => {
   let content: string = '';
@@ -81,4 +88,37 @@ test('composition mode', async () => {
   // 确保 element-plus 只有一条 import
   expect(content.match(/from 'element-plus'/g)?.length).toBe(1);
   expect(content).toContain('provider');
+});
+
+test('composition mode - ant-design-vue', async () => {
+  let content: string = '';
+  let err: any = null;
+  try {
+    content = await generator(dslAntd as any, mapAntd, [], 'web', false);
+  } catch (e: any) {
+    err = e;
+    console.log('Generation error (antd):', e?.message);
+    if (e?.content) console.log('Generated source:\n', e.content);
+  }
+  console.log('======= Generated Vue (antd) =======');
+  console.log(content);
+  console.log('======= End =======');
+  expect(err).toBeNull();
+  // 验证 ant-design-vue $confirm
+  expect(content).toContain("from 'ant-design-vue'");
+  expect(content).toContain('Modal');
+  expect(content).toContain('Modal.confirm(');
+  // 验证 ant-design-vue $message
+  expect(content).toContain('message.success(');
+  // 验证 ant-design-vue $notify
+  expect(content).toContain('notification(');
+  // 验证 ant-design-vue $notification
+  expect(content).toContain('notification.open(');
+  // 验证 ant-design-vue $info / $success / $warning / $error
+  expect(content).toContain('message.info(');
+  expect(content).toContain('message.success(');
+  expect(content).toContain('message.warning(');
+  expect(content).toContain('message.error(');
+  // 确保 ant-design-vue 只有一条 import
+  expect(content.match(/from 'ant-design-vue'/g)?.length).toBe(1);
 });
