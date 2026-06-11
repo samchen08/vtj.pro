@@ -422,3 +422,76 @@ function handleClick() {
     expect(handleClick.value).toContain('this.$confirm');
   });
 });
+
+describe('parseVue Composition mode props in template expressions', () => {
+  const propsSource = `
+<template>
+  <span>{{ props.title }}</span>
+  <span>{{ title }}</span>
+</template>
+
+<script lang="ts" setup>
+// @ts-nocheck
+
+import { computed } from 'vue';
+import { useProvider } from '@vtj/renderer';
+const props = defineProps({
+  title: {
+    type: [String],
+    required: false,
+    default: ''
+  }
+});
+
+const provider = useProvider({ id: '1kwhcdeh', version: '1781199016753' });
+
+</script>
+<style lang="css" scoped>
+
+</style>
+`;
+
+  test('props.title in template → this.title', async () => {
+    const result = await parseVue({
+      project,
+      id: 'test-props-template',
+      name: 'PropsDemo',
+      source: propsSource
+    });
+
+    expect(result.apiMode).toBe('composition');
+    expect(result.nodes).toBeDefined();
+    expect(result.nodes!.length).toBeGreaterThan(0);
+
+    // Find the span with props.title expression
+    const spanNode = result.nodes!.find(
+      (n) => n.name === 'span' && typeof n.children === 'object'
+    );
+    expect(spanNode).toBeDefined();
+
+    const children = spanNode!.children as any;
+    // props.title → this.title (NOT this.$this.title)
+    expect(children.value).toBe('this.title');
+    expect(children.value).not.toContain('$this');
+  });
+
+  test('bare prop name title in template → this.title', async () => {
+    const result = await parseVue({
+      project,
+      id: 'test-props-bare',
+      name: 'PropsBareDemo',
+      source: propsSource
+    });
+
+    // Find the span with bare title expression
+    const spanNodes = result.nodes!.filter(
+      (n) => n.name === 'span' && typeof n.children === 'object'
+    );
+    expect(spanNodes.length).toBe(2);
+
+    const secondSpan = spanNodes[1];
+    const children = secondSpan.children as any;
+    // bare title → this.title
+    expect(children.value).toBe('this.title');
+  });
+});

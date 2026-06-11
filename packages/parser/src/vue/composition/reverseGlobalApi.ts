@@ -28,6 +28,9 @@ export function buildReverseGlobalApiMap(
   // 基础全局 API
   for (const [api, cfg] of Object.entries(GLOBAL_API_MAP)) {
     if (!cfg.replace) continue;
+    // 排除 $props：props 在 Composition 模式中由 defineProps() 定义，
+    // 不是全局 API 变量，不应映射为 this.$props（会导致 props.title → this.$this.title）
+    if (api === '$props') continue;
     if (cfg.replace.includes('.')) {
       const [obj, prop] = cfg.replace.split('.');
       if (!member[obj]) member[obj] = {};

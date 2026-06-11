@@ -11,8 +11,9 @@ import type { ReverseSymbolTable } from './reverseSymbolTable';
  * 1. ref/computed 的 .value 解包：xxx.value → this.xxx.value
  * 2. ref/computed 裸名：xxx → this.xxx.value
  * 3. 成员访问形式的全局 API：__i18n.t → this.$t, ElMessageBox.confirm → this.$confirm
- * 4. 全局 API 变量：router → this.$router
- * 5. props.xxx → this.xxx；裸 prop → this.xxx
+ * 4. props.xxx → this.xxx；裸 prop → this.xxx
+ *    （必须在全局 API 变量之前执行，避免 props 与 $props 冲突）
+ * 5. 全局 API 变量：router → this.$router
  * 6. state → this.state
  * 7. reactives：obj → this.obj
  * 8. methods/composables/injects/dataSources：name → this.name
@@ -57,18 +58,19 @@ export function reverseTransformExpression(
     }
   }
 
-  // 4. 全局 API 变量 → this.$xxx
-  for (const [varName, apiName] of Object.entries(symbols.reverseApiMap)) {
-    result = replacer(result, varName, `this.${apiName}`);
-  }
-
-  // 5. props.xxx → this.xxx
+  // 4. props.xxx → this.xxx
+  // 必须在全局 API 变量（下一轮）之前执行，以免 props 被 $props 映射污染
   for (const name of symbols.props) {
     result = replaceMemberAccess(result, 'props', name, `this.${name}`);
   }
   // 裸 prop 名 → this.prop（模板中直接使用 prop 名的情况）
   for (const name of symbols.props) {
     result = replacer(result, name, `this.${name}`);
+  }
+
+  // 5. 全局 API 变量 → this.$xxx
+  for (const [varName, apiName] of Object.entries(symbols.reverseApiMap)) {
+    result = replacer(result, varName, `this.${apiName}`);
   }
 
   // 6. state reactive 整体：state → this.state
