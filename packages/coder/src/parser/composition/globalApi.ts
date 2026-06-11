@@ -3,97 +3,83 @@ import { isJSCode } from '../../utils';
 
 /**
  * 全局 API 配置：DSL 中 this.$xxx 形式 → Composition API 等价物
- * - composable: 需要从 from 包导入的函数（无则为 null）
- * - declare: 是否需要在 setup 顶部生成声明语句
- * - replace: 替换后的标识符名称
+ * 仅包含 Vue 原生 Options API 中可用的 this.$xxx
  */
 export interface GlobalApiConfig {
-  /** 需要 import 的标识符（如 useRouter） */
+  /** 需要 import 的标识符（如 useAttrs），无则为 null */
   composable: string | null;
-  /** 包来源 */
-  from: string | null;
   /** 顶层声明语句（无则不生成） */
   declare: string | null;
-  /** 替换后的名称（this.$router → router） */
+  /** 替换后的名称（this.$attrs → attrs） */
   replace: string;
 }
 
 /**
- * 全局 API 映射表
+ * Vue 原生全局 API 映射表
+ * 仅包含 Vue Options API 中通过 this.$xxx 访问的内置 API
  */
 export const GLOBAL_API_MAP: Record<string, GlobalApiConfig> = {
-  $router: {
-    composable: 'useRouter',
-    from: 'vue-router',
-    declare: 'const router = useRouter();',
-    replace: 'router'
-  },
-  $route: {
-    composable: 'useRoute',
-    from: 'vue-router',
-    declare: 'const route = useRoute();',
-    replace: 'route'
-  },
   $emit: {
     // emit 已通过 defineEmits 自动获得
     composable: null,
-    from: null,
     declare: null,
     replace: 'emit'
   },
+  $props: {
+    // props 已通过 defineProps 自动获得
+    composable: null,
+    declare: null,
+    replace: 'props'
+  },
   $attrs: {
     composable: 'useAttrs',
-    from: 'vue',
     declare: 'const attrs = useAttrs();',
     replace: 'attrs'
   },
   $slots: {
     composable: 'useSlots',
-    from: 'vue',
     declare: 'const slots = useSlots();',
     replace: 'slots'
   },
   $nextTick: {
     composable: 'nextTick',
-    from: 'vue',
     declare: null, // 直接函数调用，无需声明
     replace: 'nextTick'
   },
+  $watch: {
+    composable: 'watch',
+    declare: null, // 直接函数调用，无需声明
+    replace: 'watch'
+  },
+  $refs: {
+    composable: 'getCurrentInstance',
+    declare: 'const __instance = getCurrentInstance();',
+    replace: '__instance.proxy.$refs'
+  },
+  $el: {
+    composable: 'getCurrentInstance',
+    declare: 'const __instance = getCurrentInstance();',
+    replace: '__instance.proxy.$el'
+  },
+  $root: {
+    composable: 'getCurrentInstance',
+    declare: 'const __instance = getCurrentInstance();',
+    replace: '__instance.proxy.$root'
+  },
+  $parent: {
+    composable: 'getCurrentInstance',
+    declare: 'const __instance = getCurrentInstance();',
+    replace: '__instance.proxy.$parent'
+  },
+  $options: {
+    composable: 'getCurrentInstance',
+    declare: 'const __instance = getCurrentInstance();',
+    replace: '__instance.proxy.$options'
+  },
   $forceUpdate: {
     composable: 'getCurrentInstance',
-    from: 'vue',
     declare: 'const __instance = getCurrentInstance();',
     replace: '__instance.proxy.$forceUpdate'
-  },
-  $store: {
-    composable: 'useStore',
-    from: 'pinia',
-    declare: 'const store = useStore();',
-    replace: 'store'
-  },
-  $pinia: {
-    composable: 'getActivePinia',
-    from: 'pinia',
-    declare: 'const pinia = getActivePinia();',
-    replace: 'pinia'
-  },
-  $t: {
-    composable: 'useI18n',
-    from: 'vue-i18n',
-    declare: 'const { t } = useI18n();',
-    replace: 't'
-  },
-  $i18n: {
-    composable: 'useI18n',
-    from: 'vue-i18n',
-    declare: 'const i18n = useI18n();',
-    replace: 'i18n'
-  },
-  $provider: {
-    composable: 'inject',
-    from: 'vue',
-    declare: "const provider = inject('provider');",
-    replace: 'provider'
   }
 };
 
@@ -131,7 +117,6 @@ export function detectGlobalApis(dsl: BlockSchema): Set<string> {
     }
   };
 
-  // 走读除 nodes 外的所有顶层字段（nodes 内事件绑定单独处理）
   visit(dsl.refs);
   visit(dsl.reactives);
   visit(dsl.state);
@@ -151,28 +136,12 @@ export function detectGlobalApis(dsl: BlockSchema): Set<string> {
 
 /**
  * 根据检测到的全局 API 生成顶层声明语句
- * 特殊处理：$t 和 $i18n 同时存在时合并为一条声明
- * 特殊处理：$provider 不生成声明，因为模板中已经有 useProvider()
  */
 export function generateGlobalApiDeclares(apis: Set<string>): string[] {
   const declares: string[] = [];
-
-  // 处理 vue-i18n 特殊合并
-  const hasT = apis.has('$t');
-  const hasI18n = apis.has('$i18n');
-  if (hasT && hasI18n) {
-    declares.push('const { t, ...i18n } = useI18n();');
-  } else if (hasT) {
-    declares.push('const { t } = useI18n();');
-  } else if (hasI18n) {
-    declares.push('const i18n = useI18n();');
-  }
-
   for (const api of apis) {
-    if (api === '$t' || api === '$i18n') continue; // 已处理
-    if (api === '$provider') continue; // 模板中已有 useProvider()
     const cfg = GLOBAL_API_MAP[api];
-    if (cfg && cfg.declare) {
+    if (cfg && cfg.declare && !declares.includes(cfg.declare)) {
       declares.push(cfg.declare);
     }
   }
@@ -180,19 +149,14 @@ export function generateGlobalApiDeclares(apis: Set<string>): string[] {
 }
 
 /**
- * 收集全局 API 需要的 import：返回 { from: [composable, ...] }
+ * 收集全局 API 需要从 vue 导入的标识符
  */
-export function collectGlobalApiImports(
-  apis: Set<string>
-): Record<string, string[]> {
-  const result: Record<string, string[]> = {};
+export function collectGlobalApiVueImports(apis: Set<string>): string[] {
+  const result: string[] = [];
   for (const api of apis) {
     const cfg = GLOBAL_API_MAP[api];
-    if (cfg && cfg.composable && cfg.from) {
-      const arr = result[cfg.from] ?? (result[cfg.from] = []);
-      if (!arr.includes(cfg.composable)) {
-        arr.push(cfg.composable);
-      }
+    if (cfg && cfg.composable && !result.includes(cfg.composable)) {
+      result.push(cfg.composable);
     }
   }
   return result;

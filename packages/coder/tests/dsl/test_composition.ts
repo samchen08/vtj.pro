@@ -24,7 +24,7 @@ export const test_composition = {
     handleClick: {
       type: 'JSFunction',
       value:
-        'function() { this.count++; this.form.name = "x"; this.state.foo = "baz"; this.$emit("change", this.count); this.$router.push("/about"); }'
+        'function() { this.count++; this.form.name = "x"; this.state.foo = "baz"; this.$emit("change", this.count); this.$forceUpdate(); }'
     },
     log: {
       type: 'JSFunction',
@@ -33,7 +33,15 @@ export const test_composition = {
     },
     getEnv: {
       type: 'JSFunction',
-      value: 'function() { return this.$provider?.env?.NODE_ENV; }'
+      value: 'function() { return this.$attrs?.class; }'
+    },
+    getParent: {
+      type: 'JSFunction',
+      value: 'function() { return this.$parent; }'
+    },
+    getEl: {
+      type: 'JSFunction',
+      value: 'function() { return this.$el; }'
     }
   },
   watch: [

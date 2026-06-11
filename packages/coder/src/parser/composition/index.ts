@@ -9,7 +9,7 @@ import { buildSymbolTable } from './symbolTable';
 import {
   detectGlobalApis,
   generateGlobalApiDeclares,
-  collectGlobalApiImports
+  collectGlobalApiVueImports
 } from './globalApi';
 import { parseRefs } from './refs';
 import { parseReactives, parseStateAsReactive } from './reactives';
@@ -37,6 +37,10 @@ export interface TokenComposition {
   props: string;
   /** defineEmits 列表（已带引号的字符串） */
   emits: string;
+  /** 是否需要生成 defineProps（DSL 中使用了 this.$props） */
+  needsProps: boolean;
+  /** 是否需要生成 defineEmits（DSL 中使用了 this.$emit） */
+  needsEmit: boolean;
   /** defineExpose 参数 */
   expose: string;
   /** 全局 API 顶层声明（const router = useRouter() 等） */
@@ -93,8 +97,8 @@ export function parserComposition(
 
   // 2. 检测全局 API
   const globalApis = detectGlobalApis(dsl);
-  const globalApiImports = collectGlobalApiImports(globalApis);
   const globalApiDeclares = generateGlobalApiDeclares(globalApis);
+  const globalApiVueImports = collectGlobalApiVueImports(globalApis);
 
   // 3. 解析 template（template 内会收集 components / methods / importBlocks）
   const tplResult = parseTemplateComposition(
@@ -144,6 +148,7 @@ export function parserComposition(
   if (injectArr.length > 0) vueImports.add('inject');
   if (provideArr.length > 0) vueImports.add('provide');
   for (const hook of lifeCyclesResult.usedHooks) vueImports.add(hook);
+  for (const id of globalApiVueImports) vueImports.add(id);
 
   // 6. 解析 imports
   const { imports, uniComponents } = parseImports({
@@ -153,7 +158,6 @@ export function parserComposition(
     collectImports: collecter.imports,
     platform,
     vueImports: Array.from(vueImports),
-    globalApiImports,
     composableImports: composablesResult.imports
   });
 
@@ -168,6 +172,8 @@ export function parserComposition(
     imports: '\n' + imports.join('\n'),
     props: parseProps(dsl.props).join(','),
     emits: parseEmits(dsl.emits).join(','),
+    needsProps: globalApis.has('$props'),
+    needsEmit: globalApis.has('$emit'),
     expose:
       dsl.expose && dsl.expose.length ? JSON.stringify(dsl.expose || []) : '',
     globalApiDeclares: globalApiDeclares.join('\n'),

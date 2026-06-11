@@ -4,8 +4,8 @@
     :current="props.current"
     :context="props.context"
     :list="list"
-    nameLabel="状态数据名称"
-    valueLabel="状态初始值 [ JSExpression ]"
+    nameLabel="名称"
+    valueLabel="初始值 [ JSExpression ]"
     :createEmpty="createEmpty"
     :remove="remove"
     :submit="submit"></Group>

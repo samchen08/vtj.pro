@@ -14,8 +14,6 @@ export interface CompositionImportsInput {
   platform: PlatformType;
   /** Vue 需要导入的 Composition API */
   vueImports: string[];
-  /** 全局 API 引入：{ from: [composable, ...] } */
-  globalApiImports: Record<string, string[]>;
   /** composables 引入：{ from: [composable, ...] } */
   composableImports: Record<string, string[]>;
 }
@@ -31,7 +29,6 @@ export function parseImports(input: CompositionImportsInput) {
     collectImports,
     platform,
     vueImports,
-    globalApiImports,
     composableImports
   } = input;
 
@@ -69,12 +66,6 @@ export function parseImports(input: CompositionImportsInput) {
     if (platform === 'uniapp' && uniH5.includes(name)) {
       uniComponents.push(...Array.from(value));
     }
-  }
-
-  // 全局 API（vue-router 等）
-  for (const [from, names] of Object.entries(globalApiImports)) {
-    const items = imports[from] ?? (imports[from] = []);
-    items.push(...names);
   }
 
   // 显式 composables 引入
