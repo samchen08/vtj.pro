@@ -19,7 +19,7 @@
   "dependencies": {
     "@vtj/renderer": "latest",
     "@vtj/h5": "latest",
-    "vue": "~3.5.5",
+    "vue": "3.5.35",
     "vue-router": "~4.6.0",
     "pinia": "~3.0.2",
     "vue-i18n": "~11.2.2"

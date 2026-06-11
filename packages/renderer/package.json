@@ -1,7 +1,7 @@
 {
   "name": "@vtj/renderer",
   "private": false,
-  "version": "0.17.6",
+  "version": "0.17.8",
   "type": "module",
   "keywords": [
     "低代码引擎",
@@ -28,13 +28,14 @@
   },
   "dependencies": {
     "@vtj/core": "workspace:~",
-    "@vtj/utils": "workspace:~"
+    "@vtj/utils": "workspace:~",
+    "eval5": "^1.4.8"
   },
   "devDependencies": {
     "@vtj/cli": "workspace:~",
     "@vtj/icons": "workspace:~",
     "@vtj/ui": "workspace:~",
-    "vue": "~3.5.5",
+    "vue": "3.5.35",
     "vue-router": "~4.6.0"
   },
   "exports": {
