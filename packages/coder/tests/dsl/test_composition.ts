@@ -66,6 +66,14 @@ export const test_composition = {
     showLoading: {
       type: 'JSFunction',
       value: 'function() { this.$loading({ text: "Loading..." }); }'
+    },
+    showMessage: {
+      type: 'JSFunction',
+      value: 'function() { this.$message.success("ok"); }'
+    },
+    showConfirm: {
+      type: 'JSFunction',
+      value: 'async function() { await this.$confirm("sure?"); }'
     }
   },
   watch: [

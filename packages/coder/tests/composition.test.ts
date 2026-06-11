@@ -73,5 +73,12 @@ test('composition mode', async () => {
   expect(content).toContain("from 'element-plus'");
   expect(content).toContain('ElLoading');
   expect(content).toContain('ElLoading.service({');
+  // 验证 element-plus 其他全局 API
+  expect(content).toContain('ElMessage');
+  expect(content).toContain('ElMessage.success(');
+  expect(content).toContain('ElMessageBox');
+  expect(content).toContain('ElMessageBox.confirm(');
+  // 确保 element-plus 只有一条 import
+  expect(content.match(/from 'element-plus'/g)?.length).toBe(1);
   expect(content).toContain('provider');
 });

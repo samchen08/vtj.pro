@@ -191,8 +191,44 @@ export const GLOBAL_API_MAP: Record<string, GlobalApiConfig> = {
   $loading: {
     composable: 'ElLoading',
     from: 'element-plus',
-    declare: null, // 无需声明变量，直接用命名空间访问
+    declare: null,
     replace: 'ElLoading.service'
+  },
+  $message: {
+    composable: 'ElMessage',
+    from: 'element-plus',
+    declare: null,
+    replace: 'ElMessage'
+  },
+  $notify: {
+    composable: 'ElNotification',
+    from: 'element-plus',
+    declare: null,
+    replace: 'ElNotification'
+  },
+  $messageBox: {
+    composable: 'ElMessageBox',
+    from: 'element-plus',
+    declare: null,
+    replace: 'ElMessageBox'
+  },
+  $msgbox: {
+    composable: 'ElMessageBox',
+    from: 'element-plus',
+    declare: null,
+    replace: 'ElMessageBox'
+  },
+  $confirm: {
+    composable: 'ElMessageBox',
+    from: 'element-plus',
+    declare: null,
+    replace: 'ElMessageBox.confirm'
+  },
+  $prompt: {
+    composable: 'ElMessageBox',
+    from: 'element-plus',
+    declare: null,
+    replace: 'ElMessageBox.prompt'
   }
 };
 
