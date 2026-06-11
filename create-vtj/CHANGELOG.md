@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.22](https://gitee.com/newgateway/vtj/compare/create-vtj@0.12.21...create-vtj@0.12.22) (2026-06-11)
+
+
+### Features
+
+* **uniapp:** 集成 axios 适配器并添加 URLSearchParams 补丁 ([59ac3a2](https://gitee.com/newgateway/vtj/commits/59ac3a2b1c55b26538cdfa6605d8927cba544526))
+
+
+
+
+
 ## [0.12.21](https://gitee.com/newgateway/vtj/compare/create-vtj@0.12.20...create-vtj@0.12.21) (2026-06-11)
 
 
