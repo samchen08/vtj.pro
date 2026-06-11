@@ -69,5 +69,9 @@ test('composition mode', async () => {
   expect(content).toContain('store.state.user');
   // 确保 @vtj/renderer 只有一条 import
   expect(content.match(/from '@vtj\/renderer'/g)?.length).toBe(1);
+  // 验证 element-plus $loading
+  expect(content).toContain("from 'element-plus'");
+  expect(content).toContain('ElLoading');
+  expect(content).toContain('ElLoading.service({');
   expect(content).toContain('provider');
 });

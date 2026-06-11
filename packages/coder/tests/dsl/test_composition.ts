@@ -62,6 +62,10 @@ export const test_composition = {
     getStoreUser: {
       type: 'JSFunction',
       value: 'function() { return this.$store.state.user; }'
+    },
+    showLoading: {
+      type: 'JSFunction',
+      value: 'function() { this.$loading({ text: "Loading..." }); }'
     }
   },
   watch: [

@@ -186,6 +186,13 @@ export const GLOBAL_API_MAP: Record<string, GlobalApiConfig> = {
     from: '__renderer__',
     declare: 'const apis = useApis();',
     replace: 'apis'
+  },
+  // ---- element-plus ----
+  $loading: {
+    composable: 'ElLoading',
+    from: 'element-plus',
+    declare: null, // 无需声明变量，直接用命名空间访问
+    replace: 'ElLoading.service'
   }
 };
 
