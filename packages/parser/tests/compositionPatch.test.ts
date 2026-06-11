@@ -76,6 +76,55 @@ describe('compositionPatch', () => {
     expect(result).toBe('this.$provider?.env?.NODE_ENV');
   });
 
+  test('should replace __i18n.t with this.$t', () => {
+    const input = '__i18n.t("hello")';
+    const result = compositionPatch(input, baseOptions);
+    expect(result).toBe('this.$t("hello")');
+  });
+
+  test('should replace __i18n.n with this.$n', () => {
+    const input = '__i18n.n(1000)';
+    const result = compositionPatch(input, baseOptions);
+    expect(result).toBe('this.$n(1000)');
+  });
+
+  test('should replace nextTick with this.$nextTick', () => {
+    const opts = {
+      ...baseOptions,
+      globalApiVars: { ...baseOptions.globalApiVars, nextTick: '$nextTick' }
+    };
+    const input = 'await nextTick()';
+    const result = compositionPatch(input, opts);
+    expect(result).toBe('await this.$nextTick()');
+  });
+
+  test('should replace attrs with this.$attrs', () => {
+    const opts = {
+      ...baseOptions,
+      globalApiVars: { ...baseOptions.globalApiVars, attrs: '$attrs' }
+    };
+    const input = 'attrs.class';
+    const result = compositionPatch(input, opts);
+    expect(result).toBe('this.$attrs.class');
+  });
+
+  test('should replace slots with this.$slots', () => {
+    const opts = {
+      ...baseOptions,
+      globalApiVars: { ...baseOptions.globalApiVars, slots: '$slots' }
+    };
+    const input = 'slots.default';
+    const result = compositionPatch(input, opts);
+    expect(result).toBe('this.$slots.default');
+  });
+
+  test('should replace composables destructure fields', () => {
+    const opts = { ...baseOptions, composables: ['mouse', 'x', 'y'] };
+    const input = 'x + y';
+    const result = compositionPatch(input, opts);
+    expect(result).toBe('this.x + this.y');
+  });
+
   test('should replace props.xxx with this.xxx', () => {
     const input = 'props.title + " " + props.visible';
     const result = compositionPatch(input, baseOptions);

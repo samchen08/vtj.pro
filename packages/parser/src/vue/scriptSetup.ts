@@ -38,6 +38,8 @@ const LIFECYCLE_MAP: Record<string, string> = {
   onBeforeUnmount: 'beforeUnmount',
   onUnmounted: 'unmounted',
   onErrorCaptured: 'errorCaptured',
+  onRenderTracked: 'renderTracked',
+  onRenderTriggered: 'renderTriggered',
   onActivated: 'activated',
   onDeactivated: 'deactivated'
 };

@@ -17,6 +17,7 @@ import { parseStyle, type CSSRules } from './style';
 import { htmlToNodes } from './html';
 import { patchCode, replacer } from './utils';
 import { compositionPatch } from './compositionPatch';
+import { buildReverseSymbolTable } from './composition/reverseSymbolTable';
 import { ComponentValidator, AutoFixer } from '../tools';
 
 export type IParseVueOptions = ParseVueOptions & { project: ProjectSchema };
@@ -190,23 +191,6 @@ async function parseVueOptions(
 
 // ======================== Composition 模式 ========================
 
-/**
- * 全局 API 变量名 → this.$xxx 的反向映射
- * 与 @vtj/coder GLOBAL_API_MAP 保持一致
- */
-const GLOBAL_API_REVERSE_MAP: Record<string, string> = {
-  router: '$router',
-  route: '$route',
-  store: '$store',
-  pinia: '$pinia',
-  t: '$t',
-  i18n: '$i18n',
-  emit: '$emit',
-  attrs: '$attrs',
-  slots: '$slots',
-  provider: '$provider'
-};
-
 async function parseVueComposition(
   sfc: ReturnType<typeof parseSFC>,
   opts: ParseVueInternalOptions
@@ -248,21 +232,23 @@ async function parseVueComposition(
   };
 
   // 构建 compositionPatch 选项
-  const propsKeys = (scriptResult.props || []).map((n) =>
-    typeof n === 'string' ? n : n.name
-  );
   const { libs } = parseDeps(scriptResult.imports, dependencies);
+
+  // 构建反向符号表（与 coder 的 SymbolTable 镜像对齐）
+  const reverseSymbols = buildReverseSymbolTable(scriptResult);
+
   const patchOpts = {
-    refs: Object.keys(scriptResult.refs || {}),
-    reactives: Object.keys(scriptResult.reactives || {}),
-    hasState: Object.keys(scriptResult.state || {}).length > 0,
-    computed: Object.keys(scriptResult.computed || {}),
-    methods: Object.keys(scriptResult.methods || {}),
-    props: propsKeys,
-    composables: scriptResult.composables.map((c) => c.name),
-    injects: scriptResult.inject.map((i) => i.name),
-    dataSources: Object.keys(scriptResult.dataSources || {}),
-    globalApiVars: GLOBAL_API_REVERSE_MAP,
+    refs: Array.from(reverseSymbols.refs),
+    reactives: Array.from(reverseSymbols.reactives),
+    hasState: reverseSymbols.hasState,
+    computed: Array.from(reverseSymbols.computed),
+    methods: Array.from(reverseSymbols.methods),
+    props: Array.from(reverseSymbols.props),
+    composables: Array.from(reverseSymbols.composables),
+    injects: Array.from(reverseSymbols.injects),
+    dataSources: Array.from(reverseSymbols.dataSources),
+    globalApiVars: reverseSymbols.reverseApiMap,
+    reverseMemberApiMap: reverseSymbols.reverseMemberApiMap,
     libs
   };
 

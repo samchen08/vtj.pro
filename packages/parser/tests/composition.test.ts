@@ -265,7 +265,10 @@ describe('parseVue Composition mode', () => {
 
     // useRouter/useRoute should NOT appear in composables
     const routerComposable = result.composables!.find(
-      (c) => c.composable === 'useRouter' || c.composable === 'useRoute'
+      (c) =>
+        typeof c.composable === 'object' &&
+        (c.composable.value === 'useRouter' ||
+          c.composable.value === 'useRoute')
     );
     expect(routerComposable).toBeUndefined();
   });
@@ -318,5 +321,104 @@ describe('parseVue Composition mode', () => {
     expect(mounted.value).toContain('this.fetchData');
     // route.path → this.$route.path
     expect(mounted.value).toContain('this.$route');
+  });
+
+  test('composables destructure fields are transformed', async () => {
+    const result = await parseVue({
+      project,
+      id: 'test-composition-17',
+      name: 'CompositionDemo',
+      source: compositionSource
+    });
+
+    // useMouse destructure: x, y should be in composables
+    const mouse = result.composables!.find(
+      (c) => c.name === 'x' && c.destructure?.includes('y')
+    );
+    expect(mouse).toBeDefined();
+  });
+});
+
+describe('parseVue Composition mode with i18n', () => {
+  const i18nSource = `
+<template>
+  <div>
+    <p>{{ title }}</p>
+    <button @click="showMessage">Click</button>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { ref, nextTick } from 'vue';
+import { useI18n } from 'vue-i18n';
+
+const props = defineProps({ title: String });
+
+const __i18n = useI18n();
+const count = ref(0);
+
+function showMessage() {
+  const msg = __i18n.t('hello');
+  __i18n.n(count.value);
+  nextTick(() => console.log(msg));
+}
+</script>
+`;
+
+  test('i18n special forms are correctly transformed', async () => {
+    const result = await parseVue({
+      project,
+      id: 'test-i18n-1',
+      name: 'I18nDemo',
+      source: i18nSource
+    });
+
+    expect(result.apiMode).toBe('composition');
+
+    const showMessage = result.methods!['showMessage'];
+    expect(showMessage).toBeDefined();
+    // __i18n.t('hello') → this.$t('hello')
+    expect(showMessage.value).toContain('this.$t(');
+    // __i18n.n(count.value) → this.$n(this.count.value)
+    expect(showMessage.value).toContain('this.$n(');
+    // nextTick → this.$nextTick
+    expect(showMessage.value).toContain('this.$nextTick');
+  });
+});
+
+describe('parseVue Composition mode with element-plus globals', () => {
+  const elSource = `
+<template>
+  <div>
+    <el-button @click="handleClick">Click</el-button>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { ElMessage, ElMessageBox } from 'element-plus';
+
+function handleClick() {
+  ElMessage.success('ok');
+  ElMessageBox.confirm('sure?');
+}
+</script>
+`;
+
+  test('element-plus global APIs are correctly transformed', async () => {
+    const result = await parseVue({
+      project,
+      id: 'test-el-1',
+      name: 'ElDemo',
+      source: elSource
+    });
+
+    expect(result.apiMode).toBe('composition');
+
+    const handleClick = result.methods!['handleClick'];
+    expect(handleClick).toBeDefined();
+    // ElMessage.success('ok') → this.$message.success('ok')
+    expect(handleClick.value).toContain('this.$message');
+    // ElMessageBox.confirm('sure?') → this.$confirm('sure?')
+    expect(handleClick.value).toContain('this.$confirm');
   });
 });
