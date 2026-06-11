@@ -7,7 +7,8 @@ import type {
   AxiosRequestConfig,
   RawAxiosRequestHeaders,
   InternalAxiosRequestConfig,
-  CancelTokenSource
+  CancelTokenSource,
+  AxiosAdapter
 } from 'axios';
 import {
   merge,
@@ -607,5 +608,6 @@ export {
   LOCAL_REQUEST_ID,
   type AxiosRequestConfig,
   type AxiosResponse,
-  type RawAxiosRequestHeaders
+  type RawAxiosRequestHeaders,
+  type AxiosAdapter
 };

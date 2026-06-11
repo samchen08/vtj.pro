@@ -1,5 +1,15 @@
 import type { JSExpression, JSFunction } from '@vtj/core';
 import { logger } from '@vtj/utils';
+import { Interpreter } from 'eval5';
+
+const canUseNewFunction = (() => {
+  try {
+    new Function('return 1')();
+    return true;
+  } catch {
+    return false;
+  }
+})();
 
 function triggerError(err: any) {
   if (typeof window === 'undefined') return;
@@ -12,6 +22,14 @@ function triggerError(err: any) {
       }
     } catch (_e) {}
   }
+}
+
+function evalByInterpreter(code: string, self: any) {
+  const interpreter = new Interpreter(self, {
+    rootContext: self,
+    globalContextInFunction: self
+  });
+  return interpreter.evaluate(`(function($scope){ ${code} }).call(this, this)`);
 }
 
 export function parseExpression(
@@ -32,7 +50,11 @@ export function parseExpression(
     const code = noWith
       ? `\n${tarStr}\n`
       : `with(${thisRequired ? '{}' : '$scope || {}'}) { ${tarStr} }`;
-    return new Function('$scope', code)(self);
+    if (canUseNewFunction) {
+      return new Function('$scope', code)(self);
+    } else {
+      return evalByInterpreter(code, self);
+    }
   } catch (err: any) {
     logger.error('parseExpression.error', err, str, self?.__self ?? self);
     triggerError(err);

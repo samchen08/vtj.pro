@@ -6,6 +6,6 @@
     // const pathname = window.location.pathname;
     // const path = pathname.replace('redirect.html', 'lcdp/designer/');
     // window.location.replace(path);
-    window.location.replace('https://lcdp.vtj.pro/');
+    window.location.replace('https://app.vtj.pro/');
   }
 </script>

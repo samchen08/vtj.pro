@@ -8,7 +8,9 @@ const getDefaultModelValue = (categories: any[] = []) => {
 
 const mergeUniappToBuiltIn = (groups: AssetGroup[]) => {
   const index = groups.findIndex((n) => n.name === BUILT_IN_NAME);
-  groups.splice(index, 1);
+  if (index >= 0) {
+    groups.splice(index, 1);
+  }
 };
 
 export function useAssets() {
