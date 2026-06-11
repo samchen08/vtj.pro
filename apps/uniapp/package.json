@@ -1,6 +1,6 @@
 {
   "name": "vtj-project-uniapp",
-  "version": "0.17.7",
+  "version": "0.17.8",
   "private": true,
   "scripts": {
     "dev:app": "uni -p app",
@@ -61,7 +61,7 @@
     "@dcloudio/uni-mp-weixin": "3.0.0-4070620250821001",
     "@dcloudio/uni-quickapp-webview": "3.0.0-4070620250821001",
     "@dcloudio/uni-ui": "~1.5.3",
-    "@uni-helper/axios-adapter": "^1.16.1",
+    "@uni-helper/axios-adapter": "~1.16.1",
     "@vtj/renderer": "workspace:~",
     "@vtj/uni-app": "workspace:~",
     "miniprogram-blob": "~2.0.0",

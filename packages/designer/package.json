@@ -1,7 +1,7 @@
 {
   "name": "@vtj/designer",
   "private": false,
-  "version": "0.17.7",
+  "version": "0.17.8",
   "type": "module",
   "keywords": [
     "低代码引擎",
@@ -45,7 +45,7 @@
   "devDependencies": {
     "@types/mockjs": "~1.0.10",
     "@vtj/cli": "workspace:~",
-    "vue": "~3.5.5",
+    "vue": "3.5.35",
     "vue-router": "~4.6.0"
   },
   "files": [
