@@ -1,5 +1,6 @@
 <template>
   <XContainer class="v-scripts-widget" direction="column" fit>
+    <Setup v-if="isComposition" :current="current" :context="context"></Setup>
     <Refs v-if="isComposition" :current="current" :context="context"></Refs>
     <Reactives
       v-if="isComposition"
@@ -24,6 +25,7 @@
   import Methods from './methods.vue';
   import LifeCycles from './lifeCycles.vue';
   import Watch from './watch.vue';
+  import Setup from './setup.vue';
   const { current, context } = useCurrent();
 
   const isComposition = computed(
