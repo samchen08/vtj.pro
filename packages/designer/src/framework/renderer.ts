@@ -61,7 +61,11 @@ export class Renderer {
 
     app.use(this.provider);
     const plugins = Object.entries(library);
-    Object.assign(app.config.globalProperties, globals);
+    for (const [key, val] of Object.entries(globals)) {
+      if (!app.config.globalProperties[key]) {
+        app.config.globalProperties[key] = val;
+      }
+    }
     app.config.globalProperties.$apis = apis;
     const libraryOptions = this.provider?.options?.libraryOptions || {};
     plugins.forEach(([name, plugin]) => {
@@ -105,6 +109,7 @@ export class Renderer {
     if (this.env.enhance) {
       app.use(this.env.enhance, this.provider);
     }
+
     this.provider.setGlobals(app.config.globalProperties);
   }
 

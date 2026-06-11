@@ -512,13 +512,13 @@ export class Provider extends Base {
     }
 
     app.config.globalProperties.installed = installed;
+
+    this.setGlobals(app.config.globalProperties);
   }
 
   setGlobals(globals: Record<string, any> = {}) {
     for (const [key, val] of Object.entries(globals)) {
-      if (key !== '$provider') {
-        (this as any)[key] = val;
-      }
+      this.globals[key] = val;
     }
   }
 
@@ -809,4 +809,9 @@ export function useProvider(options: UseProviderOptions = {}): Provider {
     }
   }
   return provider;
+}
+
+export function useGlobal() {
+  const provider = inject(providerKey, null);
+  return provider?.globals ?? {};
 }
