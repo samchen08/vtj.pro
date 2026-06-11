@@ -1,3 +1,4 @@
+import './polyfill';
 import { createSSRApp } from 'vue';
 import {
   NodeEnv,
@@ -7,16 +8,19 @@ import {
   createServiceRequest,
   createProvider,
   loading,
-  notify,
-  createModules
+  notify
 } from '@vtj/uni-app';
 import * as VueI18n from 'vue-i18n';
 
 import App from './App.vue';
 import { name } from '../package.json';
-import enhance from './enhance';
+import { createModules } from './modules';
 
-const adapter = createAdapter({ loading, notify });
+const adapter = createAdapter({
+  loading,
+  notify
+});
+
 const service = new LocalService(createServiceRequest(notify));
 const modules = createModules();
 
@@ -26,7 +30,6 @@ const { provider, onReady } = createProvider({
   modules,
   adapter,
   service,
-  enhance,
   project: {
     id: name
   },

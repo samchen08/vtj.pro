@@ -12,7 +12,7 @@
 VTJ 是一款基于 Vue3 + Typescript 的低代码页面可视化设计器。内置低代码引擎、渲染器和代码生成器，面向前端开发者，开箱即用。 无缝嵌入本地开发工程，不改变前端开发流程和编码习惯。
 
 - **官方文档**：[https://vtj.pro](https://vtj.pro)
-- **在线应用开发平台**：[https://lcdp.vtj.pro](https://lcdp.vtj.pro)
+- **在线应用开发平台**：[https://app.vtj.pro](https://app.vtj.pro)
 
 ## 特性
 
@@ -32,7 +32,7 @@ VTJ 是一款基于 Vue3 + Typescript 的低代码页面可视化设计器。内
 
 ### 在线体验
 
-- [https://lcdp.vtj.pro](https://lcdp.vtj.pro)
+- [https://app.vtj.pro](https://app.vtj.pro)
 
 访问Vtj专属低代码开发平台，创建应用可以体验设计器和出码功能
 

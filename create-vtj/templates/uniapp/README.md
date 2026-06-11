@@ -33,7 +33,7 @@ AI驱动的UniApp低代码项目工程模版
 
 ### 一、在线体验
 
-- [https://lcdp.vtj.pro](https://lcdp.vtj.pro)
+- [https://app.vtj.pro](https://app.vtj.pro)
 
 访问VTJ专属低代码开发平台，创建应用可以体验设计器和出码功能。
 

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.7](https://gitee.com/newgateway/vtj/compare/@vtj/node@0.12.6...@vtj/node@0.12.7) (2026-06-11)
+
+
+### Bug Fixes
+
+* 🐛 replace lcdp.vtj.pro ([3e4f60f](https://gitee.com/newgateway/vtj/commits/3e4f60fcad2fcf9ef3d0882720f6f9b684391173))
+
+
+
+
+
 ## [0.12.6](https://gitee.com/newgateway/vtj/compare/@vtj/node@0.12.5...@vtj/node@0.12.6) (2025-11-29)
 
 

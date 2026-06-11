@@ -1,6 +1,6 @@
 {
   "name": "vtj-project-uniapp",
-  "version": "0.17.4",
+  "version": "0.17.6",
   "private": true,
   "scripts": {
     "dev:app": "uni -p app",
@@ -63,6 +63,8 @@
     "@dcloudio/uni-ui": "~1.5.3",
     "@vtj/renderer": "workspace:~",
     "@vtj/uni-app": "workspace:~",
+    "miniprogram-blob": "~2.0.0",
+    "miniprogram-formdata": "~2.0.0",
     "vue-i18n": "~11.2.2",
     "vue-router": "~4.6.0"
   },

@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.21](https://gitee.com/newgateway/vtj/compare/create-vtj@0.12.20...create-vtj@0.12.21) (2026-06-11)
+
+
+### Features
+
+* **uniapp:** add polyfills for FormData and Blob; fix useAssets splice ([14e4ab4](https://gitee.com/newgateway/vtj/commits/14e4ab4671b190426d10e3172cc42675623bf012))
+
+
+
+
+
+## [0.12.20](https://gitee.com/newgateway/vtj/compare/create-vtj@0.12.19...create-vtj@0.12.20) (2026-06-09)
+
+
+### Features
+
+* **uniapp:** 集成 VTJ 模块虚拟插件及模块加载器 ([291c47f](https://gitee.com/newgateway/vtj/commits/291c47f80c9abd690e38075edb87bf534415f325))
+
+
+
+
+
 ## [0.12.19](https://gitee.com/newgateway/vtj/compare/create-vtj@0.12.18...create-vtj@0.12.19) (2026-01-16)
 
 

@@ -300,7 +300,8 @@ export function useAgent(config: AgentConfig) {
 
   const processOutput = async (chat: AIChat) => {
     const content = chat.content || chat.reasoning;
-    const output = parseOutput(content, 'A:');
+    let output = parseOutput(content, 'A:');
+    output = output || parseOutput(chat.content);
     chat.status = 'Success';
 
     if (!output) return { ...chat };

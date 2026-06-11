@@ -338,6 +338,40 @@ const pathRewritePlugin = (options: DevToolsOptions) => {
   } as Plugin;
 };
 
+export function vtjModulesPlugin(dir: string = '.vtj'): Plugin {
+  const virtualId = 'virtual:vtj-modules';
+  const resolvedId = '\0' + virtualId;
+
+  return {
+    name: 'vtj-modules',
+    enforce: 'pre',
+    resolveId(id) {
+      if (id === virtualId) return resolvedId;
+    },
+    load(id) {
+      if (id === resolvedId) {
+        if (process.env.NODE_ENV === 'development') {
+          return `
+const modules = import.meta.glob(
+  ['/${dir}/projects/*.json', '/${dir}/files/*.json'],
+  { eager: true }
+);
+export default modules;
+`;
+        } else {
+          return `
+const modules = import.meta.glob(
+  ['/${dir}/projects/*.json'],
+  { eager: true }
+);
+export default modules;
+`;
+        }
+      }
+    }
+  };
+}
+
 export function parsePresetPlugins(options: DevToolsOptions) {
   const {
     presetPlugins = [],
