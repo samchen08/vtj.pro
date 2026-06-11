@@ -182,4 +182,49 @@ describe('compositionPatch', () => {
     const result = compositionPatch(undefined as any, baseOptions);
     expect(result).toBeUndefined();
   });
+
+  test('should convert _ctx.Bell to this.$libs.VtjIcons.Bell via libs', () => {
+    const opts = { ...baseOptions, libs: { Bell: 'VtjIcons' } };
+    const input = '_ctx.Bell';
+    const result = compositionPatch(input, opts);
+    expect(result).toBe('this.$libs.VtjIcons.Bell');
+  });
+
+  test('should convert _ctx.Bell in parenthesized expression via libs', () => {
+    const opts = { ...baseOptions, libs: { Bell: 'VtjIcons' } };
+    const input = '(_ctx.Bell)';
+    const result = compositionPatch(input, opts);
+    expect(result).toBe('(this.$libs.VtjIcons.Bell)');
+  });
+
+  test('should convert _ctx.xxx.value to this.xxx.value for refs', () => {
+    const input = '_ctx.count.value';
+    const result = compositionPatch(input, baseOptions);
+    expect(result).toBe('this.count.value');
+  });
+
+  test('should convert _ctx.xxx to this.xxx.value for bare refs in script', () => {
+    const input = '_ctx.count';
+    const result = compositionPatch(input, baseOptions);
+    expect(result).toBe('this.count.value');
+  });
+
+  test('should convert _ctx.state.xxx to this.state.xxx', () => {
+    const input = '_ctx.state.loading';
+    const result = compositionPatch(input, baseOptions);
+    expect(result).toBe('this.state.loading');
+  });
+
+  test('should convert _ctx.props.xxx to this.xxx', () => {
+    const input = '_ctx.props.title';
+    const result = compositionPatch(input, baseOptions);
+    expect(result).toBe('this.title');
+  });
+
+  test('should convert _ctx.t("hello") to this.$t("hello") via globalApiVars', () => {
+    // globalApiVars 处理的 bare 标识符场景（非 _ctx 前缀）已在其他测试覆盖
+    const input = 't("hello")';
+    const result = compositionPatch(input, baseOptions);
+    expect(result).toBe('this.$t("hello")');
+  });
 });

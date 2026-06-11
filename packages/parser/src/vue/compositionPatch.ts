@@ -73,6 +73,10 @@ export function compositionPatch(
 
   let result = reverseTransformExpression(content, symbols);
 
+  // _ctx. → this.（处理 Vue 编译器生成的 _ctx 前缀，必须在 libs 处理之前）
+  result = result.replace(/_ctx\./g, 'this.');
+  result = result.replace(/this\.this\./g, 'this.');
+
   // libs 处理（保持原有逻辑）
   for (const [key, value] of Object.entries(options.libs || {})) {
     result = replacer(result, key, `this.$libs.${value}.${key}`);
