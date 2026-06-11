@@ -66,7 +66,8 @@
     "vue-i18n": "~11.2.2",
     "@vtj/uni-app": "latest",
     "miniprogram-formdata": "~2.0.0",
-    "miniprogram-blob": "~2.0.0"
+    "miniprogram-blob": "~2.0.0",
+    "url-search-params-polyfill": "~8.2.5"
   },
   "devDependencies": {
     "@dcloudio/types": "~3.4.7",
