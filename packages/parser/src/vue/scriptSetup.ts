@@ -8,6 +8,7 @@ import type {
   FunctionDeclaration
 } from '@babel/types';
 import { uid } from '@vtj/base';
+import { GLOBAL_API_MAP } from '@vtj/coder';
 import { parseScript as toAST, traverseAST, generateCode } from '../shared';
 import type {
   BlockState,
@@ -46,18 +47,25 @@ const LIFECYCLE_MAP: Record<string, string> = {
 
 /**
  * 全局注册的 composable 来源包，不收集到 composables 字段
+ * @vtj/renderer: useApis / useStore / usePinia / useRequest / useLibs / useAccess
  */
-const GLOBAL_COMPOSABLE_SOURCES = new Set(['vue-router', 'pinia', 'vue-i18n']);
+const GLOBAL_COMPOSABLE_SOURCES = new Set([
+  'vue-router',
+  'pinia',
+  'vue-i18n',
+  '@vtj/renderer'
+]);
 
 /**
- * 已知的全局 composable 函数名（作为后备，当 import from 无法匹配时使用）
+ * 全局 composable 函数名（由 GLOBAL_API_MAP 动态推导）
+ * 包含所有全局 API 对应的 composable（如 useAttrs、useSlots、useApis 等），
+ * 确保 this.$xxx 系列的 composable 不会写入 DSL composables 字段。
  */
-const GLOBAL_COMPOSABLE_NAMES = new Set([
-  'useRouter',
-  'useRoute',
-  'useStore',
-  'useI18n'
-]);
+const GLOBAL_COMPOSABLE_NAMES = new Set(
+  Object.values(GLOBAL_API_MAP)
+    .map((cfg) => cfg.composable)
+    .filter((name): name is string => !!name)
+);
 
 // ======================== 导出接口 ========================
 
