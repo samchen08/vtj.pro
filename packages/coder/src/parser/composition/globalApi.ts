@@ -37,14 +37,14 @@ export const GLOBAL_API_MAP: Record<string, GlobalApiConfig> = {
   $attrs: {
     composable: 'useAttrs',
     from: 'vue',
-    declare: 'const attrs = useAttrs();',
-    replace: 'attrs'
+    declare: 'const __attrs = useAttrs();',
+    replace: '__attrs'
   },
   $slots: {
     composable: 'useSlots',
     from: 'vue',
-    declare: 'const slots = useSlots();',
-    replace: 'slots'
+    declare: 'const __slots = useSlots();',
+    replace: '__slots'
   },
   $nextTick: {
     composable: 'nextTick',
@@ -98,14 +98,14 @@ export const GLOBAL_API_MAP: Record<string, GlobalApiConfig> = {
   $router: {
     composable: 'useRouter',
     from: 'vue-router',
-    declare: 'const router = useRouter();',
-    replace: 'router'
+    declare: 'const __router = useRouter();',
+    replace: '__router'
   },
   $route: {
     composable: 'useRoute',
     from: 'vue-router',
-    declare: 'const route = useRoute();',
-    replace: 'route'
+    declare: 'const __route = useRoute();',
+    replace: '__route'
   },
   // ---- vue-i18n ----
   $i18n: {
@@ -155,38 +155,38 @@ export const GLOBAL_API_MAP: Record<string, GlobalApiConfig> = {
   $store: {
     composable: 'useStore',
     from: '__renderer__',
-    declare: 'const store = useStore();',
-    replace: 'store'
+    declare: 'const __store = useStore();',
+    replace: '__store'
   },
   $pinia: {
     composable: 'usePinia',
     from: '__renderer__',
-    declare: 'const pinia = usePinia();',
-    replace: 'pinia'
+    declare: 'const __pinia = usePinia();',
+    replace: '__pinia'
   },
   $request: {
     composable: 'useRequest',
     from: '__renderer__',
-    declare: 'const request = useRequest();',
-    replace: 'request'
+    declare: 'const __request = useRequest();',
+    replace: '__request'
   },
   $libs: {
     composable: 'useLibs',
     from: '__renderer__',
-    declare: 'const libs = useLibs();',
-    replace: 'libs'
+    declare: 'const __libs = useLibs();',
+    replace: '__libs'
   },
   $access: {
     composable: 'useAccess',
     from: '__renderer__',
-    declare: 'const access = useAccess();',
-    replace: 'access'
+    declare: 'const __access = useAccess();',
+    replace: '__access'
   },
   $apis: {
     composable: 'useApis',
     from: '__renderer__',
-    declare: 'const apis = useApis();',
-    replace: 'apis'
+    declare: 'const __apis = useApis();',
+    replace: '__apis'
   }
 };
 
