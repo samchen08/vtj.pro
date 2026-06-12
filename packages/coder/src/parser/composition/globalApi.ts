@@ -152,6 +152,12 @@ export const GLOBAL_API_MAP: Record<string, GlobalApiConfig> = {
   },
   // ---- @vtj/renderer ----
   // 注：from 使用特殊标记 '__renderer__'，运行时会与 useProvider 合并到同一条 import 语句
+  $provider: {
+    composable: 'useStore',
+    from: '__renderer__',
+    declare: null,
+    replace: 'provider'
+  },
   $store: {
     composable: 'useStore',
     from: '__renderer__',
