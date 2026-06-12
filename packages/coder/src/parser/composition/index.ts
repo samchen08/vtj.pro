@@ -185,6 +185,10 @@ export function parserComposition(
   if (provideArr.length > 0) vueImports.add('provide');
   for (const hook of lifeCyclesResult.usedHooks) vueImports.add(hook);
 
+  // UNI 专用钩子单独收集，非 uniapp 平台下也为空
+  const uniHookImports: string[] =
+    platform === 'uniapp' ? Array.from(lifeCyclesResult.usedUniHooks) : [];
+
   // 6. 解析 imports
   const { imports, uniComponents, componentDeclarations } = parseImports({
     componentMap,
@@ -194,7 +198,8 @@ export function parserComposition(
     platform,
     vueImports: Array.from(vueImports),
     composableImports: composablesResult.imports,
-    globalApiImports
+    globalApiImports,
+    uniHookImports
   });
 
   // 7. 异步组件 + url schemas + block plugins

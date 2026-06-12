@@ -63,8 +63,10 @@ export const UNI_HOOKS = new Set([
 export interface LifeCyclesResult {
   /** 顶层 onXxx() 调用语句 */
   statements: string[];
-  /** 实际使用到的 Composition 钩子（用于 vue import 收集） */
+  /** 实际使用到的 Vue Composition 钩子（用于 vue import 收集） */
   usedHooks: Set<string>;
+  /** 实际使用到的 Uniapp 专用钩子（用于 @dcloudio/uni-app import 收集） */
+  usedUniHooks: Set<string>;
 }
 
 /**
@@ -81,19 +83,25 @@ export function parseLifeCycles(
 ): LifeCyclesResult {
   const statements: string[] = [];
   const usedHooks = new Set<string>();
+  const usedUniHooks = new Set<string>();
 
   for (const [name, fn] of Object.entries(lifeCycles)) {
     if (!fn || !fn.value) continue;
     if (name === 'created' || name === 'beforeCreate') continue;
 
     const hookName = OPTIONS_TO_COMPOSITION_MAP[name] || name;
-    if (!COMPOSITION_HOOKS.has(hookName) && !UNI_HOOKS.has(hookName)) continue;
-
-    const transformed = transformExpression(fn.value, symbols, 'script');
-    const handler = unwrapFunction(transformed);
-    statements.push(`${hookName}(${handler});`);
-    usedHooks.add(hookName);
+    if (COMPOSITION_HOOKS.has(hookName)) {
+      const transformed = transformExpression(fn.value, symbols, 'script');
+      const handler = unwrapFunction(transformed);
+      statements.push(`${hookName}(${handler});`);
+      usedHooks.add(hookName);
+    } else if (UNI_HOOKS.has(hookName)) {
+      const transformed = transformExpression(fn.value, symbols, 'script');
+      const handler = unwrapFunction(transformed);
+      statements.push(`${hookName}(${handler});`);
+      usedUniHooks.add(hookName);
+    }
   }
 
-  return { statements, usedHooks };
+  return { statements, usedHooks, usedUniHooks };
 }

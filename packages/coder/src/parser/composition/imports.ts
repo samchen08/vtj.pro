@@ -18,6 +18,8 @@ export interface CompositionImportsInput {
   composableImports: Record<string, string[]>;
   /** 全局 API 引入（按来源包分组）：{ 'vue': ['useAttrs'], 'vue-router': ['useRouter'] } */
   globalApiImports: Record<string, string[]>;
+  /** Uniapp 专用生命周期钩子（如 onLoad），需从 @dcloudio/uni-app 导入 */
+  uniHookImports: string[];
 }
 
 /**
@@ -32,7 +34,8 @@ export function parseImports(input: CompositionImportsInput) {
     platform,
     vueImports,
     composableImports,
-    globalApiImports
+    globalApiImports,
+    uniHookImports
   } = input;
 
   const uniH5: string[] = [
@@ -130,6 +133,13 @@ export function parseImports(input: CompositionImportsInput) {
   for (const [from, names] of Object.entries(globalApiImports)) {
     const items = imports[from] ?? (imports[from] = []);
     items.push(...names);
+  }
+
+  // Uniapp 专用生命周期钩子：从 @dcloudio/uni-app 导入
+  if (platform === 'uniapp' && uniHookImports.length > 0) {
+    const items =
+      imports['@dcloudio/uni-app'] ?? (imports['@dcloudio/uni-app'] = []);
+    items.push(...uniHookImports);
   }
 
   const result = Object.entries(imports)

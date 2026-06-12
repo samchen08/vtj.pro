@@ -118,6 +118,7 @@ describe('scriptSetupCompiled', () => {
       createdStatements: '',
       setupStatements: '',
       lifeCycles: '',
+      componentDeclarations: '',
       rendererImports: 'useProvider'
     });
     expect(result).toContain("import { useProvider } from '@vtj/renderer'");
@@ -152,6 +153,7 @@ describe('scriptSetupCompiled', () => {
       createdStatements: '',
       setupStatements: '',
       lifeCycles: '',
+      componentDeclarations: '',
       rendererImports: 'useProvider'
     });
     expect(result).toContain('defineProps({ title: String })');
@@ -185,6 +187,7 @@ describe('scriptSetupCompiled', () => {
       createdStatements: '',
       setupStatements: '',
       lifeCycles: '',
+      componentDeclarations: '',
       rendererImports: 'useProvider'
     });
     expect(result).toContain("defineEmits(['change', 'submit'])");
@@ -218,6 +221,7 @@ describe('scriptSetupCompiled', () => {
       createdStatements: '',
       setupStatements: '',
       lifeCycles: '',
+      componentDeclarations: '',
       rendererImports: 'useProvider, useStore'
     });
     expect(result).toContain(
