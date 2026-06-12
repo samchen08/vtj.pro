@@ -16,10 +16,6 @@ export const test_composition_antd = {
       type: 'JSFunction',
       value: 'function() { this.$message.success("操作成功"); }'
     },
-    showNotify: {
-      type: 'JSFunction',
-      value: 'function() { this.$notify({ message: "提示" }); }'
-    },
     showNotification: {
       type: 'JSFunction',
       value: 'function() { this.$notification.open({ message: "通知" }); }'

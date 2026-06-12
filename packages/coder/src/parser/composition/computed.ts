@@ -1,4 +1,4 @@
-import type { JSFunction } from '@vtj/core';
+import type { JSExpression, JSFunction } from '@vtj/core';
 import { transformExpression, unwrapFunction } from './transformer';
 import type { SymbolTable } from './symbolTable';
 
@@ -8,7 +8,7 @@ import type { SymbolTable } from './symbolTable';
  *  → const total = computed(() => count.value * 2);
  */
 export function parseComputed(
-  computed: Record<string, JSFunction> = {},
+  computed: Record<string, JSFunction | JSExpression> = {},
   symbols: SymbolTable
 ): string[] {
   return Object.entries(computed)

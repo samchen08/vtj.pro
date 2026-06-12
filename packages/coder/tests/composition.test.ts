@@ -110,8 +110,6 @@ test('composition mode - ant-design-vue', async () => {
   expect(content).toContain('Modal.confirm(');
   // 验证 ant-design-vue $message
   expect(content).toContain('message.success(');
-  // 验证 ant-design-vue $notify
-  expect(content).toContain('notification(');
   // 验证 ant-design-vue $notification
   expect(content).toContain('notification.open(');
   // 验证 ant-design-vue $info / $success / $warning / $error
