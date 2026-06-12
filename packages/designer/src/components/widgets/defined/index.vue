@@ -164,10 +164,6 @@
     if (isComposition.value) {
       result['ref'] = Object.keys(current.value.refs || {});
       result['reactive'] = Object.keys(current.value.reactives || {});
-      const states = Object.keys(current.value.state || {});
-      if (states.length) {
-        result['状态'] = ['__state'];
-      }
     } else {
       result['状态'] = ['state'];
     }
