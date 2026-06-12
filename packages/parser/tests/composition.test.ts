@@ -24,8 +24,8 @@ const __props = defineProps({
 
 const __emit = defineEmits(['change', 'update']);
 
-const router = useRouter();
-const route = useRoute();
+const __router = useRouter();
+const __route = useRoute();
 const { x, y } = useMouse();
 
 const count = ref(0);
@@ -67,14 +67,14 @@ watch(
   () => count.value,
   (val) => {
     console.log('count changed:', val);
-    router.push('/result');
+    __router.push('/result');
   },
   { immediate: true }
 );
 
 onMounted(() => {
   fetchData();
-  console.log(route.path);
+    console.log(__route.path);
 });
 
 defineExpose({ count, increment });

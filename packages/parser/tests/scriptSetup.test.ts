@@ -15,7 +15,7 @@ const emit = defineEmits(['change', 'update']);
 const count = ref(0);
 const message = ref('hello');
 
-const state = reactive({
+const __state = reactive({
   loading: false,
   list: []
 });

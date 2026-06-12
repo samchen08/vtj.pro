@@ -31,7 +31,7 @@ test('composition mode', async () => {
   expect(content).toContain('useProvider');
   expect(content).toContain('nextTick');
   expect(content).toContain('useAttrs');
-  expect(content).toContain('const attrs = useAttrs()');
+  expect(content).toContain('const __attrs = useAttrs()');
   expect(content).toContain('getCurrentInstance');
   expect(content).toContain('const count = ref(0)');
   expect(content).toContain('const form = reactive');
@@ -57,10 +57,10 @@ test('composition mode', async () => {
   expect(content).toContain("from 'vue-router'");
   expect(content).toContain('useRouter');
   expect(content).toContain('useRoute');
-  expect(content).toContain('const router = useRouter()');
-  expect(content).toContain('const route = useRoute()');
-  expect(content).toContain("router.push('/about')");
-  expect(content).toContain('route.params.id');
+  expect(content).toContain('const __router = useRouter()');
+  expect(content).toContain('const __route = useRoute()');
+  expect(content).toContain("__router.push('/about')");
+  expect(content).toContain('__route.params.id');
   // 验证 vue-i18n API
   expect(content).toContain("from 'vue-i18n'");
   expect(content).toContain('useI18n');
@@ -72,8 +72,8 @@ test('composition mode', async () => {
   // 验证 $store 与 useProvider 合并到同一条 import
   expect(content).toContain('useStore');
   expect(content).toContain('useProvider, useStore');
-  expect(content).toContain('const store = useStore()');
-  expect(content).toContain('store.state.user');
+  expect(content).toContain('const __store = useStore()');
+  expect(content).toContain('__store.state.user');
   // 确保 @vtj/renderer 只有一条 import
   expect(content.match(/from '@vtj\/renderer'/g)?.length).toBe(1);
   // 验证 element-plus $loading
