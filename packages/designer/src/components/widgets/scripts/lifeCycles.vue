@@ -43,7 +43,12 @@
     JSCodeToString
   } from '@vtj/renderer';
   import { XField } from '@vtj/ui';
-  import { PAGE_LIFE_CYCLES_LIST, COMPONENT_LIFE_CYCLES_LIST } from '@vtj/uni';
+  import {
+    PAGE_LIFE_CYCLES_LIST,
+    COMPONENT_LIFE_CYCLES_LIST,
+    UNI_PAGE_HOOKS_LIST,
+    UNI_COMPOSITION_HOOKS_LIST
+  } from '@vtj/uni';
   import Group from './group.vue';
   import { notify, expressionValidate } from '../../../utils';
   import { useEngine } from '../../../framework';
@@ -66,15 +71,23 @@
       : LIFE_CYCLES_LIST
   );
 
-  const options = computed(() => {
-    const { platform = 'web', currentFile } = engine.project.value || {};
+  const uniHooks = computed(() => {
+    const { currentFile } = engine.project.value || {};
     const isPage = currentFile?.type === 'page';
-    const list =
-      platform === 'uniapp'
-        ? isPage
-          ? PAGE_LIFE_CYCLES_LIST
-          : COMPONENT_LIFE_CYCLES_LIST
-        : hooks.value;
+    if (isPage) {
+      return isComposition.value
+        ? ['setup', ...UNI_PAGE_HOOKS_LIST]
+        : PAGE_LIFE_CYCLES_LIST;
+    } else {
+      return isComposition.value
+        ? ['setup', ...UNI_COMPOSITION_HOOKS_LIST]
+        : COMPONENT_LIFE_CYCLES_LIST;
+    }
+  });
+
+  const options = computed(() => {
+    const { platform = 'web' } = engine.project.value || {};
+    const list = platform === 'uniapp' ? uniHooks.value : hooks.value;
     return list.map((name) => {
       return {
         label: name,

@@ -36,6 +36,30 @@ const COMPOSITION_HOOKS = new Set([
   'onDeactivated'
 ]);
 
+/**
+ * Uniapp 专用生命周期钩子
+ */
+export const UNI_HOOKS = new Set([
+  'onLoad',
+  'onShow',
+  'onReady',
+  'onHide',
+  'onUnload',
+  'onResize',
+  'onPullDownRefresh',
+  'onReachBottom',
+  'onTabItemTap',
+  'onShareAppMessage',
+  'onPageScroll',
+  'onNavigationBarButtonTap',
+  'onBackPress',
+  'onNavigationBarSearchInputChanged',
+  'onNavigationBarSearchInputConfirmed',
+  'onNavigationBarSearchInputClicked',
+  'onShareTimeline',
+  'onAddToFavorites'
+]);
+
 export interface LifeCyclesResult {
   /** 顶层 onXxx() 调用语句 */
   statements: string[];
@@ -63,7 +87,7 @@ export function parseLifeCycles(
     if (name === 'created' || name === 'beforeCreate') continue;
 
     const hookName = OPTIONS_TO_COMPOSITION_MAP[name] || name;
-    if (!COMPOSITION_HOOKS.has(hookName)) continue;
+    if (!COMPOSITION_HOOKS.has(hookName) && !UNI_HOOKS.has(hookName)) continue;
 
     const transformed = transformExpression(fn.value, symbols, 'script');
     const handler = unwrapFunction(transformed);
