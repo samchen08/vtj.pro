@@ -27,6 +27,7 @@ export type DataSourceHandler = (...args: any[]) => Promise<any>;
 
 export interface CreateRendererOptions {
   Vue?: any;
+  UniApp?: any;
   mode?: ContextMode;
   dsl?: BlockSchema;
   components?: Record<string, any>;
@@ -39,6 +40,7 @@ export interface CreateRendererOptions {
 export function createRenderer(options: CreateRendererOptions) {
   const {
     Vue = globalVue,
+    UniApp = {},
     mode = ContextMode.Runtime,
     components = {},
     libs = {},
@@ -124,7 +126,8 @@ export function createRenderer(options: CreateRendererOptions) {
         await createCompositionLifeCycles(
           Vue,
           dsl.value.lifeCycles ?? {},
-          context
+          context,
+          UniApp
         );
         // 执行 setup 初始化代码
         if (dsl.value.setup) {
@@ -417,7 +420,8 @@ function createProvide(
 async function createCompositionLifeCycles(
   Vue: any,
   lifeCycles: Record<string, JSFunction>,
-  context: Context
+  context: Context,
+  UniApp: any = {}
 ) {
   // Options API → Composition API 生命周期名称映射
   const optionsToCompositionMap: Record<string, string> = {
@@ -459,7 +463,7 @@ async function createCompositionLifeCycles(
     }
     // 兼容 Options API 命名，自动映射为 Composition API
     const hookName = optionsToCompositionMap[name] || name;
-    const hook = hookMap[hookName];
+    const hook = hookMap[hookName] || UniApp[hookName];
     if (hook && isFunction(hook)) {
       const fn = context.__parseFunction(code);
       if (isFunction(fn)) {
@@ -469,9 +473,7 @@ async function createCompositionLifeCycles(
         });
       }
     } else {
-      console.warn(
-        `[VTJ] 无效的 Composition 生命周期钩子 "${name}"，请使用 onMounted/onUnmounted 等命名`
-      );
+      console.warn(`[VTJ] 无效的 Composition 生命周期钩子 "${name}"`);
     }
   }
 }

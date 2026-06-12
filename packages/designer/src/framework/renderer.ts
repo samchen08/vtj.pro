@@ -194,6 +194,7 @@ export class Renderer {
       window,
       mode: ContextMode.Design,
       Vue,
+      UniApp: library.UniApp,
       components,
       apis,
       libs: library
