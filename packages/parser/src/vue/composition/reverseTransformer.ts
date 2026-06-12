@@ -29,18 +29,26 @@ export function reverseTransformExpression(
   const allRefsAndComputed = [...symbols.refs, ...symbols.computed];
 
   // 1. ref/computed 的 .value 访问 → this.xxx.value
+  // 使用负向后顾 (?<!\.) 避免匹配成员访问属性（如 __apis.api1.value）
   for (const name of allRefsAndComputed) {
     result = result.replace(
-      new RegExp(`\\b${escapeRegex(name)}\\.value\\b`, 'g'),
+      new RegExp(`(?<!\\.)\\b${escapeRegex(name)}\\.value\\b`, 'g'),
       `this.${name}.value`
     );
   }
 
   // 2. ref/computed 裸名 → this.xxx.value
-  // 使用负向后顾避免替换 this.xxx.value 中已有的 name
+  // 三重负向后顾 + 负向先行断言：
+  //   - (?<!this\.)  避免重复替换 this.xxx.value 中已有的 name
+  //   - (?<=_ctx\.)  允许 _ctx.name（Vue 模板编译器生成的 _ctx 前缀）
+  //   - (?<!\.)      阻止成员访问属性（如 __apis.api1 中的 api1）
+  //   - (?!\.value)  避免重复添加 .value（如 _ctx.count.value 已有 .value）
   for (const name of allRefsAndComputed) {
     result = result.replace(
-      new RegExp(`(?<!this\\.)\\b${escapeRegex(name)}\\b`, 'g'),
+      new RegExp(
+        `(?<!this\\.)(?:(?<=_ctx\\.)|(?<!\\.))\\b${escapeRegex(name)}\\b(?!\\.value)`,
+        'g'
+      ),
       `this.${name}.value`
     );
   }

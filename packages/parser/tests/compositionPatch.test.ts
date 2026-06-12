@@ -227,4 +227,31 @@ describe('compositionPatch', () => {
     const result = compositionPatch(input, baseOptions);
     expect(result).toBe('this.$t("hello")');
   });
+
+  test('should convert __apis.api1 to this.$apis.api1 (not this.$apis.this.api1.value)', () => {
+    // 回归测试：ref 名 api1 不应被匹配为 __apis.api1 中作为成员访问属性的 api1
+    const opts = {
+      ...baseOptions,
+      refs: [...baseOptions.refs, 'api1'],
+      globalApiVars: { ...baseOptions.globalApiVars, __apis: '$apis' }
+    };
+    const input = '__apis.api1';
+    const result = compositionPatch(input, opts);
+    expect(result).toBe('this.$apis.api1');
+  });
+
+  test('should keep __apis.api1.value as this.$apis.api1.value (member access, not ref)', () => {
+    // __apis.api1.value 中的 api1.value 是 __apis 的属性访问，
+    // 不是 ref 的 .value 解包，应保持原样
+    const opts = {
+      ...baseOptions,
+      refs: [...baseOptions.refs, 'api1'],
+      globalApiVars: { ...baseOptions.globalApiVars, __apis: '$apis' }
+    };
+    const input = '__apis.api1.value';
+    const result = compositionPatch(input, opts);
+    // api1.value 位于 __apis. 之后，(?<!\.) 保护，不被匹配
+    // __apis → this.$apis，最终为 this.$apis.api1.value
+    expect(result).toBe('this.$apis.api1.value');
+  });
 });
