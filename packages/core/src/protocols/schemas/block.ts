@@ -61,7 +61,7 @@ export interface BlockSchema {
   /**
    * 计算属性
    */
-  computed?: Record<string, JSFunction>;
+  computed?: Record<string, JSFunction | JSExpression>;
 
   /**
    * 侦听器

@@ -100,6 +100,9 @@ export function isJSCode(data: unknown): data is JSExpression | JSFunction {
 
 export function JSCodeToString(data: unknown) {
   if (isJSCode(data)) {
+    if (data.value.startsWith('{')) {
+      return `(${data.value})`;
+    }
     return data.value;
   } else {
     return JSON.stringify(data);

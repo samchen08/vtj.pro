@@ -232,12 +232,16 @@ function createState(Vue: any, state: BlockState, context: Context) {
 
 function createComputed(
   Vue: any,
-  computedSchema: Record<string, JSFunction>,
+  computedSchema: Record<string, JSFunction | JSExpression>,
   context: Context
 ) {
   return Object.entries(computedSchema ?? {}).reduce(
     (result, [k, v]) => {
-      result[k] = Vue.computed(context.__parseFunction(v) as any);
+      if (isJSFunction(v)) {
+        result[k] = Vue.computed(context.__parseFunction(v) as any);
+      } else {
+        result[k] = Vue.computed(context.__parseExpression(v) as any);
+      }
       return result;
     },
     {} as Record<string, any>

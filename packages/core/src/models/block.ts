@@ -39,7 +39,7 @@ export class BlockModel {
   public reactives: Record<string, JSONValue | JSExpression> = {};
   public lifeCycles: Record<string, JSFunction> = {};
   public methods: Record<string, JSFunction> = {};
-  public computed: Record<string, JSFunction> = {};
+  public computed: Record<string, JSFunction | JSExpression> = {};
   public watch: BlockWatch[] = [];
   public composables: BlockComposable[] = [];
   public setup: JSFunction | undefined = undefined;
@@ -172,6 +172,21 @@ export class BlockModel {
     silent: boolean = false
   ) {
     delete this[type][name];
+    if (!silent) {
+      emitter.emit(EVENT_BLOCK_CHANGE, this);
+    }
+  }
+
+  setComputed(
+    name: string,
+    value?: JSFunction | JSExpression,
+    silent: boolean = false
+  ) {
+    if (value) {
+      this.computed[name] = value;
+    } else {
+      delete this.computed[name];
+    }
     if (!silent) {
       emitter.emit(EVENT_BLOCK_CHANGE, this);
     }
