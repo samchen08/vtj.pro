@@ -60,6 +60,12 @@
     () => engine.current.value?.apiMode === 'composition'
   );
 
+  const hooks = computed(() =>
+    isComposition.value
+      ? ['setup', ...COMPOSITION_HOOKS_LIST]
+      : LIFE_CYCLES_LIST
+  );
+
   const options = computed(() => {
     const { platform = 'web', currentFile } = engine.project.value || {};
     const isPage = currentFile?.type === 'page';
@@ -68,9 +74,7 @@
         ? isPage
           ? PAGE_LIFE_CYCLES_LIST
           : COMPONENT_LIFE_CYCLES_LIST
-        : isComposition.value
-          ? COMPOSITION_HOOKS_LIST
-          : LIFE_CYCLES_LIST;
+        : hooks.value;
     return list.map((name) => {
       return {
         label: name,
@@ -81,6 +85,9 @@
 
   const list = computed(() => {
     const entries = Object.entries(props.current?.lifeCycles || {});
+    if (props.current?.setup) {
+      entries.unshift(['setup', props.current?.setup]);
+    }
     return entries.map(([name, value]) => {
       return { name, value: JSCodeToString(value) };
     });
@@ -94,11 +101,19 @@
   };
 
   const remove = (data: any) => {
-    return props.current?.removeFunction('lifeCycles', data.name);
+    if (!props.current) return false;
+    if (data.name === 'setup') {
+      props.current.setSetup(undefined);
+      return true;
+    } else {
+      return props.current.removeFunction('lifeCycles', data.name);
+    }
   };
+
   const submit = async (form: any, edit: boolean) => {
+    if (!props.current) return false;
     const { name, value } = form;
-    if (!edit && !!props.current?.lifeCycles[name]) {
+    if (!edit && !!props.current.lifeCycles[name]) {
       notify(`名称 ${name} 已存在，请更换！`);
       return false;
     }
@@ -109,7 +124,11 @@
     };
     const valid = expressionValidate(code, props.context, true);
     if (!valid) return false;
-    props.current?.setFunction('lifeCycles', name, code);
+    if (name === 'setup') {
+      props.current.setSetup(code);
+    } else {
+      props.current.setFunction('lifeCycles', name, code);
+    }
     return true;
   };
 </script>
