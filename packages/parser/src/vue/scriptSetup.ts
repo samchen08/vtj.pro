@@ -266,6 +266,16 @@ export function parseScriptSetup(
             return;
           }
 
+          // 排除不应进入 setup 的内部/工具变量
+          // 1. getCurrentInstance 等 Vue 内部 API
+          // 2. 变量名以 __ 开头（内部变量约定）
+          const declName = getDeclaratorName(declarator.id);
+          if (declName && declName.startsWith('__')) {
+            return;
+          }
+          if (callee === 'getCurrentInstance') {
+            return;
+          }
           // 其他 CallExpression — 可能是 dataSources 或普通赋值
           // 暂标记为 setup 语句
         }
@@ -290,6 +300,16 @@ export function parseScriptSetup(
           }
           return;
         }
+      }
+
+      // 过滤以 __ 开头的内部变量声明
+      if (
+        node.declarations.some((d: any) => {
+          const name = getDeclaratorName(d.id);
+          return name && name.startsWith('__');
+        })
+      ) {
+        return;
       }
 
       // 未被任何 pattern 匹配的顶层声明 → setup 语句

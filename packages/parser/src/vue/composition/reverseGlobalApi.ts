@@ -32,7 +32,9 @@ export function buildReverseGlobalApiMap(
     // 不是全局 API 变量，不应映射为 this.$props（会导致 props.title → this.$this.title）
     if (api === '$props') continue;
     if (cfg.replace.includes('.')) {
-      const [obj, prop] = cfg.replace.split('.');
+      const lastDot = cfg.replace.lastIndexOf('.');
+      const obj = cfg.replace.substring(0, lastDot);
+      const prop = cfg.replace.substring(lastDot + 1);
       if (!member[obj]) member[obj] = {};
       member[obj][prop] = api;
     } else {
@@ -49,7 +51,9 @@ export function buildReverseGlobalApiMap(
       for (const [api, cfg] of Object.entries(uiMap)) {
         if (!cfg.replace) continue;
         if (cfg.replace.includes('.')) {
-          const [obj, prop] = cfg.replace.split('.');
+          const lastDot = cfg.replace.lastIndexOf('.');
+          const obj = cfg.replace.substring(0, lastDot);
+          const prop = cfg.replace.substring(lastDot + 1);
           if (!member[obj]) member[obj] = {};
           member[obj][prop] = api;
         } else {

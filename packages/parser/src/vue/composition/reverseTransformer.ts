@@ -10,13 +10,14 @@ import type { ReverseSymbolTable } from './reverseSymbolTable';
  * 转换顺序很关键，需要避免重复替换：
  * 1. ref/computed 的 .value 解包：xxx.value → this.xxx.value
  * 2. ref/computed 裸名：xxx → this.xxx.value
- * 3. 成员访问形式的全局 API：__i18n.t → this.$t, ElMessageBox.confirm → this.$confirm
- * 4. props.xxx → this.xxx；裸 prop → this.xxx
+ * 3. 归一化 __instance.proxy.$forceUpdate.xxx → __instance.proxy.xxx
+ * 4. 成员访问形式的全局 API：__i18n.t → this.$t, ElMessageBox.confirm → this.$confirm
+ * 5. props.xxx → this.xxx；裸 prop → this.xxx
  *    （必须在全局 API 变量之前执行，避免 props 与 $props 冲突）
- * 5. 全局 API 变量：router → this.$router
- * 6. state → this.state
- * 7. reactives：obj → this.obj
- * 8. methods/composables/injects/dataSources：name → this.name
+ * 6. 全局 API 变量：router → this.$router
+ * 7. state → this.state
+ * 8. reactives：obj → this.obj
+ * 9. methods/composables/injects/dataSources：name → this.name
  */
 export function reverseTransformExpression(
   code: string,
@@ -44,7 +45,15 @@ export function reverseTransformExpression(
     );
   }
 
-  // 3. 成员访问形式的全局 API
+  // 3. 归一化 __instance.proxy.$forceUpdate.xxx → __instance.proxy.xxx
+  //    用户可能通过 $forceUpdate 间接访问实例属性，
+  //    将其归一化为标准路径，以便后续成员映射正确匹配
+  result = result.replace(
+    /__instance\.proxy\.\$forceUpdate\./g,
+    '__instance.proxy.'
+  );
+
+  // 4. 成员访问形式的全局 API
   // __i18n.t → this.$t, ElMessageBox.confirm → this.$confirm 等
   for (const [objName, props] of Object.entries(
     symbols.reverseMemberApiMap || {}
@@ -58,7 +67,7 @@ export function reverseTransformExpression(
     }
   }
 
-  // 4. props.xxx → this.xxx
+  // 5. props.xxx → this.xxx
   // 必须在全局 API 变量（下一轮）之前执行，以免 props 被 $props 映射污染
   for (const name of symbols.props) {
     result = replaceMemberAccess(result, 'props', name, `this.${name}`);
@@ -68,37 +77,37 @@ export function reverseTransformExpression(
     result = replacer(result, name, `this.${name}`);
   }
 
-  // 5. 全局 API 变量 → this.$xxx
+  // 6. 全局 API 变量 → this.$xxx
   for (const [varName, apiName] of Object.entries(symbols.reverseApiMap)) {
     result = replacer(result, varName, `this.${apiName}`);
   }
 
-  // 6. state reactive 整体：state → this.state
+  // 7. state reactive 整体：state → this.state
   if (symbols.hasState) {
     result = replacer(result, 'state', 'this.state');
   }
 
-  // 7. 其他 reactives：obj → this.obj
+  // 8. 其他 reactives：obj → this.obj
   for (const name of symbols.reactives) {
     result = replacer(result, name, `this.${name}`);
   }
 
-  // 8. methods
+  // 9. methods
   for (const name of symbols.methods) {
     result = replacer(result, name, `this.${name}`);
   }
 
-  // 9. composables 变量名（含解构字段）
+  // 10. composables 变量名（含解构字段）
   for (const name of symbols.composables) {
     result = replacer(result, name, `this.${name}`);
   }
 
-  // 10. injects
+  // 11. injects
   for (const name of symbols.injects) {
     result = replacer(result, name, `this.${name}`);
   }
 
-  // 11. dataSources
+  // 12. dataSources
   for (const name of symbols.dataSources) {
     result = replacer(result, name, `this.${name}`);
   }
