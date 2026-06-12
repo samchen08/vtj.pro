@@ -79,7 +79,7 @@ export function transformExpression(
     }
     // props
     if (symbols.props.has(name)) {
-      return context === 'script' ? `props.${name}` : name;
+      return context === 'script' ? `__props.${name}` : name;
     }
     // 未识别保留原样
     return match;

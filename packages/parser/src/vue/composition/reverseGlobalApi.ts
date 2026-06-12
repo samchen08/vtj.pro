@@ -28,9 +28,9 @@ export function buildReverseGlobalApiMap(
   // 基础全局 API
   for (const [api, cfg] of Object.entries(GLOBAL_API_MAP)) {
     if (!cfg.replace) continue;
-    // 排除 $props：props 在 Composition 模式中由 defineProps() 定义，
-    // 不是全局 API 变量，不应映射为 this.$props（会导致 props.title → this.$this.title）
-    if (api === '$props') continue;
+    // 注：$props 现在也纳入反向映射（__props → $props），
+    // 因为 reverseTransformer 中 __props.xxx → this.xxx（step 5）
+    // 在全局 API 变量映射（step 6）之前执行，不会冲突
     if (cfg.replace.includes('.')) {
       const lastDot = cfg.replace.lastIndexOf('.');
       const obj = cfg.replace.substring(0, lastDot);

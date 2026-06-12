@@ -57,8 +57,8 @@ const scriptSetupTemplate = `
 // @ts-nocheck
 <%= imports %>
 import { <%= rendererImports %> } from '<%= renderer %>';
-<% if(props) { %>const props = defineProps({ <%= props %> });<% } else if(needsProps) { %>const props = defineProps();<% } %>
-<% if(emits) { %>const emit = defineEmits([<%= emits %>]);<% } else if(needsEmit) { %>const emit = defineEmits();<% } %>
+<% if(props) { %>const __props = defineProps({ <%= props %> });<% } else if(needsProps) { %>const __props = defineProps();<% } %>
+<% if(emits) { %>const __emit = defineEmits([<%= emits %>]);<% } else if(needsEmit) { %>const __emit = defineEmits();<% } %>
 const __provider = useProvider({ id: '<%= id %>', version: '<%= version %>' });
 <%= globalApiDeclares %>
 <%= injects %>

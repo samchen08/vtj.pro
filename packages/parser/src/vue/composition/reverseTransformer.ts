@@ -75,10 +75,10 @@ export function reverseTransformExpression(
     }
   }
 
-  // 5. props.xxx → this.xxx
-  // 必须在全局 API 变量（下一轮）之前执行，以免 props 被 $props 映射污染
+  // 5. __props.xxx → this.xxx
+  // 必须在全局 API 变量（下一轮）之前执行，以免 __props 被 $props 映射污染
   for (const name of symbols.props) {
-    result = replaceMemberAccess(result, 'props', name, `this.${name}`);
+    result = replaceMemberAccess(result, '__props', name, `this.${name}`);
   }
   // 裸 prop 名 → this.prop（模板中直接使用 prop 名的情况）
   for (const name of symbols.props) {

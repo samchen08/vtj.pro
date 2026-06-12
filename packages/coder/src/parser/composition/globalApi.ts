@@ -32,13 +32,13 @@ export const GLOBAL_API_MAP: Record<string, GlobalApiConfig> = {
     composable: null,
     from: 'vue',
     declare: null,
-    replace: 'emit'
+    replace: '__emit'
   },
   $props: {
     composable: null,
     from: 'vue',
     declare: null,
-    replace: 'props'
+    replace: '__props'
   },
   $attrs: {
     composable: 'useAttrs',

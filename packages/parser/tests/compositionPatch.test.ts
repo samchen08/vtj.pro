@@ -16,7 +16,9 @@ const baseOptions = {
     route: '$route',
     t: '$t',
     store: '$store',
-    __provider: '$provider'
+    __provider: '$provider',
+    __props: '$props',
+    __emit: '$emit'
   },
   libs: {}
 };
@@ -76,6 +78,18 @@ describe('compositionPatch', () => {
     expect(result).toBe('this.$provider?.env?.NODE_ENV');
   });
 
+  test('should replace bare __props with this.$props', () => {
+    const input = '__props';
+    const result = compositionPatch(input, baseOptions);
+    expect(result).toBe('this.$props');
+  });
+
+  test('should replace bare __emit with this.$emit', () => {
+    const input = '__emit';
+    const result = compositionPatch(input, baseOptions);
+    expect(result).toBe('this.$emit');
+  });
+
   test('should replace __i18n.t with this.$t', () => {
     const input = '__i18n.t("hello")';
     const result = compositionPatch(input, baseOptions);
@@ -125,8 +139,8 @@ describe('compositionPatch', () => {
     expect(result).toBe('this.x + this.y');
   });
 
-  test('should replace props.xxx with this.xxx', () => {
-    const input = 'props.title + " " + props.visible';
+  test('should replace __props.xxx with this.xxx', () => {
+    const input = '__props.title + " " + __props.visible';
     const result = compositionPatch(input, baseOptions);
     expect(result).toBe('this.title + " " + this.visible');
   });
@@ -215,8 +229,8 @@ describe('compositionPatch', () => {
     expect(result).toBe('this.state.loading');
   });
 
-  test('should convert _ctx.props.xxx to this.xxx', () => {
-    const input = '_ctx.props.title';
+  test('should convert _ctx.__props.xxx to this.xxx', () => {
+    const input = '_ctx.__props.title';
     const result = compositionPatch(input, baseOptions);
     expect(result).toBe('this.title');
   });

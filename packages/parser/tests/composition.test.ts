@@ -18,11 +18,11 @@ import { ref, reactive, computed, watch, onMounted, inject, provide } from 'vue'
 import { useRouter, useRoute } from 'vue-router';
 import { useMouse } from '@vueuse/core';
 
-const props = defineProps({
+const __props = defineProps({
   title: { type: String, required: true, default: 'Hello' }
 });
 
-const emit = defineEmits(['change', 'update']);
+const __emit = defineEmits(['change', 'update']);
 
 const router = useRouter();
 const route = useRoute();
@@ -44,12 +44,12 @@ const form = reactive({
 const double = computed(() => count.value * 2);
 
 const greeting = computed(() => {
-  return props.title + ' ' + message.value;
+  return __props.title + ' ' + message.value;
 });
 
 function increment() {
   count.value++;
-  emit('change', count.value);
+  __emit('change', count.value);
 }
 
 async function fetchData() {
@@ -352,7 +352,7 @@ describe('parseVue Composition mode with i18n', () => {
 import { ref, nextTick } from 'vue';
 import { useI18n } from 'vue-i18n';
 
-const props = defineProps({ title: String });
+const __props = defineProps({ title: String });
 
 const __i18n = useI18n();
 const count = ref(0);
@@ -426,7 +426,7 @@ function handleClick() {
 describe('parseVue Composition mode props in template expressions', () => {
   const propsSource = `
 <template>
-  <span>{{ props.title }}</span>
+  <span>{{ __props.title }}</span>
   <span>{{ title }}</span>
 </template>
 
@@ -435,7 +435,7 @@ describe('parseVue Composition mode props in template expressions', () => {
 
 import { computed } from 'vue';
 import { useProvider } from '@vtj/renderer';
-const props = defineProps({
+const __props = defineProps({
   title: {
     type: [String],
     required: false,
@@ -451,7 +451,7 @@ const __provider = useProvider({ id: '1kwhcdeh', version: '1781199016753' });
 </style>
 `;
 
-  test('props.title in template → this.title', async () => {
+  test('__props.title in template → this.title', async () => {
     const result = await parseVue({
       project,
       id: 'test-props-template',
@@ -463,14 +463,14 @@ const __provider = useProvider({ id: '1kwhcdeh', version: '1781199016753' });
     expect(result.nodes).toBeDefined();
     expect(result.nodes!.length).toBeGreaterThan(0);
 
-    // Find the span with props.title expression
+    // Find the span with __props.title expression
     const spanNode = result.nodes!.find(
       (n) => n.name === 'span' && typeof n.children === 'object'
     );
     expect(spanNode).toBeDefined();
 
     const children = spanNode!.children as any;
-    // props.title → this.title (NOT this.$this.title)
+    // __props.title → this.title (NOT this.$this.title)
     expect(children.value).toBe('this.title');
     expect(children.value).not.toContain('$this');
   });
