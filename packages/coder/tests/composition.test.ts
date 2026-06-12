@@ -87,7 +87,7 @@ test('composition mode', async () => {
   expect(content).toContain('ElMessageBox.confirm(');
   // 确保 element-plus 只有一条 import
   expect(content.match(/from 'element-plus'/g)?.length).toBe(1);
-  expect(content).toContain('provider');
+  expect(content).toContain('__provider');
 });
 
 test('composition mode - ant-design-vue', async () => {

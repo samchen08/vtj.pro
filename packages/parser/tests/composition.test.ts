@@ -443,7 +443,7 @@ const props = defineProps({
   }
 });
 
-const provider = useProvider({ id: '1kwhcdeh', version: '1781199016753' });
+const __provider = useProvider({ id: '1kwhcdeh', version: '1781199016753' });
 
 </script>
 <style lang="css" scoped>

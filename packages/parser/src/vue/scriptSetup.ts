@@ -719,7 +719,9 @@ function convertFunctionDeclToExpression(node: FunctionDeclaration): string {
 }
 
 function isDataSourceMethod(code: string): boolean {
-  return code.includes('provider.apis') || code.includes('provider.createMock');
+  return (
+    code.includes('__provider.apis') || code.includes('__provider.createMock')
+  );
 }
 
 function extractDataSourceFromCode(
@@ -733,7 +735,7 @@ function extractDataSourceFromCode(
   const comment = '';
   const dataSource = extractDataSource(comment);
 
-  if (code.includes('provider.apis')) {
+  if (code.includes('__provider.apis')) {
     const matches = code.match(idRegex) || [];
     const id = matches[1];
     if (!id) return null;
@@ -757,7 +759,7 @@ function extractDataSourceFromCode(
     };
   }
 
-  if (code.includes('provider.createMock')) {
+  if (code.includes('__provider.createMock')) {
     const transform = code.match(thenRegex)?.[1];
     return {
       ref: '',

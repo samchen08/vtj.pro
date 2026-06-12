@@ -154,10 +154,24 @@
     return current.value?.inject || [];
   });
 
+  const isComposition = computed(
+    () => current.value?.apiMode === 'composition'
+  );
+
   const exposeOptions = computed<Record<string, string[]>>(() => {
     const result: Record<string, string[]> = {};
     if (!current.value) return result;
-    result['状态'] = ['state'];
+    if (isComposition.value) {
+      result['ref'] = Object.keys(current.value.refs || {});
+      result['reactive'] = Object.keys(current.value.reactives || {});
+      const states = Object.keys(current.value.state || {});
+      if (states.length) {
+        result['状态'] = ['__state'];
+      }
+    } else {
+      result['状态'] = ['state'];
+    }
+
     const computedKeys = Object.keys(current.value.computed || {});
     const methods = Object.keys(current.value.methods || {});
 

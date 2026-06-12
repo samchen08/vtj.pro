@@ -43,7 +43,7 @@ export function parseDataSources(
             ? item.mockTemplate.value
             : `(params) => ({})`;
         return `const ${item.name} = async (...args) => {
-  const mock = provider.createMock(${mockTemplate});
+  const mock = __provider.createMock(${mockTemplate});
   return await mock.apply(null, args);
 };`;
       } else {
@@ -52,7 +52,7 @@ export function parseDataSources(
             ? item.transform.value
             : `(res) => res`;
         return `const ${item.name} = async (...args) => {
-  return await provider.apis['${item.ref}'].apply(null, args).then(${transform});
+  return await __provider.apis['${item.ref}'].apply(null, args).then(${transform});
 };`;
       }
     })

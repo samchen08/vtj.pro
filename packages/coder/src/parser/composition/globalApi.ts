@@ -162,7 +162,7 @@ export const GLOBAL_API_MAP: Record<string, GlobalApiConfig> = {
     composable: 'useStore',
     from: '__renderer__',
     declare: null,
-    replace: 'provider'
+    replace: '__provider'
   },
   $store: {
     composable: 'useStore',

@@ -59,7 +59,7 @@ const scriptSetupTemplate = `
 import { <%= rendererImports %> } from '<%= renderer %>';
 <% if(props) { %>const props = defineProps({ <%= props %> });<% } else if(needsProps) { %>const props = defineProps();<% } %>
 <% if(emits) { %>const emit = defineEmits([<%= emits %>]);<% } else if(needsEmit) { %>const emit = defineEmits();<% } %>
-const provider = useProvider({ id: '<%= id %>', version: '<%= version %>' });
+const __provider = useProvider({ id: '<%= id %>', version: '<%= version %>' });
 <%= globalApiDeclares %>
 <%= injects %>
 <%= composables %>
