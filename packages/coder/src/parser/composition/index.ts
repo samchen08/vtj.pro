@@ -146,6 +146,26 @@ export function parserComposition(
     symbols
   );
 
+  // 收集 composables 已定义的变量名（name + destructure），用于与全局 API 声明去重
+  const composableVarNames = new Set<string>();
+  for (const c of (dsl.composables || []) as any[]) {
+    if (c.destructure && c.destructure.length > 0) {
+      for (const d of c.destructure) composableVarNames.add(d);
+    } else if (c.name) {
+      composableVarNames.add(c.name);
+    }
+  }
+
+  // 去重：如果全局 API 已声明的变量名与 composable 同名，则跳过全局 API 声明
+  // （避免 composables 和 lifecycle 中的 this.$xxx 同时生成相同变量的声明）
+  const dedupedGlobalApiDeclares = globalApiDeclares.filter((declare) => {
+    const match = declare.match(/^const\s+(\w+)\s*=/);
+    if (match && composableVarNames.has(match[1])) {
+      return false;
+    }
+    return true;
+  });
+
   const lifeCyclesResult = parseLifeCycles(dsl.lifeCycles || {}, symbols);
   const createdStatements = parseCreatedStatements(
     dsl.lifeCycles || {},
@@ -190,7 +210,7 @@ export function parserComposition(
     needsEmit: globalApis.has('$emit'),
     expose:
       dsl.expose && dsl.expose.length ? `{ ${dsl.expose.join(', ')} }` : '',
-    globalApiDeclares: globalApiDeclares.join('\n'),
+    globalApiDeclares: dedupedGlobalApiDeclares.join('\n'),
     injects: injectArr.join('\n'),
     composables: composablesResult.statements.join('\n'),
     state: stateStr,
