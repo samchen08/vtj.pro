@@ -45,7 +45,7 @@ export function buildSymbolTable(
   const stateKeys = Object.keys(dsl.state ?? {});
   const hasState = stateKeys.length > 0;
   if (hasState) {
-    reactives.add('state');
+    reactives.add('__state');
   }
 
   // computed

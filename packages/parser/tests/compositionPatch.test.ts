@@ -131,8 +131,8 @@ describe('compositionPatch', () => {
     expect(result).toBe('this.title + " " + this.visible');
   });
 
-  test('should replace state with this.state', () => {
-    const input = 'state.loading = true';
+  test('should replace __state with this.state', () => {
+    const input = '__state.loading = true';
     const result = compositionPatch(input, baseOptions);
     expect(result).toBe('this.state.loading = true');
   });

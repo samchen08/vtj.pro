@@ -21,6 +21,12 @@ export interface GlobalApiConfig {
  * 不含任何 UI 库（element-plus / ant-design-vue 等）
  */
 export const GLOBAL_API_MAP: Record<string, GlobalApiConfig> = {
+  state: {
+    composable: null,
+    from: 'self',
+    declare: null,
+    replace: '__state'
+  },
   // ---- Vue 原生 ----
   $emit: {
     composable: null,

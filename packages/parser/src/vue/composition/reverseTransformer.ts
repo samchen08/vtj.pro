@@ -15,7 +15,7 @@ import type { ReverseSymbolTable } from './reverseSymbolTable';
  * 5. props.xxx → this.xxx；裸 prop → this.xxx
  *    （必须在全局 API 变量之前执行，避免 props 与 $props 冲突）
  * 6. 全局 API 变量：router → this.$router
- * 7. state → this.state
+ * 7. __state → this.state
  * 8. reactives：obj → this.obj
  * 9. methods/composables/injects/dataSources：name → this.name
  */
@@ -90,9 +90,9 @@ export function reverseTransformExpression(
     result = replacer(result, varName, `this.${apiName}`);
   }
 
-  // 7. state reactive 整体：state → this.state
+  // 7. state reactive 整体：__state → this.state
   if (symbols.hasState) {
-    result = replacer(result, 'state', 'this.state');
+    result = replacer(result, '__state', 'this.state');
   }
 
   // 8. 其他 reactives：obj → this.obj

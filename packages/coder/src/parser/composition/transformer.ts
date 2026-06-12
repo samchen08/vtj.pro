@@ -63,6 +63,10 @@ export function transformExpression(
     if (symbols.refs.has(name) || symbols.computed.has(name)) {
       return context === 'script' ? `${name}.value` : name;
     }
+    // state 特殊处理：DSL 的 this.state → 出码为 __state
+    if (name === 'state') {
+      return '__state';
+    }
     // reactives / methods / composables / injects / dataSources 直接用
     if (
       symbols.reactives.has(name) ||

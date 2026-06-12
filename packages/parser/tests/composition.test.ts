@@ -31,7 +31,7 @@ const { x, y } = useMouse();
 const count = ref(0);
 const message = ref('hello');
 
-const state = reactive({
+const __state = reactive({
   loading: false,
   list: []
 });
@@ -53,10 +53,10 @@ function increment() {
 }
 
 async function fetchData() {
-  state.loading = true;
+  __state.loading = true;
   const data = await fetch('/api/data');
-  state.list = await data.json();
-  state.loading = false;
+  __state.list = await data.json();
+  __state.loading = false;
 }
 
 const theme = inject('theme', 'light');

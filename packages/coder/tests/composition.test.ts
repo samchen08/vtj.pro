@@ -35,7 +35,7 @@ test('composition mode', async () => {
   expect(content).toContain('getCurrentInstance');
   expect(content).toContain('const count = ref(0)');
   expect(content).toContain('const form = reactive');
-  expect(content).toContain('const state = reactive');
+  expect(content).toContain('const __state = reactive');
   expect(content).toContain('const total = computed');
   expect(content).toContain('const handleClick =');
   expect(content).toContain('const mouse = useMouse');

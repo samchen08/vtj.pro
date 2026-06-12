@@ -42,5 +42,5 @@ export function parseStateAsReactive(
       return `${k}: ${value}`;
     })
     .join(', ');
-  return `const state = reactive({ ${fields} });`;
+  return `const __state = reactive({ ${fields} });`;
 }

@@ -163,7 +163,7 @@ export function parseScriptSetup(
           if (callee === 'reactive') {
             const name = getDeclaratorName(declarator.id);
             if (name) {
-              if (name === 'state') {
+              if (name === '__state') {
                 // state 是特殊 reactive
                 result.state = parseStateObject(init.arguments[0]);
               } else {

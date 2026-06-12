@@ -22,7 +22,7 @@ describe('parserComposition', () => {
     } as any;
     const collecter = new Collecter(dsl, []);
     const token = parserComposition(collecter, new Map(), 'web');
-    expect(token.state).toContain('const state = reactive({');
+    expect(token.state).toContain('const __state = reactive({');
     expect(token.state).toContain('count: 0');
     expect(token.state).toContain('title: "hello"');
   });
