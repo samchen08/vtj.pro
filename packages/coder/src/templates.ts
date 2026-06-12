@@ -57,6 +57,7 @@ const scriptSetupTemplate = `
 // @ts-nocheck
 <%= imports %>
 import { <%= rendererImports %> } from '<%= renderer %>';
+<% if(componentDeclarations) { %><%= componentDeclarations %><% } %>
 <% if(props) { %>const __props = defineProps({ <%= props %> });<% } else if(needsProps) { %>const __props = defineProps();<% } %>
 <% if(emits) { %>const __emit = defineEmits([<%= emits %>]);<% } else if(needsEmit) { %>const __emit = defineEmits();<% } %>
 const __provider = useProvider({ id: '<%= id %>', version: '<%= version %>' });

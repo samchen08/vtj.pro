@@ -49,16 +49,65 @@ export function parseImports(input: CompositionImportsInput) {
 
   const uniComponents: string[] = [];
 
-  // 物料组件
+  /**
+   * parent 组件的 const 声明，如：
+   *   const AButtonGroup = AButton.Group;
+   * key 为组件注册名（AButtonGroup），value 为已完整声明字符串
+   */
+  const componentDeclarations: string[] = [];
+
+  /**
+   * parent 组件：parent 对应的导入名（如 Button）-> 已在 import 中的注册名（如 AButton）
+   * 用于生成 const AButtonGroup = AButton.Group 时找到正确的变量名
+   */
+  const parentImportedAs: Record<string, string> = {};
+
+  // 物料组件 —— 第一遍：收集所有非 parent 组件的 import 信息
   for (const name of components) {
-    const desc = componentMap.get(name.split(':')[0]);
-    if (desc && desc.package) {
+    const compName = name.split(':')[0];
+    const desc = componentMap.get(compName);
+    if (!desc || !desc.package || desc.parent) continue; // parent 组件第二遍处理
+
+    const items = imports[desc.package] ?? (imports[desc.package] = []);
+    // script setup 模式下，import 的名字即为模板中使用的组件名
+    // 当组件有别名（alias）且与组件注册名不同时，需生成 "OriginalName as AliasName"
+    const importedName = (desc.alias || '').split('.')[0] || desc.name;
+    const registeredName = compName;
+    const item =
+      importedName !== registeredName
+        ? `${importedName} as ${registeredName}`
+        : importedName;
+    items.push(item);
+    // 记录 importedName -> registeredName 映射，供 parent 组件使用
+    parentImportedAs[importedName] = registeredName;
+    if (platform === 'uniapp' && uniH5.includes(desc.package)) {
+      uniComponents.push(importedName);
+    }
+  }
+
+  // 物料组件 —— 第二遍：处理有 parent 的子组件（如 AButtonGroup）
+  for (const name of components) {
+    const compName = name.split(':')[0];
+    const desc = componentMap.get(compName);
+    if (!desc || !desc.package || !desc.parent) continue;
+
+    // parent 是已 import 的基础组件名（如 Button）
+    // alias 是在 parent 上的属性路径（如 Group 或 Group.Item）
+    const parentName = desc.parent;
+    // 找到 parent 在 import 后的实际变量名（可能是 "Button as AButton" -> AButton）
+    const parentVar = parentImportedAs[parentName] ?? parentName;
+    const aliasPath = desc.alias || '';
+    // 生成：const AButtonGroup = AButton.Group;
+    componentDeclarations.push(
+      `const ${compName} = ${parentVar}.${aliasPath};`
+    );
+
+    // 如果 parent 对应的基础组件尚未被 import，也需要确保它被导入
+    // （例如只有 AButtonGroup 而没有 AButton 时）
+    if (!parentImportedAs[parentName]) {
       const items = imports[desc.package] ?? (imports[desc.package] = []);
-      const item = desc.parent || (desc.alias || '').split('.')[0] || desc.name;
-      items.push(item);
-      if (platform === 'uniapp' && uniH5.includes(desc.package)) {
-        uniComponents.push(item);
-      }
+      items.push(parentName);
+      parentImportedAs[parentName] = parentName;
     }
   }
 
@@ -96,5 +145,5 @@ export function parseImports(input: CompositionImportsInput) {
     })
     .concat(importBlocks);
 
-  return { imports: result, uniComponents };
+  return { imports: result, uniComponents, componentDeclarations };
 }

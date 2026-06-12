@@ -308,6 +308,22 @@ export function parseScriptSetup(
           }
           return;
         }
+
+        // const X = Y.Z — UI 组件 parent 派生声明（如 const AButtonGroup = AButton.Group）
+        // Y 来自某个 import，直接跳过，不写入 setup
+        if (init.type === 'MemberExpression') {
+          const obj = init.object;
+          const rootName =
+            obj.type === 'Identifier'
+              ? obj.name
+              : obj.type === 'MemberExpression' &&
+                  obj.object.type === 'Identifier'
+                ? obj.object.name
+                : null;
+          if (rootName && importSourceMap.has(rootName)) {
+            return;
+          }
+        }
       }
 
       // 过滤以 __ 开头的内部变量声明
@@ -463,13 +479,17 @@ function parseImports(script: string): ImportStatement[] {
 
 /**
  * 构建 import 名 → 来源包 的映射
+ * 支持 "X as Y" 语法，以本地名 Y 为 key
  */
 function buildImportSourceMap(imports: ImportStatement[]): Map<string, string> {
   const map = new Map<string, string>();
   for (const imp of imports) {
     if (Array.isArray(imp.imports)) {
       for (const name of imp.imports) {
-        map.set(name, imp.from);
+        // 处理 "Button as AButton" 语法，以本地名（AButton）为 key
+        const asMatch = name.match(/^\S+\s+as\s+(\S+)$/);
+        const localName = asMatch ? asMatch[1] : name;
+        map.set(localName, imp.from);
       }
     } else {
       map.set(imp.imports, imp.from);

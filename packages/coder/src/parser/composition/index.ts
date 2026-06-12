@@ -84,6 +84,8 @@ export interface TokenComposition {
   renderer: string;
   /** renderer 包导入的标识符（useProvider + 可能的 useStore 等） */
   rendererImports: string;
+  /** parent 类型组件的 const 声明（如 const AButtonGroup = AButton.Group;） */
+  componentDeclarations: string;
 }
 
 /**
@@ -184,7 +186,7 @@ export function parserComposition(
   for (const hook of lifeCyclesResult.usedHooks) vueImports.add(hook);
 
   // 6. 解析 imports
-  const { imports, uniComponents } = parseImports({
+  const { imports, uniComponents, componentDeclarations } = parseImports({
     componentMap,
     components: tplResult.components,
     importBlocks: blocksImport,
@@ -231,6 +233,7 @@ export function parserComposition(
     blockPlugins: blockPlugins.join('\n'),
     uniComponents,
     renderer: platform === 'uniapp' ? '@vtj/uni-app' : '@vtj/renderer',
-    rendererImports: ['useProvider', ...rendererApiIds].join(', ')
+    rendererImports: ['useProvider', ...rendererApiIds].join(', '),
+    componentDeclarations: componentDeclarations.join('\n')
   };
 }
