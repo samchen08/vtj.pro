@@ -457,7 +457,11 @@ export function parseScriptSetup(
 
   // 组装 setup 字段
   if (setupStatements.length > 0) {
-    result.setup = getJSFunction(`() => {\n${setupStatements.join('\n')}\n}`);
+    const hasAwait = setupStatements.some((s) => /\bawait\b/.test(s));
+    const prefix = hasAwait ? 'async () =>' : '() =>';
+    result.setup = getJSFunction(
+      `${prefix} {\n${setupStatements.join('\n')}\n}`
+    );
   }
 
   return result;
