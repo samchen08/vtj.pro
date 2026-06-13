@@ -438,20 +438,6 @@ async function createCompositionLifeCycles(
     deactivated: 'onDeactivated'
   };
 
-  const hookMap: Record<string, Function> = {
-    onBeforeMount: Vue.onBeforeMount,
-    onMounted: Vue.onMounted,
-    onBeforeUpdate: Vue.onBeforeUpdate,
-    onUpdated: Vue.onUpdated,
-    onBeforeUnmount: Vue.onBeforeUnmount,
-    onUnmounted: Vue.onUnmounted,
-    onErrorCaptured: Vue.onErrorCaptured,
-    onRenderTracked: Vue.onRenderTracked,
-    onRenderTriggered: Vue.onRenderTriggered,
-    onActivated: Vue.onActivated,
-    onDeactivated: Vue.onDeactivated
-  };
-
   for (const [name, code] of Object.entries(lifeCycles)) {
     // created/beforeCreate 在 Composition 模式下等价于 setup，立即执行
     if (name === 'created' || name === 'beforeCreate') {
@@ -463,7 +449,7 @@ async function createCompositionLifeCycles(
     }
     // 兼容 Options API 命名，自动映射为 Composition API
     const hookName = optionsToCompositionMap[name] || name;
-    const hook = hookMap[hookName] || UniApp[hookName];
+    const hook = Vue[hookName] || UniApp[hookName];
     if (hook && isFunction(hook)) {
       const fn = context.__parseFunction(code);
       if (isFunction(fn)) {
