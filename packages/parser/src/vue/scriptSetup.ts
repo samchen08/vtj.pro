@@ -42,7 +42,26 @@ const LIFECYCLE_MAP: Record<string, string> = {
   onRenderTracked: 'renderTracked',
   onRenderTriggered: 'renderTriggered',
   onActivated: 'activated',
-  onDeactivated: 'deactivated'
+  onDeactivated: 'deactivated',
+  // Uniapp 专用生命周期钩子（Composition 名与 Options 名相同）
+  onLoad: 'onLoad',
+  onShow: 'onShow',
+  onReady: 'onReady',
+  onHide: 'onHide',
+  onUnload: 'onUnload',
+  onResize: 'onResize',
+  onPullDownRefresh: 'onPullDownRefresh',
+  onReachBottom: 'onReachBottom',
+  onTabItemTap: 'onTabItemTap',
+  onShareAppMessage: 'onShareAppMessage',
+  onPageScroll: 'onPageScroll',
+  onNavigationBarButtonTap: 'onNavigationBarButtonTap',
+  onBackPress: 'onBackPress',
+  onNavigationBarSearchInputChanged: 'onNavigationBarSearchInputChanged',
+  onNavigationBarSearchInputConfirmed: 'onNavigationBarSearchInputConfirmed',
+  onNavigationBarSearchInputClicked: 'onNavigationBarSearchInputClicked',
+  onShareTimeline: 'onShareTimeline',
+  onAddToFavorites: 'onAddToFavorites'
 };
 
 /**
