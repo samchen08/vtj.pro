@@ -201,7 +201,7 @@ describe('parseVue Composition mode', () => {
     });
 
     expect(result.lifeCycles).toBeDefined();
-    expect(result.lifeCycles!['mounted']).toBeDefined();
+    expect(result.lifeCycles!['onMounted']).toBeDefined();
   });
 
   test('inject is correctly parsed', async () => {
@@ -315,7 +315,7 @@ describe('parseVue Composition mode', () => {
     expect(increment.value).toContain('this.count');
 
     // Check that lifeCycles contain this.xxx pattern
-    const mounted = result.lifeCycles!['mounted'];
+    const mounted = result.lifeCycles!['onMounted'];
     expect(mounted).toBeDefined();
     // fetchData() → this.fetchData()
     expect(mounted.value).toContain('this.fetchData');

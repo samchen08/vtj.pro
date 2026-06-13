@@ -61,9 +61,13 @@ import { <%= rendererImports %> } from '<%= renderer %>';
 <% if(props) { %>const __props = defineProps({ <%= props %> });<% } else if(needsProps) { %>const __props = defineProps();<% } %>
 <% if(emits) { %>const __emit = defineEmits([<%= emits %>]);<% } else if(needsEmit) { %>const __emit = defineEmits();<% } %>
 const __provider = useProvider({ id: '<%= id %>', version: '<%= version %>' });
+<%= urlSchemas %>
+<%= blockPlugins %>
 <%= globalApiDeclares %>
 <%= injects %>
 <%= composables %>
+<%= createdStatements %>
+<%= setupStatements %>
 <%= state %>
 <%= refs %>
 <%= reactives %>
@@ -72,10 +76,6 @@ const __provider = useProvider({ id: '<%= id %>', version: '<%= version %>' });
 <%= dataSources %>
 <%= watch %>
 <%= provide %>
-<%= urlSchemas %>
-<%= blockPlugins %>
-<%= createdStatements %>
-<%= setupStatements %>
 <%= lifeCycles %>
 <% if(expose) { %>defineExpose(<%= expose %>);<% } %>
 `;

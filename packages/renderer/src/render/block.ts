@@ -79,9 +79,18 @@ export function createRenderer(options: CreateRendererOptions) {
           true
         );
       }
+      const isComposition = dsl.value.apiMode === 'composition';
+
+      // 执行 setup 初始化代码
+      if (isComposition && dsl.value.setup) {
+        const setupFn = context.__parseFunction(dsl.value.setup);
+        if (isFunction(setupFn)) {
+          await setupFn();
+        }
+      }
 
       context.state = createState(Vue, dsl.value.state ?? {}, context);
-      const isComposition = dsl.value.apiMode === 'composition';
+
       // 状态创建：根据模式分流
       const refs = isComposition
         ? createRefs(Vue, dsl.value.refs ?? {}, context)
@@ -129,13 +138,6 @@ export function createRenderer(options: CreateRendererOptions) {
           context,
           UniApp
         );
-        // 执行 setup 初始化代码
-        if (dsl.value.setup) {
-          const setupFn = context.__parseFunction(dsl.value.setup);
-          if (isFunction(setupFn)) {
-            await setupFn();
-          }
-        }
       }
 
       return {

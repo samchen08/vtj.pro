@@ -105,7 +105,7 @@ describe('parseScriptSetup', () => {
 
   test('should parse lifeCycles', () => {
     expect(result.lifeCycles).toBeDefined();
-    expect(result.lifeCycles!['mounted']).toBeDefined();
+    expect(result.lifeCycles!['onMounted']).toBeDefined();
   });
 
   test('should parse inject', () => {
@@ -123,5 +123,24 @@ describe('parseScriptSetup', () => {
     expect(result.expose).toBeDefined();
     expect(result.expose).toContain('count');
     expect(result.expose).toContain('increment');
+  });
+});
+
+describe('parseScriptSetup with ClassDeclaration', () => {
+  const classSource = `
+import { useProvider } from '@vtj/renderer';
+
+const __provider = useProvider({ id: '1kzck23e', version: '1781335863126' })
+
+class TClass {
+
+}
+`;
+
+  const result = parseScriptSetup(classSource, project);
+
+  test('should collect class declaration into setup', () => {
+    expect(result.setup).toBeDefined();
+    expect(result.setup!.value).toContain('class TClass');
   });
 });

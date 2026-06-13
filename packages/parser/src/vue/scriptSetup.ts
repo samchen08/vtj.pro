@@ -5,7 +5,8 @@ import type {
   Identifier,
   VariableDeclaration,
   ExpressionStatement,
-  FunctionDeclaration
+  FunctionDeclaration,
+  ClassDeclaration
 } from '@babel/types';
 import { uid } from '@vtj/base';
 import { GLOBAL_API_MAP } from '@vtj/coder';
@@ -379,6 +380,14 @@ export function parseScriptSetup(
       result.methods[name] = getJSFunction(funcCode);
     },
 
+    // 顶层类声明
+    ClassDeclaration(path: any) {
+      if (path.parent.type !== 'Program') return;
+      const node = path.node as ClassDeclaration;
+      // 类声明归入 setup 语句
+      setupStatements.push(generateCode(node));
+    },
+
     // 顶层表达式语句
     ExpressionStatement(path: any) {
       if (path.parent.type !== 'Program') return;
@@ -403,10 +412,9 @@ export function parseScriptSetup(
 
       // 生命周期 onXxx()
       if (callee && callee in LIFECYCLE_MAP) {
-        const optionsName = LIFECYCLE_MAP[callee];
         const handler = expr.arguments[0];
         if (handler) {
-          result.lifeCycles[optionsName] = getJSFunction(generateCode(handler));
+          result.lifeCycles[callee] = getJSFunction(generateCode(handler));
         }
         return;
       }
