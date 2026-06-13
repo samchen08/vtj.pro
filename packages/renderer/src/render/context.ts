@@ -48,6 +48,8 @@ export class Context {
   $libs: Record<string, any> = {};
   $apis: Record<string, any> = {};
   $provider: Provider | null = null;
+  $uni: any = null;
+  $getApp: any = null;
   private __transform: Record<string, string> = {};
   constructor(options: ContextOptions) {
     const { mode, dsl, attrs } = options;
@@ -74,6 +76,9 @@ export class Context {
     const globalProperties = instance.appContext.config.globalProperties;
     Object.assign(this, globalProperties);
     Object.assign(this, attrs || {});
+    // uniapp
+    this.$uni = this.$libs.UniH5?.uni ?? null;
+    this.$getApp = this.$libs.UniH5?.getApp ?? null;
     // 恢复响应式数据
     this.state = state;
     this.__proxy();

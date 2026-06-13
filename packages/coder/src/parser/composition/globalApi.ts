@@ -27,6 +27,18 @@ export const GLOBAL_API_MAP: Record<string, GlobalApiConfig> = {
     declare: null,
     replace: '__state'
   },
+  $uni: {
+    composable: null,
+    from: 'self',
+    declare: null,
+    replace: 'uni'
+  },
+  $getApp: {
+    composable: null,
+    from: 'self',
+    declare: null,
+    replace: 'getApp'
+  },
   // ---- Vue 原生 ----
   $emit: {
     composable: null,
