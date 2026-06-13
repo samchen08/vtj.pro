@@ -619,6 +619,7 @@ export class Provider extends Base {
     const options = {
       mode,
       Vue: library.Vue,
+      UniApp: library.UniApp,
       components,
       libs: library,
       apis,
