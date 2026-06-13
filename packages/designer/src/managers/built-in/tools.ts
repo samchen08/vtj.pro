@@ -557,7 +557,34 @@ const refresh: ToolConfig = {
  */
 const setApi: ToolConfig = {
   name: 'setApi',
-  description: '新增或更新项目接口API',
+  description: `新增或更新项目接口API。示例：
+\`\`\`json
+{
+  "action": "setApi",
+  "parameters": [
+    {
+      "name": "getUserList",
+      "label": "获取用户列表",
+      "url": "/api/users",
+      "method": "get",
+      "category": "用户管理",
+      "settings": {
+        "type": "json",
+        "loading": true,
+        "failMessage": true,
+        "validSuccess": true,
+        "originResponse": false,
+        "injectHeaders": false,
+        "proxy": false
+      },
+      "headers": "({\\n  'Content-Type': 'application/json',\\n  'X-Custom-Header': 'value'\\n})",
+      "mock": false,
+      "mockTemplate": "(req) => {\\n  return {\\n    code: 0,\\n    message: 'ok',\\n    data: {\\n      'list|10': [{\\n        id: '@guid',\\n        name: '@cname',\\n        'age|18-60': 1\\n      }]\\n    }\\n  };\\n}"
+    }
+  ]
+}
+\`\`\`
+  `,
   parameters: [
     {
       name: 'api',
@@ -583,6 +610,83 @@ const setApi: ToolConfig = {
           type: 'string',
           description:
             '接口请求方法, 可选值： get | post | put | delete | patch | jsonp'
+        },
+        category: {
+          type: 'string',
+          description: '接口分组名称,用于UI分类展示'
+        },
+        settings: {
+          type: 'object',
+          description: '请求设置配置',
+          properties: {
+            type: {
+              type: 'string',
+              description:
+                '发送数据类型, 可选值：form(表单) | json(JSON) | data(文件/FormData), 默认 form',
+              enum: ['form', 'json', 'data']
+            },
+            loading: {
+              type: 'boolean',
+              description: '请求时是否显示全局loading动画, 默认 true'
+            },
+            failMessage: {
+              type: 'boolean',
+              description: '请求失败时是否弹出错误提示, 默认 true'
+            },
+            validSuccess: {
+              type: 'boolean',
+              description:
+                '是否校验响应是否成功(调用全局validate函数), 默认 true'
+            },
+            originResponse: {
+              type: 'boolean',
+              description: '是否返回原始Axios响应对象(而非data部分), 默认 false'
+            },
+            injectHeaders: {
+              type: 'boolean',
+              description: '是否注入请求拦截器中自定义的请求头, 默认 false'
+            },
+            proxy: {
+              type: 'boolean',
+              description: '是否开启请求代理, 默认 false'
+            }
+          }
+        },
+        headers: {
+          type: 'string',
+          description:
+            "请求头配置, JS表达式字符串, 如: \"({'Content-Type': 'application/json'})\""
+        },
+        mock: {
+          type: 'boolean',
+          description: '是否开启模拟数据, 默认 false'
+        },
+        mockTemplate: {
+          type: 'string',
+          description:
+            '模拟数据模板函数, JS函数字符串, 签名: (req) => template, req包含url/type/data/params/query属性'
+        },
+        jsonpOptions: {
+          type: 'object',
+          description: 'jsonp请求配置(仅method为jsonp时有效)',
+          properties: {
+            jsonpCallback: {
+              type: 'string',
+              description: '回调函数名'
+            },
+            jsonpCallbackFunction: {
+              type: 'string',
+              description: '回调函数'
+            },
+            timeout: {
+              type: 'number',
+              description: '超时时间(毫秒)'
+            },
+            crossorigin: {
+              type: 'boolean',
+              description: '是否跨域'
+            }
+          }
         }
       }
     }
