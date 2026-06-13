@@ -8,6 +8,8 @@
 
 ### [api.md](./api.md) - VTJ API 管理指南
 
+**简介:** 详细介绍 VTJ 平台中 API 接口的完整生命周期管理，包括如何通过设计器配置 API、API 的完整字段结构、请求配置选项、Mock 数据设置，以及在组件中如何通过 `__apis` 调用接口。涵盖路径参数、查询参数的正确使用方式，以及 JSONP、请求拦截等特殊场景。
+
 **核心主题:** API 配置、调用、管理工具方法
 
 **标签:**
@@ -36,6 +38,8 @@
 ---
 
 ### [block.md](./block.md) - 区块管理指南
+
+**简介:** 说明 VTJ 中区块（Block）的三种来源类型（Schema、UrlSchema、Plugin），区块的创建、编辑、删除操作流程，以及区块在页面中的引用方式。同时介绍区块的代码生成规则和与页面的区别，帮助理解如何实现组件的跨页面复用。
 
 **核心主题:** 区块创建、来源类型、复用机制
 
@@ -66,6 +70,8 @@
 
 ### [chart.md](./chart.md) - 图表库使用指南
 
+**简介:** 介绍 `@vtj/charts` 图表库的完整使用方法，包括基于 ECharts 封装的 `XChart` 通用图表组件和 `XMapChart` 地图图表组件。涵盖组件 Props、事件监听、响应式 Option 更新、组合式 API（useChart、useMapChart），以及柱状图、折线图、饼图、地图等常用图表类型的配置示例。
+
 **核心主题:** ECharts 图表组件、地图图表、组合式 API
 
 **标签:**
@@ -94,6 +100,8 @@
 ---
 
 ### [coder.md](./coder.md) - Vue 代码编写约定
+
+**简介:** 定义 AI 生成 Vue 组件代码时必须遵循的严格规范，确保输出内容能被 `@vtj/parser` 无损解析为 DSL。包括强制使用 Composition API、响应式状态命名（`__state`、`__props`、`__emit`）、全局 API 映射表、模板指令使用规范、Import 导入约定，以及明确的禁止事项清单。
 
 **核心主题:** parser 可解析的 Vue 代码规范、Composition API 强制要求
 
@@ -124,6 +132,8 @@
 
 ### [env.md](./env.md) - 环境变量指南
 
+**简介:** 讲解 VTJ 平台中环境变量的配置和使用方式，支持开发（development）和生产（production）双环境值存储。介绍如何通过 `createEnv` 工具创建环境变量、`getEnv` 查询配置，以及在组件中通过 `__provider.env` 运行时访问环境变量，适用于 API 地址、功能开关、第三方 Key 等场景。
+
 **核心主题:** 环境变量配置、双环境值存储、运行时访问
 
 **标签:**
@@ -152,6 +162,8 @@
 ---
 
 ### [globals.md](./globals.md) - 全局 API 使用指南
+
+**简介:** 详细说明 `@vtj/renderer` 提供的全局变量及其在 Vue 组件中的使用方式。这些变量由框架自动注入，包括 `__store`（Pinia 状态）、`__request`（HTTP 请求）、`__libs`（第三方库集合）、`__apis`（接口集合）、`__access`（权限控制）等，涵盖权限判断、登录管理、动态请求、跨 UI 库调用等典型场景。
 
 **核心主题:** renderer 提供的全局变量、自动注入机制
 
@@ -182,6 +194,8 @@
 
 ### [i18n.md](./i18n.md) - 国际化指南
 
+**简介:** 介绍 VTJ 平台的国际化（i18n）配置和使用方法，基于 vue-i18n 的 Composition API 模式。包括如何通过 `createI18nMessage` 创建中英文对照词条、词条 Key 的命名规范（点号分层）、在模板和 script 中使用 `__i18n.t()` 进行翻译，以及插值参数、数字格式化、日期格式化等高级功能。
+
 **核心主题:** 多语言配置、词条管理、翻译函数使用
 
 **标签:**
@@ -210,6 +224,8 @@
 ---
 
 ### [icons.md](./icons.md) - 图标库使用指南
+
+**简介:** 全面介绍 `@vtj/icons` 图标库的四种图标来源（SVG 组件、Iconfont 图标、Element Plus 图标、Assets 图标），以及全局注册和按需导入两种使用方式。详细说明 `XIcon` 组件的用法，包括 `icon` 和 `src` 属性的区别、size/color 控制、动态图标切换，并提供完整的图标分类列表。
 
 **核心主题:** 图标组件、按需导入、XIcon 渲染
 
@@ -240,6 +256,8 @@
 
 ### [page.md](./page.md) - 页面管理指南
 
+**简介:** 讲解 VTJ 中页面的三种类型（page、dir、layout）及其路由行为，页面树的创建、编辑、删除操作流程，以及路由体系和菜单生成规则。涵盖特殊属性如 KeepAlive 缓存、mask 内嵌母版、hidden 隐藏菜单、raw 源码模式，以及 UniApp 平台的专属字段（needLogin、style）。
+
 **核心主题:** 页面类型、路由体系、菜单生成
 
 **标签:**
@@ -268,6 +286,8 @@
 ---
 
 ### [settings.md](./settings.md) - 应用设置指南
+
+**简介:** 详细介绍 VTJ 应用级别的全局配置项，覆盖三大类：全局配置（CSS、Pinia Store、Access 权限控制、Enhance 增强）、请求配置（Axios 基础配置、请求拦截器、响应拦截器）、路由守卫（beforeEach 前置守卫、afterEach 后置守卫）。说明渲染引擎的严格初始化顺序及各配置项的依赖关系。
 
 **核心主题:** 全局配置、请求配置、路由守卫
 
@@ -298,6 +318,8 @@
 
 ### [tools.md](./tools.md) - 设计器工具方法说明
 
+**简介:** 汇总 AI 在 VTJ 设计器中可调用的所有工具方法（Tools），包括页面管理（createPage、updatePage、removePage）、区块管理（createBlock、getBlocks）、API 管理（setApi、getApis）、全局配置（setGlobalCss、setGlobalStore 等）、环境变量、国际化、UniApp 配置等。提供标准的 JSON 调用格式和典型工作流程建议。
+
 **核心主题:** 所有可调用的工具方法、调用格式、工作流程
 
 **标签:**
@@ -326,6 +348,8 @@
 ---
 
 ### [ui.md](./ui.md) - UI 组件库使用指南
+
+**简介:** 全面介绍 `@vtj/ui` 企业级 UI 组件库的核心组件和使用规范，包括 XGrid 数据表格（基于 VXE Table）、XForm 表单、XField 字段、XDialog 对话框、XActionBar 操作栏、XQueryForm 查询表单、XContainer 布局容器等。同时说明 Hooks 工具（useIcon、useLoader）、Adapter 适配器系统，以及完整的 CRUD 页面示例。
 
 **核心主题:** 业务组件、Hooks、Adapter 适配器系统
 
@@ -356,6 +380,8 @@
 
 ### [uni.md](./uni.md) - UniApp 全局配置指南
 
+**简介:** 专门针对 UniApp 平台的全局配置文档，介绍如何通过 `setUniConfig` 工具配置 manifest.json（应用配置）、pages.json（页面路由配置）、全局 CSS，以及应用生命周期函数（onLaunch、onShow、onHide、onError 等）。说明配置在运行时的注入流程和仅 UniApp 平台生效的限制条件。
+
 **核心主题:** UniApp 平台配置、manifest.json、pages.json、生命周期
 
 **标签:**
@@ -384,6 +410,8 @@
 ---
 
 ### [utils.md](./utils.md) - 工具库使用指南
+
+**简介:** 介绍 `@vtj/utils` 通用工具库的完整功能模块，包括 HTTP 请求封装（request、createApi、useApi）、本地存储（storage 支持过期机制）、Cookie 操作、URL 解析与拼接、文件下载、日志模块、动态脚本加载、JSONP 跨域请求、客户端环境检测、requestAnimationFrame 封装等。提供典型工作流程示例，如数据获取与展示、文件上传与下载。
 
 **核心主题:** HTTP 请求、本地存储、URL 处理、文件下载等通用工具
 
