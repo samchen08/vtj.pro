@@ -120,3 +120,59 @@ test('composition mode - ant-design-vue', async () => {
   // 确保 ant-design-vue 只有一条 import
   expect(content.match(/from 'ant-design-vue'/g)?.length).toBe(1);
 });
+
+test('composition mode - ref .value should be unwrapped in template children', async () => {
+  const dslRefValue = {
+    name: 'RefValueDemo',
+    apiMode: 'composition',
+    refs: {
+      value: { type: 'JSExpression', value: "'hello'" }
+    },
+    state: {},
+    reactives: {},
+    computed: {},
+    methods: {},
+    watch: [],
+    composables: [],
+    provide: {},
+    css: '',
+    props: [],
+    emits: [],
+    expose: [],
+    slots: [],
+    dataSources: {},
+    inject: [],
+    lifeCycles: {},
+    id: 'test-ref-value',
+    nodes: [
+      {
+        id: 'n1',
+        name: 'div',
+        children: {
+          type: 'JSExpression',
+          value: 'this.value.value'
+        },
+        props: {},
+        directives: [],
+        events: {}
+      }
+    ]
+  };
+  let content: string = '';
+  let err: any = null;
+  try {
+    content = await generator(dslRefValue as any, new Map(), [], 'web', false);
+  } catch (e: any) {
+    err = e;
+    if (e?.content) console.log('Generated source:\n', e.content);
+  }
+  console.log('======= Generated Vue (ref .value) =======');
+  console.log(content);
+  console.log('======= End =======');
+  expect(err).toBeNull();
+  // 模板中应输出 {{ value }}，而非 {{ value.value }}
+  expect(content).toMatch(/\{\{\s*value\s*\}\}/);
+  expect(content).not.toContain('value.value');
+  // script 中 ref 初始化正确
+  expect(content).toContain("const value = ref('hello')");
+});

@@ -121,7 +121,9 @@ export function parserComposition(
     Object.keys(dsl.computed || {}),
     collecter.context,
     undefined,
-    effectiveMap
+    effectiveMap,
+    symbols.refs,
+    symbols.computed
   );
   const blocksImport = tplResult.importBlocks.map(
     (n: any) => `import ${n.name} from './${n.id}.vue';`
