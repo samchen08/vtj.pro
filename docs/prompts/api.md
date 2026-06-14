@@ -103,9 +103,15 @@ apis/form.vue   (增/删/改)        (ApiSchema[])   (register by id+name)  (cal
         "injectHeaders": false,
         "proxy": false
       },
-      "headers": "({'Content-Type': 'application/json'})",
+      "headers": {
+        "type": "JSExpression",
+        "value": "({'Content-Type': 'application/json'})"
+      },
       "mock": false,
-      "mockTemplate": "(req) => {\n  return {\n    code: 0,\n    message: 'ok',\n    data: {\n      'list|10': [{\n        id: '@guid',\n        name: '@cname',\n        'age|18-60': 1\n      }]\n    }\n  };\n}"
+      "mockTemplate": {
+        "type": "JSFunction",
+        "value": "(req) => {\n  return {\n    code: 0,\n    message: 'ok',\n    data: {\n      'list|10': [{\n        id: '@guid',\n        name: '@cname',\n        'age|18-60': 1\n      }]\n    }\n  };\n}"
+      }
     }
   ]
 }
@@ -440,7 +446,10 @@ onMounted(() => {
       "method": "get",
       "category": "仪表盘",
       "mock": true,
-      "mockTemplate": "(req) => {\n  return {\n    code: 0,\n    data: {\n      totalUsers: '@integer(100, 10000)',\n      todayOrders: '@integer(10, 500)',\n      revenue: '@float(1000, 50000, 2, 2)'\n    }\n  };\n}"
+      "mockTemplate": {
+        "type": "JSFunction",
+        "value": "(req) => {\n  return {\n    code: 0,\n    data: {\n      totalUsers: '@integer(100, 10000)',\n      todayOrders: '@integer(10, 500)',\n      revenue: '@float(1000, 50000, 2, 2)'\n    }\n  };\n}"
+      }
     }
   ]
 }

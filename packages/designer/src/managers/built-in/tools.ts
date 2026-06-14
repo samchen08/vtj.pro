@@ -577,9 +577,15 @@ const setApi: ToolConfig = {
         "injectHeaders": false,
         "proxy": false
       },
-      "headers": "({\\n  'Content-Type': 'application/json',\\n  'X-Custom-Header': 'value'\\n})",
+      "headers": {
+        "type": "JSExpression",
+        "value": "({'Content-Type': 'application/json', 'X-Custom-Header': 'value'})"
+      },
       "mock": false,
-      "mockTemplate": "(req) => {\\n  return {\\n    code: 0,\\n    message: 'ok',\\n    data: {\\n      'list|10': [{\\n        id: '@guid',\\n        name: '@cname',\\n        'age|18-60': 1\\n      }]\\n    }\\n  };\\n}"
+      "mockTemplate": {
+        "type": "JSFunction",
+        "value": "(req) => {\\n  return {\\n    code: 0,\\n    message: 'ok',\\n    data: {\\n      'list|10': [{\\n        id: '@guid',\\n        name: '@cname',\\n        'age|18-60': 1\\n      }]\\n    }\\n  };\\n}"
+      }
     }
   ]
 }
@@ -653,18 +659,40 @@ const setApi: ToolConfig = {
           }
         },
         headers: {
-          type: 'string',
-          description:
-            "请求头配置, JS表达式字符串, 如: \"({'Content-Type': 'application/json'})\""
+          type: 'object',
+          description: '请求头配置, JSExpression 对象',
+          properties: {
+            type: {
+              type: 'string',
+              description: '固定值',
+              enum: ['JSExpression']
+            },
+            value: {
+              type: 'string',
+              description:
+                "JS表达式字符串, 如: \"({'Content-Type': 'application/json'})\""
+            }
+          }
         },
         mock: {
           type: 'boolean',
           description: '是否开启模拟数据, 默认 false'
         },
         mockTemplate: {
-          type: 'string',
-          description:
-            '模拟数据模板函数, JS函数字符串, 签名: (req) => template, req包含url/type/data/params/query属性'
+          type: 'object',
+          description: '模拟数据模板函数, JSFunction 对象',
+          properties: {
+            type: {
+              type: 'string',
+              description: '固定值',
+              enum: ['JSFunction']
+            },
+            value: {
+              type: 'string',
+              description:
+                'JS函数代码字符串, 签名: (req) => template, req包含url/type/data/params/query属性'
+            }
+          }
         },
         jsonpOptions: {
           type: 'object',
