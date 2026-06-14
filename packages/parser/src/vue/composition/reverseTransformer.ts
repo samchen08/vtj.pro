@@ -19,6 +19,76 @@ import type { ReverseSymbolTable } from './reverseSymbolTable';
  * 8. reactives：obj → this.obj
  * 9. methods/composables/injects/dataSources：name → this.name
  */
+/**
+ * 安全的替换函数：跳过字符串字面量中的内容，但处理模板字符串的表达式插值
+ */
+function safeReplace(code: string, regex: RegExp, replacement: string): string {
+  let result = '';
+  let lastIndex = 0;
+
+  // 匹配字符串字面量（单引号、双引号、模板字符串）
+  const stringRegex = /'(?:[^'\\]|\\.)*'|"(?:[^"\\]|\\.)*"|`(?:[^`\\]|\\.)*`/g;
+  let stringMatch;
+
+  while ((stringMatch = stringRegex.exec(code)) !== null) {
+    // 处理字符串之前的代码
+    const beforeString = code.slice(lastIndex, stringMatch.index);
+    result += beforeString.replace(regex, replacement);
+
+    // 处理字符串本身
+    const matchedString = stringMatch[0];
+
+    // 判断是否为模板字符串
+    if (matchedString.startsWith('`')) {
+      // 模板字符串：需要处理 ${...} 中的表达式
+      result += processTemplateString(matchedString, regex, replacement);
+    } else {
+      // 普通字符串（单引号/双引号）：不替换
+      result += matchedString;
+    }
+
+    lastIndex = stringMatch.index + stringMatch[0].length;
+  }
+
+  // 处理最后一部分
+  result += code.slice(lastIndex).replace(regex, replacement);
+
+  return result;
+}
+
+/**
+ * 处理模板字符串：只替换 ${...} 表达式中的内容
+ */
+function processTemplateString(
+  template: string,
+  regex: RegExp,
+  replacement: string
+): string {
+  let result = '';
+  let pos = 0;
+
+  // 匹配 ${...} 表达式
+  const interpRegex = /\$\{([^}]*)\}/g;
+  let match;
+
+  while ((match = interpRegex.exec(template)) !== null) {
+    // 添加 ${ 之前的部分（不替换）
+    result += template.slice(pos, match.index);
+
+    // 替换表达式部分
+    const expression = match[1];
+    const replacedExpr = expression.replace(regex, replacement);
+    result += '${' + replacedExpr + '}';
+
+    pos = match.index + match[0].length;
+  }
+
+  // 添加最后的部分
+  result += template.slice(pos);
+
+  return result;
+}
+
 export function reverseTransformExpression(
   code: string,
   symbols: ReverseSymbolTable
@@ -31,7 +101,8 @@ export function reverseTransformExpression(
   // 1. ref/computed 的 .value 访问 → this.xxx.value
   // 使用负向后顾 (?<!\.) 避免匹配成员访问属性（如 __apis.api1.value）
   for (const name of allRefsAndComputed) {
-    result = result.replace(
+    result = safeReplace(
+      result,
       new RegExp(`(?<!\\.)\\b${escapeRegex(name)}\\.value\\b`, 'g'),
       `this.${name}.value`
     );
@@ -44,7 +115,8 @@ export function reverseTransformExpression(
   //   - (?<!\.)      阻止成员访问属性（如 __apis.api1 中的 api1）
   //   - (?!\.value)  避免重复添加 .value（如 _ctx.count.value 已有 .value）
   for (const name of allRefsAndComputed) {
-    result = result.replace(
+    result = safeReplace(
+      result,
       new RegExp(
         `(?<!this\\.)(?:(?<=_ctx\\.)|(?<!\\.))\\b${escapeRegex(name)}\\b(?!\\.value)`,
         'g'
@@ -56,7 +128,8 @@ export function reverseTransformExpression(
   // 3. 归一化 __instance.proxy.$forceUpdate.xxx → __instance.proxy.xxx
   //    用户可能通过 $forceUpdate 间接访问实例属性，
   //    将其归一化为标准路径，以便后续成员映射正确匹配
-  result = result.replace(
+  result = safeReplace(
+    result,
     /__instance\.proxy\.\$forceUpdate\./g,
     '__instance.proxy.'
   );
@@ -71,7 +144,7 @@ export function reverseTransformExpression(
         `\\b${escapeRegex(objName)}\\.${escapeRegex(propName)}\\b`,
         'g'
       );
-      result = result.replace(regex, `this.${apiName}`);
+      result = safeReplace(result, regex, `this.${apiName}`);
     }
   }
 
@@ -144,5 +217,5 @@ function replaceMemberAccess(
     `\\b${escapeRegex(obj)}\\.${escapeRegex(key)}\\b`,
     'g'
   );
-  return content.replace(regex, target);
+  return safeReplace(content, regex, target);
 }
