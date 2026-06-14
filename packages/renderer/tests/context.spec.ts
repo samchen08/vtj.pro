@@ -197,7 +197,7 @@ describe('Context', () => {
     context.__refs = { some: 'ref' };
     context.__refCaches = { some: 'cache' };
     context.$refs = { some: 'ref' };
-    context.__contextRefs = { some: 'ctx' };
+    context.__contextRefs = { some: context };
     context.context = { some: 'data' };
     (context as any).__reset();
     expect(context.__refs).toEqual({});
