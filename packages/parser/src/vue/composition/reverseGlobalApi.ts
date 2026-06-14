@@ -37,6 +37,8 @@ export function buildReverseGlobalApiMap(
       const prop = cfg.replace.substring(lastDot + 1);
       if (!member[obj]) member[obj] = {};
       member[obj][prop] = api;
+      // 同时添加到 simple 映射，支持模板中直接使用 $t 等裸标识符
+      simple[api] = api;
     } else {
       simple[cfg.replace] = api;
     }
@@ -56,6 +58,8 @@ export function buildReverseGlobalApiMap(
           const prop = cfg.replace.substring(lastDot + 1);
           if (!member[obj]) member[obj] = {};
           member[obj][prop] = api;
+          // 同时添加到 simple 映射，支持模板中直接使用裸标识符
+          simple[api] = api;
         } else {
           simple[cfg.replace] = api;
         }

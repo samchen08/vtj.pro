@@ -495,3 +495,51 @@ const __provider = useProvider({ id: '1kwhcdeh', version: '1781199016753' });
     expect(children.value).toBe('this.title');
   });
 });
+
+describe('parseVue Composition mode with $t in template', () => {
+  const templateI18nSource = `
+<template>
+  <div>
+     {{ $t('ABC') }}
+  </div>
+</template>
+<script lang="ts" setup>
+  // @ts-nocheck
+
+  import { ref, inject } from 'vue';
+  import { useProvider } from '@vtj/renderer';
+
+  const __provider = useProvider({ id: 'el0ka4ve', version: '1781414479968' });
+
+  const theme = inject('theme', 'light');
+
+  const value = ref('hello')
+</script>
+<style lang="css" scoped>
+  /* 组件样式内容 */
+</style>
+`;
+
+  test("$t('ABC') in template → this.$t('ABC')", async () => {
+    const result = await parseVue({
+      project,
+      id: 'test-template-i18n',
+      name: 'TemplateI18nDemo',
+      source: templateI18nSource
+    });
+
+    expect(result.apiMode).toBe('composition');
+    expect(result.nodes).toBeDefined();
+    expect(result.nodes!.length).toBeGreaterThan(0);
+
+    // Find the div node
+    const divNode = result.nodes![0];
+    expect(divNode.name).toBe('div');
+
+    // Check the children expression
+    const children = divNode.children as any;
+    expect(children.type).toBe('JSExpression');
+    // $t('ABC') → this.$t('ABC')
+    expect(children.value).toBe("this.$t('ABC')");
+  });
+});
