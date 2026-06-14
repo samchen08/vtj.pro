@@ -36,6 +36,9 @@ export function traverseAST(
 export function generateCode(node: Node) {
   if (!node) return '';
   try {
+    // 剥离 TypeScript 类型标注（typeAnnotation / returnType / typeParameters）
+    stripTypeAnnotations(node);
+
     const func = (generate as any).default || generate;
 
     const generated = func(node, {
@@ -51,6 +54,41 @@ export function generateCode(node: Node) {
   } catch (e) {
     console.error('代码生成错误', e);
     return '';
+  }
+}
+
+/**
+ * 递归遍历 AST 节点，删除 TypeScript 类型标注属性
+ * 确保 @babel/generator 生成的是纯 JavaScript
+ */
+function stripTypeAnnotations(node: any): void {
+  if (!node || typeof node !== 'object') return;
+  if (Array.isArray(node)) {
+    for (const item of node) stripTypeAnnotations(item);
+    return;
+  }
+
+  // 删除 TypeScript 专用 AST 属性
+  delete node.typeAnnotation; // : Type 标注
+  delete node.returnType; // 函数返回值类型
+  delete node.typeParameters; // <T> 泛型参数
+  delete node.optional; // TS 可选参数 ? (Identifier 上)
+
+  // 递归处理子节点（跳过元数据字段）
+  for (const key of Object.keys(node)) {
+    if (
+      key === 'type' ||
+      key === 'loc' ||
+      key === 'start' ||
+      key === 'end' ||
+      key === 'extra' ||
+      key === 'leadingComments' ||
+      key === 'trailingComments' ||
+      key === 'innerComments' ||
+      key === 'errors'
+    )
+      continue;
+    stripTypeAnnotations(node[key]);
   }
 }
 
@@ -80,6 +118,58 @@ export function transformScript(script: string, visitor: Visitor) {
     return code || '';
   } catch (e) {
     return '';
+  }
+}
+
+/**
+ * 将 TypeScript 代码转为 JavaScript（剥离类型标注）
+ * 使用 @babel/traverse 执行 AST 变换，后续解析以纯 JS 为基础
+ */
+export function stripTypeScript(script: string): string {
+  if (!script) return '';
+  try {
+    const ast = parseScript(script);
+
+    traverseAST(ast, {
+      // TS as 断言 / <T> 断言 / 非空断言 → 只保留表达式本身
+      TSAsExpression: (path: any) => {
+        path.replaceWith(path.node.expression);
+      },
+      TSTypeAssertion: (path: any) => {
+        path.replaceWith(path.node.expression);
+      },
+      TSNonNullExpression: (path: any) => {
+        path.replaceWith(path.node.expression);
+      },
+
+      // TS 类型声明整体移除
+      TSInterfaceDeclaration: (path: any) => {
+        path.remove();
+      },
+      TSTypeAliasDeclaration: (path: any) => {
+        path.remove();
+      },
+      TSModuleDeclaration: (path: any) => {
+        path.remove();
+      },
+      TSEnumDeclaration: (path: any) => {
+        path.remove();
+      },
+
+      // 退出节点时统一删除残留的 TS 属性
+      exit: (path: any) => {
+        const node = path.node;
+        if (!node) return;
+        delete node.typeAnnotation;
+        delete node.returnType;
+        delete node.typeParameters;
+        delete node.optional;
+      }
+    } as TraverseOptions);
+
+    return generateCode(ast as any) || '';
+  } catch {
+    return script;
   }
 }
 

@@ -247,7 +247,14 @@ export function parseScriptSetup(
             }
             // 过滤 useProvider，由 Options API 模板写死版本处理
             if (callee === 'useProvider') return;
-            // 用户自定义 composable
+
+            // 如果函数不是从外部模块导入的（本地定义），不收集为 composable
+            // 让其落入 setupStatements 处理
+            if (!from) {
+              continue;
+            }
+
+            // 用户自定义 composable（从外部模块导入，如 @vueuse/core）
             const name = getDeclaratorName(declarator.id);
             const destructure = getDestructureNames(declarator.id);
             if (name || destructure.length) {
@@ -257,20 +264,15 @@ export function parseScriptSetup(
               }
 
               // 构建 composable 表达式
-              // 如果有 from（import 来源），使用 this.$libs[LibName].callee 格式
-              // 否则直接使用 callee 名称
+              // 使用 this.$libs[LibName].callee 格式
               let composableValue: string;
-              if (from) {
-                // from 是模块路径，例如 '@vueuse/core'，需要转换为 libs 中的库名
-                const libName = moduleToLibMap[from];
-                if (libName) {
-                  // 例如: this.$libs.VueUse.useDark
-                  composableValue = `this.$libs.${libName}.${callee}`;
-                } else {
-                  // 如果没有找到库名，直接使用函数名
-                  composableValue = callee;
-                }
+              // from 是模块路径，例如 '@vueuse/core'，需要转换为 libs 中的库名
+              const libName = moduleToLibMap[from];
+              if (libName) {
+                // 例如: this.$libs.VueUse.useDark
+                composableValue = `this.$libs.${libName}.${callee}`;
               } else {
+                // 如果没有找到库名，直接使用函数名
                 composableValue = callee;
               }
 

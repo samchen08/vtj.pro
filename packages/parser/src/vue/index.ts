@@ -9,7 +9,12 @@ import {
   BlockModel
 } from '@vtj/core';
 import { tsFormatter } from '@vtj/coder';
-import { parseSFC, isJSCode, compileValidator } from '../shared';
+import {
+  parseSFC,
+  isJSCode,
+  compileValidator,
+  stripTypeScript
+} from '../shared';
 import { parseTemplate } from './template';
 import { parseScripts, type ImportStatement } from './scripts';
 import { parseScriptSetup } from './scriptSetup';
@@ -42,6 +47,10 @@ export async function parseVue(options: IParseVueOptions) {
   const source = fixer.fixBasedOnValidation(__source, validation);
 
   const sfc = parseSFC(source);
+
+  // 将 TS 转为 JS，后续所有 script 处理统一以纯 JS 为基础
+  sfc.script = stripTypeScript(sfc.script);
+
   const {
     styles,
     css,
