@@ -131,7 +131,7 @@ describe('block - createRenderer', () => {
 });
 
 describe('block - Composition API mode', () => {
-  const Vue = {
+  const createVueMock = () => ({
     defineComponent: (options: any) => options,
     computed: vi.fn((fn: any) => ({ value: fn() })),
     reactive: vi.fn((obj: any) => obj),
@@ -158,26 +158,57 @@ describe('block - Composition API mode', () => {
     onBeforeUpdate: vi.fn(),
     watch: vi.fn(),
     onBeforeMount: vi.fn(),
-    onMountedHook: vi.fn((fn: any) => fn),
     onBeforeUnmount: vi.fn()
-  };
-
-  beforeEach(() => {
-    vi.clearAllMocks();
   });
 
-  test('createRenderer creates refs and reactives in composition mode', () => {
+  let Vue: ReturnType<typeof createVueMock>;
+
+  beforeEach(() => {
+    Vue = createVueMock();
+  });
+
+  test('createRenderer creates refs with correct values in composition mode', async () => {
     const dsl = {
-      name: 'CompositionBlock',
-      id: 'comp-id',
+      name: 'RefsBlock',
       state: {},
       refs: {
         count: 0,
         message: { type: 'JSExpression', value: '"hello"' }
       },
+      reactives: {},
+      computed: {},
+      methods: {},
+      props: [],
+      emits: [],
+      nodes: [{ component: 'div' }],
+      lifeCycles: {},
+      watch: [],
+      dataSources: {},
+      css: '',
+      apiMode: 'composition',
+      composables: [],
+      provide: {}
+    } as any;
+
+    const { renderer } = createRenderer({
+      Vue,
+      mode: ContextMode.Runtime,
+      dsl
+    });
+    await renderer.setup({});
+
+    // 验证 Vue.ref 被正确调用：count=0, message="hello"
+    expect(Vue.ref).toHaveBeenCalledWith(0);
+    expect(Vue.ref).toHaveBeenCalledWith('hello');
+  });
+
+  test('createRenderer creates reactives with correct values in composition mode', async () => {
+    const dsl = {
+      name: 'ReactivesBlock',
+      state: {},
+      refs: {},
       reactives: {
-        user: { name: 'test' },
-        meta: { type: 'JSExpression', value: '({ role: "admin" })' }
+        user: { name: 'test' }
       },
       computed: {},
       methods: {},
@@ -193,25 +224,23 @@ describe('block - Composition API mode', () => {
       provide: {}
     } as any;
 
-    const { renderer, context } = createRenderer({
+    const { renderer } = createRenderer({
       Vue,
       mode: ContextMode.Runtime,
       dsl
     });
+    await renderer.setup({});
 
-    // Composition 模式应该在 setup 中创建 refs 和 reactives
-    expect(renderer.name).toBe('CompositionBlock');
-    expect(context).toBeDefined();
+    // 验证 Vue.reactive 被调用于 user
+    expect(Vue.reactive).toHaveBeenCalledWith({ name: 'test' });
   });
 
-  test('createRenderer with composables calls createComposables', () => {
-    const composableFn = vi.fn(() => ({ result: 'composed' }));
+  test('createRenderer does not create refs in options mode', async () => {
     const dsl = {
-      name: 'ComposableBlock',
-      id: 'comp-id-2',
-      state: {},
-      refs: {},
-      reactives: {},
+      name: 'OptionsBlock',
+      state: { count: 0 },
+      refs: { count: 0 },
+      reactives: { user: {} },
       computed: {},
       methods: {},
       props: [],
@@ -221,45 +250,25 @@ describe('block - Composition API mode', () => {
       watch: [],
       dataSources: {},
       css: '',
-      apiMode: 'composition',
-      composables: [
-        {
-          name: 'useCustom',
-          composable: {
-            type: 'JSExpression',
-            value: 'this.$libs.useCustom'
-          },
-          args: [],
-          destructure: ['result']
-        }
-      ],
-      provide: {},
-      libs: {
-        useCustom: composableFn
-      }
+      apiMode: 'options'
     } as any;
 
-    const VueWithLibs = {
-      ...Vue,
-      useCustom: composableFn
-    };
-
-    const { renderer, context } = createRenderer({
-      Vue: VueWithLibs,
+    const { renderer } = createRenderer({
+      Vue,
       mode: ContextMode.Runtime,
-      dsl,
-      libs: { useCustom: composableFn }
+      dsl
     });
+    await renderer.setup({});
 
-    expect(renderer.name).toBe('ComposableBlock');
-    expect(context).toBeDefined();
+    // Options 模式下不应调用 Vue.ref 创建 composition refs
+    expect(Vue.ref).not.toHaveBeenCalled();
+    // Vue.reactive 只被调用于 state，不用于 composition reactives
+    expect(Vue.reactive).toHaveBeenCalledTimes(1);
   });
 
-  test('createRenderer with composition lifecycles', () => {
-    const onBeforeMountFn = vi.fn();
+  test('createRenderer registers composition lifecycle hooks', async () => {
     const dsl = {
       name: 'LifecycleBlock',
-      id: 'lifecycle-id',
       state: {},
       refs: {},
       reactives: {},
@@ -271,7 +280,11 @@ describe('block - Composition API mode', () => {
       lifeCycles: {
         onBeforeMount: {
           type: 'JSFunction',
-          value: 'async function() { return "done"; }'
+          value: 'function() { return "before-mount"; }'
+        },
+        mounted: {
+          type: 'JSFunction',
+          value: 'function() { return "mounted"; }'
         }
       },
       watch: [],
@@ -287,8 +300,158 @@ describe('block - Composition API mode', () => {
       mode: ContextMode.Runtime,
       dsl
     });
+    await renderer.setup({});
 
-    expect(renderer.name).toBe('LifecycleBlock');
+    // 验证 onBeforeMount 被注册
+    expect(Vue.onBeforeMount).toHaveBeenCalledTimes(1);
+    // 验证 mounted（Options名）被映射为 onMounted 注册
+    // context.setup 内部也调用了 onMounted，所以总计 2 次
+    expect(Vue.onMounted).toHaveBeenCalledTimes(2);
+  });
+
+  test('createRenderer calls Vue.provide for composition provide', async () => {
+    const dsl = {
+      name: 'ProvideBlock',
+      state: {},
+      refs: {},
+      reactives: {},
+      computed: {},
+      methods: {},
+      props: [],
+      emits: [],
+      nodes: [{ component: 'div' }],
+      lifeCycles: {},
+      watch: [],
+      dataSources: {},
+      css: '',
+      apiMode: 'composition',
+      composables: [],
+      provide: {
+        theme: 'light'
+      }
+    } as any;
+
+    const { renderer } = createRenderer({
+      Vue,
+      mode: ContextMode.Runtime,
+      dsl
+    });
+    await renderer.setup({});
+
+    // 验证 Vue.provide 被调用
+    expect(Vue.provide).toHaveBeenCalledWith('theme', 'light');
+  });
+
+  test('createRenderer handles failing setup gracefully', async () => {
+    const warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {});
+    const dsl = {
+      name: 'FailingSetupBlock',
+      state: {},
+      refs: {},
+      reactives: {},
+      computed: {},
+      methods: {},
+      props: [],
+      emits: [],
+      nodes: [{ component: 'div' }],
+      lifeCycles: {},
+      watch: [],
+      dataSources: {},
+      css: '',
+      apiMode: 'composition',
+      composables: [],
+      provide: {},
+      setup: {
+        type: 'JSFunction',
+        value: 'function() { throw new Error("setup boom"); }'
+      }
+    } as any;
+
+    const { renderer } = createRenderer({
+      Vue,
+      mode: ContextMode.Runtime,
+      dsl
+    });
+    // setup 执行不应抛出未捕获异常
+    await expect(renderer.setup({})).resolves.toBeDefined();
+    expect(warnSpy).toHaveBeenCalledWith(
+      '[VTJ] Composition setup 执行失败',
+      expect.any(Error)
+    );
+    warnSpy.mockRestore();
+  });
+
+  test('createRenderer handles failing created lifecycle gracefully', async () => {
+    const warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {});
+    const dsl = {
+      name: 'FailingCreatedBlock',
+      state: {},
+      refs: {},
+      reactives: {},
+      computed: {},
+      methods: {},
+      props: [],
+      emits: [],
+      nodes: [{ component: 'div' }],
+      lifeCycles: {
+        created: {
+          type: 'JSFunction',
+          value: 'function() { throw new Error("created boom"); }'
+        }
+      },
+      watch: [],
+      dataSources: {},
+      css: '',
+      apiMode: 'composition',
+      composables: [],
+      provide: {}
+    } as any;
+
+    const { renderer } = createRenderer({
+      Vue,
+      mode: ContextMode.Runtime,
+      dsl
+    });
+    // created 执行不应抛出未捕获异常
+    await expect(renderer.setup({})).resolves.toBeDefined();
+    expect(warnSpy).toHaveBeenCalledWith(
+      '[VTJ] Composition 生命周期 "created" 执行失败',
+      expect.any(Error)
+    );
+    warnSpy.mockRestore();
+  });
+
+  test('createRenderer returns refs and reactives in setup return', async () => {
+    const dsl = {
+      name: 'ReturnBlock',
+      state: { foo: 'bar' },
+      refs: { count: 0 },
+      reactives: { form: { name: '' } },
+      computed: {},
+      methods: {},
+      props: [],
+      emits: [],
+      nodes: [{ component: 'div' }],
+      lifeCycles: {},
+      watch: [],
+      dataSources: {},
+      css: '',
+      apiMode: 'composition',
+      composables: [],
+      provide: {}
+    } as any;
+
+    const { renderer } = createRenderer({
+      Vue,
+      mode: ContextMode.Runtime,
+      dsl
+    });
+
+    // 验证 setup return 中包含 state、refs、reactives
+    const setupReturn = await renderer.setup({});
+    expect(setupReturn).toHaveProperty('state');
+    expect(setupReturn).toHaveProperty('count');
+    expect(setupReturn).toHaveProperty('form');
   });
 });
 

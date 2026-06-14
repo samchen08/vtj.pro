@@ -71,15 +71,15 @@ export class Context {
     this.context = {};
     this.__contextRefs = {};
     this.__instance = instance.proxy;
-    // 保存响应式数据，防止被 globalProperties/attrs 覆盖
+    // 保存已有的响应式数据，防止被 globalProperties 覆盖
     const { state } = this;
     const globalProperties = instance.appContext.config.globalProperties;
-    Object.assign(this, globalProperties);
-    Object.assign(this, attrs || {});
+    // globalProperties 作为默认值，attrs 优先级更高（覆盖同名 key，包括 refs/reactives 等）
+    Object.assign(this, globalProperties, attrs || {});
     // uniapp
     this.$uni = this.$libs.UniH5?.uni ?? null;
     this.$getApp = this.$libs.UniH5?.getApp ?? null;
-    // 恢复响应式数据
+    // 恢复响应式数据（state 不在 attrs 中，需单独恢复）
     this.state = state;
     this.__proxy();
     Vue.onMounted(() => {

@@ -102,7 +102,6 @@ export function createRenderer(options: CreateRendererOptions) {
       let composableResults = {};
       if (isComposition) {
         composableResults = createComposables(
-          Vue,
           dsl.value.composables ?? [],
           context
         );
@@ -132,7 +131,11 @@ export function createRenderer(options: CreateRendererOptions) {
         if (dsl.value.setup) {
           const setupFn = context.__parseFunction(dsl.value.setup);
           if (isFunction(setupFn)) {
-            await setupFn();
+            try {
+              await setupFn();
+            } catch (e) {
+              console.warn('[VTJ] Composition setup 执行失败', e);
+            }
           }
         }
         createProvide(Vue, dsl.value.provide ?? {}, context);
@@ -353,11 +356,7 @@ function createReactives(
   );
 }
 
-function createComposables(
-  _Vue: any,
-  composables: BlockComposable[],
-  context: Context
-) {
+function createComposables(composables: BlockComposable[], context: Context) {
   return composables.reduce(
     (result, item) => {
       try {
@@ -443,7 +442,11 @@ async function createCompositionLifeCycles(
     if (name === 'created' || name === 'beforeCreate') {
       const fn = context.__parseFunction(code);
       if (isFunction(fn)) {
-        await fn();
+        try {
+          await fn();
+        } catch (e) {
+          console.warn(`[VTJ] Composition 生命周期 "${name}" 执行失败`, e);
+        }
       }
       continue;
     }
@@ -454,8 +457,12 @@ async function createCompositionLifeCycles(
       const fn = context.__parseFunction(code);
       if (isFunction(fn)) {
         hook(async () => {
-          await delay(0);
-          await fn();
+          try {
+            await delay(0);
+            await fn();
+          } catch (e) {
+            console.warn(`[VTJ] Composition 生命周期 "${name}" 执行失败`, e);
+          }
         });
       }
     } else {

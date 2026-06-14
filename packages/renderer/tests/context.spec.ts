@@ -26,12 +26,14 @@ describe('Context', () => {
   });
 
   test('constructor sets default values', () => {
-    expect(context.refs).toEqual({});
-    expect(context.reactives).toEqual({});
     expect(context.state).toEqual({});
     expect(context.context).toEqual({});
     expect(context.props).toEqual({});
     expect(context.$props).toEqual({});
+    // refs/reactives 不在 Context 构造函数中初始化，
+    // 而是通过 setup() 中 Object.assign(this, attrs) 动态挂载
+    expect((context as any).refs).toBeUndefined();
+    expect((context as any).reactives).toBeUndefined();
   });
 
   test('constructor assigns attrs to instance', () => {
@@ -177,7 +179,7 @@ describe('Context', () => {
   test('__proxy sets CONTEXT_HOST properties from instance', () => {
     // Manually call __proxy - normally called in setup
     (context as any).__instance = {
-      $el: document.createElement('div'),
+      $el: { tagName: 'DIV' },
       $emit: vi.fn()
     };
     (context as any).__proxy();
