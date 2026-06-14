@@ -179,7 +179,7 @@
   };
 
   const onSend = () => {
-    if (value.value.trim().length < 3) {
+    if (value.value.trim().length < 2) {
       message('请描述您的需求', 'warning');
       return;
     }
