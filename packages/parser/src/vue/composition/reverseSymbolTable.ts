@@ -1,5 +1,9 @@
 import type { ParseScriptSetupResult } from '../scriptSetup';
-import { buildReverseGlobalApiMap, detectUIPackage } from './reverseGlobalApi';
+import {
+  buildReverseGlobalApiMap,
+  buildComposableMemberMap,
+  detectUIPackage
+} from './reverseGlobalApi';
 
 /**
  * 反向符号表：描述 <script setup> 中各类标识符的分类
@@ -41,6 +45,22 @@ export function buildReverseSymbolTable(
   const uiPackage = detectUIPackage(result.imports || []);
   const { simple: reverseApiMap, member: reverseMemberApiMap } =
     buildReverseGlobalApiMap(uiPackage);
+
+  // 全局 API 解构字段精确映射
+  // 例如：const { t, n } = useI18n() → t → '$t', n → '$n'
+  if (result.globalApiDestructured && result.globalApiDestructured.length > 0) {
+    const composableMemberMap = buildComposableMemberMap(uiPackage);
+    for (const { callee, destructure } of result.globalApiDestructured) {
+      const memberMap = composableMemberMap[callee];
+      if (memberMap) {
+        for (const field of destructure) {
+          if (memberMap[field]) {
+            reverseApiMap[field] = memberMap[field];
+          }
+        }
+      }
+    }
+  }
 
   // composables：收集 name + 所有 destructure 字段
   const composables = new Set<string>();

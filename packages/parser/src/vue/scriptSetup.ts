@@ -89,6 +89,13 @@ const GLOBAL_COMPOSABLE_NAMES = new Set(
 
 // ======================== 导出接口 ========================
 
+export interface GlobalApiDestructured {
+  /** composable 函数名（如 useI18n） */
+  callee: string;
+  /** 解构字段列表（如 ['t', 'n']） */
+  destructure: string[];
+}
+
 export interface ParseScriptSetupResult {
   imports: ImportStatement[];
   refs: Record<string, JSONValue | JSExpression>;
@@ -104,6 +111,8 @@ export interface ParseScriptSetupResult {
   inject: BlockInject[];
   provide: Record<string, JSONValue | JSExpression | JSFunction>;
   composables: BlockComposable[];
+  /** 全局 composable 的解构字段（如 const { t } = useI18n()） */
+  globalApiDestructured?: GlobalApiDestructured[];
   setup: JSFunction | undefined;
   handlers: Record<string, JSFunction>;
   dataSources: Record<string, DataSourceSchema>;
@@ -242,7 +251,12 @@ export function parseScriptSetup(
           if (callee && /^use[A-Z]/.test(callee)) {
             const from = importSourceMap.get(callee);
             if (isGlobalComposable(callee, from)) {
-              // 全局插件，不收集，后续由 compositionPatch 处理
+              // 全局插件，不收集为 composable，但提取解构字段供反向映射使用
+              const destructure = getDestructureNames(declarator.id);
+              if (destructure.length > 0) {
+                result.globalApiDestructured ??= [];
+                result.globalApiDestructured.push({ callee, destructure });
+              }
               return;
             }
             // 过滤 useProvider，由 Options API 模板写死版本处理

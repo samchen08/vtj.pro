@@ -268,4 +268,17 @@ describe('compositionPatch', () => {
     // __apis → this.$apis，最终为 this.$apis.api1.value
     expect(result).toBe('this.$apis.api1.value');
   });
+
+  test('should map destructured i18n fields via globalApiVars', () => {
+    // 模拟方案 B：globalApiDestructured 注入 globalApiVars 后的效果
+    const opts = {
+      ...baseOptions,
+      globalApiVars: { ...baseOptions.globalApiVars, t: '$t', n: '$n', d: '$d' }
+    };
+    const input = 't("hello") + n(1000) + d(new Date(), "short")';
+    const result = compositionPatch(input, opts);
+    expect(result).toBe(
+      'this.$t("hello") + this.$n(1000) + this.$d(new Date(), "short")'
+    );
+  });
 });

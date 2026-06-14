@@ -543,3 +543,84 @@ describe('parseVue Composition mode with $t in template', () => {
     expect(children.value).toBe("this.$t('ABC')");
   });
 });
+
+describe('parseVue Composition mode with destructured i18n', () => {
+  const destructureI18nSource = `
+<template>
+  <div>
+    <p>{{ greeting }}</p>
+    <button @click="handleClick">Click</button>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { ref } from 'vue';
+import { useI18n } from 'vue-i18n';
+
+const { t, n, d } = useI18n();
+const count = ref(0);
+
+function handleClick() {
+  const msg = t('hello');
+  const formatted = n(count.value);
+  const dateStr = d(new Date(), 'short');
+}
+</script>
+`;
+
+  test('destructured i18n fields are correctly mapped to $xxx APIs', async () => {
+    const result = await parseVue({
+      project,
+      id: 'test-destructure-i18n',
+      name: 'DestructuredI18nDemo',
+      source: destructureI18nSource
+    });
+
+    expect(result.apiMode).toBe('composition');
+
+    const handleClick = result.methods!['handleClick'];
+    expect(handleClick).toBeDefined();
+    // t('hello') → this.$t('hello')
+    expect(handleClick.value).toContain('this.$t(');
+    // n(count.value) → this.$n(this.count.value)
+    expect(handleClick.value).toContain('this.$n(');
+    // d(new Date(), 'short') → this.$d(new Date(), 'short')
+    expect(handleClick.value).toContain('this.$d(');
+  });
+});
+
+describe('parseVue Composition mode with destructured i18n mixed with non-destructured', () => {
+  const mixedSource = `
+<template>
+  <div>
+    <button @click="handleClick">Click</button>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { useI18n } from 'vue-i18n';
+
+const __i18n = useI18n();
+
+function handleClick() {
+  __i18n.t('hello');
+}
+</script>
+`;
+
+  test('non-destructured i18n still works alongside destructured support', async () => {
+    const result = await parseVue({
+      project,
+      id: 'test-mixed-i18n',
+      name: 'MixedI18nDemo',
+      source: mixedSource
+    });
+
+    expect(result.apiMode).toBe('composition');
+
+    const handleClick = result.methods!['handleClick'];
+    expect(handleClick).toBeDefined();
+    // __i18n.t('hello') → this.$t('hello') (member map, unchanged)
+    expect(handleClick.value).toContain('this.$t(');
+  });
+});
