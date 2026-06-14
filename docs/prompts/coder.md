@@ -310,6 +310,10 @@ const myHook = myCustomHook(); // 不以 use 开头
 
 数据源方法（API 调用）必须通过 `__provider.apis` 或 `__provider.createMock` 调用，parser 会识别这种模式并提取为 DSL 的 `dataSources` 字段：
 
+### 4.1 API 数据源
+
+通过 `__provider.apis` 调用已注册的 API 接口：
+
 ```ts
 // ✅ 正确：API 数据源
 const getUserList = async () => {
@@ -318,13 +322,112 @@ const getUserList = async () => {
   });
 };
 
-// ✅ 正确：Mock 数据源
+// ✅ 正确：带参数的 API 调用
+const getUserById = async (id: string) => {
+  return __provider.apis['getUserById']({ id }).then((res: any) => {
+    return res.data;
+  });
+};
+```
+
+### 4.2 Mock 数据源
+
+通过 `__provider.createMock` 创建模拟数据源，支持传入 mockTemplate 函数：
+
+#### 方法签名
+
+```ts
+__provider.createMock(mockTemplate?: (params?: any) => Promise<any> | any): Promise<any>
+```
+
+**参数说明：**
+
+- `mockTemplate`（可选）：mock 数据模板函数，返回 mock.js 格式的模板对象
+- 返回值：返回 Promise，resolve 后得到 mock 生成的数据
+
+#### 使用示例
+
+```ts
+// ✅ 正确：无参数的 Mock 数据源
 const getMockData = async () => {
   return __provider.createMock().then((res: any) => {
     return res;
   });
 };
+
+// ✅ 正确：带 mockTemplate 的 Mock 数据源
+const getUserMockData = async () => {
+  return __provider
+    .createMock((params) => ({
+      'id|1-100': 1,
+      name: '@cname',
+      email: '@email',
+      'age|18-60': 18
+    }))
+    .then((res: any) => {
+      return res;
+    });
+};
+
+// ✅ 正确：根据参数动态生成 mock 数据
+const getListMockData = async (count: number = 10) => {
+  return __provider
+    .createMock((params) => ({
+      'list|10': [
+        {
+          'id|+1': 1,
+          title: '@ctitle(5, 10)',
+          'status|1': ['pending', 'active', 'completed']
+        }
+      ]
+    }))
+    .then((res: any) => {
+      return res.list;
+    });
+};
+
+// ✅ 正确：异步 mockTemplate
+const getAsyncMockData = async () => {
+  return __provider
+    .createMock(async (params) => {
+      // 可以在这里执行异步逻辑
+      const template = {
+        timestamp: () => Date.now(),
+        'data|5': [
+          {
+            id: '@id',
+            value: '@integer(100, 1000)'
+          }
+        ]
+      };
+      return template;
+    })
+    .then((res: any) => {
+      return res;
+    });
+};
 ```
+
+#### Mock 模板语法
+
+`mockTemplate` 函数返回的对象遵循 [mock.js](https://github.com/nuysoft/Mock) 语法规范：
+
+- `'key|min-max': value` - 生成 min 到 max 个重复项
+- `'key|count': value` - 生成 count 个重复项
+- `'key|+1': value` - 自动递增
+- `'@cname'` - 生成中文姓名
+- `'@email'` - 生成邮箱
+- `'@ctitle(5, 10)'` - 生成 5-10 个中文字符的标题
+- `'@integer(100, 1000)'` - 生成 100-1000 的整数
+- 更多语法参考 [mock.js 文档](https://github.com/nuysoft/Mock/wiki)
+
+#### 注意事项
+
+1. **必须使用 `__provider.createMock`**，不得直接调用 `Mock.mock()`
+2. **mockTemplate 必须返回对象**，不得返回其他类型
+3. **异步处理**：如果 mockTemplate 是异步函数，必须使用 `async/await` 或返回 Promise
+4. **错误处理**：mockTemplate 执行异常会被捕获并输出警告，不会影响主流程
+5. **数据转换**：建议在 `.then()` 中对 mock 数据进行二次处理（如提取特定字段）
 
 ---
 

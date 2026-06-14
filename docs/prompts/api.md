@@ -364,7 +364,159 @@ onMounted(() => {
 
 ---
 
-## 五、典型配置示例
+## 五、渲染器底层 API（@vtj/renderer）
+
+### 5.1 `__provider.apis` — 直接调用已注册的 API 函数
+
+`__provider.apis` 是渲染器 Provider 实例上的 API 函数注册表，所有通过 `setApi` 配置的 API 在运行时会被编译为可调用的函数并注册到此对象中。
+
+**访问方式：**
+
+```javascript
+// 通过 API 的 name 或 id 访问
+const apiFunction = __provider.apis['getUserList'];
+
+// 直接调用
+const res = await __provider.apis['getUserList'](data, opts);
+```
+
+**与 `__apis` 的关系：**
+
+- `__apis` 是 `__provider.apis` 的快捷引用，两者指向同一对象
+- 组件中推荐使用 `__apis`，代码更简洁
+- `__provider.apis` 主要用于底层框架代码或需要显式访问 Provider 实例的场景
+
+**示例：**
+
+```javascript
+// 在数据源方法中使用
+const fetchData = async (...args) => {
+  return await __provider.apis['getUserList']
+    .apply(null, args)
+    .then((res) => res.data);
+};
+```
+
+---
+
+### 5.2 `__provider.createMock` — 创建模拟数据函数
+
+`__provider.createMock` 用于根据 Mock.js 模板函数创建模拟数据 API。它会解析模板函数，并在调用时使用 Mock.js 生成随机数据。
+
+**函数签名：**
+
+```typescript
+createMock(mockTemplate: (req?: any) => object): (...args: any[]) => Promise<any>
+```
+
+**参数：**
+
+- `mockTemplate` — Mock.js 模板函数，签名为 `(req) => template`，返回 Mock.js 模板对象
+  - `req` — 请求信息对象，包含 `url`、`type`、`data`、`params`、`query` 等属性
+  - 返回值 — Mock.js 模板对象，使用 Mock.js 占位符语法（如 `@guid`、`@cname`、`@integer(10, 100)`）
+
+**返回：**
+
+- 一个异步函数，调用后返回 Mock.js 生成的模拟数据
+
+**示例 1：基础用法**
+
+```javascript
+// 创建模拟数据函数
+const mockApi = __provider.createMock((req) => {
+  return {
+    code: 0,
+    message: 'ok',
+    data: {
+      'list|10': [
+        {
+          id: '@guid',
+          name: '@cname',
+          'age|18-60': 1
+        }
+      ]
+    }
+  };
+});
+
+// 调用模拟 API
+const res = await mockApi();
+console.log(res);
+// 输出：{ code: 0, message: 'ok', data: { list: [...] } }
+```
+
+**示例 2：在数据源方法中使用**
+
+```javascript
+// Composition 模式数据源方法
+const getMockData = async (...args) => {
+  const mock = __provider.createMock((req) => {
+    return {
+      code: 0,
+      data: {
+        totalUsers: '@integer(100, 10000)',
+        todayOrders: '@integer(10, 500)',
+        revenue: '@float(1000, 50000, 2, 2)'
+      }
+    };
+  });
+  return await mock.apply(null, args);
+};
+```
+
+**示例 3：根据请求参数动态生成模拟数据**
+
+```javascript
+const mockUserApi = __provider.createMock((req) => {
+  const count = req.query?.size || 5;
+  return {
+    code: 0,
+    data: {
+      [`list|${count}`]: [
+        {
+          id: '@guid',
+          name: '@cname',
+          email: '@email'
+        }
+      ]
+    }
+  };
+});
+
+// 调用时传入查询参数
+const res = await mockUserApi({}, { query: { size: 3 } });
+// 返回 3 条模拟数据
+```
+
+**Mock.js 常用占位符：**
+
+| 占位符                         | 说明             | 示例                                     |
+| ------------------------------ | ---------------- | ---------------------------------------- | ------ | ----------------------- |
+| `@guid`                        | 生成 GUID        | `'f3c8b5a7-1d2e-4f6a-8b9c-0d1e2f3a4b5c'` |
+| `@cname`                       | 生成中文姓名     | `'张三'`                                 |
+| `@email`                       | 生成邮箱         | `'example@email.com'`                    |
+| `@integer(min, max)`           | 生成整数         | `@integer(10, 100)`                      |
+| `@float(min, max, dmin, dmax)` | 生成浮点数       | `@float(1000, 50000, 2, 2)`              |
+| `'key                          | min-max': value` | 生成数组                                 | `'list | 10': [{ id: '@guid' }]` |
+
+> Mock.js 完整语法规则参考：https://vtj.pro/help/mock.html
+
+**异常处理：**
+
+`createMock` 内部会捕获模板函数执行异常，并输出警告日志，不会阻断调用流程：
+
+```javascript
+const mockApi = __provider.createMock((req) => {
+  throw new Error('模板错误');
+});
+
+// 不会抛出异常，返回空对象 {}
+const res = await mockApi();
+```
+
+---
+
+## 六、典型配置示例
 
 ### 示例 1：配置一个完整的 CRUD 接口组
 
@@ -481,7 +633,7 @@ onMounted(() => {
 
 ---
 
-## 六、常用请求场景速查
+## 七、常用请求场景速查
 
 | 场景                        | 调用方式                                                                        |
 | --------------------------- | ------------------------------------------------------------------------------- |
@@ -496,7 +648,7 @@ onMounted(() => {
 
 ---
 
-## 七、注意事项
+## 八、注意事项
 
 1. **name 唯一性：** API 的 `name` 在同一项目中必须唯一，创建前建议先调用 `getApis` 检查是否已存在同名 API
 2. **路径参数放 `opts.params`：** URL 中的 `:id` 占位符替换依赖 `opts.params` 字段，不要将路径参数放在 `data` 中
