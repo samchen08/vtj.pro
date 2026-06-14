@@ -33,6 +33,9 @@ export class AutoFixer {
 
   private fixVtjIcons(code: string, illegal: string[] = []) {
     const sfc = parseSFC(code);
+    // 跨 ImportDeclaration 追踪 defaultVtjIcon 是否已被添加，
+    // 避免多个 @vtj/icons import 各自添加导致重复声明
+    let defaultAdded = false;
     sfc.script = transformScript(sfc.script, {
       ImportDeclaration(path: any) {
         if (path.node.source.value === '@vtj/icons') {
@@ -43,6 +46,7 @@ export class AutoFixer {
             const name = specifier.imported?.name;
             if (name === defaultVtjIcon) {
               hasDefault = true;
+              defaultAdded = true;
             }
             if (!illegal.includes(name)) {
               newSpecifiers.push(
@@ -50,7 +54,8 @@ export class AutoFixer {
               );
             }
           }
-          if (!hasDefault) {
+          if (!hasDefault && !defaultAdded) {
+            defaultAdded = true;
             newSpecifiers.push(
               t.importSpecifier(
                 t.identifier(defaultVtjIcon),
@@ -142,7 +147,9 @@ export class AutoFixer {
       output += `<template>\n${newTemplate}\n</template>\n\n`;
     }
     if (newScript && sfc.script) {
-      output += `<script>\n${newScript}\n</script>\n\n`;
+      const setupAttr = sfc.isScriptSetup ? ' setup' : '';
+      const langAttr = '';
+      output += `<script${setupAttr}${langAttr}>\n${newScript}\n</script>\n\n`;
     }
     sfc.styles.forEach((style) => {
       output += `<style lang="scss" scoped>\n`;
