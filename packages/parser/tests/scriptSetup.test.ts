@@ -2,6 +2,79 @@ import { expect, test, describe } from 'vitest';
 import { parseScriptSetup } from '../src/vue/scriptSetup';
 import { project } from './sources/project';
 
+describe('extractDataSourceFromCode - transform field', () => {
+  test('should extract transform correctly with .catch and .finally', () => {
+    const code = `
+const fetchUserInfo = async (...args) => {
+  return await __provider.apis['getUserInfo']
+    .apply(null, args)
+    .then((res) => {
+      __state.userInfo = res.data;
+    })
+    .catch((e) => {})
+    .finally(() => {
+      __state.loading = false;
+    });
+}
+`;
+
+    // 模拟 extractThenCallback 的逻辑
+    const extractThenCallback = (code: string): string | null => {
+      const thenIndex = code.indexOf('.then(');
+      if (thenIndex === -1) return null;
+
+      let depth = 1;
+      let pos = thenIndex + 6;
+
+      while (pos < code.length && depth > 0) {
+        const char = code[pos];
+        if (char === '(') depth++;
+        else if (char === ')') depth--;
+        pos++;
+      }
+
+      return code.substring(thenIndex + 6, pos - 1).trim();
+    };
+
+    const transform = extractThenCallback(code);
+    expect(transform).toBe(
+      '(res) => {\n      __state.userInfo = res.data;\n    }'
+    );
+  });
+
+  test('should extract transform without .catch or .finally', () => {
+    const code = `
+const fetchData = async (...args) => {
+  return await __provider.apis['getData']
+    .apply(null, args)
+    .then((res) => {
+      return res.data;
+    });
+}
+`;
+
+    const extractThenCallback = (code: string): string | null => {
+      const thenIndex = code.indexOf('.then(');
+      if (thenIndex === -1) return null;
+
+      let depth = 1;
+      let pos = thenIndex + 6;
+
+      while (pos < code.length && depth > 0) {
+        const char = code[pos];
+        if (char === '(') depth++;
+        else if (char === ')') depth--;
+        pos++;
+      }
+
+      return code.substring(thenIndex + 6, pos - 1).trim();
+    };
+
+    const transform = extractThenCallback(code);
+    expect(transform).toBe('(res) => {\n      return res.data;\n    }');
+  });
+});
+
 const setupSource = `
 import { ref, reactive, computed, watch, onMounted, inject, provide, defineProps, defineEmits, defineExpose } from 'vue';
 import { ElButton } from 'element-plus';

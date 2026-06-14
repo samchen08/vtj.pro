@@ -831,10 +831,27 @@ function extractDataSourceFromCode(
   project: ProjectSchema
 ): DataSourceSchema | null {
   const idRegex = /apis\['([\w]*)'\]/;
-  const thenRegex = /\.then\(([\w\W]*)\)/;
 
   const comment = '';
   const dataSource = extractDataSource(comment);
+
+  // 提取 .then() 参数的函数：通过括号匹配精确定位
+  const extractThenCallback = (code: string): string | null => {
+    const thenIndex = code.indexOf('.then(');
+    if (thenIndex === -1) return null;
+
+    let depth = 1;
+    let pos = thenIndex + 6; // .then( 的左括号位置
+
+    while (pos < code.length && depth > 0) {
+      const char = code[pos];
+      if (char === '(') depth++;
+      else if (char === ')') depth--;
+      pos++;
+    }
+
+    return code.substring(thenIndex + 6, pos - 1).trim();
+  };
 
   if (code.includes('__provider.apis')) {
     const matches = code.match(idRegex) || [];
@@ -842,7 +859,7 @@ function extractDataSourceFromCode(
     if (!id) return null;
     const api = (project.apis || []).find((n) => n.id === id || n.name === id);
     if (!api) return null;
-    const transform = code.match(thenRegex)?.[1];
+    const transform = extractThenCallback(code);
     return {
       ref: id,
       name,
@@ -861,7 +878,7 @@ function extractDataSourceFromCode(
   }
 
   if (code.includes('__provider.createMock')) {
-    const transform = code.match(thenRegex)?.[1];
+    const transform = extractThenCallback(code);
     return {
       ref: '',
       name,
