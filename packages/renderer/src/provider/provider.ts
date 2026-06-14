@@ -819,12 +819,12 @@ export function useGlobals() {
 
 export function useStore() {
   const globals = useGlobals();
-  return globals.$store;
+  return globals.$store || {};
 }
 
 export function usePinia() {
   const globals = useGlobals();
-  return globals.$pinia;
+  return globals.$pinia || {};
 }
 
 export function useRequest() {
@@ -834,10 +834,10 @@ export function useRequest() {
 
 export function useLibs() {
   const globals = useGlobals();
-  return globals.$libs;
+  return globals.$libs || {};
 }
 
 export function useApis() {
   const globals = useGlobals();
-  return globals.$apis;
+  return globals.$apis || {};
 }

@@ -72,7 +72,12 @@ function stripTypeAnnotations(node: any): void {
   delete node.typeAnnotation; // : Type 标注
   delete node.returnType; // 函数返回值类型
   delete node.typeParameters; // <T> 泛型参数
-  delete node.optional; // TS 可选参数 ? (Identifier 上)
+  // delete node.optional 仅对 Identifier 执行（TS 函数可选参数标识 ?），
+  // 必须跳过 OptionalMemberExpression / OptionalCallExpression，
+  // 因为它们的 optional 是 ECMAScript 可选链标志，删除会导致 ?. 丢失
+  if (node.type === 'Identifier') {
+    delete node.optional; // TS 可选参数 ? (Identifier 上)
+  }
 
   // 递归处理子节点（跳过元数据字段）
   for (const key of Object.keys(node)) {
@@ -163,7 +168,12 @@ export function stripTypeScript(script: string): string {
         delete node.typeAnnotation;
         delete node.returnType;
         delete node.typeParameters;
-        delete node.optional;
+        // delete node.optional 仅对 Identifier 执行（TS 函数可选参数 ?），
+        // 跳过 OptionalMemberExpression / OptionalCallExpression，
+        // 因为它们的 optional 是 ECMAScript 可选链标志
+        if (node.type === 'Identifier') {
+          delete node.optional;
+        }
       }
     } as TraverseOptions);
 
