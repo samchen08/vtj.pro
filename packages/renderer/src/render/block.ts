@@ -106,7 +106,6 @@ export function createRenderer(options: CreateRendererOptions) {
           dsl.value.composables ?? [],
           context
         );
-        createProvide(Vue, dsl.value.provide ?? {}, context);
       }
 
       const attrs = {
@@ -136,6 +135,7 @@ export function createRenderer(options: CreateRendererOptions) {
             await setupFn();
           }
         }
+        createProvide(Vue, dsl.value.provide ?? {}, context);
       }
 
       return {
