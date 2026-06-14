@@ -127,7 +127,8 @@ describe('parseScriptSetup', () => {
 });
 
 describe('parseScriptSetup with ClassDeclaration', () => {
-  const classSource = `
+  test('should throw error for top-level class declaration', () => {
+    const classSource = `
 import { useProvider } from '@vtj/renderer';
 
 const __provider = useProvider({ id: '1kzck23e', version: '1781335863126' })
@@ -137,10 +138,158 @@ class TClass {
 }
 `;
 
-  const result = parseScriptSetup(classSource, project);
+    expect(() => parseScriptSetup(classSource, project)).toThrow(
+      /无法处理顶层类声明/
+    );
+  });
+});
 
-  test('should collect class declaration into setup', () => {
-    expect(result.setup).toBeDefined();
-    expect(result.setup!.value).toContain('class TClass');
+describe('parseScriptSetup orphan variable fallback → reactive', () => {
+  test('should convert const with {} to reactive', () => {
+    const source = `
+import { useProvider } from '@vtj/renderer';
+
+const __provider = useProvider({ id: 'test', version: '1' });
+
+const data1 = {};
+`;
+    const result = parseScriptSetup(source, project);
+    expect(result.reactives).toBeDefined();
+    expect(result.reactives['data1']).toBeDefined();
+    expect(result.reactives['data1']).toHaveProperty('value', '({})');
+    // setup 中不应包含该游离声明
+    if (result.setup) {
+      expect(result.setup.value).not.toContain('data1');
+    }
+  });
+
+  test('should convert const with [] to reactive', () => {
+    const source = `
+import { useProvider } from '@vtj/renderer';
+
+const __provider = useProvider({ id: 'test', version: '1' });
+
+const data2 = [];
+`;
+    const result = parseScriptSetup(source, project);
+    expect(result.reactives).toBeDefined();
+    expect(result.reactives['data2']).toBeDefined();
+    expect(result.reactives['data2']).toHaveProperty('value', '[]');
+  });
+
+  test('should convert multiple orphan {} and [] in same SFC', () => {
+    const source = `
+import { useProvider } from '@vtj/renderer';
+
+const __provider = useProvider({ id: 'test', version: '1' });
+
+const data1 = {};
+const data2 = [];
+`;
+    const result = parseScriptSetup(source, project);
+    expect(result.reactives).toBeDefined();
+    expect(result.reactives['data1']).toBeDefined();
+    expect(result.reactives['data1']).toHaveProperty('value', '({})');
+    expect(result.reactives['data2']).toBeDefined();
+    expect(result.reactives['data2']).toHaveProperty('value', '[]');
+  });
+
+  test('should convert multiple declarators in one const with object/array literals', () => {
+    const source = `
+import { useProvider } from '@vtj/renderer';
+
+const __provider = useProvider({ id: 'test', version: '1' });
+
+const a = {}, b = [];
+`;
+    const result = parseScriptSetup(source, project);
+    expect(result.reactives).toBeDefined();
+    expect(result.reactives['a']).toBeDefined();
+    expect(result.reactives['a']).toHaveProperty('value', '({})');
+    expect(result.reactives['b']).toBeDefined();
+    expect(result.reactives['b']).toHaveProperty('value', '[]');
+  });
+
+  test('should throw error for const with number literal', () => {
+    const source = `
+import { useProvider } from '@vtj/renderer';
+
+const __provider = useProvider({ id: 'test', version: '1' });
+
+const count = 42;
+`;
+    expect(() => parseScriptSetup(source, project)).toThrow(
+      /无法处理顶层变量声明/
+    );
+  });
+
+  test('should throw error for const with string literal', () => {
+    const source = `
+import { useProvider } from '@vtj/renderer';
+
+const __provider = useProvider({ id: 'test', version: '1' });
+
+const title = 'hello';
+`;
+    expect(() => parseScriptSetup(source, project)).toThrow(
+      /无法处理顶层变量声明/
+    );
+  });
+
+  test('should throw error for const with Identifier', () => {
+    const source = `
+import { useProvider } from '@vtj/renderer';
+
+const __provider = useProvider({ id: 'test', version: '1' });
+const other = __provider;
+`;
+    expect(() => parseScriptSetup(source, project)).toThrow(
+      /无法处理顶层变量声明/
+    );
+  });
+
+  test('should throw error for local useXxx() call', () => {
+    const source = `
+import { ref } from 'vue';
+
+function useMyHelper() {
+  const x = ref(0);
+  return x;
+}
+
+const val = useMyHelper();
+`;
+    expect(() => parseScriptSetup(source, project)).toThrow(
+      /无法处理顶层变量声明/
+    );
+  });
+
+  test('should throw error for const with unrecognized function call', () => {
+    const source = `
+import { useProvider } from '@vtj/renderer';
+
+const __provider = useProvider({ id: 'test', version: '1' });
+
+const useMouse = function () {
+  return { value: 'abc' };
+};
+const data4 = useMouse();
+`;
+    expect(() => parseScriptSetup(source, project)).toThrow(
+      /无法处理顶层变量声明/
+    );
+  });
+
+  test('should throw error for top-level class declaration', () => {
+    const source = `
+import { useProvider } from '@vtj/renderer';
+
+const __provider = useProvider({ id: 'test', version: '1' });
+
+class KClass {}
+`;
+    expect(() => parseScriptSetup(source, project)).toThrow(
+      /无法处理顶层类声明/
+    );
   });
 });

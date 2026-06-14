@@ -358,8 +358,46 @@ export function parseScriptSetup(
         return;
       }
 
-      // 未被任何 pattern 匹配的顶层声明 → setup 语句
-      setupStatements.push(generateCode(node));
+      // 兜底处理：顶层游离变量声明 → 尝试自动转为 reactive()
+      // 仅当所有声明器的 init 都是 ObjectExpression 或 ArrayExpression 时才触发
+      const allLiteralInits = node.declarations.every((d: any) => {
+        const init = d.init;
+        return (
+          init &&
+          (init.type === 'ObjectExpression' || init.type === 'ArrayExpression')
+        );
+      });
+
+      if (allLiteralInits && node.declarations.length > 0) {
+        for (const d of node.declarations) {
+          const name = getDeclaratorName(d.id);
+          if (name && d.init) {
+            result.reactives[name] = getJSExpression(generateCode(d.init));
+          }
+        }
+        return;
+      }
+
+      // 检查是否存在无法处理的顶层变量声明，抛出异常
+      for (const d of node.declarations) {
+        const init = d.init;
+        if (init) {
+          const name = getDeclaratorName(d.id) || '(unknown)';
+          const code = generateCode(init);
+          const typeName = init.type;
+          throw new Error(
+            `[vtj/parser] 无法处理顶层变量声明 "const ${name} = ${code}"：` +
+              `不支持的类型 "${typeName}"。` +
+              `仅支持 ObjectExpression / ArrayExpression 兜底自动转换为 reactive()。` +
+              `请改用 ref()、reactive()、computed() 或函数声明。`
+          );
+        }
+      }
+
+      // 无法处理的声明（不应到达此处）
+      throw new Error(
+        `[vtj/parser] 无法处理顶层变量声明，请检查语句是否符合 DSL 要求。`
+      );
     },
 
     // 顶层函数声明
@@ -382,12 +420,15 @@ export function parseScriptSetup(
       result.methods[name] = getJSFunction(funcCode);
     },
 
-    // 顶层类声明
+    // 顶层类声明 → 禁止，抛出异常
     ClassDeclaration(path: any) {
       if (path.parent.type !== 'Program') return;
       const node = path.node as ClassDeclaration;
-      // 类声明归入 setup 语句
-      setupStatements.push(generateCode(node));
+      const className = node.id?.name || '(anonymous)';
+      throw new Error(
+        `[vtj/parser] 无法处理顶层类声明 "class ${className}"：` +
+          `DSL 不支持顶层 class 声明，请改用 ref()、reactive() 或函数声明。`
+      );
     },
 
     // 顶层表达式语句
@@ -397,8 +438,11 @@ export function parseScriptSetup(
       const expr = node.expression;
 
       if (expr.type !== 'CallExpression') {
-        setupStatements.push(generateCode(node));
-        return;
+        const code = generateCode(node);
+        throw new Error(
+          `[vtj/parser] 无法处理顶层表达式语句 "${code}"：` +
+            `DSL 不支持游离的顶层表达式，请改用生命周期钩子（如 onMounted）或声明确赋值。`
+        );
       }
 
       const callee = getCalleeName(expr);
@@ -460,8 +504,12 @@ export function parseScriptSetup(
         return;
       }
 
-      // 其他顶层表达式 → setup 语句
-      setupStatements.push(generateCode(node));
+      // 其他顶层表达式 → 抛异常
+      const code = generateCode(node);
+      throw new Error(
+        `[vtj/parser] 无法处理顶层调用语句 "${code}"：` +
+          `DSL 不支持游离的顶层函数调用，请改用生命周期钩子（如 onMounted）或归类到方法声明中。`
+      );
     }
   });
 
