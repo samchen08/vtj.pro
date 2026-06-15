@@ -408,6 +408,36 @@ const submitLogin = async () => {
 };
 ```
 
+### 路由页面权限控制
+
+VTJ 低代码平台的动态页面访问受路由权限控制，页面跳转前路由守卫会检查当前用户是否有权访问目标页面。权限检查规则如下：
+
+| 场景                        | 检查的权限码         | 说明                                                                   |
+| --------------------------- | -------------------- | ---------------------------------------------------------------------- |
+| VTJ 动态页面                | `to.params.id`       | 路由名为 `VtjPage` 的页面，需将页面 ID 记录到 `permissions` 中才能访问 |
+| 带 `__vtj__` meta 的路由    | `to.meta.__vtj__`    | 路由 meta 中声明的 `__vtj__` 字段值                                    |
+| 带 `permission` meta 的路由 | `to.meta.permission` | 路由 meta 中声明的 `permission` 字段值                                 |
+
+**重要：** 若使用 VTJ 低代码动态页面，登录时必须将用户有权限访问的页面 ID 写入 `permissions`，否则路由守卫会拦截跳转。`permissions` 支持对象键或数组元素两种形式：
+
+```js
+// permissions 为对象形式（键为页面 ID，值为 true）
+__access.login({
+  token: res.data.token,
+  permissions: {
+    page_123: true,
+    page_456: true,
+    'user:edit': true
+  }
+});
+
+// permissions 为数组形式（元素为页面 ID 或权限码）
+__access.login({
+  token: res.data.token,
+  permissions: ['page_123', 'page_456', 'user:edit']
+});
+```
+
 ---
 
 ## 七、综合使用示例

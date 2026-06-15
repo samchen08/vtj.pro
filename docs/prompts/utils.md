@@ -12,8 +12,8 @@
 | -------------- | ------------------------------------------------ | ---------------------------------------------------------------------- |
 | **request**    | HTTP 请求封装（基于 axios）                      | `import { request, createApi, createApis, useApi } from '@vtj/utils'`  |
 | **storage**    | 本地存储（localStorage/sessionStorage/内存缓存） | `import { storage } from '@vtj/utils'`                                 |
-| **cookie**     | Cookie 操作                                      | `import * as cookie from '@vtj/utils/cookie'`                          |
-| **url**        | URL 解析与拼接                                   | `import * as url from '@vtj/utils/url'`                                |
+| **cookie**     | Cookie 操作                                      | `import { cookie } from '@vtj/utils'`                                  |
+| **url**        | URL 解析与拼接                                   | `import { url } from '@vtj/utils'`                                     |
 | **download**   | 文件下载                                         | `import { downloadUrl, downloadBlob, downloadJson } from '@vtj/utils'` |
 | **logger**     | 日志打印                                         | `import { logger } from '@vtj/utils'`                                  |
 | **loadScript** | 动态加载外部脚本                                 | `import { loadScript } from '@vtj/utils'`                              |
@@ -354,7 +354,7 @@ function logout() {
 ### 4.1 核心 API
 
 ```javascript
-import * as cookie from '@vtj/utils/cookie';
+import { cookie } from '@vtj/utils';
 
 cookie.set(name, value, opts?)    // 设置 Cookie
 cookie.get(name)                  // 读取 Cookie
@@ -376,7 +376,7 @@ cookie.remove(name, opts?)        // 删除 Cookie
 ### 4.3 使用示例
 
 ```javascript
-import * as cookie from '@vtj/utils/cookie';
+import { cookie } from '@vtj/utils';
 
 // 设置 Cookie（会话级别）
 cookie.set('userId', '12345');
@@ -405,7 +405,7 @@ cookie.remove('userId');
 ### 5.1 核心 API
 
 ```javascript
-import * as url from '@vtj/utils/url';
+import { url } from '@vtj/utils';
 
 url.stringify(query)              // 对象转查询字符串
 url.parse(str?)                   // 查询字符串转对象
@@ -417,7 +417,7 @@ url.getCurrentHost(includePath)   // 获取当前页面 host
 ### 5.2 使用示例
 
 ```javascript
-import * as url from '@vtj/utils/url';
+import { url } from '@vtj/utils';
 
 // 对象转查询字符串
 const str = url.stringify({ page: 1, size: 10 });

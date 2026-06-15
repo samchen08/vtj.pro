@@ -32,5 +32,8 @@
     "@vtj/renderer": "workspace:~",
     "@vtj/ui": "workspace:~",
     "@vtj/utils": "workspace:~"
+  },
+  "vtj": {
+    "remote": "http://localhost:8000"
   }
 }
