@@ -937,6 +937,9 @@ importers:
       '@vtj/cli':
         specifier: workspace:~
         version: link:../cli
+      '@vue/test-utils':
+        specifier: ~2.4.5
+        version: 2.4.11(@vue/compiler-dom@3.5.38)(@vue/server-renderer@3.5.38(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))
       qrcode:
         specifier: ~1.5.3
         version: 1.5.4

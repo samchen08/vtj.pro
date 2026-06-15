@@ -13,7 +13,7 @@
     "代码生成器",
     "代码可视化"
   ],
-  "description": "VTJ.PRO 是一个开源的 AI 低代码引擎，专注解决 “低代码生成代码不可控、难维护” 的痛点, 通过 DSL 与 Vue 3 源码双向转换，让可视化设计与工程化开发无缝融合",
+  "description": "VTJ.PRO 是一个开源的、AI 驱动的 Vue3 企业级应用开发平台，通过 AI 智能体与可视化编排实现高效开发，并支持导出标准 Vue 代码以避免平台锁定。",
   "repository": {
     "type": "git",
     "url": "https://gitee.com/newgateway/vtj.git"
