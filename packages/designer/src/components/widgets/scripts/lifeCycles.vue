@@ -75,12 +75,10 @@
     const { currentFile } = engine.project.value || {};
     const isPage = currentFile?.type === 'page';
     if (isPage) {
-      return isComposition.value
-        ? ['setup', ...UNI_PAGE_HOOKS_LIST]
-        : PAGE_LIFE_CYCLES_LIST;
+      return isComposition.value ? UNI_PAGE_HOOKS_LIST : PAGE_LIFE_CYCLES_LIST;
     } else {
       return isComposition.value
-        ? ['setup', ...UNI_COMPOSITION_HOOKS_LIST]
+        ? UNI_COMPOSITION_HOOKS_LIST
         : COMPONENT_LIFE_CYCLES_LIST;
     }
   });

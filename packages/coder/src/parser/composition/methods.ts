@@ -32,25 +32,32 @@ export function parseMethods(
  * 解析 dataSources 为 Composition 顶层 async 函数声明
  */
 export function parseDataSources(
-  dataSources: Record<string, any> = {}
+  dataSources: Record<string, any> = {},
+  symbols?: SymbolTable
 ): string[] {
   return Object.values(dataSources)
     .map((item: any) => {
       if (!item || !item.name) return null;
       if (item.type === 'mock') {
-        const mockTemplate =
+        const rawMock =
           item.mockTemplate && item.mockTemplate.value
             ? item.mockTemplate.value
             : `(params) => ({})`;
+        const mockTemplate = symbols
+          ? transformExpression(rawMock, symbols, 'script')
+          : rawMock;
         return `const ${item.name} = async (...args) => {
   const mock = __provider.createMock(${mockTemplate});
   return await mock.apply(null, args);
 };`;
       } else {
-        const transform =
+        const rawTransform =
           item.transform && item.transform.value
             ? item.transform.value
             : `(res) => res`;
+        const transform = symbols
+          ? transformExpression(rawTransform, symbols, 'script')
+          : rawTransform;
         return `const ${item.name} = async (...args) => {
   return await __provider.apis['${item.ref}'].apply(null, args).then(${transform});
 };`;

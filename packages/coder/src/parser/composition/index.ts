@@ -141,7 +141,7 @@ export function parserComposition(
     ...(dsl.methods || {})
   };
   const methodsArr = parseMethods(mergedMethods, symbols);
-  const dataSourcesArr = parseDataSources(dsl.dataSources || {});
+  const dataSourcesArr = parseDataSources(dsl.dataSources || {}, symbols);
   const watchArr = parseWatch(dsl.watch || [], symbols);
   const injectArr = parseInject(dsl.inject || [], symbols);
   const provideArr = parseProvide(dsl.provide || {}, symbols);
