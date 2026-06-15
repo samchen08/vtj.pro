@@ -1,0 +1,272 @@
+# VTJ 平台 — 大模型速查指南
+
+> 本文档为 AI 大模型提供 VTJ 低代码平台的精简速查信息。如需完整细节，请查阅同目录下的 `llms-full.txt`。
+> VTJ 是一个基于 Vue 3 + TypeScript 的低代码开发平台，AI 通过生成符合规范的 Vue 代码来构建页面。
+
+---
+
+## 一、文档索引
+
+| 文档 | 核心内容 | 适用场景 |
+|------|---------|---------|
+| `coder.md` | Vue 代码规范（AI 生成代码前必读） | 生成可被 parser 解析的 Vue 代码 |
+| `api.md` | API 接口管理 | 配置/调用后端接口 |
+| `globals.md` | 全局注入变量详解 | 使用 __store/__apis/__access 等 |
+| `ui.md` | @vtj/ui 组件库 | 使用 XGrid/XForm/XDialog 等 |
+| `chart.md` | @vtj/charts 图表库 | 使用 XChart/XMapChart |
+| `icons.md` | @vtj/icons 图标库 | 使用 XIcon 和各类图标 |
+| `tools.md` | 设计器工具方法 | 调用设计器工具方法 |
+| `page.md` | 页面管理 | 创建/管理页面路由 |
+| `block.md` | 区块管理 | 创建/管理可复用区块 |
+| `settings.md` | 应用设置 | 全局 CSS/Store/Axios/路由守卫 |
+| `env.md` | 环境变量 | 配置开发/生产双环境变量 |
+| `i18n.md` | 国际化 | 多语言词条管理 |
+| `uni.md` | UniApp 配置 | 小程序/H5 跨端配置 |
+| `utils.md` | @vtj/utils 工具库 | HTTP 请求/存储/下载/URL 处理 |
+| `quick-ref.md` | 工具速查清单 | 按意图快速查找工具方法 |
+
+---
+
+## 二、AI 代码编写核心规范（coder.md 摘要）
+
+### 2.1 强制规范
+
+- **必须使用 `<script setup>`**，禁止使用 Options API（`export default {...}`）
+- **主状态必须命名为 `__state`**，使用 `reactive()` 声明
+- **Props 接收变量必须命名为 `__props`**：`const __props = defineProps(...)`
+- **Emits 接收变量必须命名为 `__emit`**：`const __emit = defineEmits(...)`
+- **禁止在 `<script setup>` 顶层使用 `await`**
+- **禁止声明系统保留变量**（`__instance`、`__provider` 等双下划线保留变量）
+- **禁止编写游离顶层语句**，初始化逻辑放在 `onMounted` 中或声明时赋初值
+- **自定义 Composable 必须满足 `/^use[A-Z]/`** 命名规范
+
+### 2.2 全局 API 变量（由框架自动注入，不得手动声明）
+
+| DSL 中的引用 | Composition 变量 | 来源/说明 |
+|-------------|-----------------|----------|
+| `this.state` | `__state` | 主 reactive 状态对象 |
+| `this.$props` | `__props` | `defineProps()` 接收变量 |
+| `this.$emit` | `__emit` | `defineEmits()` 接收变量 |
+| `this.$attrs` | `__attrs` | `const __attrs = useAttrs()` |
+| `this.$slots` | `__slots` | `const __slots = useSlots()` |
+| `this.$router` | `__router` | `const __router = useRouter()` |
+| `this.$route` | `__route` | `const __route = useRoute()` |
+| `this.$i18n` | `__i18n` | `const __i18n = useI18n()` |
+| `this.$store` | `__store` | `useStore()` from `@vtj/renderer` |
+| `this.$pinia` | `__pinia` | `usePinia()` from `@vtj/renderer` |
+| `this.$request` | `__request` | `useRequest()` from `@vtj/renderer` |
+| `this.$libs` | `__libs` | `useLibs()` from `@vtj/renderer` |
+| `this.$access` | `__access` | `useAccess()` from `@vtj/renderer` |
+| `this.$apis` | `__apis` | `useApis()` from `@vtj/renderer` |
+
+### 2.3 模板约定
+
+- 自定义组件用 **PascalCase**：`<ElButton>`、`<XGrid>`、`<MyComponent />`
+- HTML 原生标签用**小写**：`<div>`、`<span>`、`<input />`
+- `v-for` 必须提供 `:key`
+- `v-if` 与 `v-else` 兄弟节点必须连续，中间不得插入其他节点
+- 事件绑定直接引用方法名或内联箭头函数
+
+### 2.4 Import 约定
+
+```js
+import { ref, reactive, computed, watch, onMounted } from 'vue';
+import { useRouter, useRoute } from 'vue-router';
+import { useI18n } from 'vue-i18n';
+```
+
+- 组件导入使用 PascalCase，别名用 `as` 语法
+- parser 会自动识别 `as` 别名，将本地名作为组件标签名
+- UI 组件子组件（如 `AButton.Group`）必须显式派生声明：`const AButtonGroup = AButton.Group;`
+
+### 2.5 数据源约定
+
+```js
+// API 数据源（通过 __provider.apis 调用）
+const getUserList = async () => {
+  return __provider.apis['getUserList']().then((res) => res.data);
+};
+
+// Mock 数据源（通过 __provider.createMock 创建）
+const getMockData = async () => {
+  return __provider.createMock((params) => ({
+    'list|10': [{ id: '@guid', name: '@cname', 'age|18-60': 1 }]
+  })).then((res) => res);
+};
+```
+
+---
+
+## 三、设计器工具速查
+
+### 3.1 页面管理
+
+| 意图 | 工具 | 参数 |
+|-----|------|-----|
+| 获取页面树 | `getMenus` / `getPages` | 无 |
+| 创建页面 | `createPage` | `{ name, title, icon?, dir?, layout? }, parentId?` |
+| 更新页面 | `updatePage` | `{ id, name, title, icon? }` |
+| 删除页面 | `removePage` | `id` |
+| 设置主页 | `setHomepage` | `id` |
+| 移动页面 | `movePage` | `id, parentId?` |
+
+### 3.2 区块管理
+
+| 意图 | 工具 | 参数 |
+|-----|------|-----|
+| 获取区块 | `getBlocks` | 无 |
+| 创建区块 | `createBlock` | `{ name, title, category? }` |
+| 更新区块 | `updateBlock` | `{ id, name?, title?, category? }` |
+| 删除区块 | `removeBlock` | `id` |
+
+### 3.3 API 管理
+
+| 意图 | 工具 | 参数 |
+|-----|------|-----|
+| 获取接口 | `getApis` | 无 |
+| 新增/更新接口 | `setApi` | `{ name, url, method?, label?, category?, settings?, headers?, mock?, mockTemplate? }` |
+| 删除接口 | `removeApi` | `name` |
+| 批量删除 | `removeApis` | `apis: string[]` |
+
+### 3.4 全局配置（值类型：CSS 为字符串，其余为 JS 函数代码字符串）
+
+| 意图 | 设置工具 | 查询工具 |
+|-----|---------|---------|
+| 全局 CSS | `setGlobalCss` | `getGlobalCss` |
+| Pinia Store | `setGlobalStore` | `getGlobalStore` |
+| 权限控制 | `setGlobalAccess` | `getGlobalAccess` |
+| Axios 配置 | `setGlobalAxios` | `getGlobalAxios` |
+| 请求拦截器 | `setGlobalRequestInterceptor` | `getGlobalRequestInterceptor` |
+| 响应拦截器 | `setGlobalResponseInterceptor` | `getGlobalResponseInterceptor` |
+| 前置路由守卫 | `setGlobalBeforeEach` | `getGlobalBeforeEach` |
+| 后置路由守卫 | `setGlobalAfterEach` | `getGlobalAfterEach` |
+
+### 3.5 其他工具
+
+| 意图 | 工具 | 说明 |
+|-----|------|-----|
+| 打开文件 | `active(id)` | 激活指定页面/区块 |
+| 获取当前文件 | `getCurrentFile()` | 返回 `{ id, name, title }` |
+| 获取源码 | `getCurrentFileContent()` | 返回 Vue 源码字符串 |
+| 刷新运行时 | `refresh()` | 检测运行时错误，返回 true/错误信息 |
+| 获取选中节点 | `getNodeSelected()` | 返回节点路径字符串 |
+| 环境变量 | `createEnv` / `removeEnv` / `getEnv` | `{ name, development, production }` |
+| 国际化词条 | `createI18nMessage` / `removeI18nMessage` / `getI18nMessage` | `{ key, zh-CN, en }` |
+| UniApp 配置 | `setUniConfig(key, value)` / `getUniConfig(key)` | key: manifestJson/pagesJson/css/onLaunch 等 |
+| 技能文档 | `getSkills([...ids])` | 查阅特定功能详细用法 |
+
+---
+
+## 四、全局 API 使用速查
+
+### 4.1 __store — Pinia Store（需先配置 setGlobalStore）
+
+```js
+const user = __store.state.user;
+__store.logout();
+__store.setUser(data);
+```
+
+### 4.2 __apis — 项目接口集合
+
+```js
+// 基本调用
+const res = await __apis['getUserList']({ page: 1, size: 20 });
+
+// 路径参数（URL 中的 :id）
+const res = await __apis['getUserById']({}, { params: { id: '123' } });
+
+// 查询参数（?key=value）
+const res = await __apis['getUserList']({}, { query: { page: 1, keyword: '张三' } });
+
+// 临时覆盖配置
+const res = await __apis['getUserList']({}, { settings: { originResponse: true } });
+```
+
+### 4.3 __access — 权限控制（需先配置 setGlobalAccess）
+
+```js
+__access.isLogined();
+__access.getToken();
+__access.can('user:edit');           // 需要所有权限
+__access.some(['user:edit', 'admin']); // 任一权限即可
+__access.login({ token, permissions });
+__access.logout();
+```
+
+### 4.4 __request — HTTP 请求实例
+
+```js
+const res = await __request.send({ url: '/api/users', method: 'get' });
+__request.useRequest((config) => { config.headers['X-Token'] = 'xxx'; return config; });
+```
+
+### 4.5 __libs — 第三方库集合
+
+```js
+__libs.ElementPlus.ElMessage.success('操作成功');
+__libs.ElementPlus.ElMessageBox.confirm('确认删除？', '提示');
+__libs.AntDesignVue.message.success('保存成功');
+```
+
+### 4.6 __i18n — 国际化
+
+```js
+__i18n.t('common.submit');
+__i18n.t('user.welcome', { name: '张三' });
+__i18n.n(1234567, 'currency');
+__i18n.d(new Date(), 'short');
+```
+
+### 4.7 __provider.env — 环境变量
+
+```js
+const baseUrl = __provider.env.BASE_URL;
+```
+
+---
+
+## 五、UI 组件速查
+
+| 组件 | 用途 | 导入示例 |
+|-----|------|---------|
+| `XGrid` | 数据表格（基于 VXE Table） | `import { XGrid } from '@vtj/ui'` |
+| `XForm` | 表单 | `import { XForm, XField } from '@vtj/ui'` |
+| `XDialog` | 对话框（支持拖拽/缩放/最大化） | `import { XDialog } from '@vtj/ui'` |
+| `XActionBar` | 操作栏 | `import { XActionBar } from '@vtj/ui'` |
+| `XQueryForm` | 查询表单 | `import { XQueryForm } from '@vtj/ui'` |
+| `XContainer` | 布局容器（Flex） | `import { XContainer } from '@vtj/ui'` |
+| `XIcon` | 图标渲染组件 | `import { XIcon } from '@vtj/ui'` |
+| `XChart` | 通用图表（基于 ECharts） | `import { XChart } from '@vtj/charts'` |
+| `XMapChart` | 地图图表 | `import { XMapChart } from '@vtj/charts'` |
+
+---
+
+## 六、典型工作流程
+
+```
+1. 了解项目结构  → getMenus / getPages
+2. 创建页面      → createPage(page, parentId?)
+3. 创建区块      → createBlock(block)
+4. 注册接口      → setApi(apiSchema)
+5. 生成代码      → 遵循 coder.md 规范（Composition API + script setup）
+6. 验证结果      → refresh（检测运行时错误）
+7. 全局配置      → setGlobalStore / setGlobalAccess / setGlobalAxios / setGlobalBeforeEach
+8. i18n 配置    → createI18nMessage({ key, zh-CN, en })
+9. 环境变量      → createEnv({ name, development, production })
+```
+
+---
+
+## 七、关键注意事项
+
+1. **AI 生成代码前务必阅读 `coder.md` 完整规范**，确保代码能被 `@vtj/parser` 无损解析
+2. **全局 API 变量**（`__store`, `__apis`, `__access` 等）由框架自动注入，AI 代码中不得手动声明或导入对应的 composable
+3. **调用 `setApi` 后需要 `refresh`** 才能生效
+4. **环境变量值类型为字符串**，布尔值用 `'true'` / `'false'`
+5. **函数类型配置**（store, access, axios, 拦截器, 路由守卫）均传入 **JS 函数代码字符串**，不是 JSON 对象
+6. **`originResponse` 配置一致性**：全局 `setGlobalAxios` 和单个 `setApi` 的 `settings.originResponse` 需保持一致，否则返回数据结构会异常
+7. **`validSuccess` 配置**：为 true 时会校验后端响应码，不匹配默认 `code === 0 \|\| success === true` 的后端结构需自定义 validate 函数
+8. **UniApp 平台**不支持 `dir` 和 `layout` 类型页面，所有页面均为扁平 `page` 类型
+9. **页面创建顺序**：必须先创建父级（目录/布局），再以 `parentId` 创建子页面
+10. **路径参数 vs 查询参数**：`opts.params` 替换 URL 占位符（`/api/users/:id`），`opts.query` 拼接查询字符串（`?page=1`）
