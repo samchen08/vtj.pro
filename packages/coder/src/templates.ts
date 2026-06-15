@@ -1,7 +1,6 @@
 import { template } from '@vtj/base';
 
 const scriptTemplate = `
-// @ts-nocheck
 <%= imports %>
 import { useProvider } from '<%= renderer %>';
 export default defineComponent({
@@ -54,7 +53,6 @@ const vueTemplate = `
  *      computed → methods → setupStatements → watch → provide → created/setup → lifeCycles → expose
  */
 const scriptSetupTemplate = `
-// @ts-nocheck
 <%= imports %>
 import { <%= rendererImports %> } from '<%= renderer %>';
 <% if(componentDeclarations) { %><%= componentDeclarations %><% } %>

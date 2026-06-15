@@ -546,8 +546,11 @@ const refresh: ToolConfig = {
       await delay(config.activeDelayMs);
       await delay(1000);
       engine.provider.errorHandler = null;
+      const messages = error
+        ? [error.instance || '', error.info || '', error.stack || '']
+        : [];
       return error
-        ? `运行时报错：\n${error.message}\n请检查页面代码并修复`
+        ? `运行时报错：\n${error.message}\n请检查代码并修复\n---\n${messages.join('\n')}`
         : true;
     }
 };

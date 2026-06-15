@@ -418,22 +418,26 @@ export class Provider extends Base {
       const message = `[ ${name} ] ${msg} ${info}`;
       const excludes = ['getComputedStyle', 'ResizeObserver'];
       if (excludes.some((n) => message.includes(n))) return;
-      console.error(
-        '[VTJ Error]:',
-        {
+      try {
+        const error = {
+          message,
           err,
           instance,
-          info
-        },
-        err?.stack
-      );
-      if (this.errorHandler) {
-        this.errorHandler(err);
+          info: JSON.stringify(info),
+          stack: err?.stack
+        };
+        console.error('[VTJ Error]:', error, err?.stack);
+
+        if (this.errorHandler) {
+          this.errorHandler(error);
+        }
+      } catch (e) {
+        console.warn('[provider.setErrorHandler]', e);
       }
       if (this.adapter.notify) {
         this.adapter.notify(message, '组件渲染错误', 'error');
       }
-    }, 300);
+    }, 200);
   }
 
   /**
