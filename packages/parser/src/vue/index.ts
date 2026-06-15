@@ -208,7 +208,7 @@ async function parseVueComposition(
 
   const scriptResult = parseScriptSetup(sfc.script, project);
 
-  const { nodes, slots } = parseTemplate(id, name, sfc.template, {
+  const { nodes, slots, context } = parseTemplate(id, name, sfc.template, {
     platform: platform as any,
     handlers: scriptResult.handlers,
     styles,
@@ -268,7 +268,15 @@ async function parseVueComposition(
       await walkNode(node, async (content: any) => {
         if (isJSCode(content)) {
           const code = await tsFormatter(content.value);
-          content.value = compositionPatch(code, patchOpts);
+          let result = compositionPatch(code, patchOpts);
+          // 处理 v-for / slot 上下文变量：item / index / scope 等 → this.context.xxx
+          const contextKeys = Array.from(
+            context[node.id as string] || new Set()
+          );
+          for (const key of contextKeys) {
+            result = replacer(result, key, `this.context.${key}`);
+          }
+          content.value = result;
         }
       });
     },

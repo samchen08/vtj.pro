@@ -589,6 +589,168 @@ function handleClick() {
   });
 });
 
+describe('parseVue Composition mode v-for with vant icon', () => {
+  const cardSource = `
+<template>
+  <div v-for="(card, index) in cardList" :key="index">
+    <van-icon :name="card.user" size="24" color="#fff"></van-icon>
+  </div>
+</template>
+<script lang="ts" setup>
+  // @ts-nocheck
+  import { useProvider } from '@vtj/renderer';
+  import { ref } from 'vue';
+  import { Icon as VanIcon } from 'vant';
+
+  const __provider = useProvider({ id: '1l2qoifa', version: '1781539187917' });
+
+  const cardList = ref([{ icon: 'contact' }])
+</script>
+<style lang="css" scoped>
+  /* 组件样式内容 */
+</style>
+`;
+
+  test('v-for card.user on van-icon should become this.context.card.user', async () => {
+    const result = await parseVue({
+      project,
+      id: '1l2qoifa',
+      name: 'CardDemo',
+      source: cardSource
+    });
+
+    const divNode = result.nodes![0];
+    expect(divNode.name).toBe('div');
+
+    const iconNode = (divNode.children as any[])[0];
+    expect(iconNode.name).toBe('VanIcon');
+
+    // card.user 应该被正确解析为 this.context.card.user
+    expect(iconNode.props!.name.value).toBe('this.context.card.user');
+  });
+});
+
+describe('parseVue Composition mode with v-for context', () => {
+  const vForSource = `
+<template>
+  <div>
+    <ElButton v-for="(item, index) in __state.list" type="primary">
+      {{ item.name }}
+    </ElButton>
+  </div>
+</template>
+<script lang="ts" setup>
+  // @ts-nocheck
+  import { useProvider } from '@vtj/renderer';
+  import { reactive } from 'vue';
+  import { ElButton } from 'element-plus';
+
+  const __provider = useProvider({ id: '1l2po11y', version: '1781537430199' });
+
+  const __state = reactive({
+    list: [{ name: 'a' }, { name: 'b' }, { name: 'c' }]
+  })
+</script>
+<style lang="css" scoped>
+  /* 组件样式内容 */
+</style>
+`;
+
+  test('v-for context variables are transformed to this.context.xxx', async () => {
+    const result = await parseVue({
+      project,
+      id: 'test-vfor-context',
+      name: 'VForContextDemo',
+      source: vForSource
+    });
+
+    expect(result.apiMode).toBe('composition');
+    expect(result.nodes).toBeDefined();
+    expect(result.nodes!.length).toBeGreaterThan(0);
+
+    // Find the div node
+    const divNode = result.nodes![0];
+    expect(divNode.name).toBe('div');
+
+    // Find the ElButton node
+    const buttonNode = (divNode.children as any[])[0];
+    expect(buttonNode.name).toBe('ElButton');
+
+    // v-for value should be this.state.list (__state.list → this.state.list)
+    const vForDirective = buttonNode.directives!.find(
+      (d: any) => d.name === 'vFor'
+    );
+    expect(vForDirective).toBeDefined();
+    expect(vForDirective.value.value).toBe('this.state.list');
+
+    // children should use this.context.item.name (item.name → this.context.item.name)
+    const children = buttonNode.children as any;
+    expect(children.value).toBe('this.context.item.name');
+  });
+});
+
+describe('parseVue Composition mode with slot context', () => {
+  const slotSource = `
+<template>
+  <div>
+    <my-comp>
+      <template #default="{ row, idx }">
+        <span>{{ row.title }} - {{ idx }}</span>
+      </template>
+    </my-comp>
+  </div>
+</template>
+<script lang="ts" setup>
+  // @ts-nocheck
+  import { useProvider } from '@vtj/renderer';
+  import MyComp from './MyComp.vue';
+
+  const __provider = useProvider({ id: '1l2po11y', version: '1781537430199' });
+</script>
+`;
+
+  test('slot scope variables are transformed to this.context.xxx', async () => {
+    const result = await parseVue({
+      project,
+      id: 'test-slot-context',
+      name: 'SlotContextDemo',
+      source: slotSource
+    });
+
+    expect(result.apiMode).toBe('composition');
+    expect(result.nodes).toBeDefined();
+    expect(result.nodes!.length).toBeGreaterThan(0);
+
+    // Find the div node
+    const divNode = result.nodes![0];
+    expect(divNode.name).toBe('div');
+
+    // Find the MyComp node
+    const myCompNode = (divNode.children as any[])[0];
+    expect(myCompNode.name).toBe('MyComp');
+
+    // MyComp should have children (the slot content)
+    expect(Array.isArray(myCompNode.children)).toBe(true);
+
+    // Find the span node inside slot
+    const spanNode = (myCompNode.children as any[])[0];
+    expect(spanNode.name).toBe('span');
+
+    // The span children is a wrapper span containing the actual expressions
+    const wrapperSpan = (spanNode.children as any[])[0];
+    expect(wrapperSpan.name).toBe('span');
+    const exprSpans = wrapperSpan.children as any[];
+    expect(exprSpans.length).toBeGreaterThan(0);
+
+    // Check that row and idx are transformed to this.context.row / this.context.idx
+    const firstExpr = exprSpans[0].children as any;
+    expect(firstExpr.value).toBe('this.context.row.title');
+
+    const secondExpr = exprSpans[2].children as any;
+    expect(secondExpr.value).toBe('this.context.idx');
+  });
+});
+
 describe('parseVue Composition mode with destructured i18n mixed with non-destructured', () => {
   const mixedSource = `
 <template>

@@ -771,9 +771,62 @@ const json = formDataToJson(formData);
 
 ---
 
-## 十三、典型工作流程
+## 十三、日期处理（dayjs / dateFormat）
 
-### 13.1 数据获取与展示
+### 13.1 核心 API
+
+```javascript
+import { dayjs, dateFormat } from '@vtj/utils';
+
+dayjs(date);                        // 创建 dayjs 实例（已内置 zh-cn  locale）
+dateFormat(date, format?);          // 格式化日期字符串
+```
+
+### 13.2 使用示例
+
+```javascript
+import { dayjs, dateFormat } from '@vtj/utils';
+
+// 使用 dateFormat 快速格式化
+const now = dateFormat(new Date());
+// 结果：'2024-06-15 14:30:00'（默认格式 YYYY-MM-DD HH:mm:ss）
+
+const dateStr = dateFormat('2024-03-15', 'YYYY-MM-DD');
+// 结果：'2024-03-15'
+
+const chineseDate = dateFormat(new Date(), 'YYYY年MM月DD日');
+// 结果：'2024年06月15日'
+
+// 直接使用 dayjs 实例进行链式操作
+const tomorrow = dayjs().add(1, 'day').format('YYYY-MM-DD');
+
+const diffDays = dayjs('2024-06-15').diff('2024-01-01', 'day');
+
+const startOfMonth = dayjs().startOf('month').format('YYYY-MM-DD');
+
+// 解析时间戳
+const fromTimestamp = dayjs(1718400000000).format('YYYY-MM-DD HH:mm:ss');
+```
+
+### 13.3 在组件中使用
+
+```javascript
+import { reactive } from 'vue';
+import { dateFormat, dayjs } from '@vtj/utils';
+
+const __state = reactive({
+  currentDate: dateFormat(new Date()),
+  expireDate: dayjs().add(7, 'day').format('YYYY-MM-DD HH:mm:ss')
+});
+```
+
+> **注意：** `@vtj/utils` 导出的 `dayjs` 已默认设置 `locale('zh-cn')`，无需再次配置中文语言包。
+
+---
+
+## 十四、典型工作流程
+
+### 14.1 数据获取与展示
 
 ```javascript
 import { reactive, onMounted } from 'vue';
@@ -814,7 +867,7 @@ onMounted(async () => {
 });
 ```
 
-### 13.2 文件上传与下载
+### 14.2 文件上传与下载
 
 ```javascript
 import { reactive } from 'vue';
@@ -846,7 +899,7 @@ const __state = reactive({
 });
 ```
 
-### 13.3 动态加载第三方库
+### 14.3 动态加载第三方库
 
 ```javascript
 import { reactive, onMounted } from 'vue';
@@ -874,7 +927,7 @@ onMounted(async () => {
 
 ---
 
-## 十四、注意事项
+## 十五、注意事项
 
 1. **request 默认返回 `res.data.data`：** 除非设置 `originResponse: true` 才会返回完整的 axios 响应对象
 2. **query 与 params 语义区分：** `query` 用于路径参数替换，请求体数据使用 `data` 字段
@@ -887,7 +940,7 @@ onMounted(async () => {
 
 ---
 
-## 十五、从 @vtj/base 继承的工具
+## 十六、从 @vtj/base 继承的工具
 
 `@vtj/utils` 还从 `@vtj/base` 导出了以下常用工具：
 

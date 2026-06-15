@@ -23,6 +23,10 @@ export class AutoFixer {
     const template = sfc.template.replace(
       /<(?:VanIcon|van-icon)\s+[^>]*name="([^"]+)"[^>]*>/g,
       (match, iconName) => {
+        // 跳过动态绑定的 name 属性（如 :name="expr"、v-bind:name="expr"）
+        if (match.includes(':name=') || match.includes('v-bind:name=')) {
+          return match;
+        }
         return VantIcons.includes(iconName)
           ? match
           : match.replace(iconName, defaultVantIcon);
