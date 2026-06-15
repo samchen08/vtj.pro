@@ -12,13 +12,13 @@
       editor="switch"></XField>
     <XField
       size="small"
-      name="settings.validSuccess"
-      label="校验成功"
+      name="settings.originResponse"
+      label="原始响应"
       editor="switch"></XField>
     <XField
       size="small"
-      name="settings.originResponse"
-      label="原始响应"
+      name="settings.validSuccess"
+      label="校验成功"
       editor="switch"></XField>
     <XField
       size="small"

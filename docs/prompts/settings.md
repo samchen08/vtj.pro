@@ -252,8 +252,8 @@ UI 标签中也称 `getGlobalAxios`，设置时使用 `setGlobalAxios`。
     // timeout: 60000,
     // settings: {
     //   type: 'form',
-    //   validSuccess: true,
-    //   originResponse: false,
+    //   validSuccess: false,
+    //   originResponse: true,
     //   loading: true,
     //   failMessage: true,
     //   validate: (res) => {

@@ -51,8 +51,8 @@ apis/form.vue   (增/删/改)        (ApiSchema[])   (register by id+name)  (cal
 | `type`           | string  | `form`  | 发送数据类型：`form`（表单）/ `json`（JSON）/ `data`（文件/FormData） |
 | `loading`        | boolean | `true`  | 请求时是否显示全局 loading                                            |
 | `failMessage`    | boolean | `true`  | 请求失败时是否弹出错误提示                                            |
-| `validSuccess`   | boolean | `true`  | 是否校验响应成功                                                      |
-| `originResponse` | boolean | `false` | 是否返回原始 Axios 响应对象                                           |
+| `validSuccess`   | boolean | `false` | 是否校验响应成功                                                      |
+| `originResponse` | boolean | `true`  | 是否返回原始 Axios 响应对象                                           |
 | `injectHeaders`  | boolean | `false` | 是否注入自定义请求头                                                  |
 | `proxy`          | boolean | `false` | 是否开启请求代理                                                      |
 
@@ -98,8 +98,8 @@ apis/form.vue   (增/删/改)        (ApiSchema[])   (register by id+name)  (cal
         "type": "json",
         "loading": true,
         "failMessage": true,
-        "validSuccess": true,
-        "originResponse": false,
+        "validSuccess": false,
+        "originResponse": true,
         "injectHeaders": false,
         "proxy": false
       },
@@ -234,6 +234,127 @@ apis/form.vue   (增/删/改)        (ApiSchema[])   (register by id+name)  (cal
 | `jsonpOptions.jsonpCallbackFunction` | string  | 回调函数         |
 | `jsonpOptions.timeout`               | number  | 超时时间（毫秒） |
 | `jsonpOptions.crossorigin`           | boolean | 是否跨域         |
+
+### 3.5 常见问题
+
+#### 返回数据异常或 `undefined`
+
+如果调用 API 后发现返回数据不符合预期（如为 `undefined`、缺少字段或结构不对），请检查以下两处 `originResponse` 配置是否一致：
+
+1. **应用设置中的全局请求配置**（`setGlobalAxios`）
+2. **单个 API 的请求配置**（`setApi` 的 `settings.originResponse`）
+
+**原理说明：**
+
+- 当 `originResponse: false`（默认）时，VTJ 自动提取并返回 `res.data.data`，即后端响应体中的业务数据
+- 当 `originResponse: true` 时，返回完整的 Axios 响应对象，需通过 `res.data` 或 `res.data.data` 手动取值
+- 单个 API 的 `settings.originResponse` 会覆盖全局配置
+
+**典型错误场景：**
+
+```javascript
+// 错误示例 1：全局 originResponse: true，但代码按业务数据处理
+const res = await __apis['getUserList']();
+this.list = res.data.data.list; // ❌ res 已经是原始响应对象，res.data 才是后端响应体
+
+// 正确写法
+const res = await __apis['getUserList']();
+this.list = res.data.data.list; // ✅ 若全局 originResponse: true，需 res.data.data
+// 或者改为 this.list = res.list;   // ✅ 若全局 originResponse: false
+```
+
+```javascript
+// 错误示例 2：全局 originResponse: false，但代码按原始响应对象处理
+const res = await __apis['getUserList']();
+console.log(res.status); // ❌ res 是业务数据，没有 status 属性
+
+// 正确写法：临时开启 originResponse
+const res = await __apis['getUserList'](
+  {},
+  { settings: { originResponse: true } }
+);
+console.log(res.status); // ✅ 200
+```
+
+**排查步骤：**
+
+1. 确认应用设置中 `setGlobalAxios` 的 `settings.originResponse` 值
+2. 确认该 API 在 `setApi` 中是否单独设置了 `settings.originResponse`
+3. 确保组件中处理响应数据的方式与当前生效的 `originResponse` 值匹配
+
+#### 请求成功但进入 `catch` 或弹出错误提示
+
+如果接口实际已返回 200 且数据正常，但代码进入了 `catch` 分支，或页面弹出了错误提示，请检查 `validSuccess` 配置：
+
+1. **应用设置中的全局请求配置**（`setGlobalAxios` 的 `settings.validSuccess`）
+2. **单个 API 的请求配置**（`setApi` 的 `settings.validSuccess`）
+3. **全局请求配置中的 `validate` 函数**是否与后端响应结构匹配
+
+**原理说明：**
+
+- 当 `validSuccess: false`（默认）时，VTJ 不校验后端业务响应码，只要 HTTP 状态码为 2xx 即视为成功
+- 当 `validSuccess: true` 时，VTJ 会调用 `validate` 函数对响应体进行业务成功校验；若 `validate` 返回 `false`，请求会被视为失败，Promise 被 `reject` 并弹出错误提示
+- 全局默认 `validate` 函数逻辑为：`res.data?.code === 0 || !!res.data?.success`，即要求后端响应体中包含 `code: 0` 或 `success: true`
+- 单个 API 的 `settings.validSuccess` 会覆盖全局配置
+
+**典型错误场景：**
+
+```javascript
+// 错误示例 1：后端返回结构不匹配默认 validate
+// 后端响应：{ status: 'ok', data: [...] }
+const res = await __apis['getUserList']();
+// ❌ 若 validSuccess: true，默认 validate 找不到 code/success，判定失败，进入 catch
+
+// 解决方案：自定义 validate 函数匹配后端结构
+{
+  "action": "setGlobalAxios",
+  "parameters": [
+    "(app) => {\n  return {\n    settings: {\n      validSuccess: true,\n      validate: (res) => {\n        return res.data?.status === 'ok';\n      }\n    }\n  };\n}"
+  ]
+}
+```
+
+```javascript
+// 错误示例 2：未处理 validSuccess 导致的 reject
+// 全局 validSuccess: true，但代码未加 try/catch
+const res = await __apis['getUserList'](); // ❌ 校验失败时会抛出异常，导致后续代码不执行
+
+// 正确写法
+try {
+  const res = await __apis['getUserList']();
+  this.list = res;
+} catch (e) {
+  // 校验失败或请求异常时进入此处
+  console.error('请求失败', e);
+}
+```
+
+```javascript
+// 错误示例 3：某个 API 不需要校验但全局 validSuccess: true
+// 该 API 后端返回无固定 code/success 结构
+const res = await __apis['getRawData'](); // ❌ 被全局 validate 误判为失败
+
+// 解决方案：该 API 单独关闭 validSuccess
+{
+  "action": "setApi",
+  "parameters": [
+    {
+      "name": "getRawData",
+      "url": "/api/raw",
+      "settings": {
+        "validSuccess": false
+      }
+    }
+  ]
+}
+```
+
+**排查步骤：**
+
+1. 确认应用设置中 `setGlobalAxios` 的 `settings.validSuccess` 值
+2. 确认全局 `validate` 函数逻辑是否与后端实际响应结构匹配（如 `code`、`success`、`status` 等字段）
+3. 确认该 API 在 `setApi` 中是否单独设置了 `settings.validSuccess`
+4. 若 `validSuccess: true`，确保调用处已处理 `reject` 场景（`try/catch` 或 `.catch()`）
 
 ---
 

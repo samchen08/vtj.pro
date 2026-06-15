@@ -1,8 +1,7 @@
 import { template } from '@vtj/base';
 
-const scriptTemplate = `
-<%= imports %>
-import { useProvider } from '<%= renderer %>';
+const scriptTemplate = `// @ts-nocheck
+import { useProvider } from '<%= renderer %>';<%= imports %>
 export default defineComponent({
   name: '<%= name %>', 
   <% if(inject) { %> inject: { <%= inject %>}, <% } %>
@@ -52,9 +51,8 @@ const vueTemplate = `
  *      injects → composables → state(reactive) → refs → reactives →
  *      computed → methods → setupStatements → watch → provide → created/setup → lifeCycles → expose
  */
-const scriptSetupTemplate = `
-<%= imports %>
-import { <%= rendererImports %> } from '<%= renderer %>';
+const scriptSetupTemplate = `// @ts-nocheck
+import { <%= rendererImports %> } from '<%= renderer %>';<%= imports %>
 <% if(componentDeclarations) { %><%= componentDeclarations %><% } %>
 <% if(props) { %>const __props = defineProps({ <%= props %> });<% } else if(needsProps) { %>const __props = defineProps();<% } %>
 <% if(emits) { %>const __emit = defineEmits([<%= emits %>]);<% } else if(needsEmit) { %>const __emit = defineEmits();<% } %>

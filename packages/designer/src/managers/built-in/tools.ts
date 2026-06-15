@@ -643,11 +643,11 @@ const setApi: ToolConfig = {
             validSuccess: {
               type: 'boolean',
               description:
-                '是否校验响应是否成功(调用全局validate函数), 默认 true'
+                '是否校验响应是否成功(调用全局validate函数), 默认 false'
             },
             originResponse: {
               type: 'boolean',
-              description: '是否返回原始Axios响应对象(而非data部分), 默认 false'
+              description: '是否返回原始Axios响应对象(而非data部分), 默认 true'
             },
             injectHeaders: {
               type: 'boolean',
