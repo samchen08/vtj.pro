@@ -316,7 +316,121 @@ const res = await __apis['getUserList'](
 );
 ```
 
-### 4.5 JSONP 请求
+### 4.5 响应数据提取与 `originResponse`
+
+VTJ 的请求底层基于 Axios，后端接口通常返回如下格式的响应体：
+
+```json
+{
+  "code": 0,
+  "msg": "ok",
+  "data": { ... }
+}
+```
+
+**默认行为（`originResponse: false`）：** 请求成功后，VTJ 自动提取 `res.data.data`，即只返回响应体中 `data` 字段的值，省去手动 `.data.data` 的取值步骤：
+
+```javascript
+// 默认 originResponse: false
+const res = await __apis['getUserList']();
+// res 直接是 { list: [...], total: 100 }，而非完整的响应包装
+```
+
+**开启 `originResponse: true`：** 返回完整的 Axios 响应对象（`AxiosResponse`），包含以下属性：
+
+| 属性          | 说明                            |
+| ------------- | ------------------------------- |
+| `res.data`    | 响应体（即后端返回的完整 JSON） |
+| `res.status`  | HTTP 状态码（如 200）           |
+| `res.headers` | 响应头对象                      |
+| `res.config`  | 请求配置对象                    |
+
+适用场景：
+
+- 需要读取 HTTP 响应头（如分页总数 `X-Total-Count`、下载文件的 `Content-Disposition`）
+- 需要判断 HTTP 状态码做差异化处理
+- 需要访问后端响应体的顶层字段（如 `code`、`msg`），而不仅是 `data` 部分
+
+**设置方式：**
+
+1. **在 API 配置中全局设置：**
+
+```json
+{
+  "action": "setApi",
+  "parameters": [
+    {
+      "name": "getFileList",
+      "url": "/api/files",
+      "method": "get",
+      "settings": {
+        "originResponse": true
+      }
+    }
+  ]
+}
+```
+
+2. **在调用时临时覆盖：**
+
+```javascript
+// 临时获取原始响应对象
+const res = await __apis['getUserList'](
+  {},
+  {
+    settings: { originResponse: true }
+  }
+);
+console.log(res.status); // 200
+console.log(res.headers); // { 'x-total-count': '50', ... }
+console.log(res.data); // { code: 0, msg: 'ok', data: { list: [...] } }
+```
+
+**示例：读取分页响应头**
+
+```javascript
+const __state = reactive({
+  list: [],
+  total: 0,
+  async fetchPage(page = 1) {
+    // 后端通过响应头返回总数
+    const res = await __apis['getUserList'](
+      {},
+      {
+        query: { page, size: 20 },
+        settings: { originResponse: true }
+      }
+    );
+    this.list = res.data.data || []; // res.data 是响应体，res.data.data 是业务数据
+    this.total = Number(res.headers['x-total-count']) || 0;
+  }
+});
+```
+
+**示例：读取下载文件响应**
+
+```javascript
+const __state = reactive({
+  async downloadFile(id) {
+    const res = await __apis['downloadFile'](
+      {},
+      {
+        params: { id },
+        settings: { originResponse: true }
+      }
+    );
+    // 从响应头获取文件名
+    const disposition = res.headers['content-disposition'];
+    const filename = disposition?.match(/filename=(.+)/)?.[1] || 'unknown.bin';
+    // res.data 为文件二进制内容（需配合 responseType: 'blob'）
+    return { content: res.data, filename };
+  }
+});
+```
+
+> **注意：** 开启 `originResponse` 后，返回值从业务数据变为 Axios 响应对象，取值路径需相应调整。默认返回 `res.data.data`，开启后需手动访问 `res.data.data` 或 `res.data`（取决于后端响应结构）。
+
+### 4.6 JSONP 请求
 
 JSONP 类型 API 的调用签名特殊：
 
@@ -332,7 +446,7 @@ const res = await __apis['getExternalData']({
 });
 ```
 
-### 4.6 Vue SFC 中使用
+### 4.7 Vue SFC 中使用
 
 在 `<script setup>` 中，通过 `__state` 中定义方法调用 API：
 
