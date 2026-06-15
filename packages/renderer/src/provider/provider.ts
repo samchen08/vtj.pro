@@ -189,6 +189,12 @@ export class Provider extends Base {
         }
       }
       const Mock = getMock();
+      if (!Mock) {
+        console.warn(
+          '[@vtj/renderer]',
+          '项目缺少mockjs, 你需要安装mockjs依赖，并在应用的 main.ts 中添加 mockjs 导入，确保 window.Mock 可用'
+        );
+      }
       return Mock?.mock(template);
     };
   }

@@ -139,6 +139,9 @@ importers:
 
   apps/h5:
     dependencies:
+      '@vtj/charts':
+        specifier: workspace:~
+        version: link:../../packages/charts
       '@vtj/h5':
         specifier: workspace:~
         version: link:../../platforms/h5
