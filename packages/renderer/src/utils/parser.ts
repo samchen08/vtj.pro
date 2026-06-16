@@ -12,8 +12,8 @@ const canUseNewFunction = (() => {
 })();
 
 function triggerError(err: any) {
-  if (typeof window === 'undefined') return;
-  const win: any = window[0] || window;
+  if (typeof globalThis === 'undefined') return;
+  const win: any = (globalThis as any)[0] || globalThis;
   if (win.__simulator__) {
     try {
       const handler = win.__simulator__.engine.provider.errorHandler;

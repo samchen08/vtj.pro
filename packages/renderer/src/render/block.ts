@@ -34,7 +34,7 @@ export interface CreateRendererOptions {
   libs?: Record<string, any>;
   apis?: Record<string, any>;
   loader?: BlockLoader;
-  window?: Window;
+  window?: any;
 }
 
 export function createRenderer(options: CreateRendererOptions) {
@@ -73,7 +73,7 @@ export function createRenderer(options: CreateRendererOptions) {
       context.props = props;
       if (dsl.value.id) {
         adoptedStyleSheets(
-          options.window || window,
+          options.window || globalThis,
           dsl.value.id,
           dsl.value.css || '',
           true

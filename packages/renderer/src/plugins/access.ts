@@ -416,7 +416,7 @@ export class Access {
           this.isTipShowing = false;
         });
     } else {
-      window.alert(content);
+      (globalThis as any).alert?.(content) ?? console.warn(content);
       return true;
     }
     return true;

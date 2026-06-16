@@ -219,7 +219,7 @@ export class Provider extends Base {
       throw new Error('project is null');
     }
     const { apis = [], meta = [], env = [] } = this.project as ProjectSchema;
-    const _window = window as any;
+    const _window = globalThis as any;
     if (_window) {
       // 解决CkEditor错误提示问题
       _window.CKEDITOR_VERSION = undefined;
@@ -499,7 +499,7 @@ export class Provider extends Base {
     ) {
       this.initGlobals(this.project?.globals || {}, {
         app,
-        window,
+        window: globalThis,
         adapter: this.adapter,
         library: this.library,
         mode: this.mode
@@ -633,7 +633,7 @@ export class Provider extends Base {
       components,
       libs: library,
       apis,
-      window,
+      window: globalThis,
       ...opts
     };
 
@@ -736,7 +736,7 @@ export class Provider extends Base {
    */
   definePluginComponent(from: NodeFromPlugin) {
     return defineAsyncComponent(async () => {
-      return (await getPlugin(from, window)) as any;
+      return (await getPlugin(from, globalThis)) as any;
     });
   }
 
@@ -749,7 +749,7 @@ export class Provider extends Base {
     const opts = Object.assign(
       {
         adapter: this.adapter,
-        window: window
+        window: globalThis
       },
       options
     );
