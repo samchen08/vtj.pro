@@ -71,7 +71,7 @@
   },
   "vtj": {
     "name": "VTJ.PRO",
-    "platform": "uniapp",
+    "platform": "web",
     "remote": "http://localhost:8000",
     "__ACCESS__": {
       "auth": "http://localhost:8000/#/login",

@@ -16,7 +16,12 @@ import {
 import { isString, isFunction, delay } from '@vtj/utils';
 import { ContextMode, DATA_TYPES } from '../constants';
 import { Context } from './context';
-import { adoptedStyleSheets, isJSExpression, isJSFunction } from '../utils';
+import {
+  adoptedStyleSheets,
+  isJSExpression,
+  isJSFunction,
+  triggerError
+} from '../utils';
 import { nodeRender } from './node';
 import { createMock } from '../provider';
 import type { ComputedRef, DefineComponent } from 'vue';
@@ -446,6 +451,7 @@ async function createCompositionLifeCycles(
           await fn();
         } catch (e) {
           console.warn(`[VTJ] Composition 生命周期 "${name}" 执行失败`, e);
+          triggerError(e);
         }
       }
       continue;
@@ -462,6 +468,7 @@ async function createCompositionLifeCycles(
             await fn();
           } catch (e) {
             console.warn(`[VTJ] Composition 生命周期 "${name}" 执行失败`, e);
+            triggerError(e);
           }
         });
       }

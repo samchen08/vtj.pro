@@ -11,7 +11,7 @@ const canUseNewFunction = (() => {
   }
 })();
 
-function triggerError(err: any) {
+export function triggerError(err: any) {
   if (typeof globalThis === 'undefined') return;
   const win: any = (globalThis as any)[0] || globalThis;
   if (win.__simulator__) {

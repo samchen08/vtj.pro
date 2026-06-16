@@ -66,9 +66,7 @@
   );
 
   const hooks = computed(() =>
-    isComposition.value
-      ? ['setup', ...COMPOSITION_HOOKS_LIST]
-      : LIFE_CYCLES_LIST
+    isComposition.value ? COMPOSITION_HOOKS_LIST : LIFE_CYCLES_LIST
   );
 
   const uniHooks = computed(() => {
