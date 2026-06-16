@@ -20,6 +20,8 @@ export interface CompositionImportsInput {
   globalApiImports: Record<string, string[]>;
   /** Uniapp 专用生命周期钩子（如 onLoad），需从 @dcloudio/uni-app 导入 */
   uniHookImports: string[];
+  /** 配置了 easycom 的依赖包名集合，出码时不需要 import */
+  easycomPackages: Set<string>;
 }
 
 /**
@@ -35,7 +37,8 @@ export function parseImports(input: CompositionImportsInput) {
     vueImports,
     composableImports,
     globalApiImports,
-    uniHookImports
+    uniHookImports,
+    easycomPackages
   } = input;
 
   const uniH5: string[] = [
@@ -71,6 +74,9 @@ export function parseImports(input: CompositionImportsInput) {
     const desc = componentMap.get(compName);
     if (!desc || !desc.package || desc.parent) continue; // parent 组件第二遍处理
 
+    // easycom 包的组件不需要 import
+    if (easycomPackages.has(desc.package)) continue;
+
     const items = imports[desc.package] ?? (imports[desc.package] = []);
     // script setup 模式下，import 的名字即为模板中使用的组件名
     // 当组件有别名（alias）且与组件注册名不同时，需生成 "OriginalName as AliasName"
@@ -93,6 +99,9 @@ export function parseImports(input: CompositionImportsInput) {
     const compName = name.split(':')[0];
     const desc = componentMap.get(compName);
     if (!desc || !desc.package || !desc.parent) continue;
+
+    // easycom 包的组件不需要 import 和声明
+    if (easycomPackages.has(desc.package)) continue;
 
     // parent 是已 import 的基础组件名（如 Button）
     // alias 是在 parent 上的属性路径（如 Group 或 Group.Item）

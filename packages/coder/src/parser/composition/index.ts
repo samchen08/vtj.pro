@@ -201,7 +201,8 @@ export function parserComposition(
     vueImports: Array.from(vueImports),
     composableImports: composablesResult.imports,
     globalApiImports,
-    uniHookImports
+    uniHookImports,
+    easycomPackages: collecter.easycomPackages
   });
 
   // 7. 异步组件 + url schemas + block plugins
