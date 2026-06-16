@@ -578,3 +578,95 @@ export function createDevTools(options: Partial<DevToolsOptions> = {}) {
   }
   return plugins;
 }
+
+/**
+ * 修复 @uni-helper/axios-adapter 的两个问题：
+ * 1. const upload 变量名与微信小程序引擎冲突（引擎将 prototype.upload 属性赋值误判为变量声明）
+ * 2. let task = uni.xxxFile({...}) 的 TDZ 问题：若 fail 回调在赋值完成前同步触发，task 尚未初始化
+ *
+ * 必须在 uni() 插件之前注册（enforce: 'pre'）。
+ *
+ * @example
+ * // vite.config.ts
+ * import { fixAxiosAdapterUploadConflict } from '@vtj/local';
+ * export default createUniappViteConfig({
+ *   plugins: [
+ *     fixAxiosAdapterUploadConflict(),  // ← 在 uni() 之前
+ *     uni(),
+ *   ]
+ * });
+ */
+export function fixAxiosAdapterUploadConflict(): Plugin {
+  // 重命名 upload 变量
+  const UPLOAD_VAR_PATTERN = /const upload = \(/g;
+  const UPLOAD_RETURN_PATTERN = /return upload;/g;
+  // 修复 let task = uni.xxxFile(...) 的 TDZ：先初始化为 null 再赋值
+  const LET_TASK_TDZ_PATTERN =
+    /(let task = )((uni|index)\.(downloadFile|request|uploadFile)\()/g;
+  return {
+    name: 'vtj-axios-adapter-upload-fix',
+    enforce: 'pre',
+    transform(code, id) {
+      if (id.includes('@uni-helper/axios-adapter')) {
+        const transformed = code
+          .replace(UPLOAD_VAR_PATTERN, 'const uploadRequest = (')
+          .replace(UPLOAD_RETURN_PATTERN, 'return uploadRequest;')
+          .replace(LET_TASK_TDZ_PATTERN, 'let task = null; task = $2');
+        if (transformed !== code) {
+          return { code: transformed, map: null };
+        }
+      }
+    }
+  };
+}
+
+/**
+ * 修复 uni-app <script setup> 中 __props/__emit 变量名与编译器内部保留名冲突的问题。
+ *
+ * uni-app 编译器在处理 defineProps/defineEmits 宏时会在内部生成 __props/__emit 变量，
+ * 若 VTJ 生成的代码也使用 const __props = defineProps(...) 则会导致重复声明编译错误。
+ *
+ * 此插件应在 uni() 插件之前（enforce: 'pre'）注册，将代码中的 __props/__emit
+ * 重命名为 props/emit，避免与编译器内部变量名冲突。
+ *
+ * @example
+ * // vite.config.ts
+ * import { createCompositionFixPlugin } from '@vtj/local';
+ * export default createUniappViteConfig({
+ *   plugins: [
+ *     createCompositionFixPlugin(),  // ← 在 uni() 之前
+ *     uni(),
+ *   ]
+ * });
+ */
+export function createCompositionFixPlugin(): Plugin {
+  return {
+    name: 'vtj-composition-fix',
+    enforce: 'pre',
+    transform(code, id) {
+      // 仅处理 .vue 文件
+      if (!id.endsWith('.vue')) return;
+      // 仅处理 VTJ 生成的页面（通过特征码识别）
+      if (!code.includes('useProvider') && !code.includes('__provider')) return;
+      // 仅在包含 __props 或 __emit 声明时才处理
+      if (!code.includes('const __props') && !code.includes('const __emit'))
+        return;
+
+      return code.replace(
+        /(<script[^>]*\bsetup\b[^>]*>)([\s\S]*?)(<\/script>)/,
+        (_, open: string, body: string, close: string) => {
+          const fixed = body
+            // const __props = defineProps → const props = defineProps
+            .replace(/\bconst\s+__props\b/g, 'const props')
+            // const __emit = defineEmits → const emit = defineEmits
+            .replace(/\bconst\s+__emit\b/g, 'const emit')
+            // __props.xxx → props.xxx
+            .replace(/__props\./g, 'props.')
+            // __emit( → emit(
+            .replace(/__emit\s*\(/g, 'emit(');
+          return open + fixed + close;
+        }
+      );
+    }
+  };
+}

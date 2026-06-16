@@ -1,16 +1,22 @@
 import { createUniappViteConfig } from '@vtj/cli';
 import uni from '@dcloudio/vite-plugin-uni';
-import { createDevTools, vtjModulesPlugin } from '@vtj/local';
+import {
+  createDevTools,
+  vtjModulesPlugin,
+  createCompositionFixPlugin,
+  fixAxiosAdapterUploadConflict
+} from '@vtj/local';
 import { resolve } from 'path';
 import proxy from './proxy.config';
 
 export default createUniappViteConfig({
   proxy,
   plugins: [
+    fixAxiosAdapterUploadConflict(),
+    createCompositionFixPlugin(),
     vtjModulesPlugin('src/.vtj'),
     process.env.ENV_TYPE
       ? createDevTools({
-          enhance: true,
           // staticBase: basePath,
           devMode: false,
           pluginNodeModulesDir: '../../node_modules'
@@ -25,6 +31,18 @@ export default createUniappViteConfig({
     ),
     'axios/lib/helpers/buildURL': resolve(
       '../../node_modules/axios/lib/helpers/buildURL'
+    ),
+    'axios/unsafe/core/buildFullPath': resolve(
+      '../../node_modules/axios/lib/core/buildFullPath'
+    ),
+    'axios/unsafe/core/settle': resolve(
+      '../../node_modules/axios/lib/core/settle'
+    ),
+    'axios/unsafe/helpers/buildURL': resolve(
+      '../../node_modules/axios/lib/helpers/buildURL'
+    ),
+    'axios/unsafe/helpers/speedometer': resolve(
+      '../../node_modules/axios/lib/helpers/speedometer'
     )
   }
 });
