@@ -136,7 +136,6 @@ SVG 组件支持 `colors` 属性传递颜色数组，按 path 顺序着色。按
 
 | 组件名             | 说明     |
 | ------------------ | -------- |
-| `VtjIconAdd`       | 添加     |
 | `VtjIconRemove`    | 移除     |
 | `VtjIconDelete`    | 删除     |
 | `VtjIconEdit`      | 编辑     |
@@ -185,7 +184,6 @@ SVG 组件支持 `colors` 属性传递颜色数组，按 path 顺序着色。按
 | 组件名               | 说明     |
 | -------------------- | -------- |
 | `VtjIconHome`        | 首页     |
-| `VtjIconMenu`        | 菜单     |
 | `VtjIconCategory`    | 分类     |
 | `VtjIconProject`     | 项目     |
 | `VtjIconTemplate`    | 模板     |
