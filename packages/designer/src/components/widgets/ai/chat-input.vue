@@ -179,16 +179,24 @@
   };
 
   const onSend = () => {
+    console.log('currentFiles---------', currentFiles.value);
     if (value.value.trim().length < 2) {
       message('请描述您的需求', 'warning');
       return;
     }
+
     const attachments = [];
     const links = [];
     if (currentFiles.value && currentFiles.value.length) {
       attachments.push('\n\n```attachment\n\n## 附件文件列表');
       links.push('\n附件文件：');
       for (const item of currentFiles.value) {
+        if (!item.content) {
+          ElMessage.success({
+            message: `${item.originalName} 文件识别失败，请重新上传！`
+          });
+          return;
+        }
         attachments.push(`### 文件名：${item.originalName}`);
         attachments.push(`### 文件内容\n${item.content}`);
         attachments.push(`\n---\n`);
