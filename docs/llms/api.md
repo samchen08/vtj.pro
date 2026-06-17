@@ -159,9 +159,9 @@ apis/form.vue   (增/删/改)        (ApiSchema[])   (register by id+name)  (cal
 | ---------- | ------ | -------- | --------------------------------------------------------------- |
 | `id`       | string | 自动生成 | 唯一标识（UUID），系统自动分配                                  |
 | `name`     | string | ✅       | 接口名称，camelCase，如 `getUserList`，该名称也是组件中调用的键 |
-| `label`    | string | ✅       | 接口描述说明                                                    |
+| `label`    | string | ❌       | 接口描述说明                                                    |
 | `url`      | string | ✅       | 请求 URL，支持路径参数占位符如 `/api/users/:id`                 |
-| `method`   | string | ✅       | 请求方法：`get` / `post` / `put` / `delete` / `patch` / `jsonp` |
+| `method`   | string | ❌       | 请求方法：`get` / `post` / `put` / `delete` / `patch` / `jsonp` |
 | `category` | string | ❌       | 分组名称，用于 UI 分类展示                                      |
 
 ### 3.2 请求配置（settings + headers）
@@ -171,8 +171,8 @@ apis/form.vue   (增/删/改)        (ApiSchema[])   (register by id+name)  (cal
 | `settings.type`           | string       | `form`  | 发送数据类型：`form`（表单）、`json`（JSON）、`data`（文件/FormData） |
 | `settings.loading`        | boolean      | `true`  | 请求时是否显示全局 loading 动画                                       |
 | `settings.failMessage`    | boolean      | `true`  | 请求失败时是否弹出错误提示                                            |
-| `settings.validSuccess`   | boolean      | `true`  | 是否校验响应是否成功（调用全局 validate 函数）                        |
-| `settings.originResponse` | boolean      | `false` | 是否返回原始 Axios 响应对象（而非 data 部分）                         |
+| `settings.validSuccess`   | boolean      | `false` | 是否校验响应是否成功（调用全局 validate 函数）                        |
+| `settings.originResponse` | boolean      | `true`  | 是否返回原始 Axios 响应对象（而非 data 部分）                         |
 | `settings.injectHeaders`  | boolean      | `false` | 是否注入请求拦截器中自定义的请求头                                    |
 | `settings.proxy`          | boolean      | `false` | 是否开启请求代理                                                      |
 | `headers`                 | JSExpression | `({})`  | 请求头配置，值为 JS 表达式字符串                                      |

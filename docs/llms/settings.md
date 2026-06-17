@@ -176,13 +176,19 @@ __store.login({ token: 'xxx', user: { name: '张三' } });
 | --------------------- | -------- | -------------- | ------------------------------------------------------------------ |
 | `session`             | boolean  | false          | 是否开启 session 存储（关闭浏览器即失效），false 使用 localStorage |
 | `authKey`             | string   | Authorization  | 请求头和 cookie 中 token 的键名                                    |
+| `storagePrefix`       | string   | `__VTJ_`       | 本地缓存 key 前缀                                                  |
 | `storageKey`          | string   | ACCESS_STORAGE | 本地缓存的键名                                                     |
 | `auth`                | string   | /#/login       | 登录页面的 hash 路径                                               |
+| `unauthorized`        | string   | -              | 未授权页面的路由路径（如 `/403`），默认走 `auth` 跳转到登录页     |
+| `isAuth`              | function | -              | 自定义判断是否为登录页面的函数                                     |
 | `whiteList`           | function | (to) => false  | 路由白名单，返回 true 跳过权限校验，接收 to 路由对象               |
 | `redirectParam`       | string   | r              | 登录后重定向的参数名                                               |
 | `unauthorizedCode`    | number   | 401            | 未登录时后端返回的状态码                                           |
 | `unauthorizedMessage` | string   | 登录已失效...  | 未登录时的提示消息                                                 |
 | `noPermissionMessage` | string   | 无权限...      | 无权限时的提示消息                                                 |
+| `alert`               | function | -              | 自定义提示消息弹窗方法，接收 `(message, options?) => Promise`       |
+| `privateKey`          | string   | -              | RSA 解密私钥，用于解密加密的接口响应数据                           |
+| `appName`             | string   | ''             | 应用编码，权限码前缀，实现多应用权限隔离                           |
 | `statusKey`           | string   | code           | 响应数据中状态码的字段名                                           |
 
 **运行时访问：** 组件中通过 `__access` 访问：

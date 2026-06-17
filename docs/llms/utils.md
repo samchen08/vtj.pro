@@ -186,16 +186,16 @@ const { data } = useApi(getUserList(), (res) => res.data?.list || []);
 
 | 参数类型   | 用途                                 | 位置         | 示例                                |
 | ---------- | ------------------------------------ | ------------ | ----------------------------------- |
-| **query**  | URL **路径参数**（Path Parameters）  | URL 路径中   | `/api/users/:id` → `/api/users/123` |
-| **params** | URL **查询参数**（Query Parameters） | URL `?` 后面 | `/api/users?page=1&size=10`         |
+| **params** | URL **路径参数**（Path Parameters）  | URL 路径中   | `/api/users/:id` → `/api/users/123` |
+| **query**  | URL **查询参数**（Query Parameters） | URL `?` 后面 | `/api/users?page=1&size=10`         |
 
 **正确使用方式：**
 
 ```javascript
-// ✅ query 用于路径参数替换
+// ✅ params 用于路径参数替换
 await request({
   url: '/api/users/:id',
-  query: { id: 123 }
+  params: { id: 123 }
 });
 // 实际请求：GET /api/users/123
 
@@ -207,11 +207,11 @@ await request({
 });
 // 实际请求：GET /api/users?page=1&size=10
 
-// ✅ POST 请求中 query 用于路径参数，data 用于请求体
+// ✅ POST 请求中 params 用于路径参数，data 用于请求体
 await request({
   url: '/api/users/:id',
   method: 'post',
-  query: { id: 123 },
+  params: { id: 123 },
   data: { name: '张三' }
 });
 // 实际请求：POST /api/users/123
@@ -220,7 +220,7 @@ await request({
 
 ### 2.6 路径参数传参规范
 
-当 API 地址包含路径参数（如 `:id`）时，必须通过 `query` 字段传入：
+当 API 地址包含路径参数（如 `:id`）时，必须通过 `params` 字段传入：
 
 ```javascript
 // API 定义
@@ -234,11 +234,11 @@ const __apis = createApis({
 });
 
 // 正确调用方式
-await __apis.getUser(null, { query: { id: 123 } });
-await __apis.updateUser({ name: '张三' }, { query: { id: 123 } });
+await __apis.getUser(null, { params: { id: 123 } });
+await __apis.updateUser({ name: '张三' }, { params: { id: 123 } });
 ```
 
-**原理说明：** `request` 内部使用 `pathToRegexpCompile` 将 URL 中的 `:paramName` 替换为 `query` 对象中对应的值。
+**原理说明：** `request` 内部使用 `pathToRegexpCompile` 将 URL 中的 `:paramName` 替换为 `params` 对象中对应的值。
 
 ---
 

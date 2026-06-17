@@ -76,7 +76,7 @@
 | 查看所有词条   | `getI18nMessage`                             | [i18n.md](./i18n.md)                             |
 | 新增词条       | `createI18nMessage`                          | [i18n.md](./i18n.md)                             |
 | 删除词条       | `removeI18nMessage`                          | [i18n.md](./i18n.md)                             |
-| 组件中使用翻译 | → `__i18n.t('key')` / 模板 `{{ $t('key') }}` | [i18n.md](./i18n.md)、[globals.md](./globals.md) |
+| 组件中使用翻译 | → `__i18n.t('key')`                                                                 | [i18n.md](./i18n.md)、[globals.md](./globals.md) |
 
 ## 八、UniApp 专属
 

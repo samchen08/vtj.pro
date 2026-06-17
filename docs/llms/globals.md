@@ -25,8 +25,8 @@
 
 ```js
 // 读取 store 中的状态
-const user = __store.state.user;
-const token = __store.state.token;
+const user = __store.user;
+const token = __store.token;
 
 // 调用 store 中的 action
 __store.logout();
@@ -38,12 +38,12 @@ __store.setUser({ name: '张三', role: 'admin' });
 ```js
 // 获取当前登录用户信息
 const getUser = () => {
-  return __store.state.user;
+  return __store.user;
 };
 
 // 在 onMounted 中读取用户权限
 onMounted(() => {
-  const permissions = __store.state.permissions;
+  const permissions = __store.permissions;
   __state.canEdit = permissions.includes('edit');
 });
 
@@ -515,7 +515,7 @@ __access.login({
 
   onMounted(() => {
     // 从全局 store 获取用户信息
-    __state.userName = __store.state.user?.name || '未知用户';
+    __state.userName = __store.user?.name || '未知用户';
 
     // 权限控制
     __state.canEdit = __access.can('user:edit');

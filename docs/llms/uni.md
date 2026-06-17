@@ -66,6 +66,7 @@ interface UniConfig {
 | `onShow`               | JS 函数代码字符串 | 应用进入前台           |
 | `onHide`               | JS 函数代码字符串 | 应用进入后台           |
 | `onError`              | JS 函数代码字符串 | 应用报错               |
+| `onLastPageBackPress`  | JS 函数代码字符串 | 最后一个页面返回事件    |
 | `onPageNotFound`       | JS 函数代码字符串 | 页面不存在             |
 | `onUnhandledRejection` | JS 函数代码字符串 | 未处理 Promise 拒绝    |
 | `onThemeChange`        | JS 函数代码字符串 | 主题变化               |

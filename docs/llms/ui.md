@@ -202,7 +202,7 @@ app.use(AdapterPlugin, {
     ref="gridRef"
     :columns="columns"
     :loader="loadData"
-    :custom="true"
+    :customable="true"
     :filter="true"
     :sort="true"
     :edit-config="{ trigger: 'click', mode: 'row' }"
@@ -342,7 +342,6 @@ app.use(AdapterPlugin, {
 | `checkbox` | 复选框     | 少量选项多选 |
 | `date`     | 日期选择   | 日期/时间    |
 | `switch`   | 开关       | 布尔值       |
-| `password` | 密码输入框 | 密码输入     |
 
 #### 基本用法
 
@@ -478,27 +477,6 @@ app.use(AdapterPlugin, {
 
   defineExpose({ open });
 </script>
-```
-
-#### 使用 Dialog Hooks
-
-```vue
-<script setup>
-  import { ref } from 'vue';
-  import { useDialog } from '@vtj/ui';
-
-  const { open, close, dialogProps } = useDialog({
-    title: '详情',
-    width: '800px',
-    height: '600px'
-  });
-
-  const openDialog = () => {
-    open();
-  };
-</script>
-```
-
 ---
 
 ### 3.5 XActionBar 操作栏
@@ -943,7 +921,7 @@ app.use(AdapterPlugin, {
 
   const gridProps = ref<Partial<GridProps>>({
     pager: true,
-    custom: true
+    :customable="true"
   });
 </script>
 ```

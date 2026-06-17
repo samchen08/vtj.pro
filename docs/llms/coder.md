@@ -640,7 +640,7 @@ const AButtonGroup = AButton.Group; // ✅ 派生声明，parser 会识别并跳
 4. **禁止将 `defineEmits` 的接收变量命名为非 `__emit`**（如 `emit`、`emits`）
 5. **禁止将主状态 `reactive` 对象命名为非 `__state`**（如 `state`、`data`）
 6. **禁止编写"游离顶层语句"**（无法归类到 ref/reactive/computed/method/watch/lifecycle 的顶层语句），如需初始化逻辑，请放在 `onMounted` 中或在声明时赋初值
-7. **禁止在 `<script setup>` 顶层使用 `await`**（会生成 setupStatements）
+7. **避免在 `<script setup>` 顶层使用 `await`**（会触发 parser 生成 setupStatements，将 setup 包装为 async 函数）
 8. **禁止自行调用全局 composable**（`useRouter`、`useI18n`、`useStore`、`useApis` 等），这些由框架根据 DSL 自动生成
 9. **禁止 HTML 原生标签使用 PascalCase**（如 `<Div>`、`<Span>`）
 
