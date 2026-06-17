@@ -1,7 +1,9 @@
 import { template } from '@vtj/base';
 
-const scriptTemplate = `// @ts-nocheck
-import { useProvider } from '<%= renderer %>';<%= imports %>
+const scriptTemplate = `
+// @ts-nocheck
+import { useProvider } from '<%= renderer %>';
+<%= imports %>
 export default defineComponent({
   name: '<%= name %>', 
   <% if(inject) { %> inject: { <%= inject %>}, <% } %>
@@ -30,7 +32,7 @@ export default defineComponent({
   <% if(methods) { %> methods: { <%= methods %> }, <% } %>
   <% if(watch) { %> watch: { <%= watch %> }, <% } %> <%= lifeCycles %>
 });
-`.replace(/(\n|\r|\t)/g, '');
+`;
 
 const vueTemplate = `
 <template>
