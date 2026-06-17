@@ -435,7 +435,7 @@ export function createDevTools(options: Partial<DevToolsOptions> = {}) {
     copyDevtools: true,
     ...options
   };
-  const plugins: Plugin[] = [aliasPlugin(opts)];
+  const plugins: Plugin[] = [aliasPlugin(opts), createCompositionFixPlugin()];
   const proPath = `${opts.nodeModulesDir}/${opts.packageName}/dist`;
   const materialsPath1 = `${opts.nodeModulesDir}/@vtj/materials/dist`;
   const materialsPath2 = `${opts.nodeModulesDir}/${opts.packageName}/${materialsPath1}`;

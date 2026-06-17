@@ -1,5 +1,5 @@
 import { createViteConfig } from '@vtj/cli';
-import { createDevTools } from '@vtj/pro/vite';
+import { createDevTools, createCompositionFixPlugin } from '@vtj/pro/vite';
 import proxy from './proxy.config';
 // const basePath = '/lowcode/';
 const basePath = '/';
@@ -9,6 +9,7 @@ export default createViteConfig({
   elementPlus: false,
   lib: false,
   plugins: [
+    createCompositionFixPlugin(),
     createDevTools({
       staticBase: basePath,
       devMode: false,
