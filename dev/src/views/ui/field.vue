@@ -1,253 +1,80 @@
 <template>
-  <div>
-    <ElForm size="default">
-      <XField
-        label="字段名称1"
-        error="错误信息"
-        label-width="100px"
-        :default-value="3"
-        editor="select"
-        :options="options"
-        @change="onChange">
-      </XField>
+  <div class="field-demo" style="max-width: 600px">
+    <h3>编辑器类型</h3>
+    <XForm :model="editorModel" :footer="false">
+      <XField name="text" label="文本" editor="text"></XField>
+      <XField name="textarea" label="多行文本" editor="textarea"></XField>
+      <XField name="number" label="数字" editor="number"></XField>
+      <XField name="select" label="下拉选择" editor="select" :options="options"></XField>
+      <XField name="radio" label="单选" editor="radio" :options="options"></XField>
+      <XField name="checkbox" label="多选" editor="checkbox" :options="options"></XField>
+      <XField name="switch" label="开关" editor="switch"></XField>
+      <XField name="date" label="日期" editor="date"></XField>
+      <XField name="datetime" label="日期时间" editor="datetime"></XField>
+      <XField name="rate" label="评分" editor="rate"></XField>
+      <XField name="slider" label="滑块" editor="slider"></XField>
+    </XForm>
 
-      <XField
-        ref="fieldRef"
-        v-model="fieldValue"
-        @focus="onFocus"
-        @blur="onBlur"
-        @change="onChange">
-      </XField>
+    <h3>提示信息 + Tooltip 校验</h3>
+    <XForm :model="tooltipModel" :footer="false" :tooltip-message="true">
+      <XField name="name" label="姓名" editor="text" :rules="[{ required: true, message: '请输入姓名' }]"></XField>
+      <XField name="tip" label="带提示" editor="text" tip="请输入您的手机号码"></XField>
+    </XForm>
 
-      <XField
-        label="字段名称"
-        label-width="100px"
-        editor="text"
-        required
-        error="错误信息"
-        :inline-message="true"
-        :show-message="true"
-        @change="onChange"
-        :tooltipMessage="true"
-        tooltip-position="outer">
-      </XField>
-
-      <XField
-        label="字段名称"
-        label-width="100px"
-        editor="textarea"
-        placeholder="多行文本"
-        :disabled="disabled">
-      </XField>
-
-      <XField
-        label="字段名称"
-        error="错误信息"
-        label-width="100px"
-        editor="select"
-        :props="{ multiple: true }"
-        :options="options"
-        tooltip-position="outer">
-        <template #option="{ option }">
-          <div>-- {{ option.label }}</div>
+    <h3>自定义编辑器插槽</h3>
+    <XForm :model="slotModel" :footer="false">
+      <XField name="custom" label="自定义">
+        <template #editor>
+          <div class="custom-editor">
+            <span>自定义编辑器内容</span>
+          </div>
         </template>
       </XField>
-
-      <XField
-        label="字段名称"
-        error="错误信息"
-        v-model="fieldValue"
-        label-width="100px"
-        :options="optionsLoader"
-        tooltip-position="outer"
-        @focus="onFocus"
-        @blur="onBlur"
-        @change="onChange">
-        <template #editor="{ editor }">
-          <ElInput v-bind="editor">
-            <template #prepend>搜索</template>
-          </ElInput>
-        </template>
-      </XField>
-
-      <XField
-        label="字段名称"
-        error="错误信息"
-        label-width="100px"
-        editor="checkbox"
-        :model-value="[2]"
-        :props="{
-          button: true
-        }"
-        :options="optionsLoader">
-      </XField>
-      <XField
-        label="字段名称"
-        error="错误信息"
-        label-width="100px"
-        editor="radio"
-        :props="{
-          button: true
-        }"
-        :options="optionsLoader">
-      </XField>
-
-      <XField label="Number" editor="number"> </XField>
-      <XField label="日期" editor="date"> </XField>
-      <XField label="日期时间" editor="datetime"> </XField>
-      <XField label="时间" editor="time" width="400px"> </XField>
-      <XField label="投票" editor="rate"> </XField>
-      <XField label="开关" editor="switch"> </XField>
-      <XField label="滑块" editor="slider"> </XField>
-      <XField label="级联" editor="cascader" :options="TreeData"> </XField>
-      <XField
-        label="数据选择器"
-        editor="picker"
-        :props="{ loader, columns, valueKey: 'id', onPicked }">
-      </XField>
-      <XField
-        label="表格编辑器"
-        editor="grid"
-        :model-value="{ a: 1 }"
-        :props="dialogGrid">
-      </XField>
-    </ElForm>
+    </XForm>
   </div>
 </template>
 <script lang="ts" setup>
-  import { ref } from 'vue';
-  import { XField, request, arrayToKv, kvToArray } from '@vtj/web';
-  import { ElInput, ElForm } from 'element-plus';
-  import TreeData from '../../data/tree';
+  import { reactive } from 'vue';
+  import { XForm, XField } from '@vtj/ui';
 
-  const fieldValue = ref('');
-  const fieldRef = ref();
-
-  const disabled = ref(false);
-
-  const onChange: any = (val: any, data: any) => {
-    console.log('onChange', val, data);
-  };
-
-  const onFocus = () => {
-    console.log('onFocus');
-  };
-
-  const onBlur = () => {
-    console.log('onBlur');
-  };
-
-  const options: any = ref([
-    { label: '选项一', value: 1 },
-    { label: '选项二', value: 2, disabled: true },
-    { label: '选项三', value: 3 },
-    { label: '选项四', value: 4 }
-  ]);
-
-  const optionsLoader = () => {
-    return new Promise<any>((resolve) => {
-      setTimeout(() => {
-        resolve(options.value);
-      }, 0);
-    });
-  };
-
-  setTimeout(() => {
-    // disabled.value = true;
-    // fieldValue.value = 'ABC';
-    // fieldRef.value.focus();
-    // console.log('fieldRef.value.focus', fieldRef.value.focus);
-    options.value.push({ label: '选项五', value: 5 });
-  }, 100);
-
-  const fetchData = (data: any) => {
-    return request({
-      url: '/mock-api/list',
-      method: 'get',
-      data,
-      settings: {
-        originResponse: false
-      }
-    });
-  };
-
-  const loader: any = async (params: any) => {
-    console.log('do load', params);
-    const { page, pageSize = 50, form } = params || {};
-    // console.log('query', { ...params, ...model, tab: tabValue.value });
-    return await fetchData({
-      ...form,
-      currentPage: page,
-      pageSize,
-      total: 1000
-    });
-  };
-
-  const columns = [
-    {
-      field: 'id',
-      title: 'ID'
-    },
-    {
-      field: 'name',
-      title: '姓名'
-    },
-
-    {
-      field: 'sex',
-      title: '性别'
-    },
-    {
-      field: 'age',
-      title: '年龄'
-    },
-    {
-      field: 'intro',
-      title: '简介'
-    },
-    {
-      field: 'join',
-      title: '入职日期'
-    },
-    {
-      field: 'create',
-      title: '创建时间'
-    }
+  const options = [
+    { label: '选项 A', value: 'a' },
+    { label: '选项 B', value: 'b' },
+    { label: '选项 C', value: 'c' }
   ];
 
-  const onPicked = (data: any) => {
-    console.log('picked', data);
-  };
+  const editorModel = reactive({
+    text: '',
+    textarea: '',
+    number: null,
+    select: null,
+    radio: null,
+    checkbox: [],
+    switch: false,
+    date: null,
+    datetime: null,
+    rate: null,
+    slider: null
+  });
 
-  const dialogGrid = {
-    title: '键值对',
-    columns: [
-      {
-        type: 'checkbox',
-        title: '',
-        width: 60
-      },
-      {
-        type: 'seq',
-        title: '序号',
-        width: 60
-      },
-      {
-        field: 'key',
-        title: '键',
-        editRender: {
-          name: 'XInput'
-        }
-      },
-      {
-        field: 'value',
-        title: '值',
-        editRender: {
-          name: 'XInput'
-        }
-      }
-    ],
-    formatter: kvToArray,
-    valueFormatter: arrayToKv
-  };
+  const tooltipModel = reactive({ name: '', tip: '' });
+  const slotModel = reactive({ custom: '' });
 </script>
+<style lang="scss" scoped>
+  .field-demo {
+    padding: 20px;
+    h3 {
+      margin: 20px 0 10px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid #eee;
+      font-size: 16px;
+      color: #333;
+    }
+    .custom-editor {
+      padding: 8px 12px;
+      background: #f5f7fa;
+      border-radius: 4px;
+      color: #666;
+    }
+  }
+</style>

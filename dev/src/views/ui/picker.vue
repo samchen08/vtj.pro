@@ -1,265 +1,106 @@
 <template>
-  <div>
-    <XField label="单选">
-      <template #editor>
-        <XPicker
-          ref="pickerRef"
-          value-key="id"
-          label-key="name"
-          query-key="name"
-          :columns="columns"
-          :fields="fields"
-          :loader="asyncLoader"
-          @change="onChange"
-          @picked="onPicked"
-          v-model="modelValue1"
-          :clearable="true"
-          size="default"></XPicker>
-      </template>
-    </XField>
+  <div class="demo-picker">
+    <h3>基础用法</h3>
+    <div class="demo-row">
+      <XPicker
+        :columns="columns"
+        :fields="fields"
+        :loader="loader"
+        :dialog-props="{ title: '选择用户', width: '700px' }"
+        v-model="value1"
+      />
+    </div>
 
-    <XField label="多选">
-      <template #editor>
-        <XPicker
-          v-model="modelValue2"
-          multiple
-          append
-          preload
-          :max-collapse-tags="5"
-          value-key="id"
-          label-key="name"
-          query-key="name"
-          :columns="columns"
-          :fields="fields"
-          :loader="loader"
-          @change="onChange"
-          @picked="onPicked"></XPicker>
-      </template>
-    </XField>
+    <h3>多选模式</h3>
+    <div class="demo-row">
+      <XPicker
+        :columns="columns"
+        :fields="fields"
+        :loader="loader"
+        multiple
+        :dialog-props="{ title: '选择用户', width: '700px' }"
+        v-model="value2"
+      />
+    </div>
 
-    <XField label="多选对象值">
-      <template #editor>
-        <XPicker
-          v-model="modelValue3"
-          multiple
-          raw
-          append
-          :max-collapse-tags="5"
-          value-key="id"
-          label-key="name"
-          query-key="name"
-          :default-query="defaultQuery"
-          :columns="columns"
-          :fields="fields"
-          :loader="loader"
-          @change="onChange"
-          @picked="onPicked"></XPicker>
-      </template>
-    </XField>
-    <XField label="多选值转换">
-      <template #editor>
-        <XPicker
-          v-model="modelValue4"
-          :formatter="formatter"
-          :value-formatter="valueFormatter"
-          multiple
-          append
-          preload
-          :max-collapse-tags="5"
-          value-key="id"
-          label-key="name"
-          query-key="name"
-          :columns="columns"
-          :fields="fields"
-          :loader="loader"
-          @change="onChange"
-          @picked="onPicked"></XPicker>
-      </template>
-    </XField>
-    <div>modelValue1: {{ modelValue1 }}</div>
-    <div>modelValue2: {{ modelValue2 }}</div>
-    <div>modelValue3: {{ modelValue3 }}</div>
-    <div>modelValue4: {{ modelValue4 }}</div>
-    <button @click="changeModelValue">Change modelValue1</button>
+    <h3>查询条件</h3>
+    <div class="demo-row">
+      <XPicker
+        :columns="columns"
+        :fields="fields"
+        :loader="loader"
+        query-key="keyword"
+        :dialog-props="{ title: '选择用户', width: '700px' }"
+        v-model="value3"
+      />
+    </div>
+
+    <h3>禁用状态</h3>
+    <div class="demo-row">
+      <XPicker
+        :columns="columns"
+        :fields="fields"
+        :loader="loader"
+        disabled
+        :dialog-props="{ title: '选择用户', width: '700px' }"
+        v-model="value4"
+      />
+    </div>
   </div>
 </template>
+
 <script lang="ts" setup>
-  import { ref, watch, type Ref, nextTick } from 'vue';
-  import {
-    XPicker,
-    XField,
-    type PickerColumns,
-    type PickerFields
-  } from '@vtj/ui';
-  import { request } from '@vtj/utils';
-  const pickerRef = ref();
-  const modelValue1 = ref();
-  const modelValue2 = ref(['510000200511178510']);
-  const modelValue3 = ref([
-    {
-      id: '123',
-      name: 'ABC'
-    }
-  ]);
-  const modelValue4 = ref('530000198609055651,650000201712031238');
+import { ref } from 'vue';
+import { XPicker } from '@vtj/ui';
 
-  // setTimeout(() => {
-  //   modelValue1.value = '540000197809023360';
-  // }, 10000);
+const columns = [
+  { field: 'name', title: '姓名', width: 120 },
+  { field: 'age', title: '年龄', width: 80 },
+  { field: 'email', title: '邮箱' },
+  { field: 'department', title: '部门', width: 120 }
+];
 
-  const changeModelValue = () => {
-    // modelValue1.value = '540000197809023360';
-    modelValue4.value = 'aaa,bbb';
+const fields = [
+  { name: 'keyword', label: '关键字', editor: 'text' as const },
+  { name: 'department', label: '部门', editor: 'text' as const }
+];
 
-    modelValue1.value = { id: '223243', name: 'ABC' };
+const mockData = Array.from({ length: 30 }, (_, i) => ({
+  id: i + 1,
+  name: `用户${i + 1}`,
+  age: 20 + (i % 30),
+  email: `user${i + 1}@example.com`,
+  department: i % 3 === 0 ? '技术部' : i % 3 === 1 ? '市场部' : '财务部'
+}));
+
+const loader = (params: any) => {
+  const { page = 1, pageSize = 10 } = params;
+  const start = (page - 1) * pageSize;
+  const end = start + pageSize;
+  return {
+    list: mockData.slice(start, end),
+    total: mockData.length
   };
+};
 
-  const formatter = (val: any = '') => {
-    // console.trace('formatter', val);
-    return val && typeof val === 'string' ? val.split(',') : val;
-  };
-
-  const valueFormatter = (val: any[] = []) => {
-    return val.join(',');
-  };
-
-  const columns: Ref<any> = ref([]);
-
-  const columns2: PickerColumns = [
-    {
-      field: 'id',
-      title: 'ID'
-    },
-    {
-      field: 'name',
-      title: '姓名',
-      filters: [{ value: '' }],
-      filterRender: {
-        name: 'XInput'
-      }
-    },
-
-    {
-      field: 'sex',
-      title: '性别',
-      filters: [{ value: '' }],
-      filterRender: {
-        name: 'XSelect',
-        props: {
-          options: [
-            { label: '男', value: 1 },
-            { label: '女', value: 0 }
-          ]
-        }
-      }
-    },
-    {
-      field: 'age',
-      title: '年龄'
-    },
-    {
-      field: 'intro',
-      title: '简介'
-    },
-    {
-      field: 'join',
-      title: '入职日期'
-    },
-    {
-      field: 'create',
-      title: '创建时间'
-    }
-  ];
-
-  const fields: PickerFields = [
-    {
-      label: '姓名',
-      name: 'name',
-      editor: 'text',
-      props: {}
-    },
-    {
-      label: '姓别',
-      name: 'sex',
-      editor: 'select',
-      disabled: true
-    },
-    {
-      label: '入职时间开始',
-      name: 'join-start',
-      editor: 'date',
-      props: {
-        valueFormat: 'YYYY-MM-DD'
-      }
-    },
-    {
-      label: '入职时间结束',
-      name: 'join-end',
-      editor: 'date',
-      props: {
-        valueFormat: 'YYYY-MM-DD'
-      }
-    },
-    {
-      label: '年龄大于',
-      name: 'age-start',
-      editor: 'number'
-    },
-    {
-      label: '年龄小于',
-      name: 'age-end',
-      editor: 'number'
-    }
-  ];
-
-  const fetchData = (data: any) => {
-    return request({
-      url: '/mock-api/list',
-      method: 'get',
-      data,
-      settings: {
-        originResponse: false
-      }
-    });
-  };
-
-  const loader: any = async (params: any) => {
-    console.log('do load', params);
-    const { page, pageSize = 50, form } = params || {};
-    // console.log('query', { ...params, ...model, tab: tabValue.value });
-    return await fetchData({
-      ...form,
-      currentPage: page,
-      pageSize,
-      total: 1000
-    });
-  };
-
-  const asyncLoader = ref();
-
-  const defaultQuery = () => {
-    return {
-      name: 'default'
-    };
-  };
-
-  const onChange = (data: any) => {
-    console.log('change', data);
-  };
-
-  const onPicked = (raw: any) => {
-    console.log('onPicked', raw);
-  };
-
-  watch(
-    () => pickerRef.value?.visible,
-    async (v: boolean) => {
-      console.log('change', v);
-      await nextTick();
-      setTimeout(() => {
-        columns.value = columns2;
-        asyncLoader.value = loader;
-      }, 1000);
-    }
-  );
+const value1 = ref(null);
+const value2 = ref([]);
+const value3 = ref(null);
+const value4 = ref(null);
 </script>
+
+<style lang="scss" scoped>
+.demo-picker {
+  padding: 20px;
+
+  h3 {
+    margin: 16px 0 8px;
+    font-size: 16px;
+    font-weight: 600;
+  }
+
+  .demo-row {
+    margin-bottom: 12px;
+  }
+}
+</style>
