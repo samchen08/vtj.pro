@@ -35,7 +35,7 @@
 - **主状态必须命名为 `__state`**，使用 `reactive()` 声明
 - **Props 接收变量必须命名为 `__props`**：`const __props = defineProps(...)`
 - **Emits 接收变量必须命名为 `__emit`**：`const __emit = defineEmits(...)`
-- **禁止在 `<script setup>` 顶层使用 `await`**
+- **避免在 `<script setup>` 顶层使用 `await`**（会触发 parser 包装为 async 函数）
 - **禁止声明系统保留变量**（`__instance`、`__provider` 等双下划线保留变量）
 - **禁止编写游离顶层语句**，初始化逻辑放在 `onMounted` 中或声明时赋初值
 - **自定义 Composable 必须满足 `/^use[A-Z]/`** 命名规范
@@ -151,9 +151,10 @@ const getMockData = async () => {
 | 刷新运行时 | `refresh()` | 检测运行时错误，返回 true/错误信息 |
 | 获取选中节点 | `getNodeSelected()` | 返回节点路径字符串 |
 | 环境变量 | `createEnv` / `removeEnv` / `getEnv` | `{ name, development, production }` |
-| 国际化词条 | `createI18nMessage` / `removeI18nMessage` / `getI18nMessage` | `{ key, zh-CN, en }` |
-| UniApp 配置 | `setUniConfig(key, value)` / `getUniConfig(key)` | key: manifestJson/pagesJson/css/onLaunch 等 |
-| 技能文档 | `getSkills([...ids])` | 查阅特定功能详细用法 |
+| 国际化词条 | `createI18nMessage` / `removeI18nMessage` / `getI18nMessage` | `[{ key, zh-CN, en }]`（批量） |
+| UniApp 配置 | `setUniConfig(key, value)` / `getUniConfig(key)` | key: manifestJson/pagesJson/css/onLaunch/onLastPageBackPress 等 |
+| 批量接口 | `setApis` | `[ApiSchema...]` 批量新增或更新 |
+| 依赖管理 | `getDeps` / `setDeps` / `removeDeps` | 查看/新增/删除第三方依赖 |
 
 ---
 
@@ -162,7 +163,7 @@ const getMockData = async () => {
 ### 4.1 __store — Pinia Store（需先配置 setGlobalStore）
 
 ```js
-const user = __store.state.user;
+const user = __store.user;
 __store.logout();
 __store.setUser(data);
 ```
@@ -252,8 +253,9 @@ const baseUrl = __provider.env.BASE_URL;
 5. 生成代码      → 遵循 coder.md 规范（Composition API + script setup）
 6. 验证结果      → refresh（检测运行时错误）
 7. 全局配置      → setGlobalStore / setGlobalAccess / setGlobalAxios / setGlobalBeforeEach
-8. i18n 配置    → createI18nMessage({ key, zh-CN, en })
+8. i18n 配置    → createI18nMessage([{ key, zh-CN, en }])（批量）
 9. 环境变量      → createEnv({ name, development, production })
+10. 依赖管理     → setDeps([{ package, version, library, urls }])
 ```
 
 ---
