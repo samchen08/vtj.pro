@@ -46,6 +46,15 @@
 
 **返回：** 树形结构数组，每项包含 `id`、`name`、`title`、`layout`、`dir`、`icon`、`children`
 
+**示例：**
+
+```json
+{
+  "action": "getMenus",
+  "parameters": []
+}
+```
+
 ---
 
 ### `getPages` — 获取所有页面
@@ -55,6 +64,15 @@
 **参数：** 无
 
 **返回：** 数组，每项包含 `id`、`name`、`title`、`layout`、`dir`、`icon`
+
+**示例：**
+
+```json
+{
+  "action": "getPages",
+  "parameters": []
+}
+```
 
 ---
 
@@ -73,22 +91,6 @@
 | `page.dir`    | boolean | ❌   | 是否目录，目录可包含子目录或子页面                                            |
 | `page.layout` | boolean | ❌   | 是否布局页面，布局页面的子级为子页面（需配合 RouterView 使用），UniApp 不支持 |
 | `parentId`    | string  | ❌   | 父页面 ID，不传则创建在根目录                                                 |
-
-**示例：**
-
-```json
-{
-  "action": "createPage",
-  "parameters": [
-    {
-      "name": "Dashboard",
-      "title": "仪表盘",
-      "icon": "DataAnalysis"
-    },
-    "2gqoc7vp"
-  ]
-}
-```
 
 **注意：**
 
@@ -110,6 +112,22 @@
 | `page.title` | string | ✅   | 页面标题 |
 | `page.icon`  | string | ❌   | 图标名称 |
 
+**示例：**
+
+```json
+{
+  "action": "updatePage",
+  "parameters": [
+    {
+      "id": "abc123",
+      "name": "Dashboard",
+      "title": "仪表盘",
+      "icon": "DataAnalysis"
+    }
+  ]
+}
+```
+
 ---
 
 ### `movePage` — 移动页面层级
@@ -123,6 +141,15 @@
 | `id`       | string | ✅   | 要移动的页面 ID                       |
 | `parentId` | string | ❌   | 目标父页面 ID，传 `null` 则移到根目录 |
 
+**示例：**
+
+```json
+{
+  "action": "movePage",
+  "parameters": ["abc123", "xyz789"]
+}
+```
+
 ---
 
 ### `removePage` — 删除页面
@@ -135,6 +162,15 @@
 
 - `id: string` — 页面文件 ID
 
+**示例：**
+
+```json
+{
+  "action": "removePage",
+  "parameters": ["abc123"]
+}
+```
+
 ---
 
 ### `setHomepage` — 设置应用主页
@@ -144,6 +180,15 @@
 **参数：**
 
 - `id: string` — 页面 ID
+
+**示例：**
+
+```json
+{
+  "action": "setHomepage",
+  "parameters": ["abc123"]
+}
+```
 
 ---
 
@@ -156,6 +201,15 @@
 **参数：** 无
 
 **返回：** 数组，每项包含 `id`、`name`、`title`、`category`
+
+**示例：**
+
+```json
+{
+  "action": "getBlocks",
+  "parameters": []
+}
+```
 
 ---
 
@@ -170,6 +224,21 @@
 | `block.name`     | string | ✅   | 区块名称，PascalCase，如 `UserCard` |
 | `block.title`    | string | ✅   | 区块标题                            |
 | `block.category` | string | ❌   | 区块分类/分组名称                   |
+
+**示例：**
+
+```json
+{
+  "action": "createBlock",
+  "parameters": [
+    {
+      "name": "UserCard",
+      "title": "用户卡片",
+      "category": "通用"
+    }
+  ]
+}
+```
 
 ---
 
@@ -186,6 +255,22 @@
 | `block.title`    | string | ❌   | 区块标题 |
 | `block.category` | string | ❌   | 分类     |
 
+**示例：**
+
+```json
+{
+  "action": "updateBlock",
+  "parameters": [
+    {
+      "id": "def456",
+      "name": "UserProfile",
+      "title": "用户资料",
+      "category": "业务组件"
+    }
+  ]
+}
+```
+
 ---
 
 ### `removeBlock` — 删除区块
@@ -195,6 +280,15 @@
 **参数：**
 
 - `id: string` — 区块文件 ID
+
+**示例：**
+
+```json
+{
+  "action": "removeBlock",
+  "parameters": ["def456"]
+}
+```
 
 ---
 
@@ -208,6 +302,15 @@
 
 - `id: string` — 文件（页面或区块）ID
 
+**示例：**
+
+```json
+{
+  "action": "active",
+  "parameters": ["abc123"]
+}
+```
+
 ---
 
 ### `getCurrentFile` — 获取当前文件信息
@@ -218,6 +321,15 @@
 
 **返回：** `{ id, name, title }`，无打开文件时抛出错误
 
+**示例：**
+
+```json
+{
+  "action": "getCurrentFile",
+  "parameters": []
+}
+```
+
 ---
 
 ### `getCurrentFileContent` — 获取当前文件源码
@@ -227,6 +339,15 @@
 **参数：** 无
 
 **返回：** Vue 组件源码字符串
+
+**示例：**
+
+```json
+{
+  "action": "getCurrentFileContent",
+  "parameters": []
+}
+```
 
 ---
 
@@ -243,6 +364,15 @@
 
 **用途：** 代码生成完毕后调用，确认是否有运行时错误。
 
+**示例：**
+
+```json
+{
+  "action": "refresh",
+  "parameters": []
+}
+```
+
 ---
 
 ### `getNodeSelected` — 获取当前选中节点路径
@@ -252,6 +382,15 @@
 **参数：** 无
 
 **返回：** 路径字符串，如 `ElTable[0]>ElTableColumn[2]`，无选中时返回 `null`
+
+**示例：**
+
+```json
+{
+  "action": "getNodeSelected",
+  "parameters": []
+}
+```
 
 ---
 
@@ -265,6 +404,15 @@
 
 **返回：** `ApiSchema[]` 数组
 
+**示例：**
+
+```json
+{
+  "action": "getApis",
+  "parameters": []
+}
+```
+
 ---
 
 ### `setApi` — 新增或更新接口
@@ -273,12 +421,27 @@
 
 **参数：**
 
-| 参数         | 类型   | 必填 | 说明                                                                             |
-| ------------ | ------ | ---- | -------------------------------------------------------------------------------- |
-| `api.name`   | string | ✅   | 接口名称，camelCase，如 `getUserList`                                            |
-| `api.label`  | string | ❌   | 接口描述说明                                                                     |
-| `api.url`    | string | ✅   | 请求 URL，支持路径参数如 `/api/user/:id`                                         |
-| `api.method` | string | ❌   | 请求方法：`get` \| `post` \| `put` \| `delete` \| `patch` \| `jsonp`，默认 `get` |
+| 参数                                    | 类型    | 必填 | 说明                                                                                  |
+| --------------------------------------- | ------- | ---- | ------------------------------------------------------------------------------------- |
+| `api.name`                              | string  | ✅   | 接口名称，camelCase，如 `getUserList`                                                 |
+| `api.url`                               | string  | ✅   | 请求 URL，支持路径参数如 `/api/user/:id`                                              |
+| `api.label`                             | string  | ❌   | 接口描述说明                                                                          |
+| `api.method`                            | string  | ❌   | `get` \| `post` \| `put` \| `delete` \| `patch` \| `jsonp`，默认 `get`                |
+| `api.category`                          | string  | ❌   | 接口分组名称，用于 UI 分类展示                                                         |
+| `api.settings.type`                     | string  | ❌   | 发送数据类型：`form`（表单）\| `json`（JSON）\| `data`（文件/FormData），默认 `form`  |
+| `api.settings.loading`                  | boolean | ❌   | 请求时是否显示全局 loading 动画，默认 `true`                                           |
+| `api.settings.failMessage`              | boolean | ❌   | 请求失败时是否弹出错误提示，默认 `true`                                                |
+| `api.settings.validSuccess`             | boolean | ❌   | 是否校验响应是否成功（调用全局 validate 函数），默认 `false`                           |
+| `api.settings.originResponse`           | boolean | ❌   | 是否返回原始 Axios 响应对象（而非 data 部分），默认 `true`                             |
+| `api.settings.injectHeaders`            | boolean | ❌   | 是否注入请求拦截器中自定义的请求头，默认 `false`                                        |
+| `api.settings.proxy`                    | boolean | ❌   | 是否开启请求代理，默认 `false`                                                          |
+| `api.headers`                           | object  | ❌   | 请求头配置，JSExpression 对象 `{ type: 'JSExpression', value: '...' }`                 |
+| `api.mock`                              | boolean | ❌   | 是否开启模拟数据，默认 `false`                                                          |
+| `api.mockTemplate`                      | object  | ❌   | 模拟数据模板函数，JSFunction 对象 `{ type: 'JSFunction', value: '(req) => {...}' }`    |
+| `api.jsonpOptions.jsonpCallback`        | string  | ❌   | jsonp 回调函数名（仅 `method: 'jsonp'` 时有效）                                        |
+| `api.jsonpOptions.jsonpCallbackFunction` | string  | ❌   | jsonp 回调函数（仅 `method: 'jsonp'` 时有效）                                          |
+| `api.jsonpOptions.timeout`              | number  | ❌   | jsonp 超时时间，毫秒（仅 `method: 'jsonp'` 时有效）                                    |
+| `api.jsonpOptions.crossorigin`          | boolean | ❌   | jsonp 是否跨域（仅 `method: 'jsonp'` 时有效）                                          |
 
 **示例：**
 
@@ -298,6 +461,48 @@
 
 ---
 
+### `setApis` — 批量新增或更新接口
+
+批量新增或更新多个接口配置。遍历数组中的每个 ApiSchema，逐个执行新增或更新逻辑。
+
+**参数：**
+
+| 参数   | 类型    | 必填 | 说明                 |
+| ------ | ------- | ---- | -------------------- |
+| `apis` | array   | ✅   | ApiSchema 对象数组   |
+| `apis[].name`   | string | ✅   | 接口名称，camelCase |
+| `apis[].url`    | string | ✅   | 请求 URL             |
+| `apis[].label`  | string | ❌   | 接口描述说明         |
+| `apis[].method` | string | ❌   | 请求方法，默认 `get` |
+
+每个 ApiSchema 对象的完整字段与 `setApi` 相同（含 `settings`、`headers`、`mock`、`mockTemplate`、`jsonpOptions` 等）。
+
+**示例：**
+
+```json
+{
+  "action": "setApis",
+  "parameters": [
+    [
+      {
+        "name": "getUserList",
+        "label": "获取用户列表",
+        "url": "/api/users",
+        "method": "get"
+      },
+      {
+        "name": "createUser",
+        "label": "创建用户",
+        "url": "/api/users",
+        "method": "post"
+      }
+    ]
+  ]
+}
+```
+
+---
+
 ### `removeApi` — 删除接口
 
 删除指定接口。
@@ -305,6 +510,15 @@
 **参数：**
 
 - `name: string` — 接口名称或 ID
+
+**示例：**
+
+```json
+{
+  "action": "removeApi",
+  "parameters": ["getUserList"]
+}
+```
 
 ---
 
@@ -316,9 +530,102 @@
 
 - `apis: string[]` — 接口名称或 ID 数组
 
+**示例：**
+
+```json
+{
+  "action": "removeApis",
+  "parameters": [["getUserList", "createUser"]]
+}
+```
+
 ---
 
-## 六、全局配置
+## 六、依赖管理
+
+### `getDeps` — 获取依赖列表
+
+获取当前项目配置的所有依赖包。
+
+**参数：** 无
+
+**返回：** `Dependencie[]` 数组，每项包含 `package`、`version`、`library`、`urls`、`platform`、`official` 等
+
+**示例：**
+
+```json
+{
+  "action": "getDeps",
+  "parameters": []
+}
+```
+
+---
+
+### `setDeps` — 批量新增或更新依赖
+
+批量新增或更新项目的依赖包配置。**不会操作 `official: true` 的内置依赖**（如 Vue、Element Plus 等平台内置依赖会跳过）。
+
+**参数：**
+
+| 参数                  | 类型    | 必填 | 说明                                                                 |
+| --------------------- | ------- | ---- | -------------------------------------------------------------------- |
+| `deps[].package`      | string  | ✅   | 包名，如 `vue`、`element-plus`、`echarts`                            |
+| `deps[].version`      | string  | ✅   | 版本号，如 `latest`、`^3.4.0`                                        |
+| `deps[].library`      | string  | ✅   | 库导出名称，如 `Vue`、`ElementPlus`、`echarts`                       |
+| `deps[].urls`         | string[] | ✅  | 加载资源 URL 数组，如 `@vtj/materials/deps/vue/index.umd.js`         |
+| `deps[].platform`     | string[] | ❌  | 支持平台 `web` \| `h5` \| `uniapp`，不填则所有平台通用               |
+| `deps[].required`     | boolean  | ❌  | 是否必须依赖，默认 `false`                                           |
+| `deps[].enabled`      | boolean  | ❌  | 是否启用，默认 `true`                                                |
+| `deps[].localeLibrary` | string  | ❌   | 语言包库导出名称                                                     |
+| `deps[].assetsUrl`    | string  | ❌   | 资产配置 URL                                                         |
+| `deps[].assetsLibrary` | string  | ❌  | 资产配置导出名称                                                     |
+| `deps[].easycom`      | object  | ❌   | UniApp easycom 自动导入配置，`{ key: '^El[A-Z]', value: '...' }`     |
+
+**注意：** 当操作包含 `official: true` 的内置依赖时，工具会跳过并返回跳过的包名。
+
+**示例：**
+
+```json
+{
+  "action": "setDeps",
+  "parameters": [
+    [
+      {
+        "package": "echarts",
+        "version": "latest",
+        "library": "echarts",
+        "urls": ["@vtj/materials/deps/echarts/index.umd.js"]
+      }
+    ]
+  ]
+}
+```
+
+---
+
+### `removeDeps` — 批量删除依赖
+
+批量删除项目的依赖包。**不会删除 `official: true` 的内置依赖**。
+
+**参数：**
+
+- `packages: string[]` — 依赖包名数组
+
+**返回：** 成功时返回 `true`；若跳过了内置依赖，返回 `{ success: true, skipped: string[], message: '...' }`
+
+**示例：**
+
+```json
+{
+  "action": "removeDeps",
+  "parameters": [["lodash", "moment"]]
+}
+```
+
+---
+
+## 七、全局配置
 
 ### `getGlobalCss` / `setGlobalCss` — 全局 CSS
 
@@ -327,6 +634,24 @@
 **`setGlobalCss` 参数：**
 
 - `css: string` — CSS 代码字符串
+
+**注意：** UniApp 平台会自动将全局 CSS 存入 UniApp 配置的 `css` 项中。
+
+**调用示例：**
+
+```json
+{
+  "action": "getGlobalCss",
+  "parameters": []
+}
+```
+
+```json
+{
+  "action": "setGlobalCss",
+  "parameters": ["body { background: #f5f5f5; }"]
+}
+```
 
 ---
 
@@ -363,7 +688,23 @@
 };
 ```
 
-组件中通过 `__store.xxx` 访问（如 `__store.state.user`、`__store.setUser(data)`）。
+组件中通过 `__store.xxx` 访问（如 `__store.user`、`__store.setUser(data)`）。
+
+**调用示例：**
+
+```json
+{
+  "action": "getGlobalStore",
+  "parameters": []
+}
+```
+
+```json
+{
+  "action": "setGlobalStore",
+  "parameters": ["(app) => { return { state: () => ({ user: null, token: '' }), getters: { isLogined: (state) => !!state.token }, actions: { setUser(user) { this.user = user }, logout() { this.user = null; this.token = '' } } } }"]
+}
+```
 
 ---
 
@@ -380,21 +721,37 @@
 ```javascript
 (app) => {
   return {
-    session: false, // 是否开启 session（关闭浏览器失效）
-    authKey: 'Authorization', // 请求头和 cookie 中 token 的键名
-    storageKey: 'ACCESS_STORAGE', // 本地缓存键名
-    auth: '/#/login', // 登录页路径
-    whiteList: (to) => false, // 路由白名单，返回 true 则跳过权限校验
-    redirectParam: 'r', // 重定向参数名
-    unauthorizedCode: 401, // 未登录响应状态码
+    session: false,
+    authKey: 'Authorization',
+    storageKey: 'ACCESS_STORAGE',
+    auth: '/#/login',
+    whiteList: (to) => false,
+    redirectParam: 'r',
+    unauthorizedCode: 401,
     unauthorizedMessage: '登录已经失效，请重新登录！',
     noPermissionMessage: '无权限访问该页面',
-    statusKey: 'code' // 响应数据中状态码的 key
+    statusKey: 'code'
   };
 };
 ```
 
 组件中通过 `__access` 访问（如 `__access.isLogined()`、`__access.can('user:edit')`）。
+
+**调用示例：**
+
+```json
+{
+  "action": "getGlobalAccess",
+  "parameters": []
+}
+```
+
+```json
+{
+  "action": "setGlobalAccess",
+  "parameters": ["(app) => { return { session: false, authKey: 'Authorization', storageKey: 'ACCESS_STORAGE', auth: '/#/login', whiteList: (to) => false, redirectParam: 'r', unauthorizedCode: 401, unauthorizedMessage: '登录已经失效，请重新登录！', noPermissionMessage: '无权限访问该页面', statusKey: 'code' } }"]
+}
+```
 
 ---
 
@@ -414,17 +771,32 @@
     baseURL: '/',
     timeout: 60000,
     settings: {
-      type: 'json', // 请求数据类型：form | json | data
-      validSuccess: true, // 是否校验响应成功
-      originResponse: false, // 是否返回原始 Axios 响应
-      loading: true, // 是否显示 loading
-      failMessage: true, // 是否显示错误提示
+      type: 'json',
+      validSuccess: false,
+      originResponse: true,
+      loading: true,
+      failMessage: true,
       validate: (res) => {
         return res.data?.code === 0 || !!res.data?.success;
       }
     }
   };
-};
+```
+
+**调用示例：**
+
+```json
+{
+  "action": "getGlobalAxios",
+  "parameters": []
+}
+```
+
+```json
+{
+  "action": "setGlobalAxios",
+  "parameters": ["(app) => { return { baseURL: '/', timeout: 60000, settings: { type: 'json', validSuccess: false, originResponse: true, loading: true, failMessage: true, validate: (res) => res.data?.code === 0 || !!res.data?.success } } }"]
+}
 ```
 
 ---
@@ -454,6 +826,22 @@
 };
 ```
 
+**调用示例：**
+
+```json
+{
+  "action": "getGlobalRequestInterceptor",
+  "parameters": []
+}
+```
+
+```json
+{
+  "action": "setGlobalRequestInterceptor",
+  "parameters": ["(config, app) => { const token = app.config.globalProperties.$access?.getToken(); if (token) { config.headers['Authorization'] = `Bearer ${token}`; } return config; }"]
+}
+```
+
 ---
 
 ### `getGlobalResponseInterceptor` / `setGlobalResponseInterceptor` — 响应拦截器
@@ -473,9 +861,24 @@
 
 ```javascript
 (res, app) => {
-  // 可在此处做统一的数据转换
   return res;
 };
+```
+
+**调用示例：**
+
+```json
+{
+  "action": "getGlobalResponseInterceptor",
+  "parameters": []
+}
+```
+
+```json
+{
+  "action": "setGlobalResponseInterceptor",
+  "parameters": ["(res, app) => { return res; }"]
+}
 ```
 
 ---
@@ -497,7 +900,6 @@
 
 ```javascript
 (to, from, next, app) => {
-  // 示例：登录校验
   const access = app.config.globalProperties.$access;
   if (!access.isLogined() && to.path !== '/login') {
     next('/login');
@@ -505,6 +907,22 @@
     next();
   }
 };
+```
+
+**调用示例：**
+
+```json
+{
+  "action": "getGlobalBeforeEach",
+  "parameters": []
+}
+```
+
+```json
+{
+  "action": "setGlobalBeforeEach",
+  "parameters": ["(to, from, next, app) => { const access = app.config.globalProperties.$access; if (!access.isLogined() && to.path !== '/login') { next('/login'); } else { next(); } }"]
+}
 ```
 
 ---
@@ -527,15 +945,30 @@
 ```javascript
 (to, from, failure, app) => {
   if (!failure) {
-    // 路由跳转成功后的操作，如记录埋点
     console.log('navigated to', to.path);
   }
 };
 ```
 
+**调用示例：**
+
+```json
+{
+  "action": "getGlobalAfterEach",
+  "parameters": []
+}
+```
+
+```json
+{
+  "action": "setGlobalAfterEach",
+  "parameters": ["(to, from, failure, app) => { if (!failure) { console.log('navigated to', to.path); } }"]
+}
+```
+
 ---
 
-## 七、环境变量管理
+## 八、环境变量管理
 
 ### `getEnv` — 获取环境变量列表
 
@@ -546,6 +979,15 @@
 **返回：** `EnvConfig[]` 数组，每项包含 `name`、`development`、`production`
 
 **组件中访问环境变量：** `__provider.env.变量名`
+
+**示例：**
+
+```json
+{
+  "action": "getEnv",
+  "parameters": []
+}
+```
 
 ---
 
@@ -586,9 +1028,18 @@
 
 - `name: string` — 环境变量名称
 
+**示例：**
+
+```json
+{
+  "action": "removeEnv",
+  "parameters": ["BASE_URL"]
+}
+```
+
 ---
 
-## 八、国际化（i18n）管理
+## 九、国际化（i18n）管理
 
 ### `getI18nMessage` — 获取词条列表
 
@@ -598,35 +1049,67 @@
 
 **返回：** `I18nMessage[]` 数组，每项包含 `key`、`zh-CN`、`en`
 
-**组件中使用词条：** `__i18n.t('key')` 或模板中 `{{ $t('key') }}`
+**组件中使用词条：** `__i18n.t('key')`
+
+**示例：**
+
+```json
+{
+  "action": "getI18nMessage",
+  "parameters": []
+}
+```
 
 ---
 
-### `createI18nMessage` — 新增词条
+### `createI18nMessage` — 新增词条（批量）
 
-新增一条中英文对照词条。
+批量新增一条或多条中英文对照词条。**支持批量创建**，参数为数组而非单个对象。
 
 **参数：**
 
-| 参数            | 类型   | 必填 | 说明                          |
-| --------------- | ------ | ---- | ----------------------------- |
-| `message.key`   | string | ✅   | 词条标识，如 `common.confirm` |
-| `message.zh-CN` | string | ✅   | 中文内容                      |
-| `message.en`    | string | ✅   | 英文内容                      |
+| 参数                    | 类型   | 必填 | 说明                          |
+| ----------------------- | ------ | ---- | ----------------------------- |
+| `messages[].key`        | string | ✅   | 词条标识，如 `common.confirm` |
+| `messages[].zh-CN`      | string | ✅   | 中文内容                      |
+| `messages[].en`         | string | ✅   | 英文内容                      |
+
+**示例：**
+
+```json
+{
+  "action": "createI18nMessage",
+  "parameters": [
+    [
+      { "key": "common.confirm", "zh-CN": "确认", "en": "Confirm" },
+      { "key": "common.cancel", "zh-CN": "取消", "en": "Cancel" }
+    ]
+  ]
+}
+```
 
 ---
 
-### `removeI18nMessage` — 删除词条
+### `removeI18nMessage` — 删除词条（批量）
 
-删除指定 key 的词条。
+批量删除指定 key 的词条。**支持批量删除**，参数为数组而非单个 key。
 
 **参数：**
 
-- `key: string` — 词条标识 key
+- `keys: string[]` — 词条标识 key 数组
+
+**示例：**
+
+```json
+{
+  "action": "removeI18nMessage",
+  "parameters": [["common.confirm", "common.cancel"]]
+}
+```
 
 ---
 
-## 九、UniApp 专属配置
+## 十、UniApp 专属配置
 
 > 以下工具仅适用于 UniApp 平台项目。
 
@@ -652,6 +1135,7 @@
 | `onShow`               | App 显示时              |
 | `onHide`               | App 隐藏时              |
 | `onError`              | App 报错时              |
+| `onLastPageBackPress`  | 最后一个页面返回事件    |
 | `onPageNotFound`       | 页面不存在时            |
 | `onUnhandledRejection` | 未处理 Promise 拒绝时   |
 | `onThemeChange`        | 主题变化时              |
@@ -691,9 +1175,18 @@
 }
 ```
 
+**调用示例（获取配置）：**
+
+```json
+{
+  "action": "getUniConfig",
+  "parameters": ["css"]
+}
+```
+
 ---
 
-## 十、工具调用建议
+## 十一、工具调用建议
 
 ### 典型工作流程
 
@@ -702,7 +1195,8 @@
 3. **生成内容：** 结合 Vue 代码规范生成页面源码
 4. **验证结果：** 调用 `refresh` 检测是否有运行时错误
 5. **配置接口：** 用 `setApi` 注册后端接口
-6. **全局配置：** 按需配置 store、access、axios 等全局选项
+6. **管理依赖：** 用 `getDeps` 查看当前依赖，`setDeps` 添加第三方库
+7. **全局配置：** 按需配置 store、access、axios 等全局选项
 
 ### 注意事项
 
@@ -711,3 +1205,4 @@
 - UniApp 平台不支持 `dir`（目录）和 `layout`（布局）类型页面
 - 函数类型配置（store、access、axios、拦截器、路由守卫）均传入 **JS 函数代码字符串**，不是 JSON
 - `setGlobalStore` 的函数必须返回 Pinia store 配置对象，可用 `getSkills` 查询 pinia 用法
+- `setDeps` 和 `removeDeps` 均会跳过 `official: true` 的内置依赖（如 Vue、Element Plus）
