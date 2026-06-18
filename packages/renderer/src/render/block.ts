@@ -74,8 +74,7 @@ export function createRenderer(options: CreateRendererOptions) {
       ...createProps(dsl.value.props ?? [], context)
     },
     async setup(props: any = {}) {
-      context.$props = props;
-      context.props = props;
+      context.$props = context.props = props;
       if (dsl.value.id) {
         adoptedStyleSheets(
           options.window || globalThis,
@@ -86,7 +85,11 @@ export function createRenderer(options: CreateRendererOptions) {
       }
       const isComposition = dsl.value.apiMode === 'composition';
 
-      context.state = createState(Vue, dsl.value.state ?? {}, context);
+      context.$state = context.state = createState(
+        Vue,
+        dsl.value.state ?? {},
+        context
+      );
 
       // 状态创建：根据模式分流
       const refs = isComposition
@@ -149,6 +152,7 @@ export function createRenderer(options: CreateRendererOptions) {
       return {
         vtj: context,
         state: context.state,
+        $state: context.$state,
         ...props,
         ...refs,
         ...reactives,

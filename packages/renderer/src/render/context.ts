@@ -30,9 +30,16 @@ export class Context {
   __refs: Record<string, any> = {};
   __refCaches: Record<string, any> = {};
   context: Record<string, any> = {};
+  /**
+   * @deprecated
+   */
   state: Record<string, any> = {};
+  /**
+   * @deprecated
+   */
   props: Record<string, any> = {};
   $props: Record<string, any> = {};
+  $state: Record<string, any> = {};
   $refs: Record<string, any> = {};
   $el: any = null;
   $emit: any = null;
@@ -80,7 +87,7 @@ export class Context {
     this.$uni = this.$libs.UniH5?.uni ?? null;
     this.$getApp = this.$libs.UniH5?.getApp ?? null;
     // 恢复响应式数据（state 不在 attrs 中，需单独恢复）
-    this.state = state;
+    this.$state = this.state = state;
     this.__proxy();
     Vue.onMounted(() => {
       // 部分属性在 onMounted 后才生成，需要重新更新一次
