@@ -3,6 +3,41 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.18.0](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.17.8...@vtj/renderer@0.18.0) (2026-06-20)
+
+
+### Bug Fixes
+
+* **app:** 调整全局请求配置默认值以优化响应处理 ([fea69bc](https://gitee.com/newgateway/vtj/commits/fea69bc59341437235cb936d4b8e352a75833b89))
+* **coder:** 移除模板中的 ts-nocheck 注释以提高代码质量 ([4a011d1](https://gitee.com/newgateway/vtj/commits/4a011d191b29c7421f01f84cfd9ca9bd67a220ae))
+* **core:** 修复 BlockModel 更新时 setup 属性赋值问题 ([cf4ff4a](https://gitee.com/newgateway/vtj/commits/cf4ff4aa8c1d881ee3b89b3f0edd0bfe52d1460f))
+* **parser:** 优化顶层声明解析及错误提示 ([4ff9a37](https://gitee.com/newgateway/vtj/commits/4ff9a370f2472a5a3f2369d20f36ea93da1ea54c))
+* **parser:** 修正删除可选参数标志的逻辑 ([e4b78c6](https://gitee.com/newgateway/vtj/commits/e4b78c6b9ccc571ad229d8b46648bf5844912f42))
+* **renderer:** 优化 Composition API 生命周期注册逻辑 ([ac0aec2](https://gitee.com/newgateway/vtj/commits/ac0aec229de3d83d3029f6feab572bc91ca04c15))
+* **renderer:** 修复 Composition 生命周期执行错误处理和平台配置 ([a9ed1cb](https://gitee.com/newgateway/vtj/commits/a9ed1cb06a1a69e004331b5d94731c3d60ec9f5b))
+* **renderer:** 修复 createProvide 调用位置错误 ([db9f8cd](https://gitee.com/newgateway/vtj/commits/db9f8cdb80ec60fb1e73786ef9b0b54567f53ee4))
+
+
+### Features
+
+* **access:** 支持权限数据为数组类型，增强权限判断能力 ([ddd0b99](https://gitee.com/newgateway/vtj/commits/ddd0b99dffdb8dc0675e6cdf6fdb3013952d2a83))
+* **coder:** 合并 renderer 包导入并扩展全局组合式 API 支持 ([ea306c4](https://gitee.com/newgateway/vtj/commits/ea306c4cd886c06752e6bc9b1bdb5d5ecbd34a59))
+* **composition:** 支持 $provider 作为全局 API 并优化引用处理 ([54cf908](https://gitee.com/newgateway/vtj/commits/54cf9081f31076d13a86553c5efd0073b9439acb))
+* **core:** 支持composition api相关响应式状态管理 ([db0ea9f](https://gitee.com/newgateway/vtj/commits/db0ea9fca1a282dd733fc76da3c56fad06fb9d54))
+* **core:** 支持计算属性同时使用函数与表达式 ([aa72e07](https://gitee.com/newgateway/vtj/commits/aa72e07eae5d976c6640dc7dee3cc54f9da8cdee))
+* **core:** 新增 setup 初始化代码支持 ([5bbda67](https://gitee.com/newgateway/vtj/commits/5bbda679224c12bdb6e52ebf96a054ec7549fc1d))
+* **globalApi:** 添加 $uni 和 $getApp 全局API支持 ([47838e8](https://gitee.com/newgateway/vtj/commits/47838e8fd94d21e1c1a091546a1d442594dedafc))
+* **h5:** 添加@vtj/charts依赖及远程配置 ([93f6ecb](https://gitee.com/newgateway/vtj/commits/93f6ecb54723431bf159024c9d6e32b5c9631add))
+* **renderer:** 优化节点缓存比较逻辑，忽略函数引用差异 ([41a6c06](https://gitee.com/newgateway/vtj/commits/41a6c06faede240fce785ae0a60c78cec3257443))
+* **renderer:** 增加 Props 与 Emits 示例及 Watch 功能 ([774ab27](https://gitee.com/newgateway/vtj/commits/774ab279ffb830fb5346d1b062dcd49636b42812))
+* **renderer:** 支持 Composition API 模式及响应式数据处理 ([8cd32e7](https://gitee.com/newgateway/vtj/commits/8cd32e7ad34a2f3b99d26c033301da241aa276a5))
+* **renderer:** 支持组合式 API 模式的组件解析与生命周期注册 ([3b10b4b](https://gitee.com/newgateway/vtj/commits/3b10b4b68f976bc2dfd9b4a96bb85eb6c5b264ce))
+* **runtime:** 集成 UniApp 生命周期支持 ([c28deb2](https://gitee.com/newgateway/vtj/commits/c28deb261737d6609b0cb43223f86e4bf7c9e5bf))
+
+
+
+
+
 ## [0.17.8](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.17.7...@vtj/renderer@0.17.8) (2026-06-11)
 
 **Note:** Version bump only for package @vtj/renderer

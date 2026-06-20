@@ -2,7 +2,7 @@
   "name": "vtj-project-h5",
   "description": "H5项目示例",
   "private": true,
-  "version": "0.17.8",
+  "version": "0.18.0",
   "type": "module",
   "scripts": {
     "setup": "pnpm install --unsafe-perm --registry=https://registry.npmmirror.com",
@@ -16,9 +16,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@vtj/charts": "workspace:~",
     "@vtj/h5": "workspace:~",
     "@vtj/renderer": "workspace:~",
-    "@vtj/charts": "workspace:~",
     "vue": "~3.5.37",
     "vue-i18n": "~11.2.2",
     "vue-router": "~4.6.0"

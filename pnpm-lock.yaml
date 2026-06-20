@@ -992,6 +992,9 @@ importers:
       '@vtj/base':
         specifier: workspace:~
         version: link:../base
+      axios:
+        specifier: ~1.16.0
+        version: 1.16.1
     devDependencies:
       '@types/js-cookie':
         specifier: ~3.0.6
@@ -999,9 +1002,6 @@ importers:
       '@vtj/cli':
         specifier: workspace:~
         version: link:../cli
-      axios:
-        specifier: ~1.16.0
-        version: 1.16.1
       fetch-jsonp:
         specifier: ~1.3.0
         version: 1.3.0

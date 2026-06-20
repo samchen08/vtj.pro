@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.18.0](https://github.com/samchen08/vtj.pro/compare/vtj-project-h5@0.17.8...vtj-project-h5@0.18.0) (2026-06-20)
+
+
+### Features
+
+* **h5:** 添加@vtj/charts依赖及远程配置 ([93f6ecb](https://github.com/samchen08/vtj.pro/commit/93f6ecb54723431bf159024c9d6e32b5c9631add))
+
+
+
+
+
 ## [0.17.8](https://github.com/samchen08/vtj.pro/compare/vtj-project-h5@0.17.7...vtj-project-h5@0.17.8) (2026-06-11)
 
 **Note:** Version bump only for package vtj-project-h5
