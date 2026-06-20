@@ -1,78 +1,69 @@
 <template>
-  <div>
-    <hr />
-    <div class="my-block" direction="row" :grow="false" border>
-      <XIcon :icon="Star" @click="handleClick"></XIcon>
-      <XIcon :icon="Menu" @click="handleClick"></XIcon>
-      <XIcon :icon="Setting" @click="handleClick"></XIcon>
+  <div class="icon-demo">
+    <h3>基础图标（默认尺寸 inherit）</h3>
+    <div class="demo-row">
+      <XIcon :icon="VtjIconBug"></XIcon>
+      <XIcon :icon="VtjIconSetting"></XIcon>
       <XIcon :icon="VtjIconUser"></XIcon>
-      <XIcon :src="Logo"></XIcon>
-      <XIcon :icon="Fixed"></XIcon>
+      <XIcon :icon="VtjIconSearch"></XIcon>
+      <XIcon :icon="VtjIconPlus"></XIcon>
+      <XIcon :icon="VtjIconEdit"></XIcon>
     </div>
-    <hr />
-    <div class="my-block" direction="row" :grow="false" border>
-      <XIcon size="small" :icon="Menu" @click="handleClick"></XIcon>
-      <XIcon size="small" :icon="Setting" @click="handleClick"></XIcon>
-      <XIcon size="small" :icon="VtjIconUser"></XIcon>
-      <XIcon size="small" :src="Logo"></XIcon>
-    </div>
-    <hr />
-    <div class="my-block" direction="row" :grow="false" border>
-      <XIcon size="large" :icon="Menu" @click="handleClick"></XIcon>
-      <XIcon size="large" :icon="Setting" @click="handleClick"></XIcon>
-      <XIcon size="large" :icon="VtjIconUser"></XIcon>
-      <XIcon size="large" :src="Logo"></XIcon>
-    </div>
-    <hr />
-    <div class="my-block" direction="row" :grow="false" border>
-      <XIcon :size="40" :icon="Menu" @click="handleClick"></XIcon>
-      <XIcon :size="40" :icon="Setting" @click="handleClick"></XIcon>
-      <XIcon :size="40" :icon="VtjIconUser"></XIcon>
-      <XIcon :size="40" :src="Logo"></XIcon>
-      <XIcon :size="40" :icon="vnodeIcon"></XIcon>
-    </div>
-    <hr />
 
-    <XIcon
-      :size="40"
-      :icon="VtjIconUser"
-      :padding="5"
-      :radius="5"
-      hover-effect
-      color="blue"></XIcon>
+    <h3>尺寸</h3>
+    <div class="demo-row">
+      <XIcon :icon="VtjIconBug" size="small"></XIcon>
+      <XIcon :icon="VtjIconBug" size="default"></XIcon>
+      <XIcon :icon="VtjIconBug" size="large"></XIcon>
+      <XIcon :icon="VtjIconBug" :size="32"></XIcon>
+    </div>
+
+    <h3>颜色</h3>
+    <div class="demo-row">
+      <XIcon :icon="VtjIconBug" color="#409EFF"></XIcon>
+      <XIcon :icon="VtjIconBug" color="#67C23A"></XIcon>
+      <XIcon :icon="VtjIconBug" color="#E6A23C"></XIcon>
+      <XIcon :icon="VtjIconBug" color="#F56C6C"></XIcon>
+    </div>
+
+    <h3>图片图标</h3>
+    <div class="demo-row">
+      <XIcon :src="Logo"></XIcon>
+    </div>
+
+    <h3>背景色与圆角</h3>
+    <div class="demo-row">
+      <XIcon :icon="VtjIconBug" background="#ecf5ff" :padding="6" :radius="4"></XIcon>
+      <XIcon :icon="VtjIconSetting" background="#fef0f0" :padding="6" :radius="4"></XIcon>
+    </div>
+
+    <h3>hover 效果</h3>
+    <div class="demo-row">
+      <XIcon :icon="VtjIconBug" hover-effect color="#409EFF"></XIcon>
+    </div>
   </div>
 </template>
 <script lang="ts" setup>
-  import { h } from 'vue';
-  import { XIcon, Fixed, Menu, Setting, Star, VtjIconUser } from '@vtj/web';
+  import { XIcon } from '@vtj/ui';
+  import { VtjIconBug, VtjIconSetting, VtjIconUser, VtjIconSearch, VtjIconPlus, VtjIconEdit } from '@vtj/icons';
   import Logo from '@/assets/logo.png';
-
-  const vnodeIcon = h('span', { class: 'vnode-icon' });
-
-  const handleClick = () => {
-    console.log('clicked!');
-  };
 </script>
-
 <style lang="scss" scoped>
-  .my-block {
-    color: cadetblue;
-  }
-
-  .vnode-icon {
-    width: 12px;
-    height: 12px;
-    display: inline-block;
-    background-color: aqua;
-  }
-</style>
-
-<style lang="scss">
-  .vnode-icon {
-    width: 12px;
-    height: 12px;
-    display: inline-block;
-    background-color: aqua;
-    vertical-align: middle;
+  .icon-demo {
+    padding: 20px;
+    h3 {
+      margin: 20px 0 10px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid #eee;
+      font-size: 16px;
+      color: #333;
+    }
+    .demo-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 10px;
+    }
   }
 </style>

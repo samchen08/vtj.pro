@@ -9,12 +9,20 @@ import {
   BlockModel
 } from '@vtj/core';
 import { tsFormatter } from '@vtj/coder';
-import { parseSFC, isJSCode, compileValidator } from '../shared';
+import {
+  parseSFC,
+  isJSCode,
+  compileValidator,
+  stripTypeScript
+} from '../shared';
 import { parseTemplate } from './template';
 import { parseScripts, type ImportStatement } from './scripts';
-import { parseStyle } from './style';
+import { parseScriptSetup } from './scriptSetup';
+import { parseStyle, type CSSRules } from './style';
 import { htmlToNodes } from './html';
 import { patchCode, replacer } from './utils';
+import { compositionPatch } from './compositionPatch';
+import { buildReverseSymbolTable } from './composition/reverseSymbolTable';
 import { ComponentValidator, AutoFixer } from '../tools';
 
 export type IParseVueOptions = ParseVueOptions & { project: ProjectSchema };
@@ -39,6 +47,10 @@ export async function parseVue(options: IParseVueOptions) {
   const source = fixer.fixBasedOnValidation(__source, validation);
 
   const sfc = parseSFC(source);
+
+  // 将 TS 转为 JS，后续所有 script 处理统一以纯 JS 为基础
+  sfc.script = stripTypeScript(sfc.script);
+
   const {
     styles,
     css,
@@ -49,6 +61,49 @@ export async function parseVue(options: IParseVueOptions) {
   if (__errors.length) {
     return Promise.reject(__errors);
   }
+
+  // === 单点分流 ===
+  if (sfc.isScriptSetup) {
+    return parseVueComposition(sfc, {
+      id,
+      name,
+      project,
+      platform,
+      dependencies,
+      styles,
+      css
+    });
+  }
+
+  // === Options 模式（原逻辑不变） ===
+  return parseVueOptions(sfc, {
+    id,
+    name,
+    project,
+    platform,
+    dependencies,
+    styles,
+    css
+  });
+}
+
+// ======================== Options 模式 ========================
+
+interface ParseVueInternalOptions {
+  id: string;
+  name: string;
+  project: ProjectSchema;
+  platform: string;
+  dependencies: Dependencie[];
+  styles: CSSRules;
+  css: string;
+}
+
+async function parseVueOptions(
+  sfc: ReturnType<typeof parseSFC>,
+  opts: ParseVueInternalOptions
+) {
+  const { id, name, project, platform, dependencies, styles, css } = opts;
 
   const {
     state,
@@ -67,7 +122,7 @@ export async function parseVue(options: IParseVueOptions) {
   } = parseScripts(sfc.script, project);
 
   const { nodes, slots, context } = parseTemplate(id, name, sfc.template, {
-    platform,
+    platform: platform as any,
     handlers,
     styles,
     imports,
@@ -116,7 +171,7 @@ export async function parseVue(options: IParseVueOptions) {
   ];
   const { libs } = parseDeps(imports, dependencies);
   const patchCodeOpt = {
-    platform,
+    platform: platform as any,
     context,
     computed: computedKeys,
     libs,
@@ -136,6 +191,98 @@ export async function parseVue(options: IParseVueOptions) {
     async (exp: JSExpression | JSFunction) => {
       const code = await tsFormatter(exp.value);
       exp.value = patchCode(code, '', patchCodeOpt);
+    }
+  );
+
+  const model = new BlockModel(dsl);
+  return model.toDsl();
+}
+
+// ======================== Composition 模式 ========================
+
+async function parseVueComposition(
+  sfc: ReturnType<typeof parseSFC>,
+  opts: ParseVueInternalOptions
+) {
+  const { id, name, project, platform, styles, css, dependencies } = opts;
+
+  const scriptResult = parseScriptSetup(sfc.script, project);
+
+  const { nodes, slots, context } = parseTemplate(id, name, sfc.template, {
+    platform: platform as any,
+    handlers: scriptResult.handlers,
+    styles,
+    imports: scriptResult.imports,
+    directives: scriptResult.directives
+  });
+
+  const dsl: BlockSchema = {
+    id,
+    name,
+    apiMode: 'composition',
+    inject: scriptResult.inject,
+    props: scriptResult.props,
+    state: scriptResult.state,
+    refs: scriptResult.refs,
+    reactives: scriptResult.reactives,
+    composables: scriptResult.composables,
+    setup: scriptResult.setup,
+    provide: scriptResult.provide,
+    watch: scriptResult.watch,
+    lifeCycles: scriptResult.lifeCycles,
+    computed: scriptResult.computed,
+    methods: scriptResult.methods,
+    dataSources: scriptResult.dataSources,
+    slots,
+    emits: scriptResult.emits,
+    expose: scriptResult.expose,
+    nodes,
+    css
+  };
+
+  // 构建 compositionPatch 选项
+  const { libs } = parseDeps(scriptResult.imports, dependencies);
+
+  // 构建反向符号表（与 coder 的 SymbolTable 镜像对齐）
+  const reverseSymbols = buildReverseSymbolTable(scriptResult);
+
+  const patchOpts = {
+    refs: Array.from(reverseSymbols.refs),
+    reactives: Array.from(reverseSymbols.reactives),
+    hasState: reverseSymbols.hasState,
+    computed: Array.from(reverseSymbols.computed),
+    methods: Array.from(reverseSymbols.methods),
+    props: Array.from(reverseSymbols.props),
+    composables: Array.from(reverseSymbols.composables),
+    injects: Array.from(reverseSymbols.injects),
+    dataSources: Array.from(reverseSymbols.dataSources),
+    globalApiVars: reverseSymbols.reverseApiMap,
+    reverseMemberApiMap: reverseSymbols.reverseMemberApiMap,
+    libs
+  };
+
+  // 对所有 JSCode value 执行反向 this 注入
+  await walkDsl(
+    dsl,
+    async (node: NodeSchema) => {
+      await walkNode(node, async (content: any) => {
+        if (isJSCode(content)) {
+          const code = await tsFormatter(content.value);
+          let result = compositionPatch(code, patchOpts);
+          // 处理 v-for / slot 上下文变量：item / index / scope 等 → this.context.xxx
+          const contextKeys = Array.from(
+            context[node.id as string] || new Set()
+          );
+          for (const key of contextKeys) {
+            result = replacer(result, key, `this.context.${key}`);
+          }
+          content.value = result;
+        }
+      });
+    },
+    async (exp: JSExpression | JSFunction) => {
+      const code = await tsFormatter(exp.value);
+      exp.value = compositionPatch(code, patchOpts);
     }
   );
 
@@ -185,7 +332,11 @@ async function walkDsl(
     dataSources,
     methods,
     lifeCycles,
-    inject
+    inject,
+    setup,
+    provide,
+    refs,
+    reactives
   } = dsl;
 
   await walkingExp({
@@ -196,7 +347,11 @@ async function walkDsl(
     dataSources,
     methods,
     lifeCycles,
-    inject
+    inject,
+    setup,
+    provide,
+    refs,
+    reactives
   });
 
   if (Array.isArray(dsl.nodes)) {

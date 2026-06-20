@@ -498,7 +498,7 @@ export async function parseVue(options: IParseVueOptions) {
     errors = e;
     return null;
   });
-  return success(errors ? errors : dsl);
+  return errors ? fail(errors) : success(dsl);
 }
 
 export async function createRawPage(file: PageFile, opts: DevToolsOptions) {

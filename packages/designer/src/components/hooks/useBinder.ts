@@ -54,10 +54,22 @@ export function useBinder(
 
     // 组件props
     const props = current.props.map((n) =>
-      typeof n === 'string' ? `this.props.${n}` : `this.props.${n.name}`
+      typeof n === 'string' ? `this.${n}` : `this.${n.name}`
     );
     if (props.length) {
       opts.push({ title: '属性', items: props });
+    }
+
+    // refs
+    const refs = Object.keys(current.refs).map((n) => `this.${n}.value`);
+    if (refs.length) {
+      opts.push({ title: '响应式: ref', items: refs });
+    }
+
+    // reactives
+    const reactives = Object.keys(current.reactives).map((n) => `this.${n}`);
+    if (reactives.length) {
+      opts.push({ title: '响应式: reactive', items: reactives });
     }
 
     // 状态数据
@@ -88,12 +100,12 @@ export function useBinder(
       opts.push({ title: '数据源', items: dataSources });
     }
 
-    // refs
-    const refs = Object.keys(context?.$refs || {}).map(
+    // $refs
+    const $refs = Object.keys(context?.$refs || {}).map(
       (n) => `this.$refs.${n}`
     );
-    if (refs.length) {
-      opts.push({ title: 'refs', items: refs });
+    if ($refs.length) {
+      opts.push({ title: 'refs', items: $refs });
     }
 
     return opts;

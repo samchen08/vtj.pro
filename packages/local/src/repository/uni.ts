@@ -72,6 +72,19 @@ export class UniRepository {
     const { pagesJson = {} } = project.uniConfig || {};
     const filePath = resolve('src/pages.json');
     pagesJson.pages = pages;
+
+    // 收集项目依赖中配置了 easycom 的规则，合并写入 pages.json
+    const easycomDeps = (project.dependencies || []).filter(
+      (dep) => dep.easycom
+    );
+    if (easycomDeps.length) {
+      const easycom = pagesJson.easycom || (pagesJson.easycom = {});
+      const custom = easycom.custom || (easycom.custom = {});
+      for (const dep of easycomDeps) {
+        custom[dep.easycom!.key] = dep.easycom!.value;
+      }
+    }
+
     writeJsonSync(filePath, pagesJson, {
       spaces: 2,
       EOL: '\n'

@@ -27,7 +27,8 @@ const prettierOptions: Options = {
   tabWidth: 2,
   trailingComma: 'none',
   useTabs: false,
-  vueIndentScriptAndStyle: true
+  vueIndentScriptAndStyle: true,
+  removeBlankLines: true
 };
 
 export async function vueFormatter(content: string, disabled?: boolean) {

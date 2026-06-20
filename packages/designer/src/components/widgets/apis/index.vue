@@ -137,8 +137,8 @@
       settings: {
         loading: true,
         failMessage: true,
-        validSuccess: true,
-        originResponse: false,
+        validSuccess: false,
+        originResponse: true,
         injectHeaders: false,
         type: 'form',
         ...defaultSettings.value

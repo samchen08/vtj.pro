@@ -1,127 +1,96 @@
 <template>
-  <div>
-    <XContainer style="margin-bottom: 10px" wrap="wrap" gap>
-      <XPanel
-        v-for="n in 10"
-        @click="onClick"
-        :header="null"
-        width="calc(20% - 10px)"
-        shadow="always">
-        <XDataItem
-          title="应用名称"
-          :icon="icon"
-          :active="n === 1"
-          hover
-          padding></XDataItem>
-      </XPanel>
-    </XContainer>
+  <div class="data-item-demo" style="max-width: 500px">
+    <h3>基础数据项（column 排列）</h3>
+    <XDataItem title="用户名称" description="这是用户的描述信息">
+      <div class="tag">VIP 会员</div>
+    </XDataItem>
 
-    <XPanel :header="{ content: '容器标题', more: true }" card>
+    <h3>行方向 + 图片</h3>
+    <XDataItem
+      direction="row"
+      image-src="https://picsum.photos/80/80?t=1"
+      title="商品名称"
+      description="商品描述信息"
+      split>
+    </XDataItem>
+
+    <h3>带图标</h3>
+    <XDataItem :icon="VtjIconUser" title="用户中心" description="管理个人资料">
+    </XDataItem>
+
+    <h3>带操作按钮</h3>
+    <XDataItem
+      title="文件名称"
+      description="文件描述信息"
+      :actions="actions"
+      @action-click="onActionClick"
+      @action-command="onActionCommand">
+    </XDataItem>
+
+    <h3>高亮 + 悬停效果</h3>
+    <XDataItem
+      title="可选中项"
+      description="点击高亮显示"
+      active
+      hover
+      @image-click="onImageClick"
+      @title-click="onTitleClick">
+    </XDataItem>
+
+    <h3>自定义插槽</h3>
+    <XDataItem title="自定义卡片">
+      <template #image>
+        <div class="custom-image">自定义图片</div>
+      </template>
       <template #actions>
-        <XAction
-          :icon="Setting"
-          mode="text"
-          label="示意效果，需另行开发"></XAction>
+        <XAction mode="text" size="small" label="查看详情" type="primary" @click="onClick"></XAction>
       </template>
-      <XDataItem
-        v-for="n in 3"
-        @imageClick="onClick"
-        direction="column"
-        :icon="Setting"
-        image-src="https://fuss10.elemecdn.com/a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg"
-        image-height="100px"
-        image-width="100%"
-        title="占位内容加载失败"
-        description="可通过lazy开启懒加载功能， 当图片滚动到可视范围内才会加载。 可通过 scroll-container 来设置滚动容器， 若未定义，则为最近一个 overflow 值为 auto 或 scroll 的父元素。"
-        :actions="actions"
-        @actionClick="onActionClick"
-        split
-        :active="n === 1">
-        <div>
-          <ElTag size="small">系统管理</ElTag>
-          <ElTag size="small">系统管理</ElTag>
-          <ElTag size="small">系统管理</ElTag>
-        </div>
-      </XDataItem>
-      <template #footer>
-        <div>Footer</div>
-      </template>
-    </XPanel>
-  </div>
-  <div>
-    <XPanel header="容器标题">
-      <template #actions>
-        <XAction
-          :icon="Setting"
-          mode="text"
-          label="示意效果，需另行开发"></XAction>
-      </template>
-      <XTabs :items="items"> </XTabs>
-      <XDataItem
-        v-for="_n in 3"
-        direction="row"
-        :icon="Setting"
-        image-src="https://fuss10.elemecdn.com/a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg"
-        image-height="100px"
-        image-width="100%"
-        title="占位内容加载失败"
-        description="可通过lazy开启懒加载功能， 当图片滚动到可视范围内才会加载。 可通过 scroll-container 来设置滚动容器， 若未定义，则为最近一个 overflow 值为 auto 或 scroll 的父元素。"
-        :actions="actions"
-        split
-        padding
-        hover></XDataItem>
-      <template #footer>
-        <div>Footer</div>
-      </template>
-    </XPanel>
+    </XDataItem>
   </div>
 </template>
 <script lang="ts" setup>
-  import { ElTag } from 'element-plus';
-  import { Setting } from '@element-plus/icons-vue';
-  import { XTabs, XDataItem, XPanel, XContainer, XAction } from '@vtj/web';
-  import { VtjIconPlus } from '@vtj/web';
+  import { XDataItem, XAction, type ActionBarItems } from '@vtj/ui';
+  import { VtjIconUser, VtjIconEdit, VtjIconRemove } from '@vtj/icons';
 
-  const actions = [
-    {
-      label: '按钮一',
-      icon: VtjIconPlus
-    },
-    {
-      label: '按钮二',
-      icon: VtjIconPlus
-    }
+  const actions: ActionBarItems = [
+    { label: '编辑', icon: VtjIconEdit, command: 'edit' },
+    { label: '删除', icon: VtjIconRemove, type: 'danger', command: 'delete' }
   ];
 
-  const icon = {
-    icon: Setting,
-    color: '#fff',
-    background: '#409eff',
-    padding: 2,
-    radius: 4,
-    size: 30
-  };
-
-  const items = [
-    {
-      label: '选项面板一',
-      name: 1
-    },
-    {
-      label: '选项面板二',
-      name: 2
-    },
-    {
-      label: '选项面板三',
-      name: 3
-    }
-  ];
-
-  const onClick = () => {
-    console.log('clicked!');
-  };
-
-  const onActionClick = (e: any) => {
-    console.log('onActionClick', e);
-  };
+  const onClick = () => console.log('click');
+  const onActionClick = (action: any) => console.log('actionClick:', action);
+  const onActionCommand = (action: any, menu: any) => console.log('command:', action, menu);
+  const onImageClick = () => console.log('imageClick');
+  const onTitleClick = () => console.log('titleClick');
 </script>
+<style lang="scss" scoped>
+  .data-item-demo {
+    padding: 20px;
+    h3 {
+      margin: 20px 0 10px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid #eee;
+      font-size: 16px;
+      color: #333;
+    }
+    .tag {
+      display: inline-block;
+      padding: 2px 8px;
+      background: #fef0f0;
+      color: #f56c6c;
+      border-radius: 4px;
+      font-size: 12px;
+    }
+    .custom-image {
+      width: 80px;
+      height: 80px;
+      background: #f5f7fa;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #999;
+      font-size: 13px;
+      border-radius: 4px;
+    }
+  }
+</style>

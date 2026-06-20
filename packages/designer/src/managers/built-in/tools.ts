@@ -2,6 +2,7 @@ import type {
   PageFile,
   BlockFile,
   ApiSchema,
+  Dependencie,
   EnvConfig,
   I18nMessage
 } from '@vtj/core';
@@ -546,8 +547,9 @@ const refresh: ToolConfig = {
       await delay(config.activeDelayMs);
       await delay(1000);
       engine.provider.errorHandler = null;
+      const messages = error ? [error.info || '', error.stack || ''] : [];
       return error
-        ? `运行时报错：\n${error.message}\n请检查页面代码并修复`
+        ? `运行时报错：\n${error.message}\n请检查代码并修复\n---\n${messages.join('\n')}`
         : true;
     }
 };
@@ -557,7 +559,8 @@ const refresh: ToolConfig = {
  */
 const setApi: ToolConfig = {
   name: 'setApi',
-  description: '新增或更新项目接口API',
+  description: `新增或更新项目接口API
+  `,
   parameters: [
     {
       name: 'api',
@@ -583,6 +586,105 @@ const setApi: ToolConfig = {
           type: 'string',
           description:
             '接口请求方法, 可选值： get | post | put | delete | patch | jsonp'
+        },
+        category: {
+          type: 'string',
+          description: '接口分组名称,用于UI分类展示'
+        },
+        settings: {
+          type: 'object',
+          description: '请求设置配置',
+          properties: {
+            type: {
+              type: 'string',
+              description:
+                '发送数据类型, 可选值：form(表单) | json(JSON) | data(文件/FormData), 默认 form',
+              enum: ['form', 'json', 'data']
+            },
+            loading: {
+              type: 'boolean',
+              description: '请求时是否显示全局loading动画, 默认 true'
+            },
+            failMessage: {
+              type: 'boolean',
+              description: '请求失败时是否弹出错误提示, 默认 true'
+            },
+            validSuccess: {
+              type: 'boolean',
+              description:
+                '是否校验响应是否成功(调用全局validate函数), 默认 false'
+            },
+            originResponse: {
+              type: 'boolean',
+              description: '是否返回原始Axios响应对象(而非data部分), 默认 true'
+            },
+            injectHeaders: {
+              type: 'boolean',
+              description: '是否注入请求拦截器中自定义的请求头, 默认 false'
+            },
+            proxy: {
+              type: 'boolean',
+              description: '是否开启请求代理, 默认 false'
+            }
+          }
+        },
+        headers: {
+          type: 'object',
+          description: '请求头配置, JSExpression 对象',
+          properties: {
+            type: {
+              type: 'string',
+              description: '固定值',
+              enum: ['JSExpression']
+            },
+            value: {
+              type: 'string',
+              description:
+                "JS表达式字符串, 如: \"({'Content-Type': 'application/json'})\""
+            }
+          }
+        },
+        mock: {
+          type: 'boolean',
+          description: '是否开启模拟数据, 默认 false'
+        },
+        mockTemplate: {
+          type: 'object',
+          description: '模拟数据模板函数, JSFunction 对象',
+          properties: {
+            type: {
+              type: 'string',
+              description: '固定值',
+              enum: ['JSFunction']
+            },
+            value: {
+              type: 'string',
+              description:
+                'JS函数代码字符串, 签名: (req) => template, req包含url/type/data/params/query属性'
+            }
+          }
+        },
+        jsonpOptions: {
+          type: 'object',
+          description: 'jsonp请求配置(仅method为jsonp时有效)',
+          properties: {
+            jsonpCallback: {
+              type: 'string',
+              description: '回调函数名'
+            },
+            jsonpCallbackFunction: {
+              type: 'string',
+              description: '回调函数'
+            },
+            timeout: {
+              type: 'number',
+              description: '超时时间(毫秒)'
+            },
+            crossorigin: {
+              type: 'boolean',
+              description: '是否跨域'
+            }
+          }
         }
       }
     }
@@ -607,6 +709,161 @@ const getApis: ToolConfig = {
     return async () => {
       await delay(config.activeDelayMs);
       return project.apis;
+    };
+  }
+};
+
+/**
+ * 批量新增或更新API
+ */
+const setApis: ToolConfig = {
+  name: 'setApis',
+  description: '批量新增或更新项目接口API',
+  parameters: [
+    {
+      name: 'apis',
+      type: 'array',
+      description: 'ApiSchema 对象数组',
+      required: true,
+      items: {
+        type: 'object',
+        description: 'ApiSchema 对象',
+        required: true,
+        properties: {
+          name: {
+            type: 'string',
+            description: '接口名称,如：apiName',
+            required: true
+          },
+          label: {
+            type: 'string',
+            description: '接口描述说明'
+          },
+          url: {
+            type: 'string',
+            description: '接口请求url',
+            required: true
+          },
+          method: {
+            type: 'string',
+            description:
+              '接口请求方法, 可选值： get | post | put | delete | patch | jsonp'
+          },
+          category: {
+            type: 'string',
+            description: '接口分组名称,用于UI分类展示'
+          },
+          settings: {
+            type: 'object',
+            description: '请求设置配置',
+            properties: {
+              type: {
+                type: 'string',
+                description:
+                  '发送数据类型, 可选值：form(表单) | json(JSON) | data(文件/FormData), 默认 form',
+                enum: ['form', 'json', 'data']
+              },
+              loading: {
+                type: 'boolean',
+                description: '请求时是否显示全局loading动画, 默认 true'
+              },
+              failMessage: {
+                type: 'boolean',
+                description: '请求失败时是否弹出错误提示, 默认 true'
+              },
+              validSuccess: {
+                type: 'boolean',
+                description:
+                  '是否校验响应是否成功(调用全局validate函数), 默认 false'
+              },
+              originResponse: {
+                type: 'boolean',
+                description:
+                  '是否返回原始Axios响应对象(而非data部分), 默认 true'
+              },
+              injectHeaders: {
+                type: 'boolean',
+                description: '是否注入请求拦截器中自定义的请求头, 默认 false'
+              },
+              proxy: {
+                type: 'boolean',
+                description: '是否开启请求代理, 默认 false'
+              }
+            }
+          },
+          headers: {
+            type: 'object',
+            description: '请求头配置, JSExpression 对象',
+            properties: {
+              type: {
+                type: 'string',
+                description: '固定值',
+                enum: ['JSExpression']
+              },
+              value: {
+                type: 'string',
+                description:
+                  "JS表达式字符串, 如: \"({'Content-Type': 'application/json'})\""
+              }
+            }
+          },
+          mock: {
+            type: 'boolean',
+            description: '是否开启模拟数据, 默认 false'
+          },
+          mockTemplate: {
+            type: 'object',
+            description: '模拟数据模板函数, JSFunction 对象',
+            properties: {
+              type: {
+                type: 'string',
+                description: '固定值',
+                enum: ['JSFunction']
+              },
+              value: {
+                type: 'string',
+                description:
+                  'JS函数代码字符串, 签名: (req) => template, req包含url/type/data/params/query属性'
+              }
+            }
+          },
+          jsonpOptions: {
+            type: 'object',
+            description: 'jsonp请求配置(仅method为jsonp时有效)',
+            properties: {
+              jsonpCallback: {
+                type: 'string',
+                description: '回调函数名'
+              },
+              jsonpCallbackFunction: {
+                type: 'string',
+                description: '回调函数'
+              },
+              timeout: {
+                type: 'number',
+                description: '超时时间(毫秒)'
+              },
+              crossorigin: {
+                type: 'boolean',
+                description: '是否跨域'
+              }
+            }
+          }
+        }
+      }
+    }
+  ],
+  createHandler({ project, config }) {
+    return async (apis: ApiSchema[]) => {
+      if (!Array.isArray(apis)) {
+        throw new Error('调用 setApis 工具参数错误，参数要求是 ApiSchema 数组');
+      }
+      const results = [];
+      for (const api of apis) {
+        results.push(project.setApi(api));
+      }
+      await delay(config.activeDelayMs);
+      return results;
     };
   }
 };
@@ -654,11 +911,202 @@ const removeApis: ToolConfig = {
   ],
   createHandler:
     ({ project, config }) =>
-    async (apis: string[] = []) => {
-      for (const id of apis) {
-        project.removeApi(id);
+    async (apis: string[]) => {
+      if (!Array.isArray(apis)) {
+        throw new Error(
+          '调用 removeApis 工具参数错误，参数要求是 name 字符串数组'
+        );
+      }
+      for (const name of apis) {
+        project.removeApi(name);
       }
       await delay(config.activeDelayMs);
+      return true;
+    }
+};
+
+/**
+ * 获取项目依赖
+ */
+const getDeps: ToolConfig = {
+  name: 'getDeps',
+  description: '获取当前项目依赖包列表',
+  parameters: [],
+  createHandler:
+    ({ project }) =>
+    async () => {
+      return project.dependencies || [];
+    }
+};
+
+/**
+ * 批量新增或更新依赖
+ */
+const setDeps: ToolConfig = {
+  name: 'setDeps',
+  description: '批量新增或更新项目依赖包，不会操作 official: true 的内置依赖',
+  parameters: [
+    {
+      name: 'deps',
+      type: 'array',
+      description: 'Dependencie 依赖对象数组',
+      required: true,
+      items: {
+        type: 'object',
+        description: 'Dependencie 依赖对象',
+        required: true,
+        properties: {
+          package: {
+            type: 'string',
+            description: '包名, 如：vue、element-plus',
+            required: true
+          },
+          version: {
+            type: 'string',
+            description: '版本号, 如：latest、^3.4.0',
+            required: true
+          },
+          library: {
+            type: 'string',
+            description: '库导出名称, 如：Vue、ElementPlus',
+            required: true
+          },
+          urls: {
+            type: 'array',
+            description: '加载资源URL数组',
+            required: true,
+            items: {
+              type: 'string',
+              description: '资源URL, 如：@vtj/materials/deps/vue/index.umd.js'
+            }
+          },
+          platform: {
+            type: 'array',
+            description:
+              '支持平台, 可选值：web | h5 | uniapp, 不填则所有平台通用',
+            items: {
+              type: 'string',
+              enum: ['web', 'h5', 'uniapp']
+            }
+          },
+          required: {
+            type: 'boolean',
+            description: '是否必须依赖, 默认 false'
+          },
+          enabled: {
+            type: 'boolean',
+            description: '是否启用, 默认 true'
+          },
+          localeLibrary: {
+            type: 'string',
+            description: '语言包库导出名称'
+          },
+          assetsUrl: {
+            type: 'string',
+            description: '资产配置URL'
+          },
+          assetsLibrary: {
+            type: 'string',
+            description: '资产配置导出名称'
+          },
+          easycom: {
+            type: 'object',
+            description: 'UniApp easycom 自动导入配置',
+            properties: {
+              key: {
+                type: 'string',
+                description: '组件匹配规则, 如：^El[A-Z]',
+                required: true
+              },
+              value: {
+                type: 'string',
+                description:
+                  '组件路径, 如：element-plus/lib/components/\\$1/index',
+                required: true
+              }
+            }
+          }
+        }
+      }
+    }
+  ],
+  createHandler:
+    ({ project }) =>
+    async (deps: Dependencie[]) => {
+      if (!Array.isArray(deps)) {
+        throw new Error(
+          '调用 setDeps 工具参数错误，参数要求是 Dependencie 数组'
+        );
+      }
+      const skipped: string[] = [];
+      for (const dep of deps) {
+        const existing = project.dependencies.find(
+          (n: Dependencie) => n.package === dep.package
+        );
+        if (existing?.official) {
+          skipped.push(dep.package);
+          continue;
+        }
+        project.setDeps(dep);
+      }
+      if (skipped.length > 0) {
+        return {
+          success: true,
+          skipped,
+          message: `以下 official 依赖不可修改，已跳过：${skipped.join(', ')}`
+        };
+      }
+      return true;
+    }
+};
+
+/**
+ * 批量删除依赖
+ */
+const removeDeps: ToolConfig = {
+  name: 'removeDeps',
+  description: '批量删除项目依赖包，不会删除 official: true 的内置依赖',
+  parameters: [
+    {
+      name: 'packages',
+      type: 'array',
+      description: '依赖包名数组',
+      required: true,
+      items: {
+        type: 'string',
+        description: '依赖包名'
+      }
+    }
+  ],
+  createHandler:
+    ({ project }) =>
+    async (packages: string[]) => {
+      if (!Array.isArray(packages)) {
+        throw new Error(
+          '调用 removeDeps 工具参数错误，参数要求是 package 字符串数组'
+        );
+      }
+      const skipped: string[] = [];
+      for (const pkg of packages) {
+        const existing = project.dependencies.find(
+          (n: Dependencie) => n.package === pkg
+        );
+        if (!existing) {
+          continue;
+        }
+        if (existing.official) {
+          skipped.push(pkg);
+          continue;
+        }
+        project.removeDeps(existing);
+      }
+      if (skipped.length > 0) {
+        return {
+          success: true,
+          skipped,
+          message: `以下 official 依赖不可删除，已跳过：${skipped.join(', ')}`
+        };
+      }
       return true;
     }
 };
@@ -800,27 +1248,7 @@ const getGlobalStore: ToolConfig = {
  */
 const setGlobalAccess: ToolConfig = {
   name: 'setGlobalAccess',
-  description: `设置权限控制插件配置项, 配置样例：
-\`\`\`javascript  
-(app) => {
-  return {
-    session: false,
-    authKey: 'Authorization',
-    storageKey: 'ACCESS_STORAGE',
-    auth: '/#/login',
-    whiteList: (to) => true,
-    redirectParam: 'r',
-    unauthorizedCode: 401,
-    unauthorizedMessage: '登录已经失效，请重新登录！',
-    noPermissionMessage: '无权限访问该页面',
-    statusKey: 'code'
-  }
-}
-\`\`\`
-
-权限控制配置的代码是一个js函数，函数接收的app参数是 Vue的应用实例，函数返回 AccessOptions 配置项对象
-你可以调用 getSkills 工具或取 access 用法
-  `,
+  description: `设置权限控制插件配置项`,
   parameters: [
     {
       name: 'access',
@@ -876,29 +1304,7 @@ const getGlobalAxios: ToolConfig = {
  */
 const setGlobalAxios: ToolConfig = {
   name: 'setGlobalAxios',
-  description: `
-设置全局Axios请求工具配置项, 配置样例：
-\`\`\`javascript  
-(app) => {
-  return {
-    baseURL: '/',
-    timeout: 60000,
-    settings: {
-      type: 'form',
-      validSuccess: true,
-      originResponse: false,
-      loading: true,
-      failMessage: true,
-      validate: (res) => {
-        return res.data?.code === 0 || !!res.data?.success;
-      }
-    }
-  }
-}
-\`\`\`
-设置全局Axios请求工具配置项的代码是一个js函数，函数接收的app参数是 Vue的应用实例，函数返回 IRequestOptions 配置项对象
-你可以调用 getSkills 工具或取 axios 用法
-  `,
+  description: `设置全局Axios请求工具配置项`,
   parameters: [
     {
       name: 'axios',
@@ -924,21 +1330,7 @@ const setGlobalAxios: ToolConfig = {
  */
 const setGlobalRequestInterceptor: ToolConfig = {
   name: 'setGlobalRequestInterceptor',
-  description: `设置全局Axios全局请求拦截器, 代码样例：
-
-\`\`\`javascript
-(config, app) => {
-  return config;
-}
-\`\`\`
-
-axios请求拦截的代码是一个js函数，函数接收两个参数:
-- config: 请求的配置
-- app: 当前Vue应用的实例
-
-函数需要返回请求配置
-  
-`,
+  description: `设置全局Axios全局请求拦截器`,
   parameters: [
     {
       name: 'request',
@@ -979,21 +1371,7 @@ const getGlobalRequestInterceptor: ToolConfig = {
  */
 const setGlobalResponseInterceptor: ToolConfig = {
   name: 'setGlobalResponseInterceptor',
-  description: `设置全局Axios全局响应拦截器, 代码样例：
-
-\`\`\`javascript
-(res, app) => {
-  return res;
-}
-\`\`\`
-
-axios响应拦截的代码是一个js函数，函数接收两个参数:
-- res: Axios原始响应对象
-- app: 当前Vue应用的实例
-
-函数需要返回响应对象
-  
-`,
+  description: `设置全局Axios全局响应拦截器`,
   parameters: [
     {
       name: 'response',
@@ -1064,23 +1442,7 @@ const getGlobalAfterEach: ToolConfig = {
  */
 const setGlobalBeforeEach: ToolConfig = {
   name: 'setGlobalBeforeEach',
-  description: `设置全局前置路由守卫, 代码样例：
-
-\`\`\`javascript
-(to, from, next, app) => {
-  next();
-}
-\`\`\`
-
-前置路由守卫的代码是一个js函数，函数接收4个参数:
-- to: 即将要进入的目标
-- from: 当前导航正要离开的路由
-- next: 执行函数
-- app: 当前Vue应用的实例
-
-函数需要返回响应对象
-  
-`,
+  description: `设置全局前置路由守卫`,
   parameters: [
     {
       name: 'value',
@@ -1106,23 +1468,7 @@ const setGlobalBeforeEach: ToolConfig = {
  */
 const setGlobalAfterEach: ToolConfig = {
   name: 'setGlobalAfterEach',
-  description: `设置全局后置路由守卫, 代码样例：
-
-\`\`\`javascript
-(to, from, failure, app) => {
-
-}
-\`\`\`
-
-前置路由守卫的代码是一个js函数，函数接收4个参数:
-- to: 即将要进入的目标
-- from: 当前导航正要离开的路由
-- failure: 失败
-- app: 当前Vue应用的实例
-
-函数需要返回响应对象
-  
-`,
+  description: `设置全局后置路由守卫`,
   parameters: [
     {
       name: 'value',
@@ -1166,8 +1512,7 @@ const getSelectedPath: ToolConfig = {
 
 const getEnv: ToolConfig = {
   name: 'getEnv',
-  description:
-    '获取环境变量列表, 环境变量的值可用 `app.config.globalProperties.$provider.env.变量名` 或在组件中用 `this.$provider.env.变量名`获取',
+  description: '获取环境变量列表',
   parameters: [],
   createHandler:
     ({ project }) =>
@@ -1235,8 +1580,7 @@ const removeEnv: ToolConfig = {
 
 const getI18nMessage: ToolConfig = {
   name: 'getI18nMessage',
-  description:
-    '获取 vue-i18n 的 message 中英对照词条, 在组件可用 `this.$t.key` 调用词条',
+  description: '获取 vue-i18n 的 message 中英对照词条',
   parameters: [],
   createHandler:
     ({ project }) =>
@@ -1247,36 +1591,48 @@ const getI18nMessage: ToolConfig = {
 
 const createI18nMessage: ToolConfig = {
   name: 'createI18nMessage',
-  description: '新增 vue-i18n 的 message 中英对照词条',
+  description: '新增 vue-i18n 的 message 中英对照词条，支持批量创建',
   parameters: [
     {
-      name: 'message',
-      type: 'object',
-      description: 'message词条',
+      name: 'messages',
+      type: 'array',
+      description: 'message词条数组',
       required: true,
-      properties: {
-        key: {
-          type: 'string',
-          description: '词条Key',
-          required: true
-        },
-        'zh-CN': {
-          type: 'string',
-          description: '中文内容',
-          required: true
-        },
-        en: {
-          type: 'string',
-          description: '英文内容',
-          required: true
+      items: {
+        type: 'object',
+        description: 'message词条',
+        required: true,
+        properties: {
+          key: {
+            type: 'string',
+            description: '词条Key',
+            required: true
+          },
+          'zh-CN': {
+            type: 'string',
+            description: '中文内容',
+            required: true
+          },
+          en: {
+            type: 'string',
+            description: '英文内容',
+            required: true
+          }
         }
       }
     }
   ],
   createHandler:
     ({ project }) =>
-    async (message: I18nMessage) => {
-      project.i18n.messages?.push(message);
+    async (messages: I18nMessage[]) => {
+      if (!Array.isArray(messages)) {
+        throw new Error(
+          '调用 createI18nMessage 工具参数错误，参数要求是 I18nMessage 数组'
+        );
+      }
+      for (const message of messages) {
+        project.i18n.messages?.push(message);
+      }
       project.setI18n(project.i18n);
       return true;
     }
@@ -1284,20 +1640,29 @@ const createI18nMessage: ToolConfig = {
 
 const removeI18nMessage: ToolConfig = {
   name: 'removeI18nMessage',
-  description: '删除 vue-i18n 的 message 词条',
+  description: '删除 vue-i18n 的 message 词条，支持批量删除',
   parameters: [
     {
-      name: 'key',
-      type: 'string',
-      description: '词条标识key',
-      required: true
+      name: 'keys',
+      type: 'array',
+      description: '词条标识key数组',
+      required: true,
+      items: {
+        type: 'string',
+        description: '词条标识key'
+      }
     }
   ],
   createHandler:
     ({ project }) =>
-    async (key: string) => {
+    async (keys: string[]) => {
+      if (!Array.isArray(keys)) {
+        throw new Error(
+          '调用 removeI18nMessage 工具参数错误，参数要求是 key 字符串数组'
+        );
+      }
       project.i18n.messages = project.i18n.messages?.filter(
-        (n) => n.key !== key
+        (n) => !keys.includes(n.key)
       );
       project.setI18n(project.i18n);
       return true;
@@ -1319,16 +1684,7 @@ const setUniConfig: ToolConfig = {
     {
       name: 'value',
       type: 'string',
-      description: `配置内容，只内容有以下规则:      
-1. 当key为manifestJson 或 pagesJson 时，value 为 JSON字符串；
-2. 当key为css时，value为css代码字符串;
-3. 当key为生命周期名称时，value为js函数代码块，默认值为：
-\`\`\`js
-() => {
-}
-\`\`\`
-4. 当value值为null时，表示清除该名称的配置
-`,
+      description: `配置内容`,
 
       required: true
     }
@@ -1398,8 +1754,12 @@ export const TOOL_CONFIGS: ToolConfig[] = [
   refresh,
   setApi,
   getApis,
+  setApis,
   removeApi,
   removeApis,
+  getDeps,
+  setDeps,
+  removeDeps,
   setHomepage,
   setGlobalCss,
   getGlobalCss,

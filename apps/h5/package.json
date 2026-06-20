@@ -18,6 +18,7 @@
   "dependencies": {
     "@vtj/h5": "workspace:~",
     "@vtj/renderer": "workspace:~",
+    "@vtj/charts": "workspace:~",
     "vue": "~3.5.37",
     "vue-i18n": "~11.2.2",
     "vue-router": "~4.6.0"

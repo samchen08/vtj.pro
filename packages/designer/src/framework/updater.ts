@@ -302,6 +302,11 @@ export class CodeIncrementalUpdater {
     const contextLines = options?.contextLines ?? 3;
     const allowFuzzy = options?.allowFuzzyMatch ?? true;
 
+    // 空字符串搜索会导致 indexOf 无限循环，直接返回无匹配
+    if (!search) {
+      return matches;
+    }
+
     // 1. 首先尝试精确匹配
     let startIndex = 0;
     while (true) {
@@ -344,6 +349,11 @@ export class CodeIncrementalUpdater {
     contextLines: number,
     matches: MatchResult[]
   ): void {
+    // 空字符串搜索会导致 indexOf 无限循环，直接跳过
+    if (!search) {
+      return;
+    }
+
     // 简化搜索内容：移除多余空白
     const simplifiedSearch = this.removeExtraWhitespace(search);
     const simplifiedCode = this.removeExtraWhitespace(code);
