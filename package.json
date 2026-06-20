@@ -1,7 +1,7 @@
 {
   "name": "vtj",
   "private": true,
-  "description": "基于 Vue3 + Typescript 的低代码页面可视化设计器。内置低代码引擎、渲染器和代码生成器，面向前端开发者，开箱即用。 无缝嵌入本地开发工程，不改变前端开发流程和编码习惯。",
+  "description": "VTJ.PRO 是一个开源的、AI 驱动的 Vue3 企业级应用开发平台，通过 AI 智能体与可视化编排实现高效开发，并支持导出标准 Vue 代码以避免平台锁定。",
   "devDependencies": {
     "pnpm": "~10.13.0",
     "lerna": "~8.2.0",
@@ -34,6 +34,7 @@
     "sync": "node scripts/sync.mjs",
     "downloads": "node scripts/downloads.mjs",
     "test": "lerna run --no-private test",
+    "test:all": "pnpm -r --if-present --no-bail run test",
     "build": "lerna run --no-private build",
     "coverage": "lerna run --no-private coverage",
     "typedoc": "typedoc --plugin typedoc-plugin-markdown",

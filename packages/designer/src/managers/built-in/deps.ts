@@ -90,7 +90,11 @@ export const builtInDeps: Dependencie[] = [
     enabled: true,
     assetsUrl: '@vtj/materials/assets/uni-ui/index.umd.js',
     assetsLibrary: 'UniUIMaterial',
-    platform: 'uniapp'
+    platform: 'uniapp',
+    easycom: {
+      key: '^uni-(.*)',
+      value: '@dcloudio/uni-ui/lib/uni-$1/uni-$1.vue'
+    }
   },
   {
     package: '@vtj/utils',

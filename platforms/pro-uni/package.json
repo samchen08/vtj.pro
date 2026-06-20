@@ -2,7 +2,7 @@
   "name": "@vtj/pro-uni",
   "description": "VTJ.PRO",
   "private": true,
-  "version": "0.17.8",
+  "version": "0.18.0",
   "type": "module",
   "scripts": {
     "dev": "cross-env ENV_TYPE=local vite",
@@ -15,7 +15,7 @@
   },
   "devDependencies": {
     "@vtj/cli": "workspace:~",
-    "vue": "3.5.35",
+    "vue": "~3.5.37",
     "vue-router": "~4.6.0"
   },
   "files": [

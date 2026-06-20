@@ -2,7 +2,7 @@
   "name": "vtj-project-app",
   "description": "项目示例",
   "private": true,
-  "version": "0.17.8",
+  "version": "0.18.0",
   "type": "module",
   "scripts": {
     "setup": "pnpm install --unsafe-perm --registry=https://registry.npmmirror.com",
@@ -20,7 +20,7 @@
     "@vtj/plugin-ckeditor": "~0.2.1",
     "@vtj/web": "workspace:~",
     "pinia": "~3.0.2",
-    "vue": "3.5.35",
+    "vue": "~3.5.37",
     "vue-i18n": "~11.2.2",
     "vue-router": "~4.6.0"
   },

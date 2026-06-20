@@ -55,4 +55,14 @@ export interface Dependencie {
    * 资产配置导出名称
    */
   assetsLibrary?: string;
+
+  /**
+   * UniApp easycom
+   */
+  easycom?: Easycom;
+}
+
+export interface Easycom {
+  key: string;
+  value: string;
 }

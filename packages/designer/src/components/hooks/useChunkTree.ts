@@ -33,14 +33,13 @@ export function useChunkTree<T>(
   const isFullyLoaded = ref(
     initialLoad ? source.value.length <= chunkSize : false
   );
-  const isLoading = ref(false);
 
   let idleCallbackId: number | null = null;
 
   // 分片后的数据
   const chunkedData = computed(() => {
     const data = source.value;
-    return loadedCount.value ? data.slice(0, loadedCount.value) : data;
+    return data.slice(0, loadedCount.value);
   });
 
   // 是否还有更多数据
@@ -50,15 +49,13 @@ export function useChunkTree<T>(
 
   // 加载下一批数据
   const loadMore = () => {
-    if (!hasMore.value || isLoading.value) return;
+    if (!hasMore.value) return;
 
-    isLoading.value = true;
     loadedCount.value += chunkSize;
 
     if (!hasMore.value) {
       isFullyLoaded.value = true;
     }
-    isLoading.value = false;
   };
 
   // 使用 requestIdleCallback 在空闲时逐步加载
@@ -80,7 +77,7 @@ export function useChunkTree<T>(
             loadMore();
             scheduleNext();
           },
-          { timeout: 1000 }
+          { timeout: 100 }
         );
       } else {
         // 降级方案：使用 setTimeout
@@ -110,19 +107,27 @@ export function useChunkTree<T>(
   const reset = () => {
     stopIdleLoading();
     loadedCount.value = initialLoad ? chunkSize : 0;
-    isFullyLoaded.value = source.value.length <= chunkSize;
-    isLoading.value = false;
+    isFullyLoaded.value = initialLoad
+      ? source.value.length <= chunkSize
+      : false;
     startIdleLoading();
   };
 
-  // 当源数据变化时，如果新数据更少，调整 loadedCount
+  // 当源数据长度变化时，调整 loadedCount
   watch(
     () => source.value.length,
     (newLen) => {
       if (loadedCount.value > newLen) {
+        // 数组变短，将已加载数量 clamp 到新长度
         loadedCount.value = newLen;
         if (loadedCount.value >= newLen) {
           isFullyLoaded.value = true;
+        }
+      } else if (newLen > loadedCount.value) {
+        // 数组变长，取消 fully loaded 状态并继续加载剩余数据
+        if (isFullyLoaded.value) {
+          isFullyLoaded.value = false;
+          startIdleLoading();
         }
       }
     }
@@ -154,8 +159,6 @@ export function useChunkTree<T>(
     isFullyLoaded,
     /** 当前已加载数量 */
     loadedCount,
-    /** 是否正在加载 */
-    isLoading,
     /** 手动加载下一批 */
     loadMore,
     /** 重置分片 */

@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.18.0](https://gitee.com/newgateway/vtj/compare/@vtj/local@0.17.8...@vtj/local@0.18.0) (2026-06-20)
+
+
+### Bug Fixes
+
+* **build:** 修复组合式API相关插件配置问题 ([b066f81](https://gitee.com/newgateway/vtj/commits/b066f8156f730a65fd51ce3b91dff0807d4bb9e5))
+* **local:** 修复service返回错误处理逻辑和优化fixer图标导入 ([c1cb7bc](https://gitee.com/newgateway/vtj/commits/c1cb7bc9644416eab23bde06a98ba6cb02c57aad))
+* **parser:** 优化顶层声明解析及错误提示 ([4ff9a37](https://gitee.com/newgateway/vtj/commits/4ff9a370f2472a5a3f2369d20f36ea93da1ea54c))
+
+
+### Features
+
+* **coder:** 支持 easycom 依赖包免 import 及相关处理 ([fde4fd0](https://gitee.com/newgateway/vtj/commits/fde4fd0c7a9ad550a4e91ccf6719cabc6c7c1980))
+* **uniapp:** 增强 uniapp 配置与插件支持 ([5ddf092](https://gitee.com/newgateway/vtj/commits/5ddf0925120eea0456fc1100936f5e0dfb18c198))
+
+
+
+
+
 ## [0.17.8](https://gitee.com/newgateway/vtj/compare/@vtj/local@0.17.7...@vtj/local@0.17.8) (2026-06-11)
 
 **Note:** Version bump only for package @vtj/local

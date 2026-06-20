@@ -104,7 +104,7 @@ export interface AccessOptions {
 
 export interface AccessData {
   token: string;
-  permissions: Record<string, boolean>;
+  permissions: Record<string, boolean> | string[];
   [index: string]: any;
 }
 
@@ -216,13 +216,24 @@ export class Access {
     return this.data?.token;
   }
 
-  can(code: string | string[] | ((p: Record<string, boolean>) => boolean)) {
+  can(
+    code:
+      | string
+      | string[]
+      | ((p: Record<string, boolean> | string[]) => boolean)
+  ) {
     const { appName } = this.options;
     const { permissions = {} } = this.data || {};
     if (typeof code === 'function') {
       return code(permissions);
     }
     const codes = toArray(code);
+    if (Array.isArray(permissions)) {
+      return codes.every(
+        (n) =>
+          permissions.includes(n) || permissions.includes(appName + '.' + n)
+      );
+    }
     return codes.every((n) => permissions[n] || permissions[appName + '.' + n]);
   }
 
@@ -230,6 +241,12 @@ export class Access {
     const { appName } = this.options;
     const { permissions = {} } = this.data || {};
     const codes = toArray(code);
+    if (Array.isArray(permissions)) {
+      return codes.some(
+        (n) =>
+          permissions.includes(n) || permissions.includes(appName + '.' + n)
+      );
+    }
     return codes.some((n) => permissions[n] || permissions[appName + '.' + n]);
   }
 
@@ -399,7 +416,7 @@ export class Access {
           this.isTipShowing = false;
         });
     } else {
-      window.alert(content);
+      (globalThis as any).alert?.(content) ?? console.warn(content);
       return true;
     }
     return true;

@@ -168,8 +168,8 @@
     // timeout: 60000,
     // settings: {
     //   type: 'form',
-    //   validSuccess: true,
-    //   originResponse: false,
+    //   validSuccess: false,
+    //   originResponse: true,
     //   loading: true,
     //   failMessage: true,
     //   validate: (res) => {

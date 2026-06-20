@@ -74,6 +74,12 @@ export class ComponentValidator {
 
   private checkSetup(code: string) {
     const sfc = parseSFC(code);
+
+    // <script setup> 模式不需要 setup() 方法校验
+    if (sfc.isScriptSetup) {
+      return true;
+    }
+
     let setupLines = 0;
     transformScript(sfc.script, {
       ObjectMethod(path: any) {

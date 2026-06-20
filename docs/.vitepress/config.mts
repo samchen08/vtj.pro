@@ -52,7 +52,8 @@ export default defineConfig({
     ],
     footer: {
       message: 'Released under the MIT License.',
-      copyright: 'Copyright © 2024-present VTJ.PRO'
+      copyright:
+        'Copyright © 2024-present <a href="/llms.txt">VTJ.PRO</a> | <a href="/llms-full.txt">llms-full</a>'
     },
     outline: {
       level: 'deep',

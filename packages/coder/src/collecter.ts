@@ -21,16 +21,27 @@ export class Collecter {
   public members: string[] = [];
   public urlSchemas: Record<string, NodeFromUrlSchema> = {};
   public blockPlugins: Record<string, NodeFromPlugin> = {};
+  /** 配置了 easycom 的依赖包名集合，出码时不需要 import */
+  public easycomPackages: Set<string> = new Set();
   private libraryRegex: RegExp[] = [];
 
   constructor(
     public dsl: BlockSchema,
     public dependencies: Dependencie[]
   ) {
+    this.collectEasycom();
     this.libraryRegex = this.collectLibrary();
     this.walk(dsl);
     this.walkNodes(dsl);
     this.members = this.getLibraryMember();
+  }
+
+  private collectEasycom() {
+    for (const dep of this.dependencies) {
+      if (dep.easycom?.key && dep.easycom?.value && dep.package) {
+        this.easycomPackages.add(dep.package);
+      }
+    }
   }
   private collectLibrary() {
     return this.dependencies
@@ -55,7 +66,7 @@ export class Collecter {
         const packageName = this.dependencies.find(
           (n) => n.library === library
         )?.package;
-        if (packageName) {
+        if (packageName && !this.easycomPackages.has(packageName)) {
           const imports =
             this.imports[packageName] ||
             (this.imports[packageName] = new Set());

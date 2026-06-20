@@ -11,9 +11,9 @@ const canUseNewFunction = (() => {
   }
 })();
 
-function triggerError(err: any) {
-  if (typeof window === 'undefined') return;
-  const win: any = window[0] || window;
+export function triggerError(err: any) {
+  if (typeof globalThis === 'undefined') return;
+  const win: any = (globalThis as any)[0] || globalThis;
   if (win.__simulator__) {
     try {
       const handler = win.__simulator__.engine.provider.errorHandler;
@@ -100,6 +100,9 @@ export function isJSCode(data: unknown): data is JSExpression | JSFunction {
 
 export function JSCodeToString(data: unknown) {
   if (isJSCode(data)) {
+    if (data.value.startsWith('{')) {
+      return `(${data.value})`;
+    }
     return data.value;
   } else {
     return JSON.stringify(data);

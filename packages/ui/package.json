@@ -1,7 +1,7 @@
 {
   "name": "@vtj/ui",
   "private": false,
-  "version": "0.17.8",
+  "version": "0.18.0",
   "type": "module",
   "keywords": [
     "低代码引擎",
@@ -43,8 +43,9 @@
     "@types/qrcode": "^1.5.5",
     "@types/sortablejs": "~1.15.8",
     "@vtj/cli": "workspace:~",
+    "@vue/test-utils": "~2.4.5",
     "qrcode": "~1.5.3",
-    "vue": "3.5.35",
+    "vue": "~3.5.37",
     "vue-router": "~4.6.0"
   },
   "files": [

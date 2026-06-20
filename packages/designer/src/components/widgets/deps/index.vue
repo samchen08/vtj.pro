@@ -15,7 +15,7 @@
     <XDialogForm
       v-model="visible"
       width="600px"
-      height="500px"
+      height="520px"
       :title="title"
       :model="model"
       :submitMethod="submitMethod"
@@ -23,9 +23,21 @@
         disabled: readonly,
         tooltipMessage: false
       }">
-      <XField name="package" label="包名" required :disabled="!!model"></XField>
-      <XField name="version" label="版本" required></XField>
-      <XField name="library" label="导出名称" required></XField>
+      <XField
+        name="package"
+        label="包名"
+        required
+        :disabled="!!isEdit || model.official"></XField>
+      <XField
+        name="version"
+        label="版本"
+        required
+        :disabled="model.official"></XField>
+      <XField
+        name="library"
+        label="导出名称"
+        required
+        :disabled="model.official"></XField>
       <XField
         name="urls"
         label="资源文件"
@@ -33,11 +45,32 @@
         :props="{ rows: 3 }"
         tip="多个资源可以换行输入"
         @keyup.enter.stop
-        required>
+        required
+        :disabled="model.official">
       </XField>
 
-      <XField name="assetsUrl" label="物料URL"></XField>
-      <XField name="assetsLibrary" label="物料名称"></XField>
+      <XField
+        name="assetsUrl"
+        label="物料URL"
+        :disabled="model.official"></XField>
+      <XField
+        name="assetsLibrary"
+        label="物料名称"
+        :disabled="model.official"></XField>
+      <div class="row" v-if="easycomEnabled">
+        <XField
+          name="easycom.key"
+          label="easycom"
+          placeholder="^uni-(.*)"
+          :disabled="model.official">
+        </XField>
+        <XField
+          name="easycom.value"
+          placeholder="@dcloudio/uni-ui/lib/uni-$1/uni-$1.vue"
+          label-width="10px"
+          :disabled="model.official">
+        </XField>
+      </div>
     </XDialogForm>
   </Panel>
 </template>
@@ -45,6 +78,7 @@
   import { ref, computed } from 'vue';
   import type { Dependencie } from '@vtj/core';
   import { XDialogForm, XField } from '@vtj/ui';
+
   import { Panel, Item } from '../../shared';
   import { useDeps } from '../../hooks';
 
@@ -59,9 +93,18 @@
   // 编辑表单数据
   const model = ref<any>({});
 
+  const isEdit = ref(false);
+
   // 弹窗标题
   const title = computed(() => {
     return readonly.value ? '查看依赖' : model.value ? '编辑依赖' : '新增依赖';
+  });
+
+  const isUniapp = computed(() => engine.project.value?.platform === 'uniapp');
+  const easycomEnabled = computed(() => {
+    return (
+      !!model.value?.assetsLibrary && !!model.value?.assetsUrl && isUniapp.value
+    );
   });
 
   const getActions = (dep: Dependencie): any[] => {
@@ -87,7 +130,8 @@
   const onAdd = () => {
     readonly.value = false;
     visible.value = true;
-    model.value = null;
+    model.value = {};
+    isEdit.value = false;
   };
 
   const onView = (dep: Dependencie) => {
@@ -97,6 +141,7 @@
       urls: dep.urls.join('\n')
     };
     visible.value = true;
+    isEdit.value = false;
   };
 
   const onAction = (dep: Dependencie, e: any) => {
@@ -109,6 +154,7 @@
       };
       readonly.value = false;
       visible.value = true;
+      isEdit.value = true;
     }
 
     if (e.name === 'remove') {
@@ -120,3 +166,13 @@
     name: 'DepsWidget'
   });
 </script>
+
+<style lang="scss">
+  .row {
+    display: flex;
+    .el-form-item {
+      flex-grow: 1;
+      width: 50%;
+    }
+  }
+</style>

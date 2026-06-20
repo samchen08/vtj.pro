@@ -1,17 +1,21 @@
 import { type BlockPropDataType } from '@vtj/core';
 import { merge, logger } from '@vtj/utils';
-import { builtInSetters, defaultSetter } from './built-in';
+import { builtInSetters, defaultSetter } from './built-in/setters';
 import { type Setter } from '../framework';
 
-class SetterManager {
+export class SetterManager {
   private setters: Record<string, Setter> = {};
   public defaultSetter: Setter = defaultSetter;
-  constructor() {
-    this.setters = this.createSetters();
+  constructor(
+    builtIn: Setter[] = builtInSetters,
+    defaultS: Setter = defaultSetter
+  ) {
+    this.defaultSetter = defaultS;
+    this.setters = this.createSetters(builtIn);
   }
-  private createSetters() {
+  private createSetters(builtIn: Setter[]) {
     const setters: Record<string, Setter> = {};
-    for (const item of builtInSetters) {
+    for (const item of builtIn) {
       setters[item.name] = item;
     }
     return setters;

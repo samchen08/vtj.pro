@@ -189,6 +189,12 @@ export class Provider extends Base {
         }
       }
       const Mock = getMock();
+      if (!Mock) {
+        console.warn(
+          '[@vtj/renderer]',
+          '项目缺少mockjs, 你需要安装mockjs依赖，并在应用的 main.ts 中添加 mockjs 导入，确保 window.Mock 可用'
+        );
+      }
       return Mock?.mock(template);
     };
   }
@@ -213,7 +219,7 @@ export class Provider extends Base {
       throw new Error('project is null');
     }
     const { apis = [], meta = [], env = [] } = this.project as ProjectSchema;
-    const _window = window as any;
+    const _window = globalThis as any;
     if (_window) {
       // 解决CkEditor错误提示问题
       _window.CKEDITOR_VERSION = undefined;
@@ -418,22 +424,26 @@ export class Provider extends Base {
       const message = `[ ${name} ] ${msg} ${info}`;
       const excludes = ['getComputedStyle', 'ResizeObserver'];
       if (excludes.some((n) => message.includes(n))) return;
-      console.error(
-        '[VTJ Error]:',
-        {
+      try {
+        const error = {
+          message,
           err,
           instance,
-          info
-        },
-        err?.stack
-      );
-      if (this.errorHandler) {
-        this.errorHandler(err);
+          info: JSON.stringify(info),
+          stack: err?.stack
+        };
+        console.error('[VTJ Error]:', error, err?.stack);
+
+        if (this.errorHandler) {
+          this.errorHandler(error);
+        }
+      } catch (e) {
+        console.warn('[provider.setErrorHandler]', e);
       }
       if (this.adapter.notify) {
         this.adapter.notify(message, '组件渲染错误', 'error');
       }
-    }, 300);
+    }, 200);
   }
 
   /**
@@ -489,7 +499,7 @@ export class Provider extends Base {
     ) {
       this.initGlobals(this.project?.globals || {}, {
         app,
-        window,
+        window: globalThis,
         adapter: this.adapter,
         library: this.library,
         mode: this.mode
@@ -512,6 +522,14 @@ export class Provider extends Base {
     }
 
     app.config.globalProperties.installed = installed;
+
+    this.setGlobals(app.config.globalProperties);
+  }
+
+  setGlobals(globals: Record<string, any> = {}) {
+    for (const [key, val] of Object.entries(globals)) {
+      this.globals[key] = val;
+    }
   }
 
   getFile(id: string): PageFile | BlockFile | null {
@@ -611,10 +629,11 @@ export class Provider extends Base {
     const options = {
       mode,
       Vue: library.Vue,
+      UniApp: library.UniApp,
       components,
       libs: library,
       apis,
-      window,
+      window: globalThis,
       ...opts
     };
 
@@ -717,7 +736,7 @@ export class Provider extends Base {
    */
   definePluginComponent(from: NodeFromPlugin) {
     return defineAsyncComponent(async () => {
-      return (await getPlugin(from, window)) as any;
+      return (await getPlugin(from, globalThis)) as any;
     });
   }
 
@@ -730,7 +749,7 @@ export class Provider extends Base {
     const opts = Object.assign(
       {
         adapter: this.adapter,
-        window: window
+        window: globalThis
       },
       options
     );
@@ -801,4 +820,34 @@ export function useProvider(options: UseProviderOptions = {}): Provider {
     }
   }
   return provider;
+}
+
+export function useGlobals() {
+  const provider = inject(providerKey, null);
+  return provider?.globals ?? {};
+}
+
+export function useStore() {
+  const globals = useGlobals();
+  return globals.$store || {};
+}
+
+export function usePinia() {
+  const globals = useGlobals();
+  return globals.$pinia || {};
+}
+
+export function useRequest() {
+  const globals = useGlobals();
+  return globals.$request;
+}
+
+export function useLibs() {
+  const globals = useGlobals();
+  return globals.$libs || {};
+}
+
+export function useApis() {
+  const globals = useGlobals();
+  return globals.$apis || {};
 }

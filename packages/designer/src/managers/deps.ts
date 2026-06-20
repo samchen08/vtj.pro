@@ -1,8 +1,8 @@
 import type { Dependencie, PlatformType } from '@vtj/core';
 import { toArray } from '@vtj/utils';
-import { builtInDeps } from './built-in';
+import { builtInDeps } from './built-in/deps';
 
-class DepsManager {
+export class DepsManager {
   constructor(private deps: Dependencie[] = builtInDeps) {}
 
   /**
