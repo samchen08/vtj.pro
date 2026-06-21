@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.18.1](https://gitee.com/newgateway/vtj/compare/@vtj/parser@0.18.0...@vtj/parser@0.18.1) (2026-06-21)
+
+
+### Bug Fixes
+
+* **parser:**  修复 TS 表达式节点原地转换避免生成残缺 TS 语法 ([767112e](https://gitee.com/newgateway/vtj/commits/767112e95a592ea21c7b64e2b31c67491521b72a))
+
+
+
+
+
 # [0.18.0](https://gitee.com/newgateway/vtj/compare/@vtj/parser@0.17.8...@vtj/parser@0.18.0) (2026-06-20)
 
 
