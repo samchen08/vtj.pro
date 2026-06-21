@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.18.2](https://gitee.com/newgateway/vtj/compare/@vtj/parser@0.18.1...@vtj/parser@0.18.2) (2026-06-21)
+
+
+### Bug Fixes
+
+* **parser:** 优化事件处理函数的AST判断和包装逻辑 ([16eff0c](https://gitee.com/newgateway/vtj/commits/16eff0cb2ac9b96f019f34e63b40613e53172119))
+
+
+
+
+
 ## [0.18.1](https://gitee.com/newgateway/vtj/compare/@vtj/parser@0.18.0...@vtj/parser@0.18.1) (2026-06-21)
 
 

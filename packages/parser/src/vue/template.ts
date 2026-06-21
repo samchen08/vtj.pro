@@ -219,10 +219,50 @@ function getEvents(
             modifiers
           };
         } else {
-          const exp = (item.exp as any)?.ast?.type === 'CallExpression';
+          const ast = (item.exp as any)?.ast;
+          const astType = ast?.type;
+          const isCallExp = astType === 'CallExpression';
+          const isArrowFunc = astType === 'ArrowFunctionExpression';
+          const isFuncExp = astType === 'FunctionExpression';
+          // 方法引用（裸标识符或成员访问），不应包装
+          const isIdentifier = astType === 'Identifier';
+          const isMemberExp = astType === 'MemberExpression';
+          // 无 AST 时的回退判断：纯标识符/成员链视为方法引用
+          const isSimpleRef =
+            !ast && /^[a-zA-Z_$][\w$]*(?:\.[a-zA-Z_$][\w$]*)*$/.test(code);
+
+          let handler: JSExpression | JSFunction;
+          if (isCallExp) {
+            // 函数调用表达式：如 handleClick() → JSExpression
+            handler = getJSExpression(code);
+          } else if (isIdentifier || isMemberExp || isSimpleRef) {
+            // 方法引用：如 increment 或 obj.method → 保持原样，后续由 compositionPatch 注入 this.
+            handler = getJSFunction(code);
+          } else if (isArrowFunc || isFuncExp) {
+            // 已是函数表达式，检查是否为无参简单方法引用包装
+            // () => testFunction 应解包为 testFunction
+            const body = ast?.body;
+            const params = ast?.params;
+            if (
+              body &&
+              body.type === 'Identifier' &&
+              (!params || params.length === 0)
+            ) {
+              handler = getJSFunction(body.name);
+            } else {
+              handler = getJSFunction(code);
+            }
+          } else {
+            // 内联语句/表达式：如 ++count → 包装为箭头函数
+            // 若引用 $event 则保留参数，否则用 () =>
+            const hasDollarEvent = /\$event\b/.test(code);
+            const prefix = hasDollarEvent ? '($event) => ' : '() => ';
+            handler = getJSFunction(`${prefix}${code}`);
+          }
+
           events[item.arg.content] = {
             name: item.arg.content,
-            handler: exp ? getJSExpression(code) : getJSFunction(code),
+            handler,
             modifiers
           };
         }
