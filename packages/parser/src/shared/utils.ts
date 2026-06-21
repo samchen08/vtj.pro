@@ -37,6 +37,7 @@ export function generateCode(node: Node) {
   if (!node) return '';
   try {
     // 剥离 TypeScript 类型标注（typeAnnotation / returnType / typeParameters）
+    // 同时将 TSAsExpression / TSTypeAssertion / TSNonNullExpression 原地转换为纯 JS
     stripTypeAnnotations(node);
 
     const func = (generate as any).default || generate;
@@ -61,10 +62,60 @@ export function generateCode(node: Node) {
  * 递归遍历 AST 节点，删除 TypeScript 类型标注属性
  * 确保 @babel/generator 生成的是纯 JavaScript
  */
+/**
+ * TS 特定节点类型集合 — 这些节点需要被原地转换为内部 expression
+ * 单纯删除 typeAnnotation / typeParameters 等属性不足以保证 @babel/generator 产出纯 JS，
+ * 因为生成器看到节点 type 仍是 'TSAsExpression' 等，会尝试输出 as / <T> / ! 等 TS 语法
+ */
+const TS_EXPRESSION_WRAPPER_TYPES = new Set([
+  'TSAsExpression',
+  'TSTypeAssertion',
+  'TSNonNullExpression'
+]);
+
 function stripTypeAnnotations(node: any): void {
   if (!node || typeof node !== 'object') return;
   if (Array.isArray(node)) {
     for (const item of node) stripTypeAnnotations(item);
+    return;
+  }
+
+  // 对 TSAsExpression / TSTypeAssertion / TSNonNullExpression 这类包装节点，
+  // 必须原地转换为内部表达式，而不能仅删除 typeAnnotation 属性
+  // 否则 @babel/generator 仍会产出如 "[] as " 的残缺 TS 语法
+  if (TS_EXPRESSION_WRAPPER_TYPES.has(node.type) && node.expression) {
+    const expr = node.expression;
+    // 先递归清理内部表达式
+    stripTypeAnnotations(expr);
+    // 将当前节点原地转换为 expression 的类型
+    // 保留原节点的 loc/start/end（避免破坏位置信息）
+    const savedMeta = {
+      start: node.start,
+      end: node.end,
+      loc: node.loc
+    };
+    // 复制 expression 的核心数据属性到当前节点
+    for (const key of Object.keys(expr)) {
+      if (
+        key === 'type' ||
+        key === 'loc' ||
+        key === 'start' ||
+        key === 'end' ||
+        key === 'extra' ||
+        key === 'leadingComments' ||
+        key === 'trailingComments' ||
+        key === 'innerComments'
+      )
+        continue;
+      node[key] = expr[key];
+    }
+    node.type = expr.type;
+    node.start = savedMeta.start;
+    node.end = savedMeta.end;
+    node.loc = savedMeta.loc;
+    // 清理残留的 TS 属性
+    delete node.typeAnnotation;
+    delete node.typeParameters;
     return;
   }
 
