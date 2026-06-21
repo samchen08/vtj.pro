@@ -1,5 +1,6 @@
 # VTJ.PRO 新闻动态
 
+- [VTJ.PRO v2.5.0 重磅发布：Composition API 全面升级，实现 parser→coder→renderer 精确双向闭环](./2026-06-22.md)
 - [Vue 低代码平台的「二次生长」：深入测评 VTJ 四个核心包的 Composition API 模式升级](./2026-06-17.md)
 - [VTJ.PRO更新：多人同时改应用、AI一次传多图、一键克隆项目](./2026-06-05.md)
 - [关于旧版平台停止服务及升级至新版的公告](./2026-03-02.md)
