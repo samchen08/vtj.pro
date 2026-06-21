@@ -525,7 +525,11 @@ const getCurrentFileContent: ToolConfig = {
         const projectDsl = project.toDsl();
         const dsl = await service.getFile(file.id, projectDsl);
         dsl.__VERSION__ = 'version';
-        return await service.genVueContent(projectDsl, dsl);
+        const content = await service.genVueContent(projectDsl, dsl);
+        if (!content) {
+          throw new Error('无法查看文件内容，可能文件存在错误');
+        }
+        return content;
       }
       throw new Error('当前没有打开的文件');
     }

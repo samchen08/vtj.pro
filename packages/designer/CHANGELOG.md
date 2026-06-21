@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.18.1](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.18.0...@vtj/designer@0.18.1) (2026-06-21)
+
+
+### Bug Fixes
+
+* **designer:** 处理文件内容为空时抛出错误 ([f5b8b0e](https://gitee.com/newgateway/vtj/commits/f5b8b0e530bfc0d18d63c29d84c6417807c27f9a))
+
+
+
+
+
 # [0.18.0](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.17.8...@vtj/designer@0.18.0) (2026-06-20)
 
 

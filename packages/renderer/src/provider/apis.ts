@@ -138,7 +138,7 @@ export interface MockCallbackOptions {
 
 export function mockApi(Mock: any, schema: ApiSchema) {
   if (!schema.mock) return;
-  const { url, mockTemplate, method = 'get' } = schema;
+  const { url, mockTemplate, method = 'get', settings = {} } = schema;
   if (url && mockTemplate) {
     try {
       const path = isUrl(url) ? new URL(url).pathname : url;
@@ -150,10 +150,23 @@ export function mockApi(Mock: any, schema: ApiSchema) {
         method.toLowerCase(),
         (options: MockCallbackOptions) => {
           const query = urlUtil.parse(options.url) || {};
-          const data =
+          const type = settings.type || 'form';
+          let data =
             options.body instanceof FormData
               ? formDataToJson(options.body)
               : options.body;
+
+          if (typeof data === 'string') {
+            if (type === 'json') {
+              try {
+                data = JSON.parse(data);
+              } catch (e) {
+                console.warn('[Mock.mock]', e);
+              }
+            } else {
+              data = urlUtil.parse(data);
+            }
+          }
           const oPath = isUrl(options.url)
             ? new URL(options.url).pathname
             : options.url.split('?')[0];

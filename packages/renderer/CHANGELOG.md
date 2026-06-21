@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.18.1](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.18.0...@vtj/renderer@0.18.1) (2026-06-21)
+
+
+### Bug Fixes
+
+* **parser:** 防止模板字符串中的 HTML 被误解析 ([c4fd2a4](https://gitee.com/newgateway/vtj/commits/c4fd2a479ff35b53c77edf8530d82f26062af7b6))
+
+
+
+
+
 # [0.18.0](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.17.8...@vtj/renderer@0.18.0) (2026-06-20)
 
 

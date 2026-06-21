@@ -167,7 +167,7 @@ const fullUrl = `${__provider.env.BASE_URL}/api/users`;
     async loadData() {
       this.loading = true;
       const res = await __apis['getDashboard']();
-      this.data = res.data || null;
+      this.data = res.data?.data || null;
       this.loading = false;
     }
   });

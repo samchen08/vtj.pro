@@ -24,7 +24,7 @@ const settings: IRequestSettings = {
   type: 'json',
   validSuccess: true,
   originResponse: false,
-  failMessage: false,
+  failMessage: true,
   validate: (res: any) => {
     return res.data?.code === 0;
   }

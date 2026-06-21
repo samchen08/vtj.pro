@@ -156,7 +156,7 @@ const __apis = createApis({
 // 在组件中使用
 onMounted(async () => {
   const res = await __apis.getUserList();
-  __state.userList = res.data || [];
+  __state.userList = res.data?.data || [];
 });
 
 // 带路径参数调用
@@ -177,7 +177,7 @@ const getUserList = createApi('/api/users');
 const { data, error, loading, reload } = useApi(getUserList());
 
 // 带数据转换
-const { data } = useApi(getUserList(), (res) => res.data?.list || []);
+const { data } = useApi(getUserList(), (res) => res.data?.data?.list || []);
 ```
 
 ### 2.5 params 与 query 的职责区分
@@ -506,7 +506,7 @@ const exportData = createApi('/api/users/export');
 const __state = reactive({
   async exportUsers() {
     const res = await exportData();
-    downloadJson(res.data, 'users.json');
+    downloadJson(res.data?.data, 'users.json');
   }
 });
 ```
@@ -854,7 +854,7 @@ onMounted(async () => {
   __state.loading = true;
   try {
     const res = await __apis.getUserList();
-    __state.users = res.data || [];
+    __state.users = res.data?.data || [];
 
     // 缓存 5 分钟
     storage.save('userList', __state.users, {
@@ -889,12 +889,12 @@ const __state = reactive({
     formData.append('file', file);
     const res = await uploadFile(formData);
 
-    return res.data;
+    return res.data?.data;
   },
 
   async handleExport() {
     const res = await __apis.exportData();
-    downloadBlob(res.data, 'export.xlsx', 'application/vnd.ms-excel');
+    downloadBlob(res.data?.data, 'export.xlsx', 'application/vnd.ms-excel');
   }
 });
 ```
@@ -929,7 +929,7 @@ onMounted(async () => {
 
 ## 十五、注意事项
 
-1. **request 默认返回 `res.data.data`：** 除非设置 `originResponse: true` 才会返回完整的 axios 响应对象
+1. **request 默认 `originResponse: true`：** 默认返回完整的 axios 响应对象，设置 `originResponse: false` 才会自动提取并返回 `res.data?.data`
 2. **query 与 params 语义区分：** `query` 用于路径参数替换，请求体数据使用 `data` 字段
 3. **storage 支持过期机制：** 过期时间单位为毫秒，0 表示永不过期
 4. **isClient 用于 SSR 兼容：** 在非浏览器环境中访问 `window` 前先判断 `isClient`
