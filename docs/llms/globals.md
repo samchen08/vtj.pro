@@ -53,7 +53,7 @@ const handleLogin = async () => {
     username: __state.username,
     password: __state.password
   });
-  __store.setUser(res.data);
+  __store.setUser(res.data?.data);
 };
 ```
 
@@ -118,7 +118,7 @@ const fetchData = async () => {
     url: '/api/users',
     method: 'get'
   });
-  __state.list = res.data;
+  __state.list = res.data?.data;
 };
 
 // POST 请求（带参数）
@@ -131,7 +131,7 @@ const submitForm = async () => {
       email: __state.email
     }
   });
-  return res.data;
+  return res.data?.data;
 };
 
 // 带查询参数的 GET
@@ -141,7 +141,7 @@ const searchUsers = async (keyword) => {
     method: 'get',
     data: { keyword, page: __state.page }
   });
-  return res.data;
+  return res.data?.data;
 };
 ```
 
@@ -171,7 +171,7 @@ const loadUserDetail = async (id) => {
       url: `/api/users/${id}`,
       method: 'get'
     });
-    __state.user = res.data;
+    __state.user = res.data?.data;
   } finally {
     __state.loading = false;
   }
