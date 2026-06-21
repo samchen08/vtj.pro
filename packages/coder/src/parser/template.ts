@@ -470,6 +470,16 @@ function getDiretives(directives: NodeDirective[] = []) {
   };
 }
 
+/**
+ * 转义 HTML 特殊字符，防止字符串 children 中的标签被 Vue 模板编译器误解析为组件/元素
+ */
+function escapeHtml(text: string): string {
+  return text
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+}
+
 function parseNodeChildren(
   children: NodeChildren,
   computedKeys: string[],
@@ -478,7 +488,7 @@ function parseNodeChildren(
   parent?: NodeSchema
 ) {
   if (typeof children === 'string') {
-    return children;
+    return escapeHtml(children);
   }
 
   if (isJSExpression(children)) {
