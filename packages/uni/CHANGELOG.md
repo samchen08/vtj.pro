@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.18.0](https://gitee.com/newgateway/vtj/compare/@vtj/uni@0.17.8...@vtj/uni@0.18.0) (2026-06-20)
+
+
+### Features
+
+* **parser:** 支持 uniapp 专用生命周期钩子 ([17d8663](https://gitee.com/newgateway/vtj/commits/17d866383ec16e6cbbaade2a81c0963630aba628))
+
+
+
+
+
 ## [0.17.8](https://gitee.com/newgateway/vtj/compare/@vtj/uni@0.17.7...@vtj/uni@0.17.8) (2026-06-11)
 
 **Note:** Version bump only for package @vtj/uni

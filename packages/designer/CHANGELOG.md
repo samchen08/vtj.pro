@@ -3,6 +3,37 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.18.0](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.17.8...@vtj/designer@0.18.0) (2026-06-20)
+
+
+### Bug Fixes
+
+* **ai:** 调整聊天输入最小字符限制 ([fa7f5c5](https://gitee.com/newgateway/vtj/commits/fa7f5c5cdddf671a1d2c23e02e87ba03d280262d))
+* **app:** 调整全局请求配置默认值以优化响应处理 ([fea69bc](https://gitee.com/newgateway/vtj/commits/fea69bc59341437235cb936d4b8e352a75833b89))
+* **chat-input:** 修复文件识别失败时的提示与阻止发送 ([4011c70](https://gitee.com/newgateway/vtj/commits/4011c70659f3df25b439d6191f4da25676f9a976))
+* **coder:** 移除模板中的 ts-nocheck 注释以提高代码质量 ([4a011d1](https://gitee.com/newgateway/vtj/commits/4a011d191b29c7421f01f84cfd9ca9bd67a220ae))
+* **composer:** 修复 dataSources 解析时的符号转换问题 ([b0b5cd6](https://gitee.com/newgateway/vtj/commits/b0b5cd6b660c5b7c9731df3421f19181efbde220))
+* **core:** 修复 BlockModel 更新时 setup 属性赋值问题 ([cf4ff4a](https://gitee.com/newgateway/vtj/commits/cf4ff4aa8c1d881ee3b89b3f0edd0bfe52d1460f))
+* **parser:** 优化顶层声明解析及错误提示 ([4ff9a37](https://gitee.com/newgateway/vtj/commits/4ff9a370f2472a5a3f2369d20f36ea93da1ea54c))
+* **renderer:** 修复 Composition 生命周期执行错误处理和平台配置 ([a9ed1cb](https://gitee.com/newgateway/vtj/commits/a9ed1cb06a1a69e004331b5d94731c3d60ec9f5b))
+* **widgets:** 修复状态字段的条件判断逻辑 ([612457a](https://gitee.com/newgateway/vtj/commits/612457ad4375d67480cbeca476aa71dbb4f782f8))
+
+
+### Features
+
+* **core:** 支持composition api相关响应式状态管理 ([db0ea9f](https://gitee.com/newgateway/vtj/commits/db0ea9fca1a282dd733fc76da3c56fad06fb9d54))
+* **core:** 支持计算属性同时使用函数与表达式 ([aa72e07](https://gitee.com/newgateway/vtj/commits/aa72e07eae5d976c6640dc7dee3cc54f9da8cdee))
+* **deps:** 添加 easycom 支持并完善依赖编辑功能 ([fa9999d](https://gitee.com/newgateway/vtj/commits/fa9999d5c2b6c808cbef484e9eb32337d967f60c))
+* **designer:** add icons to workspace tabs based on file type ([a32f343](https://gitee.com/newgateway/vtj/commits/a32f343e4b493a95d187bbe2e2a0cc8b7a93dc3a))
+* **designer:** support per-item actions and add Setup component for scripts ([3d5ddb1](https://gitee.com/newgateway/vtj/commits/3d5ddb166cb033e44e9f0d119811e9a1bc88b0f9))
+* **parser:** 支持 uniapp 专用生命周期钩子 ([17d8663](https://gitee.com/newgateway/vtj/commits/17d866383ec16e6cbbaade2a81c0963630aba628))
+* **renderer:** 添加renderer组件及暗黑模式组合函数支持 ([8b7abe1](https://gitee.com/newgateway/vtj/commits/8b7abe1fabc0615e5b84c4a306923d3bd603a595))
+* **runtime:** 集成 UniApp 生命周期支持 ([c28deb2](https://gitee.com/newgateway/vtj/commits/c28deb261737d6609b0cb43223f86e4bf7c9e5bf))
+
+
+
+
+
 ## [0.17.8](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.17.7...@vtj/designer@0.17.8) (2026-06-11)
 
 **Note:** Version bump only for package @vtj/designer

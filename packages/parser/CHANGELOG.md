@@ -3,6 +3,39 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.18.0](https://gitee.com/newgateway/vtj/compare/@vtj/parser@0.17.8...@vtj/parser@0.18.0) (2026-06-20)
+
+
+### Bug Fixes
+
+* **local:** 修复service返回错误处理逻辑和优化fixer图标导入 ([c1cb7bc](https://gitee.com/newgateway/vtj/commits/c1cb7bc9644416eab23bde06a98ba6cb02c57aad))
+* **parser:** 优化 composable 去重和 useProvider 过滤逻辑 ([5bcc2b6](https://gitee.com/newgateway/vtj/commits/5bcc2b6c4eb989b5de2ff6951f26bbb25683be55))
+* **parser:** 优化 composable 识别与库名映射逻辑 ([4f01bda](https://gitee.com/newgateway/vtj/commits/4f01bda197e0aaac9e8b6cbe40813ebf2dcb9b4e))
+* **parser:** 优化顶层声明解析及错误提示 ([4ff9a37](https://gitee.com/newgateway/vtj/commits/4ff9a370f2472a5a3f2369d20f36ea93da1ea54c))
+* **parser:** 修复 ref/computed 属性访问匹配逻辑 ([2d83a65](https://gitee.com/newgateway/vtj/commits/2d83a650b8eef251f281d064aaff8c394b10174b))
+* **parser:** 修复 setup 函数中异步处理的组装逻辑 ([46b72a8](https://gitee.com/newgateway/vtj/commits/46b72a8d2910c1dfb1b57d0c35995f65c3f9d7d8))
+* **parser:** 修复模板字符串和表达式处理逻辑 ([9738c24](https://gitee.com/newgateway/vtj/commits/9738c24c239b1869174beffd87c58c95b943ff00))
+* **parser:** 修正 Composition 模式 props 映射及全局 API 变量处理 ([2834fc6](https://gitee.com/newgateway/vtj/commits/2834fc6e235230592f025e9ce20e9d1f53f4f091))
+* **parser:** 修正 Vue 组合式函数中 _ctx 前缀的转换逻辑 ([d59699d](https://gitee.com/newgateway/vtj/commits/d59699d6c7609d9c604269694e8cc4f2c86d08dd))
+* **parser:** 修正删除可选参数标志的逻辑 ([e4b78c6](https://gitee.com/newgateway/vtj/commits/e4b78c6b9ccc571ad229d8b46648bf5844912f42))
+* **parser:** 排除内部变量和优化全局 API 解析逻辑 ([60be7b6](https://gitee.com/newgateway/vtj/commits/60be7b67ca284a57ff3e01a7c52d377b1278e096))
+* **parser:** 统一 ref/computed 变量访问形式处理 ([7e4858e](https://gitee.com/newgateway/vtj/commits/7e4858e6cc749e1218dbf1e461e658a50d5b1954))
+
+
+### Features
+
+* **composition:** 支持 $provider 作为全局 API 并优化引用处理 ([54cf908](https://gitee.com/newgateway/vtj/commits/54cf9081f31076d13a86553c5efd0073b9439acb))
+* **parser:** 支持 Vue 3 <script setup> 解析与 Composition API 反向转换 ([afcc737](https://gitee.com/newgateway/vtj/commits/afcc737c1b9e02fe3ab4eab7615b48b39adc0535))
+* **parser:** 支持全局 composable 解构字段的精确反向映射 ([7b3312b](https://gitee.com/newgateway/vtj/commits/7b3312b0570abb5575e6f84714777da2fbe31ac7))
+* **parser:** 支持模板中直接使用 $t 等裸标识符 ([75f29a1](https://gitee.com/newgateway/vtj/commits/75f29a11d26b0db727c9653ba3b8a62da4ab4380))
+* **parser:** 添加Uniapp专用生命周期钩子支持 ([3cbbe94](https://gitee.com/newgateway/vtj/commits/3cbbe945708d926ae38681d813944606768f4ac9))
+* **renderer:** 支持 props 中 title 属性绑定和模板裸 props 访问 ([c31470e](https://gitee.com/newgateway/vtj/commits/c31470e3a5f656d9404f765895074cf543a7584b))
+* **vue:** 支持第三方库标识符映射替换 ([f19a201](https://gitee.com/newgateway/vtj/commits/f19a201028ecb8c7e4947f01657b714bedc2377b))
+
+
+
+
+
 ## [0.17.8](https://gitee.com/newgateway/vtj/compare/@vtj/parser@0.17.7...@vtj/parser@0.17.8) (2026-06-11)
 
 **Note:** Version bump only for package @vtj/parser

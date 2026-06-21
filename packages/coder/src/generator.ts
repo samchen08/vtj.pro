@@ -14,7 +14,8 @@ import {
 } from './formatters';
 import { Collecter } from './collecter';
 import { parser } from './parser';
-import { scriptCompiled, vueCompiled } from './templates';
+import { parserComposition } from './parser/composition';
+import { scriptCompiled, scriptSetupCompiled, vueCompiled } from './templates';
 
 /**
  * 代码生成器 处理过程：
@@ -62,17 +63,35 @@ export async function generator(
     scss = false
   } = options;
   const collecter = new Collecter(cloneDeep(dsl), dependencies);
-  const token = parser(collecter, componentMap, platform);
-  const script = scriptCompiled(token);
+  const isComposition = dsl.apiMode === 'composition';
+  let template: string;
+  let css: string;
+  let style: string;
+  let scriptSource: string;
+
+  if (isComposition) {
+    const token = parserComposition(collecter, componentMap, platform);
+    scriptSource = scriptSetupCompiled(token);
+    template = token.template || `\n<!--组件模版内容-->\n`;
+    css = token.css;
+    style = token.style;
+  } else {
+    const token = parser(collecter, componentMap, platform);
+    scriptSource = scriptCompiled(token);
+    template = token.template || `\n<!--组件模版内容-->\n`;
+    css = token.css;
+    style = token.style;
+  }
+
   const vue = vueCompiled({
-    template: token.template || `\n<!--组件模版内容-->\n`,
+    template,
     css:
-      (await cssFormatter(token.css, formatterDisabled)) ||
-      `\n/* 组件样式内容 */\n`,
-    script: await tsFormatter(script, formatterDisabled),
-    style: await cssFormatter(token.style, formatterDisabled),
+      (await cssFormatter(css, formatterDisabled)) || `\n/* 组件样式内容 */\n`,
+    script: await tsFormatter(scriptSource, formatterDisabled),
+    style: await cssFormatter(style, formatterDisabled),
     scriptLang: ts ? 'ts' : 'js',
-    styleLang: scss ? 'scss' : 'css'
+    styleLang: scss ? 'scss' : 'css',
+    scriptSetup: isComposition
   });
   return await vueFormatter(vue, formatterDisabled).catch((e) => {
     e.content = vue;

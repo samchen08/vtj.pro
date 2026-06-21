@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.18.0](https://gitee.com/newgateway/vtj/compare/@vtj/utils@0.17.8...@vtj/utils@0.18.0) (2026-06-20)
+
+
+### Features
+
+* **uniapp:** 增强 uniapp 配置与插件支持 ([5ddf092](https://gitee.com/newgateway/vtj/commits/5ddf0925120eea0456fc1100936f5e0dfb18c198))
+
+
+
+
+
 ## [0.17.8](https://gitee.com/newgateway/vtj/compare/@vtj/utils@0.17.7...@vtj/utils@0.17.8) (2026-06-11)
 
 **Note:** Version bump only for package @vtj/utils

@@ -1,7 +1,7 @@
 import { expect, test } from 'vitest';
 
-import { createDevPlugin } from '../src';
+import { createDevTools } from '../src';
 
 test('index', () => {
-  expect(!!createDevPlugin).toBeTruthy();
+  expect(!!createDevTools).toBeTruthy();
 });

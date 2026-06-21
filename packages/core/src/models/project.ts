@@ -342,7 +342,8 @@ export class ProjectModel {
         page.dsl ||
         new BlockModel({
           id: page.id,
-          name: upperFirstCamelCase(page.name)
+          name: upperFirstCamelCase(page.name),
+          apiMode: 'composition'
         }).toDsl();
     }
 
@@ -488,7 +489,8 @@ export class ProjectModel {
 
     const dsl = new BlockModel({
       id,
-      name
+      name,
+      apiMode: 'composition'
     }).toDsl();
     const newPage = merge({}, page, { id, name, title, dsl });
     const pages = parentId
@@ -605,7 +607,7 @@ export class ProjectModel {
     block.id = id;
     block.type = 'block';
     block.fromType = block.fromType || 'Schema';
-    block.dsl = new BlockModel({ id, name }).toDsl();
+    block.dsl = new BlockModel({ id, name, apiMode: 'composition' }).toDsl();
     this.blocks.push(block);
     const type = block.fromType || 'Schema';
 
@@ -661,7 +663,8 @@ export class ProjectModel {
 
     const dsl = new BlockModel({
       id,
-      name
+      name,
+      apiMode: 'composition'
     }).toDsl();
     const newBlock = merge({}, block, { id, name, title, dsl });
     const index = this.blocks.findIndex((n) => n.id === block.id);

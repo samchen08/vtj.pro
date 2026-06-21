@@ -2,9 +2,8 @@ import { template } from '@vtj/base';
 
 const scriptTemplate = `
 // @ts-nocheck
-
-<%= imports %>
 import { useProvider } from '<%= renderer %>';
+<%= imports %>
 export default defineComponent({
   name: '<%= name %>', 
   <% if(inject) { %> inject: { <%= inject %>}, <% } %>
@@ -33,13 +32,13 @@ export default defineComponent({
   <% if(methods) { %> methods: { <%= methods %> }, <% } %>
   <% if(watch) { %> watch: { <%= watch %> }, <% } %> <%= lifeCycles %>
 });
-`.replace(/(\n|\r|\t)/g, '');
+`;
 
 const vueTemplate = `
 <template>
 <%= template %>
 </template>
-<script lang="<%= scriptLang %>">
+<script lang="<%= scriptLang %>"<% if(scriptSetup) { %> setup<% } %>>
 <%= script %>
 </script>
 <style lang="<%= styleLang %>" scoped>
@@ -48,5 +47,37 @@ const vueTemplate = `
 </style>
 `;
 
+/**
+ * Composition API 出码模板（<script setup>）
+ * 顺序：imports → props/emits → provider → globalApiDeclares →
+ *      injects → composables → state(reactive) → refs → reactives →
+ *      computed → methods → setupStatements → watch → provide → created/setup → lifeCycles → expose
+ */
+const scriptSetupTemplate = `// @ts-nocheck
+import { <%= rendererImports %> } from '<%= renderer %>';<%= imports %>
+<% if(componentDeclarations) { %><%= componentDeclarations %><% } %>
+<% if(props) { %>const __props = defineProps({ <%= props %> });<% } else if(needsProps) { %>const __props = defineProps();<% } %>
+<% if(emits) { %>const __emit = defineEmits([<%= emits %>]);<% } else if(needsEmit) { %>const __emit = defineEmits();<% } %>
+const __provider = useProvider({ id: '<%= id %>', version: '<%= version %>' });
+<%= urlSchemas %>
+<%= blockPlugins %>
+<%= globalApiDeclares %>
+<%= injects %>
+<%= composables %>
+<%= createdStatements %>
+<%= state %>
+<%= refs %>
+<%= reactives %>
+<%= computed %>
+<%= methods %>
+<%= setupStatements %>
+<%= dataSources %>
+<%= watch %>
+<%= provide %>
+<%= lifeCycles %>
+<% if(expose) { %>defineExpose(<%= expose %>);<% } %>
+`;
+
 export const scriptCompiled = template(scriptTemplate);
+export const scriptSetupCompiled = template(scriptSetupTemplate);
 export const vueCompiled = template(vueTemplate);

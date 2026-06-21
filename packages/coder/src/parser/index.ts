@@ -78,7 +78,8 @@ export function parser(
     components,
     blocksImport,
     collecter.imports,
-    platform
+    platform,
+    collecter.easycomPackages
   );
 
   const asyncComponents = Object.keys({

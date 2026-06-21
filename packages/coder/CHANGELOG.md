@@ -3,6 +3,39 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.18.0](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.17.8...@vtj/coder@0.18.0) (2026-06-20)
+
+
+### Bug Fixes
+
+* **app:** 调整全局请求配置默认值以优化响应处理 ([fea69bc](https://gitee.com/newgateway/vtj/commits/fea69bc59341437235cb936d4b8e352a75833b89))
+* **coder:** 移除模板中的 ts-nocheck 注释以提高代码质量 ([4a011d1](https://gitee.com/newgateway/vtj/commits/4a011d191b29c7421f01f84cfd9ca9bd67a220ae))
+* **composer:** 修复 dataSources 解析时的符号转换问题 ([b0b5cd6](https://gitee.com/newgateway/vtj/commits/b0b5cd6b660c5b7c9731df3421f19181efbde220))
+* **parser:** 优化 composable 去重和 useProvider 过滤逻辑 ([5bcc2b6](https://gitee.com/newgateway/vtj/commits/5bcc2b6c4eb989b5de2ff6951f26bbb25683be55))
+* **parser:** 统一 ref/computed 变量访问形式处理 ([7e4858e](https://gitee.com/newgateway/vtj/commits/7e4858e6cc749e1218dbf1e461e658a50d5b1954))
+
+
+### Features
+
+* **coder:** 合并 renderer 包导入并扩展全局组合式 API 支持 ([ea306c4](https://gitee.com/newgateway/vtj/commits/ea306c4cd886c06752e6bc9b1bdb5d5ecbd34a59))
+* **coder:** 扩展 element-plus 全局 API 支持 ([4fdf1c5](https://gitee.com/newgateway/vtj/commits/4fdf1c52b14011f23c82b80c1731193ae3f14250))
+* **coder:** 支持 Composition API 模式出码 ([ed44834](https://gitee.com/newgateway/vtj/commits/ed44834975dc1381f475a6e4451a324e4afbf70f))
+* **coder:** 支持 easycom 依赖包免 import 及相关处理 ([fde4fd0](https://gitee.com/newgateway/vtj/commits/fde4fd0c7a9ad550a4e91ccf6719cabc6c7c1980))
+* **coder:** 支持 element-plus $loading 组合式API ([0f691a4](https://gitee.com/newgateway/vtj/commits/0f691a4966d003ace65cc797b054172109b93da8))
+* **coder:** 支持多 UI 库全局 API 映射与识别 ([0af3bac](https://gitee.com/newgateway/vtj/commits/0af3bacea387974e60790a86e8d1ae98c51bac4f))
+* **composition:** 支持 $provider 作为全局 API 并优化引用处理 ([54cf908](https://gitee.com/newgateway/vtj/commits/54cf9081f31076d13a86553c5efd0073b9439acb))
+* **composition:** 添加 $provider 全局 API 配置 ([32d82c4](https://gitee.com/newgateway/vtj/commits/32d82c4deb6b702cfcc2da1144d283f02a5b59f0))
+* **globalApi:** 添加 $uni 和 $getApp 全局API支持 ([47838e8](https://gitee.com/newgateway/vtj/commits/47838e8fd94d21e1c1a091546a1d442594dedafc))
+* **parser:** 支持 uniapp 专用生命周期钩子 ([17d8663](https://gitee.com/newgateway/vtj/commits/17d866383ec16e6cbbaade2a81c0963630aba628))
+* **parser:** 支持 Uniapp 专用生命周期钩子的导入和使用 ([51a8278](https://gitee.com/newgateway/vtj/commits/51a82783605542d0fbd95003030789e7141abf28))
+* **parser:** 支持 Vue 3 <script setup> 解析与 Composition API 反向转换 ([afcc737](https://gitee.com/newgateway/vtj/commits/afcc737c1b9e02fe3ab4eab7615b48b39adc0535))
+* **parser:** 支持 vue-router 和 vue-i18n 全局 API 转换 ([0e3694c](https://gitee.com/newgateway/vtj/commits/0e3694c8e56218d68a8042be6c654dd7c4949cb6))
+* **parser:** 支持模板中 ref 和 computed 的 .value 自动解包 ([0bccf71](https://gitee.com/newgateway/vtj/commits/0bccf7195c8cf7e347249131ff4d44d78f84b136))
+
+
+
+
+
 ## [0.17.8](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.17.7...@vtj/coder@0.17.8) (2026-06-11)
 
 **Note:** Version bump only for package @vtj/coder

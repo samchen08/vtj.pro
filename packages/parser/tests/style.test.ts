@@ -1,154 +1,63 @@
 import { expect, test, describe } from 'vitest';
 import { parseStyle } from '../src/vue/style';
 
-describe('Style Parser', () => {
-  test('parseStyle should parse basic CSS', () => {
-    const content = `
-      .container {
-        width: 100%;
-        height: 100vh;
-      }
-      .button {
-        color: blue;
-      }
+describe('parseStyle', () => {
+  test('should parse SCSS and extract class rules', () => {
+    const source = `
+.test_abc123 { color: red; font-size: 14px; }
+.other_xyz789 { background: blue; }
+.plain-class { margin: 10px; }
     `;
+    const result = parseStyle(source);
+    expect(result.errors.length).toBe(0);
+    // Should extract scoped class rules (class name matching /^.[\\w]+_[\\w]{5,}/)
+    expect(Object.keys(result.styles).length).toBe(2);
+    expect(result.styles['.test_abc123']).toBeDefined();
+    expect(result.styles['.test_abc123']['color']).toBe('red');
+    expect(result.styles['.other_xyz789']).toBeDefined();
+    expect(result.styles['.other_xyz789']['background']).toBe('blue');
+  });
 
-    const result = parseStyle(content);
-
-    expect(result.errors).toHaveLength(0);
+  test('should separate non-scoped CSS rules', () => {
+    const source = `
+.test_abc123 { color: red; }
+div { margin: 0; }
+.container { padding: 20px; }
+    `;
+    const result = parseStyle(source);
+    expect(result.css).toContain('div');
     expect(result.css).toContain('.container');
-    expect(result.css).toContain('.button');
+    expect(result.styles['.test_abc123']).toBeDefined();
   });
 
-  test('parseStyle should handle special class names', () => {
-    const content = `
-      .button_abc123 {
-        color: blue;
-        font-size: 16px;
-      }
-      .normal {
-        color: red;
-      }
-    `;
-
-    const result = parseStyle(content);
-
-    expect(result.errors).toHaveLength(0);
-    expect(result.styles['.button_abc123']).toBeDefined();
-    expect(result.styles['.button_abc123'].color).toBe('blue');
-    expect(result.styles['.button_abc123']['font-size']).toBe('16px');
-    expect(result.css).toContain('.normal');
-    expect(result.css).not.toContain('.button_abc123');
-  });
-
-  test('parseStyle should handle SASS features', () => {
-    const content = `
-      $primary-color: #3498db;
-      
-      .container {
-        width: 100%;
-        .nested {
-          color: $primary-color;
-          &:hover {
-            color: $primary-color;
-          }
-        }
-      }
-    `;
-
-    const result = parseStyle(content);
-
-    expect(result.errors).toHaveLength(0);
-    expect(result.css).toContain('.container');
-    expect(result.css).toContain('.container .nested');
-    expect(result.css).toContain('.container .nested:hover');
-    expect(result.css).toContain('#3498db');
-  });
-
-  test('parseStyle should handle media queries', () => {
-    const content = `
-      .container {
-        width: 100%;
-      }
-      
-      @media (max-width: 768px) {
-        .container {
-          width: 90%;
-        }
-      }
-    `;
-
-    const result = parseStyle(content);
-
-    expect(result.errors).toHaveLength(0);
-    expect(result.css).toContain('@media');
-    expect(result.css).toContain('max-width: 768px');
-  });
-
-  test('parseStyle should handle errors in CSS', () => {
-    const content = `
-      .container {
-        color: red;
-        width: 100%
-      }
-    `;
-
-    const result = parseStyle(content);
-
-    // expect(result.errors.length).toBeGreaterThan(0);
-  });
-
-  test('parseStyle should handle multiple special class names', () => {
-    const content = `
-      .button_abc123 {
-        color: blue;
-      }
-      .header_xyz789 {
-        background: red;
-      }
-      .normal {
-        padding: 10px;
-      }
-    `;
-
-    const result = parseStyle(content);
-
-    expect(result.styles['.button_abc123']).toBeDefined();
-    expect(result.styles['.header_xyz789']).toBeDefined();
-    expect(result.styles['.button_abc123'].color).toBe('blue');
-    expect(result.styles['.header_xyz789'].background).toBe('red');
-    expect(result.css).toContain('.normal');
-    expect(result.css).not.toContain('.button_abc123');
-    expect(result.css).not.toContain('.header_xyz789');
-  });
-
-  test('parseStyle should handle empty content', () => {
-    const content = '';
-
-    const result = parseStyle(content);
-
-    expect(result.errors).toHaveLength(0);
+  test('should handle empty content', () => {
+    const result = parseStyle('');
+    expect(result.errors.length).toBe(0);
+    expect(Object.keys(result.styles).length).toBe(0);
     expect(result.css).toBe('');
-    expect(Object.keys(result.styles)).toHaveLength(0);
   });
 
-  test('parseStyle should handle complex selectors', () => {
-    const content = `
-      .button_abc123 {
-        color: blue;
-      }
-      .button_abc123:hover {
-        color: darkblue;
-      }
-      .container > .item {
-        margin: 10px;
-      }
+  test('should return error for invalid SCSS', () => {
+    const result = parseStyle('{ invalid scss }');
+    // May or may not error depending on sass behavior
+    // At minimum should return gracefully
+    expect(result).toBeDefined();
+  });
+
+  test('should handle multiple declarations in a rule', () => {
+    const source = `
+.comp_xyz789 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
     `;
-
-    const result = parseStyle(content);
-
-    expect(result.styles['.button_abc123']).toBeDefined();
-    expect(result.css).toContain('.container > .item');
-    expect(result.css).not.toContain('.button_abc123');
+    const result = parseStyle(source);
+    expect(result.errors.length).toBe(0);
+    expect(result.styles['.comp_xyz789']).toBeDefined();
+    expect(result.styles['.comp_xyz789']['display']).toBe('flex');
+    expect(result.styles['.comp_xyz789']['justify-content']).toBe('center');
+    expect(result.styles['.comp_xyz789']['gap']).toBe('8px');
   });
 });

@@ -1,11 +1,11 @@
 {
   "name": "vtj-project-library",
   "private": true,
-  "version": "0.12.20",
+  "version": "0.13.0",
   "type": "module",
   "scripts": {
     "build": "vue-tsc && vite build",
-    "test": "vitest",
+    "test": "vitest run",
     "coverage": "vitest run --coverage"
   },
   "dependencies": {

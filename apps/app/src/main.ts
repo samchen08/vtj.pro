@@ -18,7 +18,6 @@ import { createApp } from 'vue';
 import router from './router';
 import App from './App.vue';
 import { name } from '../package.json';
-import enhance from './enhance';
 
 const app = createApp(App);
 const adapter = createAdapter({ loading, notify, Startup, useTitle });
@@ -30,7 +29,6 @@ const { provider, onReady } = createProvider({
   adapter,
   service,
   router,
-  enhance,
   dependencies: {
     Vue: () => import('vue'),
     VueRouter: () => import('vue-router'),

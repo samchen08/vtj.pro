@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.18.0](https://github.com/samchen08/vtj.pro/compare/@vtj/docs@0.17.8...@vtj/docs@0.18.0) (2026-06-20)
+
+
+### Bug Fixes
+
+* **app:** 调整全局请求配置默认值以优化响应处理 ([fea69bc](https://github.com/samchen08/vtj.pro/commit/fea69bc59341437235cb936d4b8e352a75833b89))
+
+
+### Features
+
+* **access:** 支持权限数据为数组类型，增强权限判断能力 ([ddd0b99](https://github.com/samchen08/vtj.pro/commit/ddd0b99dffdb8dc0675e6cdf6fdb3013952d2a83))
+
+
+
+
+
 ## [0.17.8](https://github.com/samchen08/vtj.pro/compare/@vtj/docs@0.17.7...@vtj/docs@0.17.8) (2026-06-11)
 
 **Note:** Version bump only for package @vtj/docs

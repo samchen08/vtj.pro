@@ -39,7 +39,7 @@ export const CONTEXT_HOST = [
   '$forceUpdate'
 ];
 
-// 组件生命周期
+// 组件生命周期 (Options)
 export const LIFE_CYCLES_LIST = [
   'beforeCreate',
   'created',
@@ -54,6 +54,21 @@ export const LIFE_CYCLES_LIST = [
   'renderTriggered',
   'activated',
   'deactivated'
+];
+
+// 组合式 API 生命周期钩子
+export const COMPOSITION_HOOKS_LIST = [
+  'onBeforeMount',
+  'onMounted',
+  'onBeforeUpdate',
+  'onUpdated',
+  'onBeforeUnmount',
+  'onUnmounted',
+  'onErrorCaptured',
+  'onRenderTracked',
+  'onRenderTriggered',
+  'onActivated',
+  'onDeactivated'
 ];
 
 /**

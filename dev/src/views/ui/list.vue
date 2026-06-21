@@ -1,47 +1,103 @@
 <template>
-  <div style="height: 100%">
-    <XList :data="loader" data-key="id" @load="onLoad" :page="1" pager>
-      <template #="{ item, index }">
-        <XDataItem
-          split
-          direction="row"
-          image-src="https://fuss10.elemecdn.com/a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg"
-          image-height="100px"
-          image-width="100px"
-          :title="`占位内容加载失败_${JSON.stringify(item)}_${index}`"
-          description="可通过lazy开启懒加载功能， 当图片滚动到可视范围内才会加载。 可通过 scroll-container 来设置滚动容器， 若未定义，则为最近一个 overflow 值为 auto 或 scroll 的父元素。">
-        </XDataItem>
-      </template>
-    </XList>
+  <div class="list-demo">
+    <h3>基础列表（静态数据）</h3>
+    <div class="list-box">
+      <XList :data="staticData" :height="300" @load="onLoad">
+        <template #default="{ item }">
+          <div class="list-item">{{ item.name }} - {{ item.desc }}</div>
+        </template>
+      </XList>
+    </div>
+
+    <h3>分页列表</h3>
+    <div class="list-box">
+      <XList
+        :data="pagedLoader"
+        :page-size="5"
+        pager
+        :height="300"
+        @load="onLoad">
+        <template #default="{ item, index }">
+          <div class="list-item">{{ index + 1 }}. {{ item }}</div>
+        </template>
+      </XList>
+    </div>
+
+    <h3>无限滚动加载</h3>
+    <div class="list-box">
+      <XList
+        :data="infiniteLoader"
+        :page-size="10"
+        :item-height="40"
+        infinite-scroll
+        :height="300"
+        @load="onLoad">
+        <template #default="{ item, index }">
+          <div class="list-item">{{ index + 1 }}. Item {{ item }}</div>
+        </template>
+        <template #loading>加载中...</template>
+        <template #nomore>没有更多数据了</template>
+      </XList>
+    </div>
   </div>
 </template>
 <script lang="ts" setup>
-  import { XList, XDataItem, type ListData } from '@vtj/web';
+  import { XList, type ListData, type ListState } from '@vtj/ui';
 
-  // const list: any = [];
-
-  const onLoad = (params: any) => {
-    console.log('trigger load', params);
+  const staticData: ListData = {
+    list: [
+      { name: '项目 A', desc: '项目 A 的描述' },
+      { name: '项目 B', desc: '项目 B 的描述' },
+      { name: '项目 C', desc: '项目 C 的描述' }
+    ],
+    total: 3
   };
 
-  const loader = (state: any) => {
-    console.log('do loader', state);
-    const total = 100;
-    const { page = 1, pageSize = 10 } = state;
-    const list: any[] = [];
-    for (let i = 0; i < pageSize; i++) {
-      list.push({
-        id: (page - 1) * pageSize + i
-      });
-    }
+  const pagedLoader = (params?: ListState): ListData => {
+    const { page = 1, pageSize = 5 } = params || {};
+    const start = (page - 1) * pageSize;
+    const items = Array.from({ length: 20 }, (_, i) => `数据项 ${i + 1}`);
+    const list = items.slice(start, start + pageSize);
+    return { list, total: items.length };
+  };
 
-    return new Promise<ListData>((resolve) => {
-      setTimeout(() => {
-        resolve({
-          list,
-          total
-        });
-      }, 20);
-    });
+  const infiniteLoader = (params?: ListState): ListData => {
+    const { page = 1, pageSize = 10 } = params || {};
+    const start = (page - 1) * pageSize;
+    const items = Array.from({ length: 50 }, (_, i) => `无限数据 ${i + 1}`);
+    const list = items.slice(start, start + pageSize);
+    return { list, total: items.length };
+  };
+
+  const onLoad = (state?: ListState) => {
+    console.log('load:', state);
   };
 </script>
+<style lang="scss" scoped>
+  .list-demo {
+    padding: 20px;
+    h3 {
+      margin: 20px 0 10px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid #eee;
+      font-size: 16px;
+      color: #333;
+    }
+    .list-box {
+      border: 1px solid #eee;
+      border-radius: 4px;
+      margin-bottom: 16px;
+    }
+    .list-item {
+      padding: 8px 12px;
+      border-bottom: 1px solid #f5f7fa;
+      font-size: 14px;
+      &:last-child {
+        border-bottom: none;
+      }
+      &:hover {
+        background: #f5f7fa;
+      }
+    }
+  }
+</style>

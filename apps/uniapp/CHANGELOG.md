@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.18.0](https://github.com/samchen08/vtj.pro/compare/vtj-project-uniapp@0.17.8...vtj-project-uniapp@0.18.0) (2026-06-20)
+
+
+### Bug Fixes
+
+* **build:** 修复组合式API相关插件配置问题 ([b066f81](https://github.com/samchen08/vtj.pro/commit/b066f8156f730a65fd51ce3b91dff0807d4bb9e5))
+* **uniapp:** 修正启动日志和页面配置 ([516de1a](https://github.com/samchen08/vtj.pro/commit/516de1ae5ebfdb8a793f6d303d75a2b1fd19d991))
+
+
+### Features
+
+* **uniapp:** 增强 uniapp 配置与插件支持 ([5ddf092](https://github.com/samchen08/vtj.pro/commit/5ddf0925120eea0456fc1100936f5e0dfb18c198))
+
+
+
+
+
 ## [0.17.8](https://github.com/samchen08/vtj.pro/compare/vtj-project-uniapp@0.17.7...vtj-project-uniapp@0.17.8) (2026-06-11)
 
 **Note:** Version bump only for package vtj-project-uniapp

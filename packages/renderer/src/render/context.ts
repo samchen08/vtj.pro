@@ -30,9 +30,16 @@ export class Context {
   __refs: Record<string, any> = {};
   __refCaches: Record<string, any> = {};
   context: Record<string, any> = {};
+  /**
+   * @deprecated
+   */
   state: Record<string, any> = {};
+  /**
+   * @deprecated
+   */
   props: Record<string, any> = {};
   $props: Record<string, any> = {};
+  $state: Record<string, any> = {};
   $refs: Record<string, any> = {};
   $el: any = null;
   $emit: any = null;
@@ -48,6 +55,8 @@ export class Context {
   $libs: Record<string, any> = {};
   $apis: Record<string, any> = {};
   $provider: Provider | null = null;
+  $uni: any = null;
+  $getApp: any = null;
   private __transform: Record<string, string> = {};
   constructor(options: ContextOptions) {
     const { mode, dsl, attrs } = options;
@@ -69,9 +78,16 @@ export class Context {
     this.context = {};
     this.__contextRefs = {};
     this.__instance = instance.proxy;
+    // 保存已有的响应式数据，防止被 globalProperties 覆盖
+    const { state } = this;
     const globalProperties = instance.appContext.config.globalProperties;
-    Object.assign(this, globalProperties);
-    Object.assign(this, attrs || {});
+    // globalProperties 作为默认值，attrs 优先级更高（覆盖同名 key，包括 refs/reactives 等）
+    Object.assign(this, globalProperties, attrs || {});
+    // uniapp
+    this.$uni = this.$libs.UniH5?.uni ?? null;
+    this.$getApp = this.$libs.UniH5?.getApp ?? null;
+    // 恢复响应式数据（state 不在 attrs 中，需单独恢复）
+    this.$state = this.state = state;
     this.__proxy();
     Vue.onMounted(() => {
       // 部分属性在 onMounted 后才生成，需要重新更新一次
@@ -149,6 +165,10 @@ export class Context {
       if (!dom) {
         if (typeof ref === 'string') {
           delete this.$refs[ref];
+          // Composition API: 清除 Vue Ref 对象的 value
+          if ((this as any)[ref] && globalVue.isRef((this as any)[ref])) {
+            (this as any)[ref].value = null;
+          }
           if (id) {
             delete this.__refs[id];
           }
@@ -177,6 +197,10 @@ export class Context {
         ref(el);
       } else if (ref) {
         this.$refs[ref] = this.__getRefEl(this.$refs, ref, el);
+        // Composition API: 同步更新 Vue Ref 对象的 value
+        if ((this as any)[ref] && globalVue.isRef((this as any)[ref])) {
+          (this as any)[ref].value = this.$refs[ref];
+        }
       }
 
       return el;

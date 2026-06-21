@@ -58,7 +58,7 @@
             source: value
           })
           .catch((e) => {
-            notify(e?.message);
+            notify(e.message || e.msg || e);
             return null;
           });
         if (schema) {

@@ -27,13 +27,13 @@ export const success = (data: any): ApiResponse => {
 };
 
 export const fail = (
-  msg: string,
+  msg: any,
   data: any = null,
   stack: any = null
 ): ApiResponse => {
   return {
     code: Result.Fail,
-    msg,
+    msg: msg?.message || msg,
     data,
     stack,
     success: false

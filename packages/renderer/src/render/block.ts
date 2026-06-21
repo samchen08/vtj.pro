@@ -4,7 +4,10 @@ import {
   type BlockPropDataType,
   type BlockState,
   type JSFunction,
+  type JSExpression,
+  type JSONValue,
   type BlockInject,
+  type BlockComposable,
   type DataSourceSchema,
   type BlockWatch,
   type NodeSchema,
@@ -13,7 +16,12 @@ import {
 import { isString, isFunction, delay } from '@vtj/utils';
 import { ContextMode, DATA_TYPES } from '../constants';
 import { Context } from './context';
-import { adoptedStyleSheets, isJSExpression, isJSFunction } from '../utils';
+import {
+  adoptedStyleSheets,
+  isJSExpression,
+  isJSFunction,
+  triggerError
+} from '../utils';
 import { nodeRender } from './node';
 import { createMock } from '../provider';
 import type { ComputedRef, DefineComponent } from 'vue';
@@ -24,18 +32,20 @@ export type DataSourceHandler = (...args: any[]) => Promise<any>;
 
 export interface CreateRendererOptions {
   Vue?: any;
+  UniApp?: any;
   mode?: ContextMode;
   dsl?: BlockSchema;
   components?: Record<string, any>;
   libs?: Record<string, any>;
   apis?: Record<string, any>;
   loader?: BlockLoader;
-  window?: Window;
+  window?: any;
 }
 
 export function createRenderer(options: CreateRendererOptions) {
   const {
     Vue = globalVue,
+    UniApp = {},
     mode = ContextMode.Runtime,
     components = {},
     libs = {},
@@ -64,41 +74,88 @@ export function createRenderer(options: CreateRendererOptions) {
       ...createProps(dsl.value.props ?? [], context)
     },
     async setup(props: any = {}) {
-      context.$props = props;
-      context.props = props;
+      context.$props = context.props = props;
       if (dsl.value.id) {
         adoptedStyleSheets(
-          options.window || window,
+          options.window || globalThis,
           dsl.value.id,
           dsl.value.css || '',
           true
         );
       }
+      const isComposition = dsl.value.apiMode === 'composition';
 
-      context.state = createState(Vue, dsl.value.state ?? {}, context);
+      context.$state = context.state = createState(
+        Vue,
+        dsl.value.state ?? {},
+        context
+      );
+
+      // 状态创建：根据模式分流
+      const refs = isComposition
+        ? createRefs(Vue, dsl.value.refs ?? {}, context)
+        : {};
+      const reactives = isComposition
+        ? createReactives(Vue, dsl.value.reactives ?? {}, context)
+        : {};
       const computed = createComputed(Vue, dsl.value.computed ?? {}, context);
       const methods = createMethods(dsl.value.methods ?? {}, context);
       const injects = createInject(Vue, dsl.value.inject, context);
-      for (const [key, value] of Object.entries(injects || {})) {
-        injects[key] = Vue.inject(key, value);
-      }
       const dataSources = createDataSources(
         dsl.value.dataSources || {},
         context
       );
+
+      // Composition 模式特有逻辑
+      let composableResults = {};
+      if (isComposition) {
+        composableResults = createComposables(
+          dsl.value.composables ?? [],
+          context
+        );
+      }
+
       const attrs = {
+        ...props,
+        ...refs,
+        ...reactives,
         ...injects,
         ...computed,
         ...methods,
-        ...dataSources
+        ...dataSources,
+        ...composableResults
       };
       context.setup(attrs, Vue);
       setWatches(Vue, dsl.value.watch ?? [], context);
 
+      // Composition 模式下生命周期在 setup 内注册
+      if (isComposition) {
+        await createCompositionLifeCycles(
+          Vue,
+          dsl.value.lifeCycles ?? {},
+          context,
+          UniApp
+        );
+        if (dsl.value.setup) {
+          const setupFn = context.__parseFunction(dsl.value.setup);
+          if (isFunction(setupFn)) {
+            try {
+              await setupFn();
+            } catch (e) {
+              console.warn('[VTJ] Composition setup 执行失败', e);
+            }
+          }
+        }
+        createProvide(Vue, dsl.value.provide ?? {}, context);
+      }
+
       return {
         vtj: context,
         state: context.state,
+        $state: context.$state,
         ...props,
+        ...refs,
+        ...reactives,
         ...computed,
         ...methods
       };
@@ -111,13 +168,16 @@ export function createRenderer(options: CreateRendererOptions) {
       if (nodes.length === 1) {
         return nodeRender(nodes[0], context, Vue, loader, nodes);
       } else {
-        const children = nodes.map((child) =>
-          nodeRender(child, context, Vue, loader, nodes)
-        );
+        const children = nodes
+          .map((child) => nodeRender(child, context, Vue, loader, nodes))
+          .flat();
         return Vue.createVNode('div', {}, children);
       }
     },
-    ...createLifeCycles(dsl.value.lifeCycles ?? {}, context)
+    // Options 模式下生命周期以 Options 风格注册
+    ...(dsl.value.apiMode !== 'composition'
+      ? createLifeCycles(dsl.value.lifeCycles ?? {}, context)
+      : {})
   });
 
   return {
@@ -187,12 +247,16 @@ function createState(Vue: any, state: BlockState, context: Context) {
 
 function createComputed(
   Vue: any,
-  computedSchema: Record<string, JSFunction>,
+  computedSchema: Record<string, JSFunction | JSExpression>,
   context: Context
 ) {
   return Object.entries(computedSchema ?? {}).reduce(
     (result, [k, v]) => {
-      result[k] = Vue.computed(context.__parseFunction(v) as any);
+      if (isJSFunction(v)) {
+        result[k] = Vue.computed(context.__parseFunction(v) as any);
+      } else {
+        result[k] = Vue.computed(context.__parseExpression(v) as any);
+      }
       return result;
     },
     {} as Record<string, any>
@@ -213,7 +277,6 @@ function createInject(Vue: any, injects: BlockInject[] = [], context: Context) {
   return injects.reduce(
     (result, current) => {
       const { name, from } = current || {};
-      current.default;
       const key = isJSExpression(from)
         ? context.__parseExpression(from) || name
         : (from ?? name);
@@ -265,10 +328,158 @@ function setWatches(Vue: any, watches: BlockWatch[] = [], context: Context) {
       context.__parseFunction(n.handler) as any,
       {
         deep: n.deep,
-        immediate: n.immediate
+        immediate: n.immediate,
+        flush: n.flush
       }
     );
   });
+}
+
+function createRefs(
+  Vue: any,
+  refs: Record<string, JSONValue | JSExpression>,
+  context: Context
+) {
+  return Object.entries(refs).reduce(
+    (result, [key, val]) => {
+      const value = isJSExpression(val) ? context.__parseExpression(val) : val;
+      result[key] = Vue.ref(value);
+      return result;
+    },
+    {} as Record<string, any>
+  );
+}
+
+function createReactives(
+  Vue: any,
+  reactives: Record<string, JSONValue | JSExpression>,
+  context: Context
+) {
+  return Object.entries(reactives).reduce(
+    (result, [key, val]) => {
+      const value = isJSExpression(val) ? context.__parseExpression(val) : val;
+      result[key] = Vue.reactive(value ?? {});
+      return result;
+    },
+    {} as Record<string, any>
+  );
+}
+
+function createComposables(composables: BlockComposable[], context: Context) {
+  return composables.reduce(
+    (result, item) => {
+      try {
+        // 从 composable 表达式中解析函数
+        // composable 是 JSExpression，例如: this.$libs.VueUse.useDark
+        let fn: Function | undefined;
+
+        if (isJSExpression(item.composable)) {
+          // 解析表达式获取函数引用
+          fn = context.__parseExpression(item.composable);
+        } else if (isString(item.composable)) {
+          // 兼容旧协议：字符串形式的函数名（从 $libs 中查找）
+          fn = context.$libs[item.composable];
+        }
+
+        if (isFunction(fn)) {
+          // 解析参数
+          const args = (item.args || []).map((arg: any) =>
+            isJSExpression(arg) ? context.__parseExpression(arg) : arg
+          );
+          const callResult = fn(...args);
+          if (item.destructure && item.destructure.length > 0) {
+            // 解构赋值
+            for (const field of item.destructure) {
+              result[field] = callResult?.[field];
+            }
+          } else {
+            result[item.name] = callResult;
+          }
+        }
+      } catch (e) {
+        // 设计模式下降级处理
+        if (context.__mode === ContextMode.Design) {
+          console.warn(`[VTJ] composable 执行失败，已降级处理`, e);
+          result[item.name] = {};
+        }
+      }
+      return result;
+    },
+    {} as Record<string, any>
+  );
+}
+
+function createProvide(
+  Vue: any,
+  provide: Record<string, any>,
+  context: Context
+) {
+  Object.entries(provide).forEach(([key, val]) => {
+    let value = val;
+    if (isJSExpression(val)) {
+      value = context.__parseExpression(val);
+    } else if (isJSFunction(val)) {
+      value = context.__parseFunction(val);
+    }
+    Vue.provide(key, value);
+  });
+}
+
+async function createCompositionLifeCycles(
+  Vue: any,
+  lifeCycles: Record<string, JSFunction>,
+  context: Context,
+  UniApp: any = {}
+) {
+  // Options API → Composition API 生命周期名称映射
+  const optionsToCompositionMap: Record<string, string> = {
+    beforeMount: 'onBeforeMount',
+    mounted: 'onMounted',
+    beforeUpdate: 'onBeforeUpdate',
+    updated: 'onUpdated',
+    beforeUnmount: 'onBeforeUnmount',
+    unmounted: 'onUnmounted',
+    errorCaptured: 'onErrorCaptured',
+    renderTracked: 'onRenderTracked',
+    renderTriggered: 'onRenderTriggered',
+    activated: 'onActivated',
+    deactivated: 'onDeactivated'
+  };
+
+  for (const [name, code] of Object.entries(lifeCycles)) {
+    // created/beforeCreate 在 Composition 模式下等价于 setup，立即执行
+    if (name === 'created' || name === 'beforeCreate') {
+      const fn = context.__parseFunction(code);
+      if (isFunction(fn)) {
+        try {
+          await fn();
+        } catch (e) {
+          console.warn(`[VTJ] Composition 生命周期 "${name}" 执行失败`, e);
+          triggerError(e);
+        }
+      }
+      continue;
+    }
+    // 兼容 Options API 命名，自动映射为 Composition API
+    const hookName = optionsToCompositionMap[name] || name;
+    const hook = Vue[hookName] || UniApp[hookName];
+    if (hook && isFunction(hook)) {
+      const fn = context.__parseFunction(code);
+      if (isFunction(fn)) {
+        hook(async () => {
+          try {
+            await delay(0);
+            await fn();
+          } catch (e) {
+            console.warn(`[VTJ] Composition 生命周期 "${name}" 执行失败`, e);
+            triggerError(e);
+          }
+        });
+      }
+    } else {
+      console.warn(`[VTJ] 无效的 Composition 生命周期钩子 "${name}"`);
+    }
+  }
 }
 
 function createLifeCycles(

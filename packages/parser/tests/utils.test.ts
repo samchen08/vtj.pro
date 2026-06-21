@@ -1,127 +1,193 @@
 import { expect, test, describe } from 'vitest';
 import {
-  parseSFC,
-  parseScript,
-  generateCode,
-  isJSExpression,
-  isJSFunction,
-  isJSCode,
-  isNodeSchema
-} from '../src/shared/utils';
+  getJSExpression,
+  getJSFunction,
+  formatTagName,
+  styleToJson,
+  mergeClass,
+  extractDataSource,
+  patchCode,
+  replacer
+} from '../src/vue/utils';
 
-describe('SFC Parser', () => {
-  test('parseSFC should parse vue component correctly', () => {
-    const source = `
-<template>
-  <div>Hello World</div>
-</template>
+describe('getJSExpression', () => {
+  test('should create JSExpression object', () => {
+    const result = getJSExpression('a + b');
+    expect(result).toEqual({
+      type: 'JSExpression',
+      value: 'a + b'
+    });
+  });
 
-<script>
-export default {
-  name: 'HelloWorld'
-}
-</script>
-
-<style>
-.hello { color: red; }
-</style>
-    `.trim();
-
-    const result = parseSFC(source);
-    
-    expect(result.template).toContain('<div>Hello World</div>');
-    expect(result.script).toContain('export default');
-    expect(result.styles).toHaveLength(1);
-    expect(result.styles[0]).toContain('.hello { color: red; }');
+  test('should wrap object expressions in parentheses', () => {
+    const result = getJSExpression('{a: 1, b: 2}');
+    expect(result.value).toBe('({a: 1, b: 2})');
   });
 });
 
-describe('Script Parser', () => {
-  test('parseScript should parse javascript code correctly', () => {
-    const script = `
-      const x = 1;
-      function add(a, b) {
-        return a + b;
-      }
-    `;
-    
-    const ast = parseScript(script);
-    expect(ast.type).toBe('File');
-    expect(ast.program.type).toBe('Program');
-    expect(ast.program.body).toHaveLength(2);
-  });
-
-  test('parseScript should handle typescript code', () => {
-    const script = `
-      interface Person {
-        name: string;
-        age: number;
-      }
-      
-      const person: Person = {
-        name: 'John',
-        age: 30
-      };
-    `;
-    
-    const ast = parseScript(script);
-    expect(ast.type).toBe('File');
-    expect(ast.program.body).toHaveLength(2);
+describe('getJSFunction', () => {
+  test('should create JSFunction object', () => {
+    const result = getJSFunction('() => {}');
+    expect(result).toEqual({
+      type: 'JSFunction',
+      value: '() => {}'
+    });
   });
 });
 
-describe('Code Generator', () => {
-  test('generateCode should generate code from AST', () => {
-    const script = 'const x = 1;';
-    const ast = parseScript(script);
-    const generated = generateCode(ast);
-    expect(generated).toBe('const x = 1;');
+describe('formatTagName', () => {
+  test('should keep HTML tags as-is', () => {
+    expect(formatTagName('div')).toBe('div');
+    expect(formatTagName('span')).toBe('span');
+    expect(formatTagName('button')).toBe('button');
+  });
+
+  test('should convert custom tags to PascalCase', () => {
+    expect(formatTagName('my-component')).toBe('MyComponent');
+    expect(formatTagName('van-icon')).toBe('VanIcon');
+  });
+
+  test('should handle uniapp tags', () => {
+    expect(formatTagName('view', 'uniapp')).toBe('View');
+    expect(formatTagName('text', 'uniapp')).toBe('Text');
+  });
+
+  test('should convert uniapp custom tags', () => {
+    expect(formatTagName('my-view', 'uniapp')).toBe('MyView');
   });
 });
 
-describe('Type Guards', () => {
-  test('isJSExpression should identify JSExpression correctly', () => {
-    const expr = { type: "JSExpression" as const, value: '1 + 1' };
-    const notExpr = { type: "other" as const, value: '1 + 1' };
-    
-    expect(isJSExpression(expr)).toBe(true);
-    expect(isJSExpression(notExpr)).toBe(false);
-    expect(isJSExpression(null)).toBe(false);
+describe('styleToJson', () => {
+  test('should convert style string to object', () => {
+    const result = styleToJson('color: red; font-size: 14px');
+    expect(result).toEqual({
+      color: 'red',
+      'font-size': '14px'
+    });
   });
 
-  test('isJSFunction should identify JSFunction correctly', () => {
-    const func = { type: "JSFunction" as const, value: 'function() {}' };
-    const notFunc = { type: "other" as const, value: 'function() {}' };
-    
-    expect(isJSFunction(func)).toBe(true);
-    expect(isJSFunction(notFunc)).toBe(false);
-    expect(isJSFunction(null)).toBe(false);
+  test('should handle empty string', () => {
+    const result = styleToJson('');
+    expect(result).toEqual({});
   });
 
-  test('isJSCode should identify JSExpression or JSFunction correctly', () => {
-    const expr = { type: "JSExpression" as const, value: '1 + 1' };
-    const func = { type: "JSFunction" as const, value: 'function() {}' };
-    const other = { type: "other" as const, value: 'something' };
-    
-    expect(isJSCode(expr)).toBe(true);
-    expect(isJSCode(func)).toBe(true);
-    expect(isJSCode(other)).toBe(false);
-    expect(isJSCode(null)).toBe(false);
+  test('should handle leading/trailing spaces', () => {
+    const result = styleToJson('  color: red;  ');
+    expect(result).toEqual({ color: 'red' });
+  });
+});
+
+describe('mergeClass', () => {
+  test('should merge static class with ObjectExpression', () => {
+    const result = mergeClass('foo bar', '{ baz: true }', 'ObjectExpression');
+    expect(result).toContain("'foo'");
+    expect(result).toContain("'bar'");
+    expect(result).toContain('{ baz: true }');
   });
 
-  test('isNodeSchema should identify NodeSchema correctly', () => {
-    const node = { 
-      componentName: 'div',
-      name: 'TestDiv',
-      props: {},
-      children: []
+  test('should merge static class with ArrayExpression', () => {
+    const result = mergeClass('foo bar', "['baz']", 'ArrayExpression');
+    expect(result).toContain("'foo'");
+    expect(result).toContain("'bar'");
+    expect(result).toContain("'baz'");
+  });
+});
+
+describe('extractDataSource', () => {
+  test('should parse DataSource from comment', () => {
+    const comment = ' DataSource: eyJ0ZXN0IjogInZhbHVlIn0= ';
+    const result = extractDataSource(comment);
+    expect(result).toEqual({ test: 'value' });
+  });
+
+  test('should return null for empty comment', () => {
+    const result = extractDataSource('');
+    expect(result).toBeNull();
+  });
+
+  test('should return null for non-DataSource comment', () => {
+    const result = extractDataSource(' some random comment ');
+    expect(result).toBeNull();
+  });
+});
+
+describe('replacer (re-exported)', () => {
+  test('should be the replacer function from replacer module', () => {
+    const result = replacer('var x = foo', 'foo', 'bar');
+    expect(result).toBe('var x = bar');
+  });
+});
+
+describe('patchCode', () => {
+  const baseOptions = {
+    platform: 'web' as const,
+    context: {},
+    computed: [],
+    libs: {},
+    members: [],
+    props: []
+  };
+
+  test('should replace context keys', () => {
+    const options = {
+      ...baseOptions,
+      context: { node_123: new Set(['item']) }
     };
-    const expr = { type: "JSExpression" as const, value: '1 + 1' };
-    const str = 'plain string';
-    
-    expect(isNodeSchema(node)).toBe(true);
-    expect(isNodeSchema(expr)).toBe(false);
-    expect(isNodeSchema(str)).toBe(false);
-    expect(isNodeSchema(null)).toBe(false);
+    const result = patchCode('item + 1', 'node_123', options);
+    expect(result).toContain('this.context.item');
+  });
+
+  test('should replace computed keys', () => {
+    const options = {
+      ...baseOptions,
+      computed: ['doubleCount']
+    };
+    const result = patchCode('doubleCount', '', options);
+    expect(result).toContain('this.doubleCount.value');
+  });
+
+  test('should replace props keys', () => {
+    const options = {
+      ...baseOptions,
+      props: ['title']
+    };
+    const result = patchCode('title', '', options);
+    expect(result).toContain('this.title');
+  });
+
+  test('should replace libs keys', () => {
+    const options = {
+      ...baseOptions,
+      libs: { ElButton: 'ElementPlus' }
+    };
+    const result = patchCode('ElButton', '', options);
+    expect(result).toContain('this.$libs.ElementPlus.ElButton');
+  });
+
+  test('should replace members keys', () => {
+    const options = {
+      ...baseOptions,
+      members: ['myMethod']
+    };
+    const result = patchCode('myMethod()', '', options);
+    expect(result).toContain('this.myMethod()');
+  });
+
+  test('should handle uniapp platform', () => {
+    const options = {
+      ...baseOptions,
+      platform: 'uniapp' as const
+    };
+    const result = patchCode(' uni.getSystemInfo', '', options);
+    expect(result).toContain('this.$libs.UniH5.uni.');
+  });
+
+  test('should cleanup double this.this.', () => {
+    const options = {
+      ...baseOptions,
+      members: ['foo']
+    };
+    const result = patchCode('this.foo', '', options);
+    expect(result).not.toContain('this.this.');
   });
 });

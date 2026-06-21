@@ -7,7 +7,7 @@ import { ContextMode } from '../constants';
 
 export interface InitGlobalsOptions {
   app: App;
-  window: Window;
+  window: any;
   adapter: ProvideAdapter;
   library: Record<string, any>;
   mode: ContextMode;

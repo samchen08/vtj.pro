@@ -11,7 +11,7 @@ export function toString(value: any) {
 }
 
 export function adoptedStyleSheets(
-  global: Window,
+  global: any,
   id: string,
   css: string,
   scoped: boolean = false
@@ -73,16 +73,16 @@ export function adoptStylesToInline(document: Document) {
 }
 
 export async function loadCss(id: string, url: string) {
-  const css = await window
+  const css = await globalThis
     .fetch(url)
     .then((res) => res.text())
     .catch(() => '');
   if (css) {
-    adoptedStyleSheets(window, id, css);
+    adoptedStyleSheets(globalThis, id, css);
   }
 }
 
-export function loadCssUrl(urls: string[], global: any = window) {
+export function loadCssUrl(urls: string[], global: any = globalThis) {
   const doc = global.document;
   const head = global.document.head;
   for (const url of urls) {
@@ -100,7 +100,7 @@ export function loadCssUrl(urls: string[], global: any = window) {
 export async function loadScriptUrl(
   urls: string[],
   library: string,
-  global: any = window
+  global: any = globalThis
 ) {
   const doc = global.document;
   const head = global.document.head;
@@ -142,12 +142,12 @@ export function isNativeTag(tag: string) {
   return HTML_TAGS.includes(tag);
 }
 
-export function getMock(global: any = window) {
-  const cache = (window as any)?.Mock;
+export function getMock(global: any = globalThis) {
+  const cache = (globalThis as any)?.Mock;
   if (cache) return cache;
   const Mock = global?.Mock;
-  if (Mock && window) {
-    (window as any).Mock = Mock;
+  if (Mock && globalThis) {
+    (globalThis as any).Mock = Mock;
     return Mock;
   }
 }

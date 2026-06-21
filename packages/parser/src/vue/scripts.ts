@@ -282,8 +282,25 @@ function getMethods(expression: ObjectExpression) {
 function getDataSources(expression: ObjectExpression, project: ProjectSchema) {
   if (!expression) return {};
   const sources: Record<string, DataSourceSchema> = {};
-  const idRegex = /apis\[\'([\w]*)\'\]/;
-  const thenRegex = /\.then\(([\w\W]*)\)/;
+  const idRegex = /apis\['([\w]*)'\]/;
+
+  // 提取 .then() 参数的函数：通过括号匹配精确定位
+  const extractThenCallback = (code: string): string | null => {
+    const thenIndex = code.indexOf('.then(');
+    if (thenIndex === -1) return null;
+
+    let depth = 1;
+    let pos = thenIndex + 6; // .then( 的左括号位置
+
+    while (pos < code.length && depth > 0) {
+      const char = code[pos];
+      if (char === '(') depth++;
+      else if (char === ')') depth--;
+      pos++;
+    }
+
+    return code.substring(thenIndex + 6, pos - 1).trim();
+  };
 
   for (const item of expression.properties) {
     const method = getFunction(item as ObjectMethod);
@@ -297,7 +314,7 @@ function getDataSources(expression: ObjectExpression, project: ProjectSchema) {
       if (!id) continue;
       const api = findApi(project, id);
       if (!api) continue;
-      const transform = method.exp.value.match(thenRegex)?.[1];
+      const transform = extractThenCallback(method.exp.value);
       sources[method.name] = {
         ref: id,
         name: method.name,
@@ -318,7 +335,7 @@ function getDataSources(expression: ObjectExpression, project: ProjectSchema) {
     if (method && method.exp.value.includes('this.provider.createMock')) {
       const argumentNode = bodyNode?.declarations?.[0]?.init?.arguments?.[0];
 
-      const transform = method.exp.value.match(thenRegex)?.[1];
+      const transform = extractThenCallback(method.exp.value);
       sources[method.name] = {
         ref: '',
         name: method.name,

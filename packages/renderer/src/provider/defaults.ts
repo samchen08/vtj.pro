@@ -54,8 +54,8 @@ export function createAdapter(options: CreateAdapterOptions = {}) {
     adapter: options.axiosAdapter,
     settings: {
       type: 'form',
-      validSuccess: true,
-      originResponse: false,
+      validSuccess: false,
+      originResponse: true,
       loading: true,
       validate: (res: any) => {
         return res.data?.code === 0 || !!res.data?.success;

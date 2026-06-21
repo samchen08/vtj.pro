@@ -1,8 +1,8 @@
-import { type JSFunction } from '@vtj/core';
+import { type JSExpression, type JSFunction } from '@vtj/core';
 import { replaceFunctionTag, parseValue, replaceComputedValue } from '../utils';
 
 export function parseFunctionMap(
-  map: Record<string, JSFunction> = {},
+  map: Record<string, JSFunction | JSExpression> = {},
   computedKeys: string[] = []
 ) {
   return Object.entries(map)

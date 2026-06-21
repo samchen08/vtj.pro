@@ -40,7 +40,7 @@
   };
   const submit = async (form: any, edit: boolean) => {
     const { name, value } = form;
-    if (!edit && !!props.current?.methods[name]) {
+    if (!edit && !!props.current?.isExistName(name)) {
       notify(`名称 ${name} 已存在，请更换！`);
       return false;
     }

@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.18.0](https://gitee.com/newgateway/vtj/compare/@vtj/pro@0.17.8...@vtj/pro@0.18.0) (2026-06-20)
+
+
+### Bug Fixes
+
+* **renderer:** 修复 Composition 生命周期执行错误处理和平台配置 ([a9ed1cb](https://gitee.com/newgateway/vtj/commits/a9ed1cb06a1a69e004331b5d94731c3d60ec9f5b))
+
+
+### Features
+
+* **deps:** 添加 easycom 支持并完善依赖编辑功能 ([fa9999d](https://gitee.com/newgateway/vtj/commits/fa9999d5c2b6c808cbef484e9eb32337d967f60c))
+* **globalApi:** 添加 $uni 和 $getApp 全局API支持 ([47838e8](https://gitee.com/newgateway/vtj/commits/47838e8fd94d21e1c1a091546a1d442594dedafc))
+* **parser:** 支持 uniapp 专用生命周期钩子 ([17d8663](https://gitee.com/newgateway/vtj/commits/17d866383ec16e6cbbaade2a81c0963630aba628))
+
+
+
+
+
 ## [0.17.8](https://gitee.com/newgateway/vtj/compare/@vtj/pro@0.17.7...@vtj/pro@0.17.8) (2026-06-11)
 
 **Note:** Version bump only for package @vtj/pro

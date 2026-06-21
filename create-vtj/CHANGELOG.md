@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.13.0](https://gitee.com/newgateway/vtj/compare/create-vtj@0.12.23...create-vtj@0.13.0) (2026-06-20)
+
+
+### Features
+
+* **h5:** 添加@vtj/charts依赖及远程配置 ([93f6ecb](https://gitee.com/newgateway/vtj/commits/93f6ecb54723431bf159024c9d6e32b5c9631add))
+* **uniapp:** 增强 uniapp 配置与插件支持 ([5ddf092](https://gitee.com/newgateway/vtj/commits/5ddf0925120eea0456fc1100936f5e0dfb18c198))
+
+
+
+
+
 ## [0.12.23](https://gitee.com/newgateway/vtj/compare/create-vtj@0.12.22...create-vtj@0.12.23) (2026-06-11)
 
 **Note:** Version bump only for package create-vtj

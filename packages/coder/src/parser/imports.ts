@@ -6,7 +6,8 @@ export function parseImports(
   components: string[] = [],
   importBlocks: string[] = [],
   collectImports: Record<string, Set<string>> = {},
-  platform: PlatformType = 'web'
+  platform: PlatformType = 'web',
+  easycomPackages: Set<string> = new Set()
 ) {
   const uniH5: string[] = [
     '@dcloudio/uni-h5',
@@ -23,6 +24,8 @@ export function parseImports(
   for (const name of components) {
     const desc = componentMap.get(name.split(':')[0]);
     if (desc && desc.package) {
+      // easycom 包的组件不需要 import
+      if (easycomPackages.has(desc.package)) continue;
       const items = imports[desc.package] ?? (imports[desc.package] = []);
       const item = desc.parent || (desc.alias || '').split('.')[0] || desc.name;
       items.push(item);

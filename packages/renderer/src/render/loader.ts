@@ -38,7 +38,7 @@ export const defaultLoader: BlockLoader = (_id: string, name: string) => {
 
 export async function getPlugin(
   from: NodeFromPlugin,
-  global: any = window
+  global: any = globalThis
 ): Promise<BlockPlugin | null> {
   const { urls = [], library } = from;
   const scripts = urls.filter((n) => isJSUrl(n));

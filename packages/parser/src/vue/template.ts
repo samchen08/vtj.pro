@@ -627,7 +627,9 @@ function transformChildren(
       typeof first === 'string' || isJSExpression(first) ? first : [first];
   } else {
     el.children = nodes.map((n) => {
-      return typeof n === 'string' ? { name: 'span', children: n } : n;
+      return typeof n === 'string' || isJSExpression(n)
+        ? { name: 'span', children: n }
+        : n;
     }) as NodeSchema[];
   }
 

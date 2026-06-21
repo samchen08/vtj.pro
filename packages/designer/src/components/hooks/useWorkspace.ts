@@ -1,5 +1,6 @@
 import { watch, ref, computed, type ComputedRef } from 'vue';
 import type { ActionMenuItem, TabsItem } from '@vtj/ui';
+import { VtjIconDocument, VtjIconComponents } from '@vtj/icons';
 import { type TabWidget, type Widget } from '../../framework';
 import { useProject } from './useProject';
 import { message } from '../../utils';
@@ -23,7 +24,8 @@ export function useWorkspace(widgets: ComputedRef<Widget[]>) {
             label: file.title,
             name: file.id,
             closable: true,
-            disabled: engine.state.streaming
+            disabled: engine.state.streaming,
+            icon: file.type === 'page' ? VtjIconDocument : VtjIconComponents
           } as TabsItem;
         }
         return null;

@@ -1,20 +1,20 @@
 import { merge, logger } from '@vtj/utils';
-import { builtInWidgets } from './built-in';
+import { builtInWidgets } from './built-in/widgets';
 import { type Widget, RegionType } from '../framework';
 
 /**
  * Widget管理类
  */
-class WidgetManager {
+export class WidgetManager {
   private widgets: Record<string, Widget> = {};
 
-  constructor() {
-    this.widgets = this.createWidgets();
+  constructor(builtIn: Widget[] = builtInWidgets) {
+    this.widgets = this.createWidgets(builtIn);
   }
 
-  private createWidgets() {
+  private createWidgets(builtIn: Widget[]) {
     const widgets: Record<string, Widget> = {};
-    for (const item of builtInWidgets) {
+    for (const item of builtIn) {
       widgets[item.name] = item;
     }
     return widgets;

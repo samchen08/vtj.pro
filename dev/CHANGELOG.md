@@ -3,6 +3,21 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.18.0](https://github.com/samchen08/vtj.pro/compare/dev-web@0.17.8...dev-web@0.18.0) (2026-06-20)
+
+
+### Features
+
+* **renderer:** 增加 Props 与 Emits 示例及 Watch 功能 ([774ab27](https://github.com/samchen08/vtj.pro/commit/774ab279ffb830fb5346d1b062dcd49636b42812))
+* **renderer:** 支持 Composition API 模式及响应式数据处理 ([8cd32e7](https://github.com/samchen08/vtj.pro/commit/8cd32e7ad34a2f3b99d26c033301da241aa276a5))
+* **renderer:** 支持 props 中 title 属性绑定和模板裸 props 访问 ([c31470e](https://github.com/samchen08/vtj.pro/commit/c31470e3a5f656d9404f765895074cf543a7584b))
+* **renderer:** 添加renderer组件及暗黑模式组合函数支持 ([8b7abe1](https://github.com/samchen08/vtj.pro/commit/8b7abe1fabc0615e5b84c4a306923d3bd603a595))
+* **ui:** 重构多个组件示例，增强交互和样式体验 ([10bf7cc](https://github.com/samchen08/vtj.pro/commit/10bf7cc564e0cfb5ed429a53edbe6246d2b50cc0))
+
+
+
+
+
 ## [0.17.8](https://github.com/samchen08/vtj.pro/compare/dev-web@0.17.7...dev-web@0.17.8) (2026-06-11)
 
 **Note:** Version bump only for package dev-web

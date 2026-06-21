@@ -2,6 +2,11 @@ import type { JSExpression, JSFunction, JSONValue } from '../shared';
 import type { NodeSchema } from './node';
 import type { DataSourceSchema } from './dataSource';
 
+/**
+ * API 风格
+ */
+export type BlockApiMode = 'options' | 'composition';
+
 export interface BlockSchema {
   /**
    * 唯一标识
@@ -19,14 +24,29 @@ export interface BlockSchema {
   locked?: boolean;
 
   /**
+   * API 风格，默认 options
+   */
+  apiMode?: BlockApiMode;
+
+  /**
    * 注入
    */
   inject?: BlockInject[];
 
   /**
-   * 状态数据
+   * 状态数据 (Options 模式)
    */
   state?: BlockState;
+
+  /**
+   * ref 响应式声明 (Composition 模式)
+   */
+  refs?: Record<string, JSONValue | JSExpression>;
+
+  /**
+   * reactive 响应式声明 (Composition 模式)
+   */
+  reactives?: Record<string, JSONValue | JSExpression>;
 
   /**
    * 生命周期集
@@ -41,12 +61,28 @@ export interface BlockSchema {
   /**
    * 计算属性
    */
-  computed?: Record<string, JSFunction>;
+  computed?: Record<string, JSFunction | JSExpression>;
 
   /**
    * 侦听器
    */
   watch?: BlockWatch[];
+
+  /**
+   * 组合函数调用 (Composition 模式)
+   */
+  composables?: BlockComposable[];
+
+  /**
+   * setup 初始化代码 (Composition 模式)
+   * 在 refs/reactives/composables 创建之后、组件挂载之前执行
+   */
+  setup?: JSFunction;
+
+  /**
+   * provide 声明
+   */
+  provide?: Record<string, JSONValue | JSExpression | JSFunction>;
 
   /**
    * 样式
@@ -126,7 +162,31 @@ export interface BlockWatch {
   source: JSFunction | JSExpression;
   deep?: boolean;
   immediate?: boolean;
+  flush?: 'pre' | 'post' | 'sync';
   handler: JSFunction;
+}
+
+/**
+ * 组合函数调用描述 (Composition 模式)
+ */
+export interface BlockComposable {
+  /**
+   * 赋值变量名
+   */
+  name: string;
+  /**
+   * composable 来源函数
+   */
+  composable: JSExpression;
+
+  /**
+   * 调用参数
+   */
+  args?: (JSONValue | JSExpression)[];
+  /**
+   * 解构字段，如 const { x, y } = useXxx()
+   */
+  destructure?: string[];
 }
 
 export interface BlockProp {

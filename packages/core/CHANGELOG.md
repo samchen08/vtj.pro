@@ -3,6 +3,27 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.18.0](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.17.8...@vtj/core@0.18.0) (2026-06-20)
+
+
+### Bug Fixes
+
+* **core:** 修复 BlockModel 更新时 setup 属性赋值问题 ([cf4ff4a](https://gitee.com/newgateway/vtj/commits/cf4ff4aa8c1d881ee3b89b3f0edd0bfe52d1460f))
+
+
+### Features
+
+* **core:** 增加 Block 模型对 refs、reactives、composables 和 provide 的支持 ([fd1e15d](https://gitee.com/newgateway/vtj/commits/fd1e15d03222bc1321637a0f5d25ee8ac081e401))
+* **core:** 增加 BlockSchema 对 Composition API 的支持 ([c85dd3a](https://gitee.com/newgateway/vtj/commits/c85dd3a992019f57e98797ec9f93034bdc298872))
+* **core:** 支持composition api相关响应式状态管理 ([db0ea9f](https://gitee.com/newgateway/vtj/commits/db0ea9fca1a282dd733fc76da3c56fad06fb9d54))
+* **core:** 支持计算属性同时使用函数与表达式 ([aa72e07](https://gitee.com/newgateway/vtj/commits/aa72e07eae5d976c6640dc7dee3cc54f9da8cdee))
+* **core:** 新增 setup 初始化代码支持 ([5bbda67](https://gitee.com/newgateway/vtj/commits/5bbda679224c12bdb6e52ebf96a054ec7549fc1d))
+* **deps:** 添加 easycom 支持并完善依赖编辑功能 ([fa9999d](https://gitee.com/newgateway/vtj/commits/fa9999d5c2b6c808cbef484e9eb32337d967f60c))
+
+
+
+
+
 ## [0.17.8](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.17.7...@vtj/core@0.17.8) (2026-06-11)
 
 **Note:** Version bump only for package @vtj/core
