@@ -136,7 +136,7 @@ const handleClick = () => {
 
 const fetchData = async () => {
   const res = await __apis['getList']();
-  __state.list = res.data;
+  __state.list = res.data?.data;
 };
 
 // ✅ 正确（function 声明）
@@ -318,14 +318,14 @@ const myHook = myCustomHook(); // 不以 use 开头
 // ✅ 正确：API 数据源
 const getUserList = async () => {
   return __provider.apis['getUserList']().then((res: any) => {
-    return res.data;
+    return res.data?.data;
   });
 };
 
 // ✅ 正确：带参数的 API 调用
 const getUserById = async (id: string) => {
   return __provider.apis['getUserById']({ id }).then((res: any) => {
-    return res.data;
+    return res.data?.data;
   });
 };
 ```
@@ -701,7 +701,7 @@ const AButtonGroup = AButton.Group; // ✅ 派生声明，parser 会识别并跳
       const res = await __apis['getUserList']({
         pageSize: __props.pageSize || 10
       });
-      __state.users = res.data || [];
+      __state.users = res.data?.data || [];
     } finally {
       __state.loading = false;
     }
