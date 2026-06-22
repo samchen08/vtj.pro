@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.18.4](https://gitee.com/newgateway/vtj/compare/@vtj/parser@0.18.3...@vtj/parser@0.18.4) (2026-06-22)
+
+
+### Bug Fixes
+
+* **parser:** 修正事件处理函数双重包装问题 ([6bfda13](https://gitee.com/newgateway/vtj/commits/6bfda13e10ce605f4bb2088f8f4ecec1738e6595))
+
+
+
+
+
 ## [0.18.3](https://gitee.com/newgateway/vtj/compare/@vtj/parser@0.18.2...@vtj/parser@0.18.3) (2026-06-22)
 
 **Note:** Version bump only for package @vtj/parser
