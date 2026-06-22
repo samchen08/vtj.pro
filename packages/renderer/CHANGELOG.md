@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.18.4](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.18.3...@vtj/renderer@0.18.4) (2026-06-22)
+
+
+### Bug Fixes
+
+* **renderer:** 修复路径匹配正则表达式错误 ([420b7d4](https://gitee.com/newgateway/vtj/commits/420b7d4ec63ef2f9e02750b528774c8dfa5df73e))
+
+
+
+
+
 ## [0.18.3](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.18.2...@vtj/renderer@0.18.3) (2026-06-22)
 
 

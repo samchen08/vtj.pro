@@ -22,7 +22,7 @@ import {
   type IfBranchNode
 } from '@vue/compiler-core';
 import { uid } from '@vtj/base';
-import { isJSExpression, isNodeSchema } from '../shared';
+import { isJSExpression, isNodeSchema, parseScript } from '../shared';
 import {
   getJSExpression,
   getJSFunction,
@@ -255,9 +255,29 @@ function getEvents(
           } else {
             // 内联语句/表达式：如 ++count → 包装为箭头函数
             // 若引用 $event 则保留参数，否则用 () =>
-            const hasDollarEvent = /\$event\b/.test(code);
-            const prefix = hasDollarEvent ? '($event) => ' : '() => ';
-            handler = getJSFunction(`${prefix}${code}`);
+            // 但需先检测 code 是否已经是函数表达式，避免双重包装
+            // 例如 @click="() => { ... }" 的 loc.source 就是箭头函数本身
+            let isAlreadyFunc = false;
+            try {
+              const parsed = parseScript(code);
+              const body = parsed.program.body;
+              if (body.length === 1 && body[0].type === 'ExpressionStatement') {
+                const exprType = (body[0] as any).expression?.type;
+                isAlreadyFunc =
+                  exprType === 'ArrowFunctionExpression' ||
+                  exprType === 'FunctionExpression';
+              }
+            } catch {
+              // 无法作为独立表达式解析（如不完整语句），继续兜底包装
+            }
+
+            if (isAlreadyFunc) {
+              handler = getJSFunction(code);
+            } else {
+              const hasDollarEvent = /\$event\b/.test(code);
+              const prefix = hasDollarEvent ? '($event) => ' : '() => ';
+              handler = getJSFunction(`${prefix}${code}`);
+            }
           }
 
           events[item.arg.content] = {

@@ -142,7 +142,11 @@ export function mockApi(Mock: any, schema: ApiSchema) {
   if (url && mockTemplate) {
     try {
       const path = isUrl(url) ? new URL(url).pathname : url;
-      const regexp = pathToRegexp(`(.*)${path}(.*)`);
+      const pathRegexp = pathToRegexp(`(.*)${path}`, [], { end: false });
+      const regexp = new RegExp(
+        pathRegexp.source + '([?#].*)?$',
+        pathRegexp.flags
+      );
       const match = pathToRegexpMatch(path, { decode: decodeURIComponent });
       const handler = parseExpression(mockTemplate, {}, true);
       Mock.mock(
