@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.18.3](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.18.2...@vtj/renderer@0.18.3) (2026-06-22)
+
+
+### Bug Fixes
+
+* **renderer:** 修复缓存中事件处理器复用导致参数丢失的问题 ([2cd8aca](https://gitee.com/newgateway/vtj/commits/2cd8aca491372f36ca5f66b5b8e484cec23f2a1a))
+
+
+
+
+
 ## [0.18.2](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.18.1...@vtj/renderer@0.18.2) (2026-06-21)
 
 **Note:** Version bump only for package @vtj/renderer
