@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.1](https://github.com/samchen08/vtj.pro/compare/vtj-project-library@0.13.0...vtj-project-library@0.13.1) (2026-06-22)
+
+
+### Bug Fixes
+
+* **renderer:** 修复响应式依赖与 props 同步问题 ([546c1ca](https://github.com/samchen08/vtj.pro/commit/546c1ca12051bead7f73aaecbf874c4c4843665d))
+
+
+
+
+
 # [0.13.0](https://github.com/samchen08/vtj.pro/compare/vtj-project-library@0.12.20...vtj-project-library@0.13.0) (2026-06-20)
 
 **Note:** Version bump only for package vtj-project-library

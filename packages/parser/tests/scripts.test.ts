@@ -35,3 +35,34 @@ describe('parseScripts', () => {
     expect(result.state!['loading']).toBeDefined();
   });
 });
+
+const emitsSource = `
+import { defineComponent, reactive } from 'vue';
+
+export default defineComponent({
+  name: 'Aaa',
+  emits: [
+    'update:pageSize',
+    'update:pageNum',
+    'row-click',
+    'smt-add',
+    'sort-change'
+  ],
+  setup() {
+    const state = reactive({});
+    return { state };
+  }
+});
+`;
+
+describe('parseScripts emits', () => {
+  const result = parseScripts(emitsSource, project);
+
+  test('should parse emits array from Options API', () => {
+    expect(result.emits).toBeDefined();
+    expect(result.emits!.length).toBe(5);
+    expect(result.emits![0]).toEqual({ name: 'update:pageSize', params: [] });
+    expect(result.emits![1]).toEqual({ name: 'update:pageNum', params: [] });
+    expect(result.emits![4]).toEqual({ name: 'sort-change', params: [] });
+  });
+});

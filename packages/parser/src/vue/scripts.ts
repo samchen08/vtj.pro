@@ -111,6 +111,9 @@ export function parseScripts(content: string, project: ProjectSchema) {
           case 'expose':
             result.expose = processExpose(item.value as any);
             break;
+          case 'emits':
+            result.emits = processEmitsArray(item.value as any);
+            break;
           case 'directives':
             result.directives = processDirectives(item.value as any);
             break;
@@ -590,6 +593,19 @@ function processExpose(expression: ArrayExpression) {
         return n?.type === 'StringLiteral' ? n.value : '';
       })
       .filter((n) => !!n);
+  }
+  return [];
+}
+
+function processEmitsArray(expression: ArrayExpression): BlockEmit[] {
+  if (expression && expression.elements) {
+    return expression.elements
+      .map((n) => {
+        return n?.type === 'StringLiteral' && n.value
+          ? { name: n.value, params: [] }
+          : null;
+      })
+      .filter((n) => !!n) as BlockEmit[];
   }
   return [];
 }

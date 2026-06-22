@@ -97,6 +97,15 @@ export class Context {
       this.__cleanup();
     });
     Vue.onBeforeUpdate(() => {
+      // 同步最新的 props 到 context，确保通过 context 求值的表达式能获取到最新 prop 值。
+      // setup() 只在组件首次创建时执行一次，props 更新后 context 上的直接 prop 属性会过时，
+      // 需要在每次重新渲染前从实例的 $props 同步。
+      this.__proxy();
+      if (this.$props) {
+        for (const key of Object.keys(this.$props)) {
+          (this as any)[key] = this.$props[key];
+        }
+      }
       this.__reset();
     });
   }
