@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.18.6](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.18.5...@vtj/renderer@0.18.6) (2026-06-22)
+
+
+### Bug Fixes
+
+* **renderer:** 修复响应式依赖与 props 同步问题 ([546c1ca](https://gitee.com/newgateway/vtj/commits/546c1ca12051bead7f73aaecbf874c4c4843665d))
+
+
+
+
+
 ## [0.18.5](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.18.4...@vtj/renderer@0.18.5) (2026-06-22)
 
 **Note:** Version bump only for package @vtj/renderer
