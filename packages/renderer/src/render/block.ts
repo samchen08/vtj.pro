@@ -163,8 +163,41 @@ export function createRenderer(options: CreateRendererOptions) {
     emits: createEmits(dsl.value.emits),
     expose: ['vtj', ...(dsl.value.expose || [])],
     render() {
-      if (!dsl.value.nodes) return null;
-      const nodes: NodeSchema[] = dsl.value.nodes || [];
+      // 强制建立响应式依赖：遍历 DSL 中定义的数据源并通过 Vue 组件代理(this)访问，
+      // 确保数据变更时组件能够重新渲染。
+      // 这是必要的，因为 nodeRender 通过 parseExpression（内部使用 new Function）
+      // 求值表达式会绕过 Vue 基于 Proxy 的响应式追踪。
+      const _dsl = dsl.value;
+
+      // refs: 通过 this 访问，Options API 自动解包并追踪依赖
+      if (_dsl.refs) {
+        for (const key of Object.keys(_dsl.refs)) void (this as any)[key];
+      }
+      // computed: 同 refs
+      if (_dsl.computed) {
+        for (const key of Object.keys(_dsl.computed)) void (this as any)[key];
+      }
+      // state: reactive 对象，需逐个访问属性以建立深度依赖
+      if (_dsl.state) {
+        const st = (this as any).state;
+        for (const key of Object.keys(_dsl.state)) void st[key];
+      }
+      // reactives: reactive 对象
+      if (_dsl.reactives) {
+        for (const key of Object.keys(_dsl.reactives)) {
+          const obj = (this as any)[key];
+          if (obj && typeof obj === 'object') {
+            for (const k of Object.keys(obj)) void obj[k];
+          }
+        }
+      }
+      // injects: 可能随父组件变化
+      if (_dsl.inject) {
+        for (const inj of _dsl.inject) void (this as any)[inj.name];
+      }
+
+      if (!_dsl.nodes) return null;
+      const nodes: NodeSchema[] = _dsl.nodes || [];
       if (nodes.length === 1) {
         return nodeRender(nodes[0], context, Vue, loader, nodes);
       } else {

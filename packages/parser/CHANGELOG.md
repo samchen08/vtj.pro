@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.18.6](https://gitee.com/newgateway/vtj/compare/@vtj/parser@0.18.5...@vtj/parser@0.18.6) (2026-06-22)
+
+**Note:** Version bump only for package @vtj/parser
+
+
+
+
+
+## [0.18.5](https://gitee.com/newgateway/vtj/compare/@vtj/parser@0.18.4...@vtj/parser@0.18.5) (2026-06-22)
+
+
+### Features
+
+* **parser:** 增加对 Vue 选项中 emits 数组的支持 ([cf7d756](https://gitee.com/newgateway/vtj/commits/cf7d756c1995bc7ce9869fa1ca92e4454ccf9587))
+
+
+
+
+
 ## [0.18.4](https://gitee.com/newgateway/vtj/compare/@vtj/parser@0.18.3...@vtj/parser@0.18.4) (2026-06-22)
 
 
