@@ -65,10 +65,10 @@ const __provider = useProvider({ id: '<%= id %>', version: '<%= version %>' });
 <%= injects %>
 <%= composables %>
 <%= createdStatements %>
-<%= state %>
 <%= refs %>
 <%= reactives %>
 <%= computed %>
+<%= state %>
 <%= methods %>
 <%= setupStatements %>
 <%= dataSources %>

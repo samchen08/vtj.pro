@@ -173,15 +173,7 @@ export function createRenderer(options: CreateRendererOptions) {
       if (_dsl.refs) {
         for (const key of Object.keys(_dsl.refs)) void (this as any)[key];
       }
-      // computed: 同 refs
-      if (_dsl.computed) {
-        for (const key of Object.keys(_dsl.computed)) void (this as any)[key];
-      }
-      // state: reactive 对象，需逐个访问属性以建立深度依赖
-      if (_dsl.state) {
-        const st = (this as any).state;
-        for (const key of Object.keys(_dsl.state)) void st[key];
-      }
+
       // reactives: reactive 对象
       if (_dsl.reactives) {
         for (const key of Object.keys(_dsl.reactives)) {
@@ -191,6 +183,18 @@ export function createRenderer(options: CreateRendererOptions) {
           }
         }
       }
+
+      // state: reactive 对象，需逐个访问属性以建立深度依赖
+      if (_dsl.state) {
+        const st = (this as any).state;
+        for (const key of Object.keys(_dsl.state)) void st[key];
+      }
+
+      // computed: 同 refs
+      if (_dsl.computed) {
+        for (const key of Object.keys(_dsl.computed)) void (this as any)[key];
+      }
+
       // injects: 可能随父组件变化
       if (_dsl.inject) {
         for (const inj of _dsl.inject) void (this as any)[inj.name];
