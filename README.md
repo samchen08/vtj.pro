@@ -1,4 +1,4 @@
-<div align="center"> <a href="https://gitee.com/newgateway/vtj"> <img width="100" src="./platforms/pro/public/logo.svg"> </a> <br>
+<div align="center"> <a href="https://gitee.com/newgateway/vtj"> <img width="100" src="https://vtj.pro/assets/logo.svg"> </a> <br>
 <h1>VTJ.PRO</h1>
 <h3>给专业开发者的 AI 低代码引擎</h3>
 <br>
