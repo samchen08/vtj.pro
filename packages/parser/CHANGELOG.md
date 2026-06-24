@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.18.8](https://gitee.com/newgateway/vtj/compare/@vtj/parser@0.18.7...@vtj/parser@0.18.8) (2026-06-24)
+
+
+### Bug Fixes
+
+* **parser:** 修复vue模板解析中v-for指令重复收集问题 ([520e991](https://gitee.com/newgateway/vtj/commits/520e991d09ba49bdc9122ce40c92a1790e03f39d))
+
+
+
+
+
 ## [0.18.7](https://gitee.com/newgateway/vtj/compare/@vtj/parser@0.18.6...@vtj/parser@0.18.7) (2026-06-24)
 
 
