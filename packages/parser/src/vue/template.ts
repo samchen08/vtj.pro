@@ -699,17 +699,27 @@ function transformChildren(
 function transformTemplateIf(node: IfNode) {
   const branches = node.branches || [];
   const first = branches[0];
-  const children = first.children || [];
+  const children = first?.children || [];
 
+  // template v-if/v-else/v-else-if: 每个分支独立创建包装节点
+  if (first?.isTemplateIf) {
+    return branches.map((branch) => {
+      const directives = getDirectives(branch as any, branches);
+      const el = { name: 'div', directives };
+      return transformChildren(el, branch.children || []);
+    });
+  }
+
+  // 单分支但多子节点或非元素子节点: 创建 div 包装
   if (
-    first?.isTemplateIf ||
     children.length > 1 ||
-    children[0].type !== NodeTypes.ELEMENT
+    (children[0] && children[0].type !== NodeTypes.ELEMENT)
   ) {
     const directives = getDirectives(first as any, branches);
-    const el = { name: 'span', directives };
+    const el = { name: 'div', directives };
     return transformChildren(el, first.children);
-  } else {
-    return transformBranches(branches);
   }
+
+  // 单分支单元素子节点: 直接将指令附加到元素上
+  return transformBranches(branches);
 }
