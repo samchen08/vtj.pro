@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.18.7](https://gitee.com/newgateway/vtj/compare/@vtj/parser@0.18.6...@vtj/parser@0.18.7) (2026-06-24)
+
+
+### Bug Fixes
+
+* **parser:** 修复 template v-if 分支渲染的包装节点逻辑 ([518a42d](https://gitee.com/newgateway/vtj/commits/518a42d02215a9855e26ffc398a1fea58550ccba))
+
+
+
+
+
 ## [0.18.6](https://gitee.com/newgateway/vtj/compare/@vtj/parser@0.18.5...@vtj/parser@0.18.6) (2026-06-22)
 
 **Note:** Version bump only for package @vtj/parser
