@@ -316,7 +316,9 @@ function getDirectives(
         } as any);
 
         const childNode = (node as any).children?.[0];
-        if (childNode) {
+        // 跳过 FOR 子节点：v-for 是结构性包装节点，其指令由自身处理，
+        // 不应在此处重复收集，否则会与 createNodeSchema 中 FOR 节点再次生成 vFor 造成重复
+        if (childNode && childNode.type !== NodeTypes.FOR) {
           const otherDirectives = getDirectives(childNode);
           directives.push(...otherDirectives);
         }
