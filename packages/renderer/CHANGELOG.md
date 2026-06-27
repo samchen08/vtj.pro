@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.18.9](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.18.8...@vtj/renderer@0.18.9) (2026-06-27)
+
+
+### Bug Fixes
+
+* **renderer:** 在解析表达式错误时附加错误信息 ([821b24b](https://gitee.com/newgateway/vtj/commits/821b24b5bd80b556a859c78a0889f3dd320306a3))
+
+
+
+
+
 ## [0.18.8](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.18.7...@vtj/renderer@0.18.8) (2026-06-24)
 
 **Note:** Version bump only for package @vtj/renderer
