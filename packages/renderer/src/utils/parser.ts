@@ -57,6 +57,9 @@ export function parseExpression(
     }
   } catch (err: any) {
     logger.error('parseExpression.error', err, str, self?.__self ?? self);
+    if (err) {
+      err.info = str.value;
+    }
     triggerError(err);
     if (throwError) {
       throw err;
