@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.18.11](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.18.10...@vtj/designer@0.18.11) (2026-06-28)
+
+
+### Bug Fixes
+
+* **renderer:** 修复全局属性初始化和状态引用问题 ([1baafd0](https://gitee.com/newgateway/vtj/commits/1baafd05e451a52b710af116912dc582b30aa18d))
+
+
+
+
+
 ## [0.18.10](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.18.9...@vtj/designer@0.18.10) (2026-06-28)
 
 
