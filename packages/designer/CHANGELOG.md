@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.18.10](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.18.9...@vtj/designer@0.18.10) (2026-06-28)
+
+
+### Features
+
+* remove debug log from chat input component ([81954ae](https://gitee.com/newgateway/vtj/commits/81954aed6191234efa006814fb41f4fe18547eaa))
+
+
+
+
+
 ## [0.18.9](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.18.8...@vtj/designer@0.18.9) (2026-06-27)
 
 **Note:** Version bump only for package @vtj/designer

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.18.10](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.18.9...@vtj/renderer@0.18.10) (2026-06-28)
+
+
+### Bug Fixes
+
+* prevent duplicate Pinia initialization in runtime globals ([d7857e7](https://gitee.com/newgateway/vtj/commits/d7857e78d0c2cb6387dbfa5e54e7042c6b0ac933))
+
+
+
+
+
 ## [0.18.9](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.18.8...@vtj/renderer@0.18.9) (2026-06-27)
 
 
