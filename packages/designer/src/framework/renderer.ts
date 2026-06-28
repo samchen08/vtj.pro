@@ -66,6 +66,7 @@ export class Renderer {
         app.config.globalProperties[key] = val;
       }
     }
+    app.config.globalProperties.$pinia = null;
     app.config.globalProperties.$apis = apis;
     const libraryOptions = this.provider?.options?.libraryOptions || {};
     plugins.forEach(([name, plugin]) => {

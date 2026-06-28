@@ -151,8 +151,7 @@ export function createRenderer(options: CreateRendererOptions) {
 
       return {
         vtj: context,
-        state: context.state,
-        $state: context.$state,
+        state: context.$state,
         ...props,
         ...refs,
         ...reactives,
