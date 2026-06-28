@@ -48,8 +48,10 @@ export function initRuntimeGlobals(
 }
 
 function createStore(store: JSFunction, app: App, Pinia: any) {
-  const pinia = Pinia.createPinia();
-  app.use(pinia);
+  if (!app.config.globalProperties.$pinia) {
+    const pinia = Pinia.createPinia();
+    app.use(pinia);
+  }
   if (isJSFunction(store) && store.value) {
     const storeFunc = parseFunction(store, {}, false, false, true);
     const useStore = Pinia.defineStore('$store', storeFunc(app) || {});
