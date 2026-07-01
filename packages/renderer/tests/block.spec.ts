@@ -455,6 +455,234 @@ describe('block - Composition API mode', () => {
   });
 });
 
+describe('block - circular reference detection', () => {
+  // Mock window for adoptedStyleSheets (当 dsl 有 id 时会调用)
+  const mockWindow = {
+    CSSStyleSheet: class MockCSSStyleSheet {
+      id = '';
+      replaceSync() {}
+    },
+    document: {
+      adoptedStyleSheets: [] as any[],
+      head: { appendChild() {} },
+      getElementById() {
+        return null;
+      },
+      createElement() {
+        return { id: '', innerHTML: '' };
+      }
+    }
+  };
+
+  const createVueMock = (injectValue: any = null) => ({
+    defineComponent: (options: any) => options,
+    computed: vi.fn((fn: any) => ({ value: fn() })),
+    reactive: vi.fn((obj: any) => obj),
+    ref: vi.fn((val: any) => ({ value: val })),
+    markRaw: vi.fn((obj: any) => obj),
+    createVNode: vi.fn((tag: any, props: any, children: any) => ({
+      tag,
+      props,
+      children
+    })),
+    provide: vi.fn(),
+    inject: vi.fn((_key: any, defaultValue: any) => injectValue),
+    getCurrentInstance: () => ({
+      proxy: {
+        $el: null,
+        $emit: vi.fn()
+      },
+      appContext: {
+        config: { globalProperties: {} }
+      }
+    }),
+    onMounted: vi.fn(),
+    onUnmounted: vi.fn(),
+    onBeforeUpdate: vi.fn(),
+    watch: vi.fn(),
+    onBeforeMount: vi.fn(),
+    onBeforeUnmount: vi.fn()
+  });
+
+  test('detects circular reference and returns __vtjCircular flag', async () => {
+    const warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {});
+    // 模拟父级渲染链中已包含当前区块 id
+    const chainWithBlockA = new Set(['blockA']);
+    const Vue = createVueMock(chainWithBlockA);
+
+    const dsl = {
+      name: 'BlockA',
+      id: 'blockA',
+      state: {},
+      computed: {},
+      methods: {},
+      props: [],
+      emits: [],
+      nodes: [{ component: 'div' }],
+      lifeCycles: {},
+      watch: [],
+      dataSources: {},
+      css: '',
+      apiMode: 'options'
+    } as any;
+
+    const { renderer } = createRenderer({
+      Vue,
+      mode: ContextMode.Runtime,
+      dsl
+    });
+
+    const setupReturn = await renderer.setup({});
+    expect(setupReturn.__vtjCircular).toBe(true);
+    expect(warnSpy).toHaveBeenCalledWith(
+      expect.stringContaining('检测到区块循环引用')
+    );
+    warnSpy.mockRestore();
+  });
+
+  test('render returns null for circular block', async () => {
+    const warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {});
+    const chainWithBlockA = new Set(['blockA']);
+    const Vue = createVueMock(chainWithBlockA);
+
+    const dsl = {
+      name: 'BlockA',
+      id: 'blockA',
+      state: {},
+      computed: {},
+      methods: {},
+      props: [],
+      emits: [],
+      nodes: [{ component: 'div' }],
+      lifeCycles: {},
+      watch: [],
+      dataSources: {},
+      css: '',
+      apiMode: 'options'
+    } as any;
+
+    const { renderer } = createRenderer({
+      Vue,
+      mode: ContextMode.Runtime,
+      dsl
+    });
+
+    await renderer.setup({});
+    // 模拟 Vue 将 setup 返回值绑定到组件实例
+    const instance = { __vtjCircular: true } as any;
+    const result = renderer.render.call(instance);
+    expect(result).toBeNull();
+    warnSpy.mockRestore();
+  });
+
+  test('does not detect circular reference for first-level block', async () => {
+    // 顶层区块：inject 返回 null（无父级链）
+    const Vue = createVueMock(null);
+
+    const dsl = {
+      name: 'RootBlock',
+      id: 'rootBlock',
+      state: {},
+      computed: {},
+      methods: {},
+      props: [],
+      emits: [],
+      nodes: [{ component: 'div' }],
+      lifeCycles: {},
+      watch: [],
+      dataSources: {},
+      css: '',
+      apiMode: 'options'
+    } as any;
+
+    const { renderer } = createRenderer({
+      Vue,
+      mode: ContextMode.Runtime,
+      dsl,
+      window: mockWindow
+    });
+
+    const setupReturn = await renderer.setup({});
+    expect(setupReturn.__vtjCircular).toBeUndefined();
+    // 验证 provide 被调用，传入了包含当前区块 id 的链
+    expect(Vue.provide).toHaveBeenCalledWith(
+      expect.any(Symbol),
+      expect.any(Set)
+    );
+    const provideCall = Vue.provide.mock.calls[0];
+    const providedChain = provideCall[1] as Set<string>;
+    expect(providedChain.has('rootBlock')).toBe(true);
+  });
+
+  test('does not detect circular reference for sibling blocks with same id', async () => {
+    // 模拟父级链包含 blockA，但当前区块是 blockB（兄弟节点场景）
+    const parentChain = new Set(['blockA']);
+    const Vue = createVueMock(parentChain);
+
+    const dsl = {
+      name: 'BlockB',
+      id: 'blockB',
+      state: {},
+      computed: {},
+      methods: {},
+      props: [],
+      emits: [],
+      nodes: [{ component: 'div' }],
+      lifeCycles: {},
+      watch: [],
+      dataSources: {},
+      css: '',
+      apiMode: 'options'
+    } as any;
+
+    const { renderer } = createRenderer({
+      Vue,
+      mode: ContextMode.Runtime,
+      dsl,
+      window: mockWindow
+    });
+
+    const setupReturn = await renderer.setup({});
+    expect(setupReturn.__vtjCircular).toBeUndefined();
+    // 验证 provide 传入了包含 blockA 和 blockB 的链
+    const provideCall = Vue.provide.mock.calls[0];
+    const providedChain = provideCall[1] as Set<string>;
+    expect(providedChain.has('blockA')).toBe(true);
+    expect(providedChain.has('blockB')).toBe(true);
+  });
+
+  test('block without id does not trigger cycle detection', async () => {
+    // 区块没有 id，不应触发循环检测
+    const parentChain = new Set(['someBlock']);
+    const Vue = createVueMock(parentChain);
+
+    const dsl = {
+      name: 'NoIdBlock',
+      id: undefined,
+      state: {},
+      computed: {},
+      methods: {},
+      props: [],
+      emits: [],
+      nodes: [{ component: 'div' }],
+      lifeCycles: {},
+      watch: [],
+      dataSources: {},
+      css: '',
+      apiMode: 'options'
+    } as any;
+
+    const { renderer } = createRenderer({
+      Vue,
+      mode: ContextMode.Runtime,
+      dsl
+    });
+
+    const setupReturn = await renderer.setup({});
+    expect(setupReturn.__vtjCircular).toBeUndefined();
+  });
+});
+
 describe('block - createDataSources', () => {
   test('createDataSources with mock type', () => {
     const context = new Context({ mode: ContextMode.Runtime });

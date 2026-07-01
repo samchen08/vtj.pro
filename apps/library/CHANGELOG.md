@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.2](https://github.com/samchen08/vtj.pro/compare/vtj-project-library@0.13.1...vtj-project-library@0.13.2) (2026-07-01)
+
+
+### Features
+
+* **renderer:** 增加区块循环引用检测机制 ([6369540](https://github.com/samchen08/vtj.pro/commit/63695405f7e8b2dd223c30d4603dea59495624ce))
+
+
+
+
+
 ## [0.13.1](https://github.com/samchen08/vtj.pro/compare/vtj-project-library@0.13.0...vtj-project-library@0.13.1) (2026-06-22)
 
 
