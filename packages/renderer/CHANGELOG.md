@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.18.12](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.18.11...@vtj/renderer@0.18.12) (2026-07-01)
+
+
+### Features
+
+* **renderer:** 增加区块循环引用检测机制 ([6369540](https://gitee.com/newgateway/vtj/commits/63695405f7e8b2dd223c30d4603dea59495624ce))
+
+
+
+
+
 ## [0.18.11](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.18.10...@vtj/renderer@0.18.11) (2026-06-28)
 
 

@@ -28,6 +28,12 @@ import type { ComputedRef, DefineComponent } from 'vue';
 import * as globalVue from 'vue';
 import { type BlockLoader } from './loader';
 
+/**
+ * 区块渲染链 provide/inject 键
+ * 用于在组件树中传递当前渲染路径上所有区块的 id 集合，检测循环引用
+ */
+const BLOCK_CHAIN_KEY = Symbol('vtjBlockChain');
+
 export type DataSourceHandler = (...args: any[]) => Promise<any>;
 
 export interface CreateRendererOptions {
@@ -74,6 +80,30 @@ export function createRenderer(options: CreateRendererOptions) {
       ...createProps(dsl.value.props ?? [], context)
     },
     async setup(props: any = {}) {
+      // ===== 区块循环引用检测 =====
+      // 注入父级渲染链，检测当前区块是否已存在于祖先链中
+      const blockId = dsl.value.id;
+      const blockName = dsl.value.name;
+      const parentChain = Vue.inject(
+        BLOCK_CHAIN_KEY,
+        null
+      ) as Set<string> | null;
+
+      if (blockId && parentChain && parentChain.has(blockId)) {
+        const error = `检测到区块循环引用: ${blockName}(${blockId})`;
+        console.warn(`[VTJ Renderer] ${error}，已中断渲染以防止浏览器崩溃`);
+        triggerError(new Error(error));
+        // 透传父级链，保持链的连续性
+        Vue.provide(BLOCK_CHAIN_KEY, parentChain);
+        return { __vtjCircular: true } as any;
+      }
+
+      // 创建当前层级的渲染链（包含当前区块 id）
+      const chain = new Set(parentChain || []);
+      if (blockId) chain.add(blockId);
+      Vue.provide(BLOCK_CHAIN_KEY, chain);
+      // ===== 循环引用检测结束 =====
+
       context.$props = context.props = props;
       if (dsl.value.id) {
         adoptedStyleSheets(
@@ -162,6 +192,10 @@ export function createRenderer(options: CreateRendererOptions) {
     emits: createEmits(dsl.value.emits),
     expose: ['vtj', ...(dsl.value.expose || [])],
     render() {
+      // 循环引用检测：若是循环节点则不渲染内容，避免无限递归
+      if ((this as any).__vtjCircular) {
+        return null;
+      }
       // 强制建立响应式依赖：遍历 DSL 中定义的数据源并通过 Vue 组件代理(this)访问，
       // 确保数据变更时组件能够重新渲染。
       // 这是必要的，因为 nodeRender 通过 parseExpression（内部使用 new Function）

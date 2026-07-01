@@ -97,6 +97,10 @@ export default [
       {
         text: '🧩 集成 RuoYi-Vue3',
         link: 'https://gitee.com/newgateway/VTJ-RuoYi-Vue3'
+      },
+      {
+        text: '🧩 集成 yudao-ui-admin-vue3',
+        link: 'https://gitee.com/newgateway/yudao-ui-admin-vue3'
       }
     ]
   },
