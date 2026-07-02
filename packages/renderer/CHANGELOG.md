@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.18.13](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.18.12...@vtj/renderer@0.18.13) (2026-07-02)
+
+
+### Bug Fixes
+
+* **renderer:** 修复 parseExpression 中作用域变量名错误问题 ([a9ddf24](https://gitee.com/newgateway/vtj/commits/a9ddf244d9069034a7b9ee2543c5274894300bb8))
+
+
+
+
+
 ## [0.18.12](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.18.11...@vtj/renderer@0.18.12) (2026-07-01)
 
 

@@ -54,6 +54,17 @@ test('parseExpression evaluates simple expression', () => {
   expect(result).toBe(30);
 });
 
+test('parseExpression handles scope with arguments property', () => {
+  // 当上下文存在 arguments 属性时，内部不能依赖 arguments 对象，
+  // 否则会被 with(scope) 拦截，导致 this 指向错误。
+  const self = { state: { ruleForm: { name: 'x' } }, arguments: [] };
+  const result = parseExpression(
+    { type: 'JSExpression', value: 'this.state.ruleForm' },
+    self
+  );
+  expect(result).toEqual({ name: 'x' });
+});
+
 test('parseExpression returns undefined for empty value', () => {
   const result = parseExpression({ type: 'JSExpression', value: '' }, { x: 1 });
   expect(result).toBeUndefined();
