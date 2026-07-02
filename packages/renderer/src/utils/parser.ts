@@ -40,7 +40,7 @@ export function parseExpression(
   noWith: boolean = false
 ) {
   try {
-    const contextArr = ['"use strict";', 'var __self = arguments[0];'];
+    const contextArr = ['"use strict";', 'var __self = $scope;'];
     contextArr.push('return ');
     let tarStr: string = (str.value || '').trim();
     if (!noWith) {
