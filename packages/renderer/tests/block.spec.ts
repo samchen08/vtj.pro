@@ -453,6 +453,61 @@ describe('block - Composition API mode', () => {
     expect(setupReturn).toHaveProperty('count');
     expect(setupReturn).toHaveProperty('form');
   });
+
+  test('createRenderer creates independent context per instance (multi-instance props isolation)', async () => {
+    const dsl = {
+      name: 'MultiInstanceBlock',
+      state: {},
+      refs: {},
+      reactives: {},
+      computed: {},
+      methods: {},
+      props: [
+        {
+          name: 'propKey',
+          type: ['String'],
+          default: { type: 'JSExpression', value: "''" },
+          required: false
+        }
+      ],
+      emits: [],
+      nodes: [{ component: 'div', id: 'n1' }],
+      lifeCycles: {},
+      watch: [],
+      dataSources: {},
+      css: '',
+      apiMode: 'composition',
+      composables: [],
+      provide: {}
+    } as any;
+
+    const { renderer } = createRenderer({
+      Vue,
+      mode: ContextMode.Runtime,
+      dsl
+    });
+
+    // 模拟第一个组件实例（propKey = 'k01'）
+    const result1 = await renderer.setup({ propKey: 'k01' });
+    const context1 = result1.vtj;
+
+    // 模拟第二个组件实例（propKey = 'k02'）
+    const result2 = await renderer.setup({ propKey: 'k02' });
+    const context2 = result2.vtj;
+
+    // 模拟第三个组件实例（propKey = 'k03'）
+    const result3 = await renderer.setup({ propKey: 'k03' });
+    const context3 = result3.vtj;
+
+    // 验证每个实例拥有独立的 props，不会被后续实例覆盖
+    expect(context1.props.propKey).toBe('k01');
+    expect(context2.props.propKey).toBe('k02');
+    expect(context3.props.propKey).toBe('k03');
+
+    // 再次验证 context1 没有被 context2/context3 覆盖
+    expect(context1.props.propKey).toBe('k01');
+    expect(context2.props.propKey).toBe('k02');
+  });
 });
 
 describe('block - circular reference detection', () => {

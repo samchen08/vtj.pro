@@ -61,23 +61,25 @@ export function createRenderer(options: CreateRendererOptions) {
 
   const dsl: ComputedRef<BlockSchema> = Vue.computed(() => options.dsl);
 
-  const attrs = {
+  const contextAttrs = {
     $components: components,
     $libs: libs,
     $apis: apis
   };
 
-  const context = new Context({
+  // 共享上下文：仅用于组件定义时的初始解析（如 props 默认值）。
+  // 注意：setup 中会为每个组件实例创建独立的 Context，避免多实例共享 context 导致 props 互相覆盖。
+  const sharedContext = new Context({
     mode,
     dsl: dsl.value,
-    attrs
+    attrs: contextAttrs
   });
 
   const renderer: DefineComponent<any, any, any, any> = Vue.defineComponent({
     name: dsl.value.name,
     __scopeId: dsl.value.id ? `data-v-${dsl.value.id}` : undefined,
     props: {
-      ...createProps(dsl.value.props ?? [], context)
+      ...createProps(dsl.value.props ?? [], sharedContext)
     },
     async setup(props: any = {}) {
       // ===== 区块循环引用检测 =====
@@ -103,6 +105,16 @@ export function createRenderer(options: CreateRendererOptions) {
       if (blockId) chain.add(blockId);
       Vue.provide(BLOCK_CHAIN_KEY, chain);
       // ===== 循环引用检测结束 =====
+
+      // 为每个组件实例创建独立的 Context，避免多实例共享同一 context 导致 props/state 互相覆盖。
+      // 当同一个区块组件被多处引用时（如祖区块渲染多个父区块，父区块又渲染子区块），
+      // loader 会缓存组件定义并复用，若所有实例共享同一个 Context，
+      // 后创建的实例 props 会覆盖先创建的，导致渲染时读取到错误的 props 值。
+      const context: Context = new Context({
+        mode,
+        dsl: dsl.value,
+        attrs: contextAttrs
+      });
 
       context.$props = context.props = props;
       if (dsl.value.id) {
@@ -196,6 +208,9 @@ export function createRenderer(options: CreateRendererOptions) {
       if ((this as any).__vtjCircular) {
         return null;
       }
+      // 使用 setup 中创建的实例级 Context，确保每个组件实例渲染时使用各自的 props/state
+      // 若 setup 未执行（如单元测试中直接调用 render），回退到 sharedContext
+      const context: Context = (this as any).vtj || sharedContext;
       // 强制建立响应式依赖：遍历 DSL 中定义的数据源并通过 Vue 组件代理(this)访问，
       // 确保数据变更时组件能够重新渲染。
       // 这是必要的，因为 nodeRender 通过 parseExpression（内部使用 new Function）
@@ -246,13 +261,13 @@ export function createRenderer(options: CreateRendererOptions) {
     },
     // Options 模式下生命周期以 Options 风格注册
     ...(dsl.value.apiMode !== 'composition'
-      ? createLifeCycles(dsl.value.lifeCycles ?? {}, context)
+      ? createLifeCycles(dsl.value.lifeCycles ?? {}, sharedContext)
       : {})
   });
 
   return {
     renderer: Vue.markRaw(renderer),
-    context
+    context: sharedContext
   };
 }
 
@@ -558,8 +573,10 @@ function createLifeCycles(
 ) {
   return Object.entries(lifeCycle ?? {}).reduce(
     (result, [k, v]) => {
-      const func = context.__parseFunction(v);
-      result[k] = async () => {
+      result[k] = async function (this: any) {
+        // 优先使用实例级 Context（this.vtj），避免多实例共享 context 导致状态错乱
+        const ctx = this?.vtj || context;
+        const func = ctx.__parseFunction(v);
         if (isFunction(func)) {
           await delay(0);
           await func();
