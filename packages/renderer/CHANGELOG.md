@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.18.14](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.18.13...@vtj/renderer@0.18.14) (2026-07-04)
+
+
+### Bug Fixes
+
+* **renderer:** 防止多实例共享 Context 导致 props 覆盖问题 ([714b3af](https://gitee.com/newgateway/vtj/commits/714b3af2e8b8faa1a5fb480cdb1d7f8b38c8d07f))
+
+
+
+
+
 ## [0.18.13](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.18.12...@vtj/renderer@0.18.13) (2026-07-02)
 
 
