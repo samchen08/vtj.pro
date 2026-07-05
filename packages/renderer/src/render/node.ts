@@ -131,14 +131,19 @@ export function nodeRender(
     const nodeAttrs =
       context.__mode === ContextMode.Design ? { 'data-vtj': id } : {};
 
+    // 分离 ref，不纳入缓存（与 events 同理）
+    // 确保每次 render 都应用最新的 ref 函数，避免缓存命中时
+    // 复用旧的 ref 函数导致 Vue 不重新调用 ref 回调、$refs 丢失
+    const { ref: refFunc, ...propsWithoutRef } = props;
+
     const key = `${id}_${seq}`;
-    // 不将 events 放入缓存，避免 scoped slot 场景下
-    // 缓存命中时复用旧的事件处理器，导致 slot 参数（如 row）丢失
+    // 不将 events 和 ref 放入缓存，避免 scoped slot 场景下
+    // 缓存命中时复用旧的事件处理器/ref 回调
     const cache = {
       key,
       ...styleScope,
       ...nodeAttrs,
-      ...props
+      ...propsWithoutRef
     };
 
     if (!nodeCache.isNodeEqual(cache, nodeCache.getNode(key))) {
@@ -147,7 +152,7 @@ export function nodeRender(
 
     let vnode = Vue.createVNode(
       component,
-      { ...(nodeCache.getNode(key) || cache), ...events },
+      { ...(nodeCache.getNode(key) || cache), ref: refFunc, ...events },
       slots
     );
 
