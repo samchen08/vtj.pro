@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.18.15](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.18.14...@vtj/renderer@0.18.15) (2026-07-05)
+
+
+### Bug Fixes
+
+* **renderer:** 修复 ref 回调缓存导致的旧回调覆盖问题 ([cfdd771](https://gitee.com/newgateway/vtj/commits/cfdd771d22f999a89c3e03f7fa986ce5929a3c6c))
+
+
+
+
+
 ## [0.18.14](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.18.13...@vtj/renderer@0.18.14) (2026-07-04)
 
 
