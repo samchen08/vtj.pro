@@ -29,6 +29,11 @@ export class Context {
   __contextRefs: Record<string, Context> = {};
   __refs: Record<string, any> = {};
   __refCaches: Record<string, any> = {};
+  /**
+   * 记录每个节点 id 当前注册的 ref 回调代次，
+   * 用于防止旧 ref 卸载回调（await delay 后执行）误删新 ref 已设置的 $refs 条目。
+   */
+  private __refGenerations: Record<string, number> = {};
   context: Record<string, any> = {};
   /**
    * @deprecated
@@ -122,6 +127,7 @@ export class Context {
     });
 
     this.__reset();
+    this.__refGenerations = {};
   }
   private __reset() {
     this.__refs = {};
@@ -165,9 +171,22 @@ export class Context {
     if (refFunc) {
       return refFunc;
     }
+
+    // 递增代次，使旧的异步回调失效
+    const generation = id ? (this.__refGenerations[id] || 0) + 1 : 0;
+    if (id) {
+      this.__refGenerations[id] = generation;
+    }
+
     refFunc = async (el: any) => {
       // 异步组件需要等待渲染
       await delay(0);
+
+      // 如果代次已变化，说明新的 ref 回调已注册，当前旧回调不应执行任何操作
+      if (id && this.__refGenerations[id] !== generation) {
+        return;
+      }
+
       let dom = el?.$vtjEl || el?.$el || el?._?.vnode?.el || el;
 
       // 销毁时，无dom
