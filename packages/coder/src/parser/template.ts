@@ -63,7 +63,8 @@ export function parseTemplate(
   componentMap: Map<string, MaterialDescription>,
   computedKeys: string[] = [],
   context: Record<string, Set<string>> = {},
-  parent?: NodeSchema
+  parent?: NodeSchema,
+  easycomPackages: Set<string> = new Set()
 ) {
   const nodes: string[] = [];
   let methods: Record<string, JSFunction> = {};
@@ -110,7 +111,8 @@ export function parseTemplate(
             computedKeys,
             componentMap,
             context,
-            child
+            child,
+            easycomPackages
           )
         : '';
       // Object.assign(methods, handlers);
@@ -123,13 +125,14 @@ export function parseTemplate(
         components = components.concat(nodeChildren?.components || []);
         importBlocks = importBlocks.concat(nodeChildren?.importBlocks || []);
       }
-      const tagName = ['@dcloudio/uni-h5', '@dcloudio/uni-ui'].includes(
-        (from || componentMap.get(name)?.package) as string
-      )
+      const packageName = (from || componentMap.get(name)?.package) as string;
+      const tagName = easycomPackages.has(packageName)
         ? kebabCase(name)
-        : isFromUrlSchema(from) || isFromPlugin(from)
-          ? 'component'
-          : name;
+        : ['@dcloudio/uni-h5', '@dcloudio/uni-ui'].includes(packageName)
+          ? kebabCase(name)
+          : isFromUrlSchema(from) || isFromPlugin(from)
+            ? 'component'
+            : name;
       contents.push(
         NO_END_TAGS.includes(tagName)
           ? `<${tagName} ${directives} ${props} ${events} />`
@@ -485,7 +488,8 @@ function parseNodeChildren(
   computedKeys: string[],
   componentMap: Map<string, MaterialDescription>,
   context: Record<string, Set<string>>,
-  parent?: NodeSchema
+  parent?: NodeSchema,
+  easycomPackages: Set<string> = new Set()
 ) {
   if (typeof children === 'string') {
     return escapeHtml(children);
@@ -498,7 +502,14 @@ function parseNodeChildren(
   }
 
   if (Array.isArray(children)) {
-    return parseTemplate(children, componentMap, computedKeys, context, parent);
+    return parseTemplate(
+      children,
+      componentMap,
+      computedKeys,
+      context,
+      parent,
+      easycomPackages
+    );
   }
 
   return '';

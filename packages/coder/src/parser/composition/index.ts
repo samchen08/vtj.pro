@@ -123,7 +123,8 @@ export function parserComposition(
     undefined,
     effectiveMap,
     symbols.refs,
-    symbols.computed
+    symbols.computed,
+    collecter.easycomPackages
   );
   const blocksImport = tplResult.importBlocks.map(
     (n: any) => `import ${n.name} from './${n.id}.vue';`
