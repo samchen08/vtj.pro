@@ -64,7 +64,8 @@ export function parseTemplateComposition(
   parent?: NodeSchema,
   effectiveMap: Record<string, GlobalApiConfig> = GLOBAL_API_MAP,
   refs: Set<string> = new Set(),
-  computed: Set<string> = new Set()
+  computed: Set<string> = new Set(),
+  easycomPackages: Set<string> = new Set()
 ) {
   const transformed = transformNodesGlobalApi(
     children,
@@ -77,6 +78,7 @@ export function parseTemplateComposition(
     componentMap,
     computedKeys,
     context,
-    parent
+    parent,
+    easycomPackages
   );
 }

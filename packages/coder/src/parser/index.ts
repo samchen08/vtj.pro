@@ -57,7 +57,9 @@ export function parser(
       dsl.nodes || [],
       componentMap,
       computedKeys,
-      collecter.context
+      collecter.context,
+      undefined,
+      collecter.easycomPackages
     );
   const mergeComputed = [...computed, ...watch.computed];
 
