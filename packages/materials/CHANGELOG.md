@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.18.17](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.18.16...@vtj/materials@0.18.17) (2026-07-09)
+
+
+### Features
+
+* **uni-h5:** 注入全局Uni对象并优化安装逻辑 ([4e33395](https://gitee.com/newgateway/vtj/commits/4e3339539def65e1fdc90b2fe6e61ead9d2ce1d1))
+
+
+
+
+
 ## [0.18.16](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.18.15...@vtj/materials@0.18.16) (2026-07-07)
 
 **Note:** Version bump only for package @vtj/materials
