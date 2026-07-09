@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.18.18](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.18.17...@vtj/materials@0.18.18) (2026-07-09)
+
+
+### Bug Fixes
+
+* **uni-h5:** 修复UniH5全局注入逻辑 ([5ed09d5](https://gitee.com/newgateway/vtj/commits/5ed09d5272ed7044c4ca575c726c15da7694bd77))
+
+
+
+
+
 ## [0.18.17](https://gitee.com/newgateway/vtj/compare/@vtj/materials@0.18.16...@vtj/materials@0.18.17) (2026-07-09)
 
 
