@@ -34,5 +34,5 @@ export function install(app: App) {
   app.use(plugin);
   const top: any = window.top || window;
   injectUniGlobal(UniH5, top);
-  injectUniGlobal(UniH5, window);
 }
+injectUniGlobal(UniH5);
