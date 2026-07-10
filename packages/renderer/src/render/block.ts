@@ -250,14 +250,23 @@ export function createRenderer(options: CreateRendererOptions) {
 
       if (!_dsl.nodes) return null;
       const nodes: NodeSchema[] = _dsl.nodes || [];
+      let result;
       if (nodes.length === 1) {
-        return nodeRender(nodes[0], context, Vue, loader, nodes);
+        result = nodeRender(nodes[0], context, Vue, loader, nodes);
       } else {
         const children = nodes
           .map((child) => nodeRender(child, context, Vue, loader, nodes))
           .flat();
-        return Vue.createVNode('div', {}, children);
+        result = Vue.createVNode('div', {}, children);
       }
+
+      // 将实例级 Context 的 __contextRefs 同步回 sharedContext，
+      // 确保设计器 useBinder 能正确读取 vFor 等指令产生的运行时上下文变量。
+      if (context !== sharedContext) {
+        sharedContext.__contextRefs = context.__contextRefs;
+      }
+
+      return result;
     },
     // Options 模式下生命周期以 Options 风格注册
     ...(dsl.value.apiMode !== 'composition'
