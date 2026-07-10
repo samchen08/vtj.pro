@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.18.20](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.18.19...@vtj/renderer@0.18.20) (2026-07-10)
+
+
+### Bug Fixes
+
+* **renderer:** 修复事件处理器缓存导致上下文错用问题 ([c6c71a3](https://gitee.com/newgateway/vtj/commits/c6c71a3ca75ddf304c9d04a8738d9b666d31f5d3))
+
+
+
+
+
 ## [0.18.19](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.18.18...@vtj/renderer@0.18.19) (2026-07-10)
 
 
