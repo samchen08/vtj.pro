@@ -136,6 +136,22 @@ export function nodeRender(
     // 复用旧的 ref 函数导致 Vue 不重新调用 ref 回调、$refs 丢失
     const { ref: refFunc, ...propsWithoutRef } = props;
 
+    // 分离事件处理器属性（onXxx），不纳入缓存
+    // 事件处理器通过闭包绑定了上下文，在 vFor 场景下不同迭代
+    // 会克隆出不同的 context，若缓存命中则错用旧 context 的 handler
+    const eventKeys = Object.keys(propsWithoutRef).filter((k) =>
+      k.startsWith('on')
+    );
+    const eventProps: Record<string, any> = {};
+    const cacheProps: Record<string, any> = {};
+    for (const k of Object.keys(propsWithoutRef)) {
+      if (eventKeys.includes(k)) {
+        eventProps[k] = propsWithoutRef[k];
+      } else {
+        cacheProps[k] = propsWithoutRef[k];
+      }
+    }
+
     const key = `${id}_${seq}`;
     // 不将 events 和 ref 放入缓存，避免 scoped slot 场景下
     // 缓存命中时复用旧的事件处理器/ref 回调
@@ -143,7 +159,7 @@ export function nodeRender(
       key,
       ...styleScope,
       ...nodeAttrs,
-      ...propsWithoutRef
+      ...cacheProps
     };
 
     if (!nodeCache.isNodeEqual(cache, nodeCache.getNode(key))) {
@@ -152,7 +168,12 @@ export function nodeRender(
 
     let vnode = Vue.createVNode(
       component,
-      { ...(nodeCache.getNode(key) || cache), ref: refFunc, ...events },
+      {
+        ...(nodeCache.getNode(key) || cache),
+        ref: refFunc,
+        ...eventProps,
+        ...events
+      },
       slots
     );
 
