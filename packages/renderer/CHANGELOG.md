@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.18.19](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.18.18...@vtj/renderer@0.18.19) (2026-07-10)
+
+
+### Bug Fixes
+
+* **renderer:** 修复 Context 同步以支持 vFor 等指令 ([634bdf2](https://gitee.com/newgateway/vtj/commits/634bdf277d0135c4a6c99100732ad7ab088a36d4))
+
+
+
+
+
 ## [0.18.18](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.18.17...@vtj/renderer@0.18.18) (2026-07-09)
 
 **Note:** Version bump only for package @vtj/renderer
