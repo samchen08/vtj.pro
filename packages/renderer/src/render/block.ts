@@ -168,6 +168,37 @@ export function createRenderer(options: CreateRendererOptions) {
         ...composableResults
       };
       context.setup(attrs, Vue);
+
+      // 为 prop 定义响应式 getter，代理到 context.$props（响应式对象），
+      // 确保 watch 能追踪 props 的变化。
+      // issue: ...props 展开后成为纯值设置在 context 上，
+      // Vue.watch() 的 getter 无法追踪纯值变化，导致父组件更新 prop 时子组件 watch 不触发。
+      // fix: 为每个 prop 定义 getter 代理到 context.$props，
+      // context.$props 是通过 __proxy() 从 Vue 实例同步的响应式对象。
+      if (isComposition && dsl.value.props && dsl.value.props.length > 0) {
+        const skipKeys = new Set([
+          ...Object.keys(refs),
+          ...Object.keys(reactives),
+          ...Object.keys(computed)
+        ]);
+        for (const p of dsl.value.props) {
+          const propName = typeof p === 'string' ? p : p.name;
+          if (!skipKeys.has(propName)) {
+            Object.defineProperty(context, propName, {
+              get() {
+                return (this as any).$props[propName];
+              },
+              set(_v: any) {
+                // Props 在组件视角下是只读的，实际值由父组件通过 Vue prop 系统驱动。
+                // onBeforeUpdate 中的赋值会被此 setter 捕获并忽略。
+              },
+              configurable: true,
+              enumerable: true
+            });
+          }
+        }
+      }
+
       setWatches(Vue, dsl.value.watch ?? [], context);
 
       // Composition 模式下生命周期在 setup 内注册
@@ -246,6 +277,14 @@ export function createRenderer(options: CreateRendererOptions) {
       // injects: 可能随父组件变化
       if (_dsl.inject) {
         for (const inj of _dsl.inject) void (this as any)[inj.name];
+      }
+
+      // props: 通过 Vue 组件代理访问，建立 props 响应式依赖追踪
+      if (_dsl.props && _dsl.props.length > 0) {
+        for (const p of _dsl.props) {
+          const propName = typeof p === 'string' ? p : p.name;
+          void (this as any)[propName];
+        }
       }
 
       if (!_dsl.nodes) return null;
