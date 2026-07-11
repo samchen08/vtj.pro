@@ -46,8 +46,6 @@ export function message(
 }
 
 export function proxyContext(context: any) {
-  const proxy = context ? { ...context } : ({} as any);
-
   const _proxy = (prop: any) => {
     return new Proxy(prop || {}, {
       get(target: any, name: string) {
@@ -58,13 +56,14 @@ export function proxyContext(context: any) {
     });
   };
 
-  proxy.context = new Proxy((proxy.context || {}) as any, {
-    get(target: any, prop: string) {
-      return _proxy(target[prop]);
+  return new Proxy(context || {}, {
+    get(target: any, name: string) {
+      if (typeof name === 'symbol') {
+        return () => undefined;
+      }
+      return _proxy(target[name]);
     }
   });
-
-  return proxy;
 }
 
 export function expressionValidate(
