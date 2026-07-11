@@ -1,4 +1,4 @@
-import { expect, test, describe } from 'vitest';
+import { expect, test, describe, vi } from 'vitest';
 import {
   getJSExpression,
   getJSFunction,
@@ -7,7 +7,9 @@ import {
   mergeClass,
   extractDataSource,
   patchCode,
-  replacer
+  replacer,
+  isScss,
+  isUniTags
 } from '../src/vue/utils';
 
 describe('getJSExpression', () => {
@@ -189,5 +191,41 @@ describe('patchCode', () => {
     };
     const result = patchCode('this.foo', '', options);
     expect(result).not.toContain('this.this.');
+  });
+});
+
+describe('isScss', () => {
+  test('should detect scss style lang', () => {
+    expect(isScss('<style lang="scss">')).toBe(true);
+  });
+
+  test('should return false for non-scss', () => {
+    expect(isScss('<style lang="css">')).toBe(false);
+    expect(isScss('<style>')).toBe(false);
+    expect(isScss('')).toBe(false);
+  });
+});
+
+describe('isUniTags', () => {
+  test('should return true for uni tags on uniapp platform', () => {
+    expect(isUniTags('view', 'uniapp')).toBe(true);
+    expect(isUniTags('text', 'uniapp')).toBe(true);
+    expect(isUniTags('image', 'uniapp')).toBe(true);
+  });
+
+  test('should return false for non-uni tags or platform', () => {
+    expect(isUniTags('div', 'uniapp')).toBe(false);
+    expect(isUniTags('view', 'web')).toBe(false);
+    expect(isUniTags('view')).toBe(false);
+  });
+});
+
+describe('extractDataSource (error handling)', () => {
+  test('should return null for invalid base64', () => {
+    const spy = vi.spyOn(console, 'warn').mockImplementation(() => {});
+    const result = extractDataSource('DataSource: !!!invalid!!!');
+    expect(result).toBeNull();
+    expect(spy).toHaveBeenCalled();
+    spy.mockRestore();
   });
 });

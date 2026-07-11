@@ -137,4 +137,56 @@ describe('createStaticRoutes', () => {
 
     expect(routes).toHaveLength(0);
   });
+
+  test('handles dir page without children', () => {
+    const dirPage = createPage('dir1', { dir: true, children: undefined });
+    const routes = createStaticRoutes({
+      name: 'page',
+      prefix: '/',
+      pages: [dirPage],
+      component: mockComponent,
+      loader: vi.fn()
+    });
+    expect(routes).toHaveLength(0);
+  });
+
+  test('handles layout page without children', () => {
+    const layoutPage = createPage('layout1', {
+      layout: true,
+      children: undefined
+    });
+    const routes = createStaticRoutes({
+      name: 'page',
+      prefix: '/',
+      pages: [layoutPage],
+      component: mockComponent,
+      loader: vi.fn()
+    });
+    expect(routes).toHaveLength(2); // layout route + page route
+    expect(routes[0].name).toBe('layout_layout1');
+    expect(routes[0].children).toEqual([]);
+  });
+
+  test('creates layout home route when homepage matches child id', () => {
+    const childPage = createPage('child1');
+    const layoutPage = createPage('layout1', {
+      layout: true,
+      children: [childPage]
+    });
+    const routes = createStaticRoutes({
+      name: 'page',
+      prefix: '/',
+      pages: [layoutPage],
+      component: mockComponent,
+      loader: vi.fn(),
+      homepage: 'child1'
+    });
+    // The layout has children which include child1 + its home route
+    const layoutRoute = routes.find((r) => r.name === 'layout_layout1');
+    expect(layoutRoute).toBeDefined();
+    const childRoutes = (layoutRoute!.children || []).filter(
+      (r: any) => r.name === 'child1' || r.name === 'home_child1'
+    );
+    expect(childRoutes.length).toBe(2);
+  });
 });

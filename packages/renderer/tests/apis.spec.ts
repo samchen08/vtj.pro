@@ -1,10 +1,11 @@
-import { expect, test, describe, vi } from 'vitest';
+import { expect, test, describe, vi, beforeEach } from 'vitest';
 import {
   createSchemaApi,
   createMetaApi,
   createSchemaApis,
   createMock,
   mockApi,
+  mockApis,
   mockCleanup
 } from '../src/provider/apis';
 
@@ -45,6 +46,25 @@ describe('createSchemaApi', () => {
     expect(typeof api).toBe('function');
 
     await api({ userId: 1 });
+    expect(mockSend).toHaveBeenCalled();
+  });
+
+  test('creates request API with headers', async () => {
+    const mockSend = vi.fn().mockResolvedValue({ data: 'result' });
+    const adapter = { jsonp: vi.fn(), request: { send: mockSend } };
+    const schema = {
+      id: 'api3',
+      name: 'fetchWithHeaders',
+      url: '/api/data',
+      method: 'get',
+      headers: {
+        type: 'JSExpression',
+        value: 'function(){ return { Authorization: "Bearer token" }; }'
+      }
+    };
+
+    const api = createSchemaApi(schema as any, adapter as any);
+    await api();
     expect(mockSend).toHaveBeenCalled();
   });
 });
@@ -204,5 +224,203 @@ describe('mockCleanup', () => {
   test('handles case when Mock is not available', () => {
     delete (globalThis as any).Mock;
     expect(() => mockCleanup()).not.toThrow();
+  });
+});
+
+describe('mockApis', () => {
+  beforeEach(() => {
+    delete (globalThis as any).Mock;
+  });
+
+  test('calls mockCleanup and mockApi for each schema with Mock global', async () => {
+    const mockFn = vi.fn();
+    (globalThis as any).Mock = { mock: mockFn, _mocked: {} };
+    const schemas = [
+      {
+        id: 'api1',
+        url: '/api/test',
+        method: 'get',
+        mock: true,
+        mockTemplate: {
+          type: 'JSFunction',
+          value: 'function() { return { data: [] }; }'
+        }
+      }
+    ];
+
+    await mockApis(schemas as any);
+    expect(mockFn).toHaveBeenCalled();
+    delete (globalThis as any).Mock;
+  });
+
+  test('does nothing when Mock is not available', async () => {
+    await expect(mockApis([])).resolves.toBeUndefined();
+  });
+});
+
+describe('createMock error handling', () => {
+  test('catches template error and logs warning', async () => {
+    const mockFn = vi.fn().mockReturnValue({ name: 'ok' });
+    (globalThis as any).Mock = { mock: mockFn };
+
+    const source = {
+      type: 'mock',
+      mockTemplate: {
+        type: 'JSFunction',
+        value: 'function() { throw new Error("template error"); }'
+      }
+    };
+    const mock = createMock(source as any);
+    const result = await mock();
+    expect(mockFn).toHaveBeenCalledWith({});
+    expect(result).toBeDefined();
+    delete (globalThis as any).Mock;
+  });
+});
+
+describe('mockApi handler callback', () => {
+  test('handles JSON body data', () => {
+    const mockFn = vi.fn().mockReturnValue({ data: 'mock' });
+    const Mock = { mock: mockFn };
+    const schema = {
+      url: '/api/data',
+      method: 'post',
+      mock: true,
+      settings: { type: 'json' },
+      mockTemplate: {
+        type: 'JSFunction',
+        value: 'function(options) { return options.data; }'
+      }
+    };
+
+    mockApi(Mock, schema as any);
+    expect(mockFn).toHaveBeenCalledTimes(1);
+
+    const [regexp, method, callback] = mockFn.mock.calls[0];
+    expect(method).toBe('post');
+
+    const result = callback({
+      url: 'http://example.com/api/data?name=test',
+      type: 'post',
+      body: JSON.stringify({ hello: 'world' })
+    });
+    expect(mockFn).toHaveBeenCalledTimes(2);
+    expect(result).toBeDefined();
+  });
+
+  test('handles FormData body', () => {
+    const mockFn = vi.fn().mockReturnValue({ data: 'mock' });
+    const Mock = { mock: mockFn };
+    const schema = {
+      url: '/api/form',
+      method: 'post',
+      mock: true,
+      mockTemplate: {
+        type: 'JSFunction',
+        value: 'function(options) { return options.data; }'
+      }
+    };
+
+    mockApi(Mock, schema as any);
+    const [regexp, method, callback] = mockFn.mock.calls[0];
+
+    const fd = new FormData();
+    fd.append('name', 'test');
+    callback({
+      url: 'http://example.com/api/form',
+      type: 'post',
+      body: fd
+    });
+    expect(mockFn).toHaveBeenCalledTimes(2);
+  });
+
+  test('handles string body with form type', () => {
+    const mockFn = vi.fn().mockReturnValue({ data: 'mock' });
+    const Mock = { mock: mockFn };
+    const schema = {
+      url: '/api/form',
+      method: 'post',
+      mock: true,
+      mockTemplate: {
+        type: 'JSFunction',
+        value: 'function(options) { return options.data; }'
+      }
+    };
+
+    mockApi(Mock, schema as any);
+    const [regexp, method, callback] = mockFn.mock.calls[0];
+
+    callback({
+      url: 'http://example.com/api/form',
+      type: 'post',
+      body: 'name=test&age=25'
+    });
+    expect(mockFn).toHaveBeenCalledTimes(2);
+  });
+
+  test('handles invalid JSON body gracefully', () => {
+    const mockFn = vi.fn().mockReturnValue({ data: 'mock' });
+    const Mock = { mock: mockFn };
+    const schema = {
+      url: '/api/json',
+      method: 'post',
+      mock: true,
+      settings: { type: 'json' },
+      mockTemplate: {
+        type: 'JSFunction',
+        value: 'function(options) { return options.data; }'
+      }
+    };
+
+    mockApi(Mock, schema as any);
+    const [regexp, method, callback] = mockFn.mock.calls[0];
+
+    expect(() => {
+      callback({
+        url: 'http://example.com/api/json',
+        type: 'post',
+        body: 'not-valid-json'
+      });
+    }).not.toThrow();
+  });
+
+  test('catches errors in mock handler', () => {
+    const mockFn = vi.fn().mockReturnValue('ok');
+    const Mock = { mock: mockFn };
+    const schema = {
+      url: '/api/error',
+      method: 'get',
+      mock: true,
+      mockTemplate: {
+        type: 'JSFunction',
+        value: 'function() { throw new Error("handler error"); }'
+      }
+    };
+
+    expect(() => mockApi(Mock, schema as any)).not.toThrow();
+  });
+
+  test('handles full URL with pathname extraction', () => {
+    const mockFn = vi.fn().mockReturnValue({ data: 'mock' });
+    const Mock = { mock: mockFn };
+    const schema = {
+      url: 'http://api.example.com/v1/users',
+      method: 'get',
+      mock: true,
+      mockTemplate: {
+        type: 'JSFunction',
+        value: 'function(options) { return options.params; }'
+      }
+    };
+
+    mockApi(Mock, schema as any);
+    const [regexp, method, callback] = mockFn.mock.calls[0];
+
+    callback({
+      url: 'http://api.example.com/v1/users/123?page=1',
+      type: 'get',
+      body: undefined as any
+    });
+    expect(mockFn).toHaveBeenCalledTimes(2);
   });
 });

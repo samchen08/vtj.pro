@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { downloadUrl, downloadBlob, downloadJson } from '../src';
+import { downloadUrl, downloadBlob, downloadJson, downloadRemoteFile } from '../src';
 
 describe('download 工具', () => {
   beforeEach(() => {
@@ -54,6 +54,31 @@ describe('download 工具', () => {
     expect(createObjectURL).toHaveBeenCalled();
     expect(clickSpy).toHaveBeenCalled();
     expect(revokeObjectURL).toHaveBeenCalled();
+
+    vi.restoreAllMocks();
+  });
+
+  it('downloadRemoteFile 应下载远程文件', async () => {
+    const mockBlob = new Blob(['remote content'], { type: 'text/plain' });
+    const mockResponse = {
+      blob: vi.fn().mockResolvedValue(mockBlob)
+    };
+    global.fetch = vi.fn().mockResolvedValue(mockResponse);
+
+    const createObjectURL = vi.spyOn(URL, 'createObjectURL');
+    const revokeObjectURL = vi.spyOn(URL, 'revokeObjectURL');
+    const clickSpy = vi.fn();
+    vi.spyOn(window.HTMLAnchorElement.prototype, 'click').mockImplementation(
+      clickSpy
+    );
+
+    const result = await downloadRemoteFile('http://example.com/file.txt', 'file.txt');
+
+    expect(global.fetch).toHaveBeenCalledWith('http://example.com/file.txt', { credentials: 'include' });
+    expect(mockResponse.blob).toHaveBeenCalled();
+    expect(createObjectURL).toHaveBeenCalled();
+    expect(clickSpy).toHaveBeenCalled();
+    expect(result).toBe(mockBlob);
 
     vi.restoreAllMocks();
   });

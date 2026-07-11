@@ -196,4 +196,167 @@ describe('initRuntimeGlobals', () => {
       )
     ).not.toThrow();
   });
+
+  test('creates access when globals.access provided and adapter has no access', () => {
+    const app = createAppMock();
+    const mockUse = vi.fn();
+    app.use = mockUse;
+    app.config.globalProperties.$router = {
+      push: vi.fn(),
+      beforeEach: vi.fn(),
+      afterEach: vi.fn(),
+      addRoute: vi.fn()
+    };
+    const options = createOptions({
+      app,
+      adapter: {
+        request: {
+          setConfig: vi.fn(),
+          useRequest: vi.fn().mockReturnValue(vi.fn()),
+          useResponse: vi.fn().mockReturnValue(vi.fn())
+        },
+        jsonp: vi.fn(),
+        access: undefined
+      }
+    });
+
+    expect(() =>
+      initRuntimeGlobals(
+        {
+          access: {
+            type: 'JSFunction',
+            value: 'function(app){ return {}; }'
+          } as any
+        },
+        options
+      )
+    ).not.toThrow();
+    // Access instance was installed
+    expect(mockUse).toHaveBeenCalled();
+  });
+
+  test('cleans up old request interceptor before setting new one', () => {
+    const options = createOptions();
+    const mockUnReq = vi.fn();
+    const mockUnRes = vi.fn();
+    const mockReq = options.adapter.request;
+    mockReq.__unReq = mockUnReq;
+    mockReq.__unRes = mockUnRes;
+
+    initRuntimeGlobals(
+      {
+        request: {
+          type: 'JSFunction',
+          value: 'function(req,app){ return req; }'
+        } as any,
+        response: {
+          type: 'JSFunction',
+          value: 'function(res,app){ return res; }'
+        } as any
+      },
+      options
+    );
+
+    expect(mockUnReq).toHaveBeenCalled();
+    expect(mockUnRes).toHaveBeenCalled();
+  });
+
+  test('sets beforeEach router guard with router', () => {
+    const app = createAppMock();
+    const mockBeforeEach = vi.fn();
+    app.config.globalProperties.$router = {
+      beforeEach: mockBeforeEach,
+      afterEach: vi.fn()
+    };
+    const options = createOptions({ app });
+
+    initRuntimeGlobals(
+      {
+        beforeEach: {
+          type: 'JSFunction',
+          value: 'function(to,from,next,app){ next(); }'
+        } as any
+      },
+      options
+    );
+    expect(mockBeforeEach).toHaveBeenCalled();
+  });
+
+  test('sets afterEach router guard with router', () => {
+    const app = createAppMock();
+    const mockAfterEach = vi.fn();
+    app.config.globalProperties.$router = {
+      beforeEach: vi.fn(),
+      afterEach: mockAfterEach
+    };
+    const options = createOptions({ app });
+
+    initRuntimeGlobals(
+      {
+        afterEach: {
+          type: 'JSFunction',
+          value: 'function(to,from,failure,app){}'
+        } as any
+      },
+      options
+    );
+    expect(mockAfterEach).toHaveBeenCalled();
+  });
+
+  test('skips axios config when no adapter.request', () => {
+    const options = createOptions({
+      adapter: { request: undefined, jsonp: vi.fn() }
+    });
+    expect(() =>
+      initRuntimeGlobals(
+        {
+          axios: {
+            type: 'JSFunction',
+            value: 'function(app){ return {}; }'
+          } as any
+        },
+        options
+      )
+    ).not.toThrow();
+  });
+
+  test('skips store creation when store is not JSFunction', () => {
+    const createPinia = vi.fn().mockReturnValue({ install: vi.fn() });
+    const defineStore = vi.fn();
+    const app = createAppMock();
+    const options = createOptions({
+      app,
+      library: { Pinia: { createPinia, defineStore } }
+    });
+
+    expect(() =>
+      initRuntimeGlobals({ store: {} as any }, options)
+    ).not.toThrow();
+    // Pinia is created but defineStore should not be called (not JSFunction)
+    expect(defineStore).not.toHaveBeenCalled();
+  });
+
+  test('skips store when Pinia but store.value is empty', () => {
+    const createPinia = vi.fn().mockReturnValue({ install: vi.fn() });
+    const app = createAppMock();
+    const options = createOptions({
+      app,
+      library: { Pinia: { createPinia, defineStore: vi.fn() } }
+    });
+
+    initRuntimeGlobals(
+      {
+        store: { type: 'JSFunction', value: '' } as any
+      },
+      options
+    );
+    expect(createPinia).toHaveBeenCalled(); // Pinia is created but store not
+  });
+
+  test('skips enhance when not JSFunction', () => {
+    const options = createOptions();
+    expect(() =>
+      initRuntimeGlobals({ enhance: {} as any }, options)
+    ).not.toThrow();
+  });
 });

@@ -1,11 +1,12 @@
-import { expect, test, describe } from 'vitest';
+import { expect, test, describe, vi } from 'vitest';
 import {
   isJSExpression,
   isJSFunction,
   isJSCode,
   JSCodeToString,
   parseExpression,
-  parseFunction
+  parseFunction,
+  triggerError
 } from '../src/utils/parser';
 
 test('isJSExpression detects JSExpression type', () => {
@@ -117,4 +118,29 @@ test('parseFunction throws when not a function', () => {
   expect(() => {
     parseFunction({ type: 'JSFunction', value: '123' }, {}, false, true);
   }).toThrow();
+});
+
+test('JSCodeToString wraps value starting with { in parentheses', () => {
+  expect(JSCodeToString({ type: 'JSExpression', value: '{ a: 1 }' })).toBe(
+    '({ a: 1 })'
+  );
+  expect(JSCodeToString({ type: 'JSFunction', value: '{ return 1; }' })).toBe(
+    '({ return 1; })'
+  );
+});
+
+describe('triggerError', () => {
+  test('calls errorHandler when __simulator__ exists', () => {
+    const mockHandler = vi.fn();
+    const mockSimulator = { engine: { provider: { errorHandler: mockHandler } } };
+    (globalThis as any).__simulator__ = mockSimulator;
+    const err = new Error('test error');
+    triggerError(err);
+    expect(mockHandler).toHaveBeenCalledWith(err);
+    delete (globalThis as any).__simulator__;
+  });
+
+  test('does not throw when __simulator__ is missing', () => {
+    expect(() => triggerError(new Error('test'))).not.toThrow();
+  });
 });
