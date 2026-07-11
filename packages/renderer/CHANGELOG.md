@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.18.21](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.18.20...@vtj/renderer@0.18.21) (2026-07-11)
+
+
+### Features
+
+* **renderer:** 修复props响应式追踪问题 ([496dbd9](https://gitee.com/newgateway/vtj/commits/496dbd94ebb95e26e5c3642e27d1a10300d72d10))
+
+
+
+
+
 ## [0.18.20](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.18.19...@vtj/renderer@0.18.20) (2026-07-10)
 
 
