@@ -378,7 +378,12 @@ function branchRender(
   let index = brothers.findIndex((n) => n.id === dsl.id);
   for (let i = ++index; i < brothers.length; i++) {
     const { directives = [] } = brothers[i];
-    const { vElseIf, vElse } = getDiretives(directives);
+    const { vIf, vElseIf, vElse } = getDiretives(directives);
+    // 遇到新的 v-if（非 v-else-if），代表开启了新的条件链，
+    // 后续的 v-else 属于该新链，不应被当前 v-if 跨越匹配
+    if (vIf) {
+      break;
+    }
     if (vElseIf) {
       if (!!context.__parseExpression(vElseIf.value)) {
         return nodeRender(brothers[i], context, Vue, loader, brothers, true);
