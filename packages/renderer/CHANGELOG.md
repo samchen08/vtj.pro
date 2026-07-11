@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.18.22](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.18.21...@vtj/renderer@0.18.22) (2026-07-11)
+
+
+### Bug Fixes
+
+* **renderer:** 修复 v-if 条件链处理逻辑 ([483cbb0](https://gitee.com/newgateway/vtj/commits/483cbb051fc3767fd0f4e87b3239a7906a0511c4))
+
+
+
+
+
 ## [0.18.21](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.18.20...@vtj/renderer@0.18.21) (2026-07-11)
 
 
