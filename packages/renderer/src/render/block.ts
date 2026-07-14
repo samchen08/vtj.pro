@@ -14,7 +14,7 @@ import {
   type BlockEmit
 } from '@vtj/core';
 import { isString, isFunction, delay } from '@vtj/utils';
-import { ContextMode, DATA_TYPES } from '../constants';
+import { ContextMode, DATA_TYPES, CONTEXT_HOST } from '../constants';
 import { Context } from './context';
 import {
   adoptedStyleSheets,
@@ -169,6 +169,12 @@ export function createRenderer(options: CreateRendererOptions) {
       };
       context.setup(attrs, Vue);
 
+      // $el 等属性在 onMounted 后才生成，需要再次同步到 sharedContext
+      // 使得设计器 Viewer 能在 mount 后立即看到完整上下文
+      Vue.onMounted(() => {
+        syncContextFields(context, sharedContext);
+      });
+
       // 为 prop 定义响应式 getter，代理到 context.$props（响应式对象），
       // 确保 watch 能追踪 props 的变化。
       // issue: ...props 展开后成为纯值设置在 context 上，
@@ -299,11 +305,8 @@ export function createRenderer(options: CreateRendererOptions) {
         result = Vue.createVNode('div', {}, children);
       }
 
-      // 将实例级 Context 的 __contextRefs 同步回 sharedContext，
-      // 确保设计器 useBinder 能正确读取 vFor 等指令产生的运行时上下文变量。
-      if (context !== sharedContext) {
-        sharedContext.__contextRefs = context.__contextRefs;
-      }
+      // 将实例级 Context 的全部关键字段同步回 sharedContext
+      syncContextFields(context, sharedContext);
 
       return result;
     },
@@ -317,6 +320,28 @@ export function createRenderer(options: CreateRendererOptions) {
     renderer: Vue.markRaw(renderer),
     context: sharedContext
   };
+}
+
+/**
+ * 将 per-instance context 的关键字段同步回 sharedContext，
+ * 确保设计器 expressionValidate / useBinder / updateLines 及 Viewer 能完整反映运行时上下文。
+ */
+function syncContextFields(context: Context, sharedContext: Context) {
+  if (context === sharedContext) return;
+  sharedContext.__contextRefs = context.__contextRefs;
+  sharedContext.__refs = context.__refs;
+  sharedContext.$refs = context.$refs;
+  sharedContext.$state = context.$state;
+  sharedContext.$props = context.$props;
+  sharedContext.$uni = context.$uni;
+  sharedContext.$getApp = context.$getApp;
+  // $provider 由 Vue app 注入到 globalProperties，sharedContext 不走 setup() 拿不到
+  sharedContext.$provider = context.$provider;
+  // CONTEXT_HOST: Vue 组件实例属性（$el, $emit, $nextTick, $parent,
+  // $root, $attrs, $slots, $watch, $options, $forceUpdate）+ 已单独同步的 $props
+  for (const key of CONTEXT_HOST) {
+    (sharedContext as any)[key] = (context as any)[key];
+  }
 }
 
 function createEmits(emits: Array<string | BlockEmit> = []) {

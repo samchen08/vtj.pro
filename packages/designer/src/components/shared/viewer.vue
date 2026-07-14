@@ -61,7 +61,21 @@
 
   const emit = defineEmits(['pick', 'copy']);
 
-  const excludes = ['$components', 'context'];
+  const excludes = [
+    '$components',
+    'context',
+    'props',
+    'state',
+    'setup',
+    // Object.prototype 方法，对用户无意义
+    'hasOwnProperty',
+    'isPrototypeOf',
+    'propertyIsEnumerable',
+    'toLocaleString',
+    'toString',
+    'valueOf',
+    '__proto__'
+  ];
 
   const filterText = ref('');
   const treeRef = ref<InstanceType<typeof ElTree>>();
