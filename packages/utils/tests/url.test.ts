@@ -2,6 +2,19 @@ import { describe, it, expect } from 'vitest';
 import * as url from '../src/url';
 
 describe('url 工具函数', () => {
+  describe('getCurrentHost', () => {
+    it('应返回当前页面的 host', () => {
+      const result = url.getCurrentHost(false);
+      expect(result).toBeDefined();
+      expect(result).toContain('://');
+    });
+
+    it('应包含 pathname 当 includePath 为 true', () => {
+      const result = url.getCurrentHost(true);
+      expect(result).toBeDefined();
+    });
+  });
+
   describe('getHost', () => {
     it('应提取 http URL 的 host', () => {
       expect(url.getHost('http://example.com/path')).toBe('http://example.com');

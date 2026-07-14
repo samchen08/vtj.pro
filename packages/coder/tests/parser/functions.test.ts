@@ -45,4 +45,20 @@ describe('parseFunctionMap', () => {
     expect(result[0]).toContain('sayHi');
     expect(result[0]).toContain('return "hi"');
   });
+
+  test('should return null for invalid handler format', () => {
+    const result = parseFunctionMap({
+      bad: { type: 'JSExpression', value: 'just some expression' }
+    });
+    // null is filtered out by .filter(Boolean)
+    expect(result).toEqual([]);
+  });
+
+  test('should filter out null entries', () => {
+    const result = parseFunctionMap({
+      good: { type: 'JSFunction', value: '() => {}' },
+      bad: { type: 'JSExpression', value: 'expr' }
+    });
+    expect(result.length).toBe(1);
+  });
 });

@@ -164,8 +164,8 @@ test('loadScriptUrl handles error', async () => {
       },
       createElement: vi.fn().mockReturnValue({
         src: '',
-        onload: null,
-        onerror: null
+        onload: null as any,
+        onerror: null as any
       })
     }
   };
@@ -176,9 +176,65 @@ test('loadScriptUrl handles error', async () => {
     global
   );
 
-  // Simulate onerror - the promise rejects
   const el = mockAppendChild.mock.calls[0][0];
   el.onerror('Load failed');
 
   await expect(promise).rejects.toBe('Load failed');
+});
+
+test('loadScriptUrl handles onload success', async () => {
+  const mockAppendChild = vi.fn();
+  const global: any = {
+    document: {
+      head: {
+        appendChild: mockAppendChild
+      },
+      createElement: vi.fn().mockReturnValue({
+        src: '',
+        onload: null as any,
+        onerror: null as any
+      })
+    }
+  };
+
+  const promise = loadScriptUrl(
+    ['http://example.com/lib.js'],
+    'SomeLib',
+    global
+  );
+
+  global.SomeLib = { default: { hello: 'world' } };
+  
+  const el = mockAppendChild.mock.calls[0][0];
+  el.onload();
+
+  const result = await promise;
+  expect(result).toEqual({ hello: 'world' });
+});
+
+test('loadScriptUrl onload rejects when library not found', async () => {
+  const mockAppendChild = vi.fn();
+  const global: any = {
+    document: {
+      head: {
+        appendChild: mockAppendChild
+      },
+      createElement: vi.fn().mockReturnValue({
+        src: '',
+        onload: null as any,
+        onerror: null as any
+      })
+    }
+  };
+
+  const promise = loadScriptUrl(
+    ['http://example.com/lib.js'],
+    'MissingLib',
+    global
+  );
+
+  const el = mockAppendChild.mock.calls[0][0];
+  el.onload();
+
+  await expect(promise).rejects.toBeNull();
 });
