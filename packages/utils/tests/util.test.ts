@@ -1,9 +1,44 @@
-import { describe, it, expect } from 'vitest';
-import { isClient, formDataToJson, dataURLtoBlob, blobToFile } from '../src';
+import { describe, it, expect, vi } from 'vitest';
+import { isClient, fileToBase64, formDataToJson, dataURLtoBlob, blobToFile } from '../src';
 
 describe('util 工具函数', () => {
   it('isClient 应为 true（jsdom 环境）', () => {
     expect(isClient).toBe(true);
+  });
+
+  it('fileToBase64 应将 File 转为 base64', async () => {
+    const file = new File(['Hello'], 'test.txt', { type: 'text/plain' });
+    const result = await fileToBase64(file);
+    expect(result).toContain('data:text/plain;base64,');
+  });
+
+  it('fileToBase64 应处理空文件', async () => {
+    const file = new File([], 'empty.txt', { type: 'text/plain' });
+    const result = await fileToBase64(file);
+    expect(result).toContain('data:text/plain;base64,');
+  });
+
+  it('fileToBase64 应处理 FileReader 错误', async () => {
+    const file = new File(['test'], 'test.txt', { type: 'text/plain' });
+    // Mock FileReader to trigger onerror
+    const originalFileReader = global.FileReader;
+    const mockReader = {
+      readAsDataURL: vi.fn(),
+      onload: null as any,
+      onerror: null as any,
+      result: 'data:text/plain;base64,dGVzdA=='
+    };
+    (global as any).FileReader = vi.fn(() => {
+      const reader = { ...mockReader };
+      setTimeout(() => {
+        if (reader.onerror) reader.onerror(new Error('read error'));
+      }, 0);
+      return reader;
+    });
+
+    await expect(fileToBase64(file)).rejects.toBeDefined();
+
+    (global as any).FileReader = originalFileReader;
   });
 
   it('formDataToJson 应将 FormData 转为 JSON', () => {

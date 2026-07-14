@@ -816,3 +816,407 @@ describe('block - createDataSources', () => {
     expect(typeof result.noRefApi).toBe('function');
   });
 });
+
+describe('block -createEmits handles BlockEmit objects', () => {
+  test('createEmits from strings and BlockEmit objects', () => {
+    const Vue = {
+      defineComponent: (options: any) => options,
+      computed: vi.fn((fn: any) => ({ value: fn() })),
+      reactive: vi.fn((obj: any) => obj),
+      markRaw: vi.fn((obj: any) => obj),
+      createVNode: vi.fn((tag: any, props: any, children: any) => ({
+        tag,
+        props,
+        children
+      })),
+      provide: vi.fn(),
+      inject: vi.fn((_key: any, defaultValue: any) => defaultValue),
+      getCurrentInstance: () => ({
+        proxy: { $el: null, $emit: vi.fn() },
+        appContext: { config: { globalProperties: {} } }
+      }),
+      onMounted: vi.fn(),
+      onUnmounted: vi.fn(),
+      onBeforeUpdate: vi.fn(),
+      watch: vi.fn()
+    };
+
+    const dsl = {
+      name: 'EmitBlock',
+      state: {},
+      computed: {},
+      methods: {},
+      props: [],
+      emits: ['click', { name: 'update', description: '更新事件' }],
+      nodes: [{ component: 'div' }],
+      lifeCycles: {},
+      watch: [],
+      dataSources: {},
+      css: '',
+      apiMode: 'options'
+    } as any;
+
+    const { renderer } = createRenderer({
+      Vue,
+      mode: ContextMode.Runtime,
+      dsl
+    });
+
+    expect(renderer.emits).toEqual(['click', 'update']);
+  });
+});
+
+describe('block - createProps with type definitions', () => {
+  test('createProps handles BlockProp with type', () => {
+    const Vue = {
+      defineComponent: (options: any) => options,
+      computed: vi.fn((fn: any) => ({ value: fn() })),
+      reactive: vi.fn((obj: any) => obj),
+      markRaw: vi.fn((obj: any) => obj),
+      createVNode: vi.fn((tag: any, props: any, children: any) => ({
+        tag,
+        props,
+        children
+      })),
+      provide: vi.fn(),
+      inject: vi.fn((_key: any, defaultValue: any) => defaultValue),
+      getCurrentInstance: () => ({
+        proxy: { $el: null, $emit: vi.fn() },
+        appContext: { config: { globalProperties: {} } }
+      }),
+      onMounted: vi.fn(),
+      onUnmounted: vi.fn(),
+      onBeforeUpdate: vi.fn(),
+      watch: vi.fn()
+    };
+
+    const dsl = {
+      name: 'TypedPropsBlock',
+      state: {},
+      computed: {},
+      methods: {},
+      props: [
+        {
+          name: 'title',
+          type: ['String'],
+          required: true,
+          default: { type: 'JSExpression', value: "'default title'" }
+        },
+        { name: 'count', type: 'Number' },
+        'simpleProp'
+      ],
+      emits: [],
+      nodes: [{ component: 'div' }],
+      lifeCycles: {},
+      watch: [],
+      dataSources: {},
+      css: '',
+      apiMode: 'options'
+    } as any;
+
+    const { renderer } = createRenderer({
+      Vue,
+      mode: ContextMode.Runtime,
+      dsl
+    });
+
+    expect(renderer.props.title).toBeDefined();
+    expect(renderer.props.title.required).toBe(true);
+    expect(renderer.props.title.type).toBeDefined();
+    expect(renderer.props.count).toBeDefined();
+    expect(renderer.props.simpleProp).toBeDefined();
+    // JSExpression default should be parsed
+    expect(renderer.props.title.default).toBe('default title');
+  });
+});
+
+describe('block - state with JSFunction values', () => {
+  test('createRenderer handles state with JSFunction values', async () => {
+    const Vue = {
+      defineComponent: (options: any) => options,
+      computed: vi.fn((fn: any) => ({ value: fn() })),
+      reactive: vi.fn((obj: any) => obj),
+      ref: vi.fn((val: any) => ({ value: val })),
+      markRaw: vi.fn((obj: any) => obj),
+      createVNode: vi.fn((tag: any, props: any, children: any) => ({
+        tag,
+        props,
+        children
+      })),
+      provide: vi.fn(),
+      inject: vi.fn((_key: any, defaultValue: any) => defaultValue),
+      getCurrentInstance: () => ({
+        proxy: { $el: null, $emit: vi.fn() },
+        appContext: { config: { globalProperties: {} } }
+      }),
+      onMounted: vi.fn(),
+      onUnmounted: vi.fn(),
+      onBeforeUpdate: vi.fn(),
+      watch: vi.fn()
+    };
+
+    const dsl = {
+      name: 'StateFuncBlock',
+      state: {
+        counter: { type: 'JSFunction', value: '() => 42' }
+      },
+      computed: {},
+      methods: {},
+      props: [],
+      emits: [],
+      nodes: [{ component: 'div' }],
+      lifeCycles: {},
+      watch: [],
+      dataSources: {},
+      css: '',
+      apiMode: 'options'
+    } as any;
+
+    const { renderer } = createRenderer({
+      Vue,
+      mode: ContextMode.Runtime,
+      dsl
+    });
+
+    const result = await renderer.setup({});
+    expect(result.state).toBeDefined();
+    expect(Vue.reactive).toHaveBeenCalled();
+  });
+
+  test('createRenderer handles state with JSExpression values', async () => {
+    const Vue = {
+      defineComponent: (options: any) => options,
+      computed: vi.fn((fn: any) => ({ value: fn() })),
+      reactive: vi.fn((obj: any) => obj),
+      ref: vi.fn((val: any) => ({ value: val })),
+      markRaw: vi.fn((obj: any) => obj),
+      createVNode: vi.fn((tag: any, props: any, children: any) => ({
+        tag,
+        props,
+        children
+      })),
+      provide: vi.fn(),
+      inject: vi.fn((_key: any, defaultValue: any) => defaultValue),
+      getCurrentInstance: () => ({
+        proxy: { $el: null, $emit: vi.fn() },
+        appContext: { config: { globalProperties: {} } }
+      }),
+      onMounted: vi.fn(),
+      onUnmounted: vi.fn(),
+      onBeforeUpdate: vi.fn(),
+      watch: vi.fn()
+    };
+
+    const dsl = {
+      name: 'StateExprBlock',
+      state: {
+        count: { type: 'JSExpression', value: '100' }
+      },
+      computed: {},
+      methods: {},
+      props: [],
+      emits: [],
+      nodes: [{ component: 'div' }],
+      lifeCycles: {},
+      watch: [],
+      dataSources: {},
+      css: '',
+      apiMode: 'options'
+    } as any;
+
+    const { renderer } = createRenderer({
+      Vue,
+      mode: ContextMode.Runtime,
+      dsl
+    });
+
+    const result = await renderer.setup({});
+    expect(result.state).toBeDefined();
+    expect(Vue.reactive).toHaveBeenCalledWith(
+      expect.objectContaining({ count: 100 })
+    );
+  });
+});
+
+describe('block - computed and methods', () => {
+  test('createRenderer creates computed from JSFunction', async () => {
+    const self = { count: 10 };
+    const Vue = {
+      defineComponent: (options: any) => options,
+      computed: vi.fn((fn: any) => {
+        // 模拟 Vue computed 在正确上下文中执行 getter
+        try {
+          return { value: fn() };
+        } catch (e) {
+          return { value: undefined };
+        }
+      }),
+      reactive: vi.fn((obj: any) => obj),
+      markRaw: vi.fn((obj: any) => obj),
+      createVNode: vi.fn(() => null),
+      provide: vi.fn(),
+      inject: vi.fn((_key: any, defaultValue: any) => defaultValue),
+      getCurrentInstance: () => ({
+        proxy: { $el: null, $emit: vi.fn() },
+        appContext: { config: { globalProperties: {} } }
+      }),
+      onMounted: vi.fn(),
+      onUnmounted: vi.fn(),
+      onBeforeUpdate: vi.fn(),
+      watch: vi.fn()
+    };
+
+    const dsl = {
+      name: 'ComputedBlock',
+      state: { count: 10 },
+      computed: {
+        double: {
+          type: 'JSFunction',
+          value: 'function() { return this.count * 2; }'
+        },
+        triple: { type: 'JSExpression', value: 'this.count * 3' }
+      },
+      methods: {
+        greet: { type: 'JSFunction', value: 'function() { return "hello"; }' }
+      },
+      props: [],
+      emits: [],
+      nodes: [{ component: 'div' }],
+      lifeCycles: {},
+      watch: [],
+      dataSources: {},
+      css: ''
+    } as any;
+
+    const { renderer } = createRenderer({
+      Vue,
+      mode: ContextMode.Runtime,
+      dsl
+    });
+
+    await renderer.setup({});
+    // Vue.computed should be called for both computed properties
+    expect(Vue.computed).toHaveBeenCalled();
+  });
+});
+
+describe('block - setWatches', () => {
+  test('createRenderer sets up watches', async () => {
+    const Vue = {
+      defineComponent: (options: any) => options,
+      computed: vi.fn((fn: any) => ({ value: fn() })),
+      reactive: vi.fn((obj: any) => obj),
+      markRaw: vi.fn((obj: any) => obj),
+      createVNode: vi.fn(() => null),
+      provide: vi.fn(),
+      inject: vi.fn((_key: any, defaultValue: any) => defaultValue),
+      getCurrentInstance: () => ({
+        proxy: { $el: null, $emit: vi.fn() },
+        appContext: { config: { globalProperties: {} } }
+      }),
+      onMounted: vi.fn(),
+      onUnmounted: vi.fn(),
+      onBeforeUpdate: vi.fn(),
+      watch: vi.fn()
+    };
+
+    const dsl = {
+      name: 'WatchBlock',
+      state: { count: 0 },
+      computed: {},
+      methods: {},
+      props: [],
+      emits: [],
+      nodes: [{ component: 'div' }],
+      lifeCycles: {},
+      watch: [
+        {
+          source: { type: 'JSExpression', value: '() => this.count' },
+          handler: {
+            type: 'JSFunction',
+            value: 'function(nv) { console.log(nv); }'
+          },
+          deep: true,
+          immediate: true
+        }
+      ],
+      dataSources: {},
+      css: ''
+    } as any;
+
+    const { renderer } = createRenderer({
+      Vue,
+      mode: ContextMode.Runtime,
+      dsl
+    });
+
+    await renderer.setup({});
+    expect(Vue.watch).toHaveBeenCalledWith(
+      expect.any(Function),
+      expect.any(Function),
+      expect.objectContaining({ deep: true, immediate: true })
+    );
+  });
+});
+
+describe('block - createInject', () => {
+  test('createRenderer handles injects', async () => {
+    const Vue = {
+      defineComponent: (options: any) => options,
+      computed: vi.fn((fn: any) => ({ value: fn() })),
+      reactive: vi.fn((obj: any) => obj),
+      markRaw: vi.fn((obj: any) => obj),
+      createVNode: vi.fn(() => null),
+      provide: vi.fn(),
+      inject: vi.fn((key: any, defaultValue: any) => defaultValue),
+      getCurrentInstance: () => ({
+        proxy: { $el: null, $emit: vi.fn() },
+        appContext: { config: { globalProperties: {} } }
+      }),
+      onMounted: vi.fn(),
+      onUnmounted: vi.fn(),
+      onBeforeUpdate: vi.fn(),
+      watch: vi.fn()
+    };
+
+    const dsl = {
+      name: 'InjectBlock',
+      state: {},
+      computed: {},
+      methods: {},
+      props: [],
+      emits: [],
+      inject: [
+        { name: 'theme', from: { type: 'JSExpression', value: "'themeKey'" } },
+        { name: 'locale', from: 'localeKey' },
+        {
+          name: 'config',
+          from: { type: 'JSExpression', value: "'configKey'" },
+          default: { type: 'JSExpression', value: "'defaultConfig'" }
+        }
+      ],
+      nodes: [{ component: 'div' }],
+      lifeCycles: {},
+      watch: [],
+      dataSources: {},
+      css: '',
+      apiMode: 'options'
+    } as any;
+
+    const { renderer } = createRenderer({
+      Vue,
+      mode: ContextMode.Runtime,
+      dsl
+    });
+
+    await renderer.setup({});
+    // inject is also called for circular reference block chain detection
+    expect(Vue.inject).toHaveBeenCalled();
+    // theme: parsed from JSExpression "'themeKey'" = 'themeKey'
+    expect(Vue.inject).toHaveBeenCalledWith('themeKey', null);
+    // locale: from string 'localeKey'
+    expect(Vue.inject).toHaveBeenCalledWith('localeKey', null);
+    // config: from parsed "'configKey'" = 'configKey', default parsed "'defaultConfig'" = 'defaultConfig'
+    expect(Vue.inject).toHaveBeenCalledWith('configKey', 'defaultConfig');
+  });
+});

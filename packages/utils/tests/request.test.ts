@@ -5,10 +5,20 @@ vi.mock('axios', () => {
   const requestFn = vi.fn();
   const instance: any = requestFn;
   instance.defaults = { headers: { common: {} } };
+  const reqInterceptorFns: any[] = [];
+  const resInterceptorFns: any[] = [];
   instance.interceptors = {
-    request: { use: vi.fn(() => 1), eject: vi.fn() },
-    response: { use: vi.fn(() => 1), eject: vi.fn() }
+    request: {
+      use: vi.fn((fn: any) => { reqInterceptorFns.push(fn); return reqInterceptorFns.length; }),
+      eject: vi.fn()
+    },
+    response: {
+      use: vi.fn((fn: any) => { resInterceptorFns.push(fn); return resInterceptorFns.length; }),
+      eject: vi.fn()
+    }
   };
+  instance._reqInterceptors = reqInterceptorFns;
+  instance._resInterceptors = resInterceptorFns;
   instance.request = requestFn;
   instance.get = vi.fn();
   instance.post = vi.fn();
@@ -143,6 +153,79 @@ describe('Request 请求工具', () => {
       expect(typeof dispose).toBe('function');
     });
   });
+
+  describe('setupSkipWarn', () => {
+    it('应在有 skipWarn 设置时注册响应拦截器', () => {
+      const skipWarnReq = new Request({
+        baseURL: 'https://api.example.com',
+        settings: {
+          skipWarn: {
+            code: 401,
+            executor: (resolve) => resolve(true),
+            callback: vi.fn(),
+            complete: vi.fn()
+          }
+        }
+      });
+      // 验证不会崩溃
+      expect(skipWarnReq).toBeDefined();
+    });
+
+    it('setConfig 更新 skipWarn 应清理旧拦截器', () => {
+      const skipWarnReq = new Request({
+        baseURL: 'https://api.example.com',
+        settings: {
+          skipWarn: {
+            code: 401,
+            executor: (resolve) => resolve(true)
+          }
+        }
+      });
+      // 更新配置，这会触发 stopSkipWarn 清理
+      expect(() => skipWarnReq.setConfig({
+        settings: {
+          skipWarn: {
+            code: 403,
+            executor: (resolve) => resolve(true)
+          }
+        }
+      })).not.toThrow();
+    });
+
+    it('应处理 skipWarn 响应拦截', async () => {
+      const skipWarnReq = new Request({
+        baseURL: 'https://api.example.com',
+        settings: {
+          type: 'json',
+          skipWarn: {
+            code: 401,
+            executor: (resolve) => resolve(true),
+            callback: vi.fn()
+          }
+        }
+      });
+      const axiosMock = (skipWarnReq as any).axios;
+      // 模拟 skipWarn 响应
+      axiosMock.request.mockResolvedValueOnce({
+        data: { code: 401 },
+        headers: { 'Local-Request-Id': 'test-id' },
+        config: { headers: { 'Local-Request-Id': 'test-id' } },
+        status: 200
+      });
+
+      (skipWarnReq as any).records['test-id'] = {
+        config: { url: '/test' },
+        settings: skipWarnReq.settings
+      };
+
+      try {
+        await skipWarnReq.send({ url: '/test' });
+      } catch (e) {
+        // expected skipWarn promise
+      }
+      expect(axiosMock.request).toHaveBeenCalled();
+    });
+  });
 });
 
 describe('createRequest', () => {
@@ -167,6 +250,22 @@ describe('createApi', () => {
     const mockReq = { send: vi.fn().mockResolvedValue({ id: 1 }) } as any;
     const api = createApi({ url: '/users', method: 'post' }, mockReq);
     expect(typeof api).toBe('function');
+  });
+
+  it('API 函数应发送请求', async () => {
+    const mockReq = { send: vi.fn().mockResolvedValue({ id: 2 }) } as any;
+    const api = createApi<{ id: number }>('/users/1', mockReq);
+    const result = await api();
+    expect(mockReq.send).toHaveBeenCalled();
+    expect(result).toEqual({ id: 2 });
+  });
+
+  it('API 函数应支持传入 data 和 opts', async () => {
+    const mockReq = { send: vi.fn().mockResolvedValue({ id: 3 }) } as any;
+    const api = createApi<{ id: number }, { name: string }>('/users', mockReq);
+    const result = await api({ name: 'test' }, { method: 'post' });
+    expect(mockReq.send).toHaveBeenCalled();
+    expect(result).toEqual({ id: 3 });
   });
 });
 

@@ -81,5 +81,56 @@ describe('Storage 存储工具', () => {
       s2.remove('key');
       expect(s2.get('key')).toBeNull();
     });
+
+    it('clear 应清除 localStorage 所有项', () => {
+      const s2 = new Storage({ type: 'local', prefix: '__TEST_' });
+      s2.save('a', 1);
+      s2.save('b', 2);
+      expect(s2.get('a')).toBe(1);
+      expect(s2.get('b')).toBe(2);
+      expect(() => s2.clear()).not.toThrow();
+      expect(s2.get('a')).toBeNull();
+      expect(s2.get('b')).toBeNull();
+    });
+
+    it('get 应处理 JSON.parse 异常', () => {
+      const s2 = new Storage({ type: 'local', prefix: '__TEST_' });
+      const realKey = '__TEST_corrupt';
+      localStorage.setItem(realKey, 'not-valid-json{{{');
+
+      const consoleWarnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {});
+      const result = s2.get('corrupt');
+      expect(result).toBeNull();
+      expect(consoleWarnSpy).toHaveBeenCalled();
+      consoleWarnSpy.mockRestore();
+
+      localStorage.removeItem(realKey);
+    });
+
+    it('sessionStorage 模式应正常存取', () => {
+      const s2 = new Storage({ type: 'session', prefix: '__TEST_' });
+      s2.save('key', 'value');
+      expect(s2.get('key')).toBe('value');
+      s2.remove('key');
+      expect(s2.get('key')).toBeNull();
+    });
+
+    it('sessionStorage clear 应清除所有项', () => {
+      const s2 = new Storage({ type: 'session', prefix: '__TEST_' });
+      s2.save('a', 1);
+      s2.save('b', 2);
+      expect(s2.get('a')).toBe(1);
+      expect(() => s2.clear()).not.toThrow();
+      expect(s2.get('a')).toBeNull();
+      expect(s2.get('b')).toBeNull();
+    });
+
+    it('无效 type 应回退到 cache', () => {
+      const s2 = new Storage({ type: 'invalid' as any, prefix: '__TEST_' });
+      s2.save('key', 'value');
+      expect(s2.get('key')).toBe('value');
+      s2.remove('key');
+      expect(s2.get('key')).toBeNull();
+    });
   });
 });

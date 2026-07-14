@@ -17,4 +17,11 @@ describe('parseInject', () => {
   test('should handle undefined', () => {
     expect(parseInject(undefined)).toEqual([]);
   });
+
+  test('should use name when from is not set', () => {
+    const result = parseInject([
+      { name: 'service', default: null }
+    ]);
+    expect(result[0]).toContain("from: 'service'");
+  });
 });
