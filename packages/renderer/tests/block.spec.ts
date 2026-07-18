@@ -305,8 +305,9 @@ describe('block - Composition API mode', () => {
     // 验证 onBeforeMount 被注册
     expect(Vue.onBeforeMount).toHaveBeenCalledTimes(1);
     // 验证 mounted（Options名）被映射为 onMounted 注册
-    // context.setup 内部也调用了 onMounted，所以总计 2 次
-    expect(Vue.onMounted).toHaveBeenCalledTimes(2);
+    // 同时 context.setup 和 block.setup 各注册了一个 onMounted（__proxy 和 syncContextFields），
+    // 所以总计 3 次
+    expect(Vue.onMounted).toHaveBeenCalledTimes(3);
   });
 
   test('createRenderer calls Vue.provide for composition provide', async () => {

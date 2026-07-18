@@ -38,7 +38,7 @@ export interface ParseScriptsResult {
   name?: string;
   state?: BlockState;
   methods?: Record<string, JSFunction>;
-  computed?: Record<string, JSFunction>;
+  computed?: Record<string, JSFunction | JSExpression>;
   watchers?: Record<string, JSFunction>;
   lifeCycles?: Record<string, JSFunction>;
   watch?: BlockWatch[];
@@ -240,11 +240,25 @@ function getFunction(item: ObjectMethod) {
     .join(', ');
   if (key.type === 'Identifier') {
     const name = key.name;
+
+    // 处理 ObjectProperty 形式：computed1: { get() {...}, set(v) {...} }
+    const value = (item as any).value;
+    if (value && value.type === 'ObjectExpression') {
+      const code = generateCode(value);
+      const watcher = name.startsWith('watcher_');
+      const id = watcher ? name.replace('watcher_', '') : '';
+      return {
+        id,
+        name,
+        watcher,
+        exp: getJSExpression(code)
+      };
+    }
+
     let code = '{}';
     if (body) {
       code = generateCode(body) || '{}';
     }
-    const value = (item as any).value;
     if (value && value.type === 'CallExpression') {
       let valueContent = generateCode(value) || '';
       valueContent = valueContent.replace('function () {', '() => {');
@@ -267,7 +281,7 @@ function getFunction(item: ObjectMethod) {
 
 function getMethods(expression: ObjectExpression) {
   if (!expression) return {};
-  const methods: Record<string, JSFunction> = {};
+  const methods: Record<string, JSFunction | JSExpression> = {};
   for (const item of expression.properties) {
     const method = getFunction(item as ObjectMethod);
     if (
@@ -368,7 +382,10 @@ function getDefineMethods(expression: ObjectExpression) {
   const result: Record<string, JSFunction> = {};
   for (const key of Object.keys(methods)) {
     if (!regex.test(key)) {
-      result[key] = methods[key];
+      const m = methods[key];
+      if (m) {
+        result[key] = m as JSFunction;
+      }
     }
   }
   return result;
@@ -404,7 +421,7 @@ function getWatchers(expression: ObjectExpression) {
   for (const item of expression.properties) {
     const method = getFunction(item as ObjectMethod);
     if (method && method.watcher) {
-      watchers[method.name] = method.exp;
+      watchers[method.name] = method.exp as JSFunction;
     }
   }
   return watchers;
@@ -495,7 +512,7 @@ function getLifeCycles(methods: ObjectMethod[]) {
     if (LIFE_CYCLES_LIST.includes(key)) {
       const func = getFunction(item as ObjectMethod);
       if (func) {
-        lifeCycles[func.name] = func.exp;
+        lifeCycles[func.name] = func.exp as JSFunction;
       }
     }
   }
