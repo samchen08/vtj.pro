@@ -14,7 +14,7 @@ import {
   type BlockEmit
 } from '@vtj/core';
 import { isString, isFunction, delay } from '@vtj/utils';
-import { ContextMode, DATA_TYPES, CONTEXT_HOST } from '../constants';
+import { ContextMode, DATA_TYPES } from '../constants';
 import { Context } from './context';
 import {
   adoptedStyleSheets,
@@ -328,20 +328,14 @@ export function createRenderer(options: CreateRendererOptions) {
  */
 function syncContextFields(context: Context, sharedContext: Context) {
   if (context === sharedContext) return;
-  sharedContext.__contextRefs = context.__contextRefs;
-  sharedContext.__refs = context.__refs;
-  sharedContext.$refs = context.$refs;
-  sharedContext.$state = context.$state;
-  sharedContext.$props = context.$props;
-  sharedContext.$uni = context.$uni;
-  sharedContext.$getApp = context.$getApp;
-  // $provider 由 Vue app 注入到 globalProperties，sharedContext 不走 setup() 拿不到
-  sharedContext.$provider = context.$provider;
-  // CONTEXT_HOST: Vue 组件实例属性（$el, $emit, $nextTick, $parent,
-  // $root, $attrs, $slots, $watch, $options, $forceUpdate）+ 已单独同步的 $props
-  for (const key of CONTEXT_HOST) {
-    (sharedContext as any)[key] = (context as any)[key];
-  }
+  // 将 per-instance context 的所有属性同步到 sharedContext，
+  // 确保设计器 Viewer / expressionValidate / useBinder 能完整访问运行时上下文，
+  // 包括 Vue 插件注入的全局属性（$store、$i18n、$t、$router 等）。
+  Object.assign(sharedContext, context);
+  // 清除不应共享的 per-instance 内部状态
+  delete (sharedContext as any).__refGenerations;
+  delete (sharedContext as any).__refCaches;
+  delete (sharedContext as any).__transform;
 }
 
 function createEmits(emits: Array<string | BlockEmit> = []) {
