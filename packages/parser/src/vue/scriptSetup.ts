@@ -101,7 +101,7 @@ export interface ParseScriptSetupResult {
   refs: Record<string, JSONValue | JSExpression>;
   reactives: Record<string, JSONValue | JSExpression>;
   state: BlockState;
-  computed: Record<string, JSFunction>;
+  computed: Record<string, JSFunction | JSExpression>;
   methods: Record<string, JSFunction>;
   watch: BlockWatch[];
   lifeCycles: Record<string, JSFunction>;
@@ -208,11 +208,21 @@ export function parseScriptSetup(
           // computed()
           if (callee === 'computed') {
             const name = getDeclaratorName(declarator.id);
-            if (name) {
-              const argCode = init.arguments[0]
-                ? generateCode(init.arguments[0])
-                : '() => {}';
-              result.computed[name] = getJSFunction(argCode);
+            if (name && init.arguments[0]) {
+              const arg = init.arguments[0];
+              const argCode = generateCode(arg);
+              // computed(() => ...) / computed(function() { ... }) → JSFunction
+              // computed({ get() {...}, set(v) {...} }) → JSExpression
+              if (
+                arg.type === 'ArrowFunctionExpression' ||
+                arg.type === 'FunctionExpression'
+              ) {
+                result.computed[name] = getJSFunction(argCode);
+              } else {
+                result.computed[name] = getJSExpression(argCode);
+              }
+            } else if (name) {
+              result.computed[name] = getJSFunction('() => {}');
             }
             return;
           }
