@@ -66,7 +66,7 @@ describe('PageContainer', () => {
   test('activated sets new sid when cache is false', () => {
     if ((PageContainer as any).activated) {
       const ctx = {
-        meta: { cache: false },
+        route: { meta: { cache: false } },
         sid: Symbol('old')
       };
       const oldSid = ctx.sid;
@@ -78,7 +78,7 @@ describe('PageContainer', () => {
   test('activated does not change sid when cache is not false', () => {
     if ((PageContainer as any).activated) {
       const ctx = {
-        meta: { cache: true },
+        route: { meta: { cache: true } },
         sid: Symbol('old')
       };
       const oldSid = ctx.sid;

@@ -341,6 +341,29 @@ describe('Provider - load', () => {
     expect(router.addRoute).toHaveBeenCalled();
   });
 
+  test('uses the loaded project platform when deciding router initialization', async () => {
+    const service = createMockService();
+    const router = createRouterMock();
+    service.init.mockResolvedValue({
+      id: 'uni-project',
+      pages: [],
+      apis: [],
+      meta: [],
+      env: [],
+      platform: 'uniapp'
+    });
+    const provider = new Provider({
+      service,
+      mode: ContextMode.Design,
+      project: { id: 'uni-project' },
+      router
+    });
+
+    await provider.load({ id: 'uni-project' } as any);
+
+    expect(router.addRoute).not.toHaveBeenCalled();
+  });
+
   test('passes routeMeta to generated static routes', async () => {
     const service = createMockService();
     const router = createRouterMock();

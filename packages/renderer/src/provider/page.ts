@@ -45,7 +45,6 @@ export const PageContainer = defineComponent({
       provider,
       component,
       file,
-      meta: route.meta,
       sid,
       route
     };
@@ -63,7 +62,7 @@ export const PageContainer = defineComponent({
     }
   },
   activated() {
-    if (this.meta.cache === false) {
+    if (this.route.meta.cache === false) {
       this.sid = Symbol();
     }
   }

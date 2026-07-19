@@ -108,9 +108,6 @@ export async function loadScriptUrl(
   if (module) return module.default || module;
 
   for (const url of urls) {
-    module = global[library];
-    if (module) return module.default || module;
-
     const existing = doc.getElementById?.(url) as any;
     if (existing?.__vtjLoading) {
       await existing.__vtjLoading;

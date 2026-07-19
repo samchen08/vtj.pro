@@ -257,6 +257,7 @@ test('loadScriptUrl loads dependent scripts in order', async () => {
   );
   expect(mockAppendChild).toHaveBeenCalledTimes(1);
 
+  global.SomeLib = { partial: true };
   elements.get('/dependency.js').onload();
   await Promise.resolve();
   expect(mockAppendChild).toHaveBeenCalledTimes(2);

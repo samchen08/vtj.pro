@@ -318,7 +318,8 @@ export function createRenderer(options: CreateRendererOptions) {
 
   return {
     renderer: Vue.markRaw(renderer),
-    context: sharedContext
+    context: sharedContext,
+    loader
   };
 }
 

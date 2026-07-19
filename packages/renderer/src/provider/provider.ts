@@ -254,7 +254,7 @@ export class Provider extends Base {
     mockApis(apis, _window);
 
     // 非uniapp平台需要初始化路由
-    if (project.platform !== 'uniapp') {
+    if (this.project.platform !== 'uniapp') {
       this.initRouter();
     }
 

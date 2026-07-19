@@ -131,6 +131,19 @@ describe('clearLoaderCache', () => {
   test('clears cache without error', () => {
     expect(() => clearLoaderCache()).not.toThrow();
   });
+
+  test('clears the provided loader instance', () => {
+    const loader = createLoader({
+      getDsl: vi.fn(),
+      getDslByUrl: vi.fn(),
+      options: {}
+    });
+    const clear = vi.spyOn(loader, 'clear');
+
+    clearLoaderCache(loader);
+
+    expect(clear).toHaveBeenCalledOnce();
+  });
 });
 
 test('returns name for unknown from type', () => {

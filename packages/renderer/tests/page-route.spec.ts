@@ -52,4 +52,20 @@ describe('PageContainer route updates', () => {
     expect(route.meta.cache).toBe(false);
     scope.stop();
   });
+
+  test('activated reads the current route meta object', async () => {
+    const scope = effectScope();
+    const state = await scope.run(() => (PageContainer as any).setup())!;
+    const context = {
+      route,
+      sid: state.sid.value
+    };
+    const previousSid = context.sid;
+    route.meta = { cache: false };
+
+    (PageContainer as any).activated.call(context);
+
+    expect(context.sid).not.toBe(previousSid);
+    scope.stop();
+  });
 });
