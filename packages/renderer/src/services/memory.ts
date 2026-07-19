@@ -68,7 +68,7 @@ export class MemoryService extends BaseService {
       const items = history.items || [];
       const ids = items.map((item) => item.id);
       this.removeHistoryItem(id, ids);
-      delete this.historyItems[id];
+      delete this.histories[id];
     }
     return Promise.resolve(true);
   }

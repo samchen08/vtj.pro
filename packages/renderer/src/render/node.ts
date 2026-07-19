@@ -26,8 +26,6 @@ import {
 } from '../utils';
 import { defaultLoader, type BlockLoader } from './loader';
 
-import { nodeCache } from './cache';
-
 export function nodeRender(
   dsl: NodeSchema,
   context: Context,
@@ -162,14 +160,14 @@ export function nodeRender(
       ...cacheProps
     };
 
-    if (!nodeCache.isNodeEqual(cache, nodeCache.getNode(key))) {
-      nodeCache.setNode(key, cache);
+    if (!context.__cache.isNodeEqual(cache, context.__cache.getNode(key))) {
+      context.__cache.setNode(key, cache);
     }
 
     let vnode = Vue.createVNode(
       component,
       {
-        ...(nodeCache.getNode(key) || cache),
+        ...(context.__cache.getNode(key) || cache),
         ref: refFunc,
         ...eventProps,
         ...events
@@ -336,21 +334,24 @@ function parseNodeEvents(
   events: NodeEvents,
   context: Context
 ) {
-  const suffixModifiers = ['passive', 'capture', 'once'];
+  const suffixModifiers = ['once', 'capture', 'passive'];
   const suffixMap: Record<string, string> = {
     capture: 'Capture',
     once: 'Once',
-    passive: 'OnceCapture'
+    passive: 'Passive'
   };
   const result = Object.keys(events || {}).reduce(
     (result, key: string) => {
       const event = events[key];
       const modifiers = getModifiers(event.modifiers);
-      const suffix = modifiers.find((n) => suffixModifiers.includes(n));
-      const name =
-        'on' +
-        upperFirstCamelCase(key) +
-        (suffix ? suffixMap[suffix] || '' : '');
+      const suffix = suffixModifiers
+        .filter((n) => modifiers.includes(n))
+        .map((n) => suffixMap[n])
+        .join('');
+      const runtimeModifiers = modifiers.filter(
+        (n) => !suffixModifiers.includes(n)
+      );
+      const name = 'on' + upperFirstCamelCase(key) + suffix;
       const handler = event.handler
         ? context.__parseFunction(wrapEventHandler(event.handler as JSFunction))
         : null;
@@ -358,7 +359,7 @@ function parseNodeEvents(
       if (handler) {
         result[name] = Vue.withModifiers(
           modifiers.includes('enter') ? withKey(handler, 'enter') : handler,
-          modifiers
+          runtimeModifiers
         );
       }
       return result;

@@ -176,7 +176,7 @@ export class Access {
     if (!this.data) return;
 
     storage.save(storageKey, data, {
-      type: 'local',
+      type: session ? 'session' : 'local',
       prefix: storagePrefix
     });
     if (session) {
@@ -188,7 +188,7 @@ export class Access {
     const { storageKey, storagePrefix, session, authKey } = this.options;
     this.data = null;
     storage.remove(storageKey, {
-      type: 'local',
+      type: session ? 'session' : 'local',
       prefix: storagePrefix
     });
     if (session) {
@@ -309,9 +309,9 @@ export class Access {
   }
 
   private loadData() {
-    const { storageKey, storagePrefix } = this.options;
+    const { storageKey, storagePrefix, session } = this.options;
     const data = storage.get(storageKey, {
-      type: 'local',
+      type: session ? 'session' : 'local',
       prefix: storagePrefix
     });
 

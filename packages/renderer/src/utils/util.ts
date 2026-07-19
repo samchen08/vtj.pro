@@ -106,24 +106,34 @@ export async function loadScriptUrl(
   const head = global.document.head;
   let module = global[library];
   if (module) return module.default || module;
-  return new Promise((reslove, inject) => {
-    for (const url of urls) {
-      const el = doc.createElement('script');
-      el.src = url;
-      el.onload = () => {
-        module = global[library];
-        if (module) {
-          reslove(module.default || module);
-        } else {
-          inject(null);
-        }
-      };
-      el.onerror = (e: any) => {
-        inject(e);
-      };
-      head.appendChild(el);
+
+  for (const url of urls) {
+    module = global[library];
+    if (module) return module.default || module;
+
+    const existing = doc.getElementById?.(url) as any;
+    if (existing?.__vtjLoading) {
+      await existing.__vtjLoading;
+      continue;
     }
-  });
+    if (existing) continue;
+
+    const el = doc.createElement('script') as any;
+    el.id = url;
+    el.src = url;
+    el.__vtjLoading = new Promise<void>((resolve, reject) => {
+      el.onload = () => resolve();
+      el.onerror = (error: any) => {
+        el.remove?.();
+        reject(error);
+      };
+    });
+    head.appendChild(el);
+    await el.__vtjLoading;
+  }
+
+  module = global[library];
+  return module ? module.default || module : Promise.reject(null);
 }
 
 export function isVuePlugin(value: unknown): value is Plugin {

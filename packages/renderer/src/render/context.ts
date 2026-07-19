@@ -8,6 +8,7 @@ import {
 } from '@vtj/core';
 import { parseFunction, parseExpression } from '../utils';
 import type { Provider } from '../provider';
+import { NodeCache } from './cache';
 
 export interface ContextOptions {
   mode: ContextMode;
@@ -23,6 +24,7 @@ export interface ContextAttrs {
 }
 
 export class Context {
+  readonly __cache = new NodeCache();
   __id: string | null = null;
   __mode: ContextMode;
   __instance: any | null = null;
@@ -127,6 +129,7 @@ export class Context {
     });
 
     this.__reset();
+    this.__cache.clear();
     this.__refGenerations = {};
   }
   private __reset() {

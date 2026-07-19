@@ -25,6 +25,16 @@ describe('Context', () => {
     expect(context.__id).toBe('test-id');
   });
 
+  test('keeps node caches isolated between contexts', () => {
+    const other = new Context({ mode: ContextMode.Runtime });
+
+    context.__cache.setNode('same-id', { owner: 'first' });
+    other.__cache.setNode('same-id', { owner: 'second' });
+
+    expect(context.__cache.getNode('same-id')).toEqual({ owner: 'first' });
+    expect(other.__cache.getNode('same-id')).toEqual({ owner: 'second' });
+  });
+
   test('constructor sets default values', () => {
     expect(context.state).toEqual({});
     expect(context.context).toEqual({});

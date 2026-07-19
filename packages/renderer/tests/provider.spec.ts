@@ -341,6 +341,34 @@ describe('Provider - load', () => {
     expect(router.addRoute).toHaveBeenCalled();
   });
 
+  test('passes routeMeta to generated static routes', async () => {
+    const service = createMockService();
+    const router = createRouterMock();
+    service.init.mockResolvedValue({
+      id: 'static-meta',
+      pages: [{ id: 'p1', title: 'P1', type: 'page' }],
+      apis: [],
+      meta: [],
+      env: [],
+      platform: 'h5'
+    });
+    const provider = new Provider({
+      service,
+      mode: ContextMode.Design,
+      project: { id: 'static-meta' },
+      router,
+      enableStaticRoute: true,
+      routeMeta: { requiresAuth: true }
+    });
+
+    await provider.load({ id: 'static-meta', platform: 'h5' } as any);
+
+    const pageRoute = router.addRoute.mock.calls
+      .map((args: any[]) => args.at(-1))
+      .find((route: any) => route.name === 'p1');
+    expect(pageRoute.meta.requiresAuth).toBe(true);
+  });
+
   test('load with enableStaticRoute without homepage', async () => {
     const service = createMockService();
     const router = createRouterMock();
@@ -674,11 +702,9 @@ describe('Provider - getRenderComponent', () => {
 
 describe('Provider - defineUrlSchemaComponent', () => {
   test('returns async component', async () => {
-    const sendSpy = vi
-      .fn()
-      .mockResolvedValue({
-        data: { id: 'url-comp', type: 'Block', name: 'UrlComp' }
-      });
+    const sendSpy = vi.fn().mockResolvedValue({
+      data: { id: 'url-comp', type: 'Block', name: 'UrlComp' }
+    });
     const service = createMockService();
     const provider = new Provider({
       service,
@@ -935,6 +961,30 @@ describe('createProvider', () => {
     });
     expect(result.provider).toBeInstanceOf(Provider);
     expect(typeof result.onReady).toBe('function');
+    expect(result.ready).toBeInstanceOf(Promise);
+  });
+
+  test('ready resolves to the initialized provider', async () => {
+    const service = createMockService();
+    const result = createProvider({
+      service,
+      mode: ContextMode.Design,
+      project: { id: 'p1' }
+    });
+
+    await expect(result.ready).resolves.toBe(result.provider);
+  });
+
+  test('ready rejects when runtime initialization fails', async () => {
+    const service = createMockService();
+    service.init.mockRejectedValue(new Error('load failed'));
+    const result = createProvider({
+      service,
+      mode: ContextMode.Runtime,
+      project: { id: 'p1' }
+    });
+
+    await expect(result.ready).rejects.toThrow('load failed');
   });
 
   test('onReady calls callback when ready', () => {

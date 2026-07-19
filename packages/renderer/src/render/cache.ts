@@ -1,6 +1,6 @@
 import { isEqual, isFunction } from '@vtj/utils';
 
-class NodeCache {
+export class NodeCache {
   private __props: Record<string, any> = {};
   private __events: Record<string, any> = {};
   private __nodes: Record<string, any> = {};

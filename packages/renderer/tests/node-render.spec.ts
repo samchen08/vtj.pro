@@ -507,6 +507,29 @@ describe('nodeRender - events', () => {
     );
     expect(result).toBeDefined();
   });
+
+  test('maps event option modifiers to Vue event prop suffixes', () => {
+    const withModifiers = vi.fn((fn: Function) => fn);
+    const Vue = createVueMock({ withModifiers });
+    const ctx = createContext();
+    const result = nodeRender(
+      {
+        name: 'button',
+        id: 'n1',
+        events: {
+          click: {
+            modifiers: { once: true, capture: true, passive: true, stop: true },
+            handler: { type: 'JSFunction', value: '() => true' }
+          }
+        }
+      },
+      ctx,
+      Vue
+    );
+
+    expect(result.props.onClickOnceCapturePassive).toBeTypeOf('function');
+    expect(withModifiers).toHaveBeenCalledWith(expect.any(Function), ['stop']);
+  });
 });
 
 describe('nodeRender - multiple nodes return wrapper div', () => {

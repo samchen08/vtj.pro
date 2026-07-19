@@ -13,28 +13,17 @@ import { nodeCache } from './cache';
 
 import * as globalVue from 'vue';
 
-const __queue__ = new Queue();
-
-// 已注册的插件名称
-let __plugins__: string[] = [];
-
-// loader 结果缓存
-let __loaders__: Record<string | symbol, any> = {};
-
-// 组件缓存
-let __caches__: Record<string | symbol, any> = {};
-
-export type BlockLoader = (
+export type BlockLoader = ((
   id: string,
   name: string,
   from?: NodeFrom,
   Vue?: any
-) => string | DefineComponent;
+) => string | DefineComponent) & { clear: () => void };
 
-export const defaultLoader: BlockLoader = (_id: string, name: string) => {
-  // 默认不处理 from
-  return name;
-};
+export const defaultLoader: BlockLoader = Object.assign(
+  (_id: string, name: string) => name,
+  { clear: () => undefined }
+);
 
 export async function getPlugin(
   from: NodeFromPlugin,
@@ -64,16 +53,16 @@ export interface CreateLoaderOptions {
 
 export function createLoader(opts: CreateLoaderOptions): BlockLoader {
   const { getDsl, getDslByUrl, options } = opts;
+  const queue = new Queue();
+  const loaders: Record<string | symbol, any> = {};
+  const caches: Record<string | symbol, any> = {};
 
-  // 重置插件
-  if (options.window) {
-    __plugins__.forEach((plugin) => {
-      delete (options.window as any)[plugin];
-    });
-    __plugins__ = [];
-  }
-
-  return (id: string, name: string, from?: NodeFrom, Vue: any = globalVue) => {
+  const loader = (
+    id: string,
+    name: string,
+    from?: NodeFrom,
+    Vue: any = globalVue
+  ) => {
     if (!from || typeof from === 'string') return name;
 
     let cacheKey: string | symbol = '';
@@ -82,16 +71,16 @@ export function createLoader(opts: CreateLoaderOptions): BlockLoader {
       cacheKey = from.id + '_' + id;
 
       return (
-        __caches__[cacheKey] ||
-        (__caches__[cacheKey] = Vue.defineAsyncComponent(async () => {
+        caches[cacheKey] ||
+        (caches[cacheKey] = Vue.defineAsyncComponent(async () => {
           const dsl =
-            __loaders__[from.id] ||
-            (await __queue__.add<BlockSchema | null>(from.id, () =>
+            loaders[from.id] ||
+            (await queue.add<BlockSchema | null>(from.id, () =>
               getDsl(from.id)
             ));
           if (dsl) {
             dsl.name = name;
-            __loaders__[from.id] = dsl;
+            loaders[from.id] = dsl;
           }
           return dsl
             ? createRenderer({
@@ -99,7 +88,7 @@ export function createLoader(opts: CreateLoaderOptions): BlockLoader {
                 mode: ContextMode.Runtime,
                 ...options,
                 dsl: cloneDeep(dsl),
-                loader: createLoader(opts)
+                loader: loader as BlockLoader
               }).renderer
             : null;
         }))
@@ -109,12 +98,12 @@ export function createLoader(opts: CreateLoaderOptions): BlockLoader {
     if (from.type === 'UrlSchema' && from.url) {
       cacheKey = from.url + '_' + id;
       return (
-        __caches__[cacheKey] ||
-        (__caches__[cacheKey] = Vue.defineAsyncComponent(async () => {
-          const dsl = __loaders__[from.url] || (await getDslByUrl(from.url));
+        caches[cacheKey] ||
+        (caches[cacheKey] = Vue.defineAsyncComponent(async () => {
+          const dsl = loaders[from.url] || (await getDslByUrl(from.url));
           if (dsl) {
             dsl.name = name;
-            __loaders__[from.url] = dsl;
+            loaders[from.url] = dsl;
           }
           return dsl
             ? createRenderer({
@@ -122,7 +111,7 @@ export function createLoader(opts: CreateLoaderOptions): BlockLoader {
                 Vue,
                 dsl: cloneDeep(dsl),
                 mode: ContextMode.Runtime,
-                loader: createLoader(opts)
+                loader: loader as BlockLoader
               }).renderer
             : null;
         }))
@@ -130,16 +119,12 @@ export function createLoader(opts: CreateLoaderOptions): BlockLoader {
     }
 
     if (from.type === 'Plugin') {
-      let cache = from.library ? __loaders__[from.library] : null;
+      let cache = from.library ? loaders[from.library] : null;
       if (cache) {
         return cache;
       }
 
-      // 记录插件名称
-      if (from.library) {
-        __plugins__.push(from.library);
-      }
-      cache = __loaders__[from.library || Symbol()] = Vue.defineAsyncComponent(
+      cache = loaders[from.library || Symbol()] = Vue.defineAsyncComponent(
         async () => {
           const plugin = await getPlugin(from, options.window);
           if (plugin) {
@@ -156,11 +141,17 @@ export function createLoader(opts: CreateLoaderOptions): BlockLoader {
 
     return name;
   };
+
+  return Object.assign(loader, {
+    clear() {
+      for (const key of Reflect.ownKeys(loaders)) delete loaders[key];
+      for (const key of Reflect.ownKeys(caches)) delete caches[key];
+      queue.clearAllCache();
+    }
+  }) as BlockLoader;
 }
 
-export function clearLoaderCache() {
-  __loaders__ = {};
-  __caches__ = {};
-  __queue__.clearAllCache();
+export function clearLoaderCache(loader?: BlockLoader) {
+  loader?.clear();
   nodeCache.clear();
 }

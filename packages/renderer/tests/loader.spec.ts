@@ -133,48 +133,76 @@ describe('clearLoaderCache', () => {
   });
 });
 
+test('returns name for unknown from type', () => {
+  const getDsl = vi.fn();
+  const getDslByUrl = vi.fn();
+  const loader = createLoader({ getDsl, getDslByUrl, options: {} });
+  const result = loader('test-id', 'custom-tag', {
+    type: 'UnknownType'
+  } as any);
+  expect(result).toBe('custom-tag');
+});
 
-  test('returns name for unknown from type', () => {
-    const getDsl = vi.fn();
-    const getDslByUrl = vi.fn();
-    const loader = createLoader({ getDsl, getDslByUrl, options: {} });
-    const result = loader('test-id', 'custom-tag', { type: 'UnknownType' } as any);
-    expect(result).toBe('custom-tag');
-  });
+test('returns cached plugin result', () => {
+  const getDsl = vi.fn();
+  const getDslByUrl = vi.fn();
+  const loader = createLoader({ getDsl, getDslByUrl, options: {} });
 
-  test('returns cached plugin result', () => {
-    const getDsl = vi.fn();
-    const getDslByUrl = vi.fn();
-    const loader = createLoader({ getDsl, getDslByUrl, options: {} });
-    
-    // First call creates async component
-    const result1 = loader('test-id', 'div', { type: 'Plugin', library: 'test-lib' } as any);
-    // Second call should return cached result
-    const result2 = loader('test-id', 'div', { type: 'Plugin', library: 'test-lib' } as any);
-    
-    expect(result1).toBeDefined();
-    expect(result2).toBeDefined();
-    // Same reference (cached)
-    expect(result1).toBe(result2);
-  });
+  // First call creates async component
+  const result1 = loader('test-id', 'div', {
+    type: 'Plugin',
+    library: 'test-lib'
+  } as any);
+  // Second call should return cached result
+  const result2 = loader('test-id', 'div', {
+    type: 'Plugin',
+    library: 'test-lib'
+  } as any);
 
-  test('clears window plugins when window option is provided', () => {
-    const getDsl = vi.fn();
-    const getDslByUrl = vi.fn();
-    const winObj: any = { existingPlugin: 'value' };
-    
-    // First create a loader with no window
-    const loader1 = createLoader({ getDsl, getDslByUrl, options: {} });
-    loader1('test-id', 'div', { type: 'Plugin', library: 'existingPlugin' } as any);
-    
-    // Second create a loader with window - should clean up window plugins
-    const loader2 = createLoader({ getDsl, getDslByUrl, options: { window: winObj } });
-    const result = loader2('test-id', 'div', { type: 'Plugin', library: 'newPlugin' } as any);
-    expect(result).toBeDefined();
-    
-    // Plugin was removed from window
-    expect(winObj.existingPlugin).toBeUndefined();
+  expect(result1).toBeDefined();
+  expect(result2).toBeDefined();
+  // Same reference (cached)
+  expect(result1).toBe(result2);
+});
+
+test('keeps component caches isolated between loaders', () => {
+  const getDsl = vi.fn();
+  const getDslByUrl = vi.fn();
+  const loader1 = createLoader({ getDsl, getDslByUrl, options: {} });
+  const loader2 = createLoader({ getDsl, getDslByUrl, options: {} });
+  const from = { type: 'Schema', id: 'child' } as any;
+
+  expect(loader1('host', 'Child', from)).not.toBe(
+    loader2('host', 'Child', from)
+  );
+});
+
+test('does not clear plugins owned by another loader', () => {
+  const getDsl = vi.fn();
+  const getDslByUrl = vi.fn();
+  const winObj: any = { existingPlugin: 'value' };
+
+  // First create a loader with no window
+  const loader1 = createLoader({ getDsl, getDslByUrl, options: {} });
+  loader1('test-id', 'div', {
+    type: 'Plugin',
+    library: 'existingPlugin'
+  } as any);
+
+  // Second create a loader with window - should clean up window plugins
+  const loader2 = createLoader({
+    getDsl,
+    getDslByUrl,
+    options: { window: winObj }
   });
+  const result = loader2('test-id', 'div', {
+    type: 'Plugin',
+    library: 'newPlugin'
+  } as any);
+  expect(result).toBeDefined();
+
+  expect(winObj.existingPlugin).toBe('value');
+});
 import { expect, test, describe, vi, beforeEach } from 'vitest';
 import {
   getPlugin,

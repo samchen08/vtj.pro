@@ -894,12 +894,6 @@ importers:
       '@vtj/cli':
         specifier: workspace:~
         version: link:../cli
-      '@vtj/icons':
-        specifier: workspace:~
-        version: link:../icons
-      '@vtj/ui':
-        specifier: workspace:~
-        version: link:../ui
       vue:
         specifier: ~3.5.37
         version: 3.5.38(typescript@5.9.3)
