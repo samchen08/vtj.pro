@@ -24,3 +24,4 @@ export * from './useHotkeys';
 export * from './useDevtools';
 export * from './useAgent';
 export * from './useChunkTree';
+export * from './selection';

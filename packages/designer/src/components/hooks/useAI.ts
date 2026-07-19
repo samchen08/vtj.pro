@@ -1,5 +1,5 @@
 import { ref, watch, type Ref, reactive, computed, onMounted } from 'vue';
-import type { ProjectSchema, BlockSchema } from '@vtj/core';
+import type { ProjectSchema, BlockSchema, NodeSchema } from '@vtj/core';
 import { useElementSize } from '@vueuse/core';
 import { delay, storage } from '@vtj/utils';
 import { useOpenApi } from './useOpenApi';
@@ -11,9 +11,11 @@ import {
   type AIChat,
   type DictOption,
   type Settings,
-  type LLM
+  type LLM,
+  type AISelectionContext
 } from '../../framework';
 import { notify, alert } from '../../utils';
+import { applyAISelection, createAISelectionContext } from './selection';
 
 export type { AITopic, AIChat, Settings };
 export type Dict = DictOption;
@@ -25,6 +27,7 @@ export interface AISendData {
   prompt: string;
   toolCallId?: string;
   llm?: LLM;
+  selection?: AISelectionContext | null;
 }
 
 export interface AISendImageData {
@@ -64,11 +67,13 @@ async function createCommonDto(engine: UseAIOptions['engine']) {
     pageBasePath,
     pageRouteName
   });
+  const selection = createAISelectionContext(engine);
   return {
     projectDsl,
     dsl,
     source,
-    options
+    options,
+    selection
   };
 }
 
@@ -77,7 +82,8 @@ async function createTopicDto(
   engine: UseAIOptions['engine']
 ) {
   const { model, prompt = '', llm } = data;
-  const { projectDsl, dsl, source, options } = await createCommonDto(engine);
+  const { projectDsl, dsl, source, options, selection } =
+    await createCommonDto(engine);
   const tools = engine.toolRegistry.generateToolDescriptions();
 
   const dto: TopicDto = {
@@ -88,7 +94,8 @@ async function createTopicDto(
     project: JSON.stringify(projectDsl),
     source,
     llm: llm ? JSON.stringify(llm) : '',
-    tools: tools ? JSON.stringify(tools) : ''
+    tools: tools ? JSON.stringify(tools) : '',
+    selection: data.selection === undefined ? selection : data.selection
   };
   return dto;
 }
@@ -98,7 +105,8 @@ async function createImageTopicDto(
   engine: UseAIOptions['engine']
 ) {
   const { model, file, llm } = data;
-  const { projectDsl, dsl, source, options } = await createCommonDto(engine);
+  const { projectDsl, dsl, source, options, selection } =
+    await createCommonDto(engine);
   const tools = engine.toolRegistry.generateToolDescriptions();
   const dto: TopicDto = {
     model,
@@ -108,7 +116,8 @@ async function createImageTopicDto(
     project: JSON.stringify(projectDsl),
     source,
     llm: llm ? JSON.stringify(llm) : '',
-    tools: tools ? JSON.stringify(tools) : ''
+    tools: tools ? JSON.stringify(tools) : '',
+    selection
   };
   return dto;
 }
@@ -155,6 +164,7 @@ export function useAI() {
   const chats = ref<AIChat[]>([]);
   const currentTopic = ref<AITopic | null>(null);
   const currentChat = ref<AIChat | null>(null);
+  const selection = computed(() => createAISelectionContext(engine));
   const listRef = ref();
   const panelRef = ref();
   const isHideCode = ref(!!storage.get(hideCodeCacheKey, { type: 'local' }));
@@ -205,7 +215,8 @@ export function useAI() {
 
   const init = async () => {
     isReady.value = false;
-    settings.value = await getSettings();
+    const logined = await isLogined();
+    settings.value = logined ? await getSettings() : undefined;
     if (!settings.value) return;
     if (!engine.project.value) return;
     topics.value = [];
@@ -225,11 +236,19 @@ export function useAI() {
 
   const onPostTopic = async (data: AISendData) => {
     loading.value = true;
-    const dto = await createTopicDto(data, engine);
+    const requestData = {
+      ...data,
+      selection:
+        data.selection === undefined
+          ? createAISelectionContext(engine)
+          : data.selection
+    };
+    const dto = await createTopicDto(requestData, engine);
     const res = await postTopic(dto).catch(() => null);
     loading.value = false;
     if (res && res.success) {
       const { topic, chat } = res.data;
+      chat.selection = chat.selection || requestData.selection;
       chat.type = topic.type;
       chats.value = [];
       topics.value.unshift(topic);
@@ -238,12 +257,12 @@ export function useAI() {
       const rChat = reactive(chat);
       chats.value.push(rChat);
       completions(rChat, async (c) => {
-        if (data.auto) {
+        if (requestData.auto) {
           await onApply(c);
         }
         if (shouldNext(c)) {
           return onPostChat({
-            ...data,
+            ...requestData,
             toolCallId: c.toolCallId,
             prompt: createNextPrompt(c)
           });
@@ -266,6 +285,7 @@ export function useAI() {
     loading.value = false;
     if (res && res.success) {
       const { topic, chat } = res.data;
+      chat.selection = chat.selection || dto.selection;
       chats.value = [];
       topics.value.unshift(topic);
       isNewChat.value = false;
@@ -285,7 +305,8 @@ export function useAI() {
             model: data.model,
             auto: data.auto,
             toolCallId: c.toolCallId,
-            prompt: createNextPrompt(c)
+            prompt: createNextPrompt(c),
+            selection: c.selection || dto.selection
           });
         }
       });
@@ -306,6 +327,7 @@ export function useAI() {
     loading.value = false;
     if (res && res.success) {
       const { topic, chat } = res.data;
+      chat.selection = chat.selection || dto.selection;
       chats.value = [];
       topics.value.unshift(topic);
       isNewChat.value = false;
@@ -329,7 +351,8 @@ export function useAI() {
             model: data.model,
             auto: data.auto,
             toolCallId: c.toolCallId,
-            prompt: createNextPrompt(c)
+            prompt: createNextPrompt(c),
+            selection: c.selection || dto.selection
           });
         }
       });
@@ -346,11 +369,19 @@ export function useAI() {
   const onPostChat = async (data: AISendData) => {
     if (!currentTopic.value) return;
     loading.value = true;
+    const requestData = {
+      ...data,
+      selection:
+        data.selection === undefined
+          ? createAISelectionContext(engine)
+          : data.selection
+    };
     const dto: ChatDto = {
       topicId: currentTopic.value.id,
-      prompt: data.prompt,
-      toolCallId: data.toolCallId,
-      source: await getCurrentVue()
+      prompt: requestData.prompt,
+      toolCallId: requestData.toolCallId,
+      source: await getCurrentVue(),
+      selection: requestData.selection
     };
 
     const res = await postChat(dto).catch(() => null);
@@ -358,14 +389,15 @@ export function useAI() {
 
     if (res && res.success) {
       const chat = reactive(res.data);
+      chat.selection = chat.selection || requestData.selection;
       chats.value.push(chat);
       completions(chat, async (c) => {
-        if (c.status === 'Success' && data.auto) {
+        if (c.status === 'Success' && requestData.auto) {
           await onApply(c);
         }
         if (shouldNext(c)) {
           return onPostChat({
-            ...data,
+            ...requestData,
             toolCallId: c.toolCallId,
             prompt: createNextPrompt(c)
           });
@@ -519,14 +551,33 @@ export function useAI() {
           model: currentTopic.value?.model as string,
           auto: engine.state.autoApply,
           toolCallId: c.toolCallId,
-          prompt: createNextPrompt(c)
+          prompt: createNextPrompt(c),
+          selection: c.selection || chat.selection
         });
       }
     });
   };
 
   const onApply = async (chat: AIChat, manual?: boolean) => {
-    if (chat.dsl) {
+    if (chat.selection) {
+      if (!chat.nodeDsl || !engine.current.value) {
+        if (manual) {
+          alert('选中组件模式需要完整的 vtj-node DSL，未修改页面');
+        }
+        return;
+      }
+      try {
+        const node = applyAISelection(
+          engine.current.value,
+          chat.selection,
+          chat.nodeDsl as NodeSchema
+        );
+        await engine.simulator.designer.value?.setSelected(node);
+      } catch (e: any) {
+        alert(e.message || '无法应用选中组件修改');
+        return;
+      }
+    } else if (chat.dsl) {
       const id = engine.current.value?.id;
       if (id) {
         chat.dsl.id = id;
@@ -618,6 +669,7 @@ export function useAI() {
     topics,
     chats,
     currentTopic,
+    selection,
     onPostChat,
     loadChats,
     onRemoveTopic,

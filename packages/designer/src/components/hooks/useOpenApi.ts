@@ -74,8 +74,27 @@ export function useOpenApi() {
     }
   };
 
+  const isLocalRemote = () => {
+    if (!remote) return false;
+    try {
+      const hostname = new URL(remote, location.origin).hostname;
+      return ['localhost', '127.0.0.1', '::1'].includes(hostname);
+    } catch (_e) {
+      return false;
+    }
+  };
+
+  const ensureLocalLogin = async () => {
+    let token = access?.getData()?.token;
+    if (!token && isLocalRemote() && engine.options.auth) {
+      await loginBySign();
+      token = access?.getData()?.token;
+    }
+    return token;
+  };
+
   const isLogined = async () => {
-    const token = access?.getData()?.token;
+    const token = await ensureLocalLogin();
     if (token) {
       if (openApi?.isLogined) {
         const data = await openApi.isLogined().catch(() => null);
@@ -84,7 +103,7 @@ export function useOpenApi() {
       const api = `${remote}/api/open/user/${token}`;
       const res = await jsonp(api).catch(() => null);
       if (res && Array.isArray(res)) {
-        access.login(res);
+        access?.login(res);
         return true;
       } else if (res && res.data) {
         access?.login(res.data);

@@ -1,5 +1,10 @@
 import type { VNode, DefineComponent, Ref } from 'vue';
-import type { ProjectModel, Service, BlockPropDataType } from '@vtj/core';
+import type {
+  ProjectModel,
+  Service,
+  BlockPropDataType,
+  NodeSchema
+} from '@vtj/core';
 import type { ToolRegistry, ToolParameter } from './ToolRegistry';
 import type { Engine } from './engine';
 
@@ -168,6 +173,15 @@ export type TopicType = 'text' | 'image' | 'json';
 
 export type TopicDataType = 'sketch' | 'figma' | 'mastergo' | 'unknown';
 
+export interface AISelectionContext {
+  nodeId: string;
+  name: string;
+  from?: NodeSchema['from'];
+  path: string[];
+  indexPath: number[];
+  dsl: Record<string, any>;
+}
+
 export interface AITopic {
   id: string;
   appId: string;
@@ -210,6 +224,8 @@ export interface AIChat {
   dataType?: TopicDataType;
   toolCallId?: string;
   toolContent?: string;
+  selection?: AISelectionContext | null;
+  nodeDsl?: Record<string, any> | null;
 }
 
 export interface AgentConfig {
@@ -219,7 +235,7 @@ export interface AgentConfig {
 }
 
 export interface ParseResult {
-  type: 'vue' | 'diff' | 'json' | 'error';
+  type: 'vue' | 'diff' | 'json' | 'node' | 'error';
   label: string;
   content: any;
 }
@@ -242,6 +258,12 @@ export type ParseRule =
       label: string;
       regex: RegExp;
       parse: (content: string) => any;
+    }
+  | {
+      type: 'node';
+      label: string;
+      regex: RegExp;
+      parse: (content: string) => NodeSchema;
     };
 
 export interface ToolCall {

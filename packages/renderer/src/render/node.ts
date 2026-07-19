@@ -21,6 +21,7 @@ import {
   isBuiltInTag,
   isNativeTag,
   isArrowFunction,
+  isFunctionExpression,
   isCallFunction,
   isAssignment‌
 } from '../utils';
@@ -305,7 +306,10 @@ function withKey(handler: Function, key: string) {
 }
 
 function wrapEventHandler(handler: JSFunction) {
-  if (isArrowFunction(handler.value)) {
+  if (
+    isArrowFunction(handler.value) ||
+    isFunctionExpression(handler.value)
+  ) {
     return handler;
   }
   if (isCallFunction(handler.value)) {

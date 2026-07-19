@@ -18,6 +18,7 @@
       :loading="props.loading"
       :disabled="props.disabled"
       :model-value="props.modelValue"
+      :selection="props.selection"
       :recognitionFile="props.recognitionFile"
       @send="onSend"></ChatInput>
     <ImageInput
@@ -59,6 +60,7 @@
     type AISendJsonData,
     type AITopic
   } from '../../hooks';
+  import type { AISelectionContext } from '../../../framework';
 
   export interface Props {
     models?: Dict[];
@@ -68,6 +70,7 @@
     disabled?: boolean;
     uploader?: (file: File) => Promise<any>;
     recognitionFile?: (file: File) => Promise<any>;
+    selection?: AISelectionContext | null;
   }
 
   const props = withDefaults(defineProps<Props>(), {

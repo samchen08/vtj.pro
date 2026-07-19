@@ -23,7 +23,7 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "dev": "cross-env ENV_TYPE=local vite",
+    "dev": "cross-env ENV_TYPE=local VTJ_REMOTE=http://localhost:9527 VTJ_AUTH_SIGN=local-dev vite --port 9528",
     "build": "vue-tsc && cross-env ENV_TYPE=live vite build && npm run build:uni",
     "build:uni": "cd ../pro-uni && npm run build",
     "preview": "vite preview"

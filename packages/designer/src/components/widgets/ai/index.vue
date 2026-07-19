@@ -66,6 +66,7 @@
         :models="models"
         :loading="loading"
         :model-value="promptText"
+        :selection="selection"
         :disabled="inputDisabled"
         :fillPromptInput="fillPromptInput"
         :recognitionFile="handleRecognitionFile"
@@ -112,6 +113,7 @@
             :loading="loading || isPending"
             :model="currentTopic?.model"
             :model-value="promptText"
+            :selection="selection"
             :disabled="inputDisabled"
             :recognitionFile="handleRecognitionFile"
             lock-model
@@ -205,6 +207,7 @@
     onPostTopic,
     chats,
     currentTopic,
+    selection,
     onPostChat,
     topics,
     loadChats,

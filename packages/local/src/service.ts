@@ -76,23 +76,30 @@ export async function getExtension(_body: any, opts: DevToolsOptions) {
 
   const { vtj = {} } = pkg || {};
 
+  const remote = process.env.VTJ_REMOTE || vtj.remote || 'https://app.vtj.pro';
+  const auth = process.env.VTJ_AUTH_SIGN || vtj.auth;
+  const accessAuth =
+    process.env.VTJ_AUTH_URL || vtj.__ACCESS__?.auth || `${remote}/#/login`;
   const __ACCESS__ = {
-    auth: 'https://app.vtj.pro/#/login',
+    auth: accessAuth,
     storageKey: 'RRO_IDE_ACCESS_STORAGE__',
     privateKey:
       'MIIBOgIBAAJBAKoIzmn1FYQ1YOhOBw9EhABxZ+PySAIaydI+zdhoKflrdgJ4A5E4/5gbQmRpk09hPWG8nvX7h+l/QLU8kXxAIBECAwEAAQJAAlgpxQY6sByLsXqzJcthC8LSGsLf2JEJkHwlnpwFqlEV8UCkoINpuZ2Wzl+aftURu5rIfAzRCQBvHmeOTW9/zQIhAO5ufWDmnSLyfAAsNo5JRNpVuLFCFodR8Xm+ulDlosR/AiEAtpAltyP9wmCABKG/v/hrtTr3mcvFNGCjoGa9bUAok28CIHbrVs9w1ijrBlvTsXYwJw46uP539uKRRT4ymZzlm9QjAiB+1KH/G9f9pEEL9rtaSOG7JF5D0JcOjlze4MGVFs+ZrQIhALKOUFBNr2zEsyJIjw2PlvEucdlG77UniszjXTROHSPd'
   };
 
   const config: VTJConfig = {
-    remote: 'https://app.vtj.pro',
     enhance,
     ...vtj,
+    remote,
+    ...(auth ? { auth } : {}),
     history: vtj.history || 'hash',
     base: vtj.base || '/',
     pageRouteName:
       vtj.pageRouteName || (vtj.platform === 'uniapp' ? 'pages' : 'page'),
     __BASE_PATH__: opts.staticBase,
-    __ACCESS__: Object.assign(__ACCESS__, vtj.__ACCESS__ || {})
+    __ACCESS__: Object.assign(__ACCESS__, vtj.__ACCESS__ || {}, {
+      auth: accessAuth
+    })
   };
 
   return success(config);

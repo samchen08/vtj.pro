@@ -1,5 +1,14 @@
 <template>
   <div class="v-ai-widget-input">
+    <div
+      v-if="props.selection"
+      class="v-ai-widget-input__selection"
+      :title="props.selection.path.join(' / ')">
+      <span class="status"></span>
+      <span class="label">当前选中</span>
+      <strong>{{ props.selection.name }}</strong>
+      <code>{{ props.selection.nodeId }}</code>
+    </div>
     <ElInput
       v-model="value"
       type="textarea"
@@ -108,7 +117,11 @@
   import { XIcon, XAttachment } from '@vtj/ui';
   import { Promotion, Plus, EditPen, Delete, CircleClose } from '@vtj/icons';
   import { type Dict, type AISendData } from '../../hooks';
-  import { useEngine, type LLM } from '../../../framework';
+  import {
+    useEngine,
+    type LLM,
+    type AISelectionContext
+  } from '../../../framework';
   import { message, confirm } from '../../../utils';
   import ModelDialog from './model-dialog.vue';
 
@@ -121,6 +134,7 @@
     loading?: boolean;
     disabled?: boolean;
     recognitionFile?: (file: File) => Promise<any>;
+    selection?: AISelectionContext | null;
   }
 
   const props = withDefaults(defineProps<Props>(), {

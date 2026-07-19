@@ -1,5 +1,5 @@
 import type { PlatformType, BlockSchema } from '@vtj/core';
-import type { AITopic, AIChat } from './types';
+import type { AITopic, AIChat, AISelectionContext } from './types';
 export interface TemplateDto {
   id: string;
   name: string;
@@ -46,6 +46,7 @@ export interface TopicDto {
   file?: File;
   options?: string;
   tools?: string;
+  selection?: AISelectionContext | null;
 }
 
 export interface ChatDto {
@@ -53,6 +54,7 @@ export interface ChatDto {
   prompt: string;
   toolCallId?: string;
   source?: string;
+  selection?: AISelectionContext | null;
 }
 
 export interface ResponseWrapper<T = any> {

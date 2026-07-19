@@ -5,6 +5,7 @@ import {
   isNativeTag,
   isVuePlugin,
   isArrowFunction,
+  isFunctionExpression,
   isCallFunction,
   adoptedStyleSheets,
   loadCss,
@@ -70,6 +71,12 @@ test('isCallFunction detects function call code', () => {
   expect(isCallFunction('bar(1, 2)')).toBe(true);
   expect(isCallFunction('obj.method()')).toBe(true);
   expect(isCallFunction('var x = 5')).toBe(false);
+});
+
+test('isFunctionExpression detects classic function expressions', () => {
+  expect(isFunctionExpression('function () { const value = 1; }')).toBe(true);
+  expect(isFunctionExpression('async function named() {}')).toBe(true);
+  expect(isFunctionExpression('this.state.count = 1')).toBe(false);
 });
 
 test('adoptedStyleSheets uses CSSStyleSheet when available', () => {

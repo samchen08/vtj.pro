@@ -172,6 +172,12 @@ export function isArrowFunction(code: string) {
   return /^\([\s\S]*\)/.test(code.trim());
 }
 
+export function isFunctionExpression(code: string) {
+  return /^(?:async\s+)?function\s*\*?\s*(?:[$\w]+\s*)?\(/.test(
+    code.trim()
+  );
+}
+
 export function isCallFunction(code: string) {
   return /\w+\([\s\S]*\)$/.test(code.trim());
 }

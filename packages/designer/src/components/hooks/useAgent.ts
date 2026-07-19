@@ -10,12 +10,14 @@ import {
   type ToolContext
 } from '../../framework';
 import { TOOL_CONFIGS } from '../../managers';
+import { parseAINodeSchema } from './selection';
 
 // Constants
 const PARSER_REGEX = {
   VUE: /```vue\r?\n([\s\S]*?)(?:\r?\n```|$)/,
   DIFF: /```diff\r?\n([\s\S]*?)(?:\r?\n```|$)/,
-  JSON: /```json\r?\n([\s\S]*?)(?:\r?\n```|$)/
+  JSON: /```json\r?\n([\s\S]*?)(?:\r?\n```|$)/,
+  NODE: /```vtj-node\r?\n([\s\S]*?)(?:\r?\n```|$)/
 } as const;
 
 const DEFAULT_CONFIG = {
@@ -89,6 +91,12 @@ const PARSE_RULES: readonly ParseRule[] = [
     label: '工具调用',
     regex: PARSER_REGEX.JSON,
     parse: (content: string) => JSON.parse(content)
+  },
+  {
+    type: 'node',
+    label: '选中组件更新',
+    regex: PARSER_REGEX.NODE,
+    parse: parseAINodeSchema
   }
 ] as const;
 
@@ -167,12 +175,14 @@ export function useAgent(config: AgentConfig) {
     const hasVueBlock = content.includes('```vue');
     const hasDiffBlock = content.includes('```diff');
     const hasJsonBlock = content.includes('```json');
+    const hasNodeBlock = content.includes('```vtj-node');
 
     for (const rule of PARSE_RULES) {
       // Skip rule if content doesn't contain markers for this type
       if (rule.type === 'vue' && !hasVueBlock) continue;
       if (rule.type === 'diff' && !hasDiffBlock) continue;
       if (rule.type === 'json' && !hasJsonBlock) continue;
+      if (rule.type === 'node' && !hasNodeBlock) continue;
 
       // Use test() for quick existence check (fast path)
       if (!rule.regex.test(content)) continue;
@@ -314,6 +324,11 @@ export function useAgent(config: AgentConfig) {
 
     if (output.type === 'json') {
       chat.toolContent = await callTool(output.content);
+    }
+
+    if (output.type === 'node') {
+      chat.nodeDsl = output.content;
+      chat.toolContent = `O: ${output.label}执行成功`;
     }
 
     if (output.type === 'vue' || output.type === 'diff') {
