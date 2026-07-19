@@ -408,7 +408,16 @@ function createComputed(
       if (isJSFunction(v)) {
         result[k] = Vue.computed(context.__parseFunction(v) as any);
       } else {
-        result[k] = Vue.computed(context.__parseExpression(v) as any);
+        const options = context.__parseExpression(v);
+        if (options && typeof options === 'object') {
+          if (isFunction(options.get)) {
+            options.get = options.get.bind(context);
+          }
+          if (isFunction(options.set)) {
+            options.set = options.set.bind(context);
+          }
+        }
+        result[k] = Vue.computed(options as any);
       }
       return result;
     },

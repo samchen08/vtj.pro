@@ -126,6 +126,79 @@ describe('renderer runtime integration', () => {
     expect((context as any).double.value).toBe(4);
   });
 
+  test('supports writable computed options using the existing .value DSL contract', async () => {
+    const onChange = vi.fn();
+    const dsl = {
+      id: 'runtime-composition-writable-computed',
+      name: 'RuntimeCompositionWritableComputed',
+      apiMode: 'composition',
+      state: {},
+      refs: {
+        val: { type: 'JSExpression', value: "''" }
+      },
+      reactives: {},
+      computed: {
+        computed1: {
+          type: 'JSExpression',
+          value: `({
+            get() {
+              return this.val.value
+            },
+            set(value) {
+              this.val.value = value
+              this.$emit('change', value)
+            }
+          })`
+        }
+      },
+      methods: {},
+      props: [],
+      emits: [{ name: 'change', params: [] }],
+      watch: [],
+      dataSources: {},
+      composables: [],
+      provide: {},
+      lifeCycles: {},
+      nodes: [
+        {
+          id: 'writable-computed-input',
+          name: 'input',
+          props: {},
+          directives: [
+            {
+              name: 'vModel',
+              value: {
+                type: 'JSExpression',
+                value: 'this.computed1.value'
+              }
+            }
+          ],
+          events: {},
+          children: []
+        }
+      ]
+    } as BlockSchema;
+    const { renderer, context } = createRenderer({
+      dsl,
+      mode: ContextMode.Runtime,
+      window
+    });
+    const { host } = await mount(() => h(renderer, { onChange }));
+    const input = host.querySelector('input') as HTMLInputElement;
+
+    expect(input.value).toBe('');
+    expect((context as any).val.value).toBe('');
+    expect((context as any).computed1.value).toBe('');
+
+    input.value = 'abc';
+    input.dispatchEvent(new Event('input', { bubbles: true }));
+    await settle();
+
+    expect((context as any).val.value).toBe('abc');
+    expect((context as any).computed1.value).toBe('abc');
+    expect(onChange).toHaveBeenCalledWith('abc');
+  });
+
   test('keeps composition props, watches and lifecycle hooks connected', async () => {
     const onMounted = vi.fn();
     const onUnmounted = vi.fn();
