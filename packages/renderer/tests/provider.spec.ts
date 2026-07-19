@@ -624,6 +624,24 @@ describe('Provider - getDslByUrl', () => {
     const result = await provider.getDslByUrl('http://example.com/bad');
     expect(result).toBeNull();
   });
+
+  test('getDslByUrl retries after a transient request failure', async () => {
+    const dsl = { id: 'url-dsl', name: 'UrlDsl' };
+    const sendSpy = vi
+      .fn()
+      .mockRejectedValueOnce(new Error('temporary'))
+      .mockResolvedValueOnce({ data: dsl });
+    const provider = new Provider({
+      service: createMockService(),
+      mode: ContextMode.Design,
+      project: { id: 'p1' },
+      adapter: { request: { send: sendSpy } as any }
+    });
+
+    expect(await provider.getDslByUrl('http://example.com/retry')).toBeNull();
+    expect(await provider.getDslByUrl('http://example.com/retry')).toEqual(dsl);
+    expect(sendSpy).toHaveBeenCalledTimes(2);
+  });
 });
 
 describe('Provider - createDslRenderer', () => {

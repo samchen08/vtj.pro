@@ -335,6 +335,32 @@ describe('nodeRender - v-model', () => {
     expect(result.props.modelValue).toBeUndefined();
     expect(result.props['onUpdate:modelValue']).toBeDefined();
   });
+
+  test('custom component v-model passes enabled modifiers as props', () => {
+    const Vue = createVueMock();
+    const ctx = createContext({
+      $components: { MyInput: {} },
+      myVal: 'value'
+    });
+    const result = nodeRender(
+      {
+        name: 'MyInput',
+        id: 'n1',
+        directives: [
+          {
+            name: 'v-model',
+            value: { type: 'JSExpression', value: 'myVal' },
+            modifiers: { trim: true, number: false }
+          }
+        ]
+      },
+      ctx,
+      Vue
+    );
+
+    expect(result.props.modelModifiers).toEqual({ trim: true });
+    expect(Vue.withModifiers).not.toHaveBeenCalled();
+  });
 });
 
 describe('nodeRender - v-for', () => {

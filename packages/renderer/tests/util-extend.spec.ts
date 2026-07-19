@@ -24,6 +24,23 @@ describe('toString', () => {
 });
 
 describe('adoptedStyleSheets - fallback (no replaceSync)', () => {
+  test('falls back when CSSStyleSheet is unavailable', () => {
+    const createdEl = { id: '', innerHTML: '' };
+    const mockDoc = {
+      getElementById: vi.fn().mockReturnValue(null),
+      createElement: vi.fn().mockReturnValue(createdEl),
+      head: { appendChild: vi.fn() }
+    };
+
+    adoptedStyleSheets(
+      { CSSStyleSheet: undefined, document: mockDoc },
+      'test-id',
+      'body { color: red; }'
+    );
+
+    expect(mockDoc.head.appendChild).toHaveBeenCalledWith(createdEl);
+  });
+
   test('creates style element when CSSStyleSheet.replaceSync not available', () => {
     const createdEl = { id: '', innerHTML: '' };
     const mockDoc = {
@@ -74,6 +91,23 @@ describe('adoptedStyleSheets - fallback (no replaceSync)', () => {
 
     adoptedStyleSheets(mockGlobal, 'sheet-id', 'body { color: red; }', false);
     expect(mockDoc.adoptedStyleSheets.length).toBe(1);
+  });
+
+  test('does not rebuild an unchanged adopted stylesheet', () => {
+    const replaceSync = vi.fn();
+    const CSSClass = class {
+      id = '';
+      replaceSync = replaceSync;
+    };
+    (CSSClass.prototype as any).replaceSync = replaceSync;
+    const mockDoc: any = { adoptedStyleSheets: [] };
+    const mockGlobal = { CSSStyleSheet: CSSClass, document: mockDoc };
+
+    adoptedStyleSheets(mockGlobal, 'sheet-id', 'body { color: red; }');
+    adoptedStyleSheets(mockGlobal, 'sheet-id', 'body { color: red; }');
+
+    expect(mockDoc.adoptedStyleSheets).toHaveLength(1);
+    expect(replaceSync).toHaveBeenCalledTimes(1);
   });
 });
 

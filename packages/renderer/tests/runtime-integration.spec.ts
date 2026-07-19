@@ -3,6 +3,7 @@ import {
   createApp,
   defineComponent,
   h,
+  inject,
   isRef,
   nextTick,
   ref,
@@ -335,6 +336,214 @@ describe('renderer runtime integration', () => {
     await settle();
 
     expect(buttons.map((button) => button.textContent)).toEqual(['A:1', 'B:0']);
+  });
+
+  test('provides values and registers hooks before the first setup await', async () => {
+    const created = vi.fn();
+    const mountedHook = vi.fn();
+    const Child = defineComponent({
+      setup() {
+        const theme = inject('theme', 'missing');
+        return () => h('span', theme);
+      }
+    });
+    const dsl = {
+      id: 'runtime-composition-provide',
+      name: 'RuntimeCompositionProvide',
+      apiMode: 'composition',
+      state: {},
+      refs: {},
+      reactives: {},
+      computed: {},
+      methods: {},
+      props: [],
+      emits: [],
+      watch: [],
+      dataSources: {},
+      composables: [],
+      provide: { theme: 'light' },
+      lifeCycles: {
+        created: {
+          type: 'JSFunction',
+          value: 'async () => this.$apis.created()'
+        },
+        mounted: {
+          type: 'JSFunction',
+          value: '() => this.$apis.mounted()'
+        }
+      },
+      nodes: [
+        {
+          id: 'provide-child',
+          name: 'Child',
+          props: {},
+          directives: [],
+          events: {},
+          children: []
+        }
+      ]
+    } as BlockSchema;
+    const { renderer } = createRenderer({
+      dsl,
+      mode: ContextMode.Runtime,
+      components: { Child },
+      apis: { created, mounted: mountedHook },
+      window
+    });
+    const { host } = await mount(() => h(renderer));
+
+    expect(host.textContent).toBe('light');
+    expect(created).toHaveBeenCalledOnce();
+    expect(mountedHook).toHaveBeenCalledOnce();
+  });
+
+  test('keeps transform parsing available on the returned context after render', async () => {
+    const dsl = {
+      id: 'runtime-transform-context',
+      name: 'RuntimeTransformContext',
+      apiMode: 'composition',
+      transform: { expression: '2' },
+      state: {},
+      refs: {},
+      reactives: {},
+      computed: {},
+      methods: {},
+      props: [],
+      emits: [],
+      watch: [],
+      dataSources: {},
+      composables: [],
+      provide: {},
+      lifeCycles: {},
+      nodes: [{ id: 'transform-node', name: 'div', children: 'ok' }]
+    } as BlockSchema;
+    const { renderer, context } = createRenderer({
+      dsl,
+      mode: ContextMode.Runtime,
+      window
+    });
+    await mount(() => h(renderer));
+
+    expect(
+      context.__parseExpression({
+        id: 'expression',
+        type: 'JSExpression',
+        value: '1'
+      })
+    ).toBe(2);
+  });
+
+  test('resolves composable arguments from composition refs', async () => {
+    const useEcho = vi.fn((value) => ({ value }));
+    const dsl = {
+      id: 'runtime-composable-context',
+      name: 'RuntimeComposableContext',
+      apiMode: 'composition',
+      state: {},
+      refs: { count: 3 },
+      reactives: {},
+      computed: {},
+      methods: {},
+      props: [],
+      emits: [],
+      watch: [],
+      dataSources: {},
+      composables: [
+        {
+          name: 'echo',
+          composable: {
+            type: 'JSExpression',
+            value: 'this.$libs.useEcho'
+          },
+          args: [
+            { type: 'JSExpression', value: 'this.count.value' }
+          ]
+        }
+      ],
+      provide: {},
+      lifeCycles: {},
+      nodes: [
+        {
+          id: 'composable-output',
+          name: 'span',
+          children: {
+            type: 'JSExpression',
+            value: 'this.echo.value'
+          }
+        }
+      ]
+    } as BlockSchema;
+    const { renderer } = createRenderer({
+      dsl,
+      mode: ContextMode.Runtime,
+      libs: { useEcho },
+      window
+    });
+    const { host } = await mount(() => h(renderer));
+
+    expect(useEcho).toHaveBeenCalledWith(3);
+    expect(host.textContent).toBe('3');
+  });
+
+  test('supports checkbox and native v-model modifiers', async () => {
+    const dsl = {
+      id: 'runtime-native-model',
+      name: 'RuntimeNativeModel',
+      apiMode: 'composition',
+      state: {},
+      refs: { checked: false, text: '' },
+      reactives: {},
+      computed: {},
+      methods: {},
+      props: [],
+      emits: [],
+      watch: [],
+      dataSources: {},
+      composables: [],
+      provide: {},
+      lifeCycles: {},
+      nodes: [
+        {
+          id: 'checkbox-model',
+          name: 'input',
+          props: { type: 'checkbox' },
+          directives: [
+            {
+              name: 'vModel',
+              value: { type: 'JSExpression', value: 'this.checked.value' }
+            }
+          ]
+        },
+        {
+          id: 'text-model',
+          name: 'input',
+          props: {},
+          directives: [
+            {
+              name: 'vModel',
+              value: { type: 'JSExpression', value: 'this.text.value' },
+              modifiers: { trim: true, number: true, lazy: true }
+            }
+          ]
+        }
+      ]
+    } as BlockSchema;
+    const { renderer, context } = createRenderer({
+      dsl,
+      mode: ContextMode.Runtime,
+      window
+    });
+    const { host } = await mount(() => h(renderer));
+    const [checkbox, input] = Array.from(host.querySelectorAll('input'));
+
+    checkbox.checked = true;
+    checkbox.dispatchEvent(new Event('change', { bubbles: true }));
+    input.value = ' 42 ';
+    input.dispatchEvent(new Event('change', { bubbles: true }));
+    await settle();
+
+    expect((context as any).checked.value).toBe(true);
+    expect((context as any).text.value).toBe(42);
   });
 
   test('preserves the options state/method runtime path', async () => {

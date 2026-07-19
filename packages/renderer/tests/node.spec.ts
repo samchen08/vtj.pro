@@ -25,6 +25,10 @@ describe('node - getModifiers', () => {
     expect(getModifiers({})).toEqual([]);
     expect(getModifiers(undefined)).toEqual([]);
   });
+
+  test('ignores disabled modifiers', () => {
+    expect(getModifiers({ prevent: true, stop: false })).toEqual(['prevent']);
+  });
 });
 
 describe('node - ContextMode VNode bypasses ref', () => {

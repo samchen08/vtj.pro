@@ -22,22 +22,31 @@ export function adoptedStyleSheets(
   const content = (global as any).__uniConfig
     ? convertCssRpx(global, css)
     : css;
-  const scopedCSS = scoped ? compileScopedCSS(content, scopedId) : content;
   const isUni = !!(global as any).__uniConfig;
+  const doc: any = global.document;
+  const canAdopt = !!CSSStyleSheet?.prototype?.replaceSync && !isUni;
+  const currentSheet = canAdopt
+    ? Array.from(doc.adoptedStyleSheets || []).find(
+        (sheet: any) => sheet.id === id
+      )
+    : doc.getElementById(id);
+  const source = `${scopedId}\n${content}`;
+  if ((currentSheet as any)?.__vtjSource === source) return;
+
+  const scopedCSS = scoped ? compileScopedCSS(content, scopedId) : content;
   // chrome > 71 才支持 replaceSync
-  if (CSSStyleSheet.prototype.replaceSync && !isUni) {
+  if (canAdopt) {
     const styleSheet = new CSSStyleSheet();
     styleSheet.id = id;
+    styleSheet.__vtjSource = source;
     styleSheet.replaceSync(scopedCSS);
-    const doc: any = global.document;
-    const adoptedStyleSheets = doc.adoptedStyleSheets;
+    const adoptedStyleSheets = doc.adoptedStyleSheets || [];
     const sheets = Array.from(adoptedStyleSheets).filter(
       (n: any) => n.id !== id
     );
     doc.adoptedStyleSheets = [...sheets, styleSheet];
   } else {
-    const doc = global.document;
-    let styleSheet = doc.getElementById(id);
+    let styleSheet = currentSheet;
     if (styleSheet) {
       styleSheet.innerHTML = scopedCSS;
     } else {
@@ -46,6 +55,7 @@ export function adoptedStyleSheets(
       styleSheet.innerHTML = scopedCSS;
       doc.head.appendChild(styleSheet);
     }
+    styleSheet.__vtjSource = source;
   }
 }
 

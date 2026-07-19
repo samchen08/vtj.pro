@@ -607,7 +607,7 @@ export class Provider extends Base {
     const cache = this.urlDslCaches[url];
     if (cache) return cache;
     if (!this.adapter.request) return null;
-    return (this.urlDslCaches[url] = this.adapter.request
+    const request = (this.urlDslCaches[url] = this.adapter.request
       .send({
         url,
         method: 'get',
@@ -617,7 +617,13 @@ export class Provider extends Base {
         }
       })
       .then((res) => res.data as BlockSchema)
-      .catch(() => null));
+      .catch(() => {
+        if (this.urlDslCaches[url] === request) {
+          delete this.urlDslCaches[url];
+        }
+        return null;
+      }));
+    return request;
   }
 
   /**
