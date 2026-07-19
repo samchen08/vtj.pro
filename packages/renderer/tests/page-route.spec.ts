@@ -33,6 +33,9 @@ afterEach(() => {
   route.params.id = 'page-a';
   route.meta = {};
   vi.clearAllMocks();
+  provider.getRenderComponent.mockImplementation(async (id: string) => ({
+    name: id
+  }));
 });
 
 describe('PageContainer route updates', () => {
@@ -66,6 +69,32 @@ describe('PageContainer route updates', () => {
     (PageContainer as any).activated.call(context);
 
     expect(context.sid).not.toBe(previousSid);
+    scope.stop();
+  });
+
+  test('ignores a stale page load that finishes after a newer navigation', async () => {
+    let resolvePageB!: (value: { name: string }) => void;
+    provider.getRenderComponent.mockImplementation((id: string) => {
+      if (id === 'page-b') {
+        return new Promise((resolve) => {
+          resolvePageB = resolve;
+        });
+      }
+      return Promise.resolve({ name: id });
+    });
+    const scope = effectScope();
+    const state = await scope.run(() => (PageContainer as any).setup())!;
+
+    route.params.id = 'page-b';
+    await nextTick();
+    route.params.id = 'page-a';
+    await nextTick();
+    await Promise.resolve();
+    resolvePageB({ name: 'page-b' });
+    await Promise.resolve();
+
+    expect(state.file.value.id).toBe('page-a');
+    expect(state.component.value.name).toBe('page-a');
     scope.stop();
   });
 });
