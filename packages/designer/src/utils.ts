@@ -47,7 +47,9 @@ export function message(
 
 export function proxyContext(context: any) {
   const _proxy = (prop: any) => {
-    return new Proxy(prop || {}, {
+    // 只有真正的对象（排除 null 和基本类型）才能作为 Proxy target
+    const safeTarget = prop !== null && typeof prop === 'object' ? prop : {};
+    return new Proxy(safeTarget, {
       get(target: any, name: string) {
         return typeof name === 'symbol'
           ? () => undefined
@@ -56,7 +58,9 @@ export function proxyContext(context: any) {
     });
   };
 
-  return new Proxy(context || {}, {
+  const safeContext =
+    context !== null && typeof context === 'object' ? context : {};
+  return new Proxy(safeContext, {
     get(target: any, name: string) {
       if (typeof name === 'symbol') {
         return () => undefined;
