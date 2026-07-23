@@ -47,8 +47,12 @@ export function message(
 
 export function proxyContext(context: any) {
   const _proxy = (prop: any) => {
-    // 只有真正的对象（排除 null 和基本类型）才能作为 Proxy target
-    const safeTarget = prop !== null && typeof prop === 'object' ? prop : {};
+    // 只有 object/function（排除 null 和基本类型）才能作为 Proxy target
+    // function 必须保留，否则调用 this.$libs.Xxx.someMethod() 时方法被替换为空对象
+    const safeTarget =
+      prop !== null && (typeof prop === 'object' || typeof prop === 'function')
+        ? prop
+        : {};
     return new Proxy(safeTarget, {
       get(target: any, name: string) {
         return typeof name === 'symbol'
@@ -59,7 +63,10 @@ export function proxyContext(context: any) {
   };
 
   const safeContext =
-    context !== null && typeof context === 'object' ? context : {};
+    context !== null &&
+    (typeof context === 'object' || typeof context === 'function')
+      ? context
+      : {};
   return new Proxy(safeContext, {
     get(target: any, name: string) {
       if (typeof name === 'symbol') {
