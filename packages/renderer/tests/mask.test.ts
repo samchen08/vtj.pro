@@ -1,7 +1,8 @@
 import { expect, test, describe } from 'vitest';
 import { createMenus, menusFilter } from '../src/hooks/mask';
 import type { PageFile } from '@vtj/core';
-import type { MenuDataItem } from '@vtj/ui';
+
+type MenuDataItem = ReturnType<typeof createMenus>[number];
 
 function createMockPage(
   id: string,

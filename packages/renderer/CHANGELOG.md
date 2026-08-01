@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.18.28](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.18.27...@vtj/renderer@0.18.28) (2026-08-01)
+
+
+### Bug Fixes
+
+* **renderer:** 优化Composition模式与v-model实现并增强样式处理 ([529878f](https://gitee.com/newgateway/vtj/commits/529878f243130379127e5755fa50f5b164701174))
+
+
+### Features
+
+* **designer:** 支持组合式函数名称解析与显示 ([eb891ed](https://gitee.com/newgateway/vtj/commits/eb891ed6ceeb0a7ccf948dda03e28d5f7483dc51))
+* **renderer:** 支持可写计算属性绑定上下文 ([afd0788](https://gitee.com/newgateway/vtj/commits/afd0788bd80f2d8511a2a8abb6d0b427f69a75d8))
+
+
+
+
+
 ## [0.18.27](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.18.26...@vtj/renderer@0.18.27) (2026-07-23)
 
 **Note:** Version bump only for package @vtj/renderer

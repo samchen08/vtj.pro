@@ -63,6 +63,9 @@ test('MemoryService.removeHistory removes history and items', async () => {
   await service.saveHistoryItem('hist1', { id: 'item1', data: 'test' } as any);
   const result = await service.removeHistory('hist1');
   expect(result).toBe(true);
+  const removed = await service.getHistory('hist1');
+  expect(removed.items).toEqual([]);
+  expect(await service.getHistoryItem('hist1', 'item1')).toEqual({});
 });
 
 test('MemoryService.saveHistoryItem and getHistoryItem roundtrip', async () => {
