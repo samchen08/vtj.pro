@@ -3,7 +3,7 @@
   "private": true,
   "description": "VTJ.PRO 是一个开源的、AI 驱动的 Vue3 企业级应用开发平台，通过 AI 智能体与可视化编排实现高效开发，并支持导出标准 Vue 代码以避免平台锁定。",
   "devDependencies": {
-    "pnpm": "~10.13.0",
+    "pnpm": "~11.18.0",
     "lerna": "~8.2.0",
     "axios": "~1.16.0",
     "fs-extra": "~11.3.0",

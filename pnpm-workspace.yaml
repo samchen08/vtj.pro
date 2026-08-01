@@ -17,3 +17,4 @@ allowBuilds:
   nx: true
   ssh2: true
   vue-demi: true
+verifyDepsBeforeRun: false

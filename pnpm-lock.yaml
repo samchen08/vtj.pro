@@ -42,8 +42,8 @@ importers:
         specifier: ~3.1.9
         version: 3.1.14
       pnpm:
-        specifier: ~10.13.0
-        version: 10.13.0
+        specifier: ~11.18.0
+        version: 11.18.0
       ts-node:
         specifier: ~10.9.2
         version: 10.9.2(@types/node@25.0.10)(typescript@5.9.2)
@@ -6823,8 +6823,8 @@ packages:
     resolution: {integrity: sha512-CYdFeFexxhv/Bcny+Q0BfOV+ltRlJcd4BBZBYFX/O0u4npJrgZtIcjokegtiSMAvlMTJ+Koq0GBCc//3bueQxw==}
     engines: {node: '>=8'}
 
-  ip-address@10.3.1:
-    resolution: {integrity: sha512-1e9d3kb97NHJTIJDZW9rKqW2h6+dFa50Dy0fpPSMQp2ADje5gvKsXmdiK6dwY5t76TaTt5+P5N1Y/LoToIxP6g==}
+  ip-address@10.4.0:
+    resolution: {integrity: sha512-oSK96Grm3aP6OrS263xVxbNDGVL7rzBtYdpGqlDG8iQdoenDoTs/nkki+DflYbAEE8Xl6o5YxhxlrKvI3nqKXQ==}
     engines: {node: '>= 12'}
 
   ipaddr.js@1.9.1:
@@ -8521,9 +8521,9 @@ packages:
     resolution: {integrity: sha512-40QW5YalBNfQo5yRYmiw7Yz6TKKVr3h6970B2YE+3fQpsWcrbj1PzJgxeJ19DRQjhMbKPIuMY8rFaXc8moolVw==}
     engines: {node: '>=10.13.0'}
 
-  pnpm@10.13.0:
-    resolution: {integrity: sha512-4Iy/pdDEfhSNnZKWVROvPQakL/mbbg6Cp9EFEoWND7aAoDweZ3LTaaIwXHkwbJJXmJo1drcFfWh3RpyaHHVj8A==}
-    engines: {node: '>=18.12'}
+  pnpm@11.18.0:
+    resolution: {integrity: sha512-M9g8d9qC9J+6g2klxvG4QRgewxMrZwY5vQEvcHX1x89jTF+HAUfBmq50ePrAHfCdiJLogEVIlu3SPumzN1dWPA==}
+    engines: {node: '>=22.13'}
     hasBin: true
 
   possible-typed-array-names@1.1.0:
@@ -18300,7 +18300,7 @@ snapshots:
 
   invert-kv@3.0.1: {}
 
-  ip-address@10.3.1: {}
+  ip-address@10.4.0: {}
 
   ipaddr.js@1.9.1: {}
 
@@ -20452,7 +20452,7 @@ snapshots:
 
   pngjs@5.0.0: {}
 
-  pnpm@10.13.0: {}
+  pnpm@11.18.0: {}
 
   possible-typed-array-names@1.1.0: {}
 
@@ -21359,7 +21359,7 @@ snapshots:
 
   socks@2.8.9:
     dependencies:
-      ip-address: 10.3.1
+      ip-address: 10.4.0
       smart-buffer: 4.2.0
 
   sort-keys@2.0.0:
