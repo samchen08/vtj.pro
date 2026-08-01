@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.18.27](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.18.26...@vtj/designer@0.18.27) (2026-07-23)
+
+
+### Bug Fixes
+
+* **utils:** 修复 proxyContext 中 function 类型代理问题 ([5669e56](https://gitee.com/newgateway/vtj/commits/5669e56b689efe44f2f6f8c4b552f52c26bd9fd3))
+
+
+
+
+
+## [0.18.26](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.18.25...@vtj/designer@0.18.26) (2026-07-20)
+
+
+### Bug Fixes
+
+* **utils:** 修复 proxyContext 中非对象类型代理问题 ([8163d63](https://gitee.com/newgateway/vtj/commits/8163d639489f982da989ab2b8f06455e5e35e6f6))
+
+
+
+
+
 ## [0.18.25](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.18.24...@vtj/designer@0.18.25) (2026-07-18)
 
 **Note:** Version bump only for package @vtj/designer
