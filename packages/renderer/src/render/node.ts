@@ -278,6 +278,7 @@ function parseNodeProps(id: string | null, props: NodeProps, context: Context) {
 
 // 深度解析props
 function deepParseNodeProps(props: any, context: Context): any {
+  if (props === null) return null;
   if (isJSExpression(props)) {
     return context.__parseExpression(props);
   } else if (isJSFunction(props)) {

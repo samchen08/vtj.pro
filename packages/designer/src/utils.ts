@@ -1,4 +1,8 @@
-import { type JSExpression, type JSFunction } from '@vtj/core';
+import {
+  type JSExpression,
+  type JSFunction,
+  type BlockComposable
+} from '@vtj/core';
 import { parseExpression, parseFunction } from '@vtj/renderer';
 import { kebabCase } from '@vtj/utils';
 import {
@@ -8,6 +12,12 @@ import {
   ElLoading,
   type LoadingOptions
 } from 'element-plus';
+
+export function getComposableNames(composables: BlockComposable[] = []) {
+  return composables.flatMap((item) =>
+    item.destructure?.length ? item.destructure : [item.name]
+  );
+}
 
 export function alert(message: string, options?: any) {
   return ElMessageBox.alert(message, {

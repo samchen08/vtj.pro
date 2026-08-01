@@ -13,7 +13,7 @@ import {
   type NodeSchema,
   type BlockEmit
 } from '@vtj/core';
-import { isString, isFunction, delay } from '@vtj/utils';
+import { isString, isFunction, delay, cloneDeep } from '@vtj/utils';
 import { ContextMode, DATA_TYPES } from '../constants';
 import { Context } from './context';
 import {
@@ -324,10 +324,14 @@ function createProps(props: Array<string | BlockProp> = [], context: Context) {
     })
     .reduce(
       (result, current) => {
+        const defaultValue = current.default;
         result[current.name] = {
           type: getDataType(current.type),
           required: current.required,
-          default: current.default
+          default:
+            defaultValue !== null && typeof defaultValue === 'object'
+              ? () => cloneDeep(defaultValue)
+              : defaultValue
         };
         return result;
       },

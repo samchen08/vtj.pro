@@ -64,6 +64,91 @@ afterEach(() => {
 });
 
 describe('renderer runtime integration', () => {
+  test('preserves null values in deeply parsed component props', async () => {
+    const NullProbe = defineComponent({
+      props: ['nullable', 'nested'],
+      setup(props) {
+        return () =>
+          h(
+            'span',
+            { class: 'null-probe' },
+            `${props.nullable === null}:${(props.nested as any).value === null}`
+          );
+      }
+    });
+    const dsl = {
+      id: 'runtime-null-props',
+      name: 'RuntimeNullProps',
+      apiMode: 'options',
+      state: {},
+      computed: {},
+      methods: {},
+      props: [],
+      emits: [],
+      watch: [],
+      dataSources: {},
+      lifeCycles: {},
+      nodes: [
+        {
+          id: 'null-probe',
+          name: 'NullProbe',
+          props: { nullable: null, nested: { value: null } }
+        }
+      ]
+    } as BlockSchema;
+    const { renderer } = createRenderer({
+      dsl,
+      components: { NullProbe },
+      window
+    });
+    const { host } = await mount(() => h(renderer));
+
+    expect(host.querySelector('.null-probe')?.textContent).toBe('true:true');
+  });
+
+  test('creates independent object and array prop defaults per instance', async () => {
+    const dsl = {
+      id: 'runtime-prop-defaults',
+      name: 'RuntimePropDefaults',
+      apiMode: 'composition',
+      state: {},
+      refs: {},
+      reactives: {},
+      computed: {},
+      methods: {},
+      props: [
+        { name: 'config', type: 'Object', default: { nested: { count: 0 } } },
+        { name: 'items', type: 'Array', default: [{ id: 1 }] }
+      ],
+      emits: [],
+      expose: ['config', 'items'],
+      watch: [],
+      dataSources: {},
+      composables: [],
+      provide: {},
+      lifeCycles: {},
+      nodes: []
+    } as BlockSchema;
+    const { renderer } = createRenderer({ dsl, window });
+    let first: any;
+    let second: any;
+    await mount(() =>
+      h('div', [
+        h(renderer, { ref: (value: any) => (first = value) }),
+        h(renderer, { ref: (value: any) => (second = value) })
+      ])
+    );
+
+    expect(first.config).not.toBe(second.config);
+    expect(first.config.nested).not.toBe(second.config.nested);
+    expect(first.items).not.toBe(second.items);
+    expect(first.items[0]).not.toBe(second.items[0]);
+    first.config.nested.count = 1;
+    first.items[0].id = 2;
+    expect(second.config.nested.count).toBe(0);
+    expect(second.items[0].id).toBe(1);
+  });
+
   test('renders and updates composition refs/computed using the existing .value DSL contract', async () => {
     const dsl = {
       id: 'runtime-composition-value',
