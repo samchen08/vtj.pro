@@ -49,10 +49,22 @@ export function useVxe(options: VXETableConfigOptions = {}) {
     (app as any).__installVxe = true;
   }
 
+  // vxe-table 4.6.x 的类型声明包含 VXETable.setTheme，但运行时并未挂载该方法
+  // （setTheme 仅存在于 v-x-e-table/src/theme 模块内部），此处按库内部实现等价处理：
+  // 通过 data-vxe-ui-theme 属性切换主题
+  const setTheme = (theme: 'light' | 'dark') => {
+    if (typeof document !== 'undefined') {
+      const documentElement = document.documentElement;
+      if (documentElement) {
+        documentElement.setAttribute('data-vxe-ui-theme', theme);
+      }
+    }
+  };
+
   watch(
     isDark,
     (v) => {
-      VXETable.setTheme(v ? 'dark' : 'light');
+      setTheme(v ? 'dark' : 'light');
     },
     { immediate: true }
   );

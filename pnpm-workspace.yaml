@@ -5,3 +5,15 @@ packages:
   - 'create-vtj'
   - 'dev'
   - 'docs'
+nodeLinker: hoisted
+hoist: true
+shamefullyHoist: true
+allowBuilds:
+  '@parcel/watcher': true
+  core-js: true
+  core-js-pure: true
+  cpu-features: true
+  esbuild: true
+  nx: true
+  ssh2: true
+  vue-demi: true
