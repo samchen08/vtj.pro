@@ -26,8 +26,6 @@ import {
 } from '../utils';
 import { defaultLoader, type BlockLoader } from './loader';
 
-import { nodeCache } from './cache';
-
 export function nodeRender(
   dsl: NodeSchema,
   context: Context,
@@ -111,9 +109,18 @@ export function nodeRender(
     // v-model
     vModels.forEach((vModel) => {
       if (HTML_TAGS.includes(dsl.name)) {
-        Object.assign(props, vNativeModelRender(vModel, context));
+        Object.assign(
+          props,
+          vNativeModelRender(
+            vModel,
+            context,
+            dsl.name,
+            props.type,
+            props.value
+          )
+        );
       } else {
-        Object.assign(props, vModelRender(Vue, vModel, context));
+        Object.assign(props, vModelRender(vModel, context));
       }
     });
 
@@ -139,13 +146,10 @@ export function nodeRender(
     // 分离事件处理器属性（onXxx），不纳入缓存
     // 事件处理器通过闭包绑定了上下文，在 vFor 场景下不同迭代
     // 会克隆出不同的 context，若缓存命中则错用旧 context 的 handler
-    const eventKeys = Object.keys(propsWithoutRef).filter((k) =>
-      k.startsWith('on')
-    );
     const eventProps: Record<string, any> = {};
     const cacheProps: Record<string, any> = {};
     for (const k of Object.keys(propsWithoutRef)) {
-      if (eventKeys.includes(k)) {
+      if (k.startsWith('on')) {
         eventProps[k] = propsWithoutRef[k];
       } else {
         cacheProps[k] = propsWithoutRef[k];
@@ -162,14 +166,14 @@ export function nodeRender(
       ...cacheProps
     };
 
-    if (!nodeCache.isNodeEqual(cache, nodeCache.getNode(key))) {
-      nodeCache.setNode(key, cache);
+    if (!context.__cache.isNodeEqual(cache, context.__cache.getNode(key))) {
+      context.__cache.setNode(key, cache);
     }
 
     let vnode = Vue.createVNode(
       component,
       {
-        ...(nodeCache.getNode(key) || cache),
+        ...(context.__cache.getNode(key) || cache),
         ref: refFunc,
         ...eventProps,
         ...events
@@ -274,6 +278,7 @@ function parseNodeProps(id: string | null, props: NodeProps, context: Context) {
 
 // 深度解析props
 function deepParseNodeProps(props: any, context: Context): any {
+  if (props === null) return null;
   if (isJSExpression(props)) {
     return context.__parseExpression(props);
   } else if (isJSFunction(props)) {
@@ -336,21 +341,24 @@ function parseNodeEvents(
   events: NodeEvents,
   context: Context
 ) {
-  const suffixModifiers = ['passive', 'capture', 'once'];
+  const suffixModifiers = ['once', 'capture', 'passive'];
   const suffixMap: Record<string, string> = {
     capture: 'Capture',
     once: 'Once',
-    passive: 'OnceCapture'
+    passive: 'Passive'
   };
   const result = Object.keys(events || {}).reduce(
     (result, key: string) => {
       const event = events[key];
       const modifiers = getModifiers(event.modifiers);
-      const suffix = modifiers.find((n) => suffixModifiers.includes(n));
-      const name =
-        'on' +
-        upperFirstCamelCase(key) +
-        (suffix ? suffixMap[suffix] || '' : '');
+      const suffix = suffixModifiers
+        .filter((n) => modifiers.includes(n))
+        .map((n) => suffixMap[n])
+        .join('');
+      const runtimeModifiers = modifiers.filter(
+        (n) => !suffixModifiers.includes(n)
+      );
+      const name = 'on' + upperFirstCamelCase(key) + suffix;
       const handler = event.handler
         ? context.__parseFunction(wrapEventHandler(event.handler as JSFunction))
         : null;
@@ -358,7 +366,7 @@ function parseNodeEvents(
       if (handler) {
         result[name] = Vue.withModifiers(
           modifiers.includes('enter') ? withKey(handler, 'enter') : handler,
-          modifiers
+          runtimeModifiers
         );
       }
       return result;
@@ -403,7 +411,7 @@ export function getModifiers(
   modifiers: NodeModifiers = {},
   isToString: boolean = false
 ) {
-  const keys = Object.keys(modifiers);
+  const keys = Object.keys(modifiers).filter((key) => modifiers[key]);
   return isToString ? keys.map((n) => '.' + n) : keys;
 }
 
@@ -467,25 +475,84 @@ function vHtmlRender(directive: NodeDirective, context: Context) {
   };
 }
 
-function vNativeModelRender(directive: NodeDirective, context: Context) {
+function vNativeModelRender(
+  directive: NodeDirective,
+  context: Context,
+  tag: string,
+  inputType?: unknown,
+  inputValue?: unknown
+) {
+  const model = directive.value?.value;
+  const modifiers = getModifiers(
+    isJSExpression(directive.modifiers)
+      ? context.__parseExpression(directive.modifiers)
+      : directive.modifiers
+  );
+  const isCheckbox = tag === 'input' && inputType === 'checkbox';
+  const isRadio = tag === 'input' && inputType === 'radio';
+  const isSelect = tag === 'select';
+  const eventName =
+    modifiers.includes('lazy') || isCheckbox || isRadio || isSelect
+      ? 'onChange'
+      : 'onInput';
+  const toNumber = (value: string) =>
+    `((value) => value === '' ? value : (Number.isNaN(Number(value)) ? value : Number(value)))(${value})`;
+  const elementValue = modifiers.includes('number')
+    ? toNumber('v?.target._value ?? v?.target.value')
+    : 'v?.target._value ?? v?.target.value';
+  let nextValue = 'v?.target.value';
+  if (isCheckbox) {
+    nextValue = `Array.isArray(${model})
+      ? (v?.target.checked
+          ? (${model}.includes(${elementValue})
+              ? ${model}
+              : [...${model}, ${elementValue}])
+          : ${model}.filter((item) => item !== ${elementValue}))
+      : v?.target.checked`;
+  } else if (isRadio) {
+    nextValue = elementValue;
+  } else if (isSelect) {
+    const optionValue = modifiers.includes('number')
+      ? toNumber('option._value ?? option.value')
+      : 'option._value ?? option.value';
+    const selectedValue = modifiers.includes('number')
+      ? toNumber('v?.target.selectedOptions?.[0]?._value ?? v?.target.value')
+      : 'v?.target.selectedOptions?.[0]?._value ?? v?.target.value';
+    nextValue = `v?.target.multiple
+      ? Array.from(v.target.selectedOptions).map((option) => ${optionValue})
+      : (${selectedValue})`;
+  } else {
+    if (modifiers.includes('trim')) nextValue = `(${nextValue})?.trim()`;
+    if (modifiers.includes('number')) {
+      nextValue = toNumber(nextValue);
+    }
+  }
   const handler: JSFunction = {
     type: 'JSFunction',
-    value: directive.value?.value
+    value: model
       ? `(v) => {
-        ${directive.value.value} = v?.target.value;
+        ${model} = ${nextValue};
       }`
       : `(v) => {}`
   };
   const arg = isJSExpression(directive.arg)
     ? context.__parseExpression(directive.arg)
     : directive.arg || 'value';
+  const currentValue = context.__parseExpression(directive.value);
+  const modelValue = isCheckbox
+    ? Array.isArray(currentValue)
+      ? currentValue.includes(inputValue)
+      : !!currentValue
+    : isRadio
+      ? currentValue === inputValue
+      : currentValue;
   return {
-    [arg]: context.__parseExpression(directive.value),
-    onInput: context.__parseFunction(handler)
+    [isCheckbox || isRadio ? 'checked' : arg]: modelValue,
+    [eventName]: context.__parseFunction(handler)
   };
 }
 
-function vModelRender(Vue: any, directive: NodeDirective, context: Context) {
+function vModelRender(directive: NodeDirective, context: Context) {
   const handler: JSFunction = {
     type: 'JSFunction',
     value: directive.value?.value
@@ -495,7 +562,6 @@ function vModelRender(Vue: any, directive: NodeDirective, context: Context) {
       : `(v) => {}`
   };
   const func = context.__parseFunction(handler);
-  // todo: 实现 lazy trim number 修饰符
   const modifiers = getModifiers(
     isJSExpression(directive.modifiers)
       ? context.__parseExpression(directive.modifiers)
@@ -504,11 +570,18 @@ function vModelRender(Vue: any, directive: NodeDirective, context: Context) {
   const arg = isJSExpression(directive.arg)
     ? context.__parseExpression(directive.arg)
     : directive.arg || 'modelValue';
-  return {
+  const result: Record<string, any> = {
     [arg]: context.__parseExpression(directive.value),
-    [`onUpdate:${arg}`]:
-      modifiers.length && func ? Vue.withModifiers(func, modifiers) : func
+    [`onUpdate:${arg}`]: func
   };
+  if (modifiers.length) {
+    result[arg === 'modelValue' ? 'modelModifiers' : `${arg}Modifiers`] =
+      modifiers.reduce((result, key) => {
+        result[key] = true;
+        return result;
+      }, {} as Record<string, boolean>);
+  }
+  return result;
 }
 
 function childrenToSlots(

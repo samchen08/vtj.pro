@@ -13,7 +13,7 @@ import {
   type NodeSchema,
   type BlockEmit
 } from '@vtj/core';
-import { isString, isFunction, delay } from '@vtj/utils';
+import { isString, isFunction, delay, cloneDeep } from '@vtj/utils';
 import { ContextMode, DATA_TYPES } from '../constants';
 import { Context } from './context';
 import {
@@ -148,15 +148,6 @@ export function createRenderer(options: CreateRendererOptions) {
         context
       );
 
-      // Composition 模式特有逻辑
-      let composableResults = {};
-      if (isComposition) {
-        composableResults = createComposables(
-          dsl.value.composables ?? [],
-          context
-        );
-      }
-
       const attrs = {
         ...props,
         ...refs,
@@ -164,10 +155,16 @@ export function createRenderer(options: CreateRendererOptions) {
         ...injects,
         ...computed,
         ...methods,
-        ...dataSources,
-        ...composableResults
+        ...dataSources
       };
       context.setup(attrs, Vue);
+
+      // composable 参数允许引用当前区块的 refs/reactives/computed，
+      // 因此必须在基础上下文完成挂载后再执行。
+      const composableResults = isComposition
+        ? createComposables(dsl.value.composables ?? [], context)
+        : {};
+      Object.assign(context, composableResults);
 
       // $el 等属性在 onMounted 后才生成，需要再次同步到 sharedContext
       // 使得设计器 Viewer 能在 mount 后立即看到完整上下文
@@ -209,12 +206,15 @@ export function createRenderer(options: CreateRendererOptions) {
 
       // Composition 模式下生命周期在 setup 内注册
       if (isComposition) {
-        await createCompositionLifeCycles(
+        // Vue 的 provide 和生命周期注册必须发生在 setup 的第一个 await 之前。
+        const immediateLifeCycles = createCompositionLifeCycles(
           Vue,
           dsl.value.lifeCycles ?? {},
           context,
           UniApp
         );
+        createProvide(Vue, dsl.value.provide ?? {}, context);
+        await Promise.all(immediateLifeCycles);
         if (dsl.value.setup) {
           const setupFn = context.__parseFunction(dsl.value.setup);
           if (isFunction(setupFn)) {
@@ -225,7 +225,6 @@ export function createRenderer(options: CreateRendererOptions) {
             }
           }
         }
-        createProvide(Vue, dsl.value.provide ?? {}, context);
       }
 
       return {
@@ -235,7 +234,10 @@ export function createRenderer(options: CreateRendererOptions) {
         ...refs,
         ...reactives,
         ...computed,
-        ...methods
+        ...methods,
+        ...injects,
+        ...dataSources,
+        ...composableResults
       };
     },
     emits: createEmits(dsl.value.emits),
@@ -248,50 +250,7 @@ export function createRenderer(options: CreateRendererOptions) {
       // 使用 setup 中创建的实例级 Context，确保每个组件实例渲染时使用各自的 props/state
       // 若 setup 未执行（如单元测试中直接调用 render），回退到 sharedContext
       const context: Context = (this as any).vtj || sharedContext;
-      // 强制建立响应式依赖：遍历 DSL 中定义的数据源并通过 Vue 组件代理(this)访问，
-      // 确保数据变更时组件能够重新渲染。
-      // 这是必要的，因为 nodeRender 通过 parseExpression（内部使用 new Function）
-      // 求值表达式会绕过 Vue 基于 Proxy 的响应式追踪。
       const _dsl = dsl.value;
-
-      // refs: 通过 this 访问，Options API 自动解包并追踪依赖
-      if (_dsl.refs) {
-        for (const key of Object.keys(_dsl.refs)) void (this as any)[key];
-      }
-
-      // reactives: reactive 对象
-      if (_dsl.reactives) {
-        for (const key of Object.keys(_dsl.reactives)) {
-          const obj = (this as any)[key];
-          if (obj && typeof obj === 'object') {
-            for (const k of Object.keys(obj)) void obj[k];
-          }
-        }
-      }
-
-      // state: reactive 对象，需逐个访问属性以建立深度依赖
-      if (_dsl.state) {
-        const st = (this as any).state;
-        for (const key of Object.keys(_dsl.state)) void st[key];
-      }
-
-      // computed: 同 refs
-      if (_dsl.computed) {
-        for (const key of Object.keys(_dsl.computed)) void (this as any)[key];
-      }
-
-      // injects: 可能随父组件变化
-      if (_dsl.inject) {
-        for (const inj of _dsl.inject) void (this as any)[inj.name];
-      }
-
-      // props: 通过 Vue 组件代理访问，建立 props 响应式依赖追踪
-      if (_dsl.props && _dsl.props.length > 0) {
-        for (const p of _dsl.props) {
-          const propName = typeof p === 'string' ? p : p.name;
-          void (this as any)[propName];
-        }
-      }
 
       if (!_dsl.nodes) return null;
       const nodes: NodeSchema[] = _dsl.nodes || [];
@@ -318,7 +277,8 @@ export function createRenderer(options: CreateRendererOptions) {
 
   return {
     renderer: Vue.markRaw(renderer),
-    context: sharedContext
+    context: sharedContext,
+    loader
   };
 }
 
@@ -332,10 +292,6 @@ function syncContextFields(context: Context, sharedContext: Context) {
   // 确保设计器 Viewer / expressionValidate / useBinder 能完整访问运行时上下文，
   // 包括 Vue 插件注入的全局属性（$store、$i18n、$t、$router 等）。
   Object.assign(sharedContext, context);
-  // 清除不应共享的 per-instance 内部状态
-  delete (sharedContext as any).__refGenerations;
-  delete (sharedContext as any).__refCaches;
-  delete (sharedContext as any).__transform;
 }
 
 function createEmits(emits: Array<string | BlockEmit> = []) {
@@ -368,10 +324,14 @@ function createProps(props: Array<string | BlockProp> = [], context: Context) {
     })
     .reduce(
       (result, current) => {
+        const defaultValue = current.default;
         result[current.name] = {
           type: getDataType(current.type),
           required: current.required,
-          default: current.default
+          default:
+            defaultValue !== null && typeof defaultValue === 'object'
+              ? () => cloneDeep(defaultValue)
+              : defaultValue
         };
         return result;
       },
@@ -407,7 +367,16 @@ function createComputed(
       if (isJSFunction(v)) {
         result[k] = Vue.computed(context.__parseFunction(v) as any);
       } else {
-        result[k] = Vue.computed(context.__parseExpression(v) as any);
+        const options = context.__parseExpression(v);
+        if (options && typeof options === 'object') {
+          if (isFunction(options.get)) {
+            options.get = options.get.bind(context);
+          }
+          if (isFunction(options.set)) {
+            options.set = options.set.bind(context);
+          }
+        }
+        result[k] = Vue.computed(options as any);
       }
       return result;
     },
@@ -553,6 +522,10 @@ function createComposables(composables: BlockComposable[], context: Context) {
         if (context.__mode === ContextMode.Design) {
           console.warn(`[VTJ] composable 执行失败，已降级处理`, e);
           result[item.name] = {};
+        } else {
+          console.warn(`[VTJ] composable 执行失败`, e);
+          triggerError(e);
+          throw e;
         }
       }
       return result;
@@ -577,12 +550,13 @@ function createProvide(
   });
 }
 
-async function createCompositionLifeCycles(
+function createCompositionLifeCycles(
   Vue: any,
   lifeCycles: Record<string, JSFunction>,
   context: Context,
   UniApp: any = {}
 ) {
+  const immediateLifeCycles: Promise<void>[] = [];
   // Options API → Composition API 生命周期名称映射
   const optionsToCompositionMap: Record<string, string> = {
     beforeMount: 'onBeforeMount',
@@ -604,7 +578,15 @@ async function createCompositionLifeCycles(
       const fn = context.__parseFunction(code);
       if (isFunction(fn)) {
         try {
-          await fn();
+          immediateLifeCycles.push(
+            Promise.resolve(fn()).catch((e) => {
+              console.warn(
+                `[VTJ] Composition 生命周期 "${name}" 执行失败`,
+                e
+              );
+              triggerError(e);
+            })
+          );
         } catch (e) {
           console.warn(`[VTJ] Composition 生命周期 "${name}" 执行失败`, e);
           triggerError(e);
@@ -632,6 +614,7 @@ async function createCompositionLifeCycles(
       console.warn(`[VTJ] 无效的 Composition 生命周期钩子 "${name}"`);
     }
   }
+  return immediateLifeCycles;
 }
 
 function createLifeCycles(

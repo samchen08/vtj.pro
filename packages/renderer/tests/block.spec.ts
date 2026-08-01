@@ -60,10 +60,16 @@ describe('block - createRenderer', () => {
       apiMode: 'options'
     } as any;
 
-    const { renderer, context } = createRenderer({
+    const loader = Object.assign(vi.fn(), { clear: vi.fn() });
+    const {
+      renderer,
+      context,
+      loader: resultLoader
+    } = createRenderer({
       Vue,
       mode: ContextMode.Runtime,
-      dsl
+      dsl,
+      loader
     });
 
     expect(renderer.name).toBe('TestBlock');
@@ -71,6 +77,7 @@ describe('block - createRenderer', () => {
     expect(renderer.props).toBeDefined();
     expect(renderer.props.title).toBeDefined();
     expect(renderer.emits).toEqual(['click']);
+    expect(resultLoader).toBe(loader);
   });
 
   test('createRenderer handles multiple nodes', () => {

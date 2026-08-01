@@ -1,6 +1,5 @@
 import { ref, watchEffect } from 'vue';
 import { useRoute } from 'vue-router';
-import type { MenuDataItem } from '@vtj/ui';
 import type { PageFile } from '@vtj/core';
 import { useProvider } from '../provider';
 import { useAccess, type Access } from '../plugins';
@@ -12,12 +11,21 @@ export interface UseMaskOptions {
   disableMenusFilter?: boolean;
 }
 
+export interface RendererMenuDataItem {
+  id: string | number;
+  title?: string;
+  icon?: PageFile['icon'];
+  hidden?: boolean;
+  children?: RendererMenuDataItem[];
+  url?: string;
+}
+
 export function createMenus(
   menuPathPrefix: string,
   pageRouteName: string,
   pages: PageFile[] = []
-): MenuDataItem[] {
-  const result: MenuDataItem[] = [];
+): RendererMenuDataItem[] {
+  const result: RendererMenuDataItem[] = [];
 
   for (const page of pages) {
     const { id, title, icon, children, hidden, layout } = page;
@@ -25,7 +33,7 @@ export function createMenus(
       const menus = createMenus(menuPathPrefix, pageRouteName, children || []);
       result.push(...menus);
     } else {
-      const menu: MenuDataItem = {
+      const menu: RendererMenuDataItem = {
         id,
         title,
         icon,
@@ -43,11 +51,11 @@ export function createMenus(
 }
 
 export function menusFilter(
-  menus: MenuDataItem[],
+  menus: RendererMenuDataItem[],
   access?: Access
-): MenuDataItem[] {
+): RendererMenuDataItem[] {
   if (!access) return menus;
-  let result: MenuDataItem[] = [];
+  let result: RendererMenuDataItem[] = [];
 
   for (const menu of menus) {
     if (menu.children && menu.children.length) {
@@ -105,7 +113,7 @@ export function useMask(options?: UseMaskOptions) {
     }
   });
 
-  const menus: MenuDataItem[] = createMenus(
+  const menus: RendererMenuDataItem[] = createMenus(
     menuPathPrefix,
     pageRouteName,
     project?.pages

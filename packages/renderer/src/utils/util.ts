@@ -22,22 +22,31 @@ export function adoptedStyleSheets(
   const content = (global as any).__uniConfig
     ? convertCssRpx(global, css)
     : css;
-  const scopedCSS = scoped ? compileScopedCSS(content, scopedId) : content;
   const isUni = !!(global as any).__uniConfig;
+  const doc: any = global.document;
+  const canAdopt = !!CSSStyleSheet?.prototype?.replaceSync && !isUni;
+  const currentSheet = canAdopt
+    ? Array.from(doc.adoptedStyleSheets || []).find(
+        (sheet: any) => sheet.id === id
+      )
+    : doc.getElementById(id);
+  const source = `${scopedId}\n${content}`;
+  if ((currentSheet as any)?.__vtjSource === source) return;
+
+  const scopedCSS = scoped ? compileScopedCSS(content, scopedId) : content;
   // chrome > 71 才支持 replaceSync
-  if (CSSStyleSheet.prototype.replaceSync && !isUni) {
+  if (canAdopt) {
     const styleSheet = new CSSStyleSheet();
     styleSheet.id = id;
+    styleSheet.__vtjSource = source;
     styleSheet.replaceSync(scopedCSS);
-    const doc: any = global.document;
-    const adoptedStyleSheets = doc.adoptedStyleSheets;
+    const adoptedStyleSheets = doc.adoptedStyleSheets || [];
     const sheets = Array.from(adoptedStyleSheets).filter(
       (n: any) => n.id !== id
     );
     doc.adoptedStyleSheets = [...sheets, styleSheet];
   } else {
-    const doc = global.document;
-    let styleSheet = doc.getElementById(id);
+    let styleSheet = currentSheet;
     if (styleSheet) {
       styleSheet.innerHTML = scopedCSS;
     } else {
@@ -46,6 +55,7 @@ export function adoptedStyleSheets(
       styleSheet.innerHTML = scopedCSS;
       doc.head.appendChild(styleSheet);
     }
+    styleSheet.__vtjSource = source;
   }
 }
 
@@ -106,24 +116,31 @@ export async function loadScriptUrl(
   const head = global.document.head;
   let module = global[library];
   if (module) return module.default || module;
-  return new Promise((reslove, inject) => {
-    for (const url of urls) {
-      const el = doc.createElement('script');
-      el.src = url;
-      el.onload = () => {
-        module = global[library];
-        if (module) {
-          reslove(module.default || module);
-        } else {
-          inject(null);
-        }
-      };
-      el.onerror = (e: any) => {
-        inject(e);
-      };
-      head.appendChild(el);
+
+  for (const url of urls) {
+    const existing = doc.getElementById?.(url) as any;
+    if (existing?.__vtjLoading) {
+      await existing.__vtjLoading;
+      continue;
     }
-  });
+    if (existing) continue;
+
+    const el = doc.createElement('script') as any;
+    el.id = url;
+    el.src = url;
+    el.__vtjLoading = new Promise<void>((resolve, reject) => {
+      el.onload = () => resolve();
+      el.onerror = (error: any) => {
+        el.remove?.();
+        reject(error);
+      };
+    });
+    head.appendChild(el);
+    await el.__vtjLoading;
+  }
+
+  module = global[library];
+  return module ? module.default || module : Promise.reject(null);
 }
 
 export function isVuePlugin(value: unknown): value is Plugin {

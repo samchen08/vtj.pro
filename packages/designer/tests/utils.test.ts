@@ -3,9 +3,28 @@ import {
   proxyContext,
   getClassProperties,
   normalizedStyle,
+  getComposableNames,
   readJsonFile,
   upgradeVersion
 } from '../src/utils';
+
+describe('getComposableNames', () => {
+  it('returns assigned and destructured composable names', () => {
+    expect(
+      getComposableNames([
+        {
+          name: 'dark',
+          composable: { type: 'JSExpression', value: 'useDark' }
+        },
+        {
+          name: 'mouse',
+          composable: { type: 'JSExpression', value: 'useMouse' },
+          destructure: ['x', 'y']
+        }
+      ])
+    ).toEqual(['dark', 'x', 'y']);
+  });
+});
 
 describe('proxyContext', () => {
   it('returns a proxy with nested safe access when context is null', () => {

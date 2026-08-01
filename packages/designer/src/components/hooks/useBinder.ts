@@ -1,6 +1,7 @@
 import { type MaybeRef, toValue, ref, computed } from 'vue';
 import { BlockModel } from '@vtj/core';
 import { type Context } from '@vtj/renderer';
+import { getComposableNames } from '../../utils';
 import { useSelected } from './useSelected';
 
 export interface BinderOption {
@@ -84,6 +85,13 @@ export function useBinder(
     );
     if (computed.length) {
       opts.push({ title: '计算属性', items: computed });
+    }
+
+    const composables = getComposableNames(current.composables).map(
+      (n) => `this.${n}`
+    );
+    if (composables.length) {
+      opts.push({ title: '组合式函数', items: composables });
     }
 
     // 组件方法

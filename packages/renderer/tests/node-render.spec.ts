@@ -335,6 +335,32 @@ describe('nodeRender - v-model', () => {
     expect(result.props.modelValue).toBeUndefined();
     expect(result.props['onUpdate:modelValue']).toBeDefined();
   });
+
+  test('custom component v-model passes enabled modifiers as props', () => {
+    const Vue = createVueMock();
+    const ctx = createContext({
+      $components: { MyInput: {} },
+      myVal: 'value'
+    });
+    const result = nodeRender(
+      {
+        name: 'MyInput',
+        id: 'n1',
+        directives: [
+          {
+            name: 'v-model',
+            value: { type: 'JSExpression', value: 'myVal' },
+            modifiers: { trim: true, number: false }
+          }
+        ]
+      },
+      ctx,
+      Vue
+    );
+
+    expect(result.props.modelModifiers).toEqual({ trim: true });
+    expect(Vue.withModifiers).not.toHaveBeenCalled();
+  });
 });
 
 describe('nodeRender - v-for', () => {
@@ -506,6 +532,29 @@ describe('nodeRender - events', () => {
       Vue
     );
     expect(result).toBeDefined();
+  });
+
+  test('maps event option modifiers to Vue event prop suffixes', () => {
+    const withModifiers = vi.fn((fn: Function) => fn);
+    const Vue = createVueMock({ withModifiers });
+    const ctx = createContext();
+    const result = nodeRender(
+      {
+        name: 'button',
+        id: 'n1',
+        events: {
+          click: {
+            modifiers: { once: true, capture: true, passive: true, stop: true },
+            handler: { type: 'JSFunction', value: '() => true' }
+          }
+        }
+      },
+      ctx,
+      Vue
+    );
+
+    expect(result.props.onClickOnceCapturePassive).toBeTypeOf('function');
+    expect(withModifiers).toHaveBeenCalledWith(expect.any(Function), ['stop']);
   });
 });
 

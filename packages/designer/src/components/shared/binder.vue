@@ -133,7 +133,7 @@
   import { ref, computed } from 'vue';
   import { XDialog, XContainer, XForm, XPanel } from '@vtj/ui';
   import { Search } from '@vtj/icons';
-  import { type Context, nodeCache } from '@vtj/renderer';
+  import { type Context } from '@vtj/renderer';
   import { BlockModel } from '@vtj/core';
   import {
     ElInput,
@@ -226,7 +226,7 @@
   });
 
   const handleSubmit = async (model: any) => {
-    nodeCache.clear();
+    props.context?.__cache.clear();
     emits('submit', model);
     if (props.submitMethod) {
       const ret = await props.submitMethod(model);
