@@ -22,8 +22,8 @@
   "author": "chenhuachun",
   "license": "MIT",
   "scripts": {
-    "version": "node ./scripts/compilerVersion.mjs",
-    "build": "npm run version && vue-tsc && vite build && npm run build:umd",
+    "version:uni": "node ./scripts/compilerVersion.mjs",
+    "build": "npm run version:uni && vue-tsc && vite build && npm run build:umd",
     "build:umd": "cross-env UMD=true vite build",
     "test": "vitest run",
     "vitest": "vitest",
