@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.18.29](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.18.27...@vtj/designer@0.18.29) (2026-08-01)
+
+
+### Bug Fixes
+
+* **utils:** 解决 proxyContext 中非对象数据代理错误 ([69c5afc](https://gitee.com/newgateway/vtj/commits/69c5afc9f0f2044d4b04d76b51a3c82e9fd08724))
+
+
+### Features
+
+* **designer:** 支持组合式函数名称解析与显示 ([eb891ed](https://gitee.com/newgateway/vtj/commits/eb891ed6ceeb0a7ccf948dda03e28d5f7483dc51))
+
+
+
+
+
 ## [0.18.28](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.18.26...@vtj/designer@0.18.28) (2026-07-23)
 
 ### Bug Fixes
