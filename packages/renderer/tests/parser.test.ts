@@ -80,6 +80,30 @@ test('parseExpression handles string values', () => {
   expect(result).toBe('Hello VTJ');
 });
 
+test('parseExpression does not rewrite this inside strings or object keys', () => {
+  expect(
+    parseExpression(
+      { type: 'JSExpression', value: '({ this: "this is text" })' },
+      {}
+    )
+  ).toEqual({ this: 'this is text' });
+});
+
+test('parseExpression preserves this for arrow and classic functions', () => {
+  const self = { value: 42 };
+  const arrow = parseExpression(
+    { type: 'JSFunction', value: '() => this.value' },
+    self
+  );
+  const classic = parseExpression(
+    { type: 'JSFunction', value: 'function () { return this.value }' },
+    self
+  );
+
+  expect(arrow()).toBe(42);
+  expect(classic()).toBe(42);
+});
+
 test('parseExpression handles noWith mode', () => {
   const self = { val: 42 };
   // With noWith mode, use __self directly in expression
@@ -132,7 +156,9 @@ test('JSCodeToString wraps value starting with { in parentheses', () => {
 describe('triggerError', () => {
   test('calls errorHandler when __simulator__ exists', () => {
     const mockHandler = vi.fn();
-    const mockSimulator = { engine: { provider: { errorHandler: mockHandler } } };
+    const mockSimulator = {
+      engine: { provider: { errorHandler: mockHandler } }
+    };
     (globalThis as any).__simulator__ = mockSimulator;
     const err = new Error('test error');
     triggerError(err);

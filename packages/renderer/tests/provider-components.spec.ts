@@ -5,12 +5,13 @@ import { PageContainer } from '../src/provider/page';
 
 describe('StartupContainer', () => {
   test('renders page not found message', () => {
-    const vnode = (StartupContainer as any).render?.call?.({} as any) 
-      ?? (StartupContainer as any).setup?.({} as any, {} as any)?.render?.();
-    
+    const vnode =
+      (StartupContainer as any).render?.call?.({} as any) ??
+      (StartupContainer as any).setup?.({} as any, {} as any)?.render?.();
+
     // Test by mounting
     expect(StartupContainer.name).toBe('VtjStartupContainer');
-    
+
     // Test render directly
     const renderFn = (StartupContainer as any).render;
     if (renderFn) {
@@ -28,8 +29,10 @@ describe('PageContainer', () => {
   });
 
   test('render without component shows error message', () => {
-    const renderFn = (PageContainer as any).render || (PageContainer as any).setup?.({} as any, {} as any);
-    
+    const renderFn =
+      (PageContainer as any).render ||
+      (PageContainer as any).setup?.({} as any, {} as any);
+
     if ((PageContainer as any).render) {
       const ctx = {
         component: null,
@@ -49,7 +52,7 @@ describe('PageContainer', () => {
       const MockComp = { name: 'MockComponent' };
       const ctx = {
         component: MockComp,
-        query: { page: 1 },
+        route: { query: { page: 1 } },
         sid: Symbol('test'),
         meta: {}
       };
@@ -63,7 +66,7 @@ describe('PageContainer', () => {
   test('activated sets new sid when cache is false', () => {
     if ((PageContainer as any).activated) {
       const ctx = {
-        meta: { cache: false },
+        route: { meta: { cache: false } },
         sid: Symbol('old')
       };
       const oldSid = ctx.sid;
@@ -75,7 +78,7 @@ describe('PageContainer', () => {
   test('activated does not change sid when cache is not false', () => {
     if ((PageContainer as any).activated) {
       const ctx = {
-        meta: { cache: true },
+        route: { meta: { cache: true } },
         sid: Symbol('old')
       };
       const oldSid = ctx.sid;

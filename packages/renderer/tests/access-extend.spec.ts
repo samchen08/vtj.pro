@@ -1,4 +1,4 @@
-import { expect, test, describe, vi } from 'vitest';
+import { expect, test, describe, vi, beforeEach } from 'vitest';
 import { Access } from '../src/plugins/access';
 
 // Mock dependencies
@@ -20,6 +20,13 @@ vi.mock('@vtj/utils', async () => {
     delay: vi.fn().mockResolvedValue(undefined),
     toArray: (v: any) => (Array.isArray(v) ? v : [v])
   };
+});
+
+beforeEach(async () => {
+  const { storage, cookie } = await import('@vtj/utils');
+  vi.clearAllMocks();
+  vi.mocked(storage.get).mockReturnValue(null);
+  vi.mocked(cookie.get).mockReturnValue(null);
 });
 
 describe('Access - constructor', () => {
@@ -45,10 +52,15 @@ describe('Access - login/logout', () => {
   });
 
   test('login with session stores cookie', async () => {
-    const { cookie } = await import('@vtj/utils');
+    const { cookie, storage } = await import('@vtj/utils');
     const access = new Access({ session: true });
     access.login({ token: 'session123', permissions: {} });
     expect(cookie.set).toHaveBeenCalled();
+    expect(storage.save).toHaveBeenCalledWith(
+      'ACCESS_STORAGE',
+      { token: 'session123', permissions: {} },
+      { type: 'session', prefix: '__VTJ_' }
+    );
   });
 
   test('logout clears data and redirects', async () => {
@@ -169,11 +181,33 @@ describe('Access - some with array permissions', () => {
 
 describe('Access - clear with session', () => {
   test('clear removes cookie when session enabled', async () => {
-    const { cookie } = await import('@vtj/utils');
+    const { cookie, storage } = await import('@vtj/utils');
     const access = new Access({ session: true });
     (access as any).data = { token: 'x', permissions: {} };
     (access as any).clear();
     expect(cookie.remove).toHaveBeenCalledWith('Authorization');
+    expect(storage.remove).toHaveBeenCalledWith('ACCESS_STORAGE', {
+      type: 'session',
+      prefix: '__VTJ_'
+    });
+  });
+});
+
+describe('Access - session restore', () => {
+  test('loads session data from session storage', async () => {
+    const { storage } = await import('@vtj/utils');
+    vi.mocked(storage.get).mockReturnValue({
+      token: 'restored',
+      permissions: {}
+    });
+
+    const access = new Access({ session: true });
+
+    expect(storage.get).toHaveBeenCalledWith('ACCESS_STORAGE', {
+      type: 'session',
+      prefix: '__VTJ_'
+    });
+    expect(access.getToken()).toBe('restored');
   });
 });
 
