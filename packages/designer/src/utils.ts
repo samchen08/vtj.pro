@@ -1,4 +1,8 @@
-import { type JSExpression, type JSFunction } from '@vtj/core';
+import {
+  type JSExpression,
+  type JSFunction,
+  type BlockComposable
+} from '@vtj/core';
 import { parseExpression, parseFunction } from '@vtj/renderer';
 import { kebabCase } from '@vtj/utils';
 import {
@@ -8,6 +12,12 @@ import {
   ElLoading,
   type LoadingOptions
 } from 'element-plus';
+
+export function getComposableNames(composables: BlockComposable[] = []) {
+  return composables.flatMap((item) =>
+    item.destructure?.length ? item.destructure : [item.name]
+  );
+}
 
 export function alert(message: string, options?: any) {
   return ElMessageBox.alert(message, {
@@ -46,10 +56,14 @@ export function message(
 }
 
 export function proxyContext(context: any) {
-  const proxy = context ? { ...context } : ({} as any);
-
   const _proxy = (prop: any) => {
-    return new Proxy(prop || {}, {
+    // 只有 object/function（排除 null 和基本类型）才能作为 Proxy target
+    // function 必须保留，否则调用 this.$libs.Xxx.someMethod() 时方法被替换为空对象
+    const safeTarget =
+      prop !== null && (typeof prop === 'object' || typeof prop === 'function')
+        ? prop
+        : {};
+    return new Proxy(safeTarget, {
       get(target: any, name: string) {
         return typeof name === 'symbol'
           ? () => undefined
@@ -58,13 +72,19 @@ export function proxyContext(context: any) {
     });
   };
 
-  proxy.context = new Proxy((proxy.context || {}) as any, {
-    get(target: any, prop: string) {
-      return _proxy(target[prop]);
+  const safeContext =
+    context !== null &&
+    (typeof context === 'object' || typeof context === 'function')
+      ? context
+      : {};
+  return new Proxy(safeContext, {
+    get(target: any, name: string) {
+      if (typeof name === 'symbol') {
+        return () => undefined;
+      }
+      return _proxy(target[name]);
     }
   });
-
-  return proxy;
 }
 
 export function expressionValidate(

@@ -4,20 +4,23 @@ export default defineConfig({
   test: {
     environment: 'jsdom',
     include: [
-      '**/vue.test.ts',
-      '**/composition.test.ts',
-      '**/shared.test.ts',
-      '**/validator.test.ts',
-      '**/fixer.test.ts',
-      '**/state.test.ts',
-      '**/style.test.ts',
-      '**/html.test.ts',
-      '**/utils.test.ts',
-      '**/template.test.ts',
-      '**/scripts.test.ts',
-      '**/scriptSetup.test.ts',
-      '**/compositionPatch.test.ts',
-      '**/icons.test.ts'
-    ]
+      'tests/**/*.test.ts'
+    ],
+    exclude: [
+      '**/vue-parser.test.ts',
+      '**/node_modules/**'
+    ],
+    coverage: {
+      provider: 'v8',
+      include: ['src/**/*.ts'],
+      exclude: ['src/**/index.ts', 'src/version.ts'],
+      reporter: ['text', 'text-summary', 'json-summary'],
+      thresholds: {
+        lines: 85,
+        functions: 85,
+        branches: 78,
+        statements: 85
+      }
+    }
   }
 });

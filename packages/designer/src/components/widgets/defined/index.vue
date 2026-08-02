@@ -116,6 +116,7 @@
   } from '@vtj/core';
   import { Panel, Item } from '../../shared';
   import { useCurrent } from '../../hooks';
+  import { getComposableNames } from '../../../utils';
   import DefinedPropsDialog from './props.vue';
   import DefinedEventsDialog from './events.vue';
   import DefinedSlotsDialog from './slots.vue';
@@ -164,6 +165,10 @@
     if (isComposition.value) {
       result['ref'] = Object.keys(current.value.refs || {});
       result['reactive'] = Object.keys(current.value.reactives || {});
+      const composables = getComposableNames(current.value.composables);
+      if (composables.length) {
+        result['组合式函数'] = composables;
+      }
     } else {
       result['状态'] = ['state'];
     }

@@ -18,6 +18,7 @@ import {
   Provider,
   type Context,
   ContextMode,
+  type BlockLoader,
   clearLoaderCache,
   parseFunction
 } from '@vtj/renderer';
@@ -32,6 +33,7 @@ export class Renderer {
   private nodeChange: (this: Renderer, node: NodeModel) => void;
   private blockChange: (this: Renderer, block: BlockModel) => void;
   public context: Context | null = null;
+  private loader: BlockLoader | null = null;
   private file?: PageFile | BlockFile | null;
   constructor(
     public env: SimulatorEnv,
@@ -187,19 +189,24 @@ export class Renderer {
 
   render(block: BlockModel, file?: PageFile | BlockFile | null) {
     if (!file) return;
-    clearLoaderCache();
+    clearLoaderCache(this.loader || undefined);
+    this.loader = null;
     this.file = file;
     const { window, library, Vue, components, apis } = this.env;
     this.dsl = Vue.reactive(block.toDsl()) as BlockSchema;
-    const { renderer, context } = this.provider.createDslRenderer(this.dsl, {
-      window,
-      mode: ContextMode.Design,
-      Vue,
-      UniApp: library.UniApp,
-      components,
-      apis,
-      libs: library
-    });
+    const { renderer, context, loader } = this.provider.createDslRenderer(
+      this.dsl,
+      {
+        window,
+        mode: ContextMode.Design,
+        Vue,
+        UniApp: library.UniApp,
+        components,
+        apis,
+        libs: library
+      }
+    );
+    this.loader = loader || null;
     const { platform = 'web' } = this.project || {};
     try {
       this.app =
@@ -245,7 +252,8 @@ export class Renderer {
     this.dsl = null;
     this.context = null;
     this.file = null;
-    clearLoaderCache();
+    clearLoaderCache(this.loader || undefined);
+    this.loader = null;
     emitter.off(EVENT_NODE_CHANGE, this.nodeChange as any);
     emitter.off(EVENT_BLOCK_CHANGE, this.blockChange as any);
   }

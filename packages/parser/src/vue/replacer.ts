@@ -38,11 +38,21 @@ function replaceViaAST(content: string, key: string, to: string): string {
     ast = parseScript(content);
   } catch {
     // 裸 return / 对象简写等语法在模块顶层不合法，包裹在箭头函数体重试
-    const WRAPPER_PREFIX = '(()=>{';
-    const WRAPPER_SUFFIX = '})';
-    const wrapped = WRAPPER_PREFIX + content + WRAPPER_SUFFIX;
-    ast = parseScript(wrapped);
-    offset = WRAPPER_PREFIX.length;
+    try {
+      const WRAPPER_PREFIX = '(()=>{';
+      const WRAPPER_SUFFIX = '})';
+      const wrapped = WRAPPER_PREFIX + content + WRAPPER_SUFFIX;
+      ast = parseScript(wrapped);
+      offset = WRAPPER_PREFIX.length;
+    } catch {
+      // 对象字面量（如 computed 的 get/set 对象）在语句上下文无法解析，
+      // 使用表达式上下文包裹：(()=>(<content>))，使 {} 被解析为 ObjectExpression
+      const EXPR_PREFIX = '(()=>(';
+      const EXPR_SUFFIX = '))';
+      const wrapped = EXPR_PREFIX + content + EXPR_SUFFIX;
+      ast = parseScript(wrapped);
+      offset = EXPR_PREFIX.length;
+    }
   }
 
   const replacements: Replacement[] = [];

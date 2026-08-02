@@ -195,4 +195,28 @@ describe('ComponentValidator', () => {
     expect(result.valid).toBe(false);
     expect(result.errors.length).toBeGreaterThan(0);
   });
+
+  test('should handle parseSFC failure in isCompleteSFC', () => {
+    // Empty/invalid code that parseSFC can't handle
+    const result = validator.validate('not a vue component at all');
+    expect(result.valid).toBe(false);
+  });
+
+  test('should handle multi-line comment unchanged detection', () => {
+    const code = `
+<template><div/></template>
+<script>
+export default {
+  setup() {
+    /* 保持不变 */
+    const state = reactive({ count: 1 });
+    return { count };
+  }
+};
+</script>
+<style></style>
+`;
+    const result = validator.validate(code);
+    expect(result.errors.some((e) => e.includes('不能有任何省略'))).toBe(true);
+  });
 });

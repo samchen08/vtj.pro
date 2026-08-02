@@ -1,4 +1,4 @@
-import { defineComponent, h, ref } from 'vue';
+import { defineComponent, h, ref, shallowRef, watch } from 'vue';
 import { useRoute } from 'vue-router';
 import { useProvider } from './provider';
 export const PageContainer = defineComponent({
@@ -6,33 +6,53 @@ export const PageContainer = defineComponent({
   async setup() {
     const provider = useProvider();
     const route = useRoute();
-    const id = (route.meta.__vtj__ || route.params.id) as string;
-    const file = id ? provider.getPage(id) : provider.getHomepage();
-    const component = file ? await provider.getRenderComponent(file.id) : null;
+    const file = shallowRef();
+    const component = shallowRef();
     const sid = ref(Symbol());
-    if (file) {
-      Object.assign(route.meta, file.meta || {}, { cache: file.cache });
+    let generation = 0;
+
+    const loadPage = async () => {
+      const currentGeneration = ++generation;
+      const id = (route.meta.__vtj__ || route.params.id) as string;
+      const nextFile = id ? provider.getPage(id) : provider.getHomepage();
+      const nextComponent = nextFile
+        ? await provider.getRenderComponent(nextFile.id)
+        : null;
+      if (currentGeneration !== generation) return;
+
+      file.value = nextFile;
+      component.value = nextComponent;
+      sid.value = Symbol();
+      if (!nextFile) return;
+
+      Object.assign(route.meta, nextFile.meta || {}, { cache: nextFile.cache });
       const { useTitle } = provider?.adapter;
       if (useTitle) {
         const title: string =
-          (route.meta.title as string) || file.title || 'VTJ.PRO';
+          (route.meta.title as string) || nextFile.title || 'VTJ.PRO';
         useTitle(title);
       }
-    }
+    };
+
+    const initialLoad = loadPage();
+    watch(
+      () => [route.meta.__vtj__, route.params.id],
+      () => loadPage()
+    );
+    await initialLoad;
+
     return {
       provider,
       component,
       file,
-      query: route.query,
-      meta: route.meta,
       sid,
       route
     };
   },
   render() {
-    const { component, query, sid } = this;
+    const { component, sid, route } = this;
     if (component) {
-      return h(component, { ...query, key: sid });
+      return h(component, { ...route.query, key: sid });
     } else {
       return h(
         'div',
@@ -42,7 +62,7 @@ export const PageContainer = defineComponent({
     }
   },
   activated() {
-    if (this.meta.cache === false) {
+    if (this.route.meta.cache === false) {
       this.sid = Symbol();
     }
   }

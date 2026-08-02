@@ -101,6 +101,13 @@ describe('数据转换工具', () => {
     expect(trim({ a: ' a ', b: [' b '] })).toEqual({ a: 'a', b: ['b'] });
   });
 
+  it('trim 应原样返回非字符串/数组/对象类型', () => {
+    expect(trim(123)).toBe(123);
+    expect(trim(true)).toBe(true);
+    expect(trim(null)).toBe(null);
+    expect(trim(undefined)).toBe(undefined);
+  });
+
   // 测试 sum
   it('sum 应计算合计', () => {
     expect(sum([1, 2, 3])).toBe(6);
@@ -120,10 +127,19 @@ describe('数据转换工具', () => {
     expect(splitParser('a|b', '|')).toEqual(['a', 'b']);
   });
 
+  it('splitParser 应处理空值', () => {
+    expect(splitParser('')).toEqual([]);
+    expect(splitParser(undefined)).toEqual([]);
+  });
+
   // 测试 splitStringify
   it('splitStringify 应连接数组', () => {
     expect(splitStringify(['a', 'b'])).toBe('a,b');
     expect(splitStringify(['a', 'b'], '|')).toBe('a|b');
+  });
+
+  it('splitStringify 应处理空值', () => {
+    expect(splitStringify(undefined)).toBe('');
   });
 
   // 测试 arrayToTree

@@ -164,8 +164,8 @@ test('loadScriptUrl handles error', async () => {
       },
       createElement: vi.fn().mockReturnValue({
         src: '',
-        onload: null,
-        onerror: null
+        onload: null as any,
+        onerror: null as any
       })
     }
   };
@@ -176,9 +176,141 @@ test('loadScriptUrl handles error', async () => {
     global
   );
 
-  // Simulate onerror - the promise rejects
   const el = mockAppendChild.mock.calls[0][0];
   el.onerror('Load failed');
 
   await expect(promise).rejects.toBe('Load failed');
+});
+
+test('loadScriptUrl handles onload success', async () => {
+  const mockAppendChild = vi.fn();
+  const global: any = {
+    document: {
+      head: {
+        appendChild: mockAppendChild
+      },
+      createElement: vi.fn().mockReturnValue({
+        src: '',
+        onload: null as any,
+        onerror: null as any
+      })
+    }
+  };
+
+  const promise = loadScriptUrl(
+    ['http://example.com/lib.js'],
+    'SomeLib',
+    global
+  );
+
+  global.SomeLib = { default: { hello: 'world' } };
+
+  const el = mockAppendChild.mock.calls[0][0];
+  el.onload();
+
+  const result = await promise;
+  expect(result).toEqual({ hello: 'world' });
+});
+
+test('loadScriptUrl onload rejects when library not found', async () => {
+  const mockAppendChild = vi.fn();
+  const global: any = {
+    document: {
+      head: {
+        appendChild: mockAppendChild
+      },
+      createElement: vi.fn().mockReturnValue({
+        src: '',
+        onload: null as any,
+        onerror: null as any
+      })
+    }
+  };
+
+  const promise = loadScriptUrl(
+    ['http://example.com/lib.js'],
+    'MissingLib',
+    global
+  );
+
+  const el = mockAppendChild.mock.calls[0][0];
+  el.onload();
+
+  await expect(promise).rejects.toBeNull();
+});
+
+test('loadScriptUrl loads dependent scripts in order', async () => {
+  const elements = new Map<string, any>();
+  const mockAppendChild = vi.fn((el: any) => elements.set(el.id, el));
+  const global: any = {
+    document: {
+      head: { appendChild: mockAppendChild },
+      getElementById: vi.fn((id: string) => elements.get(id)),
+      createElement: vi.fn().mockReturnValueOnce({}).mockReturnValueOnce({})
+    }
+  };
+
+  const promise = loadScriptUrl(
+    ['/dependency.js', '/library.js'],
+    'SomeLib',
+    global
+  );
+  expect(mockAppendChild).toHaveBeenCalledTimes(1);
+
+  global.SomeLib = { partial: true };
+  elements.get('/dependency.js').onload();
+  await Promise.resolve();
+  expect(mockAppendChild).toHaveBeenCalledTimes(2);
+
+  global.SomeLib = { ready: true };
+  elements.get('/library.js').onload();
+  await expect(promise).resolves.toEqual({ ready: true });
+});
+
+test('loadScriptUrl deduplicates concurrent requests', async () => {
+  const elements = new Map<string, any>();
+  const appendChild = vi.fn((el: any) => elements.set(el.id, el));
+  const global: any = {
+    document: {
+      head: { appendChild },
+      getElementById: (id: string) => elements.get(id),
+      createElement: () => ({})
+    }
+  };
+
+  const first = loadScriptUrl(['/library.js'], 'SomeLib', global);
+  const second = loadScriptUrl(['/library.js'], 'SomeLib', global);
+  global.SomeLib = { ready: true };
+  elements.get('/library.js').onload();
+
+  await expect(Promise.all([first, second])).resolves.toEqual([
+    { ready: true },
+    { ready: true }
+  ]);
+  expect(appendChild).toHaveBeenCalledTimes(1);
+});
+
+test('loadScriptUrl can retry after a failed request', async () => {
+  const elements = new Map<string, any>();
+  const appendChild = vi.fn((el: any) => {
+    el.remove = () => elements.delete(el.id);
+    elements.set(el.id, el);
+  });
+  const global: any = {
+    document: {
+      head: { appendChild },
+      getElementById: (id: string) => elements.get(id),
+      createElement: () => ({})
+    }
+  };
+
+  const failed = loadScriptUrl(['/library.js'], 'SomeLib', global);
+  elements.get('/library.js').onerror(new Error('failed'));
+  await expect(failed).rejects.toThrow('failed');
+
+  const retried = loadScriptUrl(['/library.js'], 'SomeLib', global);
+  global.SomeLib = { ready: true };
+  elements.get('/library.js').onload();
+  await expect(retried).resolves.toEqual({ ready: true });
+  expect(appendChild).toHaveBeenCalledTimes(2);
 });

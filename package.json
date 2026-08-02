@@ -3,7 +3,7 @@
   "private": true,
   "description": "VTJ.PRO 是一个开源的、AI 驱动的 Vue3 企业级应用开发平台，通过 AI 智能体与可视化编排实现高效开发，并支持导出标准 Vue 代码以避免平台锁定。",
   "devDependencies": {
-    "pnpm": "~10.13.0",
+    "pnpm": "~11.18.0",
     "lerna": "~8.2.0",
     "axios": "~1.16.0",
     "fs-extra": "~11.3.0",
@@ -35,7 +35,7 @@
     "downloads": "node scripts/downloads.mjs",
     "test": "lerna run --no-private test",
     "test:all": "pnpm -r --if-present --no-bail run test",
-    "build": "lerna run --no-private build",
+    "build": "NX_DAEMON=false lerna run --no-private build",
     "coverage": "lerna run --no-private coverage",
     "typedoc": "typedoc --plugin typedoc-plugin-markdown",
     "ci": "git add . && git commit -m \"ci: 👷commit \" && git push",

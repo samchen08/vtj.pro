@@ -1,11 +1,12 @@
-import { expect, test, describe } from 'vitest';
+import { expect, test, describe, vi } from 'vitest';
 import {
   isJSExpression,
   isJSFunction,
   isJSCode,
   JSCodeToString,
   parseExpression,
-  parseFunction
+  parseFunction,
+  triggerError
 } from '../src/utils/parser';
 
 test('isJSExpression detects JSExpression type', () => {
@@ -79,6 +80,30 @@ test('parseExpression handles string values', () => {
   expect(result).toBe('Hello VTJ');
 });
 
+test('parseExpression does not rewrite this inside strings or object keys', () => {
+  expect(
+    parseExpression(
+      { type: 'JSExpression', value: '({ this: "this is text" })' },
+      {}
+    )
+  ).toEqual({ this: 'this is text' });
+});
+
+test('parseExpression preserves this for arrow and classic functions', () => {
+  const self = { value: 42 };
+  const arrow = parseExpression(
+    { type: 'JSFunction', value: '() => this.value' },
+    self
+  );
+  const classic = parseExpression(
+    { type: 'JSFunction', value: 'function () { return this.value }' },
+    self
+  );
+
+  expect(arrow()).toBe(42);
+  expect(classic()).toBe(42);
+});
+
 test('parseExpression handles noWith mode', () => {
   const self = { val: 42 };
   // With noWith mode, use __self directly in expression
@@ -117,4 +142,31 @@ test('parseFunction throws when not a function', () => {
   expect(() => {
     parseFunction({ type: 'JSFunction', value: '123' }, {}, false, true);
   }).toThrow();
+});
+
+test('JSCodeToString wraps value starting with { in parentheses', () => {
+  expect(JSCodeToString({ type: 'JSExpression', value: '{ a: 1 }' })).toBe(
+    '({ a: 1 })'
+  );
+  expect(JSCodeToString({ type: 'JSFunction', value: '{ return 1; }' })).toBe(
+    '({ return 1; })'
+  );
+});
+
+describe('triggerError', () => {
+  test('calls errorHandler when __simulator__ exists', () => {
+    const mockHandler = vi.fn();
+    const mockSimulator = {
+      engine: { provider: { errorHandler: mockHandler } }
+    };
+    (globalThis as any).__simulator__ = mockSimulator;
+    const err = new Error('test error');
+    triggerError(err);
+    expect(mockHandler).toHaveBeenCalledWith(err);
+    delete (globalThis as any).__simulator__;
+  });
+
+  test('does not throw when __simulator__ is missing', () => {
+    expect(() => triggerError(new Error('test'))).not.toThrow();
+  });
 });

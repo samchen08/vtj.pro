@@ -43,17 +43,16 @@ export function parseExpression(
     const contextArr = ['"use strict";', 'var __self = $scope;'];
     contextArr.push('return ');
     let tarStr: string = (str.value || '').trim();
-    if (!noWith) {
-      tarStr = tarStr.replace(/this(\W|$)/g, (_a: any, b: any) => `__self${b}`);
-    }
     tarStr = contextArr.join('\n') + tarStr;
     const code = noWith
       ? `\n${tarStr}\n`
       : `with(${thisRequired ? '{}' : '$scope || {}'}) { ${tarStr} }`;
     if (canUseNewFunction) {
-      return new Function('$scope', code)(self);
+      const result = new Function('$scope', code).call(self, self);
+      return typeof result === 'function' ? result.bind(self) : result;
     } else {
-      return evalByInterpreter(code, self);
+      const result = evalByInterpreter(code, self);
+      return typeof result === 'function' ? result.bind(self) : result;
     }
   } catch (err: any) {
     logger.error('parseExpression.error', err, str, self?.__self ?? self);
