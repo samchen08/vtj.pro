@@ -180,6 +180,17 @@ export const builtInWidgets: Array<AppWidget | TabWidget | Widget> = [
     cache: true
   },
   {
+    name: 'Agent',
+    region: 'Apps',
+    component: widgets.Agent,
+    type: 'app',
+    openType: 'panel',
+    icon: VtjIconAi,
+    label: 'AI Agent',
+    remote: true,
+    cache: true
+  },
+  {
     name: 'About',
     region: 'Apps',
     component: widgets.About,
