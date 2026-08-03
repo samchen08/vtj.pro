@@ -416,7 +416,7 @@
   .v-agent-widget__status {
     display: flex;
     width: fit-content;
-    margin: 12px 0 0 30px;
+    margin: 0 0 0 30px;
     padding: 6px 10px;
     align-items: center;
     gap: 8px;

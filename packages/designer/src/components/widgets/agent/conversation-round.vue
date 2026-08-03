@@ -49,10 +49,10 @@
 
 <style lang="scss" scoped>
   .round-section {
-    padding-bottom: 18px;
+    padding-bottom: 10px;
 
     & + & {
-      padding-top: 12px;
+      padding-top: 10px;
     }
   }
 

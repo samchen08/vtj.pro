@@ -37,12 +37,10 @@
     <div class="composer-toolbar">
       <el-button
         class="context-button"
-        text
-        round
         size="small"
         :disabled="running"
+        :icon="Plus"
         @click="triggerFileUpload">
-        ＋ 添加上下文
       </el-button>
 
       <el-checkbox
@@ -94,6 +92,7 @@
     ElSelect,
     ElOption
   } from 'element-plus';
+  import { Plus } from '@vtj/icons';
   import type { UploadedFile } from './composables/useFileRecognition';
 
   const props = defineProps<{
@@ -157,7 +156,7 @@
     background: var(--el-bg-color);
 
     :deep(.el-textarea__inner) {
-      min-height: 84px !important;
+      min-height: 60px !important;
       padding: 10px 11px;
       border-radius: var(--el-border-radius-base) var(--el-border-radius-base) 0
         0;

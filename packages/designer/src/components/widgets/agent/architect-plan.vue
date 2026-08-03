@@ -74,7 +74,7 @@
   );
 
   const safetyLabel = computed(() => {
-    const labels = { readonly: '安全', write: '修改', destructive: '风险' };
+    const labels = { readonly: '安全', write: '风险', destructive: '高危' };
     return labels[props.plan?.safety || 'readonly'];
   });
 </script>
@@ -130,7 +130,6 @@
     color: var(--el-text-color-primary);
     font-size: 12px;
     line-height: 1.65;
-    white-space: pre-wrap;
   }
 
   .plan-steps {
