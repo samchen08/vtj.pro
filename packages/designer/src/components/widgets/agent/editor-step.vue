@@ -47,7 +47,7 @@
 
           <details v-if="turn.content" :open="!step.done && !step.error">
             <summary>输出</summary>
-            <pre>{{ turn.content }}</pre>
+            <StreamMarkdown :content="turn.content"></StreamMarkdown>
           </details>
 
           <div v-if="turn.toolParams" class="tool-data">
@@ -58,10 +58,8 @@
           <div v-if="turn.toolResult" class="tool-data">
             <span>执行结果</span>
             <pre>{{
-              JSON.stringify(
-                turn.toolResult.result ?? turn.toolResult.error,
-                null,
-                2
+              formatMarkdownContent(
+                turn.toolResult.result ?? turn.toolResult.error
               )
             }}</pre>
           </div>
@@ -108,6 +106,8 @@
   import { computed, ref, watch } from 'vue';
   import { ElButton, ElCollapse, ElCollapseItem } from 'element-plus';
   import type { EditorStepResult, EditorTurn } from './types/agent';
+  import StreamMarkdown from './stream-markdown.vue';
+  import { formatMarkdownContent } from './utils/markdown';
 
   const props = defineProps<{
     step: EditorStepResult;
@@ -329,6 +329,16 @@
       font-size: 11px;
       line-height: 1.45;
       white-space: pre-wrap;
+    }
+
+    .v-agent-stream-markdown {
+      max-height: 240px;
+      margin-top: 5px;
+      padding: 8px;
+      overflow: auto;
+      border: 1px solid var(--el-border-color-lighter);
+      border-radius: var(--el-border-radius-base);
+      background: var(--el-fill-color-lighter);
     }
   }
 

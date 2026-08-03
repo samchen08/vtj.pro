@@ -13,14 +13,20 @@
     </div>
 
     <div class="assistant-content">
-      <div v-if="answer" class="answer-content">{{ answer }}</div>
+      <StreamMarkdown
+        v-if="answer"
+        class="answer-content"
+        :content="answer"></StreamMarkdown>
 
       <template v-else>
-        <p v-if="plan" class="intent">{{ plan.intent }}</p>
+        <StreamMarkdown
+          v-if="plan"
+          class="intent"
+          :content="plan.intent"></StreamMarkdown>
 
         <ol v-if="plan?.steps?.length" class="plan-steps">
           <li v-for="step in plan.steps" :key="step.id">
-            {{ step.description }}
+            <StreamMarkdown :content="step.description"></StreamMarkdown>
           </li>
         </ol>
 
@@ -34,7 +40,10 @@
             <pre v-if="reasoningText" class="reasoning-content">{{
               reasoningText
             }}</pre>
-            <pre v-if="streamText" class="stream-content">{{ streamText }}</pre>
+            <StreamMarkdown
+              v-if="streamText"
+              class="stream-content"
+              :content="streamText"></StreamMarkdown>
           </el-collapse-item>
         </el-collapse>
       </template>
@@ -46,6 +55,7 @@
   import { computed, ref, watch } from 'vue';
   import { ElCollapse, ElCollapseItem } from 'element-plus';
   import type { PlanResult } from './types/agent';
+  import StreamMarkdown from './stream-markdown.vue';
 
   const props = defineProps<{
     plan: PlanResult | null;
@@ -145,6 +155,10 @@
 
     :deep(.el-collapse-item__wrap) {
       border: 0;
+      background: transparent;
+    }
+    :deep(.el-collapse-item__content) {
+      padding-bottom: 0;
     }
   }
 

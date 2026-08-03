@@ -12,12 +12,17 @@
         <summary>查看总结分析</summary>
         <pre>{{ reasoning }}</pre>
       </details>
-      <div v-if="text" class="answer-content">{{ text }}</div>
+      <StreamMarkdown
+        v-if="text"
+        class="answer-content"
+        :content="text"></StreamMarkdown>
     </div>
   </section>
 </template>
 
 <script lang="ts" setup>
+  import StreamMarkdown from './stream-markdown.vue';
+
   defineProps<{
     text: string;
     reasoning: string;
@@ -92,6 +97,7 @@
       color: var(--el-text-color-regular);
       background: var(--el-bg-color);
       white-space: pre-wrap;
+      margin-top: 10px;
     }
   }
 
@@ -99,6 +105,5 @@
     color: var(--el-text-color-primary);
     font-size: 12px;
     line-height: 1.65;
-    white-space: pre-wrap;
   }
 </style>
