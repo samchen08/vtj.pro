@@ -10,6 +10,7 @@
           title="导出对话"
           :disabled="!hasData || running"
           @click="handleExport"></XAction>
+        <ElDivider direction="vertical"></ElDivider>
         <XAction
           mode="icon"
           size="large"
@@ -30,7 +31,7 @@
       <LoginTip v-if="!token"></LoginTip>
       <div v-else ref="conversationRef" class="v-agent-widget__conversation">
         <div v-if="!hasData" class="v-agent-widget__empty">
-          <span class="empty-icon">AI</span>
+          <ElAvatar :size="48" :icon="VtjIconAi"></ElAvatar>
           <strong>我可以帮你修改当前页面</strong>
           <p>描述想创建或调整的内容，也可以附加图片或 JSON。</p>
         </div>
@@ -88,7 +89,7 @@
       :with-header="false"
       modal-class="v-ai-widget__drawer-modal"
       :append-to-body="false">
-      <Panel class="v-agent-widget" title="AI Agent">
+      <Panel class="v-agent-widget" title="历史对话">
         <template #actions>
           <XAction
             mode="icon"
@@ -113,12 +114,13 @@
   import { ref, computed, nextTick, watch, onMounted, onUnmounted } from 'vue';
   import {
     Download,
+    VtjIconAi,
     VtjIconChatRecord,
     VtjIconClose,
     VtjIconNewChat
   } from '@vtj/icons';
   import { XAction, XContainer } from '@vtj/ui';
-  import { ElButton, ElDrawer } from 'element-plus';
+  import { ElAvatar, ElButton, ElDivider, ElDrawer } from 'element-plus';
   import {
     useEngine,
     type AITopic,
@@ -382,7 +384,8 @@
   .v-agent-widget__conversation {
     height: 100%;
     overflow: auto;
-    padding: 16px 12px 24px;
+    padding: 14px 12px 22px;
+    background: var(--el-bg-color);
     scroll-behavior: smooth;
   }
 
@@ -395,17 +398,11 @@
     justify-content: center;
     text-align: center;
 
-    .empty-icon {
-      display: inline-flex;
-      width: 42px;
-      height: 42px;
+    :deep(.el-avatar) {
       margin-bottom: 14px;
-      align-items: center;
-      justify-content: center;
-      border-radius: 10px;
-      color: #fff;
-      background: var(--el-color-primary);
-      font-size: 13px;
+      color: var(--el-color-primary);
+      background: var(--el-color-primary-light-9);
+      box-shadow: 0 0 0 1px var(--el-color-primary-light-7);
     }
 
     p {
@@ -418,10 +415,14 @@
 
   .v-agent-widget__status {
     display: flex;
-    margin: 12px 0 0 28px;
+    width: fit-content;
+    margin: 12px 0 0 30px;
+    padding: 6px 10px;
     align-items: center;
     gap: 8px;
     color: var(--el-text-color-secondary);
+    border-radius: var(--el-border-radius-base);
+    background: var(--el-fill-color-light);
     font-size: 12px;
 
     &.danger {

@@ -12,31 +12,33 @@
       </span>
     </div>
 
-    <div v-if="answer" class="answer-content">{{ answer }}</div>
+    <div class="assistant-content">
+      <div v-if="answer" class="answer-content">{{ answer }}</div>
 
-    <template v-else>
-      <p v-if="plan" class="intent">{{ plan.intent }}</p>
+      <template v-else>
+        <p v-if="plan" class="intent">{{ plan.intent }}</p>
 
-      <ol v-if="plan?.steps?.length" class="plan-steps">
-        <li v-for="step in plan.steps" :key="step.id">
-          {{ step.description }}
-        </li>
-      </ol>
+        <ol v-if="plan?.steps?.length" class="plan-steps">
+          <li v-for="step in plan.steps" :key="step.id">
+            {{ step.description }}
+          </li>
+        </ol>
 
-      <el-collapse
-        v-if="reasoningText || streamText"
-        v-model="activeDetails"
-        class="details-collapse">
-        <el-collapse-item
-          :title="plan ? '查看分析详情' : '正在生成规划…'"
-          name="details">
-          <pre v-if="reasoningText" class="reasoning-content">{{
-            reasoningText
-          }}</pre>
-          <pre v-if="streamText" class="stream-content">{{ streamText }}</pre>
-        </el-collapse-item>
-      </el-collapse>
-    </template>
+        <el-collapse
+          v-if="reasoningText || streamText"
+          v-model="activeDetails"
+          class="details-collapse">
+          <el-collapse-item
+            :title="plan ? '查看分析详情' : '正在生成规划…'"
+            name="details">
+            <pre v-if="reasoningText" class="reasoning-content">{{
+              reasoningText
+            }}</pre>
+            <pre v-if="streamText" class="stream-content">{{ streamText }}</pre>
+          </el-collapse-item>
+        </el-collapse>
+      </template>
+    </div>
   </section>
 </template>
 
@@ -62,61 +64,67 @@
   );
 
   const safetyLabel = computed(() => {
-    const labels = { readonly: '只读', write: '会修改', destructive: '高风险' };
+    const labels = { readonly: '安全', write: '修改', destructive: '风险' };
     return labels[props.plan?.safety || 'readonly'];
   });
 </script>
 
 <style lang="scss" scoped>
   .architect-message {
-    margin-bottom: 10px;
+    margin-bottom: 12px;
   }
 
   .assistant-head {
     display: flex;
     align-items: center;
     gap: 7px;
-    margin-bottom: 8px;
-    font-size: 13px;
+    margin-bottom: 7px;
+    font-size: 12px;
   }
 
   .assistant-avatar {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 21px;
-    height: 21px;
-    border-radius: 4px;
-    color: #fff;
-    background: var(--el-color-primary);
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    color: var(--el-color-primary);
+    background: var(--el-color-primary-light-8);
     font-size: 9px;
+    font-weight: 600;
   }
 
   .safety {
     margin-left: auto;
+    padding: 1px 6px;
+    border-radius: 8px;
     color: var(--el-text-color-secondary);
+    background: var(--el-fill-color);
     font-size: 11px;
 
     &.write {
       color: var(--el-color-warning);
+      background: var(--el-color-warning-light-9);
     }
 
     &.destructive {
       color: var(--el-color-danger);
+      background: var(--el-color-danger-light-9);
     }
   }
 
   .intent,
   .answer-content {
-    margin: 0 0 8px 28px;
+    margin: 0 0 8px;
     color: var(--el-text-color-primary);
-    font-size: 13px;
+    font-size: 12px;
     line-height: 1.65;
     white-space: pre-wrap;
   }
 
   .plan-steps {
-    margin: 8px 0 10px 47px;
+    margin: 8px 0 10px 18px;
     padding: 0;
     color: var(--el-text-color-regular);
     font-size: 12px;
@@ -124,11 +132,12 @@
   }
 
   .details-collapse {
-    margin-left: 28px;
     border-top: 0;
+    --el-collapse-header-height: 30px;
 
     :deep(.el-collapse-item__header) {
-      height: 32px;
+      height: 30px;
+      background: transparent;
       border: 0;
       color: var(--el-text-color-secondary);
       font-size: 12px;
@@ -139,15 +148,27 @@
     }
   }
 
+  .assistant-content {
+    margin-left: 31px;
+    padding: 9px 10px;
+    border-radius: var(--el-border-radius-base);
+    background: var(--el-color-info-light-9);
+
+    > :last-child {
+      margin-bottom: 0;
+    }
+  }
+
   .reasoning-content,
   .stream-content {
     max-height: 260px;
     margin: 0 0 7px;
     padding: 8px 10px;
     overflow: auto;
-    border-radius: 4px;
+    border: 1px solid var(--el-border-color-lighter);
+    border-radius: var(--el-border-radius-base);
     color: var(--el-text-color-regular);
-    background: var(--el-fill-color-light);
+    background: var(--el-bg-color);
     font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
     font-size: 11px;
     line-height: 1.5;

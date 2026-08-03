@@ -36,7 +36,9 @@
 
     <div class="composer-toolbar">
       <el-button
+        class="context-button"
         text
+        round
         size="small"
         :disabled="running"
         @click="triggerFileUpload">
@@ -49,7 +51,6 @@
         替我审批
       </el-checkbox>
 
-      <span class="model-caption">更换模型</span>
       <el-select
         class="model-select"
         :model-value="model"
@@ -66,6 +67,7 @@
       <el-button
         v-if="running"
         type="danger"
+        round
         size="small"
         @click="$emit('abort')">
         停止
@@ -73,6 +75,7 @@
       <el-button
         v-else
         type="primary"
+        round
         size="small"
         :disabled="recognizing || (!message.trim() && !files.length)"
         @click="submit">
@@ -150,13 +153,22 @@
 <style lang="scss" scoped>
   .message-composer {
     flex: 0 0 auto;
-    padding: 10px 12px;
-    border-top: 1px solid var(--el-border-color-light);
+    padding: 10px;
     background: var(--el-bg-color);
 
     :deep(.el-textarea__inner) {
+      min-height: 84px !important;
+      padding: 10px 11px;
+      border-radius: var(--el-border-radius-base) var(--el-border-radius-base) 0
+        0;
       box-shadow: 0 0 0 1px var(--el-border-color) inset;
-      background: var(--el-fill-color-light);
+      background: var(--el-bg-color);
+      font-size: 12px;
+      line-height: 1.6;
+    }
+
+    &:focus-within :deep(.el-textarea__inner) {
+      box-shadow: 0 0 0 1px var(--el-color-primary) inset;
     }
   }
 
@@ -167,7 +179,11 @@
   .attachment-list {
     display: flex;
     gap: 6px;
-    margin-bottom: 8px;
+    margin-bottom: 7px;
+    padding: 6px;
+    border: 1px solid var(--el-border-color-lighter);
+    border-radius: var(--el-border-radius-base);
+    background: var(--el-fill-color-lighter);
     overflow-x: auto;
   }
 
@@ -179,8 +195,8 @@
     max-width: 210px;
     padding: 4px 6px;
     border: 1px solid var(--el-border-color-light);
-    border-radius: 5px;
-    background: var(--el-fill-color-light);
+    border-radius: var(--el-border-radius-base);
+    background: var(--el-bg-color);
     font-size: 12px;
 
     .file-thumb,
@@ -224,13 +240,21 @@
     color: var(--el-text-color-secondary);
     background: transparent;
     cursor: pointer;
+
+    &:hover {
+      color: var(--el-color-danger);
+    }
   }
 
   .composer-toolbar {
     display: flex;
     align-items: center;
-    gap: 7px;
-    margin-top: 7px;
+    gap: 8px;
+    margin-top: -1px;
+    padding: 6px;
+    border: 1px solid var(--el-border-color);
+    border-radius: 0 0 var(--el-border-radius-base) var(--el-border-radius-base);
+    background: var(--el-fill-color-light);
   }
 
   .toolbar-spacer {
@@ -242,13 +266,20 @@
     margin-right: 0;
   }
 
-  .model-caption {
+  .context-button {
+    padding: 5px 7px;
     color: var(--el-text-color-secondary);
-    font-size: 12px;
-    white-space: nowrap;
   }
 
   .model-select {
-    width: 122px;
+    width: 112px;
+
+    :deep(.el-select__wrapper) {
+      box-shadow: 0 0 0 1px var(--el-color-primary) inset;
+    }
+
+    :deep(.el-select__placeholder) {
+      color: var(--el-color-primary);
+    }
   }
 </style>

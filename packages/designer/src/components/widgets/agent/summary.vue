@@ -6,12 +6,14 @@
       <span v-if="error" class="summary-error">生成失败</span>
       <span v-else class="summary-success">完成</span>
     </div>
-    <div v-if="error" class="error-block">总结生成失败：{{ error }}</div>
-    <details v-if="reasoning" class="reasoning">
-      <summary>查看总结分析</summary>
-      <pre>{{ reasoning }}</pre>
-    </details>
-    <div v-if="text" class="answer-content">{{ text }}</div>
+    <div class="assistant-content">
+      <div v-if="error" class="error-block">总结生成失败：{{ error }}</div>
+      <details v-if="reasoning" class="reasoning">
+        <summary>查看总结分析</summary>
+        <pre>{{ reasoning }}</pre>
+      </details>
+      <div v-if="text" class="answer-content">{{ text }}</div>
+    </div>
   </section>
 </template>
 
@@ -33,19 +35,20 @@
     align-items: center;
     gap: 7px;
     margin-bottom: 8px;
-    font-size: 13px;
+    font-size: 12px;
   }
 
   .assistant-avatar {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 21px;
-    height: 21px;
-    border-radius: 4px;
-    color: #fff;
-    background: var(--el-color-primary);
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    color: var(--el-color-primary);
+    background: var(--el-color-primary-light-8);
     font-size: 9px;
+    font-weight: 600;
   }
 
   .summary-success,
@@ -59,10 +62,11 @@
     color: var(--el-color-danger);
   }
 
-  .error-block,
-  .answer-content,
-  .reasoning {
-    margin-left: 28px;
+  .assistant-content {
+    margin-left: 31px;
+    padding: 9px 10px;
+    border-radius: var(--el-border-radius-base);
+    background: var(--el-color-success-light-9);
   }
 
   .error-block {
@@ -83,16 +87,17 @@
       max-height: 220px;
       padding: 8px;
       overflow: auto;
-      border-radius: 4px;
+      border: 1px solid var(--el-border-color-lighter);
+      border-radius: var(--el-border-radius-base);
       color: var(--el-text-color-regular);
-      background: var(--el-fill-color-light);
+      background: var(--el-bg-color);
       white-space: pre-wrap;
     }
   }
 
   .answer-content {
     color: var(--el-text-color-primary);
-    font-size: 13px;
+    font-size: 12px;
     line-height: 1.65;
     white-space: pre-wrap;
   }

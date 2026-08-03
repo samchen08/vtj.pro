@@ -26,10 +26,10 @@
             <span
               v-if="turn.toolResult"
               :class="turn.toolResult.success ? 'success' : 'failure'">
-              {{ turn.toolResult.success ? '完成' : '失败' }}
+              <!-- {{ turn.toolResult.success ? '完成' : '失败' }}
               <template v-if="turn.toolResult.duration">
-                · {{ turn.toolResult.duration }}ms</template
-              >
+                · {{ turn.toolResult.duration }}ms
+              </template> -->
             </span>
             <span
               v-else-if="turn.approval?.status === 'pending'"
@@ -41,22 +41,22 @@
 
         <div class="turn-details">
           <details v-if="turn.reasoning" :open="!step.done && !step.error">
-            <summary>分析过程</summary>
+            <summary>深度思考</summary>
             <pre>{{ turn.reasoning }}</pre>
           </details>
 
           <details v-if="turn.content" :open="!step.done && !step.error">
-            <summary>AI 输出</summary>
+            <summary>输出</summary>
             <pre>{{ turn.content }}</pre>
           </details>
 
           <div v-if="turn.toolParams" class="tool-data">
-            <span>参数</span>
+            <span>工具参数</span>
             <pre>{{ JSON.stringify(turn.toolParams, null, 2) }}</pre>
           </div>
 
           <div v-if="turn.toolResult" class="tool-data">
-            <span>结果</span>
+            <span>执行结果</span>
             <pre>{{
               JSON.stringify(
                 turn.toolResult.result ?? turn.toolResult.error,
@@ -160,15 +160,19 @@
 <style lang="scss" scoped>
   .editor-step {
     position: relative;
-    border-bottom: 1px solid var(--el-border-color-lighter);
+    margin: 0 0 8px 10px;
+    border: 1px solid var(--el-border-color-lighter);
+    border-radius: var(--el-border-radius-base);
+    background: var(--el-bg-color);
 
     &::before {
       content: '';
       position: absolute;
-      top: 15px;
-      left: -4px;
-      width: 7px;
-      height: 7px;
+      top: 16px;
+      left: -15px;
+      width: 8px;
+      height: 8px;
+      box-shadow: 0 0 0 3px var(--el-bg-color);
       border-radius: 50%;
       background: var(--el-color-warning);
     }
@@ -186,8 +190,8 @@
     display: flex;
     align-items: center;
     gap: 7px;
-    min-height: 38px;
-    padding: 6px 8px 6px 12px;
+    min-height: 40px;
+    padding: 6px 9px;
     font-size: 12px;
   }
 
@@ -203,8 +207,8 @@
     justify-content: center;
     width: 18px;
     height: 18px;
-    border-radius: 4px;
-    background: var(--el-fill-color-light);
+    border-radius: 50%;
+    background: var(--el-color-primary-light-9);
   }
 
   .step-title {
@@ -230,8 +234,25 @@
     color: var(--el-color-success);
   }
 
+  .step-status {
+    padding: 1px 6px;
+    border-radius: 8px;
+    background: var(--el-fill-color-light);
+    white-space: nowrap;
+  }
+
+  .error-block {
+    margin: 0 9px 9px;
+    padding: 7px 9px;
+    border-radius: var(--el-border-radius-base);
+    color: var(--el-color-danger);
+    background: var(--el-color-danger-light-9);
+    font-size: 11px;
+    line-height: 1.5;
+  }
+
   .turn-list {
-    margin-left: 12px;
+    margin: 0 7px;
     border-top: 0;
 
     :deep(.el-collapse-item__header) {
@@ -259,6 +280,7 @@
     width: 100%;
     min-width: 0;
     padding-right: 8px;
+    height: 30px;
 
     code {
       overflow: hidden;
@@ -268,9 +290,11 @@
 
   .turn-kind {
     padding: 1px 5px;
-    border-radius: 3px;
-    color: var(--el-text-color-secondary);
-    background: var(--el-fill-color-light);
+    border-radius: 8px;
+    color: var(--el-color-primary);
+    background: var(--el-color-primary-light-9);
+    height: 24px;
+    line-height: 24px;
   }
 
   .turn-spacer {
@@ -278,7 +302,7 @@
   }
 
   .turn-details {
-    padding: 0 8px 0 4px;
+    padding: 5px;
     color: var(--el-text-color-regular);
     font-size: 11px;
 
@@ -297,9 +321,10 @@
       margin: 5px 0 0;
       padding: 8px;
       overflow: auto;
-      border-radius: 4px;
+      border: 1px solid var(--el-border-color-lighter);
+      border-radius: var(--el-border-radius-base);
       color: var(--el-text-color-regular);
-      background: var(--el-fill-color-light);
+      background: var(--el-fill-color-lighter);
       font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
       font-size: 11px;
       line-height: 1.45;
@@ -315,7 +340,7 @@
     margin-top: 9px;
     padding: 10px;
     border: 1px solid var(--el-color-warning-light-5);
-    border-radius: 5px;
+    border-radius: var(--el-border-radius-base);
     background: var(--el-color-warning-light-9);
 
     &.destructive {

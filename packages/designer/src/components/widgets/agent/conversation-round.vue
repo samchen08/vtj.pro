@@ -49,36 +49,46 @@
 
 <style lang="scss" scoped>
   .round-section {
-    padding-bottom: 20px;
+    padding-bottom: 18px;
 
     & + & {
-      padding-top: 18px;
-      border-top: 1px solid var(--el-border-color-lighter);
+      padding-top: 12px;
     }
   }
 
   .round-meta {
-    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
     color: var(--el-text-color-placeholder);
     font-size: 11px;
-    text-align: right;
+
+    &::before,
+    &::after {
+      content: '';
+      height: 1px;
+      flex: 1;
+      background: var(--el-border-color-lighter);
+    }
   }
 
   .user-message {
     width: fit-content;
     max-width: 88%;
-    margin: 0 0 16px auto;
-    padding: 9px 11px;
-    border-radius: 8px 8px 2px 8px;
+    margin: 0 0 14px auto;
+    padding: 8px 10px;
+    border-radius: 6px 6px 2px 6px;
     color: var(--el-text-color-primary);
-    background: var(--el-fill-color-light);
-    font-size: 13px;
-    line-height: 1.55;
+    background: var(--el-color-primary-light-9);
+    font-size: 12px;
+    line-height: 1.6;
+    word-break: break-word;
     white-space: pre-wrap;
   }
 
   .step-list {
-    margin: 8px 0 12px 28px;
-    border-left: 1px solid var(--el-border-color);
+    margin: 10px 0 12px 29px;
+    border-left: 1px solid var(--el-color-primary-light-7);
   }
 </style>
