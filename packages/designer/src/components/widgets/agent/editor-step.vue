@@ -205,6 +205,7 @@
 
   function approvalFeedback(turn: EditorTurn): string {
     if (turn.approval?.status === 'rejected') return '× 已拒绝，操作未执行';
+    if (turn.type === 'vue_code' || turn.type === 'diff') return '✓ 已应用';
     if (!turn.toolResult) return '✓ 已批准，正在执行…';
     return turn.toolResult.success ? '✓ 已执行' : '! 已批准，但执行失败';
   }

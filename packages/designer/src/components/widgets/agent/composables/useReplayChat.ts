@@ -13,6 +13,8 @@ import type {
   ChatRecord,
   ReplayChatDeps
 } from '../types/agent';
+import { getApprovalRisk } from '../utils/approval';
+import { parseOutput } from '../utils/outputParser';
 
 /** 生成轮次唯一 ID */
 function genRoundId(): string {
@@ -99,12 +101,20 @@ function parseStepFromPrompt(chat: ChatRecord, stepIdx: number): PlanStep {
   return step;
 }
 
-/** 解析 toolContent 和 toolCallId 为工具调用信息 */
-function parseToolInfo(chat: ChatRecord): {
+interface ReplayToolInfo {
   action?: string;
   result?: unknown;
-} {
-  const info: { action?: string; result?: unknown } = {};
+  parameters?: unknown[];
+  success?: boolean;
+  error?: string;
+  duration?: number;
+  resultSummary?: string;
+  approval?: EditorTurn['approval'];
+}
+
+/** 解析 toolContent 和 toolCallId 为工具调用信息 */
+function parseToolInfo(chat: ChatRecord): ReplayToolInfo {
+  const info: ReplayToolInfo = {};
 
   // toolCallId 格式: "{stepId}_{action}"
   if (chat.toolCallId) {
@@ -120,6 +130,12 @@ function parseToolInfo(chat: ChatRecord): {
       const parsed = JSON.parse(chat.toolContent);
       if (parsed.action) info.action = parsed.action;
       if (parsed.result !== undefined) info.result = parsed.result;
+      if (Array.isArray(parsed.parameters)) info.parameters = parsed.parameters;
+      if (typeof parsed.success === 'boolean') info.success = parsed.success;
+      if (parsed.error) info.error = parsed.error;
+      if (typeof parsed.duration === 'number') info.duration = parsed.duration;
+      if (parsed.resultSummary) info.resultSummary = parsed.resultSummary;
+      if (parsed.approval) info.approval = parsed.approval;
     } catch {
       // 解析失败忽略
     }
@@ -185,7 +201,8 @@ function buildEditorResults(chats: ChatRecord[]): EditorStepResult[] {
     // 构建 turns
     const turns: EditorTurn[] = group.map((chat) => {
       const toolInfo = parseToolInfo(chat);
-      const hasToolContent = !!chat.toolContent || !!chat.toolCallId;
+      const parsedOutput = parseOutput(chat.content || '');
+      const hasToolContent = !!toolInfo.action;
       const turnType = inferTurnType(chat, hasToolContent);
 
       const turn: EditorTurn = {
@@ -197,16 +214,42 @@ function buildEditorResults(chats: ChatRecord[]): EditorStepResult[] {
         vue: chat.vue || undefined,
         dsl: parseDsl(chat.dsl)
       };
+      turn.resultSummary =
+        toolInfo.resultSummary ||
+        (turnType === 'vue_code'
+          ? 'Vue → DSL 已应用'
+          : turnType === 'diff'
+            ? 'Diff 已应用'
+            : undefined);
+      turn.approval = toolInfo.approval;
 
       if (toolInfo.action) {
         turn.toolAction = toolInfo.action;
-        turn.toolParams = undefined;
-        if (toolInfo.result !== undefined) {
+        turn.toolParams =
+          toolInfo.parameters ||
+          (parsedOutput.type === 'tool_call'
+            ? parsedOutput.tool?.parameters
+            : undefined);
+        if (toolInfo.result !== undefined || toolInfo.error) {
           turn.toolResult = {
-            success: chat.status === 'Success',
+            success: toolInfo.success ?? chat.status === 'Success',
             result: toolInfo.result,
-            error: chat.status === 'Success' ? undefined : chat.message,
-            duration: 0
+            error:
+              toolInfo.error ||
+              (chat.status === 'Success' ? undefined : chat.message),
+            duration: toolInfo.duration || 0
+          };
+        }
+        if (
+          !turn.approval &&
+          getApprovalRisk(toolInfo.action) &&
+          turn.toolResult
+        ) {
+          turn.approval = {
+            id: `replay_${chat.id}`,
+            action: toolInfo.action,
+            risk: getApprovalRisk(toolInfo.action)!,
+            status: 'approved'
           };
         }
       }
@@ -374,6 +417,7 @@ export function useReplayChat(
 
     statusText.value = '加载历史记录...';
     statusType.value = 'info';
+    conversationRounds.value = [];
 
     try {
       const chats = await apiGet<ChatRecord[]>('/api/open/chat/list/:token', {

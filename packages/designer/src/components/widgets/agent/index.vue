@@ -121,7 +121,7 @@
             v-if="statusType === 'danger' && !running"
             text
             type="primary"
-            @click="retryLastRound">
+            @click="retryAgent">
             重试
           </ElButton>
         </div>
@@ -187,6 +187,7 @@
 
 <script lang="ts" setup>
   import { ref, computed, nextTick, watch, onMounted, onUnmounted } from 'vue';
+  import { storage } from '@vtj/utils';
   import {
     Download,
     ArrowUp,
@@ -235,6 +236,7 @@
   } from './types/agent';
 
   const engine = useEngine();
+  const hideCodeCacheKey = 'CHAT_HIDE_CODE';
   const statusText = ref('');
   const statusType = ref<'info' | 'warning' | 'success' | 'danger'>('info');
   const conversationRounds = ref<ConversationRound[]>([]);
@@ -245,7 +247,7 @@
   const hotTopics = ref<AITopic[]>([]);
   const models = ref<DictOption[]>([]);
   const settings = ref<Settings>();
-  const isHideCode = ref(true);
+  const isHideCode = ref(!!storage.get(hideCodeCacheKey, { type: 'local' }));
   const detailsCommand = ref(0);
   const detailVisible = ref(false);
   const detailSource = ref('');
@@ -273,6 +275,7 @@
     getChats,
     getTopics,
     removeTopic,
+    cancelChat,
     updateTopic,
     saveTrace,
     chatCompletions,
@@ -292,10 +295,18 @@
     }
     return (response?.data !== undefined ? response.data : response) as T;
   };
+  let activeChat: any = null;
   const apiPost = async <T,>(url: string, body: any): Promise<T> => {
-    if (url.includes('/topic/post/'))
-      return unwrapOpenApi(await postTopic(body));
-    if (url.includes('/chat/post/')) return unwrapOpenApi(await postChat(body));
+    if (url.includes('/topic/post/')) {
+      const response = unwrapOpenApi<any>(await postTopic(body));
+      activeChat = response?.chat || response;
+      return response;
+    }
+    if (url.includes('/chat/post/')) {
+      const response = unwrapOpenApi<any>(await postChat(body));
+      activeChat = response?.chat || response;
+      return response;
+    }
     if (url.includes('/chat/save/')) return unwrapOpenApi(await saveChat(body));
     if (url.includes('/topic/update/'))
       return unwrapOpenApi(await updateTopic(body));
@@ -315,7 +326,18 @@
       return unwrapOpenApi(await removeTopic(params.id));
     throw new Error(`未支持的 Agent GET 接口: ${url}`);
   };
-  const { streamCompletion, abortAll } = useSSEStream(chatCompletions as any);
+  const { streamCompletion: completeStream, abortAll } = useSSEStream(
+    chatCompletions as any
+  );
+  const streamCompletion: typeof completeStream = (
+    topicId,
+    chatId,
+    onChunk,
+    onReasoning
+  ) => {
+    activeChat = { ...activeChat, id: chatId, topicId };
+    return completeStream(topicId, chatId, onChunk, onReasoning);
+  };
   const {
     files,
     recognizing,
@@ -424,7 +446,9 @@
   const detailsExpanded = computed(() => detailsCommand.value >= 0);
 
   const toggleHideCode = () => {
-    if (hasData.value) isHideCode.value = !isHideCode.value;
+    if (!hasData.value) return;
+    isHideCode.value = !isHideCode.value;
+    storage.save(hideCodeCacheKey, isHideCode.value, { type: 'local' });
   };
   const scrollToTop = () => conversationRef.value?.scrollTo({ top: 0 });
   const scrollToBottom = () =>
@@ -506,6 +530,16 @@
     approvalResolvers.forEach((resolve) => resolve(false));
     approvalResolvers.clear();
     abortAgentFlow();
+    if (activeChat) {
+      activeChat.status = 'Canceled';
+      cancelChat(activeChat).catch(() => null);
+      activeChat = null;
+    }
+  };
+
+  const retryAgent = async () => {
+    await retryLastRound();
+    activeChat = null;
   };
 
   const startNewConversation = () => {
@@ -533,6 +567,7 @@
       clearFiles();
     }
     await task;
+    activeChat = null;
     await loadTopics();
   };
 
@@ -543,6 +578,7 @@
       clearFiles();
     }
     await task;
+    activeChat = null;
     await loadTopics();
   };
 
@@ -596,8 +632,7 @@
   });
   onUnmounted(() => {
     cancelAnimationFrame(scrollFrame);
-    approvalResolvers.forEach((resolve) => resolve(false));
-    abortAgentFlow();
+    abortAgent();
     clearFiles();
   });
 

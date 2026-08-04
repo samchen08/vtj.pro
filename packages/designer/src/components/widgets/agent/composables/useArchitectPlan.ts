@@ -189,7 +189,8 @@ export function useArchitectPlan(deps: ArchitectPlanDeps) {
         i,
         steps,
         stepStart,
-        targets.editorResults
+        targets.editorResults,
+        signal
       );
 
       if (stepResult.error) hasError = true;

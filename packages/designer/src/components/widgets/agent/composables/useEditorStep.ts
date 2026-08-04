@@ -105,7 +105,14 @@ export function useEditorStep(deps: EditorStepDeps) {
     topicId: string,
     userId: string,
     action: string,
-    result: any,
+    parameters: unknown[],
+    result: {
+      success: boolean;
+      result?: any;
+      error?: string;
+      duration: number;
+    },
+    approval: EditorStepResult['turns'][0]['approval'],
     stepId: string
   ) {
     try {
@@ -114,7 +121,15 @@ export function useEditorStep(deps: EditorStepDeps) {
         topicId,
         userId,
         toolCallId: `${stepId}_${action}`,
-        toolContent: JSON.stringify({ action, result })
+        toolContent: JSON.stringify({
+          action,
+          parameters,
+          result: result.result,
+          success: result.success,
+          error: result.error,
+          duration: result.duration,
+          approval
+        })
       });
     } catch {
       // 保存 toolContent 失败不影响主流程
@@ -159,9 +174,17 @@ export function useEditorStep(deps: EditorStepDeps) {
     stepIdx: number,
     allSteps: PlanStep[],
     stepStart: number,
-    editorResults: Ref<EditorStepResult[]>
+    editorResults: Ref<EditorStepResult[]>,
+    signal?: AbortSignal
   ): Promise<StepExecutionResult> {
     let totalTokens = 0;
+    const isCancelled = () => signal?.aborted ?? false;
+    const cancelResult = (slot?: EditorStepResult) => {
+      if (slot) slot.done = true;
+      return okResult('', totalTokens, stepStart);
+    };
+
+    if (isCancelled()) return cancelResult();
 
     statusText.value = `Editor 执行中: ${step.description} (${stepIdx + 1}/${allSteps.length})`;
     statusType.value = 'warning';
@@ -171,6 +194,7 @@ export function useEditorStep(deps: EditorStepDeps) {
       currentStepId: step.id,
       status: 'executing'
     });
+    if (isCancelled()) return cancelResult();
 
     // 构建步骤提示词（工具结果上下文已由后端 createMessages 从 toolContent 注入）
     let stepPrompt =
@@ -224,9 +248,10 @@ export function useEditorStep(deps: EditorStepDeps) {
      * @returns true = 仍有错误需继续修复，false = 验证通过或无需验证
      */
     async function applyFixAndVerify(): Promise<boolean> {
-      if (!ctx.needsRefreshVerify) return false;
+      if (!ctx.needsRefreshVerify || isCancelled()) return false;
 
       const verifyResult = await executeTool(getEngine()!, 'refresh', []);
+      if (isCancelled()) return false;
       if (verifyResult.success && verifyResult.result === true) {
         // 验证通过：无运行时错误
         ctx.needsRefreshVerify = false;
@@ -264,6 +289,7 @@ export function useEditorStep(deps: EditorStepDeps) {
     }
 
     for (let turn = 0; turn < MAX_TURNS; turn++) {
+      if (isCancelled()) return cancelResult(slot);
       const ti = createEditorTurn(turn);
 
       // 提前 push，确保首轮流式过程也能立即展示
@@ -300,6 +326,7 @@ export function useEditorStep(deps: EditorStepDeps) {
 
       const edChatId =
         (chatRes.chat || chatRes).id || (chatRes.chat || chatRes).chatId || '';
+      if (isCancelled()) return cancelResult(slot);
 
       // 流式调用 LLM
       let result: StreamCompletionResult;
@@ -314,6 +341,7 @@ export function useEditorStep(deps: EditorStepDeps) {
             nextTick();
           }
         );
+        if (isCancelled()) return cancelResult(slot);
 
         const fullContent =
           (turn === 0 ? slot.content : ti.content) || '(空输出)';
@@ -350,16 +378,28 @@ export function useEditorStep(deps: EditorStepDeps) {
               error: '用户拒绝执行',
               duration: 0
             };
+            await saveChatToolContent(
+              edChatId,
+              topicId,
+              userId,
+              parsed.tool.action,
+              parsed.tool.parameters,
+              ti.toolResult,
+              ti.approval,
+              step.id
+            );
             exposeTurn(ti);
             slot.error = '用户拒绝执行此操作';
             slot.done = true;
             return errResult(slot.error, totalTokens, stepStart, fullContent);
           }
+          if (isCancelled()) return cancelResult(slot);
           const execResult = await executeTool(
             getEngine()!,
             parsed.tool.action,
             execParams
           );
+          if (isCancelled()) return cancelResult(slot);
 
           ti.toolResult = {
             success: execResult.success,
@@ -369,12 +409,14 @@ export function useEditorStep(deps: EditorStepDeps) {
           };
 
           // 回写工具执行结果到 toolContent，供后续步骤的 LLM 上下文使用
-          saveChatToolContent(
+          await saveChatToolContent(
             edChatId,
             topicId,
             userId,
             parsed.tool.action,
-            execResult.result,
+            parsed.tool.parameters,
+            execResult,
+            ti.approval,
             step.id
           );
 
@@ -479,6 +521,7 @@ export function useEditorStep(deps: EditorStepDeps) {
               slot.done = true;
               return errResult(slot.error, totalTokens, stepStart, fullContent);
             }
+            if (isCancelled()) return cancelResult(slot);
 
             // 获取改前的当前文件源码（用于 chat.source 审计追溯，须在 applyAI 前）
             let currentSource = '';
@@ -493,9 +536,10 @@ export function useEditorStep(deps: EditorStepDeps) {
             }
 
             await engine.applyAI(blockDsl);
+            if (isCancelled()) return cancelResult(slot);
 
             // 回写产出的 Vue 源码和 DSL 到 chat
-            saveChatArtifacts(
+            await saveChatArtifacts(
               edChatId,
               topicId,
               userId,
@@ -576,6 +620,7 @@ export function useEditorStep(deps: EditorStepDeps) {
               slot.done = true;
               return errResult(slot.error, totalTokens, stepStart, fullContent);
             }
+            if (isCancelled()) return cancelResult(slot);
 
             const newDsl = await engine.service.parseVue(projectDsl as any, {
               id: curDsl?.id || 'ai_gen',
@@ -584,10 +629,12 @@ export function useEditorStep(deps: EditorStepDeps) {
             });
             ti.vue = modifiedVue;
             ti.dsl = newDsl;
+            if (isCancelled()) return cancelResult(slot);
             await engine.applyAI(newDsl);
+            if (isCancelled()) return cancelResult(slot);
 
             // 回写 diff 产出的最终 Vue 源码和 DSL 到 chat（source 记录改前源码）
-            saveChatArtifacts(
+            await saveChatArtifacts(
               edChatId,
               topicId,
               userId,

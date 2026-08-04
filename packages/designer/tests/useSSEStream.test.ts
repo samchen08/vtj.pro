@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest';
-import { useSSEStream } from './useSSEStream';
+import { useSSEStream } from '../src/components/widgets/agent/composables/useSSEStream';
 
 describe('useSSEStream', () => {
   it('uses the injected OpenApi completions implementation', async () => {

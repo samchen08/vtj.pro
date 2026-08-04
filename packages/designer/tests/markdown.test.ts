@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { formatMarkdownContent } from './markdown';
+import { formatMarkdownContent } from '../src/components/widgets/agent/utils/markdown';
 
 describe('formatMarkdownContent', () => {
   it('keeps markdown strings unchanged', () => {

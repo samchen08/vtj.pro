@@ -275,7 +275,8 @@ export interface ArchitectPlanDeps {
     stepIdx: number,
     allSteps: PlanStep[],
     stepStart: number,
-    editorResults: Ref<EditorStepResult[]>
+    editorResults: Ref<EditorStepResult[]>,
+    signal?: AbortSignal
   ) => Promise<StepExecutionResult>;
   buildSummaryPrompt: (
     userRequest: string,

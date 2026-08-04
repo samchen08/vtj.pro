@@ -1,6 +1,9 @@
 import { describe, expect, it } from 'vitest';
 import { effect } from 'vue';
-import { createEditorTurn, getApprovalRisk } from './approval';
+import {
+  createEditorTurn,
+  getApprovalRisk
+} from '../src/components/widgets/agent/utils/approval';
 
 describe('getApprovalRisk', () => {
   it('separates read, write and destructive tools', () => {
