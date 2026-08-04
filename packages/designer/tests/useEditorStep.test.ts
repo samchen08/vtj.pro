@@ -3,6 +3,56 @@ import { describe, expect, it, vi } from 'vitest';
 import { useEditorStep } from '../src/components/widgets/agent/composables/useEditorStep';
 
 describe('useEditorStep', () => {
+  it('keeps old turns and increments attempt when retrying a step', async () => {
+    const postChat = vi.fn(async () => ({ chat: { id: 'retry-chat' } }));
+    const saveChat = vi.fn(async () => true);
+    const retrySlot: any = {
+      stepIdx: 0,
+      step: { id: 'step', type: 'text', description: '重试步骤' },
+      content: '旧输出',
+      reasoning: '',
+      error: '请求失败',
+      done: true,
+      turns: [{ turn: 0, type: 'unknown', content: '', reasoning: '' }]
+    };
+    const { executeEditorStep } = useEditorStep({
+      postChat,
+      saveChat,
+      updateTopic: vi.fn(async () => ({})),
+      streamCompletion: vi.fn(async (_topic, _chat, onChunk) => {
+        onChunk?.('重试成功');
+        return {
+          done: vi.fn(),
+          reasoning: '',
+          usage: null,
+          modelUsed: '',
+          reasoningTime: 0
+        };
+      }),
+      getEngine: vi.fn(),
+      statusText: ref(''),
+      statusType: ref('info'),
+      requestApproval: vi.fn()
+    });
+
+    await executeEditorStep(
+      'topic',
+      'user',
+      retrySlot.step,
+      0,
+      [retrySlot.step],
+      Date.now(),
+      ref([retrySlot]),
+      undefined,
+      retrySlot
+    );
+
+    expect(postChat.mock.calls[0][0].attempt).toBe(2);
+    expect(retrySlot.turns.map((item: any) => item.turn)).toEqual([0, 1]);
+    expect(retrySlot.error).toBeNull();
+    expect(retrySlot.done).toBe(true);
+  });
+
   it('does not create requests or execute work after cancellation', async () => {
     const postChat = vi.fn();
     const saveChat = vi.fn();

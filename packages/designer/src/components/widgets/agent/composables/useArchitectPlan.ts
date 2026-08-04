@@ -16,6 +16,7 @@ export interface ArchPlanTargets {
   summaryText: Ref<string>;
   summaryReasoning: Ref<string>;
   summaryError: Ref<string>;
+  summaryAttempt: Ref<number>;
 }
 
 export function useArchitectPlan(deps: ArchitectPlanDeps) {
@@ -31,6 +32,197 @@ export function useArchitectPlan(deps: ArchitectPlanDeps) {
     buildSummaryPrompt
   } = deps;
 
+  const toStepRecord = (result: EditorStepResult): StepRecord => ({
+    stepId: result.step.id,
+    type: result.step.type,
+    description: result.step.description,
+    status: result.error ? 'failed' : 'completed',
+    content: result.content,
+    error: result.error,
+    tokens: result.tokens || 0,
+    duration: result.duration || 0
+  });
+
+  async function generateSummary(
+    topicId: string,
+    userId: string,
+    userMessage: string,
+    targets: ArchPlanTargets,
+    records: StepRecord[],
+    signal?: AbortSignal
+  ): Promise<number> {
+    targets.summaryText.value = '';
+    targets.summaryReasoning.value = '';
+    targets.summaryError.value = '';
+    statusText.value = '生成任务总结...';
+    statusType.value = 'warning';
+
+    try {
+      const summaryChatRes = await postChat({
+        topicId,
+        prompt: buildSummaryPrompt(
+          userMessage,
+          targets.architectPlan.value,
+          records
+        ),
+        agent: 'editor',
+        stepId: 'summary',
+        attempt: ++targets.summaryAttempt.value,
+        userId: userId || '',
+        userName: ''
+      });
+      const summaryChat = summaryChatRes.chat || summaryChatRes;
+      const summaryChatId = summaryChat.id || summaryChat.chatId || '';
+      const summaryResult = await streamCompletion(
+        topicId,
+        summaryChatId,
+        (text) => {
+          targets.summaryText.value += text;
+        },
+        (reasoning) => {
+          targets.summaryReasoning.value += reasoning;
+        }
+      );
+      if (signal?.aborted) return 0;
+
+      await saveChat({
+        id: summaryChatId,
+        topicId,
+        userId,
+        status: 'Success',
+        content: targets.summaryText.value,
+        reasoning: summaryResult.reasoning || '',
+        modelUsed: summaryResult.modelUsed || '',
+        tokens: summaryResult.usage?.total_tokens || 0,
+        tokensPrompt: summaryResult.usage?.prompt_tokens || 0,
+        tokensCompletion: summaryResult.usage?.completion_tokens || 0,
+        thinking: summaryResult.reasoningTime || 0
+      });
+      return summaryResult.usage?.total_tokens || 0;
+    } catch (e: any) {
+      targets.summaryError.value = e.message || String(e);
+      console.warn('总结生成失败:', e.message);
+      return 0;
+    }
+  }
+
+  async function executeEditorPlan(
+    topicId: string,
+    userId: string,
+    traceId: string,
+    userMessage: string,
+    targets: ArchPlanTargets,
+    startStep: number,
+    initialTokens: number,
+    signal?: AbortSignal,
+    retrySlot?: EditorStepResult
+  ) {
+    const startTime = Date.now();
+    const steps = targets.architectPlan.value?.steps || [];
+    const records = targets.editorResults.value
+      .slice(0, startStep)
+      .map(toStepRecord);
+    let totalTokens =
+      initialTokens + records.reduce((sum, item) => sum + item.tokens, 0);
+    let failedStep = -1;
+
+    for (let i = startStep; i < steps.length; i++) {
+      if (signal?.aborted) {
+        statusText.value = `⏹️ 已取消（已完成 ${i}/${steps.length} 步）`;
+        statusType.value = 'info';
+        return;
+      }
+
+      const stepResult = await executeEditorStep(
+        topicId,
+        userId,
+        steps[i],
+        i,
+        steps,
+        Date.now(),
+        targets.editorResults,
+        signal,
+        i === startStep ? retrySlot : undefined
+      );
+      const slot =
+        (i === startStep && retrySlot) ||
+        targets.editorResults.value[targets.editorResults.value.length - 1];
+      if (slot) {
+        slot.tokens = stepResult.tokens;
+        slot.duration = stepResult.duration;
+      }
+      totalTokens += stepResult.tokens;
+      records.push(
+        slot
+          ? toStepRecord(slot)
+          : {
+              stepId: steps[i].id,
+              type: steps[i].type,
+              description: steps[i].description,
+              status: stepResult.error ? 'failed' : 'completed',
+              content: stepResult.content,
+              error: stepResult.error,
+              tokens: stepResult.tokens,
+              duration: stepResult.duration
+            }
+      );
+
+      if (stepResult.error) {
+        failedStep = i;
+        break;
+      }
+    }
+
+    if (signal?.aborted) {
+      statusText.value = '⏹️ 已取消';
+      statusType.value = 'info';
+      return;
+    }
+
+    if (failedStep < 0) {
+      totalTokens += await generateSummary(
+        topicId,
+        userId,
+        userMessage,
+        targets,
+        records,
+        signal
+      );
+    }
+
+    if (signal?.aborted) {
+      statusText.value = '⏹️ 已取消';
+      statusType.value = 'info';
+      return;
+    }
+
+    await updateTopic({
+      id: topicId,
+      status: failedStep >= 0 ? 'failed' : 'completed',
+      traceId
+    });
+    await saveTrace({
+      traceId,
+      topicId,
+      planJson: targets.architectPlan.value,
+      stepsJson: records,
+      finalStatus: failedStep >= 0 ? 'failed' : 'completed',
+      totalTokens,
+      totalDuration: Date.now() - startTime
+    });
+
+    if (failedStep >= 0) {
+      statusText.value = `❌ 第 ${failedStep + 1} 步执行失败，可从此步骤重试`;
+      statusType.value = 'danger';
+    } else if (targets.summaryError.value) {
+      statusText.value = `❌ 总结生成失败: ${targets.summaryError.value}`;
+      statusType.value = 'danger';
+    } else {
+      statusText.value = `✅ 全部 ${steps.length} 个步骤执行完成`;
+      statusType.value = 'success';
+    }
+  }
+
   /**
    * 执行 Architect 规划 → Editor 步骤 → 总结 的完整流程
    */
@@ -45,7 +237,6 @@ export function useArchitectPlan(deps: ArchitectPlanDeps) {
   ) {
     const startTime = Date.now();
     let totalTokens = 0;
-    const stepsRecords: StepRecord[] = [];
 
     /** 检查是否已取消，若取消则提前退出 */
     function isCancelled(): boolean {
@@ -173,129 +364,87 @@ export function useArchitectPlan(deps: ArchitectPlanDeps) {
 
     statusText.value = `计划已生成: ${targets.architectPlan.value.intent}`;
     statusType.value = 'success';
+    await executeEditorPlan(
+      topicId,
+      userId,
+      traceId,
+      userMessage,
+      targets,
+      0,
+      totalTokens,
+      signal
+    );
+  }
 
-    // ── Editor 步骤循环 ──
-    let hasError = false;
-    for (let i = 0; i < steps.length; i++) {
-      // 每个步骤执行前检查取消信号
-      if (isCancelled()) {
-        statusText.value = `⏹️ 已取消（已完成 ${i}/${steps.length} 步）`;
-        statusType.value = 'info';
-        return;
-      }
-      const step = steps[i];
-      const stepStart = Date.now();
-      const stepResult = await executeEditorStep(
-        topicId,
-        userId,
-        step,
-        i,
-        steps,
-        stepStart,
-        targets.editorResults,
-        signal
-      );
-
-      if (stepResult.error) hasError = true;
-      totalTokens += stepResult.tokens;
-
-      stepsRecords.push({
-        stepId: step.id,
-        type: step.type,
-        description: step.description,
-        status: stepResult.error ? 'failed' : 'completed',
-        content: stepResult.content,
-        error: stepResult.error,
-        tokens: stepResult.tokens,
-        duration: stepResult.duration
-      });
+  async function retryEditorPlan(
+    topicId: string,
+    userId: string,
+    traceId: string,
+    userMessage: string,
+    targets: ArchPlanTargets,
+    stepIndex: number,
+    signal?: AbortSignal
+  ) {
+    const retrySlot = targets.editorResults.value[stepIndex];
+    if (!targets.architectPlan.value || !retrySlot?.error) {
+      throw new Error('没有可重试的失败步骤');
     }
 
-    // ── 总结阶段 ──
-    if (steps.length > 0 && !isCancelled()) {
-      targets.summaryText.value = '';
-      targets.summaryReasoning.value = '';
-      statusText.value = '生成任务总结...';
-      statusType.value = 'warning';
+    targets.editorResults.value.splice(stepIndex + 1);
+    targets.summaryText.value = '';
+    targets.summaryReasoning.value = '';
+    targets.summaryError.value = '';
+    await updateTopic({ id: topicId, status: 'executing', traceId });
+    await executeEditorPlan(
+      topicId,
+      userId,
+      traceId,
+      userMessage,
+      targets,
+      stepIndex,
+      0,
+      signal,
+      retrySlot
+    );
+  }
 
-      const summaryPrompt = buildSummaryPrompt(
-        userMessage,
-        targets.architectPlan.value,
-        stepsRecords
-      );
-
-      try {
-        const summaryChatRes = await postChat({
-          topicId,
-          prompt: summaryPrompt,
-          agent: 'editor',
-          stepId: 'summary',
-          attempt: 1,
-          userId: userId || '',
-          userName: ''
-        });
-        const summaryChat = summaryChatRes.chat || summaryChatRes;
-        const summaryChatId = summaryChat.id || summaryChat.chatId || '';
-
-        const summaryResult = await streamCompletion(
-          topicId,
-          summaryChatId,
-          (text) => {
-            targets.summaryText.value += text;
-          },
-          (r) => {
-            targets.summaryReasoning.value += r;
-          }
-        );
-
-        await saveChat({
-          id: summaryChatId,
-          topicId,
-          userId,
-          status: 'Success',
-          content: targets.summaryText.value,
-          reasoning: summaryResult.reasoning || '',
-          modelUsed: summaryResult.modelUsed || '',
-          tokens: summaryResult.usage?.total_tokens || 0,
-          tokensPrompt: summaryResult.usage?.prompt_tokens || 0,
-          tokensCompletion: summaryResult.usage?.completion_tokens || 0,
-          thinking: summaryResult.reasoningTime || 0
-        });
-        totalTokens += summaryResult.usage?.total_tokens || 0;
-      } catch (e: any) {
-        targets.summaryError.value = e.message || String(e);
-        console.warn('总结生成失败:', e.message);
-      }
+  async function retrySummary(
+    topicId: string,
+    userId: string,
+    traceId: string,
+    userMessage: string,
+    targets: ArchPlanTargets,
+    signal?: AbortSignal
+  ) {
+    if (!targets.architectPlan.value || !targets.summaryError.value) {
+      throw new Error('没有可重试的总结');
     }
-
-    // 最终状态更新（仅未取消时执行）
-    if (isCancelled()) {
-      statusText.value = '⏹️ 已取消';
-      statusType.value = 'info';
-      return;
-    }
-
-    await updateTopic({
-      id: topicId,
-      status: hasError ? 'failed' : 'completed',
-      traceId
-    });
+    const startTime = Date.now();
+    const records = targets.editorResults.value.map(toStepRecord);
+    const totalTokens = await generateSummary(
+      topicId,
+      userId,
+      userMessage,
+      targets,
+      records,
+      signal
+    );
+    if (signal?.aborted) return;
 
     await saveTrace({
       traceId,
       topicId,
       planJson: targets.architectPlan.value,
-      stepsJson: stepsRecords,
-      finalStatus: hasError ? 'failed' : 'completed',
+      stepsJson: records,
+      finalStatus: 'completed',
       totalTokens,
       totalDuration: Date.now() - startTime
     });
-
-    statusText.value = hasError
-      ? `⚠️ ${steps.length} 个步骤执行完成（有错误）`
-      : `✅ 全部 ${steps.length} 个步骤执行完成`;
-    statusType.value = hasError ? 'warning' : 'success';
+    statusText.value = targets.summaryError.value
+      ? `❌ 总结生成失败: ${targets.summaryError.value}`
+      : '✅ 任务总结已重新生成';
+    statusType.value = targets.summaryError.value ? 'danger' : 'success';
   }
 
-  return { executeArchitectPlan };
+  return { executeArchitectPlan, retryEditorPlan, retrySummary };
 }

@@ -46,7 +46,9 @@ function createApi(): DualAgentApi {
     })),
     postChat: vi.fn(async () => ({ chat: { id: 'c2' } })),
     streamCompletion: vi.fn(),
-    executeArchitectPlan: vi.fn(async () => {})
+    executeArchitectPlan: vi.fn(async () => {}),
+    retryEditorPlan: vi.fn(async () => {}),
+    retrySummary: vi.fn(async () => {})
   };
 }
 
@@ -76,7 +78,8 @@ function createRound(): ConversationRound {
     ],
     summaryText: '旧总结',
     summaryReasoning: '',
-    summaryError: '旧错误'
+    summaryError: '旧错误',
+    summaryAttempt: 1
   });
 }
 
@@ -256,6 +259,7 @@ describe('useDualAgent', () => {
     const api = createApi();
     const state = createState();
     const round = createRound();
+    round.summaryError = '';
     state.conversationRounds.value.push(round);
     const { retryLastRound } = useDualAgent(infra, api, state, () => '');
 
@@ -272,6 +276,41 @@ describe('useDualAgent', () => {
     expect(planCall[0]).toBe('t-9');
     expect(planCall[1]).toBe('c1');
     expect(planCall[4]).toBe('创建页面');
+  });
+
+  it('retries only the failed editor step', async () => {
+    const { infra } = createInfra();
+    infra.token.value = 'tk';
+    infra.existingTopicId.value = 't-9';
+    const api = createApi();
+    const state = createState();
+    const round = createRound();
+    round.summaryError = '';
+    round.editorResults[0].error = '执行失败';
+    state.conversationRounds.value.push(round);
+    const { retryLastRound } = useDualAgent(infra, api, state, () => '');
+
+    await retryLastRound();
+
+    expect(api.retryEditorPlan).toHaveBeenCalledTimes(1);
+    expect(api.executeArchitectPlan).not.toHaveBeenCalled();
+    expect((api.retryEditorPlan as any).mock.calls[0][5]).toBe(0);
+  });
+
+  it('retries only summary generation when the summary failed', async () => {
+    const { infra } = createInfra();
+    infra.token.value = 'tk';
+    infra.existingTopicId.value = 't-9';
+    const api = createApi();
+    const state = createState();
+    const round = createRound();
+    state.conversationRounds.value.push(round);
+    const { retryLastRound } = useDualAgent(infra, api, state, () => '');
+
+    await retryLastRound();
+
+    expect(api.retrySummary).toHaveBeenCalledTimes(1);
+    expect(api.executeArchitectPlan).not.toHaveBeenCalled();
   });
 
   it('exposes flow errors through the status text', async () => {
@@ -295,5 +334,38 @@ describe('useDualAgent', () => {
     expect(infra.statusType.value).toBe('danger');
     expect(running.value).toBe(false);
     expect(engine.state.streaming).toBe(false);
+  });
+
+  it('retries a failed initial request with the original prompt and request id', async () => {
+    const { infra } = createInfra();
+    infra.token.value = 'tk';
+    const api = createApi();
+    (api.postTopic as any)
+      .mockRejectedValueOnce(new Error('网络异常'))
+      .mockResolvedValueOnce({
+        topic: { id: 't1', userId: 'u1' },
+        chat: { id: 'c1' }
+      });
+    const state = createState();
+    const promptBuilder = vi
+      .fn()
+      .mockReturnValueOnce('原始请求')
+      .mockReturnValue('');
+    const { startDualAgent, retryLastRound } = useDualAgent(
+      infra,
+      api,
+      state,
+      promptBuilder
+    );
+
+    await startDualAgent();
+    await retryLastRound();
+
+    expect(api.postTopic).toHaveBeenCalledTimes(2);
+    const [firstBody] = (api.postTopic as any).mock.calls[0];
+    const [retryBody] = (api.postTopic as any).mock.calls[1];
+    expect(retryBody.prompt).toBe('原始请求');
+    expect(retryBody.requestId).toBe(firstBody.requestId);
+    expect(state.conversationRounds.value).toHaveLength(1);
   });
 });

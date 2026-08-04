@@ -17,10 +17,12 @@
         v-for="(step, idx) in round.editorResults"
         :key="idx"
         :step="step"
+        :retryable="retryable"
         :code="code"
         :details-command="detailsCommand"
         @view="(...args) => $emit('view', ...args)"
         @apply="(dsl) => $emit('apply', dsl)"
+        @retry="$emit('retryStep', step.stepIdx)"
         @resolve-approval="
           (id, approved) => $emit('resolveApproval', id, approved)
         " />
@@ -30,8 +32,10 @@
       :text="round.summaryText"
       :reasoning="round.summaryReasoning"
       :error="round.summaryError"
+      :retryable="retryable"
       :code="code"
       :details-command="detailsCommand"
+      @retry="$emit('retrySummary')"
       @view="(...args) => $emit('view', ...args)" />
   </article>
 </template>
@@ -48,6 +52,7 @@
     round: ConversationRound;
     roundNumber: number;
     isLatest: boolean;
+    retryable: boolean;
     code: boolean;
     detailsCommand: number;
   }>();
@@ -58,6 +63,8 @@
     resolveApproval: [id: string, approved: boolean];
     view: [source: string, language: string, dsl?: Record<string, any>];
     apply: [dsl: Record<string, any>];
+    retryStep: [stepIndex: number];
+    retrySummary: [];
   }>();
 </script>
 

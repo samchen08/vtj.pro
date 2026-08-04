@@ -7,7 +7,17 @@
       <span v-else class="summary-success">完成</span>
     </div>
     <div class="assistant-content">
-      <div v-if="error" class="error-block">总结生成失败：{{ error }}</div>
+      <div v-if="error" class="error-block">
+        <span>总结生成失败：{{ error }}</span>
+        <ElButton
+          v-if="retryable"
+          link
+          type="primary"
+          size="small"
+          @click="$emit('retry')">
+          重新生成
+        </ElButton>
+      </div>
       <details
         v-if="reasoning"
         :key="detailsCommand"
@@ -28,6 +38,7 @@
 
 <script lang="ts" setup>
   import { ref, toRef, onUnmounted } from 'vue';
+  import { ElButton } from 'element-plus';
   import StreamMarkdown from './stream-markdown.vue';
   import { useContentAutoScroll } from './composables/useAutoScroll';
 
@@ -37,9 +48,11 @@
     error: string;
     code: boolean;
     detailsCommand: number;
+    retryable: boolean;
   }>();
   defineEmits<{
     view: [source: string, language: string];
+    retry: [];
   }>();
 
   // ── 流式内容自动滚到底部 ──
@@ -96,6 +109,10 @@
   }
 
   .error-block {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
     margin-bottom: 8px;
     color: var(--el-color-danger);
   }

@@ -2,7 +2,9 @@ import { describe, expect, it, vi, beforeEach, afterEach } from 'vitest';
 import { useExport } from '../src/components/widgets/agent/composables/useExport';
 import type { ConversationRound } from '../src/components/widgets/agent/types/agent';
 
-function createRound(overrides: Partial<ConversationRound> = {}): ConversationRound {
+function createRound(
+  overrides: Partial<ConversationRound> = {}
+): ConversationRound {
   return {
     id: 'round-1',
     userMessage: '创建页面',
@@ -15,21 +17,24 @@ function createRound(overrides: Partial<ConversationRound> = {}): ConversationRo
     summaryText: '',
     summaryReasoning: '',
     summaryError: '',
+    summaryAttempt: 0,
     ...overrides
   };
 }
 
 describe('useExport', () => {
-  let anchor: { href: string; download: string; click: ReturnType<typeof vi.fn> };
+  let anchor: {
+    href: string;
+    download: string;
+    click: ReturnType<typeof vi.fn>;
+  };
   let createObjectURL: ReturnType<typeof vi.fn>;
   let revokeObjectURL: ReturnType<typeof vi.fn>;
   let mockBlob: ReturnType<typeof vi.fn>;
 
   beforeEach(() => {
     anchor = { href: '', download: '', click: vi.fn() };
-    vi.spyOn(document, 'createElement').mockImplementation(
-      () => anchor as any
-    );
+    vi.spyOn(document, 'createElement').mockImplementation(() => anchor as any);
     createObjectURL = vi.fn(() => 'blob:export');
     revokeObjectURL = vi.fn();
     vi.stubGlobal('URL', { ...URL, createObjectURL, revokeObjectURL });

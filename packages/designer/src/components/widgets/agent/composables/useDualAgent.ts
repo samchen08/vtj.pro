@@ -37,7 +37,8 @@ function createEmptyRound(userMessage: string): ConversationRound {
     editorResults: [],
     summaryText: '',
     summaryReasoning: '',
-    summaryError: ''
+    summaryError: '',
+    summaryAttempt: 0
   };
 }
 
@@ -61,11 +62,18 @@ export function useDualAgent(
     abortSse
   } = infra;
 
-  const { postTopic, postChat, executeArchitectPlan } = api;
+  const {
+    postTopic,
+    postChat,
+    executeArchitectPlan,
+    retryEditorPlan,
+    retrySummary: executeSummaryRetry
+  } = api;
   const { conversationRounds } = state;
 
   /** 当前流程的取消控制器，用于中断工作流编排（非仅 SSE） */
   let flowAbortController: AbortController | null = null;
+  let lastFailedSubmission: (() => Promise<void>) | null = null;
 
   /** 构建最终提示词：用户文本 + 文件识别描述 */
   function getFinalPrompt(): string {
@@ -82,7 +90,8 @@ export function useDualAgent(
       editorResults: toRef(round, 'editorResults') as Ref<EditorStepResult[]>,
       summaryText: toRef(round, 'summaryText') as Ref<string>,
       summaryReasoning: toRef(round, 'summaryReasoning') as Ref<string>,
-      summaryError: toRef(round, 'summaryError') as Ref<string>
+      summaryError: toRef(round, 'summaryError') as Ref<string>,
+      summaryAttempt: toRef(round, 'summaryAttempt') as Ref<number>
     };
   }
 
@@ -113,9 +122,10 @@ export function useDualAgent(
       userId: string;
       chatId: string;
       round: ConversationRound;
-    }>
+    }>,
+    promptOverride?: string
   ) {
-    const finalPrompt = getFinalPrompt();
+    const finalPrompt = promptOverride ?? getFinalPrompt();
     if (!validate(finalPrompt)) return;
 
     running.value = true;
@@ -135,7 +145,11 @@ export function useDualAgent(
         buildTargets(round),
         flowAbortController.signal
       );
+      lastFailedSubmission = null;
     } catch (e: any) {
+      if (e?.name !== 'AbortError') {
+        lastFailedSubmission = () => executeFlow(setup, finalPrompt);
+      }
       infra.statusText.value = `❌ 错误: ${e.message}`;
       infra.statusType.value = 'danger';
     } finally {
@@ -147,6 +161,7 @@ export function useDualAgent(
 
   /** 启动新话题双代理流程 */
   async function startDualAgent() {
+    const requestId = generateTraceId();
     await executeFlow(async (finalPrompt) => {
       // 新开对话：清空所有历史轮次
       conversationRounds.value = [];
@@ -168,7 +183,8 @@ export function useDualAgent(
         options: JSON.stringify({}),
         agent: 'architect' as const,
         userId: userData?.id || '',
-        userName: userData?.name || ''
+        userName: userData?.name || '',
+        requestId
       };
 
       const topicRes = await postTopic(topicBody);
@@ -199,6 +215,7 @@ export function useDualAgent(
       return;
     }
 
+    const requestId = generateTraceId();
     await executeFlow(async (finalPrompt) => {
       infra.statusText.value = '创建 Architect 聊天...';
       infra.statusType.value = 'info';
@@ -207,7 +224,8 @@ export function useDualAgent(
         topicId: tid,
         prompt: finalPrompt,
         agent: 'architect',
-        source: ''
+        source: '',
+        requestId
       });
       const chat = chatRes.chat || chatRes;
       const chatId = chat.id || chat.chatId || '';
@@ -229,65 +247,15 @@ export function useDualAgent(
     abortSse();
   }
 
-  /** 重试最后一轮失败的 Architect 规划 */
-  async function retryLastRound() {
-    const lastRound =
-      conversationRounds.value[conversationRounds.value.length - 1];
-    if (!lastRound) {
-      infra.statusText.value = '❌ 没有可重试的轮次';
-      infra.statusType.value = 'danger';
-      return;
-    }
-
-    const topicId = existingTopicId.value.trim();
-    if (!topicId) {
-      infra.statusText.value = '❌ 缺少 Topic ID，无法重试';
-      infra.statusType.value = 'danger';
-      return;
-    }
-
-    // 重置最后一轮状态
-    lastRound.architectPlan = null;
-    lastRound.architectAnswer = '';
-    lastRound.architectStreamText = '';
-    lastRound.reasoningText = '';
-    lastRound.editorResults = [];
-    lastRound.summaryText = '';
-    lastRound.summaryReasoning = '';
-    lastRound.summaryError = '';
-
+  async function runRetry(task: (signal: AbortSignal) => Promise<void>) {
+    if (running.value) return;
     running.value = true;
     flowAbortController = new AbortController();
     const engine = getEngine();
     if (engine) engine.state.streaming = true;
-
     try {
       registerTools();
-
-      infra.statusText.value = '重试 Architect 规划...';
-      infra.statusType.value = 'warning';
-
-      // 复用已有 Architect chat 记录，避免重复插入
-      const chatId = lastRound.architectChatId;
-      if (!chatId) {
-        infra.statusText.value = '❌ 该轮次缺少 Architect chat ID，无法重试';
-        infra.statusType.value = 'danger';
-        return;
-      }
-
-      const userData = infra.access.getData();
-      const userId = userData?.id || '';
-      const traceId = generateTraceId();
-
-      await executeArchitectPlan(
-        topicId,
-        chatId,
-        userId,
-        traceId,
-        lastRound.userMessage,
-        buildTargets(lastRound),
-        flowAbortController.signal
-      );
+      await task(flowAbortController.signal);
     } catch (e: any) {
       infra.statusText.value = `❌ 重试失败: ${e.message}`;
       infra.statusType.value = 'danger';
@@ -298,12 +266,124 @@ export function useDualAgent(
     }
   }
 
+  function getRetryContext(round: ConversationRound) {
+    const lastRound =
+      conversationRounds.value[conversationRounds.value.length - 1];
+    if (round !== lastRound) throw new Error('只能重试当前会话的最后一轮');
+    const topicId = existingTopicId.value.trim();
+    if (!topicId) throw new Error('缺少 Topic ID，无法重试');
+    return {
+      topicId,
+      userId: infra.access.getData()?.id || '',
+      traceId: generateTraceId()
+    };
+  }
+
+  async function retryStep(round: ConversationRound, stepIndex: number) {
+    await runRetry(async (signal) => {
+      const { topicId, userId, traceId } = getRetryContext(round);
+      if (!round.editorResults[stepIndex]?.error) {
+        throw new Error('该步骤不是失败状态');
+      }
+      infra.statusText.value = `重试第 ${stepIndex + 1} 步...`;
+      infra.statusType.value = 'warning';
+      await retryEditorPlan(
+        topicId,
+        userId,
+        traceId,
+        round.userMessage,
+        buildTargets(round),
+        stepIndex,
+        signal
+      );
+    });
+  }
+
+  async function retrySummary(round: ConversationRound) {
+    await runRetry(async (signal) => {
+      const { topicId, userId, traceId } = getRetryContext(round);
+      infra.statusText.value = '重新生成任务总结...';
+      infra.statusType.value = 'warning';
+      await executeSummaryRetry(
+        topicId,
+        userId,
+        traceId,
+        round.userMessage,
+        buildTargets(round),
+        signal
+      );
+    });
+  }
+
+  async function retryArchitectRound(round: ConversationRound) {
+    let context: ReturnType<typeof getRetryContext>;
+    try {
+      context = getRetryContext(round);
+      if (!round.architectChatId) {
+        throw new Error('该轮次缺少 Architect chat ID，无法重试');
+      }
+    } catch (e: any) {
+      infra.statusText.value = `❌ ${e.message}`;
+      infra.statusType.value = 'danger';
+      return;
+    }
+
+    await runRetry(async (signal) => {
+      round.architectPlan = null;
+      round.architectAnswer = '';
+      round.architectStreamText = '';
+      round.reasoningText = '';
+      round.editorResults = [];
+      round.summaryText = '';
+      round.summaryReasoning = '';
+      round.summaryError = '';
+      infra.statusText.value = '重试 Architect 规划...';
+      infra.statusType.value = 'warning';
+      await executeArchitectPlan(
+        context.topicId,
+        round.architectChatId,
+        context.userId,
+        context.traceId,
+        round.userMessage,
+        buildTargets(round),
+        signal
+      );
+    });
+  }
+
+  /** 根据最后一轮的失败位置选择最小重试范围 */
+  async function retryLastRound() {
+    const lastRound =
+      conversationRounds.value[conversationRounds.value.length - 1];
+    if (!lastRound) {
+      if (lastFailedSubmission) {
+        infra.statusText.value = '重试上次请求...';
+        infra.statusType.value = 'warning';
+        return lastFailedSubmission();
+      }
+      infra.statusText.value = '❌ 没有可重试的轮次';
+      infra.statusType.value = 'danger';
+      return;
+    }
+    if (!existingTopicId.value.trim()) {
+      infra.statusText.value = '❌ 缺少 Topic ID，无法重试';
+      infra.statusType.value = 'danger';
+      return;
+    }
+    const failedStep = lastRound.editorResults.findIndex((item) => item.error);
+    if (failedStep >= 0) return retryStep(lastRound, failedStep);
+    if (lastRound.summaryError) return retrySummary(lastRound);
+    return retryArchitectRound(lastRound);
+  }
+
   return {
     running,
     userMessage,
     startDualAgent,
     continueConversation,
     retryLastRound,
+    retryStep,
+    retrySummary,
     abortAll
   };
 }

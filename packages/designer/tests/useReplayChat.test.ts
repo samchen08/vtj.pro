@@ -69,4 +69,71 @@ describe('useReplayChat', () => {
     expect(turn.toolResult).toMatchObject({ success: true, duration: 12 });
     expect(turn.approval?.status).toBe('approved');
   });
+
+  it('uses the latest step and summary attempts after retry', async () => {
+    const rounds = ref<ConversationRound[]>([]);
+    const statusText = ref('');
+    const statusType = ref<'info' | 'warning' | 'success' | 'danger'>('info');
+    const chats = [
+      {
+        id: 'architect',
+        agentRole: 'architect',
+        prompt: '创建页面',
+        content:
+          '{"intent":"创建页面","safety":"write","steps":[{"id":"step_1","type":"text","description":"生成代码"}]}',
+        reasoning: ''
+      },
+      {
+        id: 'failed-step',
+        agentRole: 'editor',
+        stepId: 'step_1',
+        attempt: 1,
+        prompt: '步骤 step_1: 生成代码\n类型: text',
+        content: '',
+        reasoning: '',
+        status: 'Error',
+        message: '请求失败'
+      },
+      {
+        id: 'retried-step',
+        agentRole: 'editor',
+        stepId: 'step_1',
+        attempt: 2,
+        prompt: '步骤 step_1: 生成代码\n类型: text',
+        content: '生成成功',
+        reasoning: '',
+        status: 'Success'
+      },
+      {
+        id: 'failed-summary',
+        agentRole: 'editor',
+        stepId: 'summary',
+        attempt: 1,
+        content: '',
+        reasoning: '',
+        status: 'Error',
+        message: '总结失败'
+      },
+      {
+        id: 'retried-summary',
+        agentRole: 'editor',
+        stepId: 'summary',
+        attempt: 2,
+        content: '最新总结',
+        reasoning: '',
+        status: 'Success'
+      }
+    ];
+    const { loadChatHistory } = useReplayChat(
+      { getChats: vi.fn(async () => chats) as any, statusText, statusType },
+      rounds
+    );
+
+    await loadChatHistory('topic');
+
+    expect(rounds.value[0].editorResults[0].error).toBeNull();
+    expect(rounds.value[0].editorResults[0].turns).toHaveLength(2);
+    expect(rounds.value[0].summaryText).toBe('最新总结');
+    expect(rounds.value[0].summaryAttempt).toBe(2);
+  });
 });

@@ -65,7 +65,8 @@ function createTargets() {
     editorResults: ref<EditorStepResult[]>([]),
     summaryText: ref(''),
     summaryReasoning: ref(''),
-    summaryError: ref('')
+    summaryError: ref(''),
+    summaryAttempt: ref(0)
   };
 }
 
@@ -268,15 +269,69 @@ describe('useArchitectPlan.executeArchitectPlan', () => {
       targets
     );
 
-    expect(deps.statusText.value).toBe('⚠️ 2 个步骤执行完成（有错误）');
-    expect(deps.statusType.value).toBe('warning');
+    expect(deps.executeEditorStep).toHaveBeenCalledTimes(1);
+    expect(deps.statusText.value).toBe('❌ 第 1 步执行失败，可从此步骤重试');
+    expect(deps.statusType.value).toBe('danger');
     const failedUpdates = deps.callLog.filter(
       ([name, body]) => name === 'updateTopic' && body.status === 'failed'
     );
     expect(failedUpdates).toHaveLength(1);
     const traceBody = deps.callLog.find(([name]) => name === 'saveTrace')![1];
     expect(traceBody.finalStatus).toBe('failed');
+    expect(traceBody.stepsJson).toHaveLength(1);
     expect(traceBody.stepsJson[0].status).toBe('failed');
+  });
+
+  it('retries from the failed step and keeps completed step records', async () => {
+    const targets = createTargets();
+    targets.architectPlan.value = JSON.parse(PLAN_JSON);
+    targets.editorResults.value = [
+      {
+        stepIdx: 0,
+        step: targets.architectPlan.value!.steps[0],
+        content: '已完成',
+        reasoning: '',
+        error: null,
+        done: true,
+        turns: [],
+        tokens: 3,
+        duration: 20
+      },
+      {
+        stepIdx: 1,
+        step: targets.architectPlan.value!.steps[1],
+        content: '',
+        reasoning: '',
+        error: '生成失败',
+        done: true,
+        turns: []
+      }
+    ];
+    const deps = createDeps({
+      streamCompletion: vi.fn(async (_t: string, _c: string, onChunk: any) => {
+        onChunk?.('重试后的总结');
+        return createStreamResult();
+      }),
+      executeEditorStep: vi.fn(async (...args: any[]) => {
+        const retrySlot = args[8] as EditorStepResult;
+        retrySlot.error = null;
+        retrySlot.done = true;
+        retrySlot.content = '重试成功';
+        return { content: '重试成功', error: null, tokens: 5, duration: 30 };
+      })
+    });
+    const { retryEditorPlan } = useArchitectPlan(deps);
+
+    await retryEditorPlan('topic', 'user', 'trace-retry', '消息', targets, 1);
+
+    expect(deps.executeEditorStep).toHaveBeenCalledTimes(1);
+    expect(targets.editorResults.value[0].content).toBe('已完成');
+    expect(targets.editorResults.value[1].error).toBeNull();
+    const traceBody = deps.callLog.find(([name]) => name === 'saveTrace')![1];
+    expect(traceBody.stepsJson.map((item: any) => item.status)).toEqual([
+      'completed',
+      'completed'
+    ]);
   });
 
   it('stops the step loop when canceled mid-execution', async () => {

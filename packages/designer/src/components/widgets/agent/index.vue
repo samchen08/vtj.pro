@@ -105,10 +105,13 @@
           :round="round"
           :round-number="index + 1"
           :is-latest="index === conversationRounds.length - 1"
+          :retryable="index === conversationRounds.length - 1 && !running"
           :code="!isHideCode"
           :details-command="detailsCommand"
           @view="showCodeDetail"
           @apply="applyDetailDsl"
+          @retry-step="(stepIndex) => retryAgentStep(round, stepIndex)"
+          @retry-summary="retryAgentSummary(round)"
           @resolve-approval="resolveApproval" />
 
         <div
@@ -228,6 +231,7 @@
   import { useFileRecognition } from './composables/useFileRecognition';
   import { useExport } from './composables/useExport';
   import { useReplayChat } from './composables/useReplayChat';
+  import { withRequestRetry } from './utils';
   import type {
     ConversationRound,
     DualAgentInfrastructure,
@@ -288,10 +292,18 @@
   );
   const unwrapOpenApi = <T,>(response: any): T => {
     if (response?.code !== undefined && response.code !== 0) {
-      throw new Error(response.message || `API Error code=${response.code}`);
+      const error = new Error(
+        response.message || `API Error code=${response.code}`
+      ) as Error & { status?: number };
+      error.status = Number(response.status || response.code) || undefined;
+      throw error;
     }
     if (response?.success === false) {
-      throw new Error(response.message || '远程接口调用失败');
+      const error = new Error(
+        response.message || '远程接口调用失败'
+      ) as Error & { status?: number };
+      error.status = Number(response.status) || undefined;
+      throw error;
     }
     return (response?.data !== undefined ? response.data : response) as T;
   };
@@ -311,13 +323,19 @@
   const saveTrace = async (body: Parameters<typeof requestSaveTrace>[0]) =>
     unwrapOpenApi<any>(await requestSaveTrace(body));
   const getChats = async (topicId: string) =>
-    unwrapOpenApi<any>(await requestChats(topicId));
+    withRequestRetry(() =>
+      Promise.resolve(requestChats(topicId)).then(unwrapOpenApi<any>)
+    );
   const getTopics = async (projectId: string) =>
-    unwrapOpenApi<AITopic[]>(await requestTopics(projectId));
+    withRequestRetry(() =>
+      Promise.resolve(requestTopics(projectId)).then(unwrapOpenApi<AITopic[]>)
+    );
   const removeTopic = async (topicId: string) =>
     unwrapOpenApi<boolean>(await requestRemoveTopic(topicId));
   const getSkills = async (ids: string[]) =>
-    unwrapOpenApi<string>(await requestSkills(ids));
+    withRequestRetry(() =>
+      Promise.resolve(requestSkills(ids)).then(unwrapOpenApi<string>)
+    );
   const { streamCompletion: completeStream, abortAll } = useSSEStream(
     chatCompletions as any
   );
@@ -380,17 +398,18 @@
         ? Promise.resolve(true)
         : new Promise<boolean>((resolve) => approvalResolvers.set(id, resolve))
   });
-  const { executeArchitectPlan } = useArchitectPlan({
-    streamCompletion,
-    postChat,
-    saveChat,
-    updateTopic,
-    saveTrace,
-    statusText,
-    statusType,
-    executeEditorStep,
-    buildSummaryPrompt
-  });
+  const { executeArchitectPlan, retryEditorPlan, retrySummary } =
+    useArchitectPlan({
+      streamCompletion,
+      postChat,
+      saveChat,
+      updateTopic,
+      saveTrace,
+      statusText,
+      statusType,
+      executeEditorStep,
+      buildSummaryPrompt
+    });
 
   const infra: DualAgentInfrastructure = {
     token,
@@ -408,7 +427,9 @@
     postTopic,
     postChat,
     streamCompletion,
-    executeArchitectPlan
+    executeArchitectPlan,
+    retryEditorPlan,
+    retrySummary
   };
   const agentState: DualAgentState = { conversationRounds };
   const buildFinalPrompt = () => {
@@ -422,6 +443,8 @@
     startDualAgent,
     continueConversation,
     retryLastRound,
+    retryStep,
+    retrySummary: retryRoundSummary,
     abortAll: abortAgentFlow
   } = useDualAgent(infra, agentApi, agentState, buildFinalPrompt);
   const { exportConversation } = useExport();
@@ -534,6 +557,19 @@
 
   const retryAgent = async () => {
     await retryLastRound();
+    activeChat = null;
+  };
+
+  const retryAgentStep = async (
+    round: ConversationRound,
+    stepIndex: number
+  ) => {
+    await retryStep(round, stepIndex);
+    activeChat = null;
+  };
+
+  const retryAgentSummary = async (round: ConversationRound) => {
+    await retryRoundSummary(round);
     activeChat = null;
   };
 

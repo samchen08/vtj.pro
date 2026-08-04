@@ -98,6 +98,8 @@ export interface EditorStepResult {
   error: string | null;
   done: boolean;
   turns: EditorTurn[];
+  tokens?: number;
+  duration?: number;
 }
 
 /** 步骤执行返回值（内部使用） */
@@ -137,6 +139,7 @@ export interface ConversationRound {
   summaryText: string;
   summaryReasoning: string;
   summaryError: string;
+  summaryAttempt: number;
 }
 
 // ── 导出相关 ──
@@ -234,6 +237,23 @@ export interface DualAgentApi {
     targets: ArchPlanTargets,
     signal?: AbortSignal
   ) => Promise<void>;
+  retryEditorPlan: (
+    topicId: string,
+    userId: string,
+    traceId: string,
+    userMessage: string,
+    targets: ArchPlanTargets,
+    stepIndex: number,
+    signal?: AbortSignal
+  ) => Promise<void>;
+  retrySummary: (
+    topicId: string,
+    userId: string,
+    traceId: string,
+    userMessage: string,
+    targets: ArchPlanTargets,
+    signal?: AbortSignal
+  ) => Promise<void>;
 }
 
 /** 对话状态 */
@@ -282,7 +302,8 @@ export interface ArchitectPlanDeps {
     allSteps: PlanStep[],
     stepStart: number,
     editorResults: Ref<EditorStepResult[]>,
-    signal?: AbortSignal
+    signal?: AbortSignal,
+    retrySlot?: EditorStepResult
   ) => Promise<StepExecutionResult>;
   buildSummaryPrompt: (
     userRequest: string,
@@ -305,6 +326,7 @@ export interface TopicCreateBody {
   agent: 'architect' | 'editor';
   userId: string;
   userName: string;
+  requestId?: string;
 }
 
 // ── 回显相关 ──

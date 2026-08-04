@@ -259,19 +259,20 @@ function buildEditorResults(chats: ChatRecord[]): EditorStepResult[] {
 
     // 拼接所有 attempt 的 reasoning
     const allReasoning = group.map((c) => c.reasoning || '').join('');
-    // 第一条 attempt 的 content 作为 slot content
-    const slotContent = group[0]?.content || '';
+    const latestChat = group[group.length - 1];
 
     results.push({
       stepIdx,
       step,
-      content: slotContent,
+      content: latestChat?.content || '',
       reasoning: allReasoning,
-      error: group.some((c) => c.status && c.status !== 'Success')
-        ? group.find((c) => c.message)?.message || '执行失败'
-        : null,
+      error:
+        latestChat?.status && latestChat.status !== 'Success'
+          ? latestChat.message || '执行失败'
+          : null,
       done: true,
-      turns
+      turns,
+      tokens: group.reduce((sum, item) => sum + (item.tokens || 0), 0)
     });
   });
 
@@ -334,14 +335,15 @@ function buildRound(chats: ChatRecord[]): ConversationRound {
     editorResults: [],
     summaryText: '',
     summaryReasoning: '',
-    summaryError: ''
+    summaryError: '',
+    summaryAttempt: 0
   };
 
   // 分类 chat
   const architectChat = chats.find((c) => c.agentRole === 'architect');
-  const summaryChat = chats.find(
-    (c) => c.agentRole === 'editor' && c.stepId === 'summary'
-  );
+  const summaryChat = chats
+    .filter((c) => c.agentRole === 'editor' && c.stepId === 'summary')
+    .pop();
   const editorChats = chats.filter(
     (c) => c.agentRole === 'editor' && c.stepId !== 'summary'
   );
@@ -392,6 +394,7 @@ function buildRound(chats: ChatRecord[]): ConversationRound {
 
   // 处理 summary
   if (summaryChat) {
+    round.summaryAttempt = summaryChat.attempt || 1;
     round.summaryText = summaryChat.content || '';
     round.summaryReasoning = summaryChat.reasoning || '';
     if (summaryChat.status && summaryChat.status !== 'Success') {

@@ -177,7 +177,8 @@ export function useEditorStep(deps: EditorStepDeps) {
     allSteps: PlanStep[],
     stepStart: number,
     editorResults: Ref<EditorStepResult[]>,
-    signal?: AbortSignal
+    signal?: AbortSignal,
+    retrySlot?: EditorStepResult
   ): Promise<StepExecutionResult> {
     let totalTokens = 0;
     const isCancelled = () => signal?.aborted ?? false;
@@ -227,17 +228,28 @@ export function useEditorStep(deps: EditorStepDeps) {
       }
     }
 
-    // 初始化展示槽位（push 后从响应式数组取引用，确保 .done 等修改能触发 Vue 渲染）
-    editorResults.value.push({
-      stepIdx,
-      step,
-      content: '',
-      reasoning: '',
-      error: null,
-      done: false,
-      turns: []
-    });
-    const slot = editorResults.value[editorResults.value.length - 1];
+    // 重试保留旧轮次；首次执行创建新展示槽位
+    const attemptOffset = retrySlot
+      ? Math.max(-1, ...retrySlot.turns.map((item) => item.turn)) + 1
+      : 0;
+    if (retrySlot) {
+      retrySlot.content = '';
+      retrySlot.reasoning = '';
+      retrySlot.error = null;
+      retrySlot.done = false;
+    } else {
+      editorResults.value.push({
+        stepIdx,
+        step,
+        content: '',
+        reasoning: '',
+        error: null,
+        done: false,
+        turns: []
+      });
+    }
+    const slot =
+      retrySlot || editorResults.value[editorResults.value.length - 1];
     const exposeTurn = (turnInfo: EditorStepResult['turns'][0]) => {
       if (!slot.turns.includes(turnInfo)) slot.turns.push(turnInfo);
     };
@@ -292,7 +304,8 @@ export function useEditorStep(deps: EditorStepDeps) {
 
     for (let turn = 0; turn < MAX_TURNS; turn++) {
       if (isCancelled()) return cancelResult(slot);
-      const ti = createEditorTurn(turn);
+      const attempt = attemptOffset + turn;
+      const ti = createEditorTurn(attempt);
 
       // 提前 push，确保首轮流式过程也能立即展示
       exposeTurn(ti);
@@ -317,7 +330,7 @@ export function useEditorStep(deps: EditorStepDeps) {
           prompt,
           agent: 'editor',
           stepId: step.id,
-          attempt: turn + 1,
+          attempt: attempt + 1,
           userId: userId || '',
           userName: ''
         });

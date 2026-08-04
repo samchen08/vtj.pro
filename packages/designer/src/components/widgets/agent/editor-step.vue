@@ -7,7 +7,17 @@
       <span class="step-status">{{ stepStatusLabel }}</span>
     </header>
 
-    <div v-if="step.error" class="error-block">{{ step.error }}</div>
+    <div v-if="step.error" class="error-block">
+      <span>{{ step.error }}</span>
+      <ElButton
+        v-if="retryable"
+        link
+        type="primary"
+        size="small"
+        @click="$emit('retry')">
+        从此步骤重试
+      </ElButton>
+    </div>
 
     <el-collapse
       v-if="step.turns?.length"
@@ -36,7 +46,7 @@
               class="pending">
               待批准
             </span>
-            <span v-if="isCodeTurn(turn)" class="turn-actions">
+            <span v-if="isCodeTurn(turn)" class="turn-actions" @click.stop>
               <XAction
                 mode="icon"
                 size="small"
@@ -44,9 +54,7 @@
                 :icon="View"
                 tooltip="查看生成内容"
                 :disabled="!hasArtifact(turn)"
-                @click.stop="
-                  $emit('view', turn.vue!, 'vue', turn.dsl)
-                "></XAction>
+                @click="$emit('view', turn.vue!, 'vue', turn.dsl)"></XAction>
               <XAction
                 mode="icon"
                 size="small"
@@ -54,7 +62,7 @@
                 :icon="Download"
                 tooltip="应用到页面"
                 :disabled="!hasArtifact(turn)"
-                @click.stop="$emit('apply', turn.dsl!)"></XAction>
+                @click="$emit('apply', turn.dsl!)"></XAction>
             </span>
           </div>
         </template>
@@ -150,12 +158,14 @@
     step: EditorStepResult;
     code: boolean;
     detailsCommand: number;
+    retryable: boolean;
   }>();
 
   defineEmits<{
     resolveApproval: [id: string, approved: boolean];
     view: [source: string, language: string, dsl?: Record<string, any>];
     apply: [dsl: Record<string, any>];
+    retry: [];
   }>();
 
   const stepStatus = computed(() =>
@@ -320,6 +330,10 @@
   }
 
   .error-block {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
     margin: 0 9px 9px;
     padding: 7px 9px;
     border-radius: var(--el-border-radius-base);
