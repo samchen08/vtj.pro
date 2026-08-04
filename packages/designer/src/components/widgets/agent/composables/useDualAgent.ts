@@ -10,11 +10,13 @@ import type {
   PlanResult,
   ConversationRound,
   EditorStepResult,
+  AttachmentInfo,
   DualAgentInfrastructure,
   DualAgentApi,
   DualAgentState
 } from '../types/agent';
 import type { ArchPlanTargets } from './useArchitectPlan';
+import { stripFileDescBlocks } from '../utils/filePrompt';
 
 /** 生成 trace ID */
 function generateTraceId(): string {
@@ -46,10 +48,14 @@ export function useDualAgent(
   infra: DualAgentInfrastructure,
   api: DualAgentApi,
   state: DualAgentState,
-  promptBuilder?: () => string
+  promptBuilder?: () => string,
+  attachmentsBuilder?: () => AttachmentInfo[],
+  clearAttachments?: () => void
 ) {
   const running = ref(false);
   const userMessage = ref(DEFAULT_USER_MESSAGE);
+  /** 当前流程是否被用户取消（供 UI 展示“恢复”操作） */
+  const cancelled = ref(false);
 
   // ── 解构 infra (仅内部使用) ──
   const {
@@ -67,6 +73,7 @@ export function useDualAgent(
     postChat,
     executeArchitectPlan,
     retryEditorPlan,
+    resumeEditorPlan,
     retrySummary: executeSummaryRetry
   } = api;
   const { conversationRounds } = state;
@@ -114,10 +121,14 @@ export function useDualAgent(
 
   /**
    * 执行双代理流程的统一入口
-   * @param setup 异步 setup 函数，接收 finalPrompt，返回 { topicId, userId, chatId, round }
+   * @param setup 异步 setup 函数，接收 { finalPrompt（提交用）, userText（气泡展示用）, attachments（附件快照） }
    */
   async function executeFlow(
-    setup: (finalPrompt: string) => Promise<{
+    setup: (
+      finalPrompt: string,
+      userText: string,
+      attachments: AttachmentInfo[]
+    ) => Promise<{
       topicId: string;
       userId: string;
       chatId: string;
@@ -128,13 +139,28 @@ export function useDualAgent(
     const finalPrompt = promptOverride ?? getFinalPrompt();
     if (!validate(finalPrompt)) return;
 
+    // 气泡展示的纯文本（不含文件识别描述）；
+    // 失败重试场景下用户输入框已清空，从提交的 prompt 还原纯文本
+    const userText = promptOverride
+      ? stripFileDescBlocks(finalPrompt)
+      : userMessage.value.trim();
+    // 附件快照（与输入框 files 解耦，发送后清空附件区不影响气泡）
+    const attachments = attachmentsBuilder ? attachmentsBuilder() : [];
+
     running.value = true;
+    cancelled.value = false;
     flowAbortController = new AbortController();
     const engine = getEngine();
     if (engine) engine.state.streaming = true;
     try {
       registerTools();
-      const { topicId, userId, chatId, round } = await setup(finalPrompt);
+      const { topicId, userId, chatId, round } = await setup(
+        finalPrompt,
+        userText,
+        attachments
+      );
+      // round 已入列且快照已生成，清空输入框附件区
+      clearAttachments?.();
       const traceId = generateTraceId();
       await executeArchitectPlan(
         topicId,
@@ -155,6 +181,7 @@ export function useDualAgent(
     } finally {
       if (engine) engine.state.streaming = false;
       running.value = false;
+      cancelled.value = !!flowAbortController?.signal.aborted;
       flowAbortController = null;
     }
   }
@@ -162,7 +189,7 @@ export function useDualAgent(
   /** 启动新话题双代理流程 */
   async function startDualAgent() {
     const requestId = generateTraceId();
-    await executeFlow(async (finalPrompt) => {
+    await executeFlow(async (finalPrompt, userText, attachments) => {
       // 新开对话：清空所有历史轮次
       conversationRounds.value = [];
 
@@ -184,6 +211,7 @@ export function useDualAgent(
         agent: 'architect' as const,
         userId: userData?.id || '',
         userName: userData?.name || '',
+        files: attachments.length ? JSON.stringify(attachments) : undefined,
         requestId
       };
 
@@ -197,7 +225,9 @@ export function useDualAgent(
       infra.statusText.value = `话题创建成功: ${topicId}`;
       infra.statusType.value = 'success';
 
-      const round = reactive(createEmptyRound(finalPrompt));
+      const round = reactive(createEmptyRound(userText));
+      round.attachments = attachments;
+      round.promptSent = finalPrompt;
       conversationRounds.value.push(round);
 
       const chatId = architectChat.id || architectChat.chatId || '';
@@ -216,7 +246,7 @@ export function useDualAgent(
     }
 
     const requestId = generateTraceId();
-    await executeFlow(async (finalPrompt) => {
+    await executeFlow(async (finalPrompt, userText, attachments) => {
       infra.statusText.value = '创建 Architect 聊天...';
       infra.statusType.value = 'info';
 
@@ -225,13 +255,16 @@ export function useDualAgent(
         prompt: finalPrompt,
         agent: 'architect',
         source: '',
+        files: attachments.length ? JSON.stringify(attachments) : undefined,
         requestId
       });
       const chat = chatRes.chat || chatRes;
       const chatId = chat.id || chat.chatId || '';
 
       // 追加新轮次
-      const round = reactive(createEmptyRound(finalPrompt));
+      const round = reactive(createEmptyRound(userText));
+      round.attachments = attachments;
+      round.promptSent = finalPrompt;
       conversationRounds.value.push(round);
       round.architectChatId = chatId;
 
@@ -250,6 +283,7 @@ export function useDualAgent(
   async function runRetry(task: (signal: AbortSignal) => Promise<void>) {
     if (running.value) return;
     running.value = true;
+    cancelled.value = false;
     flowAbortController = new AbortController();
     const engine = getEngine();
     if (engine) engine.state.streaming = true;
@@ -262,6 +296,7 @@ export function useDualAgent(
     } finally {
       if (engine) engine.state.streaming = false;
       running.value = false;
+      cancelled.value = !!flowAbortController?.signal.aborted;
       flowAbortController = null;
     }
   }
@@ -291,7 +326,7 @@ export function useDualAgent(
         topicId,
         userId,
         traceId,
-        round.userMessage,
+        round.promptSent || round.userMessage,
         buildTargets(round),
         stepIndex,
         signal
@@ -308,14 +343,14 @@ export function useDualAgent(
         topicId,
         userId,
         traceId,
-        round.userMessage,
+        round.promptSent || round.userMessage,
         buildTargets(round),
         signal
       );
     });
   }
 
-  async function retryArchitectRound(round: ConversationRound) {
+  async function retryArchitectRound(round: ConversationRound, label = '重试') {
     let context: ReturnType<typeof getRetryContext>;
     try {
       context = getRetryContext(round);
@@ -337,22 +372,22 @@ export function useDualAgent(
       round.summaryText = '';
       round.summaryReasoning = '';
       round.summaryError = '';
-      infra.statusText.value = '重试 Architect 规划...';
+      infra.statusText.value = `${label} Architect 规划...`;
       infra.statusType.value = 'warning';
       await executeArchitectPlan(
         context.topicId,
         round.architectChatId,
         context.userId,
         context.traceId,
-        round.userMessage,
+        round.promptSent || round.userMessage,
         buildTargets(round),
         signal
       );
     });
   }
 
-  /** 根据最后一轮的失败位置选择最小重试范围 */
-  async function retryLastRound() {
+  /** 根据最后一轮的失败位置选择最小重试范围（label 用于区分重试/恢复文案） */
+  async function retryLastRound(label = '重试') {
     const lastRound =
       conversationRounds.value[conversationRounds.value.length - 1];
     if (!lastRound) {
@@ -373,17 +408,58 @@ export function useDualAgent(
     const failedStep = lastRound.editorResults.findIndex((item) => item.error);
     if (failedStep >= 0) return retryStep(lastRound, failedStep);
     if (lastRound.summaryError) return retrySummary(lastRound);
-    return retryArchitectRound(lastRound);
+    return retryArchitectRound(lastRound, label);
+  }
+
+  /**
+   * 从取消断点恢复最后一轮：
+   * - 规划阶段取消（architectPlan 为空）→ 重跑 Architect 规划
+   * - 步骤执行中取消 → 从断点步骤续跑（跳过已完成步骤）
+   * - 总结阶段取消 → 仅重新生成总结
+   */
+  async function resumeLastRound() {
+    const lastRound =
+      conversationRounds.value[conversationRounds.value.length - 1];
+    if (!lastRound) {
+      infra.statusText.value = '❌ 没有可恢复的轮次';
+      infra.statusType.value = 'danger';
+      return;
+    }
+    if (!existingTopicId.value.trim()) {
+      infra.statusText.value = '❌ 缺少 Topic ID，无法恢复';
+      infra.statusType.value = 'danger';
+      return;
+    }
+
+    // 规划阶段取消：复用 architectChatId 重跑规划（自动清空该轮规划字段）
+    if (!lastRound.architectPlan) {
+      return retryArchitectRound(lastRound, '恢复');
+    }
+
+    // 步骤/总结阶段取消：断点续跑
+    await runRetry(async (signal) => {
+      const { topicId, userId, traceId } = getRetryContext(lastRound);
+      await resumeEditorPlan(
+        topicId,
+        userId,
+        traceId,
+        lastRound.promptSent || lastRound.userMessage,
+        buildTargets(lastRound),
+        signal
+      );
+    });
   }
 
   return {
     running,
     userMessage,
+    cancelled,
     startDualAgent,
     continueConversation,
     retryLastRound,
     retryStep,
     retrySummary,
+    resumeLastRound,
     abortAll
   };
 }

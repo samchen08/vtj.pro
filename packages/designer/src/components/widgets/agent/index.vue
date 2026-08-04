@@ -127,6 +127,13 @@
             @click="retryAgent">
             重试
           </ElButton>
+          <ElButton
+            v-if="cancelled && !running && hasData"
+            text
+            type="primary"
+            @click="resumeAgent">
+            恢复
+          </ElButton>
         </div>
       </div>
 
@@ -354,6 +361,7 @@
     uploadFile,
     removeFile,
     buildFilePrompt,
+    buildAttachments,
     clearFiles
   } = useFileRecognition(async (file) =>
     unwrapOpenApi(await recognitionFile(file))
@@ -398,18 +406,22 @@
         ? Promise.resolve(true)
         : new Promise<boolean>((resolve) => approvalResolvers.set(id, resolve))
   });
-  const { executeArchitectPlan, retryEditorPlan, retrySummary } =
-    useArchitectPlan({
-      streamCompletion,
-      postChat,
-      saveChat,
-      updateTopic,
-      saveTrace,
-      statusText,
-      statusType,
-      executeEditorStep,
-      buildSummaryPrompt
-    });
+  const {
+    executeArchitectPlan,
+    retryEditorPlan,
+    retrySummary,
+    resumeEditorPlan
+  } = useArchitectPlan({
+    streamCompletion,
+    postChat,
+    saveChat,
+    updateTopic,
+    saveTrace,
+    statusText,
+    statusType,
+    executeEditorStep,
+    buildSummaryPrompt
+  });
 
   const infra: DualAgentInfrastructure = {
     token,
@@ -429,6 +441,7 @@
     streamCompletion,
     executeArchitectPlan,
     retryEditorPlan,
+    resumeEditorPlan,
     retrySummary
   };
   const agentState: DualAgentState = { conversationRounds };
@@ -440,13 +453,22 @@
   const {
     running,
     userMessage,
+    cancelled,
     startDualAgent,
     continueConversation,
     retryLastRound,
     retryStep,
     retrySummary: retryRoundSummary,
+    resumeLastRound,
     abortAll: abortAgentFlow
-  } = useDualAgent(infra, agentApi, agentState, buildFinalPrompt);
+  } = useDualAgent(
+    infra,
+    agentApi,
+    agentState,
+    buildFinalPrompt,
+    buildAttachments,
+    clearFiles
+  );
   const { exportConversation } = useExport();
   const { loadChatHistory } = useReplayChat(
     { getChats, statusText, statusType },
@@ -560,6 +582,11 @@
     activeChat = null;
   };
 
+  const resumeAgent = async () => {
+    await resumeLastRound();
+    activeChat = null;
+  };
+
   const retryAgentStep = async (
     round: ConversationRound,
     stepIndex: number
@@ -578,6 +605,7 @@
     existingTopicId.value = '';
     conversationRounds.value = [];
     statusText.value = '';
+    cancelled.value = false;
     detailsCommand.value = 0;
     clearFiles();
     showDrawer.value = false;
@@ -619,6 +647,7 @@
   const onRecordLoad = async (topic: AITopic) => {
     existingTopicId.value = topic.id;
     model.value = topic.model || model.value;
+    cancelled.value = false;
     showDrawer.value = false;
     await loadChatHistory(topic.id);
   };
@@ -699,7 +728,7 @@
     min-height: 0;
     flex: 1;
     overflow: auto;
-    padding: 14px 12px 22px;
+    padding: 0;
     background: var(--el-bg-color);
     scroll-behavior: smooth;
   }

@@ -183,7 +183,11 @@ export function useEditorStep(deps: EditorStepDeps) {
     let totalTokens = 0;
     const isCancelled = () => signal?.aborted ?? false;
     const cancelResult = (slot?: EditorStepResult) => {
-      if (slot) slot.done = true;
+      if (slot) {
+        slot.done = true;
+        // 标记取消产生的未完成槽位，供断点恢复定位
+        slot.aborted = true;
+      }
       return okResult('', totalTokens, stepStart);
     };
 
@@ -237,6 +241,8 @@ export function useEditorStep(deps: EditorStepDeps) {
       retrySlot.reasoning = '';
       retrySlot.error = null;
       retrySlot.done = false;
+      // 续跑成功后清除取消标记，避免残留影响后续断点定位
+      retrySlot.aborted = false;
     } else {
       editorResults.value.push({
         stepIdx,

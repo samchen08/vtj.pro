@@ -446,5 +446,85 @@ export function useArchitectPlan(deps: ArchitectPlanDeps) {
     statusType.value = targets.summaryError.value ? 'danger' : 'success';
   }
 
-  return { executeArchitectPlan, retryEditorPlan, retrySummary };
+  /**
+   * 从取消断点恢复 Editor 执行：
+   * - 步骤执行中取消（存在 aborted 槽位或步骤未跑完）→ 从断点步骤续跑
+   * - 步骤已全部完成但总结缺失（总结阶段取消）→ 仅重新生成总结
+   */
+  async function resumeEditorPlan(
+    topicId: string,
+    userId: string,
+    traceId: string,
+    userMessage: string,
+    targets: ArchPlanTargets,
+    signal?: AbortSignal
+  ) {
+    const steps = targets.architectPlan.value?.steps || [];
+    if (!steps.length) throw new Error('没有可恢复的计划');
+
+    const startTime = Date.now();
+    const results = targets.editorResults.value;
+    const last = results[results.length - 1];
+
+    // 取消时正在执行的步骤：替换该未完成槽位并从它续跑
+    let startStep = results.length;
+    let retrySlot: EditorStepResult | undefined;
+    if (last?.aborted) {
+      startStep = results.length - 1;
+      retrySlot = last;
+    }
+
+    // 步骤已全部完成，仅总结缺失（总结阶段取消）
+    if (startStep >= steps.length) {
+      statusText.value = '恢复生成任务总结...';
+      statusType.value = 'warning';
+      const records = results.map(toStepRecord);
+      const totalTokens = await generateSummary(
+        topicId,
+        userId,
+        userMessage,
+        targets,
+        records,
+        signal
+      );
+      if (signal?.aborted) return;
+      await saveTrace({
+        traceId,
+        topicId,
+        planJson: targets.architectPlan.value,
+        stepsJson: records,
+        finalStatus: 'completed',
+        totalTokens,
+        totalDuration: Date.now() - startTime
+      });
+      statusText.value = targets.summaryError.value
+        ? `❌ 总结生成失败: ${targets.summaryError.value}`
+        : '✅ 任务总结已生成';
+      statusType.value = targets.summaryError.value ? 'danger' : 'success';
+      return;
+    }
+
+    // 从断点步骤续跑（跳过已完成步骤，retrySlot 复用未完成槽位）
+    await updateTopic({ id: topicId, status: 'executing', traceId });
+    statusText.value = `恢复执行: 步骤 ${startStep + 1}/${steps.length}...`;
+    statusType.value = 'warning';
+    await executeEditorPlan(
+      topicId,
+      userId,
+      traceId,
+      userMessage,
+      targets,
+      startStep,
+      0,
+      signal,
+      retrySlot
+    );
+  }
+
+  return {
+    executeArchitectPlan,
+    retryEditorPlan,
+    retrySummary,
+    resumeEditorPlan
+  };
 }

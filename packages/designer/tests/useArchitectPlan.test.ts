@@ -406,3 +406,164 @@ describe('useArchitectPlan.executeArchitectPlan', () => {
     expect(updateBodies[updateBodies.length - 1][1].status).toBe('completed');
   });
 });
+
+describe('useArchitectPlan.resumeEditorPlan', () => {
+  it('resumes from the aborted slot and reuses it', async () => {
+    const targets = createTargets();
+    targets.architectPlan.value = JSON.parse(PLAN_JSON);
+    const abortedSlot: EditorStepResult = {
+      stepIdx: 1,
+      step: targets.architectPlan.value!.steps[1],
+      content: '部分流内容',
+      reasoning: '',
+      error: null,
+      done: true,
+      aborted: true,
+      turns: []
+    };
+    targets.editorResults.value = [
+      {
+        stepIdx: 0,
+        step: targets.architectPlan.value!.steps[0],
+        content: '已完成',
+        reasoning: '',
+        error: null,
+        done: true,
+        turns: [],
+        tokens: 3,
+        duration: 20
+      },
+      abortedSlot
+    ];
+    const deps = createDeps({
+      streamCompletion: vi.fn(async (_t: string, _c: string, onChunk: any) => {
+        onChunk?.('恢复后的总结');
+        return createStreamResult();
+      }),
+      executeEditorStep: vi.fn(async (...args: any[]) => {
+        const retrySlot = args[8] as EditorStepResult;
+        // 与真实实现一致：续跑前重置槽位并清除取消标记
+        retrySlot.aborted = false;
+        retrySlot.content = '续跑成功';
+        retrySlot.done = true;
+        return { content: '续跑成功', error: null, tokens: 5, duration: 30 };
+      })
+    });
+    const { resumeEditorPlan } = useArchitectPlan(deps);
+
+    await resumeEditorPlan('topic', 'user', 'trace-resume', '消息', targets);
+
+    // 已完成步骤不再执行，仅续跑被取消的步骤，且复用原槽位
+    expect(deps.executeEditorStep).toHaveBeenCalledTimes(1);
+    const stepArgs = (deps.executeEditorStep as any).mock.calls[0];
+    expect(stepArgs[3]).toBe(1);
+    // ref 数组读取返回 reactive proxy，与数组内元素为同一引用
+    expect(stepArgs[8]).toBe(targets.editorResults.value[1]);
+    expect(targets.editorResults.value).toHaveLength(2);
+    expect(targets.editorResults.value[0].content).toBe('已完成');
+    expect(targets.editorResults.value[1].content).toBe('续跑成功');
+    expect(targets.editorResults.value[1].aborted).toBe(false);
+    // 续跑完成后正常生成总结并保存 trace
+    expect(deps.buildSummaryPrompt).toHaveBeenCalledTimes(1);
+    const traceBody = deps.callLog.find(([name]) => name === 'saveTrace')![1];
+    expect(traceBody.finalStatus).toBe('completed');
+    expect(traceBody.stepsJson).toHaveLength(2);
+  });
+
+  it('continues from the next step when no aborted slot exists', async () => {
+    const targets = createTargets();
+    targets.architectPlan.value = JSON.parse(PLAN_JSON);
+    targets.editorResults.value = [
+      {
+        stepIdx: 0,
+        step: targets.architectPlan.value!.steps[0],
+        content: '已完成',
+        reasoning: '',
+        error: null,
+        done: true,
+        turns: []
+      }
+    ];
+    const deps = createDeps({
+      streamCompletion: vi.fn(async (_t: string, _c: string, onChunk: any) => {
+        onChunk?.('恢复总结');
+        return createStreamResult();
+      }),
+      executeEditorStep: vi.fn(async () => ({
+        content: '续跑',
+        error: null,
+        tokens: 5,
+        duration: 10
+      }))
+    });
+    const { resumeEditorPlan } = useArchitectPlan(deps);
+
+    await resumeEditorPlan('topic', 'user', 'trace-resume', '消息', targets);
+
+    expect(deps.executeEditorStep).toHaveBeenCalledTimes(1);
+    const stepArgs = (deps.executeEditorStep as any).mock.calls[0];
+    expect(stepArgs[3]).toBe(1);
+    expect(stepArgs[8]).toBeUndefined();
+    expect(deps.statusText.value).toBe('✅ 全部 2 个步骤执行完成');
+  });
+
+  it('only regenerates the summary when all steps are done', async () => {
+    const targets = createTargets();
+    targets.architectPlan.value = JSON.parse(PLAN_JSON);
+    targets.editorResults.value = [
+      {
+        stepIdx: 0,
+        step: targets.architectPlan.value!.steps[0],
+        content: '完成1',
+        reasoning: '',
+        error: null,
+        done: true,
+        turns: []
+      },
+      {
+        stepIdx: 1,
+        step: targets.architectPlan.value!.steps[1],
+        content: '完成2',
+        reasoning: '',
+        error: null,
+        done: true,
+        turns: []
+      }
+    ];
+    const deps = createDeps({
+      streamCompletion: vi.fn(async (_t: string, _c: string, onChunk: any) => {
+        onChunk?.('补充总结');
+        return createStreamResult({ usage: { total_tokens: 9 } });
+      })
+    });
+    const { resumeEditorPlan } = useArchitectPlan(deps);
+
+    await resumeEditorPlan('topic', 'user', 'trace-resume', '消息', targets);
+
+    // 不执行任何步骤，仅补生成总结
+    expect(deps.executeEditorStep).not.toHaveBeenCalled();
+    expect(targets.summaryText.value).toBe('补充总结');
+    expect(deps.buildSummaryPrompt).toHaveBeenCalledTimes(1);
+    const traceBody = deps.callLog.find(([name]) => name === 'saveTrace')![1];
+    expect(traceBody.finalStatus).toBe('completed');
+    expect(traceBody.stepsJson).toHaveLength(2);
+    expect(deps.statusText.value).toBe('✅ 任务总结已生成');
+    expect(deps.statusType.value).toBe('success');
+  });
+
+  it('throws when the plan has no steps', async () => {
+    const targets = createTargets();
+    targets.architectPlan.value = {
+      intent: '直接回答',
+      safety: 'readonly',
+      steps: []
+    };
+    const deps = createDeps();
+    const { resumeEditorPlan } = useArchitectPlan(deps);
+
+    await expect(
+      resumeEditorPlan('topic', 'user', 'trace-resume', '消息', targets)
+    ).rejects.toThrow('没有可恢复的计划');
+    expect(deps.executeEditorStep).not.toHaveBeenCalled();
+  });
+});

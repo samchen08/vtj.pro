@@ -15,6 +15,7 @@ import type {
 } from '../types/agent';
 import { getApprovalRisk } from '../utils/approval';
 import { parseOutput } from '../utils/outputParser';
+import { stripFileDescBlocks } from '../utils/filePrompt';
 
 /** 生成轮次唯一 ID */
 function genRoundId(): string {
@@ -352,10 +353,12 @@ function buildRound(chats: ChatRecord[]): ConversationRound {
   const singleChat = chats.find((c) => c.agentRole === 'single');
 
   if (architectChat) {
-    round.userMessage = architectChat.prompt || '';
+    round.userMessage = stripFileDescBlocks(architectChat.prompt || '');
     round.architectChatId = architectChat.id || '';
     round.architectStreamText = architectChat.content || '';
     round.reasoningText = architectChat.reasoning || '';
+    round.attachments = architectChat.files || undefined;
+    round.promptSent = architectChat.prompt || '';
 
     // 尝试解析 plan
     round.architectPlan = tryParsePlan(architectChat.content || '');
@@ -383,10 +386,12 @@ function buildRound(chats: ChatRecord[]): ConversationRound {
     }
   } else if (singleChat) {
     // 单代理模式
-    round.userMessage = singleChat.prompt || '';
+    round.userMessage = stripFileDescBlocks(singleChat.prompt || '');
     round.architectAnswer = singleChat.content || '';
     round.reasoningText = singleChat.reasoning || '';
     round.architectStreamText = singleChat.content || '';
+    round.attachments = singleChat.files || undefined;
+    round.promptSent = singleChat.prompt || '';
   }
 
   // 构建 editor results

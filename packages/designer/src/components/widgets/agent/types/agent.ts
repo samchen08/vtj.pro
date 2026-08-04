@@ -1,5 +1,5 @@
 /**
- * 双代理 (Architect + Editor) 测试页面的类型定义
+ * 双代理 (Architect + Editor) 页面的类型定义
  */
 import type { Ref } from 'vue';
 import type { Engine } from '../../../../framework';
@@ -100,6 +100,8 @@ export interface EditorStepResult {
   turns: EditorTurn[];
   tokens?: number;
   duration?: number;
+  /** 取消时产生的未完成槽位标记（断点恢复时定位用） */
+  aborted?: boolean;
 }
 
 /** 步骤执行返回值（内部使用） */
@@ -125,6 +127,15 @@ export interface StepRecord {
 
 // ── 对话轮次相关 ──
 
+/** 附件展示信息（不含识别描述，描述仅用于提交请求） */
+export interface AttachmentInfo {
+  id: string;
+  name: string;
+  type: 'image' | 'json';
+  /** 文件访问 URL（本地相对路径或 OSS 完整地址） */
+  url?: string;
+}
+
 /** 一轮完整的 Architect → Editor → Summary 对话 */
 export interface ConversationRound {
   id: string;
@@ -140,6 +151,10 @@ export interface ConversationRound {
   summaryReasoning: string;
   summaryError: string;
   summaryAttempt: number;
+  /** 附件快照（气泡展示用，与输入框 files 解耦） */
+  attachments?: AttachmentInfo[];
+  /** 实际提交后端的完整 prompt（含文件识别描述），重试时复用 */
+  promptSent?: string;
 }
 
 // ── 导出相关 ──
@@ -244,6 +259,14 @@ export interface DualAgentApi {
     userMessage: string,
     targets: ArchPlanTargets,
     stepIndex: number,
+    signal?: AbortSignal
+  ) => Promise<void>;
+  resumeEditorPlan: (
+    topicId: string,
+    userId: string,
+    traceId: string,
+    userMessage: string,
+    targets: ArchPlanTargets,
     signal?: AbortSignal
   ) => Promise<void>;
   retrySummary: (
@@ -361,6 +384,8 @@ export interface ChatRecord {
   vue: string;
   source: string;
   dsl: Record<string, any> | string;
+  /** 附件信息（持久化到 chats.files） */
+  files?: AttachmentInfo[];
   createdAt: string;
   updatedAt: string;
 }

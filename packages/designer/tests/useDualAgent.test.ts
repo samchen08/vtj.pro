@@ -48,6 +48,7 @@ function createApi(): DualAgentApi {
     streamCompletion: vi.fn(),
     executeArchitectPlan: vi.fn(async () => {}),
     retryEditorPlan: vi.fn(async () => {}),
+    resumeEditorPlan: vi.fn(async () => {}),
     retrySummary: vi.fn(async () => {})
   };
 }
@@ -367,5 +368,124 @@ describe('useDualAgent', () => {
     expect(retryBody.prompt).toBe('原始请求');
     expect(retryBody.requestId).toBe(firstBody.requestId);
     expect(state.conversationRounds.value).toHaveLength(1);
+  });
+
+  it('marks cancelled after abortAll and resets it on a new flow', async () => {
+    const { infra } = createInfra();
+    infra.token.value = 'tk';
+    const api = createApi();
+    // 第一次流程保持 executeArchitectPlan 未完成，以便在流程运行中触发 abort；
+    // 后续调用立即完成（useDualAgent 内部已解构引用，不能替换整个 mock）
+    let release: () => void = () => {};
+    api.executeArchitectPlan = vi
+      .fn()
+      .mockImplementationOnce(
+        () =>
+          new Promise<void>((resolve) => {
+            release = resolve;
+          })
+      )
+      .mockImplementation(async () => {});
+    const state = createState();
+    const { startDualAgent, abortAll, cancelled } = useDualAgent(
+      infra,
+      api,
+      state,
+      () => '任务'
+    );
+
+    const promise = startDualAgent();
+    await new Promise((r) => setTimeout(r, 0));
+    expect(cancelled.value).toBe(false);
+    abortAll();
+    release();
+    await promise;
+    expect(cancelled.value).toBe(true);
+
+    // 新一轮流程开始并正常结束后，取消状态复位
+    await startDualAgent();
+    expect(cancelled.value).toBe(false);
+  });
+
+  it('uses the custom label when resuming the architect round', async () => {
+    const { infra } = createInfra();
+    infra.token.value = 'tk';
+    infra.existingTopicId.value = 't-9';
+    const api = createApi();
+    const state = createState();
+    const round = createRound();
+    round.summaryError = '';
+    state.conversationRounds.value.push(round);
+    const { retryLastRound } = useDualAgent(infra, api, state, () => '');
+
+    await retryLastRound('恢复');
+
+    expect(infra.statusText.value).toBe('恢复 Architect 规划...');
+    expect(api.executeArchitectPlan).toHaveBeenCalledTimes(1);
+    const planCall = (api.executeArchitectPlan as any).mock.calls[0];
+    expect(planCall[1]).toBe('c1');
+  });
+
+  it('rejects resume when no round exists', async () => {
+    const { infra } = createInfra();
+    infra.token.value = 'tk';
+    const api = createApi();
+    const state = createState();
+    const { resumeLastRound } = useDualAgent(infra, api, state, () => '');
+
+    await resumeLastRound();
+
+    expect(infra.statusText.value).toBe('❌ 没有可恢复的轮次');
+    expect(api.resumeEditorPlan).not.toHaveBeenCalled();
+    expect(api.executeArchitectPlan).not.toHaveBeenCalled();
+  });
+
+  it('resumes the architect planning when canceled during planning', async () => {
+    const { infra } = createInfra();
+    infra.token.value = 'tk';
+    infra.existingTopicId.value = 't-9';
+    const api = createApi();
+    const state = createState();
+    const round = createRound();
+    round.architectPlan = null;
+    round.editorResults = [];
+    state.conversationRounds.value.push(round);
+    const { resumeLastRound } = useDualAgent(infra, api, state, () => '');
+
+    await resumeLastRound();
+
+    expect(infra.statusText.value).toBe('恢复 Architect 规划...');
+    expect(api.executeArchitectPlan).toHaveBeenCalledTimes(1);
+    expect(api.resumeEditorPlan).not.toHaveBeenCalled();
+    const planCall = (api.executeArchitectPlan as any).mock.calls[0];
+    expect(planCall[1]).toBe('c1');
+  });
+
+  it('resumes from the editor breakpoint when canceled mid-execution', async () => {
+    const { infra } = createInfra();
+    infra.token.value = 'tk';
+    infra.existingTopicId.value = 't-9';
+    const api = createApi();
+    const state = createState();
+    const round = createRound();
+    round.summaryError = '';
+    round.architectPlan = {
+      intent: '创建页面',
+      safety: 'write',
+      steps: [{ id: 's1', type: 'text', description: '步骤' }]
+    };
+    round.editorResults[0].aborted = true;
+    round.editorResults[0].content = '部分流内容';
+    state.conversationRounds.value.push(round);
+    const { resumeLastRound } = useDualAgent(infra, api, state, () => '');
+
+    await resumeLastRound();
+
+    expect(api.resumeEditorPlan).toHaveBeenCalledTimes(1);
+    expect(api.executeArchitectPlan).not.toHaveBeenCalled();
+    const resumeCall = (api.resumeEditorPlan as any).mock.calls[0];
+    expect(resumeCall[0]).toBe('t-9');
+    // 第 5 个参数为 buildTargets 结果，architectPlan 保留已生成的计划
+    expect(resumeCall[4].architectPlan.value.intent).toBe('创建页面');
   });
 });

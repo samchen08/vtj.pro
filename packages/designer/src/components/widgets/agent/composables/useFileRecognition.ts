@@ -3,6 +3,7 @@
  * 管理图片/JSON 文件上传 → recognition API → 识别结果的全生命周期
  */
 import { ref, computed } from 'vue';
+import type { AttachmentInfo } from '../types/agent';
 
 // ── 类型定义 ──
 
@@ -15,6 +16,8 @@ export interface UploadedFile {
   error: string;
   /** 图片的 objectURL，用于缩略图预览 */
   previewUrl: string;
+  /** 识别成功后后端返回的文件访问地址 */
+  url: string;
 }
 
 // ── 工具函数 ──
@@ -38,6 +41,7 @@ export function useFileRecognition(
     title?: string;
     content?: string;
     type?: string;
+    url?: string;
   }>
 ) {
   const files = ref<UploadedFile[]>([]);
@@ -58,7 +62,8 @@ export function useFileRecognition(
       description: '',
       recognizing: true,
       error: '',
-      previewUrl
+      previewUrl,
+      url: ''
     };
 
     files.value.push(record);
@@ -71,6 +76,7 @@ export function useFileRecognition(
         files.value[idx] = {
           ...files.value[idx],
           description: data.content || data.title || '',
+          url: data.url || '',
           recognizing: false,
           error: ''
         };
@@ -99,17 +105,6 @@ export function useFileRecognition(
     }
   }
 
-  /** 构建文件识别描述合并后的 prompt 片段 */
-  function buildFilePrompt(): string {
-    return files.value
-      .filter((f) => !f.recognizing && f.description && !f.error)
-      .map((f) => {
-        const label = f.type === 'image' ? '图片' : 'JSON';
-        return `[${label}描述: ${f.name}]\n${f.description}`;
-      })
-      .join('\n\n');
-  }
-
   /** 清空所有文件 */
   function clearFiles(): void {
     files.value.forEach((f) => {
@@ -120,12 +115,36 @@ export function useFileRecognition(
     files.value = [];
   }
 
+  /** 构建文件识别描述合并后的 prompt 片段（带剥离标记，回显时可还原纯文本） */
+  function buildFilePrompt(): string {
+    return files.value
+      .filter((f) => !f.recognizing && f.description && !f.error)
+      .map((f) => {
+        const label = f.type === 'image' ? '图片' : 'JSON';
+        return `[${label}描述: ${f.name}]\n<<<FILE_DESC>>>\n${f.description}\n<<<END_FILE_DESC>>>`;
+      })
+      .join('\n\n');
+  }
+
+  /** 构建附件展示快照（仅已识别完成且无错误的文件，不含识别描述） */
+  function buildAttachments(): AttachmentInfo[] {
+    return files.value
+      .filter((f) => !f.recognizing && !f.error)
+      .map((f) => ({
+        id: f.id,
+        name: f.name,
+        type: f.type,
+        url: f.url || undefined
+      }));
+  }
+
   return {
     files,
     recognizing,
     uploadFile,
     removeFile,
     buildFilePrompt,
+    buildAttachments,
     clearFiles
   };
 }

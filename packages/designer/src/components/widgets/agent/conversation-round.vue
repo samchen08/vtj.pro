@@ -1,7 +1,20 @@
 <template>
   <article class="round-section" :class="{ latest: isLatest }">
     <div class="round-meta">{{ roundLabel }}</div>
-    <div class="user-message">{{ round.userMessage }}</div>
+    <div class="user-message">
+      {{ round.userMessage }}
+      <div v-if="round.attachments?.length" class="attachment-list">
+        <div v-for="f in round.attachments" :key="f.id" class="attachment-item">
+          <img
+            v-if="f.type === 'image' && f.url"
+            :src="getAttachmentUrl(f.url)"
+            class="attachment-thumb"
+            :alt="f.name" />
+          <span v-else class="attachment-icon">{ }</span>
+          <span class="attachment-name">{{ f.name }}</span>
+        </div>
+      </div>
+    </div>
 
     <ArchitectPlanCard
       :plan="round.architectPlan"
@@ -42,11 +55,25 @@
 
 <script lang="ts" setup>
   import { computed } from 'vue';
+  import { useOpenApi } from '../../hooks';
   import type { ConversationRound } from './types/agent';
 
   import ArchitectPlanCard from './architect-plan.vue';
   import EditorStepCard from './editor-step.vue';
   import SummaryCard from './summary.vue';
+
+  const { getOssFile } = useOpenApi();
+
+  /**
+   * 从附件 url 中截取文件名，再拼接 OSS 完整访问地址
+   * 例：http://localhost:8000/api/oss/file/gitcode_1m6kgbk8.png → gitcode_1m6kgbk8.png
+   */
+  const getAttachmentUrl = (url?: string) => {
+    if (!url) return undefined;
+    // 去掉 query / hash 后取路径最后一段作为文件名
+    const fileName = url.split(/[?#]/)[0].split('/').pop();
+    return getOssFile(fileName || url);
+  };
 
   const props = defineProps<{
     round: ConversationRound;
@@ -106,6 +133,51 @@
     line-height: 1.6;
     word-break: break-word;
     white-space: pre-wrap;
+  }
+
+  .attachment-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 8px;
+  }
+
+  .attachment-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    max-width: 180px;
+    padding: 3px 6px;
+    border: 1px solid var(--el-border-color-light);
+    border-radius: 5px;
+    background: var(--el-bg-color);
+    font-size: 12px;
+
+    .attachment-thumb,
+    .attachment-icon {
+      width: 22px;
+      height: 22px;
+      flex-shrink: 0;
+      border-radius: 3px;
+    }
+
+    .attachment-thumb {
+      object-fit: cover;
+    }
+
+    .attachment-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--el-color-primary);
+      background: var(--el-color-primary-light-9);
+    }
+
+    .attachment-name {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
   }
 
   .step-list {
