@@ -81,6 +81,7 @@
         :recognizing="recognizing"
         :auto-approve="autoApprove"
         :model="model"
+        :models="models"
         @update:message="userMessage = $event"
         @update:auto-approve="updateAutoApprove"
         @update:model="model = $event"
@@ -134,6 +135,7 @@
   import {
     useEngine,
     type AITopic,
+    type DictOption,
     type Settings,
     type ToolContext
   } from '../../../framework';
@@ -172,11 +174,18 @@
   const showDrawer = ref(false);
   const logined = ref(true);
   const topics = ref<AITopic[]>([]);
+  const models = ref<DictOption[]>([]);
   const settings = ref<Settings>();
-  const autoApprove = ref(false);
+  const autoApprove = computed({
+    get: () => engine.state.autoApply,
+    set: (value: boolean) => {
+      engine.state.autoApply = value;
+    }
+  });
   const approvalResolvers = new Map<string, (approved: boolean) => void>();
   const {
     isLogined,
+    getDictOptions,
     getSettings,
     getImage,
     createOrder,
@@ -305,10 +314,13 @@
 
   const updateAutoApprove = (enabled: boolean) => {
     autoApprove.value = enabled;
+  };
+
+  watch(autoApprove, (enabled) => {
     if (!enabled) return;
     approvalResolvers.forEach((resolve) => resolve(true));
     approvalResolvers.clear();
-  };
+  });
 
   const abortAgent = () => {
     approvalResolvers.forEach((resolve) => resolve(false));
@@ -334,12 +346,22 @@
   };
 
   const startAgent = async () => {
-    await startDualAgent();
+    const task = startDualAgent();
+    if (running.value) {
+      userMessage.value = '';
+      clearFiles();
+    }
+    await task;
     await loadTopics();
   };
 
   const continueAgent = async () => {
-    await continueConversation();
+    const task = continueConversation();
+    if (running.value) {
+      userMessage.value = '';
+      clearFiles();
+    }
+    await task;
     await loadTopics();
   };
 
@@ -383,6 +405,7 @@
     initToken();
     logined.value = await isLogined();
     if (!logined.value) return;
+    models.value = await getDictOptions('LLM').catch(() => []);
     settings.value = await getSettings();
     await loadTopics();
     if (topics.value[0]) await onRecordLoad(topics.value[0]);

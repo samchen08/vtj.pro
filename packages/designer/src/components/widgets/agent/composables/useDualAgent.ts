@@ -22,7 +22,7 @@ function generateTraceId(): string {
 }
 
 /** 默认用户提示语 */
-const DEFAULT_USER_MESSAGE = '创建一个包含标题和按钮的简单欢迎页面';
+const DEFAULT_USER_MESSAGE = '';
 
 /** 创建空对话轮次 */
 function createEmptyRound(userMessage: string): ConversationRound {
@@ -154,6 +154,7 @@ export function useDualAgent(
       const userData = infra.access.getData();
       const topicBody = {
         model: model.value,
+        llm: JSON.stringify(getEngine()?.state.getLLMById(model.value) || ''),
         prompt: finalPrompt,
         project: JSON.stringify(getEngine()?.project.value?.toDsl() || {}),
         dsl: JSON.stringify(getEngine()?.current.value?.toDsl() || {}),

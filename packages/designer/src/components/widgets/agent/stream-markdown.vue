@@ -35,16 +35,6 @@
     async: true
   });
 
-  // 标签映射对象
-  const labelMap: Record<string, string> = {
-    T: '思考',
-    A: '执行',
-    O: '系统',
-    P: '计划',
-    F: '总结',
-    R: '结果'
-  };
-
   const container: Ref<HTMLElement | undefined> = ref();
   const htmlContent = ref('');
 
@@ -59,17 +49,7 @@
       return `__CODE_BLOCK_${codeBlocks.length - 1}__`;
     });
 
-    // 2. 替换标签行，使用映射对象的中文标签
-    content = content.replace(
-      /^(T:|A:|O:|P:|F:|R:)(\s*)(.*)$/gm,
-      (_match, type, space, text) => {
-        const t = type.charAt(0); // 'T', 'A', 'P', 'F'
-        const chineseLabel = labelMap[t] || t;
-        return `<div class="section-label section-${t}"><span>${chineseLabel}</span></div>\n${space}${text}`;
-      }
-    );
-
-    // 3. 恢复代码块
+    // 2. 恢复代码块
     content = content.replace(/__CODE_BLOCK_(\d+)__/g, (_match, index) => {
       return codeBlocks[parseInt(index)];
     });
@@ -161,26 +141,5 @@
   .markdown-container pre {
     overflow-x: auto;
     margin: 0;
-  }
-
-  .markdown-container .section-label {
-    display: block;
-    margin: 5px 0;
-    position: relative;
-    span {
-      position: relative;
-      z-index: 1;
-      background-color: var(--el-color-info-light-9);
-      padding-right: 5px;
-      font-weight: bold;
-    }
-    &::before {
-      content: '';
-      display: block;
-      border-bottom: 1px dotted var(--el-border-color);
-      position: absolute;
-      width: 100%;
-      top: 50%;
-    }
   }
 </style>

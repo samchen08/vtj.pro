@@ -30,7 +30,7 @@
       type="textarea"
       :autosize="{ minRows: 2, maxRows: 6 }"
       resize="none"
-      placeholder="描述要创建或修改的内容…（Enter 发送，Shift+Enter 换行）"
+      placeholder="描述要创建或修改的内容…"
       @keydown="onKeydown"
       @update:model-value="$emit('update:message', $event)" />
 
@@ -44,21 +44,55 @@
       </el-button>
 
       <el-checkbox
+        border
         :model-value="autoApprove"
         @update:model-value="$emit('update:autoApprove', !!$event)">
         替我审批
       </el-checkbox>
 
       <el-select
+        v-if="models.length || engine.state.LLMs.length"
         class="model-select"
         :model-value="model"
         :disabled="running"
         aria-label="更换模型"
         size="small"
-        @update:model-value="$emit('update:model', $event)">
-        <el-option label="auto" value="auto" />
-        <el-option label="deepseek-v4-flash" value="deepseek-v4-flash" />
-        <el-option label="deepseek-v4-pro" value="deepseek-v4-pro" />
+        popper-class="agent-llm-popper"
+        @update:model-value="onModelChange">
+        <ElOptionGroup label="内置模型">
+          <ElOption label="自动" value="auto"></ElOption>
+          <ElOption
+            v-for="item in models"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"></ElOption>
+        </ElOptionGroup>
+        <ElOptionGroup label="自定义模型">
+          <ElOption
+            v-for="item in engine.state.LLMs"
+            :key="item.id || item.model"
+            :label="item.label"
+            :value="item.id || item.model">
+            <div class="llm-item">
+              <span>{{ item.label }}</span>
+              <span class="llm-actions">
+                <XIcon
+                  size="small"
+                  :icon="EditPen"
+                  @click.stop="onEditModel(item)"></XIcon>
+                <XIcon
+                  size="small"
+                  :icon="Delete"
+                  @click.stop="onRemoveModel(item)"></XIcon>
+              </span>
+            </div>
+          </ElOption>
+        </ElOptionGroup>
+        <template #footer>
+          <ElButton size="small" :icon="Plus" @click.stop="onAddModel">
+            新增模型
+          </ElButton>
+        </template>
       </el-select>
       <span class="toolbar-spacer" />
 
@@ -67,6 +101,7 @@
         type="danger"
         round
         size="small"
+        :icon="CircleClose"
         @click="$emit('abort')">
         停止
       </el-button>
@@ -75,25 +110,36 @@
         type="primary"
         round
         size="small"
+        :icon="Promotion"
         :disabled="recognizing || (!message.trim() && !files.length)"
         @click="submit">
-        {{ hasTopic ? '发送' : '开始' }} ↑
+        {{ hasTopic ? '发送' : '开始' }}
       </el-button>
     </div>
+    <ModelDialog
+      v-if="formVisible"
+      v-model="formVisible"
+      :item="currentFormModel"
+      @save="onSaveModel"></ModelDialog>
   </footer>
 </template>
 
 <script lang="ts" setup>
-  import { ref } from 'vue';
+  import { ref, watch } from 'vue';
   import {
     ElInput,
     ElButton,
     ElCheckbox,
     ElSelect,
-    ElOption
+    ElOption,
+    ElOptionGroup
   } from 'element-plus';
-  import { Plus } from '@vtj/icons';
+  import { Plus, Promotion, CircleClose, EditPen, Delete } from '@vtj/icons';
+  import { XIcon } from '@vtj/ui';
+  import { useEngine, type DictOption, type LLM } from '../../../framework';
+  import { confirm } from '../../../utils';
   import type { UploadedFile } from './composables/useFileRecognition';
+  import ModelDialog from './model-dialog.vue';
 
   const props = defineProps<{
     message: string;
@@ -103,6 +149,7 @@
     recognizing: boolean;
     autoApprove: boolean;
     model: string;
+    models: DictOption[];
   }>();
 
   const emit = defineEmits<{
@@ -119,6 +166,42 @@
   // ── 文件选择 ──
 
   const fileInputRef = ref<HTMLInputElement>();
+  const formVisible = ref(false);
+  const currentFormModel = ref<LLM | null>();
+  const engine = useEngine();
+
+  watch(
+    () => props.model,
+    (value) => {
+      if (value) engine.state.llm = value;
+    },
+    { immediate: true }
+  );
+
+  function onModelChange(value: string) {
+    engine.state.llm = value;
+    emit('update:model', value);
+  }
+
+  function onAddModel() {
+    currentFormModel.value = null;
+    formVisible.value = true;
+  }
+
+  function onEditModel(item: LLM) {
+    currentFormModel.value = item;
+    formVisible.value = true;
+  }
+
+  async function onRemoveModel(item: LLM) {
+    const confirmed = await confirm('确定删除？').catch(() => false);
+    if (confirmed) engine.state.removeLLM(item);
+  }
+
+  function onSaveModel(item: LLM) {
+    engine.state.saveLLM(item);
+    onModelChange(item.id as string);
+  }
 
   function triggerFileUpload() {
     fileInputRef.value?.click();
@@ -226,6 +309,8 @@
   }
 
   .file-state {
+    flex-shrink: 0;
+    white-space: nowrap;
     color: var(--el-color-warning);
 
     &.error {
@@ -280,5 +365,27 @@
     :deep(.el-select__placeholder) {
       color: var(--el-color-primary);
     }
+  }
+
+  .llm-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+  }
+
+  .llm-actions {
+    display: inline-flex;
+    gap: 8px;
+  }
+
+  :global(.agent-llm-popper .el-select-dropdown__item) {
+    height: 26px;
+    padding: 0 14px;
+    line-height: 26px;
+  }
+
+  :global(.agent-llm-popper .el-select-group__title) {
+    padding: 0 14px;
   }
 </style>
