@@ -28,12 +28,25 @@
           @click="startNewConversation"></XAction>
       </template>
 
-      <LoginTip v-if="!token"></LoginTip>
-      <div v-else ref="conversationRef" class="v-agent-widget__conversation">
-        <div v-if="!hasData" class="v-agent-widget__empty">
-          <ElAvatar :size="48" :icon="VtjIconAi"></ElAvatar>
-          <strong>我可以帮你修改当前页面</strong>
-          <p>描述想创建或调整的内容，也可以附加图片或 JSON。</p>
+      <LoginTip v-if="!logined"></LoginTip>
+      <InviteTip
+        v-if="settings"
+        :settings="settings"
+        :get-image="getImage"></InviteTip>
+      <PayTip
+        v-if="settings"
+        :remote="engine.remote"
+        :settings="settings"
+        :get-image="getImage"
+        :create-order="createOrder"
+        :cancel-order="cancelOrder"
+        :get-order="getOrder"></PayTip>
+      <div ref="conversationRef" class="v-agent-widget__conversation">
+        <div v-if="!hasData" class="v-agent-widget-new-chat">
+          <div class="v-agent-widget-new-chat__welcome">
+            <h3>嗨！我是您的智能助手</h3>
+            <div>我可以帮你开发应用，请把你的任务交给我吧~</div>
+          </div>
         </div>
 
         <ConversationRoundCard
@@ -60,34 +73,32 @@
         </div>
       </div>
 
-      <template v-if="token" #footer>
-        <MessageInputCard
-          :message="userMessage"
-          :running="running"
-          :has-topic="!!existingTopicId"
-          :files="files"
-          :recognizing="recognizing"
-          :auto-approve="autoApprove"
-          :model="model"
-          @update:message="userMessage = $event"
-          @update:auto-approve="updateAutoApprove"
-          @update:model="model = $event"
-          @start="startAgent"
-          @continue="continueAgent"
-          @abort="abortAgent"
-          @upload-file="uploadFile"
-          @remove-file="removeFile" />
-      </template>
+      <MessageInputCard
+        :message="userMessage"
+        :running="running"
+        :has-topic="!!existingTopicId"
+        :files="files"
+        :recognizing="recognizing"
+        :auto-approve="autoApprove"
+        :model="model"
+        @update:message="userMessage = $event"
+        @update:auto-approve="updateAutoApprove"
+        @update:model="model = $event"
+        @start="startAgent"
+        @continue="continueAgent"
+        @abort="abortAgent"
+        @upload-file="uploadFile"
+        @remove-file="removeFile" />
     </Panel>
 
     <ElDrawer
       v-model="showDrawer"
-      class="v-ai-widget__drawer"
+      class="v-agent-widget__drawer"
       size="100%"
       direction="ltr"
       :modal="false"
       :with-header="false"
-      modal-class="v-ai-widget__drawer-modal"
+      modal-class="v-agent-widget__drawer-modal"
       :append-to-body="false">
       <Panel class="v-agent-widget" title="历史对话">
         <template #actions>
@@ -114,22 +125,25 @@
   import { ref, computed, nextTick, watch, onMounted, onUnmounted } from 'vue';
   import {
     Download,
-    VtjIconAi,
     VtjIconChatRecord,
     VtjIconClose,
     VtjIconNewChat
   } from '@vtj/icons';
   import { XAction, XContainer } from '@vtj/ui';
-  import { ElAvatar, ElButton, ElDivider, ElDrawer } from 'element-plus';
+  import { ElButton, ElDivider, ElDrawer } from 'element-plus';
   import {
     useEngine,
     type AITopic,
+    type Settings,
     type ToolContext
   } from '../../../framework';
   import { TOOL_CONFIGS } from '../../../managers';
   import { Panel } from '../../shared';
-  import LoginTip from '../ai/login-tip.vue';
-  import ChatRecords from '../ai/records.vue';
+  import { useOpenApi } from '../../hooks';
+  import LoginTip from './login-tip.vue';
+  import InviteTip from './invite-tip.vue';
+  import PayTip from './pay-tip.vue';
+  import ChatRecords from './records.vue';
   import MessageInputCard from './message-input.vue';
   import ConversationRoundCard from './conversation-round.vue';
   import { useAuth } from './composables/useAuth';
@@ -156,9 +170,19 @@
   const conversationRounds = ref<ConversationRound[]>([]);
   const conversationRef = ref<HTMLElement>();
   const showDrawer = ref(false);
+  const logined = ref(true);
   const topics = ref<AITopic[]>([]);
+  const settings = ref<Settings>();
   const autoApprove = ref(false);
   const approvalResolvers = new Map<string, (approved: boolean) => void>();
+  const {
+    isLogined,
+    getSettings,
+    getImage,
+    createOrder,
+    cancelOrder,
+    getOrder
+  } = useOpenApi();
 
   const { token, model, existingTopicId, initToken } = useAuth(
     () => engine.access?.getData()?.token
@@ -357,6 +381,9 @@
 
   onMounted(async () => {
     initToken();
+    logined.value = await isLogined();
+    if (!logined.value) return;
+    settings.value = await getSettings();
     await loadTopics();
     if (topics.value[0]) await onRecordLoad(topics.value[0]);
   });
@@ -381,35 +408,49 @@
     position: relative;
   }
 
-  .v-agent-widget__conversation {
+  :deep(.v-agent-widget > .x-panel__body) {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  :global(.v-agent-widget__drawer-modal) {
+    position: absolute !important;
+    width: 100%;
     height: 100%;
+  }
+
+  :global(.v-agent-widget__drawer) {
+    box-shadow: none !important;
+    --el-drawer-padding-primary: 0 !important;
+  }
+
+  .v-agent-widget__conversation {
+    min-height: 0;
+    flex: 1;
     overflow: auto;
     padding: 14px 12px 22px;
     background: var(--el-bg-color);
     scroll-behavior: smooth;
   }
 
-  .v-agent-widget__empty {
+  .v-agent-widget-new-chat {
     display: flex;
-    min-height: 55%;
-    padding: 32px;
+    height: 100%;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    overflow: hidden;
+  }
+
+  .v-agent-widget-new-chat__welcome {
+    padding: 20px 0;
     text-align: center;
+    line-height: 1.5em;
 
-    :deep(.el-avatar) {
-      margin-bottom: 14px;
-      color: var(--el-color-primary);
-      background: var(--el-color-primary-light-9);
-      box-shadow: 0 0 0 1px var(--el-color-primary-light-7);
-    }
-
-    p {
-      margin: 8px 0 0;
-      color: var(--el-text-color-secondary);
-      font-size: 13px;
-      line-height: 1.6;
+    > div {
+      margin-top: 10px;
+      color: var(--el-text-color-placeholder);
+      font-size: 12px;
     }
   }
 
