@@ -32,20 +32,11 @@
           mode="icon"
           size="small"
           type="primary"
-          :icon="ArrowUp"
-          title="全部折叠"
+          :icon="detailsExpanded ? ArrowUp : ArrowDown"
+          :title="detailsExpanded ? '全部折叠' : '全部展开'"
           background="hover"
           :disabled="!hasData"
-          @click="collapseAll"></XAction>
-        <XAction
-          mode="icon"
-          size="small"
-          type="primary"
-          :icon="ArrowDown"
-          title="全部展开"
-          background="hover"
-          :disabled="!hasData"
-          @click="expandAll"></XAction>
+          @click="toggleDetails"></XAction>
         <ElDivider direction="vertical"></ElDivider>
         <XAction
           mode="icon"
@@ -359,6 +350,7 @@
       ? { icon: Hide, title: '显示代码块', type: 'warning' }
       : { icon: View, title: '隐藏代码块', type: 'default' }
   );
+  const detailsExpanded = computed(() => detailsCommand.value >= 0);
 
   const toggleHideCode = () => {
     if (hasData.value) isHideCode.value = !isHideCode.value;
@@ -368,10 +360,10 @@
     conversationRef.value?.scrollTo({
       top: conversationRef.value.scrollHeight
     });
-  const collapseAll = () =>
-    (detailsCommand.value = -Math.abs(detailsCommand.value) - 1);
-  const expandAll = () =>
-    (detailsCommand.value = Math.abs(detailsCommand.value) + 1);
+  const toggleDetails = () => {
+    const revision = Math.abs(detailsCommand.value) + 1;
+    detailsCommand.value = detailsExpanded.value ? -revision : revision;
+  };
 
   const handleExport = () =>
     exportConversation(
