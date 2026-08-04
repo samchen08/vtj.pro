@@ -20,6 +20,7 @@
         :code="code"
         :details-command="detailsCommand"
         @view="(...args) => $emit('view', ...args)"
+        @apply="(dsl) => $emit('apply', dsl)"
         @resolve-approval="
           (id, approved) => $emit('resolveApproval', id, approved)
         " />
@@ -55,7 +56,8 @@
 
   defineEmits<{
     resolveApproval: [id: string, approved: boolean];
-    view: [source: string, language: string];
+    view: [source: string, language: string, dsl?: Record<string, any>];
+    apply: [dsl: Record<string, any>];
   }>();
 </script>
 

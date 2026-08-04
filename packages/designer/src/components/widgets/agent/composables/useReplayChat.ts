@@ -142,6 +142,16 @@ function inferTurnType(chat: ChatRecord, hasToolContent: boolean): string {
   return 'text';
 }
 
+function parseDsl(dsl: ChatRecord['dsl']): Record<string, any> | undefined {
+  if (!dsl) return;
+  if (typeof dsl !== 'string') return dsl;
+  try {
+    return JSON.parse(dsl);
+  } catch {
+    return;
+  }
+}
+
 /**
  * 从扁平 chat 列表重建 EditorStepResult[]
  * 按 stepId 分组，排除 summary
@@ -183,7 +193,9 @@ function buildEditorResults(chats: ChatRecord[]): EditorStepResult[] {
         type: turnType,
         content: chat.content || '',
         reasoning: chat.reasoning || '',
-        prompt: chat.prompt || ''
+        prompt: chat.prompt || '',
+        vue: chat.vue || undefined,
+        dsl: parseDsl(chat.dsl)
       };
 
       if (toolInfo.action) {

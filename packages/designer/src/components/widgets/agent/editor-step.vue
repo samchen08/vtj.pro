@@ -36,6 +36,26 @@
               class="pending">
               待批准
             </span>
+            <span v-if="isCodeTurn(turn)" class="turn-actions">
+              <XAction
+                mode="icon"
+                size="small"
+                type="primary"
+                :icon="View"
+                tooltip="查看生成内容"
+                :disabled="!hasArtifact(turn)"
+                @click.stop="
+                  $emit('view', turn.vue!, 'vue', turn.dsl)
+                "></XAction>
+              <XAction
+                mode="icon"
+                size="small"
+                type="primary"
+                :icon="Download"
+                tooltip="应用到页面"
+                :disabled="!hasArtifact(turn)"
+                @click.stop="$emit('apply', turn.dsl!)"></XAction>
+            </span>
           </div>
         </template>
 
@@ -118,6 +138,8 @@
 <script lang="ts" setup>
   import { computed, ref, watch } from 'vue';
   import { ElButton, ElCollapse, ElCollapseItem } from 'element-plus';
+  import { View, Download } from '@vtj/icons';
+  import { XAction } from '@vtj/ui';
   import type { EditorStepResult, EditorTurn } from './types/agent';
   import StreamMarkdown from './stream-markdown.vue';
   import { formatMarkdownContent } from './utils/markdown';
@@ -130,7 +152,8 @@
 
   defineEmits<{
     resolveApproval: [id: string, approved: boolean];
-    view: [source: string, language: string];
+    view: [source: string, language: string, dsl?: Record<string, any>];
+    apply: [dsl: Record<string, any>];
   }>();
 
   const stepStatus = computed(() =>
@@ -183,6 +206,11 @@
     if (!turn.toolResult) return '✓ 已批准，正在执行…';
     return turn.toolResult.success ? '✓ 已执行' : '! 已批准，但执行失败';
   }
+
+  const isCodeTurn = (turn: EditorTurn) =>
+    turn.type === 'vue_code' || turn.type === 'diff';
+  const hasArtifact = (turn: EditorTurn) =>
+    !!turn.vue && !!turn.dsl && turn.approval?.status !== 'pending';
 </script>
 
 <style lang="scss" scoped>
@@ -399,5 +427,10 @@
   .approval-result {
     margin-top: 7px;
     color: var(--el-text-color-secondary);
+  }
+
+  .turn-actions {
+    display: inline-flex;
+    gap: 4px;
   }
 </style>

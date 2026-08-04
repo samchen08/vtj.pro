@@ -94,6 +94,7 @@
           :code="!isHideCode"
           :details-command="detailsCommand"
           @view="showCodeDetail"
+          @apply="applyDetailDsl"
           @resolve-approval="resolveApproval" />
 
         <div
@@ -393,7 +394,11 @@
     return dsl;
   };
 
-  const showCodeDetail = async (source: string, language: string) => {
+  const showCodeDetail = async (
+    source: string,
+    language: string,
+    dsl?: Record<string, any>
+  ) => {
     if (language === 'diff') {
       const projectDsl = engine.project.value?.toDsl();
       const currentDsl = engine.current.value?.toDsl();
@@ -408,7 +413,7 @@
     }
     detailSource.value = source;
     detailLanguage.value = language;
-    detailDsl.value = await updateDetailDsl(source).catch(() => null);
+    detailDsl.value = dsl || (await updateDetailDsl(source).catch(() => null));
     detailVisible.value = true;
   };
 

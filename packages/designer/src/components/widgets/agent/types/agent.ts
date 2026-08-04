@@ -68,6 +68,9 @@ export interface EditorTurn {
   type: string;
   content: string;
   reasoning: string;
+  /** Vue/Diff 执行后的最终源码与 DSL */
+  vue?: string;
+  dsl?: Record<string, any>;
   prompt?: string;
   toolAction?: string;
   toolParams?: unknown[];
@@ -328,7 +331,7 @@ export interface ChatRecord {
   toolContent: string;
   vue: string;
   source: string;
-  dsl: Record<string, any>;
+  dsl: Record<string, any> | string;
   createdAt: string;
   updatedAt: string;
 }

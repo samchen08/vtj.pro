@@ -470,6 +470,9 @@ export function useEditorStep(deps: EditorStepDeps) {
               continue;
             }
 
+            ti.vue = parsed.code;
+            ti.dsl = blockDsl;
+
             exposeTurn(ti);
             if (!(await approve(ti, 'applyVue'))) {
               slot.error = '用户拒绝应用 Vue 变更';
@@ -579,6 +582,8 @@ export function useEditorStep(deps: EditorStepDeps) {
               name: curDsl?.name || 'AiGenFile',
               source: modifiedVue
             });
+            ti.vue = modifiedVue;
+            ti.dsl = newDsl;
             await engine.applyAI(newDsl);
 
             // 回写 diff 产出的最终 Vue 源码和 DSL 到 chat（source 记录改前源码）
