@@ -83,6 +83,20 @@
             <h3>嗨！我是您的智能助手</h3>
             <div>我可以帮你开发应用，请把你的任务交给我吧~</div>
           </div>
+          <template v-if="hotTopics.length">
+            <ElDivider content-position="left">热门需求</ElDivider>
+            <div class="hot-list">
+              <Item
+                v-for="(item, index) in hotTopics"
+                :key="item.id"
+                :index="index + 1"
+                :title="item.title"
+                :model-value="item"
+                :nowrap="false"
+                background
+                @click="userMessage = item.prompt"></Item>
+            </div>
+          </template>
         </div>
 
         <ConversationRoundCard
@@ -195,7 +209,7 @@
     type ToolContext
   } from '../../../framework';
   import { TOOL_CONFIGS } from '../../../managers';
-  import { Panel } from '../../shared';
+  import { Item, Panel } from '../../shared';
   import { useOpenApi } from '../../hooks';
   import LoginTip from './login-tip.vue';
   import InviteTip from './invite-tip.vue';
@@ -228,6 +242,7 @@
   const showDrawer = ref(false);
   const logined = ref(true);
   const topics = ref<AITopic[]>([]);
+  const hotTopics = ref<AITopic[]>([]);
   const models = ref<DictOption[]>([]);
   const settings = ref<Settings>();
   const isHideCode = ref(true);
@@ -251,6 +266,7 @@
     createOrder,
     cancelOrder,
     getOrder,
+    getHotTopics,
     postTopic,
     postChat,
     saveChat,
@@ -572,6 +588,9 @@
     if (!logined.value) return;
     models.value = await getDictOptions('LLM').catch(() => []);
     settings.value = await getSettings();
+    hotTopics.value = await getHotTopics(engine.project.value?.platform)
+      .then((response) => unwrapOpenApi<AITopic[]>(response))
+      .catch(() => []);
     await loadTopics();
     if (topics.value[0]) await onRecordLoad(topics.value[0]);
   });
@@ -640,6 +659,10 @@
       color: var(--el-text-color-placeholder);
       font-size: 12px;
     }
+  }
+
+  .hot-list {
+    overflow: auto;
   }
 
   .v-agent-widget__status {
