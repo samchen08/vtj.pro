@@ -4,11 +4,15 @@ import { useEditorStep } from '../src/components/widgets/agent/composables/useEd
 
 describe('useEditorStep', () => {
   it('does not create requests or execute work after cancellation', async () => {
-    const apiPost = vi.fn();
+    const postChat = vi.fn();
+    const saveChat = vi.fn();
+    const updateTopic = vi.fn();
     const controller = new AbortController();
     controller.abort();
     const { executeEditorStep } = useEditorStep({
-      apiPost,
+      postChat,
+      saveChat,
+      updateTopic,
       streamCompletion: vi.fn(),
       getEngine: vi.fn(),
       statusText: ref(''),
@@ -27,19 +31,22 @@ describe('useEditorStep', () => {
       controller.signal
     );
 
-    expect(apiPost).not.toHaveBeenCalled();
+    expect(postChat).not.toHaveBeenCalled();
+    expect(saveChat).not.toHaveBeenCalled();
+    expect(updateTopic).not.toHaveBeenCalled();
     expect(result.error).toBeNull();
   });
 
   it('does not parse a partial response after the stream is canceled', async () => {
     const controller = new AbortController();
-    const apiPost = vi
-      .fn()
-      .mockResolvedValueOnce(true)
-      .mockResolvedValueOnce({ id: 'chat' });
+    const postChat = vi.fn(async () => ({ id: 'chat' }));
+    const saveChat = vi.fn(async () => true);
+    const updateTopic = vi.fn(async () => ({}));
     const getEngine = vi.fn();
     const { executeEditorStep } = useEditorStep({
-      apiPost,
+      postChat,
+      saveChat,
+      updateTopic,
       streamCompletion: vi.fn(async (_topic, _chat, onChunk) => {
         onChunk?.('```json\n{"action":"setDataSources","parameters":[]}\n```');
         controller.abort();
@@ -69,6 +76,8 @@ describe('useEditorStep', () => {
     );
 
     expect(getEngine).not.toHaveBeenCalled();
-    expect(apiPost).toHaveBeenCalledTimes(2);
+    // 流返回后立即检查取消信号，部分响应不再解析/保存
+    expect(postChat).toHaveBeenCalledTimes(1);
+    expect(saveChat).not.toHaveBeenCalled();
   });
 });

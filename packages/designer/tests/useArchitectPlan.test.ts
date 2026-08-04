@@ -23,9 +23,25 @@ function createStreamResult(
 function createDeps(overrides: Record<string, any> = {}) {
   const statusText = ref('');
   const statusType = ref<'info' | 'warning' | 'success' | 'danger'>('info');
-  return {
+  const callLog: [string, any][] = [];
+  const deps = {
     streamCompletion: vi.fn(async () => createStreamResult()),
-    apiPost: vi.fn(async (_url: string, _body: any) => ({})),
+    postChat: vi.fn(async (body: any) => {
+      callLog.push(['postChat', body]);
+      return { chat: { id: 'summary-chat' } };
+    }),
+    saveChat: vi.fn(async (body: any) => {
+      callLog.push(['saveChat', body]);
+      return {};
+    }),
+    updateTopic: vi.fn(async (body: any) => {
+      callLog.push(['updateTopic', body]);
+      return {};
+    }),
+    saveTrace: vi.fn(async (body: any) => {
+      callLog.push(['saveTrace', body]);
+      return {};
+    }),
     statusText,
     statusType,
     executeEditorStep: vi.fn(async () => ({
@@ -37,6 +53,7 @@ function createDeps(overrides: Record<string, any> = {}) {
     buildSummaryPrompt: vi.fn(() => 'summary prompt'),
     ...overrides
   };
+  return { ...deps, callLog };
 }
 
 function createTargets() {
@@ -65,10 +82,6 @@ function planStreamResult(): StreamCompletionResult {
   return createStreamResult({ usage: { total_tokens: 20 } });
 }
 
-function updateCalls(apiPost: any) {
-  return apiPost.mock.calls as [string, any][];
-}
-
 describe('useArchitectPlan.executeArchitectPlan', () => {
   it('exits early without any API call when already canceled', async () => {
     const controller = new AbortController();
@@ -87,7 +100,7 @@ describe('useArchitectPlan.executeArchitectPlan', () => {
       controller.signal
     );
 
-    expect(deps.apiPost).not.toHaveBeenCalled();
+    expect(deps.callLog).toHaveLength(0);
     expect(deps.statusText.value).toBe('⏹️ 已取消');
     expect(deps.statusType.value).toBe('info');
   });
@@ -114,13 +127,14 @@ describe('useArchitectPlan.executeArchitectPlan', () => {
     expect(targets.architectPlan.value).toBeNull();
     expect(deps.statusText.value).toContain('未返回有效 JSON');
     expect(deps.statusType.value).toBe('danger');
-    const urls = updateCalls(deps.apiPost).map(([url]) => url);
-    expect(urls).toEqual([
-      '/api/open/chat/save/:token',
-      '/api/open/topic/update/:token',
-      '/api/open/trace/:token'
+    expect(deps.callLog.map(([name]) => name)).toEqual([
+      'saveChat',
+      'updateTopic',
+      'saveTrace'
     ]);
-    const traceBody = updateCalls(deps.apiPost)[2][1];
+    const updateBody = deps.callLog[1][1];
+    expect(updateBody.status).toBe('failed');
+    const traceBody = deps.callLog[2][1];
     expect(traceBody.finalStatus).toBe('failed');
     expect(traceBody.planJson).toBeNull();
   });
@@ -155,15 +169,12 @@ describe('useArchitectPlan.executeArchitectPlan', () => {
 
     expect(targets.architectAnswer.value).toBe('你好，我是 AI');
     expect(deps.statusText.value).toBe('✅ Architect 直接回答');
-    const calls = updateCalls(deps.apiPost);
-    const updateCalls_ = calls.filter(
-      ([url]) => url === '/api/open/topic/update/:token'
+    const updateBodies = deps.callLog.filter(
+      ([name]) => name === 'updateTopic'
     );
     // 分流前会先更新一次 executing，最终更新才是 completed
-    expect(updateCalls_[updateCalls_.length - 1][1].status).toBe('completed');
-    const traceBody = calls.find(
-      ([url]) => url === '/api/open/trace/:token'
-    )![1];
+    expect(updateBodies[updateBodies.length - 1][1].status).toBe('completed');
+    const traceBody = deps.callLog.find(([name]) => name === 'saveTrace')![1];
     expect(traceBody.finalStatus).toBe('completed');
     expect(traceBody.stepsJson).toEqual([]);
   });
@@ -184,12 +195,6 @@ describe('useArchitectPlan.executeArchitectPlan', () => {
             return createStreamResult({ usage: { total_tokens: 30 } });
           }
         ),
-      apiPost: vi.fn(async (url: string) => {
-        if (url === '/api/open/chat/post/:token') {
-          return { chat: { id: 'summary-chat' } };
-        }
-        return {};
-      }),
       executeEditorStep: vi.fn(async () => ({
         content: '执行成功',
         error: null,
@@ -216,21 +221,18 @@ describe('useArchitectPlan.executeArchitectPlan', () => {
     expect(deps.statusText.value).toBe('✅ 全部 2 个步骤执行完成');
     expect(deps.statusType.value).toBe('success');
 
-    const calls = updateCalls(deps.apiPost);
-    expect(calls.map(([url]) => url)).toEqual([
-      '/api/open/chat/save/:token',
-      '/api/open/topic/update/:token',
-      '/api/open/chat/post/:token',
-      '/api/open/chat/save/:token',
-      '/api/open/topic/update/:token',
-      '/api/open/trace/:token'
+    expect(deps.callLog.map(([name]) => name)).toEqual([
+      'saveChat',
+      'updateTopic',
+      'postChat',
+      'saveChat',
+      'updateTopic',
+      'saveTrace'
     ]);
-    const executingUpdate = calls.find(
-      ([url, body]) => url === '/api/open/topic/update/:token' && body.status
-    )!;
-    expect(executingUpdate[1].status).toBe('executing');
-    expect(calls[4][1].status).toBe('completed');
-    const traceBody = calls[5][1];
+    const executingBody = deps.callLog[1][1];
+    expect(executingBody.status).toBe('executing');
+    expect(deps.callLog[4][1].status).toBe('completed');
+    const traceBody = deps.callLog[5][1];
     expect(traceBody.finalStatus).toBe('completed');
     expect(traceBody.stepsJson).toHaveLength(2);
     expect(traceBody.stepsJson[0]).toMatchObject({
@@ -268,15 +270,11 @@ describe('useArchitectPlan.executeArchitectPlan', () => {
 
     expect(deps.statusText.value).toBe('⚠️ 2 个步骤执行完成（有错误）');
     expect(deps.statusType.value).toBe('warning');
-    const calls = updateCalls(deps.apiPost);
-    const failedUpdate = calls.find(
-      ([url, body]) =>
-        url === '/api/open/topic/update/:token' && body.status === 'failed'
+    const failedUpdates = deps.callLog.filter(
+      ([name, body]) => name === 'updateTopic' && body.status === 'failed'
     );
-    expect(failedUpdate).toBeDefined();
-    const traceBody = calls.find(
-      ([url]) => url === '/api/open/trace/:token'
-    )![1];
+    expect(failedUpdates).toHaveLength(1);
+    const traceBody = deps.callLog.find(([name]) => name === 'saveTrace')![1];
     expect(traceBody.finalStatus).toBe('failed');
     expect(traceBody.stepsJson[0].status).toBe('failed');
   });
@@ -309,8 +307,8 @@ describe('useArchitectPlan.executeArchitectPlan', () => {
     expect(deps.executeEditorStep).toHaveBeenCalledTimes(1);
     expect(deps.statusText.value).toBe('⏹️ 已取消（已完成 1/2 步）');
     expect(deps.buildSummaryPrompt).not.toHaveBeenCalled();
-    const urls = updateCalls(deps.apiPost).map(([url]) => url);
-    expect(urls).not.toContain('/api/open/chat/post/:token');
+    const names = deps.callLog.map(([name]) => name);
+    expect(names).not.toContain('postChat');
   });
 
   it('keeps the final status update when summary generation fails', async () => {
@@ -329,11 +327,8 @@ describe('useArchitectPlan.executeArchitectPlan', () => {
             return createStreamResult();
           }
         ),
-      apiPost: vi.fn(async (url: string) => {
-        if (url === '/api/open/chat/post/:token') {
-          throw new Error('network down');
-        }
-        return {};
+      postChat: vi.fn(async () => {
+        throw new Error('network down');
       })
     });
     const targets = createTargets();
@@ -349,11 +344,10 @@ describe('useArchitectPlan.executeArchitectPlan', () => {
     );
 
     expect(targets.summaryError.value).toBe('network down');
-    const calls = updateCalls(deps.apiPost);
-    const updateCalls_ = calls.filter(
-      ([url]) => url === '/api/open/topic/update/:token'
+    const updateBodies = deps.callLog.filter(
+      ([name]) => name === 'updateTopic'
     );
     // 最终状态更新仍在总结失败后执行
-    expect(updateCalls_[updateCalls_.length - 1][1].status).toBe('completed');
+    expect(updateBodies[updateBodies.length - 1][1].status).toBe('completed');
   });
 });

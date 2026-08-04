@@ -9,7 +9,7 @@ describe('useReplayChat', () => {
     const statusText = ref('');
     const statusType = ref<'info' | 'warning' | 'success' | 'danger'>('info');
     const { loadChatHistory } = useReplayChat(
-      { apiGet: vi.fn(async () => []) as any, statusText, statusType },
+      { getChats: vi.fn(async () => []), statusText, statusType },
       rounds
     );
 
@@ -58,7 +58,7 @@ describe('useReplayChat', () => {
       }
     ];
     const { loadChatHistory } = useReplayChat(
-      { apiGet: vi.fn(async () => chats) as any, statusText, statusType },
+      { getChats: vi.fn(async () => chats) as any, statusText, statusType },
       rounds
     );
 

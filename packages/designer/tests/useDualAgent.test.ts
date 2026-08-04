@@ -40,15 +40,11 @@ function createInfra() {
 
 function createApi(): DualAgentApi {
   return {
-    apiPost: vi.fn(async (url: string) => {
-      if (url === '/api/open/topic/post/:token') {
-        return { topic: { id: 't1', userId: 'u1' }, chat: { id: 'c1' } };
-      }
-      if (url === '/api/open/chat/post/:token') {
-        return { chat: { id: 'c2' } };
-      }
-      return {};
-    }),
+    postTopic: vi.fn(async () => ({
+      topic: { id: 't1', userId: 'u1' },
+      chat: { id: 'c1' }
+    })),
+    postChat: vi.fn(async () => ({ chat: { id: 'c2' } })),
     streamCompletion: vi.fn(),
     executeArchitectPlan: vi.fn(async () => {})
   };
@@ -95,7 +91,8 @@ describe('useDualAgent', () => {
 
     expect(infra.statusText.value).toBe('❌ 请先获取 Token');
     expect(infra.statusType.value).toBe('danger');
-    expect(api.apiPost).not.toHaveBeenCalled();
+    expect(api.postTopic).not.toHaveBeenCalled();
+    expect(api.postChat).not.toHaveBeenCalled();
     expect(api.executeArchitectPlan).not.toHaveBeenCalled();
   });
 
@@ -109,7 +106,7 @@ describe('useDualAgent', () => {
     await startDualAgent();
 
     expect(infra.statusText.value).toBe('❌ 请输入消息或上传文件');
-    expect(api.apiPost).not.toHaveBeenCalled();
+    expect(api.postTopic).not.toHaveBeenCalled();
   });
 
   it('starts a new topic and runs the architect plan', async () => {
@@ -126,10 +123,8 @@ describe('useDualAgent', () => {
 
     await startDualAgent();
 
-    const topicCall = (api.apiPost as any).mock.calls.find(
-      (c: any[]) => c[0] === '/api/open/topic/post/:token'
-    )!;
-    expect(topicCall[1]).toMatchObject({
+    const topicCall = (api.postTopic as any).mock.calls[0]!;
+    expect(topicCall[0]).toMatchObject({
       model: 'auto',
       prompt: '创建一个页面',
       agent: 'architect',
@@ -165,7 +160,8 @@ describe('useDualAgent', () => {
     await continueConversation();
 
     expect(infra.statusText.value).toBe('❌ 请输入 Topic ID');
-    expect(api.apiPost).not.toHaveBeenCalled();
+    expect(api.postTopic).not.toHaveBeenCalled();
+    expect(api.postChat).not.toHaveBeenCalled();
   });
 
   it('continues a conversation on the existing topic', async () => {
@@ -183,10 +179,8 @@ describe('useDualAgent', () => {
 
     await continueConversation();
 
-    const chatCall = (api.apiPost as any).mock.calls.find(
-      (c: any[]) => c[0] === '/api/open/chat/post/:token'
-    )!;
-    expect(chatCall[1]).toMatchObject({
+    const chatCall = (api.postChat as any).mock.calls[0]!;
+    expect(chatCall[0]).toMatchObject({
       topicId: 't-9',
       prompt: '继续修改',
       agent: 'architect'
@@ -284,7 +278,7 @@ describe('useDualAgent', () => {
     const { infra, engine } = createInfra();
     infra.token.value = 'tk';
     const api = createApi();
-    api.apiPost = vi.fn(async () => {
+    api.postTopic = vi.fn(async () => {
       throw new Error('接口失败');
     });
     const state = createState();
