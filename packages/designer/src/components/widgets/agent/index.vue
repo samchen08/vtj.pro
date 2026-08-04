@@ -205,7 +205,6 @@
   import ConversationRoundCard from './conversation-round.vue';
   import Detail from './detail.vue';
   import { useAuth } from './composables/useAuth';
-  import { useApi } from './composables/useApi';
   import { useSSEStream } from './composables/useSSEStream';
   import { useEditorStep } from './composables/useEditorStep';
   import { useSummary } from './composables/useSummary';
@@ -222,7 +221,6 @@
   } from './types/agent';
 
   const engine = useEngine();
-  const remote = () => engine.remote || location.origin;
   const statusText = ref('');
   const statusType = ref<'info' | 'warning' | 'success' | 'danger'>('info');
   const conversationRounds = ref<ConversationRound[]>([]);
@@ -252,17 +250,56 @@
     getImage,
     createOrder,
     cancelOrder,
-    getOrder
+    getOrder,
+    postTopic,
+    postChat,
+    saveChat,
+    getChats,
+    getTopics,
+    removeTopic,
+    updateTopic,
+    saveTrace,
+    chatCompletions,
+    getSkills,
+    recognitionFile
   } = useOpenApi();
 
   const { token, model, existingTopicId, initToken } = useAuth(
     () => engine.access?.getData()?.token
   );
-  const { apiPost, apiGet } = useApi(() => token.value, remote);
-  const { streamCompletion, abortAll } = useSSEStream(
-    () => token.value,
-    remote
-  );
+  const unwrapOpenApi = <T,>(response: any): T => {
+    if (response?.code !== undefined && response.code !== 0) {
+      throw new Error(response.message || `API Error code=${response.code}`);
+    }
+    if (response?.success === false) {
+      throw new Error(response.message || '远程接口调用失败');
+    }
+    return (response?.data !== undefined ? response.data : response) as T;
+  };
+  const apiPost = async <T,>(url: string, body: any): Promise<T> => {
+    if (url.includes('/topic/post/'))
+      return unwrapOpenApi(await postTopic(body));
+    if (url.includes('/chat/post/')) return unwrapOpenApi(await postChat(body));
+    if (url.includes('/chat/save/')) return unwrapOpenApi(await saveChat(body));
+    if (url.includes('/topic/update/'))
+      return unwrapOpenApi(await updateTopic(body));
+    if (url.includes('/trace/')) return unwrapOpenApi(await saveTrace(body));
+    if (url.includes('/skills/')) return unwrapOpenApi(await getSkills(body));
+    throw new Error(`未支持的 Agent POST 接口: ${url}`);
+  };
+  const apiGet = async <T,>(
+    url: string,
+    params: Record<string, string> = {}
+  ): Promise<T> => {
+    if (url.includes('/chat/list/'))
+      return unwrapOpenApi(await getChats(params.id));
+    if (url.includes('/topic/list/'))
+      return unwrapOpenApi(await getTopics(params.id));
+    if (url.includes('/topic/remove/'))
+      return unwrapOpenApi(await removeTopic(params.id));
+    throw new Error(`未支持的 Agent GET 接口: ${url}`);
+  };
+  const { streamCompletion, abortAll } = useSSEStream(chatCompletions as any);
   const {
     files,
     recognizing,
@@ -270,7 +307,9 @@
     removeFile,
     buildFilePrompt,
     clearFiles
-  } = useFileRecognition(() => token.value, remote);
+  } = useFileRecognition(async (file) =>
+    unwrapOpenApi(await recognitionFile(file))
+  );
 
   const getEngine = () => engine;
   const registerTools = () => {

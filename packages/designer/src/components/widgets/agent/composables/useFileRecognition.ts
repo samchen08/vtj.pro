@@ -33,7 +33,13 @@ function detectFileType(file: File): 'image' | 'json' {
 
 // ── Composable ──
 
-export function useFileRecognition(token: () => string, remote: () => string) {
+export function useFileRecognition(
+  recognitionFile: (file: File) => Promise<{
+    title?: string;
+    content?: string;
+    type?: string;
+  }>
+) {
   const files = ref<UploadedFile[]>([]);
 
   /** 是否有文件正在识别中 */
@@ -58,26 +64,7 @@ export function useFileRecognition(token: () => string, remote: () => string) {
     files.value.push(record);
 
     try {
-      const formData = new FormData();
-      formData.append('file', file);
-
-      const t = token();
-      if (!t) throw new Error('缺少 Token');
-
-      const url = `${remote().replace(/\/$/, '')}/api/open/recognition/post/${t}`;
-      const res = await fetch(url, { method: 'POST', body: formData });
-      const wrapper = await res.json();
-
-      // 后端 ResponseInterceptor 统一包装 { code, message, data }
-      let data: { title?: string; content?: string; type?: string };
-      if (wrapper.code !== undefined) {
-        if (wrapper.code !== 0) {
-          throw new Error(wrapper.message || `识别失败 code=${wrapper.code}`);
-        }
-        data = wrapper.data;
-      } else {
-        data = wrapper;
-      }
+      const data = await recognitionFile(file);
 
       const idx = files.value.findIndex((f) => f.id === id);
       if (idx !== -1) {

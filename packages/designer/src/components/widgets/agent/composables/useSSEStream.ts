@@ -4,7 +4,14 @@
  */
 import type { SSEChunkData, StreamCompletionResult } from '../types/agent';
 
-export function useSSEStream(token: () => string, remote: () => string) {
+type ChatCompletions = (
+  topicId: string,
+  chatId: string,
+  callback?: (data: SSEChunkData | null, done?: boolean) => void,
+  error?: (error: Error, cancel?: boolean) => void
+) => Promise<() => void>;
+
+export function useSSEStream(chatCompletions: ChatCompletions) {
   let currentAbort: (() => void) | null = null;
 
   function abortAll() {
@@ -24,121 +31,70 @@ export function useSSEStream(token: () => string, remote: () => string) {
     onReasoning?: (text: string) => void
   ): Promise<StreamCompletionResult> {
     return new Promise((resolve, reject) => {
-      const t = token();
-      const url = `${remote().replace(/\/$/, '')}/api/open/completions/${t}?tid=${topicId}&id=${chatId}`;
-      const controller = new AbortController();
-      let buffer = '';
       let reasoningAcc = '';
       let usageAcc: StreamCompletionResult['usage'] = null;
       let modelAcc = '';
       let reasoningStartTime = 0;
       let reasoningEndTime = 0;
+      let remoteAbort: (() => void) | null = null;
+      let settled = false;
+      let abortRequested = false;
 
-      const done = () => controller.abort();
+      const finish = () => {
+        if (settled) return;
+        settled = true;
+        if (currentAbort === done) currentAbort = null;
+        resolve({
+          done,
+          reasoning: reasoningAcc,
+          usage: usageAcc,
+          modelUsed: modelAcc,
+          reasoningTime: reasoningStartTime
+            ? reasoningEndTime - reasoningStartTime
+            : 0
+        });
+      };
+      const done = () => {
+        abortRequested = true;
+        remoteAbort?.();
+        finish();
+      };
+      currentAbort = done;
 
-      function processLine(line: string) {
-        if (!line.startsWith('data: ')) return;
-        const content = line.slice(6).trim();
-        if (!content) return;
-        if (content === '[DONE]') return;
-
-        try {
-          const data: SSEChunkData = JSON.parse(content);
-
-          // 捕获 vtj.init 中的模型信息
-          if (data.vtj?.model) {
-            modelAcc = data.vtj.model;
-          }
-
+      chatCompletions(
+        topicId,
+        chatId,
+        (data, completed) => {
+          if (completed) return finish();
+          if (!data) return;
+          modelAcc = data.vtj?.model || (data as any).model || modelAcc;
+          if (data.usage) usageAcc = data.usage;
           const delta = data.choices?.[0]?.delta;
-          const text = delta?.content;
           const reasoning = delta?.reasoning_content;
-
-          // 收集 reasoning
           if (reasoning) {
             if (!reasoningStartTime) reasoningStartTime = Date.now();
             reasoningEndTime = Date.now();
             reasoningAcc += reasoning;
-            if (onReasoning) onReasoning(reasoning);
+            onReasoning?.(reasoning);
           }
-
-          // 收集 token usage（最后一个 chunk 会包含 usage）
-          if (data.usage) {
-            usageAcc = data.usage;
+          if (delta?.content) onChunk?.(delta.content);
+        },
+        (error, cancel) => {
+          if (cancel) finish();
+          else if (!settled) {
+            settled = true;
+            currentAbort = null;
+            reject(error);
           }
-
-          // 收集 content 用于展示
-          if (!text) return;
-
-          // 流式回调
-          if (onChunk) onChunk(text);
-        } catch {
-          // 解析失败静默跳过
         }
-      }
-
-      fetch(url, { method: 'GET', signal: controller.signal })
-        .then(async (res) => {
-          if (!res.ok) {
-            const errText = await res.text();
-            return reject(new Error(`SSE HTTP ${res.status}: ${errText}`));
-          }
-          const reader = res.body?.getReader();
-          if (!reader) return reject(new Error('No reader'));
-
-          try {
-            while (true) {
-              const { done: streamDone, value } = await reader.read();
-              if (streamDone) {
-                if (buffer) processLine(buffer.trim());
-                resolve({
-                  done,
-                  reasoning: reasoningAcc,
-                  usage: usageAcc,
-                  modelUsed: modelAcc,
-                  reasoningTime: reasoningStartTime
-                    ? reasoningEndTime - reasoningStartTime
-                    : 0
-                });
-                break;
-              }
-              buffer += new TextDecoder().decode(value, { stream: true });
-              const lines = buffer.split('\n');
-              buffer = lines.pop() || '';
-              for (const line of lines) {
-                processLine(line.trim());
-              }
-            }
-          } catch (e) {
-            if ((e as Error).name === 'AbortError') {
-              resolve({
-                done,
-                reasoning: reasoningAcc,
-                usage: usageAcc,
-                modelUsed: modelAcc,
-                reasoningTime: reasoningStartTime
-                  ? reasoningEndTime - reasoningStartTime
-                  : 0
-              });
-            } else {
-              reject(e);
-            }
-          }
+      )
+        .then((abort) => {
+          remoteAbort = abort;
+          if (abortRequested) abort();
         })
-        .catch((e) => {
-          if (e.name === 'AbortError')
-            resolve({
-              done,
-              reasoning: '',
-              usage: null,
-              modelUsed: '',
-              reasoningTime: 0
-            });
-          else reject(e);
+        .catch((error) => {
+          if (!settled) reject(error);
         });
-
-      // Store abort for external cancellation
-      currentAbort = done;
     });
   }
 
