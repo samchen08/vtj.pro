@@ -217,7 +217,8 @@ export interface DualAgentInfrastructure {
 
 /** API 依赖 */
 export interface DualAgentApi {
-  apiPost: (url: string, body: any) => Promise<any>;
+  postTopic: (body: TopicCreateBody) => Promise<any>;
+  postChat: (body: Record<string, any>) => Promise<any>;
   streamCompletion: (
     topicId: string,
     chatId: string,
@@ -250,7 +251,9 @@ export interface EditorStepDeps {
     onChunk?: (text: string) => void,
     onReasoning?: (text: string) => void
   ) => Promise<StreamCompletionResult>;
-  apiPost: (url: string, body: any) => Promise<any>;
+  postChat: (body: Record<string, any>) => Promise<any>;
+  saveChat: (body: Record<string, any>) => Promise<any>;
+  updateTopic: (body: Record<string, any>) => Promise<any>;
   getEngine: () => Engine | null;
   statusText: Ref<string>;
   statusType: Ref<'info' | 'warning' | 'success' | 'danger'>;
@@ -265,7 +268,10 @@ export interface ArchitectPlanDeps {
     onChunk?: (text: string) => void,
     onReasoning?: (text: string) => void
   ) => Promise<StreamCompletionResult>;
-  apiPost: (url: string, body: any) => Promise<any>;
+  postChat: (body: Record<string, any>) => Promise<any>;
+  saveChat: (body: Record<string, any>) => Promise<any>;
+  updateTopic: (body: Record<string, any>) => Promise<any>;
+  saveTrace: (body: Record<string, any>) => Promise<any>;
   statusText: Ref<string>;
   statusType: Ref<'info' | 'warning' | 'success' | 'danger'>;
   executeEditorStep: (
@@ -339,7 +345,7 @@ export interface ChatRecord {
 
 /** 回显 composable 依赖 */
 export interface ReplayChatDeps {
-  apiGet: <T = any>(url: string, params?: Record<string, string>) => Promise<T>;
+  getChats: (topicId: string) => Promise<ChatRecord[]>;
   statusText: Ref<string>;
   statusType: Ref<'info' | 'warning' | 'success' | 'danger'>;
 }

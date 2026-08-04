@@ -269,17 +269,17 @@
     cancelOrder,
     getOrder,
     getHotTopics,
-    postTopic,
-    postChat,
-    saveChat,
-    getChats,
-    getTopics,
-    removeTopic,
+    postTopic: requestPostTopic,
+    postChat: requestPostChat,
+    saveChat: requestSaveChat,
+    getChats: requestChats,
+    getTopics: requestTopics,
+    removeTopic: requestRemoveTopic,
     cancelChat,
-    updateTopic,
-    saveTrace,
+    updateTopic: requestUpdateTopic,
+    saveTrace: requestSaveTrace,
     chatCompletions,
-    getSkills,
+    getSkills: requestSkills,
     recognitionFile
   } = useOpenApi();
 
@@ -296,36 +296,28 @@
     return (response?.data !== undefined ? response.data : response) as T;
   };
   let activeChat: any = null;
-  const apiPost = async <T,>(url: string, body: any): Promise<T> => {
-    if (url.includes('/topic/post/')) {
-      const response = unwrapOpenApi<any>(await postTopic(body));
-      activeChat = response?.chat || response;
-      return response;
-    }
-    if (url.includes('/chat/post/')) {
-      const response = unwrapOpenApi<any>(await postChat(body));
-      activeChat = response?.chat || response;
-      return response;
-    }
-    if (url.includes('/chat/save/')) return unwrapOpenApi(await saveChat(body));
-    if (url.includes('/topic/update/'))
-      return unwrapOpenApi(await updateTopic(body));
-    if (url.includes('/trace/')) return unwrapOpenApi(await saveTrace(body));
-    if (url.includes('/skills/')) return unwrapOpenApi(await getSkills(body));
-    throw new Error(`未支持的 Agent POST 接口: ${url}`);
+  const trackActiveChat = (response: any) => {
+    activeChat = response?.chat || response;
+    return response;
   };
-  const apiGet = async <T,>(
-    url: string,
-    params: Record<string, string> = {}
-  ): Promise<T> => {
-    if (url.includes('/chat/list/'))
-      return unwrapOpenApi(await getChats(params.id));
-    if (url.includes('/topic/list/'))
-      return unwrapOpenApi(await getTopics(params.id));
-    if (url.includes('/topic/remove/'))
-      return unwrapOpenApi(await removeTopic(params.id));
-    throw new Error(`未支持的 Agent GET 接口: ${url}`);
-  };
+  const postTopic = async (body: Record<string, any>) =>
+    trackActiveChat(unwrapOpenApi<any>(await requestPostTopic(body as any)));
+  const postChat = async (body: Record<string, any>) =>
+    trackActiveChat(unwrapOpenApi<any>(await requestPostChat(body as any)));
+  const saveChat = async (body: Parameters<typeof requestSaveChat>[0]) =>
+    unwrapOpenApi<any>(await requestSaveChat(body));
+  const updateTopic = async (body: Parameters<typeof requestUpdateTopic>[0]) =>
+    unwrapOpenApi<any>(await requestUpdateTopic(body));
+  const saveTrace = async (body: Parameters<typeof requestSaveTrace>[0]) =>
+    unwrapOpenApi<any>(await requestSaveTrace(body));
+  const getChats = async (topicId: string) =>
+    unwrapOpenApi<any>(await requestChats(topicId));
+  const getTopics = async (projectId: string) =>
+    unwrapOpenApi<AITopic[]>(await requestTopics(projectId));
+  const removeTopic = async (topicId: string) =>
+    unwrapOpenApi<boolean>(await requestRemoveTopic(topicId));
+  const getSkills = async (ids: string[]) =>
+    unwrapOpenApi<string>(await requestSkills(ids));
   const { streamCompletion: completeStream, abortAll } = useSSEStream(
     chatCompletions as any
   );
@@ -360,10 +352,7 @@
       toolRegistry,
       config: {
         activeDelayMs: 1500,
-        getSkills: (ids: string[]) => {
-          const platform = project.value?.platform || 'web';
-          return apiPost(`/api/open/skills/${platform}`, ids);
-        }
+        getSkills
       } as ToolContext['config']
     };
     TOOL_CONFIGS.forEach((tool) => {
@@ -380,7 +369,9 @@
   const { buildSummaryPrompt } = useSummary();
   const { executeEditorStep } = useEditorStep({
     streamCompletion,
-    apiPost,
+    postChat,
+    saveChat,
+    updateTopic,
     getEngine,
     statusText,
     statusType,
@@ -391,7 +382,10 @@
   });
   const { executeArchitectPlan } = useArchitectPlan({
     streamCompletion,
-    apiPost,
+    postChat,
+    saveChat,
+    updateTopic,
+    saveTrace,
     statusText,
     statusType,
     executeEditorStep,
@@ -411,7 +405,8 @@
     statusType
   };
   const agentApi: DualAgentApi = {
-    apiPost,
+    postTopic,
+    postChat,
     streamCompletion,
     executeArchitectPlan
   };
@@ -431,7 +426,7 @@
   } = useDualAgent(infra, agentApi, agentState, buildFinalPrompt);
   const { exportConversation } = useExport();
   const { loadChatHistory } = useReplayChat(
-    { apiGet, statusText, statusType },
+    { getChats, statusText, statusType },
     conversationRounds
   );
   const hasData = computed(() => conversationRounds.value.length > 0);
@@ -555,9 +550,7 @@
   const loadTopics = async () => {
     const projectId = engine.project.value?.__UID__;
     if (!token.value || !projectId) return;
-    topics.value = await apiGet<AITopic[]>('/api/open/topic/list/:token', {
-      id: projectId
-    }).catch(() => []);
+    topics.value = await getTopics(projectId).catch(() => []);
   };
 
   const startAgent = async () => {
@@ -595,9 +588,7 @@
   };
 
   const onRemoveTopic = async (topic: AITopic) => {
-    const removed = await apiGet<boolean>('/api/open/topic/remove/:token', {
-      id: topic.id
-    }).catch(() => false);
+    const removed = await removeTopic(topic.id).catch(() => false);
     if (!removed) return;
     topics.value = topics.value.filter((item) => item.id !== topic.id);
     if (existingTopicId.value === topic.id) startNewConversation();

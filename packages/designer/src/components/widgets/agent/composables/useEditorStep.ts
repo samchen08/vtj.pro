@@ -24,7 +24,9 @@ function escapeRegExp(str: string): string {
 export function useEditorStep(deps: EditorStepDeps) {
   const {
     streamCompletion,
-    apiPost,
+    postChat,
+    saveChat: saveRemoteChat,
+    updateTopic,
     getEngine,
     statusText,
     statusType,
@@ -93,7 +95,7 @@ export function useEditorStep(deps: EditorStepDeps) {
     if (toolContent !== undefined) {
       body.toolContent = toolContent;
     }
-    await apiPost('/api/open/chat/save/:token', body);
+    await saveRemoteChat(body);
   }
 
   /**
@@ -116,7 +118,7 @@ export function useEditorStep(deps: EditorStepDeps) {
     stepId: string
   ) {
     try {
-      await apiPost('/api/open/chat/save/:token', {
+      await saveRemoteChat({
         id: chatId,
         topicId,
         userId,
@@ -158,7 +160,7 @@ export function useEditorStep(deps: EditorStepDeps) {
       if (sourceCode !== undefined) {
         body.source = sourceCode;
       }
-      await apiPost('/api/open/chat/save/:token', body);
+      await saveRemoteChat(body);
     } catch {
       // 保存 artifacts 失败不影响主流程
     }
@@ -189,7 +191,7 @@ export function useEditorStep(deps: EditorStepDeps) {
     statusText.value = `Editor 执行中: ${step.description} (${stepIdx + 1}/${allSteps.length})`;
     statusType.value = 'warning';
 
-    await apiPost('/api/open/topic/update/:token', {
+    await updateTopic({
       id: topicId,
       currentStepId: step.id,
       status: 'executing'
@@ -310,7 +312,7 @@ export function useEditorStep(deps: EditorStepDeps) {
       // 创建 chat
       let chatRes: any;
       try {
-        chatRes = await apiPost('/api/open/chat/post/:token', {
+        chatRes = await postChat({
           topicId,
           prompt,
           agent: 'editor',
@@ -676,7 +678,7 @@ export function useEditorStep(deps: EditorStepDeps) {
         slot.content = fullContent;
         slot.done = true;
 
-        await apiPost('/api/open/chat/save/:token', {
+        await saveRemoteChat({
           id: edChatId,
           topicId,
           userId,

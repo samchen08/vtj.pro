@@ -21,7 +21,10 @@ export interface ArchPlanTargets {
 export function useArchitectPlan(deps: ArchitectPlanDeps) {
   const {
     streamCompletion,
-    apiPost,
+    postChat,
+    saveChat,
+    updateTopic,
+    saveTrace,
     statusText,
     statusType,
     executeEditorStep,
@@ -96,7 +99,7 @@ export function useArchitectPlan(deps: ArchitectPlanDeps) {
     }
 
     const rawStreamText = targets.architectStreamText.value;
-    await apiPost('/api/open/chat/save/:token', {
+    await saveChat({
       id: architectChatId,
       topicId,
       userId,
@@ -115,12 +118,12 @@ export function useArchitectPlan(deps: ArchitectPlanDeps) {
     if (!targets.architectPlan.value) {
       statusText.value = '⚠️ Architect 未返回有效 JSON，检查 SSE 日志';
       statusType.value = 'danger';
-      await apiPost('/api/open/topic/update/:token', {
+      await updateTopic({
         id: topicId,
         status: 'failed',
         traceId
       });
-      await apiPost('/api/open/trace/:token', {
+      await saveTrace({
         traceId,
         topicId,
         planJson: null,
@@ -133,7 +136,7 @@ export function useArchitectPlan(deps: ArchitectPlanDeps) {
     }
 
     // 更新 topic 为 executing
-    await apiPost('/api/open/topic/update/:token', {
+    await updateTopic({
       id: topicId,
       planJson: targets.architectPlan.value,
       status: 'executing',
@@ -150,13 +153,13 @@ export function useArchitectPlan(deps: ArchitectPlanDeps) {
       targets.architectAnswer.value = answer;
       statusText.value = '✅ Architect 直接回答';
       statusType.value = 'success';
-      await apiPost('/api/open/topic/update/:token', {
+      await updateTopic({
         id: topicId,
         status: 'completed',
         planJson: targets.architectPlan.value,
         traceId
       });
-      await apiPost('/api/open/trace/:token', {
+      await saveTrace({
         traceId,
         topicId,
         planJson: targets.architectPlan.value,
@@ -222,7 +225,7 @@ export function useArchitectPlan(deps: ArchitectPlanDeps) {
       );
 
       try {
-        const summaryChatRes = await apiPost('/api/open/chat/post/:token', {
+        const summaryChatRes = await postChat({
           topicId,
           prompt: summaryPrompt,
           agent: 'editor',
@@ -245,7 +248,7 @@ export function useArchitectPlan(deps: ArchitectPlanDeps) {
           }
         );
 
-        await apiPost('/api/open/chat/save/:token', {
+        await saveChat({
           id: summaryChatId,
           topicId,
           userId,
@@ -272,13 +275,13 @@ export function useArchitectPlan(deps: ArchitectPlanDeps) {
       return;
     }
 
-    await apiPost('/api/open/topic/update/:token', {
+    await updateTopic({
       id: topicId,
       status: hasError ? 'failed' : 'completed',
       traceId
     });
 
-    await apiPost('/api/open/trace/:token', {
+    await saveTrace({
       traceId,
       topicId,
       planJson: targets.architectPlan.value,

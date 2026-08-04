@@ -61,7 +61,7 @@ export function useDualAgent(
     abortSse
   } = infra;
 
-  const { apiPost, executeArchitectPlan } = api;
+  const { postTopic, postChat, executeArchitectPlan } = api;
   const { conversationRounds } = state;
 
   /** 当前流程的取消控制器，用于中断工作流编排（非仅 SSE） */
@@ -171,7 +171,7 @@ export function useDualAgent(
         userName: userData?.name || ''
       };
 
-      const topicRes = await apiPost('/api/open/topic/post/:token', topicBody);
+      const topicRes = await postTopic(topicBody);
       const topic = topicRes.topic || topicRes;
       const architectChat = topicRes.chat || topicRes;
       const topicId = topic.id || topic.topicId;
@@ -203,7 +203,7 @@ export function useDualAgent(
       infra.statusText.value = '创建 Architect 聊天...';
       infra.statusType.value = 'info';
 
-      const chatRes = await apiPost('/api/open/chat/post/:token', {
+      const chatRes = await postChat({
         topicId: tid,
         prompt: finalPrompt,
         agent: 'architect',

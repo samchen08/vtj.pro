@@ -406,7 +406,7 @@ export function useReplayChat(
   deps: ReplayChatDeps,
   conversationRounds: Ref<ConversationRound[]>
 ) {
-  const { apiGet, statusText, statusType } = deps;
+  const { getChats, statusText, statusType } = deps;
 
   async function loadChatHistory(topicId: string): Promise<void> {
     if (!topicId) {
@@ -420,9 +420,7 @@ export function useReplayChat(
     conversationRounds.value = [];
 
     try {
-      const chats = await apiGet<ChatRecord[]>('/api/open/chat/list/:token', {
-        id: topicId
-      });
+      const chats = await getChats(topicId);
 
       if (!Array.isArray(chats)) {
         const msg = `接口返回数据格式异常 (期望数组，收到 ${typeof chats})`;
