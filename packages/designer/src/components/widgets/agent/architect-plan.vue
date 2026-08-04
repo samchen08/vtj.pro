@@ -16,17 +16,21 @@
       <StreamMarkdown
         v-if="answer"
         class="answer-content"
-        :content="answer"></StreamMarkdown>
+        :content="answer"
+        :code="code"></StreamMarkdown>
 
       <template v-else>
         <StreamMarkdown
           v-if="plan"
           class="intent"
-          :content="plan.intent"></StreamMarkdown>
+          :content="plan.intent"
+          :code="code"></StreamMarkdown>
 
         <ol v-if="plan?.steps?.length" class="plan-steps">
           <li v-for="step in plan.steps" :key="step.id">
-            <StreamMarkdown :content="step.description"></StreamMarkdown>
+            <StreamMarkdown
+              :content="step.description"
+              :code="code"></StreamMarkdown>
           </li>
         </ol>
 
@@ -43,7 +47,8 @@
             <StreamMarkdown
               v-if="streamText"
               class="stream-content"
-              :content="streamText"></StreamMarkdown>
+              :content="streamText"
+              :code="code"></StreamMarkdown>
           </el-collapse-item>
         </el-collapse>
       </template>
@@ -62,13 +67,21 @@
     answer: string;
     streamText: string;
     reasoningText: string;
+    code: boolean;
+    detailsCommand: number;
   }>();
 
   const activeDetails = ref<string[]>([]);
   watch(
-    () => props.plan,
-    (plan) => {
-      activeDetails.value = plan ? [] : ['details'];
+    () => [props.plan, props.detailsCommand] as const,
+    ([plan, command]) => {
+      activeDetails.value = command
+        ? command > 0
+          ? ['details']
+          : []
+        : plan
+          ? []
+          : ['details'];
     },
     { immediate: true }
   );

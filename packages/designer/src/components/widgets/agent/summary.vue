@@ -8,14 +8,19 @@
     </div>
     <div class="assistant-content">
       <div v-if="error" class="error-block">总结生成失败：{{ error }}</div>
-      <details v-if="reasoning" class="reasoning">
+      <details
+        v-if="reasoning"
+        :key="detailsCommand"
+        class="reasoning"
+        :open="detailsCommand > 0">
         <summary>查看总结分析</summary>
         <pre>{{ reasoning }}</pre>
       </details>
       <StreamMarkdown
         v-if="text"
         class="answer-content"
-        :content="text"></StreamMarkdown>
+        :content="text"
+        :code="code"></StreamMarkdown>
     </div>
   </section>
 </template>
@@ -27,6 +32,8 @@
     text: string;
     reasoning: string;
     error: string;
+    code: boolean;
+    detailsCommand: number;
   }>();
 </script>
 

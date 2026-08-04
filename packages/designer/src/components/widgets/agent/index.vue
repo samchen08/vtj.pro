@@ -1,7 +1,52 @@
 <template>
   <XContainer class="v-agent-widget__wrapper" direction="column" fit>
-    <Panel class="v-agent-widget" title="AI Agent">
+    <Panel class="v-agent-widget" title="智能体">
       <template #actions>
+        <XAction
+          mode="icon"
+          size="small"
+          :disabled="!hasData"
+          v-bind="showCodeProps"
+          @click="toggleHideCode"></XAction>
+        <ElDivider direction="vertical"></ElDivider>
+        <XAction
+          mode="icon"
+          size="small"
+          type="primary"
+          :icon="Top"
+          title="滚动到顶部"
+          background="hover"
+          :disabled="!hasData"
+          @click="scrollToTop"></XAction>
+        <XAction
+          mode="icon"
+          size="small"
+          type="primary"
+          :icon="Bottom"
+          title="滚动到底部"
+          background="hover"
+          :disabled="!hasData"
+          @click="scrollToBottom"></XAction>
+        <ElDivider direction="vertical"></ElDivider>
+        <XAction
+          mode="icon"
+          size="small"
+          type="primary"
+          :icon="ArrowUp"
+          title="全部折叠"
+          background="hover"
+          :disabled="!hasData"
+          @click="collapseAll"></XAction>
+        <XAction
+          mode="icon"
+          size="small"
+          type="primary"
+          :icon="ArrowDown"
+          title="全部展开"
+          background="hover"
+          :disabled="!hasData"
+          @click="expandAll"></XAction>
+        <ElDivider direction="vertical"></ElDivider>
         <XAction
           mode="icon"
           size="large"
@@ -55,6 +100,8 @@
           :round="round"
           :round-number="index + 1"
           :is-latest="index === conversationRounds.length - 1"
+          :code="!isHideCode"
+          :details-command="detailsCommand"
           @resolve-approval="resolveApproval" />
 
         <div
@@ -126,6 +173,12 @@
   import { ref, computed, nextTick, watch, onMounted, onUnmounted } from 'vue';
   import {
     Download,
+    ArrowUp,
+    ArrowDown,
+    Top,
+    Bottom,
+    View,
+    Hide,
     VtjIconChatRecord,
     VtjIconClose,
     VtjIconNewChat
@@ -176,6 +229,8 @@
   const topics = ref<AITopic[]>([]);
   const models = ref<DictOption[]>([]);
   const settings = ref<Settings>();
+  const isHideCode = ref(true);
+  const detailsCommand = ref(0);
   const autoApprove = computed({
     get: () => engine.state.autoApply,
     set: (value: boolean) => {
@@ -299,6 +354,24 @@
   const currentTopic = computed(
     () => topics.value.find((item) => item.id === existingTopicId.value) || null
   );
+  const showCodeProps = computed<any>(() =>
+    isHideCode.value
+      ? { icon: Hide, title: '显示代码块', type: 'warning' }
+      : { icon: View, title: '隐藏代码块', type: 'default' }
+  );
+
+  const toggleHideCode = () => {
+    if (hasData.value) isHideCode.value = !isHideCode.value;
+  };
+  const scrollToTop = () => conversationRef.value?.scrollTo({ top: 0 });
+  const scrollToBottom = () =>
+    conversationRef.value?.scrollTo({
+      top: conversationRef.value.scrollHeight
+    });
+  const collapseAll = () =>
+    (detailsCommand.value = -Math.abs(detailsCommand.value) - 1);
+  const expandAll = () =>
+    (detailsCommand.value = Math.abs(detailsCommand.value) + 1);
 
   const handleExport = () =>
     exportConversation(
@@ -333,6 +406,7 @@
     existingTopicId.value = '';
     conversationRounds.value = [];
     statusText.value = '';
+    detailsCommand.value = 0;
     clearFiles();
     showDrawer.value = false;
   };

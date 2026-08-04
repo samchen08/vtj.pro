@@ -40,14 +40,26 @@
         </template>
 
         <div class="turn-details">
-          <details v-if="turn.reasoning" :open="!step.done && !step.error">
+          <details
+            v-if="turn.reasoning"
+            :key="`reasoning-${detailsCommand}`"
+            :open="
+              detailsCommand ? detailsCommand > 0 : !step.done && !step.error
+            ">
             <summary>深度思考</summary>
             <pre>{{ turn.reasoning }}</pre>
           </details>
 
-          <details v-if="turn.content" :open="!step.done && !step.error">
+          <details
+            v-if="turn.content"
+            :key="`output-${detailsCommand}`"
+            :open="
+              detailsCommand ? detailsCommand > 0 : !step.done && !step.error
+            ">
             <summary>输出</summary>
-            <StreamMarkdown :content="turn.content"></StreamMarkdown>
+            <StreamMarkdown
+              :content="turn.content"
+              :code="code"></StreamMarkdown>
           </details>
 
           <div v-if="turn.toolParams" class="tool-data">
@@ -111,6 +123,8 @@
 
   const props = defineProps<{
     step: EditorStepResult;
+    code: boolean;
+    detailsCommand: number;
   }>();
 
   defineEmits<{
@@ -131,9 +145,21 @@
 
   const activeTurns = ref<number[]>([]);
   watch(
-    () => [props.step.done, props.step.error, props.step.turns.length] as const,
-    ([done, error, turnCount]) => {
-      activeTurns.value = done || error || !turnCount ? [] : [turnCount - 1];
+    () =>
+      [
+        props.step.done,
+        props.step.error,
+        props.step.turns.length,
+        props.detailsCommand
+      ] as const,
+    ([done, error, turnCount, command]) => {
+      activeTurns.value = command
+        ? command > 0
+          ? Array.from({ length: turnCount }, (_, index) => index)
+          : []
+        : done || error || !turnCount
+          ? []
+          : [turnCount - 1];
     },
     { immediate: true }
   );

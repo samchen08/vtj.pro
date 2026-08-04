@@ -7,13 +7,17 @@
       :plan="round.architectPlan"
       :answer="round.architectAnswer"
       :stream-text="round.architectStreamText"
-      :reasoning-text="round.reasoningText" />
+      :reasoning-text="round.reasoningText"
+      :code="code"
+      :details-command="detailsCommand" />
 
     <div v-if="round.editorResults.length" class="step-list">
       <EditorStepCard
         v-for="(step, idx) in round.editorResults"
         :key="idx"
         :step="step"
+        :code="code"
+        :details-command="detailsCommand"
         @resolve-approval="
           (id, approved) => $emit('resolveApproval', id, approved)
         " />
@@ -22,7 +26,9 @@
     <SummaryCard
       :text="round.summaryText"
       :reasoning="round.summaryReasoning"
-      :error="round.summaryError" />
+      :error="round.summaryError"
+      :code="code"
+      :details-command="detailsCommand" />
   </article>
 </template>
 
@@ -38,6 +44,8 @@
     round: ConversationRound;
     roundNumber: number;
     isLatest: boolean;
+    code: boolean;
+    detailsCommand: number;
   }>();
 
   const roundLabel = computed(() => `第 ${props.roundNumber} 轮`);
