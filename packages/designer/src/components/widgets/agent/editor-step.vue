@@ -67,7 +67,7 @@
               detailsCommand ? detailsCommand > 0 : !step.done && !step.error
             ">
             <summary>深度思考</summary>
-            <pre>{{ turn.reasoning }}</pre>
+            <pre ref="turnContentRefs">{{ turn.reasoning }}</pre>
           </details>
 
           <details
@@ -77,10 +77,12 @@
               detailsCommand ? detailsCommand > 0 : !step.done && !step.error
             ">
             <summary>输出</summary>
-            <StreamMarkdown
-              :content="turn.content"
-              :code="code"
-              @click="(...args) => $emit('view', ...args)"></StreamMarkdown>
+            <div ref="turnContentRefs">
+              <StreamMarkdown
+                :content="turn.content"
+                :code="code"
+                @click="(...args) => $emit('view', ...args)"></StreamMarkdown>
+            </div>
           </details>
 
           <div v-if="turn.toolParams" class="tool-data">
@@ -136,7 +138,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { computed, ref, watch } from 'vue';
+  import { computed, ref, watch, nextTick, onUnmounted } from 'vue';
   import { ElButton, ElCollapse, ElCollapseItem } from 'element-plus';
   import { View, Download } from '@vtj/icons';
   import { XAction } from '@vtj/ui';
@@ -211,6 +213,25 @@
     turn.type === 'vue_code' || turn.type === 'diff';
   const hasArtifact = (turn: EditorTurn) =>
     !!turn.vue && !!turn.dsl && turn.approval?.status !== 'pending';
+
+  // ── 流式内容自动滚到底部 ──
+  const turnContentRefs = ref<HTMLElement[]>([]);
+  let scrollFrame = 0;
+  watch(
+    () => props.step.turns.map((t) => [t.reasoning, t.content]),
+    () => {
+      cancelAnimationFrame(scrollFrame);
+      nextTick(() => {
+        scrollFrame = requestAnimationFrame(() => {
+          turnContentRefs.value.forEach((el) => {
+            if (el) el.scrollTop = el.scrollHeight;
+          });
+        });
+      });
+    },
+    { deep: true, flush: 'post' }
+  );
+  onUnmounted(() => cancelAnimationFrame(scrollFrame));
 </script>
 
 <style lang="scss" scoped>

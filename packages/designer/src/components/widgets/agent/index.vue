@@ -556,8 +556,8 @@
     conversationRounds,
     () => {
       cancelAnimationFrame(scrollFrame);
-      scrollFrame = requestAnimationFrame(() => {
-        nextTick(() => {
+      nextTick(() => {
+        scrollFrame = requestAnimationFrame(() => {
           const element = conversationRef.value;
           if (element) element.scrollTop = element.scrollHeight;
         });

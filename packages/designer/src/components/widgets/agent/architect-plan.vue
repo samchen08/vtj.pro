@@ -44,15 +44,21 @@
           <el-collapse-item
             :title="plan ? '查看分析详情' : '正在生成规划…'"
             name="details">
-            <pre v-if="reasoningText" class="reasoning-content">{{
-              reasoningText
-            }}</pre>
-            <StreamMarkdown
+            <pre
+              ref="reasoningContentRef"
+              v-if="reasoningText"
+              class="reasoning-content"
+              >{{ reasoningText }}</pre
+            >
+            <div
+              ref="streamContentRef"
               v-if="streamText"
-              class="stream-content"
-              :content="streamText"
-              :code="code"
-              @click="(...args) => $emit('view', ...args)"></StreamMarkdown>
+              class="stream-content">
+              <StreamMarkdown
+                :content="streamText"
+                :code="code"
+                @click="(...args) => $emit('view', ...args)"></StreamMarkdown>
+            </div>
           </el-collapse-item>
         </el-collapse>
       </template>
@@ -61,10 +67,11 @@
 </template>
 
 <script lang="ts" setup>
-  import { computed, ref, watch } from 'vue';
+  import { computed, ref, watch, toRef, onUnmounted } from 'vue';
   import { ElCollapse, ElCollapseItem } from 'element-plus';
   import type { PlanResult } from './types/agent';
   import StreamMarkdown from './stream-markdown.vue';
+  import { useContentAutoScroll } from './composables/useAutoScroll';
 
   const props = defineProps<{
     plan: PlanResult | null;
@@ -96,6 +103,22 @@
   const safetyLabel = computed(() => {
     const labels = { readonly: '安全', write: '风险', destructive: '高危' };
     return labels[props.plan?.safety || 'readonly'];
+  });
+
+  // ── 流式内容自动滚到底部 ──
+  const reasoningContentRef = ref<HTMLElement>();
+  const streamContentRef = ref<HTMLElement>();
+  const { dispose: disposeReasoningScroll } = useContentAutoScroll(
+    toRef(props, 'reasoningText'),
+    reasoningContentRef
+  );
+  const { dispose: disposeStreamScroll } = useContentAutoScroll(
+    toRef(props, 'streamText'),
+    streamContentRef
+  );
+  onUnmounted(() => {
+    disposeReasoningScroll();
+    disposeStreamScroll();
   });
 </script>
 

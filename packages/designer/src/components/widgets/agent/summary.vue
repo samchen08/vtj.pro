@@ -14,7 +14,7 @@
         class="reasoning"
         :open="detailsCommand > 0">
         <summary>查看总结分析</summary>
-        <pre>{{ reasoning }}</pre>
+        <pre ref="reasoningPreRef">{{ reasoning }}</pre>
       </details>
       <StreamMarkdown
         v-if="text"
@@ -27,9 +27,11 @@
 </template>
 
 <script lang="ts" setup>
+  import { ref, toRef, onUnmounted } from 'vue';
   import StreamMarkdown from './stream-markdown.vue';
+  import { useContentAutoScroll } from './composables/useAutoScroll';
 
-  defineProps<{
+  const props = defineProps<{
     text: string;
     reasoning: string;
     error: string;
@@ -39,6 +41,14 @@
   defineEmits<{
     view: [source: string, language: string];
   }>();
+
+  // ── 流式内容自动滚到底部 ──
+  const reasoningPreRef = ref<HTMLElement>();
+  const { dispose } = useContentAutoScroll(
+    toRef(props, 'reasoning'),
+    reasoningPreRef
+  );
+  onUnmounted(() => dispose());
 </script>
 
 <style lang="scss" scoped>
