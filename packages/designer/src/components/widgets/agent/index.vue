@@ -93,6 +93,7 @@
           :is-latest="index === conversationRounds.length - 1"
           :code="!isHideCode"
           :details-command="detailsCommand"
+          @view="showCodeDetail"
           @resolve-approval="resolveApproval" />
 
         <div
@@ -128,6 +129,15 @@
         @abort="abortAgent"
         @upload-file="uploadFile"
         @remove-file="removeFile" />
+
+      <Detail
+        v-if="detailVisible"
+        v-model="detailVisible"
+        :source="detailSource"
+        :language="detailLanguage"
+        :dsl="detailDsl"
+        :update-dsl="updateDetailDsl"
+        @apply="applyDetailDsl"></Detail>
     </Panel>
 
     <ElDrawer
@@ -192,6 +202,7 @@
   import ChatRecords from './records.vue';
   import MessageInputCard from './message-input.vue';
   import ConversationRoundCard from './conversation-round.vue';
+  import Detail from './detail.vue';
   import { useAuth } from './composables/useAuth';
   import { useApi } from './composables/useApi';
   import { useSSEStream } from './composables/useSSEStream';
@@ -222,6 +233,10 @@
   const settings = ref<Settings>();
   const isHideCode = ref(true);
   const detailsCommand = ref(0);
+  const detailVisible = ref(false);
+  const detailSource = ref('');
+  const detailLanguage = ref('vue');
+  const detailDsl = ref<any>(null);
   const autoApprove = computed({
     get: () => engine.state.autoApply,
     set: (value: boolean) => {
@@ -363,6 +378,46 @@
   const toggleDetails = () => {
     const revision = Math.abs(detailsCommand.value) + 1;
     detailsCommand.value = detailsExpanded.value ? -revision : revision;
+  };
+
+  const updateDetailDsl = async (source: string) => {
+    const projectDsl = engine.project.value?.toDsl();
+    const currentDsl = engine.current.value?.toDsl();
+    if (!projectDsl) return null;
+    const dsl = await engine.service.parseVue(projectDsl as any, {
+      id: currentDsl?.id || 'ai_gen',
+      name: currentDsl?.name || 'AiGenFile',
+      source
+    });
+    if (Array.isArray(dsl)) return Promise.reject(dsl);
+    return dsl;
+  };
+
+  const showCodeDetail = async (source: string, language: string) => {
+    if (language === 'diff') {
+      const projectDsl = engine.project.value?.toDsl();
+      const currentDsl = engine.current.value?.toDsl();
+      if (projectDsl && currentDsl) {
+        source =
+          (await engine.service.genVueContent(
+            projectDsl as any,
+            currentDsl as any
+          )) || source;
+        language = 'vue';
+      }
+    }
+    detailSource.value = source;
+    detailLanguage.value = language;
+    detailDsl.value = await updateDetailDsl(source).catch(() => null);
+    detailVisible.value = true;
+  };
+
+  const applyDetailDsl = async (dsl: any) => {
+    if (!dsl) return;
+    const id = engine.current.value?.id;
+    if (id) dsl.id = id;
+    await engine.applyAI(dsl);
+    detailVisible.value = false;
   };
 
   const handleExport = () =>

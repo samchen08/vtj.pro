@@ -20,7 +20,8 @@
         v-if="text"
         class="answer-content"
         :content="text"
-        :code="code"></StreamMarkdown>
+        :code="code"
+        @click="(...args) => $emit('view', ...args)"></StreamMarkdown>
     </div>
   </section>
 </template>
@@ -34,6 +35,9 @@
     error: string;
     code: boolean;
     detailsCommand: number;
+  }>();
+  defineEmits<{
+    view: [source: string, language: string];
   }>();
 </script>
 

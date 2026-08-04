@@ -9,7 +9,8 @@
       :stream-text="round.architectStreamText"
       :reasoning-text="round.reasoningText"
       :code="code"
-      :details-command="detailsCommand" />
+      :details-command="detailsCommand"
+      @view="(...args) => $emit('view', ...args)" />
 
     <div v-if="round.editorResults.length" class="step-list">
       <EditorStepCard
@@ -18,6 +19,7 @@
         :step="step"
         :code="code"
         :details-command="detailsCommand"
+        @view="(...args) => $emit('view', ...args)"
         @resolve-approval="
           (id, approved) => $emit('resolveApproval', id, approved)
         " />
@@ -28,7 +30,8 @@
       :reasoning="round.summaryReasoning"
       :error="round.summaryError"
       :code="code"
-      :details-command="detailsCommand" />
+      :details-command="detailsCommand"
+      @view="(...args) => $emit('view', ...args)" />
   </article>
 </template>
 
@@ -52,6 +55,7 @@
 
   defineEmits<{
     resolveApproval: [id: string, approved: boolean];
+    view: [source: string, language: string];
   }>();
 </script>
 

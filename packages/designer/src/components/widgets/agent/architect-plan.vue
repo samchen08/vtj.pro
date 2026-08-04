@@ -17,20 +17,23 @@
         v-if="answer"
         class="answer-content"
         :content="answer"
-        :code="code"></StreamMarkdown>
+        :code="code"
+        @click="(...args) => $emit('view', ...args)"></StreamMarkdown>
 
       <template v-else>
         <StreamMarkdown
           v-if="plan"
           class="intent"
           :content="plan.intent"
-          :code="code"></StreamMarkdown>
+          :code="code"
+          @click="(...args) => $emit('view', ...args)"></StreamMarkdown>
 
         <ol v-if="plan?.steps?.length" class="plan-steps">
           <li v-for="step in plan.steps" :key="step.id">
             <StreamMarkdown
               :content="step.description"
-              :code="code"></StreamMarkdown>
+              :code="code"
+              @click="(...args) => $emit('view', ...args)"></StreamMarkdown>
           </li>
         </ol>
 
@@ -48,7 +51,8 @@
               v-if="streamText"
               class="stream-content"
               :content="streamText"
-              :code="code"></StreamMarkdown>
+              :code="code"
+              @click="(...args) => $emit('view', ...args)"></StreamMarkdown>
           </el-collapse-item>
         </el-collapse>
       </template>
@@ -69,6 +73,9 @@
     reasoningText: string;
     code: boolean;
     detailsCommand: number;
+  }>();
+  defineEmits<{
+    view: [source: string, language: string];
   }>();
 
   const activeDetails = ref<string[]>([]);

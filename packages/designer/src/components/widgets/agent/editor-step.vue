@@ -59,7 +59,8 @@
             <summary>输出</summary>
             <StreamMarkdown
               :content="turn.content"
-              :code="code"></StreamMarkdown>
+              :code="code"
+              @click="(...args) => $emit('view', ...args)"></StreamMarkdown>
           </details>
 
           <div v-if="turn.toolParams" class="tool-data">
@@ -129,6 +130,7 @@
 
   defineEmits<{
     resolveApproval: [id: string, approved: boolean];
+    view: [source: string, language: string];
   }>();
 
   const stepStatus = computed(() =>

@@ -22,7 +22,9 @@
     content?: string;
     code?: boolean;
   }>();
-  const emit = defineEmits(['click']);
+  const emit = defineEmits<{
+    click: [source: string, language: string];
+  }>();
 
   hljs.registerLanguage('vue', xml);
   hljs.registerLanguage('javascript', javascript);
@@ -76,7 +78,11 @@
       (target.classList.contains('language-vue') ||
         target.classList.contains('language-diff'))
     ) {
-      emit('click');
+      emit(
+        'click',
+        target.textContent || '',
+        target.className.match(/language-([\w-]+)/)?.[1] || ''
+      );
     }
   };
 
