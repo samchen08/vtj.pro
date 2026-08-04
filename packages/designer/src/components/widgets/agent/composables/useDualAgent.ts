@@ -120,6 +120,8 @@ export function useDualAgent(
 
     running.value = true;
     flowAbortController = new AbortController();
+    const engine = getEngine();
+    if (engine) engine.state.streaming = true;
     try {
       registerTools();
       const { topicId, userId, chatId, round } = await setup(finalPrompt);
@@ -137,6 +139,7 @@ export function useDualAgent(
       infra.statusText.value = `❌ 错误: ${e.message}`;
       infra.statusType.value = 'danger';
     } finally {
+      if (engine) engine.state.streaming = false;
       running.value = false;
       flowAbortController = null;
     }
@@ -255,6 +258,8 @@ export function useDualAgent(
 
     running.value = true;
     flowAbortController = new AbortController();
+    const engine = getEngine();
+    if (engine) engine.state.streaming = true;
 
     try {
       registerTools();
@@ -287,6 +292,7 @@ export function useDualAgent(
       infra.statusText.value = `❌ 重试失败: ${e.message}`;
       infra.statusType.value = 'danger';
     } finally {
+      if (engine) engine.state.streaming = false;
       running.value = false;
       flowAbortController = null;
     }
