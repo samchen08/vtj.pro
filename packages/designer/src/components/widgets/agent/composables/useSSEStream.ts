@@ -67,7 +67,7 @@ export function useSSEStream(chatCompletions: ChatCompletions) {
         (data, completed) => {
           if (completed) return finish();
           if (!data) return;
-          modelAcc = data.vtj?.model || (data as any).model || modelAcc;
+          modelAcc = data.vtj?.model || data.model || modelAcc;
           if (data.usage) usageAcc = data.usage;
           const delta = data.choices?.[0]?.delta;
           const reasoning = delta?.reasoning_content;

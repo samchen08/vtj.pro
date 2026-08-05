@@ -1,10 +1,11 @@
-import { ref } from 'vue';
 import { describe, expect, it, vi } from 'vitest';
 import { useEditorStep } from '../src/components/widgets/agent/composables/useEditorStep';
 
 describe('useEditorStep', () => {
   it('keeps old turns and increments attempt when retrying a step', async () => {
-    const postChat = vi.fn(async () => ({ chat: { id: 'retry-chat' } }));
+    const postChat = vi.fn(async (_body: any) => ({
+      chat: { id: 'retry-chat' }
+    }));
     const saveChat = vi.fn(async () => true);
     const retrySlot: any = {
       stepIdx: 0,
@@ -30,8 +31,7 @@ describe('useEditorStep', () => {
         };
       }),
       getEngine: vi.fn(),
-      statusText: ref(''),
-      statusType: ref('info'),
+      setStatus: vi.fn(),
       requestApproval: vi.fn()
     });
 
@@ -42,7 +42,7 @@ describe('useEditorStep', () => {
       0,
       [retrySlot.step],
       Date.now(),
-      ref([retrySlot]),
+      [retrySlot],
       undefined,
       retrySlot
     );
@@ -65,8 +65,7 @@ describe('useEditorStep', () => {
       updateTopic,
       streamCompletion: vi.fn(),
       getEngine: vi.fn(),
-      statusText: ref(''),
-      statusType: ref('info'),
+      setStatus: vi.fn(),
       requestApproval: vi.fn()
     });
 
@@ -77,7 +76,7 @@ describe('useEditorStep', () => {
       0,
       [],
       Date.now(),
-      ref([]),
+      [],
       controller.signal
     );
 
@@ -109,8 +108,7 @@ describe('useEditorStep', () => {
         };
       }),
       getEngine,
-      statusText: ref(''),
-      statusType: ref('info'),
+      setStatus: vi.fn(),
       requestApproval: vi.fn()
     });
 
@@ -121,7 +119,7 @@ describe('useEditorStep', () => {
       0,
       [],
       Date.now(),
-      ref([]),
+      [],
       controller.signal
     );
 

@@ -9,7 +9,13 @@ describe('useReplayChat', () => {
     const statusText = ref('');
     const statusType = ref<'info' | 'warning' | 'success' | 'danger'>('info');
     const { loadChatHistory } = useReplayChat(
-      { getChats: vi.fn(async () => []), statusText, statusType },
+      {
+        getChats: vi.fn(async () => []),
+        setStatus: vi.fn((message) => {
+          statusText.value = message.text;
+          statusType.value = message.type;
+        })
+      },
       rounds
     );
 
@@ -58,7 +64,13 @@ describe('useReplayChat', () => {
       }
     ];
     const { loadChatHistory } = useReplayChat(
-      { getChats: vi.fn(async () => chats) as any, statusText, statusType },
+      {
+        getChats: vi.fn(async () => chats) as any,
+        setStatus: vi.fn((message) => {
+          statusText.value = message.text;
+          statusType.value = message.type;
+        })
+      },
       rounds
     );
 
@@ -125,7 +137,13 @@ describe('useReplayChat', () => {
       }
     ];
     const { loadChatHistory } = useReplayChat(
-      { getChats: vi.fn(async () => chats) as any, statusText, statusType },
+      {
+        getChats: vi.fn(async () => chats) as any,
+        setStatus: vi.fn((message) => {
+          statusText.value = message.text;
+          statusType.value = message.type;
+        })
+      },
       rounds
     );
 

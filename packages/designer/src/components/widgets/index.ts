@@ -30,7 +30,6 @@ import UniConfig from './uni-config/index.vue';
 import Market from './market/index.vue';
 import Templates from './templates/index.vue';
 import UserAvatar from './user-avatar/index.vue';
-// import AI from './ai/index.vue';
 import Agent from './agent/index.vue';
 import Globals from './globals/index.vue';
 import I18n from './i18n/index.vue';

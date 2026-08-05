@@ -2,7 +2,6 @@
  * Editor 单步骤多轮执行
  * 管理一个计划步骤的工具调用循环（创建 chat → SSE 流 → 输出解析 → 类型分发）
  */
-import { type Ref } from 'vue';
 import { cloneDeep } from '@vtj/utils';
 import { parseOutput, executeTool, formatToolFeedback } from '../utils';
 import {
@@ -10,12 +9,11 @@ import {
   getApprovalRisk,
   type ApprovalRisk
 } from '../utils/approval';
-import { setAgentStatus, Messages } from '../utils/messages';
-import {
-  MAX_TURNS,
-  TOOL_TIMEOUT_MS,
-  DEFAULT_APPROVAL_RISK
-} from '../constants';
+import { Messages } from '../utils/messages';
+import { genId } from '../utils/genId';
+import { buildChatSaveBody } from '../utils/chat';
+import { MAX_TURNS, TOOL_TIMEOUT_MS } from '../constants';
+import type { Engine } from '../../../../framework';
 import type {
   PlanStep,
   EditorStepResult,
@@ -30,6 +28,23 @@ function escapeRegExp(str: string): string {
   return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
 
+/** 获取当前文件源码（供 LLM 上下文注入），失败返回空串 */
+async function getCurrentSourceContext(engine: Engine | null): Promise<string> {
+  try {
+    if (!engine) return '';
+    const projectDsl = engine.project.value?.toDsl();
+    const curDsl = engine.current.value?.toDsl();
+    if (!projectDsl || !curDsl) return '';
+    const source = await engine.service.genVueContent(
+      projectDsl as any,
+      curDsl as any
+    );
+    return source ? `\n当前文件源码:\n\`\`\`vue\n${source}\n\`\`\`` : '';
+  } catch {
+    return '';
+  }
+}
+
 export function useEditorStep(deps: EditorStepDeps) {
   const {
     streamCompletion,
@@ -37,8 +52,7 @@ export function useEditorStep(deps: EditorStepDeps) {
     saveChat: saveRemoteChat,
     updateTopic,
     getEngine,
-    statusText,
-    statusType,
+    setStatus,
     requestApproval
   } = deps;
 
@@ -51,32 +65,27 @@ export function useEditorStep(deps: EditorStepDeps) {
 
   async function approve(
     turnInfo: EditorStepResult['turns'][0],
-    action: string
+    action: string,
+    risk: ApprovalRisk
   ): Promise<boolean> {
-    const risk = riskOf(action) || DEFAULT_APPROVAL_RISK;
-    const id = `approval_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`;
+    const id = genId('approval');
     turnInfo.approval = {
       id,
       action,
       risk,
       status: 'pending'
     };
-    setAgentStatus(
-      statusText,
-      statusType,
-      Messages.awaitingApproval(action, risk)
-    );
+    setStatus(Messages.awaitingApproval(action, risk));
     const allowed = await requestApproval(id);
     turnInfo.approval.status = allowed ? 'approved' : 'rejected';
-    setAgentStatus(
-      statusText,
-      statusType,
+    setStatus(
       allowed
         ? Messages.executingAction(action)
         : Messages.actionRejected(action)
     );
     return allowed;
   }
+
   /**
    * 在流回调中将内容追加到正确目标
    */
@@ -100,25 +109,17 @@ export function useEditorStep(deps: EditorStepDeps) {
     content: string,
     result: StreamCompletionResult,
     tokens: number,
-    status = 'Success',
-    toolContent?: string
+    status = 'Success'
   ) {
-    const body: SaveChatBody = {
+    const body = buildChatSaveBody({
       id: edChatId,
       topicId,
       userId,
       status,
-      content: content || ' ',
-      reasoning: result.reasoning || '',
-      modelUsed: result.modelUsed || '',
-      tokens,
-      tokensPrompt: result.usage?.prompt_tokens || 0,
-      tokensCompletion: result.usage?.completion_tokens || 0,
-      thinking: result.reasoningTime || 0
-    };
-    if (toolContent !== undefined) {
-      body.toolContent = toolContent;
-    }
+      content,
+      result,
+      tokens
+    });
     try {
       await saveRemoteChat(body);
     } catch (e) {
@@ -205,7 +206,7 @@ export function useEditorStep(deps: EditorStepDeps) {
     stepIdx: number,
     allSteps: PlanStep[],
     stepStart: number,
-    editorResults: Ref<EditorStepResult[]>,
+    editorResults: EditorStepResult[],
     signal?: AbortSignal,
     retrySlot?: EditorStepResult
   ): Promise<StepExecutionResult> {
@@ -220,11 +221,22 @@ export function useEditorStep(deps: EditorStepDeps) {
       return okResult('', totalTokens, stepStart);
     };
 
+    /** 审批拒绝收尾：取消则标记断点槽位，否则写失败结果 */
+    function buildRejection(
+      slot: EditorStepResult,
+      message: string,
+      content: string
+    ): StepExecutionResult | null {
+      // 停止打断审批：按取消处理并标记断点槽位，供恢复时定位
+      if (isCancelled()) return cancelResult(slot);
+      slot.error = message;
+      slot.done = true;
+      return errResult(message, totalTokens, stepStart, content);
+    }
+
     if (isCancelled()) return cancelResult();
 
-    setAgentStatus(
-      statusText,
-      statusType,
+    setStatus(
       Messages.editorExecuting(step.description, stepIdx + 1, allSteps.length)
     );
 
@@ -244,23 +256,9 @@ export function useEditorStep(deps: EditorStepDeps) {
 
     // diff 类型步骤：预取当前文件源码注入 prompt，确保 SEARCH 块基于最新代码
     if (step.type === 'diff') {
-      try {
-        const engine = getEngine();
-        if (engine) {
-          const projectDsl = engine.project.value?.toDsl();
-          const curDsl = engine.current.value?.toDsl();
-          if (projectDsl && curDsl) {
-            const source = await engine.service.genVueContent(
-              projectDsl as any,
-              curDsl as any
-            );
-            if (source) {
-              stepPrompt += `\n当前文件源码:\n\`\`\`vue\n${source}\n\`\`\``;
-            }
-          }
-        }
-      } catch {
-        // 获取源码失败不影响主流程
+      const sourceContext = await getCurrentSourceContext(getEngine());
+      if (sourceContext) {
+        stepPrompt += sourceContext;
       }
     }
 
@@ -276,7 +274,7 @@ export function useEditorStep(deps: EditorStepDeps) {
       // 续跑成功后清除取消标记，避免残留影响后续断点定位
       retrySlot.aborted = false;
     } else {
-      editorResults.value.push({
+      editorResults.push({
         stepIdx,
         step,
         content: '',
@@ -286,8 +284,7 @@ export function useEditorStep(deps: EditorStepDeps) {
         turns: []
       });
     }
-    const slot =
-      retrySlot || editorResults.value[editorResults.value.length - 1];
+    const slot = retrySlot || editorResults[editorResults.length - 1];
     const exposeTurn = (turnInfo: EditorStepResult['turns'][0]) => {
       if (!slot.turns.includes(turnInfo)) slot.turns.push(turnInfo);
     };
@@ -321,29 +318,70 @@ export function useEditorStep(deps: EditorStepDeps) {
         typeof verifyResult.result === 'string'
           ? verifyResult.result
           : verifyResult.error || '未知错误';
-
-      let sourceContext = '';
-      try {
-        const engine = getEngine();
-        if (engine) {
-          const projectDsl = engine.project.value?.toDsl();
-          const curDsl = engine.current.value?.toDsl();
-          if (projectDsl && curDsl) {
-            const source = await engine.service.genVueContent(
-              projectDsl as any,
-              curDsl as any
-            );
-            if (source) {
-              sourceContext = `\n当前文件源码:\n\`\`\`vue\n${source}\n\`\`\``;
-            }
-          }
-        }
-      } catch {
-        // ignore
-      }
-
+      const sourceContext = await getCurrentSourceContext(getEngine());
       ctx.nextPrompt = `O: 修复已应用，但 refresh 仍检测到运行时错误${sourceContext}\n\n错误信息:\n${errMsg}\n\n请根据上述错误和源码继续修复。`;
       return true;
+    }
+
+    /**
+     * vue_code / diff 共用尾部：审批 → 应用 → 回写产物 → 验证
+     * @returns StepExecutionResult（完成/失败）或 'retry'（需继续修复循环）
+     */
+    async function approveAndApply(opts: {
+      ti: EditorStepResult['turns'][0];
+      content: string;
+      edChatId: string;
+      action: 'applyVue' | 'applyDiff';
+      rejectMessage: string;
+      engine: Engine;
+      vueCode: string;
+      dsl: any;
+      getOriginalSource: () => Promise<string>;
+    }): Promise<StepExecutionResult | 'retry'> {
+      exposeTurn(opts.ti);
+      // applyVue / applyDiff 非注册工具，风险恒为 write（见 getApprovalRisk 兜底规则）
+      if (!(await approve(opts.ti, opts.action, 'write'))) {
+        const rejected = buildRejection(slot, opts.rejectMessage, opts.content);
+        if (rejected) return rejected;
+      }
+      if (isCancelled()) return cancelResult(slot);
+
+      opts.ti.vue = opts.vueCode;
+      opts.ti.dsl = opts.dsl;
+
+      // 获取改前的当前文件源码（用于 chat.source 审计追溯，须在 applyAI 前）
+      const originalSource = await opts.getOriginalSource();
+      const applied = await opts.engine.applyAI(opts.dsl);
+      if (!applied) {
+        slot.error = Messages.lockedProject.text;
+        slot.done = true;
+        return errResult(
+          Messages.lockedProject.text,
+          totalTokens,
+          stepStart,
+          opts.content
+        );
+      }
+      if (isCancelled()) return cancelResult(slot);
+
+      // 回写产出的 Vue 源码和 DSL 到 chat（source 记录改前源码）
+      await saveChatArtifacts(
+        opts.edChatId,
+        topicId,
+        userId,
+        opts.vueCode,
+        opts.dsl,
+        originalSource
+      );
+
+      exposeTurn(opts.ti);
+
+      // ReAct: 修复后自动 refresh 验证
+      if (await applyFixAndVerify()) return 'retry';
+
+      slot.content = opts.content;
+      slot.done = true;
+      return okResult(opts.content, totalTokens, stepStart);
     }
 
     for (let turn = 0; turn < MAX_TURNS; turn++) {
@@ -379,7 +417,7 @@ export function useEditorStep(deps: EditorStepDeps) {
           userName: ''
         });
       } catch (e: any) {
-        slot.error = `创建 chat 失败: ${e.message}`;
+        slot.error = Messages.chatCreateFailed(e.message).text;
         slot.done = true;
         return errResult(slot.error!, totalTokens, stepStart);
       }
@@ -427,11 +465,9 @@ export function useEditorStep(deps: EditorStepDeps) {
 
           // 深拷贝参数，防止 toolRegistry.execute 内部修改原对象
           const execParams = cloneDeep(parsed.tool.parameters);
-          if (riskOf(parsed.tool.action)) exposeTurn(ti);
-          if (
-            riskOf(parsed.tool.action) &&
-            !(await approve(ti, parsed.tool.action))
-          ) {
+          const risk = riskOf(parsed.tool.action);
+          if (risk) exposeTurn(ti);
+          if (risk && !(await approve(ti, parsed.tool.action, risk))) {
             ti.toolResult = {
               success: false,
               error: '用户拒绝执行',
@@ -448,11 +484,12 @@ export function useEditorStep(deps: EditorStepDeps) {
               step.id
             );
             exposeTurn(ti);
-            // 停止打断审批：按取消处理并标记断点槽位，供恢复时定位
-            if (isCancelled()) return cancelResult(slot);
-            slot.error = '用户拒绝执行此操作';
-            slot.done = true;
-            return errResult(slot.error, totalTokens, stepStart, fullContent);
+            const rejected = buildRejection(
+              slot,
+              Messages.userRejectedTool.text,
+              fullContent
+            );
+            if (rejected) return rejected;
           }
           if (isCancelled()) return cancelResult(slot);
           const execResult = await executeTool(
@@ -493,26 +530,7 @@ export function useEditorStep(deps: EditorStepDeps) {
               typeof execResult.result === 'string'
             ) {
               // 自动获取当前文件源码，与错误信息一并反馈，避免 LLM 额外调用 getCurrentFileContent
-              let sourceContext = '';
-              try {
-                const engine = getEngine();
-                if (engine) {
-                  const projectDsl = engine.project.value?.toDsl();
-                  const curDsl = engine.current.value?.toDsl();
-                  if (projectDsl && curDsl) {
-                    const source = await engine.service.genVueContent(
-                      projectDsl as any,
-                      curDsl as any
-                    );
-                    if (source) {
-                      sourceContext = `\n当前文件源码:\n\`\`\`vue\n${source}\n\`\`\``;
-                    }
-                  }
-                }
-              } catch {
-                // 获取源码失败不影响主流程
-              }
-
+              const sourceContext = await getCurrentSourceContext(getEngine());
               ctx.needsRefreshVerify = true;
               ctx.nextPrompt = `O: refresh 检测到运行时错误${sourceContext}\n\n错误信息:\n${execResult.result}\n\n请根据上述错误信息和源码，分析错误原因并修复代码。`;
               continue;
@@ -556,7 +574,7 @@ export function useEditorStep(deps: EditorStepDeps) {
           try {
             const engine = getEngine()!;
             const projectDsl = engine.project.value?.toDsl();
-            if (!projectDsl) throw new Error('项目未就绪');
+            if (!projectDsl) throw new Error(Messages.projectNotReady.text);
 
             const curDsl = engine.current.value?.toDsl();
             const blockDsl = await engine.service.parseVue(projectDsl as any, {
@@ -575,60 +593,33 @@ export function useEditorStep(deps: EditorStepDeps) {
               continue;
             }
 
-            ti.vue = parsed.code;
-            ti.dsl = blockDsl;
-
-            exposeTurn(ti);
-            if (!(await approve(ti, 'applyVue'))) {
-              // 停止打断审批：按取消处理并标记断点槽位，供恢复时定位
-              if (isCancelled()) return cancelResult(slot);
-              slot.error = '用户拒绝应用 Vue 变更';
-              slot.done = true;
-              return errResult(slot.error, totalTokens, stepStart, fullContent);
-            }
-            if (isCancelled()) return cancelResult(slot);
-
-            // 获取改前的当前文件源码（用于 chat.source 审计追溯，须在 applyAI 前）
-            let currentSource = '';
-            try {
-              currentSource =
-                (await engine.service.genVueContent(
-                  projectDsl as any,
-                  curDsl as any
-                )) || '';
-            } catch {
-              /* ignore */
-            }
-
-            const applied = await engine.applyAI(blockDsl);
-            if (!applied) {
-              slot.error = '项目已被锁定，无法应用变更';
-              slot.done = true;
-              return errResult(slot.error, totalTokens, stepStart, fullContent);
-            }
-            if (isCancelled()) return cancelResult(slot);
-
-            // 回写产出的 Vue 源码和 DSL 到 chat
-            await saveChatArtifacts(
+            const outcome = await approveAndApply({
+              ti,
+              content: fullContent,
               edChatId,
-              topicId,
-              userId,
-              parsed.code,
-              blockDsl,
-              currentSource
-            );
-
-            exposeTurn(ti);
-
-            // ReAct: 修复后自动 refresh 验证
-            if (await applyFixAndVerify()) continue;
-
-            slot.content = fullContent;
-            slot.done = true;
-            return okResult(fullContent, totalTokens, stepStart);
+              action: 'applyVue',
+              rejectMessage: Messages.userRejectedVue.text,
+              engine,
+              vueCode: parsed.code,
+              dsl: blockDsl,
+              getOriginalSource: async () => {
+                try {
+                  return (
+                    (await engine.service.genVueContent(
+                      projectDsl as any,
+                      curDsl as any
+                    )) || ''
+                  );
+                } catch {
+                  return '';
+                }
+              }
+            });
+            if (outcome === 'retry') continue;
+            return outcome;
           } catch (e: any) {
             return errResult(
-              `Vue→DSL 失败: ${e.message}`,
+              Messages.vueToDslFailed(e.message).text,
               totalTokens,
               stepStart,
               fullContent
@@ -658,13 +649,14 @@ export function useEditorStep(deps: EditorStepDeps) {
             const engine = getEngine()!;
             const projectDsl = engine.project.value?.toDsl();
             const curDsl = engine.current.value?.toDsl();
-            if (!projectDsl || !curDsl) throw new Error('当前文件未就绪');
+            if (!projectDsl || !curDsl)
+              throw new Error(Messages.fileNotReady.text);
 
             const originalVue = await engine.service.genVueContent(
               projectDsl as any,
               curDsl as any
             );
-            if (!originalVue) throw new Error('无法获取当前文件源码');
+            if (!originalVue) throw new Error(Messages.sourceUnavailable.text);
 
             // 归一化换行符（CRLF → LF），避免 SEARCH 块因换行不一致匹配失败
             let modifiedVue = originalVue.replace(/\r\n/g, '\n');
@@ -685,50 +677,24 @@ export function useEditorStep(deps: EditorStepDeps) {
               modifiedVue = modifiedVue.replace(search, replace);
             }
 
-            exposeTurn(ti);
-            if (!(await approve(ti, 'applyDiff'))) {
-              // 停止打断审批：按取消处理并标记断点槽位，供恢复时定位
-              if (isCancelled()) return cancelResult(slot);
-              slot.error = '用户拒绝应用 Diff';
-              slot.done = true;
-              return errResult(slot.error, totalTokens, stepStart, fullContent);
-            }
-            if (isCancelled()) return cancelResult(slot);
-
             const newDsl = await engine.service.parseVue(projectDsl as any, {
               id: curDsl?.id || 'ai_gen',
               name: curDsl?.name || 'AiGenFile',
               source: modifiedVue
             });
-            ti.vue = modifiedVue;
-            ti.dsl = newDsl;
-            if (isCancelled()) return cancelResult(slot);
-            const applied = await engine.applyAI(newDsl);
-            if (!applied) {
-              slot.error = '项目已被锁定，无法应用变更';
-              slot.done = true;
-              return errResult(slot.error, totalTokens, stepStart, fullContent);
-            }
-            if (isCancelled()) return cancelResult(slot);
-
-            // 回写 diff 产出的最终 Vue 源码和 DSL 到 chat（source 记录改前源码）
-            await saveChatArtifacts(
+            const outcome = await approveAndApply({
+              ti,
+              content: fullContent,
               edChatId,
-              topicId,
-              userId,
-              modifiedVue,
-              newDsl,
-              originalVue
-            );
-
-            exposeTurn(ti);
-
-            // ReAct: 修复后自动 refresh 验证
-            if (await applyFixAndVerify()) continue;
-
-            slot.content = fullContent;
-            slot.done = true;
-            return okResult(fullContent, totalTokens, stepStart);
+              action: 'applyDiff',
+              rejectMessage: Messages.userRejectedDiff.text,
+              engine,
+              vueCode: modifiedVue,
+              dsl: newDsl,
+              getOriginalSource: async () => originalVue
+            });
+            if (outcome === 'retry') continue;
+            return outcome;
           } catch (e: any) {
             if (
               e.message === 'SEARCH_NOT_FOUND' ||
@@ -737,7 +703,7 @@ export function useEditorStep(deps: EditorStepDeps) {
               continue;
             }
             return errResult(
-              `Diff 应用失败: ${e.message}`,
+              Messages.diffApplyFailed(e.message).text,
               totalTokens,
               stepStart,
               fullContent
@@ -778,9 +744,10 @@ export function useEditorStep(deps: EditorStepDeps) {
     }
 
     // 超过 MAX_TURNS
-    slot.error = `超过最大轮次 (${MAX_TURNS})`;
+    const maxTurnsError = Messages.maxTurnsReached(MAX_TURNS).text;
+    slot.error = maxTurnsError;
     slot.done = true;
-    return errResult(`超过最大轮次 (${MAX_TURNS})`, totalTokens, stepStart);
+    return errResult(maxTurnsError, totalTokens, stepStart);
   }
 
   return { executeEditorStep };

@@ -4,6 +4,7 @@
  */
 import { ref, computed } from 'vue';
 import type { AttachmentInfo } from '../types/agent';
+import { genId } from '../utils/genId';
 
 // ── 类型定义 ──
 
@@ -24,13 +25,11 @@ export interface UploadedFile {
 
 let _fileIdCounter = 0;
 function generateId(): string {
-  return `file_${Date.now()}_${++_fileIdCounter}`;
+  return genId(`file_${++_fileIdCounter}`);
 }
 
 function detectFileType(file: File): 'image' | 'json' {
   if (file.type.startsWith('image/')) return 'image';
-  if (file.type === 'application/json' || file.name.endsWith('.json'))
-    return 'json';
   return 'json';
 }
 

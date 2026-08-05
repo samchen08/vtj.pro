@@ -14,6 +14,3 @@ export const HIDE_CODE_STORAGE_KEY = 'CHAT_HIDE_CODE';
 
 /** 滚动判断"接近底部"的阈值（像素） */
 export const SCROLL_NEAR_BOTTOM_THRESHOLD = 80;
-
-/** 审批等待的默认风险等级（action 未命中任何规则时） */
-export const DEFAULT_APPROVAL_RISK = 'write' as const;

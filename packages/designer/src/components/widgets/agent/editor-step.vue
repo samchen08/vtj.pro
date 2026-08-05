@@ -33,17 +33,7 @@
             <code v-if="turn.toolAction">{{ turn.toolAction }}</code>
             <span v-else>第 {{ turn.turn + 1 }} 次响应</span>
             <span class="turn-spacer" />
-            <span
-              v-if="turn.toolResult"
-              :class="turn.toolResult.success ? 'success' : 'failure'">
-              <!-- {{ turn.toolResult.success ? '完成' : '失败' }}
-              <template v-if="turn.toolResult.duration">
-                · {{ turn.toolResult.duration }}ms
-              </template> -->
-            </span>
-            <span
-              v-else-if="turn.approval?.status === 'pending'"
-              class="pending">
+            <span v-if="turn.approval?.status === 'pending'" class="pending">
               待批准
             </span>
             <span v-if="isCodeTurn(turn)" class="turn-actions" @click.stop>
@@ -146,13 +136,14 @@
 </template>
 
 <script lang="ts" setup>
-  import { computed, ref, watch, nextTick, onUnmounted } from 'vue';
+  import { computed, ref, watch, onUnmounted } from 'vue';
   import { ElButton, ElCollapse, ElCollapseItem } from 'element-plus';
   import { View, Download } from '@vtj/icons';
   import { XAction } from '@vtj/ui';
   import type { EditorStepResult, EditorTurn } from './types/agent';
   import StreamMarkdown from './stream-markdown.vue';
   import { formatMarkdownContent } from './utils/markdown';
+  import { useContentAutoScroll } from './composables/useAutoScroll';
 
   const props = defineProps<{
     step: EditorStepResult;
@@ -226,22 +217,12 @@
 
   // ── 流式内容自动滚到底部 ──
   const turnContentRefs = ref<HTMLElement[]>([]);
-  let scrollFrame = 0;
-  watch(
-    () => props.step.turns.map((t) => [t.reasoning, t.content]),
-    () => {
-      cancelAnimationFrame(scrollFrame);
-      nextTick(() => {
-        scrollFrame = requestAnimationFrame(() => {
-          turnContentRefs.value.forEach((el) => {
-            if (el) el.scrollTop = el.scrollHeight;
-          });
-        });
-      });
-    },
-    { deep: true, flush: 'post' }
+  const { dispose: disposeScroll } = useContentAutoScroll(
+    computed(() => props.step.turns.map((t) => [t.reasoning, t.content])),
+    turnContentRefs,
+    { deep: true }
   );
-  onUnmounted(() => cancelAnimationFrame(scrollFrame));
+  onUnmounted(disposeScroll);
 </script>
 
 <style lang="scss" scoped>

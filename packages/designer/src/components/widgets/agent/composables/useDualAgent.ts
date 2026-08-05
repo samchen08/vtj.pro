@@ -4,12 +4,9 @@
  *
  * 重构: 参数对象化，提取共享流程，修复类型
  */
-import { ref, toRef, reactive } from 'vue';
-import type { Ref } from 'vue';
+import { ref, reactive } from 'vue';
 import type {
-  PlanResult,
   ConversationRound,
-  EditorStepResult,
   AttachmentInfo,
   DualAgentInfrastructure,
   DualAgentApi,
@@ -17,19 +14,14 @@ import type {
   AgentTopicBody,
   AgentChatBody
 } from '../types/agent';
-import type { ArchPlanTargets } from './useArchitectPlan';
 import { stripFileDescBlocks } from '../utils/filePrompt';
-import { setAgentStatus, Messages } from '../utils/messages';
-
-/** 生成 trace ID */
-function generateTraceId(): string {
-  return `trace_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`;
-}
+import { Messages } from '../utils/messages';
+import { genId } from '../utils/genId';
 
 /** 创建空对话轮次 */
 function createEmptyRound(userMessage: string): ConversationRound {
   return {
-    id: `round_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`,
+    id: genId('round'),
     userMessage,
     architectChatId: '',
     architectPlan: null,
@@ -65,7 +57,8 @@ export function useDualAgent(
     setTopicId,
     getEngine,
     registerTools,
-    abortSse
+    abortSse,
+    setStatus
   } = infra;
 
   const {
@@ -87,29 +80,14 @@ export function useDualAgent(
     return promptBuilder ? promptBuilder() : userMessage.value;
   }
 
-  /** 构建 round 对应的 ArchPlanTargets */
-  function buildTargets(round: ConversationRound): ArchPlanTargets {
-    return {
-      architectPlan: toRef(round, 'architectPlan') as Ref<PlanResult | null>,
-      architectAnswer: toRef(round, 'architectAnswer') as Ref<string>,
-      architectStreamText: toRef(round, 'architectStreamText') as Ref<string>,
-      reasoningText: toRef(round, 'reasoningText') as Ref<string>,
-      editorResults: toRef(round, 'editorResults') as Ref<EditorStepResult[]>,
-      summaryText: toRef(round, 'summaryText') as Ref<string>,
-      summaryReasoning: toRef(round, 'summaryReasoning') as Ref<string>,
-      summaryError: toRef(round, 'summaryError') as Ref<string>,
-      summaryAttempt: toRef(round, 'summaryAttempt') as Ref<number>
-    };
-  }
-
   /** 验证前置条件 */
   function validate(prompt: string): boolean {
     if (!token.value) {
-      setAgentStatus(infra.statusText, infra.statusType, Messages.tokenMissing);
+      setStatus(Messages.tokenMissing);
       return false;
     }
     if (!prompt.trim()) {
-      setAgentStatus(infra.statusText, infra.statusType, Messages.promptEmpty);
+      setStatus(Messages.promptEmpty);
       return false;
     }
     return true;
@@ -159,14 +137,14 @@ export function useDualAgent(
       );
       // round 已入列且快照已生成，清空输入框附件区
       clearAttachments?.();
-      const traceId = generateTraceId();
+      const traceId = genId('trace');
       await executeArchitectPlan(
         topicId,
         chatId,
         userId,
         traceId,
         finalPrompt,
-        buildTargets(round),
+        round,
         flowAbortController.signal
       );
       lastFailedSubmission = null;
@@ -174,11 +152,7 @@ export function useDualAgent(
       if (e?.name !== 'AbortError') {
         lastFailedSubmission = () => executeFlow(setup, finalPrompt);
       }
-      setAgentStatus(
-        infra.statusText,
-        infra.statusType,
-        Messages.error(e.message)
-      );
+      setStatus(Messages.error(e.message));
     } finally {
       if (engine) engine.state.streaming = false;
       running.value = false;
@@ -189,16 +163,12 @@ export function useDualAgent(
 
   /** 启动新话题双代理流程 */
   async function startDualAgent() {
-    const requestId = generateTraceId();
+    const requestId = genId('trace');
     await executeFlow(async (finalPrompt, userText, attachments) => {
       // 新开对话：清空所有历史轮次
       conversationRounds.value = [];
 
-      setAgentStatus(
-        infra.statusText,
-        infra.statusType,
-        Messages.creatingTopic
-      );
+      setStatus(Messages.creatingTopic);
 
       const userData = infra.access?.getData();
       const topicBody: AgentTopicBody = {
@@ -226,11 +196,7 @@ export function useDualAgent(
       const userId = topic.userId || '';
       setTopicId(topicId);
 
-      setAgentStatus(
-        infra.statusText,
-        infra.statusType,
-        Messages.topicCreated(topicId)
-      );
+      setStatus(Messages.topicCreated(topicId));
 
       const round = reactive(createEmptyRound(userText));
       round.attachments = attachments;
@@ -247,21 +213,13 @@ export function useDualAgent(
   async function continueConversation() {
     const tid = existingTopicId.value.trim();
     if (!tid) {
-      setAgentStatus(
-        infra.statusText,
-        infra.statusType,
-        Messages.topicIdMissing
-      );
+      setStatus(Messages.topicIdMissing);
       return;
     }
 
-    const requestId = generateTraceId();
+    const requestId = genId('trace');
     await executeFlow(async (finalPrompt, userText, attachments) => {
-      setAgentStatus(
-        infra.statusText,
-        infra.statusType,
-        Messages.creatingArchitectChat
-      );
+      setStatus(Messages.creatingArchitectChat);
 
       const chatBody: AgentChatBody = {
         topicId: tid,
@@ -306,11 +264,7 @@ export function useDualAgent(
       registerTools();
       await task(flowAbortController.signal);
     } catch (e: any) {
-      setAgentStatus(
-        infra.statusText,
-        infra.statusType,
-        Messages.retryFailed(e.message)
-      );
+      setStatus(Messages.retryFailed(e.message));
     } finally {
       if (engine) engine.state.streaming = false;
       running.value = false;
@@ -319,34 +273,30 @@ export function useDualAgent(
     }
   }
 
-  function getRetryContext(_round: ConversationRound) {
+  function getRetryContext() {
     // 放开“只能重试最后一轮”限制：任何轮次只要处于失败/取消态即可重试
     const topicId = existingTopicId.value.trim();
     if (!topicId) throw new Error(Messages.retryTopicIdMissing.text);
     return {
       topicId,
       userId: infra.access?.getData()?.id || '',
-      traceId: generateTraceId()
+      traceId: genId('trace')
     };
   }
 
   async function retryStep(round: ConversationRound, stepIndex: number) {
     await runRetry(async (signal) => {
-      const { topicId, userId, traceId } = getRetryContext(round);
+      const { topicId, userId, traceId } = getRetryContext();
       if (!round.editorResults[stepIndex]?.error) {
         throw new Error(Messages.stepNotFailed.text);
       }
-      setAgentStatus(
-        infra.statusText,
-        infra.statusType,
-        Messages.retryingStep(stepIndex + 1)
-      );
+      setStatus(Messages.retryingStep(stepIndex + 1));
       await retryEditorPlan(
         topicId,
         userId,
         traceId,
         round.promptSent || round.userMessage,
-        buildTargets(round),
+        round,
         stepIndex,
         signal
       );
@@ -355,18 +305,14 @@ export function useDualAgent(
 
   async function retrySummary(round: ConversationRound) {
     await runRetry(async (signal) => {
-      const { topicId, userId, traceId } = getRetryContext(round);
-      setAgentStatus(
-        infra.statusText,
-        infra.statusType,
-        Messages.retryingSummary
-      );
+      const { topicId, userId, traceId } = getRetryContext();
+      setStatus(Messages.retryingSummary);
       await executeSummaryRetry(
         topicId,
         userId,
         traceId,
         round.promptSent || round.userMessage,
-        buildTargets(round),
+        round,
         signal
       );
     });
@@ -375,16 +321,12 @@ export function useDualAgent(
   async function retryArchitectRound(round: ConversationRound, label = '重试') {
     let context: ReturnType<typeof getRetryContext>;
     try {
-      context = getRetryContext(round);
+      context = getRetryContext();
       if (!round.architectChatId) {
         throw new Error(Messages.architectChatIdMissing.text);
       }
     } catch (e: any) {
-      setAgentStatus(
-        infra.statusText,
-        infra.statusType,
-        Messages.error(e.message)
-      );
+      setStatus(Messages.error(e.message));
       return;
     }
 
@@ -397,18 +339,14 @@ export function useDualAgent(
       round.summaryText = '';
       round.summaryReasoning = '';
       round.summaryError = '';
-      setAgentStatus(
-        infra.statusText,
-        infra.statusType,
-        Messages.retryArchitect(label)
-      );
+      setStatus(Messages.retryArchitect(label));
       await executeArchitectPlan(
         context.topicId,
         round.architectChatId,
         context.userId,
         context.traceId,
         round.promptSent || round.userMessage,
-        buildTargets(round),
+        round,
         signal
       );
     });
@@ -420,22 +358,14 @@ export function useDualAgent(
       conversationRounds.value[conversationRounds.value.length - 1];
     if (!lastRound) {
       if (lastFailedSubmission) {
-        setAgentStatus(
-          infra.statusText,
-          infra.statusType,
-          Messages.retryingLastRequest
-        );
+        setStatus(Messages.retryingLastRequest);
         return lastFailedSubmission();
       }
-      setAgentStatus(infra.statusText, infra.statusType, Messages.noRetryRound);
+      setStatus(Messages.noRetryRound);
       return;
     }
     if (!existingTopicId.value.trim()) {
-      setAgentStatus(
-        infra.statusText,
-        infra.statusType,
-        Messages.retryTopicIdMissing
-      );
+      setStatus(Messages.retryTopicIdMissing);
       return;
     }
     const failedStep = lastRound.editorResults.findIndex((item) => item.error);
@@ -454,19 +384,11 @@ export function useDualAgent(
     const lastRound =
       conversationRounds.value[conversationRounds.value.length - 1];
     if (!lastRound) {
-      setAgentStatus(
-        infra.statusText,
-        infra.statusType,
-        Messages.noResumeRound
-      );
+      setStatus(Messages.noResumeRound);
       return;
     }
     if (!existingTopicId.value.trim()) {
-      setAgentStatus(
-        infra.statusText,
-        infra.statusType,
-        Messages.resumeTopicIdMissing
-      );
+      setStatus(Messages.resumeTopicIdMissing);
       return;
     }
 
@@ -477,13 +399,13 @@ export function useDualAgent(
 
     // 步骤/总结阶段取消：断点续跑
     await runRetry(async (signal) => {
-      const { topicId, userId, traceId } = getRetryContext(lastRound);
+      const { topicId, userId, traceId } = getRetryContext();
       await resumeEditorPlan(
         topicId,
         userId,
         traceId,
         lastRound.promptSent || lastRound.userMessage,
-        buildTargets(lastRound),
+        lastRound,
         signal
       );
     });

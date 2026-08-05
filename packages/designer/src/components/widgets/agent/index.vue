@@ -232,18 +232,21 @@
   import { useAuth } from './composables/useAuth';
   import { useSSEStream } from './composables/useSSEStream';
   import { useEditorStep } from './composables/useEditorStep';
-  import { useSummary } from './composables/useSummary';
   import { useArchitectPlan } from './composables/useArchitectPlan';
   import { useDualAgent } from './composables/useDualAgent';
   import { useFileRecognition } from './composables/useFileRecognition';
-  import { useExport } from './composables/useExport';
   import { useReplayChat } from './composables/useReplayChat';
   import { withRequestRetry } from './utils';
+  import { exportConversation } from './utils/export';
   import {
     HIDE_CODE_STORAGE_KEY,
     SCROLL_NEAR_BOTTOM_THRESHOLD
   } from './constants';
-  import { setAgentStatus, Messages } from './utils/messages';
+  import {
+    setAgentStatus,
+    Messages,
+    type AgentStatusMessage
+  } from './utils/messages';
   import type {
     ConversationRound,
     DualAgentInfrastructure,
@@ -259,6 +262,9 @@
   const engine = useEngine();
   const statusText = ref('');
   const statusType = ref<'info' | 'warning' | 'success' | 'danger'>('info');
+  /** 状态写入统一闭包（各 composable 经 DI 使用，避免传递双 ref） */
+  const setStatus = (message: AgentStatusMessage) =>
+    setAgentStatus(statusText, statusType, message);
   /** 状态条符号（文案不携带 emoji，符号由 UI 层依据 statusType 渲染） */
   const statusIcon = computed(() => {
     switch (statusType.value) {
@@ -373,18 +379,7 @@
     withRequestRetry(() =>
       Promise.resolve(requestSkills(ids)).then(unwrapOpenApi<string>)
     );
-  const { streamCompletion: completeStream, abortAll } = useSSEStream(
-    chatCompletions as any
-  );
-  const streamCompletion: typeof completeStream = (
-    topicId,
-    chatId,
-    onChunk,
-    onReasoning
-  ) => {
-    setActiveChat({ ...activeChat, id: chatId, topicId });
-    return completeStream(topicId, chatId, onChunk, onReasoning);
-  };
+  const { streamCompletion, abortAll } = useSSEStream(chatCompletions as any);
   const {
     files,
     recognizing,
@@ -428,15 +423,13 @@
     });
   };
 
-  const { buildSummaryPrompt } = useSummary();
   const { executeEditorStep } = useEditorStep({
     streamCompletion,
     postChat,
     saveChat,
     updateTopic,
     getEngine,
-    statusText,
-    statusType,
+    setStatus,
     requestApproval: (id) =>
       autoApprove.value
         ? Promise.resolve(true)
@@ -453,10 +446,8 @@
     saveChat,
     updateTopic,
     saveTrace,
-    statusText,
-    statusType,
-    executeEditorStep,
-    buildSummaryPrompt
+    setStatus,
+    executeEditorStep
   });
 
   const infra: DualAgentInfrastructure = {
@@ -468,8 +459,7 @@
     registerTools,
     abortSse: abortAll,
     access: engine.access ?? undefined,
-    statusText,
-    statusType
+    setStatus
   };
   const agentApi: DualAgentApi = {
     postTopic,
@@ -504,9 +494,8 @@
     buildAttachments,
     clearFiles
   );
-  const { exportConversation } = useExport();
   const { loadChatHistory } = useReplayChat(
-    { getChats, statusText, statusType },
+    { getChats, setStatus },
     conversationRounds
   );
   const hasData = computed(() => conversationRounds.value.length > 0);
@@ -579,7 +568,7 @@
     if (id) target.id = id;
     const applied = await engine.applyAI(target);
     if (!applied) {
-      setAgentStatus(statusText, statusType, Messages.lockedProject);
+      setStatus(Messages.lockedProject);
       return;
     }
     detailVisible.value = false;
@@ -659,6 +648,22 @@
     topics.value = await getTopics(projectId).catch(() => []);
   };
 
+  // 加载最近一次对话（无话题时进入新会话）；防重：避免挂载与项目切换 watch 并发触发
+  let loadingLatest = false;
+  const loadLatest = async () => {
+    if (loadingLatest) return;
+    loadingLatest = true;
+    try {
+      if (topics.value[0]) {
+        await onRecordLoad(topics.value[0]);
+      } else {
+        startNewConversation();
+      }
+    } finally {
+      loadingLatest = false;
+    }
+  };
+
   const startAgent = async () => {
     initToken();
     const task = startDualAgent();
@@ -685,7 +690,7 @@
 
   const showChatRecords = async () => {
     if (!logined.value) {
-      setAgentStatus(statusText, statusType, Messages.tokenMissing);
+      setStatus(Messages.tokenMissing);
       return;
     }
     showDrawer.value = !showDrawer.value;
@@ -749,11 +754,7 @@
       if (!logined.value) return;
       if (running.value) abortAgent();
       await loadTopics();
-      if (topics.value[0]) {
-        await onRecordLoad(topics.value[0]);
-      } else {
-        startNewConversation();
-      }
+      await loadLatest();
     }
   );
 
@@ -767,7 +768,7 @@
       .then((response) => unwrapOpenApi<AITopic[]>(response))
       .catch(() => []);
     await loadTopics();
-    if (topics.value[0]) await onRecordLoad(topics.value[0]);
+    await loadLatest();
     conversationRef.value?.addEventListener('scroll', onConversationScroll, {
       passive: true
     });

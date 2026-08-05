@@ -1,5 +1,5 @@
 import { describe, expect, it, vi, beforeEach, afterEach } from 'vitest';
-import { useExport } from '../src/components/widgets/agent/composables/useExport';
+import { exportConversation } from '../src/components/widgets/agent/utils/export';
 import type { ConversationRound } from '../src/components/widgets/agent/types/agent';
 
 function createRound(
@@ -22,7 +22,7 @@ function createRound(
   };
 }
 
-describe('useExport', () => {
+describe('exportConversation', () => {
   let anchor: {
     href: string;
     download: string;
@@ -52,7 +52,6 @@ describe('useExport', () => {
   });
 
   it('exports base metadata with empty rounds', () => {
-    const { exportConversation } = useExport();
     exportConversation('', 'auto', []);
     const data = JSON.parse(mockBlob.mock.calls[0][0][0]);
     expect(data.topicId).toBe('(新话题)');
@@ -63,7 +62,6 @@ describe('useExport', () => {
 
   it('triggers a download with topic-scoped filename', () => {
     vi.useFakeTimers();
-    const { exportConversation } = useExport();
     exportConversation('topic-9', 'auto', []);
     expect(anchor.download).toBe('conversation-topic-9.json');
     expect(anchor.href).toBe('blob:export');
@@ -74,7 +72,6 @@ describe('useExport', () => {
   });
 
   it('maps step status by error and done flags', () => {
-    const { exportConversation } = useExport();
     const round = createRound({
       architectPlan: {
         intent: '创建页面',
@@ -121,7 +118,6 @@ describe('useExport', () => {
   });
 
   it('derives round error from missing plan and step errors', () => {
-    const { exportConversation } = useExport();
     const noPlan = createRound();
     const stepError = createRound({
       architectPlan: {
@@ -148,7 +144,6 @@ describe('useExport', () => {
   });
 
   it('exports tool call details with result metadata', () => {
-    const { exportConversation } = useExport();
     const round = createRound({
       architectPlan: {
         intent: 'i',
@@ -196,7 +191,6 @@ describe('useExport', () => {
   });
 
   it('exports architect block only when stream or reasoning text exists', () => {
-    const { exportConversation } = useExport();
     const withText = createRound({
       architectStreamText: '流文本',
       architectPlan: {
@@ -220,7 +214,6 @@ describe('useExport', () => {
   });
 
   it('exports summary text and summary error', () => {
-    const { exportConversation } = useExport();
     const round = createRound({
       summaryText: '任务完成',
       summaryError: '总结接口超时'

@@ -4,12 +4,13 @@
 import type { Ref } from 'vue';
 import type { Engine, TopicDto, ChatDto } from '../../../../framework';
 import type { Access } from '@vtj/renderer';
-import type { ArchPlanTargets } from '../composables/useArchitectPlan';
+import type { AgentStatusMessage } from '../utils/messages';
 
 // ── 基础数据类型 ──
 
 /** SSE 数据块 */
 export interface SSEChunkData {
+  model?: string;
   choices?: Array<{
     delta?: {
       content?: string;
@@ -289,8 +290,7 @@ export interface DualAgentInfrastructure {
   registerTools: () => void;
   abortSse: () => void;
   access?: Access;
-  statusText: Ref<string>;
-  statusType: Ref<'info' | 'warning' | 'success' | 'danger'>;
+  setStatus: (message: AgentStatusMessage) => void;
 }
 
 /** API 依赖 */
@@ -303,7 +303,7 @@ export interface DualAgentApi {
     userId: string,
     traceId: string,
     userMessage: string,
-    targets: ArchPlanTargets,
+    round: ConversationRound,
     signal?: AbortSignal
   ) => Promise<void>;
   retryEditorPlan: (
@@ -311,7 +311,7 @@ export interface DualAgentApi {
     userId: string,
     traceId: string,
     userMessage: string,
-    targets: ArchPlanTargets,
+    round: ConversationRound,
     stepIndex: number,
     signal?: AbortSignal
   ) => Promise<void>;
@@ -320,7 +320,7 @@ export interface DualAgentApi {
     userId: string,
     traceId: string,
     userMessage: string,
-    targets: ArchPlanTargets,
+    round: ConversationRound,
     signal?: AbortSignal
   ) => Promise<void>;
   retrySummary: (
@@ -328,7 +328,7 @@ export interface DualAgentApi {
     userId: string,
     traceId: string,
     userMessage: string,
-    targets: ArchPlanTargets,
+    round: ConversationRound,
     signal?: AbortSignal
   ) => Promise<void>;
 }
@@ -352,8 +352,7 @@ export interface EditorStepDeps {
   saveChat: (body: SaveChatBody) => Promise<any>;
   updateTopic: (body: UpdateTopicBody) => Promise<any>;
   getEngine: () => Engine | null;
-  statusText: Ref<string>;
-  statusType: Ref<'info' | 'warning' | 'success' | 'danger'>;
+  setStatus: (message: AgentStatusMessage) => void;
   requestApproval: (id: string) => Promise<boolean>;
 }
 
@@ -369,8 +368,7 @@ export interface ArchitectPlanDeps {
   saveChat: (body: SaveChatBody) => Promise<any>;
   updateTopic: (body: UpdateTopicBody) => Promise<any>;
   saveTrace: (body: SaveTraceBody) => Promise<any>;
-  statusText: Ref<string>;
-  statusType: Ref<'info' | 'warning' | 'success' | 'danger'>;
+  setStatus: (message: AgentStatusMessage) => void;
   executeEditorStep: (
     topicId: string,
     userId: string,
@@ -378,15 +376,10 @@ export interface ArchitectPlanDeps {
     stepIdx: number,
     allSteps: PlanStep[],
     stepStart: number,
-    editorResults: Ref<EditorStepResult[]>,
+    editorResults: EditorStepResult[],
     signal?: AbortSignal,
     retrySlot?: EditorStepResult
   ) => Promise<StepExecutionResult>;
-  buildSummaryPrompt: (
-    userRequest: string,
-    plan: PlanResult | null,
-    records: StepRecord[]
-  ) => string;
 }
 
 // ── 回显相关 ──
@@ -430,6 +423,5 @@ export interface ChatRecord {
 /** 回显 composable 依赖 */
 export interface ReplayChatDeps {
   getChats: (topicId: string) => Promise<ChatRecord[]>;
-  statusText: Ref<string>;
-  statusType: Ref<'info' | 'warning' | 'success' | 'danger'>;
+  setStatus: (message: AgentStatusMessage) => void;
 }

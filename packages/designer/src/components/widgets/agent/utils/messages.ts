@@ -22,6 +22,9 @@ export function setAgentStatus(
   statusType.value = message.type;
 }
 
+/** 状态写入回调（各 composable deps 统一使用，避免传递双 ref） */
+export type StatusSetter = (message: AgentStatusMessage) => void;
+
 /** 常用状态消息 */
 export const Messages = {
   // 校验
@@ -47,6 +50,17 @@ export const Messages = {
     text: '项目已被锁定，无法应用变更',
     type: 'danger'
   } as const,
+  userRejectedTool: { text: '用户拒绝执行此操作', type: 'danger' } as const,
+  userRejectedVue: { text: '用户拒绝应用 Vue 变更', type: 'danger' } as const,
+  userRejectedDiff: { text: '用户拒绝应用 Diff', type: 'danger' } as const,
+  projectNotReady: { text: '项目未就绪', type: 'danger' } as const,
+  fileNotReady: { text: '当前文件未就绪', type: 'danger' } as const,
+  sourceUnavailable: { text: '无法获取当前文件源码', type: 'danger' } as const,
+  stepNotRetryable: { text: '没有可重试的失败步骤', type: 'danger' } as const,
+  summaryNotRetryable: { text: '没有可重试的总结', type: 'danger' } as const,
+  planNotResumable: { text: '没有可恢复的计划', type: 'danger' } as const,
+  replayStepFailed: { text: '执行失败', type: 'danger' } as const,
+  replaySummaryFailed: { text: '总结生成失败', type: 'danger' } as const,
 
   // 流程提示
   creatingTopic: { text: '创建话题 (architect)...', type: 'info' } as const,
@@ -147,5 +161,21 @@ export const Messages = {
   actionRejected: (action: string): AgentStatusMessage => ({
     text: `已拒绝: ${action}`,
     type: 'info'
+  }),
+  chatCreateFailed: (message: string): AgentStatusMessage => ({
+    text: `创建 chat 失败: ${message}`,
+    type: 'danger'
+  }),
+  maxTurnsReached: (count: number): AgentStatusMessage => ({
+    text: `超过最大轮次 (${count})`,
+    type: 'danger'
+  }),
+  vueToDslFailed: (message: string): AgentStatusMessage => ({
+    text: `Vue→DSL 失败: ${message}`,
+    type: 'danger'
+  }),
+  diffApplyFailed: (message: string): AgentStatusMessage => ({
+    text: `Diff 应用失败: ${message}`,
+    type: 'danger'
   })
 };

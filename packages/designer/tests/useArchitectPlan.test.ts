@@ -1,11 +1,22 @@
-import { describe, expect, it, vi } from 'vitest';
-import { ref } from 'vue';
+import { describe, expect, it, vi, beforeEach } from 'vitest';
+import { reactive, ref } from 'vue';
 import { useArchitectPlan } from '../src/components/widgets/agent/composables/useArchitectPlan';
+import { buildSummaryPrompt } from '../src/components/widgets/agent/utils/summary';
 import type {
+  ConversationRound,
   EditorStepResult,
   PlanResult,
   StreamCompletionResult
 } from '../src/components/widgets/agent/types/agent';
+
+vi.mock('../src/components/widgets/agent/utils/summary', () => ({
+  buildSummaryPrompt: vi.fn(() => 'summary prompt')
+}));
+
+beforeEach(() => {
+  // 模块级 mock 的调用计数跨用例累积，需要单独清理
+  vi.mocked(buildSummaryPrompt).mockClear();
+});
 
 function createStreamResult(
   overrides: Partial<StreamCompletionResult> = {}
@@ -42,32 +53,37 @@ function createDeps(overrides: Record<string, any> = {}) {
       callLog.push(['saveTrace', body]);
       return {};
     }),
-    statusText,
-    statusType,
+    setStatus: vi.fn((message: { text: string; type: any }) => {
+      statusText.value = message.text;
+      statusType.value = message.type;
+    }),
     executeEditorStep: vi.fn(async () => ({
       content: '',
       error: null,
       tokens: 0,
       duration: 10
     })),
-    buildSummaryPrompt: vi.fn(() => 'summary prompt'),
     ...overrides
   };
-  return { ...deps, callLog };
+  return { ...deps, statusText, statusType, callLog };
 }
 
-function createTargets() {
-  return {
-    architectPlan: ref<PlanResult | null>(null),
-    architectAnswer: ref(''),
-    architectStreamText: ref(''),
-    reasoningText: ref(''),
-    editorResults: ref<EditorStepResult[]>([]),
-    summaryText: ref(''),
-    summaryReasoning: ref(''),
-    summaryError: ref(''),
-    summaryAttempt: ref(0)
-  };
+function createRound(overrides: Partial<ConversationRound> = {}) {
+  return reactive<ConversationRound>({
+    id: 'round_1',
+    userMessage: '消息',
+    architectChatId: '',
+    architectPlan: null,
+    architectAnswer: '',
+    architectStreamText: '',
+    reasoningText: '',
+    editorResults: [],
+    summaryText: '',
+    summaryReasoning: '',
+    summaryError: '',
+    summaryAttempt: 0,
+    ...overrides
+  });
 }
 
 const PLAN_JSON = JSON.stringify({
@@ -88,7 +104,7 @@ describe('useArchitectPlan.executeArchitectPlan', () => {
     const controller = new AbortController();
     controller.abort();
     const deps = createDeps();
-    const targets = createTargets();
+    const round = createRound();
     const { executeArchitectPlan } = useArchitectPlan(deps);
 
     await executeArchitectPlan(
@@ -97,7 +113,7 @@ describe('useArchitectPlan.executeArchitectPlan', () => {
       'user',
       'trace',
       '消息',
-      targets,
+      round,
       controller.signal
     );
 
@@ -113,19 +129,12 @@ describe('useArchitectPlan.executeArchitectPlan', () => {
         return planStreamResult();
       })
     });
-    const targets = createTargets();
+    const round = createRound();
     const { executeArchitectPlan } = useArchitectPlan(deps);
 
-    await executeArchitectPlan(
-      'topic',
-      'chat',
-      'user',
-      'trace',
-      '消息',
-      targets
-    );
+    await executeArchitectPlan('topic', 'chat', 'user', 'trace', '消息', round);
 
-    expect(targets.architectPlan.value).toBeNull();
+    expect(round.architectPlan).toBeNull();
     expect(deps.statusText.value).toContain('未返回有效 JSON');
     expect(deps.statusType.value).toBe('danger');
     expect(deps.callLog.map(([name]) => name)).toEqual([
@@ -156,19 +165,12 @@ describe('useArchitectPlan.executeArchitectPlan', () => {
         return planStreamResult();
       })
     });
-    const targets = createTargets();
+    const round = createRound();
     const { executeArchitectPlan } = useArchitectPlan(deps);
 
-    await executeArchitectPlan(
-      'topic',
-      'chat',
-      'user',
-      'trace',
-      '消息',
-      targets
-    );
+    await executeArchitectPlan('topic', 'chat', 'user', 'trace', '消息', round);
 
-    expect(targets.architectAnswer.value).toBe('你好，我是 AI');
+    expect(round.architectAnswer).toBe('你好，我是 AI');
     expect(deps.statusText.value).toBe('Architect 直接回答');
     const updateBodies = deps.callLog.filter(
       ([name]) => name === 'updateTopic'
@@ -203,22 +205,15 @@ describe('useArchitectPlan.executeArchitectPlan', () => {
         duration: 100
       }))
     });
-    const targets = createTargets();
+    const round = createRound();
     const { executeArchitectPlan } = useArchitectPlan(deps);
 
-    await executeArchitectPlan(
-      'topic',
-      'chat',
-      'user',
-      'trace',
-      '消息',
-      targets
-    );
+    await executeArchitectPlan('topic', 'chat', 'user', 'trace', '消息', round);
 
     expect(deps.executeEditorStep).toHaveBeenCalledTimes(2);
-    expect(targets.architectPlan.value?.intent).toBe('创建页面');
-    expect(targets.summaryText.value).toBe('总结内容');
-    expect(deps.buildSummaryPrompt).toHaveBeenCalledTimes(1);
+    expect(round.architectPlan?.intent).toBe('创建页面');
+    expect(round.summaryText).toBe('总结内容');
+    expect(buildSummaryPrompt).toHaveBeenCalledTimes(1);
     expect(deps.statusText.value).toBe('全部 2 个步骤执行完成');
     expect(deps.statusType.value).toBe('success');
 
@@ -257,17 +252,10 @@ describe('useArchitectPlan.executeArchitectPlan', () => {
         duration: 50
       }))
     });
-    const targets = createTargets();
+    const round = createRound();
     const { executeArchitectPlan } = useArchitectPlan(deps);
 
-    await executeArchitectPlan(
-      'topic',
-      'chat',
-      'user',
-      'trace',
-      '消息',
-      targets
-    );
+    await executeArchitectPlan('topic', 'chat', 'user', 'trace', '消息', round);
 
     expect(deps.executeEditorStep).toHaveBeenCalledTimes(1);
     expect(deps.statusText.value).toBe('第 1 步执行失败，可从此步骤重试');
@@ -283,12 +271,12 @@ describe('useArchitectPlan.executeArchitectPlan', () => {
   });
 
   it('retries from the failed step and keeps completed step records', async () => {
-    const targets = createTargets();
-    targets.architectPlan.value = JSON.parse(PLAN_JSON);
-    targets.editorResults.value = [
+    const round = createRound();
+    round.architectPlan = JSON.parse(PLAN_JSON);
+    round.editorResults = [
       {
         stepIdx: 0,
-        step: targets.architectPlan.value!.steps[0],
+        step: round.architectPlan!.steps[0],
         content: '已完成',
         reasoning: '',
         error: null,
@@ -299,7 +287,7 @@ describe('useArchitectPlan.executeArchitectPlan', () => {
       },
       {
         stepIdx: 1,
-        step: targets.architectPlan.value!.steps[1],
+        step: round.architectPlan!.steps[1],
         content: '',
         reasoning: '',
         error: '生成失败',
@@ -322,11 +310,11 @@ describe('useArchitectPlan.executeArchitectPlan', () => {
     });
     const { retryEditorPlan } = useArchitectPlan(deps);
 
-    await retryEditorPlan('topic', 'user', 'trace-retry', '消息', targets, 1);
+    await retryEditorPlan('topic', 'user', 'trace-retry', '消息', round, 1);
 
     expect(deps.executeEditorStep).toHaveBeenCalledTimes(1);
-    expect(targets.editorResults.value[0].content).toBe('已完成');
-    expect(targets.editorResults.value[1].error).toBeNull();
+    expect(round.editorResults[0].content).toBe('已完成');
+    expect(round.editorResults[1].error).toBeNull();
     const traceBody = deps.callLog.find(([name]) => name === 'saveTrace')![1];
     expect(traceBody.stepsJson.map((item: any) => item.status)).toEqual([
       'completed',
@@ -346,7 +334,7 @@ describe('useArchitectPlan.executeArchitectPlan', () => {
         return { content: '', error: null, tokens: 0, duration: 10 };
       })
     });
-    const targets = createTargets();
+    const round = createRound();
     const { executeArchitectPlan } = useArchitectPlan(deps);
 
     await executeArchitectPlan(
@@ -355,13 +343,13 @@ describe('useArchitectPlan.executeArchitectPlan', () => {
       'user',
       'trace',
       '消息',
-      targets,
+      round,
       controller.signal
     );
 
     expect(deps.executeEditorStep).toHaveBeenCalledTimes(1);
     expect(deps.statusText.value).toBe('已取消（已完成 1/2 步）');
-    expect(deps.buildSummaryPrompt).not.toHaveBeenCalled();
+    expect(buildSummaryPrompt).not.toHaveBeenCalled();
     const names = deps.callLog.map(([name]) => name);
     expect(names).not.toContain('postChat');
   });
@@ -386,19 +374,12 @@ describe('useArchitectPlan.executeArchitectPlan', () => {
         throw new Error('network down');
       })
     });
-    const targets = createTargets();
+    const round = createRound();
     const { executeArchitectPlan } = useArchitectPlan(deps);
 
-    await executeArchitectPlan(
-      'topic',
-      'chat',
-      'user',
-      'trace',
-      '消息',
-      targets
-    );
+    await executeArchitectPlan('topic', 'chat', 'user', 'trace', '消息', round);
 
-    expect(targets.summaryError.value).toBe('network down');
+    expect(round.summaryError).toBe('network down');
     const updateBodies = deps.callLog.filter(
       ([name]) => name === 'updateTopic'
     );
@@ -409,11 +390,11 @@ describe('useArchitectPlan.executeArchitectPlan', () => {
 
 describe('useArchitectPlan.resumeEditorPlan', () => {
   it('resumes from the aborted slot and reuses it', async () => {
-    const targets = createTargets();
-    targets.architectPlan.value = JSON.parse(PLAN_JSON);
+    const round = createRound();
+    round.architectPlan = JSON.parse(PLAN_JSON);
     const abortedSlot: EditorStepResult = {
       stepIdx: 1,
-      step: targets.architectPlan.value!.steps[1],
+      step: round.architectPlan!.steps[1],
       content: '部分流内容',
       reasoning: '',
       error: null,
@@ -421,10 +402,10 @@ describe('useArchitectPlan.resumeEditorPlan', () => {
       aborted: true,
       turns: []
     };
-    targets.editorResults.value = [
+    round.editorResults = [
       {
         stepIdx: 0,
-        step: targets.architectPlan.value!.steps[0],
+        step: round.architectPlan!.steps[0],
         content: '已完成',
         reasoning: '',
         error: null,
@@ -451,32 +432,32 @@ describe('useArchitectPlan.resumeEditorPlan', () => {
     });
     const { resumeEditorPlan } = useArchitectPlan(deps);
 
-    await resumeEditorPlan('topic', 'user', 'trace-resume', '消息', targets);
+    await resumeEditorPlan('topic', 'user', 'trace-resume', '消息', round);
 
     // 已完成步骤不再执行，仅续跑被取消的步骤，且复用原槽位
     expect(deps.executeEditorStep).toHaveBeenCalledTimes(1);
     const stepArgs = (deps.executeEditorStep as any).mock.calls[0];
     expect(stepArgs[3]).toBe(1);
-    // ref 数组读取返回 reactive proxy，与数组内元素为同一引用
-    expect(stepArgs[8]).toBe(targets.editorResults.value[1]);
-    expect(targets.editorResults.value).toHaveLength(2);
-    expect(targets.editorResults.value[0].content).toBe('已完成');
-    expect(targets.editorResults.value[1].content).toBe('续跑成功');
-    expect(targets.editorResults.value[1].aborted).toBe(false);
+    // reactive 数组读取返回 proxy，与数组内元素为同一引用
+    expect(stepArgs[8]).toBe(round.editorResults[1]);
+    expect(round.editorResults).toHaveLength(2);
+    expect(round.editorResults[0].content).toBe('已完成');
+    expect(round.editorResults[1].content).toBe('续跑成功');
+    expect(round.editorResults[1].aborted).toBe(false);
     // 续跑完成后正常生成总结并保存 trace
-    expect(deps.buildSummaryPrompt).toHaveBeenCalledTimes(1);
+    expect(buildSummaryPrompt).toHaveBeenCalledTimes(1);
     const traceBody = deps.callLog.find(([name]) => name === 'saveTrace')![1];
     expect(traceBody.finalStatus).toBe('completed');
     expect(traceBody.stepsJson).toHaveLength(2);
   });
 
   it('continues from the next step when no aborted slot exists', async () => {
-    const targets = createTargets();
-    targets.architectPlan.value = JSON.parse(PLAN_JSON);
-    targets.editorResults.value = [
+    const round = createRound();
+    round.architectPlan = JSON.parse(PLAN_JSON);
+    round.editorResults = [
       {
         stepIdx: 0,
-        step: targets.architectPlan.value!.steps[0],
+        step: round.architectPlan!.steps[0],
         content: '已完成',
         reasoning: '',
         error: null,
@@ -498,7 +479,7 @@ describe('useArchitectPlan.resumeEditorPlan', () => {
     });
     const { resumeEditorPlan } = useArchitectPlan(deps);
 
-    await resumeEditorPlan('topic', 'user', 'trace-resume', '消息', targets);
+    await resumeEditorPlan('topic', 'user', 'trace-resume', '消息', round);
 
     expect(deps.executeEditorStep).toHaveBeenCalledTimes(1);
     const stepArgs = (deps.executeEditorStep as any).mock.calls[0];
@@ -508,12 +489,12 @@ describe('useArchitectPlan.resumeEditorPlan', () => {
   });
 
   it('only regenerates the summary when all steps are done', async () => {
-    const targets = createTargets();
-    targets.architectPlan.value = JSON.parse(PLAN_JSON);
-    targets.editorResults.value = [
+    const round = createRound();
+    round.architectPlan = JSON.parse(PLAN_JSON);
+    round.editorResults = [
       {
         stepIdx: 0,
-        step: targets.architectPlan.value!.steps[0],
+        step: round.architectPlan!.steps[0],
         content: '完成1',
         reasoning: '',
         error: null,
@@ -522,7 +503,7 @@ describe('useArchitectPlan.resumeEditorPlan', () => {
       },
       {
         stepIdx: 1,
-        step: targets.architectPlan.value!.steps[1],
+        step: round.architectPlan!.steps[1],
         content: '完成2',
         reasoning: '',
         error: null,
@@ -538,12 +519,12 @@ describe('useArchitectPlan.resumeEditorPlan', () => {
     });
     const { resumeEditorPlan } = useArchitectPlan(deps);
 
-    await resumeEditorPlan('topic', 'user', 'trace-resume', '消息', targets);
+    await resumeEditorPlan('topic', 'user', 'trace-resume', '消息', round);
 
     // 不执行任何步骤，仅补生成总结
     expect(deps.executeEditorStep).not.toHaveBeenCalled();
-    expect(targets.summaryText.value).toBe('补充总结');
-    expect(deps.buildSummaryPrompt).toHaveBeenCalledTimes(1);
+    expect(round.summaryText).toBe('补充总结');
+    expect(buildSummaryPrompt).toHaveBeenCalledTimes(1);
     const traceBody = deps.callLog.find(([name]) => name === 'saveTrace')![1];
     expect(traceBody.finalStatus).toBe('completed');
     expect(traceBody.stepsJson).toHaveLength(2);
@@ -552,8 +533,8 @@ describe('useArchitectPlan.resumeEditorPlan', () => {
   });
 
   it('throws when the plan has no steps', async () => {
-    const targets = createTargets();
-    targets.architectPlan.value = {
+    const round = createRound();
+    round.architectPlan = {
       intent: '直接回答',
       safety: 'readonly',
       steps: []
@@ -562,7 +543,7 @@ describe('useArchitectPlan.resumeEditorPlan', () => {
     const { resumeEditorPlan } = useArchitectPlan(deps);
 
     await expect(
-      resumeEditorPlan('topic', 'user', 'trace-resume', '消息', targets)
+      resumeEditorPlan('topic', 'user', 'trace-resume', '消息', round)
     ).rejects.toThrow('没有可恢复的计划');
     expect(deps.executeEditorStep).not.toHaveBeenCalled();
   });

@@ -17,12 +17,8 @@ import { getApprovalRisk } from '../utils/approval';
 import { parseOutput } from '../utils/outputParser';
 import { stripFileDescBlocks } from '../utils/filePrompt';
 import { parseJsonObject } from '../utils/json';
-import { setAgentStatus, Messages } from '../utils/messages';
-
-/** 生成轮次唯一 ID */
-function genRoundId(): string {
-  return `round_replay_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`;
-}
+import { Messages } from '../utils/messages';
+import { genId } from '../utils/genId';
 
 /** 从 architect chat 的 content 中提取 intent */
 function extractIntent(content: string): string {
@@ -258,7 +254,7 @@ function buildEditorResults(chats: ChatRecord[]): EditorStepResult[] {
       reasoning: allReasoning,
       error:
         latestChat?.status && latestChat.status !== 'Success'
-          ? latestChat.message || '执行失败'
+          ? latestChat.message || Messages.replayStepFailed.text
           : null,
       done: true,
       turns,
@@ -317,7 +313,7 @@ function buildRound(chats: ChatRecord[]): ConversationRound | null {
   if (!chats.length) return null;
 
   const round: ConversationRound = {
-    id: genRoundId(),
+    id: genId('round_replay'),
     userMessage: '',
     architectChatId: '',
     architectPlan: null,
@@ -407,7 +403,8 @@ function buildRound(chats: ChatRecord[]): ConversationRound | null {
     round.summaryText = summaryChat.content || '';
     round.summaryReasoning = summaryChat.reasoning || '';
     if (summaryChat.status && summaryChat.status !== 'Success') {
-      round.summaryError = summaryChat.message || '总结生成失败';
+      round.summaryError =
+        summaryChat.message || Messages.replaySummaryFailed.text;
     }
   }
 
@@ -418,33 +415,29 @@ export function useReplayChat(
   deps: ReplayChatDeps,
   conversationRounds: Ref<ConversationRound[]>
 ) {
-  const { getChats, statusText, statusType } = deps;
+  const { getChats, setStatus } = deps;
 
   async function loadChatHistory(topicId: string): Promise<void> {
     if (!topicId) {
-      setAgentStatus(statusText, statusType, Messages.replayTopicIdMissing);
+      setStatus(Messages.replayTopicIdMissing);
       return;
     }
 
     // 加载成功前保留现有轮次；失败时不清空旧数据
-    setAgentStatus(statusText, statusType, Messages.loadingHistory);
+    setStatus(Messages.loadingHistory);
 
     try {
       const chats = await getChats(topicId);
 
       if (!Array.isArray(chats)) {
         console.error('[useReplayChat]', '接口返回数据格式异常', chats);
-        setAgentStatus(
-          statusText,
-          statusType,
-          Messages.historyFormatInvalid(typeof chats)
-        );
+        setStatus(Messages.historyFormatInvalid(typeof chats));
         return;
       }
 
       if (chats.length === 0) {
         conversationRounds.value = [];
-        setAgentStatus(statusText, statusType, Messages.historyEmpty);
+        setStatus(Messages.historyEmpty);
         return;
       }
 
@@ -457,18 +450,10 @@ export function useReplayChat(
 
       conversationRounds.value = reconstructedRounds;
 
-      setAgentStatus(
-        statusText,
-        statusType,
-        Messages.historyLoaded(reconstructedRounds.length)
-      );
+      setStatus(Messages.historyLoaded(reconstructedRounds.length));
     } catch (e: any) {
       console.error('[useReplayChat]', '加载失败:', e);
-      setAgentStatus(
-        statusText,
-        statusType,
-        Messages.historyLoadFailed(e.message)
-      );
+      setStatus(Messages.historyLoadFailed(e.message));
     }
   }
 

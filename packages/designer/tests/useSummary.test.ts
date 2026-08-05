@@ -1,13 +1,12 @@
 import { describe, expect, it } from 'vitest';
-import { useSummary } from '../src/components/widgets/agent/composables/useSummary';
+import { buildSummaryPrompt } from '../src/components/widgets/agent/utils/summary';
 import type {
   PlanResult,
   StepRecord
 } from '../src/components/widgets/agent/types/agent';
 
-describe('useSummary.buildSummaryPrompt', () => {
+describe('buildSummaryPrompt', () => {
   it('builds a prompt containing the user request and plan info', () => {
-    const { buildSummaryPrompt } = useSummary();
     const plan: PlanResult = {
       intent: '创建用户列表页面',
       safety: 'write',
@@ -22,7 +21,6 @@ describe('useSummary.buildSummaryPrompt', () => {
   });
 
   it('shows unknown plan fields when plan is null', () => {
-    const { buildSummaryPrompt } = useSummary();
     const prompt = buildSummaryPrompt('需求', null, []);
     expect(prompt).toContain('意图: 未知');
     expect(prompt).toContain('安全评级: 未知');
@@ -30,7 +28,6 @@ describe('useSummary.buildSummaryPrompt', () => {
   });
 
   it('summarizes step status, errors and durations', () => {
-    const { buildSummaryPrompt } = useSummary();
     const records: StepRecord[] = [
       {
         stepId: 's1',
@@ -63,7 +60,6 @@ describe('useSummary.buildSummaryPrompt', () => {
   });
 
   it('omits the error suffix for successful steps', () => {
-    const { buildSummaryPrompt } = useSummary();
     const records: StepRecord[] = [
       {
         stepId: 's1',

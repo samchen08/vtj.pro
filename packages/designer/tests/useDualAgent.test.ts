@@ -23,7 +23,7 @@ function createInfra() {
     current: { value: { toDsl: () => ({}) } },
     toolRegistry: { generateToolDescriptions: () => [] }
   };
-  const infra: DualAgentInfrastructure = {
+  const infra = {
     token,
     model,
     existingTopicId,
@@ -33,7 +33,11 @@ function createInfra() {
     abortSse: vi.fn(),
     access: { getData: () => ({ id: 'u1', name: 'Alice' }) } as any,
     statusText,
-    statusType
+    statusType,
+    setStatus: vi.fn((message: { text: string; type: any }) => {
+      statusText.value = message.text;
+      statusType.value = message.type;
+    })
   };
   return { infra, engine };
 }
@@ -45,7 +49,6 @@ function createApi(): DualAgentApi {
       chat: { id: 'c1' }
     })),
     postChat: vi.fn(async () => ({ chat: { id: 'c2' } })),
-    streamCompletion: vi.fn(),
     executeArchitectPlan: vi.fn(async () => {}),
     retryEditorPlan: vi.fn(async () => {}),
     resumeEditorPlan: vi.fn(async () => {}),
@@ -485,7 +488,7 @@ describe('useDualAgent', () => {
     expect(api.executeArchitectPlan).not.toHaveBeenCalled();
     const resumeCall = (api.resumeEditorPlan as any).mock.calls[0];
     expect(resumeCall[0]).toBe('t-9');
-    // 第 5 个参数为 buildTargets 结果，architectPlan 保留已生成的计划
-    expect(resumeCall[4].architectPlan.value.intent).toBe('创建页面');
+    // 第 5 个参数为 reactive round，architectPlan 保留已生成的计划
+    expect(resumeCall[4].architectPlan.intent).toBe('创建页面');
   });
 });

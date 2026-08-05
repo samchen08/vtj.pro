@@ -2,24 +2,18 @@
  * Architect 规划执行
  * 调用 Architect → 解析计划 → 保存 → 分流（直接回复 or Editor 执行）→ 总结
  */
-import type { Ref } from 'vue';
-import type { PlanResult, StepRecord, ArchitectPlanDeps } from '../types/agent';
-import type { EditorStepResult } from '../types/agent';
+import type {
+  PlanResult,
+  StepRecord,
+  EditorStepResult,
+  ConversationRound,
+  ArchitectPlanDeps
+} from '../types/agent';
+import type { AgentStatusMessage } from '../utils/messages';
 import { parseJsonObject } from '../utils/json';
-import { setAgentStatus, Messages } from '../utils/messages';
-
-/** executeArchitectPlan 写入的目标 ref 集合 */
-export interface ArchPlanTargets {
-  architectPlan: Ref<PlanResult | null>;
-  architectAnswer: Ref<string>;
-  architectStreamText: Ref<string>;
-  reasoningText: Ref<string>;
-  editorResults: Ref<EditorStepResult[]>;
-  summaryText: Ref<string>;
-  summaryReasoning: Ref<string>;
-  summaryError: Ref<string>;
-  summaryAttempt: Ref<number>;
-}
+import { Messages } from '../utils/messages';
+import { buildSummaryPrompt } from '../utils/summary';
+import { buildChatSaveBody } from '../utils/chat';
 
 export function useArchitectPlan(deps: ArchitectPlanDeps) {
   const {
@@ -28,10 +22,8 @@ export function useArchitectPlan(deps: ArchitectPlanDeps) {
     saveChat,
     updateTopic,
     saveTrace,
-    statusText,
-    statusType,
-    executeEditorStep,
-    buildSummaryPrompt
+    setStatus,
+    executeEditorStep
   } = deps;
 
   const toStepRecord = (result: EditorStepResult): StepRecord => ({
@@ -49,26 +41,22 @@ export function useArchitectPlan(deps: ArchitectPlanDeps) {
     topicId: string,
     userId: string,
     userMessage: string,
-    targets: ArchPlanTargets,
+    round: ConversationRound,
     records: StepRecord[],
     signal?: AbortSignal
   ): Promise<number> {
-    targets.summaryText.value = '';
-    targets.summaryReasoning.value = '';
-    targets.summaryError.value = '';
-    setAgentStatus(statusText, statusType, Messages.generatingSummary);
+    round.summaryText = '';
+    round.summaryReasoning = '';
+    round.summaryError = '';
+    setStatus(Messages.generatingSummary);
 
     try {
       const summaryChatRes = await postChat({
         topicId,
-        prompt: buildSummaryPrompt(
-          userMessage,
-          targets.architectPlan.value,
-          records
-        ),
+        prompt: buildSummaryPrompt(userMessage, round.architectPlan, records),
         agent: 'editor',
         stepId: 'summary',
-        attempt: ++targets.summaryAttempt.value,
+        attempt: ++round.summaryAttempt,
         userId: userId || '',
         userName: ''
       });
@@ -78,33 +66,87 @@ export function useArchitectPlan(deps: ArchitectPlanDeps) {
         topicId,
         summaryChatId,
         (text) => {
-          targets.summaryText.value += text;
+          round.summaryText += text;
         },
         (reasoning) => {
-          targets.summaryReasoning.value += reasoning;
+          round.summaryReasoning += reasoning;
         }
       );
       if (signal?.aborted) return 0;
 
-      await saveChat({
-        id: summaryChatId,
-        topicId,
-        userId,
-        status: 'Success',
-        content: targets.summaryText.value,
-        reasoning: summaryResult.reasoning || '',
-        modelUsed: summaryResult.modelUsed || '',
-        tokens: summaryResult.usage?.total_tokens || 0,
-        tokensPrompt: summaryResult.usage?.prompt_tokens || 0,
-        tokensCompletion: summaryResult.usage?.completion_tokens || 0,
-        thinking: summaryResult.reasoningTime || 0
-      });
+      await saveChat(
+        buildChatSaveBody({
+          id: summaryChatId,
+          topicId,
+          userId,
+          content: round.summaryText,
+          result: summaryResult,
+          tokens: summaryResult.usage?.total_tokens || 0
+        })
+      );
       return summaryResult.usage?.total_tokens || 0;
     } catch (e: any) {
-      targets.summaryError.value = e.message || String(e);
+      round.summaryError = e.message || String(e);
       console.warn('总结生成失败:', e.message);
       return 0;
     }
+  }
+
+  /**
+   * 收尾：更新 topic 状态 + 保存 trace（executeArchitectPlan / executeEditorPlan 共用）
+   */
+  async function finalizeFlow(opts: {
+    topicId: string;
+    traceId: string;
+    status: 'failed' | 'completed';
+    planJson?: PlanResult | null;
+    stepsJson: StepRecord[];
+    totalTokens: number;
+    startTime: number;
+  }) {
+    await updateTopic({
+      id: opts.topicId,
+      status: opts.status,
+      traceId: opts.traceId
+    });
+    await saveTrace({
+      traceId: opts.traceId,
+      topicId: opts.topicId,
+      planJson: opts.planJson ?? null,
+      stepsJson: opts.stepsJson,
+      finalStatus: opts.status,
+      totalTokens: opts.totalTokens,
+      totalDuration: Date.now() - opts.startTime
+    });
+  }
+
+  /**
+   * 总结收尾：保存 trace + 状态（retrySummary / resumeEditorPlan 总结分支共用）
+   */
+  async function saveSummaryTrace(opts: {
+    traceId: string;
+    topicId: string;
+    round: ConversationRound;
+    records: StepRecord[];
+    totalTokens: number;
+    startTime: number;
+    successMessage: AgentStatusMessage;
+  }) {
+    const failed = !!opts.round.summaryError;
+    await saveTrace({
+      traceId: opts.traceId,
+      topicId: opts.topicId,
+      planJson: opts.round.architectPlan,
+      stepsJson: opts.records,
+      finalStatus: failed ? 'failed' : 'completed',
+      totalTokens: opts.totalTokens,
+      totalDuration: Date.now() - opts.startTime
+    });
+    setStatus(
+      failed
+        ? Messages.summaryFailed(opts.round.summaryError)
+        : opts.successMessage
+    );
   }
 
   async function executeEditorPlan(
@@ -112,28 +154,22 @@ export function useArchitectPlan(deps: ArchitectPlanDeps) {
     userId: string,
     traceId: string,
     userMessage: string,
-    targets: ArchPlanTargets,
+    round: ConversationRound,
     startStep: number,
     initialTokens: number,
     signal?: AbortSignal,
     retrySlot?: EditorStepResult
   ) {
     const startTime = Date.now();
-    const steps = targets.architectPlan.value?.steps || [];
-    const records = targets.editorResults.value
-      .slice(0, startStep)
-      .map(toStepRecord);
+    const steps = round.architectPlan?.steps || [];
+    const records = round.editorResults.slice(0, startStep).map(toStepRecord);
     let totalTokens =
       initialTokens + records.reduce((sum, item) => sum + item.tokens, 0);
     let failedStep = -1;
 
     for (let i = startStep; i < steps.length; i++) {
       if (signal?.aborted) {
-        setAgentStatus(
-          statusText,
-          statusType,
-          Messages.cancelledWithProgress(i, steps.length)
-        );
+        setStatus(Messages.cancelledWithProgress(i, steps.length));
         return;
       }
 
@@ -144,13 +180,13 @@ export function useArchitectPlan(deps: ArchitectPlanDeps) {
         i,
         steps,
         Date.now(),
-        targets.editorResults,
+        round.editorResults,
         signal,
         i === startStep ? retrySlot : undefined
       );
       const slot =
         (i === startStep && retrySlot) ||
-        targets.editorResults.value[targets.editorResults.value.length - 1];
+        round.editorResults[round.editorResults.length - 1];
       if (slot) {
         slot.tokens = stepResult.tokens;
         slot.duration = stepResult.duration;
@@ -178,7 +214,7 @@ export function useArchitectPlan(deps: ArchitectPlanDeps) {
     }
 
     if (signal?.aborted) {
-      setAgentStatus(statusText, statusType, Messages.cancelled);
+      setStatus(Messages.cancelled);
       return;
     }
 
@@ -187,50 +223,34 @@ export function useArchitectPlan(deps: ArchitectPlanDeps) {
         topicId,
         userId,
         userMessage,
-        targets,
+        round,
         records,
         signal
       );
     }
 
     if (signal?.aborted) {
-      setAgentStatus(statusText, statusType, Messages.cancelled);
+      setStatus(Messages.cancelled);
       return;
     }
 
-    await updateTopic({
-      id: topicId,
-      status: failedStep >= 0 ? 'failed' : 'completed',
-      traceId
-    });
-    await saveTrace({
-      traceId,
+    const status = failedStep >= 0 ? 'failed' : 'completed';
+    await finalizeFlow({
       topicId,
-      planJson: targets.architectPlan.value,
+      traceId,
+      status,
+      planJson: round.architectPlan,
       stepsJson: records,
-      finalStatus: failedStep >= 0 ? 'failed' : 'completed',
       totalTokens,
-      totalDuration: Date.now() - startTime
+      startTime
     });
 
     if (failedStep >= 0) {
-      setAgentStatus(
-        statusText,
-        statusType,
-        Messages.stepFailed(failedStep + 1)
-      );
-    } else if (targets.summaryError.value) {
-      setAgentStatus(
-        statusText,
-        statusType,
-        Messages.summaryFailed(targets.summaryError.value)
-      );
+      setStatus(Messages.stepFailed(failedStep + 1));
+    } else if (round.summaryError) {
+      setStatus(Messages.summaryFailed(round.summaryError));
     } else {
-      setAgentStatus(
-        statusText,
-        statusType,
-        Messages.allStepsDone(steps.length)
-      );
+      setStatus(Messages.allStepsDone(steps.length));
     }
   }
 
@@ -243,7 +263,7 @@ export function useArchitectPlan(deps: ArchitectPlanDeps) {
     userId: string,
     traceId: string,
     userMessage: string,
-    targets: ArchPlanTargets,
+    round: ConversationRound,
     signal?: AbortSignal
   ) {
     const startTime = Date.now();
@@ -255,71 +275,61 @@ export function useArchitectPlan(deps: ArchitectPlanDeps) {
     }
 
     // ── Architect 流式规划 ──
-    setAgentStatus(statusText, statusType, Messages.architectPlanning);
-    targets.architectStreamText.value = '';
-    targets.reasoningText.value = '';
+    setStatus(Messages.architectPlanning);
+    round.architectStreamText = '';
+    round.reasoningText = '';
 
     const archResult = await streamCompletion(
       topicId,
       architectChatId,
       (text) => {
-        targets.architectStreamText.value += text;
+        round.architectStreamText += text;
       },
       (r) => {
-        targets.reasoningText.value += r;
+        round.reasoningText += r;
       }
     );
 
     // 检查取消信号：SSE 流被中断后不应继续执行后续操作
     if (isCancelled()) {
-      setAgentStatus(statusText, statusType, Messages.cancelled);
+      setStatus(Messages.cancelled);
       return;
     }
 
     // 解析计划 JSON（括号配对扫描，避免贪婪正则截断）
-    targets.architectPlan.value = parseJsonObject<PlanResult>(
-      targets.architectStreamText.value
+    round.architectPlan = parseJsonObject<PlanResult>(
+      round.architectStreamText
     );
 
     // ── 保存 Architect chat ──
     // 再次检查取消信号，避免写入已取消会话的数据
     if (isCancelled()) {
-      setAgentStatus(statusText, statusType, Messages.cancelled);
+      setStatus(Messages.cancelled);
       return;
     }
 
-    const rawStreamText = targets.architectStreamText.value;
-    await saveChat({
-      id: architectChatId,
-      topicId,
-      userId,
-      status: 'Success',
-      content: rawStreamText || ' ',
-      reasoning: archResult.reasoning || '',
-      modelUsed: archResult.modelUsed || '',
-      tokens: archResult.usage?.total_tokens || 0,
-      tokensPrompt: archResult.usage?.prompt_tokens || 0,
-      tokensCompletion: archResult.usage?.completion_tokens || 0,
-      thinking: archResult.reasoningTime || 0
-    });
+    await saveChat(
+      buildChatSaveBody({
+        id: architectChatId,
+        topicId,
+        userId,
+        content: round.architectStreamText || ' ',
+        result: archResult,
+        tokens: archResult.usage?.total_tokens || 0
+      })
+    );
     totalTokens += archResult.usage?.total_tokens || 0;
 
     // ── 计划为空 → 标记失败 ──
-    if (!targets.architectPlan.value) {
-      setAgentStatus(statusText, statusType, Messages.planInvalid);
-      await updateTopic({
-        id: topicId,
-        status: 'failed',
-        traceId
-      });
-      await saveTrace({
-        traceId,
+    if (!round.architectPlan) {
+      setStatus(Messages.planInvalid);
+      await finalizeFlow({
         topicId,
-        planJson: null,
+        traceId,
+        status: 'failed',
         stepsJson: [],
-        finalStatus: 'failed',
         totalTokens,
-        totalDuration: Date.now() - startTime
+        startTime
       });
       return;
     }
@@ -327,49 +337,37 @@ export function useArchitectPlan(deps: ArchitectPlanDeps) {
     // 更新 topic 为 executing
     await updateTopic({
       id: topicId,
-      planJson: targets.architectPlan.value,
+      planJson: round.architectPlan,
       status: 'executing',
       traceId
     });
 
     // ── 分流：无步骤 → 直接回复 ──
-    const steps = targets.architectPlan.value.steps;
+    const steps = round.architectPlan.steps;
     if (!steps || steps.length === 0) {
       const answer =
-        targets.architectPlan.value.answer ||
-        targets.architectPlan.value.intent ||
-        '(无回复)';
-      targets.architectAnswer.value = answer;
-      setAgentStatus(statusText, statusType, Messages.architectAnswered);
-      await updateTopic({
-        id: topicId,
-        status: 'completed',
-        planJson: targets.architectPlan.value,
-        traceId
-      });
-      await saveTrace({
-        traceId,
+        round.architectPlan.answer || round.architectPlan.intent || '(无回复)';
+      round.architectAnswer = answer;
+      setStatus(Messages.architectAnswered);
+      await finalizeFlow({
         topicId,
-        planJson: targets.architectPlan.value,
+        traceId,
+        status: 'completed',
+        planJson: round.architectPlan,
         stepsJson: [],
-        finalStatus: 'completed',
         totalTokens,
-        totalDuration: Date.now() - startTime
+        startTime
       });
       return;
     }
 
-    setAgentStatus(
-      statusText,
-      statusType,
-      Messages.planGenerated(targets.architectPlan.value.intent)
-    );
+    setStatus(Messages.planGenerated(round.architectPlan.intent));
     await executeEditorPlan(
       topicId,
       userId,
       traceId,
       userMessage,
-      targets,
+      round,
       0,
       totalTokens,
       signal
@@ -381,26 +379,26 @@ export function useArchitectPlan(deps: ArchitectPlanDeps) {
     userId: string,
     traceId: string,
     userMessage: string,
-    targets: ArchPlanTargets,
+    round: ConversationRound,
     stepIndex: number,
     signal?: AbortSignal
   ) {
-    const retrySlot = targets.editorResults.value[stepIndex];
-    if (!targets.architectPlan.value || !retrySlot?.error) {
-      throw new Error('没有可重试的失败步骤');
+    const retrySlot = round.editorResults[stepIndex];
+    if (!round.architectPlan || !retrySlot?.error) {
+      throw new Error(Messages.stepNotRetryable.text);
     }
 
-    targets.editorResults.value.splice(stepIndex + 1);
-    targets.summaryText.value = '';
-    targets.summaryReasoning.value = '';
-    targets.summaryError.value = '';
+    round.editorResults.splice(stepIndex + 1);
+    round.summaryText = '';
+    round.summaryReasoning = '';
+    round.summaryError = '';
     await updateTopic({ id: topicId, status: 'executing', traceId });
     await executeEditorPlan(
       topicId,
       userId,
       traceId,
       userMessage,
-      targets,
+      round,
       stepIndex,
       0,
       signal,
@@ -413,40 +411,33 @@ export function useArchitectPlan(deps: ArchitectPlanDeps) {
     userId: string,
     traceId: string,
     userMessage: string,
-    targets: ArchPlanTargets,
+    round: ConversationRound,
     signal?: AbortSignal
   ) {
-    if (!targets.architectPlan.value || !targets.summaryError.value) {
-      throw new Error('没有可重试的总结');
+    if (!round.architectPlan || !round.summaryError) {
+      throw new Error(Messages.summaryNotRetryable.text);
     }
     const startTime = Date.now();
-    const records = targets.editorResults.value.map(toStepRecord);
+    const records = round.editorResults.map(toStepRecord);
     const totalTokens = await generateSummary(
       topicId,
       userId,
       userMessage,
-      targets,
+      round,
       records,
       signal
     );
     if (signal?.aborted) return;
 
-    await saveTrace({
+    await saveSummaryTrace({
       traceId,
       topicId,
-      planJson: targets.architectPlan.value,
-      stepsJson: records,
-      finalStatus: targets.summaryError.value ? 'failed' : 'completed',
+      round,
+      records,
       totalTokens,
-      totalDuration: Date.now() - startTime
+      startTime,
+      successMessage: Messages.summaryRegenerated
     });
-    setAgentStatus(
-      statusText,
-      statusType,
-      targets.summaryError.value
-        ? Messages.summaryFailed(targets.summaryError.value)
-        : Messages.summaryRegenerated
-    );
   }
 
   /**
@@ -459,14 +450,14 @@ export function useArchitectPlan(deps: ArchitectPlanDeps) {
     userId: string,
     traceId: string,
     userMessage: string,
-    targets: ArchPlanTargets,
+    round: ConversationRound,
     signal?: AbortSignal
   ) {
-    const steps = targets.architectPlan.value?.steps || [];
-    if (!steps.length) throw new Error('没有可恢复的计划');
+    const steps = round.architectPlan?.steps || [];
+    if (!steps.length) throw new Error(Messages.planNotResumable.text);
 
     const startTime = Date.now();
-    const results = targets.editorResults.value;
+    const results = round.editorResults;
     const last = results[results.length - 1];
 
     // 取消时正在执行的步骤：替换该未完成槽位并从它续跑
@@ -479,49 +470,38 @@ export function useArchitectPlan(deps: ArchitectPlanDeps) {
 
     // 步骤已全部完成，仅总结缺失（总结阶段取消）
     if (startStep >= steps.length) {
-      setAgentStatus(statusText, statusType, Messages.resumedSummary);
+      setStatus(Messages.resumedSummary);
       const records = results.map(toStepRecord);
       const totalTokens = await generateSummary(
         topicId,
         userId,
         userMessage,
-        targets,
+        round,
         records,
         signal
       );
       if (signal?.aborted) return;
-      await saveTrace({
+      await saveSummaryTrace({
         traceId,
         topicId,
-        planJson: targets.architectPlan.value,
-        stepsJson: records,
-        finalStatus: targets.summaryError.value ? 'failed' : 'completed',
+        round,
+        records,
         totalTokens,
-        totalDuration: Date.now() - startTime
+        startTime,
+        successMessage: Messages.summaryGenerated
       });
-      setAgentStatus(
-        statusText,
-        statusType,
-        targets.summaryError.value
-          ? Messages.summaryFailed(targets.summaryError.value)
-          : Messages.summaryGenerated
-      );
       return;
     }
 
     // 从断点步骤续跑（跳过已完成步骤，retrySlot 复用未完成槽位）
     await updateTopic({ id: topicId, status: 'executing', traceId });
-    setAgentStatus(
-      statusText,
-      statusType,
-      Messages.resumingStep(startStep + 1, steps.length)
-    );
+    setStatus(Messages.resumingStep(startStep + 1, steps.length));
     await executeEditorPlan(
       topicId,
       userId,
       traceId,
       userMessage,
-      targets,
+      round,
       startStep,
       0,
       signal,
