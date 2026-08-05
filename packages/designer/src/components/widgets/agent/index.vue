@@ -230,13 +230,13 @@
   import ConversationRoundCard from './conversation-round.vue';
   import Detail from './detail.vue';
   import { useAuth } from './composables/useAuth';
+  import { useAgentApi } from './composables/useAgentApi';
   import { useSSEStream } from './composables/useSSEStream';
   import { useEditorStep } from './composables/useEditorStep';
   import { useArchitectPlan } from './composables/useArchitectPlan';
   import { useDualAgent } from './composables/useDualAgent';
   import { useFileRecognition } from './composables/useFileRecognition';
   import { useReplayChat } from './composables/useReplayChat';
-  import { withRequestRetry } from './utils';
   import { exportConversation } from './utils/export';
   import {
     HIDE_CODE_STORAGE_KEY,
@@ -251,12 +251,7 @@
     ConversationRound,
     DualAgentInfrastructure,
     DualAgentApi,
-    DualAgentState,
-    AgentTopicBody,
-    AgentChatBody,
-    SaveChatBody,
-    UpdateTopicBody,
-    SaveTraceBody
+    DualAgentState
   } from './types/agent';
 
   const engine = useEngine();
@@ -301,6 +296,7 @@
     }
   });
   const approvalResolvers = new Map<string, (approved: boolean) => void>();
+  const openApi = useOpenApi();
   const {
     isLogined,
     getDictOptions,
@@ -309,76 +305,28 @@
     createOrder,
     cancelOrder,
     getOrder,
+    chatCompletions
+  } = openApi;
+  // Agent 业务 API 统一经 useAgentApi 包装（响应解包 / 结构容错 / 活动 chat 追踪）
+  const {
+    postTopic,
+    postChat,
+    saveChat,
+    updateTopic,
+    saveTrace,
+    getChats,
+    getTopics,
+    removeTopic,
+    getSkills,
     getHotTopics,
-    postTopic: requestPostTopic,
-    postChat: requestPostChat,
-    saveChat: requestSaveChat,
-    getChats: requestChats,
-    getTopics: requestTopics,
-    removeTopic: requestRemoveTopic,
-    cancelChat,
-    updateTopic: requestUpdateTopic,
-    saveTrace: requestSaveTrace,
-    chatCompletions,
-    getSkills: requestSkills,
-    recognitionFile
-  } = useOpenApi();
+    recognitionFile,
+    clearActiveChat,
+    cancelActiveChat
+  } = useAgentApi(openApi);
 
   const { token, model, existingTopicId, initToken } = useAuth(
     () => engine.access?.getData()?.token
   );
-  const unwrapOpenApi = <T,>(response: any): T => {
-    const code = response?.code;
-    // 显式兼容数字 0 与字符串 '0'；null/undefined 视为无 code 字段
-    if (!(code == null || code === 0 || code === '0')) {
-      const error = new Error(
-        response.message || `API Error code=${code}`
-      ) as Error & { status?: number };
-      error.status = Number(response.status || code) || undefined;
-      throw error;
-    }
-    if (response?.success === false) {
-      const error = new Error(
-        response.message || '远程接口调用失败'
-      ) as Error & { status?: number };
-      error.status = Number(response.status) || undefined;
-      throw error;
-    }
-    return (response?.data !== undefined ? response.data : response) as T;
-  };
-  // activeChat 统一经 setActiveChat 写入，供中止/取消时标记 Canceled 状态
-  let activeChat: any = null;
-  const setActiveChat = (chat: any) => {
-    activeChat = chat;
-  };
-  const trackActiveChat = (response: any) => {
-    setActiveChat(response?.chat || response);
-    return response;
-  };
-  const postTopic = async (body: AgentTopicBody) =>
-    trackActiveChat(unwrapOpenApi<any>(await requestPostTopic(body as any)));
-  const postChat = async (body: AgentChatBody) =>
-    trackActiveChat(unwrapOpenApi<any>(await requestPostChat(body as any)));
-  const saveChat = async (body: SaveChatBody) =>
-    unwrapOpenApi<any>(await requestSaveChat(body));
-  const updateTopic = async (body: UpdateTopicBody) =>
-    unwrapOpenApi<any>(await requestUpdateTopic(body));
-  const saveTrace = async (body: SaveTraceBody) =>
-    unwrapOpenApi<any>(await requestSaveTrace(body));
-  const getChats = async (topicId: string) =>
-    withRequestRetry(() =>
-      Promise.resolve(requestChats(topicId)).then(unwrapOpenApi<any>)
-    );
-  const getTopics = async (projectId: string) =>
-    withRequestRetry(() =>
-      Promise.resolve(requestTopics(projectId)).then(unwrapOpenApi<AITopic[]>)
-    );
-  const removeTopic = async (topicId: string) =>
-    unwrapOpenApi<boolean>(await requestRemoveTopic(topicId));
-  const getSkills = async (ids: string[]) =>
-    withRequestRetry(() =>
-      Promise.resolve(requestSkills(ids)).then(unwrapOpenApi<string>)
-    );
   const { streamCompletion, abortAll } = useSSEStream(chatCompletions as any);
   const {
     files,
@@ -388,9 +336,7 @@
     buildFilePrompt,
     buildAttachments,
     clearFiles
-  } = useFileRecognition(async (file) =>
-    unwrapOpenApi(await recognitionFile(file))
-  );
+  } = useFileRecognition(recognitionFile);
 
   const getEngine = () => engine;
   const registerTools = () => {
@@ -600,21 +546,18 @@
     approvalResolvers.forEach((resolve) => resolve(false));
     approvalResolvers.clear();
     abortAgentFlow();
-    if (activeChat) {
-      activeChat.status = 'Canceled';
-      cancelChat(activeChat).catch(() => null);
-      setActiveChat(null);
-    }
+    // 中止时标记活动 chat 为 Canceled 并清除追踪引用
+    cancelActiveChat();
   };
 
   const retryAgent = async () => {
     await retryLastRound();
-    setActiveChat(null);
+    clearActiveChat();
   };
 
   const resumeAgent = async () => {
     await resumeLastRound();
-    setActiveChat(null);
+    clearActiveChat();
   };
 
   const retryAgentStep = async (
@@ -622,12 +565,12 @@
     stepIndex: number
   ) => {
     await retryStep(round, stepIndex);
-    setActiveChat(null);
+    clearActiveChat();
   };
 
   const retryAgentSummary = async (round: ConversationRound) => {
     await retryRoundSummary(round);
-    setActiveChat(null);
+    clearActiveChat();
   };
 
   const startNewConversation = () => {
@@ -672,7 +615,7 @@
       clearFiles();
     }
     await task;
-    setActiveChat(null);
+    clearActiveChat();
     await loadTopics();
   };
 
@@ -684,7 +627,7 @@
       clearFiles();
     }
     await task;
-    setActiveChat(null);
+    clearActiveChat();
     await loadTopics();
   };
 
@@ -764,9 +707,9 @@
     if (!logined.value) return;
     models.value = await getDictOptions('LLM').catch(() => []);
     settings.value = await getSettings().catch(() => undefined);
-    hotTopics.value = await getHotTopics(engine.project.value?.platform)
-      .then((response) => unwrapOpenApi<AITopic[]>(response))
-      .catch(() => []);
+    hotTopics.value = await getHotTopics(engine.project.value?.platform).catch(
+      () => []
+    );
     await loadTopics();
     await loadLatest();
     conversationRef.value?.addEventListener('scroll', onConversationScroll, {

@@ -15,6 +15,7 @@ import type {
   AgentChatBody
 } from '../types/agent';
 import { stripFileDescBlocks } from '../utils/filePrompt';
+import { pickChat, pickTopic } from '../utils/response';
 import { Messages } from '../utils/messages';
 import { genId } from '../utils/genId';
 
@@ -190,10 +191,8 @@ export function useDualAgent(
       };
 
       const topicRes = await postTopic(topicBody);
-      const topic = topicRes.topic || topicRes;
-      const architectChat = topicRes.chat || topicRes;
-      const topicId = topic.id || topic.topicId;
-      const userId = topic.userId || '';
+      // 响应容错统一经 pickTopic 提取（兼容裸对象 / { topic, chat } 包裹与 id/chatId 双命名）
+      const { topicId, userId, chatId } = pickTopic(topicRes);
       setTopicId(topicId);
 
       setStatus(Messages.topicCreated(topicId));
@@ -203,7 +202,6 @@ export function useDualAgent(
       round.promptSent = finalPrompt;
       conversationRounds.value.push(round);
 
-      const chatId = architectChat.id || architectChat.chatId || '';
       round.architectChatId = chatId;
       return { topicId, userId, chatId, round };
     });
@@ -231,8 +229,7 @@ export function useDualAgent(
       };
 
       const chatRes = await postChat(chatBody);
-      const chat = chatRes.chat || chatRes;
-      const chatId = chat.id || chat.chatId || '';
+      const { chatId } = pickChat(chatRes);
 
       // 追加新轮次
       const round = reactive(createEmptyRound(userText));

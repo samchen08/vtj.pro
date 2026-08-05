@@ -3,7 +3,12 @@
  * 管理一个计划步骤的工具调用循环（创建 chat → SSE 流 → 输出解析 → 类型分发）
  */
 import { cloneDeep } from '@vtj/utils';
-import { parseOutput, executeTool, formatToolFeedback } from '../utils';
+import {
+  parseOutput,
+  executeTool,
+  formatToolFeedback,
+  pickChat
+} from '../utils';
 import {
   createEditorTurn,
   getApprovalRisk,
@@ -422,8 +427,7 @@ export function useEditorStep(deps: EditorStepDeps) {
         return errResult(slot.error!, totalTokens, stepStart);
       }
 
-      const edChatId =
-        (chatRes.chat || chatRes).id || (chatRes.chat || chatRes).chatId || '';
+      const edChatId = pickChat(chatRes).chatId;
       if (isCancelled()) return cancelResult(slot);
 
       // 流式调用 LLM

@@ -11,6 +11,7 @@ import type {
 } from '../types/agent';
 import type { AgentStatusMessage } from '../utils/messages';
 import { parseJsonObject } from '../utils/json';
+import { pickChat } from '../utils/response';
 import { Messages } from '../utils/messages';
 import { buildSummaryPrompt } from '../utils/summary';
 import { buildChatSaveBody } from '../utils/chat';
@@ -60,8 +61,7 @@ export function useArchitectPlan(deps: ArchitectPlanDeps) {
         userId: userId || '',
         userName: ''
       });
-      const summaryChat = summaryChatRes.chat || summaryChatRes;
-      const summaryChatId = summaryChat.id || summaryChat.chatId || '';
+      const { chatId: summaryChatId } = pickChat(summaryChatRes);
       const summaryResult = await streamCompletion(
         topicId,
         summaryChatId,
