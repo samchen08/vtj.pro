@@ -20,16 +20,6 @@ describe('useAuth', () => {
     expect(token.value).toBe('');
   });
 
-  it('sets and clears the existing topic id', () => {
-    const { existingTopicId, setTopicId, clearTopicId } = useAuth(
-      () => undefined
-    );
-    setTopicId('topic-1');
-    expect(existingTopicId.value).toBe('topic-1');
-    clearTopicId();
-    expect(existingTopicId.value).toBe('');
-  });
-
   it('calls initToken to refresh token from provider', () => {
     let current = 'first';
     const getToken = vi.fn(() => current);

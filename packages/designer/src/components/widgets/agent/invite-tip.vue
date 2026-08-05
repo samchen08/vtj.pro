@@ -54,9 +54,6 @@
     border-radius: 2px;
     border: 1px solid var(--el-border-color-light);
   }
-  .limit-tip__title {
-    padding: 10px 0;
-  }
   .limit-tip__content {
     text-align: center;
     padding: 10px 0;

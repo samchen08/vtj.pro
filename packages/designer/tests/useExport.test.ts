@@ -48,6 +48,7 @@ describe('useExport', () => {
   afterEach(() => {
     vi.restoreAllMocks();
     vi.unstubAllGlobals();
+    vi.useRealTimers();
   });
 
   it('exports base metadata with empty rounds', () => {
@@ -61,11 +62,14 @@ describe('useExport', () => {
   });
 
   it('triggers a download with topic-scoped filename', () => {
+    vi.useFakeTimers();
     const { exportConversation } = useExport();
     exportConversation('topic-9', 'auto', []);
     expect(anchor.download).toBe('conversation-topic-9.json');
     expect(anchor.href).toBe('blob:export');
     expect(anchor.click).toHaveBeenCalledTimes(1);
+    // URL 延迟回收在 1000ms 定时器中执行，推进假时钟触发
+    vi.advanceTimersByTime(1000);
     expect(revokeObjectURL).toHaveBeenCalledWith('blob:export');
   });
 

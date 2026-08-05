@@ -235,14 +235,8 @@ export interface DualAgentInfrastructure {
 
 /** API 依赖 */
 export interface DualAgentApi {
-  postTopic: (body: TopicCreateBody) => Promise<any>;
+  postTopic: (body: Record<string, any>) => Promise<any>;
   postChat: (body: Record<string, any>) => Promise<any>;
-  streamCompletion: (
-    topicId: string,
-    chatId: string,
-    onChunk?: (text: string) => void,
-    onReasoning?: (text: string) => void
-  ) => Promise<StreamCompletionResult>;
   executeArchitectPlan: (
     topicId: string,
     architectChatId: string,
@@ -333,23 +327,6 @@ export interface ArchitectPlanDeps {
     plan: PlanResult | null,
     records: StepRecord[]
   ) => string;
-}
-
-// ── 话题创建相关 ──
-
-/** 话题创建请求 */
-export interface TopicCreateBody {
-  model: string;
-  prompt: string;
-  project: string;
-  dsl: string;
-  source: string;
-  tools: string;
-  options: string;
-  agent: 'architect' | 'editor';
-  userId: string;
-  userName: string;
-  requestId?: string;
 }
 
 // ── 回显相关 ──

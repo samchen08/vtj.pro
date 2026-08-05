@@ -63,10 +63,7 @@
           </div>
         </template>
       </ElStep>
-      <ElStep
-        title="发送订单"
-        status="wait"
-        description="复制以下订单信息发送给客服">
+      <ElStep title="发送订单" status="wait">
         <template #description>
           <div>复制以下订单信息发送给客服</div>
           <div class="pay-steps__content">
@@ -228,9 +225,6 @@
     border-radius: 2px;
     border: 1px solid var(--el-border-color-light);
   }
-  .limit-tip__title {
-    padding: 10px 0;
-  }
   .limit-tip__content {
     text-align: center;
     padding: 10px 0;
@@ -239,9 +233,6 @@
     > img {
       display: inline-flex;
     }
-  }
-  .limit-tip__qr {
-    width: 240px;
   }
 
   .price {

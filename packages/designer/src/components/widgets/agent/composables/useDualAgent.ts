@@ -23,9 +23,6 @@ function generateTraceId(): string {
   return `trace_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`;
 }
 
-/** 默认用户提示语 */
-const DEFAULT_USER_MESSAGE = '';
-
 /** 创建空对话轮次 */
 function createEmptyRound(userMessage: string): ConversationRound {
   return {
@@ -53,7 +50,7 @@ export function useDualAgent(
   clearAttachments?: () => void
 ) {
   const running = ref(false);
-  const userMessage = ref(DEFAULT_USER_MESSAGE);
+  const userMessage = ref('');
   /** 当前流程是否被用户取消（供 UI 展示“恢复”操作） */
   const cancelled = ref(false);
 

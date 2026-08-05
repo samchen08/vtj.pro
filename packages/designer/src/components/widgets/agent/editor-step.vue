@@ -205,7 +205,6 @@
     const labels: Record<string, string> = {
       tool_call: '工具',
       vue_code: 'Vue',
-      code: '代码',
       diff: 'Diff',
       text: '回复',
       unknown: '输出'

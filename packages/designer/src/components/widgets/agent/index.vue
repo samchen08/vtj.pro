@@ -172,8 +172,7 @@
       direction="ltr"
       :modal="false"
       :with-header="false"
-      modal-class="v-agent-widget__drawer-modal"
-      :append-to-body="false">
+      modal-class="v-agent-widget__drawer-modal">
       <Panel class="v-agent-widget" title="历史对话">
         <template #actions>
           <XAction
@@ -445,7 +444,6 @@
   const agentApi: DualAgentApi = {
     postTopic,
     postChat,
-    streamCompletion,
     executeArchitectPlan,
     retryEditorPlan,
     resumeEditorPlan,

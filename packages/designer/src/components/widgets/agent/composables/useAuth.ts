@@ -14,22 +14,10 @@ export function useAuth(getToken: () => string | undefined) {
     token.value = getToken() || '';
   }
 
-  /** 重置话题 ID */
-  function clearTopicId() {
-    existingTopicId.value = '';
-  }
-
-  /** 设置话题 ID */
-  function setTopicId(id: string) {
-    existingTopicId.value = id;
-  }
-
   return {
     token,
     model,
     existingTopicId,
-    initToken,
-    clearTopicId,
-    setTopicId
+    initToken
   };
 }
