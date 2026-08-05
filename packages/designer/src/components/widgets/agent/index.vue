@@ -105,7 +105,7 @@
           :round="round"
           :round-number="index + 1"
           :is-latest="index === conversationRounds.length - 1"
-          :retryable="index === conversationRounds.length - 1 && !running"
+          :retryable="!running"
           :code="!isHideCode"
           :details-command="detailsCommand"
           @view="showCodeDetail"
@@ -119,6 +119,7 @@
           class="v-agent-widget__status"
           :class="statusType">
           <span v-if="running" class="status-spinner"></span>
+          <span v-else class="status-icon">{{ statusIcon }}</span>
           <span>{{ statusText }}</span>
           <ElButton
             v-if="statusType === 'danger' && !running"
@@ -238,17 +239,39 @@
   import { useExport } from './composables/useExport';
   import { useReplayChat } from './composables/useReplayChat';
   import { withRequestRetry } from './utils';
+  import {
+    HIDE_CODE_STORAGE_KEY,
+    SCROLL_NEAR_BOTTOM_THRESHOLD
+  } from './constants';
+  import { setAgentStatus, Messages } from './utils/messages';
   import type {
     ConversationRound,
     DualAgentInfrastructure,
     DualAgentApi,
-    DualAgentState
+    DualAgentState,
+    AgentTopicBody,
+    AgentChatBody,
+    SaveChatBody,
+    UpdateTopicBody,
+    SaveTraceBody
   } from './types/agent';
 
   const engine = useEngine();
-  const hideCodeCacheKey = 'CHAT_HIDE_CODE';
   const statusText = ref('');
   const statusType = ref<'info' | 'warning' | 'success' | 'danger'>('info');
+  /** 状态条符号（文案不携带 emoji，符号由 UI 层依据 statusType 渲染） */
+  const statusIcon = computed(() => {
+    switch (statusType.value) {
+      case 'danger':
+        return '✕';
+      case 'warning':
+        return '⚠';
+      case 'success':
+        return '✓';
+      default:
+        return 'ℹ';
+    }
+  });
   const conversationRounds = ref<ConversationRound[]>([]);
   const conversationRef = ref<HTMLElement>();
   const showDrawer = ref(false);
@@ -257,7 +280,9 @@
   const hotTopics = ref<AITopic[]>([]);
   const models = ref<DictOption[]>([]);
   const settings = ref<Settings>();
-  const isHideCode = ref(!!storage.get(hideCodeCacheKey, { type: 'local' }));
+  const isHideCode = ref(
+    !!storage.get(HIDE_CODE_STORAGE_KEY, { type: 'local' })
+  );
   const detailsCommand = ref(0);
   const detailVisible = ref(false);
   const detailSource = ref('');
@@ -298,8 +323,8 @@
   );
   const unwrapOpenApi = <T,>(response: any): T => {
     const code = response?.code;
-    // 兼容字符串 code（如 '0'），null/undefined 视为无 code 字段
-    if (code !== undefined && code !== null && Number(code) !== 0) {
+    // 显式兼容数字 0 与字符串 '0'；null/undefined 视为无 code 字段
+    if (!(code == null || code === 0 || code === '0')) {
       const error = new Error(
         response.message || `API Error code=${code}`
       ) as Error & { status?: number };
@@ -315,20 +340,24 @@
     }
     return (response?.data !== undefined ? response.data : response) as T;
   };
+  // activeChat 统一经 setActiveChat 写入，供中止/取消时标记 Canceled 状态
   let activeChat: any = null;
+  const setActiveChat = (chat: any) => {
+    activeChat = chat;
+  };
   const trackActiveChat = (response: any) => {
-    activeChat = response?.chat || response;
+    setActiveChat(response?.chat || response);
     return response;
   };
-  const postTopic = async (body: Record<string, any>) =>
+  const postTopic = async (body: AgentTopicBody) =>
     trackActiveChat(unwrapOpenApi<any>(await requestPostTopic(body as any)));
-  const postChat = async (body: Record<string, any>) =>
+  const postChat = async (body: AgentChatBody) =>
     trackActiveChat(unwrapOpenApi<any>(await requestPostChat(body as any)));
-  const saveChat = async (body: Parameters<typeof requestSaveChat>[0]) =>
+  const saveChat = async (body: SaveChatBody) =>
     unwrapOpenApi<any>(await requestSaveChat(body));
-  const updateTopic = async (body: Parameters<typeof requestUpdateTopic>[0]) =>
+  const updateTopic = async (body: UpdateTopicBody) =>
     unwrapOpenApi<any>(await requestUpdateTopic(body));
-  const saveTrace = async (body: Parameters<typeof requestSaveTrace>[0]) =>
+  const saveTrace = async (body: SaveTraceBody) =>
     unwrapOpenApi<any>(await requestSaveTrace(body));
   const getChats = async (topicId: string) =>
     withRequestRetry(() =>
@@ -353,7 +382,7 @@
     onChunk,
     onReasoning
   ) => {
-    activeChat = { ...activeChat, id: chatId, topicId };
+    setActiveChat({ ...activeChat, id: chatId, topicId });
     return completeStream(topicId, chatId, onChunk, onReasoning);
   };
   const {
@@ -392,7 +421,8 @@
           name: tool.name,
           description: tool.description,
           parameters: tool.parameters,
-          handler
+          handler,
+          risk: tool.risk
         });
       }
     });
@@ -437,7 +467,7 @@
     getEngine,
     registerTools,
     abortSse: abortAll,
-    access: engine.access!,
+    access: engine.access ?? undefined,
     statusText,
     statusType
   };
@@ -493,7 +523,7 @@
   const toggleHideCode = () => {
     if (!hasData.value) return;
     isHideCode.value = !isHideCode.value;
-    storage.save(hideCodeCacheKey, isHideCode.value, { type: 'local' });
+    storage.save(HIDE_CODE_STORAGE_KEY, isHideCode.value, { type: 'local' });
   };
   const scrollToTop = () => conversationRef.value?.scrollTo({ top: 0 });
   const scrollToBottom = () =>
@@ -549,8 +579,7 @@
     if (id) target.id = id;
     const applied = await engine.applyAI(target);
     if (!applied) {
-      statusText.value = '❌ 项目已被锁定，无法应用变更';
-      statusType.value = 'danger';
+      setAgentStatus(statusText, statusType, Messages.lockedProject);
       return;
     }
     detailVisible.value = false;
@@ -585,18 +614,18 @@
     if (activeChat) {
       activeChat.status = 'Canceled';
       cancelChat(activeChat).catch(() => null);
-      activeChat = null;
+      setActiveChat(null);
     }
   };
 
   const retryAgent = async () => {
     await retryLastRound();
-    activeChat = null;
+    setActiveChat(null);
   };
 
   const resumeAgent = async () => {
     await resumeLastRound();
-    activeChat = null;
+    setActiveChat(null);
   };
 
   const retryAgentStep = async (
@@ -604,12 +633,12 @@
     stepIndex: number
   ) => {
     await retryStep(round, stepIndex);
-    activeChat = null;
+    setActiveChat(null);
   };
 
   const retryAgentSummary = async (round: ConversationRound) => {
     await retryRoundSummary(round);
-    activeChat = null;
+    setActiveChat(null);
   };
 
   const startNewConversation = () => {
@@ -638,7 +667,7 @@
       clearFiles();
     }
     await task;
-    activeChat = null;
+    setActiveChat(null);
     await loadTopics();
   };
 
@@ -650,11 +679,15 @@
       clearFiles();
     }
     await task;
-    activeChat = null;
+    setActiveChat(null);
     await loadTopics();
   };
 
   const showChatRecords = async () => {
+    if (!logined.value) {
+      setAgentStatus(statusText, statusType, Messages.tokenMissing);
+      return;
+    }
     showDrawer.value = !showDrawer.value;
     if (showDrawer.value) await loadTopics();
   };
@@ -684,21 +717,30 @@
     const element = conversationRef.value;
     if (!element) return;
     isNearBottom =
-      element.scrollHeight - element.scrollTop - element.clientHeight < 80;
+      element.scrollHeight - element.scrollTop - element.clientHeight <
+      SCROLL_NEAR_BOTTOM_THRESHOLD;
   };
-  watch(
-    conversationRounds,
-    () => {
-      cancelAnimationFrame(scrollFrame);
-      nextTick(() => {
-        scrollFrame = requestAnimationFrame(() => {
-          const element = conversationRef.value;
-          if (element && isNearBottom) element.scrollTop = element.scrollHeight;
-        });
-      });
-    },
-    { deep: true }
+  // 定向浅监听：仅跟踪影响高度的摘要（文本长度、步骤数、轮次数），
+  // 避免 deep 监听 editorResults 内部字段导致无效滚动
+  const scrollWatchKey = computed(() =>
+    conversationRounds.value
+      .map(
+        (r) =>
+          `${r.architectStreamText.length}|${r.summaryText.length}|${r.editorResults
+            .map((e) => `${e.content.length}:${e.turns.length}`)
+            .join(',')}`
+      )
+      .join(';')
   );
+  watch(scrollWatchKey, () => {
+    cancelAnimationFrame(scrollFrame);
+    nextTick(() => {
+      scrollFrame = requestAnimationFrame(() => {
+        const element = conversationRef.value;
+        if (element && isNearBottom) element.scrollTop = element.scrollHeight;
+      });
+    });
+  });
 
   // 项目切换后刷新历史话题，并加载新项目最近一次对话
   watch(
@@ -720,7 +762,7 @@
     logined.value = await isLogined();
     if (!logined.value) return;
     models.value = await getDictOptions('LLM').catch(() => []);
-    settings.value = await getSettings();
+    settings.value = await getSettings().catch(() => undefined);
     hotTopics.value = await getHotTopics(engine.project.value?.platform)
       .then((response) => unwrapOpenApi<AITopic[]>(response))
       .catch(() => []);
@@ -733,7 +775,7 @@
   onUnmounted(() => {
     cancelAnimationFrame(scrollFrame);
     conversationRef.value?.removeEventListener('scroll', onConversationScroll);
-    abortAgent();
+    if (running.value) abortAgent();
     clearFiles();
   });
 
@@ -825,6 +867,15 @@
     border-top-color: var(--el-color-primary);
     border-radius: 50%;
     animation: agent-spin 0.8s linear infinite;
+  }
+
+  .status-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 14px;
+    height: 14px;
+    font-size: 12px;
   }
 
   @keyframes agent-spin {

@@ -1745,6 +1745,41 @@ const getUniConfig: ToolConfig = {
       }
     }
 };
+/**
+ * 工具风险等级声明
+ * 未声明的读取类工具（get 开头或 refresh）默认免审批，其余写操作默认按 write 处理
+ */
+const TOOL_RISKS: Record<string, 'write' | 'destructive'> = {
+  createPage: 'write',
+  updatePage: 'write',
+  movePage: 'write',
+  removePage: 'destructive',
+  createBlock: 'write',
+  updateBlock: 'write',
+  removeBlock: 'destructive',
+  active: 'write',
+  setApi: 'write',
+  setApis: 'write',
+  removeApi: 'destructive',
+  removeApis: 'destructive',
+  setDeps: 'write',
+  removeDeps: 'destructive',
+  setHomepage: 'write',
+  setGlobalCss: 'write',
+  setGlobalStore: 'write',
+  setGlobalAccess: 'write',
+  setGlobalAxios: 'write',
+  setGlobalRequestInterceptor: 'write',
+  setGlobalResponseInterceptor: 'write',
+  setGlobalBeforeEach: 'write',
+  setGlobalAfterEach: 'write',
+  createEnv: 'write',
+  removeEnv: 'destructive',
+  createI18nMessage: 'write',
+  removeI18nMessage: 'destructive',
+  setUniConfig: 'write'
+};
+
 export const TOOL_CONFIGS: ToolConfig[] = [
   getSkills,
   getMenus,
@@ -1795,4 +1830,6 @@ export const TOOL_CONFIGS: ToolConfig[] = [
   removeI18nMessage,
   setUniConfig,
   getUniConfig
-];
+].map((tool) =>
+  TOOL_RISKS[tool.name] ? { ...tool, risk: TOOL_RISKS[tool.name] } : tool
+);

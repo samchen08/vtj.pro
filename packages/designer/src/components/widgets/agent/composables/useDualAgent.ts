@@ -13,10 +13,13 @@ import type {
   AttachmentInfo,
   DualAgentInfrastructure,
   DualAgentApi,
-  DualAgentState
+  DualAgentState,
+  AgentTopicBody,
+  AgentChatBody
 } from '../types/agent';
 import type { ArchPlanTargets } from './useArchitectPlan';
 import { stripFileDescBlocks } from '../utils/filePrompt';
+import { setAgentStatus, Messages } from '../utils/messages';
 
 /** 生成 trace ID */
 function generateTraceId(): string {
@@ -102,13 +105,11 @@ export function useDualAgent(
   /** 验证前置条件 */
   function validate(prompt: string): boolean {
     if (!token.value) {
-      infra.statusText.value = '❌ 请先获取 Token';
-      infra.statusType.value = 'danger';
+      setAgentStatus(infra.statusText, infra.statusType, Messages.tokenMissing);
       return false;
     }
     if (!prompt.trim()) {
-      infra.statusText.value = '❌ 请输入消息或上传文件';
-      infra.statusType.value = 'danger';
+      setAgentStatus(infra.statusText, infra.statusType, Messages.promptEmpty);
       return false;
     }
     return true;
@@ -173,8 +174,11 @@ export function useDualAgent(
       if (e?.name !== 'AbortError') {
         lastFailedSubmission = () => executeFlow(setup, finalPrompt);
       }
-      infra.statusText.value = `❌ 错误: ${e.message}`;
-      infra.statusType.value = 'danger';
+      setAgentStatus(
+        infra.statusText,
+        infra.statusType,
+        Messages.error(e.message)
+      );
     } finally {
       if (engine) engine.state.streaming = false;
       running.value = false;
@@ -190,11 +194,14 @@ export function useDualAgent(
       // 新开对话：清空所有历史轮次
       conversationRounds.value = [];
 
-      infra.statusText.value = '创建话题 (architect)...';
-      infra.statusType.value = 'info';
+      setAgentStatus(
+        infra.statusText,
+        infra.statusType,
+        Messages.creatingTopic
+      );
 
-      const userData = infra.access.getData();
-      const topicBody = {
+      const userData = infra.access?.getData();
+      const topicBody: AgentTopicBody = {
         model: model.value,
         llm: JSON.stringify(getEngine()?.state.getLLMById(model.value) || ''),
         prompt: finalPrompt,
@@ -219,8 +226,11 @@ export function useDualAgent(
       const userId = topic.userId || '';
       setTopicId(topicId);
 
-      infra.statusText.value = `话题创建成功: ${topicId}`;
-      infra.statusType.value = 'success';
+      setAgentStatus(
+        infra.statusText,
+        infra.statusType,
+        Messages.topicCreated(topicId)
+      );
 
       const round = reactive(createEmptyRound(userText));
       round.attachments = attachments;
@@ -237,24 +247,32 @@ export function useDualAgent(
   async function continueConversation() {
     const tid = existingTopicId.value.trim();
     if (!tid) {
-      infra.statusText.value = '❌ 请输入 Topic ID';
-      infra.statusType.value = 'danger';
+      setAgentStatus(
+        infra.statusText,
+        infra.statusType,
+        Messages.topicIdMissing
+      );
       return;
     }
 
     const requestId = generateTraceId();
     await executeFlow(async (finalPrompt, userText, attachments) => {
-      infra.statusText.value = '创建 Architect 聊天...';
-      infra.statusType.value = 'info';
+      setAgentStatus(
+        infra.statusText,
+        infra.statusType,
+        Messages.creatingArchitectChat
+      );
 
-      const chatRes = await postChat({
+      const chatBody: AgentChatBody = {
         topicId: tid,
         prompt: finalPrompt,
         agent: 'architect',
         source: '',
         files: attachments.length ? JSON.stringify(attachments) : undefined,
         requestId
-      });
+      };
+
+      const chatRes = await postChat(chatBody);
       const chat = chatRes.chat || chatRes;
       const chatId = chat.id || chat.chatId || '';
 
@@ -265,7 +283,7 @@ export function useDualAgent(
       conversationRounds.value.push(round);
       round.architectChatId = chatId;
 
-      const userData = infra.access.getData();
+      const userData = infra.access?.getData();
       const userId = userData?.id || '';
       return { topicId: tid, userId, chatId, round };
     });
@@ -288,8 +306,11 @@ export function useDualAgent(
       registerTools();
       await task(flowAbortController.signal);
     } catch (e: any) {
-      infra.statusText.value = `❌ 重试失败: ${e.message}`;
-      infra.statusType.value = 'danger';
+      setAgentStatus(
+        infra.statusText,
+        infra.statusType,
+        Messages.retryFailed(e.message)
+      );
     } finally {
       if (engine) engine.state.streaming = false;
       running.value = false;
@@ -298,15 +319,13 @@ export function useDualAgent(
     }
   }
 
-  function getRetryContext(round: ConversationRound) {
-    const lastRound =
-      conversationRounds.value[conversationRounds.value.length - 1];
-    if (round !== lastRound) throw new Error('只能重试当前会话的最后一轮');
+  function getRetryContext(_round: ConversationRound) {
+    // 放开“只能重试最后一轮”限制：任何轮次只要处于失败/取消态即可重试
     const topicId = existingTopicId.value.trim();
-    if (!topicId) throw new Error('缺少 Topic ID，无法重试');
+    if (!topicId) throw new Error(Messages.retryTopicIdMissing.text);
     return {
       topicId,
-      userId: infra.access.getData()?.id || '',
+      userId: infra.access?.getData()?.id || '',
       traceId: generateTraceId()
     };
   }
@@ -315,10 +334,13 @@ export function useDualAgent(
     await runRetry(async (signal) => {
       const { topicId, userId, traceId } = getRetryContext(round);
       if (!round.editorResults[stepIndex]?.error) {
-        throw new Error('该步骤不是失败状态');
+        throw new Error(Messages.stepNotFailed.text);
       }
-      infra.statusText.value = `重试第 ${stepIndex + 1} 步...`;
-      infra.statusType.value = 'warning';
+      setAgentStatus(
+        infra.statusText,
+        infra.statusType,
+        Messages.retryingStep(stepIndex + 1)
+      );
       await retryEditorPlan(
         topicId,
         userId,
@@ -334,8 +356,11 @@ export function useDualAgent(
   async function retrySummary(round: ConversationRound) {
     await runRetry(async (signal) => {
       const { topicId, userId, traceId } = getRetryContext(round);
-      infra.statusText.value = '重新生成任务总结...';
-      infra.statusType.value = 'warning';
+      setAgentStatus(
+        infra.statusText,
+        infra.statusType,
+        Messages.retryingSummary
+      );
       await executeSummaryRetry(
         topicId,
         userId,
@@ -352,11 +377,14 @@ export function useDualAgent(
     try {
       context = getRetryContext(round);
       if (!round.architectChatId) {
-        throw new Error('该轮次缺少 Architect chat ID，无法重试');
+        throw new Error(Messages.architectChatIdMissing.text);
       }
     } catch (e: any) {
-      infra.statusText.value = `❌ ${e.message}`;
-      infra.statusType.value = 'danger';
+      setAgentStatus(
+        infra.statusText,
+        infra.statusType,
+        Messages.error(e.message)
+      );
       return;
     }
 
@@ -369,8 +397,11 @@ export function useDualAgent(
       round.summaryText = '';
       round.summaryReasoning = '';
       round.summaryError = '';
-      infra.statusText.value = `${label} Architect 规划...`;
-      infra.statusType.value = 'warning';
+      setAgentStatus(
+        infra.statusText,
+        infra.statusType,
+        Messages.retryArchitect(label)
+      );
       await executeArchitectPlan(
         context.topicId,
         round.architectChatId,
@@ -389,17 +420,22 @@ export function useDualAgent(
       conversationRounds.value[conversationRounds.value.length - 1];
     if (!lastRound) {
       if (lastFailedSubmission) {
-        infra.statusText.value = '重试上次请求...';
-        infra.statusType.value = 'warning';
+        setAgentStatus(
+          infra.statusText,
+          infra.statusType,
+          Messages.retryingLastRequest
+        );
         return lastFailedSubmission();
       }
-      infra.statusText.value = '❌ 没有可重试的轮次';
-      infra.statusType.value = 'danger';
+      setAgentStatus(infra.statusText, infra.statusType, Messages.noRetryRound);
       return;
     }
     if (!existingTopicId.value.trim()) {
-      infra.statusText.value = '❌ 缺少 Topic ID，无法重试';
-      infra.statusType.value = 'danger';
+      setAgentStatus(
+        infra.statusText,
+        infra.statusType,
+        Messages.retryTopicIdMissing
+      );
       return;
     }
     const failedStep = lastRound.editorResults.findIndex((item) => item.error);
@@ -418,13 +454,19 @@ export function useDualAgent(
     const lastRound =
       conversationRounds.value[conversationRounds.value.length - 1];
     if (!lastRound) {
-      infra.statusText.value = '❌ 没有可恢复的轮次';
-      infra.statusType.value = 'danger';
+      setAgentStatus(
+        infra.statusText,
+        infra.statusType,
+        Messages.noResumeRound
+      );
       return;
     }
     if (!existingTopicId.value.trim()) {
-      infra.statusText.value = '❌ 缺少 Topic ID，无法恢复';
-      infra.statusType.value = 'danger';
+      setAgentStatus(
+        infra.statusText,
+        infra.statusType,
+        Messages.resumeTopicIdMissing
+      );
       return;
     }
 

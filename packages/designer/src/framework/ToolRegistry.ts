@@ -60,6 +60,10 @@ export interface Tool {
    */
   parameters: ToolParameter[];
   /**
+   * 工具执行风险等级（供审批机制判断），未声明时由调用方按规则推断
+   */
+  risk?: 'write' | 'destructive';
+  /**
    * 工具异步执行函数
    */
   handler: (...args: any[]) => Promise<any>;

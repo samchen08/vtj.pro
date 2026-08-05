@@ -1,7 +1,7 @@
 <template>
   <article class="round-section" :class="{ latest: isLatest }">
     <div class="round-meta">{{ roundLabel }}</div>
-    <div class="user-message">
+    <div v-if="round.userMessage" class="user-message">
       {{ round.userMessage }}
       <div v-if="round.attachments?.length" class="attachment-list">
         <div v-for="f in round.attachments" :key="f.id" class="attachment-item">

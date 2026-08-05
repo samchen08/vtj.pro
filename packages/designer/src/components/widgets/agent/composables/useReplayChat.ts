@@ -16,6 +16,8 @@ import type {
 import { getApprovalRisk } from '../utils/approval';
 import { parseOutput } from '../utils/outputParser';
 import { stripFileDescBlocks } from '../utils/filePrompt';
+import { parseJsonObject } from '../utils/json';
+import { setAgentStatus, Messages } from '../utils/messages';
 
 /** 生成轮次唯一 ID */
 function genRoundId(): string {
@@ -26,15 +28,8 @@ function genRoundId(): string {
 function extractIntent(content: string): string {
   if (!content) return '';
   // 优先尝试解析 JSON 获取 intent（新格式：原始 LLM 响应）
-  const m = content.match(/\{[\s\S]*\}/);
-  if (m) {
-    try {
-      const parsed = JSON.parse(m[0]);
-      if (parsed.intent) return parsed.intent;
-    } catch {
-      // JSON 解析失败，继续尝试旧格式
-    }
-  }
+  const parsed = parseJsonObject(content);
+  if (parsed?.intent) return parsed.intent;
   // 兼容旧格式: "[Architect 规划] xxx"
   const prefix = '[Architect 规划] ';
   if (content.startsWith(prefix)) {
@@ -45,17 +40,11 @@ function extractIntent(content: string): string {
 
 /** 尝试从 content 中解析 JSON 计划 */
 function tryParsePlan(content: string): PlanResult | null {
-  const m = content.match(/\{[\s\S]*\}/);
-  if (!m) return null;
-  try {
-    const parsed = JSON.parse(m[0]) as PlanResult;
-    if (parsed.intent && Array.isArray(parsed.steps)) {
-      return parsed;
-    }
-    return null;
-  } catch {
-    return null;
+  const parsed = parseJsonObject<PlanResult>(content);
+  if (parsed?.intent && Array.isArray(parsed.steps)) {
+    return parsed;
   }
+  return null;
 }
 
 /**
@@ -323,8 +312,10 @@ function groupChatsIntoRounds(chats: ChatRecord[]): ChatRecord[][] {
   return rounds;
 }
 
-/** 从一组 chat 重建一个 ConversationRound */
-function buildRound(chats: ChatRecord[]): ConversationRound {
+/** 从一组 chat 重建一个 ConversationRound（空组返回 null，供上层过滤） */
+function buildRound(chats: ChatRecord[]): ConversationRound | null {
+  if (!chats.length) return null;
+
   const round: ConversationRound = {
     id: genRoundId(),
     userMessage: '',
@@ -431,49 +422,53 @@ export function useReplayChat(
 
   async function loadChatHistory(topicId: string): Promise<void> {
     if (!topicId) {
-      statusText.value = '缺少 Topic ID';
-      statusType.value = 'danger';
+      setAgentStatus(statusText, statusType, Messages.replayTopicIdMissing);
       return;
     }
 
-    statusText.value = '加载历史记录...';
-    statusType.value = 'info';
-    conversationRounds.value = [];
+    // 加载成功前保留现有轮次；失败时不清空旧数据
+    setAgentStatus(statusText, statusType, Messages.loadingHistory);
 
     try {
       const chats = await getChats(topicId);
 
       if (!Array.isArray(chats)) {
-        const msg = `接口返回数据格式异常 (期望数组，收到 ${typeof chats})`;
-        console.error('[useReplayChat]', msg, chats);
-        statusText.value = msg;
-        statusType.value = 'danger';
+        console.error('[useReplayChat]', '接口返回数据格式异常', chats);
+        setAgentStatus(
+          statusText,
+          statusType,
+          Messages.historyFormatInvalid(typeof chats)
+        );
         return;
       }
 
       if (chats.length === 0) {
-        statusText.value = '未找到交互记录';
-        statusType.value = 'warning';
+        conversationRounds.value = [];
+        setAgentStatus(statusText, statusType, Messages.historyEmpty);
         return;
       }
 
-      // 分组为轮次
+      // 分组为轮次，过滤空轮次（无 architect 起始的孤儿 editor chat）
       const rounds = groupChatsIntoRounds(chats);
-
-      // 重建每个轮次
-      const reconstructedRounds = rounds.map((group) =>
-        reactive(buildRound(group))
-      );
+      const reconstructedRounds = rounds
+        .map((group) => buildRound(group))
+        .filter((r): r is ConversationRound => r !== null)
+        .map((round) => reactive(round));
 
       conversationRounds.value = reconstructedRounds;
 
-      statusText.value = `已加载 ${reconstructedRounds.length} 轮对话记录`;
-      statusType.value = 'success';
+      setAgentStatus(
+        statusText,
+        statusType,
+        Messages.historyLoaded(reconstructedRounds.length)
+      );
     } catch (e: any) {
-      const errMsg = `加载失败: ${e.message}`;
-      console.error('[useReplayChat]', errMsg, e);
-      statusText.value = errMsg;
-      statusType.value = 'danger';
+      console.error('[useReplayChat]', '加载失败:', e);
+      setAgentStatus(
+        statusText,
+        statusType,
+        Messages.historyLoadFailed(e.message)
+      );
     }
   }
 

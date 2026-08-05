@@ -102,7 +102,7 @@ describe('useArchitectPlan.executeArchitectPlan', () => {
     );
 
     expect(deps.callLog).toHaveLength(0);
-    expect(deps.statusText.value).toBe('⏹️ 已取消');
+    expect(deps.statusText.value).toBe('已取消');
     expect(deps.statusType.value).toBe('info');
   });
 
@@ -169,7 +169,7 @@ describe('useArchitectPlan.executeArchitectPlan', () => {
     );
 
     expect(targets.architectAnswer.value).toBe('你好，我是 AI');
-    expect(deps.statusText.value).toBe('✅ Architect 直接回答');
+    expect(deps.statusText.value).toBe('Architect 直接回答');
     const updateBodies = deps.callLog.filter(
       ([name]) => name === 'updateTopic'
     );
@@ -219,7 +219,7 @@ describe('useArchitectPlan.executeArchitectPlan', () => {
     expect(targets.architectPlan.value?.intent).toBe('创建页面');
     expect(targets.summaryText.value).toBe('总结内容');
     expect(deps.buildSummaryPrompt).toHaveBeenCalledTimes(1);
-    expect(deps.statusText.value).toBe('✅ 全部 2 个步骤执行完成');
+    expect(deps.statusText.value).toBe('全部 2 个步骤执行完成');
     expect(deps.statusType.value).toBe('success');
 
     expect(deps.callLog.map(([name]) => name)).toEqual([
@@ -270,7 +270,7 @@ describe('useArchitectPlan.executeArchitectPlan', () => {
     );
 
     expect(deps.executeEditorStep).toHaveBeenCalledTimes(1);
-    expect(deps.statusText.value).toBe('❌ 第 1 步执行失败，可从此步骤重试');
+    expect(deps.statusText.value).toBe('第 1 步执行失败，可从此步骤重试');
     expect(deps.statusType.value).toBe('danger');
     const failedUpdates = deps.callLog.filter(
       ([name, body]) => name === 'updateTopic' && body.status === 'failed'
@@ -360,7 +360,7 @@ describe('useArchitectPlan.executeArchitectPlan', () => {
     );
 
     expect(deps.executeEditorStep).toHaveBeenCalledTimes(1);
-    expect(deps.statusText.value).toBe('⏹️ 已取消（已完成 1/2 步）');
+    expect(deps.statusText.value).toBe('已取消（已完成 1/2 步）');
     expect(deps.buildSummaryPrompt).not.toHaveBeenCalled();
     const names = deps.callLog.map(([name]) => name);
     expect(names).not.toContain('postChat');
@@ -504,7 +504,7 @@ describe('useArchitectPlan.resumeEditorPlan', () => {
     const stepArgs = (deps.executeEditorStep as any).mock.calls[0];
     expect(stepArgs[3]).toBe(1);
     expect(stepArgs[8]).toBeUndefined();
-    expect(deps.statusText.value).toBe('✅ 全部 2 个步骤执行完成');
+    expect(deps.statusText.value).toBe('全部 2 个步骤执行完成');
   });
 
   it('only regenerates the summary when all steps are done', async () => {
@@ -547,7 +547,7 @@ describe('useArchitectPlan.resumeEditorPlan', () => {
     const traceBody = deps.callLog.find(([name]) => name === 'saveTrace')![1];
     expect(traceBody.finalStatus).toBe('completed');
     expect(traceBody.stepsJson).toHaveLength(2);
-    expect(deps.statusText.value).toBe('✅ 任务总结已生成');
+    expect(deps.statusText.value).toBe('任务总结已生成');
     expect(deps.statusType.value).toBe('success');
   });
 

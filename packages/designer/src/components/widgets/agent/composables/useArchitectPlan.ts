@@ -2,9 +2,11 @@
  * Architect 规划执行
  * 调用 Architect → 解析计划 → 保存 → 分流（直接回复 or Editor 执行）→ 总结
  */
-import { nextTick, type Ref } from 'vue';
+import type { Ref } from 'vue';
 import type { PlanResult, StepRecord, ArchitectPlanDeps } from '../types/agent';
 import type { EditorStepResult } from '../types/agent';
+import { parseJsonObject } from '../utils/json';
+import { setAgentStatus, Messages } from '../utils/messages';
 
 /** executeArchitectPlan 写入的目标 ref 集合 */
 export interface ArchPlanTargets {
@@ -54,8 +56,7 @@ export function useArchitectPlan(deps: ArchitectPlanDeps) {
     targets.summaryText.value = '';
     targets.summaryReasoning.value = '';
     targets.summaryError.value = '';
-    statusText.value = '生成任务总结...';
-    statusType.value = 'warning';
+    setAgentStatus(statusText, statusType, Messages.generatingSummary);
 
     try {
       const summaryChatRes = await postChat({
@@ -128,8 +129,11 @@ export function useArchitectPlan(deps: ArchitectPlanDeps) {
 
     for (let i = startStep; i < steps.length; i++) {
       if (signal?.aborted) {
-        statusText.value = `⏹️ 已取消（已完成 ${i}/${steps.length} 步）`;
-        statusType.value = 'info';
+        setAgentStatus(
+          statusText,
+          statusType,
+          Messages.cancelledWithProgress(i, steps.length)
+        );
         return;
       }
 
@@ -174,8 +178,7 @@ export function useArchitectPlan(deps: ArchitectPlanDeps) {
     }
 
     if (signal?.aborted) {
-      statusText.value = '⏹️ 已取消';
-      statusType.value = 'info';
+      setAgentStatus(statusText, statusType, Messages.cancelled);
       return;
     }
 
@@ -191,8 +194,7 @@ export function useArchitectPlan(deps: ArchitectPlanDeps) {
     }
 
     if (signal?.aborted) {
-      statusText.value = '⏹️ 已取消';
-      statusType.value = 'info';
+      setAgentStatus(statusText, statusType, Messages.cancelled);
       return;
     }
 
@@ -212,14 +214,23 @@ export function useArchitectPlan(deps: ArchitectPlanDeps) {
     });
 
     if (failedStep >= 0) {
-      statusText.value = `❌ 第 ${failedStep + 1} 步执行失败，可从此步骤重试`;
-      statusType.value = 'danger';
+      setAgentStatus(
+        statusText,
+        statusType,
+        Messages.stepFailed(failedStep + 1)
+      );
     } else if (targets.summaryError.value) {
-      statusText.value = `❌ 总结生成失败: ${targets.summaryError.value}`;
-      statusType.value = 'danger';
+      setAgentStatus(
+        statusText,
+        statusType,
+        Messages.summaryFailed(targets.summaryError.value)
+      );
     } else {
-      statusText.value = `✅ 全部 ${steps.length} 个步骤执行完成`;
-      statusType.value = 'success';
+      setAgentStatus(
+        statusText,
+        statusType,
+        Messages.allStepsDone(steps.length)
+      );
     }
   }
 
@@ -244,8 +255,7 @@ export function useArchitectPlan(deps: ArchitectPlanDeps) {
     }
 
     // ── Architect 流式规划 ──
-    statusText.value = 'Architect 规划中...';
-    statusType.value = 'warning';
+    setAgentStatus(statusText, statusType, Messages.architectPlanning);
     targets.architectStreamText.value = '';
     targets.reasoningText.value = '';
 
@@ -257,35 +267,24 @@ export function useArchitectPlan(deps: ArchitectPlanDeps) {
       },
       (r) => {
         targets.reasoningText.value += r;
-        nextTick();
       }
     );
 
     // 检查取消信号：SSE 流被中断后不应继续执行后续操作
     if (isCancelled()) {
-      statusText.value = '⏹️ 已取消';
-      statusType.value = 'info';
+      setAgentStatus(statusText, statusType, Messages.cancelled);
       return;
     }
 
-    // 解析计划 JSON
-    function tryParse(content: string): PlanResult | null {
-      const m = content.match(/\{[\s\S]*\}/);
-      if (!m) return null;
-      try {
-        return JSON.parse(m[0]) as PlanResult;
-      } catch {
-        return null;
-      }
-    }
-
-    targets.architectPlan.value = tryParse(targets.architectStreamText.value);
+    // 解析计划 JSON（括号配对扫描，避免贪婪正则截断）
+    targets.architectPlan.value = parseJsonObject<PlanResult>(
+      targets.architectStreamText.value
+    );
 
     // ── 保存 Architect chat ──
     // 再次检查取消信号，避免写入已取消会话的数据
     if (isCancelled()) {
-      statusText.value = '⏹️ 已取消';
-      statusType.value = 'info';
+      setAgentStatus(statusText, statusType, Messages.cancelled);
       return;
     }
 
@@ -307,8 +306,7 @@ export function useArchitectPlan(deps: ArchitectPlanDeps) {
 
     // ── 计划为空 → 标记失败 ──
     if (!targets.architectPlan.value) {
-      statusText.value = '⚠️ Architect 未返回有效 JSON，检查 SSE 日志';
-      statusType.value = 'danger';
+      setAgentStatus(statusText, statusType, Messages.planInvalid);
       await updateTopic({
         id: topicId,
         status: 'failed',
@@ -342,8 +340,7 @@ export function useArchitectPlan(deps: ArchitectPlanDeps) {
         targets.architectPlan.value.intent ||
         '(无回复)';
       targets.architectAnswer.value = answer;
-      statusText.value = '✅ Architect 直接回答';
-      statusType.value = 'success';
+      setAgentStatus(statusText, statusType, Messages.architectAnswered);
       await updateTopic({
         id: topicId,
         status: 'completed',
@@ -362,8 +359,11 @@ export function useArchitectPlan(deps: ArchitectPlanDeps) {
       return;
     }
 
-    statusText.value = `计划已生成: ${targets.architectPlan.value.intent}`;
-    statusType.value = 'success';
+    setAgentStatus(
+      statusText,
+      statusType,
+      Messages.planGenerated(targets.architectPlan.value.intent)
+    );
     await executeEditorPlan(
       topicId,
       userId,
@@ -440,10 +440,13 @@ export function useArchitectPlan(deps: ArchitectPlanDeps) {
       totalTokens,
       totalDuration: Date.now() - startTime
     });
-    statusText.value = targets.summaryError.value
-      ? `❌ 总结生成失败: ${targets.summaryError.value}`
-      : '✅ 任务总结已重新生成';
-    statusType.value = targets.summaryError.value ? 'danger' : 'success';
+    setAgentStatus(
+      statusText,
+      statusType,
+      targets.summaryError.value
+        ? Messages.summaryFailed(targets.summaryError.value)
+        : Messages.summaryRegenerated
+    );
   }
 
   /**
@@ -476,8 +479,7 @@ export function useArchitectPlan(deps: ArchitectPlanDeps) {
 
     // 步骤已全部完成，仅总结缺失（总结阶段取消）
     if (startStep >= steps.length) {
-      statusText.value = '恢复生成任务总结...';
-      statusType.value = 'warning';
+      setAgentStatus(statusText, statusType, Messages.resumedSummary);
       const records = results.map(toStepRecord);
       const totalTokens = await generateSummary(
         topicId,
@@ -497,17 +499,23 @@ export function useArchitectPlan(deps: ArchitectPlanDeps) {
         totalTokens,
         totalDuration: Date.now() - startTime
       });
-      statusText.value = targets.summaryError.value
-        ? `❌ 总结生成失败: ${targets.summaryError.value}`
-        : '✅ 任务总结已生成';
-      statusType.value = targets.summaryError.value ? 'danger' : 'success';
+      setAgentStatus(
+        statusText,
+        statusType,
+        targets.summaryError.value
+          ? Messages.summaryFailed(targets.summaryError.value)
+          : Messages.summaryGenerated
+      );
       return;
     }
 
     // 从断点步骤续跑（跳过已完成步骤，retrySlot 复用未完成槽位）
     await updateTopic({ id: topicId, status: 'executing', traceId });
-    statusText.value = `恢复执行: 步骤 ${startStep + 1}/${steps.length}...`;
-    statusType.value = 'warning';
+    setAgentStatus(
+      statusText,
+      statusType,
+      Messages.resumingStep(startStep + 1, steps.length)
+    );
     await executeEditorPlan(
       topicId,
       userId,

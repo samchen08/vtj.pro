@@ -2,7 +2,7 @@
  * 双代理 (Architect + Editor) 页面的类型定义
  */
 import type { Ref } from 'vue';
-import type { Engine } from '../../../../framework';
+import type { Engine, TopicDto, ChatDto } from '../../../../framework';
 import type { Access } from '@vtj/renderer';
 import type { ArchPlanTargets } from '../composables/useArchitectPlan';
 
@@ -219,6 +219,66 @@ export interface ExportedTurn {
 
 // ── useDualAgent 配置接口 ──
 
+/** 创建话题请求体（扩展自框架 TopicDto） */
+export interface AgentTopicBody extends TopicDto {
+  agent?: 'architect' | 'editor';
+  userId?: string;
+  userName?: string;
+  files?: string;
+  requestId?: string;
+}
+
+/** 创建聊天请求体（扩展自框架 ChatDto） */
+export interface AgentChatBody extends ChatDto {
+  agent?: 'architect' | 'editor';
+  stepId?: string;
+  attempt?: number;
+  userId?: string;
+  userName?: string;
+  files?: string;
+  requestId?: string;
+}
+
+/** 保存聊天记录请求体（chats 表字段） */
+export interface SaveChatBody {
+  id: string;
+  topicId: string;
+  userId: string;
+  status?: string;
+  content?: string;
+  reasoning?: string;
+  modelUsed?: string;
+  tokens?: number;
+  tokensPrompt?: number;
+  tokensCompletion?: number;
+  thinking?: number;
+  toolCallId?: string;
+  toolContent?: string;
+  vue?: string;
+  dsl?: string;
+  source?: string;
+}
+
+/** 更新话题请求体 */
+export interface UpdateTopicBody {
+  id: string;
+  status?: string;
+  planJson?: PlanResult | null;
+  traceId?: string;
+  currentStepId?: string;
+}
+
+/** 保存 trace 请求体 */
+export interface SaveTraceBody {
+  traceId: string;
+  topicId: string;
+  planJson: PlanResult | null;
+  stepsJson: StepRecord[];
+  finalStatus: 'failed' | 'completed';
+  totalTokens: number;
+  totalDuration: number;
+}
+
 /** 基础设施依赖 */
 export interface DualAgentInfrastructure {
   token: Ref<string>;
@@ -228,15 +288,15 @@ export interface DualAgentInfrastructure {
   getEngine: () => Engine | null;
   registerTools: () => void;
   abortSse: () => void;
-  access: Access;
+  access?: Access;
   statusText: Ref<string>;
   statusType: Ref<'info' | 'warning' | 'success' | 'danger'>;
 }
 
 /** API 依赖 */
 export interface DualAgentApi {
-  postTopic: (body: Record<string, any>) => Promise<any>;
-  postChat: (body: Record<string, any>) => Promise<any>;
+  postTopic: (body: AgentTopicBody) => Promise<any>;
+  postChat: (body: AgentChatBody) => Promise<any>;
   executeArchitectPlan: (
     topicId: string,
     architectChatId: string,
@@ -288,9 +348,9 @@ export interface EditorStepDeps {
     onChunk?: (text: string) => void,
     onReasoning?: (text: string) => void
   ) => Promise<StreamCompletionResult>;
-  postChat: (body: Record<string, any>) => Promise<any>;
-  saveChat: (body: Record<string, any>) => Promise<any>;
-  updateTopic: (body: Record<string, any>) => Promise<any>;
+  postChat: (body: AgentChatBody) => Promise<any>;
+  saveChat: (body: SaveChatBody) => Promise<any>;
+  updateTopic: (body: UpdateTopicBody) => Promise<any>;
   getEngine: () => Engine | null;
   statusText: Ref<string>;
   statusType: Ref<'info' | 'warning' | 'success' | 'danger'>;
@@ -305,10 +365,10 @@ export interface ArchitectPlanDeps {
     onChunk?: (text: string) => void,
     onReasoning?: (text: string) => void
   ) => Promise<StreamCompletionResult>;
-  postChat: (body: Record<string, any>) => Promise<any>;
-  saveChat: (body: Record<string, any>) => Promise<any>;
-  updateTopic: (body: Record<string, any>) => Promise<any>;
-  saveTrace: (body: Record<string, any>) => Promise<any>;
+  postChat: (body: AgentChatBody) => Promise<any>;
+  saveChat: (body: SaveChatBody) => Promise<any>;
+  updateTopic: (body: UpdateTopicBody) => Promise<any>;
+  saveTrace: (body: SaveTraceBody) => Promise<any>;
   statusText: Ref<string>;
   statusType: Ref<'info' | 'warning' | 'success' | 'danger'>;
   executeEditorStep: (

@@ -93,7 +93,7 @@ describe('useDualAgent', () => {
 
     await startDualAgent();
 
-    expect(infra.statusText.value).toBe('❌ 请先获取 Token');
+    expect(infra.statusText.value).toBe('请先获取 Token');
     expect(infra.statusType.value).toBe('danger');
     expect(api.postTopic).not.toHaveBeenCalled();
     expect(api.postChat).not.toHaveBeenCalled();
@@ -109,7 +109,7 @@ describe('useDualAgent', () => {
 
     await startDualAgent();
 
-    expect(infra.statusText.value).toBe('❌ 请输入消息或上传文件');
+    expect(infra.statusText.value).toBe('请输入消息或上传文件');
     expect(api.postTopic).not.toHaveBeenCalled();
   });
 
@@ -163,7 +163,7 @@ describe('useDualAgent', () => {
 
     await continueConversation();
 
-    expect(infra.statusText.value).toBe('❌ 请输入 Topic ID');
+    expect(infra.statusText.value).toBe('请输入 Topic ID');
     expect(api.postTopic).not.toHaveBeenCalled();
     expect(api.postChat).not.toHaveBeenCalled();
   });
@@ -235,7 +235,7 @@ describe('useDualAgent', () => {
 
     await retryLastRound();
 
-    expect(infra.statusText.value).toBe('❌ 没有可重试的轮次');
+    expect(infra.statusText.value).toBe('没有可重试的轮次');
     expect(api.executeArchitectPlan).not.toHaveBeenCalled();
   });
 
@@ -249,7 +249,7 @@ describe('useDualAgent', () => {
 
     await retryLastRound();
 
-    expect(infra.statusText.value).toBe('❌ 缺少 Topic ID，无法重试');
+    expect(infra.statusText.value).toBe('缺少 Topic ID，无法重试');
     expect(api.executeArchitectPlan).not.toHaveBeenCalled();
   });
 
@@ -331,7 +331,7 @@ describe('useDualAgent', () => {
 
     await startDualAgent();
 
-    expect(infra.statusText.value).toBe('❌ 错误: 接口失败');
+    expect(infra.statusText.value).toBe('错误: 接口失败');
     expect(infra.statusType.value).toBe('danger');
     expect(running.value).toBe(false);
     expect(engine.state.streaming).toBe(false);
@@ -435,7 +435,7 @@ describe('useDualAgent', () => {
 
     await resumeLastRound();
 
-    expect(infra.statusText.value).toBe('❌ 没有可恢复的轮次');
+    expect(infra.statusText.value).toBe('没有可恢复的轮次');
     expect(api.resumeEditorPlan).not.toHaveBeenCalled();
     expect(api.executeArchitectPlan).not.toHaveBeenCalled();
   });

@@ -2,19 +2,28 @@
  * Editor 单步骤多轮执行
  * 管理一个计划步骤的工具调用循环（创建 chat → SSE 流 → 输出解析 → 类型分发）
  */
-import { nextTick, type Ref } from 'vue';
+import { type Ref } from 'vue';
 import { cloneDeep } from '@vtj/utils';
 import { parseOutput, executeTool, formatToolFeedback } from '../utils';
-import { createEditorTurn, getApprovalRisk } from '../utils/approval';
+import {
+  createEditorTurn,
+  getApprovalRisk,
+  type ApprovalRisk
+} from '../utils/approval';
+import { setAgentStatus, Messages } from '../utils/messages';
+import {
+  MAX_TURNS,
+  TOOL_TIMEOUT_MS,
+  DEFAULT_APPROVAL_RISK
+} from '../constants';
 import type {
   PlanStep,
   EditorStepResult,
   StreamCompletionResult,
   StepExecutionResult,
-  EditorStepDeps
+  EditorStepDeps,
+  SaveChatBody
 } from '../types/agent';
-
-const MAX_TURNS = 10;
 
 /** 正则转义 */
 function escapeRegExp(str: string): string {
@@ -33,11 +42,18 @@ export function useEditorStep(deps: EditorStepDeps) {
     requestApproval
   } = deps;
 
+  /** 查询工具显式声明的风险等级，未声明时按规则推断 */
+  function riskOf(action: string): ApprovalRisk | null {
+    const engine = getEngine();
+    const declared = engine?.toolRegistry.get(action)?.risk;
+    return getApprovalRisk(action, declared ?? null);
+  }
+
   async function approve(
     turnInfo: EditorStepResult['turns'][0],
     action: string
   ): Promise<boolean> {
-    const risk = getApprovalRisk(action) || 'write';
+    const risk = riskOf(action) || DEFAULT_APPROVAL_RISK;
     const id = `approval_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`;
     turnInfo.approval = {
       id,
@@ -45,12 +61,20 @@ export function useEditorStep(deps: EditorStepDeps) {
       risk,
       status: 'pending'
     };
-    statusText.value = `等待批准: ${action}`;
-    statusType.value = risk === 'destructive' ? 'danger' : 'warning';
+    setAgentStatus(
+      statusText,
+      statusType,
+      Messages.awaitingApproval(action, risk)
+    );
     const allowed = await requestApproval(id);
     turnInfo.approval.status = allowed ? 'approved' : 'rejected';
-    statusText.value = allowed ? `正在执行: ${action}` : `已拒绝: ${action}`;
-    statusType.value = allowed ? 'warning' : 'info';
+    setAgentStatus(
+      statusText,
+      statusType,
+      allowed
+        ? Messages.executingAction(action)
+        : Messages.actionRejected(action)
+    );
     return allowed;
   }
   /**
@@ -79,7 +103,7 @@ export function useEditorStep(deps: EditorStepDeps) {
     status = 'Success',
     toolContent?: string
   ) {
-    const body: any = {
+    const body: SaveChatBody = {
       id: edChatId,
       topicId,
       userId,
@@ -155,7 +179,7 @@ export function useEditorStep(deps: EditorStepDeps) {
     sourceCode?: string
   ) {
     try {
-      const body: any = {
+      const body: SaveChatBody = {
         id: chatId,
         topicId,
         userId,
@@ -198,8 +222,11 @@ export function useEditorStep(deps: EditorStepDeps) {
 
     if (isCancelled()) return cancelResult();
 
-    statusText.value = `Editor 执行中: ${step.description} (${stepIdx + 1}/${allSteps.length})`;
-    statusType.value = 'warning';
+    setAgentStatus(
+      statusText,
+      statusType,
+      Messages.editorExecuting(step.description, stepIdx + 1, allSteps.length)
+    );
 
     await updateTopic({
       id: topicId,
@@ -275,7 +302,13 @@ export function useEditorStep(deps: EditorStepDeps) {
     async function applyFixAndVerify(): Promise<boolean> {
       if (!ctx.needsRefreshVerify || isCancelled()) return false;
 
-      const verifyResult = await executeTool(getEngine()!, 'refresh', []);
+      const verifyResult = await executeTool(
+        getEngine()!,
+        'refresh',
+        [],
+        TOOL_TIMEOUT_MS,
+        signal
+      );
       if (isCancelled()) return false;
       if (verifyResult.success && verifyResult.result === true) {
         // 验证通过：无运行时错误
@@ -347,6 +380,7 @@ export function useEditorStep(deps: EditorStepDeps) {
         });
       } catch (e: any) {
         slot.error = `创建 chat 失败: ${e.message}`;
+        slot.done = true;
         return errResult(slot.error!, totalTokens, stepStart);
       }
 
@@ -364,7 +398,6 @@ export function useEditorStep(deps: EditorStepDeps) {
           (r) => {
             ti.reasoning += r;
             slot.reasoning += r;
-            nextTick();
           }
         );
         if (isCancelled()) return cancelResult(slot);
@@ -394,9 +427,9 @@ export function useEditorStep(deps: EditorStepDeps) {
 
           // 深拷贝参数，防止 toolRegistry.execute 内部修改原对象
           const execParams = cloneDeep(parsed.tool.parameters);
-          if (getApprovalRisk(parsed.tool.action)) exposeTurn(ti);
+          if (riskOf(parsed.tool.action)) exposeTurn(ti);
           if (
-            getApprovalRisk(parsed.tool.action) &&
+            riskOf(parsed.tool.action) &&
             !(await approve(ti, parsed.tool.action))
           ) {
             ti.toolResult = {
@@ -425,7 +458,9 @@ export function useEditorStep(deps: EditorStepDeps) {
           const execResult = await executeTool(
             getEngine()!,
             parsed.tool.action,
-            execParams
+            execParams,
+            TOOL_TIMEOUT_MS,
+            signal
           );
           if (isCancelled()) return cancelResult(slot);
 
@@ -719,19 +754,15 @@ export function useEditorStep(deps: EditorStepDeps) {
         slot.content = fullContent;
         slot.done = true;
 
-        await saveRemoteChat({
-          id: edChatId,
+        await saveChat(
+          edChatId,
           topicId,
           userId,
-          status: isText ? 'Success' : 'Error',
-          content: fullContent || ' ',
-          reasoning: result.reasoning || '',
-          modelUsed: result.modelUsed || '',
-          tokens: stepTokens,
-          tokensPrompt: result.usage?.prompt_tokens || 0,
-          tokensCompletion: result.usage?.completion_tokens || 0,
-          thinking: result.reasoningTime || 0
-        }).catch(() => null);
+          fullContent,
+          result,
+          stepTokens,
+          isText ? 'Success' : 'Error'
+        );
 
         return {
           content: fullContent,
@@ -741,6 +772,7 @@ export function useEditorStep(deps: EditorStepDeps) {
         };
       } catch (e: any) {
         slot.error = e.message;
+        slot.done = true;
         return errResult(e.message, totalTokens, stepStart);
       }
     }
