@@ -70,6 +70,7 @@
         :settings="settings"
         :get-image="getImage"></InviteTip>
       <PayTip
+        ref="payTipRef"
         v-if="settings"
         :remote="engine.remote"
         :settings="settings"
@@ -240,7 +241,8 @@
   import { exportConversation } from './utils/export';
   import {
     HIDE_CODE_STORAGE_KEY,
-    SCROLL_NEAR_BOTTOM_THRESHOLD
+    SCROLL_NEAR_BOTTOM_THRESHOLD,
+    PAY_LIMIT_MESSAGE
   } from './constants';
   import {
     setAgentStatus,
@@ -257,9 +259,16 @@
   const engine = useEngine();
   const statusText = ref('');
   const statusType = ref<'info' | 'warning' | 'success' | 'danger'>('info');
+  /** 付费提示组件引用（服务端额度用尽报错时触发显示） */
+  const payTipRef = ref<{ show: () => void }>();
   /** 状态写入统一闭包（各 composable 经 DI 使用，避免传递双 ref） */
-  const setStatus = (message: AgentStatusMessage) =>
+  const setStatus = (message: AgentStatusMessage) => {
     setAgentStatus(statusText, statusType, message);
+    // 服务端额度用尽报错：即时弹出付费提示（不等 settings 轮询）
+    if (message.text.includes(PAY_LIMIT_MESSAGE)) {
+      payTipRef.value?.show();
+    }
+  };
   /** 状态条符号（文案不携带 emoji，符号由 UI 层依据 statusType 渲染） */
   const statusIcon = computed(() => {
     switch (statusType.value) {
@@ -275,6 +284,16 @@
   });
   const conversationRounds = ref<ConversationRound[]>([]);
   const conversationRef = ref<HTMLElement>();
+  // 兜底：步骤失败错误（slot.error 不经 setStatus）可能携带额度用尽文案
+  watch(
+    () =>
+      conversationRounds.value
+        .flatMap((round) => round.editorResults.map((e) => e.error || ''))
+        .join('\n'),
+    (text) => {
+      if (text.includes(PAY_LIMIT_MESSAGE)) payTipRef.value?.show();
+    }
+  );
   const showDrawer = ref(false);
   const logined = ref(true);
   const topics = ref<AITopic[]>([]);

@@ -174,7 +174,9 @@ export function useDualAgent(
       const userData = infra.access?.getData();
       const topicBody: AgentTopicBody = {
         model: model.value,
-        llm: JSON.stringify(getEngine()?.state.getLLMById(model.value) || ''),
+        llm: JSON.stringify(
+          getEngine()?.state.getLLMById(model.value) || undefined
+        ),
         prompt: finalPrompt,
         project: JSON.stringify(getEngine()?.project.value?.toDsl() || {}),
         dsl: JSON.stringify(getEngine()?.current.value?.toDsl() || {}),

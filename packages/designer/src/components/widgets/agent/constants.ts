@@ -14,3 +14,6 @@ export const HIDE_CODE_STORAGE_KEY = 'CHAT_HIDE_CODE';
 
 /** 滚动判断"接近底部"的阈值（像素） */
 export const SCROLL_NEAR_BOTTOM_THRESHOLD = 80;
+
+/** 服务端"免费体验次数已用完"错误文案片段（命中时弹出付费提示） */
+export const PAY_LIMIT_MESSAGE = '免费体验次数已用完';

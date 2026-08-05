@@ -166,6 +166,11 @@
     visible.value = false;
   };
 
+  /** 服务端额度用尽报错时由外部（index.vue）触发显示 */
+  const showPayTip = () => {
+    visible.value = true;
+  };
+
   const onOrder = async () => {
     const res = await props.createOrder();
     if (res?.success) {
@@ -202,6 +207,8 @@
       }
     }
   };
+
+  defineExpose({ show: showPayTip });
 </script>
 
 <style lang="scss" scoped>
