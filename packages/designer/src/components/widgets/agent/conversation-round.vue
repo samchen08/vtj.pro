@@ -24,9 +24,12 @@
       :answer="round.architectAnswer"
       :stream-text="round.architectStreamText"
       :reasoning-text="round.reasoningText"
+      :error="round.architectError || ''"
+      :retryable="retryable"
       :code="code"
       :details-command="detailsCommand"
-      @view="(...args) => $emit('view', ...args)" />
+      @view="(...args) => $emit('view', ...args)"
+      @retry="$emit('retryArchitect')" />
 
     <div v-if="round.editorResults.length" class="step-list">
       <EditorStepCard
@@ -96,6 +99,7 @@
     apply: [dsl: Record<string, any>];
     retryStep: [stepIndex: number];
     retrySummary: [];
+    retryArchitect: [];
   }>();
 </script>
 

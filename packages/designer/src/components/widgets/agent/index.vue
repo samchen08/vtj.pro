@@ -113,6 +113,7 @@
           @apply="applyDetailDsl"
           @retry-step="(stepIndex) => retryAgentStep(round, stepIndex)"
           @retry-summary="retryAgentSummary(round)"
+          @retry-architect="retryAgentArchitect(round)"
           @resolve-approval="resolveApproval" />
 
         <div
@@ -449,6 +450,7 @@
     retryLastRound,
     retryStep,
     retrySummary: retryRoundSummary,
+    retryArchitect,
     resumeLastRound,
     abortAll: abortAgentFlow
   } = useDualAgent(
@@ -589,6 +591,11 @@
 
   const retryAgentSummary = async (round: ConversationRound) => {
     await retryRoundSummary(round);
+    clearActiveChat();
+  };
+
+  const retryAgentArchitect = async (round: ConversationRound) => {
+    await retryArchitect(round);
     clearActiveChat();
   };
 

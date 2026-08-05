@@ -7,14 +7,18 @@ import type {
   StepRecord,
   EditorStepResult,
   ConversationRound,
-  ArchitectPlanDeps
+  ArchitectPlanDeps,
+  StreamCompletionResult
 } from '../types/agent';
 import type { AgentStatusMessage } from '../utils/messages';
-import { parseJsonObject } from '../utils/json';
+import { parsePlanOutput } from '../utils/plan';
 import { pickChat } from '../utils/response';
 import { Messages } from '../utils/messages';
 import { buildSummaryPrompt } from '../utils/summary';
 import { buildChatSaveBody } from '../utils/chat';
+
+/** Architect 输出无效时的自动重试次数上限（大模型偶发输出空白/异常，重试一次通常可恢复） */
+const MAX_ARCHITECT_RETRIES = 1;
 
 export function useArchitectPlan(deps: ArchitectPlanDeps) {
   const {
@@ -274,21 +278,51 @@ export function useArchitectPlan(deps: ArchitectPlanDeps) {
       return signal?.aborted ?? false;
     }
 
-    // ── Architect 流式规划 ──
+    // ── Architect 流式规划（含自动重试：大模型偶发输出空白/无效内容） ──
     setStatus(Messages.architectPlanning);
     round.architectStreamText = '';
     round.reasoningText = '';
+    round.architectError = '';
 
-    const archResult = await streamCompletion(
-      topicId,
-      architectChatId,
-      (text) => {
-        round.architectStreamText += text;
-      },
-      (r) => {
-        round.reasoningText += r;
-      }
-    );
+    /** 流式拉取 Architect 输出（复用同一 chat 重发） */
+    const streamArchitect = () =>
+      streamCompletion(
+        topicId,
+        architectChatId,
+        (text) => {
+          round.architectStreamText += text;
+        },
+        (r) => {
+          round.reasoningText += r;
+        }
+      );
+
+    // 保存最后一次流式结果（保存 chat 时使用，含 usage 统计）
+    let planResult: StreamCompletionResult | null = null;
+    planResult = await streamArchitect();
+    totalTokens += planResult.usage?.total_tokens || 0;
+
+    // 解析计划 JSON（括号配对扫描，避免贪婪正则截断）+ 结构校验，
+    // 排除大模型输出的错误占位内容（如 {"error": ...}）或空白输出
+    let { plan, error: planError } = parsePlanOutput(round.architectStreamText);
+    let retryCount = 0;
+
+    // 输出无效时自动重试，直至成功、达到上限或取消
+    while (!plan && retryCount < MAX_ARCHITECT_RETRIES && !isCancelled()) {
+      retryCount++;
+      round.architectRetryCount = retryCount;
+      round.architectStreamText = '';
+      round.reasoningText = '';
+      setStatus(
+        Messages.architectRetrying(retryCount, MAX_ARCHITECT_RETRIES + 1)
+      );
+      planResult = await streamArchitect();
+      totalTokens += planResult.usage?.total_tokens || 0;
+      const parsed = parsePlanOutput(round.architectStreamText);
+      plan = parsed.plan;
+      // 保留模型自报的错误说明（如缺少关键信息），供最终失败时反馈
+      if (parsed.error) planError = parsed.error;
+    }
 
     // 检查取消信号：SSE 流被中断后不应继续执行后续操作
     if (isCancelled()) {
@@ -296,33 +330,27 @@ export function useArchitectPlan(deps: ArchitectPlanDeps) {
       return;
     }
 
-    // 解析计划 JSON（括号配对扫描，避免贪婪正则截断）
-    round.architectPlan = parseJsonObject<PlanResult>(
-      round.architectStreamText
-    );
+    round.architectPlan = plan;
 
-    // ── 保存 Architect chat ──
-    // 再次检查取消信号，避免写入已取消会话的数据
-    if (isCancelled()) {
-      setStatus(Messages.cancelled);
-      return;
-    }
-
+    // ── 保存 Architect chat（保存最终一次流式输出） ──
     await saveChat(
       buildChatSaveBody({
         id: architectChatId,
         topicId,
         userId,
         content: round.architectStreamText || ' ',
-        result: archResult,
-        tokens: archResult.usage?.total_tokens || 0
+        result: planResult,
+        tokens: planResult?.usage?.total_tokens || 0
       })
     );
-    totalTokens += archResult.usage?.total_tokens || 0;
 
-    // ── 计划为空 → 标记失败 ──
+    // ── 计划为空 → 记录错误并标记失败 ──
     if (!round.architectPlan) {
-      setStatus(Messages.planInvalid);
+      // 优先反馈大模型自报的错误（如缺少关键信息），否则使用通用文案
+      round.architectError = planError || Messages.planInvalid.text;
+      setStatus(
+        planError ? Messages.architectFailed(planError) : Messages.planInvalid
+      );
       await finalizeFlow({
         topicId,
         traceId,

@@ -71,7 +71,7 @@ export const Messages = {
   architectPlanning: { text: 'Architect 规划中...', type: 'warning' } as const,
   retryingSummary: { text: '重新生成任务总结...', type: 'warning' } as const,
   planInvalid: {
-    text: 'Architect 未返回有效 JSON，检查 SSE 日志',
+    text: 'Architect 输出异常，未生成有效计划',
     type: 'danger'
   } as const,
   architectAnswered: { text: 'Architect 直接回答', type: 'success' } as const,
@@ -121,6 +121,14 @@ export const Messages = {
   retryArchitect: (label: string): AgentStatusMessage => ({
     text: `${label} Architect 规划...`,
     type: 'warning'
+  }),
+  architectRetrying: (attempt: number, max: number): AgentStatusMessage => ({
+    text: `Architect 输出异常，正在重试 (${attempt}/${max})...`,
+    type: 'warning'
+  }),
+  architectFailed: (message: string): AgentStatusMessage => ({
+    text: `Architect 规划失败: ${message}`,
+    type: 'danger'
   }),
   error: (message: string): AgentStatusMessage => ({
     text: `错误: ${message}`,

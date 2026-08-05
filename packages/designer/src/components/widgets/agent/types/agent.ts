@@ -147,6 +147,10 @@ export interface ConversationRound {
   architectAnswer: string;
   architectStreamText: string;
   reasoningText: string;
+  /** Architect 规划失败原因（大模型输出无效/异常时记录，UI 与导出展示） */
+  architectError?: string;
+  /** Architect 规划自动重试次数（大模型输出无效时自动重发） */
+  architectRetryCount?: number;
   editorResults: EditorStepResult[];
   summaryText: string;
   summaryReasoning: string;
@@ -183,6 +187,8 @@ export interface ExportRound {
   summary?: string;
   /** 总结生成错误信息 */
   summaryError?: string;
+  /** Architect 规划失败原因 */
+  architectError?: string;
   /** 本轮错误信息 */
   error?: string;
 }

@@ -334,6 +334,8 @@ export function useDualAgent(
       round.architectAnswer = '';
       round.architectStreamText = '';
       round.reasoningText = '';
+      round.architectError = '';
+      round.architectRetryCount = 0;
       round.editorResults = [];
       round.summaryText = '';
       round.summaryReasoning = '';
@@ -349,6 +351,11 @@ export function useDualAgent(
         signal
       );
     });
+  }
+
+  /** 重试指定轮次的 Architect 规划（大模型输出无效/失败后手动重试入口） */
+  async function retryArchitect(round: ConversationRound) {
+    await retryArchitectRound(round, '重新规划');
   }
 
   /** 根据最后一轮的失败位置选择最小重试范围（label 用于区分重试/恢复文案） */
@@ -419,6 +426,7 @@ export function useDualAgent(
     retryLastRound,
     retryStep,
     retrySummary,
+    retryArchitect,
     resumeLastRound,
     abortAll
   };

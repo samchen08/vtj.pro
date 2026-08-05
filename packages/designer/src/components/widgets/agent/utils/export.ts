@@ -12,6 +12,9 @@ import type {
 
 /** 从轮次数据推导错误信息 */
 export function deriveError(r: ConversationRound): string | undefined {
+  // 优先使用实际记录的错误（大模型输出无效/规划失败）
+  if (r.architectError) return r.architectError;
+  // 兜底推导（兼容无 architectError 字段的旧数据）
   if (!r.architectPlan && r.editorResults.length === 0) {
     return 'Architect 未返回有效计划 JSON';
   }
@@ -95,6 +98,9 @@ export function exportConversation(
       }
       if (r.summaryError) {
         round.summaryError = r.summaryError;
+      }
+      if (r.architectError) {
+        round.architectError = r.architectError;
       }
       round.error = deriveError(r);
       return round;

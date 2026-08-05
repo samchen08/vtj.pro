@@ -1,11 +1,17 @@
 <template>
   <section
-    v-if="plan || streamText || reasoningText || answer"
+    v-if="plan || streamText || reasoningText || answer || error"
     class="architect-message">
     <div class="assistant-head">
       <span class="assistant-avatar">AI</span>
       <strong>{{
-        answer ? 'Architect 回复' : plan ? '执行计划' : '正在分析'
+        answer
+          ? 'Architect 回复'
+          : plan
+            ? '执行计划'
+            : error
+              ? '规划失败'
+              : '正在分析'
       }}</strong>
       <span v-if="plan" class="safety" :class="plan.safety">
         {{ safetyLabel }}
@@ -13,6 +19,18 @@
     </div>
 
     <div class="assistant-content">
+      <div v-if="error" class="error-block">
+        <span>规划失败：{{ error }}</span>
+        <ElButton
+          v-if="retryable"
+          link
+          type="primary"
+          size="small"
+          @click="$emit('retry')">
+          重新规划
+        </ElButton>
+      </div>
+
       <StreamMarkdown
         v-if="answer"
         class="answer-content"
@@ -42,7 +60,9 @@
           v-model="activeDetails"
           class="details-collapse">
           <el-collapse-item
-            :title="plan ? '查看分析详情' : '正在生成规划…'"
+            :title="
+              plan ? '查看分析详情' : error ? '查看原始输出' : '正在生成规划…'
+            "
             name="details">
             <pre
               ref="reasoningContentRef"
@@ -68,7 +88,7 @@
 
 <script lang="ts" setup>
   import { computed, ref, watch, toRef, onUnmounted } from 'vue';
-  import { ElCollapse, ElCollapseItem } from 'element-plus';
+  import { ElButton, ElCollapse, ElCollapseItem } from 'element-plus';
   import type { PlanResult } from './types/agent';
   import StreamMarkdown from './stream-markdown.vue';
   import { useContentAutoScroll } from './composables/useAutoScroll';
@@ -78,11 +98,14 @@
     answer: string;
     streamText: string;
     reasoningText: string;
+    error: string;
     code: boolean;
     detailsCommand: number;
+    retryable: boolean;
   }>();
   defineEmits<{
     view: [source: string, language: string];
+    retry: [];
   }>();
 
   const activeDetails = ref<string[]>([]);
@@ -213,6 +236,16 @@
     > :last-child {
       margin-bottom: 0;
     }
+  }
+
+  .error-block {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    margin-bottom: 8px;
+    color: var(--el-color-danger);
+    font-size: 12px;
   }
 
   .reasoning-content,

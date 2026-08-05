@@ -17,6 +17,7 @@ import { getApprovalRisk } from '../utils/approval';
 import { parseOutput } from '../utils/outputParser';
 import { stripFileDescBlocks } from '../utils/filePrompt';
 import { parseJsonObject } from '../utils/json';
+import { parsePlanOutput } from '../utils/plan';
 import { Messages } from '../utils/messages';
 import { genId } from '../utils/genId';
 
@@ -381,8 +382,27 @@ function buildRound(chats: ChatRecord[]): ConversationRound | null {
     if (editorChats.length === 0 && round.architectPlan?.answer) {
       round.architectAnswer = round.architectPlan.answer;
     } else if (editorChats.length === 0 && !round.architectPlan) {
-      // 无法解析 plan 且无 steps，content 作为直接回答
-      round.architectAnswer = architectChat.content || '';
+      const content = architectChat.content || '';
+      // 模型自报错误（{"error": "..."}）→ 还原为具体规划失败原因
+      const parsed = parsePlanOutput(content);
+      if (parsed.error) {
+        round.architectError = parsed.error;
+      } else if (content.trim()) {
+        // 无法解析 plan 且无 steps，content 作为直接回答
+        round.architectAnswer = content;
+      } else {
+        // 大模型输出为空/无效（如流式中断、模型异常），记录规划失败
+        round.architectError = Messages.planInvalid.text;
+      }
+    }
+
+    // 服务端记录的 architect 错误状态（如 SSE 失败、模型输出异常）
+    if (
+      !round.architectError &&
+      architectChat.status &&
+      architectChat.status !== 'Success'
+    ) {
+      round.architectError = architectChat.message || Messages.planInvalid.text;
     }
   } else if (singleChat) {
     // 单代理模式
