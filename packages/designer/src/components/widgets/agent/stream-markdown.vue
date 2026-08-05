@@ -42,20 +42,7 @@
 
   // 更新内容并触发高亮
   const updateContent = async () => {
-    let content = props.content || '';
-
-    // 1. 提取并保护代码块
-    const codeBlocks: string[] = [];
-    content = content.replace(/```[\s\S]*?```/g, (match) => {
-      codeBlocks.push(match);
-      return `__CODE_BLOCK_${codeBlocks.length - 1}__`;
-    });
-
-    // 2. 恢复代码块
-    content = content.replace(/__CODE_BLOCK_(\d+)__/g, (_match, index) => {
-      return codeBlocks[parseInt(index)];
-    });
-
+    const content = props.content || '';
     htmlContent.value = await marked(content);
     await nextTick();
     container.value?.querySelectorAll('pre code').forEach((block) => {

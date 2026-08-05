@@ -544,13 +544,18 @@ const refresh: ToolConfig = {
     ({ engine, config }) =>
     async () => {
       let error: any = null;
+      const prevHandler = engine.provider.errorHandler;
       engine.provider.errorHandler = (e) => {
         error = e;
       };
-      engine.simulator.refresh();
-      await delay(config.activeDelayMs);
-      await delay(1000);
-      engine.provider.errorHandler = null;
+      try {
+        engine.simulator.refresh();
+        await delay(config.activeDelayMs);
+        await delay(1000);
+      } finally {
+        // 恢复原错误处理器，避免工具执行异常时吞掉设计器错误处理
+        engine.provider.errorHandler = prevHandler;
+      }
       const messages = error ? [error.info || '', error.stack || ''] : [];
       return error
         ? `运行时报错：\n${error.message}\n请检查代码并修复\n---\n${messages.join('\n')}`

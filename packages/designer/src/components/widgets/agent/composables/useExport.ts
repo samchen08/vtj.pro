@@ -110,7 +110,8 @@ export function useExport() {
     a.href = url;
     a.download = `conversation-${existingTopicId || Date.now()}.json`;
     a.click();
-    URL.revokeObjectURL(url);
+    // 延迟回收，确保 Safari 等浏览器完成下载
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
   }
 
   return { exportConversation };

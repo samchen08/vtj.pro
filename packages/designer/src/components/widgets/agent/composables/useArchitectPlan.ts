@@ -436,7 +436,7 @@ export function useArchitectPlan(deps: ArchitectPlanDeps) {
       topicId,
       planJson: targets.architectPlan.value,
       stepsJson: records,
-      finalStatus: 'completed',
+      finalStatus: targets.summaryError.value ? 'failed' : 'completed',
       totalTokens,
       totalDuration: Date.now() - startTime
     });
@@ -493,7 +493,7 @@ export function useArchitectPlan(deps: ArchitectPlanDeps) {
         topicId,
         planJson: targets.architectPlan.value,
         stepsJson: records,
-        finalStatus: 'completed',
+        finalStatus: targets.summaryError.value ? 'failed' : 'completed',
         totalTokens,
         totalDuration: Date.now() - startTime
       });

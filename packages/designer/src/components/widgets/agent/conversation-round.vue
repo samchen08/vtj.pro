@@ -30,8 +30,8 @@
 
     <div v-if="round.editorResults.length" class="step-list">
       <EditorStepCard
-        v-for="(step, idx) in round.editorResults"
-        :key="idx"
+        v-for="step in round.editorResults"
+        :key="step.stepIdx"
         :step="step"
         :retryable="retryable"
         :code="code"

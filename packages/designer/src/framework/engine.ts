@@ -638,10 +638,19 @@ export class Engine extends Base {
   /**
    * 应用AI生成的DSL
    * @param dsl 区块Schema
+   * @returns 是否成功应用（项目被锁定或非本人锁定时返回 false）
    */
   public async applyAI(dsl: BlockSchema) {
-    const block = new BlockModel(dsl);
-    block.update(dsl);
+    if (this.checkLocked()) return false;
+    const current = this.current.value;
+    if (current && current.id === dsl.id) {
+      // 复用当前实例更新，避免新建 BlockModel 造成全局实例累积
+      current.update(dsl);
+    } else {
+      const block = new BlockModel(dsl);
+      block.update(dsl);
+    }
+    return true;
   }
 
   /**

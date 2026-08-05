@@ -197,7 +197,7 @@
 
 <script lang="ts" setup>
   import { ref, computed, nextTick, watch, onMounted, onUnmounted } from 'vue';
-  import { storage } from '@vtj/utils';
+  import { storage, cloneDeep } from '@vtj/utils';
   import {
     Download,
     ArrowUp,
@@ -298,11 +298,13 @@
     () => engine.access?.getData()?.token
   );
   const unwrapOpenApi = <T,>(response: any): T => {
-    if (response?.code !== undefined && response.code !== 0) {
+    const code = response?.code;
+    // 兼容字符串 code（如 '0'），null/undefined 视为无 code 字段
+    if (code !== undefined && code !== null && Number(code) !== 0) {
       const error = new Error(
-        response.message || `API Error code=${response.code}`
+        response.message || `API Error code=${code}`
       ) as Error & { status?: number };
-      error.status = Number(response.status || response.code) || undefined;
+      error.status = Number(response.status || code) || undefined;
       throw error;
     }
     if (response?.success === false) {
@@ -382,13 +384,18 @@
       } as ToolContext['config']
     };
     TOOL_CONFIGS.forEach((tool) => {
-      if (toolRegistry.has(tool.name)) return;
-      toolRegistry.register({
-        name: tool.name,
-        description: tool.description,
-        parameters: tool.parameters,
-        handler: tool.createHandler(toolContext)
-      });
+      // 每次执行前重建 handler（捕获最新 project），切换项目后工具操作不会指向旧项目
+      const handler = tool.createHandler(toolContext);
+      if (toolRegistry.has(tool.name)) {
+        toolRegistry.set(tool.name, { handler });
+      } else {
+        toolRegistry.register({
+          name: tool.name,
+          description: tool.description,
+          parameters: tool.parameters,
+          handler
+        });
+      }
     });
   };
 
@@ -483,7 +490,7 @@
       ? { icon: Hide, title: '显示代码块', type: 'warning' }
       : { icon: View, title: '隐藏代码块', type: 'default' }
   );
-  const detailsExpanded = computed(() => detailsCommand.value >= 0);
+  const detailsExpanded = computed(() => detailsCommand.value > 0);
 
   const toggleHideCode = () => {
     if (!hasData.value) return;
@@ -538,9 +545,16 @@
 
   const applyDetailDsl = async (dsl: any) => {
     if (!dsl) return;
+    // 深拷贝，避免直接修改共享 dsl 对象
+    const target = cloneDeep(dsl);
     const id = engine.current.value?.id;
-    if (id) dsl.id = id;
-    await engine.applyAI(dsl);
+    if (id) target.id = id;
+    const applied = await engine.applyAI(target);
+    if (!applied) {
+      statusText.value = '❌ 项目已被锁定，无法应用变更';
+      statusType.value = 'danger';
+      return;
+    }
     detailVisible.value = false;
   };
 
@@ -612,12 +626,14 @@
   };
 
   const loadTopics = async () => {
+    initToken();
     const projectId = engine.project.value?.__UID__;
     if (!token.value || !projectId) return;
     topics.value = await getTopics(projectId).catch(() => []);
   };
 
   const startAgent = async () => {
+    initToken();
     const task = startDualAgent();
     if (running.value) {
       userMessage.value = '';
@@ -629,6 +645,7 @@
   };
 
   const continueAgent = async () => {
+    initToken();
     const task = continueConversation();
     if (running.value) {
       userMessage.value = '';
@@ -645,6 +662,9 @@
   };
 
   const onRecordLoad = async (topic: AITopic) => {
+    // 运行中切换历史：先中止当前流程，避免 SSE 写入已卸载轮次
+    if (running.value) abortAgent();
+    initToken();
     existingTopicId.value = topic.id;
     model.value = topic.model || model.value;
     cancelled.value = false;
@@ -660,6 +680,14 @@
   };
 
   let scrollFrame = 0;
+  // 用户是否停留在底部区域（避免内容更新时强制拉底干扰阅读）
+  let isNearBottom = true;
+  const onConversationScroll = () => {
+    const element = conversationRef.value;
+    if (!element) return;
+    isNearBottom =
+      element.scrollHeight - element.scrollTop - element.clientHeight < 80;
+  };
   watch(
     conversationRounds,
     () => {
@@ -667,11 +695,26 @@
       nextTick(() => {
         scrollFrame = requestAnimationFrame(() => {
           const element = conversationRef.value;
-          if (element) element.scrollTop = element.scrollHeight;
+          if (element && isNearBottom) element.scrollTop = element.scrollHeight;
         });
       });
     },
     { deep: true }
+  );
+
+  // 项目切换后刷新历史话题，并加载新项目最近一次对话
+  watch(
+    () => engine.project.value?.__UID__,
+    async () => {
+      if (!logined.value) return;
+      if (running.value) abortAgent();
+      await loadTopics();
+      if (topics.value[0]) {
+        await onRecordLoad(topics.value[0]);
+      } else {
+        startNewConversation();
+      }
+    }
   );
 
   onMounted(async () => {
@@ -685,9 +728,13 @@
       .catch(() => []);
     await loadTopics();
     if (topics.value[0]) await onRecordLoad(topics.value[0]);
+    conversationRef.value?.addEventListener('scroll', onConversationScroll, {
+      passive: true
+    });
   });
   onUnmounted(() => {
     cancelAnimationFrame(scrollFrame);
+    conversationRef.value?.removeEventListener('scroll', onConversationScroll);
     abortAgent();
     clearFiles();
   });

@@ -95,7 +95,12 @@ export function useEditorStep(deps: EditorStepDeps) {
     if (toolContent !== undefined) {
       body.toolContent = toolContent;
     }
-    await saveRemoteChat(body);
+    try {
+      await saveRemoteChat(body);
+    } catch (e) {
+      // 保存聊天记录失败不影响主流程
+      console.warn('保存 chat 记录失败:', e);
+    }
   }
 
   /**
@@ -410,6 +415,8 @@ export function useEditorStep(deps: EditorStepDeps) {
               step.id
             );
             exposeTurn(ti);
+            // 停止打断审批：按取消处理并标记断点槽位，供恢复时定位
+            if (isCancelled()) return cancelResult(slot);
             slot.error = '用户拒绝执行此操作';
             slot.done = true;
             return errResult(slot.error, totalTokens, stepStart, fullContent);
@@ -538,6 +545,8 @@ export function useEditorStep(deps: EditorStepDeps) {
 
             exposeTurn(ti);
             if (!(await approve(ti, 'applyVue'))) {
+              // 停止打断审批：按取消处理并标记断点槽位，供恢复时定位
+              if (isCancelled()) return cancelResult(slot);
               slot.error = '用户拒绝应用 Vue 变更';
               slot.done = true;
               return errResult(slot.error, totalTokens, stepStart, fullContent);
@@ -556,7 +565,12 @@ export function useEditorStep(deps: EditorStepDeps) {
               /* ignore */
             }
 
-            await engine.applyAI(blockDsl);
+            const applied = await engine.applyAI(blockDsl);
+            if (!applied) {
+              slot.error = '项目已被锁定，无法应用变更';
+              slot.done = true;
+              return errResult(slot.error, totalTokens, stepStart, fullContent);
+            }
             if (isCancelled()) return cancelResult(slot);
 
             // 回写产出的 Vue 源码和 DSL 到 chat
@@ -617,12 +631,13 @@ export function useEditorStep(deps: EditorStepDeps) {
             );
             if (!originalVue) throw new Error('无法获取当前文件源码');
 
-            let modifiedVue = originalVue;
+            // 归一化换行符（CRLF → LF），避免 SEARCH 块因换行不一致匹配失败
+            let modifiedVue = originalVue.replace(/\r\n/g, '\n');
             for (const patch of parsed.patches) {
+              const search = patch.search.replace(/\r\n/g, '\n');
+              const replace = patch.replace.replace(/\r\n/g, '\n');
               const count = (
-                modifiedVue.match(
-                  new RegExp(escapeRegExp(patch.search), 'g')
-                ) || []
+                modifiedVue.match(new RegExp(escapeRegExp(search), 'g')) || []
               ).length;
               if (count === 0) {
                 ctx.nextPrompt = `O: diff 执行失败\n错误: SEARCH 块未找到匹配\n\n当前文件源码:\n\`\`\`vue\n${originalVue}\n\`\`\`\n\n找不到以下代码:\n\`\`\`\n${patch.search}\n\`\`\`\n\n请基于上述当前源码重新构造 SEARCH 块，确保缩进、空行、字符完全一致，或使用全量代码模式。`;
@@ -632,11 +647,13 @@ export function useEditorStep(deps: EditorStepDeps) {
                 ctx.nextPrompt = `O: diff 执行失败\n错误: SEARCH 块匹配到 ${count} 处\n\n当前文件源码:\n\`\`\`vue\n${originalVue}\n\`\`\`\n\n请提供更具体的上下文，确保 SEARCH 块在当前文件中是唯一的。`;
                 throw new Error('SEARCH_DUPLICATE');
               }
-              modifiedVue = modifiedVue.replace(patch.search, patch.replace);
+              modifiedVue = modifiedVue.replace(search, replace);
             }
 
             exposeTurn(ti);
             if (!(await approve(ti, 'applyDiff'))) {
+              // 停止打断审批：按取消处理并标记断点槽位，供恢复时定位
+              if (isCancelled()) return cancelResult(slot);
               slot.error = '用户拒绝应用 Diff';
               slot.done = true;
               return errResult(slot.error, totalTokens, stepStart, fullContent);
@@ -651,7 +668,12 @@ export function useEditorStep(deps: EditorStepDeps) {
             ti.vue = modifiedVue;
             ti.dsl = newDsl;
             if (isCancelled()) return cancelResult(slot);
-            await engine.applyAI(newDsl);
+            const applied = await engine.applyAI(newDsl);
+            if (!applied) {
+              slot.error = '项目已被锁定，无法应用变更';
+              slot.done = true;
+              return errResult(slot.error, totalTokens, stepStart, fullContent);
+            }
             if (isCancelled()) return cancelResult(slot);
 
             // 回写 diff 产出的最终 Vue 源码和 DSL 到 chat（source 记录改前源码）
@@ -709,7 +731,7 @@ export function useEditorStep(deps: EditorStepDeps) {
           tokensPrompt: result.usage?.prompt_tokens || 0,
           tokensCompletion: result.usage?.completion_tokens || 0,
           thinking: result.reasoningTime || 0
-        });
+        }).catch(() => null);
 
         return {
           content: fullContent,

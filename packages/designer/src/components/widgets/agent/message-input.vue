@@ -125,7 +125,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { ref, watch } from 'vue';
+  import { ref, watch, onMounted } from 'vue';
   import {
     ElInput,
     ElButton,
@@ -174,9 +174,16 @@
     () => props.model,
     (value) => {
       if (value) engine.state.llm = value;
-    },
-    { immediate: true }
+    }
   );
+
+  onMounted(() => {
+    // 挂载时继承全局已配置的模型，避免将 'auto' 覆盖用户保存的 llm 设置
+    const llm = engine.state.llm;
+    if (typeof llm === 'string' && llm) {
+      emit('update:model', llm);
+    }
+  });
 
   function onModelChange(value: string) {
     engine.state.llm = value;

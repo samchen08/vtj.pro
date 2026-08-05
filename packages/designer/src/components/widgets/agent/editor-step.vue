@@ -25,7 +25,7 @@
       class="turn-list">
       <el-collapse-item
         v-for="(turn, tIdx) in step.turns"
-        :key="tIdx"
+        :key="turn.turn"
         :name="tIdx">
         <template #title>
           <div class="turn-title">

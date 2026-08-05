@@ -370,9 +370,22 @@ function buildRound(chats: ChatRecord[]): ConversationRound {
         const firstChat = editorChats.find((c) => c.stepId === sid)!;
         return parseStepFromPrompt(firstChat, idx);
       });
+      // 从工具调用记录推断安全等级：存在 destructive 审批记录则标记为 destructive
+      let safety: PlanResult['safety'] = 'write';
+      for (const chat of editorChats) {
+        try {
+          const parsed = JSON.parse(chat.toolContent || '');
+          if (parsed?.approval?.risk === 'destructive') {
+            safety = 'destructive';
+            break;
+          }
+        } catch {
+          // 解析失败忽略
+        }
+      }
       round.architectPlan = {
         intent: extractIntent(architectChat.content || ''),
-        safety: 'write',
+        safety,
         steps
       };
     }
