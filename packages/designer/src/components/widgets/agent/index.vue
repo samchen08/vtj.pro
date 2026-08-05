@@ -242,7 +242,7 @@
   import {
     HIDE_CODE_STORAGE_KEY,
     SCROLL_NEAR_BOTTOM_THRESHOLD,
-    PAY_LIMIT_MESSAGE
+    isPayLimitError
   } from './constants';
   import {
     setAgentStatus,
@@ -264,8 +264,8 @@
   /** 状态写入统一闭包（各 composable 经 DI 使用，避免传递双 ref） */
   const setStatus = (message: AgentStatusMessage) => {
     setAgentStatus(statusText, statusType, message);
-    // 服务端额度用尽报错：即时弹出付费提示（不等 settings 轮询）
-    if (message.text.includes(PAY_LIMIT_MESSAGE)) {
+    // 服务端额度/Token 用尽报错：即时弹出付费提示（不等 settings 轮询）
+    if (isPayLimitError(message.text)) {
       payTipRef.value?.show();
     }
   };
@@ -284,14 +284,14 @@
   });
   const conversationRounds = ref<ConversationRound[]>([]);
   const conversationRef = ref<HTMLElement>();
-  // 兜底：步骤失败错误（slot.error 不经 setStatus）可能携带额度用尽文案
+  // 兜底：步骤失败错误（slot.error 不经 setStatus）可能携带额度/Token 用尽文案
   watch(
     () =>
       conversationRounds.value
         .flatMap((round) => round.editorResults.map((e) => e.error || ''))
         .join('\n'),
     (text) => {
-      if (text.includes(PAY_LIMIT_MESSAGE)) payTipRef.value?.show();
+      if (isPayLimitError(text)) payTipRef.value?.show();
     }
   );
   const showDrawer = ref(false);
