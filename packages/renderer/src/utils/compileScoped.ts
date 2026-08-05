@@ -121,7 +121,10 @@ export function compileScopedCSS(cssContent: string, scopeId: string): string {
         const trimmedChild = child.trim();
 
         if (!trimmedParent) {
-          return trimmedChild;
+          // 无父选择器时，与 Vue 官方 scoped 语义保持一致：
+          // :deep(.child) → [scopeId] .child
+          // scope 作为前缀，用于匹配当前组件根元素（携带 scopeId）内部的目标元素
+          return `[${scopeId}] ${trimmedChild}`;
         }
 
         return `${trimmedParent}[${scopeId}] ${trimmedChild}`;
