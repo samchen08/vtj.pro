@@ -5,9 +5,12 @@
       {{ round.userMessage }}
       <div v-if="round.attachments?.length" class="attachment-list">
         <div v-for="f in round.attachments" :key="f.id" class="attachment-item">
-          <img
+          <ElImage
             v-if="f.type === 'image' && f.url"
-            :src="getAttachmentUrl(f.url)"
+            :src="getAttachmentUrl(f.url)!"
+            :preview-src-list="[getAttachmentUrl(f.url)!]"
+            fit="cover"
+            preview-teleported
             class="attachment-thumb"
             :alt="f.name" />
           <span v-else class="attachment-icon">{ }</span>
@@ -55,6 +58,7 @@
 
 <script lang="ts" setup>
   import { computed } from 'vue';
+  import { ElImage } from 'element-plus';
   import { useOpenApi } from '../../hooks';
   import type { ConversationRound } from './types/agent';
 
@@ -162,7 +166,7 @@
     }
 
     .attachment-thumb {
-      object-fit: cover;
+      cursor: pointer;
     }
 
     .attachment-icon {
