@@ -130,7 +130,9 @@ export function useEditorStep(deps: EditorStepDeps) {
   /**
    * 轻量重试：保存失败后重试一次（服务端按 id 合并更新，幂等）
    */
-  async function saveWithRetry<T>(fn: () => Promise<T>): Promise<T | undefined> {
+  async function saveWithRetry<T>(
+    fn: () => Promise<T>
+  ): Promise<T | undefined> {
     for (let attempt = 0; attempt < 2; attempt++) {
       try {
         return await fn();
@@ -667,12 +669,11 @@ export function useEditorStep(deps: EditorStepDeps) {
             if (outcome === 'retry') continue;
             return outcome;
           } catch (e: any) {
-            return errResult(
-              Messages.vueToDslFailed(e.message).text,
-              totalTokens,
-              stepStart,
-              fullContent
-            );
+            // 必须回写槽位错误与完成标记，否则上层 toStepRecord 会丢失失败信息
+            const message = Messages.vueToDslFailed(e.message).text;
+            slot.error = message;
+            slot.done = true;
+            return errResult(message, totalTokens, stepStart, fullContent);
           }
         }
 
@@ -751,12 +752,11 @@ export function useEditorStep(deps: EditorStepDeps) {
             ) {
               continue;
             }
-            return errResult(
-              Messages.diffApplyFailed(e.message).text,
-              totalTokens,
-              stepStart,
-              fullContent
-            );
+            // 必须回写槽位错误与完成标记，否则上层 toStepRecord 会丢失失败信息
+            const message = Messages.diffApplyFailed(e.message).text;
+            slot.error = message;
+            slot.done = true;
+            return errResult(message, totalTokens, stepStart, fullContent);
           }
         }
 

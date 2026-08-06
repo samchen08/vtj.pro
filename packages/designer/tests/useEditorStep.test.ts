@@ -98,6 +98,58 @@ describe('useEditorStep', () => {
     expect(result.error).toBeNull();
   });
 
+  it('writes DSL conversion errors back to the step slot', async () => {
+    const postChat = vi.fn(async () => ({ chat: { id: 'chat' } }));
+    const saveChat = vi.fn(async () => true);
+    const { executeEditorStep } = useEditorStep({
+      postChat,
+      saveChat,
+      updateTopic: vi.fn(async () => ({})),
+      streamCompletion: vi.fn(async (_topic, _chat, onChunk) => {
+        onChunk?.('```vue\n<template><div>hi</div></template>\n```');
+        return {
+          done: vi.fn(),
+          reasoning: '',
+          usage: null,
+          modelUsed: '',
+          reasoningTime: 0
+        };
+      }),
+      getEngine: vi.fn(
+        () =>
+          ({
+            project: { value: { toDsl: () => ({}) } },
+            current: { value: { toDsl: () => ({}) } },
+            service: {
+              parseVue: vi.fn(async () => {
+                throw new Error('parse error detail');
+              })
+            },
+            toolRegistry: { get: vi.fn() }
+          }) as any
+      ),
+      setStatus: vi.fn(),
+      requestApproval: vi.fn()
+    });
+
+    const editorResults: any[] = [];
+    const result = await executeEditorStep(
+      'topic',
+      'user',
+      { id: 'step', type: 'vue_code', description: '生成代码' },
+      0,
+      [{ id: 'step', type: 'vue_code', description: '生成代码' }],
+      Date.now(),
+      editorResults
+    );
+
+    expect(result.error).toContain('Vue→DSL 失败');
+    const slot = editorResults[0];
+    expect(slot.error).toContain('Vue→DSL 失败');
+    expect(slot.error).toContain('parse error detail');
+    expect(slot.done).toBe(true);
+  });
+
   it('does not parse a partial response after the stream is canceled', async () => {
     const controller = new AbortController();
     const postChat = vi.fn(async () => ({ id: 'chat' }));
