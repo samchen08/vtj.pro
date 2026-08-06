@@ -240,6 +240,7 @@
   import { useFileRecognition } from './composables/useFileRecognition';
   import { useReplayChat } from './composables/useReplayChat';
   import { exportConversation } from './utils/export';
+  import { hasResumableBreakpoint } from './utils/breakpoint';
   import {
     HIDE_CODE_STORAGE_KEY,
     SCROLL_NEAR_BOTTOM_THRESHOLD,
@@ -675,6 +676,8 @@
     cancelled.value = false;
     showDrawer.value = false;
     await loadChatHistory(topic.id);
+    // 回放后若存在可恢复断点（取消/中断），呈现"恢复"入口，支持刷新后续跑
+    cancelled.value = hasResumableBreakpoint(conversationRounds.value);
   };
 
   const onRemoveTopic = async (topic: AITopic) => {

@@ -154,4 +154,58 @@ describe('useReplayChat', () => {
     expect(rounds.value[0].summaryText).toBe('最新总结');
     expect(rounds.value[0].summaryAttempt).toBe(2);
   });
+
+  it('marks cancelled steps as aborted slots for resume', async () => {
+    const rounds = ref<ConversationRound[]>([]);
+    const statusText = ref('');
+    const statusType = ref<'info' | 'warning' | 'success' | 'danger'>('info');
+    const chats = [
+      {
+        id: 'architect',
+        agentRole: 'architect',
+        prompt: '创建页面',
+        content:
+          '{"intent":"创建页面","safety":"write","steps":[{"id":"step_1","type":"text","description":"生成代码"},{"id":"step_2","type":"text","description":"补充样式"}]}',
+        reasoning: ''
+      },
+      {
+        id: 'done-step',
+        agentRole: 'editor',
+        stepId: 'step_1',
+        attempt: 1,
+        prompt: '步骤 step_1: 生成代码\n类型: text',
+        content: '代码完成',
+        reasoning: '',
+        status: 'Success'
+      },
+      {
+        id: 'cancelled-step',
+        agentRole: 'editor',
+        stepId: 'step_2',
+        attempt: 1,
+        prompt: '步骤 step_2: 补充样式\n类型: text',
+        content: '样式代码',
+        reasoning: '',
+        status: 'Canceled',
+        message: '对话已中断'
+      }
+    ];
+    const { loadChatHistory } = useReplayChat(
+      {
+        getChats: vi.fn(async () => chats) as any,
+        setStatus: vi.fn((message) => {
+          statusText.value = message.text;
+          statusType.value = message.type;
+        })
+      },
+      rounds
+    );
+
+    await loadChatHistory('topic');
+
+    const results = rounds.value[0].editorResults;
+    expect(results[0].aborted).toBeUndefined();
+    expect(results[1].aborted).toBe(true);
+    expect(results[1].error).toBeTruthy();
+  });
 });

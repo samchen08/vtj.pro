@@ -30,7 +30,16 @@ describe('useEditorStep', () => {
           reasoningTime: 0
         };
       }),
-      getEngine: vi.fn(),
+      getEngine: vi.fn(() => ({
+        project: {
+          value: {
+            getPages: () => [{ name: 'home' }, { id: 'p2' }],
+            apis: [{ name: 'getUser', url: '/api/user' }],
+            blocks: [{ name: 'Header' }]
+          }
+        },
+        toolRegistry: { get: vi.fn() }
+      })),
       setStatus: vi.fn(),
       requestApproval: vi.fn()
     });
@@ -48,6 +57,9 @@ describe('useEditorStep', () => {
     );
 
     expect(postChat.mock.calls[0][0].attempt).toBe(2);
+    // 步骤 prompt 注入实时项目结构摘要（缓解服务端 projectCache 快照过期）
+    expect(postChat.mock.calls[0][0].prompt).toContain('当前项目结构');
+    expect(postChat.mock.calls[0][0].prompt).toContain('页面: home, p2');
     expect(retrySlot.turns.map((item: any) => item.turn)).toEqual([0, 1]);
     expect(retrySlot.error).toBeNull();
     expect(retrySlot.done).toBe(true);
@@ -123,8 +135,8 @@ describe('useEditorStep', () => {
       controller.signal
     );
 
-    expect(getEngine).not.toHaveBeenCalled();
-    // 流返回后立即检查取消信号，部分响应不再解析/保存
+    // 项目上下文注入仅读取 engine 构建 prompt，取消后部分响应不解析/不保存
+    expect(getEngine).toHaveBeenCalledTimes(1);
     expect(postChat).toHaveBeenCalledTimes(1);
     expect(saveChat).not.toHaveBeenCalled();
   });

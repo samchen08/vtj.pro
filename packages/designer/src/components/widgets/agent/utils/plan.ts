@@ -14,6 +14,19 @@ export interface PlanOutputParseResult {
   error?: string;
 }
 
+/**
+ * 归一化计划：服务端协议步骤类型 'code' 统一为前端执行类型 'vue_code'（其余字段透传保留）
+ */
+function normalizePlan(plan: any): PlanResult {
+  const steps = Array.isArray(plan.steps)
+    ? plan.steps.map((s: any) => ({
+        ...s,
+        type: s.type === 'code' ? 'vue_code' : s.type
+      }))
+    : plan.steps;
+  return { ...plan, steps };
+}
+
 export function parsePlanOutput(text: string): PlanOutputParseResult {
   const json = extractJsonObject(text);
   if (!json) return { plan: null };
@@ -29,11 +42,11 @@ export function parsePlanOutput(text: string): PlanOutputParseResult {
   }
   // 直接回答（无步骤）需携带 answer 文本
   if (typeof parsed?.answer === 'string' && parsed.answer.trim()) {
-    return { plan: parsed as PlanResult };
+    return { plan: normalizePlan(parsed) };
   }
   // 规划需携带 intent（steps 缺失时回退为直接回答，兼容旧行为）
   if (typeof parsed?.intent === 'string' && parsed.intent.trim()) {
-    return { plan: parsed as PlanResult };
+    return { plan: normalizePlan(parsed) };
   }
   return { plan: null };
 }

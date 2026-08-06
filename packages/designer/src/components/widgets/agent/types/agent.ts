@@ -51,6 +51,8 @@ export interface PlanStep {
   description: string;
   target?: string;
   toolName?: string;
+  /** 步骤依赖（服务端 HarnessPlan 协议字段，透传保留） */
+  dependsOn?: string[];
 }
 
 /** Architect 返回的计划 */
@@ -59,6 +61,8 @@ export interface PlanResult {
   safety: 'readonly' | 'write' | 'destructive';
   steps: PlanStep[];
   answer?: string;
+  /** 计划上下文键（服务端 HarnessPlan 协议字段，透传保留） */
+  contextKeys?: string[];
 }
 
 // ── Editor 执行相关 ──

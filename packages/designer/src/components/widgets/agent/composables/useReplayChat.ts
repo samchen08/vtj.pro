@@ -247,6 +247,9 @@ function buildEditorResults(chats: ChatRecord[]): EditorStepResult[] {
     // 拼接所有 attempt 的 reasoning
     const allReasoning = group.map((c) => c.reasoning || '').join('');
     const latestChat = group[group.length - 1];
+    // 中断/取消的步骤标记 aborted 槽位（与执行期 cancelResult 语义一致），
+    // 供刷新后断点恢复定位（resumeEditorPlan 依赖 last?.aborted）
+    const aborted = latestChat?.status === 'Canceled';
 
     results.push({
       stepIdx,
@@ -258,6 +261,7 @@ function buildEditorResults(chats: ChatRecord[]): EditorStepResult[] {
           ? latestChat.message || Messages.replayStepFailed.text
           : null,
       done: true,
+      aborted: aborted || undefined,
       turns,
       tokens: group.reduce((sum, item) => sum + (item.tokens || 0), 0)
     });

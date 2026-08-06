@@ -135,7 +135,8 @@ describe('useArchitectPlan.executeArchitectPlan', () => {
     await executeArchitectPlan('topic', 'chat', 'user', 'trace', '消息', round);
 
     expect(round.architectPlan).toBeNull();
-    expect(deps.statusText.value).toContain('未返回有效 JSON');
+    // 与 Messages.planInvalid 当前产品文案保持一致
+    expect(deps.statusText.value).toContain('未生成有效计划');
     expect(deps.statusType.value).toBe('danger');
     expect(deps.callLog.map(([name]) => name)).toEqual([
       'saveChat',

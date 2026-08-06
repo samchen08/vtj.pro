@@ -33,6 +33,29 @@ function escapeRegExp(str: string): string {
   return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
 
+/**
+ * 提取最新项目结构摘要（页面/API/区块）
+ * 服务端 projectCache 为话题创建时的快照，多步骤执行中项目已被 applyAI 持续修改，
+ * 此处以实时项目状态补充，缓解后续步骤对项目现状的认知滞后
+ */
+function getProjectContext(engine: Engine | null): string {
+  try {
+    if (!engine) return '';
+    const project = engine.project.value;
+    if (!project) return '';
+    const pages = project.getPages().map((n) => n.name || n.id);
+    const apis = (project.apis || []).map((n) => `${n.name}(${n.url || ''})`);
+    const blocks = (project.blocks || []).map((n) => n.name || n.id);
+    const lines: string[] = [];
+    if (pages.length) lines.push(`页面: ${pages.join(', ')}`);
+    if (apis.length) lines.push(`API: ${apis.join(', ')}`);
+    if (blocks.length) lines.push(`区块: ${blocks.join(', ')}`);
+    return lines.length ? `\n当前项目结构:\n${lines.join('\n')}` : '';
+  } catch {
+    return '';
+  }
+}
+
 /** 获取当前文件源码（供 LLM 上下文注入），失败返回空串 */
 async function getCurrentSourceContext(engine: Engine | null): Promise<string> {
   try {
@@ -105,6 +128,20 @@ export function useEditorStep(deps: EditorStepDeps) {
   }
 
   /**
+   * 轻量重试：保存失败后重试一次（服务端按 id 合并更新，幂等）
+   */
+  async function saveWithRetry<T>(fn: () => Promise<T>): Promise<T | undefined> {
+    for (let attempt = 0; attempt < 2; attempt++) {
+      try {
+        return await fn();
+      } catch (e) {
+        if (attempt === 0) continue;
+        throw e;
+      }
+    }
+  }
+
+  /**
    * 保存助手聊天记录
    */
   async function saveChat(
@@ -126,7 +163,7 @@ export function useEditorStep(deps: EditorStepDeps) {
       tokens
     });
     try {
-      await saveRemoteChat(body);
+      await saveWithRetry(() => saveRemoteChat(body));
     } catch (e) {
       // 保存聊天记录失败不影响主流程
       console.warn('保存 chat 记录失败:', e);
@@ -153,21 +190,23 @@ export function useEditorStep(deps: EditorStepDeps) {
     stepId: string
   ) {
     try {
-      await saveRemoteChat({
-        id: chatId,
-        topicId,
-        userId,
-        toolCallId: `${stepId}_${action}`,
-        toolContent: JSON.stringify({
-          action,
-          parameters,
-          result: result.result,
-          success: result.success,
-          error: result.error,
-          duration: result.duration,
-          approval
+      await saveWithRetry(() =>
+        saveRemoteChat({
+          id: chatId,
+          topicId,
+          userId,
+          toolCallId: `${stepId}_${action}`,
+          toolContent: JSON.stringify({
+            action,
+            parameters,
+            result: result.result,
+            success: result.success,
+            error: result.error,
+            duration: result.duration,
+            approval
+          })
         })
-      });
+      );
     } catch {
       // 保存 toolContent 失败不影响主流程
     }
@@ -195,7 +234,7 @@ export function useEditorStep(deps: EditorStepDeps) {
       if (sourceCode !== undefined) {
         body.source = sourceCode;
       }
-      await saveRemoteChat(body);
+      await saveWithRetry(() => saveRemoteChat(body));
     } catch {
       // 保存 artifacts 失败不影响主流程
     }
@@ -258,6 +297,12 @@ export function useEditorStep(deps: EditorStepDeps) {
       `类型: ${step.type}\n` +
       (step.target ? `目标: ${step.target}\n` : '') +
       (step.toolName ? `工具: ${step.toolName}\n` : '');
+
+    // 注入最新项目结构摘要（服务端 projectCache 为话题创建时快照，实时状态在此补充）
+    const projectContext = getProjectContext(getEngine());
+    if (projectContext) {
+      stepPrompt += projectContext;
+    }
 
     // diff 类型步骤：预取当前文件源码注入 prompt，确保 SEARCH 块基于最新代码
     if (step.type === 'diff') {
