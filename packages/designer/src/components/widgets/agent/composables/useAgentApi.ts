@@ -31,29 +31,41 @@ export interface AgentOpenApi {
 }
 
 export function useAgentApi(openApi: AgentOpenApi) {
-  /** 当前活动 chat（经 postTopic/postChat 追踪），供中止时标记 Canceled 状态 */
-  let activeChat: any = null;
+  /**
+   * 当前流程中创建的活动 chat 集合（经 postTopic/postChat 追踪），
+   * 中止时统一标记 Canceled；chat 保存成功后即移除，避免误标已完成记录
+   */
+  const activeChats = new Set<any>();
   const trackActiveChat = (response: any) => {
-    activeChat = pickChat(response).chat;
+    const chat = pickChat(response).chat;
+    if (chat?.id) activeChats.add(chat);
     return response;
   };
   const clearActiveChat = () => {
-    activeChat = null;
+    activeChats.clear();
   };
   const cancelActiveChat = () => {
-    if (activeChat) {
-      activeChat.status = 'Canceled';
-      openApi.cancelChat(activeChat).catch(() => null);
-      activeChat = null;
-    }
+    activeChats.forEach((chat) => {
+      chat.status = 'Canceled';
+      openApi.cancelChat(chat).catch(() => null);
+    });
+    activeChats.clear();
   };
 
   const postTopic = async (body: AgentTopicBody) =>
     trackActiveChat(unwrapOpenApi<any>(await openApi.postTopic(body)));
   const postChat = async (body: AgentChatBody) =>
     trackActiveChat(unwrapOpenApi<any>(await openApi.postChat(body)));
-  const saveChat = async (body: SaveChatBody) =>
-    unwrapOpenApi<any>(await openApi.saveChat(body));
+  const saveChat = async (body: SaveChatBody) => {
+    const result = unwrapOpenApi<any>(await openApi.saveChat(body));
+    // 保存成功即视为该 chat 已完成，移出活动追踪（中止时不再误标 Canceled）
+    if (body.id) {
+      activeChats.forEach((chat) => {
+        if (chat?.id === body.id) activeChats.delete(chat);
+      });
+    }
+    return result;
+  };
   const updateTopic = async (body: UpdateTopicBody) =>
     unwrapOpenApi<any>(await openApi.updateTopic(body));
   const saveTrace = async (body: SaveTraceBody) =>

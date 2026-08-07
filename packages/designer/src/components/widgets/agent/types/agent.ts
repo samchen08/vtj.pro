@@ -8,20 +8,21 @@ import type { AgentStatusMessage } from '../utils/messages';
 
 // ── 基础数据类型 ──
 
-/** SSE 数据块 */
+/** SSE 数据块（与框架 CompletionChunk 结构兼容，含服务端扩展的 vtj 字段） */
 export interface SSEChunkData {
+  id?: string;
   model?: string;
   choices?: Array<{
     delta?: {
-      content?: string;
-      reasoning_content?: string;
+      content?: string | null;
+      reasoning_content?: string | null;
     };
   }>;
   usage?: {
     prompt_tokens?: number;
     completion_tokens?: number;
     total_tokens?: number;
-  };
+  } | null;
   vtj?: {
     model?: string;
     agent?: string;

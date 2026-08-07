@@ -292,13 +292,11 @@
     color: var(--el-color-warning);
   }
 
-  .failed .step-status,
-  .failure {
+  .failed .step-status {
     color: var(--el-color-danger);
   }
 
-  .completed .step-status,
-  .success {
+  .completed .step-status {
     color: var(--el-color-success);
   }
 

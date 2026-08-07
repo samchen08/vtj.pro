@@ -53,6 +53,7 @@
           :icon="VtjIconChatRecord"
           background="hover"
           title="对话历史"
+          :disabled="!authReady"
           @click="showChatRecords"></XAction>
         <XAction
           mode="icon"
@@ -64,7 +65,7 @@
           @click="startNewConversation"></XAction>
       </template>
 
-      <LoginTip v-if="!logined"></LoginTip>
+      <LoginTip v-if="authReady && !logined"></LoginTip>
       <InviteTip
         v-if="settings"
         :settings="settings"
@@ -150,7 +151,7 @@
         :model="model"
         :models="models"
         @update:message="userMessage = $event"
-        @update:auto-approve="updateAutoApprove"
+        @update:auto-approve="autoApprove = $event"
         @update:model="model = $event"
         @start="startAgent"
         @continue="continueAgent"
@@ -297,6 +298,8 @@
     }
   );
   const showDrawer = ref(false);
+  /** 登录态是否已确认（isLogined 异步返回前禁用入口，避免未登录时展示完整 UI） */
+  const authReady = ref(false);
   const logined = ref(true);
   const topics = ref<AITopic[]>([]);
   const hotTopics = ref<AITopic[]>([]);
@@ -348,7 +351,7 @@
   const { token, model, existingTopicId, initToken } = useAuth(
     () => engine.access?.getData()?.token
   );
-  const { streamCompletion, abortAll } = useSSEStream(chatCompletions as any);
+  const { streamCompletion, abortAll } = useSSEStream(chatCompletions);
   const {
     files,
     recognizing,
@@ -554,10 +557,6 @@
     approvalResolvers.delete(id);
   };
 
-  const updateAutoApprove = (enabled: boolean) => {
-    autoApprove.value = enabled;
-  };
-
   watch(autoApprove, (enabled) => {
     if (!enabled) return;
     approvalResolvers.forEach((resolve) => resolve(true));
@@ -615,7 +614,10 @@
     initToken();
     const projectId = engine.project.value?.__UID__;
     if (!token.value || !projectId) return;
-    topics.value = await getTopics(projectId).catch(() => []);
+    const list = await getTopics(projectId).catch(() => []);
+    // 加载期间项目已切换则丢弃过期结果，避免旧项目话题覆盖新项目
+    if (engine.project.value?.__UID__ !== projectId) return;
+    topics.value = list;
   };
 
   // 加载最近一次对话（无话题时进入新会话）；防重：避免挂载与项目切换 watch 并发触发
@@ -636,24 +638,14 @@
 
   const startAgent = async () => {
     initToken();
-    const task = startDualAgent();
-    if (running.value) {
-      userMessage.value = '';
-      clearFiles();
-    }
-    await task;
+    await startDualAgent();
     clearActiveChat();
     await loadTopics();
   };
 
   const continueAgent = async () => {
     initToken();
-    const task = continueConversation();
-    if (running.value) {
-      userMessage.value = '';
-      clearFiles();
-    }
-    await task;
+    await continueConversation();
     clearActiveChat();
     await loadTopics();
   };
@@ -733,6 +725,7 @@
   onMounted(async () => {
     initToken();
     logined.value = await isLogined();
+    authReady.value = true;
     if (!logined.value) return;
     models.value = await getDictOptions('LLM').catch(() => []);
     settings.value = await getSettings().catch(() => undefined);

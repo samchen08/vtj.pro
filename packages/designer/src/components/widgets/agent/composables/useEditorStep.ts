@@ -390,7 +390,7 @@ export function useEditorStep(deps: EditorStepDeps) {
       dsl: any;
       getOriginalSource: () => Promise<string>;
     }): Promise<StepExecutionResult | 'retry'> {
-      exposeTurn(opts.ti);
+      // turn 已在多轮循环开头入列（exposeTurn），此处无需重复
       // applyVue / applyDiff 非注册工具，风险恒为 write（见 getApprovalRisk 兜底规则）
       if (!(await approve(opts.ti, opts.action, 'write'))) {
         const rejected = buildRejection(slot, opts.rejectMessage, opts.content);
@@ -425,8 +425,6 @@ export function useEditorStep(deps: EditorStepDeps) {
         opts.dsl,
         originalSource
       );
-
-      exposeTurn(opts.ti);
 
       // ReAct: 修复后自动 refresh 验证
       if (await applyFixAndVerify()) return 'retry';

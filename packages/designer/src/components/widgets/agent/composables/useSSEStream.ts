@@ -9,7 +9,7 @@ type ChatCompletions = (
   chatId: string,
   callback?: (data: SSEChunkData | null, done?: boolean) => void,
   error?: (error: Error, cancel?: boolean) => void
-) => Promise<() => void>;
+) => Promise<(() => void) | undefined>;
 
 export function useSSEStream(chatCompletions: ChatCompletions) {
   let currentAbort: (() => void) | null = null;
@@ -89,8 +89,8 @@ export function useSSEStream(chatCompletions: ChatCompletions) {
         }
       )
         .then((abort) => {
-          remoteAbort = abort;
-          if (abortRequested) abort();
+          remoteAbort = abort ?? null;
+          if (abortRequested) abort?.();
         })
         .catch((error) => {
           if (!settled) reject(error);

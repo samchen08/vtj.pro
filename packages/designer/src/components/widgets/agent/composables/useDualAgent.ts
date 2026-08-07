@@ -131,6 +131,9 @@ export function useDualAgent(
     flowAbortController = new AbortController();
     const engine = getEngine();
     if (engine) engine.state.streaming = true;
+    // setup 是否成功：仅提交阶段（建话题/建 chat）失败才记录可重试的失败提交，
+    // 执行阶段失败仍走"重试本轮"路径，避免重新提交造成重复话题/消息
+    let roundCreated = false;
     try {
       registerTools();
       const { topicId, userId, chatId, round } = await setup(
@@ -138,8 +141,11 @@ export function useDualAgent(
         userText,
         attachments
       );
-      // round 已入列且快照已生成，清空输入框附件区
+      roundCreated = true;
+      // round 已入列且快照已生成，清空输入框与附件区
+      // （提交失败时输入保留，用户可直接重新发送）
       clearAttachments?.();
+      userMessage.value = '';
       const traceId = genId('trace');
       await executeArchitectPlan(
         topicId,
@@ -152,7 +158,7 @@ export function useDualAgent(
       );
       lastFailedSubmission = null;
     } catch (e: any) {
-      if (e?.name !== 'AbortError') {
+      if (e?.name !== 'AbortError' && !roundCreated) {
         lastFailedSubmission = () => executeFlow(setup, finalPrompt);
       }
       setStatus(Messages.error(e.message));
@@ -166,6 +172,8 @@ export function useDualAgent(
 
   /** 启动新话题双代理流程 */
   async function startDualAgent() {
+    // 新动作开始，清除上一轮的失败提交记录，避免旧状态干扰
+    lastFailedSubmission = null;
     const requestId = genId('trace');
     await executeFlow(async (finalPrompt, userText, attachments) => {
       // 新开对话：清空所有历史轮次
@@ -213,6 +221,8 @@ export function useDualAgent(
 
   /** 追加对话到已有话题 */
   async function continueConversation() {
+    // 新动作开始，清除上一轮的失败提交记录，避免旧状态干扰
+    lastFailedSubmission = null;
     const tid = existingTopicId.value.trim();
     if (!tid) {
       setStatus(Messages.topicIdMissing);
@@ -380,13 +390,15 @@ export function useDualAgent(
 
   /** 根据最后一轮的失败位置选择最小重试范围（label 用于区分重试/恢复文案） */
   async function retryLastRound(label = '重试') {
+    // 提交阶段失败（建话题/建 chat 失败，轮次未创建）：优先重试该请求本身，
+    // 而非落到上一轮（否则用户的新消息将丢失且重试错位）
+    if (lastFailedSubmission) {
+      setStatus(Messages.retryingLastRequest);
+      return lastFailedSubmission();
+    }
     const lastRound =
       conversationRounds.value[conversationRounds.value.length - 1];
     if (!lastRound) {
-      if (lastFailedSubmission) {
-        setStatus(Messages.retryingLastRequest);
-        return lastFailedSubmission();
-      }
       setStatus(Messages.noRetryRound);
       return;
     }
