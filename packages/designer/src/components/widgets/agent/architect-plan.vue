@@ -124,7 +124,7 @@
   );
 
   const safetyLabel = computed(() => {
-    const labels = { readonly: '安全', write: '风险', destructive: '高危' };
+    const labels = { readonly: '只读', write: '修改', destructive: '删除' };
     return labels[props.plan?.safety || 'readonly'];
   });
 
