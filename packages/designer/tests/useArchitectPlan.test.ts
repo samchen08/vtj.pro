@@ -122,7 +122,7 @@ describe('useArchitectPlan.executeArchitectPlan', () => {
     expect(deps.statusType.value).toBe('info');
   });
 
-  it('marks the topic as failed when no valid plan json is returned', async () => {
+  it('marks the topic as failed after retry when no valid plan json is returned', async () => {
     const deps = createDeps({
       streamCompletion: vi.fn(async (_t: string, _c: string, onChunk: any) => {
         onChunk?.('plain text without plan json');
@@ -135,17 +135,26 @@ describe('useArchitectPlan.executeArchitectPlan', () => {
     await executeArchitectPlan('topic', 'chat', 'user', 'trace', '消息', round);
 
     expect(round.architectPlan).toBeNull();
+    // 输出无效时自动重试一次，重试仍无效才标记失败
+    expect(round.architectRetryCount).toBe(1);
     // 与 Messages.planInvalid 当前产品文案保持一致
     expect(deps.statusText.value).toContain('未生成有效计划');
     expect(deps.statusType.value).toBe('danger');
     expect(deps.callLog.map(([name]) => name)).toEqual([
       'saveChat',
+      'saveChat',
       'updateTopic',
       'saveTrace'
     ]);
-    const updateBody = deps.callLog[1][1];
+    // 第一次保存为 Failed 标记的无效输出（供后端识别重试场景），第二次保存最终流式输出
+    expect(deps.callLog[0][1].status).toBe('Failed');
+    expect(deps.callLog[0][1].content).toBe('plain text without plan json');
+    expect(deps.callLog[1][1].tokens).toBe(20);
+    const updateBody = deps.callLog.find(
+      ([name]) => name === 'updateTopic'
+    )![1];
     expect(updateBody.status).toBe('failed');
-    const traceBody = deps.callLog[2][1];
+    const traceBody = deps.callLog.find(([name]) => name === 'saveTrace')![1];
     expect(traceBody.finalStatus).toBe('failed');
     expect(traceBody.planJson).toBeNull();
   });
