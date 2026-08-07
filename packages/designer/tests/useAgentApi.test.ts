@@ -62,6 +62,39 @@ describe('useAgentApi', () => {
     expect(openApi.cancelChat).not.toHaveBeenCalled();
   });
 
+  it('cancelActiveChat 取消全部追踪 chat（多步骤 ReAct 场景）', async () => {
+    const openApi = createOpenApi();
+    const api = useAgentApi(openApi);
+    const chat1: any = { id: 'c1' };
+    const chat2: any = { id: 'c2' };
+    openApi.postTopic = vi.fn(async () => ({ chat: chat1 }));
+    openApi.postChat = vi.fn(async () => ({ chat: chat2 }));
+
+    await api.postTopic({ prompt: 'p' } as any);
+    await api.postChat({ prompt: 'p' } as any);
+    api.cancelActiveChat();
+
+    expect(chat1.status).toBe('Canceled');
+    expect(chat2.status).toBe('Canceled');
+    expect(openApi.cancelChat).toHaveBeenCalledTimes(2);
+    expect(openApi.cancelChat).toHaveBeenCalledWith(chat1);
+    expect(openApi.cancelChat).toHaveBeenCalledWith(chat2);
+  });
+
+  it('saveChat 成功后移出追踪，中止时不再误标已完成 chat', async () => {
+    const openApi = createOpenApi();
+    const api = useAgentApi(openApi);
+    const chat: any = { id: 'c1' };
+    openApi.postChat = vi.fn(async () => ({ chat }));
+
+    await api.postChat({ prompt: 'p' } as any);
+    await api.saveChat({ id: 'c1' } as any);
+    api.cancelActiveChat();
+
+    expect(openApi.cancelChat).not.toHaveBeenCalled();
+    expect(chat.status).not.toBe('Canceled');
+  });
+
   it('非零 code 响应抛错且不追踪活动 chat', async () => {
     const openApi = createOpenApi({
       postTopic: vi.fn(async () => ({ code: 500, message: 'boom' }))

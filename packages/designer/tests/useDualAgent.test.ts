@@ -373,6 +373,96 @@ describe('useDualAgent', () => {
     expect(state.conversationRounds.value).toHaveLength(1);
   });
 
+  it('retries a failed continue submission even when old rounds exist', async () => {
+    const { infra } = createInfra();
+    infra.token.value = 'tk';
+    infra.existingTopicId.value = 't-1';
+    const api = createApi();
+    (api.postChat as any)
+      .mockRejectedValueOnce(new Error('网络异常'))
+      .mockResolvedValueOnce({ chat: { id: 'c2' } });
+    const state = createState();
+    state.conversationRounds.value.push(createRound());
+    const { continueConversation, retryLastRound, userMessage } = useDualAgent(
+      infra,
+      api,
+      state,
+      () => '修改按钮颜色'
+    );
+    userMessage.value = '修改按钮颜色';
+
+    await continueConversation();
+
+    // 提交阶段失败：轮次未新增、用户输入保留、旧轮次不被误当作重试目标
+    expect(api.postChat).toHaveBeenCalledTimes(1);
+    expect(state.conversationRounds.value).toHaveLength(1);
+    expect(userMessage.value).toBe('修改按钮颜色');
+    expect(infra.statusText.value).toContain('网络异常');
+
+    await retryLastRound();
+
+    // 应重新提交本次请求，而非重试旧轮次（旧轮次 summaryError 非空，修复前会错走 retrySummary）
+    expect(api.postChat).toHaveBeenCalledTimes(2);
+    expect(api.retrySummary).not.toHaveBeenCalled();
+    // 重试成功后按新轮次正常执行规划（仅 1 次，不重复触发旧轮次的重试）
+    expect(api.executeArchitectPlan).toHaveBeenCalledTimes(1);
+    const [firstBody] = (api.postChat as any).mock.calls[0];
+    const [retryBody] = (api.postChat as any).mock.calls[1];
+    expect(retryBody.prompt).toBe('修改按钮颜色');
+    expect(retryBody.requestId).toBe(firstBody.requestId);
+    expect(state.conversationRounds.value).toHaveLength(2);
+  });
+
+  it('does not resubmit when execution fails after the round was created', async () => {
+    const { infra } = createInfra();
+    infra.token.value = 'tk';
+    infra.existingTopicId.value = 't-9';
+    const api = createApi();
+    api.executeArchitectPlan = vi
+      .fn()
+      .mockRejectedValueOnce(new Error('规划失败'))
+      .mockResolvedValue(undefined);
+    const state = createState();
+    const { startDualAgent, retryLastRound } = useDualAgent(
+      infra,
+      api,
+      state,
+      () => '创建页面'
+    );
+
+    await startDualAgent();
+
+    expect(api.postTopic).toHaveBeenCalledTimes(1);
+    expect(state.conversationRounds.value).toHaveLength(1);
+    expect(infra.statusText.value).toContain('规划失败');
+
+    await retryLastRound();
+
+    // 执行阶段失败只重跑规划，不重复提交话题/消息
+    expect(api.postTopic).toHaveBeenCalledTimes(1);
+    expect(api.postChat).not.toHaveBeenCalled();
+    expect(api.executeArchitectPlan).toHaveBeenCalledTimes(2);
+    expect(state.conversationRounds.value).toHaveLength(1);
+  });
+
+  it('clears the user message after a successful submission', async () => {
+    const { infra } = createInfra();
+    infra.token.value = 'tk';
+    const api = createApi();
+    const state = createState();
+    const { startDualAgent, userMessage } = useDualAgent(
+      infra,
+      api,
+      state,
+      () => '创建页面'
+    );
+    userMessage.value = '创建页面';
+
+    await startDualAgent();
+
+    expect(userMessage.value).toBe('');
+  });
+
   it('marks cancelled after abortAll and resets it on a new flow', async () => {
     const { infra } = createInfra();
     infra.token.value = 'tk';
