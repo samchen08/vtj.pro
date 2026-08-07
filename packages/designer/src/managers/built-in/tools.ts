@@ -296,6 +296,10 @@ const removePage: ToolConfig = {
   createHandler:
     ({ project, config }) =>
     async (id: string) => {
+      // 存在性校验：删除不存在的页面返回明确错误，避免"假成功"导致任务目标未达成
+      if (!project.getPage(id)) {
+        throw new Error(`页面不存在: ${id}，请先调用 getPages 获取真实页面 ID`);
+      }
       project.removePage(id);
 
       await delay(config.activeDelayMs);
@@ -451,6 +455,12 @@ const removeBlock: ToolConfig = {
   createHandler:
     ({ project, config }) =>
     async (id: string) => {
+      // 存在性校验：删除不存在的区块返回明确错误，避免"假成功"导致任务目标未达成
+      if (!project.getBlock(id)) {
+        throw new Error(
+          `区块不存在: ${id}，请先调用 getBlocks 获取真实区块 ID`
+        );
+      }
       project.removeBlock(id);
 
       await delay(config.activeDelayMs);
@@ -894,6 +904,15 @@ const removeApi: ToolConfig = {
   createHandler:
     ({ project, config }) =>
     async (name: string) => {
+      // 存在性校验：按名称或 ID 匹配，删除不存在的 API 返回明确错误
+      const exists = (project.apis || []).some(
+        (n: ApiSchema) => n.name === name || n.id === name
+      );
+      if (!exists) {
+        throw new Error(
+          `API 不存在: ${name}，请先调用 getApis 获取真实 API 名称或 ID`
+        );
+      }
       project.removeApi(name);
       await delay(config.activeDelayMs);
       return true;
@@ -924,6 +943,18 @@ const removeApis: ToolConfig = {
       if (!Array.isArray(apis)) {
         throw new Error(
           '调用 removeApis 工具参数错误，参数要求是 name 字符串数组'
+        );
+      }
+      // 存在性校验：先全量校验再删除，任一 API 不存在则整体失败，避免部分删除的"假成功"
+      const missing = apis.filter(
+        (name) =>
+          !(project.apis || []).some(
+            (n: ApiSchema) => n.name === name || n.id === name
+          )
+      );
+      if (missing.length) {
+        throw new Error(
+          `以下 API 不存在: ${missing.join(', ')}，请先调用 getApis 获取真实 API 名称或 ID`
         );
       }
       for (const name of apis) {
@@ -1581,6 +1612,10 @@ const removeEnv: ToolConfig = {
   createHandler:
     ({ project }) =>
     async (name: string) => {
+      // 存在性校验：删除不存在的环境变量返回明确错误，避免"假成功"
+      if (!(project.env || []).some((n: EnvConfig) => n.name === name)) {
+        throw new Error(`环境变量不存在: ${name}`);
+      }
       const env = (project.env || []).filter((n) => n.name !== name);
       project.setEnv(env);
       return true;
@@ -1669,6 +1704,13 @@ const removeI18nMessage: ToolConfig = {
         throw new Error(
           '调用 removeI18nMessage 工具参数错误，参数要求是 key 字符串数组'
         );
+      }
+      // 存在性校验：先全量校验再删除，任一词条不存在则整体失败，避免部分删除的"假成功"
+      const missing = keys.filter(
+        (key) => !(project.i18n.messages || []).some((n) => n.key === key)
+      );
+      if (missing.length) {
+        throw new Error(`以下词条不存在: ${missing.join(', ')}`);
       }
       project.i18n.messages = project.i18n.messages?.filter(
         (n) => !keys.includes(n.key)

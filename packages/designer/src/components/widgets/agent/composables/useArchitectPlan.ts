@@ -311,6 +311,23 @@ export function useArchitectPlan(deps: ArchitectPlanDeps) {
     while (!plan && retryCount < MAX_ARCHITECT_RETRIES && !isCancelled()) {
       retryCount++;
       round.architectRetryCount = retryCount;
+      // 先保存无效输出（标记 Failed），供后端识别重试场景并注入纠错提示
+      // （同一 chat 已保存过无效内容 → 重试流注入角色/输出协议纠正）
+      try {
+        await saveChat(
+          buildChatSaveBody({
+            id: architectChatId,
+            topicId,
+            userId,
+            content: round.architectStreamText || ' ',
+            result: null,
+            tokens: 0,
+            status: 'Failed'
+          })
+        );
+      } catch (e: any) {
+        console.warn('保存无效 Architect 输出失败:', e.message);
+      }
       round.architectStreamText = '';
       round.reasoningText = '';
       setStatus(

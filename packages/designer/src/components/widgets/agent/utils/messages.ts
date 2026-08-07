@@ -80,6 +80,10 @@ export const Messages = {
   summaryRegenerated: { text: '任务总结已重新生成', type: 'success' } as const,
   summaryGenerated: { text: '任务总结已生成', type: 'success' } as const,
   retryingLastRequest: { text: '重试上次请求...', type: 'warning' } as const,
+  resumingFromPrompt: {
+    text: '检测到续跑意图，从断点恢复执行...',
+    type: 'warning'
+  } as const,
   cancelled: { text: '已取消', type: 'info' } as const,
   loadingHistory: { text: '加载历史记录...', type: 'info' } as const,
   historyEmpty: { text: '未找到交互记录', type: 'warning' } as const,

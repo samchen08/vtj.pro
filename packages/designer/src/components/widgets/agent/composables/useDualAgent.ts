@@ -18,6 +18,8 @@ import { stripFileDescBlocks } from '../utils/filePrompt';
 import { pickChat, pickTopic } from '../utils/response';
 import { Messages } from '../utils/messages';
 import { genId } from '../utils/genId';
+import { isResumeIntent } from '../utils/resume';
+import { hasResumableBreakpoint } from '../utils/breakpoint';
 
 /** 创建空对话轮次 */
 function createEmptyRound(userMessage: string): ConversationRound {
@@ -215,6 +217,24 @@ export function useDualAgent(
     if (!tid) {
       setStatus(Messages.topicIdMissing);
       return;
+    }
+
+    // 续跑意图识别："继续执行上一轮没完成的计划"等表述
+    // 命中后不新建 Architect 规划轮，按轮次状态映射到断点恢复/失败重试，
+    // 由后端注入的进度摘要驱动模型只规划剩余步骤
+    const lastRound =
+      conversationRounds.value[conversationRounds.value.length - 1];
+    if (lastRound && isResumeIntent(getFinalPrompt())) {
+      const hasBreakpoint = hasResumableBreakpoint(conversationRounds.value);
+      const hasFailure =
+        lastRound.editorResults.some((r) => r.error) ||
+        !!lastRound.summaryError ||
+        !!lastRound.architectError;
+      if (hasBreakpoint || hasFailure) {
+        setStatus(Messages.resumingFromPrompt);
+        await (hasFailure ? retryLastRound('续跑') : resumeLastRound());
+        return;
+      }
     }
 
     const requestId = genId('trace');
