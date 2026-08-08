@@ -598,9 +598,16 @@ export class Provider extends Base {
     const module =
       this.modules[`${vtjDir}/files/${id}.json`] ||
       this.modules[`/src/${vtjDir}/files/${id}.json`];
-    return module
+    const result = module
       ? await module()
-      : this.service.getFile(id, this.project || undefined).catch(() => null);
+      : await this.service
+          .getFile(id, this.project || undefined)
+          .catch(() => null);
+    if (!result) {
+      this.errorHandler && this.errorHandler(new Error(`区块 ${id} 不存在`));
+    }
+
+    return result;
   }
 
   async getDslByUrl(url: string): Promise<BlockSchema | null> {

@@ -330,6 +330,34 @@ export function useOpenApi() {
     return await res.json();
   };
 
+  const updateTopic = async (topic: any) => {
+    if (openApi?.updateTopic) {
+      return await openApi.updateTopic(topic);
+    }
+    const token = access?.getData()?.token;
+    const api = `${remote}/api/open/topic/update/${token}`;
+    const res = await window.fetch(api, {
+      method: 'post',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(topic)
+    });
+    return await res.json();
+  };
+
+  const saveTrace = async (trace: any) => {
+    if (openApi?.saveTrace) {
+      return await openApi.saveTrace(trace);
+    }
+    const token = access?.getData()?.token;
+    const api = `${remote}/api/open/trace/${token}`;
+    const res = await window.fetch(api, {
+      method: 'post',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(trace)
+    });
+    return await res.json();
+  };
+
   const getHotTopics = async (platform: string = '') => {
     if (openApi?.getHotTopics) {
       return await openApi?.getHotTopics(platform);
@@ -554,6 +582,8 @@ export function useOpenApi() {
     getTopics,
     postChat,
     removeTopic,
+    updateTopic,
+    saveTrace,
     chatCompletions,
     saveChat,
     getHotTopics,

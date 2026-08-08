@@ -546,9 +546,7 @@ describe('renderer runtime integration', () => {
             type: 'JSExpression',
             value: 'this.$libs.useEcho'
           },
-          args: [
-            { type: 'JSExpression', value: 'this.count.value' }
-          ]
+          args: [{ type: 'JSExpression', value: 'this.count.value' }]
         }
       ],
       provide: {},
@@ -699,10 +697,9 @@ describe('renderer runtime integration', () => {
     });
     const { host } = await mount(() => h(renderer));
 
-    expect(Array.from(host.querySelectorAll('span'), (el) => el.textContent)).toEqual([
-      'A',
-      'B'
-    ]);
+    expect(
+      Array.from(host.querySelectorAll('span'), (el) => el.textContent)
+    ).toEqual(['A', 'B']);
     expect(getDsl).toHaveBeenCalledOnce();
   });
 
@@ -1233,5 +1230,78 @@ describe('renderer runtime integration', () => {
     await settle();
 
     expect(button.textContent).toBe('2');
+  });
+
+  test('injects scoped css and adds data-v scope to component root', async () => {
+    // 模拟 element-plus ElDatePicker 结构：根元素接收 attrs fallthrough，
+    // 内部 .el-date-editor 不携带 scope 属性
+    const ElDatePicker = defineComponent({
+      name: 'ElDatePicker',
+      setup(_: any, { attrs }: any) {
+        return () =>
+          h(
+            'div',
+            { class: 'el-tooltip__trigger', ...attrs },
+            h('div', { class: 'el-date-editor' }, 'picker')
+          );
+      }
+    });
+    const dsl = {
+      name: 'ScopedBlock',
+      id: 'scoped-block-id',
+      apiMode: 'composition',
+      state: {},
+      refs: {},
+      reactives: {},
+      computed: {},
+      methods: {},
+      props: [],
+      emits: [],
+      expose: [],
+      inject: [],
+      composables: [],
+      provide: {},
+      watch: [],
+      dataSources: {},
+      lifeCycles: {},
+      css: ':deep(.el-date-editor) {\n  background-color: red;\n}',
+      nodes: [
+        {
+          id: 'date-picker-node',
+          name: 'ElDatePicker',
+          from: 'element-plus',
+          children: [],
+          props: {},
+          directives: [],
+          events: {}
+        }
+      ]
+    } as BlockSchema;
+    const { renderer } = createRenderer({
+      dsl,
+      mode: ContextMode.Runtime,
+      components: { ElDatePicker },
+      window
+    });
+    const { host } = await mount(() => h(renderer));
+
+    // 组件根元素携带 scope 属性（fallthrough），内部元素不携带
+    const root = host.querySelector('.el-tooltip__trigger') as HTMLElement;
+    const inner = host.querySelector('.el-date-editor') as HTMLElement;
+    expect(root.hasAttribute('data-v-scoped-block-id')).toBe(true);
+    expect(inner.hasAttribute('data-v-scoped-block-id')).toBe(false);
+
+    // 注入的 scoped CSS 中 :deep() 无父选择器编译为 [scopeId] 前缀后代选择器，
+    // 与 Vue 官方 scoped 语义一致，能命中组件内部元素
+    const style = document.getElementById(
+      'scoped-block-id'
+    ) as HTMLStyleElement;
+    const selector = Array.from((style.sheet as any).cssRules)
+      .map((r: any) => r.selectorText)
+      .join('\n');
+    expect(selector).toContain('[data-v-scoped-block-id] .el-date-editor');
+    expect(inner.matches('[data-v-scoped-block-id] .el-date-editor')).toBe(
+      true
+    );
   });
 });
