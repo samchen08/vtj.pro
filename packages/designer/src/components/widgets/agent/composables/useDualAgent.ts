@@ -171,7 +171,7 @@ export function useDualAgent(
   }
 
   /** 启动新话题双代理流程 */
-  async function startDualAgent() {
+  async function startDualAgent(promptOverride?: string) {
     // 新动作开始，清除上一轮的失败提交记录，避免旧状态干扰
     lastFailedSubmission = null;
     const requestId = genId('trace');
@@ -216,7 +216,7 @@ export function useDualAgent(
 
       round.architectChatId = chatId;
       return { topicId, userId, chatId, round };
-    });
+    }, promptOverride);
   }
 
   /** 追加对话到已有话题 */
