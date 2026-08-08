@@ -29,11 +29,16 @@ const createServer = (
   host?: string,
   open?: boolean
 ) => {
+  // Vite 6 中 host 为 '0.0.0.0' 时，自动打开浏览器会因无法从 resolvedUrls
+  // 匹配出可打开的 URL 而提示 "No URL available to open in browser"。
+  // host 传 true 与 '0.0.0.0' 行为等价（监听所有地址），
+  // 但 openBrowser 会回退到 localhost 地址，可正常自动打开浏览器
+  const h = !host || host === '0.0.0.0' ? true : host;
   return {
     open: open,
     cors: true,
     port,
-    host: host || '0.0.0.0',
+    host: h,
     proxy,
     https
   } as ServerOptions;

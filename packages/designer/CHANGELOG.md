@@ -3,6 +3,44 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.19.0](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.18.29...@vtj/designer@0.19.0) (2026-08-08)
+
+
+### Bug Fixes
+
+* **agent:** 优化会话代码和工具处理逻辑 ([8af5361](https://gitee.com/newgateway/vtj/commits/8af5361096908f6e27dee493ece8cffeda7e2e8c))
+* **agent:** 优化会话附件图片显示与预览功能 ([0776b0c](https://gitee.com/newgateway/vtj/commits/0776b0cd57080827b4c9ff7da9ba900da9b6206a))
+* **agent:** 修复流式状态标识在运行时未正确更新 ([d400f2a](https://gitee.com/newgateway/vtj/commits/d400f2a453d5c1b81d05b910b232679448a355e8))
+* **agent:** 修复编辑器步骤保存与错误回写逻辑 ([14e5c24](https://gitee.com/newgateway/vtj/commits/14e5c24ed5a86c4445311fcc06dcd4472ff3943c))
+* **agent:** 修复额度用尽错误文案识别逻辑 ([afd92cc](https://gitee.com/newgateway/vtj/commits/afd92cc8b22638660c1ca1652ec10aa5372277d7))
+* **designer:** 更新安全标签文案 ([4e1ff57](https://gitee.com/newgateway/vtj/commits/4e1ff5757ccea11bfaad3817053f36a8a9fe416a))
+
+
+### Features
+
+* **agent:** 优化 Agent 模块状态管理与执行流程 ([c07e2d1](https://gitee.com/newgateway/vtj/commits/c07e2d1e82ba6d472a310c0567c337e17831f1bb))
+* **agent:** 优化流式内容的自动滚动体验 ([c0caa50](https://gitee.com/newgateway/vtj/commits/c0caa505798b38a2b384302eff664bec9806fa07))
+* **agent:** 使用StreamMarkdown组件渲染内容以支持Markdown格式 ([c9e0bae](https://gitee.com/newgateway/vtj/commits/c9e0bae6b7c867bbabf260fc3db9c3b6d2597fc7))
+* **agent:** 增强回放功能与项目结构上下文支持 ([1afe7d3](https://gitee.com/newgateway/vtj/commits/1afe7d3125f3d5c2f98ba366dfc25dece3c828c0))
+* **agent:** 增强模型管理及自动审批功能 ([5b64206](https://gitee.com/newgateway/vtj/commits/5b642069ee0a5d4e6ee386cddb75c4f697ee1a39))
+* **agent:** 支持 Architect 规划失败显示及自动重试机制 ([c53288c](https://gitee.com/newgateway/vtj/commits/c53288c17897aac05a8618e7c851e2105a3f567e))
+* **agent:** 支持任务步骤和总结的重试功能 ([d727745](https://gitee.com/newgateway/vtj/commits/d7277457af0a7d9b1772b1285eb540533451d56e))
+* **agent:** 支持会话轮次中的附件显示 ([6ecf402](https://gitee.com/newgateway/vtj/commits/6ecf402334eb97d93827b34e52fff2b7d066b225))
+* **agent:** 支持对话轮次附件显示与恢复取消执行 ([2fff24b](https://gitee.com/newgateway/vtj/commits/2fff24b8403fd625085f790fe075602f5f3c42b5))
+* **agent:** 支持续跑意图识别和断点恢复执行 ([5a7d2f3](https://gitee.com/newgateway/vtj/commits/5a7d2f35436b87f327c33d5b571a9c396f1cbbc7))
+* **agent:** 新增 AI Agent 组件及相关功能 ([4f2c57a](https://gitee.com/newgateway/vtj/commits/4f2c57aa397d2cc45222ebaa12b8620a88b076d7))
+* **agent:** 新增话题更新和轨迹保存接口支持 ([f4156e0](https://gitee.com/newgateway/vtj/commits/f4156e038096940fd5896c57b135393f566e76ed))
+* **agent:** 添加代码块显示和详情命令功能 ([ee5e0aa](https://gitee.com/newgateway/vtj/commits/ee5e0aab7c240e27e1b2c4aee2d924e49f6d69e7))
+* **agent:** 添加代码块点击查看详情功能并实现详情面板 ([70c3db2](https://gitee.com/newgateway/vtj/commits/70c3db234f9d027984bad9903bdc5ea707d6bbf2))
+* **agent:** 添加对应用 DSL 的支持及相关 UI 操作 ([aa0d13a](https://gitee.com/newgateway/vtj/commits/aa0d13a6944d98c2eee54e8a1035c74a877f2746))
+* **agent:** 添加服务端额度用尽付费提示功能 ([5bef455](https://gitee.com/newgateway/vtj/commits/5bef45535e07ecd1894615bc2a8d9eb3b25db085))
+* **agent:** 添加热门需求列表展示功能 ([62af5e6](https://gitee.com/newgateway/vtj/commits/62af5e64044d60cac6d8cf57bf3370c6e71f83cc))
+* **agent:** 重构 AI 助手组件，新增邀请及付费提示 ([7ef0920](https://gitee.com/newgateway/vtj/commits/7ef0920160aa16c504b71933d94628424ab7dfef))
+
+
+
+
+
 ## [0.18.29](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.18.27...@vtj/designer@0.18.29) (2026-08-01)
 
 

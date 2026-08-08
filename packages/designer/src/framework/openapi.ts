@@ -217,6 +217,12 @@ export abstract class OpenApi {
     topicId: string
   ) => Promise<ResponseWrapper<boolean>>;
 
+  /** 更新话题（Agent） */
+  public abstract updateTopic?: (topic: any) => Promise<ResponseWrapper<any>>;
+
+  /** 保存执行轨迹（Agent） */
+  public abstract saveTrace?: (trace: any) => Promise<ResponseWrapper<any>>;
+
   /**
    * 获取热门话题
    */

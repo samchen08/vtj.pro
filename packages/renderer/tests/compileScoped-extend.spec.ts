@@ -58,6 +58,9 @@ test('handles :deep() without parent selector', () => {
   const result = compileScopedCSS(css, scopeId);
   expect(result).toContain('.nested');
   expect(result).not.toContain(`:deep`);
+  // 与 Vue 官方 scoped 语义一致：scope 作为前缀的后代选择器
+  expect(result).toContain(`[${scopeId}] .nested`);
+  expect(result).not.toContain(`.nested[${scopeId}]`);
 });
 
 test('handles empty CSS selector', () => {
