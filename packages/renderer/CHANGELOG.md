@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.19.0](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.18.29...@vtj/renderer@0.19.0) (2026-08-08)
+
+
+### Bug Fixes
+
+* **provider:** 优化区块文件加载错误处理机制 ([613d5f8](https://gitee.com/newgateway/vtj/commits/613d5f8734fd1025127d250e304519cfa810d9cd))
+* **renderer:** 修正 scoped CSS 中无父选择器的编译行为 ([1c8f88e](https://gitee.com/newgateway/vtj/commits/1c8f88e507b2ba4d933ce74059faef1558ad9783))
+
+
+
+
+
 ## [0.18.29](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.18.27...@vtj/renderer@0.18.29) (2026-08-01)
 
 

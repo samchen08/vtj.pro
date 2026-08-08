@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.14.0](https://gitee.com/newgateway/vtj/compare/@vtj/cli@0.13.1...@vtj/cli@0.14.0) (2026-08-08)
+
+
+### Bug Fixes
+
+* **cli:** 修复 Vite 配置中自动打开浏览器的问题 ([a444bae](https://gitee.com/newgateway/vtj/commits/a444baebac3ebd9a04ad396ed0b9087611772a24))
+
+
+
+
+
 ## [0.13.1](https://gitee.com/newgateway/vtj/compare/@vtj/cli@0.13.0...@vtj/cli@0.13.1) (2026-07-14)
 
 **Note:** Version bump only for package @vtj/cli
