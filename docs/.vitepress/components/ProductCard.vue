@@ -55,7 +55,7 @@
 <script lang="ts" setup>
   import Card from './Card.vue';
 
-  const standardExpiryTime = new Date('2026/6/30');
+  const standardExpiryTime = new Date('2026/9/30');
   // standardExpiryTime.setDate(standardExpiryTime.getDate() + 30);
 </script>
 <style lang="scss" scoped>
