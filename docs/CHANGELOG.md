@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.19.1](https://github.com/samchen08/vtj.pro/compare/@vtj/docs@0.19.0...@vtj/docs@0.19.1) (2026-08-08)
+
+
+### Features
+
+* **agent:** 添加AI Agent技术白皮书及增强启动流程支持 ([1600355](https://github.com/samchen08/vtj.pro/commit/160035511ab1a4ca07f21b844d8650ed5f2a0567))
+
+
+
+
+
 # [0.19.0](https://github.com/samchen08/vtj.pro/compare/@vtj/docs@0.18.29...@vtj/docs@0.19.0) (2026-08-08)
 
 
