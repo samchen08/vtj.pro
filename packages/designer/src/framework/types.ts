@@ -261,5 +261,7 @@ export interface ToolConfig {
   name: string;
   description: string;
   parameters: ToolParameter[];
+  /** 工具执行风险等级：'destructive' 表示高风险操作（如删除），未声明时由调用方按规则推断 */
+  risk?: 'write' | 'destructive';
   createHandler: (context: ToolContext) => (...args: any[]) => Promise<any>;
 }

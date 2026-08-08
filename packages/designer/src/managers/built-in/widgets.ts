@@ -168,14 +168,25 @@ export const builtInWidgets: Array<AppWidget | TabWidget | Widget> = [
     icon: VtjIconEnv,
     label: '环境变量'
   },
+  // {
+  //   name: 'AI',
+  //   region: 'Apps',
+  //   component: widgets.AI,
+  //   type: 'app',
+  //   openType: 'panel',
+  //   icon: VtjIconAi,
+  //   label: 'AI智能体',
+  //   remote: true,
+  //   cache: true
+  // },
   {
-    name: 'AI',
+    name: 'Agent',
     region: 'Apps',
-    component: widgets.AI,
+    component: widgets.Agent,
     type: 'app',
     openType: 'panel',
     icon: VtjIconAi,
-    label: 'AI智能体',
+    label: 'AI Agent',
     remote: true,
     cache: true
   },

@@ -3,7 +3,7 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-## [0.18.28](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.18.27...@vtj/coder@0.18.28) (2026-08-01)
+## [0.18.29](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.18.27...@vtj/coder@0.18.29) (2026-08-01)
 
 **Note:** Version bump only for package @vtj/coder
 
@@ -11,4269 +11,2164 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-## [0.18.27](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.18.26...@vtj/coder@0.18.27) (2026-07-23)
+## [0.18.28](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.18.28...@vtj/coder@0.18.28) (2026-08-01)
 
 **Note:** Version bump only for package @vtj/coder
 
+## [0.18.28](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.18.26...@vtj/coder@0.18.28) (2026-07-23)
 
-
-
+**Note:** Version bump only for package @vtj/coder
 
 ## [0.18.26](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.18.25...@vtj/coder@0.18.26) (2026-07-20)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.18.25](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.18.24...@vtj/coder@0.18.25) (2026-07-18)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.18.24](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.18.23...@vtj/coder@0.18.24) (2026-07-15)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.18.23](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.18.22...@vtj/coder@0.18.23) (2026-07-14)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.18.22](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.18.21...@vtj/coder@0.18.22) (2026-07-11)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.18.21](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.18.20...@vtj/coder@0.18.21) (2026-07-11)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.18.20](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.18.19...@vtj/coder@0.18.20) (2026-07-10)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.18.19](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.18.18...@vtj/coder@0.18.19) (2026-07-10)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.18.18](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.18.17...@vtj/coder@0.18.18) (2026-07-09)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.18.17](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.18.16...@vtj/coder@0.18.17) (2026-07-09)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.18.16](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.18.15...@vtj/coder@0.18.16) (2026-07-07)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.18.15](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.18.14...@vtj/coder@0.18.15) (2026-07-05)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.18.14](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.18.13...@vtj/coder@0.18.14) (2026-07-04)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.18.13](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.18.12...@vtj/coder@0.18.13) (2026-07-02)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.18.12](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.18.11...@vtj/coder@0.18.12) (2026-07-01)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.18.11](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.18.10...@vtj/coder@0.18.11) (2026-06-28)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.18.10](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.18.9...@vtj/coder@0.18.10) (2026-06-28)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.18.9](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.18.8...@vtj/coder@0.18.9) (2026-06-27)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.18.8](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.18.7...@vtj/coder@0.18.8) (2026-06-24)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.18.7](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.18.6...@vtj/coder@0.18.7) (2026-06-24)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.18.6](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.18.5...@vtj/coder@0.18.6) (2026-06-22)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.18.5](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.18.4...@vtj/coder@0.18.5) (2026-06-22)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.18.4](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.18.3...@vtj/coder@0.18.4) (2026-06-22)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.18.3](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.18.2...@vtj/coder@0.18.3) (2026-06-22)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.18.2](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.18.1...@vtj/coder@0.18.2) (2026-06-21)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.18.1](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.18.0...@vtj/coder@0.18.1) (2026-06-21)
-
 
 ### Bug Fixes
 
-* **parser:** 防止模板字符串中的 HTML 被误解析 ([c4fd2a4](https://gitee.com/newgateway/vtj/commits/c4fd2a479ff35b53c77edf8530d82f26062af7b6))
-
-
-
-
+- **parser:** 防止模板字符串中的 HTML 被误解析 ([c4fd2a4](https://gitee.com/newgateway/vtj/commits/c4fd2a479ff35b53c77edf8530d82f26062af7b6))
 
 # [0.18.0](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.17.8...@vtj/coder@0.18.0) (2026-06-20)
 
-
 ### Bug Fixes
 
-* **app:** 调整全局请求配置默认值以优化响应处理 ([fea69bc](https://gitee.com/newgateway/vtj/commits/fea69bc59341437235cb936d4b8e352a75833b89))
-* **coder:** 移除模板中的 ts-nocheck 注释以提高代码质量 ([4a011d1](https://gitee.com/newgateway/vtj/commits/4a011d191b29c7421f01f84cfd9ca9bd67a220ae))
-* **composer:** 修复 dataSources 解析时的符号转换问题 ([b0b5cd6](https://gitee.com/newgateway/vtj/commits/b0b5cd6b660c5b7c9731df3421f19181efbde220))
-* **parser:** 优化 composable 去重和 useProvider 过滤逻辑 ([5bcc2b6](https://gitee.com/newgateway/vtj/commits/5bcc2b6c4eb989b5de2ff6951f26bbb25683be55))
-* **parser:** 统一 ref/computed 变量访问形式处理 ([7e4858e](https://gitee.com/newgateway/vtj/commits/7e4858e6cc749e1218dbf1e461e658a50d5b1954))
-
+- **app:** 调整全局请求配置默认值以优化响应处理 ([fea69bc](https://gitee.com/newgateway/vtj/commits/fea69bc59341437235cb936d4b8e352a75833b89))
+- **coder:** 移除模板中的 ts-nocheck 注释以提高代码质量 ([4a011d1](https://gitee.com/newgateway/vtj/commits/4a011d191b29c7421f01f84cfd9ca9bd67a220ae))
+- **composer:** 修复 dataSources 解析时的符号转换问题 ([b0b5cd6](https://gitee.com/newgateway/vtj/commits/b0b5cd6b660c5b7c9731df3421f19181efbde220))
+- **parser:** 优化 composable 去重和 useProvider 过滤逻辑 ([5bcc2b6](https://gitee.com/newgateway/vtj/commits/5bcc2b6c4eb989b5de2ff6951f26bbb25683be55))
+- **parser:** 统一 ref/computed 变量访问形式处理 ([7e4858e](https://gitee.com/newgateway/vtj/commits/7e4858e6cc749e1218dbf1e461e658a50d5b1954))
 
 ### Features
 
-* **coder:** 合并 renderer 包导入并扩展全局组合式 API 支持 ([ea306c4](https://gitee.com/newgateway/vtj/commits/ea306c4cd886c06752e6bc9b1bdb5d5ecbd34a59))
-* **coder:** 扩展 element-plus 全局 API 支持 ([4fdf1c5](https://gitee.com/newgateway/vtj/commits/4fdf1c52b14011f23c82b80c1731193ae3f14250))
-* **coder:** 支持 Composition API 模式出码 ([ed44834](https://gitee.com/newgateway/vtj/commits/ed44834975dc1381f475a6e4451a324e4afbf70f))
-* **coder:** 支持 easycom 依赖包免 import 及相关处理 ([fde4fd0](https://gitee.com/newgateway/vtj/commits/fde4fd0c7a9ad550a4e91ccf6719cabc6c7c1980))
-* **coder:** 支持 element-plus $loading 组合式API ([0f691a4](https://gitee.com/newgateway/vtj/commits/0f691a4966d003ace65cc797b054172109b93da8))
-* **coder:** 支持多 UI 库全局 API 映射与识别 ([0af3bac](https://gitee.com/newgateway/vtj/commits/0af3bacea387974e60790a86e8d1ae98c51bac4f))
-* **composition:** 支持 $provider 作为全局 API 并优化引用处理 ([54cf908](https://gitee.com/newgateway/vtj/commits/54cf9081f31076d13a86553c5efd0073b9439acb))
-* **composition:** 添加 $provider 全局 API 配置 ([32d82c4](https://gitee.com/newgateway/vtj/commits/32d82c4deb6b702cfcc2da1144d283f02a5b59f0))
-* **globalApi:** 添加 $uni 和 $getApp 全局API支持 ([47838e8](https://gitee.com/newgateway/vtj/commits/47838e8fd94d21e1c1a091546a1d442594dedafc))
-* **parser:** 支持 uniapp 专用生命周期钩子 ([17d8663](https://gitee.com/newgateway/vtj/commits/17d866383ec16e6cbbaade2a81c0963630aba628))
-* **parser:** 支持 Uniapp 专用生命周期钩子的导入和使用 ([51a8278](https://gitee.com/newgateway/vtj/commits/51a82783605542d0fbd95003030789e7141abf28))
-* **parser:** 支持 Vue 3 <script setup> 解析与 Composition API 反向转换 ([afcc737](https://gitee.com/newgateway/vtj/commits/afcc737c1b9e02fe3ab4eab7615b48b39adc0535))
-* **parser:** 支持 vue-router 和 vue-i18n 全局 API 转换 ([0e3694c](https://gitee.com/newgateway/vtj/commits/0e3694c8e56218d68a8042be6c654dd7c4949cb6))
-* **parser:** 支持模板中 ref 和 computed 的 .value 自动解包 ([0bccf71](https://gitee.com/newgateway/vtj/commits/0bccf7195c8cf7e347249131ff4d44d78f84b136))
-
-
-
-
+- **coder:** 合并 renderer 包导入并扩展全局组合式 API 支持 ([ea306c4](https://gitee.com/newgateway/vtj/commits/ea306c4cd886c06752e6bc9b1bdb5d5ecbd34a59))
+- **coder:** 扩展 element-plus 全局 API 支持 ([4fdf1c5](https://gitee.com/newgateway/vtj/commits/4fdf1c52b14011f23c82b80c1731193ae3f14250))
+- **coder:** 支持 Composition API 模式出码 ([ed44834](https://gitee.com/newgateway/vtj/commits/ed44834975dc1381f475a6e4451a324e4afbf70f))
+- **coder:** 支持 easycom 依赖包免 import 及相关处理 ([fde4fd0](https://gitee.com/newgateway/vtj/commits/fde4fd0c7a9ad550a4e91ccf6719cabc6c7c1980))
+- **coder:** 支持 element-plus $loading 组合式API ([0f691a4](https://gitee.com/newgateway/vtj/commits/0f691a4966d003ace65cc797b054172109b93da8))
+- **coder:** 支持多 UI 库全局 API 映射与识别 ([0af3bac](https://gitee.com/newgateway/vtj/commits/0af3bacea387974e60790a86e8d1ae98c51bac4f))
+- **composition:** 支持 $provider 作为全局 API 并优化引用处理 ([54cf908](https://gitee.com/newgateway/vtj/commits/54cf9081f31076d13a86553c5efd0073b9439acb))
+- **composition:** 添加 $provider 全局 API 配置 ([32d82c4](https://gitee.com/newgateway/vtj/commits/32d82c4deb6b702cfcc2da1144d283f02a5b59f0))
+- **globalApi:** 添加 $uni 和 $getApp 全局API支持 ([47838e8](https://gitee.com/newgateway/vtj/commits/47838e8fd94d21e1c1a091546a1d442594dedafc))
+- **parser:** 支持 uniapp 专用生命周期钩子 ([17d8663](https://gitee.com/newgateway/vtj/commits/17d866383ec16e6cbbaade2a81c0963630aba628))
+- **parser:** 支持 Uniapp 专用生命周期钩子的导入和使用 ([51a8278](https://gitee.com/newgateway/vtj/commits/51a82783605542d0fbd95003030789e7141abf28))
+- **parser:** 支持 Vue 3 <script setup> 解析与 Composition API 反向转换 ([afcc737](https://gitee.com/newgateway/vtj/commits/afcc737c1b9e02fe3ab4eab7615b48b39adc0535))
+- **parser:** 支持 vue-router 和 vue-i18n 全局 API 转换 ([0e3694c](https://gitee.com/newgateway/vtj/commits/0e3694c8e56218d68a8042be6c654dd7c4949cb6))
+- **parser:** 支持模板中 ref 和 computed 的 .value 自动解包 ([0bccf71](https://gitee.com/newgateway/vtj/commits/0bccf7195c8cf7e347249131ff4d44d78f84b136))
 
 ## [0.17.8](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.17.7...@vtj/coder@0.17.8) (2026-06-11)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.17.7](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.17.6...@vtj/coder@0.17.7) (2026-06-11)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.17.6](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.17.5...@vtj/coder@0.17.6) (2026-06-11)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.17.5](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.17.4...@vtj/coder@0.17.5) (2026-06-09)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.17.4](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.17.3...@vtj/coder@0.17.4) (2026-06-07)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.17.3](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.17.2...@vtj/coder@0.17.3) (2026-06-07)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.17.2](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.17.1...@vtj/coder@0.17.2) (2026-06-06)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.17.1](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.17.0...@vtj/coder@0.17.1) (2026-06-04)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 # [0.17.0](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.16.36...@vtj/coder@0.17.0) (2026-06-04)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.16.36](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.16.35...@vtj/coder@0.16.36) (2026-05-23)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.16.35](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.16.34...@vtj/coder@0.16.35) (2026-05-09)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.16.34](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.16.33...@vtj/coder@0.16.34) (2026-05-06)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.16.33](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.16.32...@vtj/coder@0.16.33) (2026-04-29)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.16.32](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.16.31...@vtj/coder@0.16.32) (2026-04-28)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.16.31](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.16.30...@vtj/coder@0.16.31) (2026-04-28)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.16.30](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.16.29...@vtj/coder@0.16.30) (2026-04-28)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.16.29](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.16.28...@vtj/coder@0.16.29) (2026-04-28)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.16.28](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.16.27...@vtj/coder@0.16.28) (2026-04-28)
-
 
 ### Bug Fixes
 
-* 🐛 优化代码生成 ([afb9bd1](https://gitee.com/newgateway/vtj/commits/afb9bd114208228e6de5802bd7f88a9b2eb9abce))
-
-
-
-
+- 🐛 优化代码生成 ([afb9bd1](https://gitee.com/newgateway/vtj/commits/afb9bd114208228e6de5802bd7f88a9b2eb9abce))
 
 ## [0.16.27](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.16.26...@vtj/coder@0.16.27) (2026-04-27)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.16.26](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.16.25...@vtj/coder@0.16.26) (2026-04-27)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.16.25](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.16.24...@vtj/coder@0.16.25) (2026-04-27)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.16.24](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.16.23...@vtj/coder@0.16.24) (2026-04-25)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.16.23](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.16.22...@vtj/coder@0.16.23) (2026-04-24)
-
 
 ### Bug Fixes
 
-* 🐛 uniapp 支持 [@tap](https://gitee.com/tap) 事件 ([ff495c5](https://gitee.com/newgateway/vtj/commits/ff495c5ed4e9774c23ca10775949e8d7378c9a0a))
-
-
-
-
+- 🐛 uniapp 支持 [@tap](https://gitee.com/tap) 事件 ([ff495c5](https://gitee.com/newgateway/vtj/commits/ff495c5ed4e9774c23ca10775949e8d7378c9a0a))
 
 ## [0.16.22](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.16.21...@vtj/coder@0.16.22) (2026-04-23)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.16.21](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.16.20...@vtj/coder@0.16.21) (2026-04-18)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.16.20](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.16.19...@vtj/coder@0.16.20) (2026-04-18)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.16.19](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.16.18...@vtj/coder@0.16.19) (2026-04-16)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.16.18](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.16.17...@vtj/coder@0.16.18) (2026-04-15)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.16.17](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.16.16...@vtj/coder@0.16.17) (2026-04-13)
-
 
 ### Bug Fixes
 
-* 🐛 replace lcdp.vtj.pro ([3e4f60f](https://gitee.com/newgateway/vtj/commits/3e4f60fcad2fcf9ef3d0882720f6f9b684391173))
-
-
-
-
+- 🐛 replace lcdp.vtj.pro ([3e4f60f](https://gitee.com/newgateway/vtj/commits/3e4f60fcad2fcf9ef3d0882720f6f9b684391173))
 
 ## [0.16.16](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.16.15...@vtj/coder@0.16.16) (2026-04-10)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.16.15](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.16.14...@vtj/coder@0.16.15) (2026-04-07)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.16.14](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.16.13...@vtj/coder@0.16.14) (2026-03-29)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.16.13](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.16.12...@vtj/coder@0.16.13) (2026-03-23)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.16.12](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.16.11...@vtj/coder@0.16.12) (2026-03-16)
-
 
 ### Bug Fixes
 
-* 🐛 当script有嵌套双引号，出码报错; 模版节点只有事件，没有句柄时，出码报错，如 只绑定[@click](https://gitee.com/click).stop ([268aeb9](https://gitee.com/newgateway/vtj/commits/268aeb952aa50ee9aa36fb9f87e7d89e65e360db))
-
-
-
-
+- 🐛 当script有嵌套双引号，出码报错; 模版节点只有事件，没有句柄时，出码报错，如 只绑定[@click](https://gitee.com/click).stop ([268aeb9](https://gitee.com/newgateway/vtj/commits/268aeb952aa50ee9aa36fb9f87e7d89e65e360db))
 
 ## [0.16.11](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.16.10...@vtj/coder@0.16.11) (2026-03-14)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.16.10](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.16.9...@vtj/coder@0.16.10) (2026-03-13)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.16.9](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.16.8...@vtj/coder@0.16.9) (2026-03-07)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.16.8](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.16.7...@vtj/coder@0.16.8) (2026-03-07)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.16.7](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.16.6...@vtj/coder@0.16.7) (2026-03-07)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.16.6](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.16.5...@vtj/coder@0.16.6) (2026-03-05)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.16.5](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.16.4...@vtj/coder@0.16.5) (2026-02-27)
-
 
 ### Bug Fixes
 
-* 🐛 出码模版代码双引号替换为单引号 ([42b5b59](https://gitee.com/newgateway/vtj/commits/42b5b59b4d92e1fb602232416c0987d6f8df935f))
-
-
-
-
+- 🐛 出码模版代码双引号替换为单引号 ([42b5b59](https://gitee.com/newgateway/vtj/commits/42b5b59b4d92e1fb602232416c0987d6f8df935f))
 
 ## [0.16.4](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.16.3...@vtj/coder@0.16.4) (2026-02-26)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.16.3](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.16.2...@vtj/coder@0.16.3) (2026-02-26)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.16.2](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.16.1...@vtj/coder@0.16.2) (2026-02-24)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.16.1](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.16.0...@vtj/coder@0.16.1) (2026-02-22)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 # [0.16.0](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.15.2...@vtj/coder@0.16.0) (2026-02-22)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.15.2](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.15.1...@vtj/coder@0.15.2) (2026-02-06)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.15.1](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.15.0...@vtj/coder@0.15.1) (2026-01-28)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 # [0.15.0](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.14.6...@vtj/coder@0.15.0) (2026-01-27)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.14.6](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.14.5...@vtj/coder@0.14.6) (2026-01-26)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.14.5](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.14.4...@vtj/coder@0.14.5) (2026-01-24)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.14.4](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.14.3...@vtj/coder@0.14.4) (2026-01-16)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.14.3](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.14.2...@vtj/coder@0.14.3) (2026-01-09)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.14.2](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.14.1...@vtj/coder@0.14.2) (2026-01-06)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.14.1](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.14.0...@vtj/coder@0.14.1) (2026-01-04)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 # [0.14.0](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.13.41...@vtj/coder@0.14.0) (2026-01-03)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.13.41](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.13.40...@vtj/coder@0.13.41) (2025-12-29)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.13.40](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.13.39...@vtj/coder@0.13.40) (2025-12-26)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.13.39](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.13.38...@vtj/coder@0.13.39) (2025-12-20)
-
 
 ### Bug Fixes
 
-* 🐛 优化uniapp样式 ([154c9a8](https://gitee.com/newgateway/vtj/commits/154c9a840a71c192e9c6d3307c5b4741ebf19472))
-
-
-
-
+- 🐛 优化uniapp样式 ([154c9a8](https://gitee.com/newgateway/vtj/commits/154c9a840a71c192e9c6d3307c5b4741ebf19472))
 
 ## [0.13.38](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.13.37...@vtj/coder@0.13.38) (2025-12-17)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.13.37](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.13.36...@vtj/coder@0.13.37) (2025-12-17)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.13.36](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.13.35...@vtj/coder@0.13.36) (2025-12-11)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.13.35](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.13.34...@vtj/coder@0.13.35) (2025-11-29)
-
 
 ### Bug Fixes
 
-* 🐛 更新项目依赖 ([5c78163](https://gitee.com/newgateway/vtj/commits/5c78163bee169f461cd2438dec3d30ec3963459d))
-
-
-
-
+- 🐛 更新项目依赖 ([5c78163](https://gitee.com/newgateway/vtj/commits/5c78163bee169f461cd2438dec3d30ec3963459d))
 
 ## [0.13.34](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.13.33...@vtj/coder@0.13.34) (2025-11-14)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.13.33](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.13.32...@vtj/coder@0.13.33) (2025-10-28)
-
 
 ### Features
 
-* ✨ AI 加入实验性diff模式 ([f2f99da](https://gitee.com/newgateway/vtj/commits/f2f99da806a59c2b71f90ed8ea668340745f2bc3))
-
-
-
-
+- ✨ AI 加入实验性diff模式 ([f2f99da](https://gitee.com/newgateway/vtj/commits/f2f99da806a59c2b71f90ed8ea668340745f2bc3))
 
 ## [0.13.32](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.13.31...@vtj/coder@0.13.32) (2025-10-22)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.13.31](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.13.30...@vtj/coder@0.13.31) (2025-10-16)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.13.30](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.13.29...@vtj/coder@0.13.30) (2025-10-11)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.13.29](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.13.28...@vtj/coder@0.13.29) (2025-09-26)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.13.28](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.13.27...@vtj/coder@0.13.28) (2025-09-22)
-
 
 ### Features
 
-* ✨ 支持expose ([c54f24e](https://gitee.com/newgateway/vtj/commits/c54f24e9edc489128e65ca18d6063fb5b39d7dca))
-
-
-
-
+- ✨ 支持expose ([c54f24e](https://gitee.com/newgateway/vtj/commits/c54f24e9edc489128e65ca18d6063fb5b39d7dca))
 
 ## [0.13.27](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.13.26...@vtj/coder@0.13.27) (2025-09-22)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.13.26](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.13.25...@vtj/coder@0.13.26) (2025-09-22)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.13.25](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.13.24...@vtj/coder@0.13.25) (2025-09-16)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.13.24](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.13.23...@vtj/coder@0.13.24) (2025-09-12)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.13.23](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.13.22...@vtj/coder@0.13.23) (2025-09-12)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.13.22](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.13.21...@vtj/coder@0.13.22) (2025-09-11)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.13.21](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.13.20...@vtj/coder@0.13.21) (2025-09-11)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.13.20](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.13.19...@vtj/coder@0.13.20) (2025-09-08)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.13.19](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.13.18...@vtj/coder@0.13.19) (2025-09-06)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.13.18](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.13.17...@vtj/coder@0.13.18) (2025-09-05)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.13.17](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.13.16...@vtj/coder@0.13.17) (2025-09-05)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.13.16](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.13.15...@vtj/coder@0.13.16) (2025-09-02)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.13.15](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.13.14...@vtj/coder@0.13.15) (2025-09-01)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.13.14](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.13.13...@vtj/coder@0.13.14) (2025-08-28)
-
 
 ### Bug Fixes
 
-* 🐛 修复出码属性默认值和$开头的成员表达式匹配问题 ([57696df](https://gitee.com/newgateway/vtj/commits/57696df87561c5e43a54c349240a8cff913a5060))
-
-
-
-
+- 🐛 修复出码属性默认值和$开头的成员表达式匹配问题 ([57696df](https://gitee.com/newgateway/vtj/commits/57696df87561c5e43a54c349240a8cff913a5060))
 
 ## [0.13.13](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.13.12...@vtj/coder@0.13.13) (2025-08-22)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.13.12](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.13.11...@vtj/coder@0.13.12) (2025-08-20)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.13.11](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.13.10...@vtj/coder@0.13.11) (2025-08-16)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.13.10](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.13.9...@vtj/coder@0.13.10) (2025-08-16)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.13.9](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.13.8...@vtj/coder@0.13.9) (2025-08-14)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.13.8](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.13.7...@vtj/coder@0.13.8) (2025-08-13)
-
 
 ### Bug Fixes
 
-* 🐛 修复组件事件出码异常 ([e347a0b](https://gitee.com/newgateway/vtj/commits/e347a0b2e4c57e5fe1cd9dd5587fa679fe2b476d))
-
-
-
-
+- 🐛 修复组件事件出码异常 ([e347a0b](https://gitee.com/newgateway/vtj/commits/e347a0b2e4c57e5fe1cd9dd5587fa679fe2b476d))
 
 ## [0.13.7](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.13.6...@vtj/coder@0.13.7) (2025-08-08)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.13.6](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.13.5...@vtj/coder@0.13.6) (2025-08-08)
-
 
 ### Bug Fixes
 
-* 🐛 coder parseWatch ([2ecfc5a](https://gitee.com/newgateway/vtj/commits/2ecfc5a82e848d83b4000f931d992e152b6fa47b))
-
-
-
-
+- 🐛 coder parseWatch ([2ecfc5a](https://gitee.com/newgateway/vtj/commits/2ecfc5a82e848d83b4000f931d992e152b6fa47b))
 
 ## [0.13.5](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.13.4...@vtj/coder@0.13.5) (2025-08-07)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.13.4](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.13.3...@vtj/coder@0.13.4) (2025-08-07)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.13.3](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.13.2...@vtj/coder@0.13.3) (2025-08-07)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.13.2](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.13.1...@vtj/coder@0.13.2) (2025-08-06)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.13.1](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.13.0...@vtj/coder@0.13.1) (2025-08-06)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 # [0.13.0](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.12.70...@vtj/coder@0.13.0) (2025-08-06)
-
 
 ### Bug Fixes
 
-* 🐛 coder replaceComputedValue 边界异常 ([36bcc73](https://gitee.com/newgateway/vtj/commits/36bcc73306c4b39532e076fbfc6c49eee6291d38))
-
-
-
-
+- 🐛 coder replaceComputedValue 边界异常 ([36bcc73](https://gitee.com/newgateway/vtj/commits/36bcc73306c4b39532e076fbfc6c49eee6291d38))
 
 ## [0.12.70](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.12.69...@vtj/coder@0.12.70) (2025-08-01)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.12.69](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.12.68...@vtj/coder@0.12.69) (2025-08-01)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.12.68](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.12.67...@vtj/coder@0.12.68) (2025-07-31)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.12.67](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.12.66...@vtj/coder@0.12.67) (2025-07-31)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.12.66](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.12.65...@vtj/coder@0.12.66) (2025-07-26)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.12.65](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.12.64...@vtj/coder@0.12.65) (2025-07-23)
-
 
 ### Bug Fixes
 
-* 🐛 coder双引号问题 ([74ff98f](https://gitee.com/newgateway/vtj/commits/74ff98fc80bd4091b9b42b4454bb3469e6eee235))
-
-
-
-
+- 🐛 coder双引号问题 ([74ff98f](https://gitee.com/newgateway/vtj/commits/74ff98fc80bd4091b9b42b4454bb3469e6eee235))
 
 ## [0.12.64](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.12.63...@vtj/coder@0.12.64) (2025-07-23)
 
-
 ### Bug Fixes
 
-* 🐛 出码插槽支持scope名称 ([ca896df](https://gitee.com/newgateway/vtj/commits/ca896df0515e0f7b1904e5c839b81010b4c45355))
-
-
-
-
+- 🐛 出码插槽支持scope名称 ([ca896df](https://gitee.com/newgateway/vtj/commits/ca896df0515e0f7b1904e5c839b81010b4c45355))
 
 ## [0.12.63](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.12.62...@vtj/coder@0.12.63) (2025-07-19)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.12.62](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.12.61...@vtj/coder@0.12.62) (2025-07-19)
-
 
 ### Bug Fixes
 
-* 🐛 coder 双引号问题 ([bec5a28](https://gitee.com/newgateway/vtj/commits/bec5a28bf8404cebc73ce6747c090a175d40eea3))
-
-
-
-
+- 🐛 coder 双引号问题 ([bec5a28](https://gitee.com/newgateway/vtj/commits/bec5a28bf8404cebc73ce6747c090a175d40eea3))
 
 ## [0.12.61](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.12.60...@vtj/coder@0.12.61) (2025-07-19)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.12.60](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.12.59...@vtj/coder@0.12.60) (2025-07-18)
-
 
 ### Features
 
-* ✨ XMenu ([c6409fc](https://gitee.com/newgateway/vtj/commits/c6409fce89c4eb8a57494dc27b3ec6af08470f2f))
-
-
-
-
+- ✨ XMenu ([c6409fc](https://gitee.com/newgateway/vtj/commits/c6409fce89c4eb8a57494dc27b3ec6af08470f2f))
 
 ## [0.12.59](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.12.58...@vtj/coder@0.12.59) (2025-07-18)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.12.58](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.12.57...@vtj/coder@0.12.58) (2025-07-16)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.12.57](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.12.56...@vtj/coder@0.12.57) (2025-07-16)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.12.56](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.12.55...@vtj/coder@0.12.56) (2025-07-16)
-
 
 ### Bug Fixes
 
-* 🐛 parser 数据源 ([9befb29](https://gitee.com/newgateway/vtj/commits/9befb2968ecc74f33b01202317e966c8f3bbadcd))
-
-
-
-
+- 🐛 parser 数据源 ([9befb29](https://gitee.com/newgateway/vtj/commits/9befb2968ecc74f33b01202317e966c8f3bbadcd))
 
 ## [0.12.55](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.12.54...@vtj/coder@0.12.55) (2025-07-09)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.12.54](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.12.53...@vtj/coder@0.12.54) (2025-07-08)
-
 
 ### Bug Fixes
 
-* 🐛 升级依赖 ([dbee35b](https://gitee.com/newgateway/vtj/commits/dbee35bd867a44f8c71c117fa90d56d108144a6b))
-
-
-
-
+- 🐛 升级依赖 ([dbee35b](https://gitee.com/newgateway/vtj/commits/dbee35bd867a44f8c71c117fa90d56d108144a6b))
 
 ## [0.12.53](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.12.52...@vtj/coder@0.12.53) (2025-07-07)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.12.52](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.12.51...@vtj/coder@0.12.52) (2025-07-07)
-
 
 ### Bug Fixes
 
-* 🐛 0.12.51 ([e4d8797](https://gitee.com/newgateway/vtj/commits/e4d8797a041f6df63b7f9bba3a984f6992db1064))
-
-
-
-
+- 🐛 0.12.51 ([e4d8797](https://gitee.com/newgateway/vtj/commits/e4d8797a041f6df63b7f9bba3a984f6992db1064))
 
 ## [0.12.51](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.12.50...@vtj/coder@0.12.51) (2025-07-07)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.12.50](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.12.49...@vtj/coder@0.12.50) (2025-07-04)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.12.49](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.12.48...@vtj/coder@0.12.49) (2025-07-02)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.12.48](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.12.47...@vtj/coder@0.12.48) (2025-06-30)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.12.47](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.12.46...@vtj/coder@0.12.47) (2025-06-24)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.12.46](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.12.45...@vtj/coder@0.12.46) (2025-06-23)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.12.45](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.12.44...@vtj/coder@0.12.45) (2025-06-23)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.12.44](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.12.43...@vtj/coder@0.12.44) (2025-06-20)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.12.43](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.12.42...@vtj/coder@0.12.43) (2025-06-17)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.12.42](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.12.41...@vtj/coder@0.12.42) (2025-06-17)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.12.41](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.12.40...@vtj/coder@0.12.41) (2025-06-16)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.12.40](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.12.39...@vtj/coder@0.12.40) (2025-06-12)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.12.39](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.12.38...@vtj/coder@0.12.39) (2025-06-11)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.12.38](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.12.37...@vtj/coder@0.12.38) (2025-06-11)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.12.37](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.12.36...@vtj/coder@0.12.37) (2025-06-09)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.12.36](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.12.35...@vtj/coder@0.12.36) (2025-06-09)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.12.35](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.12.34...@vtj/coder@0.12.35) (2025-06-06)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.12.34](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.12.33...@vtj/coder@0.12.34) (2025-06-06)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.12.33](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.12.32...@vtj/coder@0.12.33) (2025-06-04)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.12.32](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.12.31...@vtj/coder@0.12.32) (2025-06-03)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.12.31](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.12.30...@vtj/coder@0.12.31) (2025-05-29)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.12.30](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.12.29...@vtj/coder@0.12.30) (2025-05-27)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.12.29](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.12.28...@vtj/coder@0.12.29) (2025-05-23)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.12.28](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.12.27...@vtj/coder@0.12.28) (2025-05-23)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.12.27](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.12.26...@vtj/coder@0.12.27) (2025-05-23)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.12.26](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.12.25...@vtj/coder@0.12.26) (2025-05-23)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.12.25](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.12.24...@vtj/coder@0.12.25) (2025-05-22)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.12.24](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.12.23...@vtj/coder@0.12.24) (2025-05-21)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.12.23](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.12.22...@vtj/coder@0.12.23) (2025-05-21)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.12.22](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.12.21...@vtj/coder@0.12.22) (2025-05-20)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.12.21](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.12.20...@vtj/coder@0.12.21) (2025-05-16)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.12.20](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.12.19...@vtj/coder@0.12.20) (2025-05-15)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.12.19](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.12.18...@vtj/coder@0.12.19) (2025-05-12)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.12.18](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.12.17...@vtj/coder@0.12.18) (2025-05-12)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.12.17](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.12.16...@vtj/coder@0.12.17) (2025-05-12)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.12.16](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.12.15...@vtj/coder@0.12.16) (2025-05-12)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.12.15](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.12.14...@vtj/coder@0.12.15) (2025-05-07)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.12.14](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.12.13...@vtj/coder@0.12.14) (2025-05-07)
-
 
 ### Bug Fixes
 
-* 🐛 icons import miss ([b3469b0](https://gitee.com/newgateway/vtj/commits/b3469b089c84d5bcbd6b6d90dccf85f2db147d23))
-
-
-
-
+- 🐛 icons import miss ([b3469b0](https://gitee.com/newgateway/vtj/commits/b3469b089c84d5bcbd6b6d90dccf85f2db147d23))
 
 ## [0.12.13](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.12.12...@vtj/coder@0.12.13) (2025-05-06)
 
-
 ### Bug Fixes
 
-* 🐛 icons import miss ([a610c53](https://gitee.com/newgateway/vtj/commits/a610c53c5944dc3dd1b3ef556001e4c70a36f5a3))
-
-
-
-
+- 🐛 icons import miss ([a610c53](https://gitee.com/newgateway/vtj/commits/a610c53c5944dc3dd1b3ef556001e4c70a36f5a3))
 
 ## [0.12.12](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.12.11...@vtj/coder@0.12.12) (2025-05-06)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.12.11](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.12.10...@vtj/coder@0.12.11) (2025-05-05)
-
 
 ### Features
 
-* ✨ 支持v-else-if 和 v-else 代码分支 ([6965137](https://gitee.com/newgateway/vtj/commits/69651374b83bffd4bb65f4e8d7de82eb4dc87e7d))
-
-
-
-
+- ✨ 支持v-else-if 和 v-else 代码分支 ([6965137](https://gitee.com/newgateway/vtj/commits/69651374b83bffd4bb65f4e8d7de82eb4dc87e7d))
 
 ## [0.12.10](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.12.9...@vtj/coder@0.12.10) (2025-04-30)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.12.9](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.12.8...@vtj/coder@0.12.9) (2025-04-29)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.12.8](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.12.7...@vtj/coder@0.12.8) (2025-04-29)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.12.7](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.12.6...@vtj/coder@0.12.7) (2025-04-27)
-
 
 ### Bug Fixes
 
-* 🐛 uniapp coder ([3b88493](https://gitee.com/newgateway/vtj/commits/3b8849388d6c24bdde10ce7d82615275063dae64))
-
-
-
-
+- 🐛 uniapp coder ([3b88493](https://gitee.com/newgateway/vtj/commits/3b8849388d6c24bdde10ce7d82615275063dae64))
 
 ## [0.12.6](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.12.5...@vtj/coder@0.12.6) (2025-04-25)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.12.5](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.12.4...@vtj/coder@0.12.5) (2025-04-25)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.12.4](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.12.3...@vtj/coder@0.12.4) (2025-04-23)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.12.3](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.12.2...@vtj/coder@0.12.3) (2025-04-23)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.12.2](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.12.1...@vtj/coder@0.12.2) (2025-04-22)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.12.1](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.12.0...@vtj/coder@0.12.1) (2025-04-22)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 # [0.12.0](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.12.0-alpha.2...@vtj/coder@0.12.0) (2025-04-22)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 # [0.12.0-alpha.2](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.12.0-alpha.1...@vtj/coder@0.12.0-alpha.2) (2025-04-22)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 # [0.12.0-alpha.1](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.12.0-alpha.0...@vtj/coder@0.12.0-alpha.1) (2025-04-22)
-
 
 ### Features
 
-* ✨ openapi ([d38d478](https://gitee.com/newgateway/vtj/commits/d38d478b5e82b1648363c139112ea954dfb511ca))
-
-
-
-
+- ✨ openapi ([d38d478](https://gitee.com/newgateway/vtj/commits/d38d478b5e82b1648363c139112ea954dfb511ca))
 
 # [0.12.0-alpha.0](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.11.16...@vtj/coder@0.12.0-alpha.0) (2025-04-21)
 
-
 ### Bug Fixes
 
-* 🐛 处理出码表达式双引号导致的报错 ([4a95d83](https://gitee.com/newgateway/vtj/commits/4a95d8328d40337c382f00275f5bf1fbb608ae5c))
-
+- 🐛 处理出码表达式双引号导致的报错 ([4a95d83](https://gitee.com/newgateway/vtj/commits/4a95d8328d40337c382f00275f5bf1fbb608ae5c))
 
 ### Features
 
-* ✨ 节点/事件解析 ([27670e2](https://gitee.com/newgateway/vtj/commits/27670e2e7d52c1d76a2f278819b0d4beefa8e735))
-* ✨ parser ([a8f8cad](https://gitee.com/newgateway/vtj/commits/a8f8cad6c156a670417537154ee3b5ad8745b349))
-
-
-
-
+- ✨ 节点/事件解析 ([27670e2](https://gitee.com/newgateway/vtj/commits/27670e2e7d52c1d76a2f278819b0d4beefa8e735))
+- ✨ parser ([a8f8cad](https://gitee.com/newgateway/vtj/commits/a8f8cad6c156a670417537154ee3b5ad8745b349))
 
 ## [0.11.16](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.11.15...@vtj/coder@0.11.16) (2025-04-10)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.11.15](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.11.14...@vtj/coder@0.11.15) (2025-04-09)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.11.14](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.11.13...@vtj/coder@0.11.14) (2025-04-07)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.11.13](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.11.12...@vtj/coder@0.11.13) (2025-04-02)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.11.12](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.11.11...@vtj/coder@0.11.12) (2025-03-28)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.11.11](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.11.10...@vtj/coder@0.11.11) (2025-03-28)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.11.10](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.11.9...@vtj/coder@0.11.10) (2025-03-27)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.11.9](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.11.8...@vtj/coder@0.11.9) (2025-03-27)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.11.8](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.11.7...@vtj/coder@0.11.8) (2025-03-27)
-
 
 ### Features
 
-* ✨ report 模块,修复access和style出码bug ([db401ee](https://gitee.com/newgateway/vtj/commits/db401ee22a2c2fb85f4867755047966164b8e9f8))
-
-
-
-
+- ✨ report 模块,修复access和style出码bug ([db401ee](https://gitee.com/newgateway/vtj/commits/db401ee22a2c2fb85f4867755047966164b8e9f8))
 
 ## [0.11.7](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.11.6...@vtj/coder@0.11.7) (2025-03-25)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.11.6](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.11.5...@vtj/coder@0.11.6) (2025-03-21)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.11.5](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.11.4...@vtj/coder@0.11.5) (2025-03-20)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.11.4](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.11.3...@vtj/coder@0.11.4) (2025-03-19)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.11.3](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.11.2...@vtj/coder@0.11.3) (2025-03-19)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.11.2](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.11.1...@vtj/coder@0.11.2) (2025-03-19)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.11.1](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.11.1-alpha.1...@vtj/coder@0.11.1) (2025-03-18)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.11.1-alpha.1](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.11.1-alpha.0...@vtj/coder@0.11.1-alpha.1) (2025-03-18)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.11.1-alpha.0](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.11.0...@vtj/coder@0.11.1-alpha.0) (2025-03-18)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 # [0.11.0](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.10.15...@vtj/coder@0.11.0) (2025-03-17)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.10.15](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.10.14...@vtj/coder@0.10.15) (2025-03-14)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.10.14](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.10.13...@vtj/coder@0.10.14) (2025-03-14)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.10.13](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.10.12...@vtj/coder@0.10.13) (2025-03-13)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.10.12](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.10.11...@vtj/coder@0.10.12) (2025-03-11)
-
 
 ### Bug Fixes
 
-* 🐛 coder uniapp packagename ([3385d01](https://gitee.com/newgateway/vtj/commits/3385d0154862808415490051a460ec0b1d4542ab))
-
-
-
-
+- 🐛 coder uniapp packagename ([3385d01](https://gitee.com/newgateway/vtj/commits/3385d0154862808415490051a460ec0b1d4542ab))
 
 ## [0.10.11](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.10.10...@vtj/coder@0.10.11) (2025-03-11)
 
-
 ### Features
 
-* ✨ uniapp 支持微信小程序 ([ca67024](https://gitee.com/newgateway/vtj/commits/ca6702490867df9badb5f045aee76c2df14f2052))
-
-
-
-
+- ✨ uniapp 支持微信小程序 ([ca67024](https://gitee.com/newgateway/vtj/commits/ca6702490867df9badb5f045aee76c2df14f2052))
 
 ## [0.10.10](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.10.9...@vtj/coder@0.10.10) (2025-03-07)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.10.9](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.10.8...@vtj/coder@0.10.9) (2025-03-04)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.10.8](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.10.7...@vtj/coder@0.10.8) (2025-03-04)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.10.7](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.10.5...@vtj/coder@0.10.7) (2025-03-04)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.10.6](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.10.5...@vtj/coder@0.10.6) (2025-02-28)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.10.5](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.10.4...@vtj/coder@0.10.5) (2025-02-27)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.10.4](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.10.3...@vtj/coder@0.10.4) (2025-02-26)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.10.3](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.10.2...@vtj/coder@0.10.3) (2025-02-26)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.10.2](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.10.1...@vtj/coder@0.10.2) (2025-02-25)
-
 
 ### Bug Fixes
 
-* 🐛 修复 img input 无结束符的标签出码错误 ([10569c0](https://gitee.com/newgateway/vtj/commits/10569c0f09d22afd7b217911db48d2dcb1346460))
-
-
-
-
+- 🐛 修复 img input 无结束符的标签出码错误 ([10569c0](https://gitee.com/newgateway/vtj/commits/10569c0f09d22afd7b217911db48d2dcb1346460))
 
 ## [0.10.1](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.10.1-alpha.7...@vtj/coder@0.10.1) (2025-02-25)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.10.1-alpha.7](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.10.1-alpha.6...@vtj/coder@0.10.1-alpha.7) (2025-02-25)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.10.1-alpha.6](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.10.1-alpha.5...@vtj/coder@0.10.1-alpha.6) (2025-02-24)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.10.1-alpha.5](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.10.1-alpha.4...@vtj/coder@0.10.1-alpha.5) (2025-02-24)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.10.1-alpha.4](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.10.1-alpha.3...@vtj/coder@0.10.1-alpha.4) (2025-02-24)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.10.1-alpha.3](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.10.1-alpha.2...@vtj/coder@0.10.1-alpha.3) (2025-02-22)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.10.1-alpha.2](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.10.1-alpha.1...@vtj/coder@0.10.1-alpha.2) (2025-02-22)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.10.1-alpha.1](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.10.1-alpha.0...@vtj/coder@0.10.1-alpha.1) (2025-02-20)
-
 
 ### Features
 
-* ✨ uniapp 支持 uni-ui ([1ee244c](https://gitee.com/newgateway/vtj/commits/1ee244cd04b300c2bd7e84579ea01e4ec98169b8))
-
-
-
-
+- ✨ uniapp 支持 uni-ui ([1ee244c](https://gitee.com/newgateway/vtj/commits/1ee244cd04b300c2bd7e84579ea01e4ec98169b8))
 
 ## [0.10.1-alpha.0](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.10.0...@vtj/coder@0.10.1-alpha.0) (2025-02-19)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 # [0.10.0](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.9.30...@vtj/coder@0.10.0) (2025-02-19)
-
 
 ### Bug Fixes
 
-* 🐛 rename uni-h5 ([f47212c](https://gitee.com/newgateway/vtj/commits/f47212ce8f84a5418fef9636e7e7c2c8692f7057))
-* 🐛 uniapp coder ([960bc99](https://gitee.com/newgateway/vtj/commits/960bc99553045131ce609293a66c799918e3c5bb))
-
+- 🐛 rename uni-h5 ([f47212c](https://gitee.com/newgateway/vtj/commits/f47212ce8f84a5418fef9636e7e7c2c8692f7057))
+- 🐛 uniapp coder ([960bc99](https://gitee.com/newgateway/vtj/commits/960bc99553045131ce609293a66c799918e3c5bb))
 
 ### Features
 
-* ✨ uniapp 支持全局css ([18fb654](https://gitee.com/newgateway/vtj/commits/18fb654e13691b7226b77b6b93379b876d2089a2))
-* ✨ uniapp coder ([7eaf0f3](https://gitee.com/newgateway/vtj/commits/7eaf0f3413b8cfbeb153e2d35b885975739a4945))
-* ✨ uniapp coder ([5e961d2](https://gitee.com/newgateway/vtj/commits/5e961d2154bcce1bfefef8d054878df13aa706c8))
-
-
-
-
+- ✨ uniapp 支持全局css ([18fb654](https://gitee.com/newgateway/vtj/commits/18fb654e13691b7226b77b6b93379b876d2089a2))
+- ✨ uniapp coder ([7eaf0f3](https://gitee.com/newgateway/vtj/commits/7eaf0f3413b8cfbeb153e2d35b885975739a4945))
+- ✨ uniapp coder ([5e961d2](https://gitee.com/newgateway/vtj/commits/5e961d2154bcce1bfefef8d054878df13aa706c8))
 
 ## [0.9.30](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.9.29...@vtj/coder@0.9.30) (2025-02-18)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.9.29](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.9.28...@vtj/coder@0.9.29) (2025-02-13)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.9.28](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.9.27...@vtj/coder@0.9.28) (2025-02-13)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.9.27](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.9.26...@vtj/coder@0.9.27) (2025-02-12)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.9.26](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.9.25...@vtj/coder@0.9.26) (2025-02-11)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.9.25](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.9.24...@vtj/coder@0.9.25) (2025-01-23)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.9.24](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.9.23...@vtj/coder@0.9.24) (2025-01-22)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.9.23](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.9.22...@vtj/coder@0.9.23) (2025-01-22)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.9.22](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.9.21...@vtj/coder@0.9.22) (2025-01-16)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.9.21](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.9.20...@vtj/coder@0.9.21) (2025-01-14)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.9.20](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.9.19...@vtj/coder@0.9.20) (2025-01-14)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.9.19](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.9.18...@vtj/coder@0.9.19) (2025-01-14)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.9.18](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.9.17...@vtj/coder@0.9.18) (2025-01-14)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.9.17](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.9.16...@vtj/coder@0.9.17) (2025-01-14)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.9.16](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.9.15...@vtj/coder@0.9.16) (2025-01-13)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.9.15](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.9.14...@vtj/coder@0.9.15) (2025-01-13)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.9.14](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.9.13...@vtj/coder@0.9.14) (2025-01-10)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.9.13](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.9.12...@vtj/coder@0.9.13) (2025-01-10)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.9.12](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.9.11...@vtj/coder@0.9.12) (2025-01-10)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.9.11](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.9.10...@vtj/coder@0.9.11) (2025-01-09)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.9.10](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.9.9...@vtj/coder@0.9.10) (2025-01-09)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.9.9](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.9.8...@vtj/coder@0.9.9) (2025-01-08)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.9.8](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.9.7...@vtj/coder@0.9.8) (2025-01-06)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.9.7](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.9.6...@vtj/coder@0.9.7) (2025-01-04)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.9.6](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.9.5...@vtj/coder@0.9.6) (2025-01-03)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.9.5](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.9.4...@vtj/coder@0.9.5) (2025-01-03)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.9.4](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.9.3...@vtj/coder@0.9.4) (2025-01-03)
-
 
 ### Bug Fixes
 
-* 🐛 style设置值为空时,出码异常 ([ee93c77](https://gitee.com/newgateway/vtj/commits/ee93c77d8473367b13c72d83d2f380e7f8a03bd0))
-
-
-
-
+- 🐛 style设置值为空时,出码异常 ([ee93c77](https://gitee.com/newgateway/vtj/commits/ee93c77d8473367b13c72d83d2f380e7f8a03bd0))
 
 ## [0.9.3](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.9.2...@vtj/coder@0.9.3) (2024-12-24)
 
-
 ### Features
 
-* ✨ 数据源增加模拟数据类型 ([0a264d0](https://gitee.com/newgateway/vtj/commits/0a264d023c3a7c08ecad673e71fcd19e11a9e27d))
-
-
-
-
+- ✨ 数据源增加模拟数据类型 ([0a264d0](https://gitee.com/newgateway/vtj/commits/0a264d023c3a7c08ecad673e71fcd19e11a9e27d))
 
 ## [0.9.2](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.9.1...@vtj/coder@0.9.2) (2024-12-18)
 
-
 ### Features
 
-* ✨ 支持自定义指令 ([8a193fd](https://gitee.com/newgateway/vtj/commits/8a193fddd211d4b69d282bdfbfe6e76c6352033f))
-* ✨ v-html指令 ([189ffa7](https://gitee.com/newgateway/vtj/commits/189ffa76e8329d9a8d5c43346d1a1ff4d1377ea0))
-
-
-
-
+- ✨ 支持自定义指令 ([8a193fd](https://gitee.com/newgateway/vtj/commits/8a193fddd211d4b69d282bdfbfe6e76c6352033f))
+- ✨ v-html指令 ([189ffa7](https://gitee.com/newgateway/vtj/commits/189ffa76e8329d9a8d5c43346d1a1ff4d1377ea0))
 
 ## [0.9.1](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.9.0...@vtj/coder@0.9.1) (2024-12-17)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 # [0.9.0](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.9.0-alpha.50...@vtj/coder@0.9.0) (2024-12-16)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 # [0.9.0-alpha.50](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.9.0-alpha.49...@vtj/coder@0.9.0-alpha.50) (2024-12-16)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 # [0.9.0-alpha.49](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.9.0-alpha.48...@vtj/coder@0.9.0-alpha.49) (2024-12-16)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 # [0.9.0-alpha.48](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.9.0-alpha.47...@vtj/coder@0.9.0-alpha.48) (2024-12-16)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 # [0.9.0-alpha.47](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.9.0-alpha.46...@vtj/coder@0.9.0-alpha.47) (2024-12-16)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 # [0.9.0-alpha.46](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.9.0-alpha.45...@vtj/coder@0.9.0-alpha.46) (2024-12-16)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 # [0.9.0-alpha.45](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.9.0-alpha.44...@vtj/coder@0.9.0-alpha.45) (2024-12-16)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 # [0.9.0-alpha.44](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.9.0-alpha.43...@vtj/coder@0.9.0-alpha.44) (2024-12-14)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 # [0.9.0-alpha.43](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.9.0-alpha.42...@vtj/coder@0.9.0-alpha.43) (2024-12-14)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 # [0.9.0-alpha.42](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.9.0-alpha.41...@vtj/coder@0.9.0-alpha.42) (2024-12-11)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 # [0.9.0-alpha.41](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.9.0-alpha.40...@vtj/coder@0.9.0-alpha.41) (2024-12-09)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 # [0.9.0-alpha.40](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.9.0-alpha.39...@vtj/coder@0.9.0-alpha.40) (2024-12-06)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 # [0.9.0-alpha.39](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.9.0-alpha.38...@vtj/coder@0.9.0-alpha.39) (2024-12-06)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 # [0.9.0-alpha.38](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.9.0-alpha.37...@vtj/coder@0.9.0-alpha.38) (2024-12-06)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 # [0.9.0-alpha.37](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.9.0-alpha.36...@vtj/coder@0.9.0-alpha.37) (2024-12-06)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 # [0.9.0-alpha.36](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.9.0-alpha.35...@vtj/coder@0.9.0-alpha.36) (2024-12-06)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 # [0.9.0-alpha.35](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.9.0-alpha.34...@vtj/coder@0.9.0-alpha.35) (2024-12-06)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 # [0.9.0-alpha.34](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.9.0-alpha.33...@vtj/coder@0.9.0-alpha.34) (2024-12-06)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 # [0.9.0-alpha.33](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.9.0-alpha.32...@vtj/coder@0.9.0-alpha.33) (2024-12-06)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 # [0.9.0-alpha.32](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.9.0-alpha.31...@vtj/coder@0.9.0-alpha.32) (2024-12-05)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 # [0.9.0-alpha.31](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.9.0-alpha.30...@vtj/coder@0.9.0-alpha.31) (2024-12-05)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 # [0.9.0-alpha.30](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.9.0-alpha.29...@vtj/coder@0.9.0-alpha.30) (2024-12-05)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 # [0.9.0-alpha.29](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.9.0-alpha.28...@vtj/coder@0.9.0-alpha.29) (2024-12-05)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 # [0.9.0-alpha.28](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.9.0-alpha.27...@vtj/coder@0.9.0-alpha.28) (2024-12-05)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 # [0.9.0-alpha.27](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.9.0-alpha.26...@vtj/coder@0.9.0-alpha.27) (2024-12-05)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 # [0.9.0-alpha.26](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.9.0-alpha.25...@vtj/coder@0.9.0-alpha.26) (2024-12-05)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 # [0.9.0-alpha.25](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.9.0-alpha.24...@vtj/coder@0.9.0-alpha.25) (2024-12-05)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 # [0.9.0-alpha.24](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.9.0-alpha.23...@vtj/coder@0.9.0-alpha.24) (2024-12-04)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 # [0.9.0-alpha.23](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.9.0-alpha.22...@vtj/coder@0.9.0-alpha.23) (2024-12-04)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 # [0.9.0-alpha.22](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.9.0-alpha.21...@vtj/coder@0.9.0-alpha.22) (2024-12-04)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 # [0.9.0-alpha.21](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.9.0-alpha.20...@vtj/coder@0.9.0-alpha.21) (2024-12-04)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 # [0.9.0-alpha.20](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.9.0-alpha.19...@vtj/coder@0.9.0-alpha.20) (2024-12-04)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 # [0.9.0-alpha.19](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.9.0-alpha.18...@vtj/coder@0.9.0-alpha.19) (2024-12-03)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 # [0.9.0-alpha.18](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.9.0-alpha.17...@vtj/coder@0.9.0-alpha.18) (2024-12-03)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 # [0.9.0-alpha.17](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.9.0-alpha.16...@vtj/coder@0.9.0-alpha.17) (2024-12-02)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 # [0.9.0-alpha.16](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.9.0-alpha.15...@vtj/coder@0.9.0-alpha.16) (2024-11-30)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 # [0.9.0-alpha.15](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.9.0-alpha.14...@vtj/coder@0.9.0-alpha.15) (2024-11-30)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 # [0.9.0-alpha.14](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.9.0-alpha.13...@vtj/coder@0.9.0-alpha.14) (2024-11-29)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 # [0.9.0-alpha.13](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.9.0-alpha.12...@vtj/coder@0.9.0-alpha.13) (2024-11-29)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 # [0.9.0-alpha.12](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.9.0-alpha.11...@vtj/coder@0.9.0-alpha.12) (2024-11-28)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 # [0.9.0-alpha.11](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.9.0-alpha.10...@vtj/coder@0.9.0-alpha.11) (2024-11-28)
-
 
 ### Features
 
-* ✨ mask 支持 menuBasePath ([5613bd7](https://gitee.com/newgateway/vtj/commits/5613bd793a873d5ce493e8184335ab3b4f845be8))
-
-
-
-
+- ✨ mask 支持 menuBasePath ([5613bd7](https://gitee.com/newgateway/vtj/commits/5613bd793a873d5ce493e8184335ab3b4f845be8))
 
 # [0.9.0-alpha.10](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.9.0-alpha.9...@vtj/coder@0.9.0-alpha.10) (2024-11-28)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 # [0.9.0-alpha.9](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.9.0-alpha.8...@vtj/coder@0.9.0-alpha.9) (2024-11-27)
-
 
 ### Bug Fixes
 
-* 🐛 调整原生插件分类名称 ([e2783aa](https://gitee.com/newgateway/vtj/commits/e2783aa37c2de08143a1c2fc0b3915662b418e2c))
-
-
-
-
+- 🐛 调整原生插件分类名称 ([e2783aa](https://gitee.com/newgateway/vtj/commits/e2783aa37c2de08143a1c2fc0b3915662b418e2c))
 
 # [0.9.0-alpha.8](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.9.0-alpha.7...@vtj/coder@0.9.0-alpha.8) (2024-11-22)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 # [0.9.0-alpha.7](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.9.0-alpha.6...@vtj/coder@0.9.0-alpha.7) (2024-11-22)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 # [0.9.0-alpha.6](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.9.0-alpha.5...@vtj/coder@0.9.0-alpha.6) (2024-11-22)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 # [0.9.0-alpha.5](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.9.0-alpha.4...@vtj/coder@0.9.0-alpha.5) (2024-11-20)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 # [0.9.0-alpha.4](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.9.0-alpha.3...@vtj/coder@0.9.0-alpha.4) (2024-11-20)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 # [0.9.0-alpha.3](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.9.0-alpha.2...@vtj/coder@0.9.0-alpha.3) (2024-11-19)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 # [0.9.0-alpha.2](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.9.0-alpha.1...@vtj/coder@0.9.0-alpha.2) (2024-11-18)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 # [0.9.0-alpha.1](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.9.0-alpha.0...@vtj/coder@0.9.0-alpha.1) (2024-11-18)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 # [0.9.0-alpha.0](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.172...@vtj/coder@0.9.0-alpha.0) (2024-11-18)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.8.172](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.171...@vtj/coder@0.8.172) (2024-10-25)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.8.171](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.170...@vtj/coder@0.8.171) (2024-10-24)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.8.170](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.169...@vtj/coder@0.8.170) (2024-10-24)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.8.169](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.168...@vtj/coder@0.8.169) (2024-10-24)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.8.168](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.167...@vtj/coder@0.8.168) (2024-10-22)
-
 
 ### Bug Fixes
 
-* 🐛 access adapter ([4ed5e17](https://gitee.com/newgateway/vtj/commits/4ed5e17d8746639598819457fe06c541c307d1a2))
-
-
-
-
+- 🐛 access adapter ([4ed5e17](https://gitee.com/newgateway/vtj/commits/4ed5e17d8746639598819457fe06c541c307d1a2))
 
 ## [0.8.167](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.166...@vtj/coder@0.8.167) (2024-10-22)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.8.166](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.165...@vtj/coder@0.8.166) (2024-10-22)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.8.165](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.164...@vtj/coder@0.8.165) (2024-10-21)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.8.164](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.163...@vtj/coder@0.8.164) (2024-10-21)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
-
 
 ## [0.8.163](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.162...@vtj/coder@0.8.163) (2024-10-17)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.8.162](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.161...@vtj/coder@0.8.162) (2024-10-15)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.8.161](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.160...@vtj/coder@0.8.161) (2024-10-14)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
-
 ## [0.8.160](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.159...@vtj/coder@0.8.160) (2024-10-14)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
-
 ## [0.8.159](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.158...@vtj/coder@0.8.159) (2024-10-11)
-
 
 ### Bug Fixes
 
-* 🐛 coder ts-nocheck ([be86c37](https://gitee.com/newgateway/vtj/commits/be86c37fc42f07d700701d00a5c455f9d4d37a63))
-
-
-
-
-
+- 🐛 coder ts-nocheck ([be86c37](https://gitee.com/newgateway/vtj/commits/be86c37fc42f07d700701d00a5c455f9d4d37a63))
 
 ## [0.8.158](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.157...@vtj/coder@0.8.158) (2024-10-11)
 
-
 ### Bug Fixes
 
-* 🐛 coder vue file add [@ts-nocheck](https://gitee.com/ts-nocheck) ([4145014](https://gitee.com/newgateway/vtj/commits/4145014aabf5110b6707d93a6541d047c5e5611d))
-
-
-
-
+- 🐛 coder vue file add [@ts-nocheck](https://gitee.com/ts-nocheck) ([4145014](https://gitee.com/newgateway/vtj/commits/4145014aabf5110b6707d93a6541d047c5e5611d))
 
 ## [0.8.157](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.156...@vtj/coder@0.8.157) (2024-10-09)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.8.156](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.155...@vtj/coder@0.8.156) (2024-10-08)
-
 
 ### Bug Fixes
 
-* 🐛 XDialog classList bug ([d96b8ba](https://gitee.com/newgateway/vtj/commits/d96b8ba4901f69249707a955638a40902d79bd73))
-
-
-
-
-
+- 🐛 XDialog classList bug ([d96b8ba](https://gitee.com/newgateway/vtj/commits/d96b8ba4901f69249707a955638a40902d79bd73))
 
 ## [0.8.155](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.154...@vtj/coder@0.8.155) (2024-10-07)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
-
 ## [0.8.154](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.153...@vtj/coder@0.8.154) (2024-10-07)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.8.153](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.152...@vtj/coder@0.8.153) (2024-10-07)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.8.152](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.151...@vtj/coder@0.8.152) (2024-10-04)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.8.151](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.150...@vtj/coder@0.8.151) (2024-10-04)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
-
 ## [0.8.150](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.149...@vtj/coder@0.8.150) (2024-09-30)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.8.149](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.148...@vtj/coder@0.8.149) (2024-09-27)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.8.148](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.147...@vtj/coder@0.8.148) (2024-09-27)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
-
 
 ## [0.8.147](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.146...@vtj/coder@0.8.147) (2024-09-25)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
-
 ## [0.8.146](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.145...@vtj/coder@0.8.146) (2024-09-20)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
-
 
 ## [0.8.145](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.144...@vtj/coder@0.8.145) (2024-09-20)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
-
 ## [0.8.144](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.143...@vtj/coder@0.8.144) (2024-09-19)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.8.143](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.142...@vtj/coder@0.8.143) (2024-09-19)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.8.142](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.141...@vtj/coder@0.8.142) (2024-09-18)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.8.141](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.140...@vtj/coder@0.8.141) (2024-09-18)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
-
 ## [0.8.140](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.139...@vtj/coder@0.8.140) (2024-09-18)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.8.139](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.138...@vtj/coder@0.8.139) (2024-09-16)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.8.138](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.137...@vtj/coder@0.8.138) (2024-09-16)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.8.137](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.136...@vtj/coder@0.8.137) (2024-09-16)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
-
 ## [0.8.136](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.135...@vtj/coder@0.8.136) (2024-09-14)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
-
 
 ## [0.8.135](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.134...@vtj/coder@0.8.135) (2024-09-13)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.8.134](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.133...@vtj/coder@0.8.134) (2024-09-12)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
-
 
 ## [0.8.133](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.132...@vtj/coder@0.8.133) (2024-09-12)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.8.132](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.131...@vtj/coder@0.8.132) (2024-09-12)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.8.131](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.130...@vtj/coder@0.8.131) (2024-09-12)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
-
 ## [0.8.130](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.129...@vtj/coder@0.8.130) (2024-09-10)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.8.129](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.128...@vtj/coder@0.8.129) (2024-09-10)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
-
 ## [0.8.128](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.127...@vtj/coder@0.8.128) (2024-09-09)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
-
 
 ## [0.8.127](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.126...@vtj/coder@0.8.127) (2024-09-09)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
-
 ## [0.8.126](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.125...@vtj/coder@0.8.126) (2024-09-09)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
-
 
 ## [0.8.125](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.124...@vtj/coder@0.8.125) (2024-09-08)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.8.124](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.123...@vtj/coder@0.8.124) (2024-09-06)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
-
 
 ## [0.8.123](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.122...@vtj/coder@0.8.123) (2024-09-02)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.8.122](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.121...@vtj/coder@0.8.122) (2024-09-02)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
-
 
 ## [0.8.121](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.120...@vtj/coder@0.8.121) (2024-09-02)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
-
 ## [0.8.120](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.119...@vtj/coder@0.8.120) (2024-08-31)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
-
 
 ## [0.8.119](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.118...@vtj/coder@0.8.119) (2024-08-29)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.8.118](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.117...@vtj/coder@0.8.118) (2024-08-29)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
-
 
 ## [0.8.117](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.116...@vtj/coder@0.8.117) (2024-08-29)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.8.116](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.115...@vtj/coder@0.8.116) (2024-08-28)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.8.115](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.114...@vtj/coder@0.8.115) (2024-08-28)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
-
 ## [0.8.114](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.113...@vtj/coder@0.8.114) (2024-08-27)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
-
 
 ## [0.8.113](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.112...@vtj/coder@0.8.113) (2024-08-23)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.8.112](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.111...@vtj/coder@0.8.112) (2024-08-22)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.8.111](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.110...@vtj/coder@0.8.111) (2024-08-22)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.8.110](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.109...@vtj/coder@0.8.110) (2024-08-22)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
-
 
 ## [0.8.109](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.108...@vtj/coder@0.8.109) (2024-08-20)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
-
 ## [0.8.108](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.107...@vtj/coder@0.8.108) (2024-08-18)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.8.107](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.106...@vtj/coder@0.8.107) (2024-08-17)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.8.106](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.105...@vtj/coder@0.8.106) (2024-08-17)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.8.105](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.104...@vtj/coder@0.8.105) (2024-08-16)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.8.104](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.103...@vtj/coder@0.8.104) (2024-08-16)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
-
 
 ## [0.8.103](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.102...@vtj/coder@0.8.103) (2024-08-14)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.8.102](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.101...@vtj/coder@0.8.102) (2024-08-13)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.8.101](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.100...@vtj/coder@0.8.101) (2024-08-13)
-
 
 ### Bug Fixes
 
-* 🐛 v-bind出码错误 ([73ea9a7](https://gitee.com/newgateway/vtj/commits/73ea9a7630688cb5904883d5e586608ff3d997cf))
-
-
-
-
-
+- 🐛 v-bind出码错误 ([73ea9a7](https://gitee.com/newgateway/vtj/commits/73ea9a7630688cb5904883d5e586608ff3d997cf))
 
 ## [0.8.100](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.99...@vtj/coder@0.8.100) (2024-08-09)
 
-
 ### Bug Fixes
 
-* 🐛 计算属性出码在表达式中错误 ([a33d595](https://gitee.com/newgateway/vtj/commits/a33d595063f2743e8de423fde5541c4a0fdecbde))
-
-
-
-
+- 🐛 计算属性出码在表达式中错误 ([a33d595](https://gitee.com/newgateway/vtj/commits/a33d595063f2743e8de423fde5541c4a0fdecbde))
 
 ## [0.8.99](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.98...@vtj/coder@0.8.99) (2024-08-08)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.8.98](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.97...@vtj/coder@0.8.98) (2024-08-08)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
-
 
 ## [0.8.97](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.96...@vtj/coder@0.8.97) (2024-07-31)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
-
 ## [0.8.96](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.95...@vtj/coder@0.8.96) (2024-07-25)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.8.95](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.94...@vtj/coder@0.8.95) (2024-07-22)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.8.94](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.93...@vtj/coder@0.8.94) (2024-07-20)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.8.93](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.92...@vtj/coder@0.8.93) (2024-07-20)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.8.92](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.91...@vtj/coder@0.8.92) (2024-07-19)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.8.91](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.90...@vtj/coder@0.8.91) (2024-07-19)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.8.90](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.89...@vtj/coder@0.8.90) (2024-07-18)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.8.89](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.88...@vtj/coder@0.8.89) (2024-07-18)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.8.88](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.87...@vtj/coder@0.8.88) (2024-07-16)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.8.87](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.86...@vtj/coder@0.8.87) (2024-07-16)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.8.86](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.85...@vtj/coder@0.8.86) (2024-07-15)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.8.85](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.84...@vtj/coder@0.8.85) (2024-07-15)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.8.84](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.83...@vtj/coder@0.8.84) (2024-07-15)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.8.83](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.82...@vtj/coder@0.8.83) (2024-07-12)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.8.82](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.81...@vtj/coder@0.8.82) (2024-07-12)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.8.81](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.80...@vtj/coder@0.8.81) (2024-07-12)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.8.80](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.79...@vtj/coder@0.8.80) (2024-07-10)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.8.79](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.78...@vtj/coder@0.8.79) (2024-07-10)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.8.78](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.77...@vtj/coder@0.8.78) (2024-07-09)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.8.77](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.76...@vtj/coder@0.8.77) (2024-07-09)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.8.76](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.75...@vtj/coder@0.8.76) (2024-07-08)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.8.75](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.74...@vtj/coder@0.8.75) (2024-07-08)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.8.74](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.73...@vtj/coder@0.8.74) (2024-07-06)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.8.73](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.72...@vtj/coder@0.8.73) (2024-07-06)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.8.72](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.71...@vtj/coder@0.8.72) (2024-07-06)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.8.71](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.70...@vtj/coder@0.8.71) (2024-07-05)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.8.70](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.69...@vtj/coder@0.8.70) (2024-07-05)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.8.69](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.68...@vtj/coder@0.8.69) (2024-07-04)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.8.68](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.67...@vtj/coder@0.8.68) (2024-07-04)
-
 
 ### Bug Fixes
 
-* 🐛 修复出码节点事件不执行 ([569dd7b](https://gitee.com/newgateway/vtj/commits/569dd7bb81cf1907b83248ae82c337b0322f6be2))
-
-
-
-
+- 🐛 修复出码节点事件不执行 ([569dd7b](https://gitee.com/newgateway/vtj/commits/569dd7bb81cf1907b83248ae82c337b0322f6be2))
 
 ## [0.8.67](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.66...@vtj/coder@0.8.67) (2024-07-03)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.8.66](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.65...@vtj/coder@0.8.66) (2024-07-03)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.8.65](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.64...@vtj/coder@0.8.65) (2024-07-02)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.8.64](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.63...@vtj/coder@0.8.64) (2024-06-28)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.8.63](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.62...@vtj/coder@0.8.63) (2024-06-28)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.8.62](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.61...@vtj/coder@0.8.62) (2024-06-27)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.8.61](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.60...@vtj/coder@0.8.61) (2024-06-26)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.8.60](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.59...@vtj/coder@0.8.60) (2024-06-26)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.8.59](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.58...@vtj/coder@0.8.59) (2024-06-26)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.8.58](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.57...@vtj/coder@0.8.58) (2024-06-26)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.8.57](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.56...@vtj/coder@0.8.57) (2024-06-25)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.8.56](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.55...@vtj/coder@0.8.56) (2024-06-22)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.8.55](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.54...@vtj/coder@0.8.55) (2024-06-21)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.8.54](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.53...@vtj/coder@0.8.54) (2024-06-20)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.8.53](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.52...@vtj/coder@0.8.53) (2024-06-20)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.8.52](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.51...@vtj/coder@0.8.52) (2024-06-18)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.8.51](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.50...@vtj/coder@0.8.51) (2024-06-16)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.8.50](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.49...@vtj/coder@0.8.50) (2024-06-14)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.8.49](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.48...@vtj/coder@0.8.49) (2024-06-14)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.8.48](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.47...@vtj/coder@0.8.48) (2024-06-14)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.8.47](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.46...@vtj/coder@0.8.47) (2024-06-14)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.8.46](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.45...@vtj/coder@0.8.46) (2024-06-14)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.8.45](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.44...@vtj/coder@0.8.45) (2024-06-14)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.8.44](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.43...@vtj/coder@0.8.44) (2024-06-13)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.8.43](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.42...@vtj/coder@0.8.43) (2024-06-12)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.8.42](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.41...@vtj/coder@0.8.42) (2024-06-12)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.8.41](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.40...@vtj/coder@0.8.41) (2024-06-12)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.8.40](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.39...@vtj/coder@0.8.40) (2024-06-06)
-
 
 ### Features
 
-* ✨ 重构XGrid ([d2d2c8b](https://gitee.com/newgateway/vtj/commits/d2d2c8bc9c8dcaacd189aa120754fa67de6636af))
-
-
-
-
+- ✨ 重构XGrid ([d2d2c8b](https://gitee.com/newgateway/vtj/commits/d2d2c8bc9c8dcaacd189aa120754fa67de6636af))
 
 ## [0.8.39](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.38...@vtj/coder@0.8.39) (2024-05-30)
 
-
 ### Features
 
-* ✨ 事件插槽定义支持配置参数 ([d6728b3](https://gitee.com/newgateway/vtj/commits/d6728b330815a937cb582f0d0afb667f54bc590e))
-
-
-
-
+- ✨ 事件插槽定义支持配置参数 ([d6728b3](https://gitee.com/newgateway/vtj/commits/d6728b330815a937cb582f0d0afb667f54bc590e))
 
 ## [0.8.38](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.37...@vtj/coder@0.8.38) (2024-05-29)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.8.37](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.36...@vtj/coder@0.8.37) (2024-05-28)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.8.36](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.35...@vtj/coder@0.8.36) (2024-05-27)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.8.35](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.34...@vtj/coder@0.8.35) (2024-05-27)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.8.34](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.33...@vtj/coder@0.8.34) (2024-05-24)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.8.33](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.32...@vtj/coder@0.8.33) (2024-05-23)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.8.32](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.30...@vtj/coder@0.8.32) (2024-05-23)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.8.31](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.30...@vtj/coder@0.8.31) (2024-05-14)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.8.30](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.29...@vtj/coder@0.8.30) (2024-05-11)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.8.29](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.28...@vtj/coder@0.8.29) (2024-05-11)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.8.28](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.27...@vtj/coder@0.8.28) (2024-05-09)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.8.27](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.26...@vtj/coder@0.8.27) (2024-05-08)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.8.26](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.25...@vtj/coder@0.8.26) (2024-05-07)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.8.25](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.24...@vtj/coder@0.8.25) (2024-05-07)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.8.24](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.23...@vtj/coder@0.8.24) (2024-05-07)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.8.23](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.22...@vtj/coder@0.8.23) (2024-05-07)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.8.22](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.21...@vtj/coder@0.8.22) (2024-05-07)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.8.21](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.20...@vtj/coder@0.8.21) (2024-05-06)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.8.20](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.19...@vtj/coder@0.8.20) (2024-05-06)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.8.19](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.18...@vtj/coder@0.8.19) (2024-05-06)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.8.18](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.17...@vtj/coder@0.8.18) (2024-05-04)
-
 
 ### Bug Fixes
 
-* 🐛 指令引用计算属性出码错误 ([9e7e81b](https://gitee.com/newgateway/vtj/commits/9e7e81b7a3d96a81140121954ae6b22846f4d611))
-
-
-
-
+- 🐛 指令引用计算属性出码错误 ([9e7e81b](https://gitee.com/newgateway/vtj/commits/9e7e81b7a3d96a81140121954ae6b22846f4d611))
 
 ## [0.8.17](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.16...@vtj/coder@0.8.17) (2024-05-02)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.8.16](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.15...@vtj/coder@0.8.16) (2024-05-02)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.8.15](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.14...@vtj/coder@0.8.15) (2024-05-02)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.8.14](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.13...@vtj/coder@0.8.14) (2024-05-02)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.8.13](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.12...@vtj/coder@0.8.13) (2024-05-02)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.8.12](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.11...@vtj/coder@0.8.12) (2024-05-01)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.8.11](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.10...@vtj/coder@0.8.11) (2024-05-01)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.8.10](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.9...@vtj/coder@0.8.10) (2024-05-01)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
 
 ## [0.8.9](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.8...@vtj/coder@0.8.9) (2024-04-30)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
-
 ## [0.8.8](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.7...@vtj/coder@0.8.8) (2024-04-27)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.8.7](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.5...@vtj/coder@0.8.7) (2024-04-26)
-
 
 ### Features
 
-* ✨ add charts module ([2e5b7e9](https://gitee.com/newgateway/vtj/commits/2e5b7e9ca763a2446d3e65af6fa8d1d32b8f2243))
-
-
-
-
+- ✨ add charts module ([2e5b7e9](https://gitee.com/newgateway/vtj/commits/2e5b7e9ca763a2446d3e65af6fa8d1d32b8f2243))
 
 ## [0.8.6](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.5...@vtj/coder@0.8.6) (2024-04-26)
 
-
 ### Features
 
-* ✨ add charts module ([2e5b7e9](https://gitee.com/newgateway/vtj/commits/2e5b7e9ca763a2446d3e65af6fa8d1d32b8f2243))
-
-
-
-
-
+- ✨ add charts module ([2e5b7e9](https://gitee.com/newgateway/vtj/commits/2e5b7e9ca763a2446d3e65af6fa8d1d32b8f2243))
 
 ## [0.8.5](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.4...@vtj/coder@0.8.5) (2024-04-24)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
 ## [0.8.4](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.3...@vtj/coder@0.8.4) (2024-04-24)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
-
 
 ## [0.8.3](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.2...@vtj/coder@0.8.3) (2024-04-23)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
-
 ## [0.8.2](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.1...@vtj/coder@0.8.2) (2024-04-22)
-
 
 ### Bug Fixes
 
-* 🐛 出码定义props不指定默认值时报错 ([197a34c](https://gitee.com/newgateway/vtj/commits/197a34cad77770ae4ebb156a5162f1afec8e3284))
-
-
-
-
+- 🐛 出码定义props不指定默认值时报错 ([197a34c](https://gitee.com/newgateway/vtj/commits/197a34cad77770ae4ebb156a5162f1afec8e3284))
 
 ## [0.8.1](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.8.0...@vtj/coder@0.8.1) (2024-04-22)
 
-
 ### Bug Fixes
 
-* 🐛 cli template ([911c3a0](https://gitee.com/newgateway/vtj/commits/911c3a0e2bb60548affe5dcf5a496577809d63b8))
-
-
-
-
-
+- 🐛 cli template ([911c3a0](https://gitee.com/newgateway/vtj/commits/911c3a0e2bb60548affe5dcf5a496577809d63b8))
 
 # [0.8.0](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.7.34...@vtj/coder@0.8.0) (2024-04-22)
 
-
 ### Features
 
-* ✨ cli 支持 插件项目 ([f8a61c9](https://gitee.com/newgateway/vtj/commits/f8a61c97f7e94a6a4afd23e91c6d2b879cf8eaa3))
-* ✨ urlSchema blockPlugin coder ([055aaf1](https://gitee.com/newgateway/vtj/commits/055aaf115e6df548a5b298e3d89551232ae7a86b))
-
+- ✨ cli 支持 插件项目 ([f8a61c9](https://gitee.com/newgateway/vtj/commits/f8a61c97f7e94a6a4afd23e91c6d2b879cf8eaa3))
+- ✨ urlSchema blockPlugin coder ([055aaf1](https://gitee.com/newgateway/vtj/commits/055aaf115e6df548a5b298e3d89551232ae7a86b))
 
 ### Performance Improvements
 
-* ⚡ 代码优化 ([8d5e2d3](https://gitee.com/newgateway/vtj/commits/8d5e2d366876cd1c91eb8e4c7b30237e65dd33b5))
-
-
-
-
-
+- ⚡ 代码优化 ([8d5e2d3](https://gitee.com/newgateway/vtj/commits/8d5e2d366876cd1c91eb8e4c7b30237e65dd33b5))
 
 ## [0.7.34](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.7.33...@vtj/coder@0.7.34) (2024-04-10)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
-
 ## [0.7.33](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.7.32...@vtj/coder@0.7.33) (2024-04-08)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
-
 
 ## [0.7.32](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.7.31...@vtj/coder@0.7.32) (2024-04-03)
 
 **Note:** Version bump only for package @vtj/coder
 
-
-
-
-
-
 ## [0.7.31](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.7.30...@vtj/coder@0.7.31) (2024-04-03)
 
 **Note:** Version bump only for package @vtj/coder
-
-
-
-
-
 
 ## [0.7.31](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.7.30...@vtj/coder@0.7.31) (2024-04-03)
 
