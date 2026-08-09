@@ -158,6 +158,13 @@ export function useDualAgent(
       );
       lastFailedSubmission = null;
     } catch (e: any) {
+      // 记录完整错误上下文（roundCreated 区分提交阶段/执行阶段，便于定位失败归属）
+      console.error('[useDualAgent]', '流程执行失败', {
+        phase: roundCreated ? 'execute' : 'setup',
+        prompt: finalPrompt.slice(0, 200),
+        error: e?.message || String(e),
+        stack: e?.stack
+      });
       if (e?.name !== 'AbortError' && !roundCreated) {
         lastFailedSubmission = () => executeFlow(setup, finalPrompt);
       }
