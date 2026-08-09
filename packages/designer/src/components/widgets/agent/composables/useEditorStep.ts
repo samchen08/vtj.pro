@@ -798,7 +798,27 @@ export function useEditorStep(deps: EditorStepDeps) {
         ti.content = fullContent;
         exposeTurn(ti);
         slot.content = fullContent;
+
+        const unknownError = isText ? null : parsed.error || '无法识别输出格式';
+        // tool_call 步骤输出格式无法识别：反馈 LLM 重试（与 vue_code/diff 解析失败一致），
+        // 避免一次格式错误直接判死；重试期间不标记完成
+        if (step.type === 'tool_call' && unknownError) {
+          await saveChat(
+            edChatId,
+            topicId,
+            userId,
+            fullContent,
+            result,
+            stepTokens,
+            'Error'
+          );
+          ctx.nextPrompt = `O: 输出格式无法识别\n错误信息:\n${unknownError}\n\n请重新输出工具调用 JSON，格式为 {\"action\": \"工具名\", \"parameters\": [...]}，parameters 必须为数组（无参数时为空数组 []）。`;
+          continue;
+        }
+
+        // 未知输出须回写槽位错误，保证导出/trace 与状态条一致（否则误记为完成）
         slot.done = true;
+        if (unknownError) slot.error = unknownError;
 
         await saveChat(
           edChatId,
@@ -812,7 +832,7 @@ export function useEditorStep(deps: EditorStepDeps) {
 
         return {
           content: fullContent,
-          error: isText ? null : parsed.error || '无法识别输出格式',
+          error: unknownError,
           tokens: totalTokens,
           duration: Date.now() - stepStart
         };
