@@ -42,14 +42,17 @@ function extractFirstCodeBlock(
 
 /**
  * 判断 JSON 对象是否为 tool_call
+ * 容错：无参工具调用时 LLM 偶发省略 parameters 字段，缺失/为空时默认补空数组；
+ * 提供了但非数组类型（对象/字符串等）仍视为格式错误
  */
 function isToolCall(obj: any): obj is ToolCall {
-  return (
-    obj &&
-    typeof obj.action === 'string' &&
-    obj.action.length > 0 &&
-    Array.isArray(obj.parameters)
-  );
+  if (!obj || typeof obj.action !== 'string' || obj.action.length === 0) {
+    return false;
+  }
+  if (obj.parameters === undefined || obj.parameters === null) {
+    obj.parameters = [];
+  }
+  return Array.isArray(obj.parameters);
 }
 
 /**
