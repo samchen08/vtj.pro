@@ -91,7 +91,12 @@ export function useArchitectPlan(deps: ArchitectPlanDeps) {
       return summaryResult.usage?.total_tokens || 0;
     } catch (e: any) {
       round.summaryError = e.message || String(e);
-      console.warn('总结生成失败:', e.message);
+      console.error('[useArchitectPlan]', '总结生成失败', {
+        topicId,
+        attempt: round.summaryAttempt,
+        error: e.message,
+        stack: e.stack
+      });
       return 0;
     }
   }
@@ -326,7 +331,12 @@ export function useArchitectPlan(deps: ArchitectPlanDeps) {
           })
         );
       } catch (e: any) {
-        console.warn('保存无效 Architect 输出失败:', e.message);
+        console.error('[useArchitectPlan]', '保存无效 Architect 输出失败', {
+          topicId,
+          chatId: architectChatId,
+          retryCount,
+          error: e.message
+        });
       }
       round.architectStreamText = '';
       round.reasoningText = '';

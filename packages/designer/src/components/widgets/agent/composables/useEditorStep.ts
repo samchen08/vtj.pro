@@ -168,7 +168,12 @@ export function useEditorStep(deps: EditorStepDeps) {
       await saveWithRetry(() => saveRemoteChat(body));
     } catch (e) {
       // 保存聊天记录失败不影响主流程
-      console.warn('保存 chat 记录失败:', e);
+      console.error('[useEditorStep]', '保存 chat 记录失败', {
+        chatId: edChatId,
+        topicId,
+        status,
+        error: (e as Error)?.message || String(e)
+      });
     }
   }
 
@@ -462,11 +467,25 @@ export function useEditorStep(deps: EditorStepDeps) {
           prompt,
           agent: 'editor',
           stepId: step.id,
+          stepMeta: {
+            stepId: step.id,
+            type: step.type,
+            description: step.description,
+            target: step.target,
+            toolName: step.toolName
+          },
           attempt: attempt + 1,
           userId: userId || '',
           userName: ''
         });
       } catch (e: any) {
+        console.error('[useEditorStep]', '创建 chat 失败', {
+          topicId,
+          stepId: step.id,
+          stepIdx,
+          attempt: attempt + 1,
+          error: e?.message || String(e)
+        });
         slot.error = Messages.chatCreateFailed(e.message).text;
         slot.done = true;
         return errResult(slot.error!, totalTokens, stepStart);
@@ -668,6 +687,13 @@ export function useEditorStep(deps: EditorStepDeps) {
             return outcome;
           } catch (e: any) {
             // 必须回写槽位错误与完成标记，否则上层 toStepRecord 会丢失失败信息
+            console.error('[useEditorStep]', 'Vue→DSL 转换失败', {
+              topicId,
+              stepId: step.id,
+              stepIdx,
+              turn,
+              error: e.message
+            });
             const message = Messages.vueToDslFailed(e.message).text;
             slot.error = message;
             slot.done = true;
@@ -751,6 +777,13 @@ export function useEditorStep(deps: EditorStepDeps) {
               continue;
             }
             // 必须回写槽位错误与完成标记，否则上层 toStepRecord 会丢失失败信息
+            console.error('[useEditorStep]', 'Diff 应用失败', {
+              topicId,
+              stepId: step.id,
+              stepIdx,
+              turn,
+              error: e.message
+            });
             const message = Messages.diffApplyFailed(e.message).text;
             slot.error = message;
             slot.done = true;
@@ -784,6 +817,15 @@ export function useEditorStep(deps: EditorStepDeps) {
           duration: Date.now() - stepStart
         };
       } catch (e: any) {
+        // 本轮兜底错误：记录步骤上下文便于排查（SSE 中断/超时/异常均落于此）
+        console.error('[useEditorStep]', '步骤执行失败', {
+          topicId,
+          stepId: step.id,
+          stepIdx,
+          turn,
+          error: e?.message || String(e),
+          stack: e?.stack
+        });
         slot.error = e.message;
         slot.done = true;
         return errResult(e.message, totalTokens, stepStart);

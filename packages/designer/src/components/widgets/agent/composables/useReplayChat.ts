@@ -45,10 +45,26 @@ function tryParsePlan(content: string): PlanResult | null {
 }
 
 /**
- * 从 editor chat 的 prompt 中解析步骤元数据
+ * 从 editor chat 中解析步骤元数据
+ * 优先读取持久化的 stepMeta 快照（新记录）；旧记录回退到正则解析 prompt
  * prompt 格式: "步骤 {stepId}: {description}\n类型: {type}\n目标: {target}\n工具: {toolName}\n..."
  */
 function parseStepFromPrompt(chat: ChatRecord, stepIdx: number): PlanStep {
+  // 新记录：直接使用随 chat 持久化的结构化快照
+  if (chat.stepMeta) {
+    const meta = chat.stepMeta;
+    return {
+      id: meta.stepId || chat.stepId || `step_${stepIdx}`,
+      type: ['tool_call', 'vue_code', 'diff', 'text'].includes(meta.type)
+        ? (meta.type as PlanStep['type'])
+        : 'text',
+      description: meta.description || '',
+      target: meta.target || undefined,
+      toolName: meta.toolName || undefined
+    };
+  }
+
+  // 旧记录：回退正则解析
   const prompt = chat.prompt || '';
   const step: PlanStep = {
     id: chat.stepId || `step_${stepIdx}`,
