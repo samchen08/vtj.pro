@@ -844,8 +844,14 @@ function convertFunctionDeclToExpression(node: FunctionDeclaration): string {
 }
 
 function isDataSourceMethod(code: string): boolean {
+  // 仅识别标准数据源模板（coder 出码结构）：
+  // 1. return await __provider.apis['xxx'].apply(...).then(...)
+  // 2. return await __provider.createMock.apply(...)
+  // 非标准写法（直接调用、函数体含业务逻辑等）不采集为数据源，
+  // 作为普通方法保留完整逻辑，避免 transform 信息丢失
   return (
-    code.includes('__provider.apis') || code.includes('__provider.createMock')
+    /return\s+await\s+__provider\.apis\['[\w]*'\]\s*\.apply/.test(code) ||
+    /return\s+await\s+__provider\.createMock/.test(code)
   );
 }
 
@@ -881,8 +887,9 @@ function extractDataSourceFromCode(
     const matches = code.match(idRegex) || [];
     const id = matches[1];
     if (!id) return null;
+    // API 未在项目 apis 中命中时降级采集：不静默丢弃数据源，
+    // 由设计器侧人工修正 ref 或补齐 API 定义，出码仅依赖 ref 不受影响
     const api = (project.apis || []).find((n) => n.id === id || n.name === id);
-    if (!api) return null;
     const transform = extractThenCallback(code);
     return {
       ref: id,
@@ -892,12 +899,12 @@ function extractDataSourceFromCode(
         value: '() => this.runApi({\n    /* 在这里可输入接口参数  */\n})'
       },
       type: 'api',
-      label: api.label,
+      label: api?.label || '',
       transform: {
         type: 'JSFunction',
         value: transform || '(res) => {\n    return res;\n}'
       },
-      mockTemplate: api.mockTemplate
+      mockTemplate: api?.mockTemplate
     };
   }
 
