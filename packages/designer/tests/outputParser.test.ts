@@ -26,8 +26,24 @@ describe('parseOutput', () => {
       });
     });
 
-    it('returns unknown when json lacks action or parameters', () => {
+    it('defaults missing parameters to empty array for no-arg tools', () => {
       const result = parseOutput('```json\n{"action":"run"}\n```');
+      expect(result.type).toBe('tool_call');
+      expect(result.tool).toEqual({ action: 'run', parameters: [] });
+    });
+
+    it('defaults null parameters to empty array', () => {
+      const result = parseOutput(
+        '```json\n{"action":"run","parameters":null}\n```'
+      );
+      expect(result.type).toBe('tool_call');
+      expect(result.tool).toEqual({ action: 'run', parameters: [] });
+    });
+
+    it('returns unknown when parameters is not an array', () => {
+      const result = parseOutput(
+        '```json\n{"action":"run","parameters":{"x":1}}\n```'
+      );
       expect(result.type).toBe('unknown');
       expect(result.error).toContain('JSON 格式不符合 tool_call 规范');
     });

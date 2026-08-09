@@ -168,7 +168,12 @@ export function useEditorStep(deps: EditorStepDeps) {
       await saveWithRetry(() => saveRemoteChat(body));
     } catch (e) {
       // 保存聊天记录失败不影响主流程
-      console.warn('保存 chat 记录失败:', e);
+      console.error('[useEditorStep]', '保存 chat 记录失败', {
+        chatId: edChatId,
+        topicId,
+        status,
+        error: (e as Error)?.message || String(e)
+      });
     }
   }
 
@@ -462,11 +467,25 @@ export function useEditorStep(deps: EditorStepDeps) {
           prompt,
           agent: 'editor',
           stepId: step.id,
+          stepMeta: {
+            stepId: step.id,
+            type: step.type,
+            description: step.description,
+            target: step.target,
+            toolName: step.toolName
+          },
           attempt: attempt + 1,
           userId: userId || '',
           userName: ''
         });
       } catch (e: any) {
+        console.error('[useEditorStep]', '创建 chat 失败', {
+          topicId,
+          stepId: step.id,
+          stepIdx,
+          attempt: attempt + 1,
+          error: e?.message || String(e)
+        });
         slot.error = Messages.chatCreateFailed(e.message).text;
         slot.done = true;
         return errResult(slot.error!, totalTokens, stepStart);
@@ -668,6 +687,13 @@ export function useEditorStep(deps: EditorStepDeps) {
             return outcome;
           } catch (e: any) {
             // 必须回写槽位错误与完成标记，否则上层 toStepRecord 会丢失失败信息
+            console.error('[useEditorStep]', 'Vue→DSL 转换失败', {
+              topicId,
+              stepId: step.id,
+              stepIdx,
+              turn,
+              error: e.message
+            });
             const message = Messages.vueToDslFailed(e.message).text;
             slot.error = message;
             slot.done = true;
@@ -751,6 +777,13 @@ export function useEditorStep(deps: EditorStepDeps) {
               continue;
             }
             // 必须回写槽位错误与完成标记，否则上层 toStepRecord 会丢失失败信息
+            console.error('[useEditorStep]', 'Diff 应用失败', {
+              topicId,
+              stepId: step.id,
+              stepIdx,
+              turn,
+              error: e.message
+            });
             const message = Messages.diffApplyFailed(e.message).text;
             slot.error = message;
             slot.done = true;
@@ -765,7 +798,27 @@ export function useEditorStep(deps: EditorStepDeps) {
         ti.content = fullContent;
         exposeTurn(ti);
         slot.content = fullContent;
+
+        const unknownError = isText ? null : parsed.error || '无法识别输出格式';
+        // tool_call 步骤输出格式无法识别：反馈 LLM 重试（与 vue_code/diff 解析失败一致），
+        // 避免一次格式错误直接判死；重试期间不标记完成
+        if (step.type === 'tool_call' && unknownError) {
+          await saveChat(
+            edChatId,
+            topicId,
+            userId,
+            fullContent,
+            result,
+            stepTokens,
+            'Error'
+          );
+          ctx.nextPrompt = `O: 输出格式无法识别\n错误信息:\n${unknownError}\n\n请重新输出工具调用 JSON，格式为 {\"action\": \"工具名\", \"parameters\": [...]}，parameters 必须为数组（无参数时为空数组 []）。`;
+          continue;
+        }
+
+        // 未知输出须回写槽位错误，保证导出/trace 与状态条一致（否则误记为完成）
         slot.done = true;
+        if (unknownError) slot.error = unknownError;
 
         await saveChat(
           edChatId,
@@ -779,11 +832,20 @@ export function useEditorStep(deps: EditorStepDeps) {
 
         return {
           content: fullContent,
-          error: isText ? null : parsed.error || '无法识别输出格式',
+          error: unknownError,
           tokens: totalTokens,
           duration: Date.now() - stepStart
         };
       } catch (e: any) {
+        // 本轮兜底错误：记录步骤上下文便于排查（SSE 中断/超时/异常均落于此）
+        console.error('[useEditorStep]', '步骤执行失败', {
+          topicId,
+          stepId: step.id,
+          stepIdx,
+          turn,
+          error: e?.message || String(e),
+          stack: e?.stack
+        });
         slot.error = e.message;
         slot.done = true;
         return errResult(e.message, totalTokens, stepStart);

@@ -11,10 +11,22 @@ type ChatCompletions = (
   error?: (error: Error, cancel?: boolean) => void
 ) => Promise<(() => void) | undefined>;
 
+/** SSE 空闲超时：连接存活但持续无数据则判定中断，避免 UI 无限等待 */
+const IDLE_TIMEOUT_MS = 90 * 1000;
+
 export function useSSEStream(chatCompletions: ChatCompletions) {
   let currentAbort: (() => void) | null = null;
+  let idleTimer: ReturnType<typeof setTimeout> | null = null;
+
+  function clearIdleTimer() {
+    if (idleTimer) {
+      clearTimeout(idleTimer);
+      idleTimer = null;
+    }
+  }
 
   function abortAll() {
+    clearIdleTimer();
     if (currentAbort) {
       currentAbort();
       currentAbort = null;
@@ -43,6 +55,7 @@ export function useSSEStream(chatCompletions: ChatCompletions) {
       const finish = () => {
         if (settled) return;
         settled = true;
+        clearIdleTimer();
         if (currentAbort === done) currentAbort = null;
         resolve({
           done,
@@ -61,12 +74,37 @@ export function useSSEStream(chatCompletions: ChatCompletions) {
       };
       currentAbort = done;
 
+      // 请求开始即启动空闲计时；每次收到数据块重置
+      const startIdleTimer = () => {
+        clearIdleTimer();
+        idleTimer = setTimeout(() => {
+          idleTimer = null;
+          if (settled) return;
+          settled = true;
+          abortRequested = true;
+          if (currentAbort === done) currentAbort = null;
+          remoteAbort?.();
+          console.warn('[useSSEStream]', 'SSE 流空闲超时', {
+            topicId,
+            chatId,
+            idleSeconds: IDLE_TIMEOUT_MS / 1000
+          });
+          reject(
+            new Error(
+              `SSE 流长时间无数据（${IDLE_TIMEOUT_MS / 1000}s），连接可能已中断`
+            )
+          );
+        }, IDLE_TIMEOUT_MS);
+      };
+      startIdleTimer();
+
       chatCompletions(
         topicId,
         chatId,
         (data, completed) => {
           if (completed) return finish();
           if (!data) return;
+          startIdleTimer();
           modelAcc = data.vtj?.model || data.model || modelAcc;
           if (data.usage) usageAcc = data.usage;
           const delta = data.choices?.[0]?.delta;
@@ -80,6 +118,7 @@ export function useSSEStream(chatCompletions: ChatCompletions) {
           if (delta?.content) onChunk?.(delta.content);
         },
         (error, cancel) => {
+          clearIdleTimer();
           if (cancel) finish();
           else if (!settled) {
             settled = true;

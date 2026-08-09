@@ -3,6 +3,41 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.19.3](https://gitee.com/newgateway/vtj/compare/@vtj/pro@0.19.2...@vtj/pro@0.19.3) (2026-08-09)
+
+**Note:** Version bump only for package @vtj/pro
+
+
+
+
+
+## [0.19.2](https://gitee.com/newgateway/vtj/compare/@vtj/pro@0.19.1...@vtj/pro@0.19.2) (2026-08-09)
+
+**Note:** Version bump only for package @vtj/pro
+
+
+
+
+
+## [0.19.1](https://gitee.com/newgateway/vtj/compare/@vtj/pro@0.19.0...@vtj/pro@0.19.1) (2026-08-08)
+
+**Note:** Version bump only for package @vtj/pro
+
+
+
+
+
+# [0.19.0](https://gitee.com/newgateway/vtj/compare/@vtj/pro@0.18.29...@vtj/pro@0.19.0) (2026-08-08)
+
+
+### Features
+
+* **agent:** 新增 AI Agent 组件及相关功能 ([4f2c57a](https://gitee.com/newgateway/vtj/commits/4f2c57aa397d2cc45222ebaa12b8620a88b076d7))
+
+
+
+
+
 ## [0.18.29](https://gitee.com/newgateway/vtj/compare/@vtj/pro@0.18.27...@vtj/pro@0.18.29) (2026-08-01)
 
 **Note:** Version bump only for package @vtj/pro

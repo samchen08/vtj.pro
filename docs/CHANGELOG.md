@@ -3,6 +3,44 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.19.3](https://github.com/samchen08/vtj.pro/compare/@vtj/docs@0.19.2...@vtj/docs@0.19.3) (2026-08-09)
+
+**Note:** Version bump only for package @vtj/docs
+
+
+
+
+
+## [0.19.2](https://github.com/samchen08/vtj.pro/compare/@vtj/docs@0.19.1...@vtj/docs@0.19.2) (2026-08-09)
+
+**Note:** Version bump only for package @vtj/docs
+
+
+
+
+
+## [0.19.1](https://github.com/samchen08/vtj.pro/compare/@vtj/docs@0.19.0...@vtj/docs@0.19.1) (2026-08-08)
+
+
+### Features
+
+* **agent:** 添加AI Agent技术白皮书及增强启动流程支持 ([1600355](https://github.com/samchen08/vtj.pro/commit/160035511ab1a4ca07f21b844d8650ed5f2a0567))
+
+
+
+
+
+# [0.19.0](https://github.com/samchen08/vtj.pro/compare/@vtj/docs@0.18.29...@vtj/docs@0.19.0) (2026-08-08)
+
+
+### Bug Fixes
+
+* **agent:** 修复流式状态标识在运行时未正确更新 ([d400f2a](https://github.com/samchen08/vtj.pro/commit/d400f2a453d5c1b81d05b910b232679448a355e8))
+
+
+
+
+
 ## [0.18.29](https://github.com/samchen08/vtj.pro/compare/@vtj/docs@0.18.27...@vtj/docs@0.18.29) (2026-08-01)
 
 **Note:** Version bump only for package @vtj/docs

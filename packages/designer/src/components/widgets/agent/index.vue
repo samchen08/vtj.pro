@@ -636,9 +636,11 @@
     }
   };
 
-  const startAgent = async () => {
+  const startAgent = async (prompt?: string, modelName?: string) => {
     initToken();
-    await startDualAgent();
+    // 支持外部注入模型（如首页创建项目后跳转设计器自动发起）
+    if (modelName) model.value = modelName;
+    await startDualAgent(prompt);
     clearActiveChat();
     await loadTopics();
   };

@@ -56,6 +56,15 @@ export interface PlanStep {
   dependsOn?: string[];
 }
 
+/** 步骤元数据快照（随 chat 持久化到后端 step_meta，回放时免正则解析） */
+export interface StepMeta {
+  stepId: string;
+  type: string;
+  description: string;
+  target?: string;
+  toolName?: string;
+}
+
 /** Architect 返回的计划 */
 export interface PlanResult {
   intent: string;
@@ -244,6 +253,7 @@ export interface AgentTopicBody extends TopicDto {
 export interface AgentChatBody extends ChatDto {
   agent?: 'architect' | 'editor';
   stepId?: string;
+  stepMeta?: StepMeta;
   attempt?: number;
   userId?: string;
   userName?: string;
@@ -417,6 +427,8 @@ export interface ChatRecord {
   modelUsed: string;
   agentRole: string;
   stepId: string;
+  /** 步骤元数据快照（新记录由 Editor 提交，旧记录回退正则解析） */
+  stepMeta?: StepMeta;
   attempt: number;
   tokensPrompt: number;
   tokensCompletion: number;

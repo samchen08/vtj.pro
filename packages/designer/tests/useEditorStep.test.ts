@@ -30,16 +30,19 @@ describe('useEditorStep', () => {
           reasoningTime: 0
         };
       }),
-      getEngine: vi.fn(() => ({
-        project: {
-          value: {
-            getPages: () => [{ name: 'home' }, { id: 'p2' }],
-            apis: [{ name: 'getUser', url: '/api/user' }],
-            blocks: [{ name: 'Header' }]
-          }
-        },
-        toolRegistry: { get: vi.fn() }
-      })),
+      getEngine: vi.fn(
+        () =>
+          ({
+            project: {
+              value: {
+                getPages: () => [{ name: 'home' }, { id: 'p2' }],
+                apis: [{ name: 'getUser', url: '/api/user' }],
+                blocks: [{ name: 'Header' }]
+              }
+            },
+            toolRegistry: { get: vi.fn() }
+          }) as any
+      ),
       setStatus: vi.fn(),
       requestApproval: vi.fn()
     });
@@ -191,5 +194,175 @@ describe('useEditorStep', () => {
     expect(getEngine).toHaveBeenCalledTimes(1);
     expect(postChat).toHaveBeenCalledTimes(1);
     expect(saveChat).not.toHaveBeenCalled();
+  });
+
+  it('executes a tool_call with missing parameters (tolerant parsing)', async () => {
+    const postChat = vi.fn(async (_body: any) => ({ chat: { id: 'chat' } }));
+    const saveChat = vi.fn(async (_body: any) => true);
+    const execute = vi.fn(async () => 'file content');
+    const { executeEditorStep } = useEditorStep({
+      postChat,
+      saveChat,
+      updateTopic: vi.fn(async () => ({})),
+      streamCompletion: vi.fn(async (_topic, _chat, onChunk) => {
+        onChunk?.('```json\n{"action":"getCurrentFileContent"}\n```');
+        return {
+          done: vi.fn(),
+          reasoning: '',
+          usage: null,
+          modelUsed: '',
+          reasoningTime: 0
+        };
+      }),
+      getEngine: vi.fn(
+        () =>
+          ({
+            project: { value: {} },
+            current: { value: { id: 'p1' } },
+            service: {},
+            toolRegistry: { get: vi.fn(), execute }
+          }) as any
+      ),
+      setStatus: vi.fn(),
+      requestApproval: vi.fn()
+    });
+
+    const editorResults: any[] = [];
+    const step = {
+      id: 'step_4',
+      type: 'tool_call' as const,
+      description: '获取当前页面最新源码',
+      toolName: 'getCurrentFileContent'
+    };
+    const result = await executeEditorStep(
+      'topic',
+      'user',
+      step,
+      0,
+      [step],
+      Date.now(),
+      editorResults
+    );
+
+    expect(result.error).toBeNull();
+    // 缺省 parameters 容错为空数组后正常执行工具
+    expect(execute).toHaveBeenCalledWith('getCurrentFileContent', []);
+    const slot = editorResults[0];
+    expect(slot.error).toBeNull();
+    expect(slot.done).toBe(true);
+  });
+
+  it('feeds back unrecognized tool_call output for retry', async () => {
+    const postChat = vi.fn(async (_body: any) => ({
+      chat: { id: `chat-${postChat.mock.calls.length}` }
+    }));
+    const saveChat = vi.fn(async (_body: any) => true);
+    const execute = vi.fn(async () => 'file content');
+    let streamCount = 0;
+    const { executeEditorStep } = useEditorStep({
+      postChat,
+      saveChat,
+      updateTopic: vi.fn(async () => ({})),
+      streamCompletion: vi.fn(async (_topic, _chat, onChunk) => {
+        streamCount++;
+        onChunk?.(
+          streamCount === 1
+            ? '```json\n{"foo":"bar"}\n```'
+            : '```json\n{"action":"getCurrentFileContent","parameters":[]}\n```'
+        );
+        return {
+          done: vi.fn(),
+          reasoning: '',
+          usage: null,
+          modelUsed: '',
+          reasoningTime: 0
+        };
+      }),
+      getEngine: vi.fn(
+        () =>
+          ({
+            project: { value: {} },
+            current: { value: { id: 'p1' } },
+            service: {},
+            toolRegistry: { get: vi.fn(), execute }
+          }) as any
+      ),
+      setStatus: vi.fn(),
+      requestApproval: vi.fn()
+    });
+
+    const editorResults: any[] = [];
+    const step = {
+      id: 'step_4',
+      type: 'tool_call' as const,
+      description: '获取当前页面最新源码',
+      toolName: 'getCurrentFileContent'
+    };
+    const result = await executeEditorStep(
+      'topic',
+      'user',
+      step,
+      0,
+      [step],
+      Date.now(),
+      editorResults
+    );
+
+    // 格式错误反馈重试后第二轮成功执行
+    expect(postChat).toHaveBeenCalledTimes(2);
+    expect(execute).toHaveBeenCalledTimes(1);
+    expect(result.error).toBeNull();
+    const slot = editorResults[0];
+    expect(slot.done).toBe(true);
+    expect(slot.turns.map((t: any) => t.type)).toEqual([
+      'unknown',
+      'tool_call'
+    ]);
+    // 重试提示包含格式纠正要求
+    expect(postChat.mock.calls[1][0].prompt).toContain('输出格式无法识别');
+    expect(postChat.mock.calls[1][0].prompt).toContain('parameters 必须为数组');
+  });
+
+  it('writes unrecognized output error back to the slot for non-tool_call steps', async () => {
+    const postChat = vi.fn(async (_body: any) => ({ chat: { id: 'chat' } }));
+    const saveChat = vi.fn(async (_body: any) => true);
+    const { executeEditorStep } = useEditorStep({
+      postChat,
+      saveChat,
+      updateTopic: vi.fn(async () => ({})),
+      streamCompletion: vi.fn(async (_topic, _chat, onChunk) => {
+        onChunk?.('```json\n{"foo":"bar"}\n```');
+        return {
+          done: vi.fn(),
+          reasoning: '',
+          usage: null,
+          modelUsed: '',
+          reasoningTime: 0
+        };
+      }),
+      getEngine: vi.fn(),
+      setStatus: vi.fn(),
+      requestApproval: vi.fn()
+    });
+
+    const editorResults: any[] = [];
+    const step = { id: 'step', type: 'text' as const, description: '文本步骤' };
+    const result = await executeEditorStep(
+      'topic',
+      'user',
+      step,
+      0,
+      [step],
+      Date.now(),
+      editorResults
+    );
+
+    expect(result.error).toContain('JSON 格式不符合 tool_call 规范');
+    const slot = editorResults[0];
+    // 槽位错误与返回值一致，导出/trace 不再误记为完成
+    expect(slot.error).toBe(result.error);
+    expect(slot.done).toBe(true);
+    // 失败轮次落库为 Error 状态（status 封装在保存 body 中）
+    expect((saveChat.mock.calls[0][0] as any).status).toBe('Error');
   });
 });
