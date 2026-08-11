@@ -39,7 +39,9 @@ export default defineComponent({
     return { state, page: 1 };
   }
 });
-`.replace('MyDir', 'FocusDirective').replace('TooltipDir', 'TooltipDirective');
+`
+    .replace('MyDir', 'FocusDirective')
+    .replace('TooltipDir', 'TooltipDirective');
 
   const result = parseScripts(source, project);
 
@@ -59,9 +61,55 @@ export default defineComponent({
 
   test('should parse dataSources from methods', () => {
     expect(result.dataSources).toBeDefined();
-    // getUserList should be extracted as a data source
-    const keys = Object.keys(result.dataSources || {});
-    expect(keys.length).toBeGreaterThanOrEqual(0);
+    // fetchData 为函数体内含赋值逻辑的非标准写法，不采集为数据源，保留为普通方法
+    expect(result.dataSources!['fetchData']).toBeUndefined();
+    expect(result.methods!['fetchData']).toBeDefined();
+  });
+
+  test('should degrade collect dataSource when api not exists but standard template', () => {
+    const source = `
+import { defineComponent } from 'vue';
+
+export default defineComponent({
+  name: 'DegradeComp',
+  methods: {
+    async loadArticles(...args) {
+      return await this.provider.apis['getArticleList'].apply(this, args).then((res) => {
+        return res;
+      });
+    }
+  }
+});
+`;
+    const result = parseScripts(source, project);
+    expect(result.dataSources).toBeDefined();
+    const ds = result.dataSources!['loadArticles'];
+    expect(ds).toBeDefined();
+    expect(ds.type).toBe('api');
+    expect(ds.ref).toBe('getArticleList');
+    expect(ds.label).toBe('');
+    expect(result.methods!['loadArticles']).toBeUndefined();
+  });
+
+  test('should treat non-standard dataSource code as regular method', () => {
+    // 非标准写法：函数体含多条语句，不采集为数据源，作为普通方法保留完整逻辑
+    const source = `
+import { defineComponent } from 'vue';
+
+export default defineComponent({
+  name: 'RegularComp',
+  methods: {
+    async loadArticles() {
+      const res = await this.provider.apis['getArticleList'].apply(null, []);
+      return res;
+    }
+  }
+});
+`;
+    const result = parseScripts(source, project);
+    expect(result.dataSources).toBeDefined();
+    expect(result.dataSources!['loadArticles']).toBeUndefined();
+    expect(result.methods!['loadArticles']).toBeDefined();
   });
 
   test('should parse inject', () => {

@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.19.5](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.19.4...@vtj/designer@0.19.5) (2026-08-11)
+
+
+### Bug Fixes
+
+* **agent:** 修正响应文案为生成 ([cbd2ea8](https://gitee.com/newgateway/vtj/commits/cbd2ea8fe01f89ab654a03ac405ae4870ef17587))
+* **openApi:** 优化错误处理并支持速率限制提示 ([2ee527f](https://gitee.com/newgateway/vtj/commits/2ee527faed541d62511b1240a24a74cf917bca37))
+
+
+
+
+
+## [0.19.4](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.19.3...@vtj/designer@0.19.4) (2026-08-09)
+
+**Note:** Version bump only for package @vtj/designer
+
+
+
+
+
 ## [0.19.3](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.19.2...@vtj/designer@0.19.3) (2026-08-09)
 
 

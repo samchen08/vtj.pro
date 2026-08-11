@@ -31,7 +31,7 @@
           <div class="turn-title">
             <span class="turn-kind">{{ turnTypeLabel(turn.type) }}</span>
             <code v-if="turn.toolAction">{{ turn.toolAction }}</code>
-            <span v-else>第 {{ turn.turn + 1 }} 次响应</span>
+            <span v-else>第 {{ turn.turn + 1 }} 次生成</span>
             <span class="turn-spacer" />
             <span v-if="turn.approval?.status === 'pending'" class="pending">
               待批准
@@ -200,7 +200,7 @@
       text: '回复',
       unknown: '输出'
     };
-    return labels[type] || '响应';
+    return labels[type] || '生成';
   }
 
   function approvalFeedback(turn: EditorTurn): string {

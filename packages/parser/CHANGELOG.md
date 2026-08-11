@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.19.5](https://gitee.com/newgateway/vtj/compare/@vtj/parser@0.19.4...@vtj/parser@0.19.5) (2026-08-11)
+
+**Note:** Version bump only for package @vtj/parser
+
+
+
+
+
+## [0.19.4](https://gitee.com/newgateway/vtj/compare/@vtj/parser@0.19.3...@vtj/parser@0.19.4) (2026-08-09)
+
+
+### Bug Fixes
+
+* **parser:** 严格区分标准数据源模板与普通方法 ([abe274f](https://gitee.com/newgateway/vtj/commits/abe274fbf792ab6f01e87cfa15646853feea020b))
+
+
+
+
+
 ## [0.19.3](https://gitee.com/newgateway/vtj/compare/@vtj/parser@0.19.2...@vtj/parser@0.19.3) (2026-08-09)
 
 **Note:** Version bump only for package @vtj/parser

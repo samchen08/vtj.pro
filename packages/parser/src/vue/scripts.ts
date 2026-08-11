@@ -279,17 +279,24 @@ function getFunction(item: ObjectMethod) {
   return undefined;
 }
 
+function isDataSourceTemplate(value: string): boolean {
+  // 仅识别标准数据源模板（coder 出码结构）：
+  // 1. return await this.provider.apis['xxx'].apply(...).then(...)
+  // 2. return await this.provider.createMock.apply(...)
+  // 非标准写法（直接调用、函数体含业务逻辑等）不采集为数据源，
+  // 作为普通方法保留完整逻辑，避免 transform 信息丢失
+  return (
+    /return\s+await\s+this\.provider\.apis\['[\w]*'\]\s*\.apply/.test(value) ||
+    /return\s+await\s+this\.provider\.createMock/.test(value)
+  );
+}
+
 function getMethods(expression: ObjectExpression) {
   if (!expression) return {};
   const methods: Record<string, JSFunction | JSExpression> = {};
   for (const item of expression.properties) {
     const method = getFunction(item as ObjectMethod);
-    if (
-      method &&
-      !method.watcher &&
-      !method.exp.value.includes('this.provider.createMock') &&
-      !method.exp.value.includes('this.provider.apis')
-    ) {
+    if (method && !method.watcher && !isDataSourceTemplate(method.exp.value)) {
       methods[method.name] = method.exp;
     }
   }
@@ -325,52 +332,55 @@ function getDataSources(expression: ObjectExpression, project: ProjectSchema) {
     const comment = (bodyNode?.leadingComments?.[0].value || '').trim();
     const dataSource = extractDataSource(comment);
 
-    if (method && method.exp.value.includes('this.provider.apis')) {
-      const matches = method.exp.value.match(idRegex) || [];
-      const id = matches[1];
-      if (!id) continue;
-      const api = findApi(project, id);
-      if (!api) continue;
-      const transform = extractThenCallback(method.exp.value);
-      sources[method.name] = {
-        ref: id,
-        name: method.name,
-        test: dataSource?.test || {
-          type: 'JSFunction',
-          value: '() => this.runApi({\n    /* 在这里可输入接口参数  */\n})'
-        },
-        type: 'api',
-        label: api.label,
-        transform: {
-          type: 'JSFunction',
-          value: transform || '(res) => {\n    return res;\n}'
-        },
-        mockTemplate: api.mockTemplate
-      };
-    }
+    if (method && isDataSourceTemplate(method.exp.value)) {
+      if (method.exp.value.includes('this.provider.apis')) {
+        const matches = method.exp.value.match(idRegex) || [];
+        const id = matches[1];
+        if (!id) continue;
+        // API 未在项目 apis 中命中时降级采集：不静默丢弃数据源，
+        // 由设计器侧人工修正 ref 或补齐 API 定义，出码仅依赖 ref 不受影响
+        const api = findApi(project, id);
+        const transform = extractThenCallback(method.exp.value);
+        sources[method.name] = {
+          ref: id,
+          name: method.name,
+          test: dataSource?.test || {
+            type: 'JSFunction',
+            value: '() => this.runApi({\n    /* 在这里可输入接口参数  */\n})'
+          },
+          type: 'api',
+          label: api?.label || '',
+          transform: {
+            type: 'JSFunction',
+            value: transform || '(res) => {\n    return res;\n}'
+          },
+          mockTemplate: api?.mockTemplate
+        };
+      }
 
-    if (method && method.exp.value.includes('this.provider.createMock')) {
-      const argumentNode = bodyNode?.declarations?.[0]?.init?.arguments?.[0];
+      if (method.exp.value.includes('this.provider.createMock')) {
+        const argumentNode = bodyNode?.declarations?.[0]?.init?.arguments?.[0];
 
-      const transform = extractThenCallback(method.exp.value);
-      sources[method.name] = {
-        ref: '',
-        name: method.name,
-        test: dataSource?.test || {
-          type: 'JSFunction',
-          value: '() => this.runApi({\n    /* 在这里可输入接口参数  */\n})'
-        },
-        type: 'mock',
-        label: dataSource?.label || '',
-        transform: dataSource?.transform || {
-          type: 'JSFunction',
-          value: transform || '(res) => {\n    return res;\n}'
-        },
-        mockTemplate: dataSource?.mockTemplate || {
-          type: 'JSFunction',
-          value: argumentNode ? generateCode(argumentNode) : ''
-        }
-      };
+        const transform = extractThenCallback(method.exp.value);
+        sources[method.name] = {
+          ref: '',
+          name: method.name,
+          test: dataSource?.test || {
+            type: 'JSFunction',
+            value: '() => this.runApi({\n    /* 在这里可输入接口参数  */\n})'
+          },
+          type: 'mock',
+          label: dataSource?.label || '',
+          transform: dataSource?.transform || {
+            type: 'JSFunction',
+            value: transform || '(res) => {\n    return res;\n}'
+          },
+          mockTemplate: dataSource?.mockTemplate || {
+            type: 'JSFunction',
+            value: argumentNode ? generateCode(argumentNode) : ''
+          }
+        };
+      }
     }
   }
   return sources;
