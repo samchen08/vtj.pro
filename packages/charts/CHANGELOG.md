@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.19.6](https://gitee.com/newgateway/vtj/compare/@vtj/charts@0.19.5...@vtj/charts@0.19.6) (2026-08-14)
+
+**Note:** Version bump only for package @vtj/charts
+
+
+
+
+
 ## [0.19.5](https://gitee.com/newgateway/vtj/compare/@vtj/charts@0.19.4...@vtj/charts@0.19.5) (2026-08-11)
 
 **Note:** Version bump only for package @vtj/charts

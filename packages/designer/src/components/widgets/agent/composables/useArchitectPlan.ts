@@ -142,14 +142,29 @@ export function useArchitectPlan(deps: ArchitectPlanDeps) {
     successMessage: AgentStatusMessage;
   }) {
     const failed = !!opts.round.summaryError;
-    await saveTrace({
+    const records = failed
+      ? [
+          ...opts.records,
+          {
+            stepId: 'summary',
+            type: 'summary',
+            description: '生成任务总结',
+            status: 'failed' as const,
+            content: opts.round.summaryText,
+            error: opts.round.summaryError,
+            tokens: 0,
+            duration: 0
+          }
+        ]
+      : opts.records;
+    await finalizeFlow({
       traceId: opts.traceId,
       topicId: opts.topicId,
       planJson: opts.round.architectPlan,
-      stepsJson: opts.records,
-      finalStatus: failed ? 'failed' : 'completed',
+      stepsJson: records,
+      status: failed ? 'failed' : 'completed',
       totalTokens: opts.totalTokens,
-      totalDuration: Date.now() - opts.startTime
+      startTime: opts.startTime
     });
     setStatus(
       failed
@@ -236,6 +251,18 @@ export function useArchitectPlan(deps: ArchitectPlanDeps) {
         records,
         signal
       );
+      if (round.summaryError) {
+        records.push({
+          stepId: 'summary',
+          type: 'summary',
+          description: '生成任务总结',
+          status: 'failed',
+          content: round.summaryText,
+          error: round.summaryError,
+          tokens: 0,
+          duration: 0
+        });
+      }
     }
 
     if (signal?.aborted) {
@@ -243,7 +270,8 @@ export function useArchitectPlan(deps: ArchitectPlanDeps) {
       return;
     }
 
-    const status = failedStep >= 0 ? 'failed' : 'completed';
+    const status =
+      failedStep >= 0 || round.summaryError ? 'failed' : 'completed';
     await finalizeFlow({
       topicId,
       traceId,
@@ -382,7 +410,18 @@ export function useArchitectPlan(deps: ArchitectPlanDeps) {
         topicId,
         traceId,
         status: 'failed',
-        stepsJson: [],
+        stepsJson: [
+          {
+            stepId: 'architect',
+            type: 'architect',
+            description: '生成执行计划',
+            status: 'failed',
+            content: round.architectStreamText,
+            error: round.architectError,
+            tokens: totalTokens,
+            duration: Date.now() - startTime
+          }
+        ],
         totalTokens,
         startTime
       });

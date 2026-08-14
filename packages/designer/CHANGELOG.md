@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.19.6](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.19.5...@vtj/designer@0.19.6) (2026-08-14)
+
+
+### Bug Fixes
+
+* **agent:** 修正任务总结与执行计划状态更新逻辑 ([7311d28](https://gitee.com/newgateway/vtj/commits/7311d287682d5b2887a1cec1decfe4e1e4186d85))
+
+
+
+
+
 ## [0.19.5](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.19.4...@vtj/designer@0.19.5) (2026-08-11)
 
 
