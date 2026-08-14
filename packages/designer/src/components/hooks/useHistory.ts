@@ -1,15 +1,20 @@
-import { computed } from 'vue';
+import { computed, unref, type MaybeRef } from 'vue';
+import type { HistoryType } from '@vtj/core';
 import { useEngine, Designer } from '../../framework';
-import { message } from '../../utils';
-export function useHistory() {
+import { confirm } from '../../utils';
+
+export function useHistory(source: MaybeRef<HistoryType> = 'file') {
   const engine = useEngine();
 
   const designer = computed<Designer | null>(
     () => engine.simulator.designer.value
   );
-  const history = computed(() =>
-    engine.current.value ? engine.history.value : null
-  );
+  const history = computed(() => {
+    if (unref(source) === 'project') {
+      return engine.projectHistory.value;
+    }
+    return engine.current.value ? engine.history.value : null;
+  });
   const total = computed(() => history.value?.items.length || 0);
 
   const forward = () => {
@@ -22,10 +27,15 @@ export function useHistory() {
     designer.value?.cleanHelper();
   };
 
-  const load = (id: string) => {
+  const load = async (id: string) => {
+    if (unref(source) === 'project') {
+      const ret = await confirm(
+        '确定恢复该项目历史版本吗？项目配置及文件清单将被覆盖，文件内容不会回滚。'
+      );
+      if (!ret) return;
+    }
     designer.value?.cleanHelper();
     history.value?.load(id);
-    message('已载入历史记录', 'success');
   };
 
   const forwardDisabled = computed(() => {
@@ -41,15 +51,21 @@ export function useHistory() {
   });
 
   const getHistoryDsl = async (id: string) => {
-    if (engine.current.value) {
+    if (history.value) {
       const projectDsl = engine.project.value?.toDsl();
       const item = await engine.service.getHistoryItem(
-        engine.current.value.id,
+        history.value.id,
         id,
         projectDsl
       );
       return item?.dsl;
     }
+  };
+
+  const getCurrentDsl = () => {
+    return unref(source) === 'project'
+      ? engine.project.value?.toDsl()
+      : engine.current.value?.toDsl();
   };
 
   return {
@@ -61,6 +77,7 @@ export function useHistory() {
     load,
     forwardDisabled,
     backwardDisabled,
-    getHistoryDsl
+    getHistoryDsl,
+    getCurrentDsl
   };
 }
