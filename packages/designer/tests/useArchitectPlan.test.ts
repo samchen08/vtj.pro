@@ -157,6 +157,11 @@ describe('useArchitectPlan.executeArchitectPlan', () => {
     const traceBody = deps.callLog.find(([name]) => name === 'saveTrace')![1];
     expect(traceBody.finalStatus).toBe('failed');
     expect(traceBody.planJson).toBeNull();
+    expect(traceBody.stepsJson[0]).toMatchObject({
+      stepId: 'architect',
+      status: 'failed',
+      error: expect.stringContaining('未生成有效计划')
+    });
   });
 
   it('answers directly when the plan has no steps', async () => {
@@ -364,7 +369,7 @@ describe('useArchitectPlan.executeArchitectPlan', () => {
     expect(names).not.toContain('postChat');
   });
 
-  it('keeps the final status update when summary generation fails', async () => {
+  it('marks the topic and trace as failed when summary generation fails', async () => {
     const deps = createDeps({
       streamCompletion: vi
         .fn()
@@ -393,8 +398,14 @@ describe('useArchitectPlan.executeArchitectPlan', () => {
     const updateBodies = deps.callLog.filter(
       ([name]) => name === 'updateTopic'
     );
-    // 最终状态更新仍在总结失败后执行
-    expect(updateBodies[updateBodies.length - 1][1].status).toBe('completed');
+    expect(updateBodies[updateBodies.length - 1][1].status).toBe('failed');
+    const traceBody = deps.callLog.find(([name]) => name === 'saveTrace')![1];
+    expect(traceBody.finalStatus).toBe('failed');
+    expect(traceBody.stepsJson.at(-1)).toMatchObject({
+      stepId: 'summary',
+      status: 'failed',
+      error: 'network down'
+    });
   });
 });
 
@@ -459,6 +470,10 @@ describe('useArchitectPlan.resumeEditorPlan', () => {
     const traceBody = deps.callLog.find(([name]) => name === 'saveTrace')![1];
     expect(traceBody.finalStatus).toBe('completed');
     expect(traceBody.stepsJson).toHaveLength(2);
+    const updateBodies = deps.callLog.filter(
+      ([name]) => name === 'updateTopic'
+    );
+    expect(updateBodies.at(-1)![1].status).toBe('completed');
   });
 
   it('continues from the next step when no aborted slot exists', async () => {

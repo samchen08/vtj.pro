@@ -386,6 +386,22 @@ export function useOpenApi() {
     const controller = new AbortController();
     const signal = controller.signal;
 
+    const toCompletionError = (
+      message: string,
+      status?: number,
+      retryAfter?: string | number | null
+    ) => {
+      const waitSeconds = Math.ceil(Number(retryAfter));
+      const text =
+        status === 429
+          ? `模型服务繁忙（速率限制），请${waitSeconds > 0 ? `等待 ${waitSeconds} 秒后` : '稍后'}重试`
+          : message || `模型服务请求失败${status ? `（${status}）` : ''}`;
+      return Object.assign(new Error(text), {
+        status,
+        retryAfter: waitSeconds > 0 ? waitSeconds : undefined
+      });
+    };
+
     // 新增：行处理函数
     const processLine = (line: string) => {
       if (!line.startsWith('data: ')) return;
@@ -396,7 +412,14 @@ export function useOpenApi() {
       try {
         const data = JSON.parse(content);
         if (data?.error) {
-          error?.(new Error(data.message));
+          error?.(
+            toCompletionError(
+              data.message,
+              Number(data.statusCode || data.status),
+              data.retryAfter
+            )
+          );
+          controller.abort();
           return;
         }
         callback?.(data, false);
@@ -425,6 +448,20 @@ export function useOpenApi() {
       signal
     })
       .then(async (res) => {
+        if (!res.ok) {
+          const content = await res.text();
+          let data: any = null;
+          try {
+            data = JSON.parse(content);
+          } catch {
+            // 非 JSON 响应直接使用原文
+          }
+          throw toCompletionError(
+            data?.message || content || res.statusText,
+            res.status,
+            res.headers.get('retry-after')
+          );
+        }
         const reader = res.body?.getReader();
         if (!reader) return;
 
@@ -450,6 +487,7 @@ export function useOpenApi() {
 
             for (const line of lines) {
               processLine(line);
+              if (signal.aborted) return;
             }
           }
         } catch (e) {
