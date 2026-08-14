@@ -1,7 +1,11 @@
 import { expect, test, vi, describe, beforeEach } from 'vitest';
 import { HistoryModel } from '../../src/models';
 import { emitter } from '../../src/tools';
-import type { HistorySchema, BlockSchema } from '../../src/protocols';
+import type {
+  HistorySchema,
+  BlockSchema,
+  ProjectSchema
+} from '../../src/protocols';
 
 describe('HistoryModel', () => {
   beforeEach(() => {
@@ -22,6 +26,15 @@ describe('HistoryModel', () => {
       expect(history.id).toBe('file-1');
       expect(history.items).toEqual([]);
       expect(history.index).toBe(-1);
+      expect(history.type).toBe('file');
+    });
+
+    test('should create project history', () => {
+      const history = new HistoryModel({
+        id: '__project__',
+        type: 'project'
+      });
+      expect(history.type).toBe('project');
     });
 
     test('should initialize with items', () => {
@@ -59,6 +72,7 @@ describe('HistoryModel', () => {
       const history = new HistoryModel(schema);
       const dsl = history.toDsl();
       expect(dsl.id).toBe('file-1');
+      expect(dsl.type).toBe('file');
       expect(dsl.items).toHaveLength(1);
       expect(dsl.items![0].id).toBe('h1');
       expect(dsl.items![0].label).toBe('Initial');
@@ -95,6 +109,21 @@ describe('HistoryModel', () => {
       expect(history.items).toHaveLength(1);
       expect(history.items[0].remark).toBe('Initial save');
       expect(history.items[0].dsl).toBeDefined();
+    });
+
+    test('should add project dsl', () => {
+      const history = new HistoryModel({
+        id: '__project__',
+        type: 'project'
+      });
+      const project: ProjectSchema = {
+        id: 'project-1',
+        name: 'TestProject',
+        __VTJ_PROJECT__: true
+      };
+      history.add(project);
+      expect(history.items[0].dsl).toEqual(project);
+      expect(history.items[0].dsl).not.toBe(project);
     });
 
     test('should set index to -1 on add', () => {

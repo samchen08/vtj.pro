@@ -1,5 +1,10 @@
 import { uid, cloneDeep, toArray } from '@vtj/base';
-import type { HistorySchema, HistoryItem, BlockSchema } from '../protocols';
+import type {
+  HistorySchema,
+  HistoryItem,
+  HistoryDsl,
+  HistoryType
+} from '../protocols';
 import { emitter, type ModelEventType } from '../tools';
 
 export interface HistoryModelOptions {
@@ -19,21 +24,24 @@ export class HistoryModel {
   private options: HistoryModelOptions = { max: 50 };
   index: number = -1;
   id: string;
+  type: HistoryType;
   items: HistoryItem[];
   constructor(
     schema: HistorySchema,
     options: Partial<HistoryModelOptions> = {}
   ) {
     Object.assign(this.options, options);
-    const { id, items = [] } = schema;
+    const { id, type = 'file', items = [] } = schema;
     this.id = id;
+    this.type = type;
     this.items = items;
   }
 
   toDsl(): HistorySchema {
-    const { id, items } = this;
+    const { id, type, items } = this;
     return {
       id,
+      type,
       items: items.map((n) => ({
         id: n.id,
         label: n.label,
@@ -55,7 +63,7 @@ export class HistoryModel {
    * @param dsl
    * @param silent
    */
-  add(dsl: BlockSchema, remark: string = '', silent: boolean = false) {
+  add(dsl: HistoryDsl, remark: string = '', silent: boolean = false) {
     const { max } = this.options;
     const item: HistoryItem = {
       id: uid(),

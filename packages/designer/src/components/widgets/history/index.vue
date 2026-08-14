@@ -28,6 +28,13 @@
         class="v-history-widget__checker"
         v-model="checkedAll"></ElCheckbox>
     </template>
+    <ElRadioGroup
+      class="v-history-widget__type"
+      size="small"
+      v-model="historyType">
+      <ElRadioButton value="file">文件</ElRadioButton>
+      <ElRadioButton value="project">项目</ElRadioButton>
+    </ElRadioGroup>
     <ElEmpty v-if="total === 0" :image-size="50"></ElEmpty>
     <template v-if="history">
       <Item
@@ -95,11 +102,13 @@
     ElDivider,
     ElCheckbox,
     ElButton,
-    ElSwitch
+    ElSwitch,
+    ElRadioGroup,
+    ElRadioButton
   } from 'element-plus';
   import { XAction, XDialogForm, XField } from '@vtj/ui';
   import { VtjIconDiff, Flag } from '@vtj/icons';
-  import type { HistoryItem } from '@vtj/core';
+  import type { HistoryItem, HistoryType } from '@vtj/core';
   import Diff from './diff.vue';
   import { Panel, Item } from '../../shared';
   import { useHistory } from '../../hooks';
@@ -109,7 +118,9 @@
     name: 'HistoryWidget'
   });
 
-  const { history, load, total, getHistoryDsl, engine } = useHistory();
+  const historyType = ref<HistoryType>('file');
+  const { history, load, total, getHistoryDsl, getCurrentDsl, engine } =
+    useHistory(historyType);
 
   const diffVisible = ref(false);
   const compareData = shallowRef();
@@ -170,7 +181,10 @@
             label: checkedItems[0].label,
             dsl: await getHistoryDsl(checkedItems[0].id)
           }
-        : { label: '当前文件', dsl: engine.current.value?.toDsl() };
+        : {
+            label: historyType.value === 'project' ? '当前项目' : '当前文件',
+            dsl: getCurrentDsl()
+          };
     if (newItem.dsl) {
       delete newItem.dsl.__VERSION__;
     }
@@ -197,7 +211,7 @@
   };
 
   const onSubmit = async (data: any) => {
-    const dsl = engine.current.value?.toDsl();
+    const dsl = getCurrentDsl();
     if (!dsl) return false;
     if (formModel.value) {
       delete data.checked;
@@ -227,12 +241,31 @@
     }
   });
 
+  watch(historyType, () => {
+    checkedAll.value = false;
+    for (const item of history.value?.items || []) {
+      (item as any).checked = false;
+    }
+    formVisible.value = false;
+    diffVisible.value = false;
+  });
+
   defineExpose({
     openAdd: onAdd
   });
 </script>
 
 <style lang="scss" scoped>
+  .v-history-widget__type {
+    display: flex;
+    margin: 0 10px 10px;
+    :deep(.el-radio-button) {
+      flex: 1;
+    }
+    :deep(.el-radio-button__inner) {
+      width: 100%;
+    }
+  }
   .v-history-widget__flag {
     :deep(.is-info) {
       opacity: 0.65;

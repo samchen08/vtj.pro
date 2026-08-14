@@ -65,6 +65,8 @@ import { message, alert } from '../utils';
 export const engineKey: InjectionKey<ShallowReactive<Engine>> =
   Symbol('VtjEngine');
 
+const PROJECT_HISTORY_ID = '__project__';
+
 /**
  * 设计器引擎配置选项
  */
@@ -178,6 +180,7 @@ export class Engine extends Base {
   public context: Ref<Context | null> = ref(null); // 当前上下文
   public isEmptyCurrent: Ref<boolean> = ref(false); // 当前区块是否为空
   public history: Ref<HistoryModel | null> = ref(null); // 历史记录管理器
+  public projectHistory: Ref<HistoryModel | null> = ref(null); // 项目历史记录管理器
   public provider: Provider; // 提供者实例
   public adapter?: Partial<ProvideAdapter>; // 适配器配置
   /**
@@ -280,6 +283,7 @@ export class Engine extends Base {
       );
       this.project.value = new ProjectModel(dsl);
       this.provider.project = this.project.value;
+      await this.initProjectHistory();
       this.saveMaterials();
       this.triggerReady();
       this.report.setProject(this.project.value);
@@ -432,7 +436,10 @@ export class Engine extends Base {
     if (this.checkLocked()) return;
     const project = e.model;
     const dsl = project.toDsl();
-    await this.service.saveProject(dsl, e.type);
+    const saved = await this.service.saveProject(dsl, e.type);
+    if (saved && this.state.autoHistory) {
+      this.projectHistory.value?.add(dsl);
+    }
     triggerRef(this.project);
   }
 
@@ -535,12 +542,30 @@ export class Engine extends Base {
       const dsl = await this.service
         .getHistory(block.id, this.project.value?.toDsl())
         .catch(() => null);
-      this.history.value = new HistoryModel(
-        Object.assign(dsl || {}, { id: block.id })
-      );
+      this.history.value = new HistoryModel({
+        ...dsl,
+        id: block.id,
+        type: 'file'
+      });
     } else {
       this.history.value = null;
     }
+  }
+
+  /**
+   * 初始化项目历史记录
+   */
+  private async initProjectHistory() {
+    const projectDsl = this.project.value?.toDsl();
+    if (!projectDsl) return;
+    const dsl = await this.service
+      .getHistory(PROJECT_HISTORY_ID, projectDsl)
+      .catch(() => null);
+    this.projectHistory.value = new HistoryModel({
+      ...dsl,
+      id: PROJECT_HISTORY_ID,
+      type: 'project'
+    });
   }
 
   /**
@@ -577,7 +602,11 @@ export class Engine extends Base {
 
     const dsl = history.toDsl();
     await this.service.saveHistory(dsl, projectDsl);
-    triggerRef(this.history);
+    if (history.type === 'project') {
+      triggerRef(this.projectHistory);
+    } else {
+      triggerRef(this.history);
+    }
   }
 
   /**
@@ -585,20 +614,75 @@ export class Engine extends Base {
    * @param e 历史模型事件
    */
   private async loadHistory(e: HistoryModelEvent) {
+    if (this.checkLocked()) return;
     const history = e.model;
     const data = e.data as HistoryItem;
     const projectDsl = this.project.value?.toDsl();
-    const item = await this.service.getHistoryItem(
-      history.id,
-      data.id,
-      projectDsl
-    );
-    if (item && item.dsl) {
-      const block = new BlockModel(item.dsl);
-      await this.updateCurrent(block);
-      this.service.saveFile(item.dsl, projectDsl);
-      triggerRef(this.history);
+    try {
+      const item = await this.service.getHistoryItem(
+        history.id,
+        data.id,
+        projectDsl
+      );
+      if (!item?.dsl) return;
+      if (history.type === 'project') {
+        await this.loadProjectHistory(item.dsl as ProjectSchema);
+        triggerRef(this.projectHistory);
+      } else {
+        const dsl = item.dsl as BlockSchema;
+        const block = new BlockModel(dsl);
+        await this.updateCurrent(block);
+        await this.service.saveFile(dsl, projectDsl);
+        triggerRef(this.history);
+      }
+      message('已载入历史记录', 'success');
+    } catch (e) {
+      logger.warn('VTJEngine load history fail.', e);
+      message('载入历史记录失败', 'warning');
     }
+  }
+
+  /**
+   * 加载项目历史记录
+   */
+  private async loadProjectHistory(dsl: ProjectSchema) {
+    const currentProject = this.project.value;
+    if (
+      !currentProject ||
+      !dsl.__VTJ_PROJECT__ ||
+      dsl.id !== currentProject.id
+    ) {
+      throw new Error('Invalid project history');
+    }
+
+    const currentFileId = currentProject.currentFile?.id;
+    const project = new ProjectModel({
+      ...dsl,
+      locked: currentProject.locked,
+      __BASE_PATH__: currentProject.__BASE_PATH__,
+      __UID__: currentProject.__UID__
+    });
+    const currentFile = currentFileId
+      ? project.getFile(currentFileId)
+      : undefined;
+    if (currentFile) {
+      currentFile.dsl = this.current.value?.toDsl();
+      project.active(currentFile, true);
+    }
+
+    const saved = await this.service.saveProject(project.toDsl(), 'update');
+    if (!saved) {
+      throw new Error('Save project history fail');
+    }
+
+    this.project.value = project;
+    this.provider.project = project;
+    this.report.setProject(project);
+    if (!currentFile) {
+      await this.updateCurrent(null);
+      this.history.value = null;
+    }
+    triggerRef(this.project);
   }
 
   /**
