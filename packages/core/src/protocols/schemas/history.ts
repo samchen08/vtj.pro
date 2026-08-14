@@ -1,4 +1,9 @@
 import type { BlockSchema } from './block';
+import type { ProjectSchema } from './project';
+
+export type HistoryType = 'file' | 'project';
+
+export type HistoryDsl = BlockSchema | ProjectSchema;
 
 /**
  * 历史记录描述
@@ -8,6 +13,11 @@ export interface HistorySchema {
    * 页面或区块文件id
    */
   id: string;
+
+  /**
+   * 历史记录类型，旧数据默认为文件历史
+   */
+  type?: HistoryType;
 
   /**
    * 历史记录项
@@ -30,7 +40,7 @@ export interface HistoryItem {
   /**
    * 记录项内容
    */
-  dsl?: BlockSchema;
+  dsl?: HistoryDsl;
 
   /**
    * 备注

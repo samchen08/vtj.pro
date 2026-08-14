@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.19.8](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.19.7...@vtj/designer@0.19.8) (2026-08-14)
+
+
+### Bug Fixes
+
+* **engine:** 修复活跃文件异步加载冲突问题 ([97728c2](https://gitee.com/newgateway/vtj/commits/97728c200843cda6810ae5be4f43f7529bdfe7b2))
+
+
+
+
+
+## [0.19.7](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.19.6...@vtj/designer@0.19.7) (2026-08-14)
+
+
+### Features
+
+* **history:** 支持项目历史记录管理功能 ([e3bee05](https://gitee.com/newgateway/vtj/commits/e3bee05081e32a9991e9e4cab65598a9e7fb93b8))
+
+
+
+
+
 ## [0.19.6](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.19.5...@vtj/designer@0.19.6) (2026-08-14)
 
 
