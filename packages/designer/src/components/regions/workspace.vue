@@ -23,7 +23,7 @@
       <WidgetWrapper
         ref="widgetsRef"
         v-if="refresh && menuChecked === widget.name"
-        :key="`${menuChecked}_${activeFileId}`"
+        :key="menuChecked"
         :region="region"
         :widget="{ ...widget, props: {} }"></WidgetWrapper>
     </template>

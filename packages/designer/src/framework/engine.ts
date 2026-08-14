@@ -370,11 +370,13 @@ export class Engine extends Base {
     await nextTick();
     const project = e.model;
     const file = e.model.currentFile;
+    if (file?.id === this.current.value?.id) return;
     if (file) {
       if (project.isPageFile(file) && !!file.raw) {
         return;
       }
       const dsl = await this.service.getFile(file.id, project.toDsl());
+      if (project.currentFile?.id !== file.id) return;
       if (dsl) {
         file.dsl = dsl;
       }
@@ -382,8 +384,8 @@ export class Engine extends Base {
 
     if (file?.dsl) {
       const block = new BlockModel(file.dsl);
-      this.updateCurrent(block);
-      this.initHistory(block);
+      await this.updateCurrent(block);
+      await this.initHistory(block);
     } else {
       this.updateCurrent(null);
     }
@@ -542,6 +544,7 @@ export class Engine extends Base {
       const dsl = await this.service
         .getHistory(block.id, this.project.value?.toDsl())
         .catch(() => null);
+      if (this.current.value?.id !== block.id) return;
       this.history.value = new HistoryModel({
         ...dsl,
         id: block.id,
