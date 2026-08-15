@@ -75,6 +75,7 @@ export interface Settings {
   free: boolean;
   orderLink?: string;
   tokenLink?: string;
+  toolDirectMode?: 'off' | 'shadow' | 'on';
 }
 
 export interface CompletionChunk {

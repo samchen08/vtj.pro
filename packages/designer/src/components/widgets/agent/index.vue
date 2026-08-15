@@ -400,6 +400,7 @@
     updateTopic,
     getEngine,
     setStatus,
+    getToolDirectMode: () => settings.value?.toolDirectMode || 'off',
     requestApproval: (id) =>
       autoApprove.value
         ? Promise.resolve(true)

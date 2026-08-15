@@ -60,7 +60,8 @@ function parseStepFromPrompt(chat: ChatRecord, stepIdx: number): PlanStep {
         : 'text',
       description: meta.description || '',
       target: meta.target || undefined,
-      toolName: meta.toolName || undefined
+      toolName: meta.toolName || undefined,
+      parameters: meta.parameters
     };
   }
 

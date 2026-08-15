@@ -2,6 +2,59 @@ import { describe, expect, it, vi } from 'vitest';
 import { useEditorStep } from '../src/components/widgets/agent/composables/useEditorStep';
 
 describe('useEditorStep', () => {
+  it('directly executes a validated high-frequency tool without SSE', async () => {
+    const postChat = vi.fn(async () => ({ chat: { id: 'direct-chat' } }));
+    const saveChat = vi.fn(async () => true);
+    const execute = vi.fn(async () => true);
+    const streamCompletion = vi.fn();
+    const engine = {
+      project: {
+        value: {
+          getPages: () => [],
+          apis: [],
+          blocks: []
+        }
+      },
+      toolRegistry: {
+        get: vi.fn(() => ({})),
+        execute
+      }
+    } as any;
+    const { executeEditorStep } = useEditorStep({
+      postChat,
+      saveChat,
+      updateTopic: vi.fn(async () => ({})),
+      streamCompletion,
+      getEngine: vi.fn(() => engine),
+      getToolDirectMode: () => 'on',
+      setStatus: vi.fn(),
+      requestApproval: vi.fn()
+    });
+    const step = {
+      id: 'step_1',
+      type: 'tool_call' as const,
+      description: '刷新预览',
+      toolName: 'refresh',
+      parameters: []
+    };
+
+    const result = await executeEditorStep(
+      'topic',
+      'user',
+      step,
+      0,
+      [step],
+      Date.now(),
+      []
+    );
+
+    expect(streamCompletion).not.toHaveBeenCalled();
+    expect(execute).toHaveBeenCalledWith('refresh', []);
+    expect(postChat.mock.calls[0][0].stepMeta.parameters).toEqual([]);
+    expect(result.tokens).toBe(0);
+    expect(result.error).toBeNull();
+  });
+
   it('keeps old turns and increments attempt when retrying a step', async () => {
     const postChat = vi.fn(async (_body: any) => ({
       chat: { id: 'retry-chat' }

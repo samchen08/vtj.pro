@@ -17,6 +17,7 @@ import {
 import { Messages } from '../utils/messages';
 import { genId } from '../utils/genId';
 import { buildChatSaveBody } from '../utils/chat';
+import { getDirectToolCall, isSameToolCall } from '../utils/directTool';
 import { MAX_TURNS, TOOL_TIMEOUT_MS } from '../constants';
 import type { Engine } from '../../../../framework';
 import type {
@@ -73,6 +74,42 @@ async function getCurrentSourceContext(engine: Engine | null): Promise<string> {
   }
 }
 
+function getCreatedFiles(engine: Engine, action: string): any[] {
+  const project = engine.project.value;
+  if (!project) return [];
+  return action === 'createPage'
+    ? project.getPages()
+    : action === 'createBlock'
+      ? project.blocks || []
+      : [];
+}
+
+function findCreatedFile(
+  engine: Engine,
+  action: string,
+  parameters: unknown[],
+  previousIds?: Set<string>
+): any | null {
+  if (action !== 'createPage' && action !== 'createBlock') return null;
+  const input = parameters[0] as Record<string, unknown>;
+  return (
+    getCreatedFiles(engine, action).find(
+      (file) =>
+        (!previousIds || !previousIds.has(file.id)) &&
+        file.name === input.name &&
+        file.title === input.title &&
+        (action !== 'createBlock' ||
+          !input.category ||
+          file.category === input.category)
+    ) || null
+  );
+}
+
+function toCreatedResult(file: any): Record<string, unknown> {
+  const { id, name, title, layout, dir, category } = file;
+  return { id, name, title, layout, dir, category };
+}
+
 export function useEditorStep(deps: EditorStepDeps) {
   const {
     streamCompletion,
@@ -81,7 +118,8 @@ export function useEditorStep(deps: EditorStepDeps) {
     updateTopic,
     getEngine,
     setStatus,
-    requestApproval
+    requestApproval,
+    getToolDirectMode
   } = deps;
 
   /** 查询工具显式声明的风险等级，未声明时按规则推断 */
@@ -151,7 +189,7 @@ export function useEditorStep(deps: EditorStepDeps) {
     topicId: string,
     userId: string,
     content: string,
-    result: StreamCompletionResult,
+    result: StreamCompletionResult | null,
     tokens: number,
     status = 'Success'
   ) {
@@ -194,7 +232,11 @@ export function useEditorStep(deps: EditorStepDeps) {
       duration: number;
     },
     approval: EditorStepResult['turns'][0]['approval'],
-    stepId: string
+    stepId: string,
+    direct?: {
+      mode: 'shadow' | 'on';
+      matched?: boolean;
+    }
   ) {
     try {
       await saveWithRetry(() =>
@@ -210,7 +252,8 @@ export function useEditorStep(deps: EditorStepDeps) {
             success: result.success,
             error: result.error,
             duration: result.duration,
-            approval
+            approval,
+            direct
           })
         })
       );
@@ -348,6 +391,13 @@ export function useEditorStep(deps: EditorStepDeps) {
 
     // ── 多轮循环 ──
     const ctx: { nextPrompt?: string; needsRefreshVerify?: boolean } = {};
+    const configuredMode = getToolDirectMode?.() || 'off';
+    const directMode = ['off', 'shadow', 'on'].includes(configuredMode)
+      ? configuredMode
+      : 'off';
+    const plannedCall =
+      directMode === 'off' ? null : getDirectToolCall(step, getEngine());
+    let directAttempts = 0;
 
     /**
      * ReAct: 修复后自动调用 refresh 验证运行时错误是否消除
@@ -439,9 +489,175 @@ export function useEditorStep(deps: EditorStepDeps) {
       return okResult(opts.content, totalTokens, stepStart);
     }
 
+    // 直调仍先创建并保存 editor chat，保留额度、审计和步骤归属。
+    if (directMode === 'on' && plannedCall) {
+      const attempt = attemptOffset;
+      const ti = createEditorTurn(attempt);
+      const content = JSON.stringify(plannedCall);
+      ti.type = 'tool_call';
+      ti.prompt = stepPrompt;
+      ti.content = content;
+      ti.toolAction = plannedCall.action;
+      ti.toolParams = plannedCall.parameters;
+      exposeTurn(ti);
+
+      let chatRes: any;
+      try {
+        chatRes = await postChat({
+          topicId,
+          prompt: stepPrompt,
+          agent: 'editor',
+          stepId: step.id,
+          stepMeta: {
+            stepId: step.id,
+            type: step.type,
+            description: step.description,
+            target: step.target,
+            toolName: step.toolName,
+            parameters: step.parameters
+          },
+          attempt: attempt + 1,
+          userId: userId || '',
+          userName: ''
+        });
+      } catch (e: any) {
+        slot.error = Messages.chatCreateFailed(e.message).text;
+        slot.done = true;
+        return errResult(slot.error, totalTokens, stepStart);
+      }
+
+      directAttempts = 1;
+      const edChatId = pickChat(chatRes).chatId;
+      await saveChat(edChatId, topicId, userId, content, null, 0);
+      if (isCancelled()) return cancelResult(slot);
+
+      const risk = riskOf(plannedCall.action);
+      if (risk && !(await approve(ti, plannedCall.action, risk))) {
+        ti.toolResult = {
+          success: false,
+          error: '用户拒绝执行',
+          duration: 0
+        };
+        await saveChatToolContent(
+          edChatId,
+          topicId,
+          userId,
+          plannedCall.action,
+          plannedCall.parameters,
+          ti.toolResult,
+          ti.approval,
+          step.id,
+          { mode: 'on' }
+        );
+        const rejected = buildRejection(
+          slot,
+          Messages.userRejectedTool.text,
+          content
+        );
+        if (rejected) return rejected;
+      }
+      if (isCancelled()) return cancelResult(slot);
+
+      const engine = getEngine()!;
+      const createAction =
+        plannedCall.action === 'createPage' ||
+        plannedCall.action === 'createBlock';
+      const previousIds = createAction
+        ? new Set(
+            getCreatedFiles(engine, plannedCall.action).map((file) => file.id)
+          )
+        : undefined;
+
+      // 仅在上一次直调因超时/取消而结果不确定时查重，避免再次创建。
+      const uncertainRetry = retrySlot?.turns.some(
+        (turn) =>
+          turn.toolAction === plannedCall.action &&
+          !turn.toolResult?.success &&
+          /超时|Aborted/.test(turn.toolResult?.error || '')
+      );
+      const existing =
+        createAction && uncertainRetry
+          ? findCreatedFile(engine, plannedCall.action, plannedCall.parameters)
+          : null;
+      let execResult = existing
+        ? {
+            success: true,
+            action: plannedCall.action,
+            result: toCreatedResult(existing),
+            duration: 0
+          }
+        : await executeTool(
+            engine,
+            plannedCall.action,
+            cloneDeep(plannedCall.parameters),
+            TOOL_TIMEOUT_MS,
+            signal
+          );
+
+      // createPage/createBlock 报错但实体已落盘时，按成功恢复，不二次创建。
+      if (!execResult.success && createAction) {
+        const created = findCreatedFile(
+          engine,
+          plannedCall.action,
+          plannedCall.parameters,
+          previousIds
+        );
+        if (created) {
+          execResult = {
+            success: true,
+            action: plannedCall.action,
+            result: toCreatedResult(created),
+            duration: execResult.duration
+          };
+        }
+      }
+
+      ti.toolResult = execResult;
+      await saveChatToolContent(
+        edChatId,
+        topicId,
+        userId,
+        plannedCall.action,
+        plannedCall.parameters,
+        execResult,
+        ti.approval,
+        step.id,
+        { mode: 'on' }
+      );
+      if (isCancelled()) return cancelResult(slot);
+
+      if (execResult.success) {
+        if (
+          plannedCall.action === 'refresh' &&
+          typeof execResult.result === 'string'
+        ) {
+          const sourceContext = await getCurrentSourceContext(engine);
+          ctx.needsRefreshVerify = true;
+          ctx.nextPrompt = `O: refresh 检测到运行时错误${sourceContext}\n\n错误信息:\n${execResult.result}\n\n请根据上述错误信息和源码，分析错误原因并修复代码。`;
+          slot.content = '';
+        } else {
+          slot.content = content;
+          slot.done = true;
+          return okResult(content, totalTokens, stepStart, {
+            action: plannedCall.action,
+            result: execResult.result
+          });
+        }
+      } else {
+        // 创建调用超时后底层 Promise 可能仍会完成，禁止切回 Editor 再创建。
+        if (createAction && /超时|Aborted/.test(execResult.error || '')) {
+          slot.error = execResult.error || '创建结果未知';
+          slot.done = true;
+          return errResult(slot.error, totalTokens, stepStart, content);
+        }
+        ctx.nextPrompt = formatToolFeedback(execResult);
+        slot.content = '';
+      }
+    }
+
     for (let turn = 0; turn < MAX_TURNS; turn++) {
       if (isCancelled()) return cancelResult(slot);
-      const attempt = attemptOffset + turn;
+      const attempt = attemptOffset + directAttempts + turn;
       const ti = createEditorTurn(attempt);
 
       // 提前 push，确保首轮流式过程也能立即展示
@@ -449,11 +665,11 @@ export function useEditorStep(deps: EditorStepDeps) {
 
       // 确定本轮 prompt
       let prompt: string;
-      if (turn === 0) {
-        prompt = stepPrompt;
-      } else if (ctx.nextPrompt) {
+      if (ctx.nextPrompt) {
         prompt = ctx.nextPrompt;
         ctx.nextPrompt = undefined;
+      } else if (turn === 0) {
+        prompt = stepPrompt;
       } else {
         prompt = '继续';
       }
@@ -472,7 +688,8 @@ export function useEditorStep(deps: EditorStepDeps) {
             type: step.type,
             description: step.description,
             target: step.target,
-            toolName: step.toolName
+            toolName: step.toolName,
+            parameters: step.parameters
           },
           attempt: attempt + 1,
           userId: userId || '',
@@ -521,6 +738,24 @@ export function useEditorStep(deps: EditorStepDeps) {
           ti.content = fullContent;
           ti.toolAction = parsed.tool.action;
           ti.toolParams = parsed.tool.parameters;
+          const shadowDirect =
+            directMode === 'shadow' && plannedCall
+              ? {
+                  mode: 'shadow' as const,
+                  matched: isSameToolCall(
+                    plannedCall,
+                    parsed.tool.action,
+                    parsed.tool.parameters
+                  )
+                }
+              : undefined;
+          if (shadowDirect) {
+            console.info('[useEditorStep] 直调影子比对', {
+              stepId: step.id,
+              action: plannedCall?.action,
+              matched: shadowDirect.matched
+            });
+          }
 
           await saveChat(
             edChatId,
@@ -549,7 +784,8 @@ export function useEditorStep(deps: EditorStepDeps) {
               parsed.tool.parameters,
               ti.toolResult,
               ti.approval,
-              step.id
+              step.id,
+              shadowDirect
             );
             exposeTurn(ti);
             const rejected = buildRejection(
@@ -585,7 +821,8 @@ export function useEditorStep(deps: EditorStepDeps) {
             parsed.tool.parameters,
             execResult,
             ti.approval,
-            step.id
+            step.id,
+            shadowDirect
           );
 
           exposeTurn(ti);
