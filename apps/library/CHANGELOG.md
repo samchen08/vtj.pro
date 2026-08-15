@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.14.3](https://github.com/samchen08/vtj.pro/compare/vtj-project-library@0.14.2...vtj-project-library@0.14.3) (2026-08-15)
+
+
+### Features
+
+* **agent:** 支持工具直调用模式并优化编辑器步骤处理 ([f1b7368](https://github.com/samchen08/vtj.pro/commit/f1b73689b7d1e6e95cc6ca37061e77b02acc137a))
+
+
+
+
+
 ## [0.14.2](https://github.com/samchen08/vtj.pro/compare/vtj-project-library@0.14.1...vtj-project-library@0.14.2) (2026-08-14)
 
 **Note:** Version bump only for package vtj-project-library

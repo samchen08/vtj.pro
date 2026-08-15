@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.19.9](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.19.8...@vtj/designer@0.19.9) (2026-08-15)
+
+
+### Features
+
+* **agent:** 支持工具直调用模式并优化编辑器步骤处理 ([f1b7368](https://gitee.com/newgateway/vtj/commits/f1b73689b7d1e6e95cc6ca37061e77b02acc137a))
+
+
+
+
+
 ## [0.19.8](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.19.7...@vtj/designer@0.19.8) (2026-08-14)
 
 
