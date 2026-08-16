@@ -1,5 +1,6 @@
 # VTJ.PRO 新闻动态
 
+- [VTJ.PRO v2.7.1 发布：推出 Agent 项目级记忆系统，让 AI 真正理解项目上下文](./2026-08-15.md)
 - [VTJ.PRO v2.6.1 重磅发布：双代理（架构师+执行者）上线，AI低代码引擎迎来智能中枢](./2026-08-08.md)
 - [VTJ.PRO v2.5.0 重磅发布：Composition API 全面升级，实现 parser→coder→renderer 精确双向闭环](./2026-06-22.md)
 - [Vue 低代码平台的「二次生长」：深入测评 VTJ 四个核心包的 Composition API 模式升级](./2026-06-17.md)

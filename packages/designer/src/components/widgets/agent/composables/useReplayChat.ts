@@ -60,7 +60,8 @@ function parseStepFromPrompt(chat: ChatRecord, stepIdx: number): PlanStep {
         : 'text',
       description: meta.description || '',
       target: meta.target || undefined,
-      toolName: meta.toolName || undefined
+      toolName: meta.toolName || undefined,
+      parameters: meta.parameters
     };
   }
 
@@ -106,6 +107,7 @@ function parseStepFromPrompt(chat: ChatRecord, stepIdx: number): PlanStep {
 
 interface ReplayToolInfo {
   action?: string;
+  direct?: boolean;
   result?: unknown;
   parameters?: unknown[];
   success?: boolean;
@@ -139,6 +141,7 @@ function parseToolInfo(chat: ChatRecord): ReplayToolInfo {
       if (typeof parsed.duration === 'number') info.duration = parsed.duration;
       if (parsed.resultSummary) info.resultSummary = parsed.resultSummary;
       if (parsed.approval) info.approval = parsed.approval;
+      info.direct = parsed.direct?.mode === 'on';
     } catch {
       // 解析失败忽略
     }
@@ -213,6 +216,7 @@ function buildEditorResults(chats: ChatRecord[]): EditorStepResult[] {
         type: turnType,
         content: chat.content || '',
         reasoning: chat.reasoning || '',
+        direct: toolInfo.direct,
         prompt: chat.prompt || '',
         vue: chat.vue || undefined,
         dsl: parseDsl(chat.dsl)
