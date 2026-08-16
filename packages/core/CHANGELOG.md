@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.19.10](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.19.9...@vtj/core@0.19.10) (2026-08-16)
+
+**Note:** Version bump only for package @vtj/core
+
+
+
+
+
 ## [0.19.9](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.19.8...@vtj/core@0.19.9) (2026-08-15)
 
 **Note:** Version bump only for package @vtj/core
