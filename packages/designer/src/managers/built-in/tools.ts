@@ -25,7 +25,8 @@ const getSkills: ToolConfig = {
       name: 'id',
       type: 'string',
       description: '技能ID',
-      required: true
+      required: true,
+      rest: true
     }
   ],
   createHandler:
@@ -163,6 +164,9 @@ const createPage: ToolConfig = {
       }
       // 容错处理
       const _parentId = parentId || (page as any).parentId;
+      if (_parentId && !project.getPage(_parentId)) {
+        throw new Error(`父页面不存在: ${_parentId}`);
+      }
       const newPage = await project.createPage(
         Object.assign(
           {
@@ -487,7 +491,7 @@ const active: ToolConfig = {
     async (id: string) => {
       const file = project.getFile(id);
       if (!file) {
-        return null;
+        throw new Error(`文件不存在: ${id}`);
       }
       project.active(file);
       await delay(config.activeDelayMs);

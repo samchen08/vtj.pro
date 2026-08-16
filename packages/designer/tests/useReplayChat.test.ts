@@ -54,6 +54,7 @@ describe('useReplayChat', () => {
           result: true,
           success: true,
           duration: 12,
+          direct: { mode: 'on' },
           approval: {
             id: 'approval_1',
             action: 'setDataSources',
@@ -80,6 +81,7 @@ describe('useReplayChat', () => {
     expect(turn.toolParams).toEqual([{ name: 'users' }]);
     expect(turn.toolResult).toMatchObject({ success: true, duration: 12 });
     expect(turn.approval?.status).toBe('approved');
+    expect(turn.direct).toBe(true);
   });
 
   it('uses the latest step and summary attempts after retry', async () => {

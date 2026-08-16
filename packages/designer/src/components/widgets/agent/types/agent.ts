@@ -52,6 +52,8 @@ export interface PlanStep {
   description: string;
   target?: string;
   toolName?: string;
+  /** Architect 已确认的工具位置参数；缺失时沿用 Editor 推理 */
+  parameters?: unknown[];
   /** 步骤依赖（服务端 HarnessPlan 协议字段，透传保留） */
   dependsOn?: string[];
 }
@@ -63,7 +65,10 @@ export interface StepMeta {
   description: string;
   target?: string;
   toolName?: string;
+  parameters?: unknown[];
 }
+
+export type ToolDirectMode = 'off' | 'shadow' | 'on';
 
 /** Architect 返回的计划 */
 export interface PlanResult {
@@ -83,6 +88,8 @@ export interface EditorTurn {
   type: string;
   content: string;
   reasoning: string;
+  /** 是否为未经过 LLM 的工具直调 */
+  direct?: boolean;
   /** Vue/Diff 执行后的最终源码与 DSL */
   vue?: string;
   dsl?: Record<string, any>;
@@ -375,6 +382,7 @@ export interface EditorStepDeps {
   getEngine: () => Engine | null;
   setStatus: (message: AgentStatusMessage) => void;
   requestApproval: (id: string) => Promise<boolean>;
+  getToolDirectMode?: () => ToolDirectMode;
 }
 
 /** Architect 规划执行依赖 */

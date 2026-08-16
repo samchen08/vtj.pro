@@ -15,6 +15,12 @@ describe('parseOutput', () => {
   });
 
   describe('json tool_call', () => {
+    it('parses a bare tool_call json object', () => {
+      const result = parseOutput('{"action":"refresh","parameters":[]}');
+      expect(result.type).toBe('tool_call');
+      expect(result.tool).toEqual({ action: 'refresh', parameters: [] });
+    });
+
     it('parses a valid tool_call json block', () => {
       const result = parseOutput(
         '```json\n{"action":"setDataSources","parameters":[{"name":"users"}]}\n```'

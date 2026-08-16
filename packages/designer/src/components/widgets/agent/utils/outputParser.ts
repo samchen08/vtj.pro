@@ -104,6 +104,16 @@ export function parseOutput(text: string): ParsedOutput {
     return { type: 'unknown', raw: trimmed, error: '输出为空' };
   }
 
+  // 工具调用偶尔不带 Markdown 代码围栏，仅接受完整且合法的 JSON 对象
+  try {
+    const obj = JSON.parse(trimmed);
+    if (isToolCall(obj)) {
+      return { type: 'tool_call', tool: obj };
+    }
+  } catch {
+    // 继续按代码块解析
+  }
+
   const block = extractFirstCodeBlock(trimmed);
   if (!block) {
     return { type: 'unknown', raw: trimmed, error: '未找到代码块' };
