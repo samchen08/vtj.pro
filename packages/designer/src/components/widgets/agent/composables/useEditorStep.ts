@@ -17,7 +17,11 @@ import {
 import { Messages } from '../utils/messages';
 import { genId } from '../utils/genId';
 import { buildChatSaveBody } from '../utils/chat';
-import { getDirectToolCall, isSameToolCall } from '../utils/directTool';
+import {
+  bindActiveParameters,
+  getDirectToolCall,
+  isSameToolCall
+} from '../utils/directTool';
 import { MAX_TURNS, TOOL_TIMEOUT_MS } from '../constants';
 import type { Engine } from '../../../../framework';
 import type {
@@ -44,9 +48,13 @@ function getProjectContext(engine: Engine | null): string {
     if (!engine) return '';
     const project = engine.project.value;
     if (!project) return '';
-    const pages = project.getPages().map((n) => n.name || n.id);
+    const pages = project
+      .getPages()
+      .map((n) => (n.name && n.id ? `${n.name}(${n.id})` : n.name || n.id));
     const apis = (project.apis || []).map((n) => `${n.name}(${n.url || ''})`);
-    const blocks = (project.blocks || []).map((n) => n.name || n.id);
+    const blocks = (project.blocks || []).map((n) =>
+      n.name && n.id ? `${n.name}(${n.id})` : n.name || n.id
+    );
     const lines: string[] = [];
     if (pages.length) lines.push(`页面: ${pages.join(', ')}`);
     if (apis.length) lines.push(`API: ${apis.join(', ')}`);
@@ -395,8 +403,13 @@ export function useEditorStep(deps: EditorStepDeps) {
     const directMode = ['off', 'shadow', 'on'].includes(configuredMode)
       ? configuredMode
       : 'off';
+    const engine = directMode === 'off' ? null : getEngine();
+    const runtimeStep =
+      directMode === 'off'
+        ? step
+        : bindActiveParameters(step, editorResults, engine);
     const plannedCall =
-      directMode === 'off' ? null : getDirectToolCall(step, getEngine());
+      directMode === 'off' ? null : getDirectToolCall(runtimeStep, engine);
     let directAttempts = 0;
 
     /**
@@ -514,7 +527,7 @@ export function useEditorStep(deps: EditorStepDeps) {
             description: step.description,
             target: step.target,
             toolName: step.toolName,
-            parameters: step.parameters
+            parameters: plannedCall.parameters
           },
           attempt: attempt + 1,
           userId: userId || '',
@@ -644,9 +657,9 @@ export function useEditorStep(deps: EditorStepDeps) {
           });
         }
       } else {
-        // 创建调用超时后底层 Promise 可能仍会完成，禁止切回 Editor 再创建。
-        if (createAction && /超时|Aborted/.test(execResult.error || '')) {
-          slot.error = execResult.error || '创建结果未知';
+        // 写入调用可能已经部分生效，禁止切回 Editor 让 LLM 重复执行。
+        if (risk) {
+          slot.error = execResult.error || '工具执行结果未知';
           slot.done = true;
           return errResult(slot.error, totalTokens, stepStart, content);
         }
@@ -689,7 +702,7 @@ export function useEditorStep(deps: EditorStepDeps) {
             description: step.description,
             target: step.target,
             toolName: step.toolName,
-            parameters: step.parameters
+            parameters: runtimeStep.parameters
           },
           attempt: attempt + 1,
           userId: userId || '',
@@ -1036,7 +1049,12 @@ export function useEditorStep(deps: EditorStepDeps) {
         exposeTurn(ti);
         slot.content = fullContent;
 
-        const unknownError = isText ? null : parsed.error || '无法识别输出格式';
+        const unknownError =
+          step.type === 'tool_call'
+            ? parsed.error || '无法识别输出格式'
+            : isText
+              ? null
+              : parsed.error || '无法识别输出格式';
         // tool_call 步骤输出格式无法识别：反馈 LLM 重试（与 vue_code/diff 解析失败一致），
         // 避免一次格式错误直接判死；重试期间不标记完成
         if (step.type === 'tool_call' && unknownError) {

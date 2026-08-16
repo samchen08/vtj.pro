@@ -16,7 +16,7 @@ describe('useEditorStep', () => {
         }
       },
       toolRegistry: {
-        get: vi.fn(() => ({})),
+        get: vi.fn(() => ({ parameters: [] })),
         execute
       }
     } as any;
@@ -34,8 +34,7 @@ describe('useEditorStep', () => {
       id: 'step_1',
       type: 'tool_call' as const,
       description: '刷新预览',
-      toolName: 'refresh',
-      parameters: []
+      toolName: 'refresh'
     };
 
     const result = await executeEditorStep(
@@ -53,6 +52,119 @@ describe('useEditorStep', () => {
     expect(postChat.mock.calls[0][0].stepMeta.parameters).toEqual([]);
     expect(result.tokens).toBe(0);
     expect(result.error).toBeNull();
+  });
+
+  it('binds active id from its completed create dependency', async () => {
+    const postChat = vi.fn(async () => ({ chat: { id: 'active-chat' } }));
+    const execute = vi.fn(async () => true);
+    const streamCompletion = vi.fn();
+    const engine = {
+      project: {
+        value: {
+          getPages: () => [],
+          getFile: (id: string) => (id === 'block-1' ? { id } : null),
+          apis: [],
+          blocks: []
+        }
+      },
+      toolRegistry: {
+        get: vi.fn(() => ({
+          parameters: [{ name: 'id', type: 'string', required: true }]
+        })),
+        execute
+      }
+    } as any;
+    const { executeEditorStep } = useEditorStep({
+      postChat,
+      saveChat: vi.fn(async () => true),
+      updateTopic: vi.fn(async () => ({})),
+      streamCompletion,
+      getEngine: vi.fn(() => engine),
+      getToolDirectMode: () => 'on',
+      setStatus: vi.fn(),
+      requestApproval: vi.fn(async () => true)
+    });
+    const created = {
+      step: { id: 'create', type: 'tool_call', description: '' },
+      done: true,
+      error: null,
+      turns: [
+        {
+          toolAction: 'createBlock',
+          toolResult: { success: true, result: { id: 'block-1' } }
+        }
+      ]
+    } as any;
+    const step = {
+      id: 'active',
+      type: 'tool_call' as const,
+      description: '激活新建区块',
+      toolName: 'active',
+      dependsOn: ['create']
+    };
+
+    await executeEditorStep(
+      'topic',
+      'user',
+      step,
+      1,
+      [created.step, step],
+      Date.now(),
+      [created]
+    );
+
+    expect(streamCompletion).not.toHaveBeenCalled();
+    expect(execute).toHaveBeenCalledWith('active', ['block-1']);
+    expect(postChat.mock.calls[0][0].stepMeta.parameters).toEqual(['block-1']);
+  });
+
+  it('does not ask the LLM to repeat a failed write tool', async () => {
+    const streamCompletion = vi.fn();
+    const execute = vi.fn(async () => {
+      throw new Error('write failed');
+    });
+    const { executeEditorStep } = useEditorStep({
+      postChat: vi.fn(async () => ({ chat: { id: 'write-chat' } })),
+      saveChat: vi.fn(async () => true),
+      updateTopic: vi.fn(async () => ({})),
+      streamCompletion,
+      getEngine: vi.fn(
+        () =>
+          ({
+            project: { value: { getPages: () => [], apis: [], blocks: [] } },
+            toolRegistry: {
+              get: vi.fn(() => ({
+                risk: 'write',
+                parameters: [{ name: 'value', type: 'string', required: true }]
+              })),
+              execute
+            }
+          }) as any
+      ),
+      getToolDirectMode: () => 'on',
+      setStatus: vi.fn(),
+      requestApproval: vi.fn(async () => true)
+    });
+    const step = {
+      id: 'write',
+      type: 'tool_call' as const,
+      description: '写入配置',
+      toolName: 'setCustom',
+      parameters: ['value']
+    };
+
+    const result = await executeEditorStep(
+      'topic',
+      'user',
+      step,
+      0,
+      [step],
+      Date.now(),
+      []
+    );
+
+    expect(result.error).toBe('write failed');
+    expect(streamCompletion).not.toHaveBeenCalled();
   });
 
   it('keeps old turns and increments attempt when retrying a step', async () => {
@@ -88,9 +200,9 @@ describe('useEditorStep', () => {
           ({
             project: {
               value: {
-                getPages: () => [{ name: 'home' }, { id: 'p2' }],
+                getPages: () => [{ id: 'p1', name: 'home' }, { id: 'p2' }],
                 apis: [{ name: 'getUser', url: '/api/user' }],
-                blocks: [{ name: 'Header' }]
+                blocks: [{ id: 'b1', name: 'Header' }]
               }
             },
             toolRegistry: { get: vi.fn() }
@@ -115,7 +227,8 @@ describe('useEditorStep', () => {
     expect(postChat.mock.calls[0][0].attempt).toBe(2);
     // 步骤 prompt 注入实时项目结构摘要（缓解服务端 projectCache 快照过期）
     expect(postChat.mock.calls[0][0].prompt).toContain('当前项目结构');
-    expect(postChat.mock.calls[0][0].prompt).toContain('页面: home, p2');
+    expect(postChat.mock.calls[0][0].prompt).toContain('页面: home(p1), p2');
+    expect(postChat.mock.calls[0][0].prompt).toContain('区块: Header(b1)');
     expect(retrySlot.turns.map((item: any) => item.turn)).toEqual([0, 1]);
     expect(retrySlot.error).toBeNull();
     expect(retrySlot.done).toBe(true);
@@ -320,8 +433,8 @@ describe('useEditorStep', () => {
         streamCount++;
         onChunk?.(
           streamCount === 1
-            ? '```json\n{"foo":"bar"}\n```'
-            : '```json\n{"action":"getCurrentFileContent","parameters":[]}\n```'
+            ? '这不是工具调用'
+            : '{"action":"getCurrentFileContent","parameters":[]}'
         );
         return {
           done: vi.fn(),
@@ -367,10 +480,7 @@ describe('useEditorStep', () => {
     expect(result.error).toBeNull();
     const slot = editorResults[0];
     expect(slot.done).toBe(true);
-    expect(slot.turns.map((t: any) => t.type)).toEqual([
-      'unknown',
-      'tool_call'
-    ]);
+    expect(slot.turns.map((t: any) => t.type)).toEqual(['text', 'tool_call']);
     // 重试提示包含格式纠正要求
     expect(postChat.mock.calls[1][0].prompt).toContain('输出格式无法识别');
     expect(postChat.mock.calls[1][0].prompt).toContain('parameters 必须为数组');

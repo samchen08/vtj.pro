@@ -1,32 +1,148 @@
 import { describe, expect, it } from 'vitest';
 import {
+  bindActiveParameters,
   getDirectToolCall,
-  isSameToolCall
+  isSameToolCall,
+  validateToolParameters
 } from '../../src/components/widgets/agent/utils/directTool';
+
+const stringParameter = {
+  name: 'id',
+  type: 'string',
+  required: true
+};
+
+const toolParameters: Record<string, any[]> = {
+  getSkills: [{ ...stringParameter, rest: true }],
+  active: [stringParameter],
+  refresh: [],
+  removePage: [stringParameter],
+  removeBlock: [stringParameter],
+  createPage: [
+    {
+      name: 'page',
+      type: 'object',
+      required: true,
+      properties: {
+        name: { type: 'string', required: true },
+        title: { type: 'string', required: true }
+      }
+    },
+    { name: 'parentId', type: 'string' }
+  ],
+  createBlock: [
+    {
+      name: 'block',
+      type: 'object',
+      required: true,
+      properties: {
+        name: { type: 'string', required: true },
+        title: { type: 'string', required: true }
+      }
+    }
+  ],
+  setCustom: [
+    {
+      name: 'config',
+      type: 'object',
+      required: true,
+      properties: {
+        mode: {
+          type: 'string',
+          required: true,
+          enum: ['safe', 'fast']
+        }
+      }
+    }
+  ]
+};
 
 function engine(files: string[] = []) {
   return {
     toolRegistry: {
       get: (name: string) =>
-        [
-          'getSkills',
-          'active',
-          'refresh',
-          'createPage',
-          'createBlock'
-        ].includes(name)
-          ? {}
+        toolParameters[name]
+          ? { name, parameters: toolParameters[name] }
           : undefined
     },
     project: {
       value: {
-        getFile: (id: string) => (files.includes(id) ? { id } : null)
+        getFile: (id: string) => (files.includes(id) ? { id } : null),
+        getPage: (id: string) => (files.includes(id) ? { id } : null),
+        getBlock: (id: string) => (files.includes(id) ? { id } : null)
       }
     }
   } as any;
 }
 
 describe('directTool', () => {
+  it('从唯一的直接创建依赖绑定 active 参数', () => {
+    const step = {
+      id: '2',
+      type: 'tool_call' as const,
+      description: '',
+      toolName: 'active',
+      dependsOn: ['1']
+    };
+    const results = [
+      {
+        step: { id: '1' },
+        done: true,
+        error: null,
+        turns: [
+          {
+            toolAction: 'createBlock',
+            toolResult: {
+              success: true,
+              result: { id: 'created' }
+            }
+          }
+        ]
+      }
+    ] as any;
+
+    expect(bindActiveParameters(step, results, engine(['created']))).toEqual({
+      ...step,
+      parameters: ['created']
+    });
+  });
+
+  it('创建结果不明确或文件不存在时不绑定', () => {
+    const step = {
+      id: '3',
+      type: 'tool_call' as const,
+      description: '',
+      toolName: 'active',
+      dependsOn: ['1', '2']
+    };
+    const result = (id: string, stepId: string) => ({
+      step: { id: stepId },
+      done: true,
+      error: null,
+      turns: [
+        {
+          toolAction: 'createPage',
+          toolResult: { success: true, result: { id } }
+        }
+      ]
+    });
+
+    expect(
+      bindActiveParameters(
+        step,
+        [result('page-1', '1'), result('page-2', '2')] as any,
+        engine(['page-1', 'page-2'])
+      )
+    ).toBe(step);
+    const unbound = bindActiveParameters(
+      { ...step, dependsOn: ['1'] },
+      [result('missing', '1')] as any,
+      engine()
+    );
+    expect(unbound).not.toHaveProperty('parameters');
+    expect(getDirectToolCall(unbound, engine())).toBeNull();
+  });
+
   it('接受高频工具的确定参数', () => {
     expect(
       getDirectToolCall(
@@ -54,7 +170,34 @@ describe('directTool', () => {
     ).toEqual({ action: 'refresh', parameters: [] });
   });
 
-  it('实体或参数不确定时拒绝直调', () => {
+  it('删除工具参数明确且符合 Schema 时允许直调', () => {
+    const removePage = {
+      id: '1',
+      type: 'tool_call' as const,
+      description: '',
+      toolName: 'removePage',
+      parameters: ['page-1']
+    };
+    const removeBlock = {
+      ...removePage,
+      toolName: 'removeBlock',
+      parameters: ['block-1']
+    };
+
+    expect(getDirectToolCall(removePage, engine(['page-1']))).toEqual({
+      action: 'removePage',
+      parameters: ['page-1']
+    });
+    expect(getDirectToolCall(removeBlock, engine(['block-1']))).toEqual({
+      action: 'removeBlock',
+      parameters: ['block-1']
+    });
+    expect(
+      getDirectToolCall({ ...removePage, parameters: [1] }, engine())
+    ).toBeNull();
+  });
+
+  it('参数缺失或类型不匹配时拒绝直调', () => {
     expect(
       getDirectToolCall(
         {
@@ -62,7 +205,7 @@ describe('directTool', () => {
           type: 'tool_call',
           description: '',
           toolName: 'active',
-          parameters: ['missing']
+          parameters: [123]
         },
         engine()
       )
@@ -82,23 +225,50 @@ describe('directTool', () => {
     ).toBeNull();
   });
 
-  it('校验 createPage 父页面并忽略对象键顺序差异', () => {
+  it('不依赖名称白名单并忽略对象键顺序差异', () => {
     const call = getDirectToolCall(
       {
         id: '1',
         type: 'tool_call',
         description: '',
-        toolName: 'createPage',
-        parameters: [{ title: '首页', name: 'Home' }, 'parent']
+        toolName: 'setCustom',
+        parameters: [{ mode: 'safe' }]
       },
-      engine(['parent'])
+      engine()
     );
     expect(call).not.toBeNull();
+    expect(isSameToolCall(call!, 'setCustom', [{ mode: 'safe' }])).toBe(true);
     expect(
-      isSameToolCall(call!, 'createPage', [
-        { name: 'Home', title: '首页' },
-        'parent'
-      ])
+      getDirectToolCall(
+        {
+          id: '2',
+          type: 'tool_call',
+          description: '',
+          toolName: 'setCustom',
+          parameters: [{ mode: 'invalid' }]
+        },
+        engine()
+      )
+    ).toBeNull();
+  });
+
+  it('支持数组元素和可变位置参数校验', () => {
+    expect(
+      validateToolParameters(['tools', 'page'], toolParameters.getSkills)
+    ).toBe(true);
+    expect(validateToolParameters([], toolParameters.getSkills)).toBe(false);
+    expect(
+      validateToolParameters(
+        [['a', 'b']],
+        [
+          {
+            name: 'items',
+            type: 'array',
+            required: true,
+            items: { type: 'string', required: true }
+          }
+        ]
+      )
     ).toBe(true);
   });
 });

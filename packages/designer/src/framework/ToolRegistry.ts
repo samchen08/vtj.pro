@@ -29,6 +29,8 @@ export interface ToolParameter {
    * 是否必需
    */
   required?: boolean;
+  /** 是否接收剩余位置参数；仅允许用于最后一个参数定义 */
+  rest?: boolean;
   /**
    * 枚举值（仅适用于string类型）
    */
