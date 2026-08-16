@@ -88,6 +88,8 @@ export interface EditorTurn {
   type: string;
   content: string;
   reasoning: string;
+  /** 是否为未经过 LLM 的工具直调 */
+  direct?: boolean;
   /** Vue/Diff 执行后的最终源码与 DSL */
   vue?: string;
   dsl?: Record<string, any>;

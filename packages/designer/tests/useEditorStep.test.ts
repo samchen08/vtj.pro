@@ -36,6 +36,7 @@ describe('useEditorStep', () => {
       description: '刷新预览',
       toolName: 'refresh'
     };
+    const editorResults: any[] = [];
 
     const result = await executeEditorStep(
       'topic',
@@ -44,7 +45,7 @@ describe('useEditorStep', () => {
       0,
       [step],
       Date.now(),
-      []
+      editorResults
     );
 
     expect(streamCompletion).not.toHaveBeenCalled();
@@ -52,6 +53,7 @@ describe('useEditorStep', () => {
     expect(postChat.mock.calls[0][0].stepMeta.parameters).toEqual([]);
     expect(result.tokens).toBe(0);
     expect(result.error).toBeNull();
+    expect(editorResults[0].turns[0].direct).toBe(true);
   });
 
   it('binds active id from its completed create dependency', async () => {

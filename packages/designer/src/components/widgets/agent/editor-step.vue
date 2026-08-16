@@ -69,7 +69,7 @@
           </details>
 
           <details
-            v-if="turn.content"
+            v-if="turn.content && !turn.direct"
             :key="`output-${detailsCommand}`"
             :open="
               detailsCommand ? detailsCommand > 0 : !step.done && !step.error

@@ -101,43 +101,45 @@
           </template>
         </div>
 
-        <ConversationRoundCard
-          v-for="(round, index) in conversationRounds"
-          :key="round.id"
-          :round="round"
-          :round-number="index + 1"
-          :is-latest="index === conversationRounds.length - 1"
-          :retryable="!running"
-          :code="!isHideCode"
-          :details-command="detailsCommand"
-          @view="showCodeDetail"
-          @apply="applyDetailDsl"
-          @retry-step="(stepIndex) => retryAgentStep(round, stepIndex)"
-          @retry-summary="retryAgentSummary(round)"
-          @retry-architect="retryAgentArchitect(round)"
-          @resolve-approval="resolveApproval" />
+        <div v-else ref="conversationContentRef">
+          <ConversationRoundCard
+            v-for="(round, index) in conversationRounds"
+            :key="round.id"
+            :round="round"
+            :round-number="index + 1"
+            :is-latest="index === conversationRounds.length - 1"
+            :retryable="!running"
+            :code="!isHideCode"
+            :details-command="detailsCommand"
+            @view="showCodeDetail"
+            @apply="applyDetailDsl"
+            @retry-step="(stepIndex) => retryAgentStep(round, stepIndex)"
+            @retry-summary="retryAgentSummary(round)"
+            @retry-architect="retryAgentArchitect(round)"
+            @resolve-approval="resolveApproval" />
 
-        <div
-          v-if="statusText"
-          class="v-agent-widget__status"
-          :class="statusType">
-          <span v-if="running" class="status-spinner"></span>
-          <span v-else class="status-icon">{{ statusIcon }}</span>
-          <span>{{ statusText }}</span>
-          <ElButton
-            v-if="statusType === 'danger' && !running"
-            text
-            type="primary"
-            @click="retryAgent">
-            重试
-          </ElButton>
-          <ElButton
-            v-if="cancelled && !running && hasData"
-            text
-            type="primary"
-            @click="resumeAgent">
-            恢复
-          </ElButton>
+          <div
+            v-if="statusText"
+            class="v-agent-widget__status"
+            :class="statusType">
+            <span v-if="running" class="status-spinner"></span>
+            <span v-else class="status-icon">{{ statusIcon }}</span>
+            <span>{{ statusText }}</span>
+            <ElButton
+              v-if="statusType === 'danger' && !running"
+              text
+              type="primary"
+              @click="retryAgent">
+              重试
+            </ElButton>
+            <ElButton
+              v-if="cancelled && !running && hasData"
+              text
+              type="primary"
+              @click="resumeAgent">
+              恢复
+            </ElButton>
+          </div>
         </div>
       </div>
 
@@ -199,7 +201,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { ref, computed, nextTick, watch, onMounted, onUnmounted } from 'vue';
+  import { ref, computed, watch, onMounted, onUnmounted } from 'vue';
   import { storage, cloneDeep } from '@vtj/utils';
   import {
     Download,
@@ -243,6 +245,7 @@
   import { exportConversation } from './utils/export';
   import { hasResumableBreakpoint } from './utils/breakpoint';
   import {
+    AGENT_TOOL_DIRECT_MODE,
     HIDE_CODE_STORAGE_KEY,
     SCROLL_NEAR_BOTTOM_THRESHOLD,
     isPayLimitError
@@ -287,6 +290,7 @@
   });
   const conversationRounds = ref<ConversationRound[]>([]);
   const conversationRef = ref<HTMLElement>();
+  const conversationContentRef = ref<HTMLElement>();
   // 兜底：步骤失败错误（slot.error 不经 setStatus）可能携带额度/Token 用尽文案
   watch(
     () =>
@@ -400,7 +404,7 @@
     updateTopic,
     getEngine,
     setStatus,
-    getToolDirectMode: () => settings.value?.toolDirectMode || 'off',
+    getToolDirectMode: () => AGENT_TOOL_DIRECT_MODE,
     requestApproval: (id) =>
       autoApprove.value
         ? Promise.resolve(true)
@@ -486,11 +490,18 @@
     isHideCode.value = !isHideCode.value;
     storage.save(HIDE_CODE_STORAGE_KEY, isHideCode.value, { type: 'local' });
   };
-  const scrollToTop = () => conversationRef.value?.scrollTo({ top: 0 });
-  const scrollToBottom = () =>
+  let isNearBottom = true;
+  const scrollToTop = () => {
+    isNearBottom = false;
+    conversationRef.value?.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+  const scrollToBottom = () => {
+    isNearBottom = true;
     conversationRef.value?.scrollTo({
-      top: conversationRef.value.scrollHeight
+      top: conversationRef.value.scrollHeight,
+      behavior: 'smooth'
     });
+  };
   const toggleDetails = () => {
     const revision = Math.abs(detailsCommand.value) + 1;
     detailsCommand.value = detailsExpanded.value ? -revision : revision;
@@ -683,8 +694,8 @@
   };
 
   let scrollFrame = 0;
+  let contentResizeObserver: ResizeObserver | null = null;
   // 用户是否停留在底部区域（避免内容更新时强制拉底干扰阅读）
-  let isNearBottom = true;
   const onConversationScroll = () => {
     const element = conversationRef.value;
     if (!element) return;
@@ -692,27 +703,27 @@
       element.scrollHeight - element.scrollTop - element.clientHeight <
       SCROLL_NEAR_BOTTOM_THRESHOLD;
   };
-  // 定向浅监听：仅跟踪影响高度的摘要（文本长度、步骤数、轮次数），
-  // 避免 deep 监听 editorResults 内部字段导致无效滚动
-  const scrollWatchKey = computed(() =>
-    conversationRounds.value
-      .map(
-        (r) =>
-          `${r.architectStreamText.length}|${r.summaryText.length}|${r.editorResults
-            .map((e) => `${e.content.length}:${e.turns.length}`)
-            .join(',')}`
-      )
-      .join(';')
-  );
-  watch(scrollWatchKey, () => {
+
+  const scrollConversationToBottom = () => {
     cancelAnimationFrame(scrollFrame);
-    nextTick(() => {
-      scrollFrame = requestAnimationFrame(() => {
-        const element = conversationRef.value;
-        if (element && isNearBottom) element.scrollTop = element.scrollHeight;
-      });
+    scrollFrame = requestAnimationFrame(() => {
+      const element = conversationRef.value;
+      if (element && isNearBottom) element.scrollTop = element.scrollHeight;
     });
-  });
+  };
+
+  // 以实际布局高度驱动滚动，覆盖推理、重试和异步 Markdown 渲染。
+  watch(
+    conversationContentRef,
+    (element) => {
+      contentResizeObserver?.disconnect();
+      contentResizeObserver = null;
+      if (!element) return;
+      contentResizeObserver = new ResizeObserver(scrollConversationToBottom);
+      contentResizeObserver.observe(element);
+    },
+    { flush: 'post' }
+  );
 
   // 项目切换后刷新历史话题，并加载新项目最近一次对话
   watch(
@@ -743,6 +754,7 @@
   });
   onUnmounted(() => {
     cancelAnimationFrame(scrollFrame);
+    contentResizeObserver?.disconnect();
     conversationRef.value?.removeEventListener('scroll', onConversationScroll);
     if (running.value) abortAgent();
     clearFiles();
@@ -786,7 +798,6 @@
     overflow: auto;
     padding: 0;
     background: var(--el-bg-color);
-    scroll-behavior: smooth;
   }
 
   .v-agent-widget-new-chat {

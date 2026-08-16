@@ -508,6 +508,7 @@ export function useEditorStep(deps: EditorStepDeps) {
       const ti = createEditorTurn(attempt);
       const content = JSON.stringify(plannedCall);
       ti.type = 'tool_call';
+      ti.direct = true;
       ti.prompt = stepPrompt;
       ti.content = content;
       ti.toolAction = plannedCall.action;

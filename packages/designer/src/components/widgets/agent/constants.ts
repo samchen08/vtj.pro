@@ -9,6 +9,9 @@ export const MAX_TURNS = 10;
 /** 工具执行超时时间（毫秒） */
 export const TOOL_TIMEOUT_MS = 30000;
 
+/** 工具直调模式 */
+export const AGENT_TOOL_DIRECT_MODE = 'on' as const;
+
 /** 代码块显示偏好存储键 */
 export const HIDE_CODE_STORAGE_KEY = 'CHAT_HIDE_CODE';
 
