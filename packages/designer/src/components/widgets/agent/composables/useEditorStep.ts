@@ -754,7 +754,9 @@ export function useEditorStep(deps: EditorStepDeps) {
           parsed.type !== expectedCodeType &&
           parsed.type !== 'tool_call'
         ) {
-          ti.type = parsed.type === 'text' ? 'text' : 'unknown';
+          const isPlainText =
+            parsed.error === '未找到代码块' && fullContent.length > 0;
+          ti.type = isPlainText ? 'text' : 'unknown';
           ti.content = fullContent;
           exposeTurn(ti);
           slot.content = fullContent;
