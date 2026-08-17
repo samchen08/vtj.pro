@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.14.4](https://github.com/samchen08/vtj.pro/compare/vtj-project-library@0.14.3...vtj-project-library@0.14.4) (2026-08-17)
+
+
+### Bug Fixes
+
+* **designer:** 防止文本误标记为成功的diff步骤 ([2c2f867](https://github.com/samchen08/vtj.pro/commit/2c2f867df91cdcc9c9c55ee271c968e297142565))
+
+
+
+
+
 ## [0.14.3](https://github.com/samchen08/vtj.pro/compare/vtj-project-library@0.14.2...vtj-project-library@0.14.3) (2026-08-15)
 
 
