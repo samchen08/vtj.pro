@@ -530,4 +530,60 @@ describe('useEditorStep', () => {
     // 失败轮次落库为 Error 状态（status 封装在保存 body 中）
     expect((saveChat.mock.calls[0][0] as any).status).toBe('Error');
   });
+
+  it('does not mark plain text as a successful diff', async () => {
+    const postChat = vi.fn(async () => ({ chat: { id: 'chat' } }));
+    const saveChat = vi.fn(async () => true);
+    const streamCompletion = vi.fn(async (_topic, _chat, onChunk) => {
+      onChunk?.('已研究完成，未做任何修改。');
+      return {
+        done: vi.fn(),
+        reasoning: '',
+        usage: null,
+        modelUsed: '',
+        reasoningTime: 0
+      };
+    });
+    const { executeEditorStep } = useEditorStep({
+      postChat,
+      saveChat,
+      updateTopic: vi.fn(async () => ({})),
+      streamCompletion,
+      getEngine: vi.fn(
+        () =>
+          ({
+            project: { value: {} },
+            current: { value: {} },
+            service: {},
+            toolRegistry: { get: vi.fn() }
+          }) as any
+      ),
+      setStatus: vi.fn(),
+      requestApproval: vi.fn()
+    });
+    const step = {
+      id: 'step',
+      type: 'diff' as const,
+      description: '修改当前文件'
+    };
+
+    const result = await executeEditorStep(
+      'topic',
+      'user',
+      step,
+      0,
+      [step],
+      Date.now(),
+      []
+    );
+
+    expect(result.error).toContain('超过最大轮次');
+    expect(streamCompletion.mock.calls.length).toBeGreaterThan(1);
+    expect(postChat.mock.calls[1][0].prompt).toContain(
+      '输出格式与步骤类型不匹配'
+    );
+    expect(
+      saveChat.mock.calls.every((call) => call[0].status === 'Error')
+    ).toBe(true);
+  });
 });
