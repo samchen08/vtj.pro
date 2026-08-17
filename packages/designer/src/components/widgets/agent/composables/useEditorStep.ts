@@ -746,6 +746,31 @@ export function useEditorStep(deps: EditorStepDeps) {
 
         const parsed = parseOutput(fullContent);
 
+        // 代码步骤不能用普通文本冒充成功，否则会在未应用任何修改时继续 refresh。
+        const expectedCodeType =
+          step.type === 'diff' || step.type === 'vue_code' ? step.type : null;
+        if (
+          expectedCodeType &&
+          parsed.type !== expectedCodeType &&
+          parsed.type !== 'tool_call'
+        ) {
+          ti.type = parsed.type === 'text' ? 'text' : 'unknown';
+          ti.content = fullContent;
+          exposeTurn(ti);
+          slot.content = fullContent;
+          await saveChat(
+            edChatId,
+            topicId,
+            userId,
+            fullContent,
+            result,
+            stepTokens,
+            'Error'
+          );
+          ctx.nextPrompt = `O: 输出格式与步骤类型不匹配\n当前步骤要求输出 ${expectedCodeType}，实际输出 ${parsed.type}。\n\n请按 ${expectedCodeType} 格式重新输出，不要只返回说明文本。`;
+          continue;
+        }
+
         // ── 类型分发 ──
         if (parsed.type === 'tool_call' && parsed.tool) {
           ti.type = 'tool_call';
