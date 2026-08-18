@@ -106,6 +106,64 @@ describe('renderer runtime integration', () => {
     expect(host.querySelector('.null-probe')?.textContent).toBe('true:true');
   });
 
+  test('restricts template ref access to the exposed list for async setup', async () => {
+    const dsl = {
+      id: 'runtime-expose-limit',
+      name: 'RuntimeExposeLimit',
+      apiMode: 'composition',
+      state: { count: 1 },
+      refs: {},
+      reactives: {},
+      computed: {},
+      methods: {
+        hello: {
+          type: 'JSFunction',
+          value: '() => "world"'
+        }
+      },
+      props: [{ name: 'label', type: 'String' }],
+      emits: [],
+      expose: ['vtj', 'hello'],
+      watch: [],
+      dataSources: {},
+      composables: [],
+      provide: {},
+      lifeCycles: {},
+      nodes: [
+        {
+          id: 'expose-limit-node',
+          name: 'span',
+          children: {
+            type: 'JSExpression',
+            value: '`${this.label}:${this.state.count}`'
+          }
+        }
+      ]
+    } as BlockSchema;
+    const { renderer } = createRenderer({
+      dsl,
+      mode: ContextMode.Runtime,
+      window
+    });
+    let refValue: any = null;
+    const { host } = await mount(() =>
+      h(renderer, {
+        ref: (value: any) => {
+          refValue = value;
+        },
+        label: 'A'
+      })
+    );
+
+    expect(host.querySelector('span')?.textContent).toBe('A:1');
+    // 渲染器区块组件为 async setup，ref 绑定发生在 setup resolve 之前，
+    // 需要确认暴露代理（exposeProxy）已生效，仅暴露声明项
+    expect(Object.keys(refValue).sort()).toEqual(['hello', 'vtj']);
+    expect('state' in refValue).toBe(false);
+    expect('label' in refValue).toBe(false);
+    expect(refValue.hello()).toBe('world');
+  });
+
   test('creates independent object and array prop defaults per instance', async () => {
     const dsl = {
       id: 'runtime-prop-defaults',
