@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.19.12](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.19.11...@vtj/designer@0.19.12) (2026-08-18)
+
+
+### Bug Fixes
+
+* **agent:** 统一使用指定版本导出DSL数据 ([f7f4587](https://gitee.com/newgateway/vtj/commits/f7f45873c9f9bfe0141e5988f9a81cca3cf4ca6d))
+
+
+
+
+
 ## [0.19.11](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.19.10...@vtj/designer@0.19.11) (2026-08-17)
 
 
