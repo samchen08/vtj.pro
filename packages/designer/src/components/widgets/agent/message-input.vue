@@ -64,7 +64,7 @@
             <span class="context-option">
               <ElIcon class="context-option-icon">
                 <Picture v-if="data.kind === 'image'" />
-                <Grid
+                <VtjIconComponents
                   v-else-if="data.kind === 'blocks' || data.kind === 'block'" />
                 <Files v-else-if="data.kind === 'pages'" />
                 <Document v-else />
@@ -182,7 +182,8 @@
     Picture,
     Document,
     Grid,
-    Files
+    Files,
+    VtjIconComponents
   } from '@vtj/icons';
   import { XIcon } from '@vtj/ui';
   import { useEngine, type DictOption, type LLM } from '../../../framework';
