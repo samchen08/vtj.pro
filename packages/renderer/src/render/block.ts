@@ -81,7 +81,8 @@ export function createRenderer(options: CreateRendererOptions) {
     props: {
       ...createProps(dsl.value.props ?? [], sharedContext)
     },
-    async setup(props: any = {}) {
+    // 注意：setup 参数不能带默认值，Vue 依据 setup.length > 1 决定是否创建 setupContext
+    async setup(props: any, setupContext: any) {
       // ===== 区块循环引用检测 =====
       // 注入父级渲染链，检测当前区块是否已存在于祖先链中
       const blockId = dsl.value.id;
@@ -203,6 +204,26 @@ export function createRenderer(options: CreateRendererOptions) {
       }
 
       setWatches(Vue, dsl.value.watch ?? [], context);
+
+      // 在第一个 await 前通过 setupContext.expose() 主动声明暴露项。
+      // Vue 的 expose 选项要到 async setup resolve 后（applyOptions）才生效，
+      // 而模板 ref 在组件挂载时（setup resolve 前）就已绑定实例，
+      // 此时 instance.exposed 仍为 null，$refs 会拿到完整的实例代理（instance.proxy）。
+      // 提前调用 expose() 可让 instance.exposed 在 ref 绑定时已生效，$refs 只暴露声明项。
+      if (setupContext && typeof setupContext.expose === 'function') {
+        const exposed: Record<string, any> = {
+          vtj: context
+        };
+        for (const key of dsl.value.expose || []) {
+          // 用 getter 动态读取，兼容 props 等属性在 setup 后续阶段才定义 getter 的情况
+          Object.defineProperty(exposed, key, {
+            get: () => (context as any)[key],
+            enumerable: true,
+            configurable: true
+          });
+        }
+        setupContext.expose(exposed);
+      }
 
       // Composition 模式下生命周期在 setup 内注册
       if (isComposition) {
@@ -580,10 +601,7 @@ function createCompositionLifeCycles(
         try {
           immediateLifeCycles.push(
             Promise.resolve(fn()).catch((e) => {
-              console.warn(
-                `[VTJ] Composition 生命周期 "${name}" 执行失败`,
-                e
-              );
+              console.warn(`[VTJ] Composition 生命周期 "${name}" 执行失败`, e);
               triggerError(e);
             })
           );

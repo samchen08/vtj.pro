@@ -33,6 +33,8 @@ import type {
   SaveChatBody
 } from '../types/agent';
 
+const AGENT_SOURCE_VERSION = 'version';
+
 /** 正则转义 */
 function escapeRegExp(str: string): string {
   return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
@@ -70,7 +72,7 @@ async function getCurrentSourceContext(engine: Engine | null): Promise<string> {
   try {
     if (!engine) return '';
     const projectDsl = engine.project.value?.toDsl();
-    const curDsl = engine.current.value?.toDsl();
+    const curDsl = engine.current.value?.toDsl(AGENT_SOURCE_VERSION);
     if (!projectDsl || !curDsl) return '';
     const source = await engine.service.genVueContent(
       projectDsl as any,
@@ -922,7 +924,7 @@ export function useEditorStep(deps: EditorStepDeps) {
             const projectDsl = engine.project.value?.toDsl();
             if (!projectDsl) throw new Error(Messages.projectNotReady.text);
 
-            const curDsl = engine.current.value?.toDsl();
+            const curDsl = engine.current.value?.toDsl(AGENT_SOURCE_VERSION);
             const blockDsl = await engine.service.parseVue(projectDsl as any, {
               id: curDsl?.id || 'ai_gen',
               name: curDsl?.name || 'AiGenFile',
@@ -1000,7 +1002,7 @@ export function useEditorStep(deps: EditorStepDeps) {
           try {
             const engine = getEngine()!;
             const projectDsl = engine.project.value?.toDsl();
-            const curDsl = engine.current.value?.toDsl();
+            const curDsl = engine.current.value?.toDsl(AGENT_SOURCE_VERSION);
             if (!projectDsl || !curDsl)
               throw new Error(Messages.fileNotReady.text);
 

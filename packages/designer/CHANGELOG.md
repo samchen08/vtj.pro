@@ -3,6 +3,37 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.19.14](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.19.13...@vtj/designer@0.19.14) (2026-08-23)
+
+
+### Features
+
+* **agent:** 优化消息输入组件的附件上传功能 ([cafa911](https://gitee.com/newgateway/vtj/commits/cafa911363aa3bbe8e79bef1795ffe145b369970))
+* **agent:** 实现消息输入组件的内容添加上下文菜单 ([370b06e](https://gitee.com/newgateway/vtj/commits/370b06e120f3f3a0afeed31398eaf264bd67c545))
+
+
+
+
+
+## [0.19.13](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.19.12...@vtj/designer@0.19.13) (2026-08-19)
+
+**Note:** Version bump only for package @vtj/designer
+
+
+
+
+
+## [0.19.12](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.19.11...@vtj/designer@0.19.12) (2026-08-18)
+
+
+### Bug Fixes
+
+* **agent:** 统一使用指定版本导出DSL数据 ([f7f4587](https://gitee.com/newgateway/vtj/commits/f7f45873c9f9bfe0141e5988f9a81cca3cf4ca6d))
+
+
+
+
+
 ## [0.19.11](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.19.10...@vtj/designer@0.19.11) (2026-08-17)
 
 
