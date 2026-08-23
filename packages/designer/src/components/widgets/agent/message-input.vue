@@ -3,7 +3,6 @@
     <input
       ref="fileInputRef"
       type="file"
-      accept="image/jpeg,image/png,image/webp,application/json"
       multiple
       class="hidden-input"
       @change="onFileChange" />
@@ -35,13 +34,28 @@
       @update:model-value="$emit('update:message', $event)" />
 
     <div class="composer-toolbar">
-      <el-button
-        class="context-button"
-        size="small"
+      <ElDropdown
+        trigger="click"
         :disabled="running"
-        :icon="Plus"
-        @click="triggerFileUpload">
-      </el-button>
+        @command="triggerFileUpload">
+        <el-button
+          class="context-button"
+          size="small"
+          :disabled="running"
+          :icon="Plus"
+          aria-label="添加附件">
+        </el-button>
+        <template #dropdown>
+          <ElDropdownMenu>
+            <ElDropdownItem command="image" :icon="Picture">
+              图片
+            </ElDropdownItem>
+            <ElDropdownItem command="metadata" :icon="Document">
+              设计稿元数据
+            </ElDropdownItem>
+          </ElDropdownMenu>
+        </template>
+      </ElDropdown>
 
       <el-checkbox
         border
@@ -132,9 +146,20 @@
     ElCheckbox,
     ElSelect,
     ElOption,
-    ElOptionGroup
+    ElOptionGroup,
+    ElDropdown,
+    ElDropdownMenu,
+    ElDropdownItem
   } from 'element-plus';
-  import { Plus, Promotion, CircleClose, EditPen, Delete } from '@vtj/icons';
+  import {
+    Plus,
+    Promotion,
+    CircleClose,
+    EditPen,
+    Delete,
+    Picture,
+    Document
+  } from '@vtj/icons';
   import { XIcon } from '@vtj/ui';
   import { useEngine, type DictOption, type LLM } from '../../../framework';
   import { confirm } from '../../../utils';
@@ -210,8 +235,14 @@
     onModelChange(item.id as string);
   }
 
-  function triggerFileUpload() {
-    fileInputRef.value?.click();
+  function triggerFileUpload(type: 'image' | 'metadata') {
+    const input = fileInputRef.value;
+    if (!input) return;
+    input.accept =
+      type === 'image'
+        ? 'image/jpeg,image/png,image/webp'
+        : '.json,application/json';
+    input.click();
   }
 
   function onFileChange(e: Event) {
