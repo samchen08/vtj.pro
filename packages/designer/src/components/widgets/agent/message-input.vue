@@ -181,7 +181,6 @@
     Delete,
     Picture,
     Document,
-    Grid,
     Files,
     VtjIconComponents
   } from '@vtj/icons';
