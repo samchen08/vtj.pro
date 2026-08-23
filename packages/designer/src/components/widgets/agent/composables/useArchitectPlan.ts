@@ -28,6 +28,7 @@ export function useArchitectPlan(deps: ArchitectPlanDeps) {
     updateTopic,
     saveTrace,
     setStatus,
+    getEngine,
     executeEditorStep
   } = deps;
 
@@ -39,8 +40,33 @@ export function useArchitectPlan(deps: ArchitectPlanDeps) {
     content: result.content,
     error: result.error,
     tokens: result.tokens || 0,
-    duration: result.duration || 0
+    duration: result.duration || 0,
+    verification: result.verification
   });
+
+  function createCheckpoint(traceId: string): string | undefined {
+    try {
+      const engine = getEngine?.();
+      const project = engine?.project.value;
+      const history = engine?.projectHistory.value;
+      if (!project || !history) return;
+      history.add(project.toDsl(), `AI 任务检查点 ${traceId}`);
+      return history.items[0]?.id;
+    } catch (error) {
+      console.warn('[useArchitectPlan] 创建检查点失败', error);
+      return;
+    }
+  }
+
+  function classifyError(steps: StepRecord[]): string | undefined {
+    const error = steps.find((step) => step.error)?.error || '';
+    if (!error) return;
+    if (/拒绝|审批/.test(error)) return 'approval_rejected';
+    if (/refresh|运行时/.test(error)) return 'runtime';
+    if (/计划|architect/i.test(error)) return 'plan';
+    if (/超时/.test(error)) return 'timeout';
+    return 'execution';
+  }
 
   async function generateSummary(
     topicId: string,
@@ -112,12 +138,17 @@ export function useArchitectPlan(deps: ArchitectPlanDeps) {
     stepsJson: StepRecord[];
     totalTokens: number;
     startTime: number;
+    model?: string;
+    checkpointId?: string;
   }) {
     await updateTopic({
       id: opts.topicId,
       status: opts.status,
       traceId: opts.traceId
     });
+    const verifications = opts.stepsJson
+      .map((step) => step.verification)
+      .filter((item) => !!item);
     await saveTrace({
       traceId: opts.traceId,
       topicId: opts.topicId,
@@ -125,7 +156,16 @@ export function useArchitectPlan(deps: ArchitectPlanDeps) {
       stepsJson: opts.stepsJson,
       finalStatus: opts.status,
       totalTokens: opts.totalTokens,
-      totalDuration: Date.now() - opts.startTime
+      totalDuration: Date.now() - opts.startTime,
+      model: opts.model,
+      agentMode: 'dual',
+      promptVersion: 'architect-editor-v1',
+      toolSchemaVersion: '1',
+      checkpointId: opts.checkpointId,
+      verificationPassed: verifications.length
+        ? verifications.every((item) => item.passed)
+        : undefined,
+      errorCategory: classifyError(opts.stepsJson)
     });
   }
 
@@ -164,7 +204,9 @@ export function useArchitectPlan(deps: ArchitectPlanDeps) {
       stepsJson: records,
       status: failed ? 'failed' : 'completed',
       totalTokens: opts.totalTokens,
-      startTime: opts.startTime
+      startTime: opts.startTime,
+      model: opts.round.modelUsed,
+      checkpointId: opts.round.checkpointId
     });
     setStatus(
       failed
@@ -279,7 +321,9 @@ export function useArchitectPlan(deps: ArchitectPlanDeps) {
       planJson: round.architectPlan,
       stepsJson: records,
       totalTokens,
-      startTime
+      startTime,
+      model: round.modelUsed,
+      checkpointId: round.checkpointId
     });
 
     if (failedStep >= 0) {
@@ -337,7 +381,10 @@ export function useArchitectPlan(deps: ArchitectPlanDeps) {
 
     // 解析计划 JSON（括号配对扫描，避免贪婪正则截断）+ 结构校验，
     // 排除大模型输出的错误占位内容（如 {"error": ...}）或空白输出
-    let { plan, error: planError } = parsePlanOutput(round.architectStreamText);
+    let { plan, error: planError } = parsePlanOutput(
+      round.architectStreamText,
+      getEngine?.()?.toolRegistry
+    );
     let retryCount = 0;
 
     // 输出无效时自动重试，直至成功、达到上限或取消
@@ -373,7 +420,10 @@ export function useArchitectPlan(deps: ArchitectPlanDeps) {
       );
       planResult = await streamArchitect();
       totalTokens += planResult.usage?.total_tokens || 0;
-      const parsed = parsePlanOutput(round.architectStreamText);
+      const parsed = parsePlanOutput(
+        round.architectStreamText,
+        getEngine?.()?.toolRegistry
+      );
       plan = parsed.plan;
       // 保留模型自报的错误说明（如缺少关键信息），供最终失败时反馈
       if (parsed.error) planError = parsed.error;
@@ -386,6 +436,7 @@ export function useArchitectPlan(deps: ArchitectPlanDeps) {
     }
 
     round.architectPlan = plan;
+    round.modelUsed = planResult?.modelUsed;
 
     // ── 保存 Architect chat（保存最终一次流式输出） ──
     await saveChat(
@@ -423,7 +474,8 @@ export function useArchitectPlan(deps: ArchitectPlanDeps) {
           }
         ],
         totalTokens,
-        startTime
+        startTime,
+        model: round.modelUsed
       });
       return;
     }
@@ -438,6 +490,13 @@ export function useArchitectPlan(deps: ArchitectPlanDeps) {
 
     // ── 分流：无步骤 → 直接回复 ──
     const steps = round.architectPlan.steps;
+    if (
+      steps?.length &&
+      round.architectPlan.safety !== 'readonly' &&
+      !round.checkpointId
+    ) {
+      round.checkpointId = createCheckpoint(traceId);
+    }
     if (!steps || steps.length === 0) {
       const answer =
         round.architectPlan.answer || round.architectPlan.intent || '(无回复)';
@@ -450,7 +509,8 @@ export function useArchitectPlan(deps: ArchitectPlanDeps) {
         planJson: round.architectPlan,
         stepsJson: [],
         totalTokens,
-        startTime
+        startTime,
+        model: round.modelUsed
       });
       return;
     }

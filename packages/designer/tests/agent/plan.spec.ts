@@ -1,5 +1,9 @@
 import { describe, expect, it } from 'vitest';
-import { parsePlanOutput } from '../../src/components/widgets/agent/utils/plan';
+import { ToolRegistry } from '../../src/framework';
+import {
+  parsePlanOutput,
+  validatePlan
+} from '../../src/components/widgets/agent/utils/plan';
 
 describe('parsePlanOutput', () => {
   it('将服务端协议步骤类型 code 归一化为 vue_code', () => {
@@ -62,5 +66,105 @@ describe('parsePlanOutput', () => {
   it('空白或非 JSON 输出返回空 plan', () => {
     expect(parsePlanOutput('')).toEqual({ plan: null });
     expect(parsePlanOutput('随便说说')).toEqual({ plan: null });
+  });
+
+  it('拒绝重复步骤、失效依赖和循环依赖', () => {
+    const { plan, issues } = parsePlanOutput(
+      JSON.stringify({
+        intent: '更新页面',
+        safety: 'write',
+        steps: [
+          {
+            id: 's1',
+            type: 'text',
+            description: '第一步',
+            dependsOn: ['s2']
+          },
+          {
+            id: 's1',
+            type: 'text',
+            description: '第二步',
+            dependsOn: ['missing']
+          },
+          {
+            id: 's2',
+            type: 'text',
+            description: '第三步',
+            dependsOn: ['s3']
+          },
+          {
+            id: 's3',
+            type: 'text',
+            description: '第四步',
+            dependsOn: ['s2']
+          }
+        ]
+      })
+    );
+    expect(plan).toBeNull();
+    expect(issues?.map((issue) => issue.message)).toEqual(
+      expect.arrayContaining([
+        '步骤 ID 重复',
+        '引用了不存在的步骤 missing',
+        '步骤依赖存在循环'
+      ])
+    );
+  });
+
+  it('按注册工具校验工具名、参数和安全等级', () => {
+    const registry = new ToolRegistry();
+    registry.register({
+      name: 'removePage',
+      description: '删除页面',
+      risk: 'destructive',
+      parameters: [{ name: 'id', type: 'string', required: true }],
+      handler: async () => true
+    });
+    const result = parsePlanOutput(
+      JSON.stringify({
+        intent: '删除页面',
+        safety: 'write',
+        steps: [
+          {
+            id: 's1',
+            type: 'tool_call',
+            description: '删除',
+            toolName: 'removePage',
+            parameters: [1]
+          }
+        ]
+      }),
+      registry
+    );
+    expect(result.plan).toBeNull();
+    expect(result.issues?.map((issue) => issue.message)).toEqual(
+      expect.arrayContaining([
+        '参数不符合工具定义',
+        '破坏性工具必须标记 destructive'
+      ])
+    );
+  });
+
+  it('拒绝不存在的工具和 target 模板占位符', () => {
+    const registry = new ToolRegistry();
+    const issues = validatePlan(
+      {
+        intent: '更新页面',
+        safety: 'write',
+        steps: [
+          {
+            id: 's1',
+            type: 'tool_call',
+            description: '调用工具',
+            toolName: 'missing',
+            target: '{{step_0.id}}'
+          }
+        ]
+      },
+      registry
+    );
+    expect(issues.map((issue) => issue.message)).toEqual(
+      expect.arrayContaining(['工具不存在', '不能使用模板占位符'])
+    );
   });
 });

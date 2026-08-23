@@ -418,8 +418,8 @@ export function useEditorStep(deps: EditorStepDeps) {
      * ReAct: 修复后自动调用 refresh 验证运行时错误是否消除
      * @returns true = 仍有错误需继续修复，false = 验证通过或无需验证
      */
-    async function applyFixAndVerify(): Promise<boolean> {
-      if (!ctx.needsRefreshVerify || isCancelled()) return false;
+    async function applyFixAndVerify(force = false): Promise<boolean> {
+      if ((!force && !ctx.needsRefreshVerify) || isCancelled()) return false;
 
       const verifyResult = await executeTool(
         getEngine()!,
@@ -432,6 +432,12 @@ export function useEditorStep(deps: EditorStepDeps) {
       if (verifyResult.success && verifyResult.result === true) {
         // 验证通过：无运行时错误
         ctx.needsRefreshVerify = false;
+        slot.verification = {
+          passed: true,
+          stage: 'runtime',
+          errors: [],
+          duration: verifyResult.duration
+        };
         return false;
       }
 
@@ -440,6 +446,12 @@ export function useEditorStep(deps: EditorStepDeps) {
         typeof verifyResult.result === 'string'
           ? verifyResult.result
           : verifyResult.error || '未知错误';
+      slot.verification = {
+        passed: false,
+        stage: 'runtime',
+        errors: [errMsg],
+        duration: verifyResult.duration
+      };
       const sourceContext = await getCurrentSourceContext(getEngine());
       ctx.nextPrompt = `O: 修复已应用，但 refresh 仍检测到运行时错误${sourceContext}\n\n错误信息:\n${errMsg}\n\n请根据上述错误和源码继续修复。`;
       return true;
@@ -497,7 +509,7 @@ export function useEditorStep(deps: EditorStepDeps) {
       );
 
       // ReAct: 修复后自动 refresh 验证
-      if (await applyFixAndVerify()) return 'retry';
+      if (await applyFixAndVerify(true)) return 'retry';
 
       slot.content = opts.content;
       slot.done = true;
@@ -647,11 +659,25 @@ export function useEditorStep(deps: EditorStepDeps) {
           plannedCall.action === 'refresh' &&
           typeof execResult.result === 'string'
         ) {
+          slot.verification = {
+            passed: false,
+            stage: 'runtime',
+            errors: [execResult.result],
+            duration: execResult.duration
+          };
           const sourceContext = await getCurrentSourceContext(engine);
           ctx.needsRefreshVerify = true;
           ctx.nextPrompt = `O: refresh 检测到运行时错误${sourceContext}\n\n错误信息:\n${execResult.result}\n\n请根据上述错误信息和源码，分析错误原因并修复代码。`;
           slot.content = '';
         } else {
+          if (plannedCall.action === 'refresh') {
+            slot.verification = {
+              passed: true,
+              stage: 'runtime',
+              errors: [],
+              duration: execResult.duration
+            };
+          }
           slot.content = content;
           slot.done = true;
           return okResult(content, totalTokens, stepStart, {
@@ -877,11 +903,26 @@ export function useEditorStep(deps: EditorStepDeps) {
               parsed.tool.action === 'refresh' &&
               typeof execResult.result === 'string'
             ) {
+              slot.verification = {
+                passed: false,
+                stage: 'runtime',
+                errors: [execResult.result],
+                duration: execResult.duration
+              };
               // 自动获取当前文件源码，与错误信息一并反馈，避免 LLM 额外调用 getCurrentFileContent
               const sourceContext = await getCurrentSourceContext(getEngine());
               ctx.needsRefreshVerify = true;
               ctx.nextPrompt = `O: refresh 检测到运行时错误${sourceContext}\n\n错误信息:\n${execResult.result}\n\n请根据上述错误信息和源码，分析错误原因并修复代码。`;
               continue;
+            }
+
+            if (parsed.tool.action === 'refresh') {
+              slot.verification = {
+                passed: true,
+                stage: 'runtime',
+                errors: [],
+                duration: execResult.duration
+              };
             }
 
             // 若步骤指定了目标工具（step.toolName），且当前调用的不是目标工具，
