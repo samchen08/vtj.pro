@@ -3,6 +3,33 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.19.14](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.19.13...@vtj/renderer@0.19.14) (2026-08-23)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
+## [0.19.13](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.19.12...@vtj/renderer@0.19.13) (2026-08-19)
+
+
+### Bug Fixes
+
+* **renderer:** 修复 async setup 中的 expose 行为及模板 ref 限制 ([d7040b3](https://gitee.com/newgateway/vtj/commits/d7040b389dd51f4156bf6f3c2443cf0f80f9153c))
+
+
+
+
+
+## [0.19.12](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.19.11...@vtj/renderer@0.19.12) (2026-08-18)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
 ## [0.19.11](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.19.10...@vtj/renderer@0.19.11) (2026-08-17)
 
 **Note:** Version bump only for package @vtj/renderer

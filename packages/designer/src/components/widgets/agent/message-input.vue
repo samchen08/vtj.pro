@@ -3,7 +3,6 @@
     <input
       ref="fileInputRef"
       type="file"
-      accept="image/jpeg,image/png,image/webp,application/json"
       multiple
       class="hidden-input"
       @change="onFileChange" />
@@ -35,13 +34,47 @@
       @update:model-value="$emit('update:message', $event)" />
 
     <div class="composer-toolbar">
-      <el-button
-        class="context-button"
-        size="small"
+      <ElPopover
+        v-model:visible="contextMenuVisible"
+        trigger="click"
+        placement="top-start"
+        :show-arrow="false"
         :disabled="running"
-        :icon="Plus"
-        @click="triggerFileUpload">
-      </el-button>
+        popper-class="agent-context-popper">
+        <template #reference>
+          <el-button
+            class="context-button"
+            size="small"
+            :disabled="running"
+            :icon="Plus"
+            aria-label="添加内容">
+          </el-button>
+        </template>
+        <div class="context-menu-header">
+          <strong>添加内容</strong>
+          <span>上传文件或引用项目上下文</span>
+        </div>
+        <ElCascaderPanel
+          v-model="contextMenuValue"
+          :options="contextMenuOptions"
+          :props="contextMenuProps"
+          :border="false"
+          @change="onContextMenuChange">
+          <template #default="{ data }">
+            <span class="context-option">
+              <ElIcon class="context-option-icon">
+                <Picture v-if="data.kind === 'image'" />
+                <VtjIconComponents
+                  v-else-if="data.kind === 'blocks' || data.kind === 'block'" />
+                <Files v-else-if="data.kind === 'pages'" />
+                <Document v-else />
+              </ElIcon>
+              <span class="context-option-label">{{ data.label }}</span>
+              <span v-if="data.current" class="context-current">当前</span>
+            </span>
+          </template>
+        </ElCascaderPanel>
+      </ElPopover>
 
       <el-checkbox
         border
@@ -125,16 +158,32 @@
 </template>
 
 <script lang="ts" setup>
-  import { ref, watch, onMounted } from 'vue';
+  import { ref, computed, watch, onMounted } from 'vue';
   import {
     ElInput,
     ElButton,
     ElCheckbox,
     ElSelect,
     ElOption,
-    ElOptionGroup
+    ElOptionGroup,
+    ElPopover,
+    ElCascaderPanel,
+    ElIcon,
+    type CascaderOption,
+    type CascaderProps,
+    type CascaderValue
   } from 'element-plus';
-  import { Plus, Promotion, CircleClose, EditPen, Delete } from '@vtj/icons';
+  import {
+    Plus,
+    Promotion,
+    CircleClose,
+    EditPen,
+    Delete,
+    Picture,
+    Document,
+    Files,
+    VtjIconComponents
+  } from '@vtj/icons';
   import { XIcon } from '@vtj/ui';
   import { useEngine, type DictOption, type LLM } from '../../../framework';
   import { confirm } from '../../../utils';
@@ -168,7 +217,46 @@
   const fileInputRef = ref<HTMLInputElement>();
   const formVisible = ref(false);
   const currentFormModel = ref<LLM | null>();
+  const contextMenuVisible = ref(false);
+  const contextMenuValue = ref<CascaderValue | null>(null);
   const engine = useEngine();
+  const contextMenuProps: CascaderProps = {
+    expandTrigger: 'hover',
+    emitPath: false,
+    showPrefix: false
+  };
+  const contextMenuOptions = computed<CascaderOption[]>(() => {
+    const project = engine.project.value;
+    const currentId = project?.currentFile?.id;
+    const toOption =
+      (kind: 'page' | 'block') =>
+      (file: { id: string; name: string; title: string }) => ({
+        value: `file:${file.id}`,
+        label: file.title || file.name,
+        kind,
+        current: file.id === currentId
+      });
+    const pages = project?.getPages().map(toOption('page')) || [];
+    const blocks = project?.blocks.map(toOption('block')) || [];
+    return [
+      { value: 'image', label: '图片', kind: 'image' },
+      { value: 'metadata', label: '设计稿元数据', kind: 'metadata' },
+      {
+        value: 'pages',
+        label: '页面上下文',
+        kind: 'pages',
+        disabled: !pages.length,
+        children: pages
+      },
+      {
+        value: 'blocks',
+        label: '区块上下文',
+        kind: 'blocks',
+        disabled: !blocks.length,
+        children: blocks
+      }
+    ];
+  });
 
   watch(
     () => props.model,
@@ -210,8 +298,36 @@
     onModelChange(item.id as string);
   }
 
-  function triggerFileUpload() {
-    fileInputRef.value?.click();
+  function triggerFileUpload(type: 'image' | 'metadata') {
+    const input = fileInputRef.value;
+    if (!input) return;
+    input.accept =
+      type === 'image'
+        ? 'image/jpeg,image/png,image/webp'
+        : '.json,application/json';
+    input.click();
+  }
+
+  function appendFileContext(fileId: string) {
+    const file = engine.project.value?.getFile(fileId);
+    if (!file) return;
+    const type = file.type === 'page' ? '页面' : '区块';
+    const context = `[上下文: ${type}「${file.title || file.name}」(name: ${file.name}, id: ${file.id})]`;
+    const separator =
+      props.message && !props.message.endsWith('\n') ? '\n' : '';
+    emit('update:message', `${props.message}${separator}${context}\n`);
+  }
+
+  function onContextMenuChange(value: CascaderValue | null | undefined) {
+    const command = Array.isArray(value) ? value[value.length - 1] : value;
+    if (typeof command !== 'string') return;
+    contextMenuVisible.value = false;
+    contextMenuValue.value = null;
+    if (command === 'image' || command === 'metadata') {
+      triggerFileUpload(command);
+    } else if (command.startsWith('file:')) {
+      appendFileContext(command.slice(5));
+    }
   }
 
   function onFileChange(e: Event) {
@@ -362,6 +478,53 @@
     color: var(--el-text-color-secondary);
   }
 
+  .context-menu-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    padding: 4px 8px 9px;
+    border-bottom: 1px solid var(--el-border-color-lighter);
+
+    strong {
+      color: var(--el-text-color-primary);
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    span {
+      color: var(--el-text-color-secondary);
+      font-size: 11px;
+    }
+  }
+
+  .context-option {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    min-width: 0;
+  }
+
+  .context-option-icon {
+    flex: 0 0 auto;
+    color: var(--el-text-color-secondary);
+    font-size: 15px;
+  }
+
+  .context-option-label {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .context-current {
+    flex-shrink: 0;
+    color: var(--el-color-primary);
+    font-size: 11px;
+  }
+
   .model-select {
     width: 112px;
 
@@ -394,5 +557,49 @@
 
   :global(.agent-llm-popper .el-select-group__title) {
     padding: 0 14px;
+  }
+
+  :global(.agent-context-popper.el-popover) {
+    width: auto !important;
+    min-width: 0;
+    padding: 7px;
+    border-color: var(--el-border-color-lighter);
+    border-radius: 10px;
+    box-shadow: var(--el-box-shadow-light);
+  }
+
+  :global(.agent-context-popper .el-cascader-panel) {
+    margin-top: 5px;
+  }
+
+  :global(.agent-context-popper .el-cascader-menu) {
+    width: 196px;
+    min-width: 196px;
+    height: 250px;
+    padding: 3px 5px;
+    border-right-color: var(--el-border-color-lighter);
+  }
+
+  :global(.agent-context-popper .el-cascader-menu:last-child) {
+    width: 230px;
+  }
+
+  :global(
+    .agent-context-popper .el-cascader-menu:last-child .el-cascader-node__prefix
+  ) {
+    display: none;
+  }
+
+  :global(.agent-context-popper .el-cascader-node) {
+    height: 34px;
+    margin: 2px 0;
+    padding: 0 9px;
+    border-radius: 6px;
+    font-size: 12px;
+  }
+
+  :global(.agent-context-popper .el-cascader-node.in-active-path) {
+    color: var(--el-color-primary);
+    background: var(--el-color-primary-light-9);
   }
 </style>

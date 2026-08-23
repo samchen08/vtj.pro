@@ -567,6 +567,7 @@ describe('useEditorStep', () => {
       description: '修改当前文件'
     };
 
+    const editorResults: any[] = [];
     const result = await executeEditorStep(
       'topic',
       'user',
@@ -574,13 +575,18 @@ describe('useEditorStep', () => {
       0,
       [step],
       Date.now(),
-      []
+      editorResults
     );
 
     expect(result.error).toContain('超过最大轮次');
     expect(streamCompletion.mock.calls.length).toBeGreaterThan(1);
     expect(postChat.mock.calls[1][0].prompt).toContain(
       '输出格式与步骤类型不匹配'
+    );
+    // 纯文本输出应标记为 text，而不是无法识别的 unknown
+    expect(editorResults[0].turns.length).toBeGreaterThan(0);
+    expect(editorResults[0].turns.every((t: any) => t.type === 'text')).toBe(
+      true
     );
     expect(
       saveChat.mock.calls.every((call) => call[0].status === 'Error')
