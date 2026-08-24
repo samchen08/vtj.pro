@@ -198,6 +198,10 @@ describe('useArchitectPlan.executeArchitectPlan', () => {
   });
 
   it('executes all steps, generates a summary and completes the topic', async () => {
+    const checkpointHistory = {
+      items: [] as Array<{ id: string }>,
+      add: vi.fn(() => checkpointHistory.items.unshift({ id: 'checkpoint' }))
+    };
     const deps = createDeps({
       streamCompletion: vi
         .fn()
@@ -218,7 +222,11 @@ describe('useArchitectPlan.executeArchitectPlan', () => {
         error: null,
         tokens: 5,
         duration: 100
-      }))
+      })),
+      getEngine: () => ({
+        project: { value: { toDsl: () => ({ id: 'project' }) } },
+        projectHistory: { value: checkpointHistory }
+      })
     });
     const round = createRound();
     const { executeArchitectPlan } = useArchitectPlan(deps);
@@ -252,6 +260,8 @@ describe('useArchitectPlan.executeArchitectPlan', () => {
       tokens: 5
     });
     expect(traceBody.totalTokens).toBe(60);
+    expect(checkpointHistory.add).toHaveBeenCalledOnce();
+    expect(traceBody.checkpointId).toBe('checkpoint');
   });
 
   it('marks the topic as failed when a step reports an error', async () => {

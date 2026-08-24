@@ -422,6 +422,7 @@
     updateTopic,
     saveTrace,
     setStatus,
+    getEngine,
     executeEditorStep
   });
 

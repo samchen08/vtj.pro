@@ -62,8 +62,8 @@ export default defineConfig({
   },
   markdown: {
     config(md) {
-      md.use(containerPreview);
-      md.use(componentPreview);
+      md.use(containerPreview, { clientOnly: true });
+      md.use(componentPreview, { clientOnly: true });
     }
   },
   outDir,

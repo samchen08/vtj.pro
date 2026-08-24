@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.19.15](https://github.com/samchen08/vtj.pro/compare/@vtj/docs@0.19.14...@vtj/docs@0.19.15) (2026-08-24)
+
+
+### Bug Fixes
+
+* **docs:** 为预览组件添加 clientOnly 配置并提供 ElementPlus 注入键 ([4d3e4f0](https://github.com/samchen08/vtj.pro/commit/4d3e4f0934b660b67b7b391822fef29ff0ff8e2b))
+
+
+
+
+
 ## [0.19.14](https://github.com/samchen08/vtj.pro/compare/@vtj/docs@0.19.13...@vtj/docs@0.19.14) (2026-08-23)
 
 **Note:** Version bump only for package @vtj/docs
