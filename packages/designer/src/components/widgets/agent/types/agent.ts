@@ -124,6 +124,15 @@ export interface EditorStepResult {
   duration?: number;
   /** 取消时产生的未完成槽位标记（断点恢复时定位用） */
   aborted?: boolean;
+  /** 代码应用后的运行时验证结果 */
+  verification?: VerificationResult;
+}
+
+export interface VerificationResult {
+  passed: boolean;
+  stage: 'runtime';
+  errors: string[];
+  duration: number;
 }
 
 /** 步骤执行返回值（内部使用） */
@@ -145,6 +154,7 @@ export interface StepRecord {
   error: string | null;
   tokens: number;
   duration: number;
+  verification?: VerificationResult;
 }
 
 // ── 对话轮次相关 ──
@@ -172,6 +182,10 @@ export interface ConversationRound {
   architectError?: string;
   /** Architect 规划自动重试次数（大模型输出无效时自动重发） */
   architectRetryCount?: number;
+  /** 本轮实际使用的 Architect 模型 */
+  modelUsed?: string;
+  /** Agent 写入前创建的项目历史检查点 */
+  checkpointId?: string;
   editorResults: EditorStepResult[];
   summaryText: string;
   summaryReasoning: string;
@@ -306,6 +320,14 @@ export interface SaveTraceBody {
   finalStatus: 'failed' | 'completed';
   totalTokens: number;
   totalDuration: number;
+  model?: string;
+  agentMode?: 'single' | 'dual';
+  promptVersion?: string;
+  skillVersion?: string;
+  toolSchemaVersion?: string;
+  checkpointId?: string;
+  verificationPassed?: boolean;
+  errorCategory?: string;
 }
 
 /** 基础设施依赖 */
@@ -398,6 +420,7 @@ export interface ArchitectPlanDeps {
   updateTopic: (body: UpdateTopicBody) => Promise<any>;
   saveTrace: (body: SaveTraceBody) => Promise<any>;
   setStatus: (message: AgentStatusMessage) => void;
+  getEngine?: () => Engine | null;
   executeEditorStep: (
     topicId: string,
     userId: string,

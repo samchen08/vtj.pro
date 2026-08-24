@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.14.6](https://github.com/samchen08/vtj.pro/compare/vtj-project-library@0.14.5...vtj-project-library@0.14.6) (2026-08-24)
+
+
+### Bug Fixes
+
+* **agent:** 新增运行时验证和计划校验功能 ([b29e842](https://github.com/samchen08/vtj.pro/commit/b29e8427cd33a3dee6f3aecc7d4fbcfc9f9a2a13))
+
+
+
+
+
 ## [0.14.5](https://github.com/samchen08/vtj.pro/compare/vtj-project-library@0.14.4...vtj-project-library@0.14.5) (2026-08-18)
 
 **Note:** Version bump only for package vtj-project-library

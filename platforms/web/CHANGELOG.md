@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.19.15](https://gitee.com/newgateway/vtj/compare/@vtj/web@0.19.14...@vtj/web@0.19.15) (2026-08-24)
+
+**Note:** Version bump only for package @vtj/web
+
+
+
+
+
 ## [0.19.14](https://gitee.com/newgateway/vtj/compare/@vtj/web@0.19.13...@vtj/web@0.19.14) (2026-08-23)
 
 **Note:** Version bump only for package @vtj/web

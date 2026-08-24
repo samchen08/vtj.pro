@@ -4,6 +4,7 @@ import 'regenerator-runtime/runtime';
 import { h, defineAsyncComponent } from 'vue';
 import { type Theme } from 'vitepress';
 import DefaultTheme from 'vitepress/theme';
+import { ID_INJECTION_KEY, ZINDEX_INJECTION_KEY } from 'element-plus';
 // @ts-ignore
 import { ElementPlusContainer } from '@vitepress-demo-preview/component';
 // import { ElMessageBox } from 'element-plus';
@@ -20,6 +21,9 @@ export default {
     });
   },
   enhanceApp({ app, router, siteData }) {
+    app.provide(ID_INJECTION_KEY, { prefix: 0, current: 0 });
+    app.provide(ZINDEX_INJECTION_KEY, { current: 0 });
+
     // app.component('demo-preview', ElementPlusContainer);
     app.component(
       'demo-preview',

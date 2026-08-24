@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.19.15](https://github.com/samchen08/vtj.pro/compare/dev-web@0.19.14...dev-web@0.19.15) (2026-08-24)
+
+**Note:** Version bump only for package dev-web
+
+
+
+
+
 ## [0.19.14](https://github.com/samchen08/vtj.pro/compare/dev-web@0.19.13...dev-web@0.19.14) (2026-08-23)
 
 **Note:** Version bump only for package dev-web
