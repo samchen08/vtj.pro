@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.19.15](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.19.14...@vtj/designer@0.19.15) (2026-08-24)
+
+
+### Bug Fixes
+
+* **agent:** 新增运行时验证和计划校验功能 ([b29e842](https://gitee.com/newgateway/vtj/commits/b29e8427cd33a3dee6f3aecc7d4fbcfc9f9a2a13))
+
+
+
+
+
 ## [0.19.14](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.19.13...@vtj/designer@0.19.14) (2026-08-23)
 
 
