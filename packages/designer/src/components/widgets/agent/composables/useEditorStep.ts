@@ -34,6 +34,7 @@ import type {
 } from '../types/agent';
 
 const AGENT_SOURCE_VERSION = 'version';
+const CODE_STEP_TOOLS = new Set(['getSkills', 'getCurrentFileContent']);
 
 /** 正则转义 */
 function escapeRegExp(str: string): string {
@@ -777,10 +778,14 @@ export function useEditorStep(deps: EditorStepDeps) {
         // 代码步骤不能用普通文本冒充成功，否则会在未应用任何修改时继续 refresh。
         const expectedCodeType =
           step.type === 'diff' || step.type === 'vue_code' ? step.type : null;
+        const compatibleToolCall =
+          parsed.type === 'tool_call' &&
+          !!parsed.tool &&
+          CODE_STEP_TOOLS.has(parsed.tool.action);
         if (
           expectedCodeType &&
           parsed.type !== expectedCodeType &&
-          parsed.type !== 'tool_call'
+          !compatibleToolCall
         ) {
           const isPlainText =
             parsed.error === '未找到代码块' && fullContent.length > 0;

@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.19.17](https://github.com/samchen08/vtj.pro/compare/vtj-plugin@0.19.16...vtj-plugin@0.19.17) (2026-08-25)
+
+**Note:** Version bump only for package vtj-plugin
+
+
+
+
+
+## [0.19.16](https://github.com/samchen08/vtj.pro/compare/vtj-plugin@0.19.15...vtj-plugin@0.19.16) (2026-08-25)
+
+**Note:** Version bump only for package vtj-plugin
+
+
+
+
+
 ## [0.19.15](https://github.com/samchen08/vtj.pro/compare/vtj-plugin@0.19.14...vtj-plugin@0.19.15) (2026-08-24)
 
 **Note:** Version bump only for package vtj-plugin

@@ -54,6 +54,21 @@ describe('compositionPatch', () => {
     expect(result).toBe('this.count.value + this.message.value');
   });
 
+  test('should preserve object keys when patching refs', () => {
+    expect(compositionPatch('{ count: value }', baseOptions)).toBe(
+      '{ count: value }'
+    );
+    expect(compositionPatch('{ key: count }', baseOptions)).toBe(
+      '{ key: this.count.value }'
+    );
+    expect(compositionPatch('({ count })', baseOptions)).toBe(
+      '({ count: this.count.value })'
+    );
+    expect(compositionPatch('count.value', baseOptions)).toBe(
+      'this.count.value'
+    );
+  });
+
   test('should replace global API variables', () => {
     const input = 'router.push("/home")';
     const result = compositionPatch(input, baseOptions);

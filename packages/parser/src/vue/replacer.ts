@@ -29,7 +29,23 @@ export function replacer(content: string, key: string, to: string): string {
   }
 }
 
-function replaceViaAST(content: string, key: string, to: string): string {
+/** 将 script setup 中的 ref/computed 标识符转换为 DSL 实例访问 */
+export function replaceRef(content: string, key: string): string {
+  if (!content.includes(key)) return content;
+
+  try {
+    return replaceViaAST(content, key, `this.${key}.value`, true);
+  } catch {
+    return content;
+  }
+}
+
+function replaceViaAST(
+  content: string,
+  key: string,
+  to: string,
+  ref = false
+): string {
   let ast: ReturnType<typeof parseScript>;
   let offset = 0;
 
@@ -71,7 +87,11 @@ function replaceViaAST(content: string, key: string, to: string): string {
       const end = (node.end ?? 0) - offset;
       if (start < 0 || end > content.length) return;
 
-      const text = action === 'expand' ? `${key}: ${to}` : to;
+      const memberValue =
+        ref && action === 'replace' && isValueMemberObject(path)
+          ? `this.${key}`
+          : to;
+      const text = action === 'expand' ? `${key}: ${to}` : memberValue;
       // 去重：同位置不重复添加
       if (!replacements.some((r) => r.start === start && r.end === end)) {
         replacements.push({ start, end, text });
@@ -87,11 +107,33 @@ function replaceViaAST(content: string, key: string, to: string): string {
     },
 
     MemberExpression(path: NodePath) {
-      handleThisMemberExpression(path, key, to, offset, content, replacements);
+      if (ref) {
+        handleRefMemberExpression(path, key, to, offset, content, replacements);
+      } else {
+        handleThisMemberExpression(
+          path,
+          key,
+          to,
+          offset,
+          content,
+          replacements
+        );
+      }
     },
 
     OptionalMemberExpression(path: NodePath) {
-      handleThisMemberExpression(path, key, to, offset, content, replacements);
+      if (ref) {
+        handleRefMemberExpression(path, key, to, offset, content, replacements);
+      } else {
+        handleThisMemberExpression(
+          path,
+          key,
+          to,
+          offset,
+          content,
+          replacements
+        );
+      }
     }
   } as any);
 
@@ -106,6 +148,56 @@ function replaceViaAST(content: string, key: string, to: string): string {
   }
 
   return result;
+}
+
+function isValueMemberObject(path: NodePath): boolean {
+  const parent = path.parent as any;
+  return (
+    (parent?.type === 'MemberExpression' ||
+      parent?.type === 'OptionalMemberExpression') &&
+    parent.object === path.node &&
+    !parent.computed &&
+    parent.property?.type === 'Identifier' &&
+    parent.property.name === 'value'
+  );
+}
+
+function handleRefMemberExpression(
+  path: NodePath,
+  key: string,
+  to: string,
+  offset: number,
+  content: string,
+  replacements: Replacement[]
+): void {
+  const node = path.node as any;
+  if (
+    node.object?.type !== 'Identifier' ||
+    node.object.name !== '_ctx' ||
+    node.computed ||
+    node.property?.type !== 'Identifier' ||
+    node.property.name !== key
+  ) {
+    return;
+  }
+
+  const parent = path.parent as any;
+  const followedByValue =
+    (parent?.type === 'MemberExpression' ||
+      parent?.type === 'OptionalMemberExpression') &&
+    parent.object === node &&
+    !parent.computed &&
+    parent.property?.type === 'Identifier' &&
+    parent.property.name === 'value';
+  const start = (node.start ?? 0) - offset;
+  const end = (node.end ?? 0) - offset;
+  if (start < 0 || end > content.length) return;
+
+  replacements.push({
+    start,
+    end,
+    text: followedByValue ? `this.${key}` : to
+  });
 }
 
 /**

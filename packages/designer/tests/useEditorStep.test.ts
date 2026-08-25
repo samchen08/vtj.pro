@@ -592,4 +592,61 @@ describe('useEditorStep', () => {
       saveChat.mock.calls.every((call) => call[0].status === 'Error')
     ).toBe(true);
   });
+
+  it('does not execute refresh emitted by a diff step', async () => {
+    const postChat = vi.fn(async () => ({ chat: { id: 'chat' } }));
+    const saveChat = vi.fn(async () => true);
+    const execute = vi.fn(async () => true);
+    const streamCompletion = vi.fn(async (_topic, _chat, onChunk) => {
+      onChunk?.('```json\n{"action":"refresh","parameters":[]}\n```');
+      return {
+        done: vi.fn(),
+        reasoning: '',
+        usage: null,
+        modelUsed: '',
+        reasoningTime: 0
+      };
+    });
+    const { executeEditorStep } = useEditorStep({
+      postChat,
+      saveChat,
+      updateTopic: vi.fn(async () => ({})),
+      streamCompletion,
+      getEngine: vi.fn(
+        () =>
+          ({
+            project: { value: {} },
+            current: { value: {} },
+            service: {},
+            toolRegistry: { get: vi.fn(), execute }
+          }) as any
+      ),
+      setStatus: vi.fn(),
+      requestApproval: vi.fn()
+    });
+    const step = {
+      id: 'step',
+      type: 'diff' as const,
+      description: '修改当前文件'
+    };
+
+    const result = await executeEditorStep(
+      'topic',
+      'user',
+      step,
+      0,
+      [step],
+      Date.now(),
+      []
+    );
+
+    expect(result.error).toContain('超过最大轮次');
+    expect(execute).not.toHaveBeenCalled();
+    expect(postChat.mock.calls[1][0].prompt).toContain(
+      '输出格式与步骤类型不匹配'
+    );
+    expect(
+      saveChat.mock.calls.every((call) => call[0].status === 'Error')
+    ).toBe(true);
+  });
 });
