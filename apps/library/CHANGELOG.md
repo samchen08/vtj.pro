@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.14.7](https://github.com/samchen08/vtj.pro/compare/vtj-project-library@0.14.6...vtj-project-library@0.14.7) (2026-08-25)
+
+
+### Features
+
+* **parser:** 优化 Vue 组合式 API 标识符替换逻辑 ([87188a7](https://github.com/samchen08/vtj.pro/commit/87188a72ddc1f0b07686291ef138262d9b8d671a))
+
+
+
+
+
 ## [0.14.6](https://github.com/samchen08/vtj.pro/compare/vtj-project-library@0.14.5...vtj-project-library@0.14.6) (2026-08-24)
 
 
