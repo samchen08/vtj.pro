@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.19.18](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.19.17...@vtj/designer@0.19.18) (2026-08-26)
+
+
+### Features
+
+* **vite:** 支持开发和预览服务的自定义 CORS 配置 ([36044df](https://gitee.com/newgateway/vtj/commits/36044df32e5035b35d8bbe4132af67f3ebf8deda))
+
+
+
+
+
 ## [0.19.17](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.19.16...@vtj/designer@0.19.17) (2026-08-25)
 
 **Note:** Version bump only for package @vtj/designer
