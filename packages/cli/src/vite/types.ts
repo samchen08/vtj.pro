@@ -1,6 +1,7 @@
 import type {
   UserConfig,
   UserConfigExport,
+  ServerOptions,
   ProxyOptions,
   PluginOption
 } from 'vite';
@@ -88,6 +89,11 @@ export interface CreateViteConfigOptions {
    * 代理
    */
   proxy?: ProxyConfig;
+
+  /**
+   * CORS 配置
+   */
+  cors?: ServerOptions['cors'];
 
   /**
    * 打开浏览器
@@ -314,6 +320,11 @@ export interface CreateUniappViteConfigOptions {
    * 代理
    */
   proxy?: ProxyConfig;
+
+  /**
+   * CORS 配置
+   */
+  cors?: ServerOptions['cors'];
 
   /**
    * 打包输出文件夹
