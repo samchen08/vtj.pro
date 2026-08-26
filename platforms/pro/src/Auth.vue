@@ -23,17 +23,30 @@
 
   const route = useRoute();
   const getLoginInfo = async (token: string) => {
-    const api = `${props.remote || REMOTE}/api/open/user/${token}`;
-    const res = await jsonp(api).catch(() => null);
-    if (!!res && Array.isArray(res)) {
-      return res;
-    }
-    if (!res || !res.success) {
-      await alert('登录失败');
-      return null;
-    } else {
+    const remote = props.remote || REMOTE;
+    let useLegacy = false;
+    const res = await fetch(`${remote}/api/open/session/${token}`, {
+      method: 'post',
+      credentials: 'include'
+    })
+      .then((response) => {
+        useLegacy = response.status === 404 || response.status === 405;
+        return response.json();
+      })
+      .catch(() => {
+        useLegacy = true;
+        return null;
+      });
+    if (res?.success) {
       return res.data;
     }
+    if (!useLegacy) return null;
+    const legacy = await jsonp(`${remote}/api/open/user/${token}`).catch(
+      () => null
+    );
+    if (Array.isArray(legacy)) return legacy;
+    if (legacy?.data) return legacy.data;
+    return null;
   };
 
   const token = route.query.token as string;

@@ -27,7 +27,8 @@ const createServer = (
   proxy?: ProxyConfig,
   https?: boolean,
   host?: string,
-  open?: boolean
+  open?: boolean,
+  cors?: ServerOptions['cors']
 ) => {
   // Vite 6 中 host 为 '0.0.0.0' 时，自动打开浏览器会因无法从 resolvedUrls
   // 匹配出可打开的 URL 而提示 "No URL available to open in browser"。
@@ -36,7 +37,7 @@ const createServer = (
   const h = !host || host === '0.0.0.0' ? true : host;
   return {
     open: open,
-    cors: true,
+    cors,
     port,
     host: h,
     proxy,
@@ -65,7 +66,8 @@ export function createViteConfig(
     opts.proxy,
     opts.https,
     opts.host,
-    opts.open
+    opts.open,
+    opts.cors
   );
 
   if (opts.watchModules) {
@@ -79,7 +81,8 @@ export function createViteConfig(
     opts.proxy,
     opts.https,
     opts.host,
-    opts.open
+    opts.open,
+    opts.cors
   );
 
   const plugins = mergePlugins(opts);
@@ -143,7 +146,8 @@ export function createUniappViteConfig(
     opts.proxy,
     opts.https,
     opts.host,
-    opts.open
+    opts.open,
+    opts.cors
   );
 
   const preview = createServer(
@@ -151,7 +155,8 @@ export function createUniappViteConfig(
     opts.proxy,
     opts.https,
     opts.host,
-    opts.open
+    opts.open,
+    opts.cors
   );
 
   const plugins: PluginOption[] = [envPlugin({ dir: opts.envPath })];

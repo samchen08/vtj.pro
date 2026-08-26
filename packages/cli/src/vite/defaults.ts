@@ -16,5 +16,6 @@ export const defaults: CreateViteConfigOptions = {
   envPath: './',
   copyPublicDir: true,
   reload: true,
-  open: true
+  open: true,
+  cors: true
 };

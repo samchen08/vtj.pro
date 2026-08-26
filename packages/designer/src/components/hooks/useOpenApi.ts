@@ -13,9 +13,75 @@ import { alert } from '../../utils';
 
 export type { TemplateDto, PublishTemplateDto, TopicDto, ChatDto };
 
+const REFRESH_WINDOW = 5 * 60 * 1000;
+const refreshTasks = new WeakMap<object, Promise<string | undefined>>();
+
 export function useOpenApi() {
   const engine = useEngine();
   const { access, remote, openApi } = engine || {};
+
+  const refreshToken = () => {
+    if (!access || !remote) return Promise.resolve(undefined);
+    const current = refreshTasks.get(access);
+    if (current) return current;
+
+    const task = fetch(`${remote}/api/users/refresh`, {
+      method: 'post',
+      credentials: 'include'
+    })
+      .then(async (response) => {
+        if (!response.ok) throw new Error('登录已经失效');
+        const result = await response.json();
+        access.login(result?.data || result);
+        return access.getToken();
+      })
+      .finally(() => refreshTasks.delete(access));
+    refreshTasks.set(access, task);
+    return task;
+  };
+
+  const ensureToken = async (force = false) => {
+    const data = access?.getData();
+    const expiresAt = Number(data?.expiresAt || 0);
+    if (
+      force ||
+      (data?.token && expiresAt > 0 && expiresAt - Date.now() < REFRESH_WINDOW)
+    ) {
+      return await refreshToken();
+    }
+    return data?.token;
+  };
+
+  const authFetch = async (
+    createUrl: (token?: string) => string,
+    init?: RequestInit
+  ) => {
+    let response = await fetch(createUrl(await ensureToken()), init);
+    if (response.status === 401) {
+      response = await fetch(createUrl(await ensureToken(true)), init);
+    }
+    return response;
+  };
+
+  const authJsonp = async <T>(request: (token?: string) => Promise<T>) => {
+    const status = (value: unknown) => {
+      const result = value as {
+        code?: number;
+        status?: number;
+        response?: { status?: number };
+      };
+      return result?.status || result?.code || result?.response?.status;
+    };
+    try {
+      const result = await request(await ensureToken());
+      return status(result) === 401
+        ? await request(await ensureToken(true))
+        : result;
+    } catch (error) {
+      if (status(error) !== 401) throw error;
+      return await request(await ensureToken(true));
+    }
+  };
 
   const getImage = (path?: string) => {
     if (openApi?.getImage) {
@@ -45,7 +111,12 @@ export function useOpenApi() {
     if (!remote || !auth) return;
     if (typeof auth === 'string') {
       const api = `${remote}/api/open/auth/${auth}`;
-      const res = await jsonp(api).catch(() => null);
+      let res = await fetch(api, { credentials: 'include' })
+        .then((response) => response.json())
+        .catch(() => null);
+      if (!Array.isArray(res) && !res?.data) {
+        res = await jsonp(api).catch(() => null);
+      }
       if (res && Array.isArray(res)) {
         access.login(res);
       } else if (res && res.data) {
@@ -75,16 +146,17 @@ export function useOpenApi() {
   };
 
   const isLogined = async () => {
-    const token = access?.getData()?.token;
+    const token = await ensureToken();
     if (token) {
       if (openApi?.isLogined) {
         const data = await openApi.isLogined().catch(() => null);
         return !!data;
       }
-      const api = `${remote}/api/open/user/${token}`;
-      const res = await jsonp(api).catch(() => null);
+      const res = await authJsonp((current) =>
+        jsonp(`${remote}/api/open/user/${current}`)
+      ).catch(() => null);
       if (res && Array.isArray(res)) {
-        access.login(res);
+        access?.login(res);
         return true;
       } else if (res && res.data) {
         access?.login(res.data);
@@ -99,11 +171,11 @@ export function useOpenApi() {
     if (openApi?.getTemplates) {
       return await openApi?.getTemplates(platform);
     }
-    const api = `${remote}/api/open/templates`;
-    const token = access?.getData()?.token;
-    const res = await jsonp(api, {
-      query: token ? { platform, token } : { platform }
-    });
+    const res = await authJsonp((current) =>
+      jsonp(`${remote}/api/open/templates`, {
+        query: current ? { platform, token: current } : { platform }
+      })
+    );
     return (res?.data || []) as TemplateDto[];
   };
 
@@ -111,9 +183,9 @@ export function useOpenApi() {
     if (openApi?.getTemplateById) {
       return await openApi?.getTemplateById(id);
     }
-    const token = access?.getData()?.token;
-    const api = `${remote}/api/open/template/${token}`;
-    const res = await jsonp(api, { query: { id } });
+    const res = await authJsonp((token) =>
+      jsonp(`${remote}/api/open/template/${token}`, { query: { id } })
+    );
     return (res?.data || res || null) as TemplateDto;
   };
 
@@ -121,9 +193,9 @@ export function useOpenApi() {
     if (openApi?.removeTemplate) {
       return await openApi?.removeTemplate(id);
     }
-    const token = access?.getData()?.token;
-    const api = `${remote}/api/open/template/remove/${token}`;
-    const res = await jsonp(api, { query: { id } });
+    const res = await authJsonp((token) =>
+      jsonp(`${remote}/api/open/template/remove/${token}`, { query: { id } })
+    );
     return !!res?.data;
   };
 
@@ -131,9 +203,9 @@ export function useOpenApi() {
     if (openApi?.getTemplateDsl) {
       return await openApi?.getTemplateDsl(id);
     }
-    const token = access?.getData()?.token;
-    const api = `${remote}/api/open/dsl/${token}`;
-    const res = await jsonp(api, { query: { id } });
+    const res = await authJsonp((token) =>
+      jsonp(`${remote}/api/open/dsl/${token}`, { query: { id } })
+    );
     if (res?.data) {
       return res.data as BlockSchema;
     }
@@ -155,19 +227,19 @@ export function useOpenApi() {
     if (openApi?.publishTemplate) {
       return await openApi?.publishTemplate(dto);
     }
-    const token = access?.getData()?.token;
-    const api = `${remote}/api/open/template/publish/${token}`;
     const data = new FormData();
     for (const [name, value] of Object.entries(dto)) {
       if (value !== undefined) {
         data.append(name, value);
       }
     }
-    const res = await window
-      .fetch(api, {
+    const res = await authFetch(
+      (token) => `${remote}/api/open/template/publish/${token}`,
+      {
         method: 'post',
         body: data
-      })
+      }
+    )
       .then((res) => res.json())
       .catch(() => null);
 
@@ -180,16 +252,16 @@ export function useOpenApi() {
     if (openApi?.postTopic) {
       return await openApi?.postTopic(dto);
     }
-    const token = access?.getData()?.token;
-    const api = `${remote}/api/open/topic/post/${token}`;
-    const res = await window
-      .fetch(api, {
+    const res = await authFetch(
+      (token) => `${remote}/api/open/topic/post/${token}`,
+      {
         method: 'post',
         headers: {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify(dto)
-      })
+      }
+    )
       .then((res) => res.json())
       .catch(() => null);
     if (!res?.success) {
@@ -202,17 +274,17 @@ export function useOpenApi() {
     if (openApi?.postImageTopic) {
       return await openApi?.postImageTopic(dto);
     }
-    const token = access?.getData()?.token;
-    const api = `${remote}/api/open/topic/image/${token}`;
     const data = new FormData();
     Object.entries(dto).forEach(([name, value]) => {
       data.append(name, value);
     });
-    const res = await window
-      .fetch(api, {
+    const res = await authFetch(
+      (token) => `${remote}/api/open/topic/image/${token}`,
+      {
         method: 'post',
         body: data
-      })
+      }
+    )
       .then((res) => res.json())
       .catch((e) => e);
     if (!res?.success) {
@@ -225,17 +297,17 @@ export function useOpenApi() {
     if (openApi?.postJsonTopic) {
       return await openApi?.postJsonTopic(dto);
     }
-    const token = access?.getData()?.token;
-    const api = `${remote}/api/open/topic/json/${token}`;
     const data = new FormData();
     Object.entries(dto).forEach(([name, value]) => {
       data.append(name, value);
     });
-    const res = await window
-      .fetch(api, {
+    const res = await authFetch(
+      (token) => `${remote}/api/open/topic/json/${token}`,
+      {
         method: 'post',
         body: data
-      })
+      }
+    )
       .then((res) => res.json())
       .catch((e) => e);
     if (!res?.success) {
@@ -248,11 +320,10 @@ export function useOpenApi() {
     if (openApi?.getChats) {
       return await openApi?.getChats(topicId);
     }
-    const token = access?.getData()?.token;
-    const api = `${remote}/api/open/chat/list/${token}?id=${topicId}`;
-    const res = await window.fetch(api, {
-      method: 'get'
-    });
+    const res = await authFetch(
+      (token) => `${remote}/api/open/chat/list/${token}?id=${topicId}`,
+      { method: 'get' }
+    );
     return await res.json();
   };
 
@@ -260,11 +331,10 @@ export function useOpenApi() {
     if (openApi?.getTopics) {
       return await openApi?.getTopics(fileId);
     }
-    const token = access?.getData()?.token;
-    const api = `${remote}/api/open/topic/list/${token}?id=${fileId}`;
-    const res = await window.fetch(api, {
-      method: 'get'
-    });
+    const res = await authFetch(
+      (token) => `${remote}/api/open/topic/list/${token}?id=${fileId}`,
+      { method: 'get' }
+    );
     return await res.json();
   };
 
@@ -272,16 +342,16 @@ export function useOpenApi() {
     if (openApi?.postChat) {
       return await openApi?.postChat(dto);
     }
-    const token = access?.getData()?.token;
-    const api = `${remote}/api/open/chat/post/${token}`;
-    const res = await window
-      .fetch(api, {
+    const res = await authFetch(
+      (token) => `${remote}/api/open/chat/post/${token}`,
+      {
         method: 'post',
         headers: {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify(dto)
-      })
+      }
+    )
       .then((res) => res.json())
       .catch(() => null);
     if (!res?.success) {
@@ -294,15 +364,16 @@ export function useOpenApi() {
     if (openApi?.saveChat) {
       return await openApi?.saveChat(chat);
     }
-    const token = access?.getData()?.token;
-    const api = `${remote}/api/open/chat/save/${token}`;
-    const res = await window.fetch(api, {
-      method: 'post',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(chat)
-    });
+    const res = await authFetch(
+      (token) => `${remote}/api/open/chat/save/${token}`,
+      {
+        method: 'post',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(chat)
+      }
+    );
     return await res.json();
   };
 
@@ -310,11 +381,10 @@ export function useOpenApi() {
     if (openApi?.cancelChat) {
       return await openApi.cancelChat(chat);
     }
-    const token = access?.getData()?.token;
-    const api = `${remote}/api/open/chat/cancel/${token}?id=${chat.id}`;
-    const res = await window.fetch(api, {
-      method: 'get'
-    });
+    const res = await authFetch(
+      (token) => `${remote}/api/open/chat/cancel/${token}?id=${chat.id}`,
+      { method: 'get' }
+    );
     return await res.json();
   };
 
@@ -322,11 +392,10 @@ export function useOpenApi() {
     if (openApi?.removeTopic) {
       return await openApi?.removeTopic(topicId);
     }
-    const token = access?.getData()?.token;
-    const api = `${remote}/api/open/topic/remove/${token}?id=${topicId}`;
-    const res = await window.fetch(api, {
-      method: 'get'
-    });
+    const res = await authFetch(
+      (token) => `${remote}/api/open/topic/remove/${token}?id=${topicId}`,
+      { method: 'get' }
+    );
     return await res.json();
   };
 
@@ -334,13 +403,14 @@ export function useOpenApi() {
     if (openApi?.updateTopic) {
       return await openApi.updateTopic(topic);
     }
-    const token = access?.getData()?.token;
-    const api = `${remote}/api/open/topic/update/${token}`;
-    const res = await window.fetch(api, {
-      method: 'post',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(topic)
-    });
+    const res = await authFetch(
+      (token) => `${remote}/api/open/topic/update/${token}`,
+      {
+        method: 'post',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(topic)
+      }
+    );
     return await res.json();
   };
 
@@ -348,13 +418,14 @@ export function useOpenApi() {
     if (openApi?.saveTrace) {
       return await openApi.saveTrace(trace);
     }
-    const token = access?.getData()?.token;
-    const api = `${remote}/api/open/trace/${token}`;
-    const res = await window.fetch(api, {
-      method: 'post',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(trace)
-    });
+    const res = await authFetch(
+      (token) => `${remote}/api/open/trace/${token}`,
+      {
+        method: 'post',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(trace)
+      }
+    );
     return await res.json();
   };
 
@@ -381,10 +452,13 @@ export function useOpenApi() {
       return await openApi?.chatCompletions(topicId, chatId, callback, error);
     }
 
-    const token = access?.getData()?.token;
-    const api = `${remote}/api/open/completions/${token}?tid=${topicId}&id=${chatId}`;
     const controller = new AbortController();
     const signal = controller.signal;
+    const request = async (force = false) => {
+      const token = await ensureToken(force);
+      const api = `${remote}/api/open/completions/${token}?tid=${topicId}&id=${chatId}`;
+      return await fetch(api, { method: 'get', signal });
+    };
 
     const toCompletionError = (
       message: string,
@@ -443,10 +517,8 @@ export function useOpenApi() {
     let buffer = '';
     const decoder = new TextDecoder();
 
-    fetch(api, {
-      method: 'get',
-      signal
-    })
+    request()
+      .then((response) => (response.status === 401 ? request(true) : response))
       .then(async (res) => {
         if (!res.ok) {
           const content = await res.text();
@@ -503,13 +575,12 @@ export function useOpenApi() {
     if (openApi?.getSettings) {
       return await openApi?.getSettings();
     }
-    const token = access?.getData()?.token;
+    const token = await ensureToken();
     if (!token) return undefined;
-    const api = `${remote}/api/open/settings/${token}`;
-    const res = await window
-      .fetch(api, {
-        method: 'get'
-      })
+    const res = await authFetch(
+      (current) => `${remote}/api/open/settings/${current}`,
+      { method: 'get' }
+    )
       .then((res) => res.json())
       .catch(() => null);
     return res?.data as Settings;
@@ -519,12 +590,10 @@ export function useOpenApi() {
     if (openApi?.createOrder) {
       return await openApi?.createOrder();
     }
-    const token = access?.getData()?.token;
-    const api = `${remote}/api/open/order/${token}`;
-    const res = await window
-      .fetch(api, {
-        method: 'post'
-      })
+    const res = await authFetch(
+      (token) => `${remote}/api/open/order/${token}`,
+      { method: 'post' }
+    )
       .then((res) => res.json())
       .catch(() => null);
     if (!res?.success) {
@@ -537,12 +606,10 @@ export function useOpenApi() {
     if (openApi?.cancelOrder) {
       return await openApi?.cancelOrder(id);
     }
-    const token = access?.getData()?.token;
-    const api = `${remote}/api/open/order/cancel/${token}?id=${id}`;
-    return await window
-      .fetch(api, {
-        method: 'get'
-      })
+    return await authFetch(
+      (token) => `${remote}/api/open/order/cancel/${token}?id=${id}`,
+      { method: 'get' }
+    )
       .then((res) => res.json())
       .catch(() => null);
   };
@@ -551,12 +618,10 @@ export function useOpenApi() {
     if (openApi?.getOrder) {
       return await openApi?.getOrder(id);
     }
-    const token = access?.getData()?.token;
-    const api = `${remote}/api/open/order/${token}?id=${id}`;
-    return await window
-      .fetch(api, {
-        method: 'get'
-      })
+    return await authFetch(
+      (token) => `${remote}/api/open/order/${token}?id=${id}`,
+      { method: 'get' }
+    )
       .then((res) => res.json())
       .catch(() => null);
   };
@@ -582,17 +647,17 @@ export function useOpenApi() {
     if (openApi?.recognitionFile) {
       return await openApi?.recognitionFile(file);
     }
-    const token = access?.getData()?.token;
-    const api = `${remote}/api/open/recognition/post/${token}`;
     const data = new FormData();
     Object.entries({ file }).forEach(([name, value]) => {
       data.append(name, value);
     });
-    const res = await window
-      .fetch(api, {
+    const res = await authFetch(
+      (token) => `${remote}/api/open/recognition/post/${token}`,
+      {
         method: 'post',
         body: data
-      })
+      }
+    )
       .then((res) => res.json())
       .catch((e) => e);
     if (!res?.success) {
