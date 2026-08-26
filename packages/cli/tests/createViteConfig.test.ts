@@ -32,6 +32,12 @@ describe('createViteConfig', () => {
     expect(config.server?.port).toBe(3000);
   });
 
+  test('cors 配置同时应用到开发和预览服务', () => {
+    const config = createViteConfig({ cors: false }) as any;
+    expect(config.server?.cors).toBe(false);
+    expect(config.preview?.cors).toBe(false);
+  });
+
   test('watchModules 会生成 watch.ignored 配置', () => {
     const config = createViteConfig({
       watchModules: ['@vtj/core', '@vtj/ui'],
@@ -78,6 +84,13 @@ describe('createUniappViteConfig', () => {
       debug: false
     }) as any;
     expect(config.server?.port).toBe(8080);
+  });
+
+  test('支持自定义 cors 配置', () => {
+    const cors = { origin: 'https://example.com', credentials: true };
+    const config = createUniappViteConfig({ cors }) as any;
+    expect(config.server?.cors).toEqual(cors);
+    expect(config.preview?.cors).toEqual(cors);
   });
 });
 
