@@ -36,9 +36,7 @@ export function useOpenApi() {
         return access.getToken();
       })
       .finally(() => refreshTasks.delete(access));
-    if (task) {
-      refreshTasks.set(access, task);
-    }
+    refreshTasks.set(access, task);
     return task;
   };
 
