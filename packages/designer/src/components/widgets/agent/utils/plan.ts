@@ -107,6 +107,15 @@ export function validatePlan(
       } else if (
         tool &&
         step.parameters &&
+        !(
+          step.toolName === 'active' &&
+          step.parameters.length === 0 &&
+          step.dependsOn?.length === 1 &&
+          ['createPage', 'createBlock'].includes(
+            steps.find((candidate) => candidate?.id === step.dependsOn![0])
+              ?.toolName || ''
+          )
+        ) &&
         !validateToolParameters(step.parameters, tool.parameters)
       ) {
         issues.push({

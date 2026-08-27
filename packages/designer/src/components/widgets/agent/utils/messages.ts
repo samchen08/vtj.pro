@@ -130,8 +130,10 @@ export const Messages = {
     text: `Architect 输出异常，正在重试 (${attempt}/${max})...`,
     type: 'warning'
   }),
-  architectFailed: (message: string): AgentStatusMessage => ({
-    text: `Architect 规划失败: ${message}`,
+  architectFailed: (message: string, retries = 0): AgentStatusMessage => ({
+    text: `Architect 规划失败${
+      retries ? `（已自动重试 ${retries} 次）` : ''
+    }: ${message}`,
     type: 'danger'
   }),
   error: (message: string): AgentStatusMessage => ({

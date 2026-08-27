@@ -400,8 +400,10 @@ export function useArchitectPlan(deps: ArchitectPlanDeps) {
             topicId,
             userId,
             content: round.architectStreamText || ' ',
+            message: planError,
             result: null,
             tokens: 0,
+            attempt: retryCount,
             status: 'Failed'
           })
         );
@@ -445,8 +447,10 @@ export function useArchitectPlan(deps: ArchitectPlanDeps) {
         topicId,
         userId,
         content: round.architectStreamText || ' ',
+        message: plan ? '' : planError,
         result: planResult,
-        tokens: planResult?.usage?.total_tokens || 0
+        tokens: planResult?.usage?.total_tokens || 0,
+        attempt: retryCount + 1
       })
     );
 
@@ -454,9 +458,7 @@ export function useArchitectPlan(deps: ArchitectPlanDeps) {
     if (!round.architectPlan) {
       // 优先反馈大模型自报的错误（如缺少关键信息），否则使用通用文案
       round.architectError = planError || Messages.planInvalid.text;
-      setStatus(
-        planError ? Messages.architectFailed(planError) : Messages.planInvalid
-      );
+      setStatus(Messages.architectFailed(round.architectError, retryCount));
       await finalizeFlow({
         topicId,
         traceId,
