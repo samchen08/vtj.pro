@@ -145,6 +145,54 @@ describe('parsePlanOutput', () => {
     );
   });
 
+  it('允许 active 从唯一创建依赖绑定运行时 ID', () => {
+    const registry = new ToolRegistry();
+    registry.register({
+      name: 'createBlock',
+      description: '创建区块',
+      parameters: [{ name: 'block', type: 'object', required: true }],
+      handler: async () => true
+    });
+    registry.register({
+      name: 'active',
+      description: '打开文件',
+      parameters: [{ name: 'id', type: 'string', required: true }],
+      handler: async () => true
+    });
+    const base = {
+      intent: '创建区块',
+      safety: 'write' as const,
+      steps: [
+        {
+          id: 'create',
+          type: 'tool_call' as const,
+          description: '创建',
+          toolName: 'createBlock',
+          parameters: [{ name: 'Card' }]
+        },
+        {
+          id: 'open',
+          type: 'tool_call' as const,
+          description: '打开',
+          toolName: 'active',
+          parameters: [],
+          dependsOn: ['create']
+        }
+      ]
+    };
+
+    expect(validatePlan(base, registry)).toEqual([]);
+    expect(
+      validatePlan(
+        {
+          ...base,
+          steps: [{ ...base.steps[1], dependsOn: [] }]
+        },
+        registry
+      ).map((issue) => issue.message)
+    ).toContain('参数不符合工具定义');
+  });
+
   it('拒绝不存在的工具和 target 模板占位符', () => {
     const registry = new ToolRegistry();
     const issues = validatePlan(

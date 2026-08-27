@@ -148,7 +148,9 @@ describe('useArchitectPlan.executeArchitectPlan', () => {
     ]);
     // 第一次保存为 Failed 标记的无效输出（供后端识别重试场景），第二次保存最终流式输出
     expect(deps.callLog[0][1].status).toBe('Failed');
+    expect(deps.callLog[0][1].attempt).toBe(1);
     expect(deps.callLog[0][1].content).toBe('plain text without plan json');
+    expect(deps.callLog[1][1].attempt).toBe(2);
     expect(deps.callLog[1][1].tokens).toBe(20);
     const updateBody = deps.callLog.find(
       ([name]) => name === 'updateTopic'
@@ -162,6 +164,7 @@ describe('useArchitectPlan.executeArchitectPlan', () => {
       status: 'failed',
       error: expect.stringContaining('未生成有效计划')
     });
+    expect(deps.statusText.value).toContain('已自动重试 1 次');
   });
 
   it('answers directly when the plan has no steps', async () => {

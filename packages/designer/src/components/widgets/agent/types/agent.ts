@@ -288,7 +288,9 @@ export interface SaveChatBody {
   topicId: string;
   userId: string;
   status?: string;
+  attempt?: number;
   content?: string;
+  message?: string;
   reasoning?: string;
   modelUsed?: string;
   tokens?: number;

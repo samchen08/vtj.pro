@@ -5,13 +5,15 @@
       class="v-apps-region__icon"
       :class="classes"
       @click="handleClick">
-      <component :is="icon"></component>
+      <ElBadge :is-dot="isDot">
+        <component :is="icon"></component>
+      </ElBadge>
     </div>
   </ElTooltip>
 </template>
 <script lang="ts" setup>
   import { computed } from 'vue';
-  import { ElTooltip } from 'element-plus';
+  import { ElTooltip, ElBadge } from 'element-plus';
   import type { VueComponent } from '../../framework';
 
   export interface Props {
@@ -19,11 +21,13 @@
     label?: string;
     active?: boolean;
     open?: boolean;
+    isDot?: boolean;
   }
 
   const props = withDefaults(defineProps<Props>(), {
     active: false,
-    open: false
+    open: false,
+    isDot: false
   });
 
   const emit = defineEmits(['click']);

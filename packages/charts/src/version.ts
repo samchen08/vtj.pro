@@ -2,7 +2,7 @@
  * Copyright (c) 2026, VTJ.PRO All rights reserved.
  * @name @vtj/charts 
  * @author CHC chenhuachun1549@dingtalk.com 
- * @version 0.19.18
+ * @version 0.19.19
  * @license <a href="https://vtj.pro/license.html">MIT License</a>
  */
-export const version = '0.19.18';
+export const version = '0.19.19';

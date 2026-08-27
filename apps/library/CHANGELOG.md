@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.14.9](https://github.com/samchen08/vtj.pro/compare/vtj-project-library@0.14.7...vtj-project-library@0.14.9) (2026-08-27)
+
+
+### Features
+
+* **designer:** 添加版本更新小红点提示 ([90b8645](https://github.com/samchen08/vtj.pro/commit/90b8645ec9b90d81222c3018b307d083d4a8caf8))
+
+
+
+
+
 ## [0.14.8](https://github.com/samchen08/vtj.pro/compare/vtj-project-library@0.14.7...vtj-project-library@0.14.8) (2026-08-26)
 
 **Note:** Version bump only for package vtj-project-library
