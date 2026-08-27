@@ -30,13 +30,15 @@ export function useOpenApi() {
       credentials: 'include'
     })
       .then(async (response) => {
-        if (!response.ok) throw new Error('登录已经失效');
+        if (!response.ok) return undefined;
         const result = await response.json();
         access.login(result?.data || result);
         return access.getToken();
       })
       .finally(() => refreshTasks.delete(access));
-    refreshTasks.set(access, task);
+    if (task) {
+      refreshTasks.set(access, task);
+    }
     return task;
   };
 
