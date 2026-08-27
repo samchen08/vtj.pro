@@ -9,7 +9,9 @@ export function buildChatSaveBody(opts: {
   topicId: string;
   userId: string;
   status?: string;
+  attempt?: number;
   content?: string;
+  message?: string;
   result: StreamCompletionResult | null;
   tokens?: number;
 }): SaveChatBody {
@@ -18,7 +20,9 @@ export function buildChatSaveBody(opts: {
     topicId: opts.topicId,
     userId: opts.userId,
     status: opts.status ?? 'Success',
+    attempt: opts.attempt,
     content: opts.content || ' ',
+    message: opts.message,
     reasoning: opts.result?.reasoning || '',
     modelUsed: opts.result?.modelUsed || '',
     tokens: opts.tokens || 0,

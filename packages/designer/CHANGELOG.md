@@ -3,6 +3,46 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.19.21](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.19.20...@vtj/designer@0.19.21) (2026-08-27)
+
+
+### Features
+
+* **openapi:** 新增发布云端项目功能 ([abfde26](https://gitee.com/newgateway/vtj/commits/abfde261910f4c31800e574a8b61c00ddb5738bb))
+
+
+
+
+
+## [0.19.20](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.19.19...@vtj/designer@0.19.20) (2026-08-27)
+
+
+### Features
+
+* **agent:** 增加 Architect 规划重试和错误消息支持 ([b507374](https://gitee.com/newgateway/vtj/commits/b5073741ce5c0cefb7f10f38762f472875b6fd57))
+
+
+
+
+
+## [0.19.19](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.19.17...@vtj/designer@0.19.19) (2026-08-27)
+
+
+### Bug Fixes
+
+* **hooks:** 优化 useOpenApi 请求失败处理 ([410396a](https://gitee.com/newgateway/vtj/commits/410396a46106e64427fe2926fd67613b6330e9e6))
+* **hooks:** 修复 useOpenApi 中 refreshTasks 的更新逻辑 ([998460d](https://gitee.com/newgateway/vtj/commits/998460d1179e87e36ff3c8e47f73b46e0128beb2))
+
+
+### Features
+
+* **designer:** 添加版本更新小红点提示 ([90b8645](https://gitee.com/newgateway/vtj/commits/90b8645ec9b90d81222c3018b307d083d4a8caf8))
+* **vite:** 支持开发和预览服务的自定义 CORS 配置 ([36044df](https://gitee.com/newgateway/vtj/commits/36044df32e5035b35d8bbe4132af67f3ebf8deda))
+
+
+
+
+
 ## [0.19.18](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.19.17...@vtj/designer@0.19.18) (2026-08-26)
 
 

@@ -1,4 +1,4 @@
-import type { PlatformType, BlockSchema } from '@vtj/core';
+import type { PlatformType, BlockSchema, ProjectSchema } from '@vtj/core';
 import type { AITopic, AIChat } from './types';
 export interface TemplateDto {
   id: string;
@@ -34,6 +34,19 @@ export interface PublishTemplateDto {
   latest?: string;
   dsl: string;
   id?: string;
+}
+
+export interface PublishCloudProjectDto {
+  project: ProjectSchema;
+  materials: Record<string, any>;
+  files: BlockSchema[];
+}
+
+export interface PublishCloudProjectResult {
+  app: string;
+  projectCount: number;
+  materialCount: number;
+  fileCount: number;
 }
 
 export interface TopicDto {
@@ -156,6 +169,12 @@ export abstract class OpenApi {
   public abstract publishTemplate?: (
     dto: PublishTemplateDto
   ) => Promise<boolean>;
+  /**
+   * 将本地项目 DSL 发布到在线开发环境
+   */
+  public abstract publishCloudProject?: (
+    dto: PublishCloudProjectDto
+  ) => Promise<PublishCloudProjectResult>;
   /**
    * 发送AI话题
    */

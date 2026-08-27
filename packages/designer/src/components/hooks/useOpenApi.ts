@@ -1,8 +1,10 @@
-import { jsonp } from '@vtj/utils';
+import { jsonp, mapToObject } from '@vtj/utils';
 import type { BlockSchema, PlatformType } from '@vtj/core';
 import {
   useEngine,
   type PublishTemplateDto,
+  type PublishCloudProjectDto,
+  type PublishCloudProjectResult,
   type TemplateDto,
   type TopicDto,
   type ChatDto,
@@ -30,7 +32,7 @@ export function useOpenApi() {
       credentials: 'include'
     })
       .then(async (response) => {
-        if (!response.ok) throw new Error('登录已经失效');
+        if (!response.ok) return undefined;
         const result = await response.json();
         access.login(result?.data || result);
         return access.getToken();
@@ -246,6 +248,54 @@ export function useOpenApi() {
     return new Promise((resolve, reject) => {
       return res?.success ? resolve(res.data) : reject(res);
     });
+  };
+
+  const publishCloudProject = async (): Promise<PublishCloudProjectResult> => {
+    const project = engine.project.value;
+    if (!project) throw new Error('本地项目不存在');
+
+    const projectDsl = project.toDsl();
+    const pages = project.getPages();
+    if (pages.some((page) => page.raw)) {
+      throw new Error('源码模式页面暂不支持发布云端');
+    }
+    const blocks = project.blocks.filter(
+      (block) =>
+        !block.preset && (!block.fromType || block.fromType === 'Schema')
+    );
+    const currentId = project.currentFile?.id;
+    const files = await Promise.all(
+      [...pages, ...blocks].map(async (file) => {
+        const dsl =
+          file.id === currentId && engine.current.value
+            ? engine.current.value.toDsl()
+            : await engine.service.getFile(file.id, projectDsl);
+        if (!dsl)
+          throw new Error(`文件「${file.title || file.name}」DSL 不存在`);
+        return dsl;
+      })
+    );
+    const dto: PublishCloudProjectDto = {
+      project: projectDsl,
+      materials: mapToObject(engine.assets.componentMap),
+      files
+    };
+    if (openApi?.publishCloudProject) {
+      return await openApi.publishCloudProject(dto);
+    }
+
+    const result = await authFetch(
+      (token) => `${remote}/api/open/project/dev/publish/${token}`,
+      {
+        method: 'post',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(dto)
+      }
+    ).then((response) => response.json());
+    if (!result?.success) {
+      throw new Error(result?.message || '发布云端失败');
+    }
+    return result.data as PublishCloudProjectResult;
   };
 
   const postTopic = async (dto: TopicDto) => {
@@ -678,6 +728,7 @@ export function useOpenApi() {
     getDictOptions,
     getTemplateCategories,
     publishTemplate,
+    publishCloudProject,
     getTemplateById,
     removeTemplate,
     postTopic,

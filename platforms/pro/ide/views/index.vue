@@ -54,6 +54,12 @@
 
   const isHashRouter = () => history === 'hash';
 
+  widgetManager.set('Actions', {
+    props: {
+      cloudPublish: true
+    }
+  });
+
   const fillPrefix = (path: string) => {
     if (path === '/') return '';
     if (path.startsWith('/')) {

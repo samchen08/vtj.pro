@@ -79,8 +79,15 @@
             v-if="engine.remote"
             command="template"
             :icon="VtjIconTemplate"
-            divided>
+            :divided="!props.cloudPublish">
             发布模板
+          </ElDropdownItem>
+          <ElDropdownItem
+            v-if="props.cloudPublish && engine.remote"
+            command="cloud"
+            :icon="VtjIconUpload"
+            divided>
+            发布云端
           </ElDropdownItem>
         </ElDropdownMenu>
       </template>
@@ -142,6 +149,7 @@
     VtjIconPublish,
     VtjIconProject,
     VtjIconPageSetting,
+    VtjIconUpload,
     Download,
     Lock
   } from '@vtj/icons';
@@ -157,6 +165,7 @@
     onlyPublishTemplate?: boolean;
     coder?: boolean;
     appMode?: boolean;
+    cloudPublish?: boolean;
     getAppsInit?: any;
     postAppsVersions?: any;
     postDslDevPublish?: any;
@@ -166,11 +175,12 @@
   const props = withDefaults(defineProps<Props>(), {
     onlyPublishTemplate: false,
     coder: false,
-    appMode: false
+    appMode: false,
+    cloudPublish: false
   });
 
   const { engine, designer } = useSelected();
-  const { isLogined, toRemoteAuth } = useOpenApi();
+  const { isLogined, toRemoteAuth, publishCloudProject } = useOpenApi();
   const isPreview = ref(false);
   const publisherVisible = ref(false);
   const publisherProps = ref();
@@ -308,6 +318,40 @@
     versionerRef?.value.openDialog();
   };
 
+  const onPublishCloud = async () => {
+    const project = engine.project.value;
+    if (!project) return;
+    if (!(await isLogined())) {
+      const ret = await ElMessageBox.confirm(
+        '发布云端需登录系统，您还没登录或登录已过期，请重新登录！',
+        '提示',
+        {
+          type: 'info',
+          confirmButtonText: '立即登录'
+        }
+      ).catch(() => false);
+      if (ret) toRemoteAuth();
+      return;
+    }
+    const confirmed = await ElMessageBox.confirm(
+      `将把本地项目「${project.id}」覆盖到同编码在线项目的开发环境，不影响线上版本。是否继续？`,
+      '发布云端',
+      {
+        type: 'warning',
+        confirmButtonText: '确认发布'
+      }
+    ).catch(() => false);
+    if (!confirmed) return;
+
+    const result = await publishCloudProject().catch(async (error) => {
+      await alert(error?.message || '发布云端失败');
+      return null;
+    });
+    if (result) {
+      message(`已发布 ${result.fileCount} 个文件到云端`, 'success');
+    }
+  };
+
   const onPublishCommand = (command: string) => {
     const project = engine.project.value;
     if (!project) return;
@@ -317,6 +361,9 @@
         break;
       case 'project':
         project.publish();
+        break;
+      case 'cloud':
+        onPublishCloud();
         break;
       case 'template':
         onPublishToTemplate();

@@ -18,6 +18,7 @@
           :key="`icon-${widget.name}`"
           :icon="widget.icon"
           :label="widget.label"
+          :is-dot="latest !== version"
           @click="handleClickOtherItem(widget)"></Icon>
       </div>
     </div>
@@ -48,8 +49,9 @@
   import { WidgetWrapper } from '../../wrappers';
   import { useEngine, RegionType, type AppWidget } from '../../framework';
   import { Icon } from '../shared';
-  import { useRegion, useOpenApi } from '../hooks';
+  import { useRegion, useOpenApi, useCheckVersion } from '../hooks';
   import { message } from '../../utils';
+  import { version } from '../../version';
 
   export interface Props {
     region: RegionType;
@@ -62,6 +64,7 @@
   const engine = useEngine();
   const { isLogined, toRemoteAuth } = useOpenApi();
   const { widgets, widgetsRef } = useRegion(props.region);
+  const { latest } = useCheckVersion();
   const panelWidgets = computed(() => {
     return (widgets.value as AppWidget[]).filter((n) => {
       return n.openType === 'panel';
