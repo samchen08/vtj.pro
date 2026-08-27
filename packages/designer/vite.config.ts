@@ -21,7 +21,8 @@ export default createViteConfig({
     'mockjs',
     'monaco-editor',
     'marked',
-    'highlight.js'
+    // @ts-ignore
+    /^highlight\.js\/lib\//
     // 'monaco-editor/esm/vs/editor/editor.worker?worker',
     // 'monaco-editor/esm/vs/language/json/json.worker?worker',
     // 'monaco-editor/esm/vs/language/css/css.worker?worker',
