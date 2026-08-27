@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.19.20](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.19.19...@vtj/designer@0.19.20) (2026-08-27)
+
+
+### Features
+
+* **agent:** 增加 Architect 规划重试和错误消息支持 ([b507374](https://gitee.com/newgateway/vtj/commits/b5073741ce5c0cefb7f10f38762f472875b6fd57))
+
+
+
+
+
 ## [0.19.19](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.19.17...@vtj/designer@0.19.19) (2026-08-27)
 
 
