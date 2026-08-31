@@ -2,7 +2,7 @@
  * Copyright (c) 2026, VTJ.PRO All rights reserved.
  * @name @vtj/designer 
  * @author CHC chenhuachun1549@dingtalk.com 
- * @version 0.19.22
+ * @version 0.19.23-alpha.0
  * @license <a href="https://vtj.pro/license.html">MIT License</a>
  */
-export const version = '0.19.22';
+export const version = '0.19.23-alpha.0';
