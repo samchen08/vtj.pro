@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.19.23-alpha.0](https://gitee.com/newgateway/vtj/compare/@vtj/uni@0.19.22...@vtj/uni@0.19.23-alpha.0) (2026-08-31)
+
+
+### Features
+
+* **core:** 实现项目文件路径和路由路径规范管理 ([dcb6b58](https://gitee.com/newgateway/vtj/commits/dcb6b58fa6830d3e64a0e431b15660de8382d0ef))
+
+
+
+
+
 ## [0.19.22](https://gitee.com/newgateway/vtj/compare/@vtj/uni@0.19.21...@vtj/uni@0.19.22) (2026-08-27)
 
 **Note:** Version bump only for package @vtj/uni
