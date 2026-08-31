@@ -19,33 +19,26 @@
       :tip="isUniapp ? `UniApp不支持目录和布局类型` : undefined"
       required></XField>
     <XField
-      v-if="!model.dir && !!props.item && !isLayout"
-      label="路由"
-      disabled>
-      <template #editor>
-        <ElAlert :closable="false">
-          {{
-            `${engine.options.pageBasePath || ''}/${pageDir}/${(model as any).id}`
-          }}
-          <XIcon
-            :icon="CopyDocument"
-            @click="
-              onCopy(
-                `${engine.options.pageBasePath || ''}/${pageDir}/${(model as any).id}`
-              )
-            "></XIcon>
-        </ElAlert>
-      </template>
-    </XField>
-    <XField
       name="name"
       label="名称"
       required
+      :disabled="!!props.item?.raw"
       @change="onNameChange"
       :rules="{
         pattern: NAME_REGEX,
         message: '名称格式不正确，要求英文驼峰格式'
       }"></XField>
+    <XField v-if="!model.dir" label="路由" disabled>
+      <template #editor>
+        <ElInput :model-value="routePath" readonly>
+          <template #suffix>
+            <XIcon
+              :icon="CopyDocument"
+              @click="onCopy(routePath)"></XIcon>
+          </template>
+        </ElInput>
+      </template>
+    </XField>
     <XField name="title" label="标题" required></XField>
     <XField
       v-if="!isUniapp && !isLayout"
@@ -146,9 +139,16 @@
 <script lang="ts" setup>
   import { computed, ref, watch } from 'vue';
   import { XDialogForm, XField, XIcon } from '@vtj/ui';
-  import { type PageFile } from '@vtj/core';
+  import {
+    getPageNamePath,
+    getPageRoutePath,
+    getUniPagePath,
+    isValidFilePath,
+    isValidRoutePath,
+    type PageFile
+  } from '@vtj/core';
   import { useClipboard } from '@vueuse/core';
-  import { ElAlert, ElMessage } from 'element-plus';
+  import { ElInput, ElMessage } from 'element-plus';
   import { CopyDocument } from '@vtj/icons';
   import { upperFirstCamelCase } from '@vtj/utils';
   import IconSetter from '../../setters/icon.vue';
@@ -193,6 +193,30 @@
     noMask.value ? 'calc(100% - 360px)' : 'calc(100% - 450px)'
   );
   const isLayout = computed(() => !!model.value.layout);
+  const previewFile = computed(() => {
+    const file = {
+      ...model.value,
+      id: model.value?.id || model.value?.name || 'page'
+    } as PageFile;
+    if (!props.item && !file.dir) {
+      file.filePath = getPageNamePath(file.name || 'page');
+      file.routePath = isUniapp.value
+        ? undefined
+        : `/page/${file.filePath}`;
+    }
+    return file;
+  });
+
+  const routePath = computed(() => {
+    if (isUniapp.value) {
+      return `/${getUniPagePath(previewFile.value)}`;
+    }
+    return getPageRoutePath(
+      previewFile.value,
+      engine.options.pageBasePath || '',
+      pageDir.value
+    );
+  });
 
   const createEmptyModel = () => ({
     __type: 'page',
@@ -279,6 +303,16 @@
   const submit = async (_data: any) => {
     const data = { ..._data };
     delete data.__type;
+    if (!data.filePath) delete data.filePath;
+    if (!data.routePath) delete data.routePath;
+    if (!isValidFilePath(data.filePath)) {
+      notify('文件路径格式不正确');
+      return false;
+    }
+    if (!isValidRoutePath(data.routePath)) {
+      notify('访问路由格式不正确');
+      return false;
+    }
     if (data.layout) {
       data.pure = true;
       data.mask = false;
@@ -288,12 +322,17 @@
       notify('页面名称已存在，请更换');
       return false;
     }
-    if (!!props.item) {
-      project.value?.updatePage(data);
-      designer.value?.setSelected(null);
-      engine.simulator.refresh();
-    } else {
-      project.value?.createPage(data, props.parentId);
+    try {
+      if (!!props.item) {
+        project.value?.updatePage(data);
+        designer.value?.setSelected(null);
+        engine.simulator.refresh();
+      } else {
+        await project.value?.createPage(data, props.parentId);
+      }
+    } catch (e) {
+      notify((e as Error).message);
+      return false;
     }
     return true;
   };

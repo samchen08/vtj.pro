@@ -43,7 +43,8 @@ export interface Token {
 export function parser(
   collecter: Collecter,
   componentMap: Map<string, MaterialDescription>,
-  platform: PlatformType = 'web'
+  platform: PlatformType = 'web',
+  resolveBlockImport?: (id: string) => string
 ): Token {
   const { dsl } = collecter;
   const computedKeys = Object.keys(dsl.computed || {});
@@ -72,7 +73,8 @@ export function parser(
   );
 
   const blocksImport = importBlocks.map((n: any) => {
-    return `import ${n.name} from './${n.id}.vue';`;
+    const from = resolveBlockImport?.(n.id) || `./${n.id}.vue`;
+    return `import ${n.name} from '${from}';`;
   });
 
   let { imports, uniComponents } = parseImports(

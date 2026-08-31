@@ -109,6 +109,43 @@ describe('generator', () => {
     expect(content).toContain("name: 'OptionsTest'");
   });
 
+  test('should resolve schema block imports from project file paths', async () => {
+    const dsl = {
+      id: 'page-1',
+      name: 'HomePage',
+      apiMode: 'composition',
+      nodes: [
+        {
+          id: 'node-1',
+          name: 'UserCard',
+          from: { type: 'Schema', id: 'block-1' }
+        }
+      ]
+    };
+    const content = await generator({
+      dsl: dsl as any,
+      formatterDisabled: true,
+      project: {
+        name: 'Test',
+        pages: [
+          { id: 'page-1', type: 'page', name: 'HomePage', title: 'Home' }
+        ],
+        blocks: [
+          {
+            id: 'block-1',
+            type: 'block',
+            name: 'UserCard',
+            title: 'Card',
+            filePath: 'user/UserCard'
+          }
+        ]
+      }
+    });
+    expect(content).toContain(
+      "import UserCard from '@/components/user/UserCard.vue';"
+    );
+  });
+
   test('should handle empty nodes', async () => {
     const dsl = {
       id: 'empty-1',
@@ -278,7 +315,7 @@ describe('createEmptyPage', () => {
     expect(content).toContain('<template>');
     expect(content).toContain('<div>');
     expect(content).toContain('源码模式页面');
-    expect(content).toContain('文件路径：/.vtj/vue/page-1.vue');
+    expect(content).toContain('文件路径：/src/views/page-1.vue');
     expect(content).toContain('</div>');
     expect(content).toContain('</template>');
     expect(content).toContain('<script lang="ts" setup>');

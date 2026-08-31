@@ -27,6 +27,11 @@ export interface BlockFile {
   id: string;
 
   /**
+   * 相对源码根目录的文件路径，不包含.vue后缀
+   */
+  filePath?: string;
+
+  /**
    *  文件名
    */
   name: string;
@@ -79,6 +84,11 @@ export interface BlockFile {
  * 页面描述
  */
 export interface PageFile extends BlockFile {
+  /**
+   * Web、H5页面路由
+   */
+  routePath?: string;
+
   /**
    * 是否目录
    */

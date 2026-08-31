@@ -21,13 +21,25 @@ import type {
   I18nConfig,
   EnvConfig
 } from '../protocols';
-import { emitter, type ModelEventType } from '../tools';
+import {
+  emitter,
+  getFilePath,
+  getPageNamePath,
+  getPageRoutePath,
+  getUniPagePath,
+  normalizeFilePath,
+  normalizeRoutePath,
+  isValidFilePath,
+  isValidRoutePath,
+  type ModelEventType
+} from '../tools';
 import { BlockModel } from './block';
 
 export interface ProjectModelEvent {
   model: ProjectModel;
   type: ModelEventType;
   data: any;
+  previous?: PageFile | BlockFile;
 }
 
 /**
@@ -332,9 +344,22 @@ export class ProjectModel {
    * @param silent
    */
   async createPage(page: PageFile, parentId?: string, silent: boolean = false) {
-    // 源码文件用name作为文件名
-    page.id = page.raw ? page.name : page.id || uid();
+    page.id = page.id || uid();
     page.type = 'page';
+    page.name = upperFirstCamelCase(page.name);
+    if (this.existPageName(page.name)) {
+      throw new Error(`页面名称【${page.name}】已经存在`);
+    }
+    if (!page.dir) {
+      const path = getPageNamePath(page.name);
+      page.filePath = path;
+      page.routePath =
+        this.platform === 'uniapp' ? undefined : `/page/${path}`;
+    } else {
+      delete page.filePath;
+      delete page.routePath;
+    }
+    this.validatePagePath(page);
     if (page.dir) {
       page.children = [];
     } else {
@@ -388,8 +413,27 @@ export class ProjectModel {
    */
   updatePage(page: PageFile, silent: boolean = false) {
     const match = this.getPage(page.id);
+    let previous: PageFile | undefined;
     delete page.dsl;
     if (match) {
+      previous = { ...match };
+      page.name = upperFirstCamelCase(page.name);
+      if (this.existPageName(page.name, [page.id])) {
+        throw new Error(`页面名称【${page.name}】已经存在`);
+      }
+      if (page.name !== match.name && !match.raw) {
+        const oldPath = getPageNamePath(match.name);
+        if (match.filePath === oldPath) {
+          page.filePath = getPageNamePath(page.name);
+        }
+        if (
+          this.platform !== 'uniapp' &&
+          match.routePath === `/page/${oldPath}`
+        ) {
+          page.routePath = `/page/${getPageNamePath(page.name)}`;
+        }
+      }
+      this.validatePagePath(page, [page.id]);
       Object.assign(match, page);
     } else {
       console.warn(`not found PageFile for id: ${page.id} `);
@@ -398,7 +442,8 @@ export class ProjectModel {
       const event: ProjectModelEvent = {
         model: this,
         type: 'update',
-        data: page
+        data: page,
+        previous
       };
       emitter.emit(EVENT_PROJECT_PAGES_CHANGE, event);
       emitter.emit(EVENT_PROJECT_CHANGE, event);
@@ -484,7 +529,9 @@ export class ProjectModel {
    */
   clonePage(page: PageFile, parentId?: string, silent: boolean = false) {
     const id = uid();
-    const name = `${page.name}Copy`;
+    const name = this.createUniquePath(`${page.name}Copy`, (value) =>
+      this.existPageName(value)
+    );
     const title = `${page.title}_副本`;
 
     const dsl = new BlockModel({
@@ -492,7 +539,17 @@ export class ProjectModel {
       name,
       apiMode: 'composition'
     }).toDsl();
-    const newPage = merge({}, page, { id, name, title, dsl });
+    const filePath = getPageNamePath(name);
+    const routePath =
+      this.platform === 'uniapp' ? undefined : `/page/${filePath}`;
+    const newPage = merge({}, page, {
+      id,
+      name,
+      title,
+      filePath,
+      routePath,
+      dsl
+    });
     const pages = parentId
       ? this.getPage(parentId)?.children || []
       : this.pages;
@@ -517,7 +574,9 @@ export class ProjectModel {
     this.active(page, silent);
     await delay(1000);
     const id = uid();
-    const name = page.name;
+    const name = this.createUniquePath(page.name, (value) =>
+      this.existBlockName(value)
+    );
     const title = page.title;
     const dsl = new BlockModel({
       ...page.dsl,
@@ -525,14 +584,15 @@ export class ProjectModel {
       name
     }).toDsl();
 
-    const block: BlockFile = merge({}, page, {
+    const block: BlockFile = {
       id,
       name,
       title,
+      filePath: name,
       dsl,
       type: 'block',
       fromType: 'Schema'
-    });
+    };
 
     this.blocks.push(block);
     if (!silent) {
@@ -605,8 +665,18 @@ export class ProjectModel {
     const id = block.id || uid();
     const name = upperFirstCamelCase(block.name);
     block.id = id;
+    block.name = name;
     block.type = 'block';
     block.fromType = block.fromType || 'Schema';
+    if (this.existBlockName(name)) {
+      throw new Error(`区块名称【${name}】已经存在`);
+    }
+    if (block.fromType === 'Schema') {
+      block.filePath = name;
+    } else {
+      delete block.filePath;
+    }
+    this.validateBlockPath(block);
     block.dsl = new BlockModel({ id, name, apiMode: 'composition' }).toDsl();
     this.blocks.push(block);
     const type = block.fromType || 'Schema';
@@ -636,7 +706,21 @@ export class ProjectModel {
    */
   updateBlock(block: BlockFile, silent: boolean = false) {
     const match = this.getBlock(block.id);
+    let previous: BlockFile | undefined;
     if (match) {
+      previous = { ...match };
+      block.name = upperFirstCamelCase(block.name);
+      if (this.existBlockName(block.name, [block.id])) {
+        throw new Error(`区块名称【${block.name}】已经存在`);
+      }
+      if (
+        block.name !== match.name &&
+        (match.fromType || 'Schema') === 'Schema' &&
+        match.filePath === match.name
+      ) {
+        block.filePath = block.name;
+      }
+      this.validateBlockPath(block, [block.id]);
       Object.assign(match, block);
       if (match.dsl) {
         match.dsl.name = block.name;
@@ -648,7 +732,8 @@ export class ProjectModel {
       const event: ProjectModelEvent = {
         model: this,
         type: 'update',
-        data: block
+        data: block,
+        previous
       };
       emitter.emit(EVENT_PROJECT_BLOCKS_CHANGE, event);
       emitter.emit(EVENT_PROJECT_CHANGE, event);
@@ -658,7 +743,9 @@ export class ProjectModel {
 
   cloneBlock(block: BlockFile, silent: boolean = false) {
     const id = uid();
-    const name = `${block.name}Copy`;
+    const name = this.createUniquePath(`${block.name}Copy`, (value) =>
+      this.existBlockName(value)
+    );
     const title = `${block.title}_副本`;
 
     const dsl = new BlockModel({
@@ -666,7 +753,8 @@ export class ProjectModel {
       name,
       apiMode: 'composition'
     }).toDsl();
-    const newBlock = merge({}, block, { id, name, title, dsl });
+    const filePath = name;
+    const newBlock = merge({}, block, { id, name, title, filePath, dsl });
     const index = this.blocks.findIndex((n) => n.id === block.id);
     this.blocks.splice(index + 1, 0, newBlock);
     if (!silent) {
@@ -718,9 +806,19 @@ export class ProjectModel {
    * @returns
    */
   existBlockName(name: string, excludes: string[] = []) {
+    const target = name.toLowerCase();
     return this.blocks.some((n) => {
-      return n.name === name && !excludes.includes(n.id);
+      return n.name.toLowerCase() === target && !excludes.includes(n.id);
     });
+  }
+
+  existBlockFilePath(path: string, excludes: string[] = []) {
+    const target = normalizeFilePath(path).toLowerCase();
+    return this.blocks.some(
+      (item) =>
+        getFilePath(item).toLowerCase() === target &&
+        !excludes.includes(item.id)
+    );
   }
 
   /**
@@ -730,8 +828,78 @@ export class ProjectModel {
    * @returns
    */
   existPageName(name: string, excludes: string[] = []) {
-    const pages = this.getPages();
-    return pages.some((n) => n.name === name && !excludes.includes(n.id));
+    const target = name.toLowerCase();
+    const finder = (pages: PageFile[]): boolean => {
+      return pages.some((page) => {
+        if (
+          page.name.toLowerCase() === target &&
+          !excludes.includes(page.id)
+        ) {
+          return true;
+        }
+        return page.children?.length ? finder(page.children) : false;
+      });
+    };
+    return finder(this.pages);
+  }
+
+  existPageFilePath(path: string, excludes: string[] = []) {
+    const target = normalizeFilePath(path).toLowerCase();
+    return this.getPages().some(
+      (item) =>
+        getFilePath(item).toLowerCase() === target &&
+        !excludes.includes(item.id)
+    );
+  }
+
+  existRoutePath(path: string, excludes: string[] = []) {
+    const target = normalizeRoutePath(path).replace(/:[^/]+/g, ':');
+    return this.getPages().some((item) => {
+      const route = getPageRoutePath(item).replace(/:[^/]+/g, ':');
+      return route === target && !excludes.includes(item.id);
+    });
+  }
+
+  private validatePagePath(page: PageFile, excludes: string[] = []) {
+    const filePath = getFilePath(page);
+    if (!page.dir && !isValidFilePath(filePath)) {
+      throw new Error(`页面文件路径【${filePath}】格式不正确`);
+    }
+    if (!isValidRoutePath(page.routePath)) {
+      throw new Error(`页面路由【${page.routePath}】格式不正确`);
+    }
+    if (!page.dir && this.existPageFilePath(getFilePath(page), excludes)) {
+      throw new Error(`页面文件路径【${getFilePath(page)}】已经存在`);
+    }
+    const routePath = getPageRoutePath(page);
+    if (!page.dir && this.existRoutePath(routePath, excludes)) {
+      throw new Error(`页面路由【${routePath}】已经存在`);
+    }
+  }
+
+  private validateBlockPath(block: BlockFile, excludes: string[] = []) {
+    const filePath = getFilePath(block);
+    if (!isValidFilePath(filePath)) {
+      throw new Error(`区块文件路径【${filePath}】格式不正确`);
+    }
+    const fromType =
+      block.fromType || this.getBlock(block.id)?.fromType || 'Schema';
+    if (
+      fromType === 'Schema' &&
+      this.existBlockFilePath(getFilePath(block), excludes)
+    ) {
+      throw new Error(`区块文件路径【${getFilePath(block)}】已经存在`);
+    }
+  }
+
+  private createUniquePath(path: string, exists: (value: string) => boolean) {
+    const base = path;
+    let value = base;
+    let index = 2;
+    while (exists(value)) {
+      value = `${base}${index++}`;
+    }
+    return value;
   }
 
   /**
@@ -984,9 +1152,12 @@ export class ProjectModel {
     const pages = this.getPages();
     const base = pageBasePath || '';
     return pages.map((n) => {
+      const path = isUniapp
+        ? `/${getUniPagePath(n)}`
+        : getPageRoutePath(n, `${base}/`, pageDir);
       return {
         id: n.id,
-        path: `${base}/${pageDir}/${n.id}`,
+        path,
         name: n.name,
         title: n.title,
         meta: n.meta

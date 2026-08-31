@@ -1,4 +1,9 @@
-import type { UniConfig, JSFunction } from '@vtj/core';
+import {
+  flattenPages,
+  getUniPagePath,
+  type UniConfig,
+  type JSFunction
+} from '@vtj/core';
 import type { Provider } from '@vtj/renderer';
 import type { SetupUniAppOptions, UniRoute } from '../types';
 import { mergeOptions } from '../utils';
@@ -69,13 +74,16 @@ export async function createUniRoutes(
   includeBlock: boolean = false,
   basePath: string = ROUTE_PAGE_BASE_PATH
 ) {
-  const pages = provider.project?.pages || [];
+  const pages = flattenPages(provider.project?.pages || []);
   const routes: UniRoute[] = [];
   for (const page of pages) {
     const home = provider.project?.homepage === page.id;
     routes.push({
       id: page.id,
-      path: `${basePath}/${page.id}`,
+      path:
+        basePath === ROUTE_PAGE_BASE_PATH
+          ? `/${getUniPagePath(page)}`
+          : `${basePath}/${page.id}`,
       loader: createUniLoader(provider, page.id),
       style: {
         navigationBarTitleText: page.title,

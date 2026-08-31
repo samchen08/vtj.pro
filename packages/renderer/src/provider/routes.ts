@@ -1,4 +1,4 @@
-import type { PageFile } from '@vtj/core';
+import { getPageRoutePath, type PageFile } from '@vtj/core';
 import type { RouteRecordRaw, RouteMeta } from 'vue-router';
 
 export interface CreateStaticRoutesOptions {
@@ -16,7 +16,7 @@ function createRoute(page: PageFile, options: CreateStaticRoutesOptions) {
   const { name = 'page', prefix = '', component, routeMeta } = options;
   const item: RouteRecordRaw = {
     name: id,
-    path: `${prefix}${name}/${id}`,
+    path: getPageRoutePath(page, prefix, name),
     component,
     meta: {
       title,
@@ -25,6 +25,13 @@ function createRoute(page: PageFile, options: CreateStaticRoutesOptions) {
       __vtj__: id
     }
   };
+  if (page.routePath || page.filePath) {
+    item.alias = getPageRoutePath(
+      { ...page, filePath: undefined, routePath: undefined },
+      prefix,
+      name
+    );
+  }
   return item;
 }
 
@@ -84,6 +91,7 @@ export function createStaticRoutes(options: CreateStaticRoutesOptions) {
           const home = createRoute(page, options);
           home.path = '';
           home.name = `home_${id}`;
+          delete home.alias;
           result.push(home);
         }
       }

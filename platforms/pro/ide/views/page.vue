@@ -9,6 +9,7 @@
     LocalService,
     ContextMode,
     Extension,
+    ProjectModel,
     createAdapter,
     createServiceRequest,
     setupPageSetting
@@ -27,7 +28,13 @@
     access: config?.access
   });
   const options = config ? await new Extension(config).load() : {};
-  const { __BASE_PATH__ = '/' } = config || {};
+  const {
+    __BASE_PATH__ = '/',
+    base = '/'
+  } = config || {};
+  const pageRouteName = options.pageRouteName || 'page';
+  const pageBasePath =
+    options.pageBasePath ?? (base === '/' ? '' : base);
   const { provider, onReady } = createProvider({
     mode: ContextMode.Runtime,
     service,
@@ -45,9 +52,39 @@
   const renderer = ref();
   const instance = getCurrentInstance();
 
+  const matchRoutePath = (pattern: string, path: string) => {
+    const patterns = pattern.split('/').filter(Boolean);
+    const paths = path.split('/').filter(Boolean);
+    return (
+      patterns.length === paths.length &&
+      patterns.every((item, index) => {
+        return item.startsWith(':') || item === paths[index];
+      })
+    );
+  };
+
+  const getPageId = () => {
+    const project = provider.project;
+    const page = project
+      ? new ProjectModel(project)
+          .getPageRoutes(pageRouteName, pageBasePath)
+          .find((item) => matchRoutePath(item.path, route.path))
+      : undefined;
+    return (
+      page?.id ||
+      (route.meta.__vtj__ as string) ||
+      route.params.id?.toString()
+    );
+  };
+
   const setupPage = async (app: App) => {
+    const pageId = getPageId();
+    if (!pageId) {
+      renderer.value = null;
+      return;
+    }
     renderer.value = await provider.getRenderComponent(
-      route.params.id.toString(),
+      pageId,
       (file: any) => {
         setupPageSetting(app, route, file);
       }
@@ -64,13 +101,11 @@
   });
 
   watch(
-    () => route.params.id,
-    async (id) => {
-      if (id) {
-        const app = instance?.appContext.app;
-        if (!app) return;
-        setupPage(app);
-      }
+    () => route.path,
+    async () => {
+      const app = instance?.appContext.app;
+      if (!app) return;
+      setupPage(app);
     }
   );
 </script>
