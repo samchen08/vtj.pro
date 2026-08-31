@@ -32,9 +32,7 @@
       <template #editor>
         <ElInput :model-value="routePath" readonly>
           <template #suffix>
-            <XIcon
-              :icon="CopyDocument"
-              @click="onCopy(routePath)"></XIcon>
+            <XIcon :icon="CopyDocument" @click="onCopy(routePath)"></XIcon>
           </template>
         </ElInput>
       </template>
@@ -88,7 +86,7 @@
       tip="页面默认不带背景和内边距，仅Web平台有效"
       :disabled="!isWebPlatform"></XField> -->
 
-    <XField
+    <!-- <XField
       v-if="!noMask && !isLayout"
       :visible="{ dir: false }"
       :disabled="!!props.item"
@@ -96,7 +94,7 @@
       name="raw"
       label="源码模式"
       editor="switch"
-      tip="页面是非低代码开发，不能在线编辑"></XField>
+      tip="页面是非低代码开发，不能在线编辑"></XField> -->
 
     <XField
       v-if="!isUniapp && !isLayout"
@@ -200,9 +198,7 @@
     } as PageFile;
     if (!props.item && !file.dir) {
       file.filePath = getPageNamePath(file.name || 'page');
-      file.routePath = isUniapp.value
-        ? undefined
-        : `/page/${file.filePath}`;
+      file.routePath = isUniapp.value ? undefined : `/page/${file.filePath}`;
     }
     return file;
   });
