@@ -10,7 +10,9 @@ import {
   type BlockFile,
   type PlatformType,
   type VTJConfig,
-  type EnhanceConfig
+  type EnhanceConfig,
+  getFilePath,
+  flattenPages
 } from '@vtj/core';
 import { resolve } from 'path';
 import {
@@ -76,15 +78,16 @@ export async function getExtension(_body: any, opts: DevToolsOptions) {
 
   const { vtj = {} } = pkg || {};
 
+  const defaultRemote = 'https://app.vtj.pro';
   const __ACCESS__ = {
-    auth: 'https://app.vtj.pro/#/login',
+    auth: vtj.remote ? `${vtj.remote}/#/login` : `${defaultRemote}/#/login`,
     storageKey: 'RRO_IDE_ACCESS_STORAGE__',
     privateKey:
       'MIIBOgIBAAJBAKoIzmn1FYQ1YOhOBw9EhABxZ+PySAIaydI+zdhoKflrdgJ4A5E4/5gbQmRpk09hPWG8nvX7h+l/QLU8kXxAIBECAwEAAQJAAlgpxQY6sByLsXqzJcthC8LSGsLf2JEJkHwlnpwFqlEV8UCkoINpuZ2Wzl+aftURu5rIfAzRCQBvHmeOTW9/zQIhAO5ufWDmnSLyfAAsNo5JRNpVuLFCFodR8Xm+ulDlosR/AiEAtpAltyP9wmCABKG/v/hrtTr3mcvFNGCjoGa9bUAok28CIHbrVs9w1ijrBlvTsXYwJw46uP539uKRRT4ymZzlm9QjAiB+1KH/G9f9pEEL9rtaSOG7JF5D0JcOjlze4MGVFs+ZrQIhALKOUFBNr2zEsyJIjw2PlvEucdlG77UniszjXTROHSPd'
   };
 
   const config: VTJConfig = {
-    remote: 'https://app.vtj.pro',
+    remote: defaultRemote,
     enhance,
     ...vtj,
     history: vtj.history || 'hash',
@@ -392,12 +395,13 @@ export async function publishFile(
   });
   const dsl = fileRepository.get(file.id as string);
   if (dsl) {
-    const content = await generator(
+    const content = await generator({
       dsl,
       componentMap,
-      project.dependencies,
-      project.platform
-    ).catch((e) => {
+      dependencies: project.dependencies,
+      platform: project.platform,
+      project
+    }).catch((e) => {
       try {
         saveLogs(
           {
@@ -414,9 +418,9 @@ export async function publishFile(
     });
     const vueRepository = new VueRepository({
       platform: _platform,
-      dir: opts.vtjRawDir
+      dir: getSourceRoot(file, project.platform || _platform)
     });
-    vueRepository.save(file.id as string, content);
+    vueRepository.save(getFilePath(file), content);
     return success(true);
   } else {
     return fail('文件不存在');
@@ -441,7 +445,7 @@ export async function publish(project: ProjectSchema, opts: DevToolsOptions) {
       await publishFile(project, block, componentMap, opts);
     }
   }
-  for (const page of pages) {
+  for (const page of flattenPages(pages)) {
     if (!page.raw) {
       await publishFile(project, page, componentMap, opts);
     }
@@ -481,12 +485,13 @@ export async function genVueContent(
     Object.entries(materials || {})
   );
 
-  const content = await generator(
+  const content = await generator({
     dsl,
     componentMap,
-    project.dependencies,
-    project.platform
-  ).catch((e) => {
+    dependencies: project.dependencies,
+    platform: project.platform,
+    project
+  }).catch((e) => {
     throw e;
   });
   return success(content);
@@ -501,23 +506,37 @@ export async function parseVue(options: IParseVueOptions) {
   return errors ? fail(errors) : success(dsl);
 }
 
+function getSourceRoot(file: PageFile | BlockFile, platform: PlatformType) {
+  if (file.type === 'block') return 'src/components';
+  return platform === 'uniapp' ? 'src/pages' : 'src/views';
+}
+
 export async function createRawPage(file: PageFile, opts: DevToolsOptions) {
   const repository = new VueRepository({
     platform: _platform,
-    dir: opts.vtjRawDir
+    dir: getSourceRoot(file, _platform)
   });
 
-  const page = await createEmptyPage(file);
-  repository.save(file.id as string, page);
+  const page = await createEmptyPage(file, _platform);
+  repository.save(getFilePath(file), page);
   return success(true);
 }
 
-export async function removeRawPage(id: string, opts: DevToolsOptions) {
+export async function removeRawPage(
+  id: string,
+  project: ProjectSchema | undefined,
+  target: PageFile | BlockFile | undefined,
+  opts: DevToolsOptions
+) {
+  const file =
+    target ||
+    flattenPages(project?.pages || []).find((item) => item.id === id) ||
+    project?.blocks?.find((item) => item.id === id);
   const repository = new VueRepository({
     platform: _platform,
-    dir: opts.vtjRawDir
+    dir: file ? getSourceRoot(file, _platform) : opts.vtjRawDir
   });
-  repository.remove(id);
+  repository.remove(file ? getFilePath(file) : id);
   return success(true);
 }
 

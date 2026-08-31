@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.14.0](https://gitee.com/newgateway/vtj/compare/create-vtj@0.13.1...create-vtj@0.14.0) (2026-08-31)
+
+
+### Bug Fixes
+
+* **npmrc:** 清除模板中的多余配置项 ([08c0891](https://gitee.com/newgateway/vtj/commits/08c08916083ce7321826ad2b990e5a932573787e))
+
+
+
+
+
 ## [0.13.1](https://gitee.com/newgateway/vtj/compare/create-vtj@0.13.0...create-vtj@0.13.1) (2026-07-14)
 
 **Note:** Version bump only for package create-vtj

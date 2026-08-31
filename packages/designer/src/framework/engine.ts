@@ -40,7 +40,8 @@ import {
   type HistoryItem,
   type HistoryModelEvent,
   type BlockSchema,
-  type EnhanceConfig
+  type EnhanceConfig,
+  getSourceFilePath
 } from '@vtj/core';
 import {
   type Context,
@@ -458,7 +459,10 @@ export class Engine extends Base {
       const file = e.data as BlockFile | PageFile;
       if (project.isPageFile(file) && !!file.raw) {
         await this.service.createRawPage(file, projectDsl);
-        message(`源码文件已经生成：/.vtj/vue/${file.id}.vue`, 'success');
+        message(
+          `源码文件已经生成：/${getSourceFilePath(file, project.platform)}`,
+          'success'
+        );
       } else {
         file.dsl && (await this.service.saveFile(file.dsl, projectDsl));
       }
@@ -466,6 +470,7 @@ export class Engine extends Base {
 
     if (type === 'update') {
       const file = e.data as BlockFile | PageFile;
+      const previous = e.previous;
       if (project.isPageFile(file) && (file.dir || file.raw)) {
         return;
       }
@@ -474,17 +479,29 @@ export class Engine extends Base {
         dsl.name = file.name;
         Object.assign(dsl, file.dsl || {});
         await this.service.saveFile(dsl, projectDsl);
+        if (
+          previous &&
+          getSourceFilePath(previous, project.platform) !==
+            getSourceFilePath(file, project.platform)
+        ) {
+          await this.service.removeRawPage(
+            previous.id,
+            projectDsl,
+            previous
+          );
+          await this.service.publishFile(projectDsl, file);
+        }
       }
     }
 
     if (type === 'delete') {
       const file = e.data as BlockFile | PageFile;
       if (file && project.isPageFile(file) && !!file.raw) {
-        await this.service.removeRawPage(file.id, projectDsl);
+        await this.service.removeRawPage(file.id, projectDsl, file);
       } else {
         if (file && !(file as PageFile).dir) {
           await this.service.removeFile(file.id, projectDsl);
-          await this.service.removeRawPage(file.id, projectDsl);
+          await this.service.removeRawPage(file.id, projectDsl, file);
           await this.service.removeHistory(file.id, projectDsl);
         }
       }

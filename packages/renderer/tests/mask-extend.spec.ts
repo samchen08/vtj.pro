@@ -72,7 +72,7 @@ describe('createMenus', () => {
   test('uses custom route name prefix', () => {
     const pages = [{ id: 'test', title: 'Test' }];
     const result = createMenus('/', 'custom', pages as any);
-    expect(result[0].url).toBe('//custom/test');
+    expect(result[0].url).toBe('/custom/test');
   });
 
   test('handles inner pages with children correctly', () => {

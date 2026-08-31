@@ -1,14 +1,20 @@
 import { ContextMode } from './renderer';
 
-
 export function createModules(mode: ContextMode = ContextMode.Runtime) {
   if (mode === ContextMode.Runtime || process.env.NODE_ENV === 'development') {
     return import.meta.glob([
       '/.vtj/projects/*.json',
       '/.vtj/files/*.json',
-      '/.vtj/vue/*.vue'
+      '/.vtj/vue/*.vue',
+      '/src/views/**/*.vue',
+      '/src/components/**/*.vue'
     ]);
   } else {
-    return import.meta.glob(['/.vtj/projects/*.json', '/.vtj/vue/*.vue']);
+    return import.meta.glob([
+      '/.vtj/projects/*.json',
+      '/.vtj/vue/*.vue',
+      '/src/views/**/*.vue',
+      '/src/components/**/*.vue'
+    ]);
   }
 }

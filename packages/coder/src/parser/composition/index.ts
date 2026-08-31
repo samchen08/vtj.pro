@@ -94,7 +94,8 @@ export interface TokenComposition {
 export function parserComposition(
   collecter: Collecter,
   componentMap: Map<string, MaterialDescription>,
-  platform: PlatformType = 'web'
+  platform: PlatformType = 'web',
+  resolveBlockImport?: (id: string) => string
 ): TokenComposition {
   const { dsl } = collecter;
 
@@ -127,7 +128,8 @@ export function parserComposition(
     collecter.easycomPackages
   );
   const blocksImport = tplResult.importBlocks.map(
-    (n: any) => `import ${n.name} from './${n.id}.vue';`
+    (n: any) =>
+      `import ${n.name} from '${resolveBlockImport?.(n.id) || `./${n.id}.vue`}';`
   );
 
   // 4. 解析各字段

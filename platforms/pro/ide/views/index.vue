@@ -29,7 +29,6 @@
     __BASE_PATH__ = '/',
     history = 'hash',
     base = '/',
-    pageRouteName = 'page',
     remote,
     auth,
     checkVersion = true,
@@ -60,31 +59,28 @@
     }
   });
 
-  const fillPrefix = (path: string) => {
-    if (path === '/') return '';
-    if (path.startsWith('/')) {
-      path = path.substring(1);
-    }
-    if (!path.endsWith('/')) {
-      path = path + '/';
-    }
-
-    return path;
-  };
-
   widgetManager.set('Switcher', {
     props: {
       onClick: (project: ProjectModel) => {
-        const isUniapp = project.platform === 'uniapp';
         const pathname = location.pathname;
         let url =
           pathname === `${__BASE_PATH__}__vtj__/` ? __BASE_PATH__ : pathname;
         const file = project.currentFile;
 
         if (file && file.type === 'page' && project.homepage !== file.id) {
-          const uniName = config.pageBasePath ? `/${pageRouteName}` : '';
-          const pagePath = `${fillPrefix(base)}${isUniapp ? `pages${uniName}` : pageRouteName}/${file.id}`;
-          url = isHashRouter() ? `${url}#/${pagePath}` : `${url}${pagePath}`;
+          const route = project
+            .getPageRoutes(
+              engine.options.pageRouteName,
+              engine.options.pageBasePath
+            )
+            .find((item) => item.id === file.id);
+          if (route) {
+            url = isHashRouter()
+              ? `${url}#${route.path}`
+              : `${url.replace(/\/$/, '')}${route.path}`;
+          }
+        } else {
+          url = file ? `${url}__vtj__/#/preview/${file?.id}` : url;
         }
         window.open(url, 'VTJProject');
       }
@@ -100,7 +96,13 @@
             process.env.NODE_ENV === 'production'
               ? ''
               : 'http://localhost:8010';
-          return `${host}${pathname}uni/#/pages/${block.id}`;
+          const route = project
+            .getPageRoutes(
+              engine.options.pageRouteName,
+              engine.options.pageBasePath
+            )
+            .find((item) => item.id === block.id);
+          return `${host}${pathname}uni/#${route?.path || `/pages/${block.id}`}`;
         }
         return `${pathname}#/preview/${block.id}`;
       }

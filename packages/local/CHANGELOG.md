@@ -3,6 +3,36 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.20.0](https://gitee.com/newgateway/vtj/compare/@vtj/local@0.19.23-alpha.0...@vtj/local@0.20.0) (2026-08-31)
+
+
+### Bug Fixes
+
+* **local:** 修复远程地址默认值和访问链接 ([d86d71b](https://gitee.com/newgateway/vtj/commits/d86d71b107a35dcf124d013fa5a1aa0e4ec34f35))
+
+
+
+
+
+## [0.19.23-alpha.0](https://gitee.com/newgateway/vtj/compare/@vtj/local@0.19.22...@vtj/local@0.19.23-alpha.0) (2026-08-31)
+
+
+### Features
+
+* **core:** 实现项目文件路径和路由路径规范管理 ([dcb6b58](https://gitee.com/newgateway/vtj/commits/dcb6b58fa6830d3e64a0e431b15660de8382d0ef))
+
+
+
+
+
+## [0.19.22](https://gitee.com/newgateway/vtj/compare/@vtj/local@0.19.21...@vtj/local@0.19.22) (2026-08-27)
+
+**Note:** Version bump only for package @vtj/local
+
+
+
+
+
 ## [0.19.21](https://gitee.com/newgateway/vtj/compare/@vtj/local@0.19.20...@vtj/local@0.19.21) (2026-08-27)
 
 **Note:** Version bump only for package @vtj/local

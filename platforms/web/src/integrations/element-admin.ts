@@ -2,7 +2,12 @@ import type { App } from 'vue';
 import type { Router, RouteRecordRaw } from 'vue-router';
 import { kebabCase } from '@vtj/utils';
 import { autoUpdate } from '@vtj/ui';
-import type { ProjectSchema, PageFile } from '@vtj/core';
+import {
+  getPageRoutePath,
+  getSourceFilePath,
+  type ProjectSchema,
+  type PageFile
+} from '@vtj/core';
 import {
   createProvider,
   LocalService,
@@ -35,19 +40,25 @@ function toElIcon(icon?: string) {
 }
 
 async function getComponent(path: string, modules: VtjModules) {
-  // const rawPath = `.vtj/vue/${id}.vue`;
   const rawModule = modules[path];
   if (rawModule) {
     return ((await rawModule()) as any)?.default;
   }
 }
 
+async function getPageComponent(page: PageFile, modules: VtjModules) {
+  return (
+    (await getComponent(`/${getSourceFilePath(page)}`, modules)) ||
+    getComponent(`/.vtj/vue/${page.id}.vue`, modules)
+  );
+}
+
 function createPageRoute(page: PageFile, modules: VtjModules) {
   const { id, title, icon, hidden, cache = false, meta = {} } = page;
   return {
-    path: `page/${id}`,
+    path: getPageRoutePath(page).replace(/^\//, ''),
     name: `Page_${id}`,
-    component: () => getComponent(`.vtj/vue/${id}.vue`, modules),
+    component: () => getPageComponent(page, modules),
     meta: {
       title,
       hidden,
@@ -59,10 +70,10 @@ function createPageRoute(page: PageFile, modules: VtjModules) {
 }
 
 function createNoMaskRoute(page: PageFile, modules: VtjModules) {
-  const { id, title, icon, cache = false, meta = {} } = page;
+  const { title, icon, cache = false, meta = {} } = page;
   return {
-    path: `/page/${id}`,
-    component: () => getComponent(`.vtj/vue/${id}.vue`, modules),
+    path: getPageRoutePath(page),
+    component: () => getPageComponent(page, modules),
     meta: {
       title,
       icon: toElIcon(icon),
