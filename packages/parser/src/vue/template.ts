@@ -41,6 +41,7 @@ let __directives: Record<string, JSExpression> = {};
 let __styles: CSSRules = {};
 let __platform: PlatformType = 'web';
 let __imports: ImportStatement[] = [];
+let __resolveSchemaImport: ((source: string) => string | undefined) | undefined;
 
 export interface ParseTemplateOptions {
   platform: PlatformType;
@@ -48,6 +49,7 @@ export interface ParseTemplateOptions {
   handlers?: Record<string, JSFunction>;
   styles?: CSSRules;
   directives?: Record<string, JSExpression>;
+  resolveSchemaImport?: (source: string) => string | undefined;
 }
 
 export function parseTemplate(
@@ -63,6 +65,7 @@ export function parseTemplate(
   __platform = options?.platform || 'web';
   __imports = options?.imports || [];
   __directives = options?.directives || {};
+  __resolveSchemaImport = options?.resolveSchemaImport;
 
   const result = compileTemplate({
     id,
@@ -433,6 +436,14 @@ function getForm(name: string): NodeFrom | undefined {
       return from;
     }
     if (imports === name) {
+      const schemaId = __resolveSchemaImport?.(from);
+      if (schemaId) {
+        return {
+          type: 'Schema',
+          id: schemaId
+        };
+      }
+      if (__resolveSchemaImport) return undefined;
       const id = from.match(fromRegex)?.[1];
       if (id) {
         return {

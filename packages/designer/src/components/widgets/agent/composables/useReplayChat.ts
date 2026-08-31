@@ -35,15 +35,6 @@ function extractIntent(content: string): string {
   return content.trim();
 }
 
-/** 尝试从 content 中解析 JSON 计划 */
-function tryParsePlan(content: string): PlanResult | null {
-  const parsed = parseJsonObject<PlanResult>(content);
-  if (parsed?.intent && Array.isArray(parsed.steps)) {
-    return parsed;
-  }
-  return null;
-}
-
 /**
  * 从 editor chat 中解析步骤元数据
  * 优先读取持久化的 stepMeta 快照（新记录）；旧记录回退到正则解析 prompt
@@ -372,8 +363,9 @@ function buildRound(chats: ChatRecord[]): ConversationRound | null {
     round.attachments = architectChat.files || undefined;
     round.promptSent = architectChat.prompt || '';
 
-    // 尝试解析 plan
-    round.architectPlan = tryParsePlan(architectChat.content || '');
+    // 与运行时使用相同的解析规则，兼容没有 steps 的直接回答
+    const parsedPlan = parsePlanOutput(architectChat.content || '');
+    round.architectPlan = parsedPlan.plan;
 
     // 若 plan 解析失败，从 editor chats 重建最小 plan
     if (!round.architectPlan && editorChats.length > 0) {
@@ -408,9 +400,8 @@ function buildRound(chats: ChatRecord[]): ConversationRound | null {
     } else if (editorChats.length === 0 && !round.architectPlan) {
       const content = architectChat.content || '';
       // 模型自报错误（{"error": "..."}）→ 还原为具体规划失败原因
-      const parsed = parsePlanOutput(content);
-      if (parsed.error) {
-        round.architectError = parsed.error;
+      if (parsedPlan.error) {
+        round.architectError = parsedPlan.error;
       } else if (content.trim()) {
         // 无法解析 plan 且无 steps，content 作为直接回答
         round.architectAnswer = content;

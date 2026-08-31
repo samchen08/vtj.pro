@@ -26,6 +26,7 @@
   import { ref, watch, computed } from 'vue';
   import { VtjIconSave } from '@vtj/icons';
   import { XAction } from '@vtj/ui';
+  import { getSourceFilePath } from '@vtj/core';
   import { Panel } from '../../shared';
   import Editor from '../../editor';
   import { useCurrent } from '../../hooks';
@@ -35,7 +36,10 @@
   const editorRef = ref();
   const content = ref('');
   const subtitle = computed(() => {
-    return current.value ? `$vtj/vue/${current.value.id}.vue` : '';
+    const file = engine.project.value?.currentFile;
+    return file
+      ? getSourceFilePath(file, engine.project.value?.platform || 'web')
+      : '';
   });
   const title = computed(() => {
     return current.value ? current.value.name : '';

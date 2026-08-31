@@ -48,7 +48,17 @@ const getMenus: ToolConfig = {
     async () => {
       const pages = project.getPageTree() || [];
       return pages.map((page: any) => {
-        const { id, name, title, layout, dir, icon, children } = page;
+        const {
+          id,
+          name,
+          title,
+          layout,
+          dir,
+          icon,
+          filePath,
+          routePath,
+          children
+        } = page;
         return {
           id,
           name,
@@ -56,6 +66,8 @@ const getMenus: ToolConfig = {
           layout,
           dir,
           icon,
+          filePath,
+          routePath,
           children
         };
       });
@@ -74,14 +86,17 @@ const getPages: ToolConfig = {
     async () => {
       const pages = project.getPages() || [];
       return pages.map((page: any) => {
-        const { id, name, title, layout, dir, icon } = page;
+        const { id, name, title, layout, dir, icon, filePath, routePath } =
+          page;
         return {
           id,
           name,
           title,
           layout,
           dir,
-          icon
+          icon,
+          filePath,
+          routePath
         };
       });
     }
@@ -191,13 +206,15 @@ const createPage: ToolConfig = {
         project.active(newPage);
         await delay(config.activeDelayMs);
       }
-      const { name, title, layout, dir } = page;
+      const { name, title, layout, dir, filePath, routePath } = page;
       return newPage
         ? {
             name,
             title,
             layout,
             dir,
+            filePath,
+            routePath,
             id: newPage.id
           }
         : null;
@@ -251,8 +268,8 @@ const updatePage: ToolConfig = {
       const newPage = project.updatePage(page);
       await delay(config.activeDelayMs);
       if (newPage) {
-        const { name, title, layout, dir, id } = newPage;
-        return { name, title, layout, dir, id };
+        const { name, title, layout, dir, id, filePath, routePath } = newPage;
+        return { name, title, layout, dir, id, filePath, routePath };
       }
       throw new Error('页面不存在');
     }
@@ -323,12 +340,13 @@ const getBlocks: ToolConfig = {
     async () => {
       const blocks = project.blocks || [];
       return blocks.map((block: any) => {
-        const { id, name, title, category } = block;
+        const { id, name, title, category, filePath } = block;
         return {
           id,
           name,
           title,
-          category
+          category,
+          filePath
         };
       });
     }
@@ -376,12 +394,13 @@ const createBlock: ToolConfig = {
       const newBlock = await project.createBlock(block);
       project.active(newBlock);
       await delay(config.activeDelayMs);
-      const { name, title, category } = block;
+      const { name, title, category, filePath } = block;
       return newBlock
         ? {
             name,
             title,
             category,
+            filePath,
             id: newBlock.id
           }
         : null;
@@ -430,11 +449,12 @@ const updateBlock: ToolConfig = {
       const newBlock = project.updateBlock(block);
       await delay(config.activeDelayMs);
       if (newBlock) {
-        const { name, title, id, category } = block;
+        const { name, title, id, category, filePath } = block;
         return {
           name,
           title,
           category,
+          filePath,
           id
         };
       }

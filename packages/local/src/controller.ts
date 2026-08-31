@@ -93,12 +93,12 @@ const controller: Controller = {
     });
   },
   createRawPage: async (req: ApiRequest, opts: DevToolsOptions) => {
-    const file = req.data as PageFile;
+    const file = (req.data?.file || req.data) as PageFile;
     return service.createRawPage(file, opts);
   },
   removeRawPage: async (req: ApiRequest, opts: DevToolsOptions) => {
-    const id = req.data as string;
-    return service.removeRawPage(id, opts);
+    const id = (req.data?.id || req.data) as string;
+    return service.removeRawPage(id, req.data?.project, req.data?.file, opts);
   },
   getStaticFiles: async (_req: ApiRequest, opts: DevToolsOptions) => {
     return service.getStaticFiles({

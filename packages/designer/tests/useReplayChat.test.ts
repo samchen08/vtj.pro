@@ -4,6 +4,37 @@ import { useReplayChat } from '../src/components/widgets/agent/composables/useRe
 import type { ConversationRound } from '../src/components/widgets/agent/types/agent';
 
 describe('useReplayChat', () => {
+  it('restores a direct answer without steps', async () => {
+    const rounds = ref<ConversationRound[]>([]);
+    const answer = 'VTJ 可视化设计器的主要使用流程';
+    const content = JSON.stringify({
+      intent: '介绍设计器的使用方法',
+      contextKeys: [],
+      safety: 'readonly',
+      answer
+    });
+    const { loadChatHistory } = useReplayChat(
+      {
+        getChats: vi.fn(async () => [
+          {
+            id: 'architect',
+            agentRole: 'architect',
+            prompt: '设计器如何使用',
+            content,
+            status: 'Success'
+          }
+        ]) as any,
+        setStatus: vi.fn()
+      },
+      rounds
+    );
+
+    await loadChatHistory('topic');
+
+    expect(rounds.value[0].architectAnswer).toBe(answer);
+    expect(rounds.value[0].architectPlan?.steps).toEqual([]);
+  });
+
   it('clears the previous conversation before loading an empty topic', async () => {
     const rounds = ref([{ id: 'old' }] as ConversationRound[]);
     const statusText = ref('');

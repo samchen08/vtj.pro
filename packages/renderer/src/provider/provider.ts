@@ -20,7 +20,8 @@ import {
   type I18nConfig,
   type EnvConfig,
   Base,
-  BUILT_IN_COMPONENTS
+  BUILT_IN_COMPONENTS,
+  getSourceFilePath
 } from '@vtj/core';
 // 工具函数
 import {
@@ -708,9 +709,17 @@ export class Provider extends Base {
       const { vtjRawDir = '.vtj/vue' } = this.options;
 
       // 尝试从模块缓存加载原始Vue组件
+      const sourcePath = getSourceFilePath(
+        file,
+        this.project?.platform || 'web'
+      );
       const rawPath = `${vtjRawDir}/${id}.vue`;
       const rawModule =
-        this.modules[rawPath] || this.modules[`/src/pages/${id}.vue`];
+        this.modules[sourcePath] ||
+        this.modules[`/${sourcePath}`] ||
+        this.modules[rawPath] ||
+        this.modules[`/${rawPath}`] ||
+        this.modules[`/src/pages/${id}.vue`];
       if (rawModule) {
         return (await rawModule())?.default;
       }

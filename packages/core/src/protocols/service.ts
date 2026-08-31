@@ -193,7 +193,8 @@ export abstract class Service {
    */
   public abstract removeRawPage(
     id: string,
-    project?: ProjectSchema
+    project?: ProjectSchema,
+    file?: PageFile | BlockFile
   ): Promise<boolean>;
 
   /**

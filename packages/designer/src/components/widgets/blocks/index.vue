@@ -44,7 +44,7 @@
       :title="title"
       :model="model"
       width="600px"
-      height="400px"
+      height="450px"
       :form-props="{ tooltipMessage: false }"
       :submit-method="submitMethod">
       <XField
@@ -100,7 +100,11 @@
   import { XDialogForm, XField } from '@vtj/ui';
   import { Search } from '@vtj/icons';
   import { upperFirstCamelCase, cloneDeep, groupBy } from '@vtj/utils';
-  import { type BlockFile, createNodeFrom } from '@vtj/core';
+  import {
+    type BlockFile,
+    createNodeFrom,
+    isValidFilePath
+  } from '@vtj/core';
   import { type Designer } from '../../../framework';
   import { Panel, Box } from '../../shared';
   import { useColSpan, useBlocks, useCurrent } from '../../hooks';
@@ -116,7 +120,9 @@
     if (keyword.value) {
       return blocks.value.filter((n) => {
         return (
-          n.name.includes(keyword.value) || n.title?.includes(keyword.value)
+          n.name.includes(keyword.value) ||
+          n.title?.includes(keyword.value) ||
+          n.filePath?.includes(keyword.value)
         );
       });
     }
@@ -184,11 +190,11 @@
   const subtitle = computed(() => {
     return `(共 ${blocks.value.length} 个)`;
   });
-
   const createEmtpyModel = () => {
     return {
       fromType: 'Schema',
       name: '',
+      filePath: '',
       title: '',
       urls: '',
       library: '',
@@ -214,20 +220,30 @@
     const file = data as BlockFile;
     const project = engine.project.value;
     if (!project) return false;
-    if (data.id) {
-      if (!project.existBlockName(file.name, [file.id])) {
-        project.updateBlock(file);
+    if (!file.filePath) delete file.filePath;
+    if (!isValidFilePath(file.filePath)) {
+      notify('文件路径格式不正确');
+      return false;
+    }
+    try {
+      if (data.id) {
+        if (!project.existBlockName(file.name, [file.id])) {
+          project.updateBlock(file);
+        } else {
+          notify(`名称【${file.name}】已经存在，请更换名称`);
+          return false;
+        }
       } else {
-        notify(`名称【${file.name}】已经存在，请更换名称`);
-        return false;
+        if (!project.existBlockName(file.name)) {
+          await project.createBlock(file);
+        } else {
+          notify(`名称【${file.name}】已经存在，请更换名称`);
+          return false;
+        }
       }
-    } else {
-      if (!project.existBlockName(file.name)) {
-        project.createBlock(file);
-      } else {
-        notify(`名称【${file.name}】已经存在，请更换名称`);
-        return false;
-      }
+    } catch (e) {
+      notify((e as Error).message);
+      return false;
     }
     return true;
   };
@@ -253,6 +269,10 @@
   const onNameChange = (val: string) => {
     if (model.value) {
       model.value.name = upperFirstCamelCase(val);
+      const original = blocks.value.find((item) => item.id === model.value?.id);
+      if (!original || original.filePath === original.name) {
+        model.value.filePath = model.value.name;
+      }
     }
   };
 

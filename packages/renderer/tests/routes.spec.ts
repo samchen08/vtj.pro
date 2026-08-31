@@ -108,6 +108,37 @@ describe('createStaticRoutes', () => {
     expect(routes[0].path).toBe('/appcustom/page1');
   });
 
+  test('uses custom page paths with legacy aliases', () => {
+    const pages = [createPage('page1', { routePath: '/users/:id' })];
+    const routes = createStaticRoutes({
+      name: 'page',
+      prefix: '/',
+      pages,
+      component: mockComponent,
+      loader: vi.fn()
+    });
+
+    expect(routes[0].path).toBe('/users/:id');
+    expect(routes[0].alias).toBe('/page/page1');
+    expect(routes[0].name).toBe('page1');
+  });
+
+  test('uses file-derived paths with legacy aliases', () => {
+    const pages = [
+      createPage('page1', { filePath: 'system/UserDetail' })
+    ];
+    const routes = createStaticRoutes({
+      name: 'page',
+      prefix: '/',
+      pages,
+      component: mockComponent,
+      loader: vi.fn()
+    });
+
+    expect(routes[0].path).toBe('/page/system/user-detail');
+    expect(routes[0].alias).toBe('/page/page1');
+  });
+
   test('merges routeMeta with page meta', () => {
     const pages = [createPage('page1', { meta: { cache: false } })];
     const routes = createStaticRoutes({

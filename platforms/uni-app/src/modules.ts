@@ -10,9 +10,17 @@ export function createModules(mode: ContextMode = ContextMode.Runtime) {
   } else {
     res = import.meta.glob(['/src/.vtj/projects/*.json'], { eager: true });
   }
+  const sources = import.meta.glob([
+    '/src/pages/**/*.vue',
+    '/src/components/**/*.vue'
+  ]);
+  res = { ...res, ...sources };
   let result: Record<string, () => Promise<any>> = {};
   for (const [key, value] of Object.entries(res)) {
-    result[key] = () => Promise.resolve(value as any);
+    result[key] =
+      typeof value === 'function'
+        ? (value as () => Promise<any>)
+        : () => Promise.resolve(value as any);
   }
   return result;
 }

@@ -137,6 +137,8 @@ describe('ProjectModel', () => {
       expect(project.pages).toHaveLength(1);
       expect(page.type).toBe('page');
       expect(page.id).toBe('p1');
+      expect(page.filePath).toBe('home');
+      expect(page.routePath).toBe('/page/home');
       expect(page.dsl).toBeDefined();
     });
 
@@ -157,12 +159,79 @@ describe('ProjectModel', () => {
       const page = await project.createPage({
         type: 'page',
         id: '',
-        name: 'RawPage.vue',
+        name: 'RawPage',
         title: 'Raw',
         raw: true
       });
       expect(page.raw).toBe(true);
-      expect(page.id).toBe('RawPage.vue');
+      expect(page.id).toBeDefined();
+      expect(page.id).not.toBe('RawPage');
+      expect(page.filePath).toBe('raw-page');
+    });
+
+    test('createPage should reject duplicate names', async () => {
+      const project = new ProjectModel({ name: 'Test' });
+      await project.createPage({
+        type: 'page',
+        id: 'p1',
+        name: 'One',
+        title: 'One'
+      });
+      await expect(
+        project.createPage({
+          type: 'page',
+          id: 'p2',
+          name: 'one',
+          title: 'Two'
+        })
+      ).rejects.toThrow('页面名称');
+    });
+
+    test('createPage should reject derived route conflicts', async () => {
+      const project = new ProjectModel({
+        name: 'Test',
+        pages: [
+          {
+            type: 'page',
+            id: 'p1',
+            name: 'One',
+            title: 'One',
+            filePath: 'one',
+            routePath: '/page/login'
+          }
+        ]
+      });
+      await expect(
+        project.createPage({
+          type: 'page',
+          id: 'p2',
+          name: 'Login',
+          title: 'Login'
+        })
+      ).rejects.toThrow('页面路由');
+    });
+
+    test('createPage should reject unsafe file paths', async () => {
+      const page = {
+        type: 'page' as const,
+        id: 'p1',
+        name: 'Unsafe',
+        title: 'Unsafe',
+        filePath: '../Unsafe'
+      };
+      const project = new ProjectModel({ name: 'Test', pages: [page] });
+      expect(() => project.updatePage(page)).toThrow('格式不正确');
+    });
+
+    test('updatePage should reject unsafe legacy ids used as paths', () => {
+      const page = {
+        type: 'page' as const,
+        id: '../unsafe',
+        name: 'Unsafe',
+        title: 'Unsafe'
+      };
+      const project = new ProjectModel({ name: 'Test', pages: [page] });
+      expect(() => project.updatePage(page)).toThrow('格式不正确');
     });
 
     test('getPage should find page by id', async () => {
@@ -273,6 +342,32 @@ describe('ProjectModel', () => {
         title: 'Updated'
       });
       expect(project.getPage('p1')!.name).toBe('Updated');
+      expect(project.getPage('p1')!.filePath).toBe('updated');
+      expect(project.getPage('p1')!.routePath).toBe('/page/updated');
+    });
+
+    test('updatePage should reject duplicate names', async () => {
+      const project = new ProjectModel({ name: 'Test' });
+      await project.createPage({
+        type: 'page',
+        id: 'p1',
+        name: 'Home',
+        title: 'Home'
+      });
+      await project.createPage({
+        type: 'page',
+        id: 'p2',
+        name: 'About',
+        title: 'About'
+      });
+      expect(() =>
+        project.updatePage({
+          type: 'page',
+          id: 'p2',
+          name: 'home',
+          title: 'About'
+        })
+      ).toThrow('页面名称');
     });
 
     test('removePage should remove page', async () => {
@@ -406,6 +501,7 @@ describe('ProjectModel', () => {
       expect(block.id).toBe('b1');
       expect(block.type).toBe('block');
       expect(block.fromType).toBe('Schema');
+      expect(block.filePath).toBe('MyBlock');
     });
 
     test('getBlock should find block', async () => {
@@ -434,6 +530,31 @@ describe('ProjectModel', () => {
         title: 'Updated'
       });
       expect(project.getBlock('b1')!.name).toBe('Updated');
+      expect(project.getBlock('b1')!.filePath).toBe('Updated');
+    });
+
+    test('updateBlock should reject duplicate names', async () => {
+      const project = new ProjectModel({ name: 'Test' });
+      await project.createBlock({
+        type: 'block',
+        id: 'b1',
+        name: 'OneBlock',
+        title: 'One'
+      });
+      await project.createBlock({
+        type: 'block',
+        id: 'b2',
+        name: 'TwoBlock',
+        title: 'Two'
+      });
+      expect(() =>
+        project.updateBlock({
+          type: 'block',
+          id: 'b2',
+          name: 'oneBlock',
+          title: 'Two'
+        })
+      ).toThrow('区块名称');
     });
 
     test('cloneBlock should create a copy', async () => {
@@ -471,6 +592,24 @@ describe('ProjectModel', () => {
       });
       expect(project.existBlockName('MyBlock')).toBe(true);
       expect(project.existBlockName('Other')).toBe(false);
+    });
+
+    test('createBlock should reject duplicate names', async () => {
+      const project = new ProjectModel({ name: 'Test' });
+      await project.createBlock({
+        type: 'block',
+        id: 'b1',
+        name: 'MyBlock',
+        title: 'Block'
+      });
+      await expect(
+        project.createBlock({
+          type: 'block',
+          id: 'b2',
+          name: 'myBlock',
+          title: 'Block'
+        })
+      ).rejects.toThrow('区块名称');
     });
 
     test('getFile should find page or block', async () => {
@@ -746,7 +885,7 @@ describe('ProjectModel', () => {
       });
       const routes = project.getPageRoutes();
       expect(routes).toHaveLength(1);
-      expect(routes[0].path).toBe('/page/p1');
+      expect(routes[0].path).toBe('/page/home');
       expect(routes[0].name).toBe('Home');
     });
 
@@ -759,7 +898,18 @@ describe('ProjectModel', () => {
         title: 'Home'
       });
       const routes = project.getPageRoutes('pages', '/app');
-      expect(routes[0].path).toBe('/app/pages/p1');
+      expect(routes[0].path).toBe('/page/home');
+    });
+
+    test('should derive routes from configured file paths', async () => {
+      const project = new ProjectModel({ name: 'Test', platform: 'web' });
+      await project.createPage({
+        type: 'page',
+        id: 'p1',
+        name: 'UserDetail',
+        title: 'User Detail',
+      });
+      expect(project.getPageRoutes()[0].path).toBe('/page/user-detail');
     });
 
     test('should use pages dir for uniapp', async () => {
@@ -771,7 +921,7 @@ describe('ProjectModel', () => {
         title: 'Home'
       });
       const routes = project.getPageRoutes();
-      expect(routes[0].path).toBe('/pages/p1');
+      expect(routes[0].path).toBe('/pages/home');
     });
   });
 

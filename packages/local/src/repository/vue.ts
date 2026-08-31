@@ -1,4 +1,4 @@
-import { resolve, join } from 'path';
+import { resolve, relative, isAbsolute } from 'path';
 import {
   pathExistsSync,
   removeSync,
@@ -6,7 +6,7 @@ import {
   ensureFileSync
 } from '@vtj/node';
 
-import type { PlatformType } from '@vtj/core';
+import { isValidFilePath, type PlatformType } from '@vtj/core';
 
 export interface VueRepositoryOptions {
   dir: string;
@@ -16,17 +16,26 @@ export interface VueRepositoryOptions {
 export class VueRepository {
   private path: string;
   constructor(options: VueRepositoryOptions) {
-    const { dir = '.vtj/vue', platform = 'web' } = options;
-    // uniapp不支持自定义定义
-    const _dir = platform === 'uniapp' ? `src/pages` : dir;
-    this.path = resolve(_dir);
+    const { dir = '.vtj/vue' } = options;
+    this.path = resolve(dir);
+  }
+  private resolve(name: string) {
+    if (!isValidFilePath(name)) {
+      throw new Error(`Vue 文件路径【${name}】格式不正确`);
+    }
+    const filePath = resolve(this.path, `${name}.vue`);
+    const path = relative(this.path, filePath);
+    if (path.startsWith('..') || isAbsolute(path)) {
+      throw new Error(`Vue 文件路径【${name}】超出源码目录`);
+    }
+    return filePath;
   }
   exist(name: string) {
-    const filePath = join(this.path, `${name}.vue`);
+    const filePath = this.resolve(name);
     return pathExistsSync(filePath);
   }
   save(name: string, content: any) {
-    const filePath = join(this.path, `${name}.vue`);
+    const filePath = this.resolve(name);
     if (!this.exist(name)) {
       ensureFileSync(filePath);
     }
@@ -34,7 +43,7 @@ export class VueRepository {
     return true;
   }
   remove(name: string) {
-    const filePath = join(this.path, `${name}.vue`);
+    const filePath = this.resolve(name);
     if (pathExistsSync(filePath)) {
       removeSync(filePath);
       return true;

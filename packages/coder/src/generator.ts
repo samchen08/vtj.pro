@@ -3,7 +3,11 @@ import {
   type MaterialDescription,
   type Dependencie,
   type PageFile,
-  type PlatformType
+  type PlatformType,
+  type ProjectSchema,
+  createProjectFileIndex,
+  getBlockImportPath,
+  getSourceFilePath
 } from '@vtj/core';
 import { cloneDeep } from '@vtj/base';
 import {
@@ -33,6 +37,7 @@ export interface GeneratorOptions {
   formatterDisabled?: boolean;
   ts?: boolean;
   scss?: boolean;
+  project?: ProjectSchema;
 }
 
 export async function generator(
@@ -60,8 +65,18 @@ export async function generator(
     platform = 'web',
     formatterDisabled = false,
     ts = true,
-    scss = false
+    scss = false,
+    project
   } = options;
+  const fileIndex = project ? createProjectFileIndex(project) : null;
+  const resolveBlockImport = fileIndex
+    ? (id: string) => {
+        const file = fileIndex.byId.get(id);
+        return file?.type === 'block'
+          ? getBlockImportPath(file)
+          : `./${id}.vue`;
+      }
+    : undefined;
   const collecter = new Collecter(cloneDeep(dsl), dependencies);
   const isComposition = dsl.apiMode === 'composition';
   let template: string;
@@ -70,13 +85,18 @@ export async function generator(
   let scriptSource: string;
 
   if (isComposition) {
-    const token = parserComposition(collecter, componentMap, platform);
+    const token = parserComposition(
+      collecter,
+      componentMap,
+      platform,
+      resolveBlockImport
+    );
     scriptSource = scriptSetupCompiled(token);
     template = token.template || `\n<!--组件模版内容-->\n`;
     css = token.css;
     style = token.style;
   } else {
-    const token = parser(collecter, componentMap, platform);
+    const token = parser(collecter, componentMap, platform, resolveBlockImport);
     scriptSource = scriptCompiled(token);
     template = token.template || `\n<!--组件模版内容-->\n`;
     css = token.css;
@@ -99,12 +119,15 @@ export async function generator(
   });
 }
 
-export async function createEmptyPage(file: PageFile) {
+export async function createEmptyPage(
+  file: PageFile,
+  platform: PlatformType = 'web'
+) {
   const content = `
     <template>
       <div>
         <h3>源码模式页面</h3>
-        <div>文件路径：/.vtj/vue/${file.id}.vue</div>
+        <div>文件路径：/${getSourceFilePath(file, platform)}</div>
       </div>
     </template>
     <script lang="ts" setup>

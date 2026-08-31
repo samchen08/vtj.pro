@@ -1,6 +1,6 @@
 import { ref, watchEffect } from 'vue';
 import { useRoute } from 'vue-router';
-import type { PageFile } from '@vtj/core';
+import { getPageRoutePath, type PageFile } from '@vtj/core';
 import { useProvider } from '../provider';
 import { useAccess, type Access } from '../plugins';
 import { PAGE_ROUTE_NAME, HOMEPAGE_ROUTE_NAME } from '../constants';
@@ -38,7 +38,7 @@ export function createMenus(
         title,
         icon,
         hidden,
-        url: `${menuPathPrefix}/${pageRouteName}/${id}`,
+        url: getPageRoutePath(page, `${menuPathPrefix}/`, pageRouteName),
         children:
           children && children.length
             ? createMenus(menuPathPrefix, pageRouteName, children)

@@ -24,6 +24,7 @@ import { patchCode, replacer } from './utils';
 import { compositionPatch } from './compositionPatch';
 import { buildReverseSymbolTable } from './composition/reverseSymbolTable';
 import { ComponentValidator, AutoFixer } from '../tools';
+import { resolveProjectBlockImport } from './file';
 
 export type IParseVueOptions = ParseVueOptions & { project: ProjectSchema };
 
@@ -126,7 +127,9 @@ async function parseVueOptions(
     handlers,
     styles,
     imports,
-    directives
+    directives,
+    resolveSchemaImport: (source) =>
+      resolveProjectBlockImport(source, project, id)
   });
 
   const dsl: BlockSchema = {
@@ -213,7 +216,9 @@ async function parseVueComposition(
     handlers: scriptResult.handlers,
     styles,
     imports: scriptResult.imports,
-    directives: scriptResult.directives
+    directives: scriptResult.directives,
+    resolveSchemaImport: (source) =>
+      resolveProjectBlockImport(source, project, id)
   });
 
   const dsl: BlockSchema = {

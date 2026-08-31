@@ -206,12 +206,21 @@ export class BaseService implements Service {
     });
   }
 
-  async createRawPage(file: PageFile): Promise<boolean> {
-    return await this.api('createRawPage', file).catch(() => '');
+  async createRawPage(
+    file: PageFile,
+    project?: ProjectSchema
+  ): Promise<boolean> {
+    return await this.api('createRawPage', { file, project }).catch(() => '');
   }
 
-  async removeRawPage(id: string): Promise<boolean> {
-    return await this.api('removeRawPage', id).catch(() => '');
+  async removeRawPage(
+    id: string,
+    project?: ProjectSchema,
+    file?: PageFile | BlockFile
+  ): Promise<boolean> {
+    return await this.api('removeRawPage', { id, project, file }).catch(
+      () => ''
+    );
   }
 
   async uploadStaticFile(

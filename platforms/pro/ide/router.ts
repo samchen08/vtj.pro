@@ -31,6 +31,14 @@ const routes = [
     path: '/auth',
     name: 'auth',
     component: () => import('./views/auth.vue')
+  },
+  {
+    path: '/:pathMatch(.*)*',
+    name: 'custom-page',
+    component: () => import('./views/page.vue'),
+    meta: {
+      pure: true
+    }
   }
 ];
 

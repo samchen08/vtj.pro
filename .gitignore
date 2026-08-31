@@ -70,6 +70,8 @@ npmrc.md
 /platforms/pro/public/extension
 /platforms/pro/src/.vtj
 /platforms/pro/src/pages/*
+/platforms/pro/src/views/*
+/platforms/pro/src/components/*
 /platforms/pro/src/App.vue
 /platforms/pro/src/pages.json
 /platforms/pro/src/manifest.json

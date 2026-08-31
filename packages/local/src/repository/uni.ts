@@ -1,5 +1,5 @@
 import { resolve } from 'path';
-import type { ProjectSchema } from '@vtj/core';
+import { flattenPages, getUniPagePath, type ProjectSchema } from '@vtj/core';
 import { writeJsonSync, outputFileSync } from '@vtj/node';
 import { vueFormatter, tsFormatter, cssFormatter } from '@vtj/coder';
 
@@ -32,13 +32,13 @@ export class UniRepository {
     const oPages = (project.uniConfig?.pagesJson?.pages || []).filter(
       (n: any) => !n.vtj
     );
-    const pages = project.pages || [];
+    const pages = flattenPages(project.pages || []);
 
     const json: any[] = [];
     for (const page of pages) {
       if (page.id === project.homepage) {
         json.unshift({
-          path: `pages/${page.id}`,
+          path: getUniPagePath(page),
           style: Object.assign(
             { navigationBarTitleText: page.title },
             page.style || {}
@@ -48,7 +48,7 @@ export class UniRepository {
         });
       } else {
         json.push({
-          path: `pages/${page.id}`,
+          path: getUniPagePath(page),
           style: Object.assign(
             { navigationBarTitleText: page.title },
             page.style || {}
