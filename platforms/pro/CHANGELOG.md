@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.20.2](https://gitee.com/newgateway/vtj/compare/@vtj/pro@0.20.1...@vtj/pro@0.20.2) (2026-09-02)
+
+
+### Bug Fixes
+
+* **pro:** 更新VTJ.PRO平台的远程地址和认证链接 ([3096688](https://gitee.com/newgateway/vtj/commits/3096688a6a21287daf5b738c852c401aaf0afc4b))
+
+
+
+
+
 ## [0.20.1](https://gitee.com/newgateway/vtj/compare/@vtj/pro@0.20.0...@vtj/pro@0.20.1) (2026-09-02)
 
 
