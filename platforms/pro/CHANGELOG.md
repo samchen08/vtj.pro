@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.20.1](https://gitee.com/newgateway/vtj/compare/@vtj/pro@0.20.0...@vtj/pro@0.20.1) (2026-09-02)
+
+
+### Features
+
+* **agent:** 实现规划前只读上下文收集及步骤结果引用解析 ([77c5d3c](https://gitee.com/newgateway/vtj/commits/77c5d3cd0c96618ddcb4acf2e59c1eb8d23cf8b1))
+
+
+
+
+
 # [0.20.0](https://gitee.com/newgateway/vtj/compare/@vtj/pro@0.19.23-alpha.0...@vtj/pro@0.20.0) (2026-08-31)
 
 **Note:** Version bump only for package @vtj/pro
