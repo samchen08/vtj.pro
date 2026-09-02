@@ -6,9 +6,13 @@
  * 3. 无效输出（空白 / 非 JSON / 仅有碎片）→ plan 与 error 均为空
  */
 import type { ToolRegistry } from '../../../../framework';
-import type { PlanResult } from '../types/agent';
+import type {
+  PlanResult,
+  PlanningContextRequest,
+  StepResultRef
+} from '../types/agent';
 import { extractJsonObject } from './json';
-import { validateToolParameters } from './directTool';
+import { isStepResultRef, validatePlannedToolParameters } from './directTool';
 
 export interface PlanValidationIssue {
   path: string;
@@ -17,9 +21,51 @@ export interface PlanValidationIssue {
 
 export interface PlanOutputParseResult {
   plan: PlanResult | null;
+  preflight?: PlanningContextRequest;
   /** 大模型明确输出的错误说明（如缺少关键信息），最终失败时反馈给用户 */
   error?: string;
   issues?: PlanValidationIssue[];
+}
+
+function collectStepRefs(value: unknown, refs: StepResultRef[] = []) {
+  if (isStepResultRef(value)) {
+    refs.push(value);
+  } else if (Array.isArray(value)) {
+    value.forEach((item) => collectStepRefs(item, refs));
+  } else if (value && typeof value === 'object') {
+    Object.values(value).forEach((item) => collectStepRefs(item, refs));
+  }
+  return refs;
+}
+
+function parsePreflight(value: unknown): PlanningContextRequest | undefined {
+  if (!value || typeof value !== 'object') return;
+  const request = value as PlanningContextRequest;
+  const skills = request.skills;
+  const queries = request.queries;
+  if (
+    skills !== undefined &&
+    (!Array.isArray(skills) ||
+      skills.some((item) => typeof item !== 'string' || !item.trim()))
+  ) {
+    return;
+  }
+  if (
+    queries !== undefined &&
+    (!Array.isArray(queries) ||
+      queries.some(
+        (item) =>
+          typeof item !== 'string' &&
+          (!item ||
+            typeof item !== 'object' ||
+            typeof item.action !== 'string' ||
+            (item.parameters !== undefined && !Array.isArray(item.parameters)))
+      ))
+  ) {
+    return;
+  }
+  if (!skills?.length && !queries?.length) return;
+  return request;
 }
 
 /**
@@ -102,11 +148,24 @@ export function validatePlan(
         issues.push({ path: `${path}.toolName`, message: '工具不存在' });
         continue;
       }
-      if (step.parameters !== undefined && !Array.isArray(step.parameters)) {
+      if (registry && step.toolName === 'getSkills') {
+        issues.push({
+          path: `${path}.toolName`,
+          message: 'getSkills 必须在规划前预检中调用'
+        });
+      }
+      if (step.parameters === undefined) {
+        if (registry) {
+          issues.push({
+            path: `${path}.parameters`,
+            message: '必须显式提供参数；动态值使用 $ref'
+          });
+        }
+      } else if (!Array.isArray(step.parameters)) {
         issues.push({ path: `${path}.parameters`, message: '必须是数组' });
       } else if (
         tool &&
-        step.parameters &&
+        step.parameters !== undefined &&
         !(
           step.toolName === 'active' &&
           step.parameters.length === 0 &&
@@ -116,11 +175,38 @@ export function validatePlan(
               ?.toolName || ''
           )
         ) &&
-        !validateToolParameters(step.parameters, tool.parameters)
+        !validatePlannedToolParameters(step.parameters, tool.parameters)
       ) {
         issues.push({
           path: `${path}.parameters`,
           message: '参数不符合工具定义'
+        });
+      }
+      for (const ref of collectStepRefs(step.parameters)) {
+        if (!step.dependsOn?.includes(ref.$ref.stepId)) {
+          issues.push({
+            path: `${path}.dependsOn`,
+            message: `必须依赖被引用步骤 ${ref.$ref.stepId}`
+          });
+        }
+        const sourceIndex = steps.findIndex(
+          (candidate) => candidate.id === ref.$ref.stepId
+        );
+        if (sourceIndex >= index) {
+          issues.push({
+            path: `${path}.parameters`,
+            message: `只能引用前置步骤 ${ref.$ref.stepId}`
+          });
+        }
+      }
+      if (
+        step.toolName === 'createPage' &&
+        /(子页面|子级|父级|作为.+(?:目录|布局).+下)/.test(step.description) &&
+        (!step.parameters || step.parameters.length < 2)
+      ) {
+        issues.push({
+          path: `${path}.parameters`,
+          message: '创建子页面必须提供 parentId 或步骤结果引用'
         });
       }
       if (tool?.risk === 'destructive' && plan.safety !== 'destructive') {
@@ -169,6 +255,25 @@ export function validatePlan(
   if (steps.some((step) => hasCycle(step.id))) {
     issues.push({ path: 'steps', message: '步骤依赖存在循环' });
   }
+  const nestedPageIndexes = steps
+    .map((step, index) => ({ step, index }))
+    .filter(
+      ({ step }) =>
+        step.toolName === 'createPage' && (step.parameters?.length || 0) > 1
+    );
+  if (
+    nestedPageIndexes.length &&
+    !steps.some(
+      (step, index) =>
+        step.toolName === 'getPageTreeValidation' &&
+        index > nestedPageIndexes[nestedPageIndexes.length - 1].index
+    )
+  ) {
+    issues.push({
+      path: 'steps',
+      message: '创建嵌套页面后必须调用 getPageTreeValidation 验证页面树'
+    });
+  }
   return issues;
 }
 
@@ -184,6 +289,8 @@ export function parsePlanOutput(
   } catch {
     return { plan: null };
   }
+  const preflight = parsePreflight(parsed?.needsContext);
+  if (preflight) return { plan: null, preflight };
   // 模型自报错误：{"error": "..."} 提取错误说明，而非丢弃后使用通用文案
   if (typeof parsed?.error === 'string' && parsed.error.trim()) {
     return { plan: null, error: parsed.error.trim() };

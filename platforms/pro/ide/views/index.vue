@@ -80,7 +80,11 @@
               : `${url.replace(/\/$/, '')}${route.path}`;
           }
         } else {
-          url = file ? `${url}__vtj__/#/preview/${file?.id}` : url;
+          if (file && project.homepage === file.id) {
+            url = `${url}#/`;
+          } else {
+            url = file ? `${url}__vtj__/#/preview/${file?.id}` : url;
+          }
         }
         window.open(url, 'VTJProject');
       }

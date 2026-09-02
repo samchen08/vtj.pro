@@ -33,7 +33,8 @@ describe('parsePlanOutput', () => {
             type: 'tool_call',
             description: '读取页面',
             dependsOn: [],
-            toolName: 'getPage'
+            toolName: 'getPage',
+            parameters: []
           },
           { id: 's2', type: 'vue_code', description: '写入', dependsOn: ['s1'] }
         ]
@@ -61,6 +62,22 @@ describe('parsePlanOutput', () => {
     const { plan, error } = parsePlanOutput('{"error":"缺少页面信息"}');
     expect(plan).toBeNull();
     expect(error).toBe('缺少页面信息');
+  });
+
+  it('解析规划前只读上下文请求', () => {
+    const result = parsePlanOutput(
+      JSON.stringify({
+        needsContext: {
+          skills: ['tools', 'page'],
+          queries: ['getMenus']
+        }
+      })
+    );
+    expect(result.plan).toBeNull();
+    expect(result.preflight).toEqual({
+      skills: ['tools', 'page'],
+      queries: ['getMenus']
+    });
   });
 
   it('空白或非 JSON 输出返回空 plan', () => {
@@ -214,5 +231,71 @@ describe('parsePlanOutput', () => {
     expect(issues.map((issue) => issue.message)).toEqual(
       expect.arrayContaining(['工具不存在', '不能使用模板占位符'])
     );
+  });
+
+  it('要求子页面使用父步骤结果并验证页面树', () => {
+    const registry = new ToolRegistry();
+    registry.register({
+      name: 'createPage',
+      description: '创建页面',
+      parameters: [
+        { name: 'page', type: 'object', required: true },
+        { name: 'parentId', type: 'string' }
+      ],
+      handler: async () => true
+    });
+    registry.register({
+      name: 'getPageTreeValidation',
+      description: '验证页面树',
+      parameters: [
+        { name: 'parentId', type: 'string', required: true },
+        {
+          name: 'childIds',
+          type: 'array',
+          required: true,
+          items: { type: 'string', required: true }
+        }
+      ],
+      handler: async () => true
+    });
+    const ref = (stepId: string) => ({
+      $ref: { stepId, path: 'result.id' }
+    });
+    const plan = {
+      intent: '创建嵌套页面',
+      safety: 'write' as const,
+      steps: [
+        {
+          id: 'layout',
+          type: 'tool_call' as const,
+          description: '创建布局',
+          toolName: 'createPage',
+          parameters: [{ name: 'MainLayout', title: '主布局' }]
+        },
+        {
+          id: 'dashboard',
+          type: 'tool_call' as const,
+          description: '创建 Dashboard 子页面',
+          toolName: 'createPage',
+          parameters: [{ name: 'Dashboard', title: '仪表盘' }, ref('layout')],
+          dependsOn: ['layout']
+        },
+        {
+          id: 'verify',
+          type: 'tool_call' as const,
+          description: '验证页面树',
+          toolName: 'getPageTreeValidation',
+          parameters: [ref('layout'), [ref('dashboard')]],
+          dependsOn: ['layout', 'dashboard']
+        }
+      ]
+    };
+
+    expect(validatePlan(plan, registry)).toEqual([]);
+    expect(
+      validatePlan({ ...plan, steps: plan.steps.slice(0, 2) }, registry).map(
+        (issue) => issue.message
+      )
+    ).toContain('创建嵌套页面后必须调用 getPageTreeValidation 验证页面树');
   });
 });

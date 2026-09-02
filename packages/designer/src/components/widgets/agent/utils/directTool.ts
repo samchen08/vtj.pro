@@ -1,5 +1,5 @@
 import type { Engine, ToolParameter } from '../../../../framework';
-import type { EditorStepResult, PlanStep } from '../types/agent';
+import type { EditorStepResult, PlanStep, StepResultRef } from '../types/agent';
 
 export interface DirectToolCall {
   action: string;
@@ -12,6 +12,88 @@ function isObject(value: unknown): value is Record<string, unknown> {
 
 function hasText(value: unknown): value is string {
   return typeof value === 'string' && value.trim().length > 0;
+}
+
+export function isStepResultRef(value: unknown): value is StepResultRef {
+  if (!isObject(value) || !isObject(value.$ref)) return false;
+  if (!hasText(value.$ref.stepId) || !hasText(value.$ref.path)) return false;
+  const segments = value.$ref.path.split('.');
+  const blocked = new Set(['__proto__', 'prototype', 'constructor']);
+  return (
+    segments[0] === 'result' &&
+    segments.length > 1 &&
+    segments
+      .slice(1)
+      .every(
+        (segment) =>
+          !blocked.has(segment) &&
+          (/^[A-Za-z_$][\w$]*$/.test(segment) || /^\d+$/.test(segment))
+      )
+  );
+}
+
+function getPath(value: unknown, path: string): unknown {
+  return path.split('.').reduce<unknown>((current, key) => {
+    if (Array.isArray(current) && /^\d+$/.test(key)) {
+      return current[Number(key)];
+    }
+    return isObject(current) ? current[key] : undefined;
+  }, value);
+}
+
+function getStepResult(
+  stepId: string,
+  editorResults: EditorStepResult[]
+): unknown {
+  const result = [...editorResults]
+    .reverse()
+    .find((item) => item.step.id === stepId && item.done && !item.error);
+  const turn = result
+    ? [...result.turns].reverse().find((item) => item.toolResult?.success)
+    : undefined;
+  return turn?.toolResult?.result;
+}
+
+function resolveValue(
+  value: unknown,
+  editorResults: EditorStepResult[]
+): unknown {
+  if (isStepResultRef(value)) {
+    const resolved = getPath(
+      { result: getStepResult(value.$ref.stepId, editorResults) },
+      value.$ref.path
+    );
+    if (resolved === undefined) {
+      throw new Error(
+        `无法解析步骤结果引用: ${value.$ref.stepId}.${value.$ref.path}`
+      );
+    }
+    return resolved;
+  }
+  if (Array.isArray(value)) {
+    return value.map((item) => resolveValue(item, editorResults));
+  }
+  if (isObject(value)) {
+    return Object.fromEntries(
+      Object.entries(value).map(([key, item]) => [
+        key,
+        resolveValue(item, editorResults)
+      ])
+    );
+  }
+  return value;
+}
+
+/** 将计划中的步骤结果引用解析为真实工具参数。 */
+export function resolveStepReferences(
+  step: PlanStep,
+  editorResults: EditorStepResult[]
+): PlanStep {
+  if (!step.parameters) return step;
+  return {
+    ...step,
+    parameters: resolveValue(step.parameters, editorResults) as unknown[]
+  };
 }
 
 function validateValue(
@@ -65,6 +147,60 @@ export function validateToolParameters(
       rest.every((value) => validateValue(value, parameter))
     );
   });
+}
+
+function placeholder(parameter: Omit<ToolParameter, 'name'>): unknown {
+  switch (parameter.type) {
+    case 'string':
+      return parameter.enum?.[0] || 'resolved';
+    case 'number':
+      return 0;
+    case 'boolean':
+      return false;
+    case 'array':
+      return [];
+    case 'object':
+      return Object.fromEntries(
+        Object.entries(parameter.properties || {}).map(([key, property]) => [
+          key,
+          placeholder(property)
+        ])
+      );
+  }
+}
+
+function replaceReferences(
+  value: unknown,
+  parameter: Omit<ToolParameter, 'name'>
+): unknown {
+  if (isStepResultRef(value)) return placeholder(parameter);
+  if (parameter.type === 'array' && Array.isArray(value) && parameter.items) {
+    return value.map((item) => replaceReferences(item, parameter.items!));
+  }
+  if (parameter.type === 'object' && isObject(value) && parameter.properties) {
+    return Object.fromEntries(
+      Object.entries(value).map(([key, item]) => [
+        key,
+        parameter.properties?.[key]
+          ? replaceReferences(item, parameter.properties[key])
+          : item
+      ])
+    );
+  }
+  return value;
+}
+
+/** 计划阶段允许以步骤结果引用占据一个符合工具 Schema 的参数位置。 */
+export function validatePlannedToolParameters(
+  values: unknown[],
+  parameters: ToolParameter[]
+): boolean {
+  return validateToolParameters(
+    values.map((value, index) =>
+      parameters[index] ? replaceReferences(value, parameters[index]) : value
+    ),
+    parameters
+  );
 }
 
 /**

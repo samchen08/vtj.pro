@@ -200,6 +200,79 @@ describe('useArchitectPlan.executeArchitectPlan', () => {
     expect(traceBody.stepsJson).toEqual([]);
   });
 
+  it('collects read-only context before producing the final plan', async () => {
+    const streamCompletion = vi
+      .fn()
+      .mockImplementationOnce(async (_t: string, _c: string, onChunk: any) => {
+        onChunk?.(
+          JSON.stringify({
+            needsContext: {
+              skills: ['tools', 'page'],
+              queries: ['getMenus']
+            }
+          })
+        );
+        return planStreamResult();
+      })
+      .mockImplementationOnce(async (_t: string, _c: string, onChunk: any) => {
+        onChunk?.(
+          JSON.stringify({
+            intent: '信息已确认',
+            safety: 'readonly',
+            steps: [],
+            answer: '已完成规划'
+          })
+        );
+        return planStreamResult();
+      });
+    const execute = vi.fn(async (action: string) =>
+      action === 'getSkills' ? 'page docs' : []
+    );
+    const tools: Record<string, any> = {
+      getSkills: {
+        name: 'getSkills',
+        parameters: [{ name: 'id', type: 'string', required: true, rest: true }]
+      },
+      getMenus: { name: 'getMenus', parameters: [] }
+    };
+    const deps = createDeps({
+      streamCompletion,
+      getEngine: () => ({
+        toolRegistry: {
+          get: (name: string) => tools[name],
+          execute
+        }
+      })
+    });
+    const round = createRound({ architectChatId: 'chat' });
+    const { executeArchitectPlan } = useArchitectPlan(deps);
+
+    await executeArchitectPlan('topic', 'chat', 'user', 'trace', '消息', round);
+
+    expect(execute).toHaveBeenNthCalledWith(1, 'getSkills', ['tools', 'page']);
+    expect(execute).toHaveBeenNthCalledWith(2, 'getMenus', []);
+    expect(deps.postChat).toHaveBeenCalledWith(
+      expect.objectContaining({
+        agent: 'architect',
+        stepId: 'preflight',
+        prompt: expect.stringContaining('page docs')
+      })
+    );
+    const preflightPrompt = vi.mocked(deps.postChat).mock.calls[0][0].prompt;
+    expect(preflightPrompt).toContain('[本轮原始需求]\n消息');
+    expect(preflightPrompt.indexOf('[本轮原始需求]')).toBeGreaterThan(
+      preflightPrompt.indexOf('[规划前预检结果]')
+    );
+    expect(streamCompletion).toHaveBeenNthCalledWith(
+      2,
+      'topic',
+      'summary-chat',
+      expect.any(Function),
+      expect.any(Function)
+    );
+    expect(round.architectAnswer).toBe('已完成规划');
+  });
+
   it('executes all steps, generates a summary and completes the topic', async () => {
     const checkpointHistory = {
       items: [] as Array<{ id: string }>,
