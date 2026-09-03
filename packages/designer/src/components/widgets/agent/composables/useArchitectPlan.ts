@@ -8,7 +8,8 @@ import type {
   EditorStepResult,
   ConversationRound,
   ArchitectPlanDeps,
-  StreamCompletionResult
+  StreamCompletionResult,
+  PlanningContextRequest
 } from '../types/agent';
 import type { AgentStatusMessage } from '../utils/messages';
 import { parsePlanOutput } from '../utils/plan';
@@ -16,6 +17,8 @@ import { pickChat } from '../utils/response';
 import { Messages } from '../utils/messages';
 import { buildSummaryPrompt } from '../utils/summary';
 import { buildChatSaveBody } from '../utils/chat';
+import { executeTool } from '../utils/toolExecutor';
+import { validateToolParameters } from '../utils/directTool';
 
 /** Architect 输出无效时的自动重试次数上限（大模型偶发输出空白/异常，重试一次通常可恢复） */
 const MAX_ARCHITECT_RETRIES = 1;
@@ -31,6 +34,50 @@ export function useArchitectPlan(deps: ArchitectPlanDeps) {
     getEngine,
     executeEditorStep
   } = deps;
+
+  async function collectPlanningContext(
+    request: PlanningContextRequest,
+    signal?: AbortSignal
+  ): Promise<string> {
+    const engine = getEngine?.();
+    if (!engine) throw new Error('规划前预检失败：设计器引擎不可用');
+    const calls = [
+      ...(request.skills?.length
+        ? [{ action: 'getSkills', parameters: request.skills }]
+        : []),
+      ...(request.queries || []).map((query) =>
+        typeof query === 'string'
+          ? { action: query, parameters: [] }
+          : { action: query.action, parameters: query.parameters || [] }
+      )
+    ];
+    const results = [];
+    for (const call of calls) {
+      const tool = engine.toolRegistry.get(call.action);
+      if (
+        !tool ||
+        tool.risk ||
+        !call.action.startsWith('get') ||
+        !validateToolParameters(call.parameters, tool.parameters)
+      ) {
+        throw new Error(`规划前预检不允许调用: ${call.action}`);
+      }
+      const result = await executeTool(
+        engine,
+        call.action,
+        call.parameters,
+        undefined,
+        signal
+      );
+      results.push({
+        action: call.action,
+        success: result.success,
+        result: result.result,
+        error: result.error
+      });
+    }
+    return JSON.stringify(results, null, 2);
+  }
 
   const toStepRecord = (result: EditorStepResult): StepRecord => ({
     stepId: result.step.id,
@@ -224,7 +271,8 @@ export function useArchitectPlan(deps: ArchitectPlanDeps) {
     startStep: number,
     initialTokens: number,
     signal?: AbortSignal,
-    retrySlot?: EditorStepResult
+    retrySlot?: EditorStepResult,
+    architectRecords: StepRecord[] = []
   ) {
     const startTime = Date.now();
     const steps = round.architectPlan?.steps || [];
@@ -319,7 +367,7 @@ export function useArchitectPlan(deps: ArchitectPlanDeps) {
       traceId,
       status,
       planJson: round.architectPlan,
-      stepsJson: records,
+      stepsJson: [...architectRecords, ...records],
       totalTokens,
       startTime,
       model: round.modelUsed,
@@ -349,6 +397,28 @@ export function useArchitectPlan(deps: ArchitectPlanDeps) {
   ) {
     const startTime = Date.now();
     let totalTokens = 0;
+    let activeArchitectChatId = architectChatId;
+    const architectRecords: StepRecord[] = [];
+
+    const recordArchitect = (
+      stepId: string,
+      description: string,
+      content: string,
+      result: StreamCompletionResult | null,
+      startedAt: number,
+      error: string | null
+    ) => {
+      architectRecords.push({
+        stepId,
+        type: 'architect',
+        description,
+        status: error ? 'failed' : 'completed',
+        content,
+        error,
+        tokens: result?.usage?.total_tokens || 0,
+        duration: Date.now() - startedAt
+      });
+    };
 
     /** 检查是否已取消，若取消则提前退出 */
     function isCancelled(): boolean {
@@ -365,7 +435,7 @@ export function useArchitectPlan(deps: ArchitectPlanDeps) {
     const streamArchitect = () =>
       streamCompletion(
         topicId,
-        architectChatId,
+        activeArchitectChatId,
         (text) => {
           round.architectStreamText += text;
         },
@@ -376,15 +446,91 @@ export function useArchitectPlan(deps: ArchitectPlanDeps) {
 
     // 保存最后一次流式结果（保存 chat 时使用，含 usage 统计）
     let planResult: StreamCompletionResult | null = null;
+    let architectStartedAt = Date.now();
     planResult = await streamArchitect();
     totalTokens += planResult.usage?.total_tokens || 0;
 
     // 解析计划 JSON（括号配对扫描，避免贪婪正则截断）+ 结构校验，
     // 排除大模型输出的错误占位内容（如 {"error": ...}）或空白输出
-    let { plan, error: planError } = parsePlanOutput(
-      round.architectStreamText,
-      getEngine?.()?.toolRegistry
-    );
+    let {
+      plan,
+      preflight,
+      error: planError,
+      correction: planCorrection
+    } = parsePlanOutput(round.architectStreamText, getEngine?.()?.toolRegistry);
+
+    if (!preflight) {
+      recordArchitect(
+        'architect_attempt_1',
+        '生成执行计划（第 1 次）',
+        round.architectStreamText,
+        planResult,
+        architectStartedAt,
+        plan ? null : planError || Messages.planInvalid.text
+      );
+    }
+
+    // Architect 最多先请求一次只读上下文，再基于真实技能/项目数据生成最终计划。
+    if (preflight && !isCancelled()) {
+      recordArchitect(
+        'architect_preflight',
+        '生成规划前预检请求',
+        round.architectStreamText,
+        planResult,
+        architectStartedAt,
+        null
+      );
+      await saveChat(
+        buildChatSaveBody({
+          id: activeArchitectChatId,
+          topicId,
+          userId,
+          content: round.architectStreamText,
+          result: planResult,
+          tokens: planResult?.usage?.total_tokens || 0
+        })
+      );
+      const context = await collectPlanningContext(preflight, signal);
+      if (isCancelled()) {
+        setStatus(Messages.cancelled);
+        return;
+      }
+      const chatRes = await postChat({
+        topicId,
+        prompt:
+          `[规划前预检结果]\n${context}\n\n` +
+          `[本轮原始需求]\n${userMessage}\n\n` +
+          '请基于以上真实信息输出最终计划 JSON。不要再次请求预检。',
+        agent: 'architect',
+        stepId: 'preflight',
+        attempt: 1,
+        userId: userId || '',
+        userName: ''
+      });
+      activeArchitectChatId = pickChat(chatRes).chatId;
+      round.architectChatId = activeArchitectChatId;
+      round.architectStreamText = '';
+      round.reasoningText = '';
+      architectStartedAt = Date.now();
+      planResult = await streamArchitect();
+      totalTokens += planResult.usage?.total_tokens || 0;
+      const parsed = parsePlanOutput(
+        round.architectStreamText,
+        getEngine?.()?.toolRegistry
+      );
+      plan = parsed.plan;
+      planError = parsed.preflight ? '规划前预检最多执行一次' : parsed.error;
+      planCorrection = parsed.correction;
+      recordArchitect(
+        'architect_attempt_1',
+        '生成执行计划（第 1 次）',
+        round.architectStreamText,
+        planResult,
+        architectStartedAt,
+        plan ? null : planError || Messages.planInvalid.text
+      );
+      preflight = undefined;
+    }
     let retryCount = 0;
 
     // 输出无效时自动重试，直至成功、达到上限或取消
@@ -396,13 +542,13 @@ export function useArchitectPlan(deps: ArchitectPlanDeps) {
       try {
         await saveChat(
           buildChatSaveBody({
-            id: architectChatId,
+            id: activeArchitectChatId,
             topicId,
             userId,
             content: round.architectStreamText || ' ',
-            message: planError,
-            result: null,
-            tokens: 0,
+            message: planCorrection || planError,
+            result: planResult,
+            tokens: planResult?.usage?.total_tokens || 0,
             attempt: retryCount,
             status: 'Failed'
           })
@@ -410,7 +556,7 @@ export function useArchitectPlan(deps: ArchitectPlanDeps) {
       } catch (e: any) {
         console.error('[useArchitectPlan]', '保存无效 Architect 输出失败', {
           topicId,
-          chatId: architectChatId,
+          chatId: activeArchitectChatId,
           retryCount,
           error: e.message
         });
@@ -420,6 +566,7 @@ export function useArchitectPlan(deps: ArchitectPlanDeps) {
       setStatus(
         Messages.architectRetrying(retryCount, MAX_ARCHITECT_RETRIES + 1)
       );
+      architectStartedAt = Date.now();
       planResult = await streamArchitect();
       totalTokens += planResult.usage?.total_tokens || 0;
       const parsed = parsePlanOutput(
@@ -429,6 +576,15 @@ export function useArchitectPlan(deps: ArchitectPlanDeps) {
       plan = parsed.plan;
       // 保留模型自报的错误说明（如缺少关键信息），供最终失败时反馈
       if (parsed.error) planError = parsed.error;
+      if (parsed.correction) planCorrection = parsed.correction;
+      recordArchitect(
+        `architect_attempt_${retryCount + 1}`,
+        `生成执行计划（第 ${retryCount + 1} 次）`,
+        round.architectStreamText,
+        planResult,
+        architectStartedAt,
+        plan ? null : parsed.error || Messages.planInvalid.text
+      );
     }
 
     // 检查取消信号：SSE 流被中断后不应继续执行后续操作
@@ -443,7 +599,7 @@ export function useArchitectPlan(deps: ArchitectPlanDeps) {
     // ── 保存 Architect chat（保存最终一次流式输出） ──
     await saveChat(
       buildChatSaveBody({
-        id: architectChatId,
+        id: activeArchitectChatId,
         topicId,
         userId,
         content: round.architectStreamText || ' ',
@@ -463,18 +619,7 @@ export function useArchitectPlan(deps: ArchitectPlanDeps) {
         topicId,
         traceId,
         status: 'failed',
-        stepsJson: [
-          {
-            stepId: 'architect',
-            type: 'architect',
-            description: '生成执行计划',
-            status: 'failed',
-            content: round.architectStreamText,
-            error: round.architectError,
-            tokens: totalTokens,
-            duration: Date.now() - startTime
-          }
-        ],
+        stepsJson: architectRecords,
         totalTokens,
         startTime,
         model: round.modelUsed
@@ -509,7 +654,7 @@ export function useArchitectPlan(deps: ArchitectPlanDeps) {
         traceId,
         status: 'completed',
         planJson: round.architectPlan,
-        stepsJson: [],
+        stepsJson: architectRecords,
         totalTokens,
         startTime,
         model: round.modelUsed
@@ -526,7 +671,9 @@ export function useArchitectPlan(deps: ArchitectPlanDeps) {
       round,
       0,
       totalTokens,
-      signal
+      signal,
+      undefined,
+      architectRecords
     );
   }
 

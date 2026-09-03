@@ -35,6 +35,46 @@ describe('useReplayChat', () => {
     expect(rounds.value[0].architectPlan?.steps).toEqual([]);
   });
 
+  it('keeps architect preflight and final plan in one round', async () => {
+    const rounds = ref<ConversationRound[]>([]);
+    const { loadChatHistory } = useReplayChat(
+      {
+        getChats: vi.fn(async () => [
+          {
+            id: 'preflight',
+            agentRole: 'architect',
+            prompt: '创建仪表盘子页面',
+            content: JSON.stringify({
+              needsContext: { skills: ['page'], queries: ['getMenus'] }
+            }),
+            status: 'Success'
+          },
+          {
+            id: 'plan',
+            agentRole: 'architect',
+            prompt: '[规划前预检结果]',
+            content: JSON.stringify({
+              intent: '创建仪表盘子页面',
+              safety: 'readonly',
+              steps: [],
+              answer: '计划完成'
+            }),
+            status: 'Success'
+          }
+        ]) as any,
+        setStatus: vi.fn()
+      },
+      rounds
+    );
+
+    await loadChatHistory('topic');
+
+    expect(rounds.value).toHaveLength(1);
+    expect(rounds.value[0].userMessage).toBe('创建仪表盘子页面');
+    expect(rounds.value[0].architectChatId).toBe('plan');
+    expect(rounds.value[0].architectAnswer).toBe('计划完成');
+  });
+
   it('clears the previous conversation before loading an empty topic', async () => {
     const rounds = ref([{ id: 'old' }] as ConversationRound[]);
     const statusText = ref('');

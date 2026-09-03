@@ -218,6 +218,31 @@ class TClass {
 });
 
 describe('parseScriptSetup orphan variable fallback → reactive', () => {
+  test('should parse provider component definitions', () => {
+    const source = `
+const VueECharts = __provider.definePluginComponent({
+  type: 'Plugin',
+  urls: ['https://example.com/echarts.js'],
+  library: 'VueECharts'
+});
+const RemoteCard = __provider.defineUrlSchemaComponent(
+  'https://example.com/card.json'
+);
+`;
+    const result = parseScriptSetup(source, project);
+    expect(result.componentDefines).toEqual({
+      VueECharts: {
+        type: 'Plugin',
+        urls: ['https://example.com/echarts.js'],
+        library: 'VueECharts'
+      },
+      RemoteCard: {
+        type: 'UrlSchema',
+        url: 'https://example.com/card.json'
+      }
+    });
+  });
+
   test('should convert const with {} to reactive', () => {
     const source = `
 import { useProvider } from '@vtj/renderer';

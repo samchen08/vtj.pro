@@ -20,7 +20,8 @@ import { buildChatSaveBody } from '../utils/chat';
 import {
   bindActiveParameters,
   getDirectToolCall,
-  isSameToolCall
+  isSameToolCall,
+  resolveStepReferences
 } from '../utils/directTool';
 import { MAX_TURNS, TOOL_TIMEOUT_MS } from '../constants';
 import type { Engine } from '../../../../framework';
@@ -407,10 +408,22 @@ export function useEditorStep(deps: EditorStepDeps) {
       ? configuredMode
       : 'off';
     const engine = directMode === 'off' ? null : getEngine();
-    const runtimeStep =
-      directMode === 'off'
-        ? step
-        : bindActiveParameters(step, editorResults, engine);
+    let runtimeStep: PlanStep;
+    try {
+      const boundStep =
+        directMode === 'off'
+          ? step
+          : bindActiveParameters(step, editorResults, engine);
+      runtimeStep = resolveStepReferences(boundStep, editorResults);
+    } catch (e: any) {
+      const message = e?.message || String(e);
+      slot.error = message;
+      slot.done = true;
+      return errResult(message, totalTokens, stepStart);
+    }
+    if (runtimeStep.parameters) {
+      stepPrompt += `\n参数: ${JSON.stringify(runtimeStep.parameters)}`;
+    }
     const plannedCall =
       directMode === 'off' ? null : getDirectToolCall(runtimeStep, engine);
     let directAttempts = 0;

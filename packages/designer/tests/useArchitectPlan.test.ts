@@ -1,5 +1,6 @@
 import { describe, expect, it, vi, beforeEach } from 'vitest';
 import { reactive, ref } from 'vue';
+import { ToolRegistry } from '../src/framework';
 import { useArchitectPlan } from '../src/components/widgets/agent/composables/useArchitectPlan';
 import { buildSummaryPrompt } from '../src/components/widgets/agent/utils/summary';
 import type {
@@ -150,6 +151,7 @@ describe('useArchitectPlan.executeArchitectPlan', () => {
     expect(deps.callLog[0][1].status).toBe('Failed');
     expect(deps.callLog[0][1].attempt).toBe(1);
     expect(deps.callLog[0][1].content).toBe('plain text without plan json');
+    expect(deps.callLog[0][1].tokens).toBe(20);
     expect(deps.callLog[1][1].attempt).toBe(2);
     expect(deps.callLog[1][1].tokens).toBe(20);
     const updateBody = deps.callLog.find(
@@ -159,12 +161,56 @@ describe('useArchitectPlan.executeArchitectPlan', () => {
     const traceBody = deps.callLog.find(([name]) => name === 'saveTrace')![1];
     expect(traceBody.finalStatus).toBe('failed');
     expect(traceBody.planJson).toBeNull();
+    expect(traceBody.stepsJson).toHaveLength(2);
     expect(traceBody.stepsJson[0]).toMatchObject({
-      stepId: 'architect',
+      stepId: 'architect_attempt_1',
       status: 'failed',
-      error: expect.stringContaining('未生成有效计划')
+      error: expect.stringContaining('未生成有效计划'),
+      tokens: 20
+    });
+    expect(traceBody.stepsJson[1]).toMatchObject({
+      stepId: 'architect_attempt_2',
+      status: 'failed',
+      tokens: 20
     });
     expect(deps.statusText.value).toContain('已自动重试 1 次');
+  });
+
+  it('sends every validation issue to the architect retry', async () => {
+    const registry = new ToolRegistry();
+    registry.register({
+      name: 'createPage',
+      description: '创建页面',
+      parameters: [{ name: 'page', type: 'object', required: true }],
+      handler: async () => true
+    });
+    const invalidPlan = JSON.stringify({
+      intent: '创建多个页面',
+      safety: 'write',
+      steps: Array.from({ length: 5 }, (_, index) => ({
+        id: `create_${index + 1}`,
+        type: 'tool_call',
+        description: `创建页面 ${index + 1}`,
+        toolName: 'createPage'
+      }))
+    });
+    const deps = createDeps({
+      streamCompletion: vi.fn(async (_t: string, _c: string, onChunk: any) => {
+        onChunk?.(invalidPlan);
+        return planStreamResult();
+      }),
+      getEngine: () => ({ toolRegistry: registry })
+    });
+    const round = createRound();
+    const { executeArchitectPlan } = useArchitectPlan(deps);
+
+    await executeArchitectPlan('topic', 'chat', 'user', 'trace', '消息', round);
+
+    const retrySave = deps.callLog.find(
+      ([name, body]) => name === 'saveChat' && body.status === 'Failed'
+    )![1];
+    expect(retrySave.message).toContain('steps[4].parameters');
+    expect(round.architectError).not.toContain('steps[4].parameters');
   });
 
   it('answers directly when the plan has no steps', async () => {
@@ -197,7 +243,99 @@ describe('useArchitectPlan.executeArchitectPlan', () => {
     expect(updateBodies[updateBodies.length - 1][1].status).toBe('completed');
     const traceBody = deps.callLog.find(([name]) => name === 'saveTrace')![1];
     expect(traceBody.finalStatus).toBe('completed');
-    expect(traceBody.stepsJson).toEqual([]);
+    expect(traceBody.stepsJson).toEqual([
+      expect.objectContaining({
+        stepId: 'architect_attempt_1',
+        status: 'completed',
+        tokens: 20
+      })
+    ]);
+  });
+
+  it('collects read-only context before producing the final plan', async () => {
+    const streamCompletion = vi
+      .fn()
+      .mockImplementationOnce(async (_t: string, _c: string, onChunk: any) => {
+        onChunk?.(
+          JSON.stringify({
+            needsContext: {
+              skills: ['tools', 'page'],
+              queries: ['getMenus']
+            }
+          })
+        );
+        return planStreamResult();
+      })
+      .mockImplementationOnce(async (_t: string, _c: string, onChunk: any) => {
+        onChunk?.(
+          JSON.stringify({
+            intent: '信息已确认',
+            safety: 'readonly',
+            steps: [],
+            answer: '已完成规划'
+          })
+        );
+        return planStreamResult();
+      });
+    const execute = vi.fn(async (action: string) =>
+      action === 'getSkills' ? 'page docs' : []
+    );
+    const tools: Record<string, any> = {
+      getSkills: {
+        name: 'getSkills',
+        parameters: [{ name: 'id', type: 'string', required: true, rest: true }]
+      },
+      getMenus: { name: 'getMenus', parameters: [] }
+    };
+    const deps = createDeps({
+      streamCompletion,
+      getEngine: () => ({
+        toolRegistry: {
+          get: (name: string) => tools[name],
+          execute
+        }
+      })
+    });
+    const round = createRound({ architectChatId: 'chat' });
+    const { executeArchitectPlan } = useArchitectPlan(deps);
+
+    await executeArchitectPlan('topic', 'chat', 'user', 'trace', '消息', round);
+
+    expect(execute).toHaveBeenNthCalledWith(1, 'getSkills', ['tools', 'page']);
+    expect(execute).toHaveBeenNthCalledWith(2, 'getMenus', []);
+    expect(deps.postChat).toHaveBeenCalledWith(
+      expect.objectContaining({
+        agent: 'architect',
+        stepId: 'preflight',
+        prompt: expect.stringContaining('page docs')
+      })
+    );
+    const preflightPrompt = vi.mocked(deps.postChat).mock.calls[0][0].prompt;
+    expect(preflightPrompt).toContain('[本轮原始需求]\n消息');
+    expect(preflightPrompt.indexOf('[本轮原始需求]')).toBeGreaterThan(
+      preflightPrompt.indexOf('[规划前预检结果]')
+    );
+    expect(streamCompletion).toHaveBeenNthCalledWith(
+      2,
+      'topic',
+      'summary-chat',
+      expect.any(Function),
+      expect.any(Function)
+    );
+    expect(round.architectAnswer).toBe('已完成规划');
+    const traceBody = deps.callLog.find(([name]) => name === 'saveTrace')![1];
+    expect(traceBody.stepsJson).toEqual([
+      expect.objectContaining({
+        stepId: 'architect_preflight',
+        status: 'completed',
+        tokens: 20
+      }),
+      expect.objectContaining({
+        stepId: 'architect_attempt_1',
+        status: 'completed',
+        tokens: 20
+      })
+    ]);
   });
 
   it('executes all steps, generates a summary and completes the topic', async () => {
@@ -256,8 +394,13 @@ describe('useArchitectPlan.executeArchitectPlan', () => {
     expect(deps.callLog[4][1].status).toBe('completed');
     const traceBody = deps.callLog[5][1];
     expect(traceBody.finalStatus).toBe('completed');
-    expect(traceBody.stepsJson).toHaveLength(2);
+    expect(traceBody.stepsJson).toHaveLength(3);
     expect(traceBody.stepsJson[0]).toMatchObject({
+      stepId: 'architect_attempt_1',
+      status: 'completed',
+      tokens: 20
+    });
+    expect(traceBody.stepsJson[1]).toMatchObject({
       stepId: 's1',
       status: 'completed',
       tokens: 5
@@ -294,8 +437,9 @@ describe('useArchitectPlan.executeArchitectPlan', () => {
     expect(failedUpdates).toHaveLength(1);
     const traceBody = deps.callLog.find(([name]) => name === 'saveTrace')![1];
     expect(traceBody.finalStatus).toBe('failed');
-    expect(traceBody.stepsJson).toHaveLength(1);
-    expect(traceBody.stepsJson[0].status).toBe('failed');
+    expect(traceBody.stepsJson).toHaveLength(2);
+    expect(traceBody.stepsJson[0].stepId).toBe('architect_attempt_1');
+    expect(traceBody.stepsJson[1].status).toBe('failed');
   });
 
   it('retries from the failed step and keeps completed step records', async () => {

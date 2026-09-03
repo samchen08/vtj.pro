@@ -7,7 +7,7 @@
     :padding="false">
     <div class="x-mask__inner" :class="{ 'is-pure': props.pure }">
       <slot></slot>
-      <RouterView v-if="props.disabled" :key="route.fullPath"></RouterView>
+      <RouterView v-if="props.disabled"></RouterView>
       <RouterView v-else v-slot="{ Component, route }" :key="route.path">
         <KeepAlive :exclude="props.exclude">
           <component

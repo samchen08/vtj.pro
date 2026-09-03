@@ -3,6 +3,8 @@ import {
   bindActiveParameters,
   getDirectToolCall,
   isSameToolCall,
+  resolveStepReferences,
+  validatePlannedToolParameters,
   validateToolParameters
 } from '../../src/components/widgets/agent/utils/directTool';
 
@@ -141,6 +143,61 @@ describe('directTool', () => {
     );
     expect(unbound).not.toHaveProperty('parameters');
     expect(getDirectToolCall(unbound, engine())).toBeNull();
+  });
+
+  it('解析前置步骤工具结果引用', () => {
+    const step = {
+      id: '2',
+      type: 'tool_call' as const,
+      description: '',
+      toolName: 'createPage',
+      parameters: [
+        { name: 'Dashboard', title: '仪表盘' },
+        { $ref: { stepId: '1', path: 'result.id' } }
+      ],
+      dependsOn: ['1']
+    };
+    const results = [
+      {
+        step: { id: '1' },
+        done: true,
+        error: null,
+        turns: [
+          {
+            toolResult: { success: true, result: { id: 'layout-1' } }
+          }
+        ]
+      }
+    ] as any;
+
+    expect(resolveStepReferences(step, results).parameters).toEqual([
+      { name: 'Dashboard', title: '仪表盘' },
+      'layout-1'
+    ]);
+    expect(() => resolveStepReferences(step, [])).toThrow(
+      '无法解析步骤结果引用'
+    );
+  });
+
+  it('计划校验接受符合参数类型的步骤结果引用', () => {
+    expect(
+      validatePlannedToolParameters(
+        [
+          { name: 'Dashboard', title: '仪表盘' },
+          { $ref: { stepId: '1', path: 'result.id' } }
+        ],
+        toolParameters.createPage
+      )
+    ).toBe(true);
+    expect(
+      validatePlannedToolParameters(
+        [
+          { name: 'Dashboard', title: '仪表盘' },
+          { $ref: { stepId: '1', path: 'result.__proto__' } }
+        ],
+        toolParameters.createPage
+      )
+    ).toBe(false);
   });
 
   it('接受高频工具的确定参数', () => {
