@@ -44,6 +44,149 @@ describe('parsePlanOutput', () => {
     expect(plan?.steps[1].dependsOn).toEqual(['s1']);
   });
 
+  it('自动补全步骤结果引用对应的直接依赖', () => {
+    const { plan, issues } = parsePlanOutput(
+      JSON.stringify({
+        intent: '设置主页',
+        safety: 'write',
+        steps: [
+          { id: 'create', type: 'text', description: '创建页面' },
+          {
+            id: 'refresh',
+            type: 'text',
+            description: '检查页面',
+            dependsOn: ['create']
+          },
+          {
+            id: 'homepage',
+            type: 'tool_call',
+            description: '设置主页',
+            toolName: 'setHomepage',
+            parameters: [{ $ref: { stepId: 'create', path: 'result.id' } }],
+            dependsOn: ['refresh']
+          }
+        ]
+      })
+    );
+
+    expect(issues).toBeUndefined();
+    expect(plan?.steps[2].dependsOn).toEqual(['refresh', 'create']);
+  });
+
+  it('根据工具定义为多个无参数调用补全空数组', () => {
+    const registry = new ToolRegistry();
+    registry.register({
+      name: 'refresh',
+      description: '刷新预览',
+      parameters: [],
+      handler: async () => true
+    });
+    const { plan, issues } = parsePlanOutput(
+      JSON.stringify({
+        intent: '检查多个区块',
+        safety: 'write',
+        steps: Array.from({ length: 5 }, (_, index) => ({
+          id: `refresh_${index + 1}`,
+          type: 'tool_call',
+          description: `检查区块 ${index + 1}`,
+          toolName: 'refresh'
+        }))
+      }),
+      registry
+    );
+
+    expect(issues).toBeUndefined();
+    expect(plan?.steps.map((step) => step.parameters)).toEqual([
+      [],
+      [],
+      [],
+      [],
+      []
+    ]);
+  });
+
+  it('有参工具缺少参数仍失败，并为重试保留全部错误', () => {
+    const registry = new ToolRegistry();
+    registry.register({
+      name: 'createPage',
+      description: '创建页面',
+      parameters: [{ name: 'page', type: 'object', required: true }],
+      handler: async () => true
+    });
+    const result = parsePlanOutput(
+      JSON.stringify({
+        intent: '创建多个页面',
+        safety: 'write',
+        steps: Array.from({ length: 5 }, (_, index) => ({
+          id: `create_${index + 1}`,
+          type: 'tool_call',
+          description: `创建页面 ${index + 1}`,
+          toolName: 'createPage'
+        }))
+      }),
+      registry
+    );
+
+    expect(result.plan).toBeNull();
+    expect(result.error).toContain('steps[2].parameters');
+    expect(result.error).not.toContain('steps[3].parameters');
+    expect(result.correction).toContain('steps[4].parameters');
+  });
+
+  it.each([null, {}])('不修复非法 parameters: %j', (parameters) => {
+    const registry = new ToolRegistry();
+    registry.register({
+      name: 'refresh',
+      description: '刷新预览',
+      parameters: [],
+      handler: async () => true
+    });
+    const result = parsePlanOutput(
+      JSON.stringify({
+        intent: '检查页面',
+        safety: 'write',
+        steps: [
+          {
+            id: 'refresh',
+            type: 'tool_call',
+            description: '刷新预览',
+            toolName: 'refresh',
+            parameters
+          }
+        ]
+      }),
+      registry
+    );
+
+    expect(result.plan).toBeNull();
+    expect(result.issues?.map((issue) => issue.message)).toContain(
+      '必须是数组'
+    );
+  });
+
+  it('不掩盖非数组 dependsOn 校验错误', () => {
+    const { plan, issues } = parsePlanOutput(
+      JSON.stringify({
+        intent: '设置主页',
+        safety: 'write',
+        steps: [
+          { id: 'create', type: 'text', description: '创建页面' },
+          {
+            id: 'homepage',
+            type: 'tool_call',
+            description: '设置主页',
+            toolName: 'setHomepage',
+            parameters: [{ $ref: { stepId: 'create', path: 'result.id' } }],
+            dependsOn: 'create'
+          }
+        ]
+      })
+    );
+
+    expect(plan).toBeNull();
+    expect(issues?.map((issue) => issue.message)).toContain('必须是数组');
+  });
+
   it('直接回答（answer）保留其余字段', () => {
     const { plan } = parsePlanOutput(
       JSON.stringify({

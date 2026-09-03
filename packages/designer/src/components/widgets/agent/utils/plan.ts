@@ -24,6 +24,8 @@ export interface PlanOutputParseResult {
   preflight?: PlanningContextRequest;
   /** 大模型明确输出的错误说明（如缺少关键信息），最终失败时反馈给用户 */
   error?: string;
+  /** 完整校验错误，仅用于 Architect 纠错重试。 */
+  correction?: string;
   issues?: PlanValidationIssue[];
 }
 
@@ -69,14 +71,32 @@ function parsePreflight(value: unknown): PlanningContextRequest | undefined {
 }
 
 /**
- * 归一化计划：服务端协议步骤类型 'code' 统一为前端执行类型 'vue_code'（其余字段透传保留）
+ * 归一化计划：统一步骤类型，并补全可由工具定义确定的参数和依赖。
  */
-function normalizePlan(plan: any): PlanResult {
+function normalizePlan(plan: any, registry?: ToolRegistry): PlanResult {
   const steps = Array.isArray(plan.steps)
-    ? plan.steps.map((s: any) => ({
-        ...s,
-        type: s.type === 'code' ? 'vue_code' : s.type
-      }))
+    ? plan.steps.map((s: any) => {
+        const tool =
+          s.type === 'tool_call' && typeof s.toolName === 'string'
+            ? registry?.get(s.toolName)
+            : undefined;
+        const parameters =
+          s.parameters === undefined && tool?.parameters.length === 0
+            ? []
+            : s.parameters;
+        const refs = collectStepRefs(parameters).map((ref) => ref.$ref.stepId);
+        const dependsOn =
+          refs.length &&
+          (s.dependsOn === undefined || Array.isArray(s.dependsOn))
+            ? [...new Set([...(s.dependsOn || []), ...refs])]
+            : s.dependsOn;
+        return {
+          ...s,
+          type: s.type === 'code' ? 'vue_code' : s.type,
+          ...(parameters === undefined ? {} : { parameters }),
+          ...(dependsOn === undefined ? {} : { dependsOn })
+        };
+      })
     : plan.steps === undefined
       ? []
       : plan.steps;
@@ -227,10 +247,15 @@ export function validatePlan(
   }
 
   const graph = new Map(
-    steps.map((step) => [step.id, step.dependsOn || []] as const)
+    steps.map(
+      (step) =>
+        [step.id, Array.isArray(step.dependsOn) ? step.dependsOn : []] as const
+    )
   );
   for (const [index, step] of steps.entries()) {
-    for (const dependency of step.dependsOn || []) {
+    for (const dependency of Array.isArray(step.dependsOn)
+      ? step.dependsOn
+      : []) {
       if (!ids.has(dependency)) {
         issues.push({
           path: `steps[${index}].dependsOn`,
@@ -298,22 +323,23 @@ export function parsePlanOutput(
   let plan: PlanResult | null = null;
   // 直接回答（无步骤）需携带 answer 文本
   if (typeof parsed?.answer === 'string' && parsed.answer.trim()) {
-    plan = normalizePlan(parsed);
+    plan = normalizePlan(parsed, registry);
   }
   // 规划需携带 intent（steps 缺失时回退为直接回答，兼容旧行为）
   if (!plan && typeof parsed?.intent === 'string' && parsed.intent.trim()) {
-    plan = normalizePlan(parsed);
+    plan = normalizePlan(parsed, registry);
   }
   if (!plan) return { plan: null };
   const issues = validatePlan(plan, registry);
+  const issueMessages = issues.map(
+    (issue) => `${issue.path}: ${issue.message}`
+  );
   return issues.length
     ? {
         plan: null,
         issues,
-        error: issues
-          .slice(0, 3)
-          .map((issue) => `${issue.path}: ${issue.message}`)
-          .join('；')
+        error: issueMessages.slice(0, 3).join('；'),
+        correction: issueMessages.join('；')
       }
     : { plan };
 }

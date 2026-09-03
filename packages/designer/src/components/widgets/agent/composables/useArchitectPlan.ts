@@ -271,7 +271,8 @@ export function useArchitectPlan(deps: ArchitectPlanDeps) {
     startStep: number,
     initialTokens: number,
     signal?: AbortSignal,
-    retrySlot?: EditorStepResult
+    retrySlot?: EditorStepResult,
+    architectRecords: StepRecord[] = []
   ) {
     const startTime = Date.now();
     const steps = round.architectPlan?.steps || [];
@@ -366,7 +367,7 @@ export function useArchitectPlan(deps: ArchitectPlanDeps) {
       traceId,
       status,
       planJson: round.architectPlan,
-      stepsJson: records,
+      stepsJson: [...architectRecords, ...records],
       totalTokens,
       startTime,
       model: round.modelUsed,
@@ -397,6 +398,27 @@ export function useArchitectPlan(deps: ArchitectPlanDeps) {
     const startTime = Date.now();
     let totalTokens = 0;
     let activeArchitectChatId = architectChatId;
+    const architectRecords: StepRecord[] = [];
+
+    const recordArchitect = (
+      stepId: string,
+      description: string,
+      content: string,
+      result: StreamCompletionResult | null,
+      startedAt: number,
+      error: string | null
+    ) => {
+      architectRecords.push({
+        stepId,
+        type: 'architect',
+        description,
+        status: error ? 'failed' : 'completed',
+        content,
+        error,
+        tokens: result?.usage?.total_tokens || 0,
+        duration: Date.now() - startedAt
+      });
+    };
 
     /** 检查是否已取消，若取消则提前退出 */
     function isCancelled(): boolean {
@@ -424,6 +446,7 @@ export function useArchitectPlan(deps: ArchitectPlanDeps) {
 
     // 保存最后一次流式结果（保存 chat 时使用，含 usage 统计）
     let planResult: StreamCompletionResult | null = null;
+    let architectStartedAt = Date.now();
     planResult = await streamArchitect();
     totalTokens += planResult.usage?.total_tokens || 0;
 
@@ -432,11 +455,31 @@ export function useArchitectPlan(deps: ArchitectPlanDeps) {
     let {
       plan,
       preflight,
-      error: planError
+      error: planError,
+      correction: planCorrection
     } = parsePlanOutput(round.architectStreamText, getEngine?.()?.toolRegistry);
+
+    if (!preflight) {
+      recordArchitect(
+        'architect_attempt_1',
+        '生成执行计划（第 1 次）',
+        round.architectStreamText,
+        planResult,
+        architectStartedAt,
+        plan ? null : planError || Messages.planInvalid.text
+      );
+    }
 
     // Architect 最多先请求一次只读上下文，再基于真实技能/项目数据生成最终计划。
     if (preflight && !isCancelled()) {
+      recordArchitect(
+        'architect_preflight',
+        '生成规划前预检请求',
+        round.architectStreamText,
+        planResult,
+        architectStartedAt,
+        null
+      );
       await saveChat(
         buildChatSaveBody({
           id: activeArchitectChatId,
@@ -468,6 +511,7 @@ export function useArchitectPlan(deps: ArchitectPlanDeps) {
       round.architectChatId = activeArchitectChatId;
       round.architectStreamText = '';
       round.reasoningText = '';
+      architectStartedAt = Date.now();
       planResult = await streamArchitect();
       totalTokens += planResult.usage?.total_tokens || 0;
       const parsed = parsePlanOutput(
@@ -476,6 +520,15 @@ export function useArchitectPlan(deps: ArchitectPlanDeps) {
       );
       plan = parsed.plan;
       planError = parsed.preflight ? '规划前预检最多执行一次' : parsed.error;
+      planCorrection = parsed.correction;
+      recordArchitect(
+        'architect_attempt_1',
+        '生成执行计划（第 1 次）',
+        round.architectStreamText,
+        planResult,
+        architectStartedAt,
+        plan ? null : planError || Messages.planInvalid.text
+      );
       preflight = undefined;
     }
     let retryCount = 0;
@@ -493,9 +546,9 @@ export function useArchitectPlan(deps: ArchitectPlanDeps) {
             topicId,
             userId,
             content: round.architectStreamText || ' ',
-            message: planError,
-            result: null,
-            tokens: 0,
+            message: planCorrection || planError,
+            result: planResult,
+            tokens: planResult?.usage?.total_tokens || 0,
             attempt: retryCount,
             status: 'Failed'
           })
@@ -513,6 +566,7 @@ export function useArchitectPlan(deps: ArchitectPlanDeps) {
       setStatus(
         Messages.architectRetrying(retryCount, MAX_ARCHITECT_RETRIES + 1)
       );
+      architectStartedAt = Date.now();
       planResult = await streamArchitect();
       totalTokens += planResult.usage?.total_tokens || 0;
       const parsed = parsePlanOutput(
@@ -522,6 +576,15 @@ export function useArchitectPlan(deps: ArchitectPlanDeps) {
       plan = parsed.plan;
       // 保留模型自报的错误说明（如缺少关键信息），供最终失败时反馈
       if (parsed.error) planError = parsed.error;
+      if (parsed.correction) planCorrection = parsed.correction;
+      recordArchitect(
+        `architect_attempt_${retryCount + 1}`,
+        `生成执行计划（第 ${retryCount + 1} 次）`,
+        round.architectStreamText,
+        planResult,
+        architectStartedAt,
+        plan ? null : parsed.error || Messages.planInvalid.text
+      );
     }
 
     // 检查取消信号：SSE 流被中断后不应继续执行后续操作
@@ -556,18 +619,7 @@ export function useArchitectPlan(deps: ArchitectPlanDeps) {
         topicId,
         traceId,
         status: 'failed',
-        stepsJson: [
-          {
-            stepId: 'architect',
-            type: 'architect',
-            description: '生成执行计划',
-            status: 'failed',
-            content: round.architectStreamText,
-            error: round.architectError,
-            tokens: totalTokens,
-            duration: Date.now() - startTime
-          }
-        ],
+        stepsJson: architectRecords,
         totalTokens,
         startTime,
         model: round.modelUsed
@@ -602,7 +654,7 @@ export function useArchitectPlan(deps: ArchitectPlanDeps) {
         traceId,
         status: 'completed',
         planJson: round.architectPlan,
-        stepsJson: [],
+        stepsJson: architectRecords,
         totalTokens,
         startTime,
         model: round.modelUsed
@@ -619,7 +671,9 @@ export function useArchitectPlan(deps: ArchitectPlanDeps) {
       round,
       0,
       totalTokens,
-      signal
+      signal,
+      undefined,
+      architectRecords
     );
   }
 
