@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.15.2](https://github.com/samchen08/vtj.pro/compare/vtj-project-library@0.15.1...vtj-project-library@0.15.2) (2026-09-03)
+
+
+### Features
+
+* **architect:** 完善执行计划的归一化和错误纠正功能 ([43a2458](https://github.com/samchen08/vtj.pro/commit/43a2458e9fa47aa655e51dbd1fd125293e853ba9))
+
+
+
+
+
+## [0.15.1](https://github.com/samchen08/vtj.pro/compare/vtj-project-library@0.15.0...vtj-project-library@0.15.1) (2026-09-02)
+
+
+### Features
+
+* **agent:** 实现规划前只读上下文收集及步骤结果引用解析 ([77c5d3c](https://github.com/samchen08/vtj.pro/commit/77c5d3cd0c96618ddcb4acf2e59c1eb8d23cf8b1))
+
+
+
+
+
 # [0.15.0](https://github.com/samchen08/vtj.pro/compare/vtj-project-library@0.14.10...vtj-project-library@0.15.0) (2026-08-31)
 
 **Note:** Version bump only for package vtj-project-library

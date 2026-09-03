@@ -209,8 +209,11 @@ export function parserComposition(
   });
 
   // 7. 异步组件 + url schemas + block plugins
-  const urlSchemas = parseUrlSchemas(collecter.urlSchemas);
-  const blockPlugins = parseBlockPlugins(collecter.blockPlugins);
+  const urlSchemas = parseUrlSchemas(collecter.urlSchemas, '__provider');
+  const blockPlugins = parseBlockPlugins(
+    collecter.blockPlugins,
+    '__provider'
+  );
 
   return {
     id: dsl.id as string,

@@ -121,6 +121,40 @@ test('composition mode - ant-design-vue', async () => {
   expect(content.match(/from 'ant-design-vue'/g)?.length).toBe(1);
 });
 
+test('composition mode - plugin component uses __provider', async () => {
+  const content = await generator(
+    {
+      id: 'plugin-demo',
+      name: 'PluginDemo',
+      apiMode: 'composition',
+      __VERSION__: '1',
+      nodes: [
+        {
+          id: 'plugin-node',
+          name: 'VueECharts',
+          from: {
+            type: 'Plugin',
+            urls: ['https://example.com/vue-charts.js'],
+            library: 'VueECharts'
+          },
+          children: []
+        }
+      ]
+    } as any,
+    new Map(),
+    [],
+    'web',
+    false
+  );
+
+  expect(content).toContain(
+    'const VueECharts = __provider.definePluginComponent'
+  );
+  expect(content).not.toContain(
+    'const VueECharts = provider.definePluginComponent'
+  );
+});
+
 test('composition mode - ref .value should be unwrapped in template children', async () => {
   const dslRefValue = {
     name: 'RefValueDemo',

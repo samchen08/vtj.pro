@@ -294,6 +294,16 @@ function groupChatsIntoRounds(chats: ChatRecord[]): ChatRecord[][] {
     const role = chat.agentRole || 'single';
 
     if (role === 'architect') {
+      const previousArchitect = currentRound
+        ?.filter((item) => item.agentRole === 'architect')
+        .pop();
+      if (
+        previousArchitect &&
+        parsePlanOutput(previousArchitect.content || '').preflight
+      ) {
+        currentRound!.push(chat);
+        continue;
+      }
       // architect 开启新轮次
       if (currentRound) {
         rounds.push(currentRound);
@@ -344,7 +354,13 @@ function buildRound(chats: ChatRecord[]): ConversationRound | null {
   };
 
   // 分类 chat
-  const architectChat = chats.find((c) => c.agentRole === 'architect');
+  const architectChats = chats.filter((c) => c.agentRole === 'architect');
+  const firstArchitectChat = architectChats[0];
+  const architectChat =
+    [...architectChats]
+      .reverse()
+      .find((chat) => parsePlanOutput(chat.content || '').plan) ||
+    architectChats[architectChats.length - 1];
   const summaryChat = chats
     .filter((c) => c.agentRole === 'editor' && c.stepId === 'summary')
     .pop();
@@ -356,12 +372,12 @@ function buildRound(chats: ChatRecord[]): ConversationRound | null {
   const singleChat = chats.find((c) => c.agentRole === 'single');
 
   if (architectChat) {
-    round.userMessage = stripFileDescBlocks(architectChat.prompt || '');
+    round.userMessage = stripFileDescBlocks(firstArchitectChat?.prompt || '');
     round.architectChatId = architectChat.id || '';
     round.architectStreamText = architectChat.content || '';
     round.reasoningText = architectChat.reasoning || '';
-    round.attachments = architectChat.files || undefined;
-    round.promptSent = architectChat.prompt || '';
+    round.attachments = firstArchitectChat?.files || undefined;
+    round.promptSent = firstArchitectChat?.prompt || '';
 
     // 与运行时使用相同的解析规则，兼容没有 steps 的直接回答
     const parsedPlan = parsePlanOutput(architectChat.content || '');

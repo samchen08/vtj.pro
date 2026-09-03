@@ -217,6 +217,7 @@ async function parseVueComposition(
     styles,
     imports: scriptResult.imports,
     directives: scriptResult.directives,
+    componentDefines: scriptResult.componentDefines,
     resolveSchemaImport: (source) =>
       resolveProjectBlockImport(source, project, id)
   });

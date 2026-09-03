@@ -3,6 +3,44 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.20.4](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.20.3...@vtj/designer@0.20.4) (2026-09-03)
+
+
+### Features
+
+* **architect:** 完善执行计划的归一化和错误纠正功能 ([43a2458](https://gitee.com/newgateway/vtj/commits/43a2458e9fa47aa655e51dbd1fd125293e853ba9))
+
+
+
+
+
+## [0.20.3](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.20.2...@vtj/designer@0.20.3) (2026-09-03)
+
+**Note:** Version bump only for package @vtj/designer
+
+
+
+
+
+## [0.20.2](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.20.1...@vtj/designer@0.20.2) (2026-09-02)
+
+**Note:** Version bump only for package @vtj/designer
+
+
+
+
+
+## [0.20.1](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.20.0...@vtj/designer@0.20.1) (2026-09-02)
+
+
+### Features
+
+* **agent:** 实现规划前只读上下文收集及步骤结果引用解析 ([77c5d3c](https://gitee.com/newgateway/vtj/commits/77c5d3cd0c96618ddcb4acf2e59c1eb8d23cf8b1))
+
+
+
+
+
 # [0.20.0](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.19.23-alpha.0...@vtj/designer@0.20.0) (2026-08-31)
 
 **Note:** Version bump only for package @vtj/designer

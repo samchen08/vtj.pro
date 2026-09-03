@@ -52,10 +52,30 @@ export interface PlanStep {
   description: string;
   target?: string;
   toolName?: string;
-  /** Architect 已确认的工具位置参数；缺失时沿用 Editor 推理 */
+  /** Architect 已确认的工具位置参数；动态值使用 StepResultRef */
   parameters?: unknown[];
   /** 步骤依赖（服务端 HarnessPlan 协议字段，透传保留） */
   dependsOn?: string[];
+}
+
+/** 引用前置步骤的工具执行结果，执行前由调度器解析 */
+export interface StepResultRef {
+  $ref: {
+    stepId: string;
+    path: string;
+  };
+}
+
+/** Architect 在最终规划前请求的只读上下文 */
+export interface PlanningContextRequest {
+  skills?: string[];
+  queries?: Array<
+    | string
+    | {
+        action: string;
+        parameters?: unknown[];
+      }
+  >;
 }
 
 /** 步骤元数据快照（随 chat 持久化到后端 step_meta，回放时免正则解析） */

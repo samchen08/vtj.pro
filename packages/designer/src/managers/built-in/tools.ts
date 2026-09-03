@@ -102,6 +102,41 @@ const getPages: ToolConfig = {
     }
 };
 
+/** 验证指定页面均直接挂载在目标父页面下。 */
+const getPageTreeValidation: ToolConfig = {
+  name: 'getPageTreeValidation',
+  description: '验证子页面是否直接挂载在指定目录或布局页面下',
+  parameters: [
+    {
+      name: 'parentId',
+      type: 'string',
+      description: '父页面 ID',
+      required: true
+    },
+    {
+      name: 'childIds',
+      type: 'array',
+      description: '需要验证的子页面 ID 列表',
+      required: true,
+      items: { type: 'string', required: true }
+    }
+  ],
+  createHandler:
+    ({ project }) =>
+    async (parentId: string, childIds: string[]) => {
+      const parent = project.getPage(parentId) as any;
+      if (!parent) throw new Error(`父页面不存在: ${parentId}`);
+      const actualIds = new Set(
+        (parent.children || []).map((child: PageFile) => child.id)
+      );
+      const missing = childIds.filter((id) => !actualIds.has(id));
+      if (missing.length) {
+        throw new Error(`页面树验证失败，缺少子页面: ${missing.join(', ')}`);
+      }
+      return true;
+    }
+};
+
 /**
  * 创建页面
  */
@@ -1850,6 +1885,7 @@ export const TOOL_CONFIGS: ToolConfig[] = [
   getSkills,
   getMenus,
   getPages,
+  getPageTreeValidation,
   getBlocks,
   createPage,
   updatePage,

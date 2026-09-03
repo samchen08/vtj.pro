@@ -86,6 +86,39 @@ defineExpose({ count, increment });
 `;
 
 describe('parseVue Composition mode', () => {
+  test('restores plugin source from dynamic component definition', async () => {
+    const source = `
+<template>
+  <component theme="dark" :is="VueECharts"></component>
+</template>
+<script lang="ts" setup>
+import { useProvider } from '@vtj/renderer';
+const __provider = useProvider({ id: 'plugin', version: '1' });
+const VueECharts = __provider.definePluginComponent({
+  type: 'Plugin',
+  urls: ['https://example.com/echarts.js'],
+  library: 'VueECharts'
+});
+</script>
+`;
+    const result = await parseVue({
+      project,
+      id: 'plugin',
+      name: 'PluginDemo',
+      source
+    });
+
+    expect(result.nodes![0]).toMatchObject({
+      name: 'VueECharts',
+      from: {
+        type: 'Plugin',
+        urls: ['https://example.com/echarts.js'],
+        library: 'VueECharts'
+      },
+      props: { theme: 'dark' }
+    });
+  });
+
   test('basic composition parsing', async () => {
     const result = await parseVue({
       project,

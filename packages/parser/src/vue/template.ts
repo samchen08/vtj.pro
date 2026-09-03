@@ -42,6 +42,7 @@ let __styles: CSSRules = {};
 let __platform: PlatformType = 'web';
 let __imports: ImportStatement[] = [];
 let __resolveSchemaImport: ((source: string) => string | undefined) | undefined;
+let __componentDefines: Record<string, NodeFrom> = {};
 
 export interface ParseTemplateOptions {
   platform: PlatformType;
@@ -50,6 +51,7 @@ export interface ParseTemplateOptions {
   styles?: CSSRules;
   directives?: Record<string, JSExpression>;
   resolveSchemaImport?: (source: string) => string | undefined;
+  componentDefines?: Record<string, NodeFrom>;
 }
 
 export function parseTemplate(
@@ -66,6 +68,7 @@ export function parseTemplate(
   __imports = options?.imports || [];
   __directives = options?.directives || {};
   __resolveSchemaImport = options?.resolveSchemaImport;
+  __componentDefines = options?.componentDefines || {};
 
   const result = compileTemplate({
     id,
@@ -482,10 +485,21 @@ function createNodeSchema(
   scope?: IfNode | ForNode,
   branches?: any[]
 ) {
+  const props = getProps(node.props);
+  const dynamicName =
+    node.tag === 'component' && isJSExpression(props.is)
+      ? props.is.value
+          .replace(/^\((.*)\)$/, '$1')
+          .replace(/^_ctx\./, '')
+          .trim()
+      : '';
+  const dynamicFrom = __componentDefines[dynamicName];
+  if (dynamicFrom) delete props.is;
+
   const dsl: NodeSchema = {
-    name: formatTagName(node.tag, __platform),
-    from: getForm(node.tag),
-    props: getProps(node.props),
+    name: dynamicFrom ? dynamicName : formatTagName(node.tag, __platform),
+    from: dynamicFrom || getForm(node.tag),
+    props,
     events: getEvents(node.props, __handlers),
     directives: getDirectives(scope || node, branches)
   };
