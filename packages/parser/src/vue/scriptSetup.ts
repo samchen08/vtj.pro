@@ -22,7 +22,8 @@ import type {
   BlockInject,
   BlockComposable,
   DataSourceSchema,
-  ProjectSchema
+  ProjectSchema,
+  NodeFrom
 } from '@vtj/core';
 import { getJSExpression, getJSFunction, extractDataSource } from './utils';
 import type { ImportStatement } from './scripts';
@@ -117,6 +118,7 @@ export interface ParseScriptSetupResult {
   handlers: Record<string, JSFunction>;
   dataSources: Record<string, DataSourceSchema>;
   directives: Record<string, JSExpression>;
+  componentDefines: Record<string, NodeFrom>;
 }
 
 // ======================== 主函数 ========================
@@ -156,7 +158,8 @@ export function parseScriptSetup(
     setup: undefined,
     handlers: {},
     dataSources: {},
-    directives: {}
+    directives: {},
+    componentDefines: {}
   };
 
   const setupStatements: string[] = [];
@@ -174,6 +177,13 @@ export function parseScriptSetup(
 
         // const xxx = fn(...) 模式
         if (init.type === 'CallExpression') {
+          const componentFrom = parseProviderComponentDefine(init);
+          const componentName = getDeclaratorName(declarator.id);
+          if (componentName && componentFrom) {
+            result.componentDefines[componentName] = componentFrom;
+            return;
+          }
+
           const callee = getCalleeName(init);
 
           // ref()
@@ -613,6 +623,68 @@ function getCalleeName(expr: CallExpression): string | null {
     return expr.callee.name;
   }
   return null;
+}
+
+function parseProviderComponentDefine(expr: CallExpression): NodeFrom | null {
+  const callee = expr.callee;
+  if (
+    callee.type !== 'MemberExpression' ||
+    callee.computed ||
+    callee.object.type !== 'Identifier' ||
+    callee.object.name !== '__provider' ||
+    callee.property.type !== 'Identifier'
+  ) {
+    return null;
+  }
+
+  const arg = expr.arguments[0];
+  if (
+    callee.property.name === 'defineUrlSchemaComponent' &&
+    arg?.type === 'StringLiteral'
+  ) {
+    return { type: 'UrlSchema', url: arg.value };
+  }
+
+  if (
+    callee.property.name !== 'definePluginComponent' ||
+    arg?.type !== 'ObjectExpression'
+  ) {
+    return null;
+  }
+
+  const fields = new Map(
+    arg.properties
+      .filter((item): item is ObjectProperty => item.type === 'ObjectProperty')
+      .map((item) => [
+        item.key.type === 'Identifier'
+          ? item.key.name
+          : item.key.type === 'StringLiteral'
+            ? item.key.value
+            : '',
+        item.value
+      ])
+  );
+  const type = fields.get('type');
+  const urls = fields.get('urls');
+  const library = fields.get('library');
+  if (
+    type?.type !== 'StringLiteral' ||
+    type.value !== 'Plugin' ||
+    urls?.type !== 'ArrayExpression'
+  ) {
+    return null;
+  }
+
+  const values = urls.elements.map((item) =>
+    item?.type === 'StringLiteral' ? item.value : null
+  );
+  if (values.some((item) => item === null)) return null;
+
+  return {
+    type: 'Plugin',
+    urls: values as string[],
+    library: library?.type === 'StringLiteral' ? library.value : undefined
+  };
 }
 
 function getDeclaratorName(id: any): string | null {
