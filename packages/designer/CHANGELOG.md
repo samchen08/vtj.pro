@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.20.4](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.20.3...@vtj/designer@0.20.4) (2026-09-03)
+
+
+### Features
+
+* **architect:** 完善执行计划的归一化和错误纠正功能 ([43a2458](https://gitee.com/newgateway/vtj/commits/43a2458e9fa47aa655e51dbd1fd125293e853ba9))
+
+
+
+
+
 ## [0.20.3](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.20.2...@vtj/designer@0.20.3) (2026-09-03)
 
 **Note:** Version bump only for package @vtj/designer
