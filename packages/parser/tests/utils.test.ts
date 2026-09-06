@@ -77,6 +77,21 @@ describe('styleToJson', () => {
     const result = styleToJson('  color: red;  ');
     expect(result).toEqual({ color: 'red' });
   });
+
+  test('should keep colons in value (e.g. url with protocol)', () => {
+    const result = styleToJson(
+      'background-image: url(https://example.com/a.png); color: red'
+    );
+    expect(result).toEqual({
+      'background-image': 'url(https://example.com/a.png)',
+      color: 'red'
+    });
+  });
+
+  test('should handle declarations without colon', () => {
+    const result = styleToJson('color: red; invalid; margin: 0');
+    expect(result).toEqual({ color: 'red', margin: '0' });
+  });
 });
 
 describe('mergeClass', () => {

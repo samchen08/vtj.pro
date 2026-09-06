@@ -135,7 +135,11 @@ export function isScss(source: string) {
 export function styleToJson(style: string) {
   const cleaned = style.replace(/\s+/g, ' ');
   return cleaned.split(';').reduce((acc: Record<string, string>, current) => {
-    const [property, value] = current.split(':').map((item) => item.trim());
+    // 仅按第一个冒号拆分，避免 url(https://...) 等含冒号的值被截断
+    const separatorIndex = current.indexOf(':');
+    if (separatorIndex < 0) return acc;
+    const property = current.slice(0, separatorIndex).trim();
+    const value = current.slice(separatorIndex + 1).trim();
     if (property && value) {
       acc[property] = value;
     }
