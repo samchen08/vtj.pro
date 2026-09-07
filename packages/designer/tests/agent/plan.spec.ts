@@ -299,7 +299,7 @@ describe('parsePlanOutput', () => {
     expect(result.plan).toBeNull();
     expect(result.issues?.map((issue) => issue.message)).toEqual(
       expect.arrayContaining([
-        '参数不符合工具定义',
+        expect.stringContaining('参数不符合工具定义'),
         '破坏性工具必须标记 destructive'
       ])
     );
@@ -350,7 +350,9 @@ describe('parsePlanOutput', () => {
         },
         registry
       ).map((issue) => issue.message)
-    ).toContain('参数不符合工具定义');
+    ).toEqual(
+      expect.arrayContaining([expect.stringContaining('参数不符合工具定义')])
+    );
   });
 
   it('拒绝不存在的工具和 target 模板占位符', () => {
