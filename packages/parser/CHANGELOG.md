@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.20.5](https://gitee.com/newgateway/vtj/compare/@vtj/parser@0.20.4...@vtj/parser@0.20.5) (2026-09-07)
+
+**Note:** Version bump only for package @vtj/parser
+
+
+
+
+
 ## [0.20.4](https://gitee.com/newgateway/vtj/compare/@vtj/parser@0.20.3...@vtj/parser@0.20.4) (2026-09-03)
 
 **Note:** Version bump only for package @vtj/parser
