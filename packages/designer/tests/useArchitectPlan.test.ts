@@ -252,6 +252,98 @@ describe('useArchitectPlan.executeArchitectPlan', () => {
     ]);
   });
 
+  it.each(['success', 'repeat', 'failure', 'invalid'])(
+    'handles preflight after an invalid plan: %s',
+    async (scenario) => {
+      const invalid = JSON.stringify({
+        intent: '修改标题',
+        safety: 'readonly',
+        steps: [
+          {
+            id: 's1',
+            type: 'tool_call',
+            description: '读取菜单',
+            toolName: 'getMenus',
+            parameters: [123]
+          }
+        ]
+      });
+      const preflight = JSON.stringify({
+        needsContext: { skills: ['tools'], queries: [] }
+      });
+      const outputs = [
+        invalid,
+        preflight,
+        scenario === 'repeat'
+          ? preflight
+          : scenario === 'invalid'
+            ? 'invalid output'
+            : JSON.stringify({
+                intent: '完成',
+                safety: 'readonly',
+                answer: '完成'
+              })
+      ];
+      const execute = vi.fn(async () => {
+        if (scenario === 'failure') throw new Error('技能服务不可用');
+        return 'tool docs';
+      });
+      const tools: Record<string, any> = {
+        getSkills: {
+          parameters: [
+            { name: 'id', type: 'string', required: true, rest: true }
+          ]
+        },
+        getMenus: { parameters: [] }
+      };
+      const deps = createDeps({
+        streamCompletion: vi.fn(async (_t, _c, onChunk) => {
+          onChunk(outputs.shift());
+          return planStreamResult();
+        }),
+        getEngine: () => ({
+          toolRegistry: {
+            get: (name: string) => tools[name],
+            execute
+          }
+        })
+      });
+      const round = createRound();
+      await useArchitectPlan(deps).executeArchitectPlan(
+        'topic',
+        'chat',
+        'user',
+        'trace',
+        '修改标题',
+        round
+      );
+      expect(execute).toHaveBeenCalledTimes(1);
+      expect(round.architectRecords?.[0].error).toContain('getMenus');
+      expect(round.architectRecords?.[1].content).toBe(preflight);
+      expect(round.architectError).not.toContain('steps[0].parameters');
+      if (scenario === 'success') {
+        expect(round.architectPlan?.answer).toBe('完成');
+        expect(round.architectError).toBe('');
+      } else {
+        expect(round.architectPlan).toBeNull();
+        expect(round.architectError).toContain(
+          scenario === 'repeat'
+            ? '预检最多执行一次'
+            : scenario === 'failure'
+              ? '技能服务不可用'
+              : '计划'
+        );
+      }
+      const saved = deps.callLog
+        .filter(([kind]) => kind === 'saveChat')
+        .pop()![1];
+      expect(JSON.parse(saved.toolContent).architectRecords).toEqual(
+        JSON.parse(JSON.stringify(round.architectRecords))
+      );
+      expect(saved.status).toBe(scenario === 'success' ? 'Success' : 'Failed');
+    }
+  );
+
   it('collects read-only context before producing the final plan', async () => {
     const streamCompletion = vi
       .fn()
@@ -331,7 +423,12 @@ describe('useArchitectPlan.executeArchitectPlan', () => {
         tokens: 20
       }),
       expect.objectContaining({
-        stepId: 'architect_attempt_1',
+        stepId: 'architect_context',
+        status: 'completed',
+        content: expect.stringContaining('page docs')
+      }),
+      expect.objectContaining({
+        stepId: 'architect_attempt_2',
         status: 'completed',
         tokens: 20
       })

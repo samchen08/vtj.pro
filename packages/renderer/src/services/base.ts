@@ -1,4 +1,5 @@
 import {
+  type BackendCapabilities,
   type ProjectSchema,
   type PageFile,
   type BlockFile,
@@ -97,6 +98,12 @@ export function createServiceRequest(notify?: (msg: string) => void) {
 }
 
 export class BaseService implements Service {
+  async getBackendCapabilities(
+    _projectId: string
+  ): Promise<BackendCapabilities> {
+    return { protocolVersions: [], operations: [] };
+  }
+
   protected api: (type: string, data: any, query?: any) => Promise<any>;
   private pluginCaches: Record<string, any> = {};
   protected uploader: (

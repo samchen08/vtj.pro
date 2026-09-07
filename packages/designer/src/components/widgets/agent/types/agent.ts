@@ -171,6 +171,7 @@ export interface StepRecord {
   description: string;
   status: 'completed' | 'failed';
   content: string;
+  reasoning?: string;
   error: string | null;
   tokens: number;
   duration: number;
@@ -200,6 +201,8 @@ export interface ConversationRound {
   reasoningText: string;
   /** Architect 规划失败原因（大模型输出无效/异常时记录，UI 与导出展示） */
   architectError?: string;
+  /** 按顺序保存规划尝试及预检结果，用于回放和导出。 */
+  architectRecords?: StepRecord[];
   /** Architect 规划自动重试次数（大模型输出无效时自动重发） */
   architectRetryCount?: number;
   /** 本轮实际使用的 Architect 模型 */
@@ -244,6 +247,8 @@ export interface ExportRound {
   summaryError?: string;
   /** Architect 规划失败原因 */
   architectError?: string;
+  /** 按顺序保存规划尝试及预检结果，用于回放和导出。 */
+  architectRecords?: StepRecord[];
   /** 本轮错误信息 */
   error?: string;
 }

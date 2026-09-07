@@ -9,6 +9,7 @@ import Components from './components/index.vue';
 import Outline from './outline/index.vue';
 import History from './history/index.vue';
 import Apis from './apis/index.vue';
+import BackendModels from './backend-models/index.vue';
 import Deps from './deps/index.vue';
 import Designer from './designer/index.vue';
 import Scripts from './scripts/index.vue';
@@ -50,6 +51,7 @@ export const widgets = {
   Outline,
   History,
   Apis,
+  BackendModels,
   Deps,
   Designer,
   Scripts,

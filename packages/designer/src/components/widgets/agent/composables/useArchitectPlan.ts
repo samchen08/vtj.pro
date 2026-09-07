@@ -37,7 +37,8 @@ export function useArchitectPlan(deps: ArchitectPlanDeps) {
 
   async function collectPlanningContext(
     request: PlanningContextRequest,
-    signal?: AbortSignal
+    signal?: AbortSignal,
+    onResult?: (content: string) => void
   ): Promise<string> {
     const engine = getEngine?.();
     if (!engine) throw new Error('规划前预检失败：设计器引擎不可用');
@@ -75,6 +76,10 @@ export function useArchitectPlan(deps: ArchitectPlanDeps) {
         result: result.result,
         error: result.error
       });
+      onResult?.(JSON.stringify(results, null, 2));
+      if (!result.success) {
+        throw new Error(`规划前预检失败：${call.action}: ${result.error}`);
+      }
     }
     return JSON.stringify(results, null, 2);
   }
@@ -399,6 +404,8 @@ export function useArchitectPlan(deps: ArchitectPlanDeps) {
     let totalTokens = 0;
     let activeArchitectChatId = architectChatId;
     const architectRecords: StepRecord[] = [];
+    round.architectRecords = architectRecords;
+    round.architectRetryCount = 0;
 
     const recordArchitect = (
       stepId: string,
@@ -411,6 +418,7 @@ export function useArchitectPlan(deps: ArchitectPlanDeps) {
       architectRecords.push({
         stepId,
         type: 'architect',
+        reasoning: round.reasoningText,
         description,
         status: error ? 'failed' : 'completed',
         content,
@@ -450,141 +458,123 @@ export function useArchitectPlan(deps: ArchitectPlanDeps) {
     planResult = await streamArchitect();
     totalTokens += planResult.usage?.total_tokens || 0;
 
-    // 解析计划 JSON（括号配对扫描，避免贪婪正则截断）+ 结构校验，
-    // 排除大模型输出的错误占位内容（如 {"error": ...}）或空白输出
-    let {
-      plan,
-      preflight,
-      error: planError,
-      correction: planCorrection
-    } = parsePlanOutput(round.architectStreamText, getEngine?.()?.toolRegistry);
+    let plan: PlanResult | null = null;
+    let planError: string | undefined;
+    let retryCount = 0;
+    let preflightUsed = false;
+    let attempt = 0;
 
-    if (!preflight) {
-      recordArchitect(
-        'architect_attempt_1',
-        '生成执行计划（第 1 次）',
-        round.architectStreamText,
-        planResult,
-        architectStartedAt,
-        plan ? null : planError || Messages.planInvalid.text
-      );
-    }
-
-    // Architect 最多先请求一次只读上下文，再基于真实技能/项目数据生成最终计划。
-    if (preflight && !isCancelled()) {
-      recordArchitect(
-        'architect_preflight',
-        '生成规划前预检请求',
-        round.architectStreamText,
-        planResult,
-        architectStartedAt,
-        null
-      );
-      await saveChat(
-        buildChatSaveBody({
-          id: activeArchitectChatId,
-          topicId,
-          userId,
-          content: round.architectStreamText,
-          result: planResult,
-          tokens: planResult?.usage?.total_tokens || 0
-        })
-      );
-      const context = await collectPlanningContext(preflight, signal);
-      if (isCancelled()) {
-        setStatus(Messages.cancelled);
-        return;
-      }
-      const chatRes = await postChat({
-        topicId,
-        prompt:
-          `[规划前预检结果]\n${context}\n\n` +
-          `[本轮原始需求]\n${userMessage}\n\n` +
-          '请基于以上真实信息输出最终计划 JSON。不要再次请求预检。',
-        agent: 'architect',
-        stepId: 'preflight',
-        attempt: 1,
-        userId: userId || '',
-        userName: ''
-      });
-      activeArchitectChatId = pickChat(chatRes).chatId;
-      round.architectChatId = activeArchitectChatId;
-      round.architectStreamText = '';
-      round.reasoningText = '';
-      architectStartedAt = Date.now();
-      planResult = await streamArchitect();
-      totalTokens += planResult.usage?.total_tokens || 0;
+    // 每次输出走同一分流，重试中首次请求预检也可以继续规划。
+    while (!isCancelled()) {
       const parsed = parsePlanOutput(
         round.architectStreamText,
         getEngine?.()?.toolRegistry
       );
       plan = parsed.plan;
-      planError = parsed.preflight ? '规划前预检最多执行一次' : parsed.error;
-      planCorrection = parsed.correction;
+      planError = parsed.preflight
+        ? preflightUsed
+          ? '规划前预检最多执行一次'
+          : undefined
+        : parsed.error;
+      attempt++;
+      const isPreflight = !!parsed.preflight && !preflightUsed;
       recordArchitect(
-        'architect_attempt_1',
-        '生成执行计划（第 1 次）',
+        isPreflight ? 'architect_preflight' : `architect_attempt_${attempt}`,
+        isPreflight ? '生成规划前预检请求' : `生成执行计划（第 ${attempt} 次）`,
         round.architectStreamText,
         planResult,
         architectStartedAt,
-        plan ? null : planError || Messages.planInvalid.text
+        plan || isPreflight ? null : planError || Messages.planInvalid.text
       );
-      preflight = undefined;
-    }
-    let retryCount = 0;
 
-    // 输出无效时自动重试，直至成功、达到上限或取消
-    while (!plan && retryCount < MAX_ARCHITECT_RETRIES && !isCancelled()) {
-      retryCount++;
-      round.architectRetryCount = retryCount;
-      // 先保存无效输出（标记 Failed），供后端识别重试场景并注入纠错提示
-      // （同一 chat 已保存过无效内容 → 重试流注入角色/输出协议纠正）
-      try {
-        await saveChat(
-          buildChatSaveBody({
+      if (isPreflight) {
+        preflightUsed = true;
+        const contextStartedAt = Date.now();
+        let context = '';
+        try {
+          context = await collectPlanningContext(
+            parsed.preflight!,
+            signal,
+            (content) => {
+              context = content;
+            }
+          );
+        } catch (error) {
+          if (isCancelled()) break;
+          planError = error instanceof Error ? error.message : String(error);
+        }
+        architectRecords.push({
+          stepId: 'architect_context',
+          type: 'preflight',
+          description: '获取规划上下文',
+          status: planError ? 'failed' : 'completed',
+          content: context,
+          error: planError || null,
+          tokens: 0,
+          duration: Date.now() - contextStartedAt
+        });
+        if (isCancelled() || planError) break;
+        await saveChat({
+          ...buildChatSaveBody({
             id: activeArchitectChatId,
             topicId,
             userId,
-            content: round.architectStreamText || ' ',
-            message: planCorrection || planError,
+            content: round.architectStreamText,
             result: planResult,
-            tokens: planResult?.usage?.total_tokens || 0,
-            attempt: retryCount,
-            status: 'Failed'
-          })
-        );
-      } catch (e: any) {
-        console.error('[useArchitectPlan]', '保存无效 Architect 输出失败', {
-          topicId,
-          chatId: activeArchitectChatId,
-          retryCount,
-          error: e.message
+            tokens: planResult?.usage?.total_tokens || 0
+          }),
+          toolContent: JSON.stringify({ architectRecords })
         });
+        const chatRes = await postChat({
+          topicId,
+          prompt:
+            `[规划前预检结果]\n${context}\n\n` +
+            `[本轮原始需求]\n${userMessage}\n\n` +
+            '请基于以上真实信息输出最终计划 JSON。不要再次请求预检。',
+          agent: 'architect',
+          stepId: 'preflight',
+          attempt: 1,
+          userId: userId || '',
+          userName: ''
+        });
+        activeArchitectChatId = pickChat(chatRes).chatId;
+        round.architectChatId = activeArchitectChatId;
+      } else {
+        if (plan || retryCount >= MAX_ARCHITECT_RETRIES) break;
+        retryCount++;
+        round.architectRetryCount = retryCount;
+        try {
+          await saveChat({
+            ...buildChatSaveBody({
+              id: activeArchitectChatId,
+              topicId,
+              userId,
+              content: round.architectStreamText || ' ',
+              message:
+                parsed.correction || planError || Messages.planInvalid.text,
+              result: planResult,
+              tokens: planResult?.usage?.total_tokens || 0,
+              attempt: retryCount,
+              status: 'Failed'
+            }),
+            toolContent: JSON.stringify({ architectRecords })
+          });
+        } catch (error) {
+          console.error(
+            '[useArchitectPlan] 保存无效 Architect 输出失败',
+            error
+          );
+        }
+        setStatus(
+          Messages.architectRetrying(retryCount, MAX_ARCHITECT_RETRIES + 1)
+        );
       }
+      if (isCancelled()) break;
       round.architectStreamText = '';
       round.reasoningText = '';
-      setStatus(
-        Messages.architectRetrying(retryCount, MAX_ARCHITECT_RETRIES + 1)
-      );
       architectStartedAt = Date.now();
       planResult = await streamArchitect();
       totalTokens += planResult.usage?.total_tokens || 0;
-      const parsed = parsePlanOutput(
-        round.architectStreamText,
-        getEngine?.()?.toolRegistry
-      );
-      plan = parsed.plan;
-      // 保留模型自报的错误说明（如缺少关键信息），供最终失败时反馈
-      if (parsed.error) planError = parsed.error;
-      if (parsed.correction) planCorrection = parsed.correction;
-      recordArchitect(
-        `architect_attempt_${retryCount + 1}`,
-        `生成执行计划（第 ${retryCount + 1} 次）`,
-        round.architectStreamText,
-        planResult,
-        architectStartedAt,
-        plan ? null : parsed.error || Messages.planInvalid.text
-      );
     }
 
     // 检查取消信号：SSE 流被中断后不应继续执行后续操作
@@ -597,18 +587,20 @@ export function useArchitectPlan(deps: ArchitectPlanDeps) {
     round.modelUsed = planResult?.modelUsed;
 
     // ── 保存 Architect chat（保存最终一次流式输出） ──
-    await saveChat(
-      buildChatSaveBody({
+    await saveChat({
+      ...buildChatSaveBody({
         id: activeArchitectChatId,
         topicId,
         userId,
         content: round.architectStreamText || ' ',
-        message: plan ? '' : planError,
+        message: plan ? '' : planError || Messages.planInvalid.text,
+        status: plan ? 'Success' : 'Failed',
         result: planResult,
         tokens: planResult?.usage?.total_tokens || 0,
         attempt: retryCount + 1
-      })
-    );
+      }),
+      toolContent: JSON.stringify({ architectRecords })
+    });
 
     // ── 计划为空 → 记录错误并标记失败 ──
     if (!round.architectPlan) {

@@ -379,6 +379,16 @@ function buildRound(chats: ChatRecord[]): ConversationRound | null {
     round.attachments = firstArchitectChat?.files || undefined;
     round.promptSent = firstArchitectChat?.prompt || '';
 
+    // 新记录保留完整规划尝试；旧记录仍按原有规则回显。
+    try {
+      const saved = JSON.parse(architectChat.toolContent || '{}');
+      if (Array.isArray(saved.architectRecords)) {
+        round.architectRecords = saved.architectRecords;
+      }
+    } catch {
+      // 兼容旧的非 JSON 工具内容。
+    }
+
     // 与运行时使用相同的解析规则，兼容没有 steps 的直接回答
     const parsedPlan = parsePlanOutput(architectChat.content || '');
     round.architectPlan = parsedPlan.plan;
