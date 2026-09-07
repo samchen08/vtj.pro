@@ -17,6 +17,7 @@ import {
   VtjIconHistory,
   VtjIconApi,
   VtjIconCategory,
+  VtjIconDatabase,
   HomeFilled,
   VtjIconTemplate,
   VtjIconUniapp,
@@ -112,6 +113,15 @@ export const builtInWidgets: Array<AppWidget | TabWidget | Widget> = [
     openType: 'panel',
     icon: VtjIconApi,
     label: 'API管理'
+  },
+  {
+    name: 'BackendModels',
+    region: 'Apps',
+    component: widgets.BackendModels,
+    type: 'app',
+    openType: 'panel',
+    icon: VtjIconDatabase,
+    label: '后端模型'
   },
   {
     name: 'Deps',

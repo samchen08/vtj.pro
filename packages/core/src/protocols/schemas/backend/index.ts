@@ -13,6 +13,20 @@ export interface BackendSchema {
   models: BackendModelSchema[];
 }
 
+/** 当前项目可用的后端读取能力，不代表服务端授权。 */
+export interface BackendCapabilities {
+  protocolVersions: string[];
+  operations: 'read'[];
+}
+
+/** 独立于 ProjectSchema 的后端草稿视图。 */
+export interface BackendDraftView {
+  schema: BackendSchema;
+  revision: number;
+  appliedReleaseId: string | null;
+  appliedRevision: number | null;
+}
+
 /** 模型编辑器和 AI 共用的校验诊断，不包含内部 SQL 或凭据。 */
 export interface BackendDiagnostic {
   code: string;

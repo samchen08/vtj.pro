@@ -44,7 +44,7 @@
 </template>
 <script lang="ts" setup>
   // @ts-ignore
-  import { computed, ref, KeepAlive, watch, h, markRaw } from 'vue';
+  import { computed, ref, KeepAlive, watch, h, markRaw, provide } from 'vue';
   import { createDialog } from '@vtj/ui';
   import { WidgetWrapper } from '../../wrappers';
   import { useEngine, RegionType, type AppWidget } from '../../framework';
@@ -52,6 +52,10 @@
   import { useRegion, useOpenApi, useCheckVersion } from '../hooks';
   import { message } from '../../utils';
   import { version } from '../../version';
+  import {
+    useBackendModels,
+    backendModelsKey
+  } from '../hooks/useBackendModels';
 
   export interface Props {
     region: RegionType;
@@ -62,12 +66,20 @@
     index: 0
   });
   const engine = useEngine();
+  const backend = useBackendModels(
+    () => engine.service,
+    () => engine.project.value?.id
+  );
+  provide(backendModelsKey, backend);
   const { isLogined, toRemoteAuth } = useOpenApi();
   const { widgets, widgetsRef } = useRegion(props.region);
   const { latest } = useCheckVersion();
   const panelWidgets = computed(() => {
     return (widgets.value as AppWidget[]).filter((n) => {
-      return n.openType === 'panel';
+      return (
+        n.openType === 'panel' &&
+        (n.name !== 'BackendModels' || backend.visible.value)
+      );
     });
   });
   const otherWidgets = computed(() => {
@@ -79,6 +91,16 @@
   const defaultWidget = panelWidgets.value[props.index];
   const active = ref<AppWidget | null>(defaultWidget);
   const open = ref<AppWidget | null>(defaultWidget);
+
+  watch(panelWidgets, (items) => {
+    if (
+      active.value &&
+      !items.some((item) => item.name === active.value?.name)
+    ) {
+      active.value = items[0] || null;
+      if (open.value) open.value = active.value;
+    }
+  });
 
   const handleClickItem = (item: AppWidget) => {
     if (engine.state.streaming) {
