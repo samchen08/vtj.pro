@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.14.1](https://gitee.com/newgateway/vtj/compare/create-vtj@0.14.0...create-vtj@0.14.1) (2026-09-07)
+
+
+### Bug Fixes
+
+* **build:** 解决uniapp项目中axios适配器上传冲突并修复组合式API问题 ([13efaee](https://gitee.com/newgateway/vtj/commits/13efaeec6f74f214038d678c6e7f22e117ac65fc))
+
+
+
+
+
 # [0.14.0](https://gitee.com/newgateway/vtj/compare/create-vtj@0.13.1...create-vtj@0.14.0) (2026-08-31)
 
 

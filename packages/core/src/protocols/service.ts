@@ -1,4 +1,6 @@
 import type {
+  BackendCapabilities,
+  BackendDraftView,
   ProjectSchema,
   BlockSchema,
   HistorySchema,
@@ -11,6 +13,14 @@ import type { MaterialDescription } from './assets';
 import type { StaticFileInfo, VTJConfig, ParseVueOptions } from './shared';
 
 export abstract class Service {
+  /** 可选后端能力；未实现时设计器不显示后端入口。 */
+  public getBackendCapabilities?: (
+    projectId: string
+  ) => Promise<BackendCapabilities>;
+
+  /** 只读获取草稿，不将后端协议嵌入前端项目 DSL。 */
+  public getBackendDraft?: (projectId: string) => Promise<BackendDraftView>;
+
   /**
    * 获取低代码设计器配置
    */

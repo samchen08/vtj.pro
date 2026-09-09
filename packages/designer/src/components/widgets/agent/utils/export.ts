@@ -44,6 +44,7 @@ export function exportConversation(
     exportData.rounds = rounds.map((r): ExportRound => {
       const round: ExportRound = {
         userMessage: r.userMessage,
+        architectRecords: r.architectRecords,
         steps: r.editorResults.map(
           (step): ExportedStep => ({
             index: step.stepIdx,

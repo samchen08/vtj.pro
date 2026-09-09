@@ -21,6 +21,11 @@ describe('useReplayChat', () => {
             agentRole: 'architect',
             prompt: '设计器如何使用',
             content,
+            toolContent: JSON.stringify({
+              architectRecords: [
+                { stepId: 'architect_attempt_1', content: 'first output' }
+              ]
+            }),
             status: 'Success'
           }
         ]) as any,
@@ -31,6 +36,9 @@ describe('useReplayChat', () => {
 
     await loadChatHistory('topic');
 
+    expect(rounds.value[0].architectRecords).toEqual([
+      { stepId: 'architect_attempt_1', content: 'first output' }
+    ]);
     expect(rounds.value[0].architectAnswer).toBe(answer);
     expect(rounds.value[0].architectPlan?.steps).toEqual([]);
   });

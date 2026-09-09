@@ -199,7 +199,7 @@ export function validatePlan(
       ) {
         issues.push({
           path: `${path}.parameters`,
-          message: '参数不符合工具定义'
+          message: `参数不符合工具定义（${step.toolName}）；实际：${JSON.stringify(step.parameters)}；期望：${JSON.stringify(tool.parameters)}`
         });
       }
       for (const ref of collectStepRefs(step.parameters)) {

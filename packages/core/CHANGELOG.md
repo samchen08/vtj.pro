@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.20.6](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.20.5...@vtj/core@0.20.6) (2026-09-09)
+
+**Note:** Version bump only for package @vtj/core
+
+
+
+
+
+## [0.20.5](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.20.4...@vtj/core@0.20.5) (2026-09-07)
+
+
+### Features
+
+* **core:** 增加后端模型协议支持及相关类型定义 ([2a246c6](https://gitee.com/newgateway/vtj/commits/2a246c69e05509a141ad7f5c1dc1fc3d1549ece5))
+* **core:** 增加后端模型读取支持及相关组件 ([32a521c](https://gitee.com/newgateway/vtj/commits/32a521ca0d245becbeec3f0ef4d74db75352a8c5))
+
+
+
+
+
 ## [0.20.4](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.20.3...@vtj/core@0.20.4) (2026-09-03)
 
 **Note:** Version bump only for package @vtj/core

@@ -2,6 +2,7 @@ import { createUniappViteConfig } from '@vtj/cli';
 import {
   createDevTools,
   vtjModulesPlugin,
+  fixAxiosAdapterUploadConflict,
   createCompositionFixPlugin
 } from '@vtj/local';
 import uni from '@dcloudio/vite-plugin-uni';
@@ -11,6 +12,7 @@ export default createUniappViteConfig({
   proxy,
   plugins: [
     createCompositionFixPlugin(),
+    fixAxiosAdapterUploadConflict(),
     vtjModulesPlugin('src/.vtj'),
     process.env.ENV_TYPE ? createDevTools({}) : undefined,
     !process.env.PREVIEW ? uni() : undefined
