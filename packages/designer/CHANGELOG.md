@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.20.6](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.20.5...@vtj/designer@0.20.6) (2026-09-09)
+
+
+### Bug Fixes
+
+* **renderer:** 修复 uniapp 平台不初始化全局变量的问题 ([0823ad6](https://gitee.com/newgateway/vtj/commits/0823ad6ea8227f6a6f87cb2f1e38ccfef12c2a4b))
+
+
+
+
+
 ## [0.20.5](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.20.4...@vtj/designer@0.20.5) (2026-09-07)
 
 

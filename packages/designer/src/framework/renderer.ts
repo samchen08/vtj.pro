@@ -100,12 +100,14 @@ export class Renderer {
     });
     this.provider.initEnv(this.project?.env || []);
 
-    this.provider.initGlobals(this.project?.globals || {}, {
-      app,
-      window,
-      library,
-      mode: ContextMode.Design
-    });
+    if (platform !== 'uniapp') {
+      this.provider.initGlobals(this.project?.globals || {}, {
+        app,
+        window,
+        library,
+        mode: ContextMode.Design
+      });
+    }
 
     this.provider.initI18n(app, library, this.project?.i18n);
 
