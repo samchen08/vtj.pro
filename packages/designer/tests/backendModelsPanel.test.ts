@@ -23,7 +23,8 @@ const flush = async () => {
 };
 function mount(
   read: NonNullable<Service['getBackendDraft']>,
-  operations: Array<'read' | 'write'> = ['read']
+  operations: Array<'read' | 'write'> = ['read'],
+  overrides: Partial<Service> = {}
 ) {
   const root = document.createElement('div');
   document.body.appendChild(root);
@@ -32,7 +33,8 @@ function mount(
       protocolVersions: ['1.0'],
       operations
     }),
-    getBackendDraft: read
+    getBackendDraft: read,
+    ...overrides
   } as Service;
   const app = createApp(
     defineComponent({
@@ -115,13 +117,108 @@ describe('backend models panel', () => {
     expect(document.body.textContent).toContain('后端模型 · 开发环境');
     document.querySelector<HTMLElement>('#tab-fields')!.click();
     await flush();
-    const addField = [...document.querySelectorAll('button')].find(
-      (item) => item.textContent?.includes('添加字段')
+    const addField = [...document.querySelectorAll('button')].find((item) =>
+      item.textContent?.includes('添加字段')
     )!;
     addField.click();
     await flush();
     expect(document.body.textContent).toContain('字段类型');
     expect(document.body.textContent).toContain('最大长度');
+  });
+  it('protects fields referenced by indexes from accidental removal', async () => {
+    const root = mount(async () => draft, ['read', 'write']);
+    await flush();
+    root.querySelector<HTMLButtonElement>('.v-backend-models__item')!.click();
+    await flush();
+    document.querySelector<HTMLElement>('#tab-fields')!.click();
+    await flush();
+    const remove = [...document.querySelectorAll('button')].find(
+      (item) => item.textContent?.trim() === '删除'
+    )!;
+    remove.click();
+    await flush();
+    expect(document.body.textContent).toContain('请先移除字段依赖');
+    expect(document.body.textContent).toContain('enabled');
+  });
+  it('adds indexes and default sorts without losing the current model', async () => {
+    const root = mount(async () => draft, ['read', 'write']);
+    await flush();
+    root.querySelector<HTMLButtonElement>('.v-backend-models__item')!.click();
+    await flush();
+    document.querySelector<HTMLElement>('#tab-indexes')!.click();
+    await flush();
+    [...document.querySelectorAll('button')]
+      .find((item) => item.textContent?.trim() === '添加索引')!
+      .click();
+    await flush();
+    expect(
+      document.querySelectorAll('.v-model-editor__config-row')
+    ).toHaveLength(2);
+    document.querySelector<HTMLElement>('#tab-sort')!.click();
+    await flush();
+    [...document.querySelectorAll('button')]
+      .find((item) => item.textContent?.trim() === '添加排序')!
+      .click();
+    await flush();
+    expect(document.body.textContent).toContain('列表默认排序');
+    expect(
+      document.querySelectorAll('#pane-sort .v-model-editor__config-row')
+    ).toHaveLength(1);
+  });
+  it('uses explicit read-only states for applied models and fields', async () => {
+    const applied = JSON.parse(JSON.stringify(draft));
+    applied.appliedSchema = JSON.parse(JSON.stringify(draft.schema));
+    const root = mount(async () => applied, ['read', 'write']);
+    await flush();
+    root.querySelector<HTMLButtonElement>('.v-backend-models__item')!.click();
+    await flush();
+    expect(document.body.textContent).toContain('已应用');
+    expect(
+      [...document.querySelectorAll('button')].some(
+        (item) => item.textContent?.trim() === '删除模型'
+      )
+    ).toBe(false);
+    document.querySelector<HTMLElement>('#tab-fields')!.click();
+    await flush();
+    expect(
+      [...document.querySelectorAll('button')].some(
+        (item) => item.textContent?.trim() === '删除'
+      )
+    ).toBe(false);
+  });
+  it('syncs metadata-only revisions when the DDL plan is empty', async () => {
+    const applied = {
+      ...draft,
+      appliedRevision: 2,
+      appliedSchema: JSON.parse(JSON.stringify(draft.schema))
+    };
+    const read = vi
+      .fn()
+      .mockResolvedValueOnce(draft)
+      .mockResolvedValue(applied);
+    const syncBackendDraft = vi.fn(async () => ({
+      id: 'task',
+      status: 'succeeded',
+      completedSteps: 0
+    }));
+    const root = mount(read, ['read', 'write'], {
+      getBackendPlan: async () => ({
+        revision: 2,
+        environment: 'dev',
+        changes: [],
+        diagnostics: []
+      }),
+      syncBackendDraft
+    });
+    await flush();
+    root.querySelector<HTMLButtonElement>('.v-backend-models__item')!.click();
+    await flush();
+    [...document.querySelectorAll('button')]
+      .find((item) => item.textContent?.trim() === '同步开发环境')!
+      .click();
+    await flush();
+    expect(syncBackendDraft).toHaveBeenCalledOnce();
+    expect(read.mock.calls.length).toBeGreaterThan(1);
   });
   it('retries failed reads from the panel', async () => {
     const read = vi

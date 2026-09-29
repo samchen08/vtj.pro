@@ -21,5 +21,9 @@ and `@vtj/ui` primitives; new workflows belong in existing panels and dialogs.
 - Editing is local until the user chooses Save. Destructive actions confirm.
 - Backend modeling uses a visible environment/version strip as its signature:
   draft revision, applied development revision, and unsaved state never blur.
+- The backend-model dialog uses a compact two-pane editor: searchable model
+  rail, counted peer tabs, contextual section headings, and a persistent
+  revision/action bar. Read-only structure is summarized instead of rendered
+  as a wall of disabled actions.
 - Keyboard focus, labels, error text, and narrow viewport stacking are required.
 - Do not add decorative dashboards, gradients, or a parallel design system.

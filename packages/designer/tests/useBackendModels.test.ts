@@ -154,3 +154,99 @@ describe('backend read capability', () => {
     expect(state.draft.value?.revision).toBe(1);
   });
 });
+
+describe('backend draft mutations', () => {
+  it('keeps an invalid draft local and exposes field diagnostics', async () => {
+    const save = vi.fn();
+    const { state, stop } = setup({
+      getBackendCapabilities: capabilities,
+      getBackendDraft: async () => draft(2),
+      validateBackendDraft: async () => ({
+        valid: false,
+        normalized: draft(2).schema,
+        diagnostics: [
+          {
+            path: 'models.0.name',
+            code: 'invalid_name',
+            message: '模型标识无效',
+            severity: 'error'
+          }
+        ]
+      }),
+      saveBackendDraft: save
+    });
+    await flush();
+    state.updateSchema({ dslVersion: '1.0', models: [] });
+    expect(await state.save()).toBe(false);
+    expect(state.diagnostics.value[0].path).toBe('models.0.name');
+    expect(state.dirty.value).toBe(true);
+    expect(save).not.toHaveBeenCalled();
+    stop();
+  });
+
+  it('saves a validated draft and clears the dirty state', async () => {
+    const saved = draft(3);
+    const save = vi.fn(async () => saved);
+    const { state, stop } = setup({
+      getBackendCapabilities: capabilities,
+      getBackendDraft: async () => draft(2),
+      validateBackendDraft: async (_id, schema) => ({
+        valid: true,
+        normalized: schema,
+        diagnostics: []
+      }),
+      saveBackendDraft: save
+    });
+    await flush();
+    state.updateSchema({ dslVersion: '1.0', models: [] });
+    expect(await state.save()).toBe(true);
+    expect(save).toHaveBeenCalledWith(
+      'a',
+      { dslVersion: '1.0', models: [] },
+      2
+    );
+    expect(state.draft.value?.revision).toBe(3);
+    expect(state.dirty.value).toBe(false);
+    stop();
+  });
+
+  it('loads a development plan, syncs once and retries the active task', async () => {
+    const plan = {
+      revision: 2,
+      environment: 'dev' as const,
+      changes: [],
+      diagnostics: []
+    };
+    const task = {
+      id: 'task-1',
+      status: 'failed' as const,
+      revision: 2,
+      environment: 'dev' as const,
+      completedSteps: []
+    };
+    const getPlan = vi.fn(async () => plan);
+    const sync = vi.fn(async () => task);
+    const retry = vi.fn(async () => ({
+      ...task,
+      status: 'succeeded' as const
+    }));
+    const { state, stop } = setup({
+      getBackendCapabilities: capabilities,
+      getBackendDraft: async () => draft(2),
+      getBackendPlan: getPlan,
+      syncBackendDraft: sync,
+      retryBackendTask: retry
+    });
+    await flush();
+    expect(await state.loadPlan()).toBe(plan);
+    expect(getPlan).toHaveBeenCalledWith('a', 2, 'dev');
+    expect(await state.sync()).toEqual(task);
+    expect(sync).toHaveBeenCalledTimes(1);
+    expect(sync.mock.calls[0][0]).toBe('a');
+    expect(sync.mock.calls[0][1]).toBe(2);
+    expect(sync.mock.calls[0][2]).toEqual(expect.any(String));
+    expect((await state.retry())?.status).toBe('succeeded');
+    expect(retry).toHaveBeenCalledWith('a', 'task-1');
+    stop();
+  });
+});
