@@ -19,6 +19,16 @@ export interface ApiSchema {
    */
   id: string;
 
+  /** 平台生成接口的稳定来源；未设置表示用户或外部接口。 */
+  source?: {
+    type: 'backend-model';
+    key: string;
+    modelId: string;
+    operation: 'list' | 'get' | 'create' | 'update' | 'delete';
+    environment: 'dev' | 'prod';
+    releaseId: string;
+  };
+
   /**
    * 接口名称
    */

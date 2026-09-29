@@ -16,7 +16,9 @@ export interface BackendSchema {
 /** 当前项目可用的后端读取能力，不代表服务端授权。 */
 export interface BackendCapabilities {
   protocolVersions: string[];
-  operations: 'read'[];
+  operations: Array<
+    'read' | 'write' | 'validate' | 'plan' | 'sync' | 'taskRead'
+  >;
 }
 
 /** 独立于 ProjectSchema 的后端草稿视图。 */
@@ -25,6 +27,7 @@ export interface BackendDraftView {
   revision: number;
   appliedReleaseId: string | null;
   appliedRevision: number | null;
+  appliedSchema?: BackendSchema | null;
 }
 
 /** 模型编辑器和 AI 共用的校验诊断，不包含内部 SQL 或凭据。 */
@@ -54,3 +57,30 @@ export type BackendValidationResult =
       normalized?: never;
       schemaHash?: never;
     };
+
+export interface BackendPlanChange {
+  kind: 'createModel' | 'addField' | 'metadata';
+  modelId: string;
+  fieldId?: string;
+  summary: string;
+}
+
+export interface BackendPlanView {
+  revision: number;
+  environment: 'dev' | 'prod';
+  changes: BackendPlanChange[];
+  diagnostics: BackendDiagnostic[];
+}
+
+export interface BackendTaskView {
+  id: string;
+  status:
+    | 'pending'
+    | 'running'
+    | 'waiting_sync'
+    | 'failed'
+    | 'succeeded';
+  completedSteps: number;
+  error: { code: string; message: string } | null;
+  frontendRevision?: number;
+}

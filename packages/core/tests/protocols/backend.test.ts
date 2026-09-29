@@ -18,8 +18,10 @@ const schema: BackendSchema = {
       id: 'customer',
       name: 'customer',
       label: '客户',
+      description: '客户资料',
       fields: [{ ...base, type: 'string', maxLength: 100, required: true }],
       indexes: [{ id: 'name_index', fields: ['field'], unique: true }],
+      defaultSort: [{ fieldId: 'field', direction: 'asc' }],
       operations: ['list', 'get', 'create', 'update', 'delete'],
       policies: [
         {
@@ -85,6 +87,33 @@ describe('backend protocol', () => {
     expect(dsl.name).toBe('Legacy');
     expect(dsl).not.toHaveProperty('backend');
     expect(dsl).not.toHaveProperty('models');
+  });
+
+  test('round trips a generated model API source with its assigned id', () => {
+    const project = new ProjectModel({
+      id: 'demo',
+      name: 'Demo',
+      apis: []
+    });
+    const api = project.setApi({
+      id: '',
+      name: 'customerList',
+      url: '/api/modeling/demo/data/customer',
+      method: 'get',
+      source: {
+        type: 'backend-model',
+        key: 'customer:list',
+        modelId: 'customer-id',
+        operation: 'list',
+        environment: 'dev',
+        releaseId: 'release-id'
+      }
+    });
+
+    const restored = new ProjectModel(project.toDsl()).apis[0];
+    expect(api.id).toBeTruthy();
+    expect(restored.id).toBe(api.id);
+    expect(restored.source).toEqual(api.source);
   });
 
   test('narrows validation results by validity', () => {

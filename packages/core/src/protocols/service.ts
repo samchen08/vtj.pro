@@ -1,6 +1,10 @@
 import type {
   BackendCapabilities,
   BackendDraftView,
+  BackendPlanView,
+  BackendSchema,
+  BackendTaskView,
+  BackendValidationResult,
   ProjectSchema,
   BlockSchema,
   HistorySchema,
@@ -20,6 +24,39 @@ export abstract class Service {
 
   /** 只读获取草稿，不将后端协议嵌入前端项目 DSL。 */
   public getBackendDraft?: (projectId: string) => Promise<BackendDraftView>;
+
+  public validateBackendDraft?: (
+    projectId: string,
+    schema: BackendSchema
+  ) => Promise<BackendValidationResult>;
+
+  public saveBackendDraft?: (
+    projectId: string,
+    schema: BackendSchema,
+    revision: number
+  ) => Promise<BackendDraftView>;
+
+  public getBackendPlan?: (
+    projectId: string,
+    revision: number,
+    environment: 'dev' | 'prod'
+  ) => Promise<BackendPlanView>;
+
+  public syncBackendDraft?: (
+    projectId: string,
+    revision: number,
+    idempotencyKey: string
+  ) => Promise<BackendTaskView>;
+
+  public getBackendTask?: (
+    projectId: string,
+    taskId: string
+  ) => Promise<BackendTaskView>;
+
+  public retryBackendTask?: (
+    projectId: string,
+    taskId: string
+  ) => Promise<BackendTaskView>;
 
   /**
    * 获取低代码设计器配置

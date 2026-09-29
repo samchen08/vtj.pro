@@ -125,6 +125,11 @@ export interface BackendIndexSchema {
   unique?: boolean;
 }
 
+export interface BackendSortSchema {
+  fieldId: string;
+  direction: 'asc' | 'desc';
+}
+
 /**
  * 正向授权策略。无匹配策略时拒绝；不能突破模型 operations。
  * 首期同一操作的策略字段集合须一致，由服务端校验。
@@ -146,9 +151,12 @@ export interface BackendModelSchema {
   /** 应用内唯一逻辑名称，应用到数据库后不可修改。 */
   name: string;
   label: string;
+  description?: string;
   /** 系统字段由运行时维护，不在此声明。 */
   fields: BackendFieldSchema[];
   indexes?: BackendIndexSchema[];
+  /** 列表未显式排序时使用；运行时始终追加系统主键兜底。 */
+  defaultSort?: BackendSortSchema[];
   operations: BackendOperation[];
   policies: BackendPolicySchema[];
 }

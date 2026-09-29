@@ -21,13 +21,16 @@ const flush = async () => {
   await Promise.resolve();
   await nextTick();
 };
-function mount(read: NonNullable<Service['getBackendDraft']>) {
+function mount(
+  read: NonNullable<Service['getBackendDraft']>,
+  operations: Array<'read' | 'write'> = ['read']
+) {
   const root = document.createElement('div');
   document.body.appendChild(root);
   const service = {
     getBackendCapabilities: async () => ({
       protocolVersions: ['1.0'],
-      operations: ['read']
+      operations
     }),
     getBackendDraft: read
   } as Service;
@@ -85,16 +88,15 @@ describe('backend models panel', () => {
     expect(root.textContent).toContain('正在读取');
     expect(root.textContent).not.toMatch(/保存|发布按钮|应用到/);
   });
-  it('renders models, defaults, indexes, policies and version information', async () => {
+  it('renders searchable model summaries and version information', async () => {
     const source = JSON.parse(JSON.stringify(draft));
     const root = mount(async () => source);
     await flush();
     expect(root.textContent).toContain('客户');
-    expect(root.textContent).toContain('false');
-    expect(root.textContent).toContain('enabled_index');
-    expect(root.textContent).toContain('本人数据');
-    expect(root.textContent).toContain('草稿版本 2');
-    expect(root.textContent).toContain('release-1');
+    expect(root.textContent).toContain('customer · 1 个字段');
+    expect(root.textContent).toContain('草稿 v2');
+    expect(root.textContent).toContain('开发已应用 v1');
+    expect(root.textContent).toContain('当前服务仅开放只读能力');
     expect(source).toEqual(draft);
   });
   it('renders an empty draft', async () => {
@@ -104,6 +106,22 @@ describe('backend models panel', () => {
     }));
     await flush();
     expect(root.textContent).toContain('暂无后端模型');
+  });
+  it('opens model and field editors when write capability is available', async () => {
+    const root = mount(async () => draft, ['read', 'write']);
+    await flush();
+    root.querySelector<HTMLButtonElement>('.v-backend-models__item')!.click();
+    await flush();
+    expect(document.body.textContent).toContain('后端模型 · 开发环境');
+    document.querySelector<HTMLElement>('#tab-fields')!.click();
+    await flush();
+    const addField = [...document.querySelectorAll('button')].find(
+      (item) => item.textContent?.includes('添加字段')
+    )!;
+    addField.click();
+    await flush();
+    expect(document.body.textContent).toContain('字段类型');
+    expect(document.body.textContent).toContain('最大长度');
   });
   it('retries failed reads from the panel', async () => {
     const read = vi
