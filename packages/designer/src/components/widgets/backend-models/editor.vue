@@ -466,7 +466,7 @@
   };
   const addModel = () => {
     const model: BackendModelSchema = {
-      id: uid(),
+      id: `model_${uid()}`,
       name: '',
       label: '',
       description: '',

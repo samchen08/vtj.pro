@@ -125,6 +125,38 @@ describe('backend models panel', () => {
     expect(document.body.textContent).toContain('字段类型');
     expect(document.body.textContent).toContain('最大长度');
   });
+  it('creates valid snake_case model ids', async () => {
+    const validateBackendDraft = vi.fn(async () => ({
+      valid: false as const,
+      diagnostics: [],
+      truncated: false
+    }));
+    const root = mount(async () => draft, ['read', 'write'], {
+      validateBackendDraft,
+      saveBackendDraft: async () => draft
+    });
+    await flush();
+    root.querySelector<HTMLButtonElement>('.v-backend-models__item')!.click();
+    await flush();
+    const editor = [
+      ...document.querySelectorAll<HTMLElement>('.v-model-editor')
+    ].at(-1)!;
+    editor
+      .querySelector<HTMLButtonElement>('.v-model-editor__rail > button')!
+      .click();
+    await flush();
+    expect(
+      editor.querySelectorAll('.v-model-editor__model-list button')
+    ).toHaveLength(2);
+    const save = [...document.querySelectorAll('button')]
+      .filter((item) => item.textContent?.trim() === '保存全部修改')
+      .at(-1)!;
+    expect(save.disabled).toBe(false);
+    save.click();
+    await flush();
+    const schema = validateBackendDraft.mock.calls[0][1];
+    expect(schema.models.at(-1)?.id).toMatch(/^[a-z][a-z0-9_]{0,47}$/);
+  });
   it('protects fields referenced by indexes from accidental removal', async () => {
     const root = mount(async () => draft, ['read', 'write']);
     await flush();
