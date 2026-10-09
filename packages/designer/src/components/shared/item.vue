@@ -71,7 +71,6 @@
   import { XContainer, XAction, XIcon } from '@vtj/ui';
   import {
     VtjIconEdit,
-    VtjIconPlus,
     VtjIconRemove,
     VtjIconCopy,
     VtjIconLock,
@@ -81,14 +80,15 @@
     VtjIconHome,
     MoreFilled,
     VtjIconShare,
-    VtjIconComponents
+    VtjIconComponents,
+    Plus,
   } from '@vtj/icons';
   import { ElSwitch, ElMessageBox, ElTag } from 'element-plus';
 
   const builtInActions = {
     add: {
-      label: '创建',
-      icon: VtjIconPlus
+      label: '添加',
+      icon: Plus
     },
     copy: {
       label: '复制',

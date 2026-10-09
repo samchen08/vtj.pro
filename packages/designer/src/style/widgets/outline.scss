@@ -35,6 +35,9 @@
   }
 
   @include e(item) {
+    @include when(located) {
+      animation: v-outline-locate 2s ease-out;
+    }
     @include when(dragging) {
       background: var(--el-color-danger-light-8);
       opacity: 0.5;
@@ -63,5 +66,23 @@
         }
       }
     }
+  }
+}
+
+@keyframes v-outline-locate {
+  0%,
+  20% {
+    background-color: var(--el-color-primary-light-7);
+    box-shadow: inset 0 0 0 1px var(--el-color-primary-light-5);
+  }
+  100% {
+    background-color: transparent;
+    box-shadow: inset 0 0 0 1px transparent;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .v-outline-widget__item.is-located {
+    animation: none;
   }
 }
