@@ -6,19 +6,30 @@
     aria-modal="true"
     aria-label="添加组件"
     maximizable
+    resizable
     cancel
+    width="800px"
     @keydown.esc.stop="close"
     @close="close">
     <div class="v-add-component__content">
-      <div class="v-add-component__target">
-        目标组件：{{ target.name }} <small>{{ target.id }}</small>
-      </div>
-      <div
-        v-if="!isBlock(target) && (slots.length || slotsLoading || slotsError)"
-        class="v-add-component__slots">
-        <template v-if="slots.length || slotsLoading">
-          <label for="vtj-add-slot">组件插槽：</label>
+      <div class="v-add-component__destination">
+        <div class="v-add-component__target">
+          <span class="v-add-component__label">目标组件</span>
+          <div class="v-add-component__identity">
+            <strong>{{ target.name }}</strong>
+            <span class="v-add-component__id">{{ target.id }}</span>
+          </div>
+        </div>
+        <div
+          v-if="
+            !isBlock(target) && (slots.length || slotsLoading || slotsError)
+          "
+          class="v-add-component__slots">
+          <label class="v-add-component__label" for="vtj-add-slot">
+            组件插槽
+          </label>
           <ElSelect
+            v-if="slots.length || slotsLoading"
             id="vtj-add-slot"
             v-model="slotName"
             aria-label="组件插槽"
@@ -31,11 +42,11 @@
               :label="`#${slot.name}`"
               :value="slot.name" />
           </ElSelect>
-        </template>
-        <template v-if="slotsError">
-          <span role="alert">{{ slotsError }}</span>
-          <ElButton link type="primary" @click="loadSlots">重试</ElButton>
-        </template>
+          <div v-if="slotsError" class="v-add-component__error">
+            <span role="alert">{{ slotsError }}</span>
+            <ElButton link type="primary" @click="loadSlots">重试</ElButton>
+          </div>
+        </div>
       </div>
       <ElInput
         v-model="searchKey"
@@ -54,7 +65,7 @@
             :title="desc.label || desc.name"
             :icon="desc.icon"
             :active="selected === desc"
-            @click="selectComponent(desc)"/>
+            @click="selectComponent(desc)" />
         </div>
         <ElEmpty v-if="!searchResult.length" description="未找到匹配组件" />
       </div>
@@ -221,28 +232,75 @@
       min-height: 0;
     }
 
-    &__target {
-      overflow-wrap: anywhere;
+    &__destination {
+      display: flex;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 16px 24px;
+      padding: 12px 16px;
+      border: 1px solid var(--el-border-color-lighter);
+      border-radius: var(--el-border-radius-base);
+      background: var(--el-fill-color-light);
+    }
 
-      small {
-        color: var(--el-text-color-secondary);
+    &__target {
+      flex: 1 1 200px;
+      min-width: 0;
+    }
+
+    &__label {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--el-text-color-regular);
+      font-size: var(--el-font-size-extra-small);
+      line-height: 18px;
+    }
+
+    &__identity {
+      display: flex;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: 4px 8px;
+      min-height: 32px;
+      padding: 5px 0;
+      box-sizing: border-box;
+      overflow-wrap: anywhere;
+      line-height: 22px;
+
+      strong {
+        color: var(--el-text-color-primary);
+        font-weight: 600;
       }
+    }
+
+    &__id {
+      color: var(--el-text-color-secondary);
+      font-size: var(--el-font-size-extra-small);
+      font-family: var(--el-font-family-monospace, monospace);
     }
 
     &__results {
       flex: 1;
+      min-height: 0;
       overflow: auto;
     }
 
     &__slots {
-      display: flex;
-      align-items: center;
-      flex-wrap: wrap;
+      flex: 0 1 240px;
+      min-width: 0;
+      max-width: 100%;
 
       .el-select {
-        flex: 1;
-        min-width: 140px;
+        width: 100%;
       }
+    }
+
+    &__error {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      color: var(--el-color-danger);
+      overflow-wrap: anywhere;
     }
 
     &__grid {
