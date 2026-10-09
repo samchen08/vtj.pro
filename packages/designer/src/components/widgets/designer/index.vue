@@ -41,20 +41,25 @@
       </div>
       <iframe ref="iframe" frameborder="0"></iframe>
     </Viewport>
+    <AddComponent
+      v-if="insertTarget"
+      :target="insertTarget"
+      @close="insertTarget = undefined" />
   </div>
 </template>
 <script lang="ts" setup>
-  import { computed, ref } from 'vue';
+  import { computed, ref, shallowRef } from 'vue';
   import { useElementSize } from '@vueuse/core';
-  import { NodeModel } from '@vtj/core';
+  import { NodeModel, type BlockModel } from '@vtj/core';
   import { ElEmpty } from 'element-plus';
   import Actions from './actions.vue';
-  import { Viewport } from '../../shared';
+  import { Viewport, AddComponent } from '../../shared';
   import { useDeps, useDesigner, useCurrent } from '../../hooks';
 
   const container = ref();
   const iframe = ref<HTMLIFrameElement>();
   const viewport = ref();
+  const insertTarget = shallowRef<NodeModel | BlockModel>();
   const { width, height } = useElementSize(container);
   const { dependencies, engine, apis, meta } = useDeps();
   const { current, isEmpty } = useCurrent();
@@ -85,11 +90,23 @@
     i18n
   );
 
-  const onAction = (e: any) => {
+  const onAction = async (e: any) => {
     const type = e.type as string;
     const model = e.model as NodeModel;
     if (!current.value) return;
     switch (type) {
+      case 'add':
+        // 插入组件
+        insertTarget.value = e.model;
+        break;
+      case 'locate':
+        // 定位组件，打开大纲树面板
+        const skeleton = engine.skeleton;
+        const region = skeleton?.getRegion('Apps')?.regionRef;
+        if (!region) return;
+        region.setActive('Outline');
+        skeleton?.toggleCollapse(false);
+        break;
       case 'remove':
         current.value.removeNode(model);
         designer.value?.setSelected(null);

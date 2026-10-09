@@ -17,7 +17,7 @@
       title="修改区块"
       @click="onOpenBlock"></XAction>
     <XActionBar
-      :disabled="!visible"
+      :disabled="actionDisabled"
       mode="icon"
       size="small"
       :items="items"
@@ -35,10 +35,13 @@
     VtjIconCopy,
     VtjIconRemove,
     Edit,
-    Rank
+    Rank,
+    Plus,
+    Aim
   } from '@vtj/icons';
   import { NodeModel, BlockModel, isBlock, type NodeFrom } from '@vtj/core';
   import { confirm } from '../../../utils';
+  import { useSelected, useCanAddComponent } from '../../hooks';
 
   export interface Props {
     position?: string;
@@ -50,13 +53,27 @@
     path: () => []
   });
 
+  const { designer, engine } = useSelected();
+  const canAddComponent = useCanAddComponent(
+    () => props.model,
+    designer,
+    engine.changed
+  );
+
   const emits = defineEmits(['action', 'dragstart', 'dragend']);
 
   const title = computed(() => props.model.name);
 
-  const visible = computed(() => {
-    return !isBlock(props.model) && !props.model.locked;
-  });
+  const actionDisabled = (item: any) => {
+    if (item.name === 'locate') return false;
+    return (
+      props.model.locked ||
+      (!isBlock(props.model) && props.model.invisible) ||
+      props.path.some(
+        (node) => node.locked || (!isBlock(node) && node.invisible)
+      )
+    );
+  }
 
   const menus = computed(() => {
     return props.path.map((n) => {
@@ -70,7 +87,7 @@
     });
   });
 
-  const items = [
+  const nodeItems = [
     {
       name: 'move',
       icon: Rank,
@@ -94,6 +111,16 @@
       title: '向后移动'
     },
     {
+      name: 'add',
+      icon: Plus,
+      title: '添加'
+    },
+    {
+      name: 'locate',
+      icon: Aim,
+      title: '定位'
+    },
+    {
       name: 'copy',
       icon: VtjIconCopy,
       title: '复制'
@@ -104,6 +131,14 @@
       title: '删除'
     }
   ];
+
+  const items = computed(() =>
+    nodeItems.filter(
+      (item) =>
+        (!isBlock(props.model) || item.name === 'add') &&
+        (item.name !== 'add' || canAddComponent.value)
+    )
+  );
 
   const isShowEdit = computed(() => {
     const from = (props.model as any)?.from as NodeFrom;
