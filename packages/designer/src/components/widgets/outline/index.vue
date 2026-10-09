@@ -1,6 +1,7 @@
 <template>
   <Panel class="v-outline-widget" title="大纲树">
     <ElTree
+      ref="treeRef"
       :key="engine.changed.value"
       :data="tree"
       node-key="id"
@@ -18,11 +19,17 @@
       @node-drag-end="handleDragEnd">
       <template #default="{ data, node }">
         <Item
+          :ref="
+            data.type !== 'slot' && data.id === currentNodeKey
+              ? (item) => (selectedItem = item)
+              : undefined
+          "
           class="v-outline-widget__item"
           :class="{
             'is-locked': data.model.locked,
             'is-invisible': data.model.invisible,
             'is-dragging': data.dragging,
+            'is-located': data.type !== 'slot' && data.id === currentNodeKey,
             'is-slot': data.type === 'slot'
           }"
           :active="
@@ -49,11 +56,23 @@
         </Item>
       </template>
     </ElTree>
+    <AddComponent
+      v-if="insertTarget"
+      :target="insertTarget"
+      @close="insertTarget = undefined" />
   </Panel>
 </template>
 <script lang="ts" setup>
-  import { computed, watch, ref, nextTick, type Ref } from 'vue';
-  import { ElTree, ElMessage } from 'element-plus';
+  import {
+    computed,
+    watch,
+    ref,
+    shallowRef,
+    nextTick,
+    type Ref,
+    type ComponentPublicInstance
+  } from 'vue';
+  import { ElTree, ElMessage, type TreeInstance } from 'element-plus';
   import {
     type NodeModel,
     type BlockModel,
@@ -62,8 +81,8 @@
     isBlock
   } from '@vtj/core';
   import { VtjIconLock, VtjIconInvisible } from '@vtj/icons';
-  import { Panel, Item } from '../../shared';
-  import { useSelected, useCurrent } from '../../hooks';
+  import { Panel, Item, AddComponent } from '../../shared';
+  import { useSelected, useCurrent, useCanAddComponent } from '../../hooks';
 
   export interface TreeNodeData {
     id: string;
@@ -90,11 +109,19 @@
   const { engine, designer, selected } = useSelected();
   const { current } = useCurrent();
   const tree: Ref<TreeRootData[]> = ref([]);
-
+  const treeRef = ref<TreeInstance>();
+  const selectedItem = shallowRef<Element | ComponentPublicInstance | null>();
+  const insertTarget = shallowRef<BlockModel | NodeModel>();
+  const hoveredNode = shallowRef<BlockModel | NodeModel>();
+  const canAddComponent = useCanAddComponent(
+    () => hoveredNode.value,
+    designer,
+    engine.changed
+  );
   const getActions = (node: BlockModel | NodeModel, type: string): any[] => {
     if (type === 'slot') return [];
     if (isBlock(node)) {
-      return node.locked ? ['unlock'] : ['lock'];
+      return node.locked ? ['unlock'] : ['lock', 'add'];
     }
     const parent = node.parent;
     if (parent && (parent.locked || parent.invisible)) {
@@ -112,7 +139,11 @@
       return ['visible'];
     }
 
-    return ['lock', 'invisible', 'copy', 'remove'];
+    return ['lock', 'invisible', 'add', 'copy', 'remove'].filter(
+      (action) =>
+        action !== 'add' ||
+        (node.id === hoveredNode.value?.id && canAddComponent.value)
+    );
   };
 
   const groupBySlots = (children: NodeModel[], parent: NodeModel) => {
@@ -183,6 +214,25 @@
   const currentNodeKey = computed(() => {
     return selected.value?.model.id;
   });
+
+  // 同步选中节点时展开祖先、滚动并短暂高亮；面板挂载时也同步。
+  watch(
+    [currentNodeKey, treeRef],
+    async ([id, instance]) => {
+      if (!id || !instance?.getNode(id)) return;
+      instance.setCurrentKey(id, true);
+      await nextTick();
+      if (currentNodeKey.value !== id || treeRef.value !== instance) return;
+      const item = selectedItem.value;
+      const element = item instanceof Element ? item : item?.$el;
+      element?.scrollIntoView({
+        behavior: 'smooth',
+        block: 'center',
+        inline: 'nearest'
+      });
+    },
+    { flush: 'post' }
+  );
 
   // todo: ElTree 不支持异步判断，需要改造该方法
   const allowDrag: any = async (node: any) => {
@@ -292,6 +342,7 @@
   };
 
   const onMouseEnter = (data: TreeNodeData | TreeRootData) => {
+    hoveredNode.value = data.type === 'slot' ? undefined : data.model;
     if (data.type === 'slot') {
       designer.value?.setHover(null);
       return;
@@ -312,6 +363,7 @@
   };
 
   const onMouseLeave = () => {
+    hoveredNode.value = undefined;
     designer.value?.setHover(null);
   };
 
@@ -373,6 +425,9 @@
         cleanHelper(selectedNode, model);
         current.value?.removeNode(model);
 
+        break;
+      case 'add':
+        insertTarget.value = model;
         break;
     }
   };

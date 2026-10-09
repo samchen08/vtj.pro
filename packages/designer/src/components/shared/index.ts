@@ -8,6 +8,7 @@ import Viewer from './viewer.vue';
 import SlotsPicker from './slots.vue';
 import Viewport from './viewport.vue';
 import ActionMenu from './action-menu.vue';
+import AddComponent from './add-component.vue';
 export * from './types';
 export {
   Icon,
@@ -19,5 +20,6 @@ export {
   Viewer,
   SlotsPicker,
   Viewport,
-  ActionMenu
+  ActionMenu,
+  AddComponent
 };

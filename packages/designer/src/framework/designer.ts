@@ -22,7 +22,7 @@ import {
   EVENT_PROJECT_ACTIVED,
   EVENT_NODE_CHANGE
 } from '@vtj/core';
-import { delay, toArray } from '@vtj/utils';
+import { cloneDeep, delay, toArray } from '@vtj/utils';
 import { SlotsPicker } from '../components';
 import { type Engine } from './engine';
 
@@ -56,6 +56,11 @@ export interface DesignHelper {
   type?: DropPosition;
   path?: Array<NodeModel | BlockModel>;
   indexes?: number[];
+}
+
+export interface AddComponentOptions {
+  slot?: MaterialSlot;
+  isActive?: () => boolean;
 }
 
 export class Designer {
@@ -186,37 +191,31 @@ export class Designer {
     this.selected.value = null;
   }
 
+  public async getAvailableSlots(
+    to: NodeModel | null
+  ): Promise<MaterialSlot[]> {
+    if (!to) return [];
+    const { engine } = this;
+    const instance = toArray(
+      engine.simulator.renderer?.context?.__refs?.[to.id] || []
+    )[0];
+    const vueInstance = instance?._?.exposed || instance;
+    const dynamicSlots: string[] = vueInstance?.$vtjDynamicSlots
+      ? vueInstance.$vtjDynamicSlots()
+      : [];
+    return this.resolveSlots(to, dynamicSlots);
+  }
+
   public async getDropSlot(to: NodeModel | null) {
     if (!to) return undefined;
-    const { engine, dropping } = this;
+    const { dropping } = this;
     const vueInstance = dropping.value
       ? this.getVueInstance(dropping.value, to.id)
       : null;
     const dynamicSlots: string[] = vueInstance?.$vtjDynamicSlots
       ? vueInstance.$vtjDynamicSlots()
       : [];
-    const assets = engine.assets;
-    const componentMap = assets.componentMap;
-    const targetDesc =
-      (await assets.getBlockMaterial(to.from)) || componentMap.get(to.name);
-
-    // 物料没有定义插槽，组件也没有动态插槽
-    if (!targetDesc?.slots && dynamicSlots.length === 0) return undefined;
-    const mergeSlots = (targetDesc?.slots || ['default']).concat(dynamicSlots);
-
-    const slots: MaterialSlot[] = mergeSlots.map((n) => {
-      if (typeof n === 'string') {
-        return {
-          name: n,
-          params: []
-        };
-      } else {
-        return {
-          name: n.name,
-          params: n.params || []
-        };
-      }
-    });
+    const slots = await this.resolveSlots(to, dynamicSlots);
 
     if (slots.length === 0) {
       return undefined;
@@ -241,6 +240,34 @@ export class Designer {
     }
 
     return slot;
+  }
+
+  // 沿用原有规则合并物料声明和动态插槽，并补齐参数格式。
+  private async resolveSlots(
+    to: NodeModel,
+    dynamicSlots: string[]
+  ): Promise<MaterialSlot[]> {
+    const assets = this.engine.assets;
+    const componentMap = assets.componentMap;
+    const targetDesc =
+      (await assets.getBlockMaterial(to.from)) || componentMap.get(to.name);
+
+    if (!targetDesc?.slots && dynamicSlots.length === 0) return [];
+    const mergeSlots = (targetDesc?.slots || ['default']).concat(dynamicSlots);
+
+    return mergeSlots.map((n) => {
+      if (typeof n === 'string') {
+        return {
+          name: n,
+          params: []
+        };
+      } else {
+        return {
+          name: n.name,
+          params: n.params || []
+        };
+      }
+    });
   }
 
   public getVueInstance(helper: DesignHelper, id?: string) {
@@ -529,6 +556,112 @@ export class Designer {
     this.draggingNode = node;
   }
 
+  // 添加能力与插槽解析分开：原生 HTML 容器可以直接追加子节点。
+  public async canAddComponent(
+    target: NodeModel | BlockModel,
+    slots?: MaterialSlot[]
+  ): Promise<boolean> {
+    if (isBlock(target)) return true;
+    const assets = this.engine.assets;
+    const desc =
+      (await assets.getBlockMaterial(target.from)) ||
+      assets.componentMap.get(target.name);
+    if (desc?.childIncludes === false) return false;
+    if (HTML_TAGS.includes(target.name)) {
+      return !/^(area|base|br|col|embed|hr|img|input|link|meta|param|source|track|wbr)$/.test(
+        target.name
+      );
+    }
+    return (slots || (await this.getAvailableSlots(target))).length > 0;
+  }
+
+  public async addComponent(
+    desc: MaterialDescription,
+    target: NodeModel | BlockModel,
+    options: AddComponentOptions = {}
+  ): Promise<NodeModel | null> {
+    const current = this.engine.current.value;
+    if (!current) throw new Error('请新建或打开文件');
+    const validate = () => {
+      if (options.isActive && !options.isActive()) return false;
+      if (!current || this.engine.current.value !== current || current.locked) {
+        throw new Error('当前文件已切换或锁定，请重新选择插入目标');
+      }
+      if (isBlock(target)) {
+        if (target.id !== current.id) {
+          throw new Error('插入目标不属于当前文件');
+        }
+      } else {
+        const contains = (nodes: NodeModel[]): boolean =>
+          nodes.some(
+            (node) =>
+              node.id === target.id ||
+              (Array.isArray(node.children) && contains(node.children))
+          );
+        if (target.disposed || !contains(current.nodes)) {
+          throw new Error('插入目标已移除，请重新选择');
+        }
+        let node: NodeModel | null = target;
+        while (node) {
+          if (node.locked || node.invisible) {
+            throw new Error('目标组件或父组件已锁定或隐藏');
+          }
+          node = node.parent;
+        }
+      }
+      return true;
+    };
+    if (!validate()) return null;
+    if (!(await this.allowDrop(target, 'inner', desc))) {
+      throw new Error(`${desc.label || desc.name}不能放置到该位置`);
+    }
+    if (!validate()) return null;
+    let slot: MaterialSlot | null | undefined;
+    if (!isBlock(target)) {
+      const slots = await this.getAvailableSlots(target);
+      if (!(await this.canAddComponent(target, slots))) {
+        throw new Error('目标组件不支持添加子组件');
+      }
+      if ('slot' in options) {
+        const selectedSlot = slots.find(
+          (item) => item.name === options.slot?.name
+        );
+        if ((slots.length || options.slot) && !selectedSlot) {
+          throw new Error('请选择有效的目标插槽');
+        }
+        slot =
+          selectedSlot?.name === 'default' && !selectedSlot.params?.length
+            ? undefined
+            : selectedSlot;
+      } else {
+        if (slots.length > 1) throw new Error('请选择目标插槽');
+        slot = slots[0];
+        if (slot?.name === 'default' && !slot.params?.length) slot = undefined;
+      }
+    }
+    if (slot === null || !validate()) return null;
+    const dsl = this.createNodeDsl(cloneDeep(desc));
+    const resetIds = (schema: NodeSchema) => {
+      delete schema.id;
+      if (Array.isArray(schema.children)) schema.children.forEach(resetIds);
+    };
+    resetIds(dsl);
+    const node = new NodeModel(dsl);
+    node.setSlot(cloneDeep(slot), true);
+    current.addNode(node, isBlock(target) ? undefined : target);
+    this.engine.simulator.refresh();
+    this.engine.assets.clearCaches();
+    // Workspace 刷新会重建 Designer，等新实例就绪后再选中节点。
+    await nextTick();
+    await nextTick();
+    this.engine.simulator.ready(() => {
+      if (this.engine.current.value === current && !node.disposed) {
+        this.engine.simulator.designer.value?.setSelected(node);
+      }
+    });
+    return node;
+  }
+
   async setHover(model: NodeModel | BlockModel | null) {
     await nextTick();
     if (model) {
@@ -593,9 +726,12 @@ export class Designer {
 
   async allowDrop(
     target: NodeModel | BlockModel,
-    type: DropPosition = 'inner'
+    type: DropPosition = 'inner',
+    material?: MaterialDescription
   ) {
-    const { dragging, engine, draggingNode } = this;
+    const { engine } = this;
+    const dragging = material || this.dragging;
+    const draggingNode = material ? null : this.draggingNode;
     const current = engine.current.value;
     if (!dragging || !current) return false;
     if (isBlock(target)) return true;
