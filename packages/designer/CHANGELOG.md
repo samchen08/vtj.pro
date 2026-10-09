@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.20.7](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.20.6...@vtj/designer@0.20.7) (2026-10-09)
+
+
+### Features
+
+* **designer:** 优化添加组件弹窗布局和样式 ([94922dd](https://gitee.com/newgateway/vtj/commits/94922ddfa31066e29f422ebb94502d44c882affb))
+* **designer:** 画布和大纲树组件 action 增加“添加”操作按钮 ([c6f1eab](https://gitee.com/newgateway/vtj/commits/c6f1eabc6d7306120d2323972818fe44fa76a22a))
+
+
+
+
+
 ## [0.20.6](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.20.5...@vtj/designer@0.20.6) (2026-09-09)
 
 
