@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.15.4](https://github.com/samchen08/vtj.pro/compare/vtj-project-library@0.15.3...vtj-project-library@0.15.4) (2026-10-09)
+
+
+### Bug Fixes
+
+* **parser:** 修复 styleToJson 解析冒号处理问题 ([dcdfe6f](https://github.com/samchen08/vtj.pro/commit/dcdfe6f47ae6ab393384bfa4b985ce6e5921e41e))
+
+
+
+
+
 ## [0.15.3](https://github.com/samchen08/vtj.pro/compare/vtj-project-library@0.15.2...vtj-project-library@0.15.3) (2026-09-07)
 
 **Note:** Version bump only for package vtj-project-library

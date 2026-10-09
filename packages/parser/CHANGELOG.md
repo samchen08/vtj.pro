@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.20.7](https://gitee.com/newgateway/vtj/compare/@vtj/parser@0.20.6...@vtj/parser@0.20.7) (2026-10-09)
+
+
+### Bug Fixes
+
+* **parser:** 修复 styleToJson 解析冒号处理问题 ([dcdfe6f](https://gitee.com/newgateway/vtj/commits/dcdfe6f47ae6ab393384bfa4b985ce6e5921e41e))
+
+
+
+
+
 ## [0.20.6](https://gitee.com/newgateway/vtj/compare/@vtj/parser@0.20.5...@vtj/parser@0.20.6) (2026-09-09)
 
 **Note:** Version bump only for package @vtj/parser
