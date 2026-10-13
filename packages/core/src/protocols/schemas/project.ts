@@ -148,6 +148,11 @@ export interface UniConfig {
   css?: string;
 
   /**
+   * 应用增强函数
+   */
+  enhance?: JSFunction;
+
+  /**
    * 当uni-app 初始化完成时触发（全局只触发一次），参数为应用启动参数，同 uni.getLaunchOptionsSync 的返回值
    */
   onLaunch?: JSFunction;
