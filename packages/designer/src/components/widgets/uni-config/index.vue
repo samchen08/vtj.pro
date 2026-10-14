@@ -19,6 +19,14 @@
           :model-value="getValue('css')"
           @change="onChange('css', $event)"></CssSetter>
       </ElFormItem>
+      <ElFormItem label="应用增强「JS」" @keydown.enter.native.prevent>
+        <FunctionSetter
+          title="应用增强「JS」"
+          subtitle="JSFunction"
+          :default-code="enhanceTemplate"
+          :model-value="getValue('enhance')"
+          @change="onChange('enhance', $event)"></FunctionSetter>
+      </ElFormItem>
     </ElForm>
 
     <ElDivider content-position="center" border-style="dotted">
@@ -63,6 +71,9 @@
 
   const defaultCode = `() => { 
 
+}`;
+  const enhanceTemplate = `(app) => {
+  // 在此添加增强代码
 }`;
 
   const onChange = (name: string, value: any) => {
