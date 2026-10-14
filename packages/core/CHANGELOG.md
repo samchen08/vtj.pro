@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.20.8](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.20.7...@vtj/core@0.20.8) (2026-10-14)
+
+
+### Features
+
+* **report:** 支持关闭远程遥测功能 ([bce832e](https://gitee.com/newgateway/vtj/commits/bce832e161dc9e81f80f51edde989197e623be4a))
+
+
+
+
+
 ## [0.20.7](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.20.6...@vtj/core@0.20.7) (2026-10-09)
 
 **Note:** Version bump only for package @vtj/core
