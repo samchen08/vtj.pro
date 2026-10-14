@@ -71,6 +71,7 @@ export class Extension {
       'pageRouteName',
       'remote',
       'checkVersion',
+      'report',
       'noMask',
       'auth'
     ];

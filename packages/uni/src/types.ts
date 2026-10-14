@@ -1,4 +1,5 @@
 import type { DefineComponent } from 'vue';
+import type { JSFunction } from '@vtj/core';
 
 export interface UniRoute {
   id: string;
@@ -22,6 +23,7 @@ export interface SetupUniAppOptions {
   manifestJson?: ManifestJson;
   pagesJson?: PagesJson;
   css?: string;
+  enhance?: JSFunction;
 }
 
 export interface ManifestJson {

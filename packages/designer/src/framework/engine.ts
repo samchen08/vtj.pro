@@ -142,6 +142,11 @@ export interface EngineOptions {
   checkVersion?: boolean;
 
   /**
+   * 开启遥测上报，默认 true
+   */
+  report?: boolean;
+
+  /**
    * 适配远程接口
    */
   openApi?: OpenApi;
@@ -212,6 +217,7 @@ export class Engine extends Base {
       access,
       remote = REMOTE,
       checkVersion = true,
+      report = true,
       openApi,
       enhance = false
     } = this.options;
@@ -240,7 +246,7 @@ export class Engine extends Base {
     });
     this.access = access || new Access({ alert, ...ACCESS });
     this.remote = remote;
-    this.report = new Report(this.remote, this.access, this.service);
+    this.report = new Report(this.remote, this.access, this.service, report);
     this.checkVersion = checkVersion;
     this.bindEvents();
     this.init(project as ProjectSchema).then(this.render.bind(this));

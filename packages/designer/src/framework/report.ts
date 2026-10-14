@@ -49,11 +49,13 @@ export class Report {
   constructor(
     remote: string | null,
     private access: Access,
-    private service?: Service
+    private service?: Service,
+    private enabled: boolean = true
   ) {
     this.remote = remote || 'https://app.vtj.pro';
     this.api = this.remote + REPORT_API;
     this.debounceSend = debounce(this.send.bind(this), 500);
+    if (!this.enabled) return;
     this.online();
     this.bindGlobalError();
     if (this.service) {
@@ -124,6 +126,7 @@ export class Report {
     return id;
   }
   private send(data: ReportData) {
+    if (!this.enabled) return;
     const user = this.access.getData();
     const client = getClientInfo();
     const { href, protocol, host } = location;
@@ -167,6 +170,7 @@ export class Report {
     });
   }
   async online() {
+    if (!this.enabled) return;
     clearTimeout(this.timer);
     this.timer = setTimeout(
       () => {
