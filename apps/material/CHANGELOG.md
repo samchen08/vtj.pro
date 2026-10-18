@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.20.9](https://github.com/samchen08/vtj.pro/compare/vtj-material@0.20.8...vtj-material@0.20.9) (2026-10-18)
+
+**Note:** Version bump only for package vtj-material
+
+
+
+
+
 ## [0.20.8](https://github.com/samchen08/vtj.pro/compare/vtj-material@0.20.7...vtj-material@0.20.8) (2026-10-14)
 
 **Note:** Version bump only for package vtj-material
