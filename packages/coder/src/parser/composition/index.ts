@@ -97,11 +97,11 @@ export function parserComposition(
   platform: PlatformType = 'web',
   resolveBlockImport?: (id: string) => string
 ): TokenComposition {
-  const { dsl } = collecter;
+  const { dsl, enhanceKeys } = collecter;
 
   // 1. 探测当前 UI 库，构建有效 API 映射
   const uiPackage = detectUIPackage(componentMap);
-  const effectiveMap = buildEffectiveApiMap(uiPackage);
+  const effectiveMap = buildEffectiveApiMap(uiPackage, enhanceKeys);
 
   // 2. 构建符号表（含 effectiveApiMap）
   const symbols = buildSymbolTable(dsl, effectiveMap);

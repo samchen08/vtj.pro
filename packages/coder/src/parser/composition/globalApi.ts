@@ -332,10 +332,26 @@ export function detectUIPackage(
  * 构建有效 API 映射：基础 Map + 当前 UI 库 Map（UI 库覆盖同名 key）
  */
 export function buildEffectiveApiMap(
-  uiPackage: string | null
+  uiPackage: string | null,
+  enhanceKeys: string[]
 ): Record<string, GlobalApiConfig> {
   const uiMap = uiPackage ? (UI_GLOBAL_API_MAPS[uiPackage] ?? {}) : {};
-  return { ...GLOBAL_API_MAP, ...uiMap };
+  // 组装本地已存在的keys
+  const localApiKeys = [ ...Object.keys(GLOBAL_API_MAP), ...Object.keys(uiMap) ]
+  // 忽略localApiKeys中已存在的
+  const keys = enhanceKeys.filter(item => !localApiKeys.includes(item))
+  const enhanceApiMap: Record<string, GlobalApiConfig> = {}
+  // 构建app.config.globalProperties中相关key的替换规则
+  for (const key of keys) {
+    enhanceApiMap[key] = {
+      composable: 'getCurrentInstance',
+      from: 'vue',
+      declare: 'const __instance = getCurrentInstance();',
+      replace: `__instance.proxy.${key}`
+    }
+  }
+
+  return { ...GLOBAL_API_MAP, ...uiMap, ...enhanceApiMap };
 }
 
 /**

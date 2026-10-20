@@ -27,7 +27,8 @@ export class Collecter {
 
   constructor(
     public dsl: BlockSchema,
-    public dependencies: Dependencie[]
+    public dependencies: Dependencie[],
+    public enhanceKeys: string[],
   ) {
     this.collectEasycom();
     this.libraryRegex = this.collectLibrary();

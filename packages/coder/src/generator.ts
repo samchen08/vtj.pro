@@ -38,6 +38,8 @@ export interface GeneratorOptions {
   ts?: boolean;
   scss?: boolean;
   project?: ProjectSchema;
+  // app.config.globalProperties中挂载的key集合
+  enhanceKeys?: string[];
 }
 
 export async function generator(
@@ -66,7 +68,8 @@ export async function generator(
     formatterDisabled = false,
     ts = true,
     scss = false,
-    project
+    project,
+    enhanceKeys = []
   } = options;
   const fileIndex = project ? createProjectFileIndex(project) : null;
   const resolveBlockImport = fileIndex
@@ -77,7 +80,7 @@ export async function generator(
           : `./${id}.vue`;
       }
     : undefined;
-  const collecter = new Collecter(cloneDeep(dsl), dependencies);
+  const collecter = new Collecter(cloneDeep(dsl), dependencies, enhanceKeys);
   const isComposition = dsl.apiMode === 'composition';
   let template: string;
   let css: string;
