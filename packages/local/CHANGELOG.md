@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.20.10](https://gitee.com/newgateway/vtj/compare/@vtj/local@0.20.9...@vtj/local@0.20.10) (2026-10-20)
+
+**Note:** Version bump only for package @vtj/local
+
+
+
+
+
+## [0.20.9](https://gitee.com/newgateway/vtj/compare/@vtj/local@0.20.8...@vtj/local@0.20.9) (2026-10-18)
+
+
+### Bug Fixes
+
+* 修复<template>中_ctx.__emit/_ctx.__props空指针异常 ([2f0d8e0](https://gitee.com/newgateway/vtj/commits/2f0d8e0398cf1423b59812a87a9dcd266f11e6b0))
+
+
+
+
+
 ## [0.20.8](https://gitee.com/newgateway/vtj/compare/@vtj/local@0.20.7...@vtj/local@0.20.8) (2026-10-14)
 
 **Note:** Version bump only for package @vtj/local

@@ -73,5 +73,8 @@
       font-size: 12px;
       line-height: 1.5em;
     }
+    :deep(.v-item__index) {
+      width: 36px;
+    }
   }
 </style>
