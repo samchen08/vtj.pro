@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.20.10](https://github.com/samchen08/vtj.pro/compare/vtj-extension@0.20.9...vtj-extension@0.20.10) (2026-10-20)
+
+**Note:** Version bump only for package vtj-extension
+
+
+
+
+
 ## [0.20.9](https://github.com/samchen08/vtj.pro/compare/vtj-extension@0.20.8...vtj-extension@0.20.9) (2026-10-18)
 
 **Note:** Version bump only for package vtj-extension

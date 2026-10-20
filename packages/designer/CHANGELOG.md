@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.20.10](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.20.9...@vtj/designer@0.20.10) (2026-10-20)
+
+
+### Bug Fixes
+
+* 修复记录组件样式，增加滚动条和调整索引宽度 ([dc4126d](https://gitee.com/newgateway/vtj/commits/dc4126dcda34a0e9043cf9aaf4245a07061b08d2))
+
+
+
+
+
 ## [0.20.9](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.20.8...@vtj/designer@0.20.9) (2026-10-18)
 
 **Note:** Version bump only for package @vtj/designer
