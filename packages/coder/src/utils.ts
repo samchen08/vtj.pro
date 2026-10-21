@@ -38,7 +38,7 @@ export function replaceContext(content: string) {
 export function parseValue(
   val: unknown,
   stringify: boolean = true,
-  noThis: boolean = true,
+  noThis: boolean | 'preserve' = true,
   computedKeys: string[] = [],
   quote: boolean = true
 ) {
@@ -53,6 +53,8 @@ export function parseValue(
     value = stringify ? JSON.stringify(value) : val;
   }
 
+  // 组合式模板已按作用域转换，保留嵌套接收者和文本中的 this。
+  if (noThis === 'preserve') return value;
   value = replaceComputedValue(value as string, computedKeys);
   return noThis
     ? replaceThis(replaceContext(value as string))
@@ -100,9 +102,12 @@ export function replaceFunctionTag(content: string) {
   return handler;
 }
 
-export function parsePlainObjectValue(obj: Record<string, any> = {}) {
+export function parsePlainObjectValue(
+  obj: Record<string, any> = {},
+  noThis: boolean | 'preserve' = true
+) {
   return Object.entries(obj).map(([name, value]) => {
-    return `"${name}": ${parseValue(value)}`;
+    return `"${name}": ${parseValue(value, true, noThis)}`;
   });
 }
 

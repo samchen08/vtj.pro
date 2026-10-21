@@ -319,6 +319,10 @@ async function walkDsl(
       }
       return;
     }
+    if (isJSCode(item)) {
+      await expCallback(item);
+      return;
+    }
 
     const values = Object.values(item as Record<string, any>);
     for (const value of values) {
@@ -342,7 +346,8 @@ async function walkDsl(
     setup,
     provide,
     refs,
-    reactives
+    reactives,
+    composables
   } = dsl;
 
   await walkingExp({
@@ -357,7 +362,8 @@ async function walkDsl(
     setup,
     provide,
     refs,
-    reactives
+    reactives,
+    composables
   });
 
   if (Array.isArray(dsl.nodes)) {

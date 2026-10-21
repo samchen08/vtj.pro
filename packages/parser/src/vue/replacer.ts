@@ -40,11 +40,114 @@ export function replaceRef(content: string, key: string): string {
   }
 }
 
+/** 还原 coder 生成的实例代理，保留文本和局部同名变量。 */
+export function replaceInstanceProxy(content: string): string {
+  if (!content.includes('__instance')) return content;
+  return replaceViaAST(content, '__instance', 'this', false, 'proxy');
+}
+
+export function replaceMember(
+  content: string,
+  key: string,
+  member: string,
+  to: string
+): string {
+  if (!content.includes(key)) return content;
+  return replaceViaAST(content, key, to, false, member);
+}
+
+// renderer 的 __self 捕获组件上下文，嵌套普通函数仍保留自己的 this。
+function componentTarget(
+  target: string,
+  path: NodePath,
+  offset: number,
+  content: string,
+  replacements?: Replacement[],
+  captures = new Map<object, string>()
+): string {
+  if (!/^this\b/.test(target)) return target;
+  let child: NodePath = path;
+  for (let owner = path.parentPath; owner; owner = owner.parentPath) {
+    const node = owner.node;
+    if (
+      (owner.isFunction() && !owner.isArrowFunctionExpression()) ||
+      owner.isClassProperty() ||
+      owner.isClassPrivateProperty() ||
+      owner.isStaticBlock()
+    ) {
+      if (
+        'computed' in node &&
+        node.computed &&
+        'key' in node &&
+        node.key === child.node
+      ) {
+        child = owner;
+        continue;
+      }
+      const start = (node.start ?? 0) - offset;
+      const end = (node.end ?? 0) - offset;
+      const root =
+        (owner.isFunctionExpression() || owner.isFunctionDeclaration()) &&
+        start >= 0 &&
+        /^[\s(]*$/.test(content.slice(0, start)) &&
+        /^[\s);]*$/.test(content.slice(end));
+      if (!root) {
+        let receiver = '__self';
+        if (path.scope.hasBinding(receiver)) receiver = '$scope';
+        if (path.scope.hasBinding(receiver) && replacements) {
+          const root = path.findParent((parent) => {
+            if (!parent.isFunction()) return false;
+            const start = (parent.node.start ?? 0) - offset;
+            const end = (parent.node.end ?? 0) - offset;
+            return (
+              start >= 0 &&
+              /^[\s(]*$/.test(content.slice(0, start)) &&
+              /^[\s);]*$/.test(content.slice(end))
+            );
+          });
+          const scope = root?.node || path.scope.getProgramParent().block;
+          receiver = captures.get(scope) || '';
+          if (!receiver) {
+            receiver = path.scope.generateUidIdentifier('component').name;
+            captures.set(scope, receiver);
+            const body = root?.isFunction() ? root.node.body : null;
+            const block = body?.type === 'BlockStatement';
+            const start = body
+              ? (body.start ?? 0) - offset + (block ? 1 : 0)
+              : 0;
+            const end = body ? (body.end ?? 0) - offset : content.length;
+            const capture = `const ${receiver} = this;`;
+            const indent =
+              content.slice(start).match(/^\s*\n([ \t]*)\S/)?.[1] || '  ';
+            replacements.push({
+              start,
+              end: start,
+              text: block
+                ? `\n${indent}${capture}`
+                : `${body ? '{' : '(() => {'}${capture}return (`
+            });
+            if (!block)
+              replacements.push({
+                start: end,
+                end,
+                text: body ? ');}' : ');})()'
+              });
+          }
+        }
+        return target.replace(/^this\b/, receiver);
+      }
+    }
+    child = owner;
+  }
+  return target;
+}
+
 function replaceViaAST(
   content: string,
   key: string,
   to: string,
-  ref = false
+  ref = false,
+  member?: string
 ): string {
   let ast: ReturnType<typeof parseScript>;
   let offset = 0;
@@ -72,11 +175,17 @@ function replaceViaAST(
   }
 
   const replacements: Replacement[] = [];
+  const captures = new Map<object, string>();
 
   traverseAST(ast, {
     Identifier(path: NodePath) {
+      if (member) return;
       const node = path.node as Identifier;
-      if (node.name !== key) return;
+      if (
+        node.name !== key ||
+        (/^this\b/.test(to) && path.scope.hasBinding(key))
+      )
+        return;
 
       // 决定操作：'skip' | 'replace' | 'expand'
       const action = determineAction(path, key);
@@ -91,7 +200,15 @@ function replaceViaAST(
         ref && action === 'replace' && isValueMemberObject(path)
           ? `this.${key}`
           : to;
-      const text = action === 'expand' ? `${key}: ${to}` : memberValue;
+      const target = componentTarget(
+        memberValue,
+        path,
+        offset,
+        content,
+        replacements,
+        captures
+      );
+      const text = action === 'expand' ? `${key}: ${target}` : target;
       // 去重：同位置不重复添加
       if (!replacements.some((r) => r.start === start && r.end === end)) {
         replacements.push({ start, end, text });
@@ -99,16 +216,37 @@ function replaceViaAST(
     },
 
     StringLiteral(path: NodePath) {
+      if (member) return;
       handleStringLiteral(path, key, to, offset, content, replacements);
     },
 
     TemplateLiteral(path: NodePath) {
+      if (member) return;
       handleTemplateLiteral(path, key, to, offset, content, replacements);
     },
 
     MemberExpression(path: NodePath) {
-      if (ref) {
-        handleRefMemberExpression(path, key, to, offset, content, replacements);
+      if (member) {
+        handleProxyMember(
+          path,
+          key,
+          member,
+          to,
+          offset,
+          content,
+          replacements,
+          captures
+        );
+      } else if (ref) {
+        handleRefMemberExpression(
+          path,
+          key,
+          to,
+          offset,
+          content,
+          replacements,
+          captures
+        );
       } else {
         handleThisMemberExpression(
           path,
@@ -122,8 +260,27 @@ function replaceViaAST(
     },
 
     OptionalMemberExpression(path: NodePath) {
-      if (ref) {
-        handleRefMemberExpression(path, key, to, offset, content, replacements);
+      if (member) {
+        handleProxyMember(
+          path,
+          key,
+          member,
+          to,
+          offset,
+          content,
+          replacements,
+          captures
+        );
+      } else if (ref) {
+        handleRefMemberExpression(
+          path,
+          key,
+          to,
+          offset,
+          content,
+          replacements,
+          captures
+        );
       } else {
         handleThisMemberExpression(
           path,
@@ -150,6 +307,43 @@ function replaceViaAST(
   return result;
 }
 
+function handleProxyMember(
+  path: NodePath,
+  key: string,
+  member: string,
+  to: string,
+  offset: number,
+  content: string,
+  replacements: Replacement[],
+  captures: Map<object, string>
+) {
+  const node = path.node;
+  if (
+    (node.type !== 'MemberExpression' &&
+      node.type !== 'OptionalMemberExpression') ||
+    !(
+      (node.object.type === 'Identifier' && node.object.name === key) ||
+      (node.object.type === 'MemberExpression' &&
+        node.object.object.type === 'Identifier' &&
+        node.object.object.name === '_ctx' &&
+        !node.object.computed &&
+        node.object.property.type === 'Identifier' &&
+        node.object.property.name === key)
+    ) ||
+    node.computed ||
+    node.property.type !== 'Identifier' ||
+    node.property.name !== member ||
+    path.scope.hasBinding(key)
+  ) {
+    return;
+  }
+  replacements.push({
+    start: (node.start ?? 0) - offset,
+    end: (node.end ?? 0) - offset,
+    text: componentTarget(to, path, offset, content, replacements, captures)
+  });
+}
+
 function isValueMemberObject(path: NodePath): boolean {
   const parent = path.parent as any;
   return (
@@ -168,7 +362,8 @@ function handleRefMemberExpression(
   to: string,
   offset: number,
   content: string,
-  replacements: Replacement[]
+  replacements: Replacement[],
+  captures: Map<object, string>
 ): void {
   const node = path.node as any;
   if (
@@ -196,7 +391,14 @@ function handleRefMemberExpression(
   replacements.push({
     start,
     end,
-    text: followedByValue ? `this.${key}` : to
+    text: componentTarget(
+      followedByValue ? `this.${key}` : to,
+      path,
+      offset,
+      content,
+      replacements,
+      captures
+    )
   });
 }
 
@@ -316,6 +518,7 @@ function handleThisMemberExpression(
   content: string,
   replacements: Replacement[]
 ): void {
+  if (componentTarget('this', path, offset, content) !== 'this') return;
   const node = path.node as any;
   // 检查 object 是 ThisExpression，property 是非计算的 Identifier 且匹配 key
   if (
@@ -465,7 +668,11 @@ function determineAction(
     }
 
     // 对象方法 { key() {} }
-    case 'ObjectMethod': {
+    case 'ObjectMethod':
+    case 'ClassMethod':
+    case 'ClassPrivateMethod':
+    case 'ClassProperty':
+    case 'ClassPrivateProperty': {
       if (parent.key === path.node && !parent.computed) {
         return 'skip'; // 方法名不替换
       }

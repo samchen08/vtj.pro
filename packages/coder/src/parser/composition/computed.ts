@@ -14,7 +14,7 @@ export function parseComputed(
   return Object.entries(computed)
     .map(([name, val]) => {
       if (!val || !val.value) return null;
-      const transformed = transformExpression(val.value, symbols, 'script');
+      const transformed = transformExpression(val.value, symbols, 'computed');
       const unwrapped = unwrapFunction(transformed);
       return `const ${name} = computed(${unwrapped});`;
     })

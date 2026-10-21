@@ -13,7 +13,9 @@ describe('parseComputed', () => {
     } as any;
     const symbols = buildSymbolTable(dsl);
     const result = parseComputed(dsl.computed, symbols);
-    expect(result[0]).toBe('const total = computed(() => this.count * 2);');
+    expect(result[0]).toBe(
+      'const total = computed(() => __instance.proxy.count * 2);'
+    );
   });
 
   test('should handle empty computed', () => {

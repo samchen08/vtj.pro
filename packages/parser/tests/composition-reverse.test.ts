@@ -51,4 +51,29 @@ describe('reverseTransformExpression', () => {
     const result = reverseTransformExpression('handleClick()', symbols);
     expect(result).toBeDefined();
   });
+
+  test.each(['custom', '$custom', 'custom$'])(
+    'should restore proxy access for %s',
+    (key) => {
+      expect(
+        reverseTransformExpression(
+          `__instance.proxy.${key}.run()`,
+          emptySymbols
+        )
+      ).toBe(`this.${key}.run()`);
+    }
+  );
+
+  test('should preserve text and locally shadowed instance variables', () => {
+    const code = `function() {
+      // __instance.proxy.custom
+      const text = '__instance.proxy.custom';
+      const pattern = /__instance.proxy.custom/;
+      const local = (__instance) => __instance.proxy.custom;
+      return \`__instance.proxy.custom: \${{value: __instance.proxy.custom}.value}\`;
+    }`;
+    expect(reverseTransformExpression(code, emptySymbols)).toBe(
+      code.replace('{value: __instance.proxy.custom}', '{value: this.custom}')
+    );
+  });
 });
