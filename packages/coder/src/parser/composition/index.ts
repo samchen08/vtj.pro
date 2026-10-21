@@ -7,7 +7,6 @@ import { parseBlockPlugins, parseUrlSchemas } from '../defines';
 
 import { buildSymbolTable } from './symbolTable';
 import {
-  detectGlobalApis,
   generateGlobalApiDeclares,
   collectGlobalApiImports,
   detectUIPackage,
@@ -28,6 +27,7 @@ import {
 import { parseLifeCycles } from './lifeCycles';
 import { parseImports } from './imports';
 import { parseTemplateComposition } from './template';
+import { sortInitializations } from './initialization';
 
 export interface TokenComposition {
   id: string;
@@ -47,6 +47,8 @@ export interface TokenComposition {
   expose: string;
   /** 全局 API 顶层声明（const router = useRouter() 等） */
   globalApiDeclares: string;
+  /** 按依赖排序后的初始化声明 */
+  initializations: string;
   /** inject 顶层声明 */
   injects: string;
   /** composables 顶层声明 */
@@ -97,34 +99,23 @@ export function parserComposition(
   platform: PlatformType = 'web',
   resolveBlockImport?: (id: string) => string
 ): TokenComposition {
-  const { dsl, enhanceKeys } = collecter;
+  const { dsl } = collecter;
 
   // 1. 探测当前 UI 库，构建有效 API 映射
   const uiPackage = detectUIPackage(componentMap);
-  const effectiveMap = buildEffectiveApiMap(uiPackage, enhanceKeys);
+  const effectiveMap = buildEffectiveApiMap(uiPackage);
 
   // 2. 构建符号表（含 effectiveApiMap）
   const symbols = buildSymbolTable(dsl, effectiveMap);
-
-  // 3. 检测全局 API
-  const globalApis = detectGlobalApis(dsl, effectiveMap);
-  const globalApiDeclares = generateGlobalApiDeclares(globalApis, effectiveMap);
-  const globalApiImports = collectGlobalApiImports(globalApis, effectiveMap);
-
-  // 提取 renderer 包的额外 API（__renderer__ 标记），与 useProvider 合并
-  const rendererApiIds = globalApiImports['__renderer__'] || [];
-  delete globalApiImports['__renderer__'];
 
   // 3. 解析 template（template 内会收集 components / methods / importBlocks）
   const tplResult = parseTemplateComposition(
     dsl.nodes || [],
     componentMap,
+    symbols,
     Object.keys(dsl.computed || {}),
     collecter.context,
     undefined,
-    effectiveMap,
-    symbols.refs,
-    symbols.computed,
     collecter.easycomPackages
   );
   const blocksImport = tplResult.importBlocks.map(
@@ -152,6 +143,23 @@ export function parserComposition(
     (dsl.composables || []) as any[],
     symbols
   );
+  const lifeCyclesResult = parseLifeCycles(dsl.lifeCycles || {}, symbols);
+  const createdStatements = parseCreatedStatements(
+    dsl.lifeCycles || {},
+    symbols
+  );
+  const setupStatements = parseSetupStatements(dsl.setup, symbols);
+
+  const globalApis = symbols.globalApis;
+  const globalApiDeclares = new Set(
+    generateGlobalApiDeclares(globalApis, effectiveMap)
+  );
+  if (symbols.usesInstance) {
+    globalApiDeclares.add('const __instance = getCurrentInstance();');
+  }
+  const globalApiImports = collectGlobalApiImports(globalApis, effectiveMap);
+  const rendererApiIds = globalApiImports['__renderer__'] || [];
+  delete globalApiImports['__renderer__'];
 
   // 收集 composables 已定义的变量名（name + destructure），用于与全局 API 声明去重
   const composableVarNames = new Set<string>();
@@ -165,7 +173,7 @@ export function parserComposition(
 
   // 去重：如果全局 API 已声明的变量名与 composable 同名，则跳过全局 API 声明
   // （避免 composables 和 lifecycle 中的 this.$xxx 同时生成相同变量的声明）
-  const dedupedGlobalApiDeclares = globalApiDeclares.filter((declare) => {
+  const dedupedGlobalApiDeclares = [...globalApiDeclares].filter((declare) => {
     const match = declare.match(/^const\s+(\w+)\s*=/);
     if (match && composableVarNames.has(match[1])) {
       return false;
@@ -173,15 +181,9 @@ export function parserComposition(
     return true;
   });
 
-  const lifeCyclesResult = parseLifeCycles(dsl.lifeCycles || {}, symbols);
-  const createdStatements = parseCreatedStatements(
-    dsl.lifeCycles || {},
-    symbols
-  );
-  const setupStatements = parseSetupStatements(dsl.setup, symbols);
-
   // 5. 收集 vue 包需要的标识符
   const vueImports = new Set<string>();
+  if (symbols.usesInstance) vueImports.add('getCurrentInstance');
   if (refsArr.length > 0) vueImports.add('ref');
   if (reactivesArr.length > 0 || stateStr) vueImports.add('reactive');
   if (computedArr.length > 0) vueImports.add('computed');
@@ -210,10 +212,7 @@ export function parserComposition(
 
   // 7. 异步组件 + url schemas + block plugins
   const urlSchemas = parseUrlSchemas(collecter.urlSchemas, '__provider');
-  const blockPlugins = parseBlockPlugins(
-    collecter.blockPlugins,
-    '__provider'
-  );
+  const blockPlugins = parseBlockPlugins(collecter.blockPlugins, '__provider');
 
   return {
     id: dsl.id as string,
@@ -227,6 +226,19 @@ export function parserComposition(
     expose:
       dsl.expose && dsl.expose.length ? `{ ${dsl.expose.join(', ')} }` : '',
     globalApiDeclares: dedupedGlobalApiDeclares.join('\n'),
+    initializations: sortInitializations(
+      [
+        ...injectArr,
+        ...refsArr,
+        ...reactivesArr,
+        ...computedArr,
+        stateStr,
+        ...methodsArr,
+        ...dataSourcesArr,
+        ...composablesResult.statements
+      ].filter(Boolean),
+      composablesResult.statements
+    ).join('\n'),
     injects: injectArr.join('\n'),
     composables: composablesResult.statements.join('\n'),
     state: stateStr,

@@ -1,4 +1,9 @@
-import { replacer, replaceRef } from '../replacer';
+import {
+  replacer,
+  replaceRef,
+  replaceInstanceProxy,
+  replaceMember
+} from '../replacer';
 import type { ReverseSymbolTable } from './reverseSymbolTable';
 
 /**
@@ -118,18 +123,14 @@ export function reverseTransformExpression(
     symbols.reverseMemberApiMap || {}
   )) {
     for (const [propName, apiName] of Object.entries(props)) {
-      const regex = new RegExp(
-        `\\b${escapeRegex(objName)}\\.${escapeRegex(propName)}\\b`,
-        'g'
-      );
-      result = safeReplace(result, regex, `this.${apiName}`);
+      result = replaceMember(result, objName, propName, `this.${apiName}`);
     }
   }
 
   // 4. __props.xxx → this.xxx
   // 必须在全局 API 变量（下一轮）之前执行，以免 __props 被 $props 映射污染
   for (const name of symbols.props) {
-    result = replaceMemberAccess(result, '__props', name, `this.${name}`);
+    result = replaceMember(result, '__props', name, `this.${name}`);
   }
   // 裸 prop 名 → this.prop（模板中直接使用 prop 名的情况）
   for (const name of symbols.props) {
@@ -174,26 +175,5 @@ export function reverseTransformExpression(
   // 兜底：修复 this.this. 双重替换
   result = result.replace(/this\.this\./g, 'this.');
 
-  return result;
-}
-
-function escapeRegex(str: string): string {
-  return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-}
-
-/**
- * 替换 obj.key → target
- * 例如 props.title → this.title
- */
-function replaceMemberAccess(
-  content: string,
-  obj: string,
-  key: string,
-  target: string
-): string {
-  const regex = new RegExp(
-    `\\b${escapeRegex(obj)}\\.${escapeRegex(key)}\\b`,
-    'g'
-  );
-  return safeReplace(content, regex, target);
+  return replaceInstanceProxy(result);
 }

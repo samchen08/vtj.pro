@@ -21,7 +21,6 @@ import {
   parseValue,
   parsePlainObjectValue,
   getModifiers,
-  replaceComputedValue,
   replaceContext,
   replaceThis,
   isJSCode
@@ -64,7 +63,8 @@ export function parseTemplate(
   computedKeys: string[] = [],
   context: Record<string, Set<string>> = {},
   parent?: NodeSchema,
-  easycomPackages: Set<string> = new Set()
+  easycomPackages: Set<string> = new Set(),
+  noThis: boolean | 'preserve' = true
 ) {
   const nodes: string[] = [];
   let methods: Record<string, JSFunction> = {};
@@ -97,13 +97,15 @@ export function parseTemplate(
         child.props,
         child.events,
         context,
-        computedKeys
+        computedKeys,
+        noThis
       );
 
       const directives = parseDirectives(
         child.directives,
         computedKeys,
-        defineDirectives
+        defineDirectives,
+        noThis
       ).join(' ');
       const nodeChildren = child.children
         ? parseNodeChildren(
@@ -112,7 +114,8 @@ export function parseTemplate(
             componentMap,
             context,
             child,
-            easycomPackages
+            easycomPackages,
+            noThis
           )
         : '';
       // Object.assign(methods, handlers);
@@ -211,32 +214,29 @@ function isFromPlugin(from?: NodeFrom): from is NodeFromPlugin {
   return typeof from === 'object' && from.type === 'Plugin';
 }
 
-function bindProp(name: string, value: unknown, computedKeys: string[] = []) {
+function bindProp(
+  name: string,
+  value: unknown,
+  computedKeys: string[] = [],
+  noThis: boolean | 'preserve' = true
+) {
   if (name === 'style') {
     return isJSCode(value)
-      ? `:style="${parseValue({
-          ...value,
-          value: replaceComputedValue(value.value, computedKeys)
-        })}"`
+      ? `:style="${parseValue(value, true, noThis, computedKeys)}"`
       : '';
   }
   if (name === '__class' && isJSCode(value)) {
-    return `:class="${parseValue({
-      ...value,
-      value: replaceComputedValue(value.value, computedKeys)
-    })}"`;
+    return `:class="${parseValue(value, true, noThis, computedKeys)}"`;
   }
 
   if (typeof value === 'string') {
     return `${name}="${value}"`;
   } else if (isJSCode(value)) {
-    return `:${name}="${parseValue({
-      ...value,
-      value: replaceComputedValue(value.value, computedKeys)
-    })}"`;
+    return `:${name}="${parseValue(value, true, noThis, computedKeys)}"`;
   } else if (isPlainObject(value)) {
     return `:${name}='{${parsePlainObjectValue(
-      value as Record<string, any>
+      value as Record<string, any>,
+      noThis
     ).join(', ')}}'`;
   } else {
     return `:${name}='${JSON.stringify(value)}'`;
@@ -246,7 +246,8 @@ function bindProp(name: string, value: unknown, computedKeys: string[] = []) {
 function bindNodeProps(
   node: NodeSchema,
   props: NodeProps = {},
-  computedKeys: string[] = []
+  computedKeys: string[] = [],
+  noThis: boolean | 'preserve' = true
 ) {
   const hasStyle = !!Object.keys(props.style || {}).length;
   if (hasStyle) {
@@ -273,7 +274,7 @@ function bindNodeProps(
     };
   }
   return Object.entries(props).map(([name, value]) => {
-    return bindProp(name, value, computedKeys);
+    return bindProp(name, value, computedKeys, noThis);
   });
 }
 
@@ -285,11 +286,16 @@ function bindEvent(name: string, value: NodeEvent, binder: string) {
 function bindNodeEvents(
   _id: string,
   events: NodeEvents = {},
-  _context: Record<string, Set<string>> = {}
+  _context: Record<string, Set<string>> = {},
+  noThis: boolean | 'preserve' = true
 ) {
   const handlers: Record<string, JSFunction | JSExpression> = {};
   const binders = Object.entries(events).map(([name, value]) => {
-    const binder = replaceThis(replaceContext(value.handler.value)).replace(
+    const handler =
+      noThis === 'preserve'
+        ? value.handler.value
+        : replaceContext(value.handler.value);
+    const binder = (noThis === true ? replaceThis(handler) : handler).replace(
       /\"/g,
       "'"
     );
@@ -307,11 +313,12 @@ function parsePropsAndEvents(
   props: NodeProps = {},
   events: NodeEvents = {},
   context: Record<string, Set<string>> = {},
-  computedKeys: string[]
+  computedKeys: string[],
+  noThis: boolean | 'preserve' = true
 ) {
-  const { binders, handlers } = bindNodeEvents(id, events, context);
+  const { binders, handlers } = bindNodeEvents(id, events, context, noThis);
   return {
-    props: bindNodeProps(node, props, computedKeys).join(' '),
+    props: bindNodeProps(node, props, computedKeys, noThis).join(' '),
     handlers,
     binders,
     events: binders.join(' ')
@@ -321,7 +328,8 @@ function parsePropsAndEvents(
 function parseDirectives(
   directives: NodeDirective[] = [],
   computedKeys: string[] = [],
-  output: string[] = []
+  output: string[] = [],
+  noThis: boolean | 'preserve' = true
 ) {
   const result: string[] = [];
   const {
@@ -336,11 +344,11 @@ function parseDirectives(
     customDirectives
   } = getDiretives(directives);
   if (vIf) {
-    result.push(`v-if="${parseValue(vIf.value, true, true, computedKeys)}"`);
+    result.push(`v-if="${parseValue(vIf.value, true, noThis, computedKeys)}"`);
   }
   if (vElseIf) {
     result.push(
-      `v-else-if="${parseValue(vElseIf.value, true, true, computedKeys)}"`
+      `v-else-if="${parseValue(vElseIf.value, true, noThis, computedKeys)}"`
     );
   }
   if (vElse) {
@@ -349,13 +357,13 @@ function parseDirectives(
 
   if (vShow) {
     result.push(
-      `v-show="${parseValue(vShow.value, true, true, computedKeys)}"`
+      `v-show="${parseValue(vShow.value, true, noThis, computedKeys)}"`
     );
   }
 
   if (vBind) {
     result.push(
-      `v-bind="${parseValue(vBind.value, true, true, computedKeys)}"`
+      `v-bind="${parseValue(vBind.value, true, noThis, computedKeys)}"`
     );
   }
 
@@ -363,24 +371,24 @@ function parseDirectives(
     const modifiers = getModifiers(vModel.modifiers, true);
     const arg = vModel.arg
       ? isJSExpression(vModel.arg)
-        ? `:[${parseValue(vModel.arg, true, true, computedKeys)}]`
+        ? `:[${parseValue(vModel.arg, true, noThis, computedKeys)}]`
         : `:${vModel.arg}`
       : '';
     result.push(
-      `v-model${arg}${modifiers}="${parseValue(vModel.value, true, true, computedKeys)}"`
+      `v-model${arg}${modifiers}="${parseValue(vModel.value, true, noThis, computedKeys)}"`
     );
   });
 
   if (vFor) {
     const { item, index } = { item: 'item', index: 'index', ...vFor.iterator };
     result.push(
-      `v-for="(${item}, ${index}) in ${parseValue(vFor.value, true, true, computedKeys)}"`
+      `v-for="(${item}, ${index}) in ${parseValue(vFor.value, true, noThis, computedKeys)}"`
     );
   }
 
   if (vHtml) {
     result.push(
-      `v-html="${parseValue(vHtml.value, true, true, computedKeys)}"`
+      `v-html="${parseValue(vHtml.value, true, noThis, computedKeys)}"`
     );
   }
 
@@ -390,7 +398,7 @@ function parseDirectives(
       let leftExp = '';
       let source = '';
       if (isJSExpression(dir.name)) {
-        source = parseValue(dir.name, true, true, computedKeys);
+        source = parseValue(dir.name, true, noThis, computedKeys);
         output.push(source);
       } else {
         source = dir.name;
@@ -403,7 +411,7 @@ function parseDirectives(
 
       if (dir.arg) {
         if (isJSExpression(dir.arg)) {
-          leftExp += `:[${parseValue(dir.name, true, true, computedKeys)}]`;
+          leftExp += `:[${parseValue(dir.name, true, noThis, computedKeys)}]`;
         } else {
           leftExp += `:${dir.arg}`;
         }
@@ -416,7 +424,7 @@ function parseDirectives(
       }
       if (dir.value) {
         result.push(
-          `${leftExp}="${parseValue(dir.value, true, true, computedKeys)}"`
+          `${leftExp}="${parseValue(dir.value, true, noThis, computedKeys)}"`
         );
       } else {
         result.push(leftExp);
@@ -489,14 +497,15 @@ function parseNodeChildren(
   componentMap: Map<string, MaterialDescription>,
   context: Record<string, Set<string>>,
   parent?: NodeSchema,
-  easycomPackages: Set<string> = new Set()
+  easycomPackages: Set<string> = new Set(),
+  noThis: boolean | 'preserve' = true
 ) {
   if (typeof children === 'string') {
     return escapeHtml(children);
   }
 
   if (isJSExpression(children)) {
-    const content = parseValue(children, false, true, computedKeys) as string;
+    const content = parseValue(children, false, noThis, computedKeys) as string;
 
     return `{{ ${content} }}`;
   }
@@ -508,7 +517,8 @@ function parseNodeChildren(
       computedKeys,
       context,
       parent,
-      easycomPackages
+      easycomPackages,
+      noThis
     );
   }
 

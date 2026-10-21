@@ -50,8 +50,7 @@ const vueTemplate = `
 /**
  * Composition API 出码模板（<script setup>）
  * 顺序：imports → props/emits → provider → globalApiDeclares →
- *      injects → composables → state(reactive) → refs → reactives →
- *      computed → methods → setupStatements → watch → provide → created/setup → lifeCycles → expose
+ *      按依赖排序的初始化声明 → created/setup → watch → provide → lifeCycles → expose
  */
 const scriptSetupTemplate = `// @ts-nocheck
 import { <%= rendererImports %> } from '<%= renderer %>';<%= imports %>
@@ -62,16 +61,9 @@ const __provider = useProvider({ id: '<%= id %>', version: '<%= version %>' });
 <%= urlSchemas %>
 <%= blockPlugins %>
 <%= globalApiDeclares %>
-<%= injects %>
-<%= composables %>
+<%= initializations %>
 <%= createdStatements %>
-<%= refs %>
-<%= reactives %>
-<%= computed %>
-<%= state %>
-<%= methods %>
 <%= setupStatements %>
-<%= dataSources %>
 <%= watch %>
 <%= provide %>
 <%= lifeCycles %>

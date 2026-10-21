@@ -2,8 +2,10 @@ import type {
   ObjectExpression,
   ObjectProperty,
   CallExpression,
+  OptionalCallExpression,
   Identifier,
   VariableDeclaration,
+  VariableDeclarator,
   ExpressionStatement,
   FunctionDeclaration,
   ClassDeclaration
@@ -176,15 +178,22 @@ export function parseScriptSetup(
         const init = declarator.init;
 
         // const xxx = fn(...) 模式
-        if (init.type === 'CallExpression') {
-          const componentFrom = parseProviderComponentDefine(init);
+        if (
+          init.type === 'CallExpression' ||
+          init.type === 'OptionalCallExpression'
+        ) {
+          const componentFrom =
+            init.type === 'CallExpression'
+              ? parseProviderComponentDefine(init)
+              : null;
           const componentName = getDeclaratorName(declarator.id);
           if (componentName && componentFrom) {
             result.componentDefines[componentName] = componentFrom;
             return;
           }
 
-          const callee = getCalleeName(init);
+          const callee =
+            init.type === 'CallExpression' ? getCalleeName(init) : null;
 
           // ref()
           if (callee === 'ref') {
@@ -257,13 +266,13 @@ export function parseScriptSetup(
 
           // defineProps()
           if (callee === 'defineProps' || callee === 'withDefaults') {
-            result.props = parseDefineProps(init);
+            result.props = parseDefineProps(init as CallExpression);
             return;
           }
 
           // defineEmits()
           if (callee === 'defineEmits') {
-            result.emits = parseDefineEmits(init);
+            result.emits = parseDefineEmits(init as CallExpression);
             return;
           }
 
@@ -310,20 +319,13 @@ export function parseScriptSetup(
                 composableValue = callee;
               }
 
-              const composable: BlockComposable = {
-                name: name || destructure[0] || callee,
-                composable: {
-                  type: 'JSExpression',
-                  value: composableValue
-                }
-              };
-              if (init.arguments.length > 0) {
-                composable.args = init.arguments.map((arg: any) =>
-                  getJSExpression(generateCode(arg))
-                );
-              }
-              if (destructure.length > 0) {
-                composable.destructure = destructure;
+              const composable = parseComposableCall(
+                init,
+                (name) => path.scope.hasBinding(name),
+                declarator.id
+              )!;
+              if (!init.arguments.some((arg) => arg.type === 'SpreadElement')) {
+                composable.composable = getJSExpression(composableValue);
               }
               result.composables.push(composable);
             }
@@ -340,6 +342,16 @@ export function parseScriptSetup(
           if (callee === 'getCurrentInstance') {
             return;
           }
+          const composable = parseComposableCall(
+            init,
+            (name) => path.scope.hasBinding(name),
+            declarator.id
+          );
+          if (composable) {
+            result.composables.push(composable);
+            return;
+          }
+
           // 其他 CallExpression — 可能是 dataSources 或普通赋值
           // 暂标记为 setup 语句
         }
@@ -471,6 +483,29 @@ export function parseScriptSetup(
       const node = path.node as ExpressionStatement;
       const expr = node.expression;
 
+      if (
+        expr.type === 'UnaryExpression' &&
+        expr.operator === 'void' &&
+        (expr.argument.type === 'CallExpression' ||
+          expr.argument.type === 'OptionalCallExpression')
+      ) {
+        const composable = parseComposableCall(expr.argument, (name) =>
+          path.scope.hasBinding(name)
+        );
+        if (composable) {
+          result.composables.push(composable);
+          return;
+        }
+      }
+
+      if (
+        expr.type === 'OptionalCallExpression' &&
+        parseComposableCall(expr, (name) => path.scope.hasBinding(name))
+      ) {
+        setupStatements.push(generateCode(node));
+        return;
+      }
+
       if (expr.type !== 'CallExpression') {
         const code = generateCode(node);
         throw new Error(
@@ -535,6 +570,14 @@ export function parseScriptSetup(
       // defineEmits() 不赋值情况
       if (callee === 'defineEmits') {
         result.emits = parseDefineEmits(expr);
+        return;
+      }
+
+      const composable = parseComposableCall(expr, (name) =>
+        path.scope.hasBinding(name)
+      );
+      if (composable) {
+        setupStatements.push(generateCode(node));
         return;
       }
 
@@ -623,6 +666,49 @@ function getCalleeName(expr: CallExpression): string | null {
     return expr.callee.name;
   }
   return null;
+}
+
+function parseComposableCall(
+  expr: CallExpression | OptionalCallExpression,
+  known: (name: string) => boolean,
+  id?: VariableDeclarator['id']
+): BlockComposable | null {
+  let root = expr.callee;
+  while (
+    root.type === 'MemberExpression' ||
+    root.type === 'OptionalMemberExpression' ||
+    root.type === 'CallExpression' ||
+    root.type === 'OptionalCallExpression'
+  ) {
+    root = 'object' in root ? root.object : root.callee;
+  }
+  if (
+    root.type !== 'ArrowFunctionExpression' &&
+    root.type !== 'FunctionExpression' &&
+    (root.type !== 'Identifier' || !known(root.name))
+  )
+    return null;
+  const callee = generateCode(expr.callee);
+  const wrapped =
+    expr.type === 'OptionalCallExpression' ||
+    expr.arguments.some((arg) => arg.type === 'SpreadElement');
+  const name = getDeclaratorName(id);
+  const destructure = getDestructureNames(id);
+  return {
+    name: name || destructure[0] || '',
+    composable: getJSExpression(
+      wrapped
+        ? `(() => ${generateCode(expr)})`
+        : expr.callee.type === 'ArrowFunctionExpression' ||
+            expr.callee.type === 'FunctionExpression'
+          ? `(${callee})`
+          : callee
+    ),
+    args: wrapped
+      ? []
+      : expr.arguments.map((arg) => getJSExpression(generateCode(arg))),
+    ...(destructure.length ? { destructure } : {})
+  };
 }
 
 function parseProviderComponentDefine(expr: CallExpression): NodeFrom | null {

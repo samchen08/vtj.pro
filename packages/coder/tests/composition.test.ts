@@ -1,5 +1,6 @@
 import { expect, test } from 'vitest';
 import { generator } from '../src';
+import type { BlockSchema } from '@vtj/core';
 import { test_composition as dsl } from './dsl/test_composition';
 import { test_composition_antd as dslAntd } from './dsl/test_composition_antd';
 
@@ -10,6 +11,74 @@ map.set('ElButton', { name: 'ElButton', package: 'element-plus' } as any);
 // ant-design-vue 项目的 componentMap
 const mapAntd = new Map();
 mapAntd.set('AButton', { name: 'AButton', package: 'ant-design-vue' } as any);
+
+test('composition mode - template globals use the same resolution order', async () => {
+  const dsl: BlockSchema = {
+    name: 'TemplateGlobals',
+    apiMode: 'composition',
+    refs: { $router: 42 },
+    nodes: [
+      {
+        name: 'button',
+        props: {
+          title: { type: 'JSExpression', value: 'this.custom.title' }
+        },
+        directives: [
+          {
+            name: 'vIf',
+            value: { type: 'JSExpression', value: 'this.$custom' }
+          }
+        ],
+        events: {
+          click: {
+            name: 'click',
+            handler: { type: 'JSFunction', value: '() => this.$custom.run()' }
+          }
+        },
+        children: {
+          type: 'JSExpression',
+          value: 'this.$router.value + this.$attrs.title'
+        }
+      }
+    ]
+  };
+  const content = await generator({ dsl });
+  expect(content).toContain(':title="__instance.proxy.custom.title"');
+  expect(content).toContain('v-if="__instance.proxy.$custom"');
+  expect(content).toContain('@click="() => __instance.proxy.$custom.run()"');
+  expect(content).toContain('{{ $router + __attrs.title }}');
+  expect(content).toContain('const __attrs = useAttrs()');
+  expect(content).not.toContain('vue-router');
+  expect(
+    content.match(/const __instance = getCurrentInstance\(\)/g)
+  ).toHaveLength(1);
+  expect(content.match(/\bgetCurrentInstance\b/g)).toHaveLength(2);
+});
+
+test('composition mode - loop context stays local in templates', async () => {
+  const content = await generator({
+    dsl: {
+      name: 'LoopContext',
+      apiMode: 'composition',
+      refs: { items: [] },
+      nodes: [
+        {
+          name: 'div',
+          directives: [
+            {
+              name: 'vFor',
+              value: { type: 'JSExpression', value: 'this.items.value' }
+            }
+          ],
+          children: { type: 'JSExpression', value: 'this.context.item.name' }
+        }
+      ]
+    }
+  });
+  expect(content).toContain('v-for="(item, index) in items"');
+  expect(content).toContain('{{ item.name }}');
+  expect(content).not.toContain('getCurrentInstance');
+});
 
 test('composition mode', async () => {
   let content: string = '';

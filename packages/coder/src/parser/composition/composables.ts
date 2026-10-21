@@ -49,6 +49,13 @@ export function parseComposables(
       if (processedNames.has(c.name)) continue;
       processedNames.add(c.name);
     }
+    composableStr = transformExpression(composableStr, symbols, 'script');
+    if (
+      composableStr.includes('=>') ||
+      /^(?:async\s+)?function\b/.test(composableStr)
+    ) {
+      composableStr = `(${composableStr})`;
+    }
 
     // 解析参数
     const argList = (c.args ?? []) as Array<JSONValue | JSExpression>;
@@ -70,7 +77,7 @@ export function parseComposables(
       statements.push(`const ${c.name} = ${composableStr}(${args});`);
     } else {
       // 无 name 无 destructure：仅调用副作用
-      statements.push(`${composableStr}(${args});`);
+      statements.push(`void ${composableStr}(${args});`);
     }
   }
 

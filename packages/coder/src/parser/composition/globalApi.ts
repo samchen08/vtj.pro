@@ -1,5 +1,4 @@
-import type { BlockSchema, MaterialDescription } from '@vtj/core';
-import { isJSCode } from '../../utils';
+import type { MaterialDescription } from '@vtj/core';
 
 /**
  * 全局 API 配置：DSL 中 this.$xxx 形式 → Composition API 等价物
@@ -332,80 +331,10 @@ export function detectUIPackage(
  * 构建有效 API 映射：基础 Map + 当前 UI 库 Map（UI 库覆盖同名 key）
  */
 export function buildEffectiveApiMap(
-  uiPackage: string | null,
-  enhanceKeys: string[]
+  uiPackage: string | null
 ): Record<string, GlobalApiConfig> {
   const uiMap = uiPackage ? (UI_GLOBAL_API_MAPS[uiPackage] ?? {}) : {};
-  // 组装本地已存在的keys
-  const localApiKeys = [ ...Object.keys(GLOBAL_API_MAP), ...Object.keys(uiMap) ]
-  // 忽略localApiKeys中已存在的
-  const keys = enhanceKeys.filter(item => !localApiKeys.includes(item))
-  const enhanceApiMap: Record<string, GlobalApiConfig> = {}
-  // 构建app.config.globalProperties中相关key的替换规则
-  for (const key of keys) {
-    enhanceApiMap[key] = {
-      composable: 'getCurrentInstance',
-      from: 'vue',
-      declare: 'const __instance = getCurrentInstance();',
-      replace: `__instance.proxy.${key}`
-    }
-  }
-
-  return { ...GLOBAL_API_MAP, ...uiMap, ...enhanceApiMap };
-}
-
-/**
- * 全局 API 检测器
- * 走读 DSL 中所有 JSExpression / JSFunction 的 value 字符串
- * 识别使用到的 this.$xxx，返回出现的 API 名集合
- */
-export function detectGlobalApis(
-  dsl: BlockSchema,
-  effectiveMap: Record<string, GlobalApiConfig> = GLOBAL_API_MAP
-): Set<string> {
-  const apis = new Set<string>();
-  const regex = /this\.\$(\w+)\b/g;
-
-  const visit = (item: unknown) => {
-    if (!item) return;
-    if (typeof item !== 'object') return;
-    if (Array.isArray(item)) {
-      for (const it of item) visit(it);
-      return;
-    }
-    // JSExpression / JSFunction
-    if (isJSCode(item) && item.value) {
-      let match: RegExpExecArray | null;
-      regex.lastIndex = 0;
-      while ((match = regex.exec(item.value)) !== null) {
-        const apiName = '$' + match[1];
-        if (apiName in effectiveMap) {
-          apis.add(apiName);
-        }
-      }
-      return;
-    }
-    // 普通对象：递归
-    for (const v of Object.values(item as Record<string, any>)) {
-      visit(v);
-    }
-  };
-
-  visit(dsl.refs);
-  visit(dsl.reactives);
-  visit(dsl.state);
-  visit(dsl.computed);
-  visit(dsl.methods);
-  visit(dsl.watch);
-  visit(dsl.lifeCycles);
-  visit(dsl.inject);
-  visit(dsl.composables);
-  visit(dsl.provide);
-  visit(dsl.dataSources);
-  visit(dsl.setup);
-  visit(dsl.nodes);
-
-  return apis;
+  return { ...GLOBAL_API_MAP, ...uiMap };
 }
 
 /**
