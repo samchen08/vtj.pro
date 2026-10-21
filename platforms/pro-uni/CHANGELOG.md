@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.20.11](https://github.com/samchen08/vtj.pro/compare/@vtj/pro-uni@0.20.10...@vtj/pro-uni@0.20.11) (2026-10-21)
+
+**Note:** Version bump only for package @vtj/pro-uni
+
+
+
+
+
 ## [0.20.10](https://github.com/samchen08/vtj.pro/compare/@vtj/pro-uni@0.20.9...@vtj/pro-uni@0.20.10) (2026-10-20)
 
 **Note:** Version bump only for package @vtj/pro-uni

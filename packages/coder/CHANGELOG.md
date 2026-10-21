@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.20.11](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.20.10...@vtj/coder@0.20.11) (2026-10-21)
+
+
+### Features
+
+* (组合式)出码 增加对app.config.globalProperties.xxx的处理 ([fc7e96f](https://gitee.com/newgateway/vtj/commits/fc7e96f1a216955614e586938b365046535909d5))
+
+
+
+
+
 ## [0.20.10](https://gitee.com/newgateway/vtj/compare/@vtj/coder@0.20.9...@vtj/coder@0.20.10) (2026-10-20)
 
 **Note:** Version bump only for package @vtj/coder
