@@ -34,6 +34,19 @@ import { type BlockLoader } from './loader';
  */
 const BLOCK_CHAIN_KEY = Symbol('vtjBlockChain');
 
+/**
+ * 必须同步返回结果的 uni-app 生命周期钩子。
+ * uni-app / 小程序要求这些钩子同步返回配置对象或布尔值
+ * （onBackPress 返回 true 表示已处理，官方文档明确其不可使用 async），
+ * 一旦包装成 async 函数，返回值会变成 Promise 而失效。
+ */
+const UNI_SYNC_RETURN_HOOKS = new Set([
+  'onShareAppMessage',
+  'onShareTimeline',
+  'onAddToFavorites',
+  'onBackPress'
+]);
+
 export type DataSourceHandler = (...args: any[]) => Promise<any>;
 
 export interface CreateRendererOptions {
@@ -571,6 +584,20 @@ function createProvide(
   });
 }
 
+/**
+ * 同步返回的钩子必须原样返回 DSL 函数的返回值，
+ * 这里只对返回的 Promise 追加 catch，避免异步 DSL 产生未处理的 rejection。
+ */
+function catchAsyncError(label: string, result: any) {
+  if (result && isFunction(result.then)) {
+    result.catch((e: unknown) => {
+      console.warn(`[VTJ] ${label} 执行失败`, e);
+      triggerError(e);
+    });
+  }
+  return result;
+}
+
 function createCompositionLifeCycles(
   Vue: any,
   lifeCycles: Record<string, JSFunction>,
@@ -615,18 +642,33 @@ function createCompositionLifeCycles(
     // 兼容 Options API 命名，自动映射为 Composition API
     const hookName = optionsToCompositionMap[name] || name;
     const hook = Vue[hookName] || UniApp[hookName];
+    const isUniHook = !isFunction(Vue[hookName]) && isFunction(UniApp[hookName]);
+
     if (hook && isFunction(hook)) {
       const fn = context.__parseFunction(code);
       if (isFunction(fn)) {
-        hook(async () => {
-          try {
-            await delay(0);
-            await fn();
-          } catch (e) {
-            console.warn(`[VTJ] Composition 生命周期 "${name}" 执行失败`, e);
-            triggerError(e);
-          }
-        });
+        if (isUniHook && UNI_SYNC_RETURN_HOOKS.has(hookName)) {
+          // 同步返回钩子：不能包 async，也不能 delay，必须原样返回 DSL 结果
+          hook((...args: any[]) => {
+            try {
+              return catchAsyncError(`Composition 生命周期 "${name}"`, fn(...args));
+            } catch (e) {
+              console.warn(`[VTJ] Composition 生命周期 "${name}" 执行失败`, e);
+              triggerError(e);
+            }
+          });
+        } else {
+          // 其余钩子：透传钩子参数，保留原有 delay(0) 延迟语义
+          hook(async (...args: any[]) => {
+            try {
+              await delay(0);
+              await fn(...args);
+            } catch (e) {
+              console.warn(`[VTJ] Composition 生命周期 "${name}" 执行失败`, e);
+              triggerError(e);
+            }
+          });
+        }
       }
     } else {
       console.warn(`[VTJ] 无效的 Composition 生命周期钩子 "${name}"`);
@@ -641,14 +683,28 @@ function createLifeCycles(
 ) {
   return Object.entries(lifeCycle ?? {}).reduce(
     (result, [k, v]) => {
-      result[k] = async function (this: any) {
+      result[k] = function (this: any, ...args: any[]) {
         // 优先使用实例级 Context（this.vtj），避免多实例共享 context 导致状态错乱
         const ctx = this?.vtj || context;
         const func = ctx.__parseFunction(v);
-        if (isFunction(func)) {
-          await delay(0);
-          await func();
+        if (!isFunction(func)) return;
+        // uni-app 同步返回钩子在 Options 模式下同样必须同步返回
+        if (UNI_SYNC_RETURN_HOOKS.has(k)) {
+          try {
+            return catchAsyncError(`生命周期 "${k}"`, func(...args));
+          } catch (e) {
+            console.warn(`[VTJ] 生命周期 "${k}" 执行失败`, e);
+            triggerError(e);
+            return;
+          }
         }
+        return (async () => {
+          await delay(0);
+          await func(...args);
+        })().catch((e) => {
+          console.warn(`[VTJ] 生命周期 "${k}" 执行失败`, e);
+          triggerError(e);
+        });
       };
       return result;
     },
