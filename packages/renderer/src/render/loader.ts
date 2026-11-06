@@ -84,24 +84,22 @@ export function createLoader(opts: CreateLoaderOptions): BlockLoader {
         (caches[cacheKey] = Vue.defineAsyncComponent({
           suspensible: false,
           loader: async () => {
-            const dsl =
+            const raw =
               loaders[from.id] ||
               (await queue.add<BlockSchema | null>(from.id, () =>
                 getDsl(from.id)
               ));
-            if (dsl) {
-              dsl.name = name;
-              loaders[from.id] = dsl;
-            }
-            return dsl
-              ? createRenderer({
-                  Vue,
-                  mode: ContextMode.Runtime,
-                  ...options,
-                  dsl: cloneDeep(dsl),
-                  loader: loader as BlockLoader
-                }).renderer
-              : null;
+            if (!raw) return null;
+            loaders[from.id] = raw;
+            // 只在副本上改组件名：raw 是 getDsl 返回的共享对象，
+            // Provider 级缓存会持有它，直接改名会污染同一区块的其它别名引用。
+            return createRenderer({
+              Vue,
+              mode: ContextMode.Runtime,
+              ...options,
+              dsl: { ...cloneDeep(raw), name },
+              loader: loader as BlockLoader
+            }).renderer;
           }
         }))
       );
@@ -114,20 +112,17 @@ export function createLoader(opts: CreateLoaderOptions): BlockLoader {
         (caches[cacheKey] = Vue.defineAsyncComponent({
           suspensible: false,
           loader: async () => {
-            const dsl = loaders[from.url] || (await getDslByUrl(from.url));
-            if (dsl) {
-              dsl.name = name;
-              loaders[from.url] = dsl;
-            }
-            return dsl
-              ? createRenderer({
-                  ...options,
-                  Vue,
-                  dsl: cloneDeep(dsl),
-                  mode: ContextMode.Runtime,
-                  loader: loader as BlockLoader
-                }).renderer
-              : null;
+            const raw = loaders[from.url] || (await getDslByUrl(from.url));
+            if (!raw) return null;
+            loaders[from.url] = raw;
+            // 同上：在副本上改名，避免污染共享的 DSL 对象
+            return createRenderer({
+              ...options,
+              Vue,
+              dsl: { ...cloneDeep(raw), name },
+              mode: ContextMode.Runtime,
+              loader: loader as BlockLoader
+            }).renderer;
           }
         }))
       );
