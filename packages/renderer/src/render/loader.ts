@@ -51,6 +51,15 @@ export interface CreateLoaderOptions {
   options: Partial<CreateRendererOptions>;
 }
 
+/**
+ * 创建区块（Block）组件加载器
+ *
+ * 注意：所有 defineAsyncComponent 都必须显式声明 `suspensible: false`。
+ * 区块的 DSL 是异步获取的，若保留默认的 suspensible 语义，区块会作为异步依赖
+ * 注册到最近的 Suspense boundary。设计器的根级 Suspense 没有 fallback，
+ * 一旦被区块拖住，整棵画布（包括纯内置组件的部分）都不会渲染，表现为白屏。
+ * 关闭后可让每个区块独立占位、独立补齐，不阻塞其余内容。
+ */
 export function createLoader(opts: CreateLoaderOptions): BlockLoader {
   const { getDsl, getDslByUrl, options } = opts;
   const queue = new Queue();
@@ -72,25 +81,28 @@ export function createLoader(opts: CreateLoaderOptions): BlockLoader {
 
       return (
         caches[cacheKey] ||
-        (caches[cacheKey] = Vue.defineAsyncComponent(async () => {
-          const dsl =
-            loaders[from.id] ||
-            (await queue.add<BlockSchema | null>(from.id, () =>
-              getDsl(from.id)
-            ));
-          if (dsl) {
-            dsl.name = name;
-            loaders[from.id] = dsl;
+        (caches[cacheKey] = Vue.defineAsyncComponent({
+          suspensible: false,
+          loader: async () => {
+            const dsl =
+              loaders[from.id] ||
+              (await queue.add<BlockSchema | null>(from.id, () =>
+                getDsl(from.id)
+              ));
+            if (dsl) {
+              dsl.name = name;
+              loaders[from.id] = dsl;
+            }
+            return dsl
+              ? createRenderer({
+                  Vue,
+                  mode: ContextMode.Runtime,
+                  ...options,
+                  dsl: cloneDeep(dsl),
+                  loader: loader as BlockLoader
+                }).renderer
+              : null;
           }
-          return dsl
-            ? createRenderer({
-                Vue,
-                mode: ContextMode.Runtime,
-                ...options,
-                dsl: cloneDeep(dsl),
-                loader: loader as BlockLoader
-              }).renderer
-            : null;
         }))
       );
     }
@@ -99,21 +111,24 @@ export function createLoader(opts: CreateLoaderOptions): BlockLoader {
       cacheKey = from.url + '_' + id;
       return (
         caches[cacheKey] ||
-        (caches[cacheKey] = Vue.defineAsyncComponent(async () => {
-          const dsl = loaders[from.url] || (await getDslByUrl(from.url));
-          if (dsl) {
-            dsl.name = name;
-            loaders[from.url] = dsl;
+        (caches[cacheKey] = Vue.defineAsyncComponent({
+          suspensible: false,
+          loader: async () => {
+            const dsl = loaders[from.url] || (await getDslByUrl(from.url));
+            if (dsl) {
+              dsl.name = name;
+              loaders[from.url] = dsl;
+            }
+            return dsl
+              ? createRenderer({
+                  ...options,
+                  Vue,
+                  dsl: cloneDeep(dsl),
+                  mode: ContextMode.Runtime,
+                  loader: loader as BlockLoader
+                }).renderer
+              : null;
           }
-          return dsl
-            ? createRenderer({
-                ...options,
-                Vue,
-                dsl: cloneDeep(dsl),
-                mode: ContextMode.Runtime,
-                loader: loader as BlockLoader
-              }).renderer
-            : null;
         }))
       );
     }
@@ -124,8 +139,9 @@ export function createLoader(opts: CreateLoaderOptions): BlockLoader {
         return cache;
       }
 
-      cache = loaders[from.library || Symbol()] = Vue.defineAsyncComponent(
-        async () => {
+      cache = loaders[from.library || Symbol()] = Vue.defineAsyncComponent({
+        suspensible: false,
+        loader: async () => {
           const plugin = await getPlugin(from, options.window);
           if (plugin) {
             return plugin;
@@ -134,7 +150,7 @@ export function createLoader(opts: CreateLoaderOptions): BlockLoader {
           }
           return null;
         }
-      );
+      });
 
       return cache;
     }

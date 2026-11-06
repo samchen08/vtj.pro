@@ -278,6 +278,36 @@ export class Designer {
     return instance?._?.exposed || instance;
   }
 
+  /**
+   * 拖拽/新增组件后的画布收尾。
+   *
+   * 不再调用 simulator.refresh()：整篇重写 iframe 会销毁渲染器、清空区块缓存，
+   * 画布先整体消失，再等待所有区块重新异步加载，表现为每次拖拽都白屏。
+   * 现在改由渲染器的增量同步（EVENT_NODE_CHANGE / EVENT_BLOCK_CHANGE）更新画面，
+   * 这里只需要复位辅助框并重算选中位置。
+   */
+  async applyDropChange(node?: NodeModel | null) {
+    const { platform = 'web' } = this.engine.project.value || {};
+    if (platform === 'uniapp') {
+      // uni-app 的渲染器挂载在 body 上，增量更新未验证，保留原有整页刷新
+      this.engine.simulator.refresh();
+      return;
+    }
+    this.hover.value = null;
+    this.dropping.value = null;
+    this.selected.value = null;
+    await nextTick();
+    if (node && !node.disposed) {
+      await this.setSelected(node);
+      // 区块内容是异步加载的，首次定位可能取不到 DOM，稍后再校正一次
+      delay(300).then(() => {
+        if (node.disposed || this.selected.value?.model !== node) return;
+        this.setSelected(node);
+      });
+    }
+    this.engine.changed.value = Symbol();
+  }
+
   private async onDrop(e: DragEvent) {
     e.preventDefault();
     const { engine, dragging, dropping, draggingNode } = this;
@@ -316,8 +346,8 @@ export class Designer {
       }
     }
     this.dropping.value = null;
-    engine.simulator.refresh();
     engine.assets.clearCaches();
+    await this.applyDropChange(node);
   }
 
   private onSelected(e: MouseEvent) {
@@ -649,16 +679,8 @@ export class Designer {
     const node = new NodeModel(dsl);
     node.setSlot(cloneDeep(slot), true);
     current.addNode(node, isBlock(target) ? undefined : target);
-    this.engine.simulator.refresh();
     this.engine.assets.clearCaches();
-    // Workspace 刷新会重建 Designer，等新实例就绪后再选中节点。
-    await nextTick();
-    await nextTick();
-    this.engine.simulator.ready(() => {
-      if (this.engine.current.value === current && !node.disposed) {
-        this.engine.simulator.designer.value?.setSelected(node);
-      }
-    });
+    await this.applyDropChange(node);
     return node;
   }
 
