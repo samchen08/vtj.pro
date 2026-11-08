@@ -338,7 +338,7 @@
     }
     designer.value?.setDropping(null);
     designer.value?.setDragging(null);
-    engine.simulator.refresh();
+    await designer.value?.applyDropChange(item.model as NodeModel);
   };
 
   const onMouseEnter = (data: TreeNodeData | TreeRootData) => {
