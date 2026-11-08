@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.20.13](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.20.12...@vtj/designer@0.20.13) (2026-11-08)
+
+
+### Performance Improvements
+
+* **designer:** 消除含区块画布的拖拽白屏 ([b15dc1e](https://gitee.com/newgateway/vtj/commits/b15dc1e245d397db621909ba8e572d4773667136))
+* **renderer:** 复用区块 DSL 缓存，避免重建时重复取数 ([cfb048d](https://gitee.com/newgateway/vtj/commits/cfb048d64e9b69cb078b6a30b75f6f50516f4720))
+
+
+
+
+
 ## [0.20.12](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.20.11...@vtj/designer@0.20.12) (2026-11-05)
 
 **Note:** Version bump only for package @vtj/designer
