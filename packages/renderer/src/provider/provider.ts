@@ -129,6 +129,14 @@ export class Provider extends Base {
   private router: Router | null = null; // 路由实例
   private materialPath: string = './'; // 物料路径
   private urlDslCaches: Record<string, any> = {}; // DSL缓存
+  /**
+   * 区块 DSL 缓存（按区块 id）。
+   *
+   * 设计器每次重建渲染器都会新建一个 loader，loader 内部的缓存随之清空；
+   * 没有这一层缓存时，页面上 N 个区块就要重新发起 N 次（串行的）取数请求，
+   * 挂载期被拉长成可见白屏。缓存放在 Provider 上可以跨渲染器重建复用。
+   */
+  private dslCaches: Map<string, BlockSchema> = new Map();
   public errorHandler: ((err: any) => void) | null = null;
   public initialization: Promise<Provider>;
 
@@ -595,6 +603,8 @@ export class Provider extends Base {
     return this.getPage(homepage);
   }
   async getDsl(id: string): Promise<BlockSchema | null> {
+    const cached = this.dslCaches.get(id);
+    if (cached) return cached;
     const { vtjDir = '.vtj' } = this.options;
     const module =
       this.modules[`${vtjDir}/files/${id}.json`] ||
@@ -606,9 +616,25 @@ export class Provider extends Base {
           .catch(() => null);
     if (!result) {
       this.errorHandler && this.errorHandler(new Error(`区块 ${id} 不存在`));
+      // 失败结果不缓存，留出重试的机会
+      return null;
     }
-
+    this.dslCaches.set(id, result);
     return result;
+  }
+
+  /**
+   * 清除区块 DSL 缓存
+   *
+   * 传入 id 只失效该区块（区块内容被编辑后调用），不传则清空全部
+   * （区块文件增删改名、项目切换）。遗漏失效会导致画布读到陈旧的区块内容。
+   */
+  clearDslCache(id?: string) {
+    if (id) {
+      this.dslCaches.delete(id);
+    } else {
+      this.dslCaches.clear();
+    }
   }
 
   async getDslByUrl(url: string): Promise<BlockSchema | null> {
