@@ -13,7 +13,8 @@ import {
   injectUniGlobal,
   injectUniRoutes,
   injectUniFeatures,
-  injectUniCSS
+  injectUniCSS,
+  injectEnhance
 } from '../injects';
 
 import { install } from './plugin';
@@ -28,7 +29,8 @@ export function setupUniApp(options: SetupUniAppOptions) {
     pagesJson = {},
     manifestJson = {},
     window,
-    css = ''
+    css = '',
+    enhance,
   } = opts;
   if (!UniH5) {
     return Vue.createApp(App);
@@ -42,6 +44,10 @@ export function setupUniApp(options: SetupUniAppOptions) {
   const app = Vue.createApp(setupApp(App));
   app.use(install, UniH5);
   app.use(plugin);
+  // 设置应用增强函数
+  if(enhance) {
+    injectEnhance(enhance, app, {})
+  }
   return app;
 }
 

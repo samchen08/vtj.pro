@@ -24,10 +24,25 @@ interface EngineOptions {
   access?: Access; // 权限控制器
   remote?: string | null; // 远程服务地址
   checkVersion?: boolean; // 是否检查版本
+  report?: boolean; // 是否开启遥测上报，默认 true
   openApi?: OpenApi; // OpenAPI服务
   enhance?: boolean | EnhanceConfig; // 应用增强配置
 }
 ```
+
+如需关闭官方遥测上报，在创建 `Engine` 时传入
+`report: false`。使用 `@vtj/pro` 时，也可在项目
+`package.json` 的 `vtj` 配置中设置：
+
+```json
+{
+  "vtj": {
+    "report": false
+  }
+}
+```
+
+关闭上报后，不发送初始化、在线心跳、事件和错误报告；本地错误日志仍保留。
 
 ## 核心方法
 

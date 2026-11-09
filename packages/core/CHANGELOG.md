@@ -3,6 +3,65 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.20.13](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.20.12...@vtj/core@0.20.13) (2026-11-08)
+
+**Note:** Version bump only for package @vtj/core
+
+
+
+
+
+## [0.20.12](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.20.11...@vtj/core@0.20.12) (2026-11-05)
+
+**Note:** Version bump only for package @vtj/core
+
+
+
+
+
+## [0.20.11](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.20.10...@vtj/core@0.20.11) (2026-10-21)
+
+**Note:** Version bump only for package @vtj/core
+
+
+
+
+
+## [0.20.10](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.20.9...@vtj/core@0.20.10) (2026-10-20)
+
+**Note:** Version bump only for package @vtj/core
+
+
+
+
+
+## [0.20.9](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.20.8...@vtj/core@0.20.9) (2026-10-18)
+
+**Note:** Version bump only for package @vtj/core
+
+
+
+
+
+## [0.20.8](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.20.7...@vtj/core@0.20.8) (2026-10-14)
+
+
+### Features
+
+* **report:** 支持关闭远程遥测功能 ([bce832e](https://gitee.com/newgateway/vtj/commits/bce832e161dc9e81f80f51edde989197e623be4a))
+
+
+
+
+
+## [0.20.7](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.20.6...@vtj/core@0.20.7) (2026-10-09)
+
+**Note:** Version bump only for package @vtj/core
+
+
+
+
+
 ## [0.20.6](https://gitee.com/newgateway/vtj/compare/@vtj/core@0.20.5...@vtj/core@0.20.6) (2026-09-09)
 
 **Note:** Version bump only for package @vtj/core

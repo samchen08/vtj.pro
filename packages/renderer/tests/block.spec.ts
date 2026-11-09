@@ -135,6 +135,48 @@ describe('block - createRenderer', () => {
 
     expect(renderer.render()).toBeNull();
   });
+
+  test('options lifecycle forwards args and keeps sync return', async () => {
+    const dsl = {
+      name: 'OptionsUniHookBlock',
+      state: { query: null },
+      computed: {},
+      methods: {},
+      props: [],
+      emits: [],
+      nodes: [{ component: 'div' }],
+      lifeCycles: {
+        onLoad: {
+          type: 'JSFunction',
+          value: 'function(query) { state.query = query; }'
+        },
+        onShareAppMessage: {
+          type: 'JSFunction',
+          value: 'function(options) { return { title: options.from }; }'
+        }
+      },
+      watch: [],
+      dataSources: {},
+      css: '',
+      apiMode: 'options'
+    } as any;
+
+    const { renderer } = createRenderer({
+      Vue,
+      mode: ContextMode.Runtime,
+      dsl
+    });
+    const setupResult = await renderer.setup({});
+    // 模拟 uni 调用 $options.onLoad.call(vm, query)
+    const vm = { vtj: setupResult.vtj };
+
+    await (renderer as any).onLoad.call(vm, { id: 42 });
+    expect(setupResult.state.query).toEqual({ id: 42 });
+
+    const ret = (renderer as any).onShareAppMessage.call(vm, { from: 'menu' });
+    expect(ret).not.toBeInstanceOf(Promise);
+    expect(ret).toEqual({ title: 'menu' });
+  });
 });
 
 describe('block - Composition API mode', () => {
@@ -515,6 +557,108 @@ describe('block - Composition API mode', () => {
     // 再次验证 context1 没有被 context2/context3 覆盖
     expect(context1.props.propKey).toBe('k01');
     expect(context2.props.propKey).toBe('k02');
+  });
+
+  test('createRenderer passes uni-app hook args through', async () => {
+    const handlers: Record<string, Function> = {};
+    const UniApp = {
+      onLoad: vi.fn((cb: Function) => {
+        handlers.onLoad = cb;
+      }),
+      onPageScroll: vi.fn((cb: Function) => {
+        handlers.onPageScroll = cb;
+      })
+    };
+    const dsl = {
+      name: 'UniLoadBlock',
+      state: { lastQuery: null, scrollTop: 0 },
+      refs: {},
+      reactives: {},
+      computed: {},
+      methods: {},
+      props: [],
+      emits: [],
+      nodes: [{ component: 'div' }],
+      lifeCycles: {
+        onLoad: {
+          type: 'JSFunction',
+          value: 'function(query) { state.lastQuery = query; }'
+        },
+        onPageScroll: {
+          type: 'JSFunction',
+          value: 'function(e) { state.scrollTop = e.scrollTop; }'
+        }
+      },
+      watch: [],
+      dataSources: {},
+      css: '',
+      apiMode: 'composition',
+      composables: [],
+      provide: {}
+    } as any;
+
+    const { renderer } = createRenderer({
+      Vue,
+      UniApp,
+      mode: ContextMode.Runtime,
+      dsl
+    });
+    const setupResult = await renderer.setup({});
+
+    expect(UniApp.onLoad).toHaveBeenCalledTimes(1);
+    expect(UniApp.onPageScroll).toHaveBeenCalledTimes(1);
+
+    // wrapper 内含 delay(0)，需要 await
+    await handlers.onLoad!({ id: 1, name: 'detail' });
+    expect(setupResult.state.lastQuery).toEqual({ id: 1, name: 'detail' });
+
+    await handlers.onPageScroll!({ scrollTop: 120 });
+    expect(setupResult.state.scrollTop).toBe(120);
+  });
+
+  test('createRenderer keeps sync return value for uni-app hooks', async () => {
+    let handler: Function | undefined;
+    const UniApp = {
+      onShareAppMessage: vi.fn((cb: Function) => {
+        handler = cb;
+      })
+    };
+    const dsl = {
+      name: 'UniShareBlock',
+      state: {},
+      refs: {},
+      reactives: {},
+      computed: {},
+      methods: {},
+      props: [],
+      emits: [],
+      nodes: [{ component: 'div' }],
+      lifeCycles: {
+        onShareAppMessage: {
+          type: 'JSFunction',
+          value: 'function(options) { return { title: "share-" + options.from }; }'
+        }
+      },
+      watch: [],
+      dataSources: {},
+      css: '',
+      apiMode: 'composition',
+      composables: [],
+      provide: {}
+    } as any;
+
+    const { renderer } = createRenderer({
+      Vue,
+      UniApp,
+      mode: ContextMode.Runtime,
+      dsl
+    });
+    await renderer.setup({});
+
+    const ret = handler!({ from: 'menu' });
+    // 关键断言：旧实现返回 Promise，会破坏 uni 的同步返回契约
+    expect(ret).not.toBeInstanceOf(Promise);
+    expect(ret).toEqual({ title: 'share-menu' });
   });
 });
 

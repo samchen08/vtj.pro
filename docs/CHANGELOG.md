@@ -3,6 +3,65 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.20.13](https://github.com/samchen08/vtj.pro/compare/@vtj/docs@0.20.12...@vtj/docs@0.20.13) (2026-11-08)
+
+**Note:** Version bump only for package @vtj/docs
+
+
+
+
+
+## [0.20.12](https://github.com/samchen08/vtj.pro/compare/@vtj/docs@0.20.11...@vtj/docs@0.20.12) (2026-11-05)
+
+**Note:** Version bump only for package @vtj/docs
+
+
+
+
+
+## [0.20.11](https://github.com/samchen08/vtj.pro/compare/@vtj/docs@0.20.10...@vtj/docs@0.20.11) (2026-10-21)
+
+**Note:** Version bump only for package @vtj/docs
+
+
+
+
+
+## [0.20.10](https://github.com/samchen08/vtj.pro/compare/@vtj/docs@0.20.9...@vtj/docs@0.20.10) (2026-10-20)
+
+**Note:** Version bump only for package @vtj/docs
+
+
+
+
+
+## [0.20.9](https://github.com/samchen08/vtj.pro/compare/@vtj/docs@0.20.8...@vtj/docs@0.20.9) (2026-10-18)
+
+**Note:** Version bump only for package @vtj/docs
+
+
+
+
+
+## [0.20.8](https://github.com/samchen08/vtj.pro/compare/@vtj/docs@0.20.7...@vtj/docs@0.20.8) (2026-10-14)
+
+
+### Features
+
+* **report:** 支持关闭远程遥测功能 ([bce832e](https://github.com/samchen08/vtj.pro/commit/bce832e161dc9e81f80f51edde989197e623be4a))
+
+
+
+
+
+## [0.20.7](https://github.com/samchen08/vtj.pro/compare/@vtj/docs@0.20.6...@vtj/docs@0.20.7) (2026-10-09)
+
+**Note:** Version bump only for package @vtj/docs
+
+
+
+
+
 ## [0.20.6](https://github.com/samchen08/vtj.pro/compare/@vtj/docs@0.20.5...@vtj/docs@0.20.6) (2026-09-09)
 
 **Note:** Version bump only for package @vtj/docs

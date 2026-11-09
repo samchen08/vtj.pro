@@ -2,17 +2,18 @@ import { type App } from 'vue';
 import {
   type BlockSchema,
   type NodeSchema,
-  type BlockModel,
   type NodeModel,
   type Service,
   type PageFile,
   type BlockFile,
   type ProjectModel,
   type PlatformType,
+  type BlockModel,
   emitter,
   EVENT_BLOCK_CHANGE,
   EVENT_NODE_CHANGE
 } from '@vtj/core';
+import { isAttrsEqual, takeAttrsSnapshot } from './renderer-utils';
 import { type SimulatorEnv } from './simulator';
 import {
   Provider,
@@ -35,6 +36,10 @@ export class Renderer {
   public context: Context | null = null;
   private loader: BlockLoader | null = null;
   private file?: PageFile | BlockFile | null;
+  /** 当前渲染的区块模型，用于增量同步节点树 */
+  private block: BlockModel | null = null;
+  /** 区块级属性快照，用于判断变更是否只涉及节点树 */
+  private attrsSnapshot: Record<string, string> = {};
   constructor(
     public env: SimulatorEnv,
     public service: Service,
@@ -125,7 +130,7 @@ export class Renderer {
   ) {
     const { window, Vue } = this.env;
     const { uniConfig = {}, homepage } = this.project || {};
-    const { manifestJson, pagesJson, css } = uniConfig;
+    const { manifestJson, pagesJson, css, enhance } = uniConfig;
     const AppComponent = createUniAppComponent(uniConfig, (v) =>
       parseFunction(v, window, false, true)
     );
@@ -138,6 +143,7 @@ export class Renderer {
       manifestJson,
       pagesJson,
       css,
+      enhance,
       routes: [
         {
           id: file.id,
@@ -191,9 +197,16 @@ export class Renderer {
 
   render(block: BlockModel, file?: PageFile | BlockFile | null) {
     if (!file) return;
-    clearLoaderCache(this.loader || undefined);
+    // 仅在切换文件时丢弃上一份 loader 的缓存。
+    // 同一文件的重建应尽量复用已加载的区块，否则每次重建都要重新异步拉取全部区块，
+    // 挂载期会被拉长成肉眼可见的白屏。
+    if (this.loader && this.file && this.file.id !== file.id) {
+      clearLoaderCache(this.loader);
+    }
     this.loader = null;
     this.file = file;
+    this.block = block;
+    this.attrsSnapshot = takeAttrsSnapshot(block);
     const { window, library, Vue, components, apis } = this.env;
     this.dsl = Vue.reactive(block.toDsl()) as BlockSchema;
     const { renderer, context, loader } = this.provider.createDslRenderer(
@@ -254,12 +267,17 @@ export class Renderer {
     this.dsl = null;
     this.context = null;
     this.file = null;
+    this.block = null;
+    this.attrsSnapshot = {};
     clearLoaderCache(this.loader || undefined);
     this.loader = null;
     emitter.off(EVENT_NODE_CHANGE, this.nodeChange as any);
     emitter.off(EVENT_BLOCK_CHANGE, this.blockChange as any);
   }
 
+  /**
+   * 不可用于跨父级移动
+   */
   updateChild(node: NodeSchema, parent: BlockSchema | NodeSchema) {
     const children =
       (parent as NodeSchema).children || (parent as BlockSchema).nodes || [];
@@ -276,15 +294,32 @@ export class Renderer {
     }
   }
 
-  private __onNodeChange(node: NodeModel) {
-    if (this.dsl) {
-      this.updateChild(node.toDsl(), this.dsl);
-    }
+  private __onNodeChange(_node: NodeModel) {
+    this.syncNodes();
   }
   private __onBlockChange(block: BlockModel) {
     if (!this.app?._container || !this.isDesignerActive()) {
       return;
     }
+    // 只处理当前打开文件的变更，避免画布被替换成其它区块的内容
+    if (this.file && block.id !== this.file.id) {
+      return;
+    }
+    // 仅节点树发生变化（增删、移动、插槽等）时就地同步响应式 DSL，
+    // 不重建 App：重建会卸载整棵树，且新区块又要异步加载，期间画布全白。
+    if (isAttrsEqual(block, this.attrsSnapshot)) {
+      if (this.syncNodes()) {
+        const selected = this.designer?.selected.value;
+        if (selected) {
+          const model = selected.model;
+          this.designer?.setSelected(
+            model && !(model as any).disposed ? model : null
+          );
+        }
+      }
+      return;
+    }
+    // 区块级属性（state/methods/css/props/apiMode 等）变更仍需重建
     const file = this.file;
     this.dispose();
     this.render(block, file);
@@ -292,6 +327,17 @@ export class Renderer {
     if (this.designer?.selected.value) {
       this.designer.setSelected(block);
     }
+  }
+
+  /**
+   * 把最新的节点树同步到渲染用的响应式 DSL，不重建 App。
+   * 采用整体替换：BlockModel.move 会先静默移除再在新父节点派发事件，
+   * 定向替换无法清掉旧父节点里残留的节点，会导致同一节点被渲染两次。
+   */
+  private syncNodes() {
+    if (!this.dsl || !this.block) return false;
+    this.dsl.nodes = (this.block.toDsl().nodes || []) as NodeSchema[];
+    return true;
   }
 
   private isDesignerActive() {

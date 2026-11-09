@@ -1787,7 +1787,7 @@ const setUniConfig: ToolConfig = {
     {
       name: 'key',
       type: 'string',
-      enum: ['manifestJson', 'pagesJson', 'css', ...APP_LIFE_CYCLE],
+      enum: ['manifestJson', 'pagesJson', 'css', 'enhance', ...APP_LIFE_CYCLE],
       description: '配置类型名称, 名称只能从枚举值中取',
       required: true
     },

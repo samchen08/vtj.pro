@@ -137,6 +137,11 @@ export interface VTJConfig {
   checkVersion?: boolean;
 
   /**
+   * 开启遥测上报，默认 true
+   */
+  report?: boolean;
+
+  /**
    * 平台
    */
   platform?: PlatformType;

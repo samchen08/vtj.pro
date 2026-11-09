@@ -578,6 +578,61 @@ describe('Provider - getDsl', () => {
     const dsl = await provider.getDsl('dsl1');
     expect(dsl).toEqual({ id: 'dsl1', name: 'TestDsl' });
   });
+
+  test('getDsl 命中缓存后不再重复请求，clearDslCache(id) 可精确失效', async () => {
+    const service = createMockService();
+    service.getFile.mockResolvedValue({ id: 'dsl2', name: 'Cached' });
+    const provider = new Provider({
+      service,
+      mode: ContextMode.Design,
+      project: { id: 'proj' }
+    });
+
+    await provider.getDsl('dsl2');
+    await provider.getDsl('dsl2');
+    expect(service.getFile).toHaveBeenCalledTimes(1);
+
+    provider.clearDslCache('dsl2');
+    await provider.getDsl('dsl2');
+    expect(service.getFile).toHaveBeenCalledTimes(2);
+  });
+
+  test('clearDslCache() 清空全部区块缓存', async () => {
+    const service = createMockService();
+    service.getFile.mockResolvedValue({ id: 'dsl3', name: 'All' });
+    const provider = new Provider({
+      service,
+      mode: ContextMode.Design,
+      project: { id: 'proj' }
+    });
+
+    await provider.getDsl('dsl3');
+    await provider.getDsl('other');
+    expect(service.getFile).toHaveBeenCalledTimes(2);
+
+    provider.clearDslCache();
+    await provider.getDsl('dsl3');
+    expect(service.getFile).toHaveBeenCalledTimes(3);
+  });
+
+  test('失败结果不进入缓存，允许重试', async () => {
+    const service = createMockService();
+    service.getFile
+      .mockRejectedValueOnce(new Error('not found'))
+      .mockResolvedValueOnce({ id: 'dsl4', name: 'Retry' });
+    const provider = new Provider({
+      service,
+      mode: ContextMode.Design,
+      project: { id: 'proj' }
+    });
+
+    expect(await provider.getDsl('dsl4')).toBeNull();
+    expect(await provider.getDsl('dsl4')).toEqual({
+      id: 'dsl4',
+      name: 'Retry'
+    });
+    expect(service.getFile).toHaveBeenCalledTimes(2);
+  });
 });
 
 describe('Provider - getDslByUrl', () => {

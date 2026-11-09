@@ -3,6 +3,76 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.20.13](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.20.12...@vtj/designer@0.20.13) (2026-11-08)
+
+
+### Performance Improvements
+
+* **designer:** 消除含区块画布的拖拽白屏 ([b15dc1e](https://gitee.com/newgateway/vtj/commits/b15dc1e245d397db621909ba8e572d4773667136))
+* **renderer:** 复用区块 DSL 缓存，避免重建时重复取数 ([cfb048d](https://gitee.com/newgateway/vtj/commits/cfb048d64e9b69cb078b6a30b75f6f50516f4720))
+
+
+
+
+
+## [0.20.12](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.20.11...@vtj/designer@0.20.12) (2026-11-05)
+
+**Note:** Version bump only for package @vtj/designer
+
+
+
+
+
+## [0.20.11](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.20.10...@vtj/designer@0.20.11) (2026-10-21)
+
+**Note:** Version bump only for package @vtj/designer
+
+
+
+
+
+## [0.20.10](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.20.9...@vtj/designer@0.20.10) (2026-10-20)
+
+
+### Bug Fixes
+
+* 修复记录组件样式，增加滚动条和调整索引宽度 ([dc4126d](https://gitee.com/newgateway/vtj/commits/dc4126dcda34a0e9043cf9aaf4245a07061b08d2))
+
+
+
+
+
+## [0.20.9](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.20.8...@vtj/designer@0.20.9) (2026-10-18)
+
+**Note:** Version bump only for package @vtj/designer
+
+
+
+
+
+## [0.20.8](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.20.7...@vtj/designer@0.20.8) (2026-10-14)
+
+
+### Features
+
+* **report:** 支持关闭远程遥测功能 ([bce832e](https://gitee.com/newgateway/vtj/commits/bce832e161dc9e81f80f51edde989197e623be4a))
+
+
+
+
+
+## [0.20.7](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.20.6...@vtj/designer@0.20.7) (2026-10-09)
+
+
+### Features
+
+* **designer:** 优化添加组件弹窗布局和样式 ([94922dd](https://gitee.com/newgateway/vtj/commits/94922ddfa31066e29f422ebb94502d44c882affb))
+* **designer:** 画布和大纲树组件 action 增加“添加”操作按钮 ([c6f1eab](https://gitee.com/newgateway/vtj/commits/c6f1eabc6d7306120d2323972818fe44fa76a22a))
+
+
+
+
+
 ## [0.20.6](https://gitee.com/newgateway/vtj/compare/@vtj/designer@0.20.5...@vtj/designer@0.20.6) (2026-09-09)
 
 

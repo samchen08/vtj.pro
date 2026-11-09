@@ -142,6 +142,11 @@ export interface EngineOptions {
   checkVersion?: boolean;
 
   /**
+   * 开启遥测上报，默认 true
+   */
+  report?: boolean;
+
+  /**
    * 适配远程接口
    */
   openApi?: OpenApi;
@@ -212,6 +217,7 @@ export class Engine extends Base {
       access,
       remote = REMOTE,
       checkVersion = true,
+      report = true,
       openApi,
       enhance = false
     } = this.options;
@@ -240,7 +246,7 @@ export class Engine extends Base {
     });
     this.access = access || new Access({ alert, ...ACCESS });
     this.remote = remote;
-    this.report = new Report(this.remote, this.access, this.service);
+    this.report = new Report(this.remote, this.access, this.service, report);
     this.checkVersion = checkVersion;
     this.bindEvents();
     this.init(project as ProjectSchema).then(this.render.bind(this));
@@ -351,11 +357,17 @@ export class Engine extends Base {
   private bindEvents() {
     emitter.on(EVENT_PROJECT_CHANGE, (e) => this.saveProject(e));
     emitter.on(EVENT_PROJECT_BLOCKS_CHANGE, (e) => this.saveBlockFile(e));
+    // 区块文件新增/删除/改名后，Provider 缓存的区块 DSL 需要整体失效
+    emitter.on(EVENT_PROJECT_BLOCKS_CHANGE, () =>
+      this.provider.clearDslCache()
+    );
     emitter.on(EVENT_PROJECT_PAGES_CHANGE, (e) => this.saveBlockFile(e));
     emitter.on(EVENT_PROJECT_DEPS_CHANGE, () => this.saveMaterials());
     emitter.on(EVENT_PROJECT_ACTIVED, (e) => this.activeFile(e));
     emitter.on(EVENT_PROJECT_PUBLISH, () => this.publish());
     emitter.on(EVENT_PROJECT_FILE_PUBLISH, () => this.publishCurrent());
+    // 区块内容变更后立即失效其 DSL 缓存，避免下次重建读到旧内容
+    emitter.on(EVENT_BLOCK_CHANGE, (e) => this.provider.clearDslCache(e.id));
     emitter.on(EVENT_BLOCK_CHANGE, (e) => this.changeFile(e));
     emitter.on(EVENT_NODE_CHANGE, () => this.changeCurrentFile());
     emitter.on(EVENT_HISTORY_CHANGE, (e) => this.saveHistory(e));

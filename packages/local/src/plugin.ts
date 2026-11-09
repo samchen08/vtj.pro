@@ -652,7 +652,8 @@ export function createCompositionFixPlugin(): Plugin {
       if (!code.includes('const __props') && !code.includes('const __emit'))
         return;
 
-      return code.replace(
+      // <script setup> 处理逻辑
+      let value = code.replace(
         /(<script[^>]*\bsetup\b[^>]*>)([\s\S]*?)(<\/script>)/,
         (_, open: string, body: string, close: string) => {
           const fixed = body
@@ -667,6 +668,20 @@ export function createCompositionFixPlugin(): Plugin {
           return open + fixed + close;
         }
       );
+
+      // <template> 块处理
+      value = value.replace(
+        /(<template[^>]*>)([\s\S]*?)(<\/template>)/,
+        (_, open: string, body: string, close: string) => {
+          const fixed = body
+            .replace(/__emit\s*\(/g, 'emit(')
+            .replace(/__props\./g, 'props.');
+          return open + fixed + close;
+        }
+      );
+
+      // 无变化时返回 undefined，避免触发不必要的 HMR 更新
+      return value !== code ? value : undefined;
     }
   };
 }

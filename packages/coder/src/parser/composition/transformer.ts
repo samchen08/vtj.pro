@@ -1,4 +1,6 @@
 import type { JSExpression, JSFunction } from '@vtj/core';
+import type { ParserOptions } from 'prettier';
+import { parsers } from 'prettier/plugins/babel';
 import { isJSCode } from '../../utils';
 import type { SymbolTable } from './symbolTable';
 
@@ -6,14 +8,14 @@ import type { SymbolTable } from './symbolTable';
  * 转换上下文：影响 ref/computed 的 .value 解包行为
  * - script: 解包，输出 xxx.value
  * - template: 不解包，Vue 模板自动解包
+ * - computed: 与 script 相同，get/set 绑定组件上下文
  */
-export type TransformContext = 'script' | 'template';
+export type TransformContext = 'script' | 'template' | 'computed';
 
 /**
  * 转换 DSL 中的 this.xxx 引用为 Composition API 顶层标识符
  *
  * 转换规则：
- * - this.$router 等 globalApi → 替换为 router 等
  * - this.refsName → script: refsName.value, template: refsName
  * - this.reactiveName → reactiveName（包含 state）
  * - this.computedName → script: computedName.value, template: computedName
@@ -22,70 +24,172 @@ export type TransformContext = 'script' | 'template';
  * - this.composableName → composableName
  * - this.injectName → injectName
  * - this.dataSourceName → dataSourceName
- * - 未识别的 this.xxx → 保持原样（可能是动态属性 / 测试用例）
+ * - this.$router 等内置 API → 替换为 __router 等
+ * - 未识别的 this.xxx → __instance.proxy.xxx
  */
 export function transformExpression(
   code: string,
   symbols: SymbolTable,
   context: TransformContext = 'script'
 ): string {
-  if (!code) return code;
-  let result = code;
-
-  // 1. 处理全局 API：this.$router → router
-  for (const [api, cfg] of Object.entries(symbols.effectiveApiMap)) {
-    // 转义 $ 与正则字符
-    const escaped = api.replace(/\$/g, '\\$');
-    const regex = new RegExp(`this\\.${escaped}\\b`, 'g');
-    result = result.replace(regex, cfg.replace);
+  if (!code || !/(?:\b(?:this|__self)|\$scope)\b/.test(code)) return code;
+  const positions = new Set<number>();
+  let ast: unknown;
+  let offset = 2;
+  try {
+    ast = parsers['babel-ts'].parse(
+      `(\n${code.replace(/;\s*$/, '')}\n)`,
+      {} as ParserOptions
+    );
+  } catch {
+    offset = 0;
+    ast = parsers['babel-ts'].parse(code, {} as ParserOptions);
   }
-
-  // 2. 优先匹配 ref/computed 的 this.xxx.value 整段
-  // DSL 中 ref/computed 以 this.xxx.value 形式出现，需要整体处理
-  result = result.replace(
-    /this\.([A-Za-z_$][\w$]*)\.value\b/g,
-    (match, name) => {
-      if (symbols.refs.has(name) || symbols.computed.has(name)) {
-        // template: refs/computed 由 Vue 自动解包，去掉 .value
-        // script: 保持 .value
-        return context === 'script' ? `${name}.value` : name;
+  const bindingNames = (node: unknown): string[] => {
+    if (!node || typeof node !== 'object') return [];
+    const item = node as Record<string, unknown>;
+    if (item.type === 'Identifier') return [item.name as string];
+    if (item.type === 'ObjectProperty') return bindingNames(item.value);
+    if (item.type === 'AssignmentPattern') return bindingNames(item.left);
+    return Object.values(item).flatMap((value) =>
+      Array.isArray(value) ? value.flatMap(bindingNames) : bindingNames(value)
+    );
+  };
+  const visit = (
+    node: unknown,
+    componentThis = true,
+    root = true,
+    bound = new Set<string>(),
+    parent?: Record<string, unknown>
+  ) => {
+    if (!node || typeof node !== 'object') return;
+    if (Array.isArray(node)) {
+      node.forEach((item) => visit(item, componentThis, root, bound, parent));
+      return;
+    }
+    const item = node as Record<string, unknown>;
+    if (
+      (item.type === 'ThisExpression' ||
+        (item.type === 'Identifier' &&
+          ['__self', '$scope'].includes(item.name as string) &&
+          !bound.has(item.name as string) &&
+          !(parent?.property === item && !parent.computed) &&
+          !(parent?.key === item && !parent.computed))) &&
+      typeof item.start === 'number'
+    ) {
+      if (item.type === 'ThisExpression' && !componentThis) return;
+      positions.add(item.start - offset);
+      return;
+    }
+    const ownsThis = [
+      'FunctionExpression',
+      'FunctionDeclaration',
+      'ObjectMethod',
+      'ClassMethod',
+      'ClassPrivateMethod',
+      'ClassProperty',
+      'ClassPrivateProperty',
+      'StaticBlock'
+    ].includes(item.type as string);
+    if (Array.isArray(item.params) || item.type === 'BlockStatement') {
+      bound = new Set(bound);
+      for (const name of [
+        ...bindingNames(item.id),
+        ...(Array.isArray(item.params) ? item.params.flatMap(bindingNames) : [])
+      ])
+        bound.add(name);
+      if (Array.isArray(item.body)) {
+        for (const statement of item.body as Record<string, unknown>[]) {
+          if (
+            statement.type === 'FunctionDeclaration' ||
+            statement.type === 'ClassDeclaration'
+          ) {
+            for (const name of bindingNames(statement.id)) bound.add(name);
+          }
+          if (statement.type === 'VariableDeclaration') {
+            for (const declaration of statement.declarations as Record<
+              string,
+              unknown
+            >[]) {
+              for (const name of bindingNames(declaration.id)) bound.add(name);
+            }
+          }
+        }
       }
-      // 非 ref/computed 的 this.xxx.value，保持原样
-      return match;
+    }
+    const methodKey = item.key as
+      | { name?: string; value?: unknown }
+      | undefined;
+    const computedMethod =
+      context === 'computed' &&
+      root &&
+      ['get', 'set'].includes(
+        methodKey?.name ||
+          (typeof methodKey?.value === 'string' ? methodKey.value : '')
+      );
+    const rootContainer =
+      [
+        'File',
+        'Program',
+        'ExpressionStatement',
+        'ParenthesizedExpression',
+        'TSAsExpression',
+        'TSNonNullExpression'
+      ].includes(item.type as string) ||
+      (context === 'computed' && root && item.type === 'ObjectExpression') ||
+      (computedMethod && item.type === 'ObjectProperty');
+    for (const [key, value] of Object.entries(item)) {
+      // 计算属性名在外层求值，方法体与类字段使用自己的 this。
+      const childThis =
+        ownsThis &&
+        !(root && item.type === 'FunctionExpression') &&
+        !(computedMethod && item.type === 'ObjectMethod') &&
+        !(key === 'key' && item.computed)
+          ? false
+          : componentThis;
+      visit(value, childThis, root && rootContainer, bound, item);
+    }
+  };
+  visit(ast);
+  // shortcut: 仅转换 this.xxx，需要 this[key] 时扩展成员访问解析。
+  return code.replace(
+    /(?:\b(?:this|__self)|\$scope)(?:\.([A-Za-z_$][\w$]*)(\.value(?![\w$]))?(\??\.)?)?/g,
+    (match, name: string, value = '', access = '', index: number) => {
+      if (!positions.has(index)) return match;
+      if (!name) {
+        if (/^\s*(?:\.|\[)/.test(code.slice(index + match.length)))
+          return match;
+        symbols.usesInstance = true;
+        return '__instance.proxy';
+      }
+      if (context === 'template' && name === 'context' && (value || access)) {
+        return value ? value.slice(1) + access : '';
+      }
+      if (symbols.refs.has(name) || symbols.computed.has(name)) {
+        return (context === 'template' ? name : `${name}.value`) + access;
+      }
+      if (
+        symbols.reactives.has(name) ||
+        symbols.methods.has(name) ||
+        symbols.composables.has(name) ||
+        symbols.injects.has(name) ||
+        symbols.dataSources.has(name)
+      ) {
+        return name + value + access;
+      }
+      if (symbols.props.has(name)) {
+        return (
+          (context === 'template' ? name : `__props.${name}`) + value + access
+        );
+      }
+      if (Object.prototype.hasOwnProperty.call(symbols.effectiveApiMap, name)) {
+        symbols.globalApis.add(name);
+        return symbols.effectiveApiMap[name].replace + value + access;
+      }
+      symbols.usesInstance = true;
+      return `__instance.proxy.${name}${value}${access}`;
     }
   );
-
-  // 3. 处理已知符号：this.xxx → 转换后的标识符（不含 .value 后缀）
-  result = result.replace(/this\.([A-Za-z_$][\w$]*)/g, (match, name) => {
-    // refs / computed 需要解包（仅 script）
-    // 注意：这里遇到的是没有 .value 的 this.xxx（非 DSL 标准格式），
-    // 但仍然保留此逻辑用于兼容旧数据
-    if (symbols.refs.has(name) || symbols.computed.has(name)) {
-      return context === 'script' ? `${name}.value` : name;
-    }
-    // state 特殊处理：DSL 的 this.state → 出码为 __state
-    if (name === 'state') {
-      return '__state';
-    }
-    // reactives / methods / composables / injects / dataSources 直接用
-    if (
-      symbols.reactives.has(name) ||
-      symbols.methods.has(name) ||
-      symbols.composables.has(name) ||
-      symbols.injects.has(name) ||
-      symbols.dataSources.has(name)
-    ) {
-      return name;
-    }
-    // props
-    if (symbols.props.has(name)) {
-      return context === 'script' ? `__props.${name}` : name;
-    }
-    // 未识别保留原样
-    return match;
-  });
-
-  return result;
 }
 
 /**

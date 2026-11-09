@@ -780,6 +780,7 @@
     display: flex;
     flex-direction: column;
     overflow: hidden;
+    overflow-y: auto;
   }
 
   :global(.v-agent-widget__drawer-modal) {

@@ -3,6 +3,69 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.20.13](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.20.12...@vtj/renderer@0.20.13) (2026-11-08)
+
+
+### Performance Improvements
+
+* **designer:** 消除含区块画布的拖拽白屏 ([b15dc1e](https://gitee.com/newgateway/vtj/commits/b15dc1e245d397db621909ba8e572d4773667136))
+* **renderer:** 复用区块 DSL 缓存，避免重建时重复取数 ([cfb048d](https://gitee.com/newgateway/vtj/commits/cfb048d64e9b69cb078b6a30b75f6f50516f4720))
+
+
+
+
+
+## [0.20.12](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.20.11...@vtj/renderer@0.20.12) (2026-11-05)
+
+
+### Bug Fixes
+
+* 生命周期入参 ([08f4d4e](https://gitee.com/newgateway/vtj/commits/08f4d4e64d319aa7fe48683f8402f1c69e021c41))
+
+
+
+
+
+## [0.20.11](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.20.10...@vtj/renderer@0.20.11) (2026-10-21)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
+## [0.20.10](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.20.9...@vtj/renderer@0.20.10) (2026-10-20)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
+## [0.20.9](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.20.8...@vtj/renderer@0.20.9) (2026-10-18)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
+## [0.20.8](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.20.7...@vtj/renderer@0.20.8) (2026-10-14)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
+## [0.20.7](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.20.6...@vtj/renderer@0.20.7) (2026-10-09)
+
+**Note:** Version bump only for package @vtj/renderer
+
+
+
+
+
 ## [0.20.6](https://gitee.com/newgateway/vtj/compare/@vtj/renderer@0.20.5...@vtj/renderer@0.20.6) (2026-09-09)
 
 **Note:** Version bump only for package @vtj/renderer

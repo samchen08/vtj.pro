@@ -28,6 +28,10 @@ export interface SymbolTable {
   hasState: boolean;
   /** 有效的全局 API 映射表（基础 Map + 当前 UI 库 Map） */
   effectiveApiMap: Record<string, GlobalApiConfig>;
+  /** 转换时实际使用的内置 API */
+  globalApis: Set<string>;
+  /** 未识别的引用需要通过组件实例访问 */
+  usesInstance: boolean;
 }
 
 /**
@@ -96,6 +100,8 @@ export function buildSymbolTable(
     injects,
     dataSources,
     hasState,
-    effectiveApiMap
+    effectiveApiMap,
+    globalApis: new Set(),
+    usesInstance: false
   };
 }
